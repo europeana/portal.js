@@ -32,7 +32,7 @@
   import pick from 'lodash/pick.js';
 
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
 
   export default {

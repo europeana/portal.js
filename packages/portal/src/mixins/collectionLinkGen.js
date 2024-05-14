@@ -1,4 +1,4 @@
-import { getEntityTypeHumanReadable  } from '@europeana/apis/src/apis/entity/index.js';
+import { getEntityTypeHumanReadable  } from '@/utils/europeana/entity.js';
 import { getLabelledSlug } from '@europeana/utils';
 
 export default {

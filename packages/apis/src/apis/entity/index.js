@@ -1,7 +1,4 @@
-import md5 from 'md5';
-
 import EuropeanaApi from '../base.js';
-import EuropeanaDataApi from '../data.js';
 
 export default class EuropeanaEntityApi extends EuropeanaApi {
   static ID = 'entity';
@@ -17,14 +14,14 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
 
   /**
    * Get data for one entity from the API
-   * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
-   * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
+   * @param {string} type the type of the entity
+   * @param {string|number} id the id of the entity
    * @return {Object[]} parsed entity data
    */
   get(type, id) {
     return this.request({
       method: 'get',
-      url: getEntityUrl(type, id)
+      url: `/${type}/${id}.json`
     });
   }
 
@@ -94,106 +91,4 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
         total: response.partOf?.total || null
       }));
   }
-}
-
-/**
- * Remove any additional data from the slug in order to retrieve the entity id.
- * @param {string} id the id of the entity
- * @return {string} retrieved id
- */
-export function normalizeEntityId(id) {
-  return id ? id.split('-')[0] : null;
-}
-
-/**
- * Construct an entity-type-specific Record API query for an entity
- * @param {string|string[]} uri entity URI(s)
- * @return {string} Record API query
- */
-export function getEntityQuery(uri) {
-  if (Array.isArray(uri)) {
-    return uri
-      .filter((u) => isEntityUri(u))
-      .map((u) => getEntityQuery(u))
-      .join(' OR ');
-  }
-
-  const type = EuropeanaEntityApi.ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
-
-  if (type) {
-    return `${type.qf}:"${uri}"`;
-  } else {
-    throw new Error(`Unsupported entity URI "${uri}"`);
-  }
-}
-
-/**
- * Retrieve the API name of the type using the human readable slug
- * @param {string} slug the entity slug, e.g. "topic"
- * @return {string} retrieved API name of type
- */
-export function getEntityTypeApi(slug) {
-  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.slug === slug)?.id || null;
-}
-
-/**
- * Retrieve the human readable of the type using the API name
- * @param {string} id the id of the entity type, e.g. "concept"
- * @return {string} retrieved human readable name of type
- */
-export function getEntityTypeHumanReadable(id) {
-  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.id === id.toLowerCase())?.slug || null;
-}
-
-/**
- * Retrieve the URL of the entity from the human readable type and ID
- * @param {string} type the human readable type of the entity either person or topic
- * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
- * @return {string} retrieved human readable name of type
- */
-export function getEntityUrl(type, id) {
-  return `/${getEntityTypeApi(type)}/${normalizeEntityId(id)}.json`;
-}
-
-/**
- * Retrieve the URI of the entity from the human readable type and ID
- * @param {string} type the human-readable type of the entity
- * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
- * @return {string} retrieved human readable name of type
- */
-export function getEntityUri(type, id) {
-  const apiType = getEntityTypeApi(type);
-  return `${EuropeanaDataApi.BASE_URL}/${apiType}/${normalizeEntityId(id)}`;
-}
-
-/**
- * From a URI split params as required by the portal
- * @param {string} uri A URI to check
- * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
- */
-export function entityParamsFromUri(uri) {
-  const matched = /^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/.exec(uri);
-  const id = matched[matched.length - 1];
-  const type = getEntityTypeHumanReadable(matched[1]);
-  return { id, type };
-}
-
-/**
- * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
- * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} image URL of wikimedia image
- * @size {Number} requested size of the image, default 255
- * @return {String} formatted thumbnail url
- */
-export function getWikimediaThumbnailUrl(image, size = 255) {
-  if (!(/\.wiki[mp]edia\.org\/wiki\/Special:FilePath\//.test(image))) {
-    return image;
-  }
-
-  const filename = image.split('/').pop();
-  const suffix = filename.endsWith('.svg') ? '.png' : '';
-  const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
-  const hash = md5(underscoredFilename);
-
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${underscoredFilename}/${size}px-${underscoredFilename}${suffix}`;
 }

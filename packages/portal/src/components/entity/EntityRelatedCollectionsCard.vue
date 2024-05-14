@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@europeana/apis/src/apis/entity/index.js';
+  import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@/utils/europeana/entity.js';
   import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard';
 
   export default {

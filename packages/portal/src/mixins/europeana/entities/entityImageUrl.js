@@ -1,4 +1,4 @@
-import getWikimediaThumbnailUrl from '@europeana/apis/src/apis/entity/index.js';
+import { getWikimediaThumbnailUrl } from '@/utils/wikimedia.js';
 
 export default {
   methods: {

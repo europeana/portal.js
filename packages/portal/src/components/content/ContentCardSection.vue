@@ -64,7 +64,7 @@
   import SmartLink from '../generic/SmartLink';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
 
-  import { entityParamsFromUri } from '@europeana/apis/src/apis/entity/index.js';
+  import { entityParamsFromUri } from '@/utils/europeana/entity.js';
 
   export default {
     components: {

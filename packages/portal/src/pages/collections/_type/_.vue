@@ -74,12 +74,12 @@
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import redirectToMixin from '@/mixins/redirectTo';
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
-  } from '@europeana/apis/src/apis/entity/index.js';
+  } from '@/utils/europeana/entity.js';
   import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
 
   export default {
@@ -143,7 +143,10 @@
       this.$store.commit('entity/setId', entityUri);
 
       try {
-        const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+        const entity = await this.$apis.entity.get(
+          getEntityTypeApi(this.collectionType),
+          normalizeEntityId(this.$route.params.pathMatch)
+        );
 
         this.$store.commit('entity/setEntity', pick(entity, [
           'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'

@@ -33,9 +33,9 @@
 </template>
 
 <script>
-  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@europeana/apis/src/apis/entity/index.js';
+  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/utils/europeana/entity.js';
   import { getLabelledSlug } from '@europeana/utils';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/content/ContentHeader';

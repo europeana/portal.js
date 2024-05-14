@@ -26,10 +26,12 @@
 
 <script>
   import {
-    isEntityUri,
+    entityParamsFromUri,
+    getEntityTypeApi,
     getEntityTypeHumanReadable,
-    entityParamsFromUri
-  } from '@europeana/apis/src/apis/entity/index.js';
+    isEntityUri,
+    normalizeEntityId
+  } from '@/utils/europeana/entity.js';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { getLabelledSlug } from '@europeana/utils';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -78,7 +80,10 @@
 
         let entity;
         try {
-          entity = await this.$apis.entity.get(type, id);
+          entity = await this.$apis.entity.get(
+            getEntityTypeApi(type),
+            normalizeEntityId(id)
+          );
         } catch (error) {
           this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
           return;

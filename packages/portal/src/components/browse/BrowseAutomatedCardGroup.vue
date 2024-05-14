@@ -23,7 +23,7 @@
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@europeana/utils';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';

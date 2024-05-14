@@ -46,11 +46,11 @@
 </template>
 
 <script>
-  import { isEntityUri } from '@europeana/apis/src/apis/entity/index.js';
+  import { isEntityUri } from '@/utils/europeana/entity.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import langAttributeMixin from '@/mixins/langAttribute';
 

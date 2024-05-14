@@ -5,7 +5,7 @@ import _pick from 'lodash/pick.js';
 import { daily } from '@europeana/utils';
 import { langMapValueForLocale } from '@europeana/i18n';
 import EuropeanaRecordApi from '@europeana/apis/src/apis/record/index.js';
-import EuropeanaEntityApi from '@europeana/apis/src/apis/entity/index.js';
+import EuropeanaEntityApi from '@/utils/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
   const redisClient = createClient(config);

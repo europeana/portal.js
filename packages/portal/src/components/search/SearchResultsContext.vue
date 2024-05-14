@@ -84,8 +84,8 @@
 
 <script>
   import SearchRemovalChip from './SearchRemovalChip';
-  import { entityParamsFromUri } from '@europeana/apis/src/apis/entity/index.js';
-  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
+  import { entityParamsFromUri } from '@/utils/europeana/entity.js';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import keycloak from '@/mixins/keycloak';
 
