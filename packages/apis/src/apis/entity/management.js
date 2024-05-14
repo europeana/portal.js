@@ -1,6 +1,6 @@
 import EuropeanaApi from '../base.js';
 import EuropeanaEntityApi from './index.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from '../data.js';
+import EuropeanaDataApi from '../data.js';
 
 export default class EuropeanaEntityManagementApi extends EuropeanaApi {
   static ID = 'entityManagement';
@@ -23,7 +23,7 @@ export default class EuropeanaEntityManagementApi extends EuropeanaApi {
 
     return this.request({
       method: 'get',
-      url: id.replace(EUROPEANA_DATA_URL, ''),
+      url: id.replace(EuropeanaDataApi.BASE_URL, ''),
       params
     });
   }
@@ -37,7 +37,7 @@ export default class EuropeanaEntityManagementApi extends EuropeanaApi {
   update(id, data) {
     return this.request({
       method: 'put',
-      url: id.replace(EUROPEANA_DATA_URL, ''),
+      url: id.replace(EuropeanaDataApi.BASE_URL, ''),
       data,
       timeout: 15000
     });

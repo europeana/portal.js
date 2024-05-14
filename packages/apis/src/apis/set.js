@@ -1,5 +1,5 @@
 import EuropeanaApi from './base.js';
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
+import EuropeanaDataApi from './data.js';
 
 // TODO: move to static properties of class?
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
@@ -38,7 +38,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       for (const set of response.items) {
         if (set.items) {
           set.items = set.items.map((uri) => {
-            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+            const itemId = uri.replace(EuropeanaDataApi.ITEM_URL_PREFIX, '');
             return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
           });
         }

@@ -1,4 +1,5 @@
 import annotation from './apis/annotation.js';
+import data from './apis/data.js';
 import entity from './apis/entity/index.js';
 import entityManagement from './apis/entity/management.js';
 import fulltext from './apis/fulltext.js';
@@ -9,8 +10,9 @@ import record from './apis/record/index.js';
 import set from './apis/set.js';
 import thumbnail from './apis/thumbnail.js';
 
-export default {
+export {
   annotation,
+  data,
   entity,
   entityManagement,
   fulltext,

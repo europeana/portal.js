@@ -1,7 +1,7 @@
 import md5 from 'md5';
 
 import EuropeanaApi from '../base.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from '../data.js';
+import EuropeanaDataApi from '../data.js';
 
 export const ENTITY_TYPES = [
   { id: 'agent', qf: 'edm_agent', slug: 'person' },
@@ -153,7 +153,7 @@ export function getEntityQuery(uri) {
  */
 export function isEntityUri(uri) {
   const types = ENTITY_TYPES.map((type) => type.id);
-  return RegExp(`^${EUROPEANA_DATA_URL}/(${types.join('|')})/\\d+$`).test(uri);
+  return RegExp(`^${EuropeanaDataApi.BASE_URL}/(${types.join('|')})/\\d+$`).test(uri);
 }
 
 /**
@@ -192,7 +192,7 @@ export function getEntityUrl(type, id) {
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  return `${EUROPEANA_DATA_URL}/${apiType}/${normalizeEntityId(id)}`;
+  return `${EuropeanaDataApi.BASE_URL}/${apiType}/${normalizeEntityId(id)}`;
 }
 
 /**

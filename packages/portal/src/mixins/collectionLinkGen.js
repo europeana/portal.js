@@ -1,11 +1,11 @@
 import { getEntityTypeHumanReadable  } from '@europeana/apis/src/apis/entity/index.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/apis/data.js';
+import { data as EuropeanaDataApi } from '@europeana/apis';
 import { getLabelledSlug } from '@europeana/utils';
 
 export default {
   methods: {
     collectionLinkGen(collection) {
-      const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
+      const uriMatch = collection.id?.match(`^${EuropeanaDataApi.BASE_URL}/([^/]+)/(.+)$`);
       if (!uriMatch) {
         return null;
       }
@@ -19,7 +19,7 @@ export default {
     },
 
     entityRouterLink(uri, slug) {
-      const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
+      const uriMatch = uri.match(`^${EuropeanaDataApi.BASE_URL}/([^/]+)/(.+)$`);
       return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),

@@ -2,7 +2,7 @@ import md5 from 'md5';
 
 import EuropeanaApi from '../base.js';
 import search from './search.js';
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '../data.js';
+import EuropeanaDataApi from '../data.js';
 import EuropeanaMediaProxyApi from '../mediaProxy.js';
 
 export default class EuropeanaRecordApi extends EuropeanaApi {
@@ -22,7 +22,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
    * @return {Array} record data as returned by the API
    */
   find(europeanaIds, params = {}) {
-    europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+    europeanaIds = europeanaIds.map(id => id.replace(EuropeanaDataApi.ITEM_URL_PREFIX, ''));
     const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
     return this.search({
       query,

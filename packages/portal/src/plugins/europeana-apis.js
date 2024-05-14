@@ -3,7 +3,7 @@
 
 import EuropeanaApiEnvConfig from '@europeana/apis/src/config/env.js';
 
-import APIS from '@europeana/apis';
+import * as APIS from '@europeana/apis';
 
 const MODULE_NAME = 'apis';
 

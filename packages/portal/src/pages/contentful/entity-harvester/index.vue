@@ -33,7 +33,7 @@
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { getLabelledSlug } from '@europeana/utils';
   import { langMapValueForLocale } from '@europeana/i18n';
-  import { BASE_URL } from '@europeana/apis/src/apis/data.js';
+  import { data as EuropeanaDataApi } from '@europeana/apis';
 
   export default {
     name: 'ContentfulEntityHarvesterPage',
@@ -102,7 +102,7 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, EuropeanaDataApi.BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }

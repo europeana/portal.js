@@ -23,7 +23,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import logEventMixin from '@/mixins/logEvent';
-  import { ITEM_URL_PREFIX } from '@europeana/apis/src/apis/data.js';
+  import { data as EuropeanaDataApi } from '@europeana/apis';
 
   export default {
     name: 'DownloadButton',
@@ -132,7 +132,7 @@
       },
       trackDownload() {
         if (!this.disabled) {
-          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`);
+          this.logEvent('download', `${EuropeanaDataApi.ITEM_URL_PREFIX}${this.identifier}`);
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
             if (!this.clicked) {

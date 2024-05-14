@@ -188,10 +188,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import {
-    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
-    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
-  } from '@europeana/apis/src/apis/data.js';
+  import { data as EuropeanaDataApi } from '@europeana/apis';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ShareButton from '@/components/share/ShareButton.vue';
@@ -356,13 +353,13 @@
       async reorderItems(items) {
         try {
           await this.$store.dispatch('set/update', {
-            id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
+            id: `${EuropeanaDataApi.SET_URL_PREFIX}/${this.setId}`,
             body: {
               type: this.set.type,
               title: this.set.title,
               description: this.set.description,
               visibility: this.set.visibility,
-              items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
+              items: items.map(item => `${EuropeanaDataApi.ITEM_URL_PREFIX}${item.id}`)
             },
             params: { profile: 'standard' }
           });

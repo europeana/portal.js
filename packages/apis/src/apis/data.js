@@ -1,3 +1,7 @@
-export const BASE_URL = 'http://data.europeana.eu';
-export const ITEM_URL_PREFIX = `${BASE_URL}/item`;
-export const SET_URL_PREFIX = `${BASE_URL}/set`;
+import EuropeanaApi from './base.js';
+
+export default class EuropeanaDataApi extends EuropeanaApi {
+  static BASE_URL = 'http://data.europeana.eu';
+  static ITEM_URL_PREFIX = `${this.BASE_URL}/item`;
+  static SET_URL_PREFIX = `${this.BASE_URL}/set`;
+}
