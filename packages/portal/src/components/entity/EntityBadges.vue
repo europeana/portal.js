@@ -17,7 +17,7 @@
         ref="options"
         :link-to="relatedCollection.url || collectionLinkGen(relatedCollection)"
         :title="collectionTitle(relatedCollection)"
-        :img="$apis.entity.imageUrl(relatedCollection)"
+        :img="entityImageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
         :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
@@ -30,6 +30,7 @@
   import pick from 'lodash/pick.js';
 
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
   import LinkBadge from '../generic/LinkBadge';
 
@@ -42,6 +43,7 @@
 
     mixins: [
       collectionLinkGenMixin,
+      entityImageUrlMixin,
       europeanaEntityLinks
     ],
 

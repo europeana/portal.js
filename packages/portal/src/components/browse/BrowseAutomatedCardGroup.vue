@@ -23,6 +23,7 @@
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@europeana/utils';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -42,6 +43,10 @@
       BrowseInfoCardSection,
       ItemTrendingItems
     },
+
+    mixins: [
+      entityImageUrlMixin
+    ],
 
     props: {
       sectionType: {
@@ -179,7 +184,7 @@
             __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
             name: entry.prefLabel,
             identifier: entry.id,
-            image: this.$apis.entity.imageUrl(entry),
+            image: this.entityImageUrl(entry),
             encoding: entry,
             logo: !!entry.logo
           }));

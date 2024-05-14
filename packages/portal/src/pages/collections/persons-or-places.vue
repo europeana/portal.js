@@ -35,6 +35,7 @@
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@europeana/apis/src/apis/entity/index.js';
   import { getLabelledSlug } from '@europeana/utils';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/content/ContentHeader';
@@ -50,7 +51,10 @@
       PaginationNavInput
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      entityImageUrlMixin
+    ],
 
     middleware: 'sanitisePageQuery',
 
@@ -119,7 +123,7 @@
         };
       },
       thumbnail(entity) {
-        return this.$apis.entity.imageUrl(entity);
+        return this.entityImageUrl(entity);
       }
     }
   };

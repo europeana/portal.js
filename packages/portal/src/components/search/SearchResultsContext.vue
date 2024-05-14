@@ -85,6 +85,7 @@
 <script>
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@europeana/apis/src/apis/entity/index.js';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import keycloak from '@/mixins/keycloak';
 
@@ -96,6 +97,7 @@
     },
 
     mixins: [
+      entityImageUrlMixin,
       europeanaEntitiesOrganizationsMixin,
       keycloak
     ],
@@ -160,7 +162,7 @@
           this.entity?.prefLabel;
       },
       entityImage() {
-        return this.$apis.entity.imageUrl(this.entity);
+        return this.entityImageUrl(this.entity);
       },
       entityTypeLabel() {
         return this.$t(`cardLabels.${this.entityType}`);

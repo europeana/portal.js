@@ -94,22 +94,6 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
         total: response.partOf?.total || null
       }));
   }
-
-  imageUrl(entity) {
-    let url = null;
-    // `image` is a property on automated entity cards in Contentful
-    if (entity?.image) {
-      url = this.context?.$apis?.thumbnail?.edmPreview(entity.image, { size: 200 });
-    // `isShownBy` is a property on most entity types
-    } else if (entity?.isShownBy?.thumbnail) {
-      url = this.context?.$apis?.thumbnail?.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
-    // `logo` is a property on organization-type entities
-    } else if (entity?.logo?.id) {
-      url = getWikimediaThumbnailUrl(entity.logo.id, 28);
-    }
-
-    return url;
-  }
 }
 
 /**
@@ -141,18 +125,6 @@ export function getEntityQuery(uri) {
   } else {
     throw new Error(`Unsupported entity URI "${uri}"`);
   }
-}
-
-/**
- * A check for a URI to see if it conforms to the entity URI pattern,
- * optionally takes entity types as an array of values to check for.
- * Will return true/false
- * @param {string} uri A URI to check
- * @return {Boolean} true if the URI is a valid entity URI
- */
-export function isEntityUri(uri) {
-  const types = EuropeanaEntityApi.ENTITY_TYPES.map((type) => type.id);
-  return RegExp(`^${EuropeanaDataApi.BASE_URL}/(${types.join('|')})/\\d+$`).test(uri);
 }
 
 /**

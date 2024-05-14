@@ -20,7 +20,7 @@
             badge-variant="secondary"
             :link-to="collectionLinkGen(dataProviderEntity)"
             :title="collectionTitle(dataProviderEntity)"
-            :img="$apis.entity.imageUrl(dataProviderEntity)"
+            :img="entityImageUrl(dataProviderEntity)"
             type="Organization"
             :click-event-handler="badgeClickEventHandler"
           />
@@ -50,6 +50,7 @@
   import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import langAttributeMixin from '@/mixins/langAttribute';
 
@@ -66,6 +67,7 @@
       itemPrefLanguage,
       langAttributeMixin,
       collectionLinkGenMixin,
+      entityImageUrlMixin,
       europeanaEntityLinks
     ],
     props: {

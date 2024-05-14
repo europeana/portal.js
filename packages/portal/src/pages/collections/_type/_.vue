@@ -74,6 +74,7 @@
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import entityImageUrlMixin from '@/mixins/europeana/entity/entityImageUrl';
   import redirectToMixin from '@/mixins/redirectTo';
 
   import {
@@ -95,6 +96,7 @@
 
     mixins: [
       entityBestItemsSetMixin,
+      entityImageUrlMixin,
       europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
       redirectToMixin
@@ -263,7 +265,7 @@
         return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
-        return this.$apis.entity.imageUrl(this.entity);
+        return this.entityImageUrl(this.entity);
       },
       organisationNativeName() {
         return this.organizationEntityNativeName(this.entity);
