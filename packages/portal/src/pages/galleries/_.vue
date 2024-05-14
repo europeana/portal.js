@@ -188,7 +188,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import { data as EuropeanaDataApi } from '@europeana/apis';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ShareButton from '@/components/share/ShareButton.vue';
@@ -353,13 +352,13 @@
       async reorderItems(items) {
         try {
           await this.$store.dispatch('set/update', {
-            id: `${EuropeanaDataApi.SET_URL_PREFIX}/${this.setId}`,
+            id: `${this.$apis.data.SET_URL_PREFIX}/${this.setId}`,
             body: {
               type: this.set.type,
               title: this.set.title,
               description: this.set.description,
               visibility: this.set.visibility,
-              items: items.map(item => `${EuropeanaDataApi.ITEM_URL_PREFIX}${item.id}`)
+              items: items.map(item => `${this.$apis.data.ITEM_URL_PREFIX}${item.id}`)
             },
             params: { profile: 'standard' }
           });

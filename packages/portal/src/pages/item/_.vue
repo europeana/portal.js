@@ -147,7 +147,6 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/metadata/MetadataBox';
 
-  import { data as EuropeanaDataApi } from '@europeana/apis';
   import {
     forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
   } from  '@europeana/i18n';
@@ -247,7 +246,7 @@
         return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
-        return this.entities.filter((entity) => entity.about.startsWith(`${EuropeanaDataApi.BASE_URL}/`));
+        return this.entities.filter((entity) => entity.about.startsWith(`${this.$apis.data.BASE_URL}/`));
       },
       europeanaEntityUris() {
         return this.europeanaEntities
@@ -335,7 +334,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEvent('view', `${EuropeanaDataApi.ITEM_URL_PREFIX}${this.identifier}`);
+      this.logEvent('view', `${this.$apis.data.ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }

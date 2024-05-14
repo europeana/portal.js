@@ -8,9 +8,7 @@
 </template>
 
 <script>
-  import { data as EuropeanaDataApi } from '@europeana/apis';
   import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@europeana/apis/src/apis/entity/index.js';
-
   import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard';
 
   export default {
@@ -63,7 +61,7 @@
           return memo;
         }, [])
         .filter(uri => {
-          if (!uri.startsWith(EuropeanaDataApi.BASE_URL)) {
+          if (!uri.startsWith(this.$apis.data.BASE_URL)) {
             return false;
           }
           return uri !== this.entityUri;

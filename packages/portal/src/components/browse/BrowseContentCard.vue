@@ -17,7 +17,6 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { data as EuropeanaDataApi } from '@europeana/apis';
   import { isEuropeanaRecordId } from '@europeana/apis/src/apis/record/index.js';
   import { getEntityTypeHumanReadable } from '@europeana/apis/src/apis/entity/index.js';
 
@@ -130,10 +129,10 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(EuropeanaDataApi.BASE_URL);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(this.$apis.data.BASE_URL);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EuropeanaDataApi.BASE_URL}/([^/]+)/(.+)$`);
+        const uriMatch = uri.match(`^${this.$apis.data.BASE_URL}/([^/]+)/(.+)$`);
         return {
           name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug || uriMatch[2] }
         };

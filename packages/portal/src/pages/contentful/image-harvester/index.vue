@@ -16,7 +16,6 @@
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { langMapValueForLocale } from '@europeana/i18n';
   import { recordIdFromUrl } from '@europeana/apis/src/apis/record/index.js';
-  import { data as EuropeanaDataApi } from '@europeana/apis';
 
   export default {
     name: 'ContentfulImageHarvesterPage',
@@ -102,7 +101,7 @@
 
         const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def?.[0];
 
-        const url = `${EuropeanaDataApi.BASE_URL}/item${item.about}`;
+        const url = `${this.$apis.data.BASE_URL}/item${item.about}`;
 
         this.entry.fields.name?.setValue(name, locale);
         this.entry.fields.creator?.setValue(creator, locale);
