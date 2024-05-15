@@ -26,7 +26,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
   },
   data: () => ({ ...data }),
   mocks: {
-    $t: () => {},
+    $t: key => key,
     $tc: () => {},
     $i18n: {},
     $apis: {
@@ -68,20 +68,24 @@ describe('components/set/SetAddItemModal', () => {
         const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
         const data = { fetched: true, collections: sets };
         const wrapper = factory({ propsData, data });
+        const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(storeDispatch.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' })).toBe(true);
+        expect(makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
       });
 
       it('removes item from gallery when item already added', async() => {
         const propsData = { itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
         const data = { fetched: true, collections: sets };
         const wrapper = factory({ propsData, data });
+        const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(storeDispatch.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' })).toBe(true);
+        expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
       });
     });
   });

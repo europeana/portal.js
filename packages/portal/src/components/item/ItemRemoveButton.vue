@@ -17,8 +17,15 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+  import { langMapValueForLocale } from '@europeana/i18n';
+
   export default {
     name: 'ItemRemoveButton',
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       /**
@@ -46,9 +53,12 @@
 
     methods: {
       async removeItem() {
-        const setId = this.$store.state.set.active.id;
+        const activeSet = this.$store.state.set.active;
+        const setId = activeSet.id;
+        const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
         await this.$store.dispatch('set/removeItem', { setId, itemId: this.identifier });
         this.$store.dispatch('set/refreshSet');
+        this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
       }
     }
   };
