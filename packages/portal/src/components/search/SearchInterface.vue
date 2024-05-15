@@ -288,10 +288,6 @@
           apiOptions.url = this.$apis.fulltext.baseURL;
         }
 
-        if (this.translateLang) {
-          apiOptions.translateLang = this.translateLang;
-        }
-
         return apiOptions;
       },
       boost() {
@@ -437,6 +433,16 @@
         }
 
         params.qf = addContentTierFilter(params.qf);
+
+        if (this.translateLang) {
+          const targetLocale = 'en';
+          if (this.translateLang !== targetLocale) {
+            params.profile = `${params.profile},translate`;
+            params.lang = this.translateLang;
+            params['q.source'] = this.translateLang;
+            params['q.target'] = targetLocale;
+          }
+        }
 
         this.apiParams = merge(params, this.overrideParams);
       },

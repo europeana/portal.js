@@ -9,23 +9,17 @@ import { escapeLuceneSpecials, truncate } from '@europeana/utils';
 
 /**
  * Search Europeana Record API
- * @param {Object} params parameters for search query
- * @param {number} params.page page of results to retrieve
- * @param {number} params.rows number of results to retrieve per page
- * @param {string} params.reusability reusability filter
- * @param {string} params.facet facet names, comma separated
- * @param {(string|string[])} params.qf query filter(s)
- * @param {string} params.query search query
- * @param {string} params.wskey API key, to override `config.record.key`
+ * @param {Object} params parameters for search query, passed unaltered unless noted
+ * @param {number} params.page page of results to retrieve, converted to `start`
+ * @param {number} params.rows number of results to retrieve per page, defaults to 24
+ * @param {string} params.query search query, defaults to *:*
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @param {string} options.locale current locale, for localising search results
- * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
- * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
+ * @return {{items: Object[], totalResults: number, facets: Array, lastAvailablePage: number}} search results for display
  */
-
-export default function(params, options = {}) {
+export default function search(params, options = {}) {
   const localParams = { ...params };
 
   const defaultOptions = { locale: this.context?.i18n?.locale };
@@ -43,23 +37,10 @@ export default function(params, options = {}) {
   const searchParams = {
     ...localParams,
     profile: localParams.profile || '',
-    qf: localParams.qf,
     query: options.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
-
-  // TODO: this should be the responsibility of the caller; move to an exported
-  //       function for callers to run first, when needed
-  if (localOptions.translateLang) {
-    const targetLocale = 'en';
-    if (localOptions.translateLang !== targetLocale) {
-      searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = localOptions.translateLang;
-      searchParams['q.source'] = localOptions.translateLang;
-      searchParams['q.target'] = targetLocale;
-    }
-  }
 
   return this.request({
     method: 'get',
@@ -68,13 +49,19 @@ export default function(params, options = {}) {
   })
     .then((data) => ({
       ...data,
-      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions)),
+      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions.locale)),
       lastAvailablePage: start + perPage > maxResults
     }));
 }
 
-const reduceFieldsForItem = (item, options = {}) => {
-  // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
+// TODO: this should be the responsibility of the caller; move to a utility
+//       function for callers to run after, when needed; alternatively,
+//       add a `pick` option to `search()`
+/**
+ * Pick fields we need for search result display, in the absence of support
+ * for specifying fields to request from the API.
+ */
+const reduceFieldsForItem = (item, locale) => {
   item = pick(item,
     [
       'dataProvider',
@@ -89,7 +76,7 @@ const reduceFieldsForItem = (item, options = {}) => {
   );
 
   // Reduce lang maps to values needed for user's locale.
-  item = reduceLangMapsForLocale(item, options.locale, { freeze: false });
+  item = reduceLangMapsForLocale(item, locale, { freeze: false });
 
   // Truncate lang map values
   for (const field in item) {
