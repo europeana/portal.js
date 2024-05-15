@@ -1,4 +1,4 @@
-import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
+import { keycloakResponseErrorHandler } from '@/utils/auth.js';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';
@@ -41,7 +41,7 @@ const mockError = (status = 401) => ({
   }
 });
 
-describe('plugins/europeana/auth', () => {
+describe('@/utils/auth.js', () => {
   describe('keycloakResponseErrorHandler', () => {
     describe('when response status is 401', () => {
       describe('and the user has a refresh token', () => {

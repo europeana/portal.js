@@ -1,4 +1,4 @@
-export const dailyOffset = (setSize, subsetSize) => {
+const dailyOffset = (setSize, subsetSize) => {
   const millisecondsPerDay = (1000 * 60 * 60 * 24);
   const unixDay = Math.floor(Date.now() / millisecondsPerDay);
   const offset = (unixDay * subsetSize) % setSize;

@@ -780,4 +780,49 @@ describe('components/search/SearchInterface', () => {
       });
     });
   });
+
+  // FIXME: update for use in the component
+  // describe('multilingual queries', () => {
+  //   it('passes API translation params if translateLang option given', async() => {
+  //     const translateLang = 'es';
+  //
+  //     baseRequest()
+  //       .query(query => {
+  //         return query['q.source'] === translateLang && query['q.target'] === 'en' && query.lang === translateLang;
+  //       })
+  //       .reply(200, defaultResponse);
+  //
+  //     await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
+  //
+  //     expect(nock.isDone()).toBe(true);
+  //   });
+  //
+  //   it('does not pass API translation params if no translateLang option', async() => {
+  //     baseRequest()
+  //       .query(query => {
+  //         const queryKeys = Object.keys(query);
+  //         return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+  //       })
+  //       .reply(200, defaultResponse);
+  //
+  //     await search.bind(new EuropeanaApi)({ query: 'flor' });
+  //
+  //     expect(nock.isDone()).toBe(true);
+  //   });
+  //
+  //   it('does not pass API translation params if translateLang is "en"', async() => {
+  //     const translateLang = 'en';
+  //
+  //     baseRequest()
+  //       .query(query => {
+  //         const queryKeys = Object.keys(query);
+  //         return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+  //       })
+  //       .reply(200, defaultResponse);
+  //
+  //     await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
+  //
+  //     expect(nock.isDone()).toBe(true);
+  //   });
+  // });
 });

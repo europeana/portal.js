@@ -48,7 +48,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
     });
   }
 
-  // TODO: move to media-proxy.js
+  // TODO: move to mediaProxy.js
   mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
     params.recordApiUrl = this.baseURL;
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { keycloakResponseErrorHandler } from '../utils/auth.js';
-import EuropeanaApiContextConfig from '../config/context.js';
+import { keycloakResponseErrorHandler } from './utils/auth.js';
+import EuropeanaApiContextConfig from './config/context.js';
 
 export default class EuropeanaApi {
   static ID;
@@ -74,13 +74,7 @@ export default class EuropeanaApi {
   }
 
   request(config) {
-    return this.axios({
-      ...config,
-      params: {
-        ...this.axios.defaults.params,
-        ...config.params || {}
-      }
-    })
+    return this.axios.request(config)
       .then((response) => response.data)
       .catch((error) => {
         throw this.apiError(error);

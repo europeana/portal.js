@@ -8,6 +8,9 @@ export default {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  setupFiles: [
+    '<rootDir>/tests/setup.js'
+  ],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/node_modules/'

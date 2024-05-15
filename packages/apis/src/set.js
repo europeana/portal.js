@@ -39,7 +39,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
         if (set.items) {
           set.items = set.items.map((uri) => {
             const itemId = uri.replace(EuropeanaDataApi.ITEM_URL_PREFIX, '');
-            return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
+            return minimalItemPreviews.items.find((item) => item.id === itemId) || { id: itemId };
           });
         }
       }

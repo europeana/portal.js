@@ -1,14 +1,14 @@
-import annotation from './apis/annotation.js';
-import data from './apis/data.js';
-import entity from './apis/entity/index.js';
-import entityManagement from './apis/entity/management.js';
-import fulltext from './apis/fulltext.js';
-import iiifPresentation from './apis/iiif/presentation.js';
-import mediaProxy from './apis/mediaProxy.js';
-import recommendation from './apis/recommendation.js';
-import record from './apis/record/index.js';
-import set from './apis/set.js';
-import thumbnail from './apis/thumbnail.js';
+import annotation from './annotation.js';
+import data from './data.js';
+import entity from './entity/index.js';
+import entityManagement from './entity/management.js';
+import fulltext from './fulltext.js';
+import iiifPresentation from './iiif/presentation.js';
+import mediaProxy from './mediaProxy.js';
+import recommendation from './recommendation.js';
+import record from './record/index.js';
+import set from './set.js';
+import thumbnail from './thumbnail.js';
 
 export {
   annotation,
