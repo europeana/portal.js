@@ -31,6 +31,7 @@ export default {
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
       "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "remove": "Remove this item from this gallery.",
       "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
+    "remove": "Remove",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "share": "Share",

@@ -59,6 +59,7 @@
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
           :show-move="useDraggable"
+          :show-remove="userEditableItems"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           :on-aux-click-card="onAuxClickCard"
@@ -114,6 +115,7 @@
         :variant="cardVariant"
         :show-pins="showPins"
         :show-move="useDraggable"
+        :show-remove="userEditableItems"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
         :on-aux-click-card="onAuxClickCard"
@@ -155,7 +157,7 @@
         type: Boolean,
         default: false
       },
-      draggableItems: {
+      userEditableItems: {
         type: Boolean,
         default: false
       },
@@ -206,7 +208,7 @@
       },
 
       useDraggable() {
-        return process.client && this.draggableItems;
+        return process.client && this.userEditableItems;
       }
     },
 
