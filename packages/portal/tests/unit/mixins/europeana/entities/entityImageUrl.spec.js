@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import { thumbnail as EuropeanaThumbnailApi } from '@europeana/apis';
+import { EuropeanaThumbnailApi } from '@europeana/apis';
 
 import mixin from '@/mixins/europeana/entities/entityImageUrl.js';
 

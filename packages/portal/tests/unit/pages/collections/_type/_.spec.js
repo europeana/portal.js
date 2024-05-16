@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import { EuropeanaThumbnailApi } from '@europeana/apis';
 
 import collection from '@/pages/collections/_type/_';
 
@@ -28,10 +29,12 @@ const organisationEntity = {
 };
 
 const topicEntity = {
+  apiType: 'concept',
+  apiId: '01234567890',
   entity: {
     id: 'http://data.europeana.eu/concept/01234567890',
     note: { en: ['example of a topic note'] },
-    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
+    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&type=IMAGE' },
     prefLabel: { en: 'Topic' },
     type: 'Concept'
   },
@@ -68,7 +71,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       },
       entityManagement: {
         get: sinon.stub().resolves({})
-      }
+      },
+      thumbnail: new EuropeanaThumbnailApi
     },
     $i18n: {
       locale: 'en'
@@ -166,7 +170,7 @@ describe('pages/collections/_type/_', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$apis.entity.get.calledWith(topicEntity.type, topicEntity.pathMatch)).toBe(true);
+      expect(wrapper.vm.$apis.entity.get.calledWith(topicEntity.apiType, topicEntity.apiId)).toBe(true);
     });
 
     it('stores the collection label in search store', async() => {
@@ -375,8 +379,9 @@ describe('pages/collections/_type/_', () => {
       it('returns a thumbnail when available', () => {
         const wrapper = factory(topicEntity);
 
-        wrapper.vm.thumbnail;
-        expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
+        const thumbnail = wrapper.vm.thumbnail;
+
+        expect(thumbnail).toBe('https://api.europeana.eu/thumbnail/v3/200/6c0a0d323f07cbfd98f575e88c782474');
       });
     });
     describe('moreInfo', () => {

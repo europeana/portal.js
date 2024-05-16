@@ -4,10 +4,6 @@ import ItemSummaryInfo from '@/components/item/ItemSummaryInfo.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
-localVue.filter('truncate', (val) => {
-  return val.length > 20 ? val.substring(0, 20) + '...' : val;
-});
-
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 

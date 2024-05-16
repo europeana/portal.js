@@ -6,9 +6,6 @@ import sinon from 'sinon';
 import SearchInterface from '@/components/search/SearchInterface.vue';
 
 const localVue = createLocalVue();
-localVue.filter('localise', (number) => number);
-localVue.filter('truncate', (string) => string);
-localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
 
 const searchResult = {
@@ -333,63 +330,7 @@ describe('components/search/SearchInterface', () => {
 
   describe('computed', () => {
     describe('apiOptions', () => {
-      describe('translateLang', () => {
-        describe('when locales to translate are configured', () => {
-          const $config = { app: { search: { translateLocales: ['nl'] } } };
-
-          describe('and current locale is one of the configured locales to translate', () => {
-            const $i18n = { locale: 'nl' };
-
-            describe('and user is logged in', () => {
-              const $auth = { loggedIn: true };
-
-              it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBe('nl');
-              });
-            });
-
-            describe('but user is not logged in', () => {
-              const $auth = { loggedIn: false };
-
-              it('is undefined', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBeUndefined();
-              });
-            });
-          });
-
-          describe('but current locale is not one of the configured locales to translate', () => {
-            const $i18n = { locale: 'fr' };
-
-            it('is undefined', () => {
-              const wrapper = factory({ mocks: { $config, $i18n } });
-
-              const translateLang = wrapper.vm.apiOptions.translateLang;
-
-              expect(translateLang).toBeUndefined();
-            });
-          });
-        });
-
-        describe('when locales to translate are not configured', () => {
-          const $config = { app: { search: { translateLocales: [] } } };
-
-          it('is undefined', () => {
-            const wrapper = factory({ mocks: { $config } });
-
-            const translateLang = wrapper.vm.apiOptions.translateLang;
-
-            expect(translateLang).toBeUndefined();
-          });
-        });
-      });
+      test.todo('fulltext url');
     });
 
     describe('advancedSearchQueryCount', () => {
@@ -561,6 +502,80 @@ describe('components/search/SearchInterface', () => {
           wrapper.vm.deriveApiParams();
 
           expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+
+      describe('translation', () => {
+        describe('when locales to translate are configured', () => {
+          const $config = { app: { search: { translateLocales: ['nl'] } } };
+
+          describe('and current locale is one of the configured locales to translate', () => {
+            const $i18n = { locale: 'nl' };
+
+            describe('and user is logged in', () => {
+              const $auth = { loggedIn: true };
+
+              it('configures the parameters for search translation', () => {
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+                wrapper.vm.deriveApiParams();
+
+                const params = wrapper.vm.apiParams;
+
+                expect(params.profile).toBe('minimal,translate');
+                expect(params.lang).toBe('nl');
+                expect(params['q.source']).toBe('nl');
+                expect(params['q.target']).toBe('en');
+              });
+            });
+
+            describe('but user is not logged in', () => {
+              const $auth = { loggedIn: false };
+
+              it('does not configure the parameters for search translation', () => {
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+                wrapper.vm.deriveApiParams();
+
+                const params = wrapper.vm.apiParams;
+
+                expect(params.profile).toBe('minimal');
+                expect(params.lang).toBeUndefined();
+                expect(params['q.source']).toBeUndefined();
+                expect(params['q.target']).toBeUndefined();
+              });
+            });
+          });
+
+          describe('but current locale is not one of the configured locales to translate', () => {
+            const $i18n = { locale: 'fr' };
+
+            it('does not configure the parameters for search translation', () => {
+              const wrapper = factory({ mocks: { $config, $i18n } });
+              wrapper.vm.deriveApiParams();
+
+              const params = wrapper.vm.apiParams;
+
+              expect(params.profile).toBe('minimal');
+              expect(params.lang).toBeUndefined();
+              expect(params['q.source']).toBeUndefined();
+              expect(params['q.target']).toBeUndefined();
+            });
+          });
+        });
+
+        describe('when locales to translate are not configured', () => {
+          const $config = { app: { search: { translateLocales: [] } } };
+
+          it('does not configure the parameters for search translation', () => {
+            const wrapper = factory({ mocks: { $config } });
+            wrapper.vm.deriveApiParams();
+
+            const params = wrapper.vm.apiParams;
+
+            expect(params.profile).toBe('minimal');
+            expect(params.lang).toBeUndefined();
+            expect(params['q.source']).toBeUndefined();
+            expect(params['q.target']).toBeUndefined();
+          });
         });
       });
     });
@@ -780,49 +795,4 @@ describe('components/search/SearchInterface', () => {
       });
     });
   });
-
-  // FIXME: update for use in the component
-  // describe('multilingual queries', () => {
-  //   it('passes API translation params if translateLang option given', async() => {
-  //     const translateLang = 'es';
-  //
-  //     baseRequest()
-  //       .query(query => {
-  //         return query['q.source'] === translateLang && query['q.target'] === 'en' && query.lang === translateLang;
-  //       })
-  //       .reply(200, defaultResponse);
-  //
-  //     await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
-  //
-  //     expect(nock.isDone()).toBe(true);
-  //   });
-  //
-  //   it('does not pass API translation params if no translateLang option', async() => {
-  //     baseRequest()
-  //       .query(query => {
-  //         const queryKeys = Object.keys(query);
-  //         return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
-  //       })
-  //       .reply(200, defaultResponse);
-  //
-  //     await search.bind(new EuropeanaApi)({ query: 'flor' });
-  //
-  //     expect(nock.isDone()).toBe(true);
-  //   });
-  //
-  //   it('does not pass API translation params if translateLang is "en"', async() => {
-  //     const translateLang = 'en';
-  //
-  //     baseRequest()
-  //       .query(query => {
-  //         const queryKeys = Object.keys(query);
-  //         return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
-  //       })
-  //       .reply(200, defaultResponse);
-  //
-  //     await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
-  //
-  //     expect(nock.isDone()).toBe(true);
-  //   });
-  // });
 });
