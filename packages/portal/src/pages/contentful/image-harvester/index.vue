@@ -13,8 +13,9 @@
 </template>
 
 <script>
-  import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
+  import { EUROPEANA_DATA_API_BASE_URL } from '@europeana/apis';
   import { langMapValueForLocale } from '@europeana/i18n';
+  import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { recordIdFromUrl } from '@/utils/europeana/record.js';
 
   export default {
@@ -101,7 +102,7 @@
 
         const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def?.[0];
 
-        const url = `${this.$apis.data.constructor.BASE_URL}/item${item.about}`;
+        const url = `${EUROPEANA_DATA_API_BASE_URL}/item${item.about}`;
 
         this.entry.fields.name?.setValue(name, locale);
         this.entry.fields.creator?.setValue(creator, locale);

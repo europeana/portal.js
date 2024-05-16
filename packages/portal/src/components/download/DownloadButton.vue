@@ -20,6 +20,7 @@
 
 <script>
   import axios from 'axios';
+  import { EUROPEANA_DATA_API_ITEM_URL_PREFIX } from '@europeana/apis';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import logEventMixin from '@/mixins/logEvent';
@@ -131,7 +132,7 @@
       },
       trackDownload() {
         if (!this.disabled) {
-          this.logEvent('download', `${this.$apis.data.constructor.ITEM_URL_PREFIX}${this.identifier}`);
+          this.logEvent('download', `${EUROPEANA_DATA_API_ITEM_URL_PREFIX}${this.identifier}`);
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
             if (!this.clicked) {

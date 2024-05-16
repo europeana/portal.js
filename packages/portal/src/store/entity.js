@@ -1,7 +1,7 @@
-import { data as EuropeanaDataApi } from '@europeana/apis';
+import { EUROPEANA_DATA_API_ITEM_URL_PREFIX } from '@europeana/apis';
 
 const itemUri = (itemId) => {
-  return itemId.startsWith(EuropeanaDataApi.ITEM_URL_PREFIX) ? itemId : `${EuropeanaDataApi.ITEM_URL_PREFIX}${itemId}`;
+  return itemId.startsWith(EUROPEANA_DATA_API_ITEM_URL_PREFIX) ? itemId : `${EUROPEANA_DATA_API_ITEM_URL_PREFIX}${itemId}`;
 };
 
 export default {

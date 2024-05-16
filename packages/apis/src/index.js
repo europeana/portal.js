@@ -1,25 +1,46 @@
-import annotation from './annotation.js';
-import data from './data.js';
-import entity from './entity/index.js';
-import entityManagement from './entity/management.js';
-import fulltext from './fulltext.js';
-import iiifPresentation from './iiif/presentation.js';
-import mediaProxy from './mediaProxy.js';
-import recommendation from './recommendation.js';
-import record from './record/index.js';
-import set from './set.js';
-import thumbnail from './thumbnail.js';
+import EuropeanaApiEnvConfig from './config/env.js';
+import EuropeanaAnnotationApi from './annotation.js';
+import EuropeanaDataApi, {
+  EUROPEANA_DATA_API_BASE_URL,
+  EUROPEANA_DATA_API_ITEM_URL_PREFIX,
+  EUROPEANA_DATA_API_SET_URL_PREFIX
+} from './data.js';
+import EuropeanaEntityApi, {
+  EUROPEANA_ENTITY_API_BASE_URL,
+  EUROPEANA_ENTITY_API_ENTITY_TYPES
+} from './entity/index.js';
+import EuropeanaEntityManagementApi from './entity/management.js';
+import EuropeanaFulltextApi from './fulltext.js';
+import EuropeanaIiifPresentationApi from './iiif/presentation.js';
+import EuropeanaMediaProxyApi from './mediaProxy.js';
+import EuropeanaRecommendationApi from './recommendation.js';
+import EuropeanaRecordApi from './record/index.js';
+import EuropeanaSetApi, {
+  EUROPEANA_SET_API_VISIBILITY_PRIVATE,
+  EUROPEANA_SET_API_VISIBILITY_PUBLIC,
+  EUROPEANA_SET_API_VISIBILITY_PUBLISHED
+} from './set.js';
+import EuropeanaThumbnailApi from './thumbnail.js';
 
 export {
-  annotation,
-  data,
-  entity,
-  entityManagement,
-  fulltext,
-  iiifPresentation,
-  mediaProxy,
-  recommendation,
-  record,
-  set,
-  thumbnail
+  EUROPEANA_DATA_API_BASE_URL,
+  EUROPEANA_DATA_API_ITEM_URL_PREFIX,
+  EUROPEANA_DATA_API_SET_URL_PREFIX,
+  EUROPEANA_ENTITY_API_BASE_URL,
+  EUROPEANA_ENTITY_API_ENTITY_TYPES,
+  EUROPEANA_SET_API_VISIBILITY_PRIVATE,
+  EUROPEANA_SET_API_VISIBILITY_PUBLIC,
+  EUROPEANA_SET_API_VISIBILITY_PUBLISHED,
+  EuropeanaAnnotationApi,
+  EuropeanaApiEnvConfig,
+  EuropeanaDataApi,
+  EuropeanaEntityApi,
+  EuropeanaEntityManagementApi,
+  EuropeanaFulltextApi,
+  EuropeanaIiifPresentationApi,
+  EuropeanaMediaProxyApi,
+  EuropeanaRecommendationApi,
+  EuropeanaRecordApi,
+  EuropeanaSetApi,
+  EuropeanaThumbnailApi
 };

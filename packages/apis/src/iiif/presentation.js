@@ -1,7 +1,7 @@
 import EuropeanaApi from '../base.js';
-import { BASE_URL as EUROPEANA_IIIF_BASE_URL } from './index.js';
+import { EUROPEANA_IIIF_API_BASE_URL } from './index.js';
 
 export default class EuropeanaIiifPresentationApi extends EuropeanaApi {
   static ID = 'iiifPresentation';
-  static BASE_URL = `${EUROPEANA_IIIF_BASE_URL}/presentation`;
+  static BASE_URL = `${EUROPEANA_IIIF_API_BASE_URL}/presentation`;
 }

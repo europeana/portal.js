@@ -25,6 +25,9 @@
 </template>
 
 <script>
+  import { EUROPEANA_DATA_API_BASE_URL } from '@europeana/apis';
+  import { langMapValueForLocale } from '@europeana/i18n';
+  import { getLabelledSlug } from '@europeana/utils';
   import {
     entityParamsFromUri,
     getEntityTypeApi,
@@ -33,8 +36,6 @@
     normalizeEntityId
   } from '@/utils/europeana/entity.js';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { getLabelledSlug } from '@europeana/utils';
-  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ContentfulEntityHarvesterPage',
@@ -106,7 +107,7 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, this.$apis.data.constructor.BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, EUROPEANA_DATA_API_BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }

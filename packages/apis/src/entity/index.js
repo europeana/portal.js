@@ -1,16 +1,18 @@
 import EuropeanaApi from '../base.js';
 
+export const EUROPEANA_ENTITY_API_BASE_URL = 'https://api.europeana.eu/entity';
+export const EUROPEANA_ENTITY_API_ENTITY_TYPES = [
+  { id: 'agent', qf: 'edm_agent', slug: 'person' },
+  { id: 'concept', qf: 'skos_concept', slug: 'topic' },
+  { id: 'organization', qf: 'foaf_organization', slug: 'organisation' },
+  { id: 'place', qf: 'edm_place', slug: 'place' },
+  { id: 'timespan', qf: 'edm_timespan', slug: 'time' }
+];
+
 export default class EuropeanaEntityApi extends EuropeanaApi {
   static ID = 'entity';
-  static BASE_URL = 'https://api.europeana.eu/entity';
+  static BASE_URL = EUROPEANA_ENTITY_API_BASE_URL;
   static AUTHENTICATING = true;
-  static ENTITY_TYPES = [
-    { id: 'agent', qf: 'edm_agent', slug: 'person' },
-    { id: 'concept', qf: 'skos_concept', slug: 'topic' },
-    { id: 'organization', qf: 'foaf_organization', slug: 'organisation' },
-    { id: 'place', qf: 'edm_place', slug: 'place' },
-    { id: 'timespan', qf: 'edm_timespan', slug: 'time' }
-  ];
 
   /**
    * Get data for one entity from the API

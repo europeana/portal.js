@@ -1,4 +1,8 @@
-export const BASE_URL = 'https://iiif.europeana.eu';
+import EuropeanaApi from '../base.js';
 
-export const IIIF_IMAGE_API_URL = 'http://iiif.io/api/image';
-export const IIIF_PRESENTATION_API_URL = 'http://iiif.io/api/presentation';
+export const EUROPEANA_IIIF_API_BASE_URL = 'https://iiif.europeana.eu';
+
+export default class EuropeanaIiifImageApi extends EuropeanaApi {
+  static ID = 'iiifImage';
+  static BASE_URL = `${EUROPEANA_IIIF_API_BASE_URL}/image`;
+}

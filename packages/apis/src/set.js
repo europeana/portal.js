@@ -1,10 +1,9 @@
 import EuropeanaApi from './base.js';
 import EuropeanaDataApi from './data.js';
 
-// TODO: move to static properties of class?
-export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
-export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
-export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
+export const EUROPEANA_SET_API_VISIBILITY_PRIVATE = 'private';
+export const EUROPEANA_SET_API_VISIBILITY_PUBLIC = 'public';
+export const EUROPEANA_SET_API_VISIBILITY_PUBLISHED = 'published';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
@@ -92,7 +91,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       title: {
         en: 'LIKES'
       },
-      visibility: EUROPEANA_SET_VISIBILITY_PRIVATE
+      visibility: EUROPEANA_SET_API_VISIBILITY_PRIVATE
     });
   }
 

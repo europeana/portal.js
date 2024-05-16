@@ -140,6 +140,10 @@
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
   import merge from 'deepmerge';
+  import {
+    EUROPEANA_DATA_API_BASE_URL,
+    EUROPEANA_DATA_API_ITEM_URL_PREFIX
+  } from '@europeana/apis';
 
   import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
@@ -246,7 +250,7 @@
         return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
-        return this.entities.filter((entity) => entity.about.startsWith(`${this.$apis.data.constructor.BASE_URL}/`));
+        return this.entities.filter((entity) => entity.about.startsWith(`${EUROPEANA_DATA_API_BASE_URL}/`));
       },
       europeanaEntityUris() {
         return this.europeanaEntities
@@ -334,7 +338,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEvent('view', `${this.$apis.data.constructor.ITEM_URL_PREFIX}${this.identifier}`);
+      this.logEvent('view', `${EUROPEANA_DATA_API_ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }

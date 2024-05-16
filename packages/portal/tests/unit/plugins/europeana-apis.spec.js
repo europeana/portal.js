@@ -2,6 +2,20 @@ import sinon from 'sinon';
 
 import * as plugin from '@/plugins/europeana-apis.js';
 
+const API_IDS = [
+  'annotation',
+  'data',
+  'entity',
+  'entityManagement',
+  'fulltext',
+  'iiifPresentation',
+  'mediaProxy',
+  'recommendation',
+  'record',
+  'set',
+  'thumbnail'
+];
+
 describe('plugins/europeana-apis', () => {
   afterEach(sinon.resetHistory);
 
@@ -32,7 +46,7 @@ describe('plugins/europeana-apis', () => {
       expect(inject.calledWith('apis', sinon.match.object)).toBe(true);
     });
 
-    for (const id of plugin.API_IDS) {
+    for (const id of API_IDS) {
       it(`exposes the ${id} API`, () => {
         let $apis;
         const context = {
@@ -98,7 +112,7 @@ describe('plugins/europeana-apis', () => {
       process.env = { ...envWas };
     });
 
-    for (const id of plugin.API_IDS) {
+    for (const id of API_IDS) {
       it(`includes env config for ${id} API`, () => {
         const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig();
 

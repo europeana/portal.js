@@ -1,5 +1,6 @@
-import { IIIF_IMAGE_API_URL } from '@europeana/apis/src/iiif/index.js';
 import Base from './Base.js';
+
+const IIIF_IMAGE_API_URL = 'http://iiif.io/api/image';
 
 export default class Service extends Base {
   get conformsToIIIFImageAPI() {

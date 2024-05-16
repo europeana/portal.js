@@ -1,13 +1,38 @@
 // TODO: refactor to not be a plugin, to reduce the weight of pages not using
-//       it, e.g. the homepage?
+//       it, e.g. the homepage? consider composables, e.g. `useEuropeanaRecordAPI()`
 
-import EuropeanaApiEnvConfig from '@europeana/apis/src/config/env.js';
+import {
+  EuropeanaAnnotationApi,
+  EuropeanaApiEnvConfig,
+  EuropeanaDataApi,
+  EuropeanaEntityApi,
+  EuropeanaEntityManagementApi,
+  EuropeanaFulltextApi,
+  EuropeanaIiifPresentationApi,
+  EuropeanaMediaProxyApi,
+  EuropeanaRecommendationApi,
+  EuropeanaRecordApi,
+  EuropeanaSetApi,
+  EuropeanaThumbnailApi
+} from '@europeana/apis';
 
-import * as APIS from '@europeana/apis';
+const apis = [
+  EuropeanaAnnotationApi,
+  EuropeanaDataApi,
+  EuropeanaEntityApi,
+  EuropeanaEntityManagementApi,
+  EuropeanaFulltextApi,
+  EuropeanaIiifPresentationApi,
+  EuropeanaMediaProxyApi,
+  EuropeanaRecommendationApi,
+  EuropeanaRecordApi,
+  EuropeanaSetApi,
+  EuropeanaThumbnailApi
+];
 
 const MODULE_NAME = 'apis';
 
-export const API_IDS = Object.keys(APIS);
+const API_IDS = apis.map((api) => api.ID);
 
 const runtimeConfig = {};
 
@@ -34,7 +59,7 @@ export const storeModule = {
 
   mutations: {
     init(state, { $apis, req }) {
-      for (const id in APIS) {
+      for (const id of API_IDS) {
         state.reqHeaderUrls[id] = $apis?.[id]?.config?.apiUrlFromRequestHeaders?.(req?.headers);
       }
     }
@@ -44,8 +69,8 @@ export const storeModule = {
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
-  const plugin = API_IDS.reduce((memo, id) => {
-    memo[id] = new APIS[id](context);
+  const plugin = apis.reduce((memo, api) => {
+    memo[api.ID] = new api(context);
     return memo;
   }, {});
 

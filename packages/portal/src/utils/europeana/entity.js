@@ -1,6 +1,6 @@
 import {
-  data as EuropeanaDataApi,
-  entity as EuropeanaEntityApi
+  EUROPEANA_DATA_API_BASE_URL,
+  EUROPEANA_ENTITY_API_ENTITY_TYPES
 } from '@europeana/apis';
 
 /**
@@ -25,7 +25,7 @@ export function getEntityQuery(uri) {
       .join(' OR ');
   }
 
-  const type = EuropeanaEntityApi.ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
+  const type = EUROPEANA_ENTITY_API_ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
 
   if (type) {
     return `${type.qf}:"${uri}"`;
@@ -42,8 +42,8 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri) {
-  const types = EuropeanaEntityApi.ENTITY_TYPES.map((type) => type.id);
-  return RegExp(`^${EuropeanaDataApi.BASE_URL}/(${types.join('|')})/\\d+$`).test(uri);
+  const types = EUROPEANA_ENTITY_API_ENTITY_TYPES.map((type) => type.id);
+  return RegExp(`^${EUROPEANA_DATA_API_BASE_URL}/(${types.join('|')})/\\d+$`).test(uri);
 }
 
 /**
@@ -52,7 +52,7 @@ export function isEntityUri(uri) {
  * @return {string} retrieved API name of type
  */
 export function getEntityTypeApi(slug) {
-  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.slug === slug)?.id || null;
+  return EUROPEANA_ENTITY_API_ENTITY_TYPES.find((type) => type.slug === slug)?.id || null;
 }
 
 /**
@@ -61,7 +61,7 @@ export function getEntityTypeApi(slug) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityTypeHumanReadable(id) {
-  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.id === id.toLowerCase())?.slug || null;
+  return EUROPEANA_ENTITY_API_ENTITY_TYPES.find((type) => type.id === id.toLowerCase())?.slug || null;
 }
 
 /**
@@ -72,7 +72,7 @@ export function getEntityTypeHumanReadable(id) {
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  return `${EuropeanaDataApi.BASE_URL}/${apiType}/${normalizeEntityId(id)}`;
+  return `${EUROPEANA_DATA_API_BASE_URL}/${apiType}/${normalizeEntityId(id)}`;
 }
 
 /**

@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import { EUROPEANA_DATA_API_BASE_URL } from '@europeana/apis';
   import { oEmbedForEndpoint } from '@europeana/oembed';
 
   export default {
@@ -51,7 +52,7 @@
     async fetch() {
       // TODO: this should be read from Nuxt runtime config
       const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
-                                               `${this.$apis.data.constructor.BASE_URL}/item${this.identifier}`);
+                                               `${EUROPEANA_DATA_API_BASE_URL}/item${this.identifier}`);
 
       if (response.data.html) {
         this.embedHtml = response.data.html;
