@@ -242,7 +242,7 @@ module.exports = function(migration) {
     transformEntryForLocale(fromFields, currentLocale) {
       return {
         name: fromFields.name ? fromFields.name[currentLocale] : undefined,
-        identifier: fromFields.identifier,
+        identifier: fromFields.identifier[currentLocale],
         description: fromFields.description ? fromFields.description[currentLocale] : undefined,
         primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined,
         hasPart: fromFields.hasPart ? fromFields.hasPart[currentLocale] : undefined,
