@@ -6,7 +6,7 @@
       role="img"
       :aria-label="hero?.image?.description"
     />
-    <b-container class="hero-content text-center">
+    <b-container class="hero-content">
       <div
         v-if="contextLabel"
         class="context-label d-inline-block px-2 py-1 mb-3"
@@ -96,10 +96,9 @@
     margin-top: -70px;
     margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
-    padding: 45vh 1.5rem 1.5rem;
+    padding: 1.5rem;
     min-height: 100vh;
     position: relative;
-    padding-bottom: 128px; // save space for absolute positioned EULogo of height 64px, doubled for spacing around the logo
     overflow: hidden;
 
     @media (min-width: $bp-4k) {
@@ -109,20 +108,19 @@
   }
 
   .hero-content {
-    margin: 0 auto;
-    position: relative; // Prevents blending with the background
+    position: absolute; // Prevents blending with the background
+    bottom: 5rem;
+    left: 0;
+    right: 0;
     color: $white;
 
     h1,
     .context-label,
     .lead {
       color: $white;
-      text-align: center;
 
       @media (min-width: $bp-medium) {
         max-width: 744px;
-        margin-left: auto;
-        margin-right: auto;
       }
 
       @media (min-width: $bp-large) {
@@ -171,17 +169,5 @@
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
       position: absolute;
     }
-  }
-
-  ::v-deep .icon-info {
-    left: 1.5rem;
-    right: auto;
-    z-index: 3;
-  }
-
-  ::v-deep cite {
-    left: 0.5rem;
-    right: auto !important;
-    z-index: 3;
   }
 </style>

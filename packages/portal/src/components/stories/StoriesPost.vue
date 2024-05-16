@@ -95,7 +95,7 @@
     name: 'BlogPost',
 
     components: {
-      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      // AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       BlogAuthor: () => import('@/components/blog/BlogAuthor'),
       BrowseSections,
       ClientOnly,
