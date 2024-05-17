@@ -41,6 +41,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
         return key;
       }
     },
+    $te: () => true,
     $tc: (key) => key,
     $store,
     ...mocks
@@ -70,11 +71,10 @@ describe('components/content/ContentCard', () => {
     });
 
     describe('card subtitle', () => {
-      describe('for blog', () => {
+      describe('for stories', () => {
         const urls = [
-          'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
-          'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
-          { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
+          'https://www.europeana.eu/en/stories/introducing-the-new-europeana-demo',
+          { name: 'stories___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
         ];
 
         for (const url of urls) {
@@ -84,7 +84,7 @@ describe('components/content/ContentCard', () => {
 
             const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
-            expect(subtitle.text()).toBe('blog.posts');
+            expect(subtitle.text()).toBe('cardLabels.stories');
           });
         }
       });
@@ -102,7 +102,7 @@ describe('components/content/ContentCard', () => {
 
             const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
-            expect(subtitle.text()).toBe('exhibitions.exhibitions');
+            expect(subtitle.text()).toBe('cardLabels.exhibitions');
           });
         }
       });
@@ -120,7 +120,7 @@ describe('components/content/ContentCard', () => {
 
             const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
-            expect(subtitle.text()).toBe('galleries.galleries');
+            expect(subtitle.text()).toBe('cardLabels.galleries');
           });
         }
       });

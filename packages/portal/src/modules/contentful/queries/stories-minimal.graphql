@@ -3,7 +3,7 @@ query storiesMinimal(
   $preview: Boolean = false,
   $query: String = ""
 ) {
-	blogPostingCollection(
+	storyCollection(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
     where: { name_contains: $query }
   ) {

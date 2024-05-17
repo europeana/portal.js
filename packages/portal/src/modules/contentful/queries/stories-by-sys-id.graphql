@@ -5,11 +5,11 @@ query StoriesBySysId(
   $limit: Int!,
   $query: String = ""
 ) {
-	blogPostingCollection(
+	storyCollection(
     preview: $preview, locale: $locale, limit: $limit,
     where: { AND: [ { sys: { id_in: $ids } }, { name_contains: $query } ] }
   ) {
-    ...blogPostingCollectionFields
+    ...storyCollectionFields
   }
   exhibitionPageCollection(
     preview: $preview, locale: $locale, limit: $limit,
@@ -19,7 +19,7 @@ query StoriesBySysId(
   }
 }
 
-fragment blogPostingCollectionFields on BlogPostingCollection {
+fragment storyCollectionFields on StoryCollection {
   items {
     __typename
     sys {

@@ -13,7 +13,7 @@ localVue.use(BootstrapVue);
 const storiesMinimalContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
         ]
@@ -31,10 +31,10 @@ const storiesMinimalContentfulResponse = {
 const storiesBySysIdContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           {
-            __typename: 'BlogPosting',
+            __typename: 'Story',
             sys: {
               id: '796f5YKe4b1u8uXtizSBu0'
             },
@@ -334,7 +334,7 @@ describe('components/stories/StoriesInterface', () => {
           const wrapper = factory({ data: { allStoryMetadata, perPage: 2 } });
           const expected = [
             storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
-            storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0],
+            storiesBySysIdContentfulResponse.data.data.storyCollection.items[0],
             'cta-banner'
           ];
 
@@ -390,15 +390,15 @@ describe('components/stories/StoriesInterface', () => {
     });
 
     describe('entryUrl', () => {
-      it('prefixes BlogPosting entries with /blog', () => {
+      it('prefixes Story entries with /stories', () => {
         const wrapper = factory();
 
         const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'BlogPosting',
+          '__typename': 'Story',
           identifier: 'interesting'
         });
 
-        expect(entryUrl).toBe('/blog/interesting');
+        expect(entryUrl).toBe('/stories/interesting');
       });
 
       it('prefixes ExhibitionPage entries with /exhibitions', () => {

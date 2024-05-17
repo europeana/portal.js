@@ -53,7 +53,7 @@
           />
         </div>
         <ContentCard
-          v-else-if="entry !== ctaBanner"
+          v-else
           :key="index"
           :title="entry.name"
           :url="entryUrl(entry)"
@@ -158,7 +158,7 @@
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.blogPostingCollection.items,
+          storyIdsResponse.data.data.storyCollection.items,
           storyIdsResponse.data.data.exhibitionPageCollection.items
         ].flat();
 
@@ -186,7 +186,7 @@
         };
         const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
         const fullStories = [
-          storiesResponse.data.data.blogPostingCollection.items,
+          storiesResponse.data.data.storyCollection.items,
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
@@ -199,8 +199,8 @@
       entryUrl(entry) {
         let urlPrefix;
 
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
+        if (entry['__typename'] === 'Story') {
+          urlPrefix = '/stories';
         } else if (entry['__typename'] === 'ExhibitionPage') {
           urlPrefix = '/exhibitions';
         }

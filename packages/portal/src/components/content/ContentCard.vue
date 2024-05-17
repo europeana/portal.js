@@ -313,7 +313,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        displayLabelTypes: 'exhibitions|galleries|stories|collections',
         // hit prefix & suffix can be overly long for our display purposes;
         // limit to max num of words each
         hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
@@ -340,6 +340,7 @@
         return this.subTitle || this.displayLabel;
       },
 
+      // TODO: all these displayLabel methods are absurd; refactor to be a prop!
       displayLabel() {
         if (!this.displayLabelType) {
           return false;
@@ -347,13 +348,9 @@
 
         if (this.displayLabelType === 'collections') {
           return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+        } else {
+          return this.$t(`cardLabels.${this.displayLabelType}`);
         }
-
-        if (this.displayLabelType === 'blog') {
-          return this.$tc('blog.posts', 1);
-        }
-
-        return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
       },
 
       displayLabelTypeCollections() {

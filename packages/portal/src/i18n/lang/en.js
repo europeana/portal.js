@@ -105,9 +105,12 @@ export default {
     "relatedPosts": "Related posts"
   },
   "cardLabels": {
+    "exhibitions": "Exhibition",
+    "galleries": "Galleries",
     "organisation": "Organisation",
     "person": "Person",
     "place": "Place",
+    "stories": "Story",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
