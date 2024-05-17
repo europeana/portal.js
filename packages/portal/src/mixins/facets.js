@@ -1,4 +1,4 @@
-import themes from '@/plugins/europeana/themes';
+import themes from '@/utils/europeana/themes';
 import { unescapeLuceneSpecials } from '@europeana/utils';
 
 const translateWithFallbackOrNull = (scope, key, callback) => {

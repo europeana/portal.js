@@ -149,7 +149,7 @@
 <script>
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
-  import themes from '@/plugins/europeana/themes';
+  import themes from '@/utils/europeana/themes';
   import { unquotableFacets } from '@/utils/europeana/search.js';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@europeana/utils';
   import facetsMixin from '@/mixins/facets';

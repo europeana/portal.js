@@ -69,7 +69,7 @@
     async fetch() {
       const entityIndexParams = {
         query: '*:*',
-        page: this.page - 1,
+        page: this.page,
         type: this.entityTypeApi,
         pageSize: this.perPage,
         scope: 'europeana',

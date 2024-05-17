@@ -72,7 +72,7 @@ describe('pages/collections/persons-or-places', () => {
 
       expect(wrapper.vm.$apis.entity.search.calledWith({
         query: '*:*',
-        page: 0,
+        page: 1,
         type: 'agent',
         pageSize: 24,
         scope: 'europeana',
