@@ -45,6 +45,10 @@ const factory = () => shallowMountNuxt(page, {
       app: {
         baseUrl: 'https://www.europeana.eu'
       }
+    },
+    $fetchState: {
+      pending: false,
+      error: null
     }
   }
 });
