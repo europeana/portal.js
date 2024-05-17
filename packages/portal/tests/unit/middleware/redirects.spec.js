@@ -6,14 +6,28 @@ describe('middleware/redirects', () => {
   afterEach(sinon.resetHistory);
   const redirect = sinon.spy();
 
-  describe('when route path matches a redirect', () => {
+  it('redirects /professionals to /share-your-data', () => {
     const route = { path: '/fr/professionals' };
 
-    it('redirects to /share-your-data', () => {
-      middleware({ route, redirect });
+    middleware({ route, redirect });
 
-      expect(redirect.calledWith('/fr/share-your-data')).toBe(true);
-    });
+    expect(redirect.calledWith('/fr/share-your-data')).toBe(true);
+  });
+
+  it('redirects /blog to /stories', () => {
+    const route = { path: '/de/blog' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith('/de/stories')).toBe(true);
+  });
+
+  it('redirects /blog/* to /stories/*', () => {
+    const route = { path: '/nl/blog/nice' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {
