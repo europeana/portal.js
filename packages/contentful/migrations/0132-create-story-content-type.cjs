@@ -211,7 +211,7 @@ module.exports = function(migration) {
   });
 
   story.changeFieldControl('primaryImageOfPage', 'builtin', 'entryLinkEditor', {
-    helpText: 'Images wider than 2520 pixels will take the whole width of the page, others aligned with the content.'
+    helpText: 'Images wider than 800 px will take the whole width of the page, others aligned with the content. For best quality it\'s advised to use images of at least 2,520 px width.'
   });
 
   story.changeFieldControl('hasPart', 'builtin', 'entryCardsEditor', {
