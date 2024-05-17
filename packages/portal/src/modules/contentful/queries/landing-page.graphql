@@ -21,8 +21,8 @@ query LandingPage(
       relatedLink {
         url
         text
-        description
       }
+      relatedLinkDescription
       primaryImageOfPage {
         ...imageWithAttributionFields
       }

@@ -19,9 +19,9 @@
           </SmartLink>
           <!-- eslint-disable vue/no-v-html -->
           <div
-            v-if="cta.description"
+            v-if="ctaHelpText"
             class="btn-cta-helptext form-text text-muted mt-3"
-            v-html="parseMarkdownHtml(cta.description)"
+            v-html="parseMarkdownHtml(ctaHelpText)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </header>
@@ -88,6 +88,10 @@
        */
       cta: {
         type: Object,
+        default: null
+      },
+      ctaHelpText: {
+        type: String,
         default: null
       },
       /**
@@ -206,6 +210,10 @@
 
       ::v-deep p {
         margin-bottom: 0;
+      }
+
+      ::v-deep a {
+        color: $mediumgrey;
       }
     }
   }

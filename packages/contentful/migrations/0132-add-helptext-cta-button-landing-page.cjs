@@ -1,10 +1,10 @@
 module.exports = function(migration) {
-  const link = migration
-    .editContentType('link');
+  const landingPage = migration
+    .editContentType('landingPage');
 
-  link
-    .createField('description')
-    .name('Help text')
+  landingPage
+    .createField('relatedLinkDescription')
+    .name('CTA Help text')
     .type('Text')
     .localized(true)
     .required(false)
@@ -12,7 +12,11 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  link.changeFieldControl('description', 'builtin', 'markdown', {
-    helpText: 'Text to accompany the link. At the moment only used on Landing pages for the top section CTA button.'
+  landingPage.changeFieldControl('relatedLinkDescription', 'builtin', 'markdown', {
+    helpText: 'Text to accompany the CTA button.'
   });
+
+  landingPage
+    .moveField('relatedLinkDescription')
+    .afterField('relatedLink');
 };
