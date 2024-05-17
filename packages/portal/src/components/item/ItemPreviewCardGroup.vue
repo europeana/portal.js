@@ -18,54 +18,56 @@
       handle=".move-button"
       @end="endItemDrag"
     >
-      <template
-        v-for="(card, index) in cards"
-      >
-        <template v-if="card === relatedGalleries">
-          <div
-            v-if="$slots[relatedGalleries]"
-            :key="index"
+      <TransitionGroup name="fade">
+        <template
+          v-for="(card, index) in cards"
+        >
+          <template v-if="card === relatedGalleries">
+            <div
+              v-if="$slots[relatedGalleries]"
+              :key="index"
+              v-masonry-tile
+              class="masonry-tile related-results"
+            >
+              <slot
+                :name="relatedGalleries"
+              />
+            </div>
+          </template>
+          <template v-else-if="card === relatedCollections">
+            <div
+              v-if="$slots[relatedCollections]"
+              :key="index"
+              v-masonry-tile
+              class="masonry-tile related-results"
+            >
+              <slot
+                :name="relatedCollections"
+              />
+            </div>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
             v-masonry-tile
-            class="masonry-tile related-results"
-          >
-            <slot
-              :name="relatedGalleries"
-            />
-          </div>
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            class="masonry-tile item"
+            :lazy="true"
+            :enable-accept-recommendation="enableAcceptRecommendations"
+            :enable-reject-recommendation="enableRejectRecommendations"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            data-qa="item preview"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
+          />
         </template>
-        <template v-else-if="card === relatedCollections">
-          <div
-            v-if="$slots[relatedCollections]"
-            :key="index"
-            v-masonry-tile
-            class="masonry-tile related-results"
-          >
-            <slot
-              :name="relatedCollections"
-            />
-          </div>
-        </template>
-        <ItemPreviewCard
-          v-else
-          :key="index"
-          ref="cards"
-          v-masonry-tile
-          :item="card"
-          :hit-selector="itemHitSelector(card)"
-          :variant="cardVariant"
-          class="masonry-tile item"
-          :lazy="true"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
-          :show-pins="showPins"
-          :show-move="useDraggable"
-          :show-remove="userEditableItems"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-          :on-aux-click-card="onAuxClickCard"
-          :on-click-card="onClickCard"
-        />
-      </template>
+      </TransitionGroup>
     </component>
   </div>
   <component
@@ -213,7 +215,9 @@
     },
 
     watch: {
-      'cards.length': 'redrawMasonry',
+      'cards.length'() {
+        this.redrawMasonry(400);
+      },
       items() {
         this.$fetch();
       }
@@ -231,9 +235,12 @@
       itemHitSelector(item) {
         return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0] || null;
       },
-      redrawMasonry() {
+      redrawMasonry(timeout) {
         this.$nextTick(() => {
-          this.$redrawVueMasonry?.();
+          // Timeout is needed to ensure that the masonry is redrawn after TransitionGroup has finished
+          setTimeout(() => {
+            this.$redrawVueMasonry?.();
+          }, timeout || 0);
         });
       }
     }
@@ -243,4 +250,5 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/masonry';
+  @import '@europeana/style/scss/transitions';
 </style>
