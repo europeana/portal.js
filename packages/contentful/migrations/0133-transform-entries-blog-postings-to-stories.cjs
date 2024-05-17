@@ -1,6 +1,19 @@
 const MurmurHash3 = require('imurmurhash');
 
-module.exports = function(migration) {
+module.exports = async function(migration, { makeRequest }) {
+  // 1. fetch category entries
+  const response = await makeRequest({
+    method: 'GET',
+    url: '/entries',
+    params: {
+      'content_type': 'category',
+      limit: 1000
+    }
+  });
+
+  const categoryIds = response.items.map((item) => item.sys.id);
+
+  // 2. create story entries from blog post entries
   migration.transformEntriesToType({
     sourceContentType: 'blogPosting',
     targetContentType: 'story',
@@ -12,18 +25,22 @@ module.exports = function(migration) {
       return MurmurHash3(value).result().toString();
     },
     transformEntryForLocale(fromFields, currentLocale) {
+      // filter out missing categories
+      const categories = fromFields.categories?.[currentLocale]
+        ?.filter((category) => categoryIds.includes(category.sys.id))
+
       return {
-        name: fromFields.name ? fromFields.name[currentLocale] : undefined,
+        name: fromFields.name?.[currentLocale],
         identifier: fromFields.identifier[currentLocale],
-        description: fromFields.description ? fromFields.description[currentLocale] : undefined,
-        primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined,
-        hasPart: fromFields.hasPart ? fromFields.hasPart[currentLocale] : undefined,
-        datePublished: fromFields.datePublished ? fromFields.datePublished[currentLocale] : undefined,
-        author: fromFields.author ? fromFields.author[currentLocale] : undefined,
-        relatedLink: fromFields.relatedLink ? fromFields.relatedLink[currentLocale] : undefined,
-        contentWarning: fromFields.contentWarning ? fromFields.contentWarning[currentLocale] : undefined,
-        categories: fromFields.categories ? fromFields.categories[currentLocale] : undefined,
-        genre: fromFields.genre ? fromFields.genre[currentLocale] : undefined
+        description: fromFields.description?.[currentLocale],
+        primaryImageOfPage: fromFields.primaryImageOfPage?.[currentLocale],
+        hasPart: fromFields.hasPart?.[currentLocale],
+        datePublished: fromFields.datePublished?.[currentLocale],
+        author: fromFields.author?.[currentLocale],
+        relatedLink: fromFields.relatedLink?.[currentLocale],
+        contentWarning: fromFields.contentWarning?.[currentLocale],
+        categories,
+        genre: fromFields.genre?.[currentLocale]
       };
     }
   });
