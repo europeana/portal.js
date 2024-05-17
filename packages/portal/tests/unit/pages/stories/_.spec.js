@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import page from '@/pages/blog/_';
+import page from '@/pages/stories/_';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -14,8 +14,8 @@ const factory = () => shallowMountNuxt(page, {
   data() {
     return {
       post: {
-        name: 'fake blog post',
-        identifier: 'fake-blog-post',
+        name: 'fake story',
+        identifier: 'fake-story',
         datePublished: '2020-12-11T09:00:00.000Z',
         primaryImageOfPage: {
           image: {
@@ -35,8 +35,8 @@ const factory = () => shallowMountNuxt(page, {
       loggedIn: false
     },
     $route: {
-      fullPath: 'https://www.europeana.eu/en/blog/fake-blog-post',
-      path: '/en/blog/fake-blog-post'
+      fullPath: '/en/stories/fake-story',
+      path: '/en/stories/fake-story'
     },
     $i18n: {
       locale: 'en'
@@ -49,7 +49,7 @@ const factory = () => shallowMountNuxt(page, {
   }
 });
 
-describe('Blog post page', () => {
+describe('Story page', () => {
   describe('pageMeta()', () => {
     it('uses hero image for og:image', () => {
       const wrapper = factory();

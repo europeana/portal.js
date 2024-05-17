@@ -3,7 +3,7 @@ query BlogPostPage(
   $locale: String!,
   $preview: Boolean = false
 ) {
-  blogPostingCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  storyCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
       identifier
       name

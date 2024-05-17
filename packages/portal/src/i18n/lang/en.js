@@ -93,17 +93,6 @@ export default {
     "topic": "Topics",
     "trending": "Trending items"
   },
-  "blog": {
-    "author": "Author",
-    "authors": "Authors",
-    "blog": "Blog",
-    "by": "by",
-    "categories": "Categories",
-    "category": "Category",
-    "posts": "Blog post | Blog posts",
-    "published": "Published {date}",
-    "relatedPosts": "Related posts"
-  },
   "cardLabels": {
     "exhibitions": "Exhibition",
     "galleries": "Galleries",
@@ -1232,6 +1221,10 @@ export default {
   "storiesPage": {
     "title": "Stories",
     "storiesHaveLoaded": "{0} stories found"
+  },
+  "story": {
+    "by": "by",
+    "published": "Published {date}"
   },
   "swiper": {
     "paginationBulletLabel": "Slide group {page}"

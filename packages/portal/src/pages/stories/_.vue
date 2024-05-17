@@ -1,15 +1,15 @@
 <template>
   <div
-    data-qa="blog post"
+    data-qa="story page"
     class="text-page white-page "
   >
     <ContentWarningModal
       v-if="post.contentWarning"
       :title="post.contentWarning.name"
       :description="post.contentWarning.description"
-      :page-slug="`blog/${post.identifier}`"
+      :page-slug="`stories/${post.identifier}`"
     />
-    <BlogPost
+    <StoryPost
       :date-published="post.datePublished"
       :title="post.name"
       :description="post.description"
@@ -26,15 +26,15 @@
 
 <script>
   import pageMetaMixin from '@/mixins/pageMeta';
-  import BlogPost from '@/components/blog/BlogPost';
+  import StoryPost from '@/components/story/StoryPost';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
-    name: 'BlogPostPage',
+    name: 'StoriesPage',
 
     components: {
-      BlogPost,
+      StoryPost,
       ContentWarningModal: () => import('@/components/content/ContentWarningModal')
     },
 
@@ -49,6 +49,7 @@
       next();
     },
 
+    // TODO: port to use `fetch`
     asyncData({ params, query, error, app, store, redirect }) {
       const variables = {
         identifier: params.pathMatch,
@@ -56,20 +57,20 @@
         preview: query.mode === 'preview'
       };
 
-      return app.$contentful.query('blogPostPage', variables)
+      return app.$contentful.query('storyPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (data.blogPostingCollection.items.length === 0) {
-            return redirect(302, '/blog');
+          if (data.storyCollection.items.length === 0) {
+            return redirect(302, '/stories');
           }
 
-          const post = data.blogPostingCollection.items[0];
+          const post = data.storyCollection.items[0];
 
           store.commit('breadcrumb/setBreadcrumbs', [
             {
-              // TODO: Add named language aware route for blog index
-              text: app.i18n.t('blog.blog'),
-              to: '/blog'
+              // TODO: Add named language aware route for stories index
+              text: app.i18n.t('storiesPage.title'),
+              to: '/stories'
             },
             {
               text: post.name,

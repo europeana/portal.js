@@ -46,7 +46,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
-    name: 'StoriesPage',
+    name: 'StoriesIndexPage',
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),

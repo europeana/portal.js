@@ -1,12 +1,12 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import BlogPost from '@/components/blog/BlogPost.vue';
+import StoryPost from '@/components/story/StoryPost.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(BlogPost, {
+const factory = () => shallowMount(StoryPost, {
   localVue,
   mocks: {
     $features: {},
@@ -32,11 +32,11 @@ const factory = () => shallowMount(BlogPost, {
   }
 });
 
-describe('components/blog/BlogPost', () => {
+describe('components/story/StoryPost', () => {
   it('displays markdown data as HTML', () => {
     const wrapper = factory();
 
-    expect(wrapper.find('[data-qa="blog-sections"]').html()).toContain('<p>Hello</p>');
+    expect(wrapper.find('[data-qa="story sections"]').html()).toContain('<p>Hello</p>');
   });
 
   it('removes the time from date string', () => {
