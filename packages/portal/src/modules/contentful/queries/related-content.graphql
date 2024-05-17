@@ -4,7 +4,7 @@ query EntityRelatedContent(
   $limit: Int = 4,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  storyCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

@@ -4,7 +4,7 @@ query latestEditorialContent(
   $limit: Int = 1,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  storyCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

@@ -5,7 +5,7 @@ query ThemeRelatedContent(
   $theme: String!,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  storyCollection(
     where: { genre_contains_some: [$theme], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

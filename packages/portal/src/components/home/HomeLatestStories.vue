@@ -58,7 +58,7 @@
 
       // Select three stories: at least one of each type, max two of each type;
       // sorted by date published, most recent first
-      this.cards = entries.blogPostingCollection.items
+      this.cards = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
         .slice(0, 3);
@@ -69,8 +69,8 @@
         let link;
         if (card['__typename'] === 'ExhibitionPage') {
           link = { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
-        } else if (card['__typename'] === 'BlogPosting') {
-          link = { name: 'blog-all', params: { pathMatch: card.identifier } };
+        } else if (card['__typename'] === 'Story') {
+          link = { name: 'stories-all', params: { pathMatch: card.identifier } };
         }
         return link;
       },
