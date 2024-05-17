@@ -1,4 +1,4 @@
-query BlogPostPage(
+query StoryPage(
   $identifier: String!,
   $locale: String!,
   $preview: Boolean = false
