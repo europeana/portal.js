@@ -18,7 +18,9 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <div v-else>
+    <div
+      v-else-if="post.identifier"
+    >
       <ContentWarningModal
         v-if="post.contentWarning"
         :title="post.contentWarning.name"
