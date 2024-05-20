@@ -1,9 +1,6 @@
-import md5 from 'md5';
-
 import EuropeanaApi from '../base.js';
 import search from './search.js';
 import EuropeanaDataApi from '../data.js';
-import EuropeanaMediaProxyApi from '../mediaProxy.js';
 
 export default class EuropeanaRecordApi extends EuropeanaApi {
   static ID = 'record';
@@ -46,23 +43,5 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       url: `${path}${europeanaId}.json`,
       params
     });
-  }
-
-  // TODO: move to mediaProxy.js
-  mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-    params.recordApiUrl = this.baseURL;
-
-    const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);
-
-    proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
-    if (proxyUrl.pathname.startsWith('//')) {
-      proxyUrl.pathname = proxyUrl.pathname.slice(1);
-    }
-
-    for (const name in params) {
-      proxyUrl.searchParams.append(name, params[name]);
-    }
-
-    return proxyUrl.toString();
   }
 }

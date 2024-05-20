@@ -166,7 +166,7 @@
     computed: {
       downloadUrl() {
         const url = (this.selectedCanvas || this.selectedMedia).about;
-        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
+        return this.downloadViaProxy(url) ? this.$apis.mediaProxy.url(url, this.identifier, { recordApiUrl: this.$apis.record.baseURL }) : url;
       },
       rightsStatementIsUrl() {
         return /^https?:\/\//.test(this.rightsStatement);

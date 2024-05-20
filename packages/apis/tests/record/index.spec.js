@@ -1,5 +1,4 @@
 import nock from 'nock';
-import md5 from 'md5';
 import EuropeanaRecordApi from '@/record/index.js';
 
 const europeanaId = '/123/abc';
@@ -89,35 +88,6 @@ describe('@/record/index.js', () => {
         await (new EuropeanaRecordApi).find(uris);
 
         expect(nock.isDone()).toBe(true);
-      });
-    });
-
-    describe('EuropeanaRecordApi().mediaProxyUrl()', () => {
-      const europeanaId = '/123/abc';
-      const mediaUrl = 'https://www.example.org/audio.ogg';
-
-      it('uses origin https://proxy.europeana.eu', () => {
-        const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
-
-        expect(proxyUrl.origin).toBe('https://proxy.europeana.eu');
-      });
-
-      it('uses europeanaId & web resource hash as path', () => {
-        const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
-
-        expect(proxyUrl.pathname).toBe(`/media${europeanaId}/${md5(mediaUrl)}`);
-      });
-
-      it('sets recordApiUrl query param', () => {
-        const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
-
-        expect(proxyUrl.searchParams.get('recordApiUrl')).toBe('https://api.europeana.eu/record');
-      });
-
-      it('sets additional params from final arg', () => {
-        const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
-
-        expect(proxyUrl.searchParams.get('disposition')).toBe('inline');
       });
     });
   });

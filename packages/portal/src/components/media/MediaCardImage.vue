@@ -96,7 +96,7 @@
 
     computed: {
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.mediaProxy.url(this.media.about, this.europeanaIdentifier, { disposition: 'inline', recordApiUrl: this.$apis.record.baseURL });
       },
       thumbnails() {
         return this.media.thumbnails(this.$nuxt.context);

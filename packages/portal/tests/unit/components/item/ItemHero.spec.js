@@ -34,9 +34,10 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, 
       dispatch: storeDispatch
     },
     $apis: {
-      record: {
-        mediaProxyUrl: (val) => `proxied - ${val}`
-      }
+      mediaProxy: {
+        url: (val) => `proxied - ${val}`
+      },
+      record: {}
     },
     $config: {
       europeana: {

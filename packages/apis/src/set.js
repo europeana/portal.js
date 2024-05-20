@@ -30,12 +30,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {string} the id of the set
    */
   getLikes(creator) {
-    // FIXME: use `request` from base class
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
-      .then((response) => response.items?.[0] || null)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+      .then((response) => response.items?.[0] || null);
   }
 
   /**

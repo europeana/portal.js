@@ -51,9 +51,10 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFVie
   i18n,
   mocks: {
     $apis: {
-      record: {
-        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
-      }
+      mediaProxy: {
+        url: (url, itemId) => `Proxy ${itemId} ${url}`
+      },
+      record: {}
     },
     $axios: axios,
     $t: key => key
