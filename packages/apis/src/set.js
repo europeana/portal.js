@@ -1,5 +1,4 @@
 import EuropeanaApi from './base.js';
-import EuropeanaDataApi from './data.js';
 
 export const EUROPEANA_SET_API_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_API_VISIBILITY_PUBLIC = 'public';
@@ -16,35 +15,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   /**
    * Search for user sets
    * @param {Object} params retrieval params to send to Set API search method
-   * @param {Object} options retrieval options
-   * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
-  async search(params, options = {}) {
-    const response = await this.request({
+  search(params) {
+    return this.request({
       method: 'get',
       url: '/search',
       params
     });
-
-    if (options.withMinimalItemPreviews && response.items) {
-      const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
-
-      const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
-        profile: 'minimal',
-        rows: params.perPage ? params.perPage : 100
-      });
-
-      for (const set of response.items) {
-        if (set.items) {
-          set.items = set.items.map((uri) => {
-            const itemId = uri.replace(EuropeanaDataApi.ITEM_URL_PREFIX, '');
-            return minimalItemPreviews.items.find((item) => item.id === itemId) || { id: itemId };
-          });
-        }
-      }
-    }
-
-    return response;
   }
 
   /**
@@ -53,6 +30,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {string} the id of the set
    */
   getLikes(creator) {
+    // FIXME: use `request` from base class
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
       .then((response) => response.items?.[0] || null)
       .catch(error => {

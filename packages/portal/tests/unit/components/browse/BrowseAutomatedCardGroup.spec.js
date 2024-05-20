@@ -24,6 +24,9 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
   propsData,
   mocks: {
     $apis: {
+      record: {
+        find: () => ([])
+      },
       thumbnail: {
         edmPreview: sinon.stub().returnsArg(0)
       },
@@ -201,42 +204,34 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
             id: 'http://data.europeana.eu/set/1',
             title: { en: 'gallery I' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/2',
             title: { en: 'gallery II' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/3',
             title: { en: 'gallery III' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/4',
             title: { en: 'gallery IV' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           }
         ]
       };
 
-      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+      it('fetches from the set API and stores response items in entries', async() => {
         const wrapper = factory(propsData);
         wrapper.vm.$apis.set.search.resolves(setResponse);
 
@@ -248,8 +243,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
             pageSize: 4,
             profile: 'standard',
             qf: 'lang:en'
-          },
-          { withMinimalItemPreviews: sinon.match.truthy }
+          }
         )).toBe(true);
         expect(wrapper.vm.entries).toEqual(setResponse.items);
       });

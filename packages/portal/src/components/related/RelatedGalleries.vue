@@ -29,8 +29,9 @@
 </template>
 
 <script>
-  import ContentCard from '../content/ContentCard';
   import { getLabelledSlug } from '@europeana/utils';
+  import ContentCard from '../content/ContentCard';
+  import { addMinimalItemPreviewsToSets } from '@/utils/europeana/set.js';
 
   export default {
     name: 'RelatedGalleries',
@@ -71,7 +72,8 @@
           profile: 'standard'
         };
 
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        const setResponse = await this.$apis.set.search(searchParams);
+        setResponse.items = await addMinimalItemPreviewsToSets(setResponse.items, this.$apis.record);
         this.relatedGalleries = setResponse.items ? this.parseSets(setResponse.items) : [];
 
         this.$emit('fetched', this.relatedGalleries);

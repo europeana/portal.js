@@ -23,6 +23,7 @@
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@europeana/utils';
+  import { addMinimalItemPreviewsToSets } from '@/utils/europeana/set.js';
   import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
@@ -222,7 +223,8 @@
           profile: 'standard',
           qf: `lang:${this.$i18n.locale}`
         };
-        const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
+        const response = await this.$apis.set.search(params);
+        response.items = await addMinimalItemPreviewsToSets(response.items, this.$apis.record);
         return response.items || [];
       },
       infoImageFromType(itemType) {

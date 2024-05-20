@@ -126,7 +126,7 @@ describe('components/related/RelatedGalleries', () => {
           pageSize: 3,
           page: 0,
           profile: 'standard'
-        }, { withMinimalItemPreviews: true })).toBe(true);
+        })).toBe(true);
       });
 
       it('emits fetched event with response', async() => {

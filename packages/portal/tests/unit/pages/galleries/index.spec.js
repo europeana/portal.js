@@ -101,10 +101,13 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   },
   mocks: {
     $apis: {
-      thumbnail: { edmPreview: (img) => `thumbnail ${img}` },
+      record: {
+        find: () => ([])
+      },
       set: {
         search: setAPIStub
-      }
+      },
+      thumbnail: { edmPreview: (img) => `thumbnail ${img}` }
     },
     $store: {
       state: {
@@ -172,8 +175,7 @@ describe('Gallery index page', () => {
           pageSize: 24,
           page: 0,
           profile: 'standard'
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
       expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
     });

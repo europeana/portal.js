@@ -35,6 +35,7 @@
 
 <script>
   import { getLabelledSlug } from '@europeana/utils';
+  import { addMinimalItemPreviewsToSets } from '@/utils/europeana/set.js';
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -65,7 +66,8 @@
         profile: 'standard'
       };
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const setResponse = await this.$apis.set.search(searchParams);
+      setResponse.items = await addMinimalItemPreviewsToSets(setResponse.items, this.$apis.record);
       this.galleries = setResponse.items && this.parseSets(setResponse.items);
       this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;
