@@ -63,11 +63,6 @@
       logEventMixin
     ],
 
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-
     data() {
       return {
         post: {}
@@ -88,21 +83,7 @@
           return this.$nuxt.context.redirect(302, '/stories');
         }
 
-        const post = data.storyCollection.items[0];
-
-        this.$store.commit('breadcrumb/setBreadcrumbs', [
-          {
-            // TODO: Add named language aware route for stories index
-            text: this.$i18n.t('storiesPage.title'),
-            to: '/stories'
-          },
-          {
-            text: post.name,
-            active: true
-          }
-        ]);
-
-        this.post = post;
+        this.post = data.storyCollection.items[0];
       } catch (e) {
         this.$error(e);
       }
