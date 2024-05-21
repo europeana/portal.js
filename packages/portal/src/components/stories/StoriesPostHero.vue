@@ -28,9 +28,6 @@
           >
             {{ description }}
           </p>
-          <p>
-            {{ `${hero.image.width} x ${hero.image.height}` }}
-          </p>
         </b-col>
       </header>
     </b-container>

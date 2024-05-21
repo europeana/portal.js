@@ -1,17 +1,19 @@
 <template>
   <div>
+    <AuthoredHead
+      v-if="useAuthoredHead"
+      :title="title"
+      :description="description"
+      :hero="hero"
+      :context-label="$tc('blog.posts', 1)"
+    />
     <StoriesPostHero
+      v-else
       :title="title"
       :hero="hero"
       :context-label="$tc('story')"
       :description="description"
     />
-    <!-- <AuthoredHead
-      :title="title"
-      :description="description"
-      :hero="hero"
-      :context-label="$tc('blog.posts', 1)"
-    /> -->
     <b-container
       class="footer-margin"
     >
@@ -95,7 +97,7 @@
     name: 'BlogPost',
 
     components: {
-      // AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       BlogAuthor: () => import('@/components/blog/BlogAuthor'),
       BrowseSections,
       ClientOnly,
@@ -158,6 +160,12 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        useAuthoredHead: this.hero.image.width < 800
+      };
     }
   };
 </script>
