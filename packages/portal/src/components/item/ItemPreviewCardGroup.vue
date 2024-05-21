@@ -223,14 +223,15 @@
       }
     },
 
-    async mounted() {
-      await this.redrawMasonry();
+    mounted() {
+      this.redrawMasonry();
       this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {
       endItemDrag() {
         this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
+        this.redrawMasonry();
       },
       itemHitSelector(item) {
         return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0] || null;
