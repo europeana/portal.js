@@ -228,29 +228,16 @@ describe('@/entity/index.js', () => {
           .reply(200, conceptEntitiesResponse);
       });
 
-      describe('with a Concept entity', () => {
-        const eParams = {
-          query: '*:*',
-          page: 1,
-          type: 'topic',
-          pageSize: 2,
-          scope: 'europeana'
-        };
+      it('queries the entity API', async() => {
+        await (new EuropeanaEntityApi).search();
 
-        it('returns a list of concept entities', async() => {
-          const response = await (new EuropeanaEntityApi).search(eParams, 'topic');
-          expect(response.entities.length).toBe(conceptEntitiesResponse.items.length);
-        });
+        expect(nock.isDone()).toBe(true);
+      });
 
-        it('returns the total number of entities', async() => {
-          const response = await (new EuropeanaEntityApi).search(eParams, 'topic');
-          expect(response.total).toBe(conceptEntitiesResponse.partOf.total);
-        });
+      it('returns the response data', async() => {
+        const response = await (new EuropeanaEntityApi).search();
 
-        it('returns a thumbnail for each entity', async() => {
-          const response = await (new EuropeanaEntityApi).search(eParams, 'topic');
-          expect(response.entities[0].isShownBy.thumbnail).toBe(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
-        });
+        expect(response).toEqual(conceptEntitiesResponse);
       });
     });
   });

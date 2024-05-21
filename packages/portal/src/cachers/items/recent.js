@@ -6,9 +6,9 @@ const PICK = ['dataProvider', 'dcCreatorLangAware', 'dcTitleLangAware', 'edmPrev
 const LOCALISE = false;
 
 import dateFormat from 'dateformat';
-import { createEuropeanaApiClient } from '../utils.js';
+import { EuropeanaRecordApi } from '@europeana/apis';
 
-let axiosClient;
+let europeanaRecordApi;
 let randomSortSeed;
 
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
@@ -18,16 +18,14 @@ const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
     query = `NOT edm_datasetName:(${excludedDatasets})`;
   }
 
-  const response = await axiosClient.get('/search.json', {
-    params: {
-      profile: 'standard',
-      query,
-      qf: 'contentTier:4',
-      rows: 1,
-      sort: 'timestamp_update+desc'
-    }
+  const response = await europeanaRecordApi.search({
+    profile: 'standard',
+    query,
+    qf: 'contentTier:4',
+    rows: 1,
+    sort: 'timestamp_update+desc'
   });
-  return response.data.items?.[0]?.edmDatasetName;
+  return response.items?.[0]?.edmDatasetName;
 };
 
 const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
@@ -39,8 +37,8 @@ const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
     rows: 1,
     sort: `timestamp_update+desc,random_${randomSortSeed}+asc`
   };
-  const response = await axiosClient.get('/search.json', { params });
-  return response.data.items[0];
+  const response = await europeanaRecordApi.search(params);
+  return response.items[0];
 };
 
 const recentlyUpdatedContentTier4Items = async() => {
@@ -63,8 +61,8 @@ const recentlyUpdatedContentTier4Items = async() => {
   return items;
 };
 
-const data = (config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
+const data = () => {
+  europeanaRecordApi = new EuropeanaRecordApi;
   randomSortSeed = dateFormat(new Date(), 'isoDate');
 
   return recentlyUpdatedContentTier4Items();

@@ -1,3 +1,8 @@
+import pick from 'lodash/pick.js';
+
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
+import { truncate } from '@europeana/utils';
+
 /**
  * Apply content tier filtering to the qf param.
  * If not present will filter to tier 1-4 content.
@@ -95,4 +100,38 @@ export function rangeFromQueryParam(paramValue) {
 
 export const hasFilterForField = (filters, fieldName) => {
   return filters.some((filter) => filter.startsWith(`${fieldName}:`));
+};
+
+/**
+ * Pick fields we need for search result display, in the absence of support
+ * for specifying fields to request from the API.
+ */
+export const reduceFieldsForSearchResult = (item, locale, fields) => {
+  fields = fields || [
+    'dataProvider',
+    'dcCreatorLangAware',
+    'dcDescriptionLangAware',
+    'dcTitleLangAware',
+    'edmPreview',
+    'id',
+    'type',
+    'rights'
+  ];
+  item = pick(item, fields);
+
+  // Reduce lang maps to values needed for user's locale.
+  item = reduceLangMapsForLocale(item, locale, { freeze: false });
+
+  // Truncate lang map values
+  for (const field in item) {
+    if (isLangMap(item[field])) {
+      for (const locale in item[field]) {
+        item[field][locale] = []
+          .concat(item[field][locale])
+          .map(value => truncate(value, 256));
+      }
+    }
+  }
+
+  return Object.freeze(item);
 };

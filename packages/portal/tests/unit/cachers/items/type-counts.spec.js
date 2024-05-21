@@ -19,20 +19,13 @@ const apiResponse = {
 
 const dataToCache = fields;
 
-const config = {
-  europeana: {
-    apis: {
-      record: {
-        url: 'https://api.example.org/record',
-        key: 'recordApiKey'
-      }
-    }
-  }
-};
-
 describe('cachers/items/type-counts', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+
   beforeEach(() => {
-    nock(config.europeana.apis.record.url)
+    nock('https://api.europeana.eu/record')
       .get('/search.json')
       .query(query => (
         query.profile === 'facets' &&
@@ -48,15 +41,19 @@ describe('cachers/items/type-counts', () => {
     nock.cleanAll();
   });
 
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
+
   describe('.data', () => {
     it('queries Record API for facets', async() => {
-      await cacher.data(config);
+      await cacher.data();
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns count metadata', async() => {
-      const data = await cacher.data(config);
+      const data = await cacher.data();
 
       expect(data).toEqual(dataToCache);
     });

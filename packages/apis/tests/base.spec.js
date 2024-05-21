@@ -1,7 +1,6 @@
 import nock from 'nock';
 
 import EuropeanaApi from '@/base.js';
-import EuropeanaApiEnvConfig from '@/config/env.js';
 
 class EuropeanaTestApi extends EuropeanaApi {
   static ID = 'test';
@@ -26,124 +25,46 @@ describe('@/base.js', () => {
         envWas = { ...process.env };
       });
       afterEach(() => {
-        delete process.client;
-        delete process.server;
         for (const key in process.env) {
           if (key.startsWith('EUROPEANA_')) {
             delete process.env[key];
           }
         }
-        req = { headers: {} };
       });
       afterAll(() => {
         process.env = { ...envWas };
       });
 
-      let req = { headers: {} };
-      let scope;
-
       const urls = {
         default: EuropeanaTestApi.BASE_URL,
         env: 'https://env.example.org/',
-        httpHeader: 'https://httpHeader.example.org/'
+        arg: 'https://arg.example.org/'
       };
 
-      const envStates = {
-        set: () => process.env.EUROPEANA_TEST_API_URL = urls.env,
-        unset: () => {}
-      };
+      it('first uses url from config arg', () => {
+        process.env.EUROPEANA_TEST_API_URL = urls.env;
+        const api = new EuropeanaTestApi({ url: urls.arg });
 
-      const httpHeaderStates = {
-        set: () => req.headers['x-europeana-test-api-url'] = urls.httpHeader,
-        unset: () => {}
-      };
+        const url = api.baseURL;
 
-      const requestTypes = {
-        'client-side': () => scope = 'public',
-        'server-side': () => scope = 'private'
-      };
-
-      const scenarios = [
-        { env: 'unset', httpHeader: 'unset', requestType: 'server-side', url: 'default' },
-        { env: 'unset', httpHeader: 'unset', requestType: 'client-side', url: 'default' },
-        { env: 'unset', httpHeader: 'set', requestType: 'server-side', url: 'httpHeader' },
-        { env: 'unset', httpHeader: 'set', requestType: 'client-side', url: 'httpHeader' },
-        { env: 'unset', httpHeader: 'unset', requestType: 'client-side', url: 'default' },
-        { env: 'unset', httpHeader: 'set', requestType: 'server-side', url: 'httpHeader' },
-        { env: 'unset', httpHeader: 'set', requestType: 'client-side', url: 'httpHeader' },
-        { env: 'set', httpHeader: 'unset', requestType: 'server-side', url: 'env' },
-        { env: 'set', httpHeader: 'unset', requestType: 'client-side', url: 'env' },
-        { env: 'set', httpHeader: 'set', requestType: 'server-side', url: 'httpHeader' },
-        { env: 'set', httpHeader: 'set', requestType: 'client-side', url: 'httpHeader' },
-        { env: 'set', httpHeader: 'unset', requestType: 'client-side', url: 'env' },
-        { env: 'set', httpHeader: 'set', requestType: 'server-side', url: 'httpHeader' },
-        { env: 'set', httpHeader: 'set', requestType: 'client-side', url: 'httpHeader' }
-      ];
-
-      for (const envState in envStates) {
-        describe(`and public env var URL is ${envState}`, () => {
-          for (const httpHeaderState in httpHeaderStates) {
-            describe(`and custom HTTP header URL is ${httpHeaderState}`, () => {
-              for (const requestType in requestTypes) {
-                describe(`and request type is ${requestType}`, () => {
-                  const scenario = scenarios.find((s) => {
-                    return (s.env === envState) &&
-                      (s.httpHeader === httpHeaderState) &&
-                      (s.requestType === requestType);
-                  });
-
-                  it(`uses ${scenario?.url} URL source`, () => {
-                    envStates[envState]();
-                    httpHeaderStates[httpHeaderState]();
-                    requestTypes[requestType]();
-
-                    const envConfig = new EuropeanaApiEnvConfig('test', scope);
-                    const context = {
-                      $config: {
-                        europeana: {
-                          apis: {
-                            test: envConfig
-                          }
-                        }
-                      },
-                      req
-                    };
-                    const api = new EuropeanaTestApi(context);
-
-                    expect(api.baseURL).toBe(urls[scenario.url]);
-                  });
-                });
-              }
-            });
-          }
-        });
-      }
-    });
-
-    describe('createAxios', () => {
-      it('uses app.$axiosLogger from context as request interceptor', () => {
-        const $axiosLogger = (requestConfig) => requestConfig;
-        const context = {
-          app: { $axiosLogger }
-        };
-        const axiosInstance = (new EuropeanaApi(context)).createAxios({}, context);
-
-        expect(axiosInstance.interceptors.request.handlers.some((handler) => {
-          return handler.fulfilled === $axiosLogger;
-        })).toBe(true);
+        expect(url).toBe(urls.arg);
       });
-    });
 
-    describe('rewriteAxiosRequestUrl', () => {
-      it('favours urlRewrite from config for request baseURL', () => {
-        const urlRewrite = 'http://rewrite.internal/';
-        const requestConfig = {};
-        const api = new EuropeanaApi;
-        api.config = { urlRewrite };
+      it('second uses url from env', () => {
+        process.env.EUROPEANA_TEST_API_URL = urls.env;
+        const api = new EuropeanaTestApi();
 
-        api.rewriteAxiosRequestUrl(requestConfig);
+        const url = api.baseURL;
 
-        expect(requestConfig.baseURL).toEqual(urlRewrite);
+        expect(url).toBe(urls.env);
+      });
+
+      it('third uses default url from class', () => {
+        const api = new EuropeanaTestApi();
+
+        const url = api.baseURL;
+
+        expect(url).toBe(urls.default);
       });
     });
 

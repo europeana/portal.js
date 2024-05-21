@@ -2,10 +2,7 @@
  * @file Interface to Europeana Record API search method
  */
 
-import pick from 'lodash/pick.js';
-
-import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
-import { escapeLuceneSpecials, truncate } from '@europeana/utils';
+import { escapeLuceneSpecials } from '@europeana/utils';
 
 /**
  * Search Europeana Record API
@@ -15,15 +12,11 @@ import { escapeLuceneSpecials, truncate } from '@europeana/utils';
  * @param {string} params.query search query, defaults to *:*
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @param {string} options.locale current locale, for localising search results
  * @param {string} options.url override the API URL
  * @return {{items: Object[], totalResults: number, facets: Array, lastAvailablePage: number}} search results for display
  */
 export default function search(params, options = {}) {
   const localParams = { ...params };
-
-  const defaultOptions = { locale: this.context?.i18n?.locale };
-  const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
   const perPage = localParams.rows === undefined ? 24 : Number(localParams.rows);
@@ -49,45 +42,6 @@ export default function search(params, options = {}) {
   })
     .then((data) => ({
       ...data,
-      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions.locale)),
       lastAvailablePage: start + perPage > maxResults
     }));
 }
-
-// TODO: this should be the responsibility of the caller; move to a utility
-//       function for callers to run after, when needed; alternatively,
-//       add a `pick` option to `search()`
-/**
- * Pick fields we need for search result display, in the absence of support
- * for specifying fields to request from the API.
- */
-const reduceFieldsForItem = (item, locale) => {
-  item = pick(item,
-    [
-      'dataProvider',
-      'dcCreatorLangAware',
-      'dcDescriptionLangAware',
-      'dcTitleLangAware',
-      'edmPreview',
-      'id',
-      'type',
-      'rights'
-    ]
-  );
-
-  // Reduce lang maps to values needed for user's locale.
-  item = reduceLangMapsForLocale(item, locale, { freeze: false });
-
-  // Truncate lang map values
-  for (const field in item) {
-    if (isLangMap(item[field])) {
-      for (const locale in item[field]) {
-        item[field][locale] = []
-          .concat(item[field][locale])
-          .map(value => truncate(value, 256));
-      }
-    }
-  }
-
-  return Object.freeze(item);
-};

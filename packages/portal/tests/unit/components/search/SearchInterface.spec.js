@@ -13,9 +13,9 @@ const searchResult = {
   items: [
     {
       id: '/123/abc',
-      dcTitle: { def: ['Record 123/abc'] },
+      dcTitleLangAware: { def: ['Record 123/abc'] },
       edmPreview: 'https://www.example.org/abc.jpg',
-      edmDataProvider: ['Provider 123']
+      dataProvider: ['Provider 123']
     }
   ]
 };

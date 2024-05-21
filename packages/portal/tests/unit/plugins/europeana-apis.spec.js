@@ -16,47 +16,41 @@ const API_IDS = [
   'thumbnail'
 ];
 
+const injectSpy = sinon.spy();
+const storeRegisterModuleSpy = sinon.spy();
+
+const registerPlugin = ({ context = {}, inject = injectSpy } = {}) => {
+  return plugin.default({
+    app: {},
+    store: {
+      registerModule: storeRegisterModuleSpy
+    },
+    ...context
+  }, inject);
+};
+
 describe('plugins/europeana-apis', () => {
   afterEach(sinon.resetHistory);
 
   describe('default export', () => {
     it('registers the store module', () => {
-      const context = {
-        store: {
-          registerModule: sinon.spy()
-        }
-      };
-      const inject = () => {};
+      registerPlugin();
 
-      plugin.default(context, inject);
-
-      expect(context.store.registerModule.calledWith('apis', plugin.storeModule)).toBe(true);
+      expect(storeRegisterModuleSpy.calledWith('apis', plugin.storeModule)).toBe(true);
     });
 
     it('injects the plugin', () => {
-      const context = {
-        store: {
-          registerModule: () => {}
-        }
-      };
-      const inject = sinon.spy();
+      registerPlugin();
 
-      plugin.default(context, inject);
-
-      expect(inject.calledWith('apis', sinon.match.object)).toBe(true);
+      expect(injectSpy.calledWith('apis', sinon.match.object)).toBe(true);
     });
 
     for (const id of API_IDS) {
       it(`exposes the ${id} API`, () => {
         let $apis;
-        const context = {
-          store: {
-            registerModule: () => {}
-          }
-        };
         const inject = (name, injected) => $apis = injected;
 
-        plugin.default(context, inject);
+        registerPlugin({ inject });
 
         expect(Object.keys($apis).includes(id)).toBe(true);
       });
@@ -75,7 +69,7 @@ describe('plugins/europeana-apis', () => {
             }
           };
           const inject = (name, injected) => $apis = injected;
-          plugin.default(context, inject);
+          registerPlugin({ context, inject });
 
           const storeState = storeModule.state();
           const headers = {
@@ -93,32 +87,32 @@ describe('plugins/europeana-apis', () => {
       });
     });
   });
-
-  describe('nuxtRuntimeConfig', () => {
-    let envWas;
-    beforeAll(() => {
-      envWas = { ...process.env };
-    });
-    afterEach(() => {
-      plugin.resetRuntimeConfig({ scope: 'public' });
-      plugin.resetRuntimeConfig({ scope: 'private' });
-      for (const key in process.env) {
-        if (key.startsWith('EUROPEANA_')) {
-          delete process.env[key];
-        }
-      }
-    });
-    afterAll(() => {
-      process.env = { ...envWas };
-    });
-
-    for (const id of API_IDS) {
-      it(`includes env config for ${id} API`, () => {
-        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig();
-
-        expect(Object.keys(nuxtRuntimeConfig).includes(id)).toBe(true);
-        expect(nuxtRuntimeConfig[id].constructor.name).toBe('EuropeanaApiEnvConfig');
-      });
-    }
-  });
 });
+
+// formerly on @europeana/apis/src/base; rewrite
+// describe('createAxios', () => {
+//   it('uses app.$axiosLogger from context as request interceptor', () => {
+//     const $axiosLogger = (requestConfig) => requestConfig;
+//     const context = {
+//       app: { $axiosLogger }
+//     };
+//     const axiosInstance = (new EuropeanaApi(context)).createAxios({}, context);
+//
+//     expect(axiosInstance.interceptors.request.handlers.some((handler) => {
+//       return handler.fulfilled === $axiosLogger;
+//     })).toBe(true);
+//   });
+// });
+//
+// describe('rewriteAxiosRequestUrl', () => {
+//   it('favours urlRewrite from config for request baseURL', () => {
+//     const urlRewrite = 'http://rewrite.internal/';
+//     const requestConfig = {};
+//     const api = new EuropeanaApi;
+//     api.config = { urlRewrite };
+//
+//     api.rewriteAxiosRequestUrl(requestConfig);
+//
+//     expect(requestConfig.baseURL).toEqual(urlRewrite);
+//   });
+// });

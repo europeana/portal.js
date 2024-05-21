@@ -1,7 +1,8 @@
 import {
   addContentTierFilter,
   rangeToQueryParam,
-  rangeFromQueryParam
+  rangeFromQueryParam,
+  reduceFieldsForSearchResult
 } from '@/utils/europeana/search.js';
 
 describe('@utils/europeana/search.js', () => {
@@ -130,6 +131,55 @@ describe('@utils/europeana/search.js', () => {
         const expected = { start: '"START"', end: '\'END\'' };
         expect(rangeFromQueryParam('["START" TO \'END\']')).toEqual(expected);
       });
+    });
+  });
+
+  describe('reduceFieldsForSearchResult', () => {
+    const bloatedResponse = {
+      id: '/123/abc',
+      type: 'IMAGE',
+      dataProvider: ['Europeana Foundation'],
+      title: ['A painting', 'Een schilderij'],
+      dcTitleLangAware: {
+        en: ['A painting'],
+        nl: ['Een schilderij']
+      },
+      dcDescription: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting.'],
+      dcDescriptionLangAware: {
+        en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting.']
+      },
+      dcCreatorLangAware: {
+        en: ['An artist']
+      },
+      edmPreview: ['https://example.org/thumbnail/123/abc.jpeg']
+    };
+
+    it('preserves required non-LangMap fields', () => {
+      const item = reduceFieldsForSearchResult(bloatedResponse, 'en');
+
+      expect(item.id).toBe('/123/abc');
+      expect(item.type).toBe('IMAGE');
+      expect(item.dataProvider).toEqual(['Europeana Foundation']);
+      expect(item.edmPreview).toEqual(['https://example.org/thumbnail/123/abc.jpeg']);
+    });
+
+    it('removes irrelevant LangMap locales', async() => {
+      const item = reduceFieldsForSearchResult(bloatedResponse, 'en');
+
+      expect(item.dcTitleLangAware).toEqual({ en: ['A painting'] });
+    });
+
+    it('truncates long LangMap values', async() => {
+      const item = reduceFieldsForSearchResult(bloatedResponse, 'en');
+
+      expect(item.dcDescriptionLangAware).toEqual({ en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this …'] });
+    });
+
+    it('removes irrelevant fields', async() => {
+      const item = reduceFieldsForSearchResult(bloatedResponse, 'en');
+
+      expect(item.title === undefined).toBe(true);
+      expect(item.dcDescription === undefined).toBe(true);
     });
   });
 });

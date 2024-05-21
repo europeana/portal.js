@@ -172,7 +172,7 @@
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
-  import { addContentTierFilter, filtersFromQf } from '@/utils/europeana/search.js';
+  import { addContentTierFilter, filtersFromQf, reduceFieldsForSearchResult } from '@/utils/europeana/search.js';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
@@ -474,7 +474,7 @@
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
-        this.results = response.items;
+        this.results = response.items.map((item) => reduceFieldsForSearchResult(item, this.$i18n.locale));
         this.totalResults = response.totalResults;
 
         if (process.server || this.$store.state.search.loggableInteraction) {

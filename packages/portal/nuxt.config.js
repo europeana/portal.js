@@ -15,10 +15,6 @@ import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import {
-  nuxtRuntimeConfig as europeanaApisRuntimeConfig
-} from './src/plugins/europeana-apis.js';
-
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
@@ -125,9 +121,6 @@ export default {
         serviceVersion: versions[APP_PKG_NAME]
       }
     },
-    europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'public' })
-    },
     features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -169,9 +162,6 @@ export default {
           'kube-probe/'
         ]
       }
-    },
-    europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'private' })
     },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
@@ -471,6 +461,7 @@ export default {
     // same with some of our custom packages
     transpile: [
       'dom7',
+      '@europeana/apis',
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',

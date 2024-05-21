@@ -1,9 +1,9 @@
 const LOCALISE = false;
 const PICK = false;
 
-import { createEuropeanaApiClient } from '../utils.js';
+import { EuropeanaRecordApi } from '@europeana/apis';
 
-let axiosClient;
+let europeanaRecordApi;
 
 const facetsForMediaTypes = async() => {
   const query = '*:*';
@@ -14,12 +14,12 @@ const facetsForMediaTypes = async() => {
     qf: 'contentTier:(1 OR 2 OR 3 OR 4)',
     rows: 0
   };
-  const response = await axiosClient.get('/search.json', { params });
-  return response.data?.facets?.[0]?.fields || [];
+  const response = await europeanaRecordApi.search(params);
+  return response.facets?.[0]?.fields || [];
 };
 
-const data = (config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
+const data = () => {
+  europeanaRecordApi = new EuropeanaRecordApi;
 
   return facetsForMediaTypes();
 };

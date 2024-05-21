@@ -23,7 +23,7 @@ const apiResponse = {
         isShownBy: 'http://www.example.eu'
       }
     ],
-    next: 'https://api.example.org/entity/search?wskey=entityApiKey&query=*:*&scope=europeana&sort=id&pageSize=100&type=timespan&page=2'
+    next: 'https://api.europeana.eu/entity/search?wskey=entityApiKey&query=*:*&scope=europeana&sort=id&pageSize=100&type=timespan&page=2'
   },
   pageTwo: {
     items: [
@@ -69,42 +69,39 @@ const params = {
   type: ENTITY_TYPE
 };
 
-const config = {
-  europeana: {
-    apis: {
-      entity: {
-        url: 'https://api.example.org/entity',
-        key: 'entityApiKey'
-      }
-    }
-  }
-};
-
 describe('cachers/collections/index', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });
 
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
+
   describe('default export', () => {
     beforeEach(() => {
-      nock(config.europeana.apis.entity.url)
+      nock('https://api.europeana.eu/entity')
         .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
         .reply(200, apiResponse.pageOne);
-      nock(config.europeana.apis.entity.url)
+      nock('https://api.europeana.eu/entity')
         .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
         .reply(200, apiResponse.pageTwo);
     });
 
     it('paginates over data via `next` in response', async() => {
-      await cacher(params, config);
+      await cacher(params);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns all data to cache, with slugs', async() => {
-      const data = await cacher(params, config);
+      const data = await cacher(params);
 
       expect(data).toEqual(dataToCache);
     });
@@ -118,20 +115,20 @@ describe('cachers/collections/index', () => {
     };
 
     beforeEach(() => {
-      nock(config.europeana.apis.entity.url)
+      nock('https://api.europeana.eu/entity')
         .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.pageSize === '0' && query.query === '*:*')
         .reply(200, countResponse);
     });
 
     it('fetches the count from the Entity API', async() => {
-      await countEntities(params, config);
+      await countEntities(params);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns the entity total, to cache', async() => {
-      const data = await countEntities(params, config);
+      const data = await countEntities(params);
 
       expect(data).toBe(countResponse.partOf.total);
     });

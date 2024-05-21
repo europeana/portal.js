@@ -6,8 +6,8 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
   static ID = 'thumbnail';
   static BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
-  constructor(context) {
-    super(context);
+  constructor(...args) {
+    super(...args);
     if (!this.baseURL.endsWith('/v3')) {
       throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
     }

@@ -1,8 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { keycloakResponseErrorHandler } from './utils/auth.js';
-import EuropeanaApiContextConfig from './config/context.js';
+import EuropeanaApiEnvConfig from './config/env.js';
 
 export default class EuropeanaApi {
   static ID;
@@ -13,16 +12,15 @@ export default class EuropeanaApi {
   static BASE_URL = 'https://api.europeana.eu/';
   #axios;
 
-  constructor(context) {
-    this.context = context;
-    this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
+  constructor(config = {}) {
+    this.config = {
+      ...(new EuropeanaApiEnvConfig(this.constructor.ID)),
+      ...config
+    };
   }
 
   get axios() {
-    if (!this.#axios) {
-      this.#axios = this.createAxios();
-    }
-    return this.#axios;
+    return this.#axios || this.createAxios();
   }
 
   get baseURL() {
@@ -55,22 +53,9 @@ export default class EuropeanaApi {
     return error;
   }
 
-  createAxios() {
-    const axiosBase = (this.constructor.AUTHORISING && this.context?.$axios) ? this.context?.$axios : axios;
-    const axiosInstance = axiosBase.create(this.axiosInstanceOptions);
-
-    axiosInstance.interceptors.request.use(this.rewriteAxiosRequestUrl.bind(this));
-
-    const app = this.context?.app;
-    if (app?.$axiosLogger) {
-      axiosInstance.interceptors.request.use(app.$axiosLogger);
-    }
-
-    if (this.constructor.AUTHORISING && (typeof axiosInstance.onResponseError === 'function')) {
-      axiosInstance.onResponseError(error => keycloakResponseErrorHandler(this.context, error));
-    }
-
-    return axiosInstance;
+  createAxios(axiosBase = axios) {
+    this.#axios = axiosBase.create(this.axiosInstanceOptions);
+    return this.#axios;
   }
 
   request(config) {
@@ -79,13 +64,6 @@ export default class EuropeanaApi {
       .catch((error) => {
         throw this.apiError(error);
       });
-  }
-
-  rewriteAxiosRequestUrl(requestConfig) {
-    if (this.config.urlRewrite) {
-      requestConfig.baseURL = this.config.urlRewrite;
-    }
-    return requestConfig;
   }
 
   get axiosInstanceOptions() {
@@ -100,6 +78,7 @@ export default class EuropeanaApi {
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
+      // TODO: make env-configurable
       timeout: 10000
     };
   }

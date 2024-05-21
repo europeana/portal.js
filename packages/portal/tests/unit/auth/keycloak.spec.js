@@ -1,4 +1,4 @@
-import { keycloakResponseErrorHandler } from '@/utils/auth.js';
+import { keycloakResponseErrorHandler } from '@/auth/keycloak.js';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';
@@ -41,7 +41,7 @@ const mockError = (status = 401) => ({
   }
 });
 
-describe('@/utils/auth.js', () => {
+describe('@/auth/keycloak.js', () => {
   describe('keycloakResponseErrorHandler', () => {
     describe('when response status is 401', () => {
       describe('and the user has a refresh token', () => {

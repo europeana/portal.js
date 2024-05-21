@@ -5,7 +5,7 @@ import EuropeanaSetApi from '@/set.js';
 
 const setId = '1234';
 const itemId = '/123/abc';
-const $config = { europeana: { apis: { set: { key: 'apikey' } } } };
+const config = { key: 'apikey' };
 const likesResponse = {
   '@context': 'http://www.europeana.eu/schemas/context/collection.jsonld',
   id: 'http://data.europeana.eu/set/1234',
@@ -47,7 +47,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200, setGetResponse);
 
-        const response = await (new EuropeanaSetApi({ $config })).get(setId);
+        const response = await (new EuropeanaSetApi(config)).get(setId);
         expect(response.items).toEqual(['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def']);
       });
 
@@ -57,7 +57,7 @@ describe('@/set.js', () => {
           .query(query => query.wskey === 'apikey')
           .reply(200, setGetResponse);
 
-        await (new EuropeanaSetApi({ $config })).get(setId);
+        await (new EuropeanaSetApi(config)).get(setId);
         expect(nock.isDone()).toBe(true);
       });
     });
@@ -74,7 +74,7 @@ describe('@/set.js', () => {
           .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
           .reply(200, searchResponse);
 
-        const response = await (new EuropeanaSetApi({ $config })).getLikes('auth-user-sub');
+        const response = await (new EuropeanaSetApi(config)).getLikes('auth-user-sub');
         expect(response).toBe('http://data.europeana.eu/set/163');
       });
     });
@@ -86,7 +86,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200, likesResponse);
 
-        const response = await (new EuropeanaSetApi({ $config })).createLikes();
+        const response = await (new EuropeanaSetApi(config)).createLikes();
         expect(response.id).toBe('http://data.europeana.eu/set/1234');
       });
     });
@@ -97,7 +97,7 @@ describe('@/set.js', () => {
           .put(`/${setId}${itemId}`)
           .query(true)
           .reply(200, likesResponse);
-        const response =  await (new EuropeanaSetApi({ $config })).modifyItems('add', setId, itemId);
+        const response =  await (new EuropeanaSetApi(config)).modifyItems('add', setId, itemId);
         expect(response.id).toBe('http://data.europeana.eu/set/1234');
       });
     });
@@ -109,7 +109,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(204);
 
-        await (new EuropeanaSetApi({ $config })).delete(setId);
+        await (new EuropeanaSetApi(config)).delete(setId);
         expect(nock.isDone()).toBe(true);
       });
     });
@@ -122,7 +122,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config })).update(setId, body);
+        await (new EuropeanaSetApi(config)).update(setId, body);
         expect(nock.isDone()).toBe(true);
       });
 
@@ -134,7 +134,7 @@ describe('@/set.js', () => {
           .query(query => query.profile === params.profile)
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config })).update(setId, body, params);
+        await (new EuropeanaSetApi(config)).update(setId, body, params);
         expect(nock.isDone()).toBe(true);
       });
     });
@@ -146,7 +146,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config })).publish(setId);
+        await (new EuropeanaSetApi(config)).publish(setId);
         expect(nock.isDone()).toBe(true);
       });
     });
@@ -158,7 +158,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config })).unpublish(setId);
+        await (new EuropeanaSetApi(config)).unpublish(setId);
         expect(nock.isDone()).toBe(true);
       });
     });
@@ -178,7 +178,7 @@ describe('@/set.js', () => {
           .query(true)
           .reply(200, 'response');
 
-        const response = await (new EuropeanaSetApi({ $config })).search(searchParams);
+        const response = await (new EuropeanaSetApi(config)).search(searchParams);
 
         expect(response).toEqual('response');
       });

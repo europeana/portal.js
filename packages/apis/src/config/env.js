@@ -1,13 +1,11 @@
 import snakeCase from 'lodash/snakeCase.js';
 
 export default class EuropeanaApiEnvConfig {
-  constructor(id, scope) {
+  constructor(id) {
     this.id = id;
-    this.scope = scope;
 
     this.key = this.keyFromEnv;
     this.url = this.urlFromEnv;
-    this.urlRewrite = this.urlRewriteFromEnv;
   }
 
   env(prop, { shared = false } = {}) {
@@ -26,23 +24,11 @@ export default class EuropeanaApiEnvConfig {
     return this.env('url', { shared: false });
   }
 
-  get urlRewriteFromEnv() {
-    let urlRewriteFromEnv;
-
-    if (this.scope === 'private') {
-      urlRewriteFromEnv = this.env('urlPrivate', { shared: false });
-    }
-
-    return urlRewriteFromEnv;
-  }
-
   toJSON() {
     return JSON.stringify({
       key: this.key,
       id: this.id,
-      scope: this.scope,
-      url: this.url,
-      urlRewrite: this.urlRewrite
+      url: this.url
     });
   }
 }
