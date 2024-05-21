@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { addContentTierFilter } from '@/plugins/europeana/search';
+  import { addContentTierFilter, reduceFieldsForSearchResult } from '@/utils/europeana/search.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloakMixin from '@/mixins/keycloak';
@@ -112,7 +112,7 @@
         this.similarItemsAlgorithm = PORTAL_ALGORITHM;
       }
 
-      this.items = response.items;
+      this.items = response.items.map((item) => reduceFieldsForSearchResult(item, this.$i18n.locale));
     },
 
     computed: {

@@ -11,11 +11,6 @@ const factory = (options = {}) => mount(SearchResultsContext, {
   propsData: options.propsData,
   mocks: {
     $config: { app: { search: { translateLocales: 'es', ...options.searchConfig } } },
-    $apis: {
-      entity: {
-        imageUrl: (entity) => entity.logo || entity.isShownBy
-      }
-    },
     $auth: {
       loggedIn: false,
       ...options.auth
@@ -50,12 +45,16 @@ const fixtures = {
   organisationEntity: {
     id: 'http://data.europeana.eu/organization/123',
     prefLabel: { en: 'Organisation' },
-    logo: 'organisation logo'
+    logo: {
+      id: 'organisation logo'
+    }
   },
   thematicCollectionTopicEntity: {
     id: 'http://data.europeana.eu/concept/190',
     prefLabel: { en: 'Art' },
-    isShownBy: 'topic isShownBy'
+    isShownBy: {
+      thumbnail: 'topic isShownBy'
+    }
   }
 };
 

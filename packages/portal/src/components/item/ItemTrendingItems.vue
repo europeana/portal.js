@@ -22,7 +22,7 @@
 
 <script>
   import axios from 'axios';
-  import { recordIdFromUrl } from '@/plugins/europeana/record.js';
+  import { recordIdFromUrl } from '@/utils/europeana/record.js';
   import ItemPreviewCardMosaic from '@/components/item/ItemPreviewCardMosaic';
 
   export default {

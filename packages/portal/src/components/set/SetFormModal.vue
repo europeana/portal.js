@@ -98,10 +98,10 @@
 
 <script>
   import {
-    EUROPEANA_SET_VISIBILITY_PRIVATE,
-    EUROPEANA_SET_VISIBILITY_PUBLIC,
-    EUROPEANA_SET_VISIBILITY_PUBLISHED
-  } from '@/plugins/europeana/set';
+    EUROPEANA_SET_API_VISIBILITY_PRIVATE,
+    EUROPEANA_SET_API_VISIBILITY_PUBLIC,
+    EUROPEANA_SET_API_VISIBILITY_PUBLISHED
+  } from '@europeana/apis';
 
   export default {
     name: 'SetFormModal',
@@ -143,7 +143,7 @@
 
       visibility: {
         type: String,
-        default: EUROPEANA_SET_VISIBILITY_PUBLIC
+        default: EUROPEANA_SET_API_VISIBILITY_PUBLIC
       },
 
       type: {
@@ -191,11 +191,11 @@
 
       visibilityValue() {
         if (this.isPrivate) {
-          return EUROPEANA_SET_VISIBILITY_PRIVATE;
-        } else if (this.visibility === EUROPEANA_SET_VISIBILITY_PUBLISHED) {
-          return EUROPEANA_SET_VISIBILITY_PUBLISHED;
+          return EUROPEANA_SET_API_VISIBILITY_PRIVATE;
+        } else if (this.visibility === EUROPEANA_SET_API_VISIBILITY_PUBLISHED) {
+          return EUROPEANA_SET_API_VISIBILITY_PUBLISHED;
         } else {
-          return EUROPEANA_SET_VISIBILITY_PUBLIC;
+          return EUROPEANA_SET_API_VISIBILITY_PUBLIC;
         }
       },
 
@@ -232,7 +232,7 @@
       init() {
         this.titleValue = this.title?.[this.$i18n.locale];
         this.descriptionValue = this.description?.[this.$i18n.locale];
-        this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
+        this.isPrivate = this.visibility === EUROPEANA_SET_API_VISIBILITY_PRIVATE;
       },
 
       // TODO: error handling other statuses

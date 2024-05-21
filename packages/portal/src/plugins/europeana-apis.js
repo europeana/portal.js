@@ -1,51 +1,43 @@
 // TODO: refactor to not be a plugin, to reduce the weight of pages not using
-//       it, e.g. the homepage?
+//       it, e.g. the homepage? consider composables, e.g. `useEuropeanaRecordAPI()`
 
-import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
+import kebabCase from 'lodash/kebabCase.js';
+import { keycloakResponseErrorHandler } from '../auth/keycloak.js';
 
-import annotation from './europeana/annotation.js';
-import entity from './europeana/entity.js';
-import entityManagement from './europeana/entity-management.js';
-import fulltext from './europeana/fulltext.js';
-import iiifPresentation from './europeana/iiif/presentation.js';
-import mediaProxy from './europeana/media-proxy.js';
-import recommendation from './europeana/recommendation.js';
-import record from './europeana/record.js';
-import set from './europeana/set.js';
-import thumbnail from './europeana/thumbnail.js';
+import {
+  EuropeanaAnnotationApi,
+  EuropeanaApiEnvConfig,
+  EuropeanaDataApi,
+  EuropeanaEntityApi,
+  EuropeanaEntityManagementApi,
+  EuropeanaFulltextApi,
+  EuropeanaIiifPresentationApi,
+  EuropeanaMediaProxyApi,
+  EuropeanaRecommendationApi,
+  EuropeanaRecordApi,
+  EuropeanaSetApi,
+  EuropeanaThumbnailApi
+} from '@europeana/apis';
+
+const apis = [
+  EuropeanaAnnotationApi,
+  EuropeanaDataApi,
+  EuropeanaEntityApi,
+  EuropeanaEntityManagementApi,
+  EuropeanaFulltextApi,
+  EuropeanaIiifPresentationApi,
+  EuropeanaMediaProxyApi,
+  EuropeanaRecommendationApi,
+  EuropeanaRecordApi,
+  EuropeanaSetApi,
+  EuropeanaThumbnailApi
+];
 
 const MODULE_NAME = 'apis';
 
-export const APIS = {
-  annotation,
-  entity,
-  entityManagement,
-  fulltext,
-  iiifPresentation,
-  mediaProxy,
-  recommendation,
-  record,
-  set,
-  thumbnail
-};
+const API_IDS = apis.map((api) => api.ID);
 
-export const API_IDS = Object.keys(APIS);
-
-const runtimeConfig = {};
-
-export const resetRuntimeConfig = ({ scope = 'public' }) => {
-  delete runtimeConfig[scope];
-};
-
-export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
-  if (!runtimeConfig[scope]) {
-    runtimeConfig[scope] = API_IDS.reduce((memo, id) => {
-      memo[id] = new EuropeanaApiEnvConfig(id, scope);
-      return memo;
-    }, {});
-  }
-  return runtimeConfig[scope];
-};
+const apiUrlFromRequestHeaders = (headers, id) => headers?.[`x-europeana-${kebabCase(id)}-api-url`];
 
 export const storeModule = {
   namespaced: true,
@@ -55,19 +47,55 @@ export const storeModule = {
   }),
 
   mutations: {
-    init(state, { $apis, req }) {
-      for (const id in APIS) {
-        state.reqHeaderUrls[id] = $apis?.[id]?.config?.apiUrlFromRequestHeaders?.(req?.headers);
+    init(state, { req }) {
+      for (const id of API_IDS) {
+        state.reqHeaderUrls[id] = apiUrlFromRequestHeaders(req?.headers, id);
       }
     }
   }
 };
 
+const rewriteBaseURLToPrivate = (api) => {
+  const envConfig = new EuropeanaApiEnvConfig(api.ID);
+  const urlPrivate = process.server && envConfig.env('urlPrivate');
+
+  return (requestConfig) => {
+    if (urlPrivate) {
+      requestConfig.baseURL = urlPrivate;
+    }
+    return requestConfig;
+  };
+};
+
+const contextualApi = (context, api) => {
+  const apiConfig = {};
+  const urlFromContext = apiUrlFromRequestHeaders(context.req?.headers, api.ID) ||
+    context.store?.state?.apis?.reqHeaderUrls?.[api.ID];
+  if (urlFromContext) {
+    apiConfig.url = urlFromContext;
+  }
+  const apiInstance = new api(apiConfig);
+
+  if (api.AUTHORISING && context.$axios) {
+    // Use Nuxt axios module for its auth handling
+    apiInstance.createAxios(context.$axios);
+    apiInstance.axios.onResponseError((error) => keycloakResponseErrorHandler(context, error));
+  }
+
+  apiInstance.axios.interceptors.request.use(rewriteBaseURLToPrivate(api));
+
+  // NOTE: keep this AFTER the private URL interceptor, so that the private URLs
+  //       are not logged
+  apiInstance.axios.interceptors.request.use(context.app.$axiosLogger);
+
+  return apiInstance;
+};
+
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
-  const plugin = API_IDS.reduce((memo, id) => {
-    memo[id] = new APIS[id](context);
+  const plugin = apis.reduce((memo, api) => {
+    memo[api.ID] = contextualApi(context, api);
     return memo;
   }, {});
 

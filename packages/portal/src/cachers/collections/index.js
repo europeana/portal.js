@@ -1,38 +1,35 @@
 import axios from 'axios';
-import { createEuropeanaApiClient } from '../utils.js';
-import { getLabelledSlug } from '../../plugins/europeana/utils.js';
+import { EuropeanaEntityApi } from '@europeana/apis';
+import { getLabelledSlug } from '@europeana/utils';
 
-let axiosClient;
+let europeanaEntityApi;
 
 const pageSize = 100;
 
-export const countEntities = async(params = {}, config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+export const countEntities = async(params = {}) => {
+  europeanaEntityApi = new EuropeanaEntityApi;
 
-  const response = await axiosClient.get('/search', {
-    params: {
-      ...axiosClient.defaults.config,
-      query: '*:*',
-      scope: 'europeana',
-      pageSize: 0,
-      ...params
-    }
-  });
-  return response.data?.partOf?.total;
-};
-
-const firstPageOfEntityResults = (params = {}) => axiosClient.get('/search', {
-  params: {
-    ...axiosClient.defaults.config,
+  const response = await europeanaEntityApi.search({
     query: '*:*',
     scope: 'europeana',
-    sort: 'id',
-    pageSize,
+    pageSize: 0,
     ...params
-  }
+  });
+  return response.partOf?.total;
+};
+
+const firstPageOfEntityResults = (params = {}) => europeanaEntityApi.search({
+  query: '*:*',
+  scope: 'europeana',
+  sort: 'id',
+  pageSize,
+  ...params
 });
 
-const nextPageOfEntityResults = (url) => axios.get(url);
+const nextPageOfEntityResults = async(url) => {
+  const response = await axios.get(url);
+  return response.data;
+};
 
 const entityWithSlug = (entity) => ({
   ...entity,
@@ -47,16 +44,16 @@ const allEntityResults = async(params) => {
   // the API allows 100 entities per request. Loop until all entities are retrieved.
   while (!Array.isArray(pageOfResults) || next) {
     const response = await (next ? nextPageOfEntityResults(next) : firstPageOfEntityResults(params));
-    pageOfResults = (response.data.items || []).map(entityWithSlug);
+    pageOfResults = (response.items || []).map(entityWithSlug);
     allResults = allResults.concat(pageOfResults);
-    next = response.data.next;
+    next = response.next;
   }
 
   return allResults;
 };
 
-export default (params = {}, config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+export default (params = {}) => {
+  europeanaEntityApi = new EuropeanaEntityApi;
 
   return allEntityResults(params);
 };

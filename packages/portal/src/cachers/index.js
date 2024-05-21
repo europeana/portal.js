@@ -127,7 +127,7 @@ export const cli = async(command, cacherName) => {
     console.log(message);
     process.exit(0);
   } catch (error) {
-    console.error(`ERROR: ${error.message}`);
+    console.error(error);
     process.exit(1);
   }
 };

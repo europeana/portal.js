@@ -24,8 +24,8 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
   propsData,
   mocks: {
     $apis: {
-      entity: {
-        imageUrl: () => 'image URL'
+      record: {
+        find: () => ([])
       },
       thumbnail: {
         edmPreview: sinon.stub().returnsArg(0)
@@ -204,42 +204,34 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
             id: 'http://data.europeana.eu/set/1',
             title: { en: 'gallery I' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/2',
             title: { en: 'gallery II' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/3',
             title: { en: 'gallery III' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           },
           {
             id: 'http://data.europeana.eu/set/4',
             title: { en: 'gallery IV' },
             items: [
-              {
-                identifier: 'item ID'
-              }
+              'http://data.europeana.eu/item/123/abc'
             ]
           }
         ]
       };
 
-      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+      it('fetches from the set API and stores response items in entries', async() => {
         const wrapper = factory(propsData);
         wrapper.vm.$apis.set.search.resolves(setResponse);
 
@@ -251,8 +243,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
             pageSize: 4,
             profile: 'standard',
             qf: 'lang:en'
-          },
-          { withMinimalItemPreviews: sinon.match.truthy }
+          }
         )).toBe(true);
         expect(wrapper.vm.entries).toEqual(setResponse.items);
       });
@@ -311,7 +302,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'organisation one' },
           identifier: 'http://data.europeana.eu/organization/1',
-          image: 'image URL',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/logo.jpg/28px-logo.jpg',
           logo: true,
           encoding: {
             id: 'http://data.europeana.eu/organization/1',
@@ -342,7 +333,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'topic one' },
           identifier: 'http://data.europeana.eu/concept/1',
-          image: 'image URL',
+          image: 'thumbnail',
           encoding: {
             id: 'http://data.europeana.eu/concept/1',
             isShownBy: {
@@ -375,7 +366,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'time one' },
           identifier: 'http://data.europeana.eu/timespan/1',
-          image: 'image URL',
+          image: 'thumbnail',
           encoding: {
             id: 'http://data.europeana.eu/timespan/1',
             isShownBy: {
@@ -412,7 +403,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           __typename: 'AutomatedRecordCard',
           __variant: null,
           identifier: '/500/identifier_1',
-          image: 'image URL',
+          image: null,
           name: undefined,
           encoding: {
             edmIsShownBy: 'isShownBy URL',

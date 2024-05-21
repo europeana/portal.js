@@ -16,10 +16,10 @@
 </template>
 
 <script>
+  import { EUROPEANA_DATA_API_BASE_URL } from '@europeana/apis';
   import ContentCard from '../content/ContentCard';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { isEuropeanaRecordId } from '@/plugins/europeana/record';
-  import { getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
+  import { isEuropeanaRecordId } from '@/utils/europeana/record.js';
+  import { getEntityTypeHumanReadable } from '@/utils/europeana/entity.js';
 
   export default {
     components: {
@@ -130,10 +130,10 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(EUROPEANA_DATA_URL);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(EUROPEANA_DATA_API_BASE_URL);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_API_BASE_URL}/([^/]+)/(.+)$`);
         return {
           name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug || uriMatch[2] }
         };

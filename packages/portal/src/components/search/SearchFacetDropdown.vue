@@ -150,8 +150,8 @@
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/utils/europeana/themes';
-  import { unquotableFacets } from '@/plugins/europeana/search';
-  import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
+  import { unquotableFacets } from '@/utils/europeana/search.js';
+  import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@europeana/utils';
   import facetsMixin from '@/mixins/facets';
 
   /**

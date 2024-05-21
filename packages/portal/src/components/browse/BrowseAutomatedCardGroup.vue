@@ -22,8 +22,9 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
-  import { daily } from '@/plugins/europeana/utils';
+  import { daily, getLabelledSlug } from '@europeana/utils';
+  import { addMinimalItemPreviewsToSets } from '@/utils/europeana/set.js';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -43,6 +44,10 @@
       BrowseInfoCardSection,
       ItemTrendingItems
     },
+
+    mixins: [
+      entityImageUrlMixin
+    ],
 
     props: {
       sectionType: {
@@ -180,7 +185,7 @@
             __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
             name: entry.prefLabel,
             identifier: entry.id,
-            image: this.$apis.entity.imageUrl(entry),
+            image: this.entityImageUrl(entry),
             encoding: entry,
             logo: !!entry.logo
           }));
@@ -218,7 +223,8 @@
           profile: 'standard',
           qf: `lang:${this.$i18n.locale}`
         };
-        const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
+        const response = await this.$apis.set.search(params);
+        response.items = await addMinimalItemPreviewsToSets(response.items, this.$apis.record);
         return response.items || [];
       },
       infoImageFromType(itemType) {

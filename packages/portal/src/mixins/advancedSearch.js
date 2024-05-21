@@ -1,6 +1,6 @@
 import camelCase from 'lodash/camelCase';
 import escapeRegExp from 'lodash/escapeRegExp';
-import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
+import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@europeana/utils';
 
 export const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';

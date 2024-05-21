@@ -13,9 +13,10 @@ const factory = () => shallowMount(MediaVideoPlayer, {
   },
   mocks: {
     $apis: {
-      record: {
-        mediaProxyUrl: () => 'proxied'
-      }
+      mediaProxy: {
+        url: () => 'proxied'
+      },
+      record: {}
     }
   },
   localVue

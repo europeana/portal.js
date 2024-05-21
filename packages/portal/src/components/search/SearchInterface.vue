@@ -172,7 +172,7 @@
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
-  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import { addContentTierFilter, filtersFromQf, reduceFieldsForSearchResult } from '@/utils/europeana/search.js';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
@@ -286,10 +286,6 @@
 
         if (this.hasFulltextQa) {
           apiOptions.url = this.$apis.fulltext.baseURL;
-        }
-
-        if (this.translateLang) {
-          apiOptions.translateLang = this.translateLang;
         }
 
         return apiOptions;
@@ -438,6 +434,16 @@
 
         params.qf = addContentTierFilter(params.qf);
 
+        if (this.translateLang) {
+          const targetLocale = 'en';
+          if (this.translateLang !== targetLocale) {
+            params.profile = `${params.profile},translate`;
+            params.lang = this.translateLang;
+            params['q.source'] = this.translateLang;
+            params['q.target'] = targetLocale;
+          }
+        }
+
         this.apiParams = merge(params, this.overrideParams);
       },
 
@@ -468,7 +474,7 @@
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
-        this.results = response.items;
+        this.results = response.items.map((item) => reduceFieldsForSearchResult(item, this.$i18n.locale));
         this.totalResults = response.totalResults;
 
         if (process.server || this.$store.state.search.loggableInteraction) {

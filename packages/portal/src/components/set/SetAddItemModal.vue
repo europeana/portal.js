@@ -43,9 +43,9 @@
 </template>
 
 <script>
+  import { EUROPEANA_DATA_API_ITEM_URL_PREFIX } from '@europeana/apis';
   import logEventMixin from '@/mixins/logEvent';
   import SetAddItemButton from './SetAddItemButton';
-  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'SetAddItemModal',
@@ -89,7 +89,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.replace(ITEM_URL_PREFIX, '') === this.itemId))
+          .filter(collection => (collection.items || []).some(item => item.replace(EUROPEANA_DATA_API_ITEM_URL_PREFIX, '') === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -136,7 +136,7 @@
             this.added = this.added.filter(id => id !== setId);
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
-            this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
+            this.logEvent('add', `${EUROPEANA_DATA_API_ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
           }
         } catch (e) {

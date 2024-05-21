@@ -33,12 +33,14 @@
     "version": "node bin/sonar-project-version.js && git add sonar-project.properties"
   },
   "resolutions": {
+    "@europeana/apis": "link:./packages/apis",
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/i18n": "link:./packages/i18n",
     "@europeana/mirador": "link:./packages/mirador",
     "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
+    "@europeana/utils": "link:./packages/utils",
     "@europeana/vue-router-query": "link:./packages/vue-router-query",
     "@europeana/vue-session": "link:./packages/vue-session",
     "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"

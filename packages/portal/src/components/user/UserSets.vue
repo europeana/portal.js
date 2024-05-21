@@ -88,7 +88,8 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import ContentCard from '../content/ContentCard';
   import PaginationNavInput from '../generic/PaginationNavInput';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { getLabelledSlug } from '@europeana/utils';
+  import { addMinimalItemPreviewsToSets } from '@/utils/europeana/set.js';
 
   export default {
     name: 'UserSets',
@@ -138,7 +139,8 @@
         qf
       };
 
-      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const searchResponse = await this.$apis.set.search(searchParams);
+      searchResponse.items = await addMinimalItemPreviewsToSets(searchResponse.items, this.$apis.record);
       this.sets = searchResponse.items || [];
       this.total = searchResponse.partOf?.total || 0;
     },

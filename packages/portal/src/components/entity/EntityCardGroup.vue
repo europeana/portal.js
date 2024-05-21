@@ -21,7 +21,7 @@
         :key="relatedCollection.id"
         :title="collectionTitle(relatedCollection)"
         :url="entityRouterLink(relatedCollection.id)"
-        :image-url="$apis.entity.imageUrl(relatedCollection)"
+        :image-url="entityImageUrl(relatedCollection)"
         :variant="cardVariant"
       />
     </b-card-group>
@@ -32,6 +32,7 @@
   import pick from 'lodash/pick.js';
 
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
 
   export default {
@@ -43,6 +44,7 @@
 
     mixins: [
       collectionLinkGenMixin,
+      entityImageUrlMixin,
       europeanaEntityLinks
     ],
 

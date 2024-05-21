@@ -25,15 +25,17 @@
 </template>
 
 <script>
-  import {
-    isEntityUri,
-    getEntityTypeHumanReadable,
-    entityParamsFromUri
-  } from '@/plugins/europeana/entity';
-  import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { EUROPEANA_DATA_API_BASE_URL } from '@europeana/apis';
   import { langMapValueForLocale } from '@europeana/i18n';
-  import { BASE_URL } from '@/plugins/europeana/data';
+  import { getLabelledSlug } from '@europeana/utils';
+  import {
+    entityParamsFromUri,
+    getEntityTypeApi,
+    getEntityTypeHumanReadable,
+    isEntityUri,
+    normalizeEntityId
+  } from '@/utils/europeana/entity.js';
+  import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
 
   export default {
     name: 'ContentfulEntityHarvesterPage',
@@ -79,7 +81,10 @@
 
         let entity;
         try {
-          entity = await this.$apis.entity.get(type, id);
+          entity = await this.$apis.entity.get(
+            getEntityTypeApi(type),
+            normalizeEntityId(id)
+          );
         } catch (error) {
           this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
           return;
@@ -102,7 +107,7 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, EUROPEANA_DATA_API_BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }

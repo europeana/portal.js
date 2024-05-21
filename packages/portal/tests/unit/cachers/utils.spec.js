@@ -63,24 +63,6 @@ describe('cachers/utils', () => {
     });
   });
 
-  describe('fallbackApiUrl', () => {
-    describe('when the API config is for the record API', () => {
-      it('returns the default BASE_URL from the record API', () => {
-        let fallback = utils.fallbackApiUrl('record');
-
-        expect(fallback).toBe('https://api.europeana.eu/record');
-      });
-    });
-
-    describe('when the API config is for the entity API', () => {
-      it('returns the default BASE_URL from the entity API', () => {
-        let fallback = utils.fallbackApiUrl('entity');
-
-        expect(fallback).toBe('https://api.europeana.eu/entity');
-      });
-    });
-  });
-
   describe('localise', () => {
     it('returns as-is any non-Array argument', () => {
       const argument = 'not an Array';

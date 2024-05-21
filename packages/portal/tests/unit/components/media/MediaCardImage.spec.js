@@ -25,9 +25,10 @@ const factory = () => shallowMount(MediaCardImage, {
     },
     $t: (key) => key,
     $apis: {
-      record: {
-        mediaProxyUrl: () => 'proxied'
-      }
+      mediaProxy: {
+        url: () => 'proxied'
+      },
+      record: {}
     }
   }
 });

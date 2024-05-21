@@ -29,23 +29,8 @@ const apiPlaceResponse = {
   prefLabel: { en: 'France' }
 };
 
-const config = {
-  europeana: {
-    apis: {
-      entity: {
-        url: 'https://api.example.org/entity',
-        key: 'entityApiKey'
-      },
-      record: {
-        url: 'https://api.example.org/record',
-        key: 'recordApiKey'
-      }
-    }
-  }
-};
-
 const mockFacetRequest = (response = apiFacetResponse) => {
-  nock(config.europeana.apis.record.url)
+  nock('https://api.europeana.eu/record')
     .get('/search.json')
     .query(query => (
       query.profile === 'facets' &&
@@ -58,9 +43,9 @@ const mockFacetRequest = (response = apiFacetResponse) => {
 };
 
 const mockPlaceRequest = () => {
-  nock(config.europeana.apis.entity.url)
+  nock('https://api.europeana.eu/entity')
     .get('/place/001.json')
-    .query(query => query.wskey === config.europeana.apis.entity.key)
+    .query(true)
     .reply(200, apiPlaceResponse);
 };
 
@@ -70,14 +55,26 @@ const mockApiRequests = () => {
 };
 
 describe('@/cachers/collections/organisations', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
+
   sinon.stub(baseCacher, 'default').resolves(organisations);
   sinon.stub(countryCodes, 'getName').withArgs('ES', 'en', { select: 'official' }).returns('Spain');
 
   it('fetches data with type: organization', async() => {
     mockApiRequests();
-    await cacher.data(config);
+    await cacher.data();
 
-    expect(baseCacher.default.calledWith({ type: 'organization' }, config)).toBe(true);
+    expect(baseCacher.default.calledWith({ type: 'organization' })).toBe(true);
     sinon.resetHistory();
   });
 
@@ -99,7 +96,7 @@ describe('@/cachers/collections/organisations', () => {
           }]
         });
         mockPlaceRequest();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[0].recordCount).toBe(0);
       });
@@ -108,7 +105,7 @@ describe('@/cachers/collections/organisations', () => {
     describe('when the entity has other entity IDs on sameAs', () => {
       it('combines their counts', async() => {
         mockApiRequests();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[2].recordCount).toBe(200);
       });
@@ -119,7 +116,7 @@ describe('@/cachers/collections/organisations', () => {
     describe('when the country on the organisation entity is an entity reference', () => {
       it('fetches the place entity prefLabel', async() => {
         mockApiRequests();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[1].countryPrefLabel).toEqual(apiPlaceResponse.prefLabel);
       });
@@ -128,7 +125,7 @@ describe('@/cachers/collections/organisations', () => {
     describe('when the country on the organisation entity is a full entity', () => {
       it('uses prefLabel from the entity', async() => {
         mockApiRequests();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[3].countryPrefLabel).toEqual({ en: 'Germany' });
       });
@@ -137,7 +134,7 @@ describe('@/cachers/collections/organisations', () => {
     describe('when the country on the organisation entity is a language code', () => {
       it('fetches the place entity prefLabel', async() => {
         mockApiRequests();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[0].countryPrefLabel).toEqual({ en: 'Spain' });
       });
@@ -146,7 +143,7 @@ describe('@/cachers/collections/organisations', () => {
     describe('when there is no country on the organisation entity', () => {
       it('does not include a countryPrefLabel', async() => {
         mockApiRequests();
-        const organisationData = await cacher.data(config);
+        const organisationData = await cacher.data();
 
         expect(organisationData[2].countryPrefLabel).toEqual(undefined);
       });

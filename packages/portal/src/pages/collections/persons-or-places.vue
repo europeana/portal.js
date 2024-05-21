@@ -33,8 +33,9 @@
 </template>
 
 <script>
-  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/utils/europeana/entity.js';
+  import { getLabelledSlug } from '@europeana/utils';
+  import entityImageUrlMixin from '@/mixins/europeana/entities/entityImageUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/content/ContentHeader';
@@ -50,7 +51,10 @@
       PaginationNavInput
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      entityImageUrlMixin
+    ],
 
     middleware: 'sanitisePageQuery',
 
@@ -77,8 +81,10 @@
       try {
         const response = await this.$apis.entity.search(entityIndexParams);
 
-        this.entities = response.entities;
-        this.total = response.total;
+        this.entities = response.items || [];
+        this.total = response.partOf?.total || null;
+      } catch (e) {
+        this.$error(e);
       } finally {
         this.$scrollTo?.('#header');
       }
@@ -119,7 +125,7 @@
         };
       },
       thumbnail(entity) {
-        return this.$apis.entity.imageUrl(entity);
+        return this.entityImageUrl(entity);
       }
     }
   };

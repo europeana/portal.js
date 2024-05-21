@@ -15,9 +15,7 @@ const sets = [
     title: 'A new collection',
     description: 'A description',
     items: [
-      {
-        edmPreview: ['http://www.example.org/image.jpg']
-      }
+      'http://data.europeana.eu/item/123/abc'
     ],
     total: 1
   },
@@ -29,6 +27,8 @@ const sets = [
   }
 ];
 
+const setSearchResponse = () => ({ items: sets, partOf: { total: sets.length } });
+
 const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMountNuxt(UserSets, {
   localVue,
   attachTo: document.body,
@@ -39,7 +39,10 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
     $apis: {
-      set: { search: sinon.stub().resolves({ items: sets, partOf: { total: sets.length } }) },
+      record: {
+        find: () => ([])
+      },
+      set: { search: sinon.stub().resolves(setSearchResponse()) },
       thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $t: (key) => key,
@@ -87,8 +90,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 0,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -104,8 +106,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 0,
           qf: ['type:Collection', 'visibility:public']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -121,8 +122,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 0,
           qf: ['type:EntityBestItemsSet']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -138,8 +138,7 @@ describe('components/user/UserSets', () => {
           pageSize: 20,
           page: 0,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -148,7 +147,7 @@ describe('components/user/UserSets', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.sets).toEqual(sets);
+      expect(wrapper.vm.sets.length).toBe(2);
       expect(wrapper.vm.total).toBe(2);
     });
   });

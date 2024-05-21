@@ -6,9 +6,6 @@ import sinon from 'sinon';
 import SearchInterface from '@/components/search/SearchInterface.vue';
 
 const localVue = createLocalVue();
-localVue.filter('localise', (number) => number);
-localVue.filter('truncate', (string) => string);
-localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
 
 const searchResult = {
@@ -16,9 +13,9 @@ const searchResult = {
   items: [
     {
       id: '/123/abc',
-      dcTitle: { def: ['Record 123/abc'] },
+      dcTitleLangAware: { def: ['Record 123/abc'] },
       edmPreview: 'https://www.example.org/abc.jpg',
-      edmDataProvider: ['Provider 123']
+      dataProvider: ['Provider 123']
     }
   ]
 };
@@ -333,63 +330,7 @@ describe('components/search/SearchInterface', () => {
 
   describe('computed', () => {
     describe('apiOptions', () => {
-      describe('translateLang', () => {
-        describe('when locales to translate are configured', () => {
-          const $config = { app: { search: { translateLocales: ['nl'] } } };
-
-          describe('and current locale is one of the configured locales to translate', () => {
-            const $i18n = { locale: 'nl' };
-
-            describe('and user is logged in', () => {
-              const $auth = { loggedIn: true };
-
-              it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBe('nl');
-              });
-            });
-
-            describe('but user is not logged in', () => {
-              const $auth = { loggedIn: false };
-
-              it('is undefined', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBeUndefined();
-              });
-            });
-          });
-
-          describe('but current locale is not one of the configured locales to translate', () => {
-            const $i18n = { locale: 'fr' };
-
-            it('is undefined', () => {
-              const wrapper = factory({ mocks: { $config, $i18n } });
-
-              const translateLang = wrapper.vm.apiOptions.translateLang;
-
-              expect(translateLang).toBeUndefined();
-            });
-          });
-        });
-
-        describe('when locales to translate are not configured', () => {
-          const $config = { app: { search: { translateLocales: [] } } };
-
-          it('is undefined', () => {
-            const wrapper = factory({ mocks: { $config } });
-
-            const translateLang = wrapper.vm.apiOptions.translateLang;
-
-            expect(translateLang).toBeUndefined();
-          });
-        });
-      });
+      test.todo('fulltext url');
     });
 
     describe('advancedSearchQueryCount', () => {
@@ -561,6 +502,80 @@ describe('components/search/SearchInterface', () => {
           wrapper.vm.deriveApiParams();
 
           expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+
+      describe('translation', () => {
+        describe('when locales to translate are configured', () => {
+          const $config = { app: { search: { translateLocales: ['nl'] } } };
+
+          describe('and current locale is one of the configured locales to translate', () => {
+            const $i18n = { locale: 'nl' };
+
+            describe('and user is logged in', () => {
+              const $auth = { loggedIn: true };
+
+              it('configures the parameters for search translation', () => {
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+                wrapper.vm.deriveApiParams();
+
+                const params = wrapper.vm.apiParams;
+
+                expect(params.profile).toBe('minimal,translate');
+                expect(params.lang).toBe('nl');
+                expect(params['q.source']).toBe('nl');
+                expect(params['q.target']).toBe('en');
+              });
+            });
+
+            describe('but user is not logged in', () => {
+              const $auth = { loggedIn: false };
+
+              it('does not configure the parameters for search translation', () => {
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+                wrapper.vm.deriveApiParams();
+
+                const params = wrapper.vm.apiParams;
+
+                expect(params.profile).toBe('minimal');
+                expect(params.lang).toBeUndefined();
+                expect(params['q.source']).toBeUndefined();
+                expect(params['q.target']).toBeUndefined();
+              });
+            });
+          });
+
+          describe('but current locale is not one of the configured locales to translate', () => {
+            const $i18n = { locale: 'fr' };
+
+            it('does not configure the parameters for search translation', () => {
+              const wrapper = factory({ mocks: { $config, $i18n } });
+              wrapper.vm.deriveApiParams();
+
+              const params = wrapper.vm.apiParams;
+
+              expect(params.profile).toBe('minimal');
+              expect(params.lang).toBeUndefined();
+              expect(params['q.source']).toBeUndefined();
+              expect(params['q.target']).toBeUndefined();
+            });
+          });
+        });
+
+        describe('when locales to translate are not configured', () => {
+          const $config = { app: { search: { translateLocales: [] } } };
+
+          it('does not configure the parameters for search translation', () => {
+            const wrapper = factory({ mocks: { $config } });
+            wrapper.vm.deriveApiParams();
+
+            const params = wrapper.vm.apiParams;
+
+            expect(params.profile).toBe('minimal');
+            expect(params.lang).toBeUndefined();
+            expect(params['q.source']).toBeUndefined();
+            expect(params['q.target']).toBeUndefined();
+          });
         });
       });
     });

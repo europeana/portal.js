@@ -320,7 +320,7 @@
           for (const annotationPage of (canvas.items || [])) {
             for (const annotation of (annotationPage.items || [])) {
               if ((annotation.motivation === 'painting') && !annotation.body?.service?.profile?.startsWith('http://iiif.io/api/image/')) {
-                this.proxiedMedia[annotation.body.id] = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
+                this.proxiedMedia[annotation.body.id] = this.$apis.mediaProxy.url(annotation.body.id, this.itemId, { recordApiUrl: this.$apis.record.baseURL });
                 annotation.body.id = this.proxiedMedia[annotation.body.id];
               }
             }

@@ -1,6 +1,7 @@
 import { oEmbeddable } from '@europeana/oembed';
-import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 import Base from './Base.js';
+
+const IIIF_PRESENTATION_API_URL = 'http://iiif.io/api/presentation';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;

@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/entity-harvester/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -56,20 +55,6 @@ const factory = () => shallowMountNuxt(page, {
     }
   }
 });
-
-const responseError = {
-  response: {
-    data: {
-      action: '/entity/agent/20.json',
-      success: false,
-      error: 'There was an error',
-      status: 500
-    },
-    headers: {
-      'content-type': 'application/json'
-    }
-  }
-};
 
 const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'image'];
 
@@ -123,9 +108,21 @@ describe('pages/contentful/entity-harvester/index', () => {
 
       describe('when the entity can NOT be retrieved', () => {
         it('shows an error for the response', async() => {
+          const responseError = new Error;
+          responseError.response = {
+            data: {
+              action: '/entity/agent/20.json',
+              success: false,
+              error: 'There was an error',
+              status: 500
+            },
+            headers: {
+              'content-type': 'application/json'
+            }
+          };
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
-            throw apiError(responseError);
+            throw responseError;
           });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/${id}`));
           wrapper.vm.showError = sinon.spy();

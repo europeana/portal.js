@@ -2,8 +2,8 @@
 
 import qs from 'qs';
 
-import { unquotableFacets } from '../../../plugins/europeana/search';
-import { escapeLuceneSpecials } from '../../../plugins/europeana/utils';
+import { unquotableFacets } from '@/utils/europeana/search.js';
+import { escapeLuceneSpecials } from '@europeana/utils';
 
 export const collectionToThemeMap = {
   'world-war-I': 'ww1',
