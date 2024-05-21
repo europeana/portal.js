@@ -7,24 +7,32 @@
       :aria-label="hero?.image?.description"
     />
     <b-container class="hero-content">
-      <div
-        v-if="contextLabel"
-        class="context-label d-inline-block px-2 py-1 mb-3"
-      >
-        {{ contextLabel }}
-      </div>
-      <h1>
-        {{ title }}
-      </h1>
-      <p
-        v-if="description"
-        class="lead"
-      >
-        {{ description }}
-      </p>
-      <p>
-        {{ `${hero.image.width} x ${hero.image.height}` }}
-      </p>
+      <header class="row">
+        <b-col
+          cols="12"
+          lg="6"
+          class="col lead mt-3"
+        >
+          <div
+            v-if="contextLabel"
+            class="context-label d-inline-block px-2 py-1 mb-3"
+          >
+            {{ contextLabel }}
+          </div>
+          <h1>
+            {{ title }}
+          </h1>
+          <p
+            v-if="description"
+            class="lead"
+          >
+            {{ description }}
+          </p>
+          <p>
+            {{ `${hero.image.width} x ${hero.image.height}` }}
+          </p>
+        </b-col>
+      </header>
     </b-container>
     <AttributionToggle
       :attribution="hero"
@@ -129,7 +137,7 @@
     }
 
     h1 {
-      @extend %title-2;
+      @extend %title-1;
     }
 
     .context-label {

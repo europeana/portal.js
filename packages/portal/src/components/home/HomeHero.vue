@@ -177,17 +177,7 @@
     }
 
     h1 {
-      font-size: $font-size-xl;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: 2.875rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.875rem);
-      }
+      @extend %title-1;
 
       .digital-highlight {
         text-shadow: 3.5px 3.5px 0 $blue;
