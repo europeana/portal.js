@@ -12,7 +12,6 @@
       :title="title"
       :hero="hero"
       :context-label="$tc('story')"
-      :description="description"
     />
     <b-container
       class="footer-margin"
@@ -23,6 +22,12 @@
           class="col-lg-8"
         >
           <article>
+            <p
+              v-if="!useAuthoredHead && description"
+              class="lead"
+            >
+              {{ description }}
+            </p>
             <!-- eslint-disable vue/no-v-html -->
             <div class="font-small font-weight-bold d-block">
               <time
@@ -171,7 +176,15 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   .author ~ .author::before {
     content: ', ';
+  }
+
+  .text-page p.lead {
+    font-size: $font-size-medium;
+    color: $black;
+    margin-bottom: 1.5rem;
   }
 </style>

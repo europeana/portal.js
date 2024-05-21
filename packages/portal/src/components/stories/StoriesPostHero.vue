@@ -19,15 +19,12 @@
           >
             {{ contextLabel }}
           </div>
-          <h1>
-            {{ title }}
-          </h1>
-          <p
-            v-if="description"
-            class="lead"
-          >
-            {{ description }}
-          </p>
+          <!-- eslint-disable vue/no-v-html -->
+          <div
+            class="title"
+            v-html="parseMarkdownHtml(`# ${title}`)"
+          />
+          <!-- eslint-enable vue/no-v-html -->
         </b-col>
       </header>
     </b-container>
@@ -39,6 +36,7 @@
 
 <script>
   import AttributionToggle from '@/components/generic/AttributionToggle';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill' },
@@ -59,15 +57,12 @@
       AttributionToggle
     },
 
+    mixins: [parseMarkdownHtmlMixin],
+
     props: {
       title: {
         type: String,
         required: true
-      },
-
-      description: {
-        type: String,
-        default: ''
       },
 
       hero: {
@@ -99,7 +94,7 @@
 
   .stories-post-hero {
     margin-top: -70px;
-    margin-bottom: 4.5rem;
+    margin-bottom: 2rem;
     background-color: $mediumgrey-light;
     padding: 1.5rem;
     min-height: 100vh;
@@ -109,37 +104,49 @@
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
       padding-bottom: calc(1.5 * 128px);
+      margin-bottom: 3rem;
     }
   }
 
   .hero-content {
     position: absolute; // Prevents blending with the background
-    bottom: 5rem;
+    bottom: 12.5vh;
     left: 0;
     right: 0;
     color: $white;
 
-    h1,
-    .context-label,
-    .lead {
+    ::v-deep .title h1,
+    .context-label {
       color: $white;
-
-      @media (min-width: $bp-medium) {
-        max-width: 744px;
-      }
-
-      @media (min-width: $bp-large) {
-        max-width: 80%;
-      }
     }
 
-    h1 {
+    ::v-deep .title h1 {
       @extend %title-1;
+
+      em {
+        font-family: $font-family-sans-serif;
+        font-size: $font-size-large;
+        font-weight: 600;
+        display: block;
+        font-style: normal;
+        margin: 0.5rem 0;
+
+        @media (min-width: $bp-4k) {
+          font-size: calc(1.5 * $font-size-large);
+          margin: 0.75rem 0;
+        }
+      }
     }
 
     .context-label {
       background-color: $blue;
       border-radius: $border-radius-small;
+
+      @media (min-width: $bp-4k) {
+        border-radius: $border-radius-large;
+        padding: 0.5rem 1rem !important;
+        margin-bottom: 1.5rem !important;
+      }
     }
   }
 
