@@ -108,6 +108,7 @@ export default {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Place",
+    "story": "Story",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
