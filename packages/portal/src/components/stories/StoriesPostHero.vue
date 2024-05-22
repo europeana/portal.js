@@ -94,7 +94,6 @@
 
   .stories-post-hero {
     margin-top: -70px;
-    margin-bottom: 2rem;
     background-color: $mediumgrey-light;
     padding: 1.5rem;
     min-height: 100vh;

@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="blog post"
-    class="text-page white-page xxl-page"
+    class="text-page white-page"
   >
     <ContentWarningModal
       v-if="post.contentWarning"

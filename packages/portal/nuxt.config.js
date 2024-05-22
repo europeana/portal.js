@@ -474,6 +474,7 @@ export default {
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
+      'gsap',
       'ssr-window',
       'swiper',
       'vue-router-query'
