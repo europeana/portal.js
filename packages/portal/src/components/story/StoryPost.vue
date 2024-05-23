@@ -1,19 +1,20 @@
 <template>
   <div>
-    <AuthoredHead
-      v-if="useAuthoredHead"
-      :title="title"
-      :description="description"
-      :hero="hero"
-      :context-label="$t('cardLabels.story')"
-    />
-    <StoryPostHero
-      v-else
+    <StoryHero
+      v-if="useStoryHero"
       :title="title"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
       class="story-hero"
     />
+    <AuthoredHead
+      v-else
+      :title="title"
+      :description="description"
+      :hero="hero"
+      :context-label="$t('cardLabels.story')"
+    />
+
     <div class="story-article-container position-relative bg-white pt-5">
       <b-container
         class="footer-margin"
@@ -25,7 +26,7 @@
           >
             <article>
               <p
-                v-if="!useAuthoredHead && description"
+                v-if="useStoryHero && description"
                 class="lead"
               >
                 {{ description }}
@@ -99,7 +100,7 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import BrowseSections from '@/components/browse/BrowseSections';
   import ViewCount from '@/components/generic/ViewCount.vue';
-  import StoryPostHero from './StoryPostHero.vue';
+  import StoryHero from './StoryHero.vue';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -115,7 +116,7 @@
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      StoryPostHero,
+      StoryHero,
       ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
@@ -174,12 +175,12 @@
 
     data() {
       return {
-        useAuthoredHead: this.hero.image.width < 800
+        useStoryHero: this.hero.image.width >= 800
       };
     },
 
     mounted() {
-      if (!this.useAuthoredHead) {
+      if (this.useStoryHero) {
         gsap.registerPlugin(ScrollTrigger);
 
         ScrollTrigger.defaults({
