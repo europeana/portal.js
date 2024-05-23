@@ -1111,9 +1111,6 @@ export default {
       "saveItemToLikes": "Αποθήκευση αυτού του τεκμηρίου στα Αρέσει σας.",
       "update": "Ενημέρωση συλλογής"
     },
-    "entityBestBets": {
-      "title": "{entity} Σελίδα"
-    },
     "form": {
       "description": "Περιγραφή συλλογής",
       "private": "Να παραμείνει ιδιωτική η συλλογή",

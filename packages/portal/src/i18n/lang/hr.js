@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
-    "entityBestBets": {
-      "title": "{entity} Stranica"
-    },
     "form": {
       "description": "Opis galerije",
       "private": "Držite ovu galeriju privatnom",

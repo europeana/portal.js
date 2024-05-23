@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },
-    "entityBestBets": {
-      "title": "{entity} Stránka"
-    },
     "form": {
       "description": "Popis galerie",
       "private": "Ponechat tuto galerii soukromou",

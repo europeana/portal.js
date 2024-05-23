@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
       "update": "Uppdatera galleri"
     },
-    "entityBestBets": {
-      "title": "{entity} Sida"
-    },
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",

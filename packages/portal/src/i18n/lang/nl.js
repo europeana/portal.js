@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Bewaar dit object in uw Likes.",
       "update": "Galerij bijwerken"
     },
-    "entityBestBets": {
-      "title": "{entity} Pagina"
-    },
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",

@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
       "update": "Actualizare galerie"
     },
-    "entityBestBets": {
-      "title": "{entity} Pagină"
-    },
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",

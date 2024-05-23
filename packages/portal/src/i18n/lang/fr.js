@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
       "update": "Mettre à jour la galerie"
     },
-    "entityBestBets": {
-      "title": "{entity} Page"
-    },
     "form": {
       "description": "Description de la galerie",
       "private": "Garder cette galerie privée",

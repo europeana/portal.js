@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
       "update": "Atjaunināt galeriju"
     },
-    "entityBestBets": {
-      "title": "{entity} Lapa"
-    },
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",

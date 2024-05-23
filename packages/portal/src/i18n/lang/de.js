@@ -55,7 +55,7 @@ export default {
     "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
-    "pin": "Stift",
+    "pin": "Anheften",
     "preview": "Vorschau",
     "previous": "Vorherige",
     "publish": "Veröffentlichen",
@@ -1111,9 +1111,6 @@ export default {
       "removeItemFromLikes": "Entfernen Sie dieses Objekt aus deinen Likes.",
       "saveItemToLikes": "Speichere diesem Objekt in deinen Likes.",
       "update": "Galerie aktualisieren"
-    },
-    "entityBestBets": {
-      "title": "{entity} Seite"
     },
     "form": {
       "description": "Galeriebeschreibung",

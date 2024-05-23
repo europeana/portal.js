@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Uložte si túto objekt medzi obľúbené.",
       "update": "Aktualizovať galériu"
     },
-    "entityBestBets": {
-      "title": "{entity} Strana"
-    },
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",

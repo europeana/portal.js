@@ -1117,9 +1117,6 @@ export default {
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
       "update": "Eguneratu galeria"
     },
-    "entityBestBets": {
-      "title": "{entity} Orria"
-    },
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",

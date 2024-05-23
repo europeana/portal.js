@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Salve este item nas suas curtidas.",
       "update": "Atualizar galeria"
     },
-    "entityBestBets": {
-      "title": "{entity} Página"
-    },
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",

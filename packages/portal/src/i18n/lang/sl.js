@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Shranite ta enota med svoje všečke.",
       "update": "Posodobi zbirko"
     },
-    "entityBestBets": {
-      "title": "{entity} Stran"
-    },
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",

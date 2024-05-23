@@ -1117,9 +1117,6 @@ export default {
       "saveItemToLikes": "Запазете този обект във вашите харесвания.",
       "update": "Актуализирай галерията"
     },
-    "entityBestBets": {
-      "title": "{entity} Страница"
-    },
     "form": {
       "description": "Описание на галерията",
       "private": "Остави тази галерия лична",

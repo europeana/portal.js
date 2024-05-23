@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
       "update": "Zaktualizuj galerię"
     },
-    "entityBestBets": {
-      "title": "{entity} Strona"
-    },
     "form": {
       "description": "Opis galerii",
       "private": "Zachowaj tę galerię jako prywatną",

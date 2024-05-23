@@ -1111,9 +1111,6 @@ export default {
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
-    "entityBestBets": {
-      "title": "{entity} Oldal"
-    },
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
