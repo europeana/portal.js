@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
       "update": "Päivitä galleria"
     },
-    "entityBestBets": {
-      "title": "{entity} Sivu"
-    },
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",

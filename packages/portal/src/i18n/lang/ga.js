@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
       "update": "Nuashonraigh gailearaí"
     },
-    "entityBestBets": {
-      "title": "{entity} Leathanach"
-    },
     "form": {
       "description": "Tuairisc ar ghailearaí",
       "private": "Coinnigh an gailearaí seo príobháideach",

@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
-    "entityBestBets": {
-      "title": "{entity} Paġna"
-    },
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
       "private": "Agħmel dan id-direttorju tar-ritratti privat",

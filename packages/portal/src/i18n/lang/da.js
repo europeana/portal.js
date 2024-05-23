@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Gem dette genstand til dine likes.",
       "update": "Opdater galleri"
     },
-    "entityBestBets": {
-      "title": "{entity} Side"
-    },
     "form": {
       "description": "Beskrivelse af galleri",
       "private": "Hold dette galleri privat",

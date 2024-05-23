@@ -1110,9 +1110,6 @@ export default {
       "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
       "update": "Atnaujinti galeriją"
     },
-    "entityBestBets": {
-      "title": "{entity} Puslapis"
-    },
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",

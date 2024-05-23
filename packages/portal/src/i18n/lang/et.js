@@ -1112,9 +1112,6 @@ export default {
       "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
       "update": "Värskenda galeriid"
     },
-    "entityBestBets": {
-      "title": "{entity} Lehekülg"
-    },
     "form": {
       "description": "Galerii kirjeldus",
       "private": "Hoia see galerii privaatsena",
