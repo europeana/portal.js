@@ -181,7 +181,8 @@ describe('components/stories/StoriesInterface', () => {
 
       expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
         locale: 'en-GB',
-        preview: false
+        preview: false,
+        redirectBlogsToStories: false
       })).toBe(true);
     });
 
@@ -386,30 +387,6 @@ describe('components/stories/StoriesInterface', () => {
 
           expect(wrapper.vm.stories.length).toBe(2);
         });
-      });
-    });
-
-    describe('entryUrl', () => {
-      it('prefixes BlogPosting entries with /blog', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'BlogPosting',
-          identifier: 'interesting'
-        });
-
-        expect(entryUrl).toBe('/blog/interesting');
-      });
-
-      it('prefixes ExhibitionPage entries with /exhibitions', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'ExhibitionPage',
-          identifier: 'educational'
-        });
-
-        expect(entryUrl).toBe('/exhibitions/educational');
       });
     });
   });

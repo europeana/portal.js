@@ -18,7 +18,7 @@
         :title="card.name"
         :image-url="cardImage(card)"
         :image-optimisation-options="{ width: 960 }"
-        :url="cardLink(card)"
+        :url="contentfulEntryUrl(card)"
       />
     </b-card-group>
     <b-button
@@ -32,6 +32,7 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   export default {
     name: 'HomeLatestStories',
@@ -50,7 +51,8 @@
       const variables = {
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview',
-        limit: 2
+        limit: 2,
+        redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
       };
 
       const response = await this.$contentful.query('latestEditorialContent', variables);
@@ -58,22 +60,15 @@
 
       // Select three stories: at least one of each type, max two of each type;
       // sorted by date published, most recent first
-      this.cards = entries.blogPostingCollection.items
+      this.cards = (entries.blogPostingCollection?.items || [])
         .concat(entries.exhibitionPageCollection.items)
+        .concat((entries.storyCollection?.items || []))
         .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
         .slice(0, 3);
     },
 
     methods: {
-      cardLink(card) {
-        let link;
-        if (card['__typename'] === 'ExhibitionPage') {
-          link = { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
-        } else if (card['__typename'] === 'BlogPosting') {
-          link = { name: 'blog-all', params: { pathMatch: card.identifier } };
-        }
-        return link;
-      },
+      contentfulEntryUrl,
 
       cardImage(card) {
         return card.primaryImageOfPage?.image?.url;
