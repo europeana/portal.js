@@ -4,7 +4,7 @@
       :title="title"
       :description="description"
       :hero="hero"
-      :context-label="$tc('blog.posts', 1)"
+      :context-label="$t('cardLabels.story')"
     />
     <b-container
       class="footer-margin"
@@ -33,7 +33,7 @@
               <template
                 v-for="(author, index) in authors"
               >
-                <BlogAuthor
+                <StoryAuthor
                   :key="index"
                   class="author d-inline"
                   :name="author.name"
@@ -51,7 +51,7 @@
               :sections="body.items"
               :rich-text-is-card="false"
               class="authored-section"
-              data-qa="blog-sections"
+              data-qa="story sections"
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
@@ -85,18 +85,18 @@
   import ViewCount from '../generic/ViewCount.vue';
 
   export default {
-    name: 'BlogPost',
+    name: 'StoryPost',
 
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
-      BlogAuthor: () => import('./BlogAuthor'),
+      StoryAuthor: () => import('./StoryAuthor'),
       BrowseSections,
       ClientOnly,
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      EntityBadges: () => import('../entity/EntityBadges'),
       RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ThemeBadges: () => import('../theme/ThemeBadges'),
       ViewCount
     },
 
