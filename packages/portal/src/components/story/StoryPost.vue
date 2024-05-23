@@ -1,102 +1,122 @@
 <template>
   <div>
     <AuthoredHead
+      v-if="useAuthoredHead"
       :title="title"
       :description="description"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
     />
-    <b-container
-      class="footer-margin"
-    >
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <article>
-            <!-- eslint-disable vue/no-v-html -->
-            <div class="font-small font-weight-bold d-block">
-              <time
-                v-if="datePublished"
-                class="d-inline-block"
-                data-qa="date"
-                :datetime="datePublished"
+    <StoryPostHero
+      v-else
+      :title="title"
+      :hero="hero"
+      :context-label="$t('cardLabels.story')"
+      class="story-hero"
+    />
+    <div class="story-article-container position-relative bg-white pt-5">
+      <b-container
+        class="footer-margin"
+      >
+        <b-row class="justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <article>
+              <p
+                v-if="!useAuthoredHead && description"
+                class="lead"
               >
-                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
-              </time>
-              <span
-                v-if="authors"
-              >
-                {{ $t('authored.by') }}
-              </span>
-              <template
-                v-for="(author, index) in authors"
-              >
-                <StoryAuthor
-                  :key="index"
-                  class="author d-inline"
-                  :name="author.name"
-                  :organisation="author.affiliation"
-                  :url="author.url"
-                />
-              </template>
-            </div>
-            <div class="my-4 d-flex align-items-center">
-              <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="hero ? hero.image.url : null" />
-              <ViewCount />
-            </div>
-            <BrowseSections
-              :sections="body.items"
-              :rich-text-is-card="false"
-              class="authored-section"
-              data-qa="story sections"
-            />
+                {{ description }}
+              </p>
+              <!-- eslint-disable vue/no-v-html -->
+              <div class="font-small font-weight-bold d-block">
+                <time
+                  v-if="datePublished"
+                  class="d-inline-block"
+                  data-qa="date"
+                  :datetime="datePublished"
+                >
+                  {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
+                </time>
+                <span
+                  v-if="authors"
+                >
+                  {{ $t('authored.by') }}
+                </span>
+                <template
+                  v-for="(author, index) in authors"
+                >
+                  <StoryAuthor
+                    :key="index"
+                    class="author d-inline"
+                    :name="author.name"
+                    :organisation="author.affiliation"
+                    :url="author.url"
+                  />
+                </template>
+              </div>
+              <div class="my-4 d-flex align-items-center">
+                <ShareButton class="mr-4" />
+                <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+                <ViewCount />
+              </div>
+              <BrowseSections
+                :sections="body.items"
+                :rich-text-is-card="false"
+                class="authored-section"
+                data-qa="story sections"
+              />
             <!-- eslint-enable vue/no-v-html -->
-          </article>
-          <RelatedCategoryTags
-            v-if="tags.length"
-            :tags="tags"
-            class="related-container"
-          />
-          <client-only>
-            <EntityBadges
-              :entity-uris="relatedLink"
+            </article>
+            <RelatedCategoryTags
+              v-if="tags.length"
+              :tags="tags"
               class="related-container"
             />
-            <ThemeBadges
-              v-if="themes && themes.length"
-              :themes-identifiers="themes"
-              class="related-container"
-            />
-          </client-only>
-        </b-col>
-      </b-row>
-    </b-container>
+            <client-only>
+              <EntityBadges
+                :entity-uris="relatedLink"
+                class="related-container"
+              />
+              <ThemeBadges
+                v-if="themes && themes.length"
+                :themes-identifiers="themes"
+                class="related-container"
+              />
+            </client-only>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ShareSocialModal from '../share/ShareSocialModal';
-  import ShareButton from '../share/ShareButton.vue';
-  import BrowseSections from '../browse/BrowseSections';
-  import ViewCount from '../generic/ViewCount.vue';
+  import ShareSocialModal from '@/components/share/ShareSocialModal';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import BrowseSections from '@/components/browse/BrowseSections';
+  import ViewCount from '@/components/generic/ViewCount.vue';
+  import StoryPostHero from './StoryPostHero.vue';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   export default {
     name: 'StoryPost',
 
     components: {
-      AuthoredHead: () => import('../authored/AuthoredHead'),
-      StoryAuthor: () => import('./StoryAuthor'),
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      StoryAuthor: () => import('@/components/story/StoryAuthor'),
       BrowseSections,
       ClientOnly,
-      EntityBadges: () => import('../entity/EntityBadges'),
-      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      ThemeBadges: () => import('../theme/ThemeBadges'),
+      StoryPostHero,
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
 
@@ -150,12 +170,50 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        useAuthoredHead: this.hero.image.width < 800
+      };
+    },
+
+    mounted() {
+      if (!this.useAuthoredHead) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        ScrollTrigger.defaults({
+          trigger: '.story-article-container',
+          scrub: true,
+          end: 'top top',
+          invalidateOnRefresh: true,
+          markers: true
+        });
+
+        gsap.to('.hero-content', {
+          y: -(0.5 * document.querySelector('.story-hero').clientHeight),
+          scrollTrigger: {}
+        });
+
+        gsap.to('.story-hero', {
+          yPercent: 50,
+          scrollTrigger: {}
+        });
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   .author ~ .author::before {
     content: ', ';
+  }
+
+  .text-page p.lead {
+    font-size: $font-size-medium;
+    color: $black;
+    margin-bottom: 1.5rem;
   }
 </style>
