@@ -83,6 +83,10 @@ export default {
     "show": "Mostrar atribución",
     "title": "Título:"
   },
+  "authored": {
+    "by": "por",
+    "publishedDate": "Publicado el {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Últimas galerías",
     "item": "Ítems recientes",
@@ -94,20 +98,14 @@ export default {
     "trending": "Ítems de tendencia"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autores",
     "blog": "Blog",
-    "by": "por",
-    "categories": "Categorías",
-    "category": "Categoría",
-    "posts": "Publicación de blog | Publicaciones de blog",
-    "published": "Publicado el {date}",
-    "relatedPosts": "Publicaciones relacionadas"
+    "posts": "Publicación de blog | Publicaciones de blog"
   },
   "cardLabels": {
     "organisation": "Organización",
     "person": "Persona",
     "place": "Lugar",
+    "story": "Historia",
     "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
@@ -1109,9 +1107,6 @@ export default {
       "removeItemFromLikes": "Elimina este ítem de tus Me gusta.",
       "saveItemToLikes": "Guarde este ítem en sus Me gusta.",
       "update": "Actualizar galería"
-    },
-    "entityBestBets": {
-      "title": "{entity} Página"
     },
     "form": {
       "description": "Descripción de la galería",

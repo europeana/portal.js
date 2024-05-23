@@ -83,6 +83,10 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "authored": {
+    "by": "minn",
+    "publishedDate": "Ippubblikat {date}"
+  },
   "automatedCardGroup": {
     "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
@@ -94,20 +98,14 @@ export default {
     "trending": "Oġġetti trending"
   },
   "blog": {
-    "author": "Awtur",
-    "authors": "Awturi",
     "blog": "Blog",
-    "by": "ta'",
-    "categories": "Kategoriji",
-    "category": "Kategorija",
-    "posts": "Blog post | Postijiet tal-blog",
-    "published": "Ippubblikat {date}",
-    "relatedPosts": "Posts relatati"
+    "posts": "Blog post | Postijiet tal-blog"
   },
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
     "place": "Post",
+    "story": "Storja",
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tekniki",
-          "name": "Teknika | Tekniki",
+          "name": "Teknika",
           "select": "Agħżel tekniki"
         },
         "proxy_dc_type": {
@@ -1109,9 +1107,6 @@ export default {
       "removeItemFromLikes": "Neħħi dan l-oġġett mill-Likes tiegħek.",
       "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
       "update": "Aġġorna d-direttorju tar-ritratti"
-    },
-    "entityBestBets": {
-      "title": "{entity} Paġna"
     },
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",

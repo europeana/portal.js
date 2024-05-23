@@ -113,7 +113,7 @@
   import { BAlert } from 'bootstrap-vue';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
-  import themes from '@/plugins/europeana/themes';
+  import themes from '@/utils/europeana/themes';
   import SearchFacetDropdown from './SearchFacetDropdown';
 
   export default {

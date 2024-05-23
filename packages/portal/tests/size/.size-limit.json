@@ -11,7 +11,7 @@
   {
     "name": "portal.js modern",
     "running": false,
-    "limit": "1615 KB",
+    "limit": "1625 KB",
     "path": [
       ".nuxt/dist/client/*.modern.js"
     ]

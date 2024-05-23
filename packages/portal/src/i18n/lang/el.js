@@ -83,6 +83,10 @@ export default {
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
+  "authored": {
+    "by": "με",
+    "publishedDate": "Δημοσιεύτηκε στις {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
@@ -94,20 +98,14 @@ export default {
     "trending": "Δημοφιλή τεκμήρια"
   },
   "blog": {
-    "author": "Συγγραφέας",
-    "authors": "Συγγραφείς",
     "blog": "Blog",
-    "by": "από τον/την",
-    "categories": "Κατηγορίες",
-    "category": "Κατηγορία",
-    "posts": "Δημοσίευση στο blog | Δημοσιεύσεις στο blog",
-    "published": "Δημοσιεύτηκε στις {date}",
-    "relatedPosts": "Σχετικές αναρτήσεις"
+    "posts": "Δημοσίευση στο blog | Δημοσιεύσεις στο blog"
   },
   "cardLabels": {
     "organisation": "Οργάνωση",
     "person": "Πρόσωπο",
     "place": "Θέση",
+    "story": "Ιστορία",
     "theme": "Θέμα",
     "time": "Αιώνας",
     "topic": "Θέμα"
@@ -1110,9 +1108,6 @@ export default {
       "removeItemFromLikes": "Καταργήστε αυτό το στοιχείο από τα \"Μου αρέσει\".",
       "saveItemToLikes": "Αποθήκευση αυτού του τεκμηρίου στα Αρέσει σας.",
       "update": "Ενημέρωση συλλογής"
-    },
-    "entityBestBets": {
-      "title": "{entity} Σελίδα"
     },
     "form": {
       "description": "Περιγραφή συλλογής",

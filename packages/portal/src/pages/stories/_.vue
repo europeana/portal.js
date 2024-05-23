@@ -1,41 +1,62 @@
 <template>
   <div
-    data-qa="blog post"
-    class="text-page white-page"
+    data-qa="story page"
+    class="text-page white-page "
   >
-    <ContentWarningModal
-      v-if="post.contentWarning"
-      :title="post.contentWarning.name"
-      :description="post.contentWarning.description"
-      :page-slug="`stories/${post.identifier}`"
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error"
     />
-    <StoriesPost
-      :date-published="post.datePublished"
-      :title="post.name"
-      :description="post.description"
-      :body="post.hasPartCollection"
-      :identifier="post.identifier"
-      :hero="hero"
-      :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
-      :tags="post.categoriesCollection && post.categoriesCollection.items"
-      :themes="post.genre"
-      :related-link="post.relatedLink"
-    />
+    <div
+      v-else-if="post.identifier"
+    >
+      <ContentWarningModal
+        v-if="post.contentWarning"
+        :title="post.contentWarning.name"
+        :description="post.contentWarning.description"
+        :page-slug="`stories/${post.identifier}`"
+      />
+      <StoryPost
+        :date-published="post.datePublished"
+        :title="post.name"
+        :description="post.description"
+        :body="post.hasPartCollection"
+        :identifier="post.identifier"
+        :hero="hero"
+        :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
+        :tags="post.categoriesCollection && post.categoriesCollection.items"
+        :themes="post.genre"
+        :related-link="post.relatedLink"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-  import pageMetaMixin from '@/mixins/pageMeta';
-  import StoriesPost from '@/components/stories/StoriesPost';
+  import StoryPost from '@/components/story/StoryPost';
   import logEventMixin from '@/mixins/logEvent';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
-    name: 'StoriesPostPage',
+    name: 'StoriesPage',
 
     components: {
-      StoriesPost,
-      ContentWarningModal: () => import('@/components/content/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      StoryPost
     },
 
     mixins: [
@@ -44,37 +65,30 @@
       logEventMixin
     ],
 
-    asyncData({ params, query, error, app, redirect }) {
-      console.log('params.pathMatch', params.pathMatch);
-      const variables = {
-        identifier: params.pathMatch,
-        locale: app.i18n.localeProperties.iso,
-        preview: query.mode === 'preview'
-      };
-
-      return app.$contentful.query('blogPostPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          if (data.blogPostingCollection.items.length === 0) {
-            return redirect(302, '/blog');
-          }
-
-          const post = data.blogPostingCollection.items[0];
-
-          return {
-            post
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
-    },
-
     data() {
       return {
-        post: null,
-        error: null
+        post: {}
       };
+    },
+
+    async fetch() {
+      const variables = {
+        identifier: this.$route.params.pathMatch,
+        locale: this.$i18n.localeProperties.iso,
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      try {
+        const response = await this.$contentful.query('storyPage', variables);
+        const data = response.data.data;
+        if (data.storyCollection.items.length === 0) {
+          return this.$nuxt.context.redirect(302, '/stories');
+        }
+
+        this.post = data.storyCollection.items[0];
+      } catch (e) {
+        this.$error(e);
+      }
     },
 
     computed: {

@@ -83,6 +83,10 @@ export default {
     "show": "Arată atribuirea",
     "title": "Titlu:"
   },
+  "authored": {
+    "by": "de",
+    "publishedDate": "Publicat la {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
@@ -94,20 +98,14 @@ export default {
     "trending": "Resurse culturale populare"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autori",
     "blog": "Blog",
-    "by": "de",
-    "categories": "Categorii",
-    "category": "Categorie",
-    "posts": "Postare pe blog | Postări pe blog",
-    "published": "Publicat la {date}",
-    "relatedPosts": "Postări similare"
+    "posts": "Postare pe blog | Postări pe blog"
   },
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
     "place": "Loc",
+    "story": "Naraţiune",
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
@@ -1109,9 +1107,6 @@ export default {
       "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
       "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
       "update": "Actualizare galerie"
-    },
-    "entityBestBets": {
-      "title": "{entity} Pagină"
     },
     "form": {
       "description": "Descriere galerie",

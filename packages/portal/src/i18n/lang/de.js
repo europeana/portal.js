@@ -55,7 +55,7 @@ export default {
     "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
-    "pin": "Stift",
+    "pin": "Anheften",
     "preview": "Vorschau",
     "previous": "Vorherige",
     "publish": "Veröffentlichen",
@@ -83,6 +83,10 @@ export default {
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "von",
+    "publishedDate": "Veröffentlicht am {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Neueste Galerien",
     "item": "Aktuelle Objekte",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendige Objekte"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autoren",
     "blog": "Blog",
-    "by": "von",
-    "categories": "Kategorien",
-    "category": "Kategorie",
-    "posts": "Blogbeitrag | Blogeinträge",
-    "published": "Veröffentlicht am {date}",
-    "relatedPosts": "Ähnliche Beiträge"
+    "posts": "Blogbeitrag | Blogeinträge"
   },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Ort",
+    "story": "Geschichte",
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -1111,9 +1109,6 @@ export default {
       "removeItemFromLikes": "Entfernen Sie dieses Objekt aus deinen Likes.",
       "saveItemToLikes": "Speichere diesem Objekt in deinen Likes.",
       "update": "Galerie aktualisieren"
-    },
-    "entityBestBets": {
-      "title": "{entity} Seite"
     },
     "form": {
       "description": "Galeriebeschreibung",

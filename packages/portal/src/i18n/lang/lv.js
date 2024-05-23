@@ -83,6 +83,10 @@ export default {
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
+  "authored": {
+    "by": "autors",
+    "publishedDate": "Publicēts {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Jaunākās galerijas",
     "item": "Pēdējie digitālie objekti",
@@ -94,20 +98,14 @@ export default {
     "trending": "Populārākās digitālie objekti"
   },
   "blog": {
-    "author": "Autors",
-    "authors": "Autori",
     "blog": "Emuārs",
-    "by": "autors",
-    "categories": "Kategorijas",
-    "category": "Kategorija",
-    "posts": "Bloga ieraksts | Bloga ieraksti",
-    "published": "Publicēts {date}",
-    "relatedPosts": "Saistītās ziņas"
+    "posts": "Bloga ieraksts | Bloga ieraksti"
   },
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
     "place": "Vieta",
+    "story": "Stāsts",
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "metodes",
-          "name": "Metode | Metodes",
+          "name": "Tehnika",
           "select": "Atlasīt metodes"
         },
         "proxy_dc_type": {
@@ -1109,9 +1107,6 @@ export default {
       "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
       "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
       "update": "Atjaunināt galeriju"
-    },
-    "entityBestBets": {
-      "title": "{entity} Lapa"
     },
     "form": {
       "description": "Galerijas apraksts",

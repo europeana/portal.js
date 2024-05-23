@@ -83,6 +83,10 @@ export default {
     "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
+  "authored": {
+    "by": "by",
+    "publishedDate": "Julkaistu {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendaavat aineistot"
   },
   "blog": {
-    "author": "Kirjoittaja",
-    "authors": "Kirjoittajat",
     "blog": "Blogi",
-    "by": "laatija",
-    "categories": "Luokat",
-    "category": "Kategoria",
-    "posts": "Blogiviesti | Blogikirjoituksia",
-    "published": "Julkaistu {date}",
-    "relatedPosts": "Aiheeseen liittyvät julkaisut"
+    "posts": "Blogiviesti | Blogikirjoituksia"
   },
   "cardLabels": {
     "organisation": "Organisaatio",
     "person": "Henkilö",
     "place": "Paikka",
+    "story": "Tarina",
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -1111,9 +1109,6 @@ export default {
       "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
       "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
       "update": "Päivitä galleria"
-    },
-    "entityBestBets": {
-      "title": "{entity} Sivu"
     },
     "form": {
       "description": "Gallerian kuvaus",

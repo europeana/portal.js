@@ -83,6 +83,10 @@ export default {
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
+  "authored": {
+    "by": "po",
+    "publishedDate": "Objavljeno {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Najnovije galerije",
     "item": "Nedavne predmeti",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendovski predmeti"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autori",
     "blog": "Blog",
-    "by": "autora",
-    "categories": "Kategorije",
-    "category": "Kategorija",
-    "posts": "Post na blogu | Postovi na blogu",
-    "published": "Objavljeno {date}",
-    "relatedPosts": "Vezane objave"
+    "posts": "Post na blogu | Postovi na blogu"
   },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Osoba",
     "place": "Mjesto",
+    "story": "Priča",
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "Tehnike",
-          "name": "Tehnika | Tehnike",
+          "name": "Tehnika",
           "select": "Odaberite tehnike"
         },
         "proxy_dc_type": {
@@ -1111,9 +1109,6 @@ export default {
       "removeItemFromLikes": "Uklonite ovu predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
-    },
-    "entityBestBets": {
-      "title": "{entity} Stranica"
     },
     "form": {
       "description": "Opis galerije",

@@ -83,6 +83,10 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "ved",
+    "publishedDate": "Offentliggjort {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trending genstande"
   },
   "blog": {
-    "author": "Forfatter",
-    "authors": "Forfattere",
     "blog": "Blog",
-    "by": "af",
-    "categories": "Kategorier",
-    "category": "Kategori",
-    "posts": "Blogindlæg | Blogindlæg",
-    "published": "Offentliggjort {date}",
-    "relatedPosts": "Relaterede indlæg"
+    "posts": "Blogindlæg | Blogindlæg"
   },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Sted",
+    "story": "Historie",
     "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "teknikker",
-          "name": "Teknik | Teknikker",
+          "name": "Teknik",
           "select": "Vælg teknikker"
         },
         "proxy_dc_type": {
@@ -1111,9 +1109,6 @@ export default {
       "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
       "saveItemToLikes": "Gem dette genstand til dine likes.",
       "update": "Opdater galleri"
-    },
-    "entityBestBets": {
-      "title": "{entity} Side"
     },
     "form": {
       "description": "Beskrivelse af galleri",
