@@ -83,6 +83,10 @@ export default {
     "show": "Show attribution",
     "title": "Title:"
   },
+  "authored": {
+    "by": "by",
+    "publishedDate": "Published {date}"
+  },
   "automatedCardGroup": {
     "item": "Recent items",
     "gallery": "Latest galleries",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trending items"
   },
   "blog": {
-    "author": "Author",
-    "authors": "Authors",
     "blog": "Blog",
-    "by": "by",
-    "categories": "Categories",
-    "category": "Category",
-    "posts": "Blog post | Blog posts",
-    "published": "Published {date}",
-    "relatedPosts": "Related posts"
+    "posts": "Blog post | Blog posts"
   },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Place",
+    "story": "Story",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
