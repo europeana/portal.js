@@ -19,12 +19,15 @@
           >
             {{ contextLabel }}
           </div>
-          <!-- eslint-disable vue/no-v-html -->
-          <div
-            class="title"
-            v-html="parseMarkdownHtml(`# ${title}`)"
-          />
-          <!-- eslint-enable vue/no-v-html -->
+          <h1 class="title">
+            {{ title }}
+          </h1>
+          <p
+            v-if="subtitle"
+            class="subtitle"
+          >
+            {{ subtitle }}
+          </p>
         </b-col>
       </header>
     </b-container>
@@ -63,6 +66,11 @@
       title: {
         type: String,
         required: true
+      },
+
+      subtitle: {
+        type: String,
+        default: null
       },
 
       hero: {
@@ -115,25 +123,26 @@
     color: $white;
 
     ::v-deep .title h1,
+    .subtitle,
     .context-label {
       color: $white;
     }
 
-    ::v-deep .title h1 {
+    .title {
       @extend %title-1;
+    }
 
-      em {
-        font-family: $font-family-sans-serif;
-        font-size: $font-size-large;
-        font-weight: 600;
-        display: block;
-        font-style: normal;
-        margin: 0.5rem 0;
+    .subtitle {
+      font-family: $font-family-sans-serif;
+      font-size: $font-size-large;
+      font-weight: 600;
+      display: block;
+      font-style: normal;
+      margin: 0.5rem 0;
 
-        @media (min-width: $bp-4k) {
-          font-size: calc(1.5 * $font-size-large);
-          margin: 0.75rem 0;
-        }
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * $font-size-large);
+        margin: 0.75rem 0;
       }
     }
 

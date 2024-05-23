@@ -30,6 +30,7 @@
       <StoryPost
         :date-published="post.datePublished"
         :title="post.name"
+        :subtitle="post.headline"
         :description="post.description"
         :body="post.hasPartCollection"
         :identifier="post.identifier"
@@ -95,7 +96,7 @@
       pageMeta() {
         return {
           title: this.post.name,
-          description: this.post.description,
+          description: this.post.headline || this.post.description,
           ogType: 'article',
           ogImage: this.post.primaryImageOfPage?.image?.url,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''

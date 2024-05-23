@@ -3,6 +3,7 @@
     <StoryHero
       v-if="useStoryHero"
       :title="title"
+      :subtitle="subtitle"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
       class="story-hero"
@@ -130,6 +131,11 @@
       title: {
         type: String,
         required: true
+      },
+
+      subtitle: {
+        type: String,
+        default: ''
       },
 
       description: {
