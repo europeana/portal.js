@@ -83,6 +83,10 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "authored": {
+    "by": "által",
+    "publishedDate": "Közzététel dátuma: {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Legújabb galériák",
     "item": "Legutóbbi tárgyak",
@@ -94,20 +98,14 @@ export default {
     "trending": "Népszerű tárgyak"
   },
   "blog": {
-    "author": "Szerző",
-    "authors": "Szerzők",
     "blog": "Blog",
-    "by": "írta",
-    "categories": "Kategóriák",
-    "category": "Kategória",
-    "posts": "Blogbejegyzés | Blogbejegyzések",
-    "published": "Közzététel dátuma: {date}",
-    "relatedPosts": "Kapcsolódó bejegyzések"
+    "posts": "Blogbejegyzés | Blogbejegyzések"
   },
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
     "place": "Hely",
+    "story": "Történet",
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "technikák",
-          "name": "Technika | Technikák",
+          "name": "Technika",
           "select": "Technikák kiválasztása"
         },
         "proxy_dc_type": {

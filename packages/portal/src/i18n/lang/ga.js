@@ -83,6 +83,10 @@ export default {
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
+  "authored": {
+    "by": "le",
+    "publishedDate": "Foilsithe {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
@@ -94,20 +98,14 @@ export default {
     "trending": "Míreanna treochta"
   },
   "blog": {
-    "author": "Údar",
-    "authors": "Údair",
     "blog": "Blag",
-    "by": "le",
-    "categories": "Catagóirí",
-    "category": "Catagóir",
-    "posts": "Blag phost | Postálacha blag",
-    "published": "Foilsithe {date}",
-    "relatedPosts": "Postálacha gaolmhara"
+    "posts": "Blag phost | Postálacha blag"
   },
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
     "place": "Áit",
+    "story": "Scéal",
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"

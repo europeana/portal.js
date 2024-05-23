@@ -83,6 +83,10 @@ export default {
     "show": "Mostrar atribuição",
     "title": "Título:"
   },
+  "authored": {
+    "by": "por",
+    "publishedDate": "Publicado {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Últimas galerias",
     "item": "Itens recentes",
@@ -94,20 +98,14 @@ export default {
     "trending": "Itens em tendência"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autores",
     "blog": "Blog",
-    "by": "por",
-    "categories": "Categorias",
-    "category": "Categoria",
-    "posts": "Publicação de blog | Publicações de blog",
-    "published": "Publicado {date}",
-    "relatedPosts": "Publicações relacionadas"
+    "posts": "Publicação de blog | Publicações de blog"
   },
   "cardLabels": {
     "organisation": "Organização",
     "person": "Pessoa",
     "place": "Lugar",
+    "story": "História",
     "theme": "Tema",
     "time": "Século",
     "topic": "Tópico"

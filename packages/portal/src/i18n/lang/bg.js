@@ -83,6 +83,10 @@ export default {
     "show": "Покажи атрибуция",
     "title": "Заглавие:"
   },
+  "authored": {
+    "by": "от",
+    "publishedDate": "Публикувано на {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Последни галерии",
     "item": "Скорошни обекта",
@@ -94,20 +98,14 @@ export default {
     "trending": "Тенденционни обекта"
   },
   "blog": {
-    "author": "Автор",
-    "authors": "Автори",
     "blog": "Блог",
-    "by": "от",
-    "categories": "Категории",
-    "category": "Категория",
-    "posts": "Публикация в блог | Публикации в блогове",
-    "published": "Публикувано на {date}",
-    "relatedPosts": "Подобни публикации"
+    "posts": "Публикация в блог | Публикации в блогове"
   },
   "cardLabels": {
     "organisation": "Организация",
     "person": "човек",
     "place": "място",
+    "story": "История",
     "theme": "Тема",
     "time": "Век",
     "topic": "Тема"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "техники",
-          "name": "Техника | Техники",
+          "name": "Техника",
           "select": "Изберете техники"
         },
         "proxy_dc_type": {

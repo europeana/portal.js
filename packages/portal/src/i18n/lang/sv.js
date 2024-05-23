@@ -83,6 +83,10 @@ export default {
     "show": "Visa attribution",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "av",
+    "publishedDate": "Publicerad {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendiga objekt"
   },
   "blog": {
-    "author": "Författare",
-    "authors": "Författare",
     "blog": "Blogg",
-    "by": "av",
-    "categories": "Kategorier",
-    "category": "Kategori",
-    "posts": "Blogginlägg | Blogginlägg",
-    "published": "Publicerad {date}",
-    "relatedPosts": "Relaterade inlägg"
+    "posts": "Blogginlägg | Blogginlägg"
   },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Plats",
+    "story": "Berättelse",
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"

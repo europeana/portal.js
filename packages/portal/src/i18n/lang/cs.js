@@ -83,6 +83,10 @@ export default {
     "show": "Zobrazit atribuci",
     "title": "Název:"
   },
+  "authored": {
+    "by": "podle",
+    "publishedDate": "Publikováno {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendové položky"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autoři",
     "blog": "Blog",
-    "by": "od",
-    "categories": "Kategorie",
-    "category": "Kategorie",
-    "posts": "Blogový příspěvek | Příspěvky na blogu",
-    "published": "Publikováno {date}",
-    "relatedPosts": "Související příspěvky"
+    "posts": "Blogový příspěvek | Příspěvky na blogu"
   },
   "cardLabels": {
     "organisation": "Organizace",
     "person": "Osoba",
     "place": "Místo",
+    "story": "Příběh",
     "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "techniky",
-          "name": "Technika | Techniky",
+          "name": "Technika",
           "select": "Vyberte techniky"
         },
         "proxy_dc_type": {

@@ -83,6 +83,10 @@ export default {
     "show": "Afficher l'attribution",
     "title": "Titre :"
   },
+  "authored": {
+    "by": "par",
+    "publishedDate": "Publié le {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Dernières galeries",
     "item": "Items récents",
@@ -94,20 +98,14 @@ export default {
     "trending": "Items tendance"
   },
   "blog": {
-    "author": "Auteur",
-    "authors": "Auteurs",
     "blog": "Blog",
-    "by": "par",
-    "categories": "Catégories",
-    "category": "Catégorie",
-    "posts": "Article de blog | Articles de blog",
-    "published": "Publié le {date}",
-    "relatedPosts": "Publications Similaires"
+    "posts": "Article de blog | Articles de blog"
   },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Personne",
     "place": "Place",
+    "story": "Histoire",
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "techniques",
-          "name": "Technique | Techniques",
+          "name": "Technique",
           "select": "Sélectionner les techniques"
         },
         "proxy_dc_type": {

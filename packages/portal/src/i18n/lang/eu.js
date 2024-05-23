@@ -83,6 +83,10 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "authored": {
+    "by": "arabera",
+    "publishedDate": "Argitaratze data {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
@@ -94,20 +98,14 @@ export default {
     "trending": "Joerako elementuak"
   },
   "blog": {
-    "author": "Egilea",
-    "authors": "Egileak",
     "blog": "Bloga",
-    "by": "egilea",
-    "categories": "Kategoriak",
-    "category": "Kategoria",
-    "posts": "Blogeko mezua | Blogeko argitalpenak",
-    "published": "Argitaratze data {date}",
-    "relatedPosts": "Lotutako argitalpenak"
+    "posts": "Blogeko mezua | Blogeko argitalpenak"
   },
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
     "place": "Lekua",
+    "story": "Istorioa",
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "teknikak",
-          "name": "Teknika | Teknikak",
+          "name": "Teknika",
           "select": "Hautatu teknikak"
         },
         "proxy_dc_type": {
