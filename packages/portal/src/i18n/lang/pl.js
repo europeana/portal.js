@@ -83,6 +83,10 @@ export default {
     "show": "Pokaż atrybucję",
     "title": "Tytuł:"
   },
+  "authored": {
+    "by": "przez",
+    "publishedDate": "Opublikowano w dniu {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
@@ -94,20 +98,14 @@ export default {
     "trending": "Popularne obiekty cyfrowe"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autorzy",
     "blog": "Blog",
-    "by": "autorstwa",
-    "categories": "Kategorie",
-    "category": "Kategoria",
-    "posts": "Wpis na blogu | Posty na blogu",
-    "published": "Opublikowano w dniu {date}",
-    "relatedPosts": "Powiązane posty"
+    "posts": "Wpis na blogu | Posty na blogu"
   },
   "cardLabels": {
     "organisation": "Organizacja",
     "person": "Osoba",
     "place": "Miejsce",
+    "story": "Historia",
     "theme": "Temat",
     "time": "Stulecie",
     "topic": "Temat"

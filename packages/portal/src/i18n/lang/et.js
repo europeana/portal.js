@@ -83,6 +83,10 @@ export default {
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
+  "authored": {
+    "by": "poolt",
+    "publishedDate": "Avaldatud {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
     "item": "Hiljutised üksused",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendivad  üksused"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autorid",
     "blog": "Blogi",
-    "by": "poolt",
-    "categories": "Kategooriad",
-    "category": "Kategooria",
-    "posts": "Blogi postitus | Blogi postitused",
-    "published": "Avaldatud {date}",
-    "relatedPosts": "Seonduvad postitused"
+    "posts": "Blogi postitus | Blogi postitused"
   },
   "cardLabels": {
     "organisation": "Organisatsioon",
     "person": "Isik",
     "place": "Koht",
+    "story": "Lugu",
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tehnikad",
-          "name": "Tehnika | Tehnikad",
+          "name": "Tehnika",
           "select": "Valige tehnikad"
         },
         "proxy_dc_type": {

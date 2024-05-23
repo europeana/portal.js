@@ -83,6 +83,10 @@ export default {
     "show": "Prikaži pripis",
     "title": "Naslov:"
   },
+  "authored": {
+    "by": "po",
+    "publishedDate": "Objavljeno {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Najnovejše galerije",
     "item": "Nedavni enote",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendovski enote"
   },
   "blog": {
-    "author": "Avtor",
-    "authors": "Avtorji",
     "blog": "Blog",
-    "by": "avtor",
-    "categories": "Kategorije",
-    "category": "Kategorija",
-    "posts": "Objava na blogu | Objave na spletnem dnevniku",
-    "published": "Objavljeno {date}",
-    "relatedPosts": "Sorodne objave"
+    "posts": "Objava na blogu | Objave na spletnem dnevniku"
   },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
     "place": "Mesto",
+    "story": "Zgodba",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -132,7 +130,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tehnike",
-          "name": "Tehnika | Tehnike",
+          "name": "Tehnika",
           "select": "Izberite tehnike"
         },
         "proxy_dc_type": {

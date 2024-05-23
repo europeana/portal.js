@@ -83,6 +83,10 @@ export default {
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
+  "authored": {
+    "by": "autorius",
+    "publishedDate": "Paskelbta {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Naujausios parodos",
     "item": "Naujausi skaitmeniniai objektai",
@@ -94,20 +98,14 @@ export default {
     "trending": "Populiarūs skaitmeniniai objektai"
   },
   "blog": {
-    "author": "Autorius",
-    "authors": "Autoriai",
     "blog": "Tinklaraštis",
-    "by": "autorius",
-    "categories": "Kategorijos",
-    "category": "Kategorija",
-    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai",
-    "published": "Paskelbta {date}",
-    "relatedPosts": "Susiję įrašai"
+    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai"
   },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
     "place": "Vieta",
+    "story": "Istorija",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"

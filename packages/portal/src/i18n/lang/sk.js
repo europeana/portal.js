@@ -83,6 +83,10 @@ export default {
     "show": "Zobraziť atribút",
     "title": "Názov:"
   },
+  "authored": {
+    "by": "od",
+    "publishedDate": "Zverejnené {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Najnovšie galérie",
     "item": "Nedávne objekty",
@@ -94,20 +98,14 @@ export default {
     "trending": "Trendujúce objekty"
   },
   "blog": {
-    "author": "Autor",
-    "authors": "Autori",
     "blog": "Blog",
-    "by": "od autora",
-    "categories": "Kategórie",
-    "category": "Kategória",
-    "posts": "Blogový príspevok | Blogové príspevky",
-    "published": "Zverejnené {date}",
-    "relatedPosts": "Súvisiace príspevky"
+    "posts": "Blogový príspevok | Blogové príspevky"
   },
   "cardLabels": {
     "organisation": "Organizácia",
     "person": "Osoba",
     "place": "Miesto",
+    "story": "Príbeh",
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"

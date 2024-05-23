@@ -83,6 +83,10 @@ export default {
     "show": "Toon toeschrijving",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "door",
+    "publishedDate": "Gepubliceerd op {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
@@ -94,20 +98,14 @@ export default {
     "trending": "Populaire objecten"
   },
   "blog": {
-    "author": "Auteur",
-    "authors": "Auteurs",
     "blog": "Blog",
-    "by": "door",
-    "categories": "Categorieën",
-    "category": "Categorie",
-    "posts": "Blogbericht | Blogberichten",
-    "published": "Gepubliceerd op {date}",
-    "relatedPosts": "Gerelateerde berichten"
+    "posts": "Blogbericht | Blogberichten"
   },
   "cardLabels": {
     "organisation": "Organisatie",
     "person": "Persoon",
     "place": "Plaats",
+    "story": "Verhaal",
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
