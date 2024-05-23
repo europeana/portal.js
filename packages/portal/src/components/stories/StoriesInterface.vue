@@ -200,7 +200,7 @@
         let urlPrefix;
 
         if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/stories';
+          urlPrefix = '/blog';
         } else if (entry['__typename'] === 'ExhibitionPage') {
           urlPrefix = '/exhibitions';
         }
