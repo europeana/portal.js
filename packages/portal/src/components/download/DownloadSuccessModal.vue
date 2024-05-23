@@ -119,7 +119,7 @@
         let titleCreator;
 
         if (this.title && this.creatorString) {
-          titleCreator = `${this.title} ${this.$t('blog.by')} ${this.creatorString}`;
+          titleCreator = `${this.title} ${this.$t('authored.by')} ${this.creatorString}`;
         } else {
           titleCreator = this.title || this.creatorString;
         }

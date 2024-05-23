@@ -23,12 +23,12 @@
                 data-qa="date"
                 :datetime="datePublished"
               >
-                {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
+                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
               </time>
               <span
                 v-if="authors"
               >
-                {{ $t('blog.by') }}
+                {{ $t('authored.by') }}
               </span>
               <template
                 v-for="(author, index) in authors"
