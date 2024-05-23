@@ -38,6 +38,16 @@ module.exports = function(migration) {
     .omitted(false);
 
   story
+    .createField('headline')
+    .name('Subtitle')
+    .type('Symbol')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  story
     .createField('description')
     .name('Description')
     .type('Symbol')
@@ -198,8 +208,15 @@ module.exports = function(migration) {
       ]
     });
 
-  story.changeFieldControl('name', 'builtin', 'singleLine', {});
+  story.changeFieldControl('name', 'builtin', 'singleLine',  {
+    helpText: 'To use the whole width header: This must be less than 80 characters.'
+  });
+
   story.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
+
+  story.changeFieldControl('headline', 'builtin', 'singleLine', {
+    helpText: 'To use the whole width header: This is required, but at less than 140 characters. Longer texts will be diplayed below the featured image.'
+  });
 
   story.changeFieldControl('description', 'builtin', 'singleLine', {
     helpText: 'For SEO, please make sure there is a short description.'
@@ -211,7 +228,7 @@ module.exports = function(migration) {
   });
 
   story.changeFieldControl('primaryImageOfPage', 'builtin', 'entryLinkEditor', {
-    helpText: 'Images wider than 800 px will take the whole width of the page, others aligned with the content. For best quality it\'s advised to use images of at least 2,520 px width.'
+    helpText: 'To use the whole width header: Images wider than 800 px are required, others will be aligned with the content. For best quality it\'s advised to use images of at least 2,520 px width.'
   });
 
   story.changeFieldControl('hasPart', 'builtin', 'entryCardsEditor', {
