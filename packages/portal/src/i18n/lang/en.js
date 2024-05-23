@@ -1180,7 +1180,7 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
-      "itemAdded": "Item has been added to gallery {gallery}.",
+      "itemAdded": "Item has been added to the gallery \"{gallery}\".",
       "itemLiked": "Item has been saved to your likes.",
       "itemRemoved": "Item has been removed from gallery {gallery}.",
       "itemUnliked": "Item has been removed from your likes.",
