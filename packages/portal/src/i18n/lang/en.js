@@ -31,6 +31,7 @@ export default {
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
       "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "remove": "Remove this item from this gallery.",
       "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
+    "remove": "Remove",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "share": "Share",
@@ -1176,6 +1178,10 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "itemAdded": "Item has been added to the gallery \"{gallery}\".",
+      "itemLiked": "Item has been saved to your likes.",
+      "itemRemoved": "Item has been removed from gallery {gallery}.",
+      "itemUnliked": "Item has been removed from your likes.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"

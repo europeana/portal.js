@@ -40,6 +40,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
           :button-text="true"
           button-variant="light-flat"
         />
@@ -63,6 +64,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
         />
       </div>
     </template>
@@ -127,6 +129,13 @@
        * If `true`, move button will be rendered
        */
       showMove: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * If `true`, remove button will be rendered
+       */
+      showRemove: {
         type: Boolean,
         default: false
       },

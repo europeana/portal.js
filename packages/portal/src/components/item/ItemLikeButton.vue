@@ -28,6 +28,7 @@
 <script>
   import keycloak from '@/mixins/keycloak';
   import logEventMixin from '@/mixins/logEvent';
+  import makeToastMixin from '@/mixins/makeToast';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -35,7 +36,8 @@
 
     mixins: [
       keycloak,
-      logEventMixin
+      logEventMixin,
+      makeToastMixin
     ],
 
     props: {
@@ -107,6 +109,7 @@
           await this.$store.dispatch('set/like', this.identifier);
           this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
           this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
+          this.makeToast(this.$t('set.notifications.itemLiked'));
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -118,6 +121,7 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
+        this.makeToast(this.$t('set.notifications.itemUnliked'));
       }
     }
   };

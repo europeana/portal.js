@@ -409,7 +409,8 @@
   &.like-button,
   &.pin-button,
   &.recommendation-button,
-  &.move-button {
+  &.move-button,
+  &.remove-button {
     font-size: $font-size-large;
 
     @at-root .xxl-page & {
