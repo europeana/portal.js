@@ -1,11 +1,12 @@
 <template>
   <div>
     <StoryHero
-      v-if="useStoryHero"
+      v-if="enableStoryHero"
       :title="title"
       :subtitle="subtitle"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
+      data-qa="story hero"
     />
     <AuthoredHead
       v-else
@@ -14,11 +15,11 @@
       :description="description"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
+      data-qa="authored head"
     />
-
     <div
       class="story-article-container position-relative bg-white"
-      :class="{ 'pt-5': useStoryHero }"
+      :class="{ 'pt-5': enableStoryHero }"
     >
       <b-container
         class="footer-margin"
@@ -30,8 +31,9 @@
           >
             <article>
               <p
-                v-if="showDescription"
+                v-if="showDescriptionInArticle"
                 class="lead"
+                data-qa="article description"
               >
                 {{ description }}
               </p>
@@ -104,21 +106,20 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import BrowseSections from '@/components/browse/BrowseSections';
   import ViewCount from '@/components/generic/ViewCount.vue';
-  import StoryHero from './StoryHero.vue';
 
   export default {
     name: 'StoryPost',
 
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
-      StoryAuthor: () => import('@/components/story/StoryAuthor'),
       BrowseSections,
       ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      StoryHero,
+      StoryAuthor: () => import('@/components/story/StoryAuthor'),
+      StoryHero: () => import('@/components/story/StoryHero'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
@@ -182,8 +183,10 @@
 
     data() {
       return {
-        showDescription: this.description && (this.useStoryHero || this.subtitle),
-        useStoryHero: this.hero?.image?.width >= 800 && this.title.length <= 80 && (this.subtitle ? this.subtitle.length <= 140 : true)
+        // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
+        showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
+        // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
+        enableStoryHero: this.hero?.image?.width >= 800 && this.title.length <= 80 && (this.subtitle ? this.subtitle.length <= 140 : true)
       };
     }
   };
