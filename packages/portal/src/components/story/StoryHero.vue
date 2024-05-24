@@ -1,39 +1,43 @@
 <template>
-  <div class="stories-post-hero">
+  <div class="story-hero d-flex flex-column xxl-page">
     <div
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
       role="img"
       :aria-label="hero?.image?.description"
     />
-    <b-container class="hero-content">
-      <header class="row">
-        <b-col
-          cols="12"
-          lg="6"
-          class="col lead mt-3"
-        >
-          <div
-            v-if="contextLabel"
-            class="context-label d-inline-block px-2 py-1 mb-3"
+    <div
+      class="hero-content"
+    >
+      <b-container class="hero-content-container">
+        <header class="row">
+          <b-col
+            cols="12"
+            lg="6"
+            class="col lead mt-3 mb-0"
           >
-            {{ contextLabel }}
-          </div>
-          <h1 class="title">
-            {{ title }}
-          </h1>
-          <p
-            v-if="subtitle"
-            class="subtitle"
-          >
-            {{ subtitle }}
-          </p>
-        </b-col>
-      </header>
-    </b-container>
-    <AttributionToggle
-      :attribution="hero"
-    />
+            <div
+              v-if="contextLabel"
+              class="context-label d-inline-block px-2 py-1 mb-3"
+            >
+              {{ contextLabel }}
+            </div>
+            <h1 class="title">
+              {{ title }}
+            </h1>
+            <p
+              v-if="subtitle"
+              class="subtitle"
+            >
+              {{ subtitle }}
+            </p>
+          </b-col>
+        </header>
+      </b-container>
+      <AttributionToggle
+        :attribution="hero"
+      />
+    </div>
   </div>
 </template>
 
@@ -100,9 +104,9 @@
       gsap.registerPlugin(ScrollTrigger);
 
       ScrollTrigger.defaults({
-        trigger: '.story-article-container',
+        trigger: '.story-hero',
         scrub: true,
-        end: 'top top',
+        start: 'top top',
         invalidateOnRefresh: true
       });
 
@@ -125,27 +129,31 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/responsive-background-image';
 
-  .stories-post-hero {
+  .story-hero {
     margin-top: -70px;
     background-color: $mediumgrey-light;
-    padding: 1.5rem;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
 
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
-      padding-bottom: calc(1.5 * 128px);
-      margin-bottom: 3rem;
     }
   }
 
   .hero-content {
-    position: absolute; // Prevents blending with the background
-    bottom: 12.5vh;
-    left: 0;
-    right: 0;
+    position: relative; // Prevents blending with the background
+    padding-top: 5rem;
+    margin-top: auto;
+  }
+
+  .hero-content-container {
+    padding-bottom: 3.5rem;
     color: $white;
+
+    @media (min-width: $bp-medium) {
+      padding-bottom: 5.5rem;
+    }
 
     ::v-deep .title h1,
     .subtitle,
@@ -163,11 +171,11 @@
       font-weight: 600;
       display: block;
       font-style: normal;
-      margin: 0.5rem 0;
+      margin: 0.5rem 0 0;
 
       @media (min-width: $bp-4k) {
         font-size: calc(1.5 * $font-size-large);
-        margin: 0.75rem 0;
+        margin: 0.75rem 0 0;
       }
     }
 
@@ -217,12 +225,19 @@
   }
 
   ::v-deep .icon-info {
-    left: 1.5rem;
+    bottom: 15px;
+    left: 15px;
     right: auto;
     z-index: 3;
+
+    @media (min-width: $bp-medium) {
+      bottom: 1.5rem;
+      left: 1.5rem;
+    }
   }
 
   ::v-deep cite {
+    bottom: 0.5rem;
     left: 0.5rem;
     right: auto !important;
     z-index: 3;

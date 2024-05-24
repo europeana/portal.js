@@ -6,7 +6,6 @@
       :subtitle="subtitle"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
-      class="story-hero"
     />
     <AuthoredHead
       v-else
