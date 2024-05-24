@@ -215,4 +215,16 @@
       position: absolute;
     }
   }
+
+  ::v-deep .icon-info {
+    left: 1.5rem;
+    right: auto;
+    z-index: 3;
+  }
+
+  ::v-deep cite {
+    left: 0.5rem;
+    right: auto !important;
+    z-index: 3;
+  }
 </style>
