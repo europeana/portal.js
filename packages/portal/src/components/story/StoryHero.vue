@@ -40,6 +40,8 @@
 <script>
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill' },
@@ -92,6 +94,29 @@
             CSS_VARS_PRESETS
           )
       };
+    },
+
+    mounted() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      ScrollTrigger.defaults({
+        trigger: '.story-article-container',
+        scrub: true,
+        end: 'top top',
+        invalidateOnRefresh: true
+      });
+
+      const halfHeroHeight = 0.5 * document.querySelector('.story-hero').clientHeight;
+
+      gsap.to('.hero-content', {
+        y: -halfHeroHeight,
+        scrollTrigger: {}
+      });
+
+      gsap.to('.story-hero', {
+        y: halfHeroHeight,
+        scrollTrigger: {}
+      });
     }
   };
 </script>

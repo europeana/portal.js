@@ -102,8 +102,6 @@
   import BrowseSections from '@/components/browse/BrowseSections';
   import ViewCount from '@/components/generic/ViewCount.vue';
   import StoryHero from './StoryHero.vue';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   export default {
     name: 'StoryPost',
@@ -183,30 +181,6 @@
       return {
         useStoryHero: this.hero.image.width >= 800
       };
-    },
-
-    mounted() {
-      if (this.useStoryHero) {
-        gsap.registerPlugin(ScrollTrigger);
-
-        ScrollTrigger.defaults({
-          trigger: '.story-article-container',
-          scrub: true,
-          end: 'top top',
-          invalidateOnRefresh: true,
-          markers: true
-        });
-
-        gsap.to('.hero-content', {
-          y: -(0.5 * document.querySelector('.story-hero').clientHeight),
-          scrollTrigger: {}
-        });
-
-        gsap.to('.story-hero', {
-          yPercent: 50,
-          scrollTrigger: {}
-        });
-      }
     }
   };
 </script>
