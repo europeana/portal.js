@@ -10,12 +10,16 @@
     <AuthoredHead
       v-else
       :title="title"
+      :subtitle="subtitle"
       :description="description"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
     />
 
-    <div class="story-article-container position-relative bg-white pt-5">
+    <div
+      class="story-article-container position-relative bg-white"
+      :class="{ 'pt-5': useStoryHero }"
+    >
       <b-container
         class="footer-margin"
       >
@@ -26,7 +30,7 @@
           >
             <article>
               <p
-                v-if="useStoryHero && description"
+                v-if="showDescription"
                 class="lead"
               >
                 {{ description }}
@@ -178,7 +182,8 @@
 
     data() {
       return {
-        useStoryHero: this.hero.image.width >= 800
+        showDescription: this.description && (this.useStoryHero || this.subtitle),
+        useStoryHero: this.hero?.image?.width >= 800 && this.title.length <= 80 && (this.subtitle ? this.subtitle.length <= 140 : true)
       };
     }
   };

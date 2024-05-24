@@ -24,10 +24,10 @@
               {{ title }}
             </h1>
             <p
-              v-if="description"
+              v-if="subtitle || description"
               class="lead"
             >
-              {{ description }}
+              {{ subtitle || description }}
             </p>
           </div>
         </article>
@@ -64,6 +64,11 @@
       title: {
         type: String,
         required: true
+      },
+
+      subtitle: {
+        type: String,
+        default: ''
       },
 
       description: {
