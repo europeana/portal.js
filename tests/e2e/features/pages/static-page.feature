@@ -8,9 +8,8 @@ Feature: Static page
     And I am on an accessible page
     And I should have a Europeana branded page title
 
-# TODO: enable when linklist is actually present
-# Scenario: Static page linklist
+  Scenario: Static page linklist
 
-#   When I open a `static page with linklist`
-#   Then I see a `static page`
-#   And I see a `link list`
+    When I open a `static page with linklist`
+    Then I see a `static page`
+    And I see a `link list`

@@ -24,6 +24,7 @@ const pages = {
   'gallery foyer page': `${url}/en/galleries`,
   'home page': `${url}/en`,
   'Newspapers theme search page': `${url}/en/search?qf=collection%3Anewspaper`,
+  'immersive story page': `${url}/en/story/melitta-bentz-the-woman-who-invented-the-coffee-filter`,
   'item page with a responsive embedded video': `${url}/en/item/2021007/_SLS_1226`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
@@ -36,9 +37,9 @@ const pages = {
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
-  'static page': `${url}/en/about-us`
-  // TODO: enable when linklist is actually present
-  // 'static page with linklist': `${url}/en/rights`
+  'static page': `${url}/en/about-us`,
+  'static page with linklist': `${url}/en/rights`,
+  'story page': `${url}/en/story/nilde-iotti`
 };
 
 module.exports = {
