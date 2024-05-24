@@ -60,7 +60,7 @@
   };
 
   export default {
-    name: 'StoriesPostHero',
+    name: 'StoryHero',
 
     components: {
       AttributionToggle
