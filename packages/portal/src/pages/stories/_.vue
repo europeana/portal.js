@@ -30,7 +30,9 @@
       <StoryPost
         :date-published="post.datePublished"
         :title="post.name"
+        :english-title-length="post.nameEN?.length"
         :subtitle="post.headline"
+        :english-subtitle-length="post.headlineEN?.length"
         :description="post.description"
         :body="post.hasPartCollection"
         :identifier="post.identifier"

@@ -6,9 +6,13 @@ import StoryPost from '@/components/story/StoryPost.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const title = 'This is a title';
+const subtitle = 'This is a subtitle';
+
 const baseProps = {
   identifier: '123',
-  title: 'This is a title',
+  title,
+  englishTitleLength: title.length,
   datePublished: '2019-10-03T00:00+00:00',
   hero: {
     license: 'https://creativecommons.org/licenses/by-sa/1.0/',
@@ -28,7 +32,8 @@ const baseProps = {
 const storyHeroProps = {
   ...baseProps,
   title: 'This is a title',
-  subtitle: 'This is a subtitle'
+  subtitle,
+  englishSubtitleLength: subtitle.length
 };
 
 const factory = (propsData = baseProps) => shallowMount(StoryPost, {
@@ -70,7 +75,7 @@ describe('components/story/StoryPost', () => {
     });
   });
 
-  describe('when the title is longer than 80 characters', () => {
+  describe('when the English title is longer than 80 characters', () => {
     it('does not render the story hero, but the authored head', () => {
       const longTitleProps = { ...storyHeroProps,
         title: 'This is a title that is longer than 80 characters and should disable the hero from being used' };
@@ -81,7 +86,7 @@ describe('components/story/StoryPost', () => {
     });
   });
 
-  describe('when the subtitle is longer than 140 characters', () => {
+  describe('when the English subtitle is longer than 140 characters', () => {
     it('does not render the story hero, but the authored head', () => {
       const longSubtitleProps = { ...storyHeroProps,
         subtitle: 'This is a subtitle that is longer than 140 characters and should disable the hero from being used. It should be really longer than 140 characters.' };

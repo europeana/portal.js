@@ -9,7 +9,7 @@ Feature: Story page
 
   Scenario: Story that is not immersive
     When I open the `story page`
-    Then I don't see a `story hero` in the `story page`
+    Then I don't have a `story hero` in the `story page`
     And I see a `authored head` in the `story page`
 
   Scenario: Story post not found
