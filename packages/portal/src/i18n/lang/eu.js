@@ -31,6 +31,7 @@ export default {
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
       "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
+      "remove": "Kendu elementu hau galeria honetatik.",
       "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Argitaratu",
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
+    "remove": "Kendu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "share": "Partekatu",
@@ -1129,6 +1131,10 @@ export default {
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
+      "itemAdded": "Elementua \" {gallery} \" galerian gehitu da.",
+      "itemLiked": "Elementua zure gustukoetan gorde da.",
+      "itemRemoved": "Elementua {gallery} galeriatik kendu da.",
+      "itemUnliked": "Elementua zure gustukoenetatik kendu da.",
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"

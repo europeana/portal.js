@@ -31,6 +31,7 @@ export default {
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
       "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
+      "remove": "Bain an mír seo den ghailearaí seo.",
       "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Foilsiú",
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
+    "remove": "Bain",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
     "save": "Sábháil",
     "share": "Roinn",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
+      "itemAdded": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
+      "itemLiked": "Sábháladh an mír le do rudaí is maith leat.",
+      "itemRemoved": "Baineadh an mhír as gailearaí {gallery}.",
+      "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 Is maith liom"

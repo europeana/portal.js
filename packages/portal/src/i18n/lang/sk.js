@@ -31,6 +31,7 @@ export default {
       "private": "Súkromnú galériu si môžete prezerať iba vy.",
       "public": "Verejnú galériu si môže pozrieť ktokoľvek s odkazom.",
       "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie.",
+      "remove": "Odstráňte tento objekt z tejto galérie.",
       "reorder": "Kliknutím na toto tlačidlo a presunutím objekty môžete zmeniť poradie objekt."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikovať",
     "readMore": "Čítaj viac",
     "reject": "Odmietnuť",
+    "remove": "Odstrániť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
     "share": "Zdieľať",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
+      "itemAdded": "Objekt bola pridaná do galérie \"{gallery}\".",
+      "itemLiked": "Objekt bol uložený medzi vaše označenia páči sa mi.",
+      "itemRemoved": "Objekt bol odstránený z galérie {gallery}.",
+      "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
