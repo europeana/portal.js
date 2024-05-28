@@ -31,6 +31,7 @@ export default {
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
       "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
+      "remove": "Eliminați această resursă culturală din această galerie.",
       "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publica",
     "readMore": "Citește mai mult",
     "reject": "Respinge",
+    "remove": "Elimina",
     "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
     "share": "Distribuiți",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
+      "itemAdded": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
+      "itemLiked": "Resursa culturală a fost salvată în aprecierile tale.",
+      "itemRemoved": "Resursa culturală a fost eliminată din galeria {gallery}.",
+      "itemUnliked": "Resursa culturală a fost eliminată din aprecierile tale.",
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"

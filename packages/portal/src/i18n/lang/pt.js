@@ -31,6 +31,7 @@ export default {
       "private": "Uma galeria privada só pode ser vista por si.",
       "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
       "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias.",
+      "remove": "Remova este item desta galeria.",
       "reorder": "Você pode reordenar os itens clicando neste botão e arrastando o item para movê-lo."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicar",
     "readMore": "Ler mais",
     "reject": "Rejeitar",
+    "remove": "Remover",
     "requestDepublication": "Solicitar despublicação",
     "save": "Salve",
     "share": "Partilhar",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
+      "itemAdded": "O item foi adicionado à galeria \"{gallery}\".",
+      "itemLiked": "O item foi salvo nos seus gostos.",
+      "itemRemoved": "O item foi removido da galeria {gallery}.",
+      "itemUnliked": "O item foi removido dos seus gostos.",
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"

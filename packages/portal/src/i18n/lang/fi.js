@@ -31,6 +31,7 @@ export default {
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
       "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
+      "remove": "Poista tämä aineisto tästä galleriasta.",
       "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Julkaista",
     "readMore": "Lue lisää",
     "reject": "Hylätä",
+    "remove": "Poista",
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "share": "Jaa",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
+      "itemAdded": "Aineisto on lisätty galleriaan \"{gallery}\".",
+      "itemLiked": "Aineisto on tallennettu tykkääjäsi.",
+      "itemRemoved": "Aineisto on poistettu galleriasta {gallery}.",
+      "itemUnliked": "Aineisto on poistettu tykkäyksistäsi.",
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 aineistot. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"

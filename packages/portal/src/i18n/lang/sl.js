@@ -31,6 +31,7 @@ export default {
       "private": "Zasebno galerijo si lahko ogledate samo vi.",
       "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
       "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije.",
+      "remove": "Odstranite to enoto iz te galerije.",
       "reorder": "Enote lahko preuredite tako, da kliknete ta gumb in povlečete enota, da ga premaknete."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Objavi",
     "readMore": "Preberi več",
     "reject": "Zavrne",
+    "remove": "Odstrani",
     "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
     "share": "Deli",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
+      "itemAdded": "Enota je bil dodan v galerijo \"{gallery}\".",
+      "itemLiked": "Enota je bila shranjena med vaše všečke.",
+      "itemRemoved": "Enota je bila odstranjena iz galerije {gallery}.",
+      "itemUnliked": "Enota je bila odstranjena iz vaših všečkov.",
       "likeLimit": {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 enote. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"

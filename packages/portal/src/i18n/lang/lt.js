@@ -31,6 +31,7 @@ export default {
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
       "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
+      "remove": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
       "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikuoti",
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
+    "remove": "Pašalinti",
     "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
     "share": "Dalintis",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
+      "itemAdded": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
+      "itemLiked": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
+      "itemRemoved": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
+      "itemUnliked": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"

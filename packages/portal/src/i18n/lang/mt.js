@@ -31,6 +31,7 @@ export default {
       "private": "Gallerija privata tista' taraha biss int.",
       "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
       "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
+      "remove": "Neħħi dan l-oġġett minn din il-gallerija.",
       "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Ippubblika",
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
+    "remove": "Neħħi",
     "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
     "share": "Ixxerja",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
+      "itemAdded": "L-oġġett ġie miżjud mal-gallerija \"{gallery}\".",
+      "itemLiked": "L-oġġett ġie ffrankat fil-“likes” tiegħek.",
+      "itemRemoved": "L-oġġett tneħħa mill-gallerija {gallery}.",
+      "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 like"

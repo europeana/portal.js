@@ -31,6 +31,7 @@ export default {
       "private": "Una galería privada solo puede ser vista por usted.",
       "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
       "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías.",
+      "remove": "Eliminar este ítem de esta galería.",
       "reorder": "Puede reordenar ítems haciendo clic en este botón y arrastrando el ítem para moverlo."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicar",
     "readMore": "Leer más",
     "reject": "Rechazar",
+    "remove": "Eliminar",
     "requestDepublication": "Solicitud de despublicación",
     "save": "Salvar",
     "share": "Compartir",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
+      "itemAdded": "El ítem ha sido añadido a la galería \"{gallery}\".",
+      "itemLiked": "El ítem se ha guardado en tus Me gusta.",
+      "itemRemoved": "El ítem ha sido eliminado de la galería {gallery}.",
+      "itemUnliked": "El ítem se ha eliminado de tus Me gusta.",
       "likeLimit": {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 Ítems. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
