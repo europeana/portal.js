@@ -86,7 +86,9 @@
         @input="handleSelectedOptionInput"
         @hide="handleHide"
       />
+      <!-- v-if to prevent badge images loading before needed -->
       <SearchThemeBadges
+        v-if="showForm"
         v-show="showSearchThemeBadges"
         ref="quicksearch"
       />
