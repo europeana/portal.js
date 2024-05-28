@@ -88,8 +88,7 @@
       />
       <!-- v-if to prevent badge images loading before needed -->
       <SearchThemeBadges
-        v-if="showForm"
-        v-show="showSearchThemeBadges"
+        v-if="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -196,7 +195,10 @@
       },
 
       showSearchThemeBadges() {
-        return (this.inPageHeader || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
+        return this.showForm &&
+          (this.inPageHeader || this.inSearchSidebar) &&
+          !this.onSearchableCollectionPage &&
+          !this.query;
       },
 
       searchFormOptionsId() {
