@@ -24,6 +24,7 @@
         :headline="page.headline || page.name"
         :text="page.text"
         :cta="page.relatedLink"
+        :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
       />
