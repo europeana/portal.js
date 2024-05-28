@@ -71,24 +71,28 @@ describe('components/item/ItemPreviewCardGroup', () => {
   describe('template', () => {
     describe('when view is grid', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
+        jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'grid' } });
         await wrapper.vm.fetch();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
         expect(renderedResults.length).toBe(2);
+        jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
     });
 
     describe('when view is mosaic', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
+        jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'mosaic' } });
         await wrapper.vm.fetch();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
         expect(renderedResults.length).toBe(2);
+        jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
     });

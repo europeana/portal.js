@@ -1,12 +1,13 @@
 query storiesMinimal(
   $locale: String!,
   $preview: Boolean = false,
-  $query: String = ""
+  $query: String = "",
+  $redirectBlogsToStories: Boolean = false
 ) {
-	blogPostingCollection(
+	blogPostingCollection (
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query }
-  ) {
+    where: { name_contains: $query },
+  ) @skip(if: $redirectBlogsToStories) {
     items {
       date: datePublished
       sys {
@@ -30,6 +31,22 @@ query storiesMinimal(
       }
       cats: categoriesCollection(limit: 5) {
         items: items {
+          id: identifier
+        }
+      }
+    }
+  },
+  storyCollection (
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
+    where: { name_contains: $query },
+  ) @include(if: $redirectBlogsToStories) {
+    items {
+      date: datePublished
+      sys {
+        id
+      }
+      cats: categoriesCollection(limit: 5) {
+        items {
           id: identifier
         }
       }

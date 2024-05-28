@@ -69,7 +69,8 @@ describe('components/related/RelatedEditorial', () => {
             query,
             locale: 'en-GB',
             preview: false,
-            limit: 4
+            limit: 4,
+            redirectBlogsToStories: false
           })).toBe(true);
         });
 
@@ -94,7 +95,8 @@ describe('components/related/RelatedEditorial', () => {
             theme: null,
             locale: 'en-GB',
             preview: false,
-            limit: 4
+            limit: 4,
+            redirectBlogsToStories: false
           })).toBe(true);
         });
 
@@ -124,7 +126,8 @@ describe('components/related/RelatedEditorial', () => {
             query,
             locale: 'en-GB',
             preview: false,
-            limit: 4
+            limit: 4,
+            redirectBlogsToStories: false
           })).toBe(true);
         });
 
@@ -149,7 +152,8 @@ describe('components/related/RelatedEditorial', () => {
             theme,
             locale: 'en-GB',
             preview: false,
-            limit: 4
+            limit: 4,
+            redirectBlogsToStories: false
           })).toBe(true);
         });
 
@@ -180,7 +184,8 @@ describe('components/related/RelatedEditorial', () => {
             theme: null,
             locale: 'en-GB',
             preview: false,
-            limit: 4
+            limit: 4,
+            redirectBlogsToStories: false
           })).toBe(true);
         });
 
@@ -201,32 +206,6 @@ describe('components/related/RelatedEditorial', () => {
 
           expect(wrapper.vm.$contentful.query.called).toBe(false);
         });
-      });
-    });
-  });
-
-  describe('methods', () => {
-    describe('entryUrl', () => {
-      it('prefixes BlogPosting entries with /blog', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'BlogPosting',
-          identifier: 'interesting'
-        });
-
-        expect(entryUrl).toBe('/blog/interesting');
-      });
-
-      it('prefixes ExhibitionPage entries with /exhibitions', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'ExhibitionPage',
-          identifier: 'educational'
-        });
-
-        expect(entryUrl).toBe('/exhibitions/educational');
       });
     });
   });

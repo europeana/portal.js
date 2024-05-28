@@ -20,6 +20,10 @@
   @extend %icon-font;
 }
 
+.icon-3d::before {
+  content: '\e957';
+}
+
 .icon-accept::before {
   content: '\e938';
 }
@@ -124,6 +128,10 @@
   content: '\e922';
 }
 
+.icon-image::before {
+  content: '\e955';
+}
+
 .icon-info::before {
   content: '\e91f';
 }
@@ -168,6 +176,14 @@
   content: '\e950';
 }
 
+.icon-menu::before {
+  content: '\e9bd';
+}
+
+.icon-ic-move-xy::before {
+  content: '\e959';
+}
+
 .icon-original::before {
   content: '\e93f';
 }
@@ -188,8 +204,12 @@
   content: '\e939';
 }
 
-.icon-settings::before {
-  content: '\e928';
+.icon-remove-circle:before {
+  content: '\e917';
+}
+
+.icon-remove-circle-outlined:before {
+  content: '\e91c';
 }
 
 .icon-school::before {
@@ -200,8 +220,16 @@
   content: '\e92b';
 }
 
+.icon-settings::before {
+  content: '\e928';
+}
+
 .icon-share::before {
   content: '\e925';
+}
+
+.icon-sound::before {
+  content: '\e956';
 }
 
 .icon-stories::before {
@@ -216,32 +244,20 @@
   content: '\e93d';
 }
 
-.icon-transcribe-outlined::before {
-  content: '\e95b';
+.icon-text::before {
+  content: '\e954';
 }
 
 .icon-transcribe::before {
   content: '\e916';
 }
 
+.icon-transcribe-outlined::before {
+  content: '\e95b';
+}
+
 .icon-translate::before {
   content: '\e93c';
-}
-
-.icon-3d::before {
-  content: '\e957';
-}
-
-.icon-sound::before {
-  content: '\e956';
-}
-
-.icon-text::before {
-  content: '\e954';
-}
-
-.icon-image::before {
-  content: '\e955';
 }
 
 .icon-video::before {
@@ -254,14 +270,6 @@
 
 .icon-unavailable::before {
   content: '\e953';
-}
-
-.icon-ic-move-xy::before {
-  content: '\e959';
-}
-
-.icon-menu::before {
-  content: '\e9bd';
 }
 
 .icon-x::before {

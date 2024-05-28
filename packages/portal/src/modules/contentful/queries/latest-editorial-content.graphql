@@ -2,12 +2,13 @@ query latestEditorialContent(
   $locale: String!,
   $preview: Boolean = false,
   $limit: Int = 1,
-  $query: String = ""
+  $query: String = "",
+  $redirectBlogsToStories: Boolean = false
 ) {
   blogPostingCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) {
+  ) @skip(if: $redirectBlogsToStories) {
     items {
       __typename
       name
@@ -26,6 +27,24 @@ query latestEditorialContent(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+  storyCollection(
+    where: { name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) @include(if: $redirectBlogsToStories) {
     items {
       __typename
       name

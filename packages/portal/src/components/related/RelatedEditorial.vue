@@ -17,7 +17,7 @@
             v-for="(entry, index) in related"
             :key="index"
             :title="entry.name"
-            :url="entryUrl(entry)"
+            :url="contentfulEntryUrl(entry)"
             :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
             :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
             :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -44,7 +44,7 @@
         v-for="(entry, index) in related"
         :key="index"
         :title="entry.name"
-        :url="entryUrl(entry)"
+        :url="contentfulEntryUrl(entry)"
         :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
         :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
         :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
   import ContentCard from '../content/ContentCard';
 
   export default {
@@ -119,7 +120,8 @@
         query: this.query,
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview',
-        limit: this.limit
+        limit: this.limit,
+        redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
       };
 
       let queryName = 'relatedContent';
@@ -131,8 +133,9 @@
       const response = await this.$contentful.query(queryName, variables);
       const entries = response.data.data;
 
-      this.related = entries.blogPostingCollection.items
+      this.related = (entries.blogPostingCollection?.items || [])
         .concat(entries.exhibitionPageCollection.items)
+        .concat((entries.storyCollection?.items || []))
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, this.limit);
 
@@ -145,17 +148,7 @@
     },
 
     methods: {
-      entryUrl(entry) {
-        let urlPrefix;
-
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
-        } else if (entry['__typename'] === 'ExhibitionPage') {
-          urlPrefix = '/exhibitions';
-        }
-
-        return `${urlPrefix}/${entry.identifier}`;
-      }
+      contentfulEntryUrl
     }
   };
 </script>

@@ -72,7 +72,8 @@ describe('components/home/HomeLatestStories', () => {
       expect(wrapper.vm.$contentful.query.calledWith('latestEditorialContent', {
         locale: 'en-GB',
         preview: false,
-        limit: 2
+        limit: 2,
+        redirectBlogsToStories: false
       })).toBe(true);
     });
 
@@ -89,30 +90,6 @@ describe('components/home/HomeLatestStories', () => {
   });
 
   describe('methods', () => {
-    describe('cardLink', () => {
-      it('constructs exhibition links', () => {
-        const wrapper = factory();
-
-        const link = wrapper.vm.cardLink({
-          __typename: 'ExhibitionPage',
-          identifier: 'exhibition'
-        });
-
-        expect(link.name).toBe('exhibitions-exhibition');
-      });
-
-      it('constructs blog post links', () => {
-        const wrapper = factory();
-
-        const link = wrapper.vm.cardLink({
-          __typename: 'BlogPosting',
-          identifier: 'blog'
-        });
-
-        expect(link.name).toBe('blog-all');
-      });
-    });
-
     describe('cardImage', () => {
       it('uses primaryImageOfPage URL', () => {
         const wrapper = factory();

@@ -56,7 +56,7 @@
           v-else-if="entry !== ctaBanner"
           :key="index"
           :title="entry.name"
-          :url="entryUrl(entry)"
+          :url="contentfulEntryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
           :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
@@ -74,8 +74,10 @@
 <script>
   import uniq from 'lodash/uniq';
   import ClientOnly from 'vue-client-only';
+
   import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   const CTA_BANNER = 'cta-banner';
 
@@ -154,12 +156,14 @@
         // and filtering by categories.
         const storyIdsVariables = {
           locale: this.$i18n.localeProperties.iso,
-          preview: this.$route.query.mode === 'preview'
+          preview: this.$route.query.mode === 'preview',
+          redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.blogPostingCollection.items,
-          storyIdsResponse.data.data.exhibitionPageCollection.items
+          storyIdsResponse.data.data.blogPostingCollection?.items || [],
+          storyIdsResponse.data.data.exhibitionPageCollection?.items,
+          storyIdsResponse.data.data.storyCollection?.items || []
         ].flat();
 
         // Simplify categories
@@ -186,8 +190,9 @@
         };
         const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
         const fullStories = [
-          storiesResponse.data.data.blogPostingCollection.items,
-          storiesResponse.data.data.exhibitionPageCollection.items
+          storiesResponse.data.data.blogPostingCollection?.items,
+          storiesResponse.data.data.exhibitionPageCollection.items,
+          storiesResponse.data.data.storyCollection?.items
         ].flat();
         this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
         if (this.page === 1 && this.selectedTags.length === 0) {
@@ -196,17 +201,7 @@
         this.$scrollTo?.('#header');
       },
 
-      entryUrl(entry) {
-        let urlPrefix;
-
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
-        } else if (entry['__typename'] === 'ExhibitionPage') {
-          urlPrefix = '/exhibitions';
-        }
-
-        return `${urlPrefix}/${entry.identifier}`;
-      },
+      contentfulEntryUrl,
 
       entryImageOptions(image) {
         return image.width <= image.height ? { width: 660 } : { height: 620 };
