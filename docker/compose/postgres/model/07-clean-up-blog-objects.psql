@@ -9,26 +9,26 @@ INSERT INTO objects (uri)
 -- on actions/history linked to /blog/ objects, update the link to be to the /stories/ object
 
 UPDATE actions
-SET object_id=good_id
+SET object_id=new_id
 FROM
-  (SELECT bad.id bad_id,
-          good.id good_id
-   FROM objects bad
-   INNER JOIN objects good ON good.uri=REPLACE(bad.uri, '/blog/', '/stories/')
-   WHERE bad.uri like '%/blog/%'
-     AND good.uri like '%/stories/%') bad_good
-WHERE object_id=bad_id;
+  (SELECT old.id old_id,
+          new.id new_id
+   FROM objects old
+   INNER JOIN objects new ON new.uri=REPLACE(old.uri, '/blog/', '/stories/')
+   WHERE old.uri like '%/blog/%'
+     AND new.uri like '%/stories/%') old_new
+WHERE object_id=old_id;
 
 UPDATE history
-SET object_id=good_id
+SET object_id=new_id
 FROM
-  (SELECT bad.id bad_id,
-          good.id good_id
-   FROM objects bad
-   INNER JOIN objects good ON good.uri=REPLACE(bad.uri, '/blog/', '/stories/')
-   WHERE bad.uri like '%/blog/%'
-     AND good.uri like '%/stories/%') bad_good
-WHERE object_id=bad_id;
+  (SELECT old.id old_id,
+          new.id new_id
+   FROM objects old
+   INNER JOIN objects new ON new.uri=REPLACE(old.uri, '/blog/', '/stories/')
+   WHERE old.uri like '%/blog/%'
+     AND new.uri like '%/stories/%') old_new
+WHERE object_id=old_id;
 
 -- delete the /blog/ objects
 
