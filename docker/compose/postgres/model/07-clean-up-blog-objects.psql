@@ -34,4 +34,4 @@ WHERE object_id=old_id;
 
 DELETE
 FROM objects
-WHERE uri like '/blog/';
+WHERE uri like '%/blog/%';
