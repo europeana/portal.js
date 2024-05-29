@@ -31,6 +31,7 @@ export default {
       "private": "Una galleria privata può essere visualizzata solo da te.",
       "public": "Una galleria pubblica può essere visualizzata da chiunque disponga del collegamento.",
       "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie.",
+      "remove": "Rimuovi questo oggetto da questa galleria.",
       "reorder": "È possibile riordinare gli oggetti facendo clic su questo pulsante e trascinando l'oggetto per spostarlo."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Pubblicare",
     "readMore": "Leggi di più",
     "reject": "Rifiuta",
+    "remove": "Rimuovi",
     "requestDepublication": "Richiesta di depubblicazione",
     "save": "Salva",
     "share": "Condividi",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
+      "itemAdded": "L'oggetto è stato aggiunto alla galleria \"{gallery}\".",
+      "itemLiked": "L'oggetto è stato salvato nei tuoi Mi piace.",
+      "itemRemoved": "L'oggetto è stato rimosso dalla galleria {gallery}.",
+      "itemUnliked": "L'oggetto è stato rimosso dai tuoi Mi piace.",
       "likeLimit": {
         "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"

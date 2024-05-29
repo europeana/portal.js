@@ -31,6 +31,7 @@ export default {
       "private": "Privaatset galeriid saate vaadata ainult teie.",
       "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
       "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
+      "remove": "Eemaldage see üksus sellest galeriist.",
       "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Avalda",
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
+    "remove": "Eemalda",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
     "share": "Jagage",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
+      "itemAdded": "Üksus on lisatud galeriisse \"{gallery}\".",
+      "itemLiked": "Üksus on salvestatud teie meeldimiste hulka.",
+      "itemRemoved": "Üksus on eemaldatud galeriist {gallery}.",
+      "itemUnliked": "Üksus on eemaldatud teie meeldimistest.",
       "likeLimit": {
         "body": "Meil on kahju, kuid hetkel on teil piiratud maksimaalselt 100 üksused meeldimine. Me kaotame selle piirangu peagi!",
         "title": "100 meeldimist"

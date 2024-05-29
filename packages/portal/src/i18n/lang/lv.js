@@ -31,6 +31,7 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
+      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicēt",
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
+    "remove": "Noņemt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
     "share": "Dalies",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
+      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
+      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
+      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
+      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"

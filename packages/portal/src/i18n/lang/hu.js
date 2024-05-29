@@ -31,6 +31,7 @@ export default {
       "private": "A privát galériát csak Ön tekintheti meg.",
       "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
       "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon.",
+      "remove": "Távolítsa el ezt a tárgyat ebből a galériából.",
       "reorder": "Az tárgyak átrendezéséhez kattintson erre a gombra, és húzza az tárgyat az áthelyezéshez."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Közzététel",
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
+    "remove": "Eltávolít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
     "share": "Megosztás",
@@ -1123,6 +1125,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
+      "itemAdded": "A tárgyat hozzáadták a galériához \"{gallery}\".",
+      "itemLiked": "A tárgyat elmentettük a kedveléseidhez.",
+      "itemRemoved": "A tárgyat eltávolították a galériából {gallery}.",
+      "itemUnliked": "A tárgyat eltávolították a kedveléseid közül.",
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan tárgyak ezt a korlátozást!",
         "title": "100 kedvelés"

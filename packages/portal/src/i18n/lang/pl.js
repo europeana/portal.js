@@ -31,6 +31,7 @@ export default {
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
       "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
+      "remove": "Usuń ten obiekt cyfrowy z tej galerii.",
       "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikować",
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
+    "remove": "Usunąć",
     "requestDepublication": "Poproś o wycofanie publikacji",
     "save": "Zapisać",
     "share": "Udostępnij",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
+      "itemAdded": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
+      "itemLiked": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
+      "itemRemoved": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
+      "itemUnliked": "Obiekt cyfrowy został usunięty z Twoich polubień.",
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"

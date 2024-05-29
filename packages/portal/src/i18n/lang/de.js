@@ -31,6 +31,7 @@ export default {
       "private": "Eine private Galerie kann nur von Ihnen angesehen werden.",
       "public": "Eine öffentliche Galerie kann von jedem mit dem Link angesehen werden.",
       "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden.",
+      "remove": "Entfernen Sie dieses Objekt aus dieser Galerie.",
       "reorder": "Sie können Objekte neu anordnen, indem Sie auf diese Schaltfläche klicken und das Objekt ziehen, um es zu verschieben."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Veröffentlichen",
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
+    "remove": "Entfernen",
     "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
     "share": "Teilen",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
+      "itemAdded": "Das Objekt wurde zur Galerie \"{gallery}\" hinzugefügt.",
+      "itemLiked": "Das Objekt wurde zu Ihren Likes gespeichert.",
+      "itemRemoved": "Das Objekt wurde aus der Galerie {gallery} entfernt.",
+      "itemUnliked": "Das Objekt wurde aus Ihren Likes entfernt.",
       "likeLimit": {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"

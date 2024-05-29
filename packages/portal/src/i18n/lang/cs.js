@@ -31,6 +31,7 @@ export default {
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
       "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
+      "remove": "Odeberte tuto položku z této galerie.",
       "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikovat",
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
+    "remove": "Odstranit",
     "requestDepublication": "Žádost o zrušení publikace",
     "save": "Uložit",
     "share": "Sdílejte",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
+      "itemAdded": "Položka byla přidána do galerie \"{gallery}\".",
+      "itemLiked": "Položka byla uložena do vašich označení líbí se mi.",
+      "itemRemoved": "Položka byla odstraněna z galerie {gallery}.",
+      "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 oblíbených"

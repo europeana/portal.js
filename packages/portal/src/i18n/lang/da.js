@@ -31,6 +31,7 @@ export default {
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
       "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
+      "remove": "Fjern denne genstand fra dette galleri.",
       "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Offentliggøre",
     "readMore": "Læs mere",
     "reject": "Afvise",
+    "remove": "Fjerne",
     "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
     "share": "Del",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
+      "itemAdded": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
+      "itemLiked": "Genstanden er blevet gemt i dine likes.",
+      "itemRemoved": "Genstanden er blevet fjernet fra galleriet {gallery}.",
+      "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
