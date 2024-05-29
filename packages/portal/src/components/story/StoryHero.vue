@@ -1,6 +1,7 @@
 <template>
   <div class="story-hero d-flex flex-column xxl-page">
     <div
+      ref="heroBackground"
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
       role="img"
@@ -79,12 +80,32 @@
 
     data() {
       return {
-        imageCSSVars: this.hero.image &&
+        imageCSSVars: this.hero?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.hero.image,
             CSS_VARS_PRESETS
           )
       };
+    },
+
+    mounted() {
+      window.addEventListener('scroll', this.parallaxBackground);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.parallaxBackground);
+    },
+
+    methods: {
+      parallaxBackground() {
+        const scrollPosition = window.scrollY || 1;
+        const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
+
+        if (scrollPosition <= heroBackgroundHeight) {
+          const translate = (scrollPosition / heroBackgroundHeight) * 75;
+          this.$refs.heroBackground.style.transform = `translateY(${translate}%)`;
+        }
+      }
     }
   };
 </script>
@@ -164,7 +185,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    transition: transform 500ms ease-out;
 
     &::before {
       content: '';
