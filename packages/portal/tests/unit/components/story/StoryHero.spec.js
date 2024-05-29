@@ -1,44 +1,38 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { mountNuxt } from '../../utils';
 import StoryHero from '@/components/story/StoryHero.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
 const baseProps = { title: 'This is a title',
-  hero: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800 } } };
+  hero: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } } };
 
-const factory = (propsData = baseProps) => shallowMountNuxt(StoryHero, {
+const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
   localVue,
   attachTo: document.body,
   propsData,
   mocks: {
     $contentful: {
       assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+        responsiveImageSrcset: sinon.spy((img) => `${img.url}?optimised`),
+        isValidUrl: () => true,
+        optimisedSrc: (img) => img?.url
       }
     },
     $t: () => {}
   },
-  stubs: ['b-container', 'b-col']
+  stubs: ['b-button', 'b-container', 'b-col', 'b-img']
 });
 
 describe('components/story/StoryHero', () => {
-  describe('when there is a background image available', () => {
-    it('returns background style definitions', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.imageCSSVars).toBeTruthy();
-    });
-  });
-
   describe('when the page is scrolled', () => {
     it('sets transform styles on the background', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'parallaxBackground');
       window.dispatchEvent(new Event('scroll'));
 
-      expect(wrapper.vm.$refs.heroBackground.style.transform).toEqual('translateY(75%)');
+      expect(wrapper.vm.$refs.heroBackground.$refs.image.$el.style.transform).toEqual('translateY(75%)');
     });
   });
 

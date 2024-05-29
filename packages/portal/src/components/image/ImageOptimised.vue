@@ -51,7 +51,7 @@
         default: 80
       },
       maxWidth: {
-        type: Number,
+        type: [Number, String],
         default: null
       },
       lazy: {

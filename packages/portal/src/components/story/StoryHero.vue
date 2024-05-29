@@ -1,12 +1,22 @@
 <template>
   <div class="story-hero d-flex flex-column xxl-page">
-    <img
-      ref="heroBackground"
-      class="hero-background responsive-backround-image"
-      :style="imageCSSVars"
-      src=""
-      :alt="hero?.image?.description"
+    <div
+      class="hero-background"
     >
+      <ImageWithAttribution
+        ref="heroBackground"
+        :alt="heroImageAltText"
+        :src="hero.image.url"
+        :content-type="heroImage.contentType"
+        :attribution="hero"
+        :image-srcset="imageSrcset"
+        :image-sizes="imageSizes"
+        :lazy="false"
+        width="auto"
+        height="auto"
+        max-width="none"
+      />
+    </div>
     <div
       class="hero-content"
     >
@@ -35,23 +45,20 @@
           </b-col>
         </header>
       </b-container>
-      <AttributionToggle
-        :attribution="hero"
-      />
     </div>
   </div>
 </template>
 
 <script>
-  import AttributionToggle from '@/components/generic/AttributionToggle';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
-  import { FULL_VIEWPORT_CSS_VARS_PRESETS as CSS_VARS_PRESETS } from '@/utils/europeana/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS } from '@/utils/europeana/imageCropPresets';
+  import ImageWithAttribution from '@/components/image/ImageWithAttribution';
 
   export default {
     name: 'StoryHero',
 
     components: {
-      AttributionToggle
+      ImageWithAttribution
     },
 
     mixins: [parseMarkdownHtmlMixin],
@@ -69,7 +76,7 @@
 
       hero: {
         type: Object,
-        default: null
+        required: true
       },
 
       contextLabel: {
@@ -80,10 +87,23 @@
 
     data() {
       return {
-        imageCSSVars: this.hero?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
+        heroImage: this.hero.image || null,
+        heroImageAltText: this.hero.image?.description || '',
+        imageSizes: [
+          '(max-width: 575px) 576px', // bp-small
+          '(max-width: 767px) 768px', // bp-medium
+          '(max-width: 991px) 992px', // bp-large
+          '(max-width: 1199px) 1200px', // bp-xl
+          '(max-width: 1399px) 1400px', // bp-xxl
+          '(max-width: 1879px) 1880px', // bp-xxxl
+          '(max-width: 2519px) 2520px', // bp-wqhd
+          '(max-width: 3019px) 3020px', // bp-4k
+          '3840px'
+        ].join(','),
+        imageSrcset: this.hero.image &&
+          this.$contentful.assets.responsiveImageSrcset(
             this.hero.image,
-            CSS_VARS_PRESETS
+            FULL_VIEWPORT_PRESETS
           )
       };
     },
@@ -99,11 +119,12 @@
     methods: {
       parallaxBackground() {
         const scrollPosition = window.scrollY || 1;
-        const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
+        const heroBackgroundImageElement = this.$refs.heroBackground.$refs.image.$el;
+        const heroBackgroundHeight = heroBackgroundImageElement.clientHeight || 1;
 
         if (scrollPosition <= heroBackgroundHeight) {
           const translate = (scrollPosition / heroBackgroundHeight) * 75;
-          this.$refs.heroBackground.style.transform = `translateY(${translate}%)`;
+          heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
         }
       }
     }
@@ -130,6 +151,7 @@
     position: relative; // Prevents blending with the background
     padding-top: 5rem;
     margin-top: auto;
+    z-index: 2;
   }
 
   .hero-content-container {
@@ -182,9 +204,6 @@
     right: 0;
     bottom: 0;
     position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 
     &::before {
       content: '';
@@ -195,6 +214,7 @@
       background-image: linear-gradient(0deg, #000, #000);
       mix-blend-mode: saturation;
       position: absolute;
+      z-index: 1;
     }
 
     &::after {
@@ -205,6 +225,16 @@
       bottom: 0;
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
       position: absolute;
+      z-index: 1;
+    }
+
+    ::v-deep figure {
+      position: static;
+      height: 100%;
+
+      img {
+        height: 100%
+      }
     }
   }
 

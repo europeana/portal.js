@@ -1,4 +1,4 @@
-export const FULL_VIEWPORT_CSS_VARS_PRESETS = {
+export const FULL_VIEWPORT_PRESETS = {
   small: { w: 576, h: 896, fit: 'fill' },
   medium: { w: 768, h: 1080, fit: 'fill' },
   large: { w: 992, h: 1080, fit: 'fill' },

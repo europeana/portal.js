@@ -41,7 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
-  import { FULL_VIEWPORT_CSS_VARS_PRESETS as CSS_VARS_PRESETS } from '@/utils/europeana/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS as CSS_VARS_PRESETS } from '@/utils/europeana/imageCropPresets';
 
   export default {
     name: 'HomeHero',

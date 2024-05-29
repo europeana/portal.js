@@ -2,6 +2,7 @@
   <figure>
     <ImageOptimised
       v-if="src"
+      ref="image"
       :src="src"
       :width="width"
       :height="height"
@@ -58,7 +59,7 @@
         required: true
       },
       maxWidth: {
-        type: Number,
+        type: [Number, String],
         default: 1100
       },
       imageSrcset: {
