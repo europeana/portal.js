@@ -40,7 +40,6 @@
     "dotenv": "^10.0.0",
     "elastic-apm-node": "^3.24.0",
     "express": "^4.17.1",
-    "gsap": "^3.12.5",
     "http-errors": "^2.0.0",
     "i18n-iso-countries": "^7.11.0",
     "isbot": "^3.7.0",

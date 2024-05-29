@@ -26,7 +26,7 @@ export default {
     '<rootDir>/tmp/'
   ],
   transformIgnorePatterns: [
-    '/node_modules/(?!decamelize|gsap)'
+    '/node_modules/(?!decamelize)'
   ],
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
