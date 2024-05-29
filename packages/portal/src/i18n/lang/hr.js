@@ -31,6 +31,7 @@ export default {
       "private": "Privatnu galeriju možete vidjeti samo vi.",
       "public": "Javnu galeriju može pogledati svatko s vezom.",
       "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije.",
+      "remove": "Uklonite ovaj predmet iz ove galerije.",
       "reorder": "Možete promijeniti redoslijed predmeti klikom na ovaj gumb i povlačenjem predmet da je premjestite."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Objaviti",
     "readMore": "Pročitaj više",
     "reject": "Odbiti",
+    "remove": "Ukloniti",
     "requestDepublication": "Zahtjev za depublifikaciju",
     "save": "Uštedjeti",
     "share": "Podijeli",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
+      "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
+      "itemLiked": "Predmet je spremljen u vaše oznake sviđanja.",
+      "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
+      "itemUnliked": "Predmet je uklonjen iz vaših oznaka sviđanja.",
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"

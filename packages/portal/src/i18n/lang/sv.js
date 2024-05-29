@@ -31,6 +31,7 @@ export default {
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
       "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
+      "remove": "Ta bort detta objekt från detta galleri.",
       "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicera",
     "readMore": "Läs mer",
     "reject": "Avvisa",
+    "remove": "Ta bort",
     "requestDepublication": "Begär avpublicering",
     "save": "Spara",
     "share": "Dela",
@@ -1122,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
+      "itemAdded": "Objektet har lagts till i galleriet \"{gallery}\".",
+      "itemLiked": "Objektet har sparats till dina gilla-markeringar.",
+      "itemRemoved": "Objektet har tagits bort från galleriet {gallery}.",
+      "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"

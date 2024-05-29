@@ -31,6 +31,7 @@ export default {
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
       "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
+      "remove": "Verwijder dit object uit deze galerij.",
       "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publiceren",
     "readMore": "Lees verder",
     "reject": "Afwijzen",
+    "remove": "Verwijderen",
     "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
     "share": "Delen",
@@ -1107,7 +1109,7 @@ export default {
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
       "removeItemFromLikes": "Verwijder dit object uit uw likes.",
-      "saveItemToLikes": "Bewaar dit object in uw Likes.",
+      "saveItemToLikes": "Bewaar dit object bij uw likes.",
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
+      "itemAdded": "Het object is toegevoegd aan de galerij \"{gallery}\".",
+      "itemLiked": "Object is opgeslagen bij uw likes.",
+      "itemRemoved": "Object is verwijderd uit galerij {gallery}.",
+      "itemUnliked": "Het object is verwijderd uit uw likes.",
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 objecten liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"

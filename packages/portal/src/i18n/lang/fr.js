@@ -31,6 +31,7 @@ export default {
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
       "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
+      "remove": "Retirez cet item de cette galerie.",
       "reorder": "Vous pouvez réorganiser les items en cliquant sur ce bouton et en faisant glisser l'item pour le déplacer."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publier",
     "readMore": "En savoir plus",
     "reject": "Rejeter",
+    "remove": "Supprimer",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
     "share": "Partagez",
@@ -1124,6 +1126,10 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
+      "itemAdded": "L'item a été ajouté à la galerie \"{gallery}\".",
+      "itemLiked": "L'item a été enregistré dans vos j'aime.",
+      "itemRemoved": "L'item a été supprimé de la galerie {gallery}.",
+      "itemUnliked": "L'item a été supprimé de vos j'aime.",
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 items pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
