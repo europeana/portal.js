@@ -1,12 +1,12 @@
 <template>
   <div class="story-hero d-flex flex-column xxl-page">
-    <div
+    <img
       ref="heroBackground"
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
-      role="img"
-      :aria-label="hero?.image?.description"
-    />
+      src=""
+      :alt="hero?.image?.description"
+    >
     <div
       class="hero-content"
     >
