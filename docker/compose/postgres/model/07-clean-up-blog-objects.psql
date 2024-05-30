@@ -26,6 +26,18 @@ FROM
 	 AND duplicate_actions.id IS NULL) old_actions_new_objects
 WHERE id=old_action_id;
 
+DELETE FROM actions
+WHERE id=ANY(SELECT new_actions.id 	
+   FROM objects old_objects
+   INNER JOIN objects new_objects ON new_objects.uri=REPLACE(old_objects.uri, '/blog/', '/stories/')
+   INNER JOIN actions old_actions ON old_actions.object_id=old_objects.id
+   INNER JOIN actions new_actions ON (
+	 new_actions.object_id=new_objects.id
+	 AND new_actions.session_id=old_actions.session_id
+	 AND new_actions.action_type_id=old_actions.action_type_id)
+   WHERE old_objects.uri like '%/blog/%'
+     AND new_objects.uri like '%/stories/%')
+
 UPDATE history
 SET object_id=new_id
 FROM
