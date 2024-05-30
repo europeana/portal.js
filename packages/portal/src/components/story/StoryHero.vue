@@ -11,7 +11,7 @@
         :content-type="heroImage.contentType"
         :attribution="hero"
         :image-srcset="imageSrcset"
-        :image-srcset-portrait="imageSrcsetPortrait"
+        :image-srcsets-per-resolution="imageSrcsetsPerResolution"
         :lazy="false"
         width="auto"
         height="auto"
@@ -53,30 +53,21 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
+  import { FULL_VIEWPORT_PRESETS as FULL_VIEWPORT_PRESETS_LANDSCAPE } from '@/utils/contentful/imageCropPresets';
 
-  const FULL_VIEWPORT_PRESETS_LANDSCAPE = {
-    small: { w: 576, h: 576, fit: 'fill' },
-    medium: { w: 768, h: 768, fit: 'fill' },
-    large: { w: 992, h: 992, fit: 'fill' },
-    xl: { w: 1200, h: 1080, fit: 'fill' },
-    xxl: { w: 1400, h: 1080, fit: 'fill' },
-    xxxl: { w: 1880, h: 1080, fit: 'fill' },
-    wqhd: { w: 2520, h: 1440, fit: 'fill' },
-    '4k': { w: 3020, h: 1440, fit: 'fill' },
-    '4k+': { w: 3840, h: 2160, fit: 'fill' }
-  };
+  function getPresetsPerResolution(presets, resolution) {
+    return Object.keys(presets).reduce((acc, key) => {
+      acc[key] = {
+        ...presets[key],
+        w: presets[key].w * resolution,
+        h: presets[key].h * resolution
+      };
+      return acc;
+    }, {});
+  }
 
-  const FULL_VIEWPORT_PRESETS_PORTRAIT = {
-    small: { w: 576, h: 1024, fit: 'fill' },
-    medium: { w: 768, h: 1365, fit: 'fill' },
-    large: { w: 992, h: 1764, fit: 'fill' },
-    xl: { w: 1200, h: 2133, fit: 'fill' },
-    xxl: { w: 1400, h: 2489, fit: 'fill' },
-    xxxl: { w: 1880, h: 3342, fit: 'fill' },
-    wqhd: { w: 2520, h: 4480, fit: 'fill' },
-    '4k': { w: 3020, h: 3020, fit: 'fill' },
-    '4k+': { w: 3840, h: 3840, fit: 'fill' }
-  };
+  const FULL_VIEWPORT_PRESETS_LANDSCAPE_2X = getPresetsPerResolution(FULL_VIEWPORT_PRESETS_LANDSCAPE, 2);
+  const FULL_VIEWPORT_PRESETS_LANDSCAPE_3X = getPresetsPerResolution(FULL_VIEWPORT_PRESETS_LANDSCAPE, 3);
 
   export default {
     name: 'StoryHero',
@@ -118,11 +109,23 @@
             this.hero.image,
             FULL_VIEWPORT_PRESETS_LANDSCAPE
           ),
-        imageSrcsetPortrait: this.hero.image &&
-          this.$contentful.assets.responsiveImageSrcset(
-            this.hero.image,
-            FULL_VIEWPORT_PRESETS_PORTRAIT
-          )
+        imageSrcsetsPerResolution: {
+          '1x': this.hero.image &&
+            this.$contentful.assets.responsiveImageSrcset(
+              this.hero.image,
+              FULL_VIEWPORT_PRESETS_LANDSCAPE
+            ),
+          '2x': this.hero.image &&
+            this.$contentful.assets.responsiveImageSrcset(
+              this.hero.image,
+              FULL_VIEWPORT_PRESETS_LANDSCAPE_2X
+            ),
+          '3x': this.hero.image &&
+            this.$contentful.assets.responsiveImageSrcset(
+              this.hero.image,
+              FULL_VIEWPORT_PRESETS_LANDSCAPE_3X
+            )
+        }
       };
     },
 

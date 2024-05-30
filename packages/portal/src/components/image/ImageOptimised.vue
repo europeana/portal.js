@@ -1,17 +1,19 @@
 <template>
-  <picture v-if="imageSrcsetPortrait">
+  <picture v-if="imageSrcsetsPerResolution">
     <source
-      :srcset="imageSrcsetPortrait"
+      :srcset="imageSrcsetsPerResolution['2x']"
       :sizes="imageSizes"
-      media="(orientation: portrait)"
+      media="(resolution: 2x)"
     >
     <source
-      :srcset="imageSrcset"
+      :srcset="imageSrcsetsPerResolution['3x']"
       :sizes="imageSizes"
-      media="(orientation: landscape)"
+      media="(resolution: 3x)"
     >
     <img
       :src="src"
+      :srcset="imageSrcsetsPerResolution['1x']"
+      :sizes="imageSizes"
       :alt="alt"
     >
   </picture>
@@ -78,8 +80,8 @@
         type: String,
         default: null
       },
-      imageSrcsetPortrait: {
-        type: String,
+      imageSrcsetsPerResolution: {
+        type: Object,
         default: null
       },
       imageSizes: {
