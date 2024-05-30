@@ -32,7 +32,7 @@ describe('components/story/StoryHero', () => {
       sinon.spy(wrapper.vm, 'parallaxBackground');
       window.dispatchEvent(new Event('scroll'));
 
-      expect(wrapper.vm.$refs.heroBackground.$refs.image.$el.style.transform).toEqual('translateY(75%)');
+      expect(document.querySelector('#hero-background-image img').style.transform).toEqual('translateY(75%)');
     });
   });
 

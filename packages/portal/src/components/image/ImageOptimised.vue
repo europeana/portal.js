@@ -1,6 +1,22 @@
 <template>
+  <picture v-if="imageSrcsetPortrait">
+    <source
+      :srcset="imageSrcsetPortrait"
+      :sizes="imageSizes"
+      media="(orientation: portrait)"
+    >
+    <source
+      :srcset="imageSrcset"
+      :sizes="imageSizes"
+      media="(orientation: landscape)"
+    >
+    <img
+      :src="src"
+      :alt="alt"
+    >
+  </picture>
   <b-img-lazy
-    v-if="lazy"
+    v-else-if="lazy"
     :src="optimisedSrc"
     blank-color="#fff"
     :blank-width="optimisedWidth"
@@ -51,7 +67,7 @@
         default: 80
       },
       maxWidth: {
-        type: [Number, String],
+        type: Number,
         default: null
       },
       lazy: {
@@ -59,6 +75,10 @@
         default: true
       },
       imageSrcset: {
+        type: String,
+        default: null
+      },
+      imageSrcsetPortrait: {
         type: String,
         default: null
       },

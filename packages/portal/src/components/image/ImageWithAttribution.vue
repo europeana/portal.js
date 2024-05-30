@@ -11,6 +11,7 @@
       :max-width="maxWidth"
       data-qa="image"
       :image-srcset="imageSrcset"
+      :image-srcset-portrait="imageSrcsetPortrait"
       :image-sizes="imageSizes"
       :lazy="lazy"
     />
@@ -59,10 +60,14 @@
         required: true
       },
       maxWidth: {
-        type: [Number, String],
+        type: Number,
         default: 1100
       },
       imageSrcset: {
+        type: String,
+        default: null
+      },
+      imageSrcsetPortrait: {
         type: String,
         default: null
       },
@@ -82,7 +87,7 @@
 figure {
   overflow: hidden;
 
-  img {
+  ::v-deep img {
     width: 100%;
     object-fit: cover;
   }
