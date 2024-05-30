@@ -2,7 +2,7 @@ module.exports = function(migration) {
   const imageTextSlide = migration
     .createContentType('imageTextSlide')
     .name('Image text slide')
-    .description('An image with a text')
+    .description('An image with text, used in stories')
     .displayField('name');
 
   imageTextSlide
@@ -42,14 +42,14 @@ module.exports = function(migration) {
     .omitted(false);
 
   imageTextSlide.changeFieldControl('image', 'builtin', 'entryLinkEditor', {
-    helpText: 'Select an image with high resolution and good quality. For best quality it\'s advised to use images of at least 2,520 px width.'
+    helpText: 'Use a high resolution and good quality image. For best quality it\'s advised to use images of at least 2,520 px width.'
   });
   imageTextSlide.changeFieldControl('text', 'builtin', 'markdown', {});
 
   const imageTextSlideGroup = migration
     .createContentType('imageTextSlideGroup')
     .name('Image text slide group')
-    .description('A group of image text slides')
+    .description('A group of image text slides, used in stories')
     .displayField('name');
 
   imageTextSlideGroup
@@ -93,18 +93,11 @@ module.exports = function(migration) {
 
   story
     .editField('hasPart')
-    .name('Sections')
-    .type('Array')
-    .localized(false)
-    .required(false)
-    .validations([])
-    .disabled(false)
-    .omitted(false)
     .items({
       type: 'Link',
       validations: [
         {
-          linkContentType: ['cardGroup', 'embed', 'imageComparison', 'imageTextSlideGroup', 'imageWithAttribution', 'link', 'richText']
+          linkContentType: ['embed', 'imageComparison', 'imageTextSlideGroup', 'imageWithAttribution', 'link', 'richText']
         }
       ],
       linkType: 'Entry'
