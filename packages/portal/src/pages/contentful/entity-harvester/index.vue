@@ -73,7 +73,7 @@
         try {
           ({ type, id } = this.entityParamsFromUrl(entityUrl));
         } catch (error) {
-          this.showError(`Unable to parse URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`);
+          this.showError(`Unable to parse URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`, error);
           return;
         }
 
@@ -81,7 +81,7 @@
         try {
           entity = await this.$apis.entity.get(type, id);
         } catch (error) {
-          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
+          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`, error);
           return;
         }
 
@@ -89,7 +89,7 @@
           this.populateFields(entity, id);
           this.message = 'Success';
         } catch (error) {
-          this.showError(`There was a problem updating the entry. ${error.message}`);
+          this.showError(`There was a problem updating the entry. ${error.message}`, error);
         }
       },
 
