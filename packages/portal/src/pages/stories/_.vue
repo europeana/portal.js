@@ -78,17 +78,18 @@
         preview: this.$route.query.mode === 'preview'
       };
 
+      let data;
       try {
         const response = await this.$contentful.query('storyPage', variables);
-        const data = response.data.data;
-        if (data.storyCollection.items.length === 0) {
-          this.$error(404, { scope: 'page' });
-          return;
-        }
-
-        this.post = data.storyCollection.items[0];
+        data = response.data.data;
       } catch (e) {
         this.$error(e);
+      }
+
+      if (data.storyCollection.items.length === 0) {
+        this.$error(404, { scope: 'page' });
+      } else {
+        this.post = data.storyCollection.items[0];
       }
     },
 
