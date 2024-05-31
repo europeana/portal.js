@@ -236,6 +236,7 @@
         type: Boolean,
         default: true
       },
+      // TODO: remove after stories feature is public
       /**
        * If `true`, subtitle will be shown
        */
@@ -340,8 +341,9 @@
         return this.subTitle || this.displayLabel;
       },
 
+      // TODO: Once the stories feature is live, remove this and other sub-title related logic to simply show the subTitle if present.
       displayLabel() {
-        if (!this.displayLabelType) {
+        if (!this.displayLabelType || this.$features?.redirectBlogsToStories) {
           return false;
         }
 
@@ -361,7 +363,7 @@
       },
 
       displayLabelType() {
-        return this.displayLabelMatch ? this.displayLabelMatch[1] : false;
+        return this.displayLabelMatch?.[1];
       },
 
       displayLabelMatch() {
