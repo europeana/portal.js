@@ -1,9 +1,14 @@
 query StoryPage(
-  $identifier: String!,
-  $locale: String!,
+  $identifier: String!
+  $locale: String!
   $preview: Boolean = false
 ) {
-  storyCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  storyCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -18,7 +23,7 @@ query StoryPage(
       }
       genre
       primaryImageOfPage {
-        ... imageWithAttributionFields
+        ...imageWithAttributionFields
       }
       hasPartCollection(limit: 40) {
         total
@@ -31,19 +36,31 @@ query StoryPage(
             embed
           }
           ... on ImageWithAttribution {
-            ... imageWithAttributionFields
+            ...imageWithAttributionFields
           }
           ... on ImageComparison {
             name
             hasPartCollection(limit: 2) {
               items {
-                ... imageWithAttributionFields
+                ...imageWithAttributionFields
               }
             }
           }
           ... on Link {
             url
             text
+          }
+          ... on ImageTextSlideGroup {
+            hasPartCollection(limit: 3) {
+              items {
+                ... on ImageTextSlide {
+                  image {
+                    ...imageWithAttributionFields
+                  }
+                  text
+                }
+              }
+            }
           }
           # CardGroup omitted intentionally
         }
