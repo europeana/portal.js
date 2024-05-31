@@ -1,21 +1,26 @@
 <template>
-  <picture v-if="imageSrcsetsPerResolution">
-    <source
-      :srcset="imageSrcsetsPerResolution['2x']"
-      :sizes="imageSizes"
-      media="(resolution: 2x)"
+  <picture
+    v-if="Array.isArray(imageSrcset)"
+  >
+    <template
+      v-for="(srcset, index) in imageSrcset"
     >
-    <source
-      :srcset="imageSrcsetsPerResolution['3x']"
-      :sizes="imageSizes"
-      media="(resolution: 3x)"
-    >
-    <img
-      :src="src"
-      :srcset="imageSrcsetsPerResolution['1x']"
-      :sizes="imageSizes"
-      :alt="alt"
-    >
+      <img
+        v-if="index === 0"
+        :key="index"
+        :src="src"
+        :srcset="srcset"
+        :sizes="imageSizes"
+        :alt="alt"
+      >
+      <source
+        v-else
+        :key="index"
+        :srcset="srcset"
+        :sizes="imageSizes"
+        :media="`(resolution: ${index + 1}x)`"
+      >
+    </template>
   </picture>
   <b-img-lazy
     v-else-if="lazy"
@@ -76,12 +81,16 @@
         type: Boolean,
         default: true
       },
+      /**
+       * Image srcset(s)
+       *
+       * If an array, first item is taken as 1x resolution and gets an `img`
+       * element; other item are taken as for increasing resolutions, e.g.
+       * second item is 2x resolution, third is 3x resolution, etc, and get
+       * `source` elements.
+       */
       imageSrcset: {
-        type: String,
-        default: null
-      },
-      imageSrcsetsPerResolution: {
-        type: Object,
+        type: [String, Array],
         default: null
       },
       imageSizes: {
@@ -112,6 +121,7 @@
           { w: this.maxWidth, q: this.quality }
         );
       },
+
       isSVG() {
         return this.contentType === 'image/svg+xml';
       }

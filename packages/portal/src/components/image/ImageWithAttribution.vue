@@ -11,7 +11,6 @@
       :max-width="maxWidth"
       data-qa="image"
       :image-srcset="imageSrcset"
-      :image-srcsets-per-resolution="imageSrcsetsPerResolution"
       :image-sizes="imageSizes"
       :lazy="lazy"
     />
@@ -64,11 +63,7 @@
         default: 1100
       },
       imageSrcset: {
-        type: String,
-        default: null
-      },
-      imageSrcsetsPerResolution: {
-        type: Object,
+        type: [String, Array],
         default: null
       },
       imageSizes: {

@@ -11,7 +11,6 @@
         :content-type="heroImage.contentType"
         :attribution="hero"
         :image-srcset="imageSrcset"
-        :image-srcsets-per-resolution="imageSrcsetsPerResolution"
         :lazy="false"
         width="auto"
         height="auto"
@@ -104,28 +103,20 @@
       return {
         heroImage: this.hero.image || null,
         heroImageAltText: this.hero.image?.description || '',
-        imageSrcset: this.hero.image &&
+        imageSrcset: this.hero.image && [
           this.$contentful.assets.responsiveImageSrcset(
             this.hero.image,
             FULL_VIEWPORT_PRESETS_LANDSCAPE
           ),
-        imageSrcsetsPerResolution: {
-          '1x': this.hero.image &&
-            this.$contentful.assets.responsiveImageSrcset(
-              this.hero.image,
-              FULL_VIEWPORT_PRESETS_LANDSCAPE
-            ),
-          '2x': this.hero.image &&
-            this.$contentful.assets.responsiveImageSrcset(
-              this.hero.image,
-              FULL_VIEWPORT_PRESETS_LANDSCAPE_2X
-            ),
-          '3x': this.hero.image &&
-            this.$contentful.assets.responsiveImageSrcset(
-              this.hero.image,
-              FULL_VIEWPORT_PRESETS_LANDSCAPE_3X
-            )
-        }
+          this.$contentful.assets.responsiveImageSrcset(
+            this.hero.image,
+            FULL_VIEWPORT_PRESETS_LANDSCAPE_2X
+          ),
+          this.$contentful.assets.responsiveImageSrcset(
+            this.hero.image,
+            FULL_VIEWPORT_PRESETS_LANDSCAPE_3X
+          )
+        ]
       };
     },
 
