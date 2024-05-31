@@ -1,0 +1,8 @@
+SET search_path TO EVENTS;
+
+-- remove existing fk_object constraint and re-create it with cascade deletion
+
+ALTER TABLE actions
+DROP CONSTRAINT fk_object;
+ALTER TABLE actions
+ADD CONSTRAINT fk_object FOREIGN KEY (object_id) REFERENCES objects (id) ON DELETE CASCADE;
