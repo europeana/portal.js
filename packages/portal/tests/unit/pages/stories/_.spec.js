@@ -22,7 +22,7 @@ const post = {
 };
 
 const contentfulQuery = sinon.stub();
-const error = sinon.spy();
+const errorPluginSpy = sinon.spy();
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -40,7 +40,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     $contentful: {
       query: contentfulQuery
     },
-    $error: error,
+    $error: errorPluginSpy,
     $fetchState: {
       pending: false,
       error: null
@@ -90,6 +90,28 @@ describe('Story page', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.post).toEqual(post);
+    });
+
+    describe('when no story is returned from contentful', () => {
+      beforeEach(() => {
+        contentfulQuery.resolves({
+          data: {
+            data: {
+              storyCollection: {
+                items: []
+              }
+            }
+          }
+        });
+      });
+
+      it('sends a 404 to the error plugin', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(errorPluginSpy.calledWith(404, { scope: 'page' })).toBe(true);
+      });
     });
   });
 
