@@ -23,7 +23,6 @@ const post = {
 
 const contentfulQuery = sinon.stub();
 const error = sinon.spy();
-const nuxtContextRedirect = sinon.spy();
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -49,11 +48,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     $i18n: {
       localeProperties: {
         iso: 'en-GB'
-      }
-    },
-    $nuxt: {
-      context: {
-        redirect: nuxtContextRedirect
       }
     },
     $route: {
@@ -96,28 +90,6 @@ describe('Story page', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.post).toEqual(post);
-    });
-
-    describe('when no story is returned from contentful', () => {
-      beforeEach(() => {
-        contentfulQuery.resolves({
-          data: {
-            data: {
-              storyCollection: {
-                items: []
-              }
-            }
-          }
-        });
-      });
-
-      it('redirects to /stories', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetch();
-
-        expect(nuxtContextRedirect.calledWith(302, '/stories')).toBe(true);
-      });
     });
   });
 

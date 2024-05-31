@@ -80,12 +80,8 @@
 
       try {
         const response = await this.$contentful.query('storyPage', variables);
-        const data = response.data.data;
-        if (data.storyCollection.items.length === 0) {
-          return this.$nuxt.context.redirect(302, '/stories');
-        }
 
-        this.post = data.storyCollection.items[0];
+        this.post = response.data.data.storyCollection.items[0];
       } catch (e) {
         this.$error(e);
       }
