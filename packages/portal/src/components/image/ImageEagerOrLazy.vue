@@ -3,13 +3,13 @@
     :is="lazy ? 'b-img-lazy' : 'b-img'"
     :alt="alt"
     :blank-color="lazy ? blankColor : null"
-    :blank-width="lazy && width"
-    :blank-height="lazy && height"
+    :blank-width="lazy ? width : null"
+    :blank-height="lazy ? height : null"
     :src="src"
     :srcset="srcset"
     :sizes="sizes"
-    :width="!lazy && width"
-    :height="!lazy && height"
+    :width="lazy ? null : width"
+    :height="lazy ? null : height"
   />
 </template>
 
