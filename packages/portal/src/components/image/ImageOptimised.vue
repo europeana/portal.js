@@ -77,15 +77,15 @@
         type: Boolean,
         default: true
       },
-      contentfulImageDisplayProfile: {
-        type: Object,
-        default: null
-      },
       contentfulImageCropPresets: {
         type: Object,
         default: null
       },
-      contentfulMediaResolutions: {
+      contentfulImageDisplayProfile: {
+        type: Object,
+        default: null
+      },
+      pictureSourceMediaResolutions: {
         type: Array,
         default: () => [1]
       },
@@ -133,7 +133,7 @@
           return [null];
         }
 
-        return this.contentfulMediaResolutions.map((resolution) => {
+        return this.pictureSourceMediaResolutions.map((resolution) => {
           const resolutionSizes = Object.keys(this.contentfulImageCropPresets).reduce((memo, key) => {
             memo[key] = {
               ...this.contentfulImageCropPresets[key],
