@@ -34,7 +34,6 @@
     :lazy="lazy"
     :sizes="imageSizes"
     :src="optimisedSrc"
-    :srcset="srcset"
     :width="optimisedWidth"
   />
 </template>
@@ -104,7 +103,7 @@
     data() {
       return {
         blankColor: '#fff',
-        isContentfulAsset: this.$contentful.assets.isValidUrl(this.src)
+        isContentfulAsset: this.$contentful?.assets?.isValidUrl(this.src) || false
       };
     },
 

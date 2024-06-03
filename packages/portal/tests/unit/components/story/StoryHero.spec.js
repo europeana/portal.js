@@ -12,16 +12,6 @@ const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
   localVue,
   attachTo: document.body,
   propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveImageSrcset: sinon.spy((img) => `${img.url}?optimised`),
-        isValidUrl: () => true,
-        optimisedSrc: (img) => img?.url
-      }
-    },
-    $t: () => {}
-  },
   stubs: ['b-button', 'b-container', 'b-col', 'b-img']
 });
 

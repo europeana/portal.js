@@ -11,11 +11,11 @@ const factory = (propsData) => shallowMount(ImageOptimised, {
     $contentful: {
       assets: {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
+        responsiveImageSrcset: (img, srcSet) => srcSet
       }
     }
-  },
-  stubs: ['b-img', 'b-img-lazy']
+  }
 });
 
 describe('components/generic/ImageOptimised', () => {
@@ -27,8 +27,10 @@ describe('components/generic/ImageOptimised', () => {
       width: 2000,
       height: 1250
     });
-    const lazyImage = wrapper.find('b-img-lazy-stub');
-    expect(lazyImage.exists()).toBeTruthy();
+
+    const lazyImage = wrapper.find('imageeagerorlazy-stub');
+
+    expect(lazyImage.attributes('lazy')).toBe('true');
   });
 
   describe('when lazy is set to false', () => {
@@ -39,8 +41,10 @@ describe('components/generic/ImageOptimised', () => {
         height: 1250,
         lazy: false
       });
-      const image = wrapper.find('b-img-stub');
-      expect(image.exists()).toBeTruthy();
+
+      const image = wrapper.find('imageeagerorlazy-stub');
+
+      expect(image.attributes('lazy')).toBeUndefined();
     });
   });
 
