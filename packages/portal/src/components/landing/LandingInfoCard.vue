@@ -139,7 +139,7 @@
         margin-bottom: 1.5rem;
       }
 
-      img {
+      ::v-deep img {
         width: 100%;
       }
     }

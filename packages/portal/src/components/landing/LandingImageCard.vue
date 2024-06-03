@@ -17,7 +17,8 @@
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="isSVG ? null : imageSrcset(cardImageWithAttribution.image)"
+        :contentful-image-crop-presets="isSVG ? null : srcSetPresets"
+        :contentful-image-display-profile="card?.profile"
         :image-sizes="isSVG ? null : sizesPresets"
       />
     </div>
@@ -142,12 +143,6 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card', 'imagecard'));
-    },
-
-    methods: {
-      imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets, this.card?.profile);
-      }
     }
   };
   </script>
