@@ -10,7 +10,6 @@ const pages = {
   'blog page': `${url}/en/blog`,
   'collections page': `${url}/en/collections`,
   'data space page': `${url}/en/dataspace-culturalheritage`,
-  '"Easter with art" blog page': `${url}/blog/easter-with-art-and-culture-5-activities-for-the-whole-family`,
   'English home page': `${url}/en`,
   'entity page': `${url}/en/collections/person/60305-william-shakespeare`,
   'exhibition chapter': `${url}/en/exhibitions/faces-of-europe/introduction`,
@@ -33,13 +32,15 @@ const pages = {
   'search page': `${url}/en/search`,
   'search page with a search query': `${url}/en/search?query=art`,
   'share your data page': `${url}/en/share-your-data`,
-  'user gallery page': `${url}/en/set/2`,
+  'static page': `${url}/en/about-us`,
+  'stories page': `${url}/en/stories`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
   'static page': `${url}/en/about-us`,
   'static page with linklist': `${url}/en/rights`,
-  'story page': `${url}/en/stories/nilde-iotti`
+  'story page': `${url}/en/stories/nilde-iotti`,
+  'user gallery page': `${url}/en/set/2`
 };
 
 module.exports = {

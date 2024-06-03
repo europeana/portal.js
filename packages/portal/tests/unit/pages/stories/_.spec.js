@@ -22,8 +22,7 @@ const post = {
 };
 
 const contentfulQuery = sinon.stub();
-const error = sinon.spy();
-const nuxtContextRedirect = sinon.spy();
+const errorPluginSpy = sinon.spy();
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -41,7 +40,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     $contentful: {
       query: contentfulQuery
     },
-    $error: error,
+    $error: errorPluginSpy,
     $fetchState: {
       pending: false,
       error: null
@@ -49,11 +48,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     $i18n: {
       localeProperties: {
         iso: 'en-GB'
-      }
-    },
-    $nuxt: {
-      context: {
-        redirect: nuxtContextRedirect
       }
     },
     $route: {
@@ -111,12 +105,12 @@ describe('Story page', () => {
         });
       });
 
-      it('redirects to /stories', async() => {
+      it('sends a 404 to the error plugin', async() => {
         const wrapper = factory();
 
         await wrapper.vm.fetch();
 
-        expect(nuxtContextRedirect.calledWith(302, '/stories')).toBe(true);
+        expect(errorPluginSpy.calledWith(404, { scope: 'page' })).toBe(true);
       });
     });
   });
