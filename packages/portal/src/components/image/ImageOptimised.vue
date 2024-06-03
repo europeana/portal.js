@@ -1,33 +1,22 @@
 <template>
-  <picture>
+  <picture
+    v-if="responsiveImageSrcsets"
+  >
     <template
       v-for="(srcset, index) in responsiveImageSrcsets"
     >
-      <template
+      <ImageEagerOrLazy
         v-if="index === 0"
-      >
-        <b-img-lazy
-          v-if="lazy"
-          :key="index"
-          :src="optimisedSrc"
-          blank-color="#fff"
-          :blank-width="optimisedWidth"
-          :blank-height="optimisedHeight"
-          :alt="alt"
-          :srcset="srcset"
-          :sizes="imageSizes"
-        />
-        <b-img
-          v-else
-          :key="index"
-          :src="optimisedSrc"
-          :width="optimisedWidth"
-          :height="optimisedHeight"
-          :alt="alt"
-          :srcset="srcset"
-          :sizes="imageSizes"
-        />
-      </template>
+        :key="index"
+        :alt="alt"
+        :blank-color="blankColor"
+        :height="optimisedHeight"
+        :lazy="lazy"
+        :sizes="imageSizes"
+        :src="optimisedSrc"
+        :srcset="srcset"
+        :width="optimisedWidth"
+      />
       <source
         v-else
         :key="index"
@@ -37,11 +26,28 @@
       >
     </template>
   </picture>
+  <ImageEagerOrLazy
+    v-else
+    :alt="alt"
+    :blank-color="blankColor"
+    :height="optimisedHeight"
+    :lazy="lazy"
+    :sizes="imageSizes"
+    :src="optimisedSrc"
+    :srcset="srcset"
+    :width="optimisedWidth"
+  />
 </template>
 
 <script>
+  import ImageEagerOrLazy from './ImageEagerOrLazy';
+
   export default {
     name: 'ImageOptimised',
+
+    components: {
+      ImageEagerOrLazy
+    },
 
     props: {
       src: {
@@ -97,6 +103,7 @@
 
     data() {
       return {
+        blankColor: '#fff',
         isContentfulAsset: this.$contentful.assets.isValidUrl(this.src)
       };
     },
@@ -130,7 +137,7 @@
 
       responsiveImageSrcsets() {
         if (!this.isContentfulAsset || !this.contentfulImageCropPresets) {
-          return [null];
+          return null;
         }
 
         return this.pictureSourceMediaResolutions.map((resolution) => {
