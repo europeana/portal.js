@@ -14,16 +14,39 @@
         >
       </div>
       <div class="card-wrapper">
-        <b-card>
-          <p>{{ slide.text }}</p>
-        </b-card>
+        <b-container>
+          <b-row class="justify-content-end">
+            <b-col
+              cols="12"
+              class="col-md-6 col-lg-4"
+            >
+              <!-- eslint-disable vue/no-v-html -->
+              <b-card
+                body-class="p-4"
+                class="border-none"
+              >
+                <div
+                  class="card-content"
+                  v-html="parseMarkdownHtml(slide.text)"
+                />
+              </b-card>
+              <!-- eslint-enable vue/no-v-html -->
+            </b-col>
+          </b-row>
+        </b-container>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+
   export default {
+    name: 'StoryImageTextSlideScroller',
+
+    mixins: [parseMarkdownHtmlMixin],
+
     props: {
       section: {
         type: Object,
@@ -34,6 +57,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   .story-image-text-slide-scroller {
 
     .slide {
@@ -63,6 +88,14 @@
 
       .card-wrapper {
         min-height: 100vh;
+      }
+
+      .card {
+        box-shadow: $boxshadow-small;
+      }
+
+      .card-content ::v-deep p:last-child {
+        margin-bottom: 0;
       }
     }
   }
