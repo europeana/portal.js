@@ -10,8 +10,10 @@
       :content-type="contentType"
       :max-width="maxWidth"
       data-qa="image"
-      :image-srcset="imageSrcset"
       :image-sizes="imageSizes"
+      :contentful-image-crop-presets="contentfulImageCropPresets"
+      :contentful-image-display-profile="contentfulImageDisplayProfile"
+      :picture-source-media-resolutions="pictureSourceMediaResolutions"
       :lazy="lazy"
     />
     <AttributionToggle
@@ -62,9 +64,17 @@
         type: Number,
         default: 1100
       },
-      imageSrcset: {
-        type: [String, Array],
+      contentfulImageDisplayProfile: {
+        type: Object,
         default: null
+      },
+      contentfulImageCropPresets: {
+        type: Object,
+        default: null
+      },
+      pictureSourceMediaResolutions: {
+        type: Array,
+        default: () => [1]
       },
       imageSizes: {
         type: String,

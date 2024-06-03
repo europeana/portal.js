@@ -1,18 +1,33 @@
 <template>
-  <picture
-    v-if="Array.isArray(imageSrcset)"
-  >
+  <picture>
     <template
-      v-for="(srcset, index) in imageSrcset"
+      v-for="(srcset, index) in responsiveImageSrcsets"
     >
-      <img
+      <template
         v-if="index === 0"
-        :key="index"
-        :src="src"
-        :srcset="srcset"
-        :sizes="imageSizes"
-        :alt="alt"
       >
+        <b-img-lazy
+          v-if="lazy"
+          :key="index"
+          :src="optimisedSrc"
+          blank-color="#fff"
+          :blank-width="optimisedWidth"
+          :blank-height="optimisedHeight"
+          :alt="alt"
+          :srcset="srcset"
+          :sizes="imageSizes"
+        />
+        <b-img
+          v-else
+          :key="index"
+          :src="optimisedSrc"
+          :width="optimisedWidth"
+          :height="optimisedHeight"
+          :alt="alt"
+          :srcset="srcset"
+          :sizes="imageSizes"
+        />
+      </template>
       <source
         v-else
         :key="index"
@@ -22,25 +37,6 @@
       >
     </template>
   </picture>
-  <b-img-lazy
-    v-else-if="lazy"
-    :src="optimisedSrc"
-    blank-color="#fff"
-    :blank-width="optimisedWidth"
-    :blank-height="optimisedHeight"
-    :alt="alt"
-    :srcset="imageSrcset"
-    :sizes="imageSizes"
-  />
-  <b-img
-    v-else
-    :src="optimisedSrc"
-    :width="optimisedWidth"
-    :height="optimisedHeight"
-    :alt="alt"
-    :srcset="imageSrcset"
-    :sizes="imageSizes"
-  />
 </template>
 
 <script>
@@ -81,17 +77,17 @@
         type: Boolean,
         default: true
       },
-      /**
-       * Image srcset(s)
-       *
-       * If an array, first item is taken as 1x resolution and gets an `img`
-       * element; other item are taken as for increasing resolutions, e.g.
-       * second item is 2x resolution, third is 3x resolution, etc, and get
-       * `source` elements.
-       */
-      imageSrcset: {
-        type: [String, Array],
+      contentfulImageDisplayProfile: {
+        type: Object,
         default: null
+      },
+      contentfulImageCropPresets: {
+        type: Object,
+        default: null
+      },
+      contentfulMediaResolutions: {
+        type: Array,
+        default: () => [1]
       },
       imageSizes: {
         type: String,
@@ -99,9 +95,19 @@
       }
     },
 
+    data() {
+      return {
+        isContentfulAsset: this.$contentful.assets.isValidUrl(this.src)
+      };
+    },
+
     computed: {
       aspectRatio() {
         return this.width / this.height;
+      },
+
+      isSVG() {
+        return this.contentType === 'image/svg+xml';
       },
 
       optimisedWidth() {
@@ -113,7 +119,7 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src) || this.isSVG) {
+        if (typeof this.contentType !== 'string' || !this.isContentfulAsset || this.isSVG) {
           return this.src;
         }
         return this.$contentful.assets.optimisedSrc(
@@ -122,8 +128,27 @@
         );
       },
 
-      isSVG() {
-        return this.contentType === 'image/svg+xml';
+      responsiveImageSrcsets() {
+        if (!this.isContentfulAsset || !this.contentfulImageCropPresets) {
+          return [null];
+        }
+
+        return this.contentfulMediaResolutions.map((resolution) => {
+          const resolutionSizes = Object.keys(this.contentfulImageCropPresets).reduce((memo, key) => {
+            memo[key] = {
+              ...this.contentfulImageCropPresets[key],
+              w: this.contentfulImageCropPresets[key].w * resolution,
+              h: this.contentfulImageCropPresets[key].h * resolution
+            };
+            return memo;
+          }, {});
+
+          return this.$contentful.assets.responsiveImageSrcset(
+            { contentType: this.contentType, url: this.src },
+            resolutionSizes,
+            this.contentfulImageDisplayProfile
+          );
+        });
       }
     }
   };

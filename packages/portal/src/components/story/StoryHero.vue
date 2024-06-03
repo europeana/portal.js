@@ -10,7 +10,8 @@
         :src="hero.image.url"
         :content-type="heroImage.contentType"
         :attribution="hero"
-        :image-srcset="imageSrcset"
+        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_LANDSCAPE"
+        :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
         width="auto"
         height="auto"
@@ -54,20 +55,6 @@
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS as FULL_VIEWPORT_PRESETS_LANDSCAPE } from '@/utils/contentful/imageCropPresets';
 
-  function getPresetsPerResolution(presets, resolution) {
-    return Object.keys(presets).reduce((acc, key) => {
-      acc[key] = {
-        ...presets[key],
-        w: presets[key].w * resolution,
-        h: presets[key].h * resolution
-      };
-      return acc;
-    }, {});
-  }
-
-  const FULL_VIEWPORT_PRESETS_LANDSCAPE_2X = getPresetsPerResolution(FULL_VIEWPORT_PRESETS_LANDSCAPE, 2);
-  const FULL_VIEWPORT_PRESETS_LANDSCAPE_3X = getPresetsPerResolution(FULL_VIEWPORT_PRESETS_LANDSCAPE, 3);
-
   export default {
     name: 'StoryHero',
 
@@ -101,22 +88,9 @@
 
     data() {
       return {
+        FULL_VIEWPORT_PRESETS_LANDSCAPE,
         heroImage: this.hero.image || null,
-        heroImageAltText: this.hero.image?.description || '',
-        imageSrcset: this.hero.image && [
-          this.$contentful.assets.responsiveImageSrcset(
-            this.hero.image,
-            FULL_VIEWPORT_PRESETS_LANDSCAPE
-          ),
-          this.$contentful.assets.responsiveImageSrcset(
-            this.hero.image,
-            FULL_VIEWPORT_PRESETS_LANDSCAPE_2X
-          ),
-          this.$contentful.assets.responsiveImageSrcset(
-            this.hero.image,
-            FULL_VIEWPORT_PRESETS_LANDSCAPE_3X
-          )
-        ]
+        heroImageAltText: this.hero.image?.description || ''
       };
     },
 
