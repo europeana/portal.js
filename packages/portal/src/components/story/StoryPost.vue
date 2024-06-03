@@ -6,15 +6,13 @@
       :hero="hero"
       :context-label="$t('cardLabels.story')"
     />
-    <b-container
-      class="footer-margin"
-    >
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <article>
+    <article>
+      <b-container>
+        <b-row class="justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <!-- eslint-disable vue/no-v-html -->
             <div class="font-small font-weight-bold d-block">
               <time
@@ -47,14 +45,45 @@
               <ShareSocialModal :media-url="hero ? hero.image.url : null" />
               <ViewCount />
             </div>
-            <BrowseSections
-              :sections="body.items"
-              :rich-text-is-card="false"
-              class="authored-section"
-              data-qa="story sections"
-            />
-            <!-- eslint-enable vue/no-v-html -->
-          </article>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template v-for="(section, index) in browseAndScrollifySections">
+        <StoryImageTextSlideScroller
+          v-if="section.component === 'ImageTextSlideScroller'"
+          :key="'scroller-' + index"
+          :section="section.section"
+          data-qa="story image text slide scroller"
+        />
+        <b-container
+          v-else
+          :key="'browse-' + index"
+        >
+          <b-row class="justify-content-center">
+            <b-col
+              cols="12"
+              class="col-lg-8"
+            >
+              <BrowseSections
+                :sections="section.sections"
+                :rich-text-is-card="false"
+                class="authored-section"
+                data-qa="story sections"
+              />
+            </b-col>
+          </b-row>
+        </b-container>
+      <!-- eslint-enable vue/no-v-html -->
+      </template>
+    </article>
+    <b-container
+      class="footer-margin"
+    >
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
           <RelatedCategoryTags
             v-if="tags.length"
             :tags="tags"
@@ -96,6 +125,7 @@
       RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
+      StoryImageTextSlideScroller: () => import('./StoryImageTextSlideScroller'),
       ThemeBadges: () => import('../theme/ThemeBadges'),
       ViewCount
     },
@@ -149,6 +179,48 @@
       themes: {
         type: Array,
         default: () => []
+      }
+    },
+
+    data() {
+      return {
+        browseAndScrollifySections: this.splitSections()
+      };
+    },
+
+    methods: {
+      splitSections() {
+        const sections = this.body.items;
+
+        const nestedBrowseAndsScrollifySections = [];
+        let currentBrowseSections = [];
+
+        sections.forEach(section => {
+          if (section['__typename'] === 'ImageTextSlideGroup') {
+            if (currentBrowseSections.length) {
+              nestedBrowseAndsScrollifySections.push({
+                component: 'BrowseSections',
+                sections: currentBrowseSections
+              });
+              currentBrowseSections = [];
+            }
+            nestedBrowseAndsScrollifySections.push({
+              component: 'ImageTextSlideScroller',
+              section
+            });
+          } else {
+            currentBrowseSections.push(section);
+          }
+        });
+
+        if (currentBrowseSections.length) {
+          nestedBrowseAndsScrollifySections.push({
+            component: 'BrowseSections',
+            sections: currentBrowseSections
+          });
+        }
+
+        return nestedBrowseAndsScrollifySections;
       }
     }
   };
