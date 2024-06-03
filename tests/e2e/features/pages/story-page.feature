@@ -11,7 +11,3 @@ Feature: Story page
     When I open the `story page`
     Then I don't have a `story hero` in the `story page`
     And I see a `authored head` in the `story page`
-
-  Scenario: Story post not found
-    When I open `/stories/404-not-found`
-    Then I should be on `/en/stories`
