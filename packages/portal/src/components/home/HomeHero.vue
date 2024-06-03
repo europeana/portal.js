@@ -41,6 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
+  import { responsiveContentfulBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill' },
@@ -73,7 +74,7 @@
     computed: {
       imageCSSVars() {
         return this.backgroundImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          responsiveContentfulBackgroundImageCSSVars(
             this.backgroundImage.image,
             CSS_VARS_PRESETS
           );

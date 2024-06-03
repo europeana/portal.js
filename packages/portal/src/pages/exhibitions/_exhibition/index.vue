@@ -116,6 +116,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'ExhibitionPage',
@@ -200,10 +201,9 @@
         return this.text ? marked.parse(this.text) : null;
       },
       optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
+        return optimisedContentfulImageUrl(this.heroImage, {
+          params: { w: 800, h: 800 }
+        });
       }
     },
 

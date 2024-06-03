@@ -10,7 +10,7 @@ const factory = (propsData) => shallowMount(LandingEmbed, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+        responsiveContentfulBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
       }
     }
   },

@@ -51,8 +51,8 @@ const factory = () => {
       $route: { query: { mode: null } },
       $contentful: {
         assets: {
-          isValidUrl: (url) => url.includes('images.ctfassets.net'),
-          optimisedSrc: (img) => `${img.url}?optimised`
+          isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
+          optimisedContentfulImageUrl: (img) => `${img.url}?optimised`
         }
       }
     }

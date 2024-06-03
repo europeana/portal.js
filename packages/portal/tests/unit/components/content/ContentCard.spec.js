@@ -24,8 +24,8 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $config: { app: { internalLinkDomain: null } },
     $contentful: {
       assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedContentfulImageUrl: sinon.spy((img) => `${img.url}?optimised`)
       }
     },
     $i18n: {
@@ -218,7 +218,7 @@ describe('components/content/ContentCard', () => {
         } });
 
         expect(wrapper.vm.optimisedImageUrl).toContain('?optimised');
-        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+        expect(wrapper.vm.$contentful.assets.optimisedContentfulImageUrl.calledWith({
           url: 'https://images.ctfassets.net/example/example.jpg',
           contentType: 'image/jpeg'
         },

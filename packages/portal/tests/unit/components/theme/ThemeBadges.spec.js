@@ -35,8 +35,8 @@ const factory = ({ propsData = props, mocks } = {}) => {
     mocks: {
       $contentful: {
         assets: {
-          optimisedSrc: (img) => img?.url,
-          isValidUrl: () => true
+          optimisedContentfulImageUrl: (img) => img?.url,
+          isContentfulAssetUrl: () => true
         },
         query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: themes } } } })
 

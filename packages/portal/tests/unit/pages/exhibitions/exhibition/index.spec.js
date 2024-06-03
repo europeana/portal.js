@@ -64,7 +64,7 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     $features: {},
     $contentful: {
       assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
+        optimisedContentfulImageUrl: (img) => `${img?.url}?optimised`
       }
     },
     $t: key => key,

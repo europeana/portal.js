@@ -22,8 +22,8 @@ const factory = (options = {}) => mount(SearchResultsContext, {
     },
     $contentful: {
       assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedContentfulImageUrl: sinon.spy((img) => `${img.url}?optimised`)
       }
     },
     $features: options.features || {},

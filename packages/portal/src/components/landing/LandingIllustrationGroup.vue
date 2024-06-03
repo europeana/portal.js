@@ -69,6 +69,7 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
+  import { responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
 
   const SRCSET_PRESETS = {
     large: { w: 98, h: 98 },
@@ -171,7 +172,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+        return responsiveContentfulImageSrcset(image, SRCSET_PRESETS);
       }
     }
   };

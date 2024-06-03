@@ -74,7 +74,7 @@ const factory = (propsData = testPropsData) => shallowMount(LandingImageCard, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveImageSrcset: (img, srcSet) => srcSet
+        responsiveContentfulImageSrcset: (img, srcSet) => srcSet
       }
     }
   },

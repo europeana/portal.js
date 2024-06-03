@@ -54,6 +54,7 @@
 <script>
   import parityMixin from '@/mixins/parity.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -146,7 +147,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets, this.card?.profile);
+        return responsiveContentfulImageSrcset(image, this.srcSetPresets, this.card?.profile);
       }
     }
   };

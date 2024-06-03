@@ -54,6 +54,7 @@
   import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
   import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'HomePage',
@@ -88,7 +89,9 @@
           title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
           description: this.$t('homePage.subHeadline'),
           ogType: 'website',
-          ogImage: this.$contentful.assets.optimisedSrc(this.socialMediaImage, { w: 1200, h: 630, fit: 'fill' })
+          ogImage: optimisedContentfulImageUrl(this.socialMediaImage, {
+            params: { w: 1200, h: 630, fit: 'fill' }
+          })
         };
       }
     },

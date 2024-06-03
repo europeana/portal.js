@@ -10,7 +10,7 @@ const factory = (propsData) => shallowMount(LandingHero, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveImageSrcset: (img, sizes) => Object.keys(sizes).join(',')
+        responsiveContentfulImageSrcset: (img, sizes) => Object.keys(sizes).join(',')
       }
     }
   },

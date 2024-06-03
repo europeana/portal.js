@@ -69,6 +69,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
+  import { optimisedContentfulImageUrl, responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
 
   const SRCSET_PRESETS = {
     small: { w: 245, h: 440, fit: 'fill' },
@@ -160,16 +161,12 @@
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
-        if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
-          return this.$contentful.assets.optimisedSrc(image, { w: 245, h: 440, fit: 'fill' });
-        } else if (image?.url) {
-          return image.url;
-        } else {
-          return null;
-        }
+        return optimisedContentfulImageUrl(image, {
+          params: { w: 245, h: 440, fit: 'fill' }
+        });
       },
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+        return responsiveContentfulImageSrcset(image, SRCSET_PRESETS);
       }
     }
   };

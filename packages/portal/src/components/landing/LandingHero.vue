@@ -41,6 +41,7 @@
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
 
   const SRCSET_PRESETS = {
     medium: { w: 500 },
@@ -110,7 +111,7 @@
       imageSrcset() {
         return (
           this.heroImage?.image &&
-          this.$contentful.assets.responsiveImageSrcset(
+          responsiveContentfulImageSrcset(
             this.heroImage.image,
             SRCSET_PRESETS
           )

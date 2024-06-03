@@ -43,7 +43,7 @@ const factory = (heroImage) => shallowMountNuxt(page, {
   mocks: {
     $contentful: {
       assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
+        optimisedContentfulImageUrl: (img) => `${img?.url}?optimised`
       }
     },
     $t: key => key,

@@ -53,6 +53,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
   const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
@@ -122,10 +123,9 @@
       // landing pages use primaryImageOfPage as a fallback, otherwise null
       const socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
       this.socialMediaImageAlt = socialMediaImage?.description || '';
-      this.socialMediaImageUrl = this.$contentful.assets.optimisedSrc(
-        socialMediaImage,
-        { w: 800, h: 800 }
-      );
+      this.socialMediaImageUrl = optimisedContentfulImageUrl(socialMediaImage, {
+        params: { w: 800, h: 800 }
+      });
 
       if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;

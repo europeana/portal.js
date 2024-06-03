@@ -10,8 +10,8 @@ const factory = (propsData) => shallowMount(ImageOptimised, {
   mocks: {
     $contentful: {
       assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedContentfulImageUrl: sinon.spy((img) => `${img.url}?optimised`)
       }
     }
   },
@@ -119,7 +119,7 @@ describe('components/generic/ImageOptimised', () => {
     });
   });
 
-  describe('optimisedSrc', () => {
+  describe('optimisedContentfulImageUrl', () => {
     describe('when src is not for Contentful image', () => {
       const src = 'https://www.example.org/image.jpeg';
 
@@ -130,9 +130,9 @@ describe('components/generic/ImageOptimised', () => {
           height: 1250
         });
 
-        const optimisedSrc = wrapper.vm.optimisedSrc;
+        const optimisedContentfulImageUrl = wrapper.vm.optimisedContentfulImageUrl;
 
-        expect(optimisedSrc).toBe(src);
+        expect(optimisedContentfulImageUrl).toBe(src);
       });
     });
 
@@ -152,10 +152,10 @@ describe('components/generic/ImageOptimised', () => {
         it('is optimised via Contentful plugin', () => {
           const wrapper = factory(propsData);
 
-          const optimisedSrc = wrapper.vm.optimisedSrc;
+          const optimisedContentfulImageUrl = wrapper.vm.optimisedContentfulImageUrl;
 
-          expect(optimisedSrc).toContain('?optimised');
-          expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+          expect(optimisedContentfulImageUrl).toContain('?optimised');
+          expect(wrapper.vm.$contentful.assets.optimisedContentfulImageUrl.calledWith({
             url: 'https://images.ctfassets.net/asset',
             contentType: 'image/jpeg'
           },

@@ -14,7 +14,7 @@ const factory = (propsData) => shallowMountNuxt(HomeHero, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+        responsiveContentfulBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
       }
     },
     $t: () => {}

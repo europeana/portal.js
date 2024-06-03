@@ -11,7 +11,7 @@ const factory = (propsData) => shallowMount(LandingIllustrationGroup, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveImageSrcset: sinon.spy((img) => `${img.url}?optimised`)
+        responsiveContentfulImageSrcset: sinon.spy((img) => `${img.url}?optimised`)
       }
     }
   },

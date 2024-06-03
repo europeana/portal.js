@@ -37,8 +37,8 @@ const factory = (section) => mount(ContentCardSection, {
     $config: { app: { internalLinkDomain: null } },
     $contentful: {
       assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: (img) => `${img.url}?optimised`
+        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedContentfulImageUrl: (img) => `${img.url}?optimised`
       }
     },
     $t: () => {},

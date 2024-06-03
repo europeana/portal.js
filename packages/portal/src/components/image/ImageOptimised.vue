@@ -1,7 +1,7 @@
 <template>
   <b-img-lazy
     v-if="lazy"
-    :src="optimisedSrc"
+    :src="optimisedContentfulImageUrl"
     blank-color="#fff"
     :blank-width="optimisedWidth"
     :blank-height="optimisedHeight"
@@ -11,7 +11,7 @@
   />
   <b-img
     v-else
-    :src="optimisedSrc"
+    :src="optimisedContentfulImageUrl"
     :width="optimisedWidth"
     :height="optimisedHeight"
     :alt="alt"
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
+
   export default {
     name: 'ImageOptimised',
 
@@ -81,13 +83,12 @@
         return Math.round(this.optimisedWidth / this.aspectRatio);
       },
 
-      optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src) || this.isSVG) {
-          return this.src;
-        }
-        return this.$contentful.assets.optimisedSrc(
+      optimisedContentfulImageUrl() {
+        return optimisedContentfulImageUrl(
           { url: this.src, contentType: this.contentType },
-          { w: this.maxWidth, q: this.quality }
+          {
+            params: { w: this.maxWidth, q: this.quality }
+          }
         );
       },
       isSVG() {

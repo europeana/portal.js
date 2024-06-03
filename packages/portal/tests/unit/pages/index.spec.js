@@ -23,7 +23,7 @@ const factory = ({
   mocks: {
     $contentful: {
       assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
+        optimisedContentfulImageUrl: (img) => `${img?.url}?optimised`
       },
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
