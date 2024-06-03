@@ -106,9 +106,9 @@
       parallaxBackground() {
         const scrollPosition = window.scrollY || 1;
         const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
-        const heroBackgroundHeight = heroBackgroundImageElement.clientHeight || 1;
+        const heroBackgroundHeight = heroBackgroundImageElement?.clientHeight || 1;
 
-        if (scrollPosition <= heroBackgroundHeight) {
+        if (heroBackgroundImageElement && scrollPosition <= heroBackgroundHeight) {
           const translate = (scrollPosition / heroBackgroundHeight) * 75;
           heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
         }

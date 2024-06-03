@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { mountNuxt } from '../../utils';
 import StoryHero from '@/components/story/StoryHero.vue';
+import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const baseProps = { title: 'This is a title',
   hero: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } } };
@@ -12,7 +14,9 @@ const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
   localVue,
   attachTo: document.body,
   propsData,
-  stubs: ['b-button', 'b-container', 'b-col', 'b-img']
+  mocks: {
+    $t: (key) => key
+  }
 });
 
 describe('components/story/StoryHero', () => {

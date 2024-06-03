@@ -2,7 +2,7 @@
   <component
     :is="lazy ? 'b-img-lazy' : 'b-img'"
     :alt="alt"
-    :blank-color="lazy && blankColor"
+    :blank-color="lazy ? blankColor : null"
     :blank-width="lazy && width"
     :blank-height="lazy && height"
     :src="src"
