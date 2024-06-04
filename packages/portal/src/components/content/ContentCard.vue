@@ -236,7 +236,6 @@
         type: Boolean,
         default: true
       },
-      // TODO: remove after stories feature is public
       /**
        * If `true`, subtitle will be shown
        */
@@ -314,7 +313,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        displayLabelTypes: 'exhibitions|galleries|blog|collections|stories',
         // hit prefix & suffix can be overly long for our display purposes;
         // limit to max num of words each
         hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
@@ -341,9 +340,8 @@
         return this.subTitle || this.displayLabel;
       },
 
-      // TODO: Once the stories feature is live, remove this and other sub-title related logic to simply show the subTitle if present.
       displayLabel() {
-        if (!this.displayLabelType || this.$features?.redirectBlogsToStories) {
+        if (!this.displayLabelType) {
           return false;
         }
 
@@ -352,7 +350,7 @@
         }
 
         if (this.displayLabelType === 'blog') {
-          return this.$tc('blog.posts', 1);
+          return this.$features?.redirectBlogsToStories ? this.$tc('stories.stories', 1) : this.$tc('blog.posts', 1);
         }
 
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
