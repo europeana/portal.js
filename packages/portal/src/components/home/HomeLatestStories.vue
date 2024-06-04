@@ -19,7 +19,6 @@
         :image-url="cardImage(card)"
         :image-optimisation-options="{ width: 960 }"
         :url="contentfulEntryUrl(card)"
-        :show-subtitle="false"
       />
     </b-card-group>
     <b-button

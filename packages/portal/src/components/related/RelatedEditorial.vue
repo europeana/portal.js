@@ -21,7 +21,6 @@
             :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
             :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
             :media-type="entry.primaryImageOfPage ? null : 'image'"
-            :show-subtitle="false"
             variant="list"
           />
         </b-card-group>
@@ -49,7 +48,6 @@
         :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
         :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
         :media-type="entry.primaryImageOfPage ? null : 'image'"
-        :show-subtitle="false"
       />
     </b-card-group>
   </section>
