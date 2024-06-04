@@ -48,7 +48,7 @@ describe('@/server-middleware/api/events/views', () => {
 
       expect(pgPoolQuery.calledWith(
         sinon.match((sql) => sql.trim().startsWith('SELECT ')),
-        ['https://example.com/example', 'https://example.com/example']
+        ['https://example.com/example']
       )).toBe(true);
     });
 

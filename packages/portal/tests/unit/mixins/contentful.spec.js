@@ -21,7 +21,7 @@ describe('mixins/contentful', () => {
         const wrapper = factory();
 
         const contentfulEntryHasContentType = wrapper.vm.contentfulEntryHasContentType(
-          { '__typename': 'blogPosting' }, 'blogPosting'
+          { '__typename': 'story' }, 'story'
         );
 
         expect(contentfulEntryHasContentType).toBe(true);
@@ -31,7 +31,7 @@ describe('mixins/contentful', () => {
         const wrapper = factory();
 
         const contentfulEntryHasContentType = wrapper.vm.contentfulEntryHasContentType(
-          { '__typename': 'landingPage' }, 'blogPosting'
+          { '__typename': 'landingPage' }, 'story'
         );
 
         expect(contentfulEntryHasContentType).toBe(false);

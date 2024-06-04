@@ -156,14 +156,12 @@
         // and filtering by categories.
         const storyIdsVariables = {
           locale: this.$i18n.localeProperties.iso,
-          preview: this.$route.query.mode === 'preview',
-          redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
+          preview: this.$route.query.mode === 'preview'
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.blogPostingCollection?.items || [],
-          storyIdsResponse.data.data.exhibitionPageCollection?.items,
-          storyIdsResponse.data.data.storyCollection?.items || []
+          storyIdsResponse.data.data.storyCollection.items,
+          storyIdsResponse.data.data.exhibitionPageCollection.items
         ].flat();
 
         // Simplify categories
@@ -190,9 +188,8 @@
         };
         const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
         const fullStories = [
-          storiesResponse.data.data.blogPostingCollection?.items,
-          storiesResponse.data.data.exhibitionPageCollection.items,
-          storiesResponse.data.data.storyCollection?.items
+          storiesResponse.data.data.storyCollection.items,
+          storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
         if (this.page === 1 && this.selectedTags.length === 0) {

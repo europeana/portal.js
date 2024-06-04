@@ -10,11 +10,11 @@ const primaryImageOfPage = { image: {} };
 const contentfulQueryResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
-          { identifier: 'blog-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'blog-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'blog-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
+          { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
         ]
       },
       exhibitionPageCollection: {
@@ -27,7 +27,7 @@ const contentfulQueryResponse = {
     }
   }
 };
-const relatedEditorialIdentifiers = ['blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'];
+const relatedEditorialIdentifiers = ['story-1', 'exhibition-1', 'exhibition-2', 'story-2'];
 
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditorial, {
   localVue,
@@ -69,8 +69,7 @@ describe('components/related/RelatedEditorial', () => {
             query,
             locale: 'en-GB',
             preview: false,
-            limit: 4,
-            redirectBlogsToStories: false
+            limit: 4
           })).toBe(true);
         });
 
@@ -95,8 +94,7 @@ describe('components/related/RelatedEditorial', () => {
             theme: null,
             locale: 'en-GB',
             preview: false,
-            limit: 4,
-            redirectBlogsToStories: false
+            limit: 4
           })).toBe(true);
         });
 
@@ -126,8 +124,7 @@ describe('components/related/RelatedEditorial', () => {
             query,
             locale: 'en-GB',
             preview: false,
-            limit: 4,
-            redirectBlogsToStories: false
+            limit: 4
           })).toBe(true);
         });
 
@@ -152,8 +149,7 @@ describe('components/related/RelatedEditorial', () => {
             theme,
             locale: 'en-GB',
             preview: false,
-            limit: 4,
-            redirectBlogsToStories: false
+            limit: 4
           })).toBe(true);
         });
 
@@ -184,8 +180,7 @@ describe('components/related/RelatedEditorial', () => {
             theme: null,
             locale: 'en-GB',
             preview: false,
-            limit: 4,
-            redirectBlogsToStories: false
+            limit: 4
           })).toBe(true);
         });
 

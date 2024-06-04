@@ -1,12 +1,10 @@
-export default ({ redirect, route, $features }) => {
-  const redirects = {
-    '/professionals': '/share-your-data'
-  };
-  if ($features?.redirectBlogsToStories) {
-    redirects['/blog'] = '/stories';
-    redirects['/blog/*'] = '/stories/*';
-  }
+const redirects = {
+  '/blog': '/stories',
+  '/blog/*': '/stories/*',
+  '/professionals': '/share-your-data'
+};
 
+export default ({ redirect, route }) => {
   for (const redirectFrom in redirects) {
     let redirectTo = redirects[redirectFrom];
 

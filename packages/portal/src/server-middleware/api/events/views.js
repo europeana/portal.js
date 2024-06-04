@@ -14,10 +14,6 @@ export default (config = {}) => {
       // Ignore any search query or hash
       const uri = `${url.origin}${url.pathname}`;
 
-      // TODO: update old objects, then stop using legacy uris
-      // @/docker/compose/postgres/model/07-clean-up-blog-objects.psql
-      const legacyUri = url.pathname.startsWith('/stories') ? `${url.origin}${url.pathname.replace('/stories', '/blog')}` : uri;
-
       const result = await pg.query(`
         SELECT SUM(views) AS views
         FROM
@@ -37,9 +33,9 @@ export default (config = {}) => {
            LEFT JOIN events.action_types AT ON a.action_type_id=at.id
            GROUP BY at.name,
                     o.uri) actions_and_history
-        WHERE action_type_name='view' AND (uri=$1 OR uri=$2)
+        WHERE action_type_name='view' AND uri=$1
         `,
-      [uri, legacyUri]
+      [uri]
       );
 
       const viewCount = Number(result.rows[0]?.views);
