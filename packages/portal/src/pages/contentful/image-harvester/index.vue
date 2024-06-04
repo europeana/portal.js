@@ -54,7 +54,7 @@
         try {
           itemResponse = await this.$apis.record.axios.get(`${id}.json`);
         } catch (error) {
-          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`);
+          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`, error);
           return;
         }
 
@@ -62,7 +62,7 @@
           await this.populateFields(itemResponse.data.object);
           this.message = 'Success';
         } catch (error) {
-          this.showError('There was a problem updating the entry.');
+          this.showError('There was a problem updating the entry.', error);
         }
       },
 
@@ -122,7 +122,7 @@
         asset.fields.file[locale] = {
           contentType: edmIsShownByWebResource.ebucoreHasMimeType,
           fileName: asset.fields.title[locale],
-          upload: edmIsShownBy
+          upload: this.$apis.record.mediaProxyUrl(edmIsShownBy, item.about)
         };
 
         const rawAsset = await this.contentfulExtensionSdk.space.createAsset(asset);

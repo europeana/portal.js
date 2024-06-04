@@ -10,7 +10,6 @@ const pages = {
   'blog page': `${url}/en/blog`,
   'collections page': `${url}/en/collections`,
   'data space page': `${url}/en/dataspace-culturalheritage`,
-  '"Easter with art" blog page': `${url}/blog/easter-with-art-and-culture-5-activities-for-the-whole-family`,
   'English home page': `${url}/en`,
   'entity page': `${url}/en/collections/person/60305-william-shakespeare`,
   'exhibition chapter': `${url}/en/exhibitions/faces-of-europe/introduction`,
@@ -24,6 +23,7 @@ const pages = {
   'gallery foyer page': `${url}/en/galleries`,
   'home page': `${url}/en`,
   'Newspapers theme search page': `${url}/en/search?qf=collection%3Anewspaper`,
+  'immersive story page': `${url}/en/stories/melitta-bentz-the-woman-who-invented-the-coffee-filter`,
   'item page with a responsive embedded video': `${url}/en/item/2021007/_SLS_1226`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
@@ -32,13 +32,15 @@ const pages = {
   'search page': `${url}/en/search`,
   'search page with a search query': `${url}/en/search?query=art`,
   'share your data page': `${url}/en/share-your-data`,
-  'user gallery page': `${url}/en/set/2`,
+  'static page': `${url}/en/about-us`,
+  'stories page': `${url}/en/stories`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
-  'static page': `${url}/en/about-us`
-  // TODO: enable when linklist is actually present
-  // 'static page with linklist': `${url}/en/rights`
+  'static page': `${url}/en/about-us`,
+  'static page with linklist': `${url}/en/rights`,
+  'story page': `${url}/en/stories/nilde-iotti`,
+  'user gallery page': `${url}/en/set/2`
 };
 
 module.exports = {
