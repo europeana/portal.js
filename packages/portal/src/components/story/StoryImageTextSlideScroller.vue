@@ -6,12 +6,19 @@
       ref="slide"
       class="slide"
     >
-      <!-- TODO: replace with ImageWithAttribution -->
       <div class="image-wrapper">
-        <img
-          :src="slide.image?.image?.url"
+        <ImageWithAttribution
           :alt="slide.image?.image?.description"
-        >
+          :src="slide.image?.image?.url"
+          :content-type="slide.image?.image?.contentType"
+          :attribution="slide.image"
+          :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
+          :picture-source-media-resolutions="[1, 2, 3]"
+          :lazy="true"
+          width="auto"
+          height="auto"
+          :max-width="null"
+        />
       </div>
       <div class="card-wrapper">
         <b-container>
@@ -41,9 +48,15 @@
 
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import ImageWithAttribution from '@/components/image/ImageWithAttribution';
+  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryImageTextSlideScroller',
+
+    components: {
+      ImageWithAttribution
+    },
 
     mixins: [parseMarkdownHtmlMixin],
 
@@ -52,6 +65,12 @@
         type: Object,
         required: true
       }
+    },
+
+    data() {
+      return {
+        FULL_VIEWPORT_PRESETS
+      };
     }
   };
 </script>
@@ -76,6 +95,29 @@
         width: 100%;
         height: 100vh;
         overflow: hidden;
+
+        figure {
+          height: 100%;
+
+          ::v-deep .icon-info {
+            bottom: 15px;
+            left: 15px;
+            right: auto;
+            z-index: 3;
+
+            @media (min-width: $bp-medium) {
+              bottom: 1.5rem;
+              left: 1.5rem;
+            }
+          }
+
+          ::v-deep cite {
+            bottom: 0.5rem;
+            left: 0.5rem;
+            right: auto !important;
+            z-index: 3;
+          }
+        }
       }
 
       img {

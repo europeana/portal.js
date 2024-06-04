@@ -10,7 +10,7 @@
         :src="hero.image.url"
         :content-type="heroImage.contentType"
         :attribution="hero"
-        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_LANDSCAPE"
+        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
         :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
         width="auto"
@@ -53,7 +53,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS as FULL_VIEWPORT_PRESETS_LANDSCAPE } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryHero',
@@ -88,7 +88,7 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS_LANDSCAPE,
+        FULL_VIEWPORT_PRESETS,
         heroImage: this.hero.image || null,
         heroImageAltText: this.hero.image?.description || ''
       };
