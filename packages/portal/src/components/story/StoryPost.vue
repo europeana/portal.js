@@ -1,18 +1,39 @@
 <template>
   <div>
-    <AuthoredHead
+    <StoryHero
+      v-if="enableStoryHero"
       :title="title"
+      :subtitle="subtitle"
+      :hero="hero"
+      :context-label="$t('cardLabels.story')"
+      data-qa="story hero"
+    />
+    <AuthoredHead
+      v-else
+      :title="title"
+      :subtitle="subtitle"
       :description="description"
       :hero="hero"
       :context-label="$t('cardLabels.story')"
+      data-qa="authored head"
     />
-    <article>
+    <article
+      class="story-article-container position-relative bg-white"
+      :class="{ 'pt-5': enableStoryHero }"
+    >
       <b-container>
         <b-row class="justify-content-center">
           <b-col
             cols="12"
             class="col-lg-8"
           >
+            <p
+              v-if="showDescriptionInArticle"
+              class="lead"
+              data-qa="article description"
+            >
+              {{ description }}
+            </p>
             <!-- eslint-disable vue/no-v-html -->
             <div class="font-small font-weight-bold d-block">
               <time
@@ -108,25 +129,26 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ShareSocialModal from '../share/ShareSocialModal';
-  import ShareButton from '../share/ShareButton.vue';
-  import BrowseSections from '../browse/BrowseSections';
-  import ViewCount from '../generic/ViewCount.vue';
+  import ShareSocialModal from '@/components/share/ShareSocialModal';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import BrowseSections from '@/components/browse/BrowseSections';
+  import ViewCount from '@/components/generic/ViewCount.vue';
 
   export default {
     name: 'StoryPost',
 
     components: {
-      AuthoredHead: () => import('../authored/AuthoredHead'),
-      StoryAuthor: () => import('./StoryAuthor'),
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       BrowseSections,
       ClientOnly,
-      EntityBadges: () => import('../entity/EntityBadges'),
-      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      StoryImageTextSlideScroller: () => import('./StoryImageTextSlideScroller'),
-      ThemeBadges: () => import('../theme/ThemeBadges'),
+      StoryAuthor: () => import('@/components/story/StoryAuthor'),
+      StoryHero: () => import('@/components/story/StoryHero'),
+      StoryImageTextSlideScroller: () => import('@/components/story/StoryImageTextSlideScroller'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
 
@@ -139,6 +161,21 @@
       title: {
         type: String,
         required: true
+      },
+
+      englishTitleLength: {
+        type: Number,
+        default: 0
+      },
+
+      subtitle: {
+        type: String,
+        default: ''
+      },
+
+      englishSubtitleLength: {
+        type: Number,
+        default: 0
       },
 
       description: {
@@ -184,7 +221,11 @@
 
     data() {
       return {
-        browseAndScrollifySections: this.splitSections()
+        browseAndScrollifySections: this.splitSections(),
+        // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
+        showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
+        // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
+        enableStoryHero: this.hero?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
       };
     },
 
@@ -227,7 +268,15 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   .author ~ .author::before {
     content: ', ';
+  }
+
+  .text-page p.lead {
+    font-size: $font-size-medium;
+    color: $black;
+    margin-bottom: 1.5rem;
   }
 </style>

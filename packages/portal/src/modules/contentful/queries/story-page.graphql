@@ -12,6 +12,9 @@ query StoryPage(
     items {
       identifier
       name
+      nameEN: name(locale: "en-GB")
+      headline
+      headlineEN: headline(locale: "en-GB")
       description
       datePublished
       relatedLink

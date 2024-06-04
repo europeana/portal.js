@@ -38,7 +38,7 @@
             >
               <ImageOptimised
                 :src="slide.image.url"
-                :image-srcset="imageSrcset(slide.image)"
+                :contentful-image-crop-presets="SRCSET_PRESETS"
                 :image-sizes="imageSizes"
                 :width="slide.image.width"
                 :height="slide.image.height"
@@ -69,12 +69,6 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
-
-  const SRCSET_PRESETS = {
-    large: { w: 98, h: 98 },
-    '4k': { w: 127, h: 127 },
-    '4k+': { w: 340, h: 340 }
-  };
 
   export default {
     name: 'LandingIllustrationGroup',
@@ -127,6 +121,12 @@
 
     data() {
       return {
+        SRCSET_PRESETS: {
+          large: { w: 98, h: 98 },
+          '4k': { w: 127, h: 127 },
+          '4k+': { w: 340, h: 340 }
+        },
+
         imageSizes: [
           '(max-width: 991px) 98px', // bp-large
           '(max-width: 3019px) 127px', // bp-4k
@@ -167,12 +167,6 @@
           }
         }
       };
-    },
-
-    methods: {
-      imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
-      }
     }
   };
 </script>

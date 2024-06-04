@@ -1,5 +1,4 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import sinon from 'sinon';
 
 import LandingIllustrationGroup from '@/components/landing/LandingIllustrationGroup.vue';
 
@@ -8,13 +7,6 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingIllustrationGroup, {
   localVue,
   propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveImageSrcset: sinon.spy((img) => `${img.url}?optimised`)
-      }
-    }
-  },
   stubs: ['b-container', 'b-col']
 });
 
@@ -34,6 +26,6 @@ describe('components/landing/LandingIllustrationGroup', () => {
 
     const imageStub = wrapper.find('imageoptimised-stub');
 
-    expect(imageStub.attributes('imagesrcset')).toBe(`${illustrations[0].image.url}?optimised`);
+    expect(imageStub.attributes('contentfulimagecroppresets')).toBeTruthy();
   });
 });

@@ -30,6 +30,9 @@
       <StoryPost
         :date-published="post.datePublished"
         :title="post.name"
+        :english-title-length="post.nameEN?.length"
+        :subtitle="post.headline"
+        :english-subtitle-length="post.headlineEN?.length"
         :description="post.description"
         :body="post.hasPartCollection"
         :identifier="post.identifier"
@@ -78,16 +81,18 @@
         preview: this.$route.query.mode === 'preview'
       };
 
+      let data;
       try {
         const response = await this.$contentful.query('storyPage', variables);
-        const data = response.data.data;
-        if (data.storyCollection.items.length === 0) {
-          return this.$nuxt.context.redirect(302, '/stories');
-        }
-
-        this.post = data.storyCollection.items[0];
+        data = response.data.data;
       } catch (e) {
         this.$error(e);
+      }
+
+      if (data.storyCollection.items.length === 0) {
+        this.$error(404, { scope: 'page' });
+      } else {
+        this.post = data.storyCollection.items[0];
       }
     },
 
@@ -95,7 +100,7 @@
       pageMeta() {
         return {
           title: this.post.name,
-          description: this.post.description,
+          description: this.post.headline || this.post.description,
           ogType: 'article',
           ogImage: this.post.primaryImageOfPage?.image?.url,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
