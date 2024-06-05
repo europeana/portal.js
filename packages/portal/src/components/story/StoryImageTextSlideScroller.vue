@@ -1,10 +1,10 @@
 <template>
-  <div class="story-image-text-slide-scroller">
+  <div class="story-image-text-slide-scroller mb-5">
     <div
       v-for="(slide, index) in section.hasPartCollection.items"
-      :key="index"
-      ref="slide"
-      class="slide"
+      :key="`slide-image-${index}`"
+      ref="slideImages"
+      class="slide-images"
     >
       <div class="image-wrapper">
         <ImageWithAttribution
@@ -20,6 +20,13 @@
           :max-width="null"
         />
       </div>
+    </div>
+    <div
+      v-for="(slide, index) in section.hasPartCollection.items"
+      :key="`slide-card-${index}`"
+      ref="slideCards"
+      class="slide-cards"
+    >
       <div class="card-wrapper">
         <b-container>
           <b-row class="justify-content-end">
@@ -71,6 +78,30 @@
       return {
         FULL_VIEWPORT_PRESETS
       };
+    },
+
+    mounted() {
+      window.addEventListener('scroll', this.transformSlide);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.transformSlide);
+    },
+
+    methods: {
+      transformSlide() {
+        this.$refs.slideCards.forEach((card, index) => {
+          const distanceCardToViewport = card.getBoundingClientRect();
+
+          if (index > 0 && distanceCardToViewport.top < window.innerHeight) {
+            this.$refs.slideImages[index].style = 'z-index: 1; opacity: 1;';
+          }
+
+          if (index > 0 &&  distanceCardToViewport.top > window.innerHeight) {
+            this.$refs.slideImages[index].style = 'z-index: -1; opacity: 0; transition: all 750ms;';
+          }
+        });
+      }
     }
   };
 </script>
@@ -79,66 +110,67 @@
   @import '@europeana/style/scss/variables';
 
   .story-image-text-slide-scroller {
+    width: 100%;
+    position: relative;
 
-    .slide {
+    .slide-images {
+      position: sticky;
+      top: 0;
       width: 100%;
+      height: 100vh;
+      overflow: hidden;
 
-      // &:nth-child(n+2) {
-      //   margin-top: -100vh;
-      //   z-index: -1;
-      //   position: relative;
-      // }
+      &:nth-child(n+2) {
+        margin-top: -100vh;
+        z-index: -1;
+        opacity: 0;
+        transition: all 750ms;
+      }
+    }
 
-      .image-wrapper {
-        position: sticky;
-        top: 0;
+    .image-wrapper {
+      height: 100%;
+
+      figure {
+        height: 100%;
         width: 100%;
-        height: 100vh;
-        overflow: hidden;
 
-        figure {
-          height: 100%;
+        ::v-deep .icon-info {
+          bottom: 15px;
+          left: 15px;
+          right: auto;
+          z-index: 3;
 
-          ::v-deep .icon-info {
-            bottom: 15px;
-            left: 15px;
-            right: auto;
-            z-index: 3;
-
-            @media (min-width: $bp-medium) {
-              bottom: 1.5rem;
-              left: 1.5rem;
-            }
-          }
-
-          ::v-deep cite {
-            bottom: 0.5rem;
-            left: 0.5rem;
-            right: auto !important;
-            z-index: 3;
+          @media (min-width: $bp-medium) {
+            bottom: 1.5rem;
+            left: 1.5rem;
           }
         }
-      }
 
-      img {
-        position: absolute;
-        display: block;
-        width:100%;
-        height:100%;
-        object-fit: cover;
+        ::v-deep cite {
+          bottom: 0.5rem;
+          left: 0.5rem;
+          right: auto !important;
+          z-index: 3;
+        }
       }
+    }
 
-      .card-wrapper {
-        min-height: 100vh;
-      }
+    ::v-deep img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-      .card {
-        box-shadow: $boxshadow-small;
-      }
+    .card {
+      box-shadow: $boxshadow-small;
+      margin-bottom: 150vh;
+      position: relative;
+      z-index: 3;
+    }
 
-      .card-content ::v-deep p:last-child {
-        margin-bottom: 0;
-      }
+    .card-content ::v-deep p:last-child {
+      margin-bottom: 0;
     }
   }
 </style>
