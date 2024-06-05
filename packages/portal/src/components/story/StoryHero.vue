@@ -103,13 +103,17 @@
 
     methods: {
       parallaxBackground() {
-        const scrollPosition = window.scrollY || 1;
         const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
         const heroBackgroundHeight = heroBackgroundImageElement?.clientHeight || 1;
+        const distanceHeroToViewportTop = heroBackgroundImageElement?.getBoundingClientRect().top;
 
-        if (heroBackgroundImageElement && scrollPosition <= heroBackgroundHeight) {
-          const translate = (scrollPosition / heroBackgroundHeight) * 75;
+        if (heroBackgroundImageElement && distanceHeroToViewportTop < 0) {
+          const translate = (-distanceHeroToViewportTop / heroBackgroundHeight) * 75;
           heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
+        }
+
+        if (heroBackgroundImageElement && distanceHeroToViewportTop > 0) {
+          heroBackgroundImageElement.style.transform = '';
         }
       }
     }
