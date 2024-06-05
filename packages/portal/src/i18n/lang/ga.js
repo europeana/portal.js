@@ -107,7 +107,6 @@ export default {
     "organisation": "Eagraíocht",
     "person": "Duine",
     "place": "Áit",
-    "story": "Scéal",
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Pionnáilte",
     "required": "Riachtanach"
   },
+  "stories": {
+    "stories": "Scéal | Scéalta"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} scéalta aimsithe",
-    "title": "Scéalta"
+    "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {
     "paginationBulletLabel": "Grúpa sleamhnán {page}"

@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisaatio",
     "person": "Henkilö",
     "place": "Paikka",
-    "story": "Tarina",
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Kiinnitetty",
     "required": "Pakollinen"
   },
+  "stories": {
+    "stories": "Tarina | Tarinoita"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} tarinaa löydetty",
-    "title": "Tarinat"
+    "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {
     "paginationBulletLabel": "Dia-ryhmä {page}"

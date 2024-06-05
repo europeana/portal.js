@@ -107,7 +107,6 @@ export default {
     "organisation": "Организация",
     "person": "човек",
     "place": "място",
-    "story": "История",
     "theme": "Тема",
     "time": "Век",
     "topic": "Тема"
@@ -1183,9 +1182,11 @@ export default {
     "pinned": "Закрепен",
     "required": "Задължително"
   },
+  "stories": {
+    "stories": "История | Истории"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} намерени истории",
-    "title": "Истории"
+    "storiesHaveLoaded": "{0} намерени истории"
   },
   "swiper": {
     "paginationBulletLabel": "Група слайдове {page}"
