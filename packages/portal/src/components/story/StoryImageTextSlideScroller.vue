@@ -1,7 +1,7 @@
 <template>
   <div class="story-image-text-slide-scroller mb-5">
     <div
-      v-for="(slide, index) in section.hasPartCollection.items"
+      v-for="(slide, index) in section.hasPartCollection?.items"
       :key="`slide-image-${index}`"
       ref="slideImages"
       class="slide-images"
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div
-      v-for="(slide, index) in section.hasPartCollection.items"
+      v-for="(slide, index) in section.hasPartCollection?.items"
       :key="`slide-card-${index}`"
       ref="slideCards"
       class="slide-cards"
@@ -176,3 +176,28 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <StoryImageTextSlideScroller
+      :section="{
+        hasPartCollection: {
+          items: [
+            {
+              image: imagesWithAttribution[0],
+              text: 'This is a placeholder text for the first slide.'
+            },
+            {
+              image: imagesWithAttribution[1],
+              text: 'This is a placeholder text for the second slide.'
+            },
+            {
+              image: imagesWithAttribution[2],
+              text: 'This is a placeholder text for the third slide.'
+            }
+          ]
+        }
+      }"
+    />
+  ```
+</docs>
