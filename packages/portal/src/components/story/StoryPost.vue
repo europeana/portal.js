@@ -4,7 +4,7 @@
       v-if="enableStoryHero"
       :title="title"
       :subtitle="subtitle"
-      :hero="hero"
+      :hero-image="heroImage"
       :context-label="$t('cardLabels.story')"
       data-qa="story hero"
     />
@@ -13,7 +13,7 @@
       :title="title"
       :subtitle="subtitle"
       :description="description"
-      :hero="hero"
+      :hero="heroImage"
       :context-label="$t('cardLabels.story')"
       data-qa="authored head"
     />
@@ -63,7 +63,7 @@
             </div>
             <div class="my-4 d-flex align-items-center">
               <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+              <ShareSocialModal :media-url="heroImage ? heroImage.image.url : null" />
               <ViewCount />
             </div>
           </b-col>
@@ -193,7 +193,7 @@
         required: true
       },
 
-      hero: {
+      heroImage: {
         type: Object,
         default: null
       },
@@ -225,7 +225,7 @@
         // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
         showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
         // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
-        enableStoryHero: this.hero?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
+        enableStoryHero: this.heroImage?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
       };
     },
 

@@ -7,9 +7,9 @@
         id="hero-background-image"
         ref="heroBackground"
         :alt="heroImageAltText"
-        :src="hero.image.url"
-        :content-type="heroImage.contentType"
-        :attribution="hero"
+        :src="heroImage.image.url"
+        :content-type="heroImage.image.contentType"
+        :attribution="heroImage"
         :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
         :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
@@ -75,7 +75,7 @@
         default: null
       },
 
-      hero: {
+      heroImage: {
         type: Object,
         required: true
       },
@@ -89,8 +89,7 @@
     data() {
       return {
         FULL_VIEWPORT_PRESETS,
-        heroImage: this.hero.image || null,
-        heroImageAltText: this.hero.image?.description || ''
+        heroImageAltText: this.heroImage.image?.description || ''
       };
     },
 
@@ -245,3 +244,16 @@
     z-index: 3;
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <div style="overflow: hidden">
+    <StoryHero
+      title="Story title"
+      subtitle="Story subtitle with a bit more text."
+      context-label="Story"
+      :hero-image="imagesWithAttribution[0]"
+    />
+    </div>
+  ```
+</docs>
