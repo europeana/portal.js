@@ -5,7 +5,7 @@
       :title="title"
       :subtitle="subtitle"
       :hero="hero"
-      :context-label="$t('cardLabels.story')"
+      :context-label="$tc('stories.stories', 1)"
       data-qa="story hero"
     />
     <AuthoredHead
@@ -14,7 +14,7 @@
       :subtitle="subtitle"
       :description="description"
       :hero="hero"
-      :context-label="$t('cardLabels.story')"
+      :context-label="$tc('stories.stories', 1)"
       data-qa="authored head"
     />
     <div
