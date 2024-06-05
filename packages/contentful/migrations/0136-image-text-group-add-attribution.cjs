@@ -9,7 +9,7 @@ module.exports = function(migration) {
     .localized(false)
     .required(false)
     .validations([{ size: { max: 100 },
-      message: 'Attribution must be max. 100 characters.' }])
+      message: 'Quote Attribution must be max. 100 characters.' }])
     .disabled(false)
     .omitted(false);
 
