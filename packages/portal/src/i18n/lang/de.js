@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Ort",
-    "story": "Geschichte",
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Angeheftet",
     "required": "Erforderlich"
   },
+  "stories": {
+    "stories": "Geschichte | Geschichten"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} Geschichten gefunden",
-    "title": "Geschichten"
+    "storiesHaveLoaded": "{0} Geschichten gefunden"
   },
   "swiper": {
     "paginationBulletLabel": "Foliengruppe {page}"

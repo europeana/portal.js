@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizacija",
     "person": "Osoba",
     "place": "Mjesto",
-    "story": "Priča",
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Prikvačeno",
     "required": "Potreban"
   },
+  "stories": {
+    "stories": "Priča | Priče"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "Broj pronađenih priča {0}",
-    "title": "Priče"
+    "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {
     "paginationBulletLabel": "Grupa slajdova {page}"

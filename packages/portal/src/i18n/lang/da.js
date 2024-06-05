@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Sted",
-    "story": "Historie",
     "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },
+  "stories": {
+    "stories": "Historien | Historier"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} historier fundet",
-    "title": "Historier"
+    "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
     "paginationBulletLabel": "Slide gruppe {page}"

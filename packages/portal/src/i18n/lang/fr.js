@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisation",
     "person": "Personne",
     "place": "Place",
-    "story": "Histoire",
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Épinglé",
     "required": "Obligatoire"
   },
+  "stories": {
+    "stories": "Histoire | Histoires"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} histoires trouvées",
-    "title": "Histoires"
+    "storiesHaveLoaded": "{0} histoires trouvées"
   },
   "swiper": {
     "paginationBulletLabel": "Groupe de diapositives {page}"
