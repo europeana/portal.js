@@ -84,6 +84,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.locale current locale, for localising search results
  * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
+ * @param {Boolean} options.getUri just return the full API URI, i.e. don't run the search
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 
@@ -123,11 +124,21 @@ export default function(params, options = {}) {
     }
   }
 
-  return this.request({
+  const requestConfig = {
     method: 'get',
     url: `${options.url || ''}/search.json`,
     params: searchParams
-  })
+  };
+
+  if (options.getUri) {
+    let uri = this.axios.getUri(requestConfig);
+    if (uri.startsWith('/')) {
+      uri = `${this.axios.defaults.baseURL}${uri}`;
+    }
+    return uri;
+  }
+
+  return this.request(requestConfig)
     .then((data) => ({
       ...data,
       items: data.items?.map((item) => reduceFieldsForItem(item, localOptions)),

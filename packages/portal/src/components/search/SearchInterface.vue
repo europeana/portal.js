@@ -39,6 +39,11 @@
                 :query="query"
                 badge-variant="primary-light"
               />
+              <SearchSaveButton
+                v-if="$auth.loggedIn"
+                :isDefinedBy="recordApiSearchUrl"
+                :title="query"
+              />
               <SearchViewToggles
                 v-model="view"
                 class="ml-auto"
@@ -183,6 +188,7 @@
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
+      SearchSaveButton: () => import('./SearchSaveButton'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
@@ -275,6 +281,9 @@
     },
 
     computed: {
+      recordApiSearchUrl() {
+        return this.$apis.record.search(this.apiParams, { ...this.apiOptions, getUri: true });
+      },
       advancedSearchQueryCount() {
         return this.qa.length;
       },

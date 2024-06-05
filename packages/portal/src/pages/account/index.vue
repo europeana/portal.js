@@ -64,6 +64,12 @@
                   {{ $t('account.publishedCollections') }}
                 </b-nav-item>
                 <b-nav-item
+                  :to="localePath({ hash: tabHashes.savedSearches})"
+                  :active="activeTab === tabHashes.savedSearches"
+                >
+                  Saved searches
+                </b-nav-item>
+                <b-nav-item
                   v-if="userIsEditor"
                   data-qa="curated collections"
                   :to="localePath({ hash: tabHashes.curatedCollections})"
@@ -144,6 +150,9 @@
                 data-qa="published sets"
               />
             </template>
+            <template v-else-if="activeTab === tabHashes.savedSearches">
+              <SearchSavedTable />
+            </template>
             <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
               <UserSets
                 type="EntityBestItemsSet"
@@ -180,6 +189,7 @@
       ClientOnly,
       ItemPreviewCardGroup,
       LoadingSpinner,
+      SearchSavedTable: () => import('@/components/search/SearchSavedTable'),
       UserSets
     },
 
@@ -198,7 +208,8 @@
           publicGalleries: '#public-galleries',
           privateGalleries: '#private-galleries',
           publishedGalleries: '#published-galleries',
-          curatedCollections: '#curated-collections'
+          curatedCollections: '#curated-collections',
+          savedSearches: '#savedSearches'
         }
       };
     },
