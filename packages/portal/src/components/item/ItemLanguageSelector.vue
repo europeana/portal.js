@@ -146,7 +146,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
 
   .icon-translate::before {
     font-size: 1.4375rem;
