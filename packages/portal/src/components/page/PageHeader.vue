@@ -91,12 +91,11 @@
       </b-sidebar>
     </div>
     <div
-      v-show="showSearchBar"
+      v-if="showSearchBar"
       class="search-bar d-flex justify-content-center"
       data-qa="search form wrapper"
     >
       <SearchForm
-        v-if="showSearchBar"
         parent="page-header"
         :show="showSearchBar"
         :hidable-form="true"
