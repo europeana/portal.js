@@ -66,6 +66,10 @@
         :text="section.text"
         :link="section.relatedLink"
       />
+      <StoryImageTextSlideScroller
+        v-else-if="contentfulEntryHasContentType(section, 'ImageTextSlideGroup')"
+        :section="section"
+      />
     </div>
   </div>
 </template>
@@ -83,7 +87,8 @@
       ContentRichText: () => import('../content/ContentRichText'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
-      ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer')
+      ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer'),
+      StoryImageTextSlideScroller: () => import('../story/StoryImageTextSlideScroller')
     },
 
     mixins: [contentfulMixin],

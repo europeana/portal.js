@@ -87,11 +87,12 @@
             </b-col>
           </b-row>
         </b-container>
-        <StoryImageTextSlideScroller
-          v-else-if="section['__typename'] === 'ImageTextSlideGroup'"
-          :key="`scroller-${index}`"
-          :section="section"
-          data-qa="story image text slide scroller"
+        <BrowseSections
+          v-else
+          :sections="[section]"
+          :rich-text-is-card="false"
+          class="authored-section"
+          data-qa="story sections"
         />
       </template>
     </article>
@@ -145,7 +146,6 @@
       ShareSocialModal,
       StoryAuthor: () => import('@/components/story/StoryAuthor'),
       StoryHero: () => import('@/components/story/StoryHero'),
-      StoryImageTextSlideScroller: () => import('@/components/story/StoryImageTextSlideScroller'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
