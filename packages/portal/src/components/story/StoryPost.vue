@@ -69,15 +69,9 @@
         </b-row>
       </b-container>
       <template v-for="(section, index) in browseAndScrollifySections">
-        <StoryImageTextSlideScroller
-          v-if="section.component === 'ImageTextSlideScroller'"
-          :key="'scroller-' + index"
-          :section="section.section"
-          data-qa="story image text slide scroller"
-        />
         <b-container
-          v-else
-          :key="'browse-' + index"
+          v-if="Array.isArray(section)"
+          :key="`browse-${index}`"
         >
           <b-row class="justify-content-center">
             <b-col
@@ -85,7 +79,7 @@
               class="col-lg-8"
             >
               <BrowseSections
-                :sections="section.sections"
+                :sections="section"
                 :rich-text-is-card="false"
                 class="authored-section"
                 data-qa="story sections"
@@ -93,6 +87,12 @@
             </b-col>
           </b-row>
         </b-container>
+        <StoryImageTextSlideScroller
+          v-else-if="section['__typename'] === 'ImageTextSlideGroup'"
+          :key="`scroller-${index}`"
+          :section="section"
+          data-qa="story image text slide scroller"
+        />
       </template>
     </article>
     <b-container
@@ -228,38 +228,20 @@
     },
 
     methods: {
+      // split the sections into individual ImageTextSlideGroups, or arrays of
+      // other entry types
       splitSections() {
-        const sections = this.body.items;
-
-        const nestedBrowseAndScrollifySections = [];
-        let currentBrowseSections = [];
-
-        sections.forEach(section => {
-          if (section['__typename'] === 'ImageTextSlideGroup') {
-            if (currentBrowseSections.length) {
-              nestedBrowseAndScrollifySections.push({
-                component: 'BrowseSections',
-                sections: currentBrowseSections
-              });
-              currentBrowseSections = [];
-            }
-            nestedBrowseAndScrollifySections.push({
-              component: 'ImageTextSlideScroller',
-              section
-            });
+        return this.body.items.reduce((memo, item) => {
+          if (item['__typename'] === 'ImageTextSlideGroup') {
+            memo.push(item);
           } else {
-            currentBrowseSections.push(section);
+            if (!Array.isArray(memo[memo.length - 1])) {
+              memo.push([]);
+            }
+            memo[memo.length - 1].push(item);
           }
-        });
-
-        if (currentBrowseSections.length) {
-          nestedBrowseAndScrollifySections.push({
-            component: 'BrowseSections',
-            sections: currentBrowseSections
-          });
-        }
-
-        return nestedBrowseAndScrollifySections;
+          return memo;
+        }, []);
       }
     }
   };
