@@ -96,6 +96,7 @@
       data-qa="search form wrapper"
     >
       <SearchForm
+        v-if="showSearchBar"
         parent="page-header"
         :show="showSearchBar"
         :hidable-form="true"
@@ -108,7 +109,6 @@
   import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
 
   import SmartLink from '../generic/SmartLink';
-  import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
   import SearchSidebarToggleButton from '../search/SearchSidebarToggleButton';
 
@@ -117,7 +117,7 @@
 
     components: {
       SmartLink,
-      SearchForm,
+      SearchForm: () => import('../search/SearchForm'),
       PageNavigation,
       SearchSidebarToggleButton
     },
