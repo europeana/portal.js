@@ -231,19 +231,19 @@
       splitSections() {
         const sections = this.body.items;
 
-        const nestedBrowseAndsScrollifySections = [];
+        const nestedBrowseAndScrollifySections = [];
         let currentBrowseSections = [];
 
         sections.forEach(section => {
           if (section['__typename'] === 'ImageTextSlideGroup') {
             if (currentBrowseSections.length) {
-              nestedBrowseAndsScrollifySections.push({
+              nestedBrowseAndScrollifySections.push({
                 component: 'BrowseSections',
                 sections: currentBrowseSections
               });
               currentBrowseSections = [];
             }
-            nestedBrowseAndsScrollifySections.push({
+            nestedBrowseAndScrollifySections.push({
               component: 'ImageTextSlideScroller',
               section
             });
@@ -253,13 +253,13 @@
         });
 
         if (currentBrowseSections.length) {
-          nestedBrowseAndsScrollifySections.push({
+          nestedBrowseAndScrollifySections.push({
             component: 'BrowseSections',
             sections: currentBrowseSections
           });
         }
 
-        return nestedBrowseAndsScrollifySections;
+        return nestedBrowseAndScrollifySections;
       }
     }
   };
