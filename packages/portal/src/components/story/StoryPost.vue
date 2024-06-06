@@ -69,14 +69,15 @@
                 <ShareSocialModal :media-url="hero ? hero.image.url : null" />
                 <ViewCount />
               </div>
-              <ContentSection
-                v-for="(section, index) in body.items"
-                :key="index"
-                :section="section"
-                :rich-text-is-card="false"
-                class="authored-section"
-                data-qa="story sections"
-              />
+              <div class="authored-section">
+                <ContentSection
+                  v-for="(section, index) in body.items"
+                  :key="index"
+                  :section="section"
+                  :rich-text-is-card="false"
+                  data-qa="story sections"
+                />
+              </div>
             <!-- eslint-enable vue/no-v-html -->
             </article>
             <RelatedCategoryTags

@@ -24,14 +24,15 @@
                 class="mb-4"
               />
             </div>
-            <ContentSection
-              v-for="(section, index) in (hasPartCollection?.items || [])"
-              :key="index"
-              :section="section"
-              :rich-text-is-card="false"
-              class="authored-section"
-              data-qa="browse sections"
-            />
+            <div class="authored-section">
+              <ContentSection
+                v-for="(section, index) in (hasPartCollection?.items || [])"
+                :key="index"
+                :section="section"
+                :rich-text-is-card="false"
+                data-qa="browse sections"
+              />
+            </div>
           </article>
         </b-col>
       </b-row>

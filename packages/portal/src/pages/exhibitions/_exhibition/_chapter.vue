@@ -40,13 +40,14 @@
           <article>
             <ShareButton class="mb-4" />
             <ShareSocialModal :media-url="optimisedImageUrl" />
-            <ContentSection
-              v-for="(section, index) in (page?.hasPartCollection?.items || [])"
-              :key="index"
-              :section="section"
-              :rich-text-is-card="false"
-              class="authored-section"
-            />
+            <div class="authored-section">
+              <ContentSection
+                v-for="(section, index) in (page?.hasPartCollection?.items || [])"
+                :key="index"
+                :section="section"
+                :rich-text-is-card="false"
+              />
+            </div>
           </article>
         </b-col>
       </b-row>
