@@ -3,17 +3,17 @@ module.exports = function(migration) {
     .editContentType('imageTextSlide');
 
   imageTextSlide
-    .createField('attribution')
+    .createField('citation')
     .name('Quote Attribution')
     .type('Symbol')
-    .localized(false)
+    .localized(true)
     .required(false)
     .validations([{ size: { max: 100 },
       message: 'Quote Attribution must be max. 100 characters.' }])
     .disabled(false)
     .omitted(false);
 
-  imageTextSlide.changeFieldControl('attribution', 'builtin', 'singleLine', {
-    helpText: 'When present the card will be shown as a quote. Can cause the text to be truncated if it\'s longer than 160 characters.'
+  imageTextSlide.changeFieldControl('citation', 'builtin', 'singleLine', {
+    helpText: 'When present the text and attribution will be shown as a quote. Text longer than 160 characters will be truncated.'
   });
 };
