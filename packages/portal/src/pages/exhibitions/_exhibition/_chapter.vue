@@ -40,9 +40,10 @@
           <article>
             <ShareButton class="mb-4" />
             <ShareSocialModal :media-url="optimisedImageUrl" />
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
+            <ContentSection
+              v-for="(section, index) in (page?.hasPartCollection?.items || [])"
+              :key="index"
+              :section="section"
               :rich-text-is-card="false"
               class="authored-section"
             />
@@ -110,10 +111,10 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import BrowseSections from '../../../components/browse/BrowseSections';
-  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
-  import ShareButton from '../../../components/share/ShareButton.vue';
-  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import ContentSection from '@/components/content/ContentSection';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
   import logEventMixin from '@/mixins/logEvent';
 
@@ -121,12 +122,12 @@
     name: 'ExhibitionChapterPage',
 
     components: {
-      BrowseSections,
+      ContentSection,
       ClientOnly,
       ShareButton,
       ShareSocialModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      LinkList: () => import('../../../components/generic/LinkList'),
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      LinkList: () => import('@/components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
