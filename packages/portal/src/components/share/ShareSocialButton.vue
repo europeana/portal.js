@@ -78,7 +78,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  
+
   .btn {
     align-items: center;
     display: inline-flex;
