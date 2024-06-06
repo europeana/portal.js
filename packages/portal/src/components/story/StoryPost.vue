@@ -34,7 +34,6 @@
             >
               {{ description }}
             </p>
-            <!-- eslint-disable vue/no-v-html -->
             <div class="font-small font-weight-bold d-block">
               <time
                 v-if="datePublished"
@@ -94,7 +93,6 @@
             </b-col>
           </b-row>
         </b-container>
-      <!-- eslint-enable vue/no-v-html -->
       </template>
     </article>
     <b-container
