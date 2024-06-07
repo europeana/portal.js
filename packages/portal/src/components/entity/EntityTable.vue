@@ -265,7 +265,7 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
 
   .entity-table {

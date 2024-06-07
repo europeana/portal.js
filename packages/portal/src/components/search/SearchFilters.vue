@@ -479,7 +479,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/transitions';
 
   .filters-header {

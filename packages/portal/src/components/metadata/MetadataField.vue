@@ -181,7 +181,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
