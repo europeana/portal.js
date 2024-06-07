@@ -95,7 +95,6 @@
         <div
           v-else
           :key="index"
-          class="authored-section"
           data-qa="story sections"
         >
           <ContentSection
