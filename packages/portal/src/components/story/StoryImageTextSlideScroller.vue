@@ -47,7 +47,7 @@
                 <div
                   class="card-content"
                   :class="{ 'citation-text': slide.citation }"
-                  v-html="parseMarkdownHtml(slide.text)"
+                  v-html="slide.citation ? truncate(parseMarkdownHtml(slide.text), 160) : parseMarkdownHtml(slide.text)"
                 />
                 <cite
                   v-if="slide.citation"
@@ -67,6 +67,7 @@
 
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import truncateMixin from '@/mixins/truncate';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
@@ -77,7 +78,7 @@
       ImageWithAttribution
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [parseMarkdownHtmlMixin, truncateMixin],
 
     props: {
       section: {
