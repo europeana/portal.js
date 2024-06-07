@@ -90,7 +90,7 @@
     computed: {
       pageMeta() {
         return {
-          title: this.$t('storiesPage.title'),
+          title: this.$tc('stories.stories', 2),
           description: this.description,
           ogType: 'article',
           ogImage: this.socialMediaImage?.url,

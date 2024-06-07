@@ -27,7 +27,7 @@
         :src="heroImage.image.url"
         :content-type="heroImage.image.contentType"
         :attribution="heroImage"
-        :image-srcset="isSVG ? null : imageSrcset"
+        :contentful-image-crop-presets="isSVG ? null : SRCSET_PRESETS"
         :image-sizes="isSVG ? null : imageSizes"
         :lazy="false"
         width="auto"
@@ -41,15 +41,6 @@
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
-
-  const SRCSET_PRESETS = {
-    medium: { w: 500 },
-    large: { w: 660 },
-    xl: { w: 465 },
-    xxl: { w: 555 },
-    '4k': { w: 625 },
-    '4k+': { w: 938 }
-  };
 
   export default {
     name: 'LandingHero',
@@ -95,6 +86,14 @@
 
     data() {
       return {
+        SRCSET_PRESETS: {
+          medium: { w: 500 },
+          large: { w: 660 },
+          xl: { w: 465 },
+          xxl: { w: 555 },
+          '4k': { w: 625 },
+          '4k+': { w: 938 }
+        },
         imageSizes: [
           '(max-width: 767px) 500px', // bp-medium
           '(max-width: 991px) 660px', // bp-large
@@ -107,15 +106,6 @@
     },
 
     computed: {
-      imageSrcset() {
-        return (
-          this.heroImage?.image &&
-          this.$contentful.assets.responsiveImageSrcset(
-            this.heroImage.image,
-            SRCSET_PRESETS
-          )
-        );
-      },
       isSVG() {
         return this.heroImage?.image?.contentType === 'image/svg+xml';
       }

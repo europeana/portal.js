@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisatie",
     "person": "Persoon",
     "place": "Plaats",
-    "story": "Verhaal",
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Pinned",
     "required": "Vereist"
   },
+  "stories": {
+    "stories": "Verhaal | Verhalen"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} verhalen gevonden",
-    "title": "Verhalen"
+    "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {
     "paginationBulletLabel": "Slide groep {page}"

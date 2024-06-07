@@ -11,6 +11,7 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
+    // TODO: Ignore swiper in transformIgnorePatterns instead?
     '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'

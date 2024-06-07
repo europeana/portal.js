@@ -1,102 +1,129 @@
 <template>
   <div>
-    <AuthoredHead
+    <StoryHero
+      v-if="enableStoryHero"
       :title="title"
+      :subtitle="subtitle"
+      :hero="hero"
+      :context-label="$tc('stories.stories', 1)"
+      data-qa="story hero"
+    />
+    <AuthoredHead
+      v-else
+      :title="title"
+      :subtitle="subtitle"
       :description="description"
       :hero="hero"
-      :context-label="$t('cardLabels.story')"
+      :context-label="$tc('stories.stories', 1)"
+      data-qa="authored head"
     />
-    <b-container
-      class="footer-margin"
+    <div
+      class="story-article-container position-relative bg-white"
+      :class="{ 'pt-5': enableStoryHero }"
     >
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <article>
-            <!-- eslint-disable vue/no-v-html -->
-            <div class="font-small font-weight-bold d-block">
-              <time
-                v-if="datePublished"
-                class="d-inline-block"
-                data-qa="date"
-                :datetime="datePublished"
+      <b-container
+        class="footer-margin"
+      >
+        <b-row class="justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <article>
+              <p
+                v-if="showDescriptionInArticle"
+                class="lead"
+                data-qa="article description"
               >
-                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
-              </time>
-              <span
-                v-if="authors"
-              >
-                {{ $t('authored.by') }}
-              </span>
-              <template
-                v-for="(author, index) in authors"
-              >
-                <StoryAuthor
+                {{ description }}
+              </p>
+              <!-- eslint-disable vue/no-v-html -->
+              <div class="font-small font-weight-bold d-block">
+                <time
+                  v-if="datePublished"
+                  class="d-inline-block"
+                  data-qa="date"
+                  :datetime="datePublished"
+                >
+                  {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
+                </time>
+                <span
+                  v-if="authors"
+                >
+                  {{ $t('authored.by') }}
+                </span>
+                <template
+                  v-for="(author, index) in authors"
+                >
+                  <StoryAuthor
+                    :key="index"
+                    class="author d-inline"
+                    :name="author.name"
+                    :organisation="author.affiliation"
+                    :url="author.url"
+                  />
+                </template>
+              </div>
+              <div class="my-4 d-flex align-items-center">
+                <ShareButton class="mr-4" />
+                <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+                <ViewCount />
+              </div>
+              <div class="authored-section">
+                <ContentSection
+                  v-for="(section, index) in body.items"
                   :key="index"
-                  class="author d-inline"
-                  :name="author.name"
-                  :organisation="author.affiliation"
-                  :url="author.url"
+                  :section="section"
+                  :rich-text-is-card="false"
+                  data-qa="story sections"
                 />
-              </template>
-            </div>
-            <div class="my-4 d-flex align-items-center">
-              <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="hero ? hero.image.url : null" />
-              <ViewCount />
-            </div>
-            <BrowseSections
-              :sections="body.items"
-              :rich-text-is-card="false"
-              class="authored-section"
-              data-qa="story sections"
-            />
+              </div>
             <!-- eslint-enable vue/no-v-html -->
-          </article>
-          <RelatedCategoryTags
-            v-if="tags.length"
-            :tags="tags"
-            class="related-container"
-          />
-          <client-only>
-            <EntityBadges
-              :entity-uris="relatedLink"
+            </article>
+            <RelatedCategoryTags
+              v-if="tags.length"
+              :tags="tags"
               class="related-container"
             />
-            <ThemeBadges
-              v-if="themes && themes.length"
-              :themes-identifiers="themes"
-              class="related-container"
-            />
-          </client-only>
-        </b-col>
-      </b-row>
-    </b-container>
+            <client-only>
+              <EntityBadges
+                :entity-uris="relatedLink"
+                class="related-container"
+              />
+              <ThemeBadges
+                v-if="themes && themes.length"
+                :themes-identifiers="themes"
+                class="related-container"
+              />
+            </client-only>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ShareSocialModal from '../share/ShareSocialModal';
-  import ShareButton from '../share/ShareButton.vue';
-  import BrowseSections from '../browse/BrowseSections';
-  import ViewCount from '../generic/ViewCount.vue';
+  import ShareSocialModal from '@/components/share/ShareSocialModal';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import ContentSection from '@/components/content/ContentSection';
+  import ViewCount from '@/components/generic/ViewCount.vue';
 
   export default {
     name: 'StoryPost',
 
     components: {
-      AuthoredHead: () => import('../authored/AuthoredHead'),
-      StoryAuthor: () => import('./StoryAuthor'),
-      BrowseSections,
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      ContentSection,
       ClientOnly,
-      EntityBadges: () => import('../entity/EntityBadges'),
-      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      ThemeBadges: () => import('../theme/ThemeBadges'),
+      StoryAuthor: () => import('@/components/story/StoryAuthor'),
+      StoryHero: () => import('@/components/story/StoryHero'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
       ViewCount
     },
 
@@ -109,6 +136,21 @@
       title: {
         type: String,
         required: true
+      },
+
+      englishTitleLength: {
+        type: Number,
+        default: 0
+      },
+
+      subtitle: {
+        type: String,
+        default: ''
+      },
+
+      englishSubtitleLength: {
+        type: Number,
+        default: 0
       },
 
       description: {
@@ -150,12 +192,29 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
+        showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
+        // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
+        enableStoryHero: this.hero?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
+      };
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   .author ~ .author::before {
     content: ', ';
+  }
+
+  .text-page p.lead {
+    font-size: $font-size-medium;
+    color: $black;
+    margin-bottom: 1.5rem;
   }
 </style>

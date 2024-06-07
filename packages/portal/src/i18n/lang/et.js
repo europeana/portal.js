@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisatsioon",
     "person": "Isik",
     "place": "Koht",
-    "story": "Lugu",
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Kinnitatud",
     "required": "Nõutud"
   },
+  "stories": {
+    "stories": "Lugu | Lood"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "Leiti {0} lugu",
-    "title": "Lood"
+    "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
     "paginationBulletLabel": "Slaidirühm {page}"

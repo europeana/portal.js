@@ -152,7 +152,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/icons';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);

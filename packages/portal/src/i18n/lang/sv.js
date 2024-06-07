@@ -107,7 +107,6 @@ export default {
     "organisation": "Organisation",
     "person": "Person",
     "place": "Plats",
-    "story": "Berättelse",
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Fäst",
     "required": "Obligatoriskt"
   },
+  "stories": {
+    "stories": "Berättelse | Berättelser"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} berättelser hittades",
-    "title": "Berättelser"
+    "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {
     "paginationBulletLabel": "Bildgrupp {page}"

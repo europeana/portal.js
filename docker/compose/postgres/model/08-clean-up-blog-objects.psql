@@ -1,0 +1,44 @@
+SET search_path TO EVENTS;
+
+-- ensure an object for the '/stories' uri exists for all /blog uris
+
+INSERT INTO objects (uri)
+  (SELECT DISTINCT REPLACE(uri, '/blog/', '/stories/')
+   FROM objects) ON CONFLICT DO NOTHING;
+
+-- on actions/history linked to /blog/ objects, update the link to be to the /stories/ object
+-- do not update old actions where a user viewed old & new objects in the same session already.
+
+UPDATE actions
+SET object_id=new_object_id
+FROM
+  (SELECT old_actions.id old_action_id,
+          new_objects.id new_object_id
+   FROM objects old_objects
+   INNER JOIN objects new_objects ON new_objects.uri=REPLACE(old_objects.uri, '/blog/', '/stories/')
+   INNER JOIN actions old_actions ON old_actions.object_id=old_objects.id
+   LEFT JOIN actions duplicate_actions ON (
+	 duplicate_actions.object_id=new_objects.id
+	 AND duplicate_actions.session_id=old_actions.session_id
+	 AND duplicate_actions.action_type_id=old_actions.action_type_id)
+   WHERE old_objects.uri like '%/blog/%'
+     AND new_objects.uri like '%/stories/%'
+	 AND duplicate_actions.id IS NULL) old_actions_new_objects
+WHERE id=old_action_id;
+
+UPDATE history
+SET object_id=new_id
+FROM
+  (SELECT old.id old_id,
+          new.id new_id
+   FROM objects old
+   INNER JOIN objects new ON new.uri=REPLACE(old.uri, '/blog/', '/stories/')
+   WHERE old.uri like '%/blog/%'
+     AND new.uri like '%/stories/%') old_new
+WHERE object_id=old_id;
+
+-- delete the /blog/ objects
+
+DELETE
+FROM objects
+WHERE uri like '%/blog/%';

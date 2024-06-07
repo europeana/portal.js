@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizācija",
     "person": "Persona",
     "place": "Vieta",
-    "story": "Stāsts",
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Piesprausts",
     "required": "Nepieciešams"
   },
+  "stories": {
+    "stories": "Stāsts | Stāsti"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} atrasti stāsti",
-    "title": "Stāsti"
+    "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
     "paginationBulletLabel": "Slaidu grupa {page}"
