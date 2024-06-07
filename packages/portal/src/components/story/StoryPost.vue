@@ -71,29 +71,38 @@
       <template v-for="(section, index) in browseAndScrollifySections">
         <b-container
           v-if="Array.isArray(section)"
-          :key="`browse-${index}`"
+          :key="index"
         >
           <b-row class="justify-content-center">
             <b-col
               cols="12"
               class="col-lg-8"
             >
-              <BrowseSections
-                :sections="section"
-                :rich-text-is-card="false"
+              <div
                 class="authored-section"
                 data-qa="story sections"
-              />
+              >
+                <ContentSection
+                  v-for="(subSection, subIndex) in section"
+                  :key="`sub-${subIndex}`"
+                  :section="subSection"
+                  :rich-text-is-card="false"
+                />
+              </div>
             </b-col>
           </b-row>
         </b-container>
-        <BrowseSections
+        <div
           v-else
-          :sections="[section]"
-          :rich-text-is-card="false"
+          :key="index"
           class="authored-section"
           data-qa="story sections"
-        />
+        >
+          <ContentSection
+            :section="section"
+            :rich-text-is-card="false"
+          />
+        </div>
       </template>
     </article>
     <b-container
@@ -130,7 +139,7 @@
   import ClientOnly from 'vue-client-only';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
   import ShareButton from '@/components/share/ShareButton.vue';
-  import BrowseSections from '@/components/browse/BrowseSections';
+  import ContentSection from '@/components/content/ContentSection';
   import ViewCount from '@/components/generic/ViewCount.vue';
 
   export default {
@@ -138,7 +147,7 @@
 
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
-      BrowseSections,
+      ContentSection,
       ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),

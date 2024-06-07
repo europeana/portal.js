@@ -5,26 +5,24 @@
     <template
       v-for="(srcset, index) in responsiveImageSrcsets"
     >
-      <ImageEagerOrLazy
-        v-if="index === 0"
-        :key="index"
-        :alt="alt"
-        :blank-color="blankColor"
-        :height="optimisedHeight"
-        :lazy="lazy"
-        :sizes="imageSizes"
-        :src="optimisedSrc"
-        :srcset="srcset"
-        :width="optimisedWidth"
-      />
       <source
-        v-else
+        v-if="index > 0"
         :key="index"
         :srcset="srcset"
         :sizes="imageSizes"
         :media="`(resolution: ${index + 1}x)`"
       >
     </template>
+    <ImageEagerOrLazy
+      :alt="alt"
+      :blank-color="blankColor"
+      :height="optimisedHeight"
+      :lazy="lazy"
+      :sizes="imageSizes"
+      :src="optimisedSrc"
+      :srcset="responsiveImageSrcsets[0]"
+      :width="optimisedWidth"
+    />
   </picture>
   <ImageEagerOrLazy
     v-else
