@@ -29,7 +29,7 @@
     >
       <div class="card-wrapper">
         <b-container>
-          <b-row class="justify-content-end">
+          <b-row :class="!slide.citation && 'justify-content-end'">
             <b-col
               cols="12"
               class="col-md-6 col-lg-4"
@@ -39,10 +39,22 @@
                 body-class="p-4"
                 class="border-none"
               >
+                <b-img
+                  v-if="slide.citation"
+                  src="@europeana/style/img/icons/quotationmark.svg"
+                  class="icon-quotationmark"
+                />
                 <div
                   class="card-content"
+                  :class="{ 'citation-text': slide.citation }"
                   v-html="parseMarkdownHtml(slide.text)"
                 />
+                <cite
+                  v-if="slide.citation"
+                  class="citation-attribution"
+                >
+                  {{ slide.citation }}
+                </cite>
               </b-card>
               <!-- eslint-enable vue/no-v-html -->
             </b-col>
@@ -156,12 +168,12 @@
           z-index: 3;
         }
       }
-    }
 
-    ::v-deep img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      ::v-deep img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .card {
@@ -169,6 +181,37 @@
       margin-bottom: 150vh;
       position: relative;
       z-index: 3;
+
+      .icon-quotationmark {
+        width: 64px;
+      }
+
+      .citation-text {
+        font-weight: 600;
+        line-height: 1.5;
+
+        ::v-deep blockquote,
+        ::v-deep blockquote p {
+          font-size: 1.125rem;
+          font-style: normal;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 0.75rem;
+          text-align: left;
+
+          &::before,
+          &::after {
+            content: none;
+          }
+        }
+      }
+
+      .citation-attribution {
+        font-size: $font-size-base;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
     }
 
     .card-content ::v-deep p:last-child {
