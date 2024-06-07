@@ -92,16 +92,13 @@
             </b-col>
           </b-row>
         </b-container>
-        <div
+        <ContentSection
           v-else
           :key="index"
-          data-qa="story sections"
-        >
-          <ContentSection
-            :section="section"
-            :rich-text-is-card="false"
-          />
-        </div>
+          :section="section"
+          :rich-text-is-card="false"
+          data-qa="story image text slide scroller"
+        />
       </template>
     </article>
     <b-container
