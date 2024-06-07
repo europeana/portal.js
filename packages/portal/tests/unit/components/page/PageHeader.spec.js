@@ -29,12 +29,12 @@ const factory = () => shallowMount(PageHeader, {
 describe('components/PageHeader', () => {
   describe('template', () => {
     describe('search form', () => {
-      it('is hidden by default', () => {
+      it('is omitted by default', () => {
         const wrapper = factory();
 
         const form = wrapper.find('[data-qa="search form wrapper"]');
 
-        expect(form.isVisible()).toBe(false);
+        expect(form.exists()).toBe(false);
       });
 
       it('is shown when toggled by the search button', async() => {
