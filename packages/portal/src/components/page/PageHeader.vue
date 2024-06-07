@@ -91,7 +91,7 @@
       </b-sidebar>
     </div>
     <div
-      v-show="showSearchBar"
+      v-if="showSearchBar"
       class="search-bar d-flex justify-content-center"
       data-qa="search form wrapper"
     >
@@ -108,7 +108,6 @@
   import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
 
   import SmartLink from '../generic/SmartLink';
-  import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
   import SearchSidebarToggleButton from '../search/SearchSidebarToggleButton';
 
@@ -117,7 +116,7 @@
 
     components: {
       SmartLink,
-      SearchForm,
+      SearchForm: () => import('../search/SearchForm'),
       PageNavigation,
       SearchSidebarToggleButton
     },
