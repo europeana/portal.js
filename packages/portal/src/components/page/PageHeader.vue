@@ -55,6 +55,7 @@
         backdrop
         backdrop-variant="black"
         :aria-label="$t('header.sideNavigation')"
+        lazy
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
