@@ -564,6 +564,11 @@
   };
 </script>
 
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/dropdown-search-filter';
+</style>
+
 <docs lang="md">
   Type radio:
   ```jsx
