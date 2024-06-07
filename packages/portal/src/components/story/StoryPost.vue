@@ -69,12 +69,15 @@
                 <ShareSocialModal :media-url="hero ? hero.image.url : null" />
                 <ViewCount />
               </div>
-              <BrowseSections
-                :sections="body.items"
-                :rich-text-is-card="false"
-                class="authored-section"
-                data-qa="story sections"
-              />
+              <div class="authored-section">
+                <ContentSection
+                  v-for="(section, index) in body.items"
+                  :key="index"
+                  :section="section"
+                  :rich-text-is-card="false"
+                  data-qa="story sections"
+                />
+              </div>
             <!-- eslint-enable vue/no-v-html -->
             </article>
             <RelatedCategoryTags
@@ -104,7 +107,7 @@
   import ClientOnly from 'vue-client-only';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
   import ShareButton from '@/components/share/ShareButton.vue';
-  import BrowseSections from '@/components/browse/BrowseSections';
+  import ContentSection from '@/components/content/ContentSection';
   import ViewCount from '@/components/generic/ViewCount.vue';
 
   export default {
@@ -112,7 +115,7 @@
 
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
-      BrowseSections,
+      ContentSection,
       ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
