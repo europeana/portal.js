@@ -123,7 +123,7 @@
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import truncateMixin from '@/mixins/truncate';
+  import { truncate } from '@/utils/text.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
@@ -139,8 +139,7 @@
 
     mixins: [
       langAttributeMixin,
-      stripMarkdownMixin,
-      truncateMixin
+      stripMarkdownMixin
     ],
 
     props: {
@@ -420,6 +419,8 @@
     },
 
     methods: {
+      truncate,
+
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) {
@@ -427,7 +428,7 @@
         }
         const joined = limited.join('; ');
         const stripped = this.stripMarkdown(joined);
-        return this.truncate(stripped, 255);
+        return truncate(stripped, 255);
       },
 
       redrawMasonry() {

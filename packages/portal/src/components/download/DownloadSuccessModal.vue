@@ -47,14 +47,10 @@
 </template>
 
 <script>
-  import stringify from '@/mixins/stringify';
+  import { stringify } from '@/utils/text.js';
 
   export default {
     name: 'DownloadSuccessModal',
-
-    mixins: [
-      stringify
-    ],
 
     props: {
       title: {
@@ -90,9 +86,9 @@
     data() {
       return {
         snippetCopied: false,
-        providerString: this.stringify(this.provider),
-        creatorString: this.stringify(this.creator),
-        yearString: this.stringify(this.year)
+        providerString: stringify(this.provider),
+        creatorString: stringify(this.creator),
+        yearString: stringify(this.year)
       };
     },
 
