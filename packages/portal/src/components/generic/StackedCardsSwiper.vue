@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import swiperMixin from '@/mixins/swiper';
+  import useSwiper from '@/composables/useSwiper.js';
   import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
 
   const SRCSET_PRESETS = {
@@ -80,10 +80,43 @@
     '4k+': { w: 480, h: 470, fit: 'fill' }
   };
 
+  const SWIPER_OPTIONS = {
+    modules: [EffectCoverflow, Keyboard, Lazy],
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slideToClickedSlide: true,
+    preloadImages: false,
+    lazy: {
+      loadPrevNextAmount: 10
+    },
+    breakpoints: {
+      0: {
+        spaceBetween: -150
+      },
+      576: {
+        spaceBetween: -100
+      },
+      992: {
+        spaceBetween: 0
+      }
+    },
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 100,
+      depth: 200,
+      modifier: 1,
+      slideShadows: false,
+      scale: 1
+    },
+    on: {
+      // FIXME
+      // activeIndexChange: this.setFocusOnActiveSlideLink
+    }
+  };
+
   export default {
     name: 'StackedCardsSwiper',
-
-    mixins: [swiperMixin],
 
     props: {
       title: {
@@ -105,39 +138,6 @@
 
     data() {
       return {
-        swiperOptions: {
-          modules: [EffectCoverflow, Keyboard, Lazy],
-          effect: 'coverflow',
-          grabCursor: true,
-          centeredSlides: true,
-          slideToClickedSlide: true,
-          preloadImages: false,
-          lazy: {
-            loadPrevNextAmount: 10
-          },
-          breakpoints: {
-            0: {
-              spaceBetween: -150
-            },
-            576: {
-              spaceBetween: -100
-            },
-            992: {
-              spaceBetween: 0
-            }
-          },
-          coverflowEffect: {
-            rotate: 0,
-            stretch: 100,
-            depth: 200,
-            modifier: 1,
-            slideShadows: false,
-            scale: 1
-          },
-          on: {
-            activeIndexChange: this.setFocusOnActiveSlideLink
-          }
-        },
         imageSizes: [
           '(max-width: 575px) 245px', // bp-small
           '(max-width: 767px) 260px', // bp-medium
@@ -148,6 +148,16 @@
           '480px'
         ].join(',')
       };
+    },
+
+    setup() {
+      console.log('StackdCardsSwiper setup')
+      const { swiper, ready: swiperReady } = useSwiper(this.$t, SWIPER_OPTIONS);
+
+      return {
+        swiper,
+        swiperReady
+      }
     },
 
     mounted() {
