@@ -9,8 +9,7 @@
   >
     <div class="card-wrapper">
       <MediaDefaultThumbnail
-        v-if="variant !== 'mini'"
-        v-show="!cardImageUrl"
+        v-if="variant !== 'mini' && !cardImageUrl"
         :media-type="mediaType"
         :offset="offset"
       />
@@ -44,13 +43,13 @@
         v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
         link-class="card-link no-title"
+        :lang="langAttribute(displayTitle.code)"
       >
-        <span
+        <template
           v-if="displayTitle"
-          :lang="langAttribute(displayTitle.code)"
         >
           {{ truncate(displayTitle.value, 90) }}
-        </span>
+        </template>
       </SmartLink>
       <b-card-body
         v-if="variant !== 'mosaic'"
@@ -76,9 +75,7 @@
               link-class="card-link"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
-              <span>
-                {{ truncate(displayTitle.value, 90) }}
-              </span>
+              {{ truncate(displayTitle.value, 90) }}
             </SmartLink>
           </b-card-title>
           <b-card-text
@@ -86,21 +83,17 @@
             text-tag="div"
             data-qa="highlighted search term"
           >
-            <p>
-              {{ hitTextPrefix }}<strong class="has-text-highlight">{{ hitText.exact }}</strong>{{ hitTextSuffix }}
-            </p>
+            {{ hitTextPrefix }}<strong class="has-text-highlight">{{ hitText.exact }}</strong>{{ hitTextSuffix }}
           </b-card-text>
           <template v-if="displayTexts.length > 0">
+            <!-- eslint-disable vue/no-v-html -->
             <b-card-text
               v-for="(text, index) in displayTexts"
               :key="index"
               :lang="langAttribute(text.code)"
               text-tag="div"
-            >
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-html="cardText(text.values)"
-              />
+              v-html="cardText(text.values)"
+            />
             <!-- eslint-enable vue/no-v-html -->
             </b-card-text>
           </template>
