@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizacija",
     "person": "Asmuo",
     "place": "Vieta",
-    "story": "Istorija",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Prisegtas",
     "required": "Reikalingas"
   },
+  "stories": {
+    "stories": "Istorija | Istorijos"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} rastos istorijos",
-    "title": "Istorijos"
+    "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {
     "paginationBulletLabel": "Skaidrių grupė {page}"

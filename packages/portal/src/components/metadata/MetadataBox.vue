@@ -135,7 +135,7 @@
     'dctermsMedium'
   ];
 
-  const ALL_FIELDS = CORE_FIELDS.concat([
+  export const ALL_FIELDS = CORE_FIELDS.concat([
     'edmDataProvider',
     'edmProvider',
     'edmIntermediateProvider',

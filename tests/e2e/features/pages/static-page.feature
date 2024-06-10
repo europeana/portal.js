@@ -4,7 +4,7 @@ Feature: Static page
 
     When I open a `static page`
     Then I see a `static page`
-    And I see `markdown` in the `browse sections`
+    And I see `markdown` in the `authored section`
     And I am on an accessible page
     And I should have a Europeana branded page title
 

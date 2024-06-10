@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizácia",
     "person": "Osoba",
     "place": "Miesto",
-    "story": "Príbeh",
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Pripnuté",
     "required": "Požadované"
   },
+  "stories": {
+    "stories": "Príbeh | Príbehy"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} nájdených príbehov",
-    "title": "Príbehy"
+    "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {
     "paginationBulletLabel": "Skupina snímok {page}"

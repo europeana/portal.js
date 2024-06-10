@@ -107,7 +107,6 @@ export default {
     "organisation": "Antolaketa",
     "person": "Pertsona",
     "place": "Lekua",
-    "story": "Istorioa",
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
@@ -1183,9 +1182,11 @@ export default {
     "pinned": "Ainguratuta",
     "required": "Beharrezkoa"
   },
+  "stories": {
+    "stories": "Istorio | Istorioak"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} istorio aurkitu dira",
-    "title": "Istorioak"
+    "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
     "paginationBulletLabel": "Diapositiva taldea {page}"

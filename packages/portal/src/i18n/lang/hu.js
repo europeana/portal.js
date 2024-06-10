@@ -107,7 +107,6 @@ export default {
     "organisation": "Szervezet",
     "person": "Személy",
     "place": "Hely",
-    "story": "Történet",
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
@@ -1177,9 +1176,11 @@ export default {
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },
+  "stories": {
+    "stories": "Történet | Történetek"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} történet található",
-    "title": "Történetek"
+    "storiesHaveLoaded": "{0} történet található"
   },
   "swiper": {
     "paginationBulletLabel": "Diacsoport {page}"

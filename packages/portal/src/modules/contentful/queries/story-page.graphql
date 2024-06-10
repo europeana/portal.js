@@ -53,6 +53,18 @@ query StoryPage(
             url
             text
           }
+          ... on ImageTextSlideGroup {
+            hasPartCollection(limit: 3) {
+              items {
+                ... on ImageTextSlide {
+                  image {
+                    ...imageWithAttributionFields
+                  }
+                  text
+                }
+              }
+            }
+          }
           # CardGroup omitted intentionally
         }
       }

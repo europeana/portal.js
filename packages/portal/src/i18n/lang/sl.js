@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizacija",
     "person": "Oseba",
     "place": "Mesto",
-    "story": "Zgodba",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Pripet",
     "required": "Zahtevano"
   },
+  "stories": {
+    "stories": "Zgodba | Zgodbe"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} zgodbe najdene",
-    "title": "Zgodbe"
+    "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {
     "paginationBulletLabel": "Skupina diapozitivov {page}"

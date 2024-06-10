@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizare",
     "person": "Persoană",
     "place": "Loc",
-    "story": "Naraţiune",
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Fixat",
     "required": "Necesar"
   },
+  "stories": {
+    "stories": "Narațiune | Narațiuni"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} narațiuni găsite",
-    "title": "Narațiuni"
+    "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {
     "paginationBulletLabel": "Grup de diapozitive {page}"

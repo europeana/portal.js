@@ -25,7 +25,6 @@
               :image-optimisation-options="{ width: 510 }"
               :image-alt="imageAlt(item.primaryImageOfPage)"
               :texts="[item.description]"
-              :show-subtitle="false"
               :offset="index"
             />
           </b-card-group>

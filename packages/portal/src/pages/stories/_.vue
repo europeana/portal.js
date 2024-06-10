@@ -36,7 +36,7 @@
         :description="post.description"
         :body="post.hasPartCollection"
         :identifier="post.identifier"
-        :hero="hero"
+        :hero-image="heroImage"
         :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
         :tags="post.categoriesCollection && post.categoriesCollection.items"
         :themes="post.genre"
@@ -106,7 +106,7 @@
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
         };
       },
-      hero() {
+      heroImage() {
         return this.post.primaryImageOfPage || null;
       }
     },

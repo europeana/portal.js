@@ -107,7 +107,6 @@ export default {
     "organisation": "Οργάνωση",
     "person": "Πρόσωπο",
     "place": "Θέση",
-    "story": "Ιστορία",
     "theme": "Θέμα",
     "time": "Αιώνας",
     "topic": "Θέμα"
@@ -1177,9 +1176,11 @@ export default {
     "pinned": "Καρφιτσωμένο",
     "required": "Απαιτείται"
   },
+  "stories": {
+    "stories": "Ιστορία | Ιστορίες"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν",
-    "title": "Ιστορίες"
+    "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν"
   },
   "swiper": {
     "paginationBulletLabel": "Ομάδα διαφανειών {page}"

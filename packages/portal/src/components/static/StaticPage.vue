@@ -24,12 +24,17 @@
                 class="mb-4"
               />
             </div>
-            <BrowseSections
-              :sections="hasPartCollection?.items"
-              :rich-text-is-card="false"
+            <div
               class="authored-section"
-              data-qa="browse sections"
-            />
+              data-qa="authored section"
+            >
+              <ContentSection
+                v-for="(section, index) in (hasPartCollection?.items || [])"
+                :key="index"
+                :section="section"
+                :rich-text-is-card="false"
+              />
+            </div>
           </article>
         </b-col>
       </b-row>
@@ -54,15 +59,15 @@
 <script>
   import ShareSocialModal from '../share/ShareSocialModal.vue';
   import ShareButton from '../share/ShareButton.vue';
-  import BrowseSections from '../browse/BrowseSections';
+  import ContentSection from '../content/ContentSection';
 
   export default {
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
-      ShareSocialModal,
-      ShareButton,
-      BrowseSections,
+      ContentSection,
       LinkList: () => import('../generic/LinkList'),
+      ShareButton,
+      ShareSocialModal,
       StaticAutomatedTranslationLabel: () => import('@/components/static/StaticAutomatedTranslationLabel')
     },
     props: {
