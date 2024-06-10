@@ -187,23 +187,31 @@
         width: 64px;
       }
 
+      ::v-deep blockquote,
+      ::v-deep blockquote p {
+        font-size: 1.125rem;
+        font-style: normal;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.75rem;
+        text-align: left;
+
+        &::before,
+        &::after {
+          content: none;
+        }
+      }
+
+      .card-content ::v-deep p:last-child {
+        margin-bottom: 0;
+      }
+
       .citation-text {
         font-weight: 600;
         line-height: 1.5;
 
-        ::v-deep blockquote,
-        ::v-deep blockquote p {
-          font-size: 1.125rem;
-          font-style: normal;
-          margin-left: auto;
-          margin-right: auto;
+        ::v-deep p:last-child {
           margin-bottom: 0.75rem;
-          text-align: left;
-
-          &::before,
-          &::after {
-            content: none;
-          }
         }
       }
 
@@ -213,10 +221,6 @@
         margin-right: auto;
         text-align: left;
       }
-    }
-
-    .card-content ::v-deep p:last-child {
-      margin-bottom: 0;
     }
   }
 </style>
