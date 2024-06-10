@@ -14,11 +14,16 @@ const baseProps = { section: { hasPartCollection: { items: [
     text: 'This is text' }
 ] } } };
 
+const quoteProps = { section: { hasPartCollection: { items: [
+  { image: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } },
+    text: 'This is a quote text', citation: 'This is attribution' }
+] } } };
+
 const factory = (propsData = baseProps) => shallowMountNuxt(StoryImageTextSlideScroller, {
   localVue,
   attachTo: document.body,
   propsData,
-  stubs: ['b-card', 'b-col', 'b-row', 'b-container']
+  stubs: ['b-card', 'b-col', 'b-row', 'b-container', 'b-img']
 });
 
 describe('components/story/StoryImageTextSlideScroller', () => {
@@ -50,6 +55,16 @@ describe('components/story/StoryImageTextSlideScroller', () => {
       wrapper.vm.beforeDestroy();
 
       expect(window.removeEventListener.calledWith('scroll', wrapper.vm.appearDisappearSlideImage)).toBe(true);
+    });
+  });
+
+  describe('when the slide has a citation field populated', () => {
+    it('displays the quote icon, text and citation', () => {
+      const wrapper = factory(quoteProps);
+
+      expect(wrapper.find('[data-qa="slide citation icon"]').exists()).toBe(true);
+      expect(wrapper.find('[data-qa="slide text"]').text()).toEqual('This is a quote text');
+      expect(wrapper.find('[data-qa="slide citation"]').text()).toEqual('This is attribution');
     });
   });
 });
