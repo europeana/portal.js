@@ -43,15 +43,18 @@
                   v-if="slide.citation"
                   src="@europeana/style/img/icons/quotationmark.svg"
                   class="icon-quotationmark"
+                  data-qa="slide citation icon"
                 />
                 <div
                   class="card-content"
                   :class="{ 'citation-text': slide.citation }"
+                  data-qa="slide text"
                   v-html="slide.citation ? truncate(parseMarkdownHtml(slide.text), 160) : parseMarkdownHtml(slide.text)"
                 />
                 <cite
                   v-if="slide.citation"
                   class="citation-attribution"
+                  data-qa="slide citation"
                 >
                   {{ slide.citation }}
                 </cite>
