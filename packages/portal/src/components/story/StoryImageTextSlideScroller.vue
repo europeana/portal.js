@@ -41,7 +41,7 @@
               >
                 <b-img
                   v-if="slide.citation"
-                  src="@europeana/style/img/icons/quotationmark.svg"
+                  :src="quotationIconSrc"
                   class="icon-quotationmark"
                   data-qa="slide citation icon"
                 />
@@ -92,7 +92,8 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS
+        FULL_VIEWPORT_PRESETS,
+        quotationIconSrc: require('@europeana/style/img/icons/quotationmark.svg')
       };
     },
 
@@ -245,6 +246,22 @@
             {
               image: imagesWithAttribution[2],
               text: 'This is a placeholder text for the third slide.'
+            }
+          ]
+        }
+      }"
+    />
+  ```
+StoryImageTextSlideScroller with a quote card:
+  ```jsx
+    <StoryImageTextSlideScroller
+      :section="{
+        hasPartCollection: {
+          items: [
+            {
+              image: imagesWithAttribution[0],
+              text: 'This is a placeholder text for the first slide.',
+              citation: `Author of the quote, 'Title of the quoted work'`
             }
           ]
         }
