@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
 
   export default {
     name: 'ContentSection',
@@ -86,8 +86,6 @@
       StoryImageTextSlideScroller: () => import('../story/StoryImageTextSlideScroller')
     },
 
-    mixins: [contentfulMixin],
-
     props: {
       richTextIsCard: {
         type: Boolean,
@@ -101,6 +99,7 @@
     },
 
     methods: {
+      contentfulEntryHasContentType,
       attributionFields(fields) {
         return {
           name: fields?.name,

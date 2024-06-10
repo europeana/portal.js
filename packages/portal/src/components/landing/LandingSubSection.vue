@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
@@ -66,7 +66,7 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
-    mixins: [contentfulMixin, parseMarkdownHtmlMixin],
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -105,6 +105,10 @@
       return {
         LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
       };
+    },
+
+    methods: {
+      contentfulEntryHasContentType
     }
   };
 </script>
