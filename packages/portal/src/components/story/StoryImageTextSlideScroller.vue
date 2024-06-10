@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
@@ -64,8 +64,6 @@
     components: {
       ImageWithAttribution
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       section: {
@@ -89,6 +87,8 @@
     },
 
     methods: {
+      parseMarkdownHtml,
+
       appearDisappearSlideImage() {
         this.$refs.slideCards.forEach((card, index) => {
           if (index > 0) {

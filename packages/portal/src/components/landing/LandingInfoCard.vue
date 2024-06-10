@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   export default {
     name: 'LandingInfoCard',
@@ -64,8 +64,6 @@
       ImageOptimised: () => import('@/components/image/ImageOptimised'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -82,6 +80,10 @@
         type: Boolean,
         default: false
       }
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

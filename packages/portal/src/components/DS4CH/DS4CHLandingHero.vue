@@ -42,7 +42,7 @@
 
 <script>
   import SmartLink from '@/components/generic/SmartLink';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill', q: 100, f: 'right' },
@@ -62,8 +62,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -106,6 +104,10 @@
             CSS_VARS_PRESETS
           )
       };
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

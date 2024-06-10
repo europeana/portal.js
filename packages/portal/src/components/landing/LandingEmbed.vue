@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
   export default {
@@ -56,8 +56,6 @@
       EmbedHTML,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -103,6 +101,10 @@
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         }
       };
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

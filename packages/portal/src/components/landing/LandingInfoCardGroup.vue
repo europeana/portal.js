@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   export default {
     name: 'LandingInfoCardGroup',
@@ -53,8 +53,6 @@
       LandingInfoCard: () => import('@/components/landing/LandingInfoCard'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -104,6 +102,10 @@
         threeColCardsLayout: this.infoCards.length % 3 === 0,
         twoColCardsLayout: this.infoCards.length % 3 !== 0
       };
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

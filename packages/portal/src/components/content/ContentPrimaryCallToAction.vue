@@ -26,7 +26,7 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   export default {
     name: 'ContentPrimaryCallToAction',
@@ -34,8 +34,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       title: {
@@ -54,6 +52,10 @@
         type: String,
         default: 'btn-primary'
       }
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

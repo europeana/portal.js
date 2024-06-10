@@ -54,7 +54,7 @@
 
 <script>
   import contentfulMixin from '@/mixins/contentful.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   export default {
     name: 'LandingSubSection',
@@ -66,7 +66,7 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
-    mixins: [contentfulMixin, parseMarkdownHtmlMixin],
+    mixins: [contentfulMixin],
 
     props: {
       /**
@@ -105,6 +105,10 @@
       return {
         LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
       };
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

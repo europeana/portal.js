@@ -66,7 +66,7 @@
 
 <script>
   import ImageOptimised from '@/components/image/ImageOptimised';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
@@ -78,7 +78,7 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin, swiperMixin],
+    mixins: [swiperMixin],
 
     props: {
       /**
@@ -167,6 +167,10 @@
           }
         }
       };
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
 </script>

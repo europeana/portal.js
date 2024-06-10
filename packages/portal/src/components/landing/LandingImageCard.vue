@@ -54,7 +54,7 @@
 
 <script>
   import parityMixin from '@/mixins/parity.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { parseMarkdownHtml } from '@/utils/markdown.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -102,8 +102,7 @@
     },
 
     mixins: [
-      parityMixin,
-      parseMarkdownHtmlMixin
+      parityMixin
     ],
 
     props: {
@@ -143,6 +142,10 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card', 'imagecard'));
+    },
+
+    methods: {
+      parseMarkdownHtml
     }
   };
   </script>
