@@ -7,10 +7,10 @@
         id="hero-background-image"
         ref="heroBackground"
         :alt="heroImageAltText"
-        :src="hero.image.url"
-        :content-type="heroImage.contentType"
-        :attribution="hero"
-        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_LANDSCAPE"
+        :src="heroImage.image.url"
+        :content-type="heroImage.image.contentType"
+        :attribution="heroImage"
+        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
         :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
         width="auto"
@@ -53,7 +53,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS as FULL_VIEWPORT_PRESETS_LANDSCAPE } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryHero',
@@ -75,7 +75,7 @@
         default: null
       },
 
-      hero: {
+      heroImage: {
         type: Object,
         required: true
       },
@@ -88,9 +88,8 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS_LANDSCAPE,
-        heroImage: this.hero.image || null,
-        heroImageAltText: this.hero.image?.description || ''
+        FULL_VIEWPORT_PRESETS,
+        heroImageAltText: this.heroImage.image?.description || ''
       };
     },
 
@@ -104,13 +103,17 @@
 
     methods: {
       parallaxBackground() {
-        const scrollPosition = window.scrollY || 1;
         const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
         const heroBackgroundHeight = heroBackgroundImageElement?.clientHeight || 1;
+        const distanceHeroToViewportTop = heroBackgroundImageElement?.getBoundingClientRect().top;
 
-        if (heroBackgroundImageElement && scrollPosition <= heroBackgroundHeight) {
-          const translate = (scrollPosition / heroBackgroundHeight) * 75;
+        if (heroBackgroundImageElement && distanceHeroToViewportTop < 0) {
+          const translate = (-distanceHeroToViewportTop / heroBackgroundHeight) * 75;
           heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
+        }
+
+        if (heroBackgroundImageElement && distanceHeroToViewportTop > 0) {
+          heroBackgroundImageElement.style.transform = '';
         }
       }
     }
@@ -190,6 +193,7 @@
     right: 0;
     bottom: 0;
     position: absolute;
+    z-index: 1;
 
     &::before {
       content: '';
@@ -244,3 +248,16 @@
     z-index: 3;
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <div style="overflow: hidden">
+    <StoryHero
+      title="Story title"
+      subtitle="Story subtitle with a bit more text."
+      context-label="Story"
+      :hero-image="imagesWithAttribution[0]"
+    />
+    </div>
+  ```
+</docs>

@@ -14,7 +14,7 @@ const baseProps = {
   title,
   englishTitleLength: title.length,
   datePublished: '2019-10-03T00:00+00:00',
-  hero: {
+  heroImage: {
     license: 'https://creativecommons.org/licenses/by-sa/1.0/',
     image: {
       url: 'https://example.org',
@@ -24,7 +24,8 @@ const baseProps = {
   },
   body: {
     items: [
-      '<p>Hello</p>'
+      { '__typename': 'RichText',
+        text: '<p>Hello</p>' }
     ]
   }
 };
@@ -45,7 +46,7 @@ const factory = (propsData = baseProps) => shallowMount(StoryPost, {
     $t: () => {},
     $tc: () => {}
   },
-  stubs: ['AuthoredHead', 'StoryHero']
+  stubs: ['AuthoredHead', 'StoryHero', 'StoryImageTextSlideScroller']
 });
 
 describe('components/story/StoryPost', () => {
@@ -53,6 +54,21 @@ describe('components/story/StoryPost', () => {
     const wrapper = factory();
 
     expect(wrapper.find('[data-qa="date"]').html()).toContain('2019-10-03');
+  });
+
+  describe('when there is an image text slide group', () => {
+    it('renders the story image text slide scroller', () => {
+      const props = {
+        ...baseProps,
+        body: {
+          items: [...baseProps.body.items,
+            { '__typename': 'ImageTextSlideGroup' }]
+        }
+      };
+      const wrapper = factory(props);
+
+      expect(wrapper.find('[data-qa="story image text slide scroller"]').exists()).toBe(true);
+    });
   });
 
   describe('when the hero image, title and subtitle pass the conditions to enable the story hero', () => {
@@ -66,7 +82,7 @@ describe('components/story/StoryPost', () => {
   describe('when the hero image is smaller than 800px width', () => {
     it('does not render the story hero, but the authored head', () => {
       const smallHeroImageProps = { ...storyHeroProps };
-      smallHeroImageProps.hero.image.width = 799;
+      smallHeroImageProps.heroImage.image.width = 799;
 
       const wrapper = factory(smallHeroImageProps);
 

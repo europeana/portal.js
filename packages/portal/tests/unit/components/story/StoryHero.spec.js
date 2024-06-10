@@ -8,7 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const baseProps = { title: 'This is a title',
-  hero: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } } };
+  heroImage: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } } };
 
 const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
   localVue,
@@ -24,9 +24,13 @@ describe('components/story/StoryHero', () => {
     it('sets transform styles on the background', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'parallaxBackground');
+      const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
+
+      sinon.stub(heroBackgroundImageElement, 'getBoundingClientRect').returns({ top: -1 });
+
       window.dispatchEvent(new Event('scroll'));
 
-      expect(document.querySelector('#hero-background-image img').style.transform).toEqual('translateY(75%)');
+      expect(heroBackgroundImageElement.style.transform).toEqual('translateY(75%)');
     });
   });
 
