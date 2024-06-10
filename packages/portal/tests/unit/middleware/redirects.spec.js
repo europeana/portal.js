@@ -14,24 +14,20 @@ describe('middleware/redirects', () => {
     expect(redirect.calledWith('/fr/share-your-data')).toBe(true);
   });
 
-  describe('when redirectBlogsToStories feature is enabled', () => {
-    const $features = { redirectBlogsToStories: true };
+  it('redirects /blog to /stories', () => {
+    const route = { path: '/de/blog' };
 
-    it('redirects /blog to /stories', () => {
-      const route = { path: '/de/blog' };
+    middleware({ route, redirect });
 
-      middleware({ route, redirect, $features });
+    expect(redirect.calledWith('/de/stories')).toBe(true);
+  });
 
-      expect(redirect.calledWith('/de/stories')).toBe(true);
-    });
+  it('redirects /blog/* to /stories/*', () => {
+    const route = { path: '/nl/blog/nice' };
 
-    it('redirects /blog/* to /stories/*', () => {
-      const route = { path: '/nl/blog/nice' };
+    middleware({ route, redirect });
 
-      middleware({ route, redirect, $features });
-
-      expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
-    });
+    expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {
