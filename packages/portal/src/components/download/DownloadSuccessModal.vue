@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import { stringify } from '@/utils/text.js';
+  import stringify from '@/utils/text/stringify.js';
 
   export default {
     name: 'DownloadSuccessModal',

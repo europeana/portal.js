@@ -153,7 +153,7 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
-  import { stringify } from '@/utils/text.js';
+  import stringify from '@/utils/text/stringify.js';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
