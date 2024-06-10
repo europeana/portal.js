@@ -11,7 +11,7 @@
       <div
         v-if="text"
         class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
+        v-html="parseMarkdown(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingInfoCardGroup',
@@ -105,7 +105,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

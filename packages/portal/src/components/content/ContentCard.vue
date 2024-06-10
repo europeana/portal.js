@@ -122,7 +122,7 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { stripMarkdown } from '@/utils/markdown.js';
+  import stripMarkdown from '@/utils/markdown/strip.js';
   import truncateMixin from '@/mixins/truncate';
   import { langMapValueForLocale } from '@europeana/i18n';
 

@@ -11,7 +11,7 @@
       <div
         v-if="text"
         class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
+        v-html="parseMarkdown(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
@@ -66,7 +66,7 @@
 
 <script>
   import ImageOptimised from '@/components/image/ImageOptimised';
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
@@ -170,7 +170,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

@@ -32,7 +32,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
-        v-html="parseMarkdownHtml(card.text)"
+        v-html="parseMarkdown(card.text)"
       />
       <!-- eslint-enable vue/no-v-html -->
       <SmartLink
@@ -54,7 +54,7 @@
 
 <script>
   import parityMixin from '@/mixins/parity.js';
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -145,7 +145,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
   </script>

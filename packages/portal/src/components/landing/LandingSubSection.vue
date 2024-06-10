@@ -12,7 +12,7 @@
         <div
           v-if="text"
           class="text mx-auto mb-3"
-          v-html="parseMarkdownHtml(text)"
+          v-html="parseMarkdown(text)"
         />
         <!-- eslint-enable vue/no-v-html -->
       </div>
@@ -54,7 +54,7 @@
 
 <script>
   import contentfulMixin from '@/mixins/contentful.js';
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingSubSection',
@@ -108,7 +108,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

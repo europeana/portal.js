@@ -38,7 +38,7 @@
         class="text"
         :class="{ 'mb-3': card.link }"
         data-qa="landing info card text"
-        v-html="parseMarkdownHtml(card.text)"
+        v-html="parseMarkdown(card.text)"
       />
       <!-- eslint-enable vue/no-v-html -->
       <SmartLink
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingInfoCard',
@@ -83,7 +83,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

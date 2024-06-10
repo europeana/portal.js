@@ -1,16 +1,6 @@
-import { parseMarkdownHtml, stripMarkdown } from '@/utils/markdown.js';
+import stripMarkdown from '@/utils/markdown/strip.js';
 
-describe('utils/markdown', () => {
-  describe('parseMarkdownHtml', () => {
-    it('parses markdown into html', () => {
-      const markdown = '# Heading 1';
-
-      const html = parseMarkdownHtml(markdown);
-
-      expect(html).toContain('<h1 id="heading-1">Heading 1</h1>');
-    });
-  });
-
+describe('utils/markdown/strip.js', () => {
   describe('stripMarkdown', () => {
     describe('when the text is plain', () => {
       const textBefore = 'Contains only plain text.';

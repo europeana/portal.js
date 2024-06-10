@@ -19,7 +19,7 @@
           <div
             v-if="text"
             class="text mb-3"
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdown(text)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </b-col>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
   export default {
@@ -104,7 +104,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

@@ -4,10 +4,6 @@ const htmlRemovalPatternsFromTags = (tags) => {
   return [/\n$/].concat(tags.map((tag) => new RegExp(`</?${tag}.*?>`, 'gi')));
 };
 
-export const parseMarkdownHtml = (text) => {
-  return text ? marked.parse(text) : text;
-};
-
 /**
  * Strip markdown from text.
  * This method FIRST converts markdown to HTML, then removes HTML tags.
@@ -19,7 +15,7 @@ export const parseMarkdownHtml = (text) => {
  * @param {string[]} tags the HTML tags to be removed.
  * @return {String} text value with HTML breaks
  */
-export const stripMarkdown = (text, tags = ['']) => {
+export default (text, tags = ['']) => {
   text = marked.parse(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
   for (const pattern of htmlRemovalPatternsFromTags(tags)) {
     text = text.replace(pattern, '');

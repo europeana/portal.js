@@ -13,7 +13,7 @@
           <div
             v-if="text"
             class="mb-3"
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdown(text)"
           />
         <!-- eslint-enable vue/no-v-html -->
         </b-col>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingImageCardGroup',
@@ -83,7 +83,7 @@
     },
 
     methods: {
-      parseMarkdownHtml
+      parseMarkdown
     }
   };
 </script>

@@ -41,7 +41,7 @@
               >
                 <div
                   class="card-content"
-                  v-html="parseMarkdownHtml(slide.text)"
+                  v-html="parseMarkdown(slide.text)"
                 />
               </b-card>
               <!-- eslint-enable vue/no-v-html -->
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import { parseMarkdownHtml } from '@/utils/markdown.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
 
@@ -87,7 +87,7 @@
     },
 
     methods: {
-      parseMarkdownHtml,
+      parseMarkdown,
 
       appearDisappearSlideImage() {
         this.$refs.slideCards.forEach((card, index) => {
