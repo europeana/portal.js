@@ -4,7 +4,8 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
       headline
       description
       image {
-        ...imageFields
+        url
+        description
       }
       primaryCallToAction {
         name
@@ -19,9 +20,9 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
         }
       }
       featuredStory {
+        __typename
         name
         headline
-        description
         identifier
       }
       featuredStoryImage {
@@ -33,15 +34,14 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
 
 fragment illustrationFields on Illustration {
   image {
-    url
-    description
-    contentType
-    width
-    height
+    ...imageFields
   }
 }
 
 fragment imageFields on Asset {
   url
   description
+  contentType
+  width
+  height
 }

@@ -35,6 +35,10 @@
       class="card-deck-4-cols"
       deck
     >
+      <StoriesFeaturedCard
+        v-if="featuredStory"
+        :featured-story="featuredStory"
+      />
       <template
         v-for="(entry, index) in stories"
       >
@@ -90,11 +94,16 @@
       ContentCard,
       LoadingSpinner,
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      StoriesFeaturedCard: () => import('./StoriesFeaturedCard'),
       StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
 
     props: {
       callToAction: {
+        type: Object,
+        default: () => {}
+      },
+      featuredStory: {
         type: Object,
         default: () => {}
       }

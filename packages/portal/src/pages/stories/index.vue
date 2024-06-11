@@ -34,6 +34,7 @@
       />
       <StoriesInterface
         :call-to-action="callToAction"
+        :featured-story="featuredStory"
       />
     </b-container>
   </div>
@@ -65,6 +66,7 @@
         description: null,
         socialMediaImage: null,
         callToAction: null,
+        featuredStory: null,
         pageFetched: false
       };
     },
@@ -89,6 +91,7 @@
       this.description = storiesPage.description;
       this.socialMediaImage = storiesPage.image;
       this.callToAction = storiesPage.primaryCallToAction;
+      this.featuredStory = { ...storiesPage.featuredStory, image: storiesPage.featuredStoryImage };
 
       this.pageFetched = true;
     },
