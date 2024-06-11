@@ -61,10 +61,10 @@
 
     data() {
       return {
-        sections: [],
         headline: null,
         description: null,
         socialMediaImage: null,
+        callToAction: null,
         pageFetched: false
       };
     },
@@ -74,16 +74,22 @@
         return;
       }
       const pageVariables = {
-        identifier: 'stories',
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
+
       const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
-      const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
-      this.sections = storiesPage?.hasPartCollection?.items || [];
-      this.headline = storiesPage?.headline;
-      this.description = storiesPage?.description;
-      this.socialMediaImage = storiesPage?.image;
+      const storiesPage = pageResponse.data.data.storiesPageCollection.items[0];
+
+      if (!storiesPage) {
+        return;
+      }
+
+      this.headline = storiesPage.headline;
+      this.description = storiesPage.description;
+      this.socialMediaImage = storiesPage.image;
+      this.callToAction = storiesPage.primaryCallToAction;
+
       this.pageFetched = true;
     },
 
@@ -96,9 +102,6 @@
           ogImage: this.socialMediaImage?.url,
           ogImageAlt: this.socialMediaImage?.description
         };
-      },
-      callToAction() {
-        return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
       }
     }
   };

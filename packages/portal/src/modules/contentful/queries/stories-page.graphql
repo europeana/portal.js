@@ -1,38 +1,31 @@
-query StoriesPage(
-  $identifier: String!,
-  $locale: String!,
-  $preview: Boolean = false
-) {
-  browsePageCollection(
-    preview: $preview,
-    locale: $locale,
-    where: { identifier: $identifier },
-    limit: 1
-  ) {
+query StoriesPage($locale: String!, $preview: Boolean = false) {
+  storiesPageCollection(preview: $preview, locale: $locale, limit: 1) {
     items {
-      identifier
-      name
       headline
       description
       image {
         ...imageFields
       }
-      hasPartCollection {
-        items {
-          __typename
-          ... on PrimaryCallToAction {
-            name
-            nameEN: name(locale: "en-GB")
-      			text
-      			relatedLink {
-        			url
-        			text
-      			}
-            image {
-              ...illustrationFields
-            }
-          }
+      primaryCallToAction {
+        name
+        nameEN: name(locale: "en-GB")
+        text
+        relatedLink {
+          url
+          text
         }
+        image {
+          ...illustrationFields
+        }
+      }
+      featuredStory {
+        name
+        headline
+        description
+        identifier
+      }
+      featuredStoryImage {
+        ...imageFields
       }
     }
   }
