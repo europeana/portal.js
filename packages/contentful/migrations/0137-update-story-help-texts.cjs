@@ -1,6 +1,7 @@
 module.exports = function(migration) {
   const story = migration
-    .editContentType('story');
+    .editContentType('story')
+    .description('Story page (formerly blog post). Can be used to create an immersive story with scrollytelling experience.');
 
   story.changeFieldControl('name', 'builtin', 'singleLine',  {
     helpText: 'To use the full screen header: The title should be max. 80 characters. Longer text will cause the default header to be displayed.'
