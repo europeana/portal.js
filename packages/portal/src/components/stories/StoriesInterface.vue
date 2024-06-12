@@ -35,6 +35,11 @@
       class="card-deck-4-cols"
       deck
     >
+      <StoriesFeaturedCard
+        v-if="showFeaturedStory"
+        :featured-story="featuredStory"
+        data-qa="featured story card"
+      />
       <template
         v-for="(entry, index) in stories"
       >
@@ -90,11 +95,16 @@
       ContentCard,
       LoadingSpinner,
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      StoriesFeaturedCard: () => import('./StoriesFeaturedCard'),
       StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
 
     props: {
       callToAction: {
+        type: Object,
+        default: () => {}
+      },
+      featuredStory: {
         type: Object,
         default: () => {}
       }
@@ -142,6 +152,9 @@
       },
       page() {
         return Number(this.$route.query.page || 1);
+      },
+      showFeaturedStory() {
+        return this.featuredStory && this.page === 1;
       }
     },
 

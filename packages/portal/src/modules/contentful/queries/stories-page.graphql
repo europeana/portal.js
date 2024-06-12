@@ -1,38 +1,32 @@
-query StoriesPage(
-  $identifier: String!,
-  $locale: String!,
-  $preview: Boolean = false
-) {
-  browsePageCollection(
-    preview: $preview,
-    locale: $locale,
-    where: { identifier: $identifier },
-    limit: 1
-  ) {
+query StoriesPage($locale: String!, $preview: Boolean = false) {
+  storiesPageCollection(preview: $preview, locale: $locale, limit: 1) {
     items {
-      identifier
-      name
       headline
       description
       image {
-        ...imageFields
+        url
+        description
       }
-      hasPartCollection {
-        items {
-          __typename
-          ... on PrimaryCallToAction {
-            name
-            nameEN: name(locale: "en-GB")
-      			text
-      			relatedLink {
-        			url
-        			text
-      			}
-            image {
-              ...illustrationFields
-            }
-          }
+      primaryCallToAction {
+        name
+        nameEN: name(locale: "en-GB")
+        text
+        relatedLink {
+          url
+          text
         }
+        image {
+          ...illustrationFields
+        }
+      }
+      featuredStory {
+        __typename
+        name
+        headline
+        identifier
+      }
+      featuredStoryImage {
+        ...imageFields
       }
     }
   }
@@ -40,15 +34,14 @@ query StoriesPage(
 
 fragment illustrationFields on Illustration {
   image {
-    url
-    description
-    contentType
-    width
-    height
+    ...imageFields
   }
 }
 
 fragment imageFields on Asset {
   url
   description
+  contentType
+  width
+  height
 }
