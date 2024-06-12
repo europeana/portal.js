@@ -52,6 +52,7 @@
     position: absolute;
     border-radius: $border-radius-small;
     min-height: 0;
+    max-height: none;
     top: 0;
     bottom: 0;
 
@@ -69,7 +70,6 @@
 
   ::v-deep .card-body {
     position: relative;
-    max-height: 13rem;
     flex: 0 1 auto;
     z-index: 2;
     padding: 2rem;
@@ -91,6 +91,7 @@
       font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
       font-weight: 500;
+      color: $white;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-medium-4k;
@@ -105,6 +106,10 @@
       color: $white;
       font-size: $font-size-base;
       line-height: 1.5;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
     }
   }
 }
