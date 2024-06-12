@@ -19,7 +19,7 @@
           <div
             v-if="text"
             class="text mb-3"
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdown(text)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </b-col>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
   export default {
@@ -56,8 +56,6 @@
       EmbedHTML,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -103,6 +101,10 @@
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         }
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>

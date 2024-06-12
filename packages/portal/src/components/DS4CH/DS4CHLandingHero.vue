@@ -14,7 +14,7 @@
         <!-- eslint-disable vue/no-v-html -->
         <div
           class="hero-content-text-block"
-          v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
+          v-html="parseMarkdown(`# ${headline}\n${text}`)"
         />
         <!-- eslint-enable vue/no-v-html -->
         <SmartLink
@@ -42,7 +42,7 @@
 
 <script>
   import SmartLink from '@/components/generic/SmartLink';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill', q: 100, f: 'right' },
@@ -62,8 +62,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -106,6 +104,10 @@
             CSS_VARS_PRESETS
           )
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>

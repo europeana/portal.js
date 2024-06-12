@@ -11,7 +11,7 @@
       <div
         v-if="text"
         class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
+        v-html="parseMarkdown(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
@@ -66,7 +66,7 @@
 
 <script>
   import ImageOptimised from '@/components/image/ImageOptimised';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
@@ -78,7 +78,7 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin, swiperMixin],
+    mixins: [swiperMixin],
 
     props: {
       /**
@@ -167,6 +167,10 @@
           }
         }
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>

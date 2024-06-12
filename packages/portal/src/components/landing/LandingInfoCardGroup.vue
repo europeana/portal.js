@@ -11,7 +11,7 @@
       <div
         v-if="text"
         class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
+        v-html="parseMarkdown(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingInfoCardGroup',
@@ -53,8 +53,6 @@
       LandingInfoCard: () => import('@/components/landing/LandingInfoCard'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -104,6 +102,10 @@
         threeColCardsLayout: this.infoCards.length % 3 === 0,
         twoColCardsLayout: this.infoCards.length % 3 !== 0
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>
