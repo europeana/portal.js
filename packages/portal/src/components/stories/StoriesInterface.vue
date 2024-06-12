@@ -36,7 +36,7 @@
       deck
     >
       <StoriesFeaturedCard
-        v-if="featuredStory"
+        v-if="showFeaturedStory"
         :featured-story="featuredStory"
       />
       <template
@@ -151,6 +151,9 @@
       },
       page() {
         return Number(this.$route.query.page || 1);
+      },
+      showFeaturedStory() {
+        return this.featuredStory && this.page === 1;
       }
     },
 
