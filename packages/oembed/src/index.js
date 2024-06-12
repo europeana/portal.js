@@ -2,6 +2,7 @@ import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp.js';
 import providers from './providers.js';
 
+// TODO: why is this side effect in here, and not done in provider.js?
 for (const provider of providers) {
   provider.schemeRegExps = provider.schemes.map((scheme) => {
     const escaped = escapeRegExp(scheme).replace(/\\\*/g, '.+');

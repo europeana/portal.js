@@ -4,6 +4,7 @@
   "description": "Europeana i18n",
   "license": "EUPL-1.2",
   "type": "module",
+  "sideEffects": false,
   "main": "./src/index.js",
   "exports": {
     ".": "./src/index.js"
