@@ -60,7 +60,6 @@ header .col {
   p.lead {
     color: $mediumgrey;
     font-weight: normal;
-    line-height: normal;
     margin-bottom: 0.5rem;
     font-size: $font-size-base;
 
@@ -71,7 +70,6 @@ header .col {
 
   article {
     font-size: 1.125rem;
-    line-height: 1.56;
 
     blockquote p {
       font-size: 1.5rem;
@@ -79,7 +77,6 @@ header .col {
 
     cite p {
       font-size: 0.75rem;
-      line-height: initial;
     }
   }
 
@@ -173,7 +170,6 @@ header .col {
   text-transform: uppercase;
   font-weight: 600;
   color: $mediumgrey;
-  line-height: initial;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
