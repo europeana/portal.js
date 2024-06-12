@@ -4,6 +4,7 @@
   "description": "Vue Router query",
   "license": "EUPL-1.2",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": "./src/index.js"
   },
