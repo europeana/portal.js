@@ -314,7 +314,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        displayLabelTypes: 'exhibitions|galleries|blog|collections|stories',
         // hit prefix & suffix can be overly long for our display purposes;
         // limit to max num of words each
         hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
@@ -351,7 +351,7 @@
         }
 
         if (this.displayLabelType === 'blog') {
-          return this.$tc('blog.posts', 1);
+          return this.$features?.redirectBlogsToStories ? this.$tc('stories.stories', 1) : this.$tc('blog.posts', 1);
         }
 
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
@@ -362,7 +362,7 @@
       },
 
       displayLabelType() {
-        return this.displayLabelMatch ? this.displayLabelMatch[1] : false;
+        return this.displayLabelMatch?.[1];
       },
 
       displayLabelMatch() {

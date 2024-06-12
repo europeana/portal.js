@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
     "place": "Post",
-    "story": "Storja",
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -1176,9 +1175,11 @@ export default {
     "pinned": "Mehmuż",
     "required": "Meħtieġ"
   },
+  "stories": {
+    "stories": "Storja | Stejjer"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} stejjer misjuba",
-    "title": "Stejjer"
+    "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {
     "paginationBulletLabel": "Grupp ta' slides {page}"

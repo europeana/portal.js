@@ -17,7 +17,8 @@
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="isSVG ? null : imageSrcset(cardImageWithAttribution.image)"
+        :contentful-image-crop-presets="isSVG ? null : srcSetPresets"
+        :contentful-image-display-profile="card?.profile"
         :image-sizes="isSVG ? null : sizesPresets"
       />
     </div>
@@ -54,7 +55,6 @@
 <script>
   import parityMixin from '@/mixins/parity.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
-  import { responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -143,12 +143,6 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card', 'imagecard'));
-    },
-
-    methods: {
-      imageSrcset(image) {
-        return responsiveContentfulImageSrcset(image, this.srcSetPresets, this.card?.profile);
-      }
     }
   };
   </script>

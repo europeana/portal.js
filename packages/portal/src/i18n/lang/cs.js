@@ -107,7 +107,6 @@ export default {
     "organisation": "Organizace",
     "person": "Osoba",
     "place": "Místo",
-    "story": "Příběh",
     "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
@@ -1178,9 +1177,11 @@ export default {
     "pinned": "Připnuté",
     "required": "Požadováno"
   },
+  "stories": {
+    "stories": "Příběh | Příběhy"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} nalezených příběhů",
-    "title": "Příběhy"
+    "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {
     "paginationBulletLabel": "Skupina snímků {page}"

@@ -101,7 +101,7 @@ describe('pages/stories/index', () => {
 
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.title).toBe('storiesPage.title');
+        expect(pageMeta.title).toBe('stories.stories');
       });
     });
 

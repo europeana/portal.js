@@ -145,7 +145,7 @@
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import MetadataBox from '@/components/metadata/MetadataBox';
+  import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
@@ -486,12 +486,12 @@
 
         const europeanaCollectionName = this.extractEuropeanaCollectionName(edm);
 
-        const metadata = {
+        const metadata = pick({
           ...this.lookupEntities(metadataSources),
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        };
+        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },

@@ -4,7 +4,6 @@ const CONTENTFUL_IMAGES_PARAMS_FM_WEBP = 'webp';
 const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg';
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
-const MEDIA_TYPE_WEBP = 'image/webp';
 
 const imageApiParamsForImageDisplayProfile = (profile) => {
   return {

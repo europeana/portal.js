@@ -8,6 +8,34 @@ export default {
   },
   imagesWithAttribution: [
     {
+      name: 'Winter Landscape with Ice Skaters',
+      creator: 'Hendrick Avercamp',
+      provider: 'Rijksmuseum',
+      license: 'http://creativecommons.org/publicdomain/mark/1.0/',
+      url: 'http://data.europeana.eu/item/90402/SK_A_1718',
+      image: {
+        url: 'https://images.ctfassets.net/i01duvb6kq77/3VbHNPpj2eyc4q0vO6EGON/a090ebe4e3cc4c570a6826647c58ed36/Winter_Landscape_with_Ice_Skaters',
+        description: 'painting, crowds of people ice skating among trees and houses.',
+        contentType: 'image/jpeg',
+        width: 2928,
+        height: 1691
+      }
+    },
+    {
+      name: 'Northern Lights. Study from North Norway',
+      creator: 'Anna Boberg',
+      provider: 'Nationalmuseum Sweden',
+      license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+      url: 'https://www.europeana.eu/en/item/2064116/Museu_ProvidedCHO_Nationalmuseum__Sweden_21327',
+      image: {
+        url: 'https://images.ctfassets.net/i01duvb6kq77/61Q1XSrSqAtoWypDH4k1bY/b774eb32406e198f9ba5cdc8970e3e8f/Europeana.eu-2064116-Museu_ProvidedCHO_Nationalmuseum__Sweden_21327-b8dd190867b87b651c5907f7b33c6ad7.jpeg',
+        description: 'painting, blue and white rays of light shine from behind a mountain.',
+        contentType: 'image/jpeg',
+        width: 1000,
+        height: 842
+      }
+    },
+    {
       name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
       creator: 'Undefined',
       provider: 'Wellcome Collection',

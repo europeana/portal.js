@@ -391,7 +391,7 @@
       '$route.query.page': 'handlePaginationChanged'
     },
 
-    created() {
+    mounted() {
       if (this.query) {
         this.$store.commit('search/setShowSearchBar', true);
       }

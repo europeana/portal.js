@@ -14,8 +14,10 @@
         button-variant="secondary"
         class="half-col"
       />
-      <BrowseSections
-        :sections="hasPartCollection.items"
+      <ContentSection
+        v-for="(section, index) in hasPartCollection.items"
+        :key="index"
+        :section="section"
       />
     </b-container>
   </div>
@@ -23,12 +25,12 @@
 
 <script>
   import ContentHeader from '../content/ContentHeader';
-  import BrowseSections from './BrowseSections';
+  import ContentSection from '../content/ContentSection';
 
   export default {
     components: {
       ContentHeader,
-      BrowseSections
+      ContentSection
     },
     props: {
       name: {
