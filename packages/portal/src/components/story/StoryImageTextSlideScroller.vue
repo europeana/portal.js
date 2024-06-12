@@ -29,7 +29,7 @@
     >
       <div class="card-wrapper">
         <b-container>
-          <b-row class="justify-content-end">
+          <b-row :class="!slide.citation && 'justify-content-end'">
             <b-col
               cols="12"
               class="col-md-6 col-lg-4"
@@ -39,10 +39,25 @@
                 body-class="p-4"
                 class="border-none"
               >
+                <b-img
+                  v-if="slide.citation"
+                  :src="quotationIconSrc"
+                  class="icon-quotationmark"
+                  data-qa="slide citation icon"
+                />
                 <div
                   class="card-content"
+                  :class="{ 'citation-text': slide.citation }"
+                  data-qa="slide text"
                   v-html="parseMarkdown(slide.text)"
                 />
+                <cite
+                  v-if="slide.citation"
+                  class="citation-attribution"
+                  data-qa="slide citation"
+                >
+                  {{ slide.citation }}
+                </cite>
               </b-card>
               <!-- eslint-enable vue/no-v-html -->
             </b-col>
@@ -74,7 +89,8 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS
+        FULL_VIEWPORT_PRESETS,
+        quotationIconSrc: require('@europeana/style/img/icons/quotationmark.svg')
       };
     },
 
@@ -156,12 +172,12 @@
           z-index: 3;
         }
       }
-    }
 
-    ::v-deep img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      ::v-deep img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .card {
@@ -169,10 +185,45 @@
       margin-bottom: 150vh;
       position: relative;
       z-index: 3;
-    }
 
-    .card-content ::v-deep p:last-child {
-      margin-bottom: 0;
+      .icon-quotationmark {
+        width: 64px;
+      }
+
+      ::v-deep blockquote,
+      ::v-deep blockquote p {
+        font-size: 1.125rem;
+        font-style: normal;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.75rem;
+        text-align: left;
+
+        &::before,
+        &::after {
+          content: none;
+        }
+      }
+
+      .card-content ::v-deep p:last-child {
+        margin-bottom: 0;
+      }
+
+      .citation-text {
+        font-weight: 600;
+        line-height: 1.5;
+
+        ::v-deep p:last-child {
+          margin-bottom: 0.75rem;
+        }
+      }
+
+      .citation-attribution {
+        font-size: $font-size-base;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
     }
   }
 </style>
@@ -194,6 +245,22 @@
             {
               image: imagesWithAttribution[2],
               text: 'This is a placeholder text for the third slide.'
+            }
+          ]
+        }
+      }"
+    />
+  ```
+StoryImageTextSlideScroller with a quote card:
+  ```jsx
+    <StoryImageTextSlideScroller
+      :section="{
+        hasPartCollection: {
+          items: [
+            {
+              image: imagesWithAttribution[0],
+              text: 'This is a placeholder text for the first slide.',
+              citation: `Author of the quote, 'Title of the quoted work'`
             }
           ]
         }
