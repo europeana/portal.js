@@ -1,0 +1,12 @@
+{
+  "name": "@europeana/utils",
+  "version": "1.151.2",
+  "description": "Europeana utility functions",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  }
+}

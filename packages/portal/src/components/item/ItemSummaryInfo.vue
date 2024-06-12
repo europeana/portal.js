@@ -77,7 +77,7 @@
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import truncate from '@/utils/text/truncate.js';
+  import { truncate } from '@europeana/utils';
 
   export default {
     name: 'ItemSummaryInfo',

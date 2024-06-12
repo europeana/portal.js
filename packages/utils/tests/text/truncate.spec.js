@@ -1,6 +1,6 @@
-import truncate from '@/utils/text/truncate.js';
+import truncate from '@/text/truncate.js';
 
-describe('utils/text/truncate.js', () => {
+describe('@europeana/utils/text/truncate.js', () => {
   describe('truncate', () => {
     it('returns null if text is falsy', () => {
       const text = undefined;

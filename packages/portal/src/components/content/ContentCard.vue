@@ -123,7 +123,7 @@
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import truncate from '@/utils/text/truncate.js';
+  import { truncate } from '@europeana/utils';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;

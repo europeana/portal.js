@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import stringify from '@/utils/text/stringify.js';
+  import { stringify } from '@europeana/utils';
 
   export default {
     name: 'DownloadSuccessModal',

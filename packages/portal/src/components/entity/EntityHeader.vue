@@ -95,7 +95,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import truncate from '@/utils/text/truncate.js';
+  import { truncate } from '@europeana/utils';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';

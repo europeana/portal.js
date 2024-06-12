@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { errorHandler } from '../utils.js';
-import truncate from '../../../utils/text/truncate.js';
+import { truncate } from '@europeana/utils';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';

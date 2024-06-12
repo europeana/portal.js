@@ -12,6 +12,7 @@ export default {
     '<rootDir>/packages/i18n',
     '<rootDir>/packages/oembed',
     '<rootDir>/packages/portal',
+    '<rootDir>/packages/utils',
     '<rootDir>/packages/vue-router-query',
     '<rootDir>/packages/vue-session',
     '<rootDir>/packages/vue-visible-on-scroll'
