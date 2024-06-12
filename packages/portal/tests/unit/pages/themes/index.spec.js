@@ -36,9 +36,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedContentfulImageUrl: sinon.spy((img) => `${img?.url}?optimised`)
-      },
       query: sinon.stub().resolves(themesPageContentfulResponse)
     },
     $i18n: {

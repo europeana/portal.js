@@ -49,9 +49,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedContentfulImageUrl: sinon.spy((img) => `${img?.url}?optimised`)
-      },
       query: sinon.stub().resolves(homePageContentfulResponse)
     },
     $i18n: {
@@ -110,13 +107,12 @@ describe('components/home/HomePage', () => {
       });
 
       describe('og:image', () => {
-        const expected = 'https://images.ctfassets.net/image.jpeg?optimised';
+        const expected = 'https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=webp&q=40';
 
         it('uses CTF social media image', async() => {
           const wrapper = factory();
-          // await wrapper.setData({ socialMediaImage: image });
-          await wrapper.vm.fetch();
 
+          await wrapper.vm.fetch();
           const pageMeta = wrapper.vm.pageMeta;
 
           expect(pageMeta.ogImage).toBe(expected);

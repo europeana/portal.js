@@ -19,7 +19,7 @@
       :height="optimisedHeight"
       :lazy="lazy"
       :sizes="imageSizes"
-      :src="optimisedSrc"
+      :src="optimisedContentfulImageUrl"
       :srcset="responsiveImageSrcsets[0]"
       :width="optimisedWidth"
     />
@@ -31,7 +31,7 @@
     :height="optimisedHeight"
     :lazy="lazy"
     :sizes="imageSizes"
-    :src="optimisedSrc"
+    :src="optimisedContentfulImageUrl"
     :width="optimisedWidth"
   />
 </template>
@@ -126,9 +126,7 @@
       optimisedContentfulImageUrl() {
         return optimisedContentfulImageUrl(
           { url: this.src, contentType: this.contentType },
-          {
-            params: { w: this.maxWidth, q: this.quality }
-          }
+          { w: this.maxWidth, q: this.quality }
         );
       },
 

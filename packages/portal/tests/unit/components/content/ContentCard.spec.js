@@ -22,12 +22,6 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
   propsData,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
-    $contentful: {
-      assets: {
-        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedContentfulImageUrl: sinon.spy((img) => `${img.url}?optimised`)
-      }
-    },
     $i18n: {
       locale: 'en'
     },
@@ -217,12 +211,7 @@ describe('components/content/ContentCard', () => {
           imageOptimisationOptions: { width: 510 }
         } });
 
-        expect(wrapper.vm.optimisedImageUrl).toContain('?optimised');
-        expect(wrapper.vm.$contentful.assets.optimisedContentfulImageUrl.calledWith({
-          url: 'https://images.ctfassets.net/example/example.jpg',
-          contentType: 'image/jpeg'
-        },
-        { w: 510, h: undefined })).toBe(true);
+        expect(wrapper.vm.optimisedImageUrl).toContain('https://images.ctfassets.net/example/example.jpg?w=510&fm=webp&q=40');
       });
 
       it('may have no image and is of variant mini', async() => {

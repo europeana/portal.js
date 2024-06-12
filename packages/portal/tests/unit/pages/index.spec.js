@@ -22,9 +22,6 @@ const factory = ({
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedContentfulImageUrl: (img) => `${img?.url}?optimised`
-      },
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
     $error: sinon.spy(),
@@ -216,7 +213,7 @@ describe('IndexPage', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(`${socialMediaImageUrl}?optimised`);
+      expect(pageMeta.ogImage).toBe(`${socialMediaImageUrl}`);
     });
 
     describe('when no social media image but a primary image of page', () => {
@@ -244,7 +241,7 @@ describe('IndexPage', () => {
 
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.ogImage).toBe(`${primaryImageUrl}?optimised`);
+        expect(pageMeta.ogImage).toBe(`${primaryImageUrl}`);
       });
     });
 

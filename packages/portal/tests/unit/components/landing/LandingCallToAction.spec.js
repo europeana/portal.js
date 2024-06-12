@@ -7,18 +7,13 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const testProps = { title: 'This is the title', text: 'this is the text', link: { text: 'link text', url: 'https://example.com/link' } };
-const testPropsWithBackground = { ...testProps,
-  backgroundImage: { image: { url: 'https://www.example.eu/img.jpg' } } };
+const testPropsWithBackground = {
+  ...testProps,
+  backgroundImage: { image: { url: 'https://www.example.eu/img.jpg' } }
+};
 const factory = (propsData = testProps) => shallowMount(LandingCallToAction, {
   localVue,
-  propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveContentfulBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
-      }
-    }
-  }
+  propsData
 });
 
 describe('components/landing/LandingCallToAction', () => {

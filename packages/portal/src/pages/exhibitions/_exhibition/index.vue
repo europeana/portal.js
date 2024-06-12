@@ -201,9 +201,10 @@
         return this.text ? marked.parse(this.text) : null;
       },
       optimisedImageUrl() {
-        return optimisedContentfulImageUrl(this.heroImage, {
-          params: { w: 800, h: 800 }
-        });
+        return optimisedContentfulImageUrl(
+          this.heroImage,
+          { w: 800, h: 800 }
+        );
       }
     },
 

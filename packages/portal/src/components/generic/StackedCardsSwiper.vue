@@ -161,9 +161,10 @@
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
-        return optimisedContentfulImageUrl(image, {
-          params: { w: 245, h: 440, fit: 'fill' }
-        });
+        return optimisedContentfulImageUrl(
+          image,
+          { w: 245, h: 440, fit: 'fill' }
+        );
       },
       imageSrcset(image) {
         return responsiveContentfulImageSrcset(image, SRCSET_PRESETS);

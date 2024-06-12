@@ -229,9 +229,10 @@
         return this.hero?.image || null;
       },
       optimisedImageUrl() {
-        return optimisedContentfulImageUrl(this.heroImage, {
-          params: { w: 800, h: 800 }
-        });
+        return optimisedContentfulImageUrl(
+          this.heroImage,
+          { w: 800, h: 800 }
+        );
       }
     },
 

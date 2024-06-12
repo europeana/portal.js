@@ -90,9 +90,10 @@
 
     methods: {
       imageUrl(theme, imageWidth, imageHeight) {
-        return optimisedContentfulImageUrl(theme.primaryImageOfPage?.image, {
-          params: { w: imageWidth, h: imageHeight, fit: 'thumb' }
-        });
+        return optimisedContentfulImageUrl(
+          theme.primaryImageOfPage?.image,
+          { w: imageWidth, h: imageHeight, fit: 'thumb' }
+        );
       },
 
       imageSrcSet(theme) {

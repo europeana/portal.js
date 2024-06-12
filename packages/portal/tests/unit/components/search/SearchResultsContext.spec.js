@@ -20,12 +20,6 @@ const factory = (options = {}) => mount(SearchResultsContext, {
       loggedIn: false,
       ...options.auth
     },
-    $contentful: {
-      assets: {
-        isContentfulAssetUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedContentfulImageUrl: sinon.spy((img) => `${img.url}?optimised`)
-      }
-    },
     $features: options.features || {},
     $i18n: { locale: options.locale || 'en', n: (num) => num },
     localePath: (args) => args,

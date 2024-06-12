@@ -13,7 +13,7 @@ const imageApiParamsForImageDisplayProfile = (profile) => {
   };
 };
 
-const imageDisplayProfileResponsiveSizes = (sizes, profile) => {
+export const contentfulImageDisplayProfileResponsiveSizes = (sizes, profile) => {
   const deleteHeight = profile?.fit === 'pad' && !profile?.crop;
 
   return Object.keys(sizes).reduce((memo, size) => {
@@ -36,7 +36,9 @@ export const isContentfulAssetUrl = (url) => {
   }
 };
 
-export const optimisedContentfulImageUrl = (asset, { params = {}, profile = {} } = {}) => {
+export const optimisedContentfulImageUrl = (asset, params, options = {}) => {
+  const { profile } = options;
+
   if (!isContentfulAssetUrl(asset?.url)) {
     return asset?.url || null;
   }
@@ -69,14 +71,11 @@ export const optimisedContentfulImageUrl = (asset, { params = {}, profile = {} }
 
 export const responsiveContentfulImageSrcset = (image, sizes, profile) => {
   if (isContentfulAssetUrl(image?.url) && sizes) {
-    const profileSizes = imageDisplayProfileResponsiveSizes(sizes, profile);
+    const profileSizes = contentfulImageDisplayProfileResponsiveSizes(sizes, profile);
 
     return Object.keys(profileSizes)
       .map((size) => {
-        const url = optimisedContentfulImageUrl(image, {
-          params: profileSizes[size],
-          profile
-        });
+        const url = optimisedContentfulImageUrl(image, profileSizes[size], { profile });
         return `${url} ${profileSizes[size].w}w`;
       })
       .join(',');
@@ -87,13 +86,10 @@ export const responsiveContentfulImageSrcset = (image, sizes, profile) => {
 
 export const responsiveContentfulBackgroundImageCSSVars = (image, sizes, profile) => {
   if (isContentfulAssetUrl(image?.url) && sizes) {
-    const profileSizes = imageDisplayProfileResponsiveSizes(sizes, profile);
+    const profileSizes = contentfulImageDisplayProfileResponsiveSizes(sizes, profile);
 
     return Object.keys(profileSizes).reduce((memo, size) => {
-      const url = optimisedContentfulImageUrl(image, {
-        paams: profileSizes[size],
-        profile
-      });
+      const url = optimisedContentfulImageUrl(image, profileSizes[size], { profile });
       memo[`--bg-img-${size}`] = `url('${url}')`;
       return memo;
     }, {});

@@ -392,9 +392,7 @@
       optimisedImageUrl() {
         return optimisedContentfulImageUrl(
           { url: this.imageUrl, contentType: this.imageContentType },
-          {
-            params: { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
-          }
+          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
         );
       },
 

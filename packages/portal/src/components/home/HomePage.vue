@@ -89,9 +89,10 @@
           title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
           description: this.$t('homePage.subHeadline'),
           ogType: 'website',
-          ogImage: optimisedContentfulImageUrl(this.socialMediaImage, {
-            params: { w: 1200, h: 630, fit: 'fill' }
-          })
+          ogImage: optimisedContentfulImageUrl(
+            this.socialMediaImage,
+            { w: 1200, h: 630, fit: 'fill' }
+          )
         };
       }
     },
