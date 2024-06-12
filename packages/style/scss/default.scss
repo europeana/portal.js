@@ -121,44 +121,39 @@ pre {
 }
 
 blockquote {
-  color: $greyblack;
-  font-size: 1.5rem;
   font-style: italic;
-  font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-  text-align: center;
 
   p::before {
-    content: '\201C';
+    content: '\2018';
     display: inline-block;
-    font-size: 1.75rem;
     padding-right: 0.25rem;
   }
 
   p::after {
-    content: '\201D';
+    content: '\2019';
     display: inline-block;
   }
 
+  em {
+    font-style: normal;
+  }
+
   @media (min-width: $bp-medium) {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 
 cite {
-  color: $greyblack;
-  display: block;
-  font-size: $font-size-small;
   font-style: normal;
   margin-left: 1rem;
   margin-right: 1rem;
-  text-align: center;
 
   @media (min-width: $bp-medium) {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 
@@ -218,13 +213,9 @@ figcaption {
     border-radius: 0.25rem;
     bottom: 0.5rem;
     box-shadow: $boxshadow-small;
-    color: inherit;
     display: inline;
     font-size: 0.75rem;
-    font-style: normal;
-    font-weight: normal;
     left: initial;
-    line-height: 1.5;
     margin: 0;
     max-width: 75%;
     padding: 0.75rem;
@@ -295,8 +286,14 @@ figcaption {
 }
 
 blockquote + p cite {
-  padding-top: 0.75rem;
-  margin-top: -1rem;
+  margin-top: -1.25rem;
+  display: block;
+
+  &::before {
+    content: '\2010';
+    display: inline-block;
+    padding-right: 0.25rem;
+  }
 }
 
 img {
