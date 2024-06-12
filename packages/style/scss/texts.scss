@@ -60,11 +60,19 @@ header .col {
   p.lead {
     color: $mediumgrey;
     font-weight: normal;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     font-size: 1.125rem;
+  }
 
+  .subtitle {
     @media (min-width: $bp-small) {
       font-size: $font-size-large;
+    }
+  }
+
+  p.lead {
+    @media (min-width: $bp-small) {
+      font-size: $font-size-medium;
     }
   }
 

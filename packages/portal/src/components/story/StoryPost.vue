@@ -30,6 +30,7 @@
             <p
               v-if="showDescriptionInArticle"
               class="lead"
+              :class="{ 'color-black': enableStoryHero}"
               data-qa="article description"
             >
               {{ description }}
@@ -260,8 +261,10 @@
   }
 
   .text-page p.lead {
-    font-size: $font-size-medium;
-    color: $black;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+
+    &.color-black {
+      color: $black;
+    }
   }
 </style>

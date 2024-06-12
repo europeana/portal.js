@@ -16,7 +16,7 @@
             </div>
             <h2
               v-if="exhibitionTitle"
-              class="subtitle mb-0"
+              class="subtitle"
             >
               {{ exhibitionTitle }}
             </h2>
