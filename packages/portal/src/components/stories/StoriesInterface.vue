@@ -38,6 +38,7 @@
       <StoriesFeaturedCard
         v-if="showFeaturedStory"
         :featured-story="featuredStory"
+        data-qa="featured story card"
       />
       <template
         v-for="(entry, index) in stories"

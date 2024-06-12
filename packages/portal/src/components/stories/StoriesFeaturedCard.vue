@@ -9,6 +9,7 @@
     :image-height="featuredStory.image && featuredStory.image.height"
     :lazy="false"
     class="featured-story-card"
+    data-qa="featured story card"
   />
 </template>
 
