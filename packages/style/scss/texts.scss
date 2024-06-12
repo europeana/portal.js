@@ -56,8 +56,22 @@ header .col {
 
 .text-page {
 
-  h1 {
+  h1,
+  h2,
+  h3 {
     line-height: 1.5;
+  }
+
+  h2 {
+    font-size: $font-size-medium;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
   }
 
   .subtitle,
