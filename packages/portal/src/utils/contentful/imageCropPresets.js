@@ -9,3 +9,9 @@ export const FULL_VIEWPORT_PRESETS = {
   '4k': { w: 3020, h: 1440, fit: 'fill' },
   '4k+': { w: 3840, h: 2160, fit: 'fill' }
 };
+
+export const FULL_VIEWPORT_PRESETS_FOCUS_FACE = {};
+
+for (const key in FULL_VIEWPORT_PRESETS) {
+  FULL_VIEWPORT_PRESETS_FOCUS_FACE[key] = { ...FULL_VIEWPORT_PRESETS[key], f: 'face' };
+}

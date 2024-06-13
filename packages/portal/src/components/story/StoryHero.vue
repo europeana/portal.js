@@ -10,7 +10,7 @@
         :src="heroImage.image.url"
         :content-type="heroImage.image.contentType"
         :attribution="heroImage"
-        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
+        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_FOCUS_FACE"
         :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
         width="auto"
@@ -53,7 +53,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryHero',
@@ -88,7 +88,7 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS,
+        FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         heroImageAltText: this.heroImage.image?.description || ''
       };
     },
