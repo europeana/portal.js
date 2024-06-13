@@ -27,6 +27,11 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
         name
         headline
         identifier
+        categoriesCollection {
+          items {
+            identifier
+          }
+        }
       }
       featuredStoryImage {
         ...imageFields

@@ -154,7 +154,13 @@
         return Number(this.$route.query.page || 1);
       },
       showFeaturedStory() {
-        return this.featuredStory && this.page === 1;
+        let featuredStoryMatchesSelectedTags = true;
+        const featuredStoryTags = this.featuredStory?.categoriesCollection?.items?.map((cat) => cat.identifier) || [];
+        if (this.selectedTags.length > 0) {
+          featuredStoryMatchesSelectedTags = this.selectedTags.every((tag) => featuredStoryTags.includes(tag));
+        }
+
+        return this.featuredStory && featuredStoryMatchesSelectedTags && (this.page === 1);
       }
     },
 

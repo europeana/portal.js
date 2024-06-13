@@ -22,7 +22,13 @@ const fullPropsData = {
     name: 'Story title',
     headline: 'Story headline',
     identifier: 'story-title',
-    image: { url: 'https://www.example.com/image.jpg' }
+    image: { url: 'https://www.example.com/image.jpg' },
+    categoriesCollection: {
+      items: [
+        { identifier: 'cooking' },
+        { identifier: 'postcards' }
+      ]
+    }
   }
 };
 
@@ -428,6 +434,20 @@ describe('components/stories/StoriesInterface', () => {
     describe('and on the second page', () => {
       it('does NOT render a featured story card', async() => {
         const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { page: '2' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
+      });
+    });
+    describe('and its tags match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'cooking,postcards' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
+      });
+    });
+    describe('but its tags do not match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'sport' } } } });
 
         expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
