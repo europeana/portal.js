@@ -1,5 +1,11 @@
-query StoriesPage($locale: String!, $preview: Boolean = false) {
-  storiesPageCollection(preview: $preview, locale: $locale, limit: 1) {
+query StoriesPage(
+  $locale: String!,
+  $preview: Boolean = false,
+  $query: String = ""
+) {
+  storiesPageCollection(
+    preview: $preview, locale: $locale, limit: 1
+  ) {
     items {
       headline
       description
@@ -19,7 +25,7 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
           ...illustrationFields
         }
       }
-      featuredStory {
+      featuredStory(where: { name_contains: $query }) {
         sys {
           id
         }

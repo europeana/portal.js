@@ -7,7 +7,7 @@ query storiesMinimal(
 ) {
 	blogPostingCollection (
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query, sys: { id_not: $excludeSysId } },
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
   ) @skip(if: $redirectBlogsToStories) {
     items {
       date: datePublished
@@ -39,7 +39,7 @@ query storiesMinimal(
   },
   storyCollection (
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query, sys: { id_not: $excludeSysId } },
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
   ) @include(if: $redirectBlogsToStories) {
     items {
       date: datePublished
