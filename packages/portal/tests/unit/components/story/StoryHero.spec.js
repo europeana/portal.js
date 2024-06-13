@@ -8,7 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const baseProps = { title: 'This is a title',
-  heroImage: { image: { url: 'https://www.europeana.eu/example.jpg', height: 800, contentType: 'image/jpeg' } } };
+  heroImage: { image: { url: 'https://www.europeana.eu/example.jpg', height: 1000, contentType: 'image/jpeg' } } };
 
 const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
   localVue,

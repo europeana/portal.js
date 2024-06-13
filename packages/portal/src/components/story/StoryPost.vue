@@ -225,8 +225,8 @@
     data() {
       return {
         browseAndScrollifySections: this.splitSections(),
-        // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
-        enableStoryHero: this.heroImage?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true),
+        // only show the hero when the hero image is larger than 1000px and the title is less than 80 characters and the subtitle is less than 140 characters.
+        enableStoryHero: this.heroImage?.image?.width >= 1000 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true),
         showDescriptionInArticle: false
       };
     },
