@@ -72,6 +72,10 @@ header .col {
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
+
+    &.is-size-3 {
+      font-size: $font-size-base;
+    }
   }
 
   h3 {
