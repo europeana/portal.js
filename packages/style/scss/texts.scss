@@ -66,6 +66,12 @@ header .col {
     font-size: $font-size-medium;
     font-weight: 400;
     margin-bottom: 2rem;
+
+    &.related-heading {
+      font-size: $font-size-small;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
   }
 
   h3 {
