@@ -225,11 +225,15 @@
     data() {
       return {
         browseAndScrollifySections: this.splitSections(),
-        // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
-        showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
         // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
-        enableStoryHero: this.heroImage?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
+        enableStoryHero: this.heroImage?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true),
+        showDescriptionInArticle: false
       };
+    },
+
+    created() {
+      // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
+      this.showDescriptionInArticle = this.description && (this.enableStoryHero || this.subtitle);
     },
 
     methods: {
