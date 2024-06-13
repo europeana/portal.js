@@ -91,7 +91,7 @@
       this.description = storiesPage.description;
       this.socialMediaImage = storiesPage.image;
       this.callToAction = storiesPage.primaryCallToAction;
-      this.featuredStory = { ...storiesPage.featuredStory, image: storiesPage.featuredStoryImage };
+      this.featuredStory = storiesPage.featuredStory ? { ...storiesPage.featuredStory, image: storiesPage.featuredStoryImage } : null;
 
       this.pageFetched = true;
     },

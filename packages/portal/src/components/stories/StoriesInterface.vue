@@ -154,7 +154,13 @@
         return Number(this.$route.query.page || 1);
       },
       showFeaturedStory() {
-        return this.featuredStory && this.page === 1;
+        let featuredStoryMatchesSelectedTags = true;
+        const featuredStoryTags = this.featuredStory?.categoriesCollection?.items?.map((cat) => cat.identifier) || [];
+        if (this.selectedTags.length > 0) {
+          featuredStoryMatchesSelectedTags = this.selectedTags.every((tag) => featuredStoryTags.includes(tag));
+        }
+
+        return this.featuredStory && featuredStoryMatchesSelectedTags && (this.page === 1);
       }
     },
 
@@ -168,6 +174,7 @@
         // Fetch minimal data for all stories to support ordering by datePublished
         // and filtering by categories.
         const storyIdsVariables = {
+          excludeSysId: this.featuredStory?.sys?.id || '',
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
