@@ -18,6 +18,7 @@ const fullPropsData = {
     illustration: {}
   },
   featuredStory: {
+    sys: { id: 'sys-id' },
     name: 'Story title',
     headline: 'Story headline',
     identifier: 'story-title',
@@ -191,8 +192,24 @@ describe('components/stories/StoriesInterface', () => {
       expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
         locale: 'en-GB',
         preview: false,
-        redirectBlogsToStories: false
+        redirectBlogsToStories: false,
+        excludeSysId: ''
       })).toBe(true);
+    });
+
+    describe('when there is a featured story', () => {
+      it('excludes it from those fetched', async() => {
+        const wrapper = factory({ propsData: fullPropsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          redirectBlogsToStories: false,
+          excludeSysId: fullPropsData.featuredStory.sys.id
+        })).toBe(true);
+      });
     });
 
     it('fetches page of stories with full data from Contentful', async() => {

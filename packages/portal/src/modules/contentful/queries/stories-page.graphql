@@ -20,6 +20,9 @@ query StoriesPage($locale: String!, $preview: Boolean = false) {
         }
       }
       featuredStory {
+        sys {
+          id
+        }
         __typename
         name
         headline

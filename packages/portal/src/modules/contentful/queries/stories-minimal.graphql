@@ -2,11 +2,12 @@ query storiesMinimal(
   $locale: String!,
   $preview: Boolean = false,
   $query: String = "",
-  $redirectBlogsToStories: Boolean = false
+  $redirectBlogsToStories: Boolean = false,
+  $excludeSysId: String = ""
 ) {
 	blogPostingCollection (
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query },
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } },
   ) @skip(if: $redirectBlogsToStories) {
     items {
       date: datePublished
@@ -22,7 +23,7 @@ query storiesMinimal(
   }
   exhibitionPageCollection(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 150,
-    where: { name_contains: $query }
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
   ) {
     items {
       date: datePublished
@@ -38,7 +39,7 @@ query storiesMinimal(
   },
   storyCollection (
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query },
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } },
   ) @include(if: $redirectBlogsToStories) {
     items {
       date: datePublished

@@ -168,6 +168,7 @@
         // Fetch minimal data for all stories to support ordering by datePublished
         // and filtering by categories.
         const storyIdsVariables = {
+          excludeSysId: this.featuredStory?.sys?.id || '',
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
