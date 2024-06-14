@@ -56,30 +56,61 @@ header .col {
 
 .text-page {
 
+  h1,
+  h2,
+  h3 {
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: $font-size-medium;
+    font-weight: 600;
+    margin-bottom: 2rem;
+
+    &.related-heading {
+      font-size: $font-size-small;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    &.is-size-3 {
+      font-size: $font-size-base;
+    }
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
   .subtitle,
   p.lead {
     color: $mediumgrey;
     font-weight: normal;
-    line-height: normal;
-    margin-bottom: 0.5rem;
-    font-size: $font-size-base;
+    margin-bottom: 0;
+    font-size: 1.125rem;
+  }
 
+  .subtitle {
     @media (min-width: $bp-small) {
       font-size: $font-size-large;
     }
   }
 
-  article {
-    font-size: 1.125rem;
-    line-height: 1.56;
+  p.lead {
+    @media (min-width: $bp-small) {
+      font-size: $font-size-medium;
+    }
+  }
 
-    blockquote p {
-      font-size: 1.5rem;
+  article {
+    @media (min-width: $bp-small) {
+      font-size: 1.125rem;
     }
 
     cite p {
       font-size: 0.75rem;
-      line-height: initial;
     }
   }
 
@@ -173,7 +204,6 @@ header .col {
   text-transform: uppercase;
   font-weight: 600;
   color: $mediumgrey;
-  line-height: initial;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
