@@ -30,7 +30,7 @@
             <p
               v-if="showDescriptionInArticle"
               class="lead"
-              :class="{ 'color-black': enableStoryHero}"
+              :class="{ 'color-black': enableStoryHero }"
               data-qa="article description"
             >
               {{ description }}
