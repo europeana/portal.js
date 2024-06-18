@@ -12,7 +12,6 @@
       v-else
       :title="title"
       :subtitle="subtitle"
-      :description="description"
       :hero="heroImage"
       :context-label="$tc('stories.stories', 1)"
       data-qa="authored head"
@@ -28,7 +27,7 @@
             class="col-lg-8"
           >
             <p
-              v-if="showDescriptionInArticle"
+              v-if="description"
               class="lead"
               :class="{ 'color-black': enableStoryHero }"
               data-qa="article description"
@@ -227,14 +226,8 @@
       return {
         browseAndScrollifySections: this.splitSections(),
         // only show the hero when the hero image is larger than 1000px and the title is less than 80 characters and the subtitle is less than 140 characters.
-        enableStoryHero: this.heroImage?.image?.width >= 1000 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true),
-        showDescriptionInArticle: false
+        enableStoryHero: this.heroImage?.image?.width >= 1000 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
       };
-    },
-
-    created() {
-      // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
-      this.showDescriptionInArticle = this.description && (this.enableStoryHero || this.subtitle);
     },
 
     methods: {
