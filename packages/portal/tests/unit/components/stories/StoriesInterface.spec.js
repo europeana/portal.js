@@ -10,6 +10,28 @@ const localVue = createLocalVue();
 
 localVue.use(BootstrapVue);
 
+const fullPropsData = {
+  callToAction: {
+    name: 'call to action',
+    text: 'click me!',
+    link: '#',
+    illustration: {}
+  },
+  featuredStory: {
+    sys: { id: 'sys-id' },
+    name: 'Story title',
+    headline: 'Story headline',
+    identifier: 'story-title',
+    image: { url: 'https://www.example.com/image.jpg' },
+    categoriesCollection: {
+      items: [
+        { identifier: 'cooking' },
+        { identifier: 'postcards' }
+      ]
+    }
+  }
+};
+
 const storiesMinimalContentfulResponse = {
   data: {
     data: {
@@ -118,19 +140,12 @@ const contentfulQueryStub = () => {
   return stub;
 };
 
-const factory = ({ data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
+const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
   localVue,
   data() {
     return data;
   },
-  propsData: {
-    callToAction: {
-      name: 'call to action',
-      text: 'click me!',
-      link: '#',
-      illustration: {}
-    }
-  },
+  propsData,
   mocks: {
     $contentful: {
       query: contentfulQueryStub()
@@ -149,7 +164,8 @@ const factory = ({ data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMou
     $t: (key) => key,
     $tc: (key) => key,
     ...mocks
-  }
+  },
+  stubs: ['StoriesFeaturedCard']
 });
 
 describe('components/stories/StoriesInterface', () => {
@@ -181,8 +197,23 @@ describe('components/stories/StoriesInterface', () => {
 
       expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
         locale: 'en-GB',
-        preview: false
+        preview: false,
+        excludeSysId: ''
       })).toBe(true);
+    });
+
+    describe('when there is a featured story', () => {
+      it('excludes it from those fetched', async() => {
+        const wrapper = factory({ propsData: fullPropsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: fullPropsData.featuredStory.sys.id
+        })).toBe(true);
+      });
     });
 
     it('fetches page of stories with full data from Contentful', async() => {
@@ -386,6 +417,37 @@ describe('components/stories/StoriesInterface', () => {
 
           expect(wrapper.vm.stories.length).toBe(2);
         });
+      });
+    });
+  });
+
+  describe('when there is a featured story', () => {
+    describe('and on the first page', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
+      });
+    });
+    describe('and on the second page', () => {
+      it('does NOT render a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { page: '2' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
+      });
+    });
+    describe('and its tags match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'cooking,postcards' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
+      });
+    });
+    describe('but its tags do not match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'sport' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
     });
   });

@@ -100,7 +100,8 @@
       pageMeta() {
         return {
           title: this.post.name,
-          description: this.post.headline || this.post.description,
+          subtitle: this.post.headline,
+          description: this.post.description,
           ogType: 'article',
           ogImage: this.post.primaryImageOfPage?.image?.url,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''

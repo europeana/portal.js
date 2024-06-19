@@ -32,10 +32,14 @@ export default {
       }
     },
 
+    metaTitle() {
+      return [this.pageTitle, this.pageMeta.subtitle].filter(Boolean).join(' - ');
+    },
+
     headMeta() {
       const headMeta = [
-        { hid: 'title', name: 'title', content: this.pageTitle },
-        { hid: 'og:title', property: 'og:title', content: this.pageTitle }
+        { hid: 'title', name: 'title', content: this.metaTitle },
+        { hid: 'og:title', property: 'og:title', content: this.metaTitle }
       ];
 
       if (this.pageMeta.description) {
