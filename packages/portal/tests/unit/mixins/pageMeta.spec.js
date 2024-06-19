@@ -91,6 +91,25 @@ describe('mixins/pageMeta', () => {
         expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(pageMeta.ogImage);
         expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
       });
+
+      it('concatenates title and subtitle for title tags', () => {
+        const pageMeta = {
+          title: 'Home',
+          subtitle: 'Away'
+        };
+        const computed = {
+          pageMeta() {
+            return pageMeta;
+          }
+        };
+        const wrapper = factory({ computed });
+
+        const headMeta = wrapper.vm.head().meta;
+
+        const titleTagContent = 'Home - Away';
+        expect(headMeta.find((tag) => tag.name === 'title').content).toBe(titleTagContent);
+        expect(headMeta.find((tag) => tag.property === 'og:title').content).toBe(titleTagContent);
+      });
     });
   });
 
