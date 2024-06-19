@@ -3,18 +3,18 @@ module.exports = function(migration) {
     .editContentType('story');
 
   story.changeFieldControl('name', 'builtin', 'singleLine', {
-    helpText: 'To use the full screen header: The title should be max. 80 characters.'
+    helpText: 'Max. 80 characters. Longer text will cause the narrow header to be displayed.'
   });
 
   story.changeFieldControl('headline', 'builtin', 'singleLine', {
-    helpText: 'To use the full screen header: The subtitle should be max. 140 characters.'
+    helpText: 'Max. 140 characters. Longer text will cause the narrow header to be displayed.'
   });
 
   story.changeFieldControl('description', 'builtin', 'singleLine', {
-    helpText: ''
+    helpText: 'Displayed below the header.'
   });
 
   story.changeFieldControl('primaryImageOfPage', 'builtin', 'entryLinkEditor', {
-    helpText: 'To use the full screen header: Images wider than 1000 px are required.'
+    helpText: 'Min. 1,000 pixels wide to display the full-screen header.'
   });
 };
