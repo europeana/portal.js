@@ -125,6 +125,7 @@
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import truncateMixin from '@/mixins/truncate';
   import { langMapValueForLocale } from '@europeana/i18n';
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 
@@ -389,10 +390,7 @@
       },
 
       optimisedImageUrl() {
-        if (!this.$contentful.assets.isValidUrl(this.imageUrl)) {
-          return this.imageUrl;
-        }
-        return this.$contentful.assets.optimisedSrc(
+        return optimisedContentfulImageUrl(
           { url: this.imageUrl, contentType: this.imageContentType },
           { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
         );

@@ -48,13 +48,7 @@ const factory = () => {
       },
       $t: () => {},
       localePath: () => {},
-      $route: { query: { mode: null } },
-      $contentful: {
-        assets: {
-          isValidUrl: (url) => url.includes('images.ctfassets.net'),
-          optimisedSrc: (img) => `${img.url}?optimised`
-        }
-      }
+      $route: { query: { mode: null } }
     }
   });
 };

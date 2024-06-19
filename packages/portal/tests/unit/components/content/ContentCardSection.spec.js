@@ -35,12 +35,6 @@ const factory = (section) => mount(ContentCardSection, {
   },
   mocks: {
     $config: { app: { internalLinkDomain: null } },
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: (img) => `${img.url}?optimised`
-      }
-    },
     $t: () => {},
     localePath: () => '/',
     $store

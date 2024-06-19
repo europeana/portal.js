@@ -118,6 +118,7 @@
   import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
   import logEventMixin from '@/mixins/logEvent';
+  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'ExhibitionChapterPage',
@@ -228,7 +229,7 @@
         return this.hero?.image || null;
       },
       optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
+        return optimisedContentfulImageUrl(
           this.heroImage,
           { w: 800, h: 800 }
         );

@@ -33,13 +33,6 @@ const factory = (options = {}) => mount(StackedCardsSwiper, {
     title: options.title
   },
   mocks: {
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
-        responsiveImageSrcset: sinon.spy((img, sizes) => Object.keys(sizes))
-      }
-    },
     $t: () => {}
   }
 });
