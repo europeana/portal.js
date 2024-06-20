@@ -5,6 +5,7 @@
   >
     <b-container
       v-if="$fetchState.pending"
+      class="pt-5"
       data-qa="loading spinner container"
     >
       <b-row class="flex-md-row py-4 text-center">
