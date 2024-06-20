@@ -137,10 +137,8 @@
   }
 
   .hero-content {
-    position: relative; // Prevents blending with the background
     padding-top: 5rem;
     margin-top: auto;
-    z-index: 2;
   }
 
   .hero-content-container {
@@ -193,7 +191,6 @@
     right: 0;
     bottom: 0;
     position: absolute;
-    z-index: 1;
 
     &::after {
       content: '';
@@ -203,7 +200,6 @@
       bottom: 0;
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
       position: absolute;
-      z-index: 1;
     }
 
     ::v-deep figure {
