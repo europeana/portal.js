@@ -14,6 +14,7 @@
       v-else
       :section="contentCardSection"
       class="mb-5"
+      :lazy="lazy"
     />
   </div>
 </template>
@@ -52,6 +53,13 @@
       moreButton: {
         type: Object,
         default: null
+      },
+      /**
+       * If `true`, image will be lazy-loaded
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
 

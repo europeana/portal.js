@@ -12,6 +12,7 @@
     :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
     :variant="variant"
+    :lazy="lazy"
   />
 </template>
 
@@ -37,6 +38,13 @@
       variant: {
         type: String,
         default: null
+      },
+      /**
+       * If `true`, image will be lazy-loaded
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {

@@ -18,6 +18,7 @@
         v-for="(section, index) in hasPartCollection.items"
         :key="index"
         :section="section"
+        :lazy="index > 0"
       />
     </b-container>
   </div>

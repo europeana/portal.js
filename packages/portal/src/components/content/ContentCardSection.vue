@@ -33,6 +33,7 @@
             :url="entityRouterLink(card.identifier, card.slug)"
             :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
+            :lazy="lazy"
             variant="mini"
           />
         </template>
@@ -43,6 +44,7 @@
             :fields="card"
             :card-type="card['__typename']"
             :variant="card['__variant']"
+            :lazy="lazy"
           />
         </template>
       </b-card-group>
@@ -86,6 +88,13 @@
       titleTag: {
         type: String,
         default: 'h2'
+      },
+      /**
+       * If `true`, image will be lazy-loaded
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
