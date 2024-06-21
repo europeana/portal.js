@@ -13,7 +13,7 @@
         </h2>
         <b-row>
           <b-col
-            lg="5"
+            lg="4"
             class="left-col pb-4 order-lg-1"
             data-qa="footer mission statement"
           >
@@ -27,7 +27,7 @@
             </div>
           </b-col>
           <b-col
-            lg="5"
+            lg="4"
             class="left-col pb-4 order-lg-4"
             data-qa="footer social links"
           >
@@ -65,7 +65,7 @@
           <b-col
             v-if="enableLangSelector"
             sm="6"
-            lg="3"
+            lg="4"
             class="right-col pb-4 order-sm-2 order-lg-3"
           >
             <h3 class="group-title text-uppercase font-weight-bold pr-2">
@@ -79,12 +79,13 @@
           <b-col
             v-if="supportingTechnicalPartners"
             sm="6"
-            lg="3"
+            lg="4"
             class="right-col pb-4 order-sm-4 order-lg-6"
           >
             <LinkGroup
               :title="supportingTechnicalPartners.name"
               :links="supportingTechnicalPartners.links"
+              variant="supporting-tech-partners"
             />
           </b-col>
         </b-row>
