@@ -7,7 +7,6 @@ const pages = {
   '"The pride of Glencoe, song" item page': `${url}/en/item/2059213/data_sounds_455`,
   '"World War I" theme page': `${url}/en/search?qf=collection%3Aww1`,
   'account page': `${url}/en/account`,
-  'blog page': `${url}/en/blog`,
   'collections page': `${url}/en/collections`,
   'data space page': `${url}/en/dataspace-culturalheritage`,
   'English home page': `${url}/en`,

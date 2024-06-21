@@ -350,7 +350,7 @@
         }
 
         if (this.displayLabelType === 'blog') {
-          return this.$features?.redirectBlogsToStories ? this.$tc('stories.stories', 1) : this.$tc('blog.posts', 1);
+          return this.$tc('stories.stories', 1);
         }
 
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);

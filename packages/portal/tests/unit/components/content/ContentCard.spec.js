@@ -84,7 +84,7 @@ describe('components/content/ContentCard', () => {
 
             const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
-            expect(subtitle.text()).toBe('blog.posts');
+            expect(subtitle.text()).toBe('stories.stories');
           });
         }
       });
