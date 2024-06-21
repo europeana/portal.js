@@ -86,6 +86,7 @@
               :title="supportingTechnicalPartners.name"
               :links="supportingTechnicalPartners.links"
               variant="supporting-tech-partners"
+              data-qa="supporting technical partners"
             />
           </b-col>
         </b-row>
