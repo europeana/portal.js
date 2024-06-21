@@ -87,14 +87,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-figure {
-  overflow: hidden;
-
-  ::v-deep img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-</style>
