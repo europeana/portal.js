@@ -3,27 +3,8 @@ query EntityRelatedContent(
   $preview: Boolean = false,
   $limit: Int = 4,
   $entityUri: String!,
-  $query: String = "",
-  $redirectBlogsToStories: Boolean = false
+  $query: String = ""
 ) {
-  blogPostingCollection(
-    where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) @skip(if: $redirectBlogsToStories) {
-    items {
-      __typename
-      name
-      identifier
-      primaryImageOfPage {
-        image {
-          url
-          contentType
-          description
-        }
-      }
-      datePublished
-    }
-  }
   exhibitionPageCollection(
     where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
@@ -45,7 +26,7 @@ query EntityRelatedContent(
   storyCollection(
     where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) @include(if: $redirectBlogsToStories) {
+  ) {
     items {
       __typename
       name

@@ -51,8 +51,7 @@
       const variables = {
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview',
-        limit: 2,
-        redirectBlogsToStories: this.$features?.redirectBlogsToStories || false
+        limit: 2
       };
 
       const response = await this.$contentful.query('latestEditorialContent', variables);
@@ -60,9 +59,8 @@
 
       // Select three stories: at least one of each type, max two of each type;
       // sorted by date published, most recent first
-      this.cards = (entries.blogPostingCollection?.items || [])
+      this.cards = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)
-        .concat((entries.storyCollection?.items || []))
         .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
         .slice(0, 3);
     },

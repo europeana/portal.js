@@ -2,15 +2,6 @@ import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
 describe('@/utils/contentful/entity-url', () => {
   describe('contentfulEntryUrl', () => {
-    it('prefixes BlogPosting entries with /blog', () => {
-      const url = contentfulEntryUrl({
-        '__typename': 'BlogPosting',
-        identifier: 'interesting'
-      });
-
-      expect(url).toBe('/blog/interesting');
-    });
-
     it('prefixes ExhibitionPage entries with /exhibitions', () => {
       const url = contentfulEntryUrl({
         '__typename': 'ExhibitionPage',

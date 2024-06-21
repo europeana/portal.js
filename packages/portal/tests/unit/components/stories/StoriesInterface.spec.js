@@ -35,7 +35,7 @@ const fullPropsData = {
 const storiesMinimalContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
         ]
@@ -53,10 +53,10 @@ const storiesMinimalContentfulResponse = {
 const storiesBySysIdContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           {
-            __typename: 'BlogPosting',
+            __typename: 'Story',
             sys: {
               id: '796f5YKe4b1u8uXtizSBu0'
             },
@@ -198,7 +198,6 @@ describe('components/stories/StoriesInterface', () => {
       expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
         locale: 'en-GB',
         preview: false,
-        redirectBlogsToStories: false,
         excludeSysId: ''
       })).toBe(true);
     });
@@ -212,7 +211,6 @@ describe('components/stories/StoriesInterface', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
           locale: 'en-GB',
           preview: false,
-          redirectBlogsToStories: false,
           excludeSysId: fullPropsData.featuredStory.sys.id
         })).toBe(true);
       });
@@ -367,7 +365,7 @@ describe('components/stories/StoriesInterface', () => {
           const wrapper = factory({ data: { allStoryMetadata, perPage: 2 } });
           const expected = [
             storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
-            storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0],
+            storiesBySysIdContentfulResponse.data.data.storyCollection.items[0],
             'cta-banner'
           ];
 

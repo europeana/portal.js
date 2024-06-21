@@ -3,27 +3,8 @@ query ThemeRelatedContent(
   $preview: Boolean = false,
   $limit: Int = 4,
   $theme: String!,
-  $query: String = "",
-  $redirectBlogsToStories: Boolean = false
+  $query: String = ""
 ) {
-  blogPostingCollection(
-    where: { genre_contains_some: [$theme], name_contains: $query },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) @skip(if: $redirectBlogsToStories) {
-    items {
-      __typename
-      name
-      identifier
-      primaryImageOfPage {
-        image {
-          url
-          contentType
-          description
-        }
-      }
-      datePublished
-    }
-  }
   exhibitionPageCollection(
     where: { genre_contains_some: [$theme], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
@@ -45,7 +26,7 @@ query ThemeRelatedContent(
   storyCollection(
     where: { genre_contains_some: [$theme], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) @include(if: $redirectBlogsToStories) {
+  ) {
     items {
       __typename
       name

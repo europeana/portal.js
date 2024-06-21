@@ -99,10 +99,6 @@ export default {
     "topic": "Topics",
     "trending": "Trending items"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blog post | Blog posts"
-  },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",

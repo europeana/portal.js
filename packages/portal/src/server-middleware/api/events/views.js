@@ -16,6 +16,8 @@ export default (config = {}) => {
 
       // TODO: update old objects, then stop using legacy uris
       // @/docker/compose/postgres/model/07-clean-up-blog-objects.psql
+      // TODO: or, stop hard-coding for blog posts/stories, and add redirects/
+      //       aliases to db to support other paths too
       const legacyUri = url.pathname.startsWith('/stories') ? `${url.origin}${url.pathname.replace('/stories', '/blog')}` : uri;
 
       const result = await pg.query(`

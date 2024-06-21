@@ -3,7 +3,6 @@ export default [
   { name: 'acceptSetRecommendations' },
   { name: 'eventLogging' },
   { name: 'jiraServiceDeskFeedbackForm' },
-  { name: 'redirectBlogsToStories' },
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
