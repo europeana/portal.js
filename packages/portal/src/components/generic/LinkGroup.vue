@@ -28,6 +28,11 @@
             :class="`footer-link-icon ${link.icon}`"
             :title="link.text"
           />
+          <img
+            v-else-if="link.image"
+            :src="link.image"
+            :alt="link.text"
+          >
           <template v-else>
             {{ link.text }}
           </template>
