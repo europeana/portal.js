@@ -28,7 +28,7 @@
       <ContentHeader
         :title="pageMeta.title"
         :description="headline"
-        :media-url="pageMeta.ogImage"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
