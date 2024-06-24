@@ -78,8 +78,10 @@
   }
 
   p.mission {
+    font-size: $font-size-medium;
+
     @media (min-width: $bp-wqhd) {
-      font-size: 1.375rem;
+      font-size: $font-size-large;
     }
   }
 
@@ -171,18 +173,35 @@
 
   .link-group-supporting-tech-partners {
 
+    &.col-lg-3 {
+      @media (min-width: $bp-wqhd) {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+    }
+
     .group-title {
       margin-bottom: 1rem;
     }
 
     .link-group-list {
-      display: flex;
-      flex-wrap: wrap;
+
+      @media (min-width: $bp-wqhd) {
+        display: flex;
+      }
 
       .link {
-        margin-right: 1.5rem;
         margin-bottom: 1rem;
-        flex: 0 0 100px;
+
+        @media (min-width: $bp-wqhd) {
+          margin-bottom: 0;
+          margin-right: 1rem;
+          flex: 0 0 120px;
+
+          img {
+            width: 120px;
+          }
+        }
       }
     }
   }
