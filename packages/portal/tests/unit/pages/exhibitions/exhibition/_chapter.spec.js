@@ -41,11 +41,6 @@ const factory = (heroImage) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $contentful: {
-      assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
-      }
-    },
     $t: key => key,
     $tc: () => {},
     $config: {
@@ -63,7 +58,7 @@ describe('pages/exhibitions/_exhibition/_chapter', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(`${heroImageExample.image.url}?optimised`);
+      expect(pageMeta.ogImage).toBe(heroImageExample.image);
     });
 
     it('does not set og:image when no hero image', () => {

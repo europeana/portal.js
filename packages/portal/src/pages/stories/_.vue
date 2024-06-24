@@ -104,7 +104,7 @@
           subtitle: this.post.headline,
           description: this.post.description,
           ogType: 'article',
-          ogImage: this.post.primaryImageOfPage?.image?.url,
+          ogImage: this.post.primaryImageOfPage?.image,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
         };
       },

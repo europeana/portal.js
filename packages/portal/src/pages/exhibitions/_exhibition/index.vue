@@ -34,7 +34,7 @@
             </time>
             <div class="mb-4 d-flex align-items-center">
               <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="heroImage && heroImage.url" />
+              <ShareSocialModal :media-url="pageMetaOgImage" />
               <ViewCount />
             </div>
             <!-- eslint-disable vue/no-v-html -->
@@ -183,7 +183,7 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -198,12 +198,6 @@
       },
       mainContent() {
         return this.text ? marked.parse(this.text) : null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

@@ -39,7 +39,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <ShareSocialModal :media-url="optimisedImageUrl" />
+            <ShareSocialModal :media-url="pageMetaOgImage" />
             <div class="authored-section">
               <ContentSection
                 v-for="(section, index) in (page?.hasPartCollection?.items || [])"
@@ -207,7 +207,7 @@
           title: this.page.name,
           description: this.page.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -226,12 +226,6 @@
       },
       heroImage() {
         return this.hero?.image || null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

@@ -61,7 +61,7 @@
         return {
           title: this.$tc('exhibitions.exhibitions', 2),
           description: this.$t('exhibitions.description'),
-          ogImage: this.socialMediaImage?.url,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImage?.description
         };
       },

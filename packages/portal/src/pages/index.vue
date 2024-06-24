@@ -122,10 +122,7 @@
       // landing pages use primaryImageOfPage as a fallback, otherwise null
       const socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
       this.socialMediaImageAlt = socialMediaImage?.description || '';
-      this.socialMediaImageUrl = this.$contentful.assets.optimisedSrc(
-        socialMediaImage,
-        { w: 800, h: 800 }
-      );
+      this.socialMediaImageUrl = socialMediaImage;
 
       if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;

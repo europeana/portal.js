@@ -102,7 +102,7 @@
           title: this.$tc('stories.stories', 2),
           description: this.description,
           ogType: 'article',
-          ogImage: this.socialMediaImage?.url,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImage?.description
         };
       }
