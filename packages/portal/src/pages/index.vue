@@ -35,7 +35,7 @@
         :name="page.name"
         :headline="page.headline"
         :has-part-collection="page.hasPartCollection"
-        :image-url="socialMediaImageUrl"
+        :image-url="pageMetaOgImage"
       />
       <StaticPage
         v-else-if="staticPage"
@@ -87,7 +87,7 @@
         landingPage: false,
         page: {},
         socialMediaImageAlt: null,
-        socialMediaImageUrl: null,
+        socialMediaImage: null,
         staticPage: false
       };
     },
@@ -120,9 +120,8 @@
 
       // use social media image if set in Contentful,
       // landing pages use primaryImageOfPage as a fallback, otherwise null
-      const socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
-      this.socialMediaImageAlt = socialMediaImage?.description || '';
-      this.socialMediaImageUrl = socialMediaImage;
+      this.socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
+      this.socialMediaImageAlt = this.socialMediaImage?.description || '';
 
       if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;
@@ -137,7 +136,7 @@
           title: this.page.name,
           description: this.page.description,
           ogType: this.homePage ? 'website' : 'article',
-          ogImage: this.socialMediaImageUrl,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImageAlt
         };
       }

@@ -62,7 +62,7 @@
             </div>
             <div class="my-4 d-flex align-items-center">
               <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="heroImage ? heroImage.image.url : null" />
+              <ShareSocialModal :media-url="mediaUrl" />
               <ViewCount />
             </div>
           </b-col>
@@ -198,6 +198,11 @@
 
       heroImage: {
         type: Object,
+        default: null
+      },
+
+      mediaUrl: {
+        type: String,
         default: null
       },
 

@@ -38,6 +38,7 @@
         :body="post.hasPartCollection"
         :identifier="post.identifier"
         :hero-image="heroImage"
+        :media-url="pageMetaOgImage"
         :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
         :tags="post.categoriesCollection && post.categoriesCollection.items"
         :themes="post.genre"

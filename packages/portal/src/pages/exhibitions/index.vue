@@ -1,7 +1,9 @@
 <template>
   <ContentHubPage
     data-qa="exhibitions"
-    :page-meta="pageMeta"
+    :title="pageMeta.title"
+    :description="pageMeta.description"
+    :media-url="pageMetaOgImage"
     :items="exhibitions"
     :total="total"
     :per-page="perPage"
