@@ -52,8 +52,6 @@
 
     mixins: [pageMetaMixin],
 
-    middleware: 'sanitisePageQuery',
-
     data() {
       return {
         entities: [],
@@ -100,7 +98,7 @@
         return getEntityTypeApi(this.entityTypeHumanReadable);
       },
       page() {
-        return this.$store.state.sanitised.page;
+        return Number(this.$route.query.page || 1);
       }
     },
 

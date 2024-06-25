@@ -111,10 +111,6 @@
       next();
     },
 
-    middleware: [
-      'sanitisePageQuery'
-    ],
-
     data() {
       return {
         proxy: null,

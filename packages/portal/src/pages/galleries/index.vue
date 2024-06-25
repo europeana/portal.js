@@ -50,7 +50,6 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
-    middleware: 'sanitisePageQuery',
     data() {
       return {
         galleries: [],
