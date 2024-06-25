@@ -99,10 +99,6 @@ export default {
     "topic": "Tópicos",
     "trending": "Itens em tendência"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Publicação de blog | Publicações de blog"
-  },
   "cardLabels": {
     "organisation": "Organização",
     "person": "Pessoa",
@@ -727,6 +723,7 @@ export default {
       "provide": "Torne-se uma instituição fornecedora",
       "seeApiRequests": "Ver pedidos às APIs da Europeana",
       "subscribe": "Subscreva na nossa newsletter",
+      "supportingTechnicalPartners": "Apoiando parceiros técnicos",
       "terms": "Termos e políticas"
     },
     "ourMission": "A Nossa missão",

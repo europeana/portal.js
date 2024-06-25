@@ -99,10 +99,6 @@ export default {
     "topic": "Témakörök",
     "trending": "Népszerű tárgyak"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogbejegyzés | Blogbejegyzések"
-  },
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
@@ -727,6 +723,7 @@ export default {
       "provide": "Legyen szolgáltató intézmény",
       "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
+      "supportingTechnicalPartners": "Technikai partnerek támogatása",
       "terms": "Feltételek és szabályzatok"
     },
     "ourMission": "Küldetésünk",

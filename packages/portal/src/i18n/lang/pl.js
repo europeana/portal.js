@@ -99,10 +99,6 @@ export default {
     "topic": "Tematy",
     "trending": "Popularne obiekty cyfrowe"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Wpis na blogu | Posty na blogu"
-  },
   "cardLabels": {
     "organisation": "Organizacja",
     "person": "Osoba",
@@ -727,6 +723,7 @@ export default {
       "provide": "Zostań dostawca danych",
       "seeApiRequests": "Zobacz żądania do Europeana APIs",
       "subscribe": "Zapisz się do naszego newslettera",
+      "supportingTechnicalPartners": "Wspieranie partnerów technicznych",
       "terms": "Warunki i zasady"
     },
     "ourMission": "Nasza misja",

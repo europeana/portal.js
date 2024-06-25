@@ -99,10 +99,6 @@ export default {
     "topic": "Emner",
     "trending": "Trending genstande"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogindlæg | Blogindlæg"
-  },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
@@ -728,6 +724,7 @@ export default {
       "provide": "Bliv en ejerinstiution",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
+      "supportingTechnicalPartners": "Support til tekniske partnere",
       "terms": "Vilkår og politikker"
     },
     "ourMission": "Vores mission",

@@ -99,10 +99,6 @@ export default {
     "topic": "Θέματα",
     "trending": "Δημοφιλή τεκμήρια"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Δημοσίευση στο blog | Δημοσιεύσεις στο blog"
-  },
   "cardLabels": {
     "organisation": "Οργάνωση",
     "person": "Πρόσωπο",
@@ -727,6 +723,7 @@ export default {
       "provide": "Γίνετε φορέας προέλευσης",
       "seeApiRequests": "Δείτε αιτήματα προς Europeana API",
       "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
+      "supportingTechnicalPartners": "Υποστηρίζοντας τεχνικούς συνεργάτες",
       "terms": "Όροι & Πολιτικές"
     },
     "ourMission": "Η αποστολή μας",

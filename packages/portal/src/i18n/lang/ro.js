@@ -99,10 +99,6 @@ export default {
     "topic": "Subiecte",
     "trending": "Resurse culturale populare"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Postare pe blog | Postări pe blog"
-  },
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
@@ -727,6 +723,7 @@ export default {
       "provide": "Devino instituție furnizoare",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
+      "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",
       "terms": "Termeni și politici"
     },
     "ourMission": "Misiunea noastră",

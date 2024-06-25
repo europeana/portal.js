@@ -99,10 +99,6 @@ export default {
     "topic": "Teemad",
     "trending": "Trendivad  üksused"
   },
-  "blog": {
-    "blog": "Blogi",
-    "posts": "Blogi postitus | Blogi postitused"
-  },
   "cardLabels": {
     "organisation": "Organisatsioon",
     "person": "Isik",
@@ -728,6 +724,7 @@ export default {
       "provide": "Hakka pakkuvaks asutuseks",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
+      "supportingTechnicalPartners": "Tehniliste partnerite toetamine",
       "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",

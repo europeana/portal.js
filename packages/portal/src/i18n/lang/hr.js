@@ -99,10 +99,6 @@ export default {
     "topic": "Sadržaj",
     "trending": "Trendovski predmeti"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Post na blogu | Postovi na blogu"
-  },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Osoba",
@@ -728,6 +724,7 @@ export default {
       "provide": "Postanite pružanje institucija",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
+      "supportingTechnicalPartners": "Podrška tehničkim partnerima",
       "terms": "Uvjeti i pravila"
     },
     "ourMission": "Naša misija",
