@@ -1,7 +1,9 @@
 <template>
   <ContentHubPage
     data-qa="exhibitions"
-    :page-meta="pageMeta"
+    :title="pageMeta.title"
+    :description="pageMeta.description"
+    :media-url="pageMetaOgImage"
     :items="exhibitions"
     :total="total"
     :per-page="perPage"
@@ -61,7 +63,7 @@
         return {
           title: this.$tc('exhibitions.exhibitions', 2),
           description: this.$t('exhibitions.description'),
-          ogImage: this.socialMediaImage?.url,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImage?.description
         };
       },

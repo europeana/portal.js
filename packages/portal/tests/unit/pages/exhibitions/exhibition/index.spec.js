@@ -62,11 +62,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
-    $contentful: {
-      assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
-      }
-    },
     $t: key => key,
     $tc: () => {},
     localePath: () => '/',
@@ -109,7 +104,7 @@ describe('exhibitionChapters mixin', () => {
     const chapterList = wrapper.vm.hasPartCollection.items;
     const currentExhibitionIdentifier = wrapper.vm.identifier;
     const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterBackground = 'https://www.example.eu/image1.jpg?optimised';
+    const expectedChapterBackground = 'https://www.example.eu/image1.jpg';
 
     expect(linkListItems[0].background).toEqual(expectedChapterBackground);
   });
@@ -132,7 +127,7 @@ describe('Exhibition landing page', () => {
 
       const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.ogImage).toBe(`${primaryImageOfPage.url}?optimised`);
+      expect(headMeta.ogImage).toBe(primaryImageOfPage.image);
     });
     it('uses optimised hero image description for og:image:alt', () => {
       primaryImageOfPage.image.description = 'alt description for hero image';

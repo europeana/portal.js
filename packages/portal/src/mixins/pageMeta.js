@@ -1,6 +1,7 @@
 export default {
   data() {
     return {
+      pageMetaContentfulImageParams: { w: 1200, h: 630, fit: 'fill', f: 'face' },
       pageMetaSuffixTitle: undefined
     };
   },
@@ -20,6 +21,14 @@ export default {
 
     pageMeta() {
       return {};
+    },
+
+    pageMetaOgImage() {
+      if (this.$contentful?.assets?.isValidUrl(this.pageMeta.ogImage?.url)) {
+        return this.$contentful.assets.optimisedSrc(this.pageMeta.ogImage, this.pageMetaContentfulImageParams);
+      } else {
+        return this.pageMeta.ogImage?.url || this.pageMeta.ogImage;
+      }
     },
 
     pageTitle() {
@@ -52,7 +61,7 @@ export default {
       }
 
       if (this.pageMeta.ogImage) {
-        headMeta.push({ hid: 'og:image', property: 'og:image', content: this.pageMeta.ogImage });
+        headMeta.push({ hid: 'og:image', property: 'og:image', content: this.pageMetaOgImage });
       }
       if (this.pageMeta.ogImageAlt || (this.pageMeta.ogImageAlt === '')) {
         headMeta.push({ hid: 'og:image:alt', property: 'og:image:alt', content: this.pageMeta.ogImageAlt });

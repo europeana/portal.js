@@ -25,7 +25,9 @@
   <ContentHubPage
     v-else
     data-qa="galleries"
-    :page-meta="pageMeta"
+    :title="pageMeta.title"
+    :description="pageMeta.description"
+    :media-url="pageMetaOgImage"
     :items="galleries"
     :total="total"
     :per-page="perPage"

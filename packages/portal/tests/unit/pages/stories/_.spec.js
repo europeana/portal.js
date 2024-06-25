@@ -121,7 +121,7 @@ describe('Story page', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(post.primaryImageOfPage.image.url);
+      expect(pageMeta.ogImage).toBe(post.primaryImageOfPage.image);
     });
   });
 });

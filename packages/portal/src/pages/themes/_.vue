@@ -25,7 +25,7 @@
       <ContentHeader
         :title="name"
         :description="description"
-        :media-url="shareMediaUrl"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
@@ -234,12 +234,9 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImage: this.primaryImageOfPage?.image,
           ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
-      },
-      shareMediaUrl() {
-        return this.primaryImageOfPage?.image?.url;
       },
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);

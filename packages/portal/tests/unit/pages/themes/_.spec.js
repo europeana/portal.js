@@ -127,7 +127,7 @@ describe('pages/themes/_', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image.url);
+      expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image);
     });
   });
 });

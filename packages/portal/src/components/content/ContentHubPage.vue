@@ -2,9 +2,9 @@
   <div class="page white-page xxl-page">
     <b-container>
       <ContentHeader
-        :title="pageMeta.title"
-        :description="pageMeta.description"
-        :media-url="pageMeta.ogImage"
+        :title="title"
+        :description="description"
+        :media-url="mediaUrl"
         button-variant="secondary"
         class="half-col"
       />
@@ -57,18 +57,31 @@
     },
 
     props: {
-      pageMeta: {
-        type: Object,
+      title: {
+        type: String,
+        required: true
+      },
+
+      description: {
+        type: String,
         default: null
       },
+
+      mediaUrl: {
+        type: String,
+        default: null
+      },
+
       items: {
         type: Array,
         default: () => []
       },
+
       perPage: {
         type: Number,
         default: null
       },
+
       total: {
         type: Number,
         default: null

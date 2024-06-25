@@ -38,6 +38,7 @@
         :body="post.hasPartCollection"
         :identifier="post.identifier"
         :hero-image="heroImage"
+        :media-url="pageMetaOgImage"
         :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
         :tags="post.categoriesCollection && post.categoriesCollection.items"
         :themes="post.genre"
@@ -104,7 +105,7 @@
           subtitle: this.post.headline,
           description: this.post.description,
           ogType: 'article',
-          ogImage: this.post.primaryImageOfPage?.image?.url,
+          ogImage: this.post.primaryImageOfPage?.image,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
         };
       },
