@@ -166,18 +166,6 @@
             ]
           };
         }
-      },
-      supportingTechnicalPartners: {
-        type: Object,
-        default() {
-          return {
-            name: this.$t('footer.navigation.supportingTechnicalPartners'),
-            links: [
-              { url: 'https://www.contentful.com', text: 'Powered by Contentful', image: require('@europeana/style/img/supporting-technical-partners/Contentful-logo.svg'), hideExternalIcon: true },
-              { url: 'https://lokalise.com/', text: 'Lokalise', image: require('@europeana/style/img/supporting-technical-partners/Lokalise-logo.svg'), hideExternalIcon: true }
-            ]
-          };
-        }
       }
     },
 
@@ -214,7 +202,14 @@
             icon: 'icon-linkedin',
             hideExternalIcon: true
           }
-        ]
+        ],
+        supportingTechnicalPartners: {
+          name: this.$t('footer.navigation.supportingTechnicalPartners'),
+          links: [
+            { url: 'https://www.contentful.com', text: 'Powered by Contentful', image: require('@europeana/style/img/supporting-technical-partners/Contentful-logo.svg'), hideExternalIcon: true },
+            { url: 'https://lokalise.com/', text: 'Lokalise', image: require('@europeana/style/img/supporting-technical-partners/Lokalise-logo.svg'), hideExternalIcon: true }
+          ]
+        }
       };
     }
   };
