@@ -26,6 +26,7 @@
               :image-alt="imageAlt(item.primaryImageOfPage)"
               :texts="[item.description]"
               :offset="index"
+              :lazy="index >= 4"
             />
           </b-card-group>
         </b-col>

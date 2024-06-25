@@ -44,7 +44,7 @@
             :fields="card"
             :card-type="card['__typename']"
             :variant="card['__variant']"
-            :lazy="lazy"
+            :lazy="lazy || (index >= 4)"
           />
         </template>
       </b-card-group>
