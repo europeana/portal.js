@@ -765,6 +765,7 @@ export default {
       "provide": "Become a providing institution",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
+      "supportingTechnicalPartners": "Supporting technical partners",
       "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
