@@ -19,7 +19,9 @@
           :variant="callsToAction[2] ? 'light' : 'innovationblue'"
           class="home-cta"
         />
-        <HomeLatestStories />
+        <HomeLatestStories
+          class="home-page-card-group"
+        />
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
@@ -30,7 +32,9 @@
           :variant="callsToAction[2] ? 'innovationblue' : 'yellowgrey'"
           class="home-cta"
         />
-        <HomeLatestGalleries />
+        <HomeLatestGalleries
+          class="home-page-card-group"
+        />
         <CallToActionBanner
           v-if="callsToAction[2]"
           :name="callsToAction[2].name"
@@ -136,6 +140,71 @@
 
       .cta-banner {
         margin-bottom: calc(5.5rem + 0.75em);
+      }
+    }
+  }
+
+  .home-page-card-group ::v-deep {
+
+    @media (min-width: $bp-wqhd) {
+      width: fit-content;
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter * 2}));
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+    }
+
+    .card:not(.mosaic-item) {
+
+      @media (min-width: ($bp-wqhd)) {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: ($bp-4k)) {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter-4k * 2});
+      }
+    }
+
+    h2.card-group-title {
+      color: $mediumgrey;
+      font-size: 2rem;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 0;
+
+      @media (min-width: $bp-extralarge) {
+        font-size: $font-size-xxl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xxl-4k;
+      }
+    }
+
+    .card-deck {
+      flex-flow: row wrap;
+      justify-content: center;
+      margin-top: 2.25rem;
+      margin-bottom: 2.25rem;
+
+      @media (min-width: $bp-4k) {
+        margin-top: calc( 1.5 * 2.25rem);
+        margin-bottom: calc( 1.5 * 2.25rem);
+      }
+
+      .content-card.card {
+        @media (max-width: ($bp-medium - 1px)) {
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        @media (min-width: $bp-large) {
+          margin-bottom: 0;
+        }
       }
     }
   }
