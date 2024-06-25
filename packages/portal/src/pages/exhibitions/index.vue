@@ -28,14 +28,14 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    asyncData({ query, error, app }) {
+      const page = Number(query.page || 1);
 
-    asyncData({ query, error, app, store }) {
       const variables = {
         locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview',
         limit: PER_PAGE,
-        skip: (store.state.sanitised.page - 1) * PER_PAGE
+        skip: (page - 1) * PER_PAGE
       };
 
       return app.$contentful.query('exhibitionFoyerPage', variables)
@@ -44,7 +44,7 @@
           return {
             exhibitions: data.exhibitionPageCollection.items,
             total: data.exhibitionPageCollection.total,
-            page: store.state.sanitised.page,
+            page,
             perPage: PER_PAGE
           };
         })

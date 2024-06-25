@@ -73,8 +73,6 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
-
     data() {
       return {
         relatedCollections: null,

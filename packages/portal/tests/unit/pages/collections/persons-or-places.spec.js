@@ -31,7 +31,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
-    $route: { query: null, path: '/collections/persons' },
+    $route: { query: {}, path: '/collections/persons' },
     $auth: {
       loggedIn: false
     },
@@ -43,13 +43,6 @@ const factory = () => shallowMountNuxt(page, {
     },
     $i18n: {
       locale: 'es'
-    },
-    $store: {
-      state: {
-        sanitised: {
-          page: 1
-        }
-      }
     }
   }
 });

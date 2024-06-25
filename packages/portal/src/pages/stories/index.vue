@@ -58,8 +58,6 @@
 
     mixins: [pageMetaMixin],
 
-    middleware: 'sanitisePageQuery',
-
     data() {
       return {
         headline: null,
