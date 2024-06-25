@@ -99,10 +99,6 @@ export default {
     "topic": "Potemė",
     "trending": "Populiarūs skaitmeniniai objektai"
   },
-  "blog": {
-    "blog": "Tinklaraštis",
-    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai"
-  },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
@@ -727,6 +723,7 @@ export default {
       "provide": "Tapkite teikėjas",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
+      "supportingTechnicalPartners": "Techninių partnerių palaikymas",
       "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",

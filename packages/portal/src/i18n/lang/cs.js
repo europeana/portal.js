@@ -99,10 +99,6 @@ export default {
     "topic": "Tématy",
     "trending": "Trendové položky"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogový příspěvek | Příspěvky na blogu"
-  },
   "cardLabels": {
     "organisation": "Organizace",
     "person": "Osoba",
@@ -728,6 +724,7 @@ export default {
       "provide": "Staňte se poskytující instituce",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
+      "supportingTechnicalPartners": "Podpora technických partnerů",
       "terms": "Podmínky a zásady"
     },
     "ourMission": "Naše mise",

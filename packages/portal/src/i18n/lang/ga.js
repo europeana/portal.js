@@ -99,10 +99,6 @@ export default {
     "topic": "Ábhair",
     "trending": "Míreanna treochta"
   },
-  "blog": {
-    "blog": "Blag",
-    "posts": "Blag phost | Postálacha blag"
-  },
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
@@ -727,6 +723,7 @@ export default {
       "provide": "Bí i d'institiúid sholáthartha",
       "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
+      "supportingTechnicalPartners": "Tacú le comhpháirtithe teicniúla",
       "terms": "Téarmaí & Beartais"
     },
     "ourMission": "Ár misean",

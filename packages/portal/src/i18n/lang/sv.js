@@ -99,10 +99,6 @@ export default {
     "topic": "Ämnen",
     "trending": "Trendiga objekt"
   },
-  "blog": {
-    "blog": "Blogg",
-    "posts": "Blogginlägg | Blogginlägg"
-  },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
@@ -727,6 +723,7 @@ export default {
       "provide": "Bli en tillhandahållande institution",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
+      "supportingTechnicalPartners": "Stödja tekniska partners",
       "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",

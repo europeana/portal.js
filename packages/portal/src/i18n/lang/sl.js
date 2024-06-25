@@ -99,10 +99,6 @@ export default {
     "topic": "Teme",
     "trending": "Trendovski enote"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Objava na blogu | Objave na spletnem dnevniku"
-  },
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
@@ -727,6 +723,7 @@ export default {
       "provide": "Postanite ponudnik podatkov",
       "seeApiRequests": "Oglejte si zahteve za API-je Europeane",
       "subscribe": "Naročite se na naše novice",
+      "supportingTechnicalPartners": "Podpora tehničnim partnerjem",
       "terms": "Pogoji in pravilniki"
     },
     "ourMission": "Naša misija",

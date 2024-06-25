@@ -99,10 +99,6 @@ export default {
     "topic": "Suġġetti",
     "trending": "Oġġetti trending"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blog post | Postijiet tal-blog"
-  },
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
@@ -727,6 +723,7 @@ export default {
       "provide": "Issir istituzzjoni fornitriċi",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
+      "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
       "terms": "Termini u Politiki"
     },
     "ourMission": "Il-missjoni tagħna",

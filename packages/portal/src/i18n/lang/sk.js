@@ -99,10 +99,6 @@ export default {
     "topic": "Témy",
     "trending": "Trendujúce objekty"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogový príspevok | Blogové príspevky"
-  },
   "cardLabels": {
     "organisation": "Organizácia",
     "person": "Osoba",
@@ -727,6 +723,7 @@ export default {
       "provide": "Staňte sa správcovská inštitúcia",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
+      "supportingTechnicalPartners": "Podpora technických partnerov",
       "terms": "Podmienky a zásady"
     },
     "ourMission": "Náš cieľ",

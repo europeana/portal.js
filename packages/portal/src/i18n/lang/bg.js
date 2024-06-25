@@ -99,10 +99,6 @@ export default {
     "topic": "Рубрика",
     "trending": "Тенденционни обекта"
   },
-  "blog": {
-    "blog": "Блог",
-    "posts": "Публикация в блог | Публикации в блогове"
-  },
   "cardLabels": {
     "organisation": "Организация",
     "person": "човек",
@@ -733,6 +729,7 @@ export default {
       "provide": "Станете доставчик на данни",
       "seeApiRequests": "Вижте заявките към API на Europeana",
       "subscribe": "Абонирайте се за нашия бюлетин",
+      "supportingTechnicalPartners": "Поддържащи технически партньори",
       "terms": "Условия и политики"
     },
     "ourMission": "Нашата мисия",

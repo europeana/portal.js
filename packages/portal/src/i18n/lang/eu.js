@@ -99,10 +99,6 @@ export default {
     "topic": "Gaiak",
     "trending": "Joerako elementuak"
   },
-  "blog": {
-    "blog": "Bloga",
-    "posts": "Blogeko mezua | Blogeko argitalpenak"
-  },
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
@@ -733,6 +729,7 @@ export default {
       "provide": "Bihurtu erakunde hornitzaile bat",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
+      "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
       "terms": "Baldintzak eta politikak"
     },
     "ourMission": "Gure eginkizuna",

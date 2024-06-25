@@ -99,10 +99,6 @@ export default {
     "topic": "Tematikas",
     "trending": "Populārākās digitālie objekti"
   },
-  "blog": {
-    "blog": "Emuārs",
-    "posts": "Bloga ieraksts | Bloga ieraksti"
-  },
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
@@ -727,6 +723,7 @@ export default {
       "provide": "Kļūsti piegādājošā iestāde",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
+      "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
       "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",

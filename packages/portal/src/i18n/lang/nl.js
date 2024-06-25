@@ -99,10 +99,6 @@ export default {
     "topic": "Onderwerpen",
     "trending": "Populaire objecten"
   },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogbericht | Blogberichten"
-  },
   "cardLabels": {
     "organisation": "Organisatie",
     "person": "Persoon",
@@ -728,6 +724,7 @@ export default {
       "provide": "Word een deelnemende erfgoedorganisatie",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
+      "supportingTechnicalPartners": "Ondersteunende technische partners",
       "terms": "Voorwaarden en beleid"
     },
     "ourMission": "Onze missie",

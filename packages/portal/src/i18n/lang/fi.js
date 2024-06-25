@@ -99,10 +99,6 @@ export default {
     "topic": "Aiheet",
     "trending": "Trendaavat aineistot"
   },
-  "blog": {
-    "blog": "Blogi",
-    "posts": "Blogiviesti | Blogikirjoituksia"
-  },
   "cardLabels": {
     "organisation": "Organisaatio",
     "person": "Henkilö",
@@ -728,6 +724,7 @@ export default {
       "provide": "Ryhdy aineiston tarjoaja",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
+      "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
       "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
