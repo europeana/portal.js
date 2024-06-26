@@ -67,6 +67,10 @@ header .col {
     font-weight: 600;
     margin-bottom: 2rem;
 
+    @media (min-width: $bp-small) {
+      font-size: $font-size-large;
+    }
+
     &.related-heading {
       font-size: $font-size-small;
       font-weight: 600;
@@ -79,9 +83,14 @@ header .col {
   }
 
   h3 {
-    font-size: 1.125rem;
+    font-size: $font-size-base;
     font-weight: 600;
     margin-bottom: 2rem;
+
+    @media (min-width: $bp-small) {
+      font-size: 1.125rem;
+    }
+
   }
 
   .subtitle,
