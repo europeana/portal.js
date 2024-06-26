@@ -41,66 +41,80 @@
 @import '@europeana/style/scss/variables';
 
 .featured-story-card {
+  overflow: hidden;
+  min-height: 10rem;
+
   @at-root .xxl-page .card-deck-4-cols & {
     flex: 0 1 100%;
     max-width: none;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 4.5rem;
+    }
   }
 
-  min-height: 10rem;
-  margin-bottom: 3rem;
-
   ::v-deep .card-wrapper {
-    flex-direction: row;
+    @media (min-width: $bp-medium) {
+      flex-direction: row;
+    }
   }
 
   ::v-deep .card-img {
-    position: absolute;
-    border-radius: $border-radius-small;
-    min-height: 10rem;
-    max-height: none;
-    top: 0;
-    bottom: 0;
+    @media (min-width: $bp-medium) {
+      flex: 0 0 50%;
+      order: 1;
+      max-height: none;
+      position: relative;
+      border-radius: 0;
 
-    &::after {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-      position: absolute;
-      z-index: 1;
+      img {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
     }
   }
 
   ::v-deep .card-body {
-    position: relative;
-    flex: 0 1 auto;
-    z-index: 2;
-    padding: 2rem;
+    flex: 0 0 50%;
+    padding: 2.625rem 1rem;
+    background-color: $blue;
+
+    @media (min-width: $bp-medium) {
+      order: 0;
+      padding: 2.875rem 2rem;
+    }
 
     @media (min-width: $bp-large) {
       flex: 0 0 50%;
     }
 
-    @media (min-width: $bp-xxxl) {
-      max-width: $max-text-column-width;
+    @media (min-width: $bp-4k) {
+      padding: 8.75rem 6.5rem;
     }
 
-    @media (min-width: $bp-4k) {
-      padding: 3rem;
+    .card-title-texts-wrapper {
+      @media (min-width: $bp-xxxl) {
+        max-width: $max-text-column-width;
+      }
     }
 
     .card-subtitle {
-      background-color: $blue;
+      background-color: $white;
       border-radius: $border-radius-small;
-      color: $white;
+      color: $blue;
       padding: 0.3125rem 0.5rem;
       display: inline-block;
+      margin-bottom: 1.375rem;
 
       @media (min-width: $bp-4k) {
         border-radius: $border-radius-large;
         padding: calc(1.5 * 0.3125rem) 0.75rem;
+        font-size: $font-size-extrasmall-4k;
       }
     }
 
@@ -113,7 +127,7 @@
       -webkit-line-clamp: none;
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
+        font-size: $font-size-xl-4k;
       }
 
       a {
