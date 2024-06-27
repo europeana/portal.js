@@ -3,10 +3,10 @@
     :title="featuredStory.name"
     :texts="[featuredStory.headline]"
     :url="contentfulEntryUrl(featuredStory)"
-    :image-url="featuredStory.image && featuredStory.image.url"
-    :image-content-type="featuredStory.image && featuredStory.image.contentType"
-    :image-width="featuredStory.image && featuredStory.image.width"
-    :image-height="featuredStory.image && featuredStory.image.height"
+    :image-url="displayImage.url"
+    :image-content-type="displayImage.contentType"
+    :image-width="displayImage.width"
+    :image-height="displayImage.height"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"
@@ -28,6 +28,12 @@
       featuredStory: {
         type: Object,
         required: true
+      }
+    },
+
+    computed: {
+      displayImage() {
+        return this.featuredStory?.image || this.featuredStory?.primaryImageOfPage?.image;
       }
     },
 

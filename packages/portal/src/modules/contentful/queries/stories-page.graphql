@@ -32,6 +32,9 @@ query StoriesPage(
         __typename
         name
         headline
+        primaryImageOfPage {
+          ...imageWithAttributionFields
+        }
         identifier
         categoriesCollection {
           items {
@@ -51,6 +54,13 @@ fragment illustrationFields on Illustration {
     ...imageFields
   }
 }
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  image {
+    ...imageFields
+  }
+}
+
 
 fragment imageFields on Asset {
   url

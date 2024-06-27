@@ -38,6 +38,7 @@
       <StoriesFeaturedCard
         v-if="showFeaturedStory"
         :featured-story="featuredStory"
+        :image="feature"
         data-qa="featured story card"
       />
       <template
