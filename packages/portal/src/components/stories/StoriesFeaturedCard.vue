@@ -161,8 +161,7 @@
       }
 
       p {
-        display: block;
-        -webkit-line-clamp: none;
+        -webkit-line-clamp: 2;
       }
     }
   }
