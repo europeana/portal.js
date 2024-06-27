@@ -127,6 +127,7 @@
       display: inline-flex;
       flex-direction: column;
       -webkit-line-clamp: none;
+      overflow: visible;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-xl-4k;
