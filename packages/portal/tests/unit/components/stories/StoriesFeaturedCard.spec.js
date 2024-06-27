@@ -27,7 +27,7 @@ const factory = (propsData = basePropsData) => mount(StoriesFeaturedCard, {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
         optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
       }
-    },
+    }
   }
 });
 
