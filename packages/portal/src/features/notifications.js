@@ -1,3 +1,3 @@
 export default [
-  { name: 'trendingItems', url: '/collections#trending-items' }
+  { name: 'immersiveStories', url: '/stories' }
 ];

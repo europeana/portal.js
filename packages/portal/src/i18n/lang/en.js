@@ -959,7 +959,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Show me",
     "text": {
-      "trendingItems": "Discover which items capture people's attention and gain popularity in real-time. Take advantage of the chance to stay ahead of the curve - see what people view, like, curate and reuse the most right now."
+      "immersiveStories": "Check out the new immersive story!"
     }
   },
   "newWindow": "opens in new window",
