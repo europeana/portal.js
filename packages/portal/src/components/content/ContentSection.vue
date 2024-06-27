@@ -7,12 +7,14 @@
   <ContentCardSection
     v-else-if="contentfulEntryHasContentType(section, 'CardGroup')"
     :section="section"
+    :lazy="lazy"
     class="mb-5"
   />
   <BrowseAutomatedCardGroup
     v-else-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
     :section-type="section.genre"
     :more-button="section.moreButton"
+    :lazy="lazy"
   />
   <EmbedHTML
     v-else-if="contentfulEntryHasContentType(section, 'Embed')"
@@ -97,6 +99,14 @@
       section: {
         type: Object,
         required: true
+      },
+
+      /**
+       * If `true`, image will be lazy-loaded
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
 

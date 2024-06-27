@@ -48,6 +48,7 @@
           :rights-statement="hero.license"
           :attribution="hero"
           :alt="heroImageAlt"
+          :lazy="false"
           hero
         />
       </b-col>

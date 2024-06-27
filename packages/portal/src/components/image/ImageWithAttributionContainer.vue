@@ -16,6 +16,7 @@
         :alt="alt"
         :content-type="contentType"
         :attribution="attribution"
+        :lazy="lazy"
       />
     </b-jumbotron>
   </b-container>
@@ -60,6 +61,10 @@
       hero: {
         type: Boolean,
         default: false
+      },
+      lazy: {
+        type: Boolean,
+        default: true
       }
     }
   };

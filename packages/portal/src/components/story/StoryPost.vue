@@ -87,6 +87,7 @@
                   :key="`sub-${subIndex}`"
                   :section="subSection"
                   :rich-text-is-card="false"
+                  :lazy="index > 0"
                 />
               </div>
             </b-col>
@@ -97,6 +98,7 @@
           :key="index"
           :section="section"
           :rich-text-is-card="false"
+          :lazy="index > 0"
           data-qa="story image text slide scroller"
         />
       </template>
