@@ -134,19 +134,20 @@
 
       a {
         color: $white;
-      }
 
-      &::after {
-        content: '';
-        width: 100%;
-        display: inline-block;
-        background-image: linear-gradient(to right, $white 50%, transparent 50%);
-        background-size: 201% 2px;
-        background-position: bottom right;
-        background-repeat: no-repeat;
-        transition: all 400ms linear;
-        opacity: 0;
-        padding-bottom: 2px;
+        span {
+          background-image: linear-gradient(to right, $white 50%, transparent 50%);
+          background-size: 201% 2px;
+          background-position: bottom right;
+          background-repeat: no-repeat;
+          transition: background-position 400ms linear;
+          padding-bottom: 4px;
+
+          @media (min-width: $bp-4k) {
+            background-size: 201% 4px;
+            padding-bottom: 6px;
+          }
+        }
       }
     }
 
@@ -174,10 +175,9 @@
       }
     }
 
-    ::v-deep .card-title::after {
-      opacity: 1;
+    ::v-deep .card-title a span {
       background-position: bottom left;
-      transition: all 400ms linear;
+      transition: background-position 400ms linear;
     }
   }
 }
