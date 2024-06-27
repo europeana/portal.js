@@ -182,3 +182,17 @@
   }
 }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <StoriesFeaturedCard
+      :featuredStory="{
+        '__typename': 'Story',
+        identifier: 'story-identifier',
+        name: 'Story title',
+        headline: 'Story subtitle with a bit more text.',
+        image: imagesWithAttribution[0].image
+      }"
+    />
+  ```
+</docs>
