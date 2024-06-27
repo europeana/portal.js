@@ -75,6 +75,7 @@
         right: 0;
         bottom: 0;
         left: 0;
+        transition: transform 400ms linear;
       }
     }
   }
@@ -123,7 +124,8 @@
       font-size: $font-size-medium;
       font-weight: 500;
       color: $white;
-      display: block;
+      display: inline-flex;
+      flex-direction: column;
       -webkit-line-clamp: none;
 
       @media (min-width: $bp-4k) {
@@ -132,6 +134,19 @@
 
       a {
         color: $white;
+      }
+
+      &::after {
+        content: '';
+        width: 100%;
+        display: inline-block;
+        background-image: linear-gradient(to right, $white 50%, transparent 50%);
+        background-size: 201% 2px;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        transition: all 400ms linear;
+        opacity: 0;
+        padding-bottom: 2px;
       }
     }
 
@@ -148,6 +163,21 @@
         display: block;
         -webkit-line-clamp: none;
       }
+    }
+  }
+
+  &:hover {
+    ::v-deep .card-img {
+      img {
+        transform: scale(1.05);
+        transition: transform 400ms linear;
+      }
+    }
+
+    ::v-deep .card-title::after {
+      opacity: 1;
+      background-position: bottom left;
+      transition: all 400ms linear;
     }
   }
 }
