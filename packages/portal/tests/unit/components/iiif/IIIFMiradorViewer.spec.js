@@ -5,7 +5,7 @@ import nock from 'nock';
 import sinon from 'sinon';
 import VueI18n from 'vue-i18n';
 
-import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
+import IIIFMiradorViewer from '@/components/iiif/IIIFMiradorViewer.vue';
 
 const localVue = createLocalVue();
 localVue.use(VueI18n);
@@ -36,7 +36,7 @@ const mockMiradorModule = {
   theme: {}
 };
 
-const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
+const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFMiradorViewer, {
   localVue,
   propsData: {
     uri: 'http://example.org/iiif/manifest.json',
@@ -60,7 +60,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFVie
   }
 });
 
-describe('components/iiif/IIIFViewer.vue', () => {
+describe('components/iiif/IIIFMiradorViewer.vue', () => {
   beforeAll(() => {
     window.Mirador = mockMiradorModule.default;
     window.MiradorTheme = mockMiradorModule.theme;

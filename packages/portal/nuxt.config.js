@@ -301,7 +301,8 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/features'
+    '~/plugins/features',
+    `~/plugins/iiif-viewer.${process.env.BUILD_IIIF_VIEWER || 'mirador'}`
   ],
 
   buildModules: [

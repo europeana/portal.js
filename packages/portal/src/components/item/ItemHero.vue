@@ -11,6 +11,10 @@
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
+        :europeana-identifier="identifier"
+        :edm-type="edmType"
+        :displayable-media="media"
+        @select="selectMedia"
       />
     </div>
     <ItemMediaSwiper
@@ -104,8 +108,7 @@
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
