@@ -96,8 +96,7 @@ export default {
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
-    "topic": "Topics",
-    "trending": "Trending items"
+    "topic": "Topics"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -1239,6 +1238,7 @@ export default {
     "themes": "Themes",
     "description": "Browse by theme"
   },
+  "trendingItemsHeadline": "Explore today’s popular items",
   "views": {
     "count": "{count} view | {count} views"
   },

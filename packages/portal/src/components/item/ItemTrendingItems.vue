@@ -9,7 +9,7 @@
       <h2
         class="card-group-title"
       >
-        {{ headline }}
+        {{ $t('trendingItemsHeadline') }}
       </h2>
     </div>
     <div class="col-12">
@@ -31,13 +31,6 @@
 
     components: {
       ItemPreviewCardMosaic
-    },
-
-    props: {
-      headline: {
-        type: String,
-        default: null
-      }
     },
 
     data() {
