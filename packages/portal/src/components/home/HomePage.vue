@@ -44,6 +44,7 @@
           :illustration="callsToAction[2].image"
           class="home-cta"
         />
+        <ItemTrendingItems />
       </b-container>
     </client-only>
   </div>
@@ -58,6 +59,7 @@
   import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
   import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
 
   export default {
     name: 'HomePage',
@@ -68,7 +70,8 @@
       HomeHero,
       HomeLatestGalleries,
       HomeLatestStories,
-      HomeThemes
+      HomeThemes,
+      ItemTrendingItems
     },
 
     mixins: [pageMetaMixin],
