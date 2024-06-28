@@ -2,10 +2,10 @@
   <section
     v-if="items"
     id="trending-items"
-    class="browse-section row mb-5"
+    class="trending-items browse-section row mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-6">
+    <div class="col-12">
       <h2
         class="card-group-title"
       >

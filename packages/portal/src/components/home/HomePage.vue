@@ -147,6 +147,26 @@
     }
   }
 
+  ::v-deep h2.card-group-title {
+    color: $mediumgrey;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc( 1.5 * 2.25rem);
+    }
+
+    @media (min-width: $bp-extralarge) {
+      font-size: $font-size-xxl;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-xxl-4k;
+    }
+  }
+
   .home-page-card-group ::v-deep {
 
     @media (min-width: $bp-wqhd) {
@@ -172,19 +192,7 @@
     }
 
     h2.card-group-title {
-      color: $mediumgrey;
-      font-size: 2rem;
-      font-weight: 400;
-      text-align: center;
       margin-bottom: 0;
-
-      @media (min-width: $bp-extralarge) {
-        font-size: $font-size-xxl;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xxl-4k;
-      }
     }
 
     .card-deck {
@@ -209,6 +217,14 @@
           margin-bottom: 0;
         }
       }
+    }
+  }
+
+  ::v-deep .trending-items {
+    @media (min-width: $bp-4k) {
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>
