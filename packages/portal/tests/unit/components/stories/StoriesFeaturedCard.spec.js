@@ -37,21 +37,10 @@ describe('StoriesFeaturedCard.vue', () => {
     expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
   });
 
-  describe('when an image is specifically set', () => {
-    it('uses the image', () => {
-      const wrapper = factory({ ...basePropsData, featuredStory: { image: { url: 'https://www.example.com/image.jpg' } } });
+  it('uses the primary image of the story page', () => {
+    const wrapper = factory();
 
-      const cardImage = wrapper.find('img');
-      expect(cardImage.attributes('src')).toBe('https://www.example.com/image.jpg');
-    });
-  });
-
-  describe('when no image is specifically set', () => {
-    it('uses the primary image of the story page as a fallback', () => {
-      const wrapper = factory();
-
-      const cardImage = wrapper.find('img');
-      expect(cardImage.attributes('src')).toBe('https://www.example.com/primaryImageOfPage.jpg');
-    });
+    const cardImage = wrapper.find('img');
+    expect(cardImage.attributes('src')).toBe('https://www.example.com/primaryImageOfPage.jpg');
   });
 });

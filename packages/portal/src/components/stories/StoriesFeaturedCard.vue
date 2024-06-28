@@ -3,10 +3,10 @@
     :title="featuredStory.name"
     :texts="[featuredStory.headline]"
     :url="contentfulEntryUrl(featuredStory)"
-    :image-url="displayImage.url"
-    :image-content-type="displayImage.contentType"
-    :image-width="displayImage.width"
-    :image-height="displayImage.height"
+    :image-url="featuredStory.primaryImageOfPage?.image?.url"
+    :image-content-type="featuredStory.primaryImageOfPage?.image?.contentType"
+    :image-width="featuredStory.primaryImageOfPage?.image?.width"
+    :image-height="featuredStory.primaryImageOfPage?.image?.height"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"
@@ -28,12 +28,6 @@
       featuredStory: {
         type: Object,
         required: true
-      }
-    },
-
-    computed: {
-      displayImage() {
-        return this.featuredStory?.image || this.featuredStory?.primaryImageOfPage?.image;
       }
     },
 
@@ -61,8 +55,16 @@
   }
 
   ::v-deep .card-wrapper {
+    .default-thumbnail {
+      aspect-ratio: 0;
+    }
+
     @media (min-width: $bp-medium) {
       flex-direction: row;
+    }
+
+    @media (min-width: $bp-xxl) {
+      min-height: 20rem;
     }
   }
 
