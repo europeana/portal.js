@@ -5,8 +5,6 @@
     :url="contentfulEntryUrl(featuredStory)"
     :image-url="featuredStory.image && featuredStory.image.url"
     :image-content-type="featuredStory.image && featuredStory.image.contentType"
-    :image-width="featuredStory.image && featuredStory.image.width"
-    :image-height="featuredStory.image && featuredStory.image.height"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"

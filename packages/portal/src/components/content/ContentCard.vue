@@ -204,7 +204,7 @@
        */
       imageHeight: {
         type: Number,
-        default: 280
+        default: 288
       },
       /**
        * Image alt text
@@ -219,7 +219,7 @@
        */
       contentfulImageCropPresets: {
         type: Object,
-        default: () => ({ 'small': { w: 480, h: 280, fit: 'fill' } })
+        default: () => ({ 'small': { w: 480, h: 288, fit: 'fill' } })
       },
       /**
        * If `true`, image will be lazy-loaded
@@ -265,20 +265,6 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
-      },
-      /**
-       * Height of image placeholder when lazy-loading image
-       */
-      blankImageHeight: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Width of image placeholder when lazy-loading image
-       */
-      blankImageWidth: {
-        type: Number,
-        default: null
       },
       /**
        * If `true`, the image is a logo and will be styled differently
@@ -392,6 +378,26 @@
           return this.displayTitle?.value || this.tooltipTexts;
         }
         return null;
+      },
+
+      imageWidthPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageWidth;
+        }
+      },
+
+      imageHeightPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageHeight;
+        }
       }
     },
 
