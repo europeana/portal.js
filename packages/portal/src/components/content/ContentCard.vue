@@ -21,8 +21,8 @@
       >
         <ImageOptimised
           :src="cardImageUrl"
-          :width="imageWidth"
-          :height="imageHeight"
+          :width="imageWidthPerVariant"
+          :height="imageHeightPerVariant"
           :alt="imageAlt"
           :content-type="imageContentType"
           :contentful-image-crop-presets="contentfulImageCropPresets"

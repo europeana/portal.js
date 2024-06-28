@@ -352,4 +352,14 @@ describe('components/content/ContentCard', () => {
       });
     });
   });
+
+  describe('when the card variant is list', () => {
+    it('sets the image width and height to 240', () => {
+      const wrapper = factory({ propsData: { imageUrl: 'https://example.org',  variant: 'list' } });
+
+      const image = wrapper.find('[data-qa="content card"] .card-img imageoptimised-stub');
+      expect(image.attributes('width')).toBe('240');
+      expect(image.attributes('height')).toBe('240');
+    });
+  });
 });
