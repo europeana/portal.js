@@ -9,7 +9,6 @@
     :image-height="imageHeight"
     :image-alt="imageAlt"
     :omit-all-uris="true"
-    :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
     :variant="variant"
   />

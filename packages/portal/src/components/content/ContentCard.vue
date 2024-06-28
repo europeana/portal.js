@@ -19,25 +19,17 @@
         class="card-img"
         :class="{ logo }"
       >
-        <b-img-lazy
-          v-if="lazy"
-          :src="optimisedImageUrl"
-          :blank-width="blankImageWidth"
-          :blank-height="blankImageHeight"
+        <ImageOptimised
+          :src="cardImageUrl"
           :width="imageWidth"
           :height="imageHeight"
           :alt="imageAlt"
+          :content-type="imageContentType"
+          :contentful-image-crop-presets="contentfulImageCropPresets"
+          :picture-source-media-resolutions="[1, 2]"
+          :lazy="lazy"
           @error.native="imageNotFound"
           @load.native="imageLoaded"
-        />
-        <b-img
-          v-else
-          :src="optimisedImageUrl"
-          :width="imageWidth"
-          :height="imageHeight"
-          :alt="imageAlt"
-          @error="imageNotFound"
-          @load="imageLoaded"
         />
       </div>
       <SmartLink
@@ -134,7 +126,8 @@
     components: {
       ClientOnly,
       SmartLink,
-      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
 
     mixins: [
@@ -204,14 +197,14 @@
        */
       imageWidth: {
         type: Number,
-        default: null
+        default: 480
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: null
+        default: 280
       },
       /**
        * Image alt text
@@ -221,13 +214,12 @@
         default: ''
       },
       /**
-       * Image optimisation options
+       * Image crop presets for optimised images
        *
-       * Passed to `optimisedImageUrl` filter
        */
-      imageOptimisationOptions: {
+      contentfulImageCropPresets: {
         type: Object,
-        default: () => ({})
+        default: () => ({ 'small': { w: 480, h: 280, fit: 'fill' } })
       },
       /**
        * If `true`, image will be lazy-loaded
@@ -386,16 +378,6 @@
             return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
           }
         }).filter((displayText) => displayText.values.length > 0);
-      },
-
-      optimisedImageUrl() {
-        if (!this.$contentful.assets.isValidUrl(this.imageUrl)) {
-          return this.imageUrl;
-        }
-        return this.$contentful.assets.optimisedSrc(
-          { url: this.imageUrl, contentType: this.imageContentType },
-          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
-        );
       },
 
       tooltipTexts() {
