@@ -13,7 +13,8 @@ import versions from './pkg-versions.js';
 import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled } from './src/features/index.js';
+import { featureNotificationExpiration } from './src/features/notifications.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -70,8 +71,11 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      featureNotification: {
+        expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
+        name: process.env.APP_FEATURE_NOTIFICATION
+      },
       feedback: {
         cors: {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)

@@ -6,11 +6,6 @@ export const featureIsEnabled = (name) => {
   return valueIsTruthy(process.env[envKey]);
 };
 
-export const featureNotificationExpiration = (value) => {
-  const date = new Date(value);
-  return date.toString() === 'Invalid Date' ? null : date;
-};
-
 export const valueIsTruthy = (value) => Boolean(Number(value));
 
 export default () => featureToggles
