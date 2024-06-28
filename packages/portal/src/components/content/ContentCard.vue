@@ -219,7 +219,7 @@
        */
       contentfulImageCropPresets: {
         type: Object,
-        default: () => ({ 'small': { w: 480, h: 288, fit: 'fill' } })
+        default: () => ({ 'small': { w: 480, h: 288, fit: 'fill', f: 'face' } })
       },
       /**
        * If `true`, image will be lazy-loaded
