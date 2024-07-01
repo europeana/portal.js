@@ -222,7 +222,7 @@ describe('components/content/ContentCard', () => {
           url: 'https://images.ctfassets.net/example/example.jpg',
           contentType: 'image/jpeg'
         },
-        { w: 510, h: undefined })).toBe(true);
+        { w: 510, h: undefined, fit: undefined, f: undefined })).toBe(true);
       });
 
       it('may have no image and is of variant mini', async() => {
