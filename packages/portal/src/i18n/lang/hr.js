@@ -96,8 +96,7 @@ export default {
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
-    "topic": "Sadržaj",
-    "trending": "Trendovski predmeti"
+    "topic": "Sadržaj"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} od {count} predmeti",
     "recent": "Nedavne predmeti",
     "recommended": "Preporučeni predmeti",
+    "trending": {
+      "headline": "Istražite današnje popularne predmete"
+    },
     "youMightLike": "Predmeti koje vam se mogu sviđati"
   },
   "klaro": {

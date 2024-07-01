@@ -96,8 +96,7 @@ export default {
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
-    "topic": "Ämnen",
-    "trending": "Trendiga objekt"
+    "topic": "Ämnen"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} av {count} objekt",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
+    "trending": {
+      "headline": "Utforska dagens populära objekt"
+    },
     "youMightLike": "Objekt som du kanske skulle gilla"
   },
   "klaro": {

@@ -96,8 +96,7 @@ export default {
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte",
-    "trending": "Resurse culturale populare"
+    "topic": "Subiecte"
   },
   "cardLabels": {
     "organisation": "Organizare",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} de {count} resurse culturale",
     "recent": "Resurse culturale recente",
     "recommended": "Resurse culturale recomandate",
+    "trending": {
+      "headline": "Explorați resursele culturale populare de astăzi"
+    },
     "youMightLike": "Resurse culturale care ți-ar putea plăcea"
   },
   "klaro": {

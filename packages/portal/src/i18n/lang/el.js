@@ -96,8 +96,7 @@ export default {
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
-    "topic": "Θέματα",
-    "trending": "Δημοφιλή τεκμήρια"
+    "topic": "Θέματα"
   },
   "cardLabels": {
     "organisation": "Οργάνωση",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} από {count} τεκμήρια",
     "recent": "Πρόσφατα αντικείμενα",
     "recommended": "Προτεινόμενα τεκμήρια",
+    "trending": {
+      "headline": "Εξερευνήστε τα δημοφιλή τεκμήρια του σήμερα"
+    },
     "youMightLike": "Τεκμήρια που μπορεί να σας αρέσουν"
   },
   "klaro": {

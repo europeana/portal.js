@@ -96,8 +96,7 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök",
-    "trending": "Népszerű tárgyak"
+    "topic": "Témakörök"
   },
   "cardLabels": {
     "organisation": "Szervezet",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} {count} tárgyak",
     "recent": "Legutóbbi tárgyak",
     "recommended": "Ajánlott tárgyak",
+    "trending": {
+      "headline": "Fedezze fel a mai népszerű tárgyakat"
+    },
     "youMightLike": "Tárgyak, amik tetszhetnek Önnek"
   },
   "klaro": {

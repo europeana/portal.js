@@ -96,8 +96,7 @@ export default {
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
-    "topic": "Teemad",
-    "trending": "Trendivad  üksused"
+    "topic": "Teemad"
   },
   "cardLabels": {
     "organisation": "Organisatsioon",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} / {count} üksused",
     "recent": "Hiljutised üksused",
     "recommended": "Soovitatavad üksused",
+    "trending": {
+      "headline": "Avastage tänased populaarsed üksused"
+    },
     "youMightLike": "Üksused, mis võivad teile meeldida"
   },
   "klaro": {
