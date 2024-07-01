@@ -1,5 +1,5 @@
 const features = [
-  { name: 'immersiveStories', url: '/stories' }
+  { name: 'immersiveStories', url: '/stories/claude-cahun' }
 ];
 
 export const featureNotificationExpiration = (value) => {

@@ -959,7 +959,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Show me",
     "text": {
-      "immersiveStories": "Check out the new immersive story!"
+      "immersiveStories": "Our stories have a new look — read one to see."
     }
   },
   "newWindow": "opens in new window",
