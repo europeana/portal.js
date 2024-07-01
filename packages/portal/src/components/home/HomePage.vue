@@ -221,7 +221,7 @@
   }
 
   ::v-deep .trending-items {
-    @media (min-width: $bp-4k) {
+    @media (min-width: $bp-wqhd) {
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
       margin-left: auto;
       margin-right: auto;
