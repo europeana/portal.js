@@ -1,6 +1,6 @@
 module.exports = function(migration) {
-  const story = migration
+  const storiesPage = migration
     .editContentType('storiesPage');
 
-  story.deleteField('featuredStoryImage');
+  storiesPage.deleteField('featuredStoryImage');
 };
