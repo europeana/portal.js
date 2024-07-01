@@ -7,6 +7,7 @@
     :image-content-type="featuredStory.primaryImageOfPage?.image?.contentType"
     :image-width="featuredStory.primaryImageOfPage?.image?.width"
     :image-height="featuredStory.primaryImageOfPage?.image?.height"
+    :image-optimisation-options="{ width: 700, height: 320, fit: 'fill', focus: 'face' }"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"
