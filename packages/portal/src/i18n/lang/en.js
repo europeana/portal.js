@@ -96,8 +96,7 @@ export default {
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
-    "topic": "Topics",
-    "trending": "Trending items"
+    "topic": "Topics"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -819,6 +818,9 @@ export default {
     "itemOf": "{max} of {count} items",
     "recent": "Recent items",
     "recommended": "Recommended items",
+    "trending": {
+      "headline": "Explore today’s popular items"
+    },
     "youMightLike": "Items you might like"
   },
   "klaro": {
