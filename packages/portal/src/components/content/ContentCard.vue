@@ -394,7 +394,8 @@
         }
         return this.$contentful.assets.optimisedSrc(
           { url: this.imageUrl, contentType: this.imageContentType },
-          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
+          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height,
+            fit: this.imageOptimisationOptions?.fit, f: this.imageOptimisationOptions?.focus }
         );
       },
 
