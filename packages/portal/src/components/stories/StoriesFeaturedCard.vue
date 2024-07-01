@@ -55,16 +55,16 @@
   }
 
   ::v-deep .card-wrapper {
-    .default-thumbnail {
-      aspect-ratio: 0;
-    }
-
     @media (min-width: $bp-medium) {
       flex-direction: row;
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-xxxl) {
       min-height: 20rem;
+    }
+
+    .default-thumbnail {
+      aspect-ratio: 0;
     }
   }
 
@@ -120,6 +120,10 @@
       display: inline-block;
       margin-bottom: 1.375rem;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-extrasmall);
+      }
+
       @media (min-width: $bp-4k) {
         border-radius: $border-radius-large;
         padding: calc(1.5 * 0.3125rem) 0.75rem;
@@ -136,6 +140,10 @@
       flex-direction: column;
       -webkit-line-clamp: none;
       overflow: visible;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-medium);
+      }
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-xl-4k;
@@ -164,6 +172,10 @@
       color: $white;
       font-size: $font-size-base;
       line-height: 1.5;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-base);
+      }
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
