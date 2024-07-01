@@ -140,7 +140,6 @@
       display: inline-flex;
       flex-direction: column;
       -webkit-line-clamp: none;
-      overflow: visible;
 
       @media (min-width: $bp-xxxl) {
         font-size: calc(1.25 * $font-size-medium);
@@ -152,20 +151,6 @@
 
       a {
         color: $white;
-
-        span {
-          background-image: linear-gradient(to right, $white 50%, transparent 50%);
-          background-size: 201% 2px;
-          background-position: bottom right;
-          background-repeat: no-repeat;
-          transition: background-position 400ms linear;
-          padding-bottom: 4px;
-
-          @media (min-width: $bp-4k) {
-            background-size: 201% 4px;
-            padding-bottom: 6px;
-          }
-        }
       }
     }
 
@@ -194,11 +179,6 @@
         transform: scale(1.05);
         transition: transform 400ms linear;
       }
-    }
-
-    ::v-deep .card-title a span {
-      background-position: bottom left;
-      transition: background-position 400ms linear;
     }
   }
 }
