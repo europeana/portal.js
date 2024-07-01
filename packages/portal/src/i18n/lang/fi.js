@@ -96,8 +96,7 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet",
-    "trending": "Trendaavat aineistot"
+    "topic": "Aiheet"
   },
   "cardLabels": {
     "organisation": "Organisaatio",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} / {count} aineistot",
     "recent": "Viimeisimmät aineistot",
     "recommended": "Suositellut aineistot",
+    "trending": {
+      "headline": "Tutustu tämän päivän suosittuihin aineistoihin"
+    },
     "youMightLike": "Saattaisit tykätä näistä aineistot"
   },
   "klaro": {

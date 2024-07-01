@@ -96,8 +96,7 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti",
-    "trending": "Oġġetti trending"
+    "topic": "Suġġetti"
   },
   "cardLabels": {
     "organisation": "Organizzazzjoni",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} minn {count} oġġett",
     "recent": "Oġġetti reċenti",
     "recommended": "Oġġetti rakkomandati",
+    "trending": {
+      "headline": "Esplora l-oġġetti popolari tal-lum"
+    },
     "youMightLike": "Oġġetti li jistgħu jinteressawk"
   },
   "klaro": {

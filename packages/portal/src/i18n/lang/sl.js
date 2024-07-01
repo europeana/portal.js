@@ -96,8 +96,7 @@ export default {
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
-    "topic": "Teme",
-    "trending": "Trendovski enote"
+    "topic": "Teme"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} od {count} enote",
     "recent": "Nedavni enote",
     "recommended": "Priporočeni enote",
+    "trending": {
+      "headline": "Raziščite današnje priljubljene enote"
+    },
     "youMightLike": "Enote, ki vam bodo mogoče všeč"
   },
   "klaro": {

@@ -96,8 +96,7 @@ export default {
     "place": "Posti",
     "theme": "Temi",
     "time": "Secoli",
-    "topic": "Argomenti",
-    "trending": "Oggetti di tendenza"
+    "topic": "Argomenti"
   },
   "cardLabels": {
     "organisation": "Organizzazione",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} di {count} oggetti",
     "recent": "Oggetti recenti",
     "recommended": "Oggetti consigliati",
+    "trending": {
+      "headline": "Esplora gli oggetti popolari di oggi"
+    },
     "youMightLike": "Oggetti che potrebbero piacerti"
   },
   "klaro": {

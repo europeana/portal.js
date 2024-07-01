@@ -96,8 +96,7 @@ export default {
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
-    "topic": "Potemė",
-    "trending": "Populiarūs skaitmeniniai objektai"
+    "topic": "Potemė"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} iš {count} skaitmeniniai objektai",
     "recent": "Naujausi skaitmeniniai objektai",
     "recommended": "Rekomenduojami skaitmeniniai objektai",
+    "trending": {
+      "headline": "Atraskite šiandienos populiariausius skaitmeninius objektus"
+    },
     "youMightLike": "Skaitmeniniai objektai, kurios jums gali patikti"
   },
   "klaro": {

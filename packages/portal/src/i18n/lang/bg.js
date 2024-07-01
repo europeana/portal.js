@@ -96,8 +96,7 @@ export default {
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
-    "topic": "Рубрика",
-    "trending": "Тенденционни обекта"
+    "topic": "Рубрика"
   },
   "cardLabels": {
     "organisation": "Организация",
@@ -783,6 +782,9 @@ export default {
     "itemOf": "{max} от {count} обекта",
     "recent": "Скорошни обекта",
     "recommended": "Препоръчани обекта",
+    "trending": {
+      "headline": "Разгледайте днешните популярни артикули"
+    },
     "youMightLike": "обекта, които може да ви харесат"
   },
   "klaro": {

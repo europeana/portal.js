@@ -96,8 +96,7 @@ export default {
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
-    "topic": "Emner",
-    "trending": "Trending genstande"
+    "topic": "Emner"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} af {count} genstande",
     "recent": "Seneste genstande",
     "recommended": "Anbefalede genstande",
+    "trending": {
+      "headline": "Udforsk dagens populære genstande"
+    },
     "youMightLike": "Genstande, du måske vil synes om"
   },
   "klaro": {

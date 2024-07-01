@@ -96,8 +96,7 @@ export default {
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
-    "topic": "Tematy",
-    "trending": "Popularne obiekty cyfrowe"
+    "topic": "Tematy"
   },
   "cardLabels": {
     "organisation": "Organizacja",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} z {count} obiekty cyfrowe",
     "recent": "Ostatnie obiekty cyfrowe",
     "recommended": "Polecane obiekty cyfrowe",
+    "trending": {
+      "headline": "Odkryj dzisiejsze popularne obiekty cyfrowe"
+    },
     "youMightLike": "Obiekty cyfrowe, które mogą Ci się spodobać"
   },
   "klaro": {

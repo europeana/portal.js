@@ -96,8 +96,7 @@ export default {
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
-    "topic": "Témy",
-    "trending": "Trendujúce objekty"
+    "topic": "Témy"
   },
   "cardLabels": {
     "organisation": "Organizácia",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "Max. {max} z {count} objekty",
     "recent": "Nedávne objekty",
     "recommended": "Odporúčané položky",
+    "trending": {
+      "headline": "Preskúmajte dnešné populárne objekty"
+    },
     "youMightLike": "Objekty, ktoré by sa vám mohli páčiť objekty"
   },
   "klaro": {

@@ -96,8 +96,7 @@ export default {
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak",
-    "trending": "Joerako elementuak"
+    "topic": "Gaiak"
   },
   "cardLabels": {
     "organisation": "Antolaketa",
@@ -783,6 +782,9 @@ export default {
     "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
+    "trending": {
+      "headline": "Arakatu gaurko elementu ezagunak"
+    },
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "klaro": {
