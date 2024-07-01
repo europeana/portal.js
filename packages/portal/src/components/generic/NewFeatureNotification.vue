@@ -16,7 +16,8 @@
       <b-button
         class="mr-2"
         variant="outline-primary"
-        @click="hideToast"
+        data-qa="new feature dismiss"
+        @click="handleClickDismiss"
       >
         {{ $t('newFeatureNotification.dismiss') }}
       </b-button>
@@ -26,7 +27,7 @@
         :href="url"
         target="blank"
         data-qa="new feature read more"
-        @click="trackEvent('click read more')"
+        @click="handleClickReadMore"
       >
         {{ $t('newFeatureNotification.readMore') }}
       </b-button>
@@ -71,16 +72,24 @@
 
       this.trackEvent('show');
 
-      // TODO: why do we set this immediately and not after interaction?
       this.$cookies.set(this.cookieName, this.name, {
         maxAge: 2678400
       });
     },
 
     methods: {
+      handleClickDismiss() {
+        this.hideToast();
+        this.trackEvent('dismissed');
+      },
+
+      handleClickReadMore() {
+        this.hideToast();
+        this.trackEvent('click read more');
+      },
+
       hideToast() {
         this.$bvToast.hide(this.toastId);
-        this.trackEvent('dismissed');
       },
 
       trackEvent(msg) {

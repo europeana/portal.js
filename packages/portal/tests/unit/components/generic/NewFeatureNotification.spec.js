@@ -6,7 +6,9 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = {}) => shallowMount(NewFeatureNotification, {
+const basePropsData = { name: 'new' };
+
+const factory = (propsData = basePropsData) => shallowMount(NewFeatureNotification, {
   localVue,
   propsData,
   mocks: {
@@ -22,39 +24,76 @@ const factory = (propsData = {}) => shallowMount(NewFeatureNotification, {
 });
 
 describe('components/generic/NewFeatureNotification', () => {
-  describe('when a url prop is passed', () => {
-    it('shows a "read more" button', () => {
-      const wrapper = factory({ name: 'new', url: 'https://www.example.eu' });
-      const readMoreButton = wrapper.find('[data-qa="new feature read more"]');
-      expect(readMoreButton.exists()).toBe(true);
-    });
+  afterEach(sinon.resetHistory);
+
+  it('tracks the showing of the component in matomo', () => {
+    const wrapper = factory();
+    const mtmTrackEvent = wrapper.vm.$matomo.trackEvent;
+
+    expect(mtmTrackEvent.calledWith('New_feature_notification', 'show', 'new')).toBe(true);
   });
-  describe('hideToast', () => {
-    it('hides the toast', async() => {
-      const wrapper = factory({ name: 'new' });
+
+  it('shows a "dismiss" button', () => {
+    const wrapper = factory();
+
+    const dismissButton = wrapper.find('[data-qa="new feature dismiss"]');
+
+    expect(dismissButton.exists()).toBe(true);
+  });
+
+  describe('when the "dismiss button is clicked', () => {
+    it('tracks the event in matomo', () => {
+      const wrapper = factory();
+      const mtmTrackEvent = wrapper.vm.$matomo.trackEvent;
+
+      const dismissButton = wrapper.find('[data-qa="new feature dismiss"]');
+      dismissButton.trigger('click');
+
+      expect(mtmTrackEvent.calledWith('New_feature_notification', 'dismissed', 'new')).toBe(true);
+    });
+
+    it('hides the toast', () => {
+      const wrapper = factory();
       const bvToastHide = sinon.spy(wrapper.vm.$bvToast, 'hide');
 
-      await wrapper.vm.hideToast();
+      const dismissButton = wrapper.find('[data-qa="new feature dismiss"]');
+      dismissButton.trigger('click');
 
       expect(bvToastHide.calledWith('new-feature-toast')).toBe(true);
     });
-    it('tracks the "dismissed" event', async()  => {
-      const wrapper = factory({ name: 'new' });
-      const trackEvent = sinon.spy(wrapper.vm, 'trackEvent');
-
-      await wrapper.vm.hideToast();
-
-      expect(trackEvent.calledWith('dismissed')).toBe(true);
-    });
   });
-  describe('trackEvent', () => {
-    it('tracks a matomo event with the event type and feature name', async() => {
-      const wrapper = factory({ name: 'organisations' });
-      const mtmTrackEvent = wrapper.vm.$matomo.trackEvent;
 
-      await wrapper.vm.trackEvent('show');
+  describe('when a url prop is passed', () => {
+    const propsData = { name: 'new', url: 'https://www.example.eu' };
 
-      expect(mtmTrackEvent.calledWith('New_feature_notification', 'show', 'organisations')).toBe(true);
+    it('shows a "read more" button', () => {
+      const wrapper = factory(propsData);
+
+      const readMoreButton = wrapper.find('[data-qa="new feature read more"]');
+
+      expect(readMoreButton.exists()).toBe(true);
+    });
+
+    describe('when the "read more" button is clicked', () => {
+      it('tracks the event in matomo', () => {
+        const wrapper = factory(propsData);
+        const mtmTrackEvent = wrapper.vm.$matomo.trackEvent;
+
+        const readMoreButton = wrapper.find('[data-qa="new feature read more"]');
+        readMoreButton.trigger('click');
+
+        expect(mtmTrackEvent.calledWith('New_feature_notification', 'click read more', 'new')).toBe(true);
+      });
+
+      it('hides the toast', () => {
+        const wrapper = factory(propsData);
+        const bvToastHide = sinon.spy(wrapper.vm.$bvToast, 'hide');
+
+        const readMoreButton = wrapper.find('[data-qa="new feature read more"]');
+        readMoreButton.trigger('click');
+
+        expect(bvToastHide.calledWith('new-feature-toast')).toBe(true);
+      });
     });
   });
 });
