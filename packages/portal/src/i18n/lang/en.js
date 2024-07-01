@@ -818,6 +818,9 @@ export default {
     "itemOf": "{max} of {count} items",
     "recent": "Recent items",
     "recommended": "Recommended items",
+    "trending": {
+      "headline": "Explore today’s popular items"
+    },
     "youMightLike": "Items you might like"
   },
   "klaro": {
@@ -1238,7 +1241,6 @@ export default {
     "themes": "Themes",
     "description": "Browse by theme"
   },
-  "trendingItemsHeadline": "Explore today’s popular items",
   "views": {
     "count": "{count} view | {count} views"
   },

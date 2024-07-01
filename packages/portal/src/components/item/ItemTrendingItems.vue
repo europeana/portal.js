@@ -9,7 +9,7 @@
       <h2
         class="card-group-title"
       >
-        {{ $t('trendingItemsHeadline') }}
+        {{ $t('items.trending.headline') }}
       </h2>
     </div>
     <div class="col-12">
