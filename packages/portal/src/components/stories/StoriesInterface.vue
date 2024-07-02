@@ -64,7 +64,6 @@
           :url="contentfulEntryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-          :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
         />
       </template>
     </b-card-group>
@@ -218,11 +217,7 @@
         this.$scrollTo?.('#header');
       },
 
-      contentfulEntryUrl,
-
-      entryImageOptions(image) {
-        return image.width <= image.height ? { width: 660 } : { height: 620 };
-      }
+      contentfulEntryUrl
     }
   };
 </script>

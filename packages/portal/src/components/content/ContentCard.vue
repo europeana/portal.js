@@ -19,25 +19,17 @@
         class="card-img"
         :class="{ logo }"
       >
-        <b-img-lazy
-          v-if="lazy"
-          :src="optimisedImageUrl"
-          :blank-width="blankImageWidth"
-          :blank-height="blankImageHeight"
-          :width="imageWidth"
-          :height="imageHeight"
+        <ImageOptimised
+          :src="cardImageUrl"
+          :width="imageWidthPerVariant"
+          :height="imageHeightPerVariant"
           :alt="imageAlt"
+          :content-type="imageContentType"
+          :contentful-image-crop-presets="contentfulImageCropPresets"
+          :picture-source-media-resolutions="[1, 2]"
+          :lazy="lazy"
           @error.native="imageNotFound"
           @load.native="imageLoaded"
-        />
-        <b-img
-          v-else
-          :src="optimisedImageUrl"
-          :width="imageWidth"
-          :height="imageHeight"
-          :alt="imageAlt"
-          @error="imageNotFound"
-          @load="imageLoaded"
         />
       </div>
       <SmartLink
@@ -134,7 +126,8 @@
     components: {
       ClientOnly,
       SmartLink,
-      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
 
     mixins: [
@@ -204,14 +197,14 @@
        */
       imageWidth: {
         type: Number,
-        default: null
+        default: 480
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: null
+        default: 288
       },
       /**
        * Image alt text
@@ -221,13 +214,12 @@
         default: ''
       },
       /**
-       * Image optimisation options
+       * Image crop presets for optimised images
        *
-       * Passed to `optimisedImageUrl` filter
        */
-      imageOptimisationOptions: {
+      contentfulImageCropPresets: {
         type: Object,
-        default: () => ({})
+        default: () => ({ 'small': { w: 480, h: 288, fit: 'fill', f: 'face' } })
       },
       /**
        * If `true`, image will be lazy-loaded
@@ -273,20 +265,6 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
-      },
-      /**
-       * Height of image placeholder when lazy-loading image
-       */
-      blankImageHeight: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Width of image placeholder when lazy-loading image
-       */
-      blankImageWidth: {
-        type: Number,
-        default: null
       },
       /**
        * If `true`, the image is a logo and will be styled differently
@@ -388,17 +366,6 @@
         }).filter((displayText) => displayText.values.length > 0);
       },
 
-      optimisedImageUrl() {
-        if (!this.$contentful.assets.isValidUrl(this.imageUrl)) {
-          return this.imageUrl;
-        }
-        return this.$contentful.assets.optimisedSrc(
-          { url: this.imageUrl, contentType: this.imageContentType },
-          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height,
-            fit: this.imageOptimisationOptions?.fit, f: this.imageOptimisationOptions?.focus }
-        );
-      },
-
       tooltipTexts() {
         return this.displayTexts.map(text => text.values).join(' - ');
       },
@@ -411,6 +378,26 @@
           return this.displayTitle?.value || this.tooltipTexts;
         }
         return null;
+      },
+
+      imageWidthPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageWidth;
+        }
+      },
+
+      imageHeightPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageHeight;
+        }
       }
     },
 

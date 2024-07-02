@@ -19,6 +19,7 @@ const pageOfGalleries = [...identifiers].map(identifier => {
 
 const testPropsData = {
   pageMeta: { title: 'Title' },
+  title: 'Test title',
   items: pageOfItems,
   perPage: 24,
   total: 25,
@@ -27,6 +28,7 @@ const testPropsData = {
 
 const testGalleriesPropsData = {
   pageMeta: { title: 'Galleries title' },
+  title: 'Galleries title',
   items: pageOfGalleries,
   perPage: 24,
   total: 25,

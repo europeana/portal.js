@@ -25,7 +25,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $contentful: {
       assets: {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        responsiveImageSrcset: (img) => `${img.url} srcset`
       }
     },
     $i18n: {
@@ -44,7 +44,8 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $tc: (key) => key,
     $store,
     ...mocks
-  }
+  },
+  stubs: ['ImageOptimised']
 });
 
 describe('components/content/ContentCard', () => {
@@ -205,24 +206,9 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: 'https://example.org' });
 
-        const image = wrapper.find('[data-qa="content card"] .card-img img');
+        const image = wrapper.find('[data-qa="content card"] .card-img imageoptimised-stub');
         expect(image).toBeDefined();
         expect(image.attributes('src')).toBe('https://example.org');
-      });
-
-      it('may have an optimised image, if for Contentful asset', () => {
-        const wrapper = factory({ propsData: {
-          imageUrl: 'https://images.ctfassets.net/example/example.jpg',
-          imageContentType: 'image/jpeg',
-          imageOptimisationOptions: { width: 510 }
-        } });
-
-        expect(wrapper.vm.optimisedImageUrl).toContain('?optimised');
-        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
-          url: 'https://images.ctfassets.net/example/example.jpg',
-          contentType: 'image/jpeg'
-        },
-        { w: 510, h: undefined, fit: undefined, f: undefined })).toBe(true);
       });
 
       it('may have no image and is of variant mini', async() => {
@@ -245,11 +231,11 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
 
-        let image = wrapper.find('[data-qa="content card"] .card-img img');
+        let image = wrapper.find('[data-qa="content card"] .card-img imageoptimised-stub');
         expect(image.exists()).toBe(true);
         await image.trigger('error');
 
-        image = wrapper.find('[data-qa="content card"] .card-img img');
+        image = wrapper.find('[data-qa="content card"] .card-img imageoptimised-stub');
         expect(image.exists()).toBe(false);
       });
     });
@@ -364,6 +350,16 @@ describe('components/content/ContentCard', () => {
           expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
         });
       });
+    });
+  });
+
+  describe('when the card variant is list', () => {
+    it('sets the image width and height to 240', () => {
+      const wrapper = factory({ propsData: { imageUrl: 'https://example.org',  variant: 'list' } });
+
+      const image = wrapper.find('[data-qa="content card"] .card-img imageoptimised-stub');
+      expect(image.attributes('width')).toBe('240');
+      expect(image.attributes('height')).toBe('240');
     });
   });
 });

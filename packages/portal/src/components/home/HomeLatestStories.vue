@@ -16,7 +16,6 @@
         :key="card.identifier"
         :title="card.name"
         :image-url="cardImage(card)"
-        :image-optimisation-options="{ width: 960 }"
         :url="contentfulEntryUrl(card)"
       />
     </b-card-group>
