@@ -5,6 +5,7 @@
     :url="contentfulEntryUrl(featuredStory)"
     :image-url="featuredStory.primaryImageOfPage?.image?.url"
     :image-content-type="featuredStory.primaryImageOfPage?.image?.contentType"
+    :contentful-image-crop-presets="imageCropPresets"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"
@@ -27,6 +28,22 @@
         type: Object,
         required: true
       }
+    },
+
+    data() {
+      return {
+        imageCropPresets: {
+          small: { w: 545, h: 288, fit: 'fill', f: 'face' },
+          medium: { w: 510, h: 288, fit: 'fill', f: 'face' },
+          large: { w: 345, h: 288, fit: 'fill', f: 'face' },
+          xl: { w: 465, h: 288, fit: 'fill', f: 'face' },
+          xxl: { w: 555, h: 320, fit: 'fill', f: 'face' },
+          xxxl: { w: 805, h: 320, fit: 'fill', f: 'face' },
+          wqhd: { w: 1005, h: 480, fit: 'fill', f: 'face' },
+          '4k': { w: 1255, h: 480, fit: 'fill', f: 'face' },
+          '4k+': { w: 1485, h: 578, fit: 'fill', f: 'face' }
+        }
+      };
     },
 
     methods: {
