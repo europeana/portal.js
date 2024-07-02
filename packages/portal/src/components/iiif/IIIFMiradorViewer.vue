@@ -27,7 +27,7 @@
   import upperFirst from 'lodash/upperFirst';
 
   export default {
-    name: 'IIIFViewer',
+    name: 'IIIFMiradorViewer',
 
     components: {
       IIIFErrorMessage: () => import('./IIIFErrorMessage.vue')
