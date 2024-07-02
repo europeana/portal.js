@@ -3,8 +3,8 @@
     :title="featuredStory.name"
     :texts="[featuredStory.headline]"
     :url="contentfulEntryUrl(featuredStory)"
-    :image-url="featuredStory.image && featuredStory.image.url"
-    :image-content-type="featuredStory.image && featuredStory.image.contentType"
+    :image-url="featuredStory.primaryImageOfPage?.image?.url"
+    :image-content-type="featuredStory.primaryImageOfPage?.image?.contentType"
     :lazy="false"
     class="featured-story-card"
     data-qa="featured story card"
@@ -39,66 +39,93 @@
 @import '@europeana/style/scss/variables';
 
 .featured-story-card {
+  overflow: hidden;
+  min-height: 10rem;
+
   @at-root .xxl-page .card-deck-4-cols & {
     flex: 0 1 100%;
     max-width: none;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 4.5rem;
+    }
   }
 
-  min-height: 10rem;
-  margin-bottom: 3rem;
-
   ::v-deep .card-wrapper {
-    flex-direction: row;
+    @media (min-width: $bp-medium) {
+      flex-direction: row;
+    }
+
+    @media (min-width: $bp-xxxl) {
+      min-height: 20rem;
+    }
+
+    .default-thumbnail {
+      aspect-ratio: 0;
+    }
   }
 
   ::v-deep .card-img {
-    position: absolute;
-    border-radius: $border-radius-small;
-    min-height: 10rem;
-    max-height: none;
-    top: 0;
-    bottom: 0;
+    @media (min-width: $bp-medium) {
+      flex: 0 0 50%;
+      order: 1;
+      max-height: none;
+      position: relative;
+      border-radius: 0;
 
-    &::after {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-      position: absolute;
-      z-index: 1;
+      img {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transition: transform 400ms linear;
+      }
     }
   }
 
   ::v-deep .card-body {
-    position: relative;
-    flex: 0 1 auto;
-    z-index: 2;
-    padding: 2rem;
+    flex: 0 0 50%;
+    padding: 2.625rem 1rem;
+    background-color: $blue;
+
+    @media (min-width: $bp-medium) {
+      order: 0;
+      padding: 2.875rem 2rem;
+    }
 
     @media (min-width: $bp-large) {
       flex: 0 0 50%;
     }
 
-    @media (min-width: $bp-xxxl) {
-      max-width: $max-text-column-width;
+    @media (min-width: $bp-4k) {
+      padding: 8.75rem 6.5rem;
     }
 
-    @media (min-width: $bp-4k) {
-      padding: 3rem;
+    .card-title-texts-wrapper {
+      @media (min-width: $bp-xxxl) {
+        max-width: $max-text-column-width;
+      }
     }
 
     .card-subtitle {
-      background-color: $blue;
+      background-color: $white;
       border-radius: $border-radius-small;
-      color: $white;
+      color: $blue;
       padding: 0.3125rem 0.5rem;
       display: inline-block;
+      margin-bottom: 1.375rem;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-extrasmall);
+      }
 
       @media (min-width: $bp-4k) {
         border-radius: $border-radius-large;
         padding: calc(1.5 * 0.3125rem) 0.75rem;
+        font-size: $font-size-extrasmall-4k;
       }
     }
 
@@ -107,11 +134,16 @@
       font-size: $font-size-medium;
       font-weight: 500;
       color: $white;
-      display: block;
+      display: inline-flex;
+      flex-direction: column;
       -webkit-line-clamp: none;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-medium);
+      }
+
       @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
+        font-size: $font-size-xl-4k;
       }
 
       a {
@@ -124,15 +156,41 @@
       font-size: $font-size-base;
       line-height: 1.5;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: calc(1.25 * $font-size-base);
+      }
+
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
       }
 
       p {
-        display: block;
-        -webkit-line-clamp: none;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+
+  &:hover {
+    ::v-deep .card-img {
+      img {
+        transform: scale(1.05);
+        transition: transform 400ms linear;
       }
     }
   }
 }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <StoriesFeaturedCard
+      :featuredStory="{
+        '__typename': 'Story',
+        identifier: 'story-identifier',
+        name: 'Story title',
+        headline: 'Story subtitle with a bit more text.',
+        image: imagesWithAttribution[0].image
+      }"
+    />
+  ```
+</docs>

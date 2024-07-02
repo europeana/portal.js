@@ -96,8 +96,7 @@ export default {
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
-    "topic": "Ábhair",
-    "trending": "Míreanna treochta"
+    "topic": "Ábhair"
   },
   "cardLabels": {
     "organisation": "Eagraíocht",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} de mhíreanna {count}",
     "recent": "Míreanna le déanaí",
     "recommended": "Míreanna molta",
+    "trending": {
+      "headline": "Déan iniúchadh ar na míreanna coitianta an lae inniu"
+    },
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
   },
   "klaro": {

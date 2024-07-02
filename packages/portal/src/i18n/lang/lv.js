@@ -96,8 +96,7 @@ export default {
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
-    "topic": "Tematikas",
-    "trending": "Populārākās digitālie objekti"
+    "topic": "Tematikas"
   },
   "cardLabels": {
     "organisation": "Organizācija",
@@ -777,6 +776,9 @@ export default {
     "itemOf": "{max} no {count} digitālie objekti",
     "recent": "Pēdējie digitālie objekti",
     "recommended": "Leteiktie digitālie objekti",
+    "trending": {
+      "headline": "Izpētiet šodienas populārākos digitālos objektus"
+    },
     "youMightLike": "Digitālie objekti, kas jums varētu patikt"
   },
   "klaro": {

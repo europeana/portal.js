@@ -8,7 +8,6 @@
     />
     <ItemTrendingItems
       v-else-if="trending"
-      :headline="headline"
     />
     <ContentCardSection
       v-else
@@ -106,7 +105,6 @@
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       } else if (this.sectionType === TRENDING_ITEMS) {
         data.trending = true;
-        data.headline = this.$i18n.t('automatedCardGroup.trending');
       }
 
       return data;

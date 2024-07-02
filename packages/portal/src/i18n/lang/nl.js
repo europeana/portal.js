@@ -96,8 +96,7 @@ export default {
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
-    "topic": "Onderwerpen",
-    "trending": "Populaire objecten"
+    "topic": "Onderwerpen"
   },
   "cardLabels": {
     "organisation": "Organisatie",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} van {count} objecten",
     "recent": "Recente objecten",
     "recommended": "Aanbevolen objecten",
+    "trending": {
+      "headline": "Ontdek de populaire objecten van vandaag"
+    },
     "youMightLike": "Objecten die u misschien interessant vindt"
   },
   "klaro": {

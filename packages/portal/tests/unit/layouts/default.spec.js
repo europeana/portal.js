@@ -85,47 +85,19 @@ describe('layouts/default.vue', () => {
   });
 
   describe('NewFeatureNotification', () => {
-    describe('when no feature notification is defined', () => {
-      it('is not loaded', () => {
-        const wrapper = factory({ data: { featureNotification: undefined } });
+    describe('when no feature notification is active', () => {
+      it('is not rendered', () => {
+        const wrapper = factory({ data: { featureNotification: null } });
         const notification = wrapper.find('[data-qa="new feature notification"]');
         expect(notification.exists()).toBe(false);
       });
     });
-    describe('when feature notification is defined', () => {
-      describe('and expiration has not passed', () => {
-        it('is rendered', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' }, featureNotificationExpiration: new Date('3011-11-20') }, cookies: {} });
+    describe('when a feature notification is active', () => {
+      it('is rendered', () => {
+        const wrapper = factory({ data: { featureNotification: { name: 'filters' } } });
 
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(true);
-        });
-      });
-      describe('and expiration has passed', () => {
-        it('is not loaded', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' }, featureNotificationExpiration: new Date('2011-11-20') }, cookies: {} });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(false);
-        });
-      });
-      describe('and new_feature_notification cookies are set with the feature`s name', () => {
-        it('is not loaded', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' } },
-            cookies: { 'new_feature_notification': 'filters' } });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(false);
-        });
-      });
-      describe('and new_feature_notification cookies are set with a different name', () => {
-        it('is rendered', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' } },
-            cookies: { 'new_feature_notification': 'organisations' } });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(true);
-        });
+        const notification = wrapper.find('[data-qa="new feature notification"]');
+        expect(notification.exists()).toBe(true);
       });
     });
   });

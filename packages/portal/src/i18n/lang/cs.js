@@ -96,8 +96,7 @@ export default {
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
-    "topic": "Tématy",
-    "trending": "Trendové položky"
+    "topic": "Tématy"
   },
   "cardLabels": {
     "organisation": "Organizace",
@@ -778,6 +777,9 @@ export default {
     "itemOf": "{max} z {count} položky",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
+    "trending": {
+      "headline": "Prozkoumejte dnešní oblíbené položky"
+    },
     "youMightLike": "Položky, které by se vám mohly líbit"
   },
   "klaro": {
