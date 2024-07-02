@@ -961,7 +961,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Show me",
     "text": {
-      "trendingItems": "Discover which items capture people's attention and gain popularity in real-time. Take advantage of the chance to stay ahead of the curve - see what people view, like, curate and reuse the most right now."
+      "immersiveStories": "Our stories have a new look — read one to see."
     }
   },
   "newWindow": "opens in new window",

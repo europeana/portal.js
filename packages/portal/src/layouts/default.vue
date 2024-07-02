@@ -40,18 +40,13 @@
         id="main"
       />
     </main>
-    <client-only
-      v-if="newFeatureNotificationEnabled"
-    >
+    <client-only>
       <NewFeatureNotification
-        :feature="featureNotification.name"
+        v-if="featureNotification"
+        :name="featureNotification.name"
         :url="featureNotification.url"
         data-qa="new feature notification"
-      >
-        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
-      </NewFeatureNotification>
-    </client-only>
-    <client-only>
+      />
       <PageFooter />
       <DebugApiRequests />
     </client-only>
@@ -79,7 +74,7 @@
   import hotjarMixin from '@/mixins/hotjar.js';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
-  import featureNotifications from '@/features/notifications';
+  import { activeFeatureNotification } from '@/features/notifications';
 
   export default {
     name: 'DefaultLayout',
@@ -105,10 +100,8 @@
 
     data() {
       return {
-        dateNow: Date.now(),
         enableAnnouncer: true,
-        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
-        featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
+        featureNotification: activeFeatureNotification(this.$nuxt?.context),
         hotjarId: this.$config?.hotjar?.id,
         hotjarSv: this.$config?.hotjar?.sv,
         linkGroups: {},
@@ -146,12 +139,6 @@
     computed: {
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
-      },
-
-      newFeatureNotificationEnabled() {
-        return !!this.featureNotification &&
-          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
-          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
       }
     },
 
