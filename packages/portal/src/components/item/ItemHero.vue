@@ -5,15 +5,12 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <IIIFViewer
+      <IIIFPresentation
         :uri="iiifPresentationManifest"
         :search-query="fulltextSearchQuery"
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
-        :europeana-identifier="identifier"
-        :edm-type="edmType"
-        :displayable-media="media"
         @select="selectMedia"
       />
     </div>

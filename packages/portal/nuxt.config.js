@@ -302,7 +302,7 @@ export default {
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
     '~/plugins/features',
-    `~/plugins/iiif-viewer.${process.env.BUILD_IIIF_VIEWER || 'mirador'}`
+    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'mirador'}`
   ],
 
   buildModules: [
