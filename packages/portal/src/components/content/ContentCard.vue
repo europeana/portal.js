@@ -26,6 +26,7 @@
           :alt="imageAlt"
           :content-type="imageContentType"
           :contentful-image-crop-presets="contentfulImageCropPresets"
+          :image-sizes="imageSizes"
           :picture-source-media-resolutions="[1, 2]"
           :lazy="lazy"
           @error.native="imageNotFound"
@@ -220,6 +221,13 @@
       contentfulImageCropPresets: {
         type: Object,
         default: () => ({ 'small': { w: 480, h: 288, fit: 'fill', f: 'face' } })
+      },
+      /**
+       * Image sizes for optimised images
+       */
+      imageSizes: {
+        type: String,
+        default: null
       },
       /**
        * If `true`, image will be lazy-loaded

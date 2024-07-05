@@ -5,6 +5,7 @@
     :url="contentfulEntryUrl(featuredStory)"
     :image-url="featuredStory.primaryImageOfPage?.image?.url"
     :image-content-type="featuredStory.primaryImageOfPage?.image?.contentType"
+    :image-sizes="imageSizes"
     :contentful-image-crop-presets="imageCropPresets"
     :lazy="false"
     class="featured-story-card"
@@ -42,7 +43,18 @@
           wqhd: { w: 1005, h: 480, fit: 'fill', f: 'face' },
           '4k': { w: 1255, h: 480, fit: 'fill', f: 'face' },
           '4k+': { w: 1485, h: 578, fit: 'fill', f: 'face' }
-        }
+        },
+        imageSizes: [
+          '(max-width: 575px) 545px', // bp-small
+          '(max-width: 767px) 510px', // bp-medium
+          '(max-width: 991px) 345px', // bp-large
+          '(max-width: 1199px) 465px', // bp-xl
+          '(max-width: 1399px) 555px', // bp-xxl
+          '(max-width: 1879px) 805px', // bp-xxxl
+          '(max-width: 2519px) 1005px', // bp-wqhd
+          '(max-width: 3019px) 1255px', // bp-4k
+          '1485px'
+        ].join(',')
       };
     },
 
