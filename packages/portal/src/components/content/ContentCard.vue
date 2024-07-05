@@ -198,14 +198,14 @@
        */
       imageWidth: {
         type: Number,
-        default: 480
+        default: 520
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: 288
+        default: 338
       },
       /**
        * Image alt text
@@ -220,7 +220,7 @@
        */
       contentfulImageCropPresets: {
         type: Object,
-        default: () => ({ 'small': { w: 480, h: 288, fit: 'fill', f: 'face' } })
+        default: () => ({ 'small': { w: 520, h: 338, fit: 'fill', f: 'face' } })
       },
       /**
        * Image sizes for optimised images
