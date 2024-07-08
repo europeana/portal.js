@@ -17,6 +17,7 @@
     </b-col>
     <div
       class="swiper-container-wrapper"
+      :class="{ 'paginated': illustrations.length > 4 }"
     >
       <div
         v-show="swiperReady"
@@ -177,6 +178,8 @@
   .container {
     margin-top: 3rem;
     margin-bottom: 3rem;
+    padding-left: 0;
+    padding-right: 0;
 
     @media (min-width: $bp-large) {
       margin-top: 6rem;
@@ -200,26 +203,51 @@
     }
   }
 
+  $swiper-slide-width-height: 98px;
+  $swiper-slide-width-height-large: 127px;
+  $swiper-slide-width-height-4k: calc(2 * $swiper-slide-width-height-large);
+  $swiper-pagination-height: 56.5px;
+  $swiper-pagination-height-large: 88.5px;
+  $swiper-pagination-height-4k: 124px;
+
   .swiper-container-wrapper {
     margin: 0 auto;
     position: relative;
-    height: 264px;
+    height: calc(2 * $swiper-slide-width-height); // Set a fixed height to prevent layout shift
+
+    &.paginated {
+      height: calc((2 * $swiper-slide-width-height) + $swiper-pagination-height);
+    }
 
     @media (min-width: $bp-medium) {
       width: 100%;
-      height: 160px;
+      height: $swiper-slide-width-height;
+
+      &.paginated {
+        height: calc($swiper-slide-width-height + $swiper-pagination-height);
+      }
     }
 
     @media (min-width: $bp-large) {
       width: 873px;
-      height: 221px;
+      height: $swiper-slide-width-height-large;
+
+      &.paginated {
+        height: calc($swiper-slide-width-height-large + $swiper-pagination-height-large);
+      }
     }
 
     @media (min-width: $bp-4k) {
-      height: 456px;
+      width: 100%;
+      height: $swiper-slide-width-height-4k;
+
+      &.paginated {
+        height: calc($swiper-slide-width-height-4k + $swiper-pagination-height-4k);
+      }
     }
 
   }
+
   .swiper-container {
     width: 100%;
 
@@ -228,23 +256,23 @@
     }
 
     .image-wrapper {
-      width: 98px;
-      height: 98px;
+      width: $swiper-slide-width-height;
+      height: $swiper-slide-width-height;
       display: inline-flex;
       align-items: center;
       justify-content: center;
 
       @media (min-width: $bp-large) {
-        width: 127px;
-        height: 127px;
+        width: $swiper-slide-width-height-large;
+        height: $swiper-slide-width-height-large;
       }
 
       @media (min-width: $bp-4k) {
-        width: calc(1.5 * 127px);
-        height: calc(1.5 * 127px);
+        width: $swiper-slide-width-height-4k;
+        height: $swiper-slide-width-height-4k;;
       }
 
-      img {
+      ::v-deep img {
         mix-blend-mode: multiply; // fixes logo img with white background
         max-height: 100%;
 
@@ -278,6 +306,16 @@
       font-size: 1.25rem;
       font-weight: 700;
     }
+
+    @media (min-width: $bp-4k) {
+      height: 96px;
+      width: 96px;
+      top: calc(50% - 5rem);
+
+      &:after {
+        font-size: 2.5rem;
+      }
+    }
   }
 
   .swiper-button-prev::after {
@@ -307,6 +345,13 @@
     opacity: 1;
     margin-right: 6px;
 
+    @media (min-width: $bp-4k) {
+      height: 24px;
+      width: 24px;
+      margin-right: 12px;
+      border-width: 4px;
+    }
+
     &:hover {
       cursor: pointer;
     }
@@ -317,6 +362,17 @@
 
     &-active {
       background-color: $black;
+    }
+  }
+
+  .landing-illustration-group.pro {
+    .swiper-slide {
+      background-color: $bodygrey; // Set a background color for mix-blend-mode to work properly
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      background: $white;
     }
   }
 </style>
@@ -353,17 +409,24 @@
       }
     }
 
+    $swiper-slide-width-height-ds4ch-4k: 340px;
+    $swiper-pagination-height-ds4ch-4k: 126px;
+
     .swiper-container-wrapper {
       @media (min-width: $bp-4k) {
-        width: 100%;
+        height: $swiper-slide-width-height-ds4ch-4k;
+
+        &.paginated {
+          height: calc($swiper-slide-width-height-ds4ch-4k + $swiper-pagination-height-ds4ch-4k);
+        }
       }
     }
     .swiper-container {
 
       .image-wrapper {
         @media (min-width: $bp-4k) {
-          width: 340px;
-          height: 340px;
+          width: $swiper-slide-width-height-ds4ch-4k;
+          height: $swiper-slide-width-height-ds4ch-4k;
         }
       }
     }
