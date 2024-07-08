@@ -269,7 +269,7 @@
 
       @media (min-width: $bp-4k) {
         width: $swiper-slide-width-height-4k;
-        height: $swiper-slide-width-height-4k;;
+        height: $swiper-slide-width-height-4k;
       }
 
       ::v-deep img {
