@@ -5,12 +5,13 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <IIIFViewer
+      <IIIFPresentation
         :uri="iiifPresentationManifest"
         :search-query="fulltextSearchQuery"
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
+        @select="selectMedia"
       />
     </div>
     <ItemMediaSwiper
@@ -104,8 +105,7 @@
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
