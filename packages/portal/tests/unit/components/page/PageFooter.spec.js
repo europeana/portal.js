@@ -11,13 +11,6 @@ localVue.component('SmartLink', SmartLink);
 const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   localVue,
   mocks: {
-    $config: { app: { baseUrl: 'https://www.example.eu' } },
-    $features: {},
-    $store: {
-      getters: {
-        'debug/settings': { enabled: false }
-      }
-    },
     $t: (key) => key,
     ...mocks
   },
@@ -26,7 +19,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   }
 });
 
-describe('components/PageFooter', () => {
+describe('components/page/PageFooter', () => {
   it('contains the language selector', async() => {
     const wrapper = factory();
     await wrapper.setProps({
@@ -39,46 +32,15 @@ describe('components/PageFooter', () => {
 
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links = wrapper.vm.footerMoreInfo.links;
+    const links = wrapper.vm.moreInfo.links;
 
     expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
 
-  describe('debug link group', () => {
-    it('is not shown by default', () => {
-      const wrapper = factory();
+  it('displays links to supporting technical partners', () => {
+    const wrapper = factory();
+    const partners = wrapper.find('[data-qa="supporting technical partners"]');
 
-      expect(wrapper.vm.showDebugLinkGroup).toBe(false);
-    });
-
-    it('is shown if enabled in stored debug settings', () => {
-      const wrapper = factory();
-
-      wrapper.vm.$store.getters['debug/settings'] = { enabled: true };
-
-      expect(wrapper.vm.showDebugLinkGroup).toBe(true);
-    });
-  });
-
-  describe('FeedbackWidget', () => {
-    describe('when feedback toggle disabled', () => {
-      it('is not loaded', () => {
-        const wrapper = factory();
-
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-
-        expect(feedbackWidget.exists()).toBe(false);
-      });
-    });
-
-    describe('when feedback toggle enabled', () => {
-      it('is rendered', () => {
-        const wrapper = factory({ mocks: { $features: { jiraServiceDeskFeedbackForm: true } } });
-
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-
-        expect(feedbackWidget.exists()).toBe(true);
-      });
-    });
+    expect(partners.isVisible()).toBe(true);
   });
 });

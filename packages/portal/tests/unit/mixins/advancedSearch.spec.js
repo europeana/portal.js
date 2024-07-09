@@ -23,6 +23,16 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(component, {
 
 describe('mixins/advancedSearch', () => {
   describe('methods', () => {
+    describe('advancedSearchFieldByName', () => {
+      it('looks up the field based on the name attribute', () => {
+        const wrapper = factory();
+
+        const advancedSearchField = wrapper.vm.advancedSearchFieldByName('proxy_dc_date');
+
+        expect(advancedSearchField).toStrictEqual({ name: 'proxy_dc_date', type: 'string', suggestEntityType: 'timespan' });
+      });
+    });
+
     describe('advancedSearchFieldLabel', () => {
       it('translates "year" label for "YEAR" field', () => {
         const wrapper = factory();
@@ -114,9 +124,47 @@ describe('mixins/advancedSearch', () => {
 
         expect(advancedSearchRulesFromRouteQuery).toEqual([
           { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
-          { field: 'proxy_dc_type', modifier: 'doesNotContain', suggestEntityType: 'concept', term: 'photograph' },
+          { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' },
           { field: 'fulltext', modifier: 'contains', term: 'europe' }
         ]);
+      });
+    });
+
+    describe('advancedSearchRuleIsValid', () => {
+      describe('when none of the rule components have a value', () => {
+        const rule = { field: null, modifier: null, term: null };
+
+        it('is valid', () => {
+          const wrapper = factory();
+
+          const isValid = wrapper.vm.advancedSearchRuleIsValid(rule);
+
+          expect(isValid).toBe(true);
+        });
+      });
+
+      describe('when all of the rule components have a value', () => {
+        const rule = { field: 'what', modifier: 'contains', term: 'fruit' };
+
+        it('is valid', () => {
+          const wrapper = factory();
+
+          const isValid = wrapper.vm.advancedSearchRuleIsValid(rule);
+
+          expect(isValid).toBe(true);
+        });
+      });
+
+      describe('when only some of the rule components have a value', () => {
+        const rule = { field: 'what', modifier: null, term: 'fruit' };
+
+        it('is invalid', () => {
+          const wrapper = factory();
+
+          const isValid = wrapper.vm.advancedSearchRuleIsValid(rule);
+
+          expect(isValid).toBe(false);
+        });
       });
     });
   });

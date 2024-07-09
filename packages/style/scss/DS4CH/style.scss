@@ -1,0 +1,137 @@
+@import 'variables';
+@import '../icons';
+
+.page-header.ds4ch-page-header,
+.landing-page.ds4ch-page {
+
+  h2 {
+    @extend %title-2;
+  }
+
+  h3 {
+    @extend %title-3;
+  }
+
+  .btn {
+
+    &.btn-primary {
+      border: none;
+      border-radius: 0;
+      background-color: $yellow;
+      background-image: linear-gradient(to right, $black 50%, $yellow 50%);
+      background-size: 201% 100%; // Extra percent to prevent yellow line on hover effect
+      background-position: right;
+      color: $black;
+      display: inline-flex;
+      align-items: center;
+      font-family: $font-family-montserrat;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      transition: all 400ms ease-in-out;
+
+      @media (min-width: ($bp-4k)) {
+        font-size: 2.625rem;
+        padding: 2rem 2.625rem;
+        border-radius: 0;
+      }
+
+      &::after {
+        @extend %icon-font;
+        content: '\e91b';
+
+        display: inline-flex;
+        align-items: center;
+        transform: rotate(-90deg);
+        font-size: 0.625rem;
+        margin-left: 0.625rem;
+
+        @media (min-width: ($bp-4k)) {
+          font-size: 1.75rem;
+          margin-left: 1.75rem;
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-position: left;
+        color: $yellow;
+        box-shadow: none;
+      }
+    }
+
+    &.btn-secondary:not(.button-icon-only) {
+      border-radius: 0;
+      background-color: $black;
+      color: $white;
+      display: inline-flex;
+      align-items: center;
+      font-family: $font-family-montserrat;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      transition: all 400ms ease-in-out;
+      text-transform: uppercase;
+
+      @media (min-width: ($bp-4k)) {
+        font-size: 2.625rem;
+        padding: 2rem 2.625rem;
+      }
+
+      &.icon-chevron {
+        line-height: 1.5;
+
+        &::before {
+          @extend %icon-font;
+          order: 2;
+          display: inline-flex;
+          align-items: center;
+          transform: rotate(-90deg);
+          font-size: 0.625rem;
+          margin-left: 0.625rem;
+          color: $white;
+
+          @media (min-width: ($bp-4k)) {
+            font-size: 1.75rem;
+            margin-left: 1.75rem;
+          }
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+      }
+    }
+
+    &.btn-light-flat {
+      background-color: transparent;
+      color: $white;
+
+      &:hover,
+      &:focus {
+        color: $yellow;
+        transition: $standard-transition;
+      }
+    }
+  }
+
+  .bg-dark {
+    background-color: $black !important;
+  }
+
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    @media (min-width: ($bp-extralarge)) {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+
+    @media (min-width: ($bp-4k)) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

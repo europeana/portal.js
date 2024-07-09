@@ -17,15 +17,20 @@
           class="query-rule-field-label d-inline-flex align-items-center"
           :for="`${id}-${control}`"
         >
-          {{ $t(`search.advanced.input.${control}`) }}
+          <span
+            class="align-self-center"
+          >
+            {{ $t(`search.advanced.input.${control}`) }}
+          </span>
           <template v-if="tooltips">
             <b-button
               :id="`${id}-${control}-tooltip-btn`"
-              class="icon-info-outline py-0 px-1 tooltip-button"
+              class="icon-info-outline py-0 px-1 tooltip-button align-self-center"
               :aria-label="$t(`search.advanced.tooltip.${control}`)"
               variant="light-flat"
             />
             <b-tooltip
+              class="align-self-center"
               :target="`${id}-${control}-tooltip-btn`"
               :title="$t(`search.advanced.tooltip.${control}`)"
               boundary-padding="0"
@@ -37,28 +42,28 @@
           <SearchQueryBuilderRuleTermInput
             v-if="control === 'term'"
             :id="`${id}-${control}`"
-            v-model="term"
+            v-model="rule[control]"
             :placeholder="$t('search.advanced.placeholder.term')"
-            :state="validations.term.state"
+            :state="validation[control]?.state"
             :suggest-entity-type="suggestEntityTypeForTerm"
-            :advanced-search-field="field"
-            @change="(value) => handleRuleChange('term', value)"
+            :advanced-search-field="value.field"
+            @change="handleChange"
           />
           <SearchQueryBuilderRuleDropdown
             v-else
             :id="`${id}-${control}`"
+            v-model="rule[control]"
             :name="control"
             :options="dropdownSections[control]"
-            :state="validations[control].state"
-            :text="dropdownText[control]"
-            @change="(value) => handleRuleChange(control, value)"
+            :state="validation[control]?.state"
+            @change="handleChange"
           />
         </div>
         <b-form-invalid-feedback
-          v-show="validate"
-          :state="validations[control].state"
+          v-show="!validation[control]?.state"
+          :state="validation[control]?.state"
         >
-          {{ validations[control].text }}
+          {{ validation[control]?.text }}
         </b-form-invalid-feedback>
       </b-form-group>
     </b-input-group>
@@ -77,7 +82,7 @@
 <script>
   import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown';
   import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput';
-  import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import advancedSearchMixin, { FIELD_TYPE_FULLTEXT } from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
@@ -107,131 +112,110 @@
         default: true
       },
       /**
-       * If `true`, triggers the validation of the rule
+       * For each rule control, holds a `state` boolean and `text` msg if invalid
        */
-      validate: {
-        type: Boolean,
-        default: false
+      validation: {
+        type: Object,
+        default: () => ({})
       },
       /**
        * Value of the rule
        */
       value: {
         type: Object,
-        default: () => ({})
+        default: () => ({
+          field: null,
+          modifier: null,
+          term: null
+        })
       }
     },
 
     data() {
       return {
-        aggregatedFieldNames: ['who', 'where', 'when', 'what'],
-        field: null,
-        fulltextFieldName: 'fulltext',
-        modifier: null,
-        ruleControls: ['field', 'modifier', 'term'],
-        term: null,
-        validations: {
-          field: { state: null },
-          modifier: { state: null },
-          term: { state: null }
-        }
+        rule: this.value
       };
     },
 
     computed: {
-      aggregatedFieldOptions() {
-        return this.fieldOptions
-          .filter((field) => this.aggregatedFieldNames.includes(field.value));
+      aggregatedFields() {
+        return this.advancedSearchFields.filter((field) => field.aggregated);
       },
       dropdownSections() {
         return {
           field: [
-            { options: this.fulltextFieldOption },
-            { header: this.$t('search.advanced.header.aggregated'), options: this.aggregatedFieldOptions },
-            { header: this.$t('search.advanced.header.individual'), options: this.individualFieldOptions }
+            { options: this.fieldOption(this.fulltextField) },
+            { header: this.$t('search.advanced.header.aggregated'), options: this.fieldOptionGroup(this.aggregatedFields) },
+            { header: this.$t('search.advanced.header.individual'), options: this.fieldOptionGroup(this.individualFields) }
           ],
           modifier: [
-            {
-              options: this.advancedSearchModifiers.map((mod) => ({
-                value: mod.name,
-                text: this.$t(`search.advanced.modifiers.${mod.name}`)
-              }))
-            }
+            { options: this.modifierOptions }
           ]
-        };
-      },
-      dropdownText() {
-        return {
-          field: this.field && this.advancedSearchFieldLabel(this.field),
-          modifier: this.modifier && this.$t(`search.advanced.modifiers.${this.modifier}`)
         };
       },
       fieldOptions() {
         return this.advancedSearchFields.map((field) => ({
-          value: field.name,
-          text: this.advancedSearchFieldLabel(field.name)
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
-      fulltextFieldOption() {
-        return this.fieldOptions.find((field) => field.value === this.fulltextFieldName);
+      fulltextField() {
+        return this.advancedSearchFields.find((field) => field.type === FIELD_TYPE_FULLTEXT);
       },
-      individualFieldOptions() {
-        return this.fieldOptions
-          .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
+      individualFields() {
+        return this.advancedSearchFields
+          .filter((field) => !this.aggregatedFields.concat(this.fulltextField).includes(field));
+      },
+      modifierOptions() {
+        const modifiers = this.rule.field ?
+          this.advancedSearchModifiersForField(this.rule.field) :
+          this.advancedSearchModifiersForAllFields;
+
+        return modifiers.map((mod) => ({
+          text: this.$t(`search.advanced.modifiers.${mod.name}`),
+          value: mod.name
+        }));
+      },
+      ruleControls() {
+        return Object.keys(this.rule);
       },
       suggestEntityTypeForTerm() {
-        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityType;
+        return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
       }
     },
 
     watch: {
-      value: {
-        deep: true,
-        handler() {
-          this.initData();
-        }
-      },
-      validate: {
-        deep: true,
-        handler: 'validateRules'
+      value() {
+        this.rule = this.value;
       }
-    },
-
-    created() {
-      this.initData();
     },
 
     methods: {
       clearRule() {
+        this.$emit('input', {
+          field: null,
+          modifier: null,
+          term: null
+        });
         this.$emit('clear');
+      },
+      fieldOptionGroup(fields) {
+        return fields.map(this.fieldOption).sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fieldOption(field) {
+        return {
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
+        };
       },
       forEveryRuleControl(callback) {
         for (const control of this.ruleControls) {
           callback(control);
         }
       },
-      handleRuleChange(key, value) {
-        this[key] = value;
-        this.$emit('change', key, value);
-      },
-      initData() {
-        this.forEveryRuleControl((control) => {
-          this[control] = this.value[control] || null;
-        });
-      },
-      validateRules() {
-        // If any rule control has a value, all are required. If none have a value, the
-        // rule will be ignored and none are required.
-        const noRuleControlHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
-        this.forEveryRuleControl((control) => {
-          if (noRuleControlHasValue || this[control]) {
-            this.validations[control] = { state: true };
-          } else {
-            this.validations[control] = { state: false, text: this.$t('statuses.required') };
-          }
-        });
-        this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
+      handleChange() {
+        this.$emit('change', this.rule);
       }
     }
   };
@@ -272,7 +256,16 @@
 </style>
 
 <docs lang="md">
+  Blank rule:
   ```jsx
     <SearchQueryBuilderRule />
+  ```
+
+  Rule with invalid modifier control, indicated via `validation`:
+  ```jsx
+    <SearchQueryBuilderRule
+      :v-model="{ field: 'title', modifier: null, term: 'forest' }"
+      :validation="{ field: { state: true }, modifier: { state: false, text: 'Required' }, term: { state: true } }"
+    />
   ```
 </docs>

@@ -10,7 +10,7 @@
       <b-container>
         <b-row>
           <b-col class="col-12 py-3 d-inline-flex align-items-center flex-wrap">
-            <span>
+            <span class="d-inline-flex align-items-center flex-wrap">
               <span class="icon-translate pr-2" />
               <i18n
                 v-if="fromTranslationError"
@@ -20,6 +20,23 @@
                 data-qa="translate item error"
               />
               <i18n
+                v-else-if="!$auth.loggedIn"
+                path="multilingual.loginToTranslate"
+                tag="span"
+                data-qa="translate item login suggestion"
+              >
+                <template #login>
+                  <b-link
+                    data-qa="log in button"
+                    :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+                    @click.prevent="keycloakLogin"
+                  >
+                    {{ $t('actions.login') }}<!-- This comment removes white space
+                  -->
+                  </b-link>
+                </template>
+              </i18n>
+              <i18n
                 v-else
                 path="multilingual.translateLanguage"
                 tag="span"
@@ -28,7 +45,7 @@
                 <b-dropdown
                   :text="$t('multilingual.other')"
                   variant="link"
-                  toggle-class="multilingual-dropdown"
+                  toggle-class="multilingual-dropdown border-0"
                   toggle-tag="span"
                   no-flip
                   class="multilingual-selector"
@@ -48,12 +65,12 @@
               <b-button
                 v-b-tooltip.bottom
                 :title="$t('multilingual.translateMetadata')"
-                class="icon-info-outline tooltip-button"
+                class="icon-info-outline tooltip-button px-2"
                 variant="light-flat"
               />
             </span>
             <b-link
-              v-if="metadataLanguage"
+              v-if="translationLanguage"
               :to="translateParams(null)"
               data-qa="remove item translation button"
             >
@@ -62,7 +79,7 @@
                 tag="span"
                 class="pr-1"
               >
-                <span>{{ metadataLanguageLabel }}</span>
+                <span>{{ translationLanguageLabel }}</span>
               </i18n>
             </b-link>
           </b-col>
@@ -80,11 +97,13 @@
 </template>
 
 <script>
+  import keycloak from '@/mixins/keycloak';
   import locales from '@/mixins/locales';
 
   export default {
     name: 'ItemLanguageSelector',
     mixins: [
+      keycloak,
       locales
     ],
     props: {
@@ -92,7 +111,7 @@
         type: Boolean,
         default: false
       },
-      metadataLanguage: {
+      translationLanguage: {
         type: String,
         default: null
       }
@@ -105,8 +124,8 @@
       };
     },
     computed: {
-      metadataLanguageLabel() {
-        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
+      translationLanguageLabel() {
+        return this.$i18n.locales.find(locale => locale.code === this.translationLanguage)?.name;
       }
     },
     methods: {
@@ -127,7 +146,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
 
   .icon-translate::before {
     font-size: 1.4375rem;

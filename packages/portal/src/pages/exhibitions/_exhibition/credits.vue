@@ -90,7 +90,9 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
+
   import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
   import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
@@ -100,10 +102,11 @@
   export default {
     name: 'ExhibitionCreditsPage',
     components: {
+      ClientOnly,
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       ShareSocialModal,
-      LinkList: () => import('../../../components/generic/LinkList'),
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
@@ -119,7 +122,7 @@
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview'
       };
 

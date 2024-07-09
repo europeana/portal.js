@@ -25,7 +25,7 @@
       <ContentHeader
         :title="name"
         :description="description"
-        :media-url="shareMediaUrl"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
@@ -149,6 +149,8 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -158,16 +160,17 @@
     name: 'ThemePage',
 
     components: {
-      ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
+      ClientOnly,
+      ContentHeader,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       EntityCardGroup: () => import('@/components/entity/EntityCardGroup'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      LoadingSpinner,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
-      SmartLink: () => import('@/components/generic/SmartLink'),
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      LoadingSpinner
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [pageMetaMixin],
@@ -187,7 +190,7 @@
 
     async fetch() {
       const variables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         identifier: this.$route.params.pathMatch,
         preview: this.$route.query.mode === 'preview'
       };
@@ -231,12 +234,9 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImage: this.primaryImageOfPage?.image,
           ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
-      },
-      shareMediaUrl() {
-        return this.primaryImageOfPage?.image?.url;
       },
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);

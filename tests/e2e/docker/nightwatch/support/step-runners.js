@@ -184,14 +184,6 @@ module.exports = {
   async haveNotYetAcceptedKlaroCookies() {
     await client.deleteCookie('klaro');
   },
-  async haveNotEnabledDebugAPIRequests() {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function() {
-      localStorage.debugSettings = null;
-    }, []);
-    /* eslint-enable prefer-arrow-callback */
-  },
   async paginateToPage(page) {
     const containerSelector = qaSelector('search results pagination');
 
@@ -296,6 +288,11 @@ module.exports = {
   async haveEuropeanaBrandedTitle() {
     await client.getTitle(async(title) => {
       await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
+  },
+  async doNotHaveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).not.to.match(new RegExp('\\| Europeana$'));
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {

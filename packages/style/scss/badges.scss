@@ -53,16 +53,12 @@
     margin-left: 0.5rem !important;
     font-size: 0 !important;
     opacity: 1;
+    text-shadow: none;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
         margin-left: 0.75rem !important;
       }
-    }
-
-    &:hover,
-    &:hover:not(:disabled):not(.disabled) {
-      opacity: 1;
     }
 
     &::before {
@@ -148,7 +144,6 @@
 
 .badge-primary {
   background: $blue;
-  font-size: $font-size-smallest;
   font-weight: normal;
   padding: 0.5rem;
 
@@ -162,6 +157,10 @@
     &:hover {
       background-color: $innovationblue-dark;
     }
+  }
+
+  .close {
+    color: $white;
   }
 }
 
@@ -297,5 +296,13 @@
     &:focus {
       background-color: $lightblue-dark !important;
     }
+  }
+}
+
+.badge .close:hover {
+
+  &,
+  &:not(:disabled):not(.disabled) {
+    opacity: 1;
   }
 }

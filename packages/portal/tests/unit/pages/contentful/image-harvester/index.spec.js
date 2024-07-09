@@ -80,13 +80,14 @@ const factory = () => shallowMountNuxt(page, {
     $t: key => key,
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $apis: {
       record: {
         axios: {
           get: sinon.stub()
-        }
+        },
+        mediaProxyUrl: (url) => `proxied ${url}`
       }
     }
   }
@@ -292,7 +293,7 @@ describe('pages/contentful/image-harvester/index', () => {
           expect(wrapper.vm.entry.fields.image.removeValue.called).toBe(true);
         });
 
-        it('creates an asset from edm:isShownBy and metadata', async() => {
+        it('creates an asset from edm:isShownBy (via media proxy), and metadata', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
@@ -305,7 +306,7 @@ describe('pages/contentful/image-harvester/index', () => {
                 'en-GB': {
                   contentType: 'image/jpeg',
                   fileName: 'Madonna',
-                  upload: 'https://www.dropbox.com/s/lh4ous7fk4u41lj/NO_Madonna_Munch.M.00841.jpg?raw=1'
+                  upload: 'proxied https://www.dropbox.com/s/lh4ous7fk4u41lj/NO_Madonna_Munch.M.00841.jpg?raw=1'
                 }
               }
             }

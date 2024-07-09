@@ -1,7 +1,6 @@
 <template>
   <b-button
     :disabled="disabled"
-    :style="style"
     :variant="variant"
     class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
     :data-qa="`toggle item button`"
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'SetAddItemButton',
@@ -45,14 +44,8 @@
     },
 
     computed: {
-      style() {
-        if (!this.added && this.img) {
-          return { 'background-image': `url("${this.img}")` };
-        }
-        return null;
-      },
-
       variant() {
+        // TODO: clean up/replace overlay variant when definitely deprecated
         return this.added ? 'success' : 'overlay';
       }
     },

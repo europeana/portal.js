@@ -1,5 +1,11 @@
 <template>
   <div class="primary-cta text-center">
+    <h2
+      v-if="title"
+      data-qa="primary cta title"
+    >
+      {{ title }}
+    </h2>
     <!-- eslint-disable vue/no-v-html -->
     <div
       class="primary-cta-rich-text text-left"
@@ -9,7 +15,8 @@
     <SmartLink
       :destination="link.url"
       data-qa="call to action"
-      class="btn btn-cta btn-primary"
+      class="btn btn-cta"
+      :class="buttonVariant"
       hide-external-icon
     >
       {{ link.text }}
@@ -31,6 +38,10 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
       text: {
         type: String,
         default: ''
@@ -38,6 +49,10 @@
       link: {
         type: Object,
         default: null
+      },
+      buttonVariant: {
+        type: String,
+        default: 'btn-primary'
       }
     }
   };

@@ -36,14 +36,47 @@ describe('components/search/SearchQueryBuilderRuleDropdown', () => {
       expect(wrapper.find('[data-qa="advanced search query builder: who field option"]').exists()).toBe(true);
     });
 
-    it('emits "change" event when a button is clicked', () => {
+    it('emits input and change events when a button is clicked', () => {
       const wrapper = factory({ propsData });
 
       const optionButton = wrapper.find('[data-qa="advanced search query builder: what field option"]');
       optionButton.vm.$emit('click');
 
-      expect(wrapper.emitted('change').length).toBe(1);
-      expect(wrapper.emitted('change')[0]).toEqual(['what']);
+      expect(wrapper.emitted('input')).toEqual([['what']]);
+      expect(wrapper.emitted('change')).toEqual([['what']]);
+    });
+  });
+
+  describe('watch', () => {
+    describe('flattenedOptions', () => {
+      describe('when new options do not contain the current model value', () => {
+        const propsData = {
+          name: 'modifier',
+          options: [{
+            options: [
+              { value: 'exact' },
+              { value: 'contains' }
+            ]
+          }],
+          value: 'exact'
+        };
+        const newOptions = [{
+          options: [
+            { value: 'contains' }
+          ]
+        }];
+
+        it('emits input and change events to reset the model value', async() => {
+          const wrapper = factory({ propsData });
+
+          await wrapper.setProps({
+            options: newOptions
+          });
+
+          expect(wrapper.emitted().input).toEqual([[null]]);
+          expect(wrapper.emitted().change).toEqual([[null]]);
+        });
+      });
     });
   });
 });

@@ -1,27 +1,12 @@
 query storiesMinimal(
   $locale: String!,
   $preview: Boolean = false,
-  $query: String = ""
+  $query: String = "",
+  $excludeSysId: String = ""
 ) {
-	blogPostingCollection(
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
-    where: { name_contains: $query }
-  ) {
-    items {
-      date: datePublished
-      sys {
-        id
-      }
-      cats: categoriesCollection(limit: 5) {
-        items {
-          id: identifier
-        }
-      }
-    }
-  }
-  exhibitionPageCollection(
+	exhibitionPageCollection(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: 150,
-    where: { name_contains: $query }
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
   ) {
     items {
       date: datePublished
@@ -30,6 +15,22 @@ query storiesMinimal(
       }
       cats: categoriesCollection(limit: 5) {
         items: items {
+          id: identifier
+        }
+      }
+    }
+  },
+  storyCollection (
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
+    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
+  ) {
+    items {
+      date: datePublished
+      sys {
+        id
+      }
+      cats: categoriesCollection(limit: 5) {
+        items {
           id: identifier
         }
       }

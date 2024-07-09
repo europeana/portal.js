@@ -212,7 +212,7 @@
         flex: 0 0 40%;
       }
 
-      img {
+      ::v-deep img {
         padding: 1rem 1rem 0;
         position: absolute;
         left: 0;
@@ -279,4 +279,4 @@
     variant="innovationblue"
   />
   ```
-  </docs>
+</docs>

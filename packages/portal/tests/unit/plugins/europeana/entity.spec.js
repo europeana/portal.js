@@ -82,67 +82,44 @@ const conceptEntitiesResponse = {
 };
 
 describe('plugins/europeana/entity', () => {
-  afterEach(() => {
-    nock.cleanAll();
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+
+  afterEach(nock.cleanAll);
+
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('default export', () => {
     describe('get', () => {
-      describe('API response', () => {
-        describe('with "No resource found with ID: ..." error', () => {
-          const errorMessage = 'No resource found with ID:';
+      const apiResponse = entitiesResponse.items[0];
 
-          beforeEach(() => {
-            baseRequest()
-              .query(true)
-              .reply(404, {
-                error: errorMessage
-              });
-          });
+      beforeEach(() => {
+        baseRequest()
+          .query(true)
+          .reply(200, apiResponse);
+      });
 
-          it('throws error with API error message and status code', async() => {
-            let error;
-            try {
-              await (new api).get(entityType, entityId);
-            } catch (e) {
-              error = e;
-            }
+      it('returns entity title', async() => {
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.prefLabel.en).toBe('Architecture');
+      });
 
-            expect(error.message).toBe(errorMessage);
-            expect(error.statusCode).toBe(404);
-          });
-        });
+      it('returns entity description', async() => {
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
+      });
 
-        describe('with object in response', () => {
-          const apiResponse = entitiesResponse.items[0];
-
-          beforeEach(() => {
-            baseRequest()
-              .query(true)
-              .reply(200, apiResponse);
-          });
-
-          it('returns entity title', async() => {
-            const response = await (new api).get(entityType, entityId);
-            expect(response.entity.prefLabel.en).toBe('Architecture');
-          });
-
-          it('returns entity description', async() => {
-            const response = await (new api).get(entityType, entityId);
-            expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
-          });
-
-          it('has a misspelled id and returns entity title', async() => {
-            const response = await (new api).get(entityType, entityIdMisspelled);
-            expect(response.entity.prefLabel.en).toBe('Architecture');
-          });
-        });
+      it('has a misspelled id and returns entity title', async() => {
+        const entity = await (new api).get(entityType, entityIdMisspelled);
+        expect(entity.prefLabel.en).toBe('Architecture');
       });
     });
 
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/123', 'http://data.europeana.eu/concept/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
       const orderedEntitySearchResponse = {
         items: [
           { id: 'http://data.europeana.eu/agent/123' },
@@ -155,12 +132,11 @@ describe('plugins/europeana/entity', () => {
           { id: 'http://data.europeana.eu/agent/123' }
         ]
       };
-      const searchEndpoint = '/search';
+      const retrieveEndpoint = '/retrieve';
 
-      it('searches the API by entity URIs', async() => {
+      it('uses the API retrieve method', async() => {
         nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
+          .post(retrieveEndpoint, uris)
           .reply(200, orderedEntitySearchResponse);
 
         await (new api).find(uris);
@@ -176,22 +152,10 @@ describe('plugins/europeana/entity', () => {
 
       it('preserves the order of the supplied URIs', async() => {
         nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
+          .post(retrieveEndpoint, uris)
           .reply(200, unorderedEntitySearchResponse);
 
         const entities = await (new api).find(uris);
-
-        expect(entities).toEqual(orderedEntitySearchResponse.items);
-      });
-
-      it('allows filtering by fl via params', async() => {
-        nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery && query.fl === 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo')
-          .reply(200, unorderedEntitySearchResponse);
-
-        const entities = await (new api).find(uris, { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo' });
 
         expect(entities).toEqual(orderedEntitySearchResponse.items);
       });
@@ -472,8 +436,15 @@ describe('plugins/europeana/entity', () => {
 
     describe('when entity is a place', () => {
       const uri = 'http://data.europeana.eu/place/12345';
-      it('queries on where', () => {
+      it('queries on edm_place', () => {
         expect(getEntityQuery(uri)).toBe(`edm_place:"${uri}"`);
+      });
+    });
+
+    describe('when multiple entity URIs supplied', () => {
+      const uris = ['http://data.europeana.eu/organization/12345', 'http://data.europeana.eu/organization/67890', 'https://www.example.org/404'];
+      it('queries on all Europeana entities, joined with OR', () => {
+        expect(getEntityQuery(uris)).toBe('foaf_organization:"http://data.europeana.eu/organization/12345" OR foaf_organization:"http://data.europeana.eu/organization/67890"');
       });
     });
 

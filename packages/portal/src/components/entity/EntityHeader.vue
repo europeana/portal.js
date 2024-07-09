@@ -11,14 +11,14 @@
     />
     <b-card-title
       title-tag="h2"
-      :lang="title.code"
+      :lang="langAttribute(title.code)"
       data-qa="entity title"
     >
       {{ title.values[0] }}
     </b-card-title>
     <b-card-sub-title
       v-if="subTitle"
-      :lang="subTitle.code"
+      :lang="langAttribute(subTitle.code)"
     >
       {{ subTitle.values[0] }}
     </b-card-sub-title>
@@ -29,7 +29,7 @@
     >
       <p
         data-qa="entity description"
-        :lang="description.code"
+        :lang="langAttribute(description.code)"
       >
         {{ showAll ? fullDescription : truncatedDescription }}
       </p>
@@ -94,6 +94,8 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import truncateMixin from '@/mixins/truncate';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
@@ -108,6 +110,11 @@
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
+
+    mixins: [
+      langAttributeMixin,
+      truncateMixin
+    ],
 
     props: {
       /**
@@ -190,7 +197,7 @@
 
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
+        return this.truncate(this.fullDescription, this.limitCharacters);
       },
       hasDescription() {
         return (this.description?.values?.length || 0) >= 1;

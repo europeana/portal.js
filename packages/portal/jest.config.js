@@ -1,7 +1,7 @@
 export default {
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/plugins/i18n/locales.js',
-    '<rootDir>/src/lang/'
+    '<rootDir>/src/i18n/locales.js',
+    '<rootDir>/src/i18n/lang/'
   ],
   displayName: 'portal',
   moduleFileExtensions: [
@@ -11,6 +11,7 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
+    // TODO: Ignore swiper in transformIgnorePatterns instead?
     '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'

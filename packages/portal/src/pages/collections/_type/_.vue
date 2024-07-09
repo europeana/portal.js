@@ -9,13 +9,11 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <component
-      :is="$config.app.search.collections.clientOnly ? 'client-only' : 'div'"
+    <div
       v-else
     >
       <SearchInterface
         v-if="!$fetchState.pending"
-        :do-not-translate="$config.app.search.collections.doNotTranslate"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -64,13 +62,14 @@
           </client-only>
         </template>
       </SearchInterface>
-    </component>
+    </div>
   </div>
 </template>
 
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
+
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -80,7 +79,7 @@
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
 
   export default {
     name: 'CollectionPage',
@@ -142,22 +141,16 @@
       this.$store.commit('entity/setId', entityUri);
 
       try {
-        const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
-        this.$store.commit('entity/setEntity', pick(response.entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+        const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+
+        this.$store.commit('entity/setEntity', pick(entity, [
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-        const urlLabel = this.entity.prefLabel.en;
 
-        if (this.userIsEntitiesEditor) {
-          const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
-          this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-          if (entityBestItemsSetId) {
-            this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
-          }
-        }
+        this.userIsEntitiesEditor && await this.setBestItems();
 
-        return this.redirectToPrefPath(this.entity.id, urlLabel);
+        return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
@@ -182,7 +175,7 @@
         const overrideParams = {};
 
         if (this.entity) {
-          const entityQuery = getEntityQuery(this.entity.id);
+          const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
           overrideParams.qf = [entityQuery];
           if (!this.$route.query.query) {
             overrideParams.query = entityQuery; // Triggering best bets.
@@ -296,6 +289,7 @@
           const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
           labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
         }
+        // TODO: Update to use API country field?
         if (this.entity?.hasAddress?.countryName)  {
           labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
         }
@@ -312,6 +306,11 @@
     methods: {
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
+      },
+      async setBestItems() {
+        const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
+        this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
+        entityBestItemsSetId && this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
       },
       titleFallback(title) {
         return {

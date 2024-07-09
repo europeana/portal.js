@@ -36,14 +36,11 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedSrc: sinon.spy((img) => `${img?.url}?optimised`)
-      },
       query: sinon.stub().resolves(themesPageContentfulResponse)
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: { query: {} },
     $t: (key) => key,
@@ -70,16 +67,6 @@ describe('theme hub page', () => {
       const headMeta = wrapper.vm.pageMeta;
 
       expect(headMeta.title).toBe('themes.themes');
-    });
-  });
-
-  describe('theme section', () => {
-    it('exists for the themes', () => {
-      const wrapper = factory();
-
-      const themeSection = wrapper.find('[data-qa="theme section"]');
-
-      expect(themeSection.exists()).toBe(true);
     });
   });
 

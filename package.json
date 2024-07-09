@@ -12,8 +12,10 @@
     "lint": "eslint --no-fix --ignore-path .gitignore packages",
     "start:inspect": "npm run -w packages/portal start:inspect",
     "start": "npm run -w packages/portal start",
-    "styleguide": "npm run -w packages/styleguide start",
-    "styleguide:build": "npm run -w packages/styleguide build",
+    "styleguide": "npm run --prefix styleguide start",
+    "styleguide:build": "npm run --prefix styleguide build",
+    "styleguide:ci": "npm --prefix styleguide ci",
+    "styleguide:install": "npm --prefix styleguide install",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test:e2e": "npm run test:e2e:init && npm run test:e2e:run",
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
@@ -33,10 +35,13 @@
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/iiif": "link:./packages/iiif",
+    "@europeana/i18n": "link:./packages/i18n",
+    "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
-    "@europeana/styleguide": "link:./packages/styleguide",
-    "@europeana/vue-session": "link:./packages/vue-session"
+    "@europeana/vue-router-query": "link:./packages/vue-router-query",
+    "@europeana/vue-session": "link:./packages/vue-session",
+    "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
@@ -65,7 +70,7 @@
   ],
   "engines": {
     "node": "^18",
-    "npm": "^9"
+    "npm": "^9 || ^10"
   },
   "keywords": [
     "code4lib"

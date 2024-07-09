@@ -60,7 +60,7 @@
     async fetch() {
       if (!this.themes.length) {
         const contentfulVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           identifiers: this.themesIdentifiers
         };
@@ -69,12 +69,12 @@
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.localePath({
+          url: {
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier
             }
-          }),
+          },
           primaryImageOfPage: theme.primaryImageOfPage
         }));
       }

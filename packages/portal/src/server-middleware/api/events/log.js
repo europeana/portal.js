@@ -18,11 +18,14 @@ export default (config = {}) => {
       }
 
       const { actionType, objectUri, sessionId } = req.body;
+      const url = new URL(objectUri);
+      // Ignore any search query or hash
+      const uri = `${url.origin}${url.pathname}`;
 
       let objectRow;
       const selectObjectResult = await pg.query(
         'SELECT id FROM events.objects WHERE uri=$1',
-        [objectUri]
+        [uri]
       );
 
       if (selectObjectResult.rowCount > 0) {
@@ -30,7 +33,7 @@ export default (config = {}) => {
       } else {
         const insertObjectResult = await pg.query(
           'INSERT INTO events.objects (uri) VALUES($1) RETURNING id',
-          [objectUri]
+          [uri]
         );
         objectRow = insertObjectResult.rows[0];
       }

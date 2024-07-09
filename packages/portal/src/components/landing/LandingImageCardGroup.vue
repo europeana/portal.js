@@ -1,6 +1,9 @@
 <template>
   <div class="image-card-group">
-    <div class="header pt-5 pb-4 pb-lg-5">
+    <div
+      class="header"
+      :class="backgroundImageClasses"
+    >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
           <h2>
@@ -24,6 +27,7 @@
           v-for="(card, index) in imageCards"
           :key="index"
           :card="card"
+          title-tag="h3"
         />
       </div>
     </b-container>
@@ -57,12 +61,27 @@
         default: null
       },
       /**
+       * Background image Object
+       */
+      backgroundImage: {
+        type: Object,
+        default: () => {}
+      },
+      /**
        * List of image cards
        */
       imageCards: {
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        backgroundImageClasses: {
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
+        }
+      };
     }
   };
 </script>
@@ -71,32 +90,31 @@
   @import '@europeana/style/scss/variables';
 
   .image-card-group {
-    background-color: $bodygrey;
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid transparent;
   }
 
   .header {
-    background-color: $blue;
-    color: $white;
-    margin-bottom: 2.5rem;
+    padding: 3rem 0 2rem;
 
-    @media (min-width: $bp-large) {
-      margin-bottom: 4.625rem;
+    @media (min-width: $bp-medium) {
+      padding: 6rem 0 5rem;
     }
 
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
+    @media (min-width: $bp-4k) {
+      padding: 15rem 0 14rem;
+    }
+
+    &.bg-color-highlight {
+      background-color: $blue;
+      color: $white;
+      margin-bottom: 3rem;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
+        margin-bottom: 6rem;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
+        margin-bottom: 15rem;
       }
     }
   }
@@ -105,60 +123,37 @@
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
     }
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
   }
 </style>
 
 <docs lang="md">
   ```jsx
-    <LandingImageCardGroup
-      title="This is a title for an image card group"
-      text="A __description__ what this section is all about"
-      :image-cards="[{
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
-          creator: null,
-          provider: 'Wellcome Collection',
-          license: 'http://creativecommons.org/licenses/by/4.0/',
-          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
-          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
-          contentType: 'image/jpeg',
-          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
-          width: 830, height: 470 }
-        }
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
-          creator: null,
-          provider: 'Wellcome Collection',
-          license: 'http://creativecommons.org/licenses/by/4.0/',
-          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
-          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
-          contentType: 'image/jpeg',
-          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
-          width: 830, height: 470 }
-        }
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
-          creator: null,
-          provider: 'Wellcome Collection',
-          license: 'http://creativecommons.org/licenses/by/4.0/',
-          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
-          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
-          contentType: 'image/jpeg',
-          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
-          width: 830, height: 470 }
-        }
-      }]"
-    />
+    import '@europeana/style/scss/landing.scss';
+    <div class="landing-page xxl-page">
+      <LandingImageCardGroup
+        title="This is a title for an image card group"
+        text="A __description__ what this section is all about"
+        :image-cards="[{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }]"
+      />
+    </div>
   ```
 </docs>

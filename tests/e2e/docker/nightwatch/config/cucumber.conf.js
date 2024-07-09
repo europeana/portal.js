@@ -55,10 +55,6 @@ Before({ tags: 'not @klaro-notice-not-dismissed' }, async() => {
   await runners.havePreviouslyAcceptedKlaroCookies();
 });
 
-Before({ tags: '@debug-apirequests-not-enabled' }, async() => {
-  await runners.haveNotEnabledDebugAPIRequests();
-});
-
 After(async() => {
   await client.deleteCookies();
 });

@@ -13,6 +13,7 @@
     >
       <b-form
         class="search-form"
+        :class="{ 'show': showDropdown }"
         inline
         @submit.stop.prevent="() => {}"
       >
@@ -84,7 +85,7 @@
 
     async fetch() {
       const categoriesVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
       const categoriesResponse = await this.$contentful.query('categories', categoriesVariables);
@@ -154,7 +155,9 @@
   z-index: 20;
   box-shadow: $boxshadow;
   padding: 0.5rem 0 0 0.5rem;
-  border-top: 1px solid $middlegrey;
+  border: 1px solid $bodygrey;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 
   @media (min-width: $bp-4k) {
     font-size: 1.5rem;
@@ -175,8 +178,9 @@
   }
 }
 
-.form-inline {
-  box-shadow: $boxshadow-light;
-  border-radius: 0;
+.search-form.show {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
 }
 </style>

@@ -58,10 +58,10 @@ describe('plugins/europeana/recommendation', () => {
     describe('when type is "set"', () => {
       it('rejects a recommended item and returns a new recommendation for the given set ID', async() => {
         nock(recommendation.BASE_URL)
-          .post('/set/123')
+          .delete('/set/123')
           .reply(200, newRecommendedItem);
 
-        const response = await (new recommendation).accept('set', '/123', oldRecommendedItem);
+        const response = await (new recommendation).reject('set', '/123', oldRecommendedItem);
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(newRecommendedItem);

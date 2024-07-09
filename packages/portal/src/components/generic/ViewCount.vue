@@ -1,15 +1,15 @@
 <template>
-  <b-button
+  <div
     v-if="$features.storiesViewCounts && viewCount > 0"
     id="view-count"
     data-qa="view count"
-    class="view-count d-inline-flex align-items-center"
+    class="view-count d-inline-flex align-items-center pl-2"
   >
     <span
-      class="icon-ic-view d-inline-flex pr-1"
+      class="icon-ic-view"
     />
-    {{ $tc('views.count', viewCount, { count: $options.filters.localise(viewCount) }) }}
-  </b-button>
+    {{ $tc('views.count', viewCount, { count: $n(viewCount) }) }}
+  </div>
 </template>
 
 <script>
@@ -52,27 +52,22 @@
       });
 
       this.viewCount = viewsResponse.data.viewCount;
-    }
+    },
+
+    fetchOnServer: false
   };
 </script>
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .icon-ic-view::before {
+  .icon-ic-view {
+    padding-right: 0.375rem;
     font-size: 1.5rem;
-    line-height: 1;
   }
 
   .view-count {
-    font-size: 0.875rem;
-    font-weight: 600;
+    color: $mediumgrey-light;
+    font-size: $font-size-base;
     line-height: 1.5;
-    color: #4d4d4d;
-    padding: 0.5rem 0.75rem;
-    background: rgba(0, 0, 0, 0);
-    border: rgba(0, 0, 0, 0);
-    &:hover {
-      box-shadow: none;
-    }
   }
 </style>

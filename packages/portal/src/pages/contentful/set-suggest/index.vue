@@ -30,7 +30,7 @@
         const response = await this.$apis.set.search({
           query: val, qf: 'visibility:published', profile: 'standard'
         });
-        return response.data.items || [];
+        return response.items || [];
       },
 
       findSets(val) {

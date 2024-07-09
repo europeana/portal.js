@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'SetCardGroup',
@@ -72,7 +72,7 @@
         let setResponse = await Promise.all(this.setUris.map(async(id) => {
           const numericId = id.toString().split('/').pop();
           const setSearchResponse = await this.$apis.set.search({ query: `set_id:${numericId}`, qf: `lang:${this.$i18n.locale}`, profile: 'itemDescriptions' });
-          return setSearchResponse?.data?.items?.[0];
+          return setSearchResponse?.items?.[0];
         }));
         setResponse = setResponse.filter(set => !!set);
 
@@ -85,7 +85,7 @@
 
     methods: {
       parseSets(sets) {
-        return sets.map(set => {
+        return sets.map((set) => {
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,

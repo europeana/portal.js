@@ -1,0 +1,103 @@
+@import '@europeana/style/scss/variables';
+
+.landing-page {
+  &.xxl-page {
+    @media (min-width: $bp-4k) {
+      font-size: 2.5rem;
+    }
+
+    p {
+      @media (min-width: $bp-4k) {
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    .btn {
+
+      &.btn-primary,
+      &.btn-outline-primary {
+        @media (min-width: $bp-4k) {
+          font-size: 1.75rem;
+          padding: 1rem 2rem;
+          border-radius: 0.5rem;
+        }
+      }
+    }
+
+    h2 {
+      @extend %title-2;
+    }
+
+    h3 {
+      @extend %title-3;
+    }
+
+    figcaption {
+      @media(min-width: $bp-4k) {
+        .icon-info {
+          width: 3.125rem;
+          height: 3.125rem;
+
+          &::before {
+            font-size: 3.125rem;
+          }
+        }
+
+        cite {
+          padding: 1.5rem;
+
+          p {
+            margin-bottom: 0.5rem;
+          }
+
+          p,
+          [class^='icon-'],
+          .attribution > span .license {
+            font-size: 1.75rem;
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    @media (max-width: $bp-small) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
+
+  .bg-color-alternate {
+    background-color: $bodygrey;
+  }
+
+  .image-card-container-wrapper {
+    + .image-card-container-wrapper {
+
+      @media (min-width: $bp-large) {
+        margin-top: -2rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-top: -5rem;
+      }
+    }
+
+    .image-card {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+
+      @media (min-width: $bp-large) {
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-top: 15rem;
+        margin-bottom: 15rem;
+      }
+    }
+  }
+
+
+}

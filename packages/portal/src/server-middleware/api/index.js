@@ -1,15 +1,16 @@
 import express from 'express';
-import defu  from 'defu';
+import cors from 'cors';
 import apm from 'elastic-apm-node';
+
 import logging from '../logging.js';
+import { forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
 app.use(logging);
 
-import nuxtConfig from '../../../nuxt.config.js';
-const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+const runtimeConfig = nuxtRuntimeConfig();
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
@@ -40,7 +41,17 @@ import eventViews from './events/views.js';
 app.get('/events/views', eventViews(runtimeConfig.postgres));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
-app.post('/jira-service-desk/feedback', jiraServiceDeskFeedback(runtimeConfig.jira));
+const feedbackCorsOptions = {
+  origin: forbiddenUnlessOriginAllowed(runtimeConfig.app.feedback.cors.origin)
+};
+app.options('/jira-service-desk/feedback',
+  cors(feedbackCorsOptions),
+  (req, res) => res.sendStatus(200)
+);
+app.post('/jira-service-desk/feedback',
+  cors(feedbackCorsOptions),
+  jiraServiceDeskFeedback(runtimeConfig.jira)
+);
 
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
 app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.jira));

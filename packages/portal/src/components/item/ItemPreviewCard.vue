@@ -5,7 +5,7 @@
     :url="url"
     :image-url="imageUrl"
     :texts="texts"
-    :hits-text="hitsText"
+    :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
@@ -40,6 +40,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
           :button-text="true"
           button-variant="light-flat"
         />
@@ -63,6 +64,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
         />
       </div>
     </template>
@@ -70,7 +72,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   import ContentCard from '../content/ContentCard';
 
@@ -94,7 +96,7 @@
         required: true
       },
       /**
-       * Hits from a search to highlight in the item description
+       * Hit from a search to highlight in the item description
        * Only used on list variant
        */
       hitSelector: {
@@ -127,6 +129,13 @@
        * If `true`, move button will be rendered
        */
       showMove: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * If `true`, remove button will be rendered
+       */
+      showRemove: {
         type: Boolean,
         default: false
       },
@@ -213,7 +222,7 @@
         return texts;
       },
 
-      hitsText() {
+      hitText() {
         return this.variant === 'list' ? this.hitSelector : null;
       },
 

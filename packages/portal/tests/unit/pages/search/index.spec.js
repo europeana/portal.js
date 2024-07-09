@@ -42,6 +42,7 @@ const store = new Vuex.Store({
 
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
+  i18n: new VueI18n({ locale: 'en' }),
   stubs: {
     'SearchInterface': {
       template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'

@@ -21,7 +21,8 @@ const factory = ({ propsData = {} } = {}) => shallowMount(UserButtons, {
   stubs: [
     'ItemAddButton',
     'ItemLikeButton',
-    'ItemPinButton'
+    'ItemPinButton',
+    'ItemRemoveButton'
   ]
 });
 
@@ -90,6 +91,24 @@ describe('components/user/UserButtons', () => {
       const wrapper = factory();
 
       const button = wrapper.find('[data-qa="item like button"]');
+
+      expect(button.exists()).toBe(true);
+    });
+  });
+
+  describe('remove button', () => {
+    it('does not exist by default', () => {
+      const wrapper = factory();
+
+      const button = wrapper.find('[data-qa="item remove button"]');
+
+      expect(button.exists()).toBe(false);
+    });
+
+    it('exists if enabled by `showRemove` prop', () => {
+      const wrapper = factory({ propsData: { showRemove: true } });
+
+      const button = wrapper.find('[data-qa="item remove button"]');
 
       expect(button.exists()).toBe(true);
     });

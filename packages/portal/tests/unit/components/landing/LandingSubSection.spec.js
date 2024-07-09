@@ -26,17 +26,4 @@ describe('components/landing/LandingSubSection', () => {
 
     expect(titleElement.text()).toBe(title);
   });
-
-  describe('methods', () => {
-    describe('contentType', () => {
-      it('checks the content type to display the relevant component', () => {
-        const typeName = 'InfoCardGroup';
-        const sections = [{ __typename: typeName }];
-        const wrapper = factory({ headline: 'This page is awesome', sections });
-
-        const infoCardGroup = wrapper.vm.contentType(sections[0], typeName);
-        expect(infoCardGroup).toBe(true);
-      });
-    });
-  });
 });

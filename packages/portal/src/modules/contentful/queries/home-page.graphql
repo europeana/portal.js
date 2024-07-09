@@ -1,70 +1,73 @@
 query HomePage(
-  $locale: String!,
-  $preview: Boolean = false,
-  $identifier: String,
-  $date: DateTime
+	$locale: String!
+	$preview: Boolean = false
+	$identifier: String
+	$date: DateTime
 ) {
-  homePageCollection(
-    preview: $preview,
-    locale: $locale,
-    order: datePublished_DESC,
-    limit: 1,
-    where: {
-      identifier: $identifier,
-      datePublished_lte: $date
-    }
-  ) {
-    items {
-      name
-      identifier
-      sectionsCollection(limit: 3) {
-        items {
-          __typename
-          ... on PrimaryCallToAction {
-            name
-            nameEN: name(locale: "en-GB")
-      			text
-      			relatedLink {
-        			url
-        			text
-      			}
-            image {
-              ...illustrationFields
-            }
-          }
-        }
-      }
-      primaryImageOfPage {
-        ...imageWithAttributionFields
-      }
-      image {
-        ...imageFields
-      }
-    }
-  }
+	homePageCollection(
+		preview: $preview
+		locale: $locale
+		order: datePublished_DESC
+		limit: 1
+		where: { identifier: $identifier, datePublished_lte: $date }
+	) {
+		items {
+			name
+			identifier
+			sectionsCollection(limit: 3) {
+				items {
+					__typename
+					... on PrimaryCallToAction {
+						name
+						nameEN: name(locale: "en-GB")
+						text
+						relatedLink {
+							url
+							text
+						}
+						image {
+							...illustrationFields
+						}
+					}
+				}
+			}
+			image {
+				...imageFields
+			}
+			primaryImageSetOfPageCollection(limit: 1, order: sys_publishedAt_DESC) {
+				items {
+					hasPartCollection {
+						items {
+							...imageWithAttributionFields
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    ...imageFields
-  }
+	name
+	creator
+	provider
+	license
+	url
+	image {
+		...imageFields
+	}
 }
 
 fragment illustrationFields on Illustration {
-  image {
-    ...imageFields
-  }
+	image {
+		...imageFields
+	}
 }
 
 fragment imageFields on Asset {
-  url
-  contentType
-  description
-  width
-  height
+	url
+	contentType
+	description
+	width
+	height
 }

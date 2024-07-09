@@ -2,6 +2,7 @@
   <figure>
     <ImageOptimised
       v-if="src"
+      ref="image"
       :src="src"
       :width="width"
       :height="height"
@@ -9,8 +10,11 @@
       :content-type="contentType"
       :max-width="maxWidth"
       data-qa="image"
-      :image-srcset="imageSrcset"
       :image-sizes="imageSizes"
+      :contentful-image-crop-presets="contentfulImageCropPresets"
+      :contentful-image-display-profile="contentfulImageDisplayProfile"
+      :picture-source-media-resolutions="pictureSourceMediaResolutions"
+      :lazy="lazy"
     />
     <AttributionToggle
       :attribution="attribution"
@@ -37,11 +41,11 @@
         default: null
       },
       width: {
-        type: Number,
+        type: [Number, String],
         default: 550
       },
       height: {
-        type: Number,
+        type: [Number, String],
         default: 790
       },
       alt: {
@@ -60,25 +64,26 @@
         type: Number,
         default: 1100
       },
-      imageSrcset: {
-        type: String,
+      contentfulImageDisplayProfile: {
+        type: Object,
         default: null
+      },
+      contentfulImageCropPresets: {
+        type: Object,
+        default: null
+      },
+      pictureSourceMediaResolutions: {
+        type: Array,
+        default: () => [1]
       },
       imageSizes: {
         type: String,
         default: null
+      },
+      lazy: {
+        type: Boolean,
+        default: true
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-figure {
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-</style>

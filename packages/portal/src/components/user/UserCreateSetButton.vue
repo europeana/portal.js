@@ -6,7 +6,7 @@
     @click="clickCreateSet"
   >
     <div class="card-inner d-flex justify-content-center align-items-center">
-      <span class="icon-ic-add" />
+      <span class="icon-add-circle-outlined" />
       <b-card-body data-qa="card body">
         <b-card-title title-tag="div">
           {{ $t('set.actions.createNew') }}
@@ -64,6 +64,16 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .create-card:hover {
+    .icon-add-circle-outlined::before {
+      content: '\e907';
+    }
+  }
+</style>
 
 <docs lang="md">
   ```jsx

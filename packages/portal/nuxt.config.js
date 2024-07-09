@@ -10,14 +10,15 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/plugins/i18n/locales.js';
-import i18nDateTime from './src/plugins/i18n/datetime.js';
-import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
+import { locales as i18nLocales } from '@europeana/i18n';
+import i18nDateTime from './src/i18n/datetime.js';
+import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
+import features, { featureIsEnabled } from './src/features/index.js';
+import { featureNotificationExpiration } from './src/features/notifications.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
-} from './src/plugins/europeana/apis/config/nuxt.js';
+} from './src/plugins/europeana-apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -40,9 +41,12 @@ const redisConfig = () => {
 };
 
 const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
     max: Number(process.env.POSTGRES_MAX || 10)
   };
 
@@ -67,16 +71,21 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      featureNotification: {
+        expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
+        name: process.env.APP_FEATURE_NOTIFICATION
+      },
+      feedback: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+        }
+      },
+      homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,
       search: {
-        collections: {
-          clientOnly: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
-          doNotTranslate: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
-        },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
@@ -288,20 +297,16 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
-    '~/plugins/i18n/iso-locale',
-    '~/plugins/hotjar.client',
     '~/plugins/error',
-    '~/plugins/link',
     '~/plugins/axios.server',
-    '~/plugins/vue-filters',
-    '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/ab-testing',
-    '~/plugins/features'
+    '~/plugins/features',
+    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'mirador'}`
   ],
 
   buildModules: [
@@ -322,11 +327,11 @@ export default {
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
-      locales: i18nLocales,
+      locales: i18nLocales.map((locale) => ({ ...locale, file: `${locale.code}.js` })),
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
-      langDir: 'lang/',
+      langDir: 'i18n/lang/',
       strategy: 'prefix',
       vueI18n: {
         fallbackLocale: 'en',
@@ -335,10 +340,7 @@ export default {
       },
       // Disable redirects to account pages
       parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/logout': false
-      },
+      pages: i18nRoutesExclude.reduce((memo, route) => ({ ...memo, [route.slice(1)]: false }), {}),
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
@@ -372,11 +374,11 @@ export default {
         _scheme: 'oauth2'
       },
       keycloak: {
-        _scheme: '~/plugins/authScheme'
+        _scheme: '~/auth/schemes/authScheme'
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
   },
 
   axios: {
@@ -407,13 +409,6 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
@@ -435,9 +430,7 @@ export default {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link',
-    parseQuery,
-    stringifyQuery
+    linkExactActiveClass: 'exact-active-link'
   },
 
   serverMiddleware: [
@@ -481,9 +474,16 @@ export default {
 
     // Pure ESM modules need to be transpiled to be used by Vue2
     transpile: [
+      '@europeana/i18n',
       '@europeana/iiif',
+      '@europeana/oembed',
+      '@europeana/vue-visible-on-scroll',
+      'color-parse',
+      'color-rgba',
+      'color-space',
       'dom7',
       'ol/Collection.js',
+      'ol/color.js',
       'ol/extent.js',
       'ol/format/IIIFInfo.js',
       'ol/layer/Image.js',
@@ -492,10 +492,11 @@ export default {
       'ol/proj/Projection.js',
       'ol/source/IIIF.js',
       'ol/source/ImageStatic.js',
-      'ol/View.js',
+      'ol/structs/LRUCache.js',
       'ol/View.js',
       'ssr-window',
-      'swiper'
+      'swiper',
+      'vue-router-query'
     ]
   },
 
@@ -508,9 +509,9 @@ export default {
   ** Render configuration
    */
   render: {
-    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
-    // Cloudflare.
-    compressor: false,
+    // Compression disabled by default, to leave it to a gateway/reverse proxy
+    // like NGINX or Cloudflare.
+    ...(featureIsEnabled('nuxtRenderCompressor') ? {} : { compressor: false }),
 
     static: {
       maxAge: '1d'

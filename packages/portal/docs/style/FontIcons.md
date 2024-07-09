@@ -3,7 +3,7 @@ Apply the icon's class to an element to have it prefixed with the icon.
 Example:
 
 ```jsx static
-<span class="icon-heart" />
+<span class="icon-heart-outlined" />
 ```
 
 ### Available icons
@@ -20,9 +20,19 @@ Example:
       </thead>
       <tbody>
         <tr>
+          <td>3d</td>
+          <td><code>icon-3d</code></td>
+          <td><span class="icon icon-3d" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
+        </tr>
+        <tr>
+          <td>Account</td>
+          <td><code>icon-account</code></td>
+          <td><span class="icon icon-account" /></td>
         </tr>
         <tr>
           <td>Add</td>
@@ -30,14 +40,24 @@ Example:
           <td><span class="icon icon-add" /></td>
         </tr>
         <tr>
-          <td>Add</td>
-          <td><code>icon-ic-add</code></td>
-          <td><span class="icon icon-ic-add" /></td>
+          <td>Add circle</td>
+          <td><code>icon-add-circle</code></td>
+          <td><span class="icon icon-add-circle" /></td>
+        </tr>
+        <tr>
+          <td>Add circle outlined</td>
+          <td><code>icon-add-circle-outlined</code></td>
+          <td><span class="icon icon-add-circle-outlined" /></td>
         </tr>
         <tr>
           <td>Arrow down</td>
           <td><code>icon-arrow-down</code></td>
           <td><span class="icon icon-arrow-down" /></td>
+        </tr>
+        <tr>
+          <td>Automated</td>
+          <td><code>icon-automated</code></td>
+          <td><span class="icon icon-automated" /></td>
         </tr>
         <tr>
           <td>Back</td>
@@ -50,19 +70,24 @@ Example:
           <td><span class="icon icon-cancel-circle" /></td>
         </tr>
         <tr>
-          <td>Chevron</td>
-          <td><code>icon-chevron</code></td>
-          <td><span class="icon icon-chevron" /></td>
-        </tr>
-        <tr>
           <td>Check circle</td>
           <td><code>icon-check-circle</code></td>
           <td><span class="icon icon-check-circle" /></td>
         </tr>
         <tr>
+          <td>Chevron</td>
+          <td><code>icon-chevron</code></td>
+          <td><span class="icon icon-chevron" /></td>
+        </tr>
+        <tr>
           <td>Clear</td>
           <td><code>icon-clear</code></td>
           <td><span class="icon icon-clear" /></td>
+        </tr>
+        <tr>
+          <td>Collections</td>
+          <td><code>icon-collections</code></td>
+          <td><span class="icon icon-collections" /></td>
         </tr>
         <tr>
           <td>Download</td>
@@ -73,6 +98,11 @@ Example:
           <td>Edit</td>
           <td><code>icon-edit</code></td>
           <td><span class="icon icon-edit" /></td>
+        </tr>
+        <tr>
+          <td>Enrichment</td>
+          <td><code>icon-enrichment</code></td>
+          <td><span class="icon icon-enrichment" /></td>
         </tr>
         <tr>
           <td>External link</td>
@@ -110,6 +140,26 @@ Example:
           <td><span class="icon icon-heart" /></td>
         </tr>
         <tr>
+          <td>Heart outlined</td>
+          <td><code>icon-heart-outlined</code></td>
+          <td><span class="icon icon-heart-outlined" /></td>
+        </tr>
+        <tr>
+          <td>Help</td>
+          <td><code>icon-help</code></td>
+          <td><span class="icon icon-help" /></td>
+        </tr>
+        <tr>
+          <td>Home</td>
+          <td><code>icon-home</code></td>
+          <td><span class="icon icon-home" /></td>
+        </tr>
+        <tr>
+          <td>Image</td>
+          <td><code>icon-image</code></td>
+          <td><span class="icon icon-image" /></td>
+        </tr>
+        <tr>
           <td>Info</td>
           <td><code>icon-info</code></td>
           <td><span class="icon icon-info" /></td>
@@ -123,6 +173,11 @@ Example:
           <td>Instagram</td>
           <td><code>icon-instagram</code></td>
           <td><span class="icon icon-instagram" /></td>
+        </tr>
+        <tr>
+          <td>Institution</td>
+          <td><code>icon-institution</code></td>
+          <td><span class="icon icon-institution" /></td>
         </tr>
         <tr>
           <td>Language</td>
@@ -150,14 +205,44 @@ Example:
           <td><span class="icon icon-lock" /></td>
         </tr>
         <tr>
+          <td>Login</td>
+          <td><code>icon-login</code></td>
+          <td><span class="icon icon-login" /></td>
+        </tr>
+        <tr>
+          <td>Logout</td>
+          <td><code>icon-logout</code></td>
+          <td><span class="icon icon-logout" /></td>
+        </tr>
+        <tr>
+          <td>Menu</td>
+          <td><code>icon-menu</code></td>
+          <td><span class="icon icon-menu" /></td>
+        </tr>
+        <tr>
+          <td>Move xy</td>
+          <td><code>icon-ic-move-xy</code></td>
+          <td><span class="icon icon-ic-move-xy" /></td>
+        </tr>
+        <tr>
+          <td>Original</td>
+          <td><code>icon-original</code></td>
+          <td><span class="icon icon-original" /></td>
+        </tr>
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>
         </tr>
         <tr>
-          <td>Push pin</td>
-          <td><code>icon-push-pin</code></td>
-          <td><span class="icon icon-push-pin" /></td>
+          <td>Pin</td>
+          <td><code>icon-pin</code></td>
+          <td><span class="icon icon-pin" /></td>
+        </tr>
+        <tr>
+          <td>Pin outlined</td>
+          <td><code>icon-pin-outlined</code></td>
+          <td><span class="icon icon-pin-outlined" /></td>
         </tr>
         <tr>
           <td>Reject</td>
@@ -165,14 +250,44 @@ Example:
           <td><span class="icon icon-reject" /></td>
         </tr>
         <tr>
+          <td>Remove circle</td>
+          <td><code>icon-remove-circle</code></td>
+          <td><span class="icon icon-remove-circle" /></td>
+        </tr>
+        <tr>
+          <td>Remove circle outlined</td>
+          <td><code>icon-remove-circle-outlined</code></td>
+          <td><span class="icon icon-remove-circle-outlined" /></td>
+        </tr>
+        <tr>
+          <td>School</td>
+          <td><code>icon-school</code></td>
+          <td><span class="icon icon-school" /></td>
+        </tr>
+        <tr>
           <td>Search</td>
           <td><code>icon-search</code></td>
           <td><span class="icon icon-search" /></td>
         </tr>
         <tr>
+          <td>Settings</td>
+          <td><code>icon-settings</code></td>
+          <td><span class="icon icon-settings" /></td>
+        </tr>
+        <tr>
           <td>Share</td>
           <td><code>icon-share</code></td>
           <td><span class="icon icon-share" /></td>
+        </tr>
+        <tr>
+          <td>Sound</td>
+          <td><code>icon-sound</code></td>
+          <td><span class="icon icon-sound" /></td>
+        </tr>
+        <tr>
+          <td>Stories</td>
+          <td><code>icon-stories</code></td>
+          <td><span class="icon icon-stories" /></td>
         </tr>
         <tr>
           <td>Tag</td>
@@ -185,9 +300,39 @@ Example:
           <td><span class="icon icon-temporary-tag" /></td>
         </tr>
         <tr>
+          <td>Text</td>
+          <td><code>icon-text</code></td>
+          <td><span class="icon icon-text" /></td>
+        </tr>
+        <tr>
+          <td>Transcribe</td>
+          <td><code>icon-transcribe</code></td>
+          <td><span class="icon icon-transcribe" /></td>
+        </tr>
+        <tr>
+          <td>Transcribe outlined</td>
+          <td><code>icon-transcribe-outlined</code></td>
+          <td><span class="icon icon-transcribe-outlined" /></td>
+        </tr>
+        <tr>
           <td>Translate</td>
           <td><code>icon-translate</code></td>
           <td><span class="icon icon-translate" /></td>
+        </tr>
+        <tr>
+          <td>Unavailable</td>
+          <td><code>icon-unavailable</code></td>
+          <td><span class="icon icon-unavailable" /></td>
+        </tr>
+        <tr>
+          <td>Video</td>
+          <td><code>icon-video</code></td>
+          <td><span class="icon icon-video" /></td>
+        </tr>
+        <tr>
+          <td>View</td>
+          <td><code>icon-ic-view</code></td>
+          <td><span class="icon icon-ic-view" /></td>
         </tr>
         <tr>
           <td>X</td>

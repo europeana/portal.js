@@ -19,27 +19,31 @@
     <template
       v-else
     >
+      <LandingPage
+        v-if="landingPage"
+        :headline="page.headline || page.name"
+        :text="page.text"
+        :cta="page.relatedLink"
+        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
+        :primary-image-of-page="page.primaryImageOfPage"
+      />
+      <HomePage
+        v-else-if="homePage"
+      />
       <BrowsePage
-        v-if="browsePage"
+        v-else-if="browsePage"
         :name="page.name"
         :headline="page.headline"
         :has-part-collection="page.hasPartCollection"
-        :social-media-image-url="socialMediaImage ? socialMediaImageOptimisedUrl : null"
+        :image-url="pageMetaOgImage"
       />
       <StaticPage
         v-else-if="staticPage"
         :name="page.name"
         :description="page.description"
+        :automated-translation="page.automatedTranslation"
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
-      />
-      <LandingPage
-        v-else-if="landingPage"
-        :headline="page.headline || page.name"
-        :text="page.text"
-        :cta="page.relatedLink"
-        :sections="page.hasPartCollection.items.filter((item) => !!item)"
-        :primary-image-of-page="page.primaryImageOfPage"
       />
     </template>
   </div>
@@ -47,62 +51,83 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import BrowsePage from '@/components/browse/BrowsePage';
-  import StaticPage from '@/components/static/StaticPage';
-  import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import landingPageMixin from '@/mixins/landingPage';
+
+  const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
+  const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
 
   export default {
     name: 'IndexPage',
 
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      BrowsePage,
-      LandingPage,
+      BrowsePage: () => import('@/components/browse/BrowsePage'),
+      HomePage: () => import('@/components/home/HomePage'),
+      LandingPage: () => import('@/components/landing/LandingPage'),
       LoadingSpinner,
-      StaticPage
+      StaticPage: () => import('@/components/static/StaticPage')
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [landingPageMixin, pageMetaMixin],
 
-    props: {
-      slug: {
-        type: String,
-        default: null
+    layout(ctx) {
+      if (ds4chLayout(ctx)) {
+        return 'ds4ch';
+      } else {
+        return landingLayout(ctx) ? 'landing' : 'default';
       }
     },
 
     data() {
       return {
         browsePage: false,
-        staticPage: false,
+        homePage: false,
+        identifier: this.$route.params.pathMatch,
         landingPage: false,
         page: {},
-        identifier: this.slug || this.$route.params.pathMatch
+        socialMediaImageAlt: null,
+        socialMediaImage: null,
+        staticPage: false
       };
     },
 
     async fetch() {
-      const variables = {
-        identifier: this.identifier,
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      const response = await this.$contentful.query('browseLandingStaticPage', variables);
-      const data = response.data.data;
-      if ((data.staticPageCollection?.items?.length || 0) > 0) {
-        this.page = data.staticPageCollection.items[0];
-        this.staticPage = true;
-      } else if ((data.browsePageCollection?.items?.length || 0) > 0) {
-        this.page = data.browsePageCollection.items[0];
-        this.browsePage = true;
-      } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
-        this.page = data.landingPageCollection.items[0];
+      if (!this.identifier) {
+        if (this.$config?.app?.homeLandingPageSlug) {
+          this.identifier = this.$config.app.homeLandingPageSlug;
+          this.landingPage = true;
+          this.homePage = true;
+        } else {
+          this.homePage = true;
+          // HomePage component fetches itself
+          return;
+        }
+      // TODO: make LandingPage fetch itself
+      } else if (this.landingPageId) {
         this.landingPage = true;
-      } else {
-        this.$error(404, { scope: 'page' });
       }
+
+      try {
+        await this.fetchContentfulEntry();
+      } catch (e) {
+        if (e.message === 'Not Found') {
+          this.$error(404, { scope: 'page' });
+        } else {
+          throw (e);
+        }
+      }
+
+      // use social media image if set in Contentful,
+      // landing pages use primaryImageOfPage as a fallback, otherwise null
+      this.socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
+      this.socialMediaImageAlt = this.socialMediaImage?.description || '';
+
+      if (ds4chLayout({ $config: this.$config, route: this.$route })) {
+        this.pageMetaSuffixTitle = null;
+      }
+
+      this.page = Object.freeze(this.page);
     },
 
     computed: {
@@ -110,24 +135,36 @@
         return {
           title: this.page.name,
           description: this.page.description,
-          ogType: 'article',
-          ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
-          ogImageAlt: this.socialMediaImage ? this.socialMediaImageAlt : null
+          ogType: this.homePage ? 'website' : 'article',
+          ogImage: this.socialMediaImage,
+          ogImageAlt: this.socialMediaImageAlt
         };
-      },
-      socialMediaImage() {
-        // use social media image if set in Contentful,
-        // landing pages use primaryImageOfPage as a fallback, otherwise null
-        return this.page.image || this.page.primaryImageOfPage?.image || null;
-      },
-      socialMediaImageOptimisedUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.socialMediaImage,
-          { w: 800, h: 800 }
-        );
-      },
-      socialMediaImageAlt() {
-        return this.socialMediaImage?.description || '';
+      }
+    },
+
+    methods: {
+      async fetchContentfulEntry() {
+        let ctfQuery = 'browseStaticPage';
+        if (this.landingPage) {
+          ctfQuery = 'landingPage';
+        }
+
+        const variables = {
+          identifier: this.identifier,
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        };
+
+        const response = await this.$contentful.query(ctfQuery, variables);
+        const data = response.data.data;
+
+        const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
+        if (entryCollection) {
+          this.page = data[entryCollection].items[0];
+          this[entryCollection.replace('Collection', '')] = true;
+        } else {
+          throw new Error('Not Found');
+        }
       }
     }
   };

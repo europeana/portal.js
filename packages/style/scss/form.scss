@@ -29,6 +29,7 @@
 
 .text-muted {
   color: $mediumgrey !important;
+  margin-left: 0;
 }
 
 .invalid-feedback {
@@ -223,6 +224,7 @@ h3.facet-label,
   padding-left: 2.5em;
   height: auto;
   border-radius: 0.5em;
+  border: 1px solid $bodygrey;
   width: 100%;
 
   @media (min-width: $bp-4k) {

@@ -38,13 +38,13 @@
                     {{ $tc('galleries.galleries', 1) }}
                   </div>
                   <h1
-                    :lang="displayTitle.code"
+                    :lang="langAttribute(displayTitle.code)"
                   >
                     {{ displayTitle.values[0] }}
                   </h1>
                   <p
                     class="usergallery-description mb-3 w-75"
-                    :lang="displayDescription.code"
+                    :lang="langAttribute(displayDescription.code)"
                   >
                     {{ displayDescription.values[0] }}
                   </p>
@@ -166,7 +166,7 @@
                   <ItemPreviewCardGroup
                     :items="set.items"
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                    :draggable-items="userCanEditSet"
+                    :user-editable-items="userCanEditSet"
                     @endItemDrag="reorderItems"
                   />
                 </b-col>
@@ -192,13 +192,14 @@
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
   } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'GalleryPage',
@@ -217,6 +218,7 @@
     },
     mixins: [
       entityBestItemsSetMixin,
+      langAttributeMixin,
       redirectToMixin,
       pageMetaMixin
     ],
@@ -374,7 +376,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/masonry';
 
   .usergallery-description {

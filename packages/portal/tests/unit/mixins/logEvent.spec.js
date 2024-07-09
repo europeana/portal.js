@@ -13,7 +13,12 @@ const component = {
 
 const localVue = createLocalVue();
 
-const factory = ({ mocks = {} } = {}) => shallowMountNuxt(component, {
+const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(component, {
+  data() {
+    return {
+      ...data
+    };
+  },
   localVue,
   mocks: {
     $config: {
@@ -143,12 +148,29 @@ describe('mixins/logEvent', () => {
           describe('when there is an active session', () => {
             const $session = fixtures.session.active;
 
-            it('posts to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features, $session } });
+            describe('but the event is already being logged', () => {
+              const data = { eventBeingLogged: true };
 
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              it('does not post to event logging API', async() => {
+                const wrapper = factory({ data, mocks: { $features, $session } });
 
-              expect(nock.isDone()).toBe(true);
+                wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+                await new Promise(process.nextTick);
+
+                expect(nock.isDone()).toBe(false);
+              });
+            });
+
+            describe('and the event is not already being logged', () => {
+              const data = { eventBeingLogged: false };
+
+              it('posts to event logging API', async() => {
+                const wrapper = factory({ data, mocks: { $features, $session } });
+
+                await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+
+                expect(nock.isDone()).toBe(true);
+              });
             });
           });
         });

@@ -11,7 +11,7 @@ const pgPoolQuery = sinon.stub().resolves({
   ]
 });
 
-const expressReqStub = { query: { url: 'https://example.com/example' } };
+const expressReqStub = { query: { url: 'https://example.com/example?campaign=newsletter' } };
 const expressResStub = {
   json: sinon.spy(),
   sendStatus: sinon.spy()
@@ -46,7 +46,10 @@ describe('@/server-middleware/api/events/views', () => {
     it('queries postgres for the views', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(pgPoolQuery.getCalls().length).toBe(1);
+      expect(pgPoolQuery.calledWith(
+        sinon.match((sql) => sql.trim().startsWith('SELECT ')),
+        ['https://example.com/example', 'https://example.com/example']
+      )).toBe(true);
     });
 
     it('responds with the view count as json', async() => {

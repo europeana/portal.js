@@ -276,7 +276,7 @@ jobs:
       -
         name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: '355M'
+          DOCKER_IMAGE_SIZE_LIMIT: '362M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
@@ -447,13 +447,14 @@ jobs:
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
           echo "K8S_RESOURCE_NAME=portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+          echo "K8S_DEPLOYMENTS=deployment/portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Prepare env for test deployment
         if: github.event_name == 'push'
         run: |
           echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAME=portal-js" >> $GITHUB_ENV
+          echo "K8S_DEPLOYMENTS=deployment/portal-js deployment/ds4ch" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
@@ -476,7 +477,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           set +e
-          kubectl --namespace dev get deployment ${K8S_RESOURCE_NAME}
+          kubectl --namespace dev get ${K8S_DEPLOYMENTS}
           if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
           set -e
           echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
@@ -489,7 +490,7 @@ jobs:
           kubectl apply -f ingress.yml
       -
         name: Restart deployment
-        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} ${K8S_DEPLOYMENTS}
       -
         name: Comment with deployment link on pull request
         if: env.K8S_NEW_DEPLOYMENT == 'true'

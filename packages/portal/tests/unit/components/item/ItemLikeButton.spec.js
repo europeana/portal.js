@@ -115,6 +115,15 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
           });
+          it('makes toast', async() => {
+            const wrapper = factory({ $auth, storeState: { liked: [] } });
+            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
+
+            const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
+            await likeButton.trigger('click');
+
+            expect(makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
+          });
           describe('when the like limit is reached', () => {
             it('shows the like limit modal', async() => {
               const wrapper = factory({ $auth,
@@ -153,6 +162,15 @@ describe('components/item/ItemLikeButton', () => {
             likeButton.trigger('click');
 
             expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
+          });
+          it('makes toast', async() => {
+            const wrapper = factory({ $auth, storeState: { liked: [] } });
+            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
+
+            const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
+            await likeButton.trigger('click');
+
+            expect(makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
           });
         });
       });

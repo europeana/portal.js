@@ -6,16 +6,13 @@
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
     />
-    <client-only
+    <ItemTrendingItems
       v-else-if="trending"
-    >
-      <ItemTrendingItems
-        :headline="headline"
-      />
-    </client-only>
+    />
     <ContentCardSection
       v-else
       :section="contentCardSection"
+      class="mb-5"
     />
   </div>
 </template>
@@ -24,7 +21,8 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { daily } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -107,7 +105,6 @@
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       } else if (this.sectionType === TRENDING_ITEMS) {
         data.trending = true;
-        data.headline = this.$i18n.t('automatedCardGroup.trending');
       }
 
       return data;
@@ -206,7 +203,7 @@
       },
       async fetchContentfulData() {
         const variables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
         const response = await this.$contentful.query(this.contentful.query, variables);
@@ -220,7 +217,7 @@
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
-        return response.data.items || [];
+        return response.items || [];
       },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;

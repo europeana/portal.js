@@ -31,6 +31,7 @@ const factory = ({ propsData = {} }) => {
           baseUrl
         }
       },
+      $n: (num) => num,
       $t: (key) => key,
       $tc: (key, count) => `${key} ${count}`,
       $features: { storiesViewCounts: true }
@@ -43,7 +44,7 @@ describe('components/generic/ViewCount', () => {
     nock.cleanAll();
   });
   describe('when passed a URL', () => {
-    const url = 'https://www.europeana.eu/blog/example';
+    const url = 'https://www.europeana.eu/story/example';
 
     beforeEach(() => {
       nock(baseUrl)
@@ -64,8 +65,9 @@ describe('components/generic/ViewCount', () => {
       const wrapper = factory({ propsData });
       await wrapper.vm.fetch();
 
+      const viewCounter = wrapper.find('[data-qa="view count"]');
       expect(nock.isDone()).toBe(true);
-      expect(wrapper.find('button').text()).toBe('views.count 5');
+      expect(viewCounter.text()).toBe('views.count 5');
     });
   });
 });

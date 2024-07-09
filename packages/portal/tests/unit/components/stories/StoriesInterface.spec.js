@@ -10,10 +10,32 @@ const localVue = createLocalVue();
 
 localVue.use(BootstrapVue);
 
+const fullPropsData = {
+  callToAction: {
+    name: 'call to action',
+    text: 'click me!',
+    link: '#',
+    illustration: {}
+  },
+  featuredStory: {
+    sys: { id: 'sys-id' },
+    name: 'Story title',
+    headline: 'Story headline',
+    identifier: 'story-title',
+    image: { url: 'https://www.example.com/image.jpg' },
+    categoriesCollection: {
+      items: [
+        { identifier: 'cooking' },
+        { identifier: 'postcards' }
+      ]
+    }
+  }
+};
+
 const storiesMinimalContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
         ]
@@ -31,10 +53,10 @@ const storiesMinimalContentfulResponse = {
 const storiesBySysIdContentfulResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
           {
-            __typename: 'BlogPosting',
+            __typename: 'Story',
             sys: {
               id: '796f5YKe4b1u8uXtizSBu0'
             },
@@ -118,26 +140,19 @@ const contentfulQueryStub = () => {
   return stub;
 };
 
-const factory = ({ data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
+const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
   localVue,
   data() {
     return data;
   },
-  propsData: {
-    callToAction: {
-      name: 'call to action',
-      text: 'click me!',
-      link: '#',
-      illustration: {}
-    }
-  },
+  propsData,
   mocks: {
     $contentful: {
       query: contentfulQueryStub()
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {
@@ -149,7 +164,8 @@ const factory = ({ data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMou
     $t: (key) => key,
     $tc: (key) => key,
     ...mocks
-  }
+  },
+  stubs: ['StoriesFeaturedCard']
 });
 
 describe('components/stories/StoriesInterface', () => {
@@ -181,8 +197,23 @@ describe('components/stories/StoriesInterface', () => {
 
       expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
         locale: 'en-GB',
-        preview: false
+        preview: false,
+        excludeSysId: ''
       })).toBe(true);
+    });
+
+    describe('when there is a featured story', () => {
+      it('excludes it from those fetched', async() => {
+        const wrapper = factory({ propsData: fullPropsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: fullPropsData.featuredStory.sys.id
+        })).toBe(true);
+      });
     });
 
     it('fetches page of stories with full data from Contentful', async() => {
@@ -334,7 +365,7 @@ describe('components/stories/StoriesInterface', () => {
           const wrapper = factory({ data: { allStoryMetadata, perPage: 2 } });
           const expected = [
             storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
-            storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0],
+            storiesBySysIdContentfulResponse.data.data.storyCollection.items[0],
             'cta-banner'
           ];
 
@@ -388,28 +419,35 @@ describe('components/stories/StoriesInterface', () => {
         });
       });
     });
+  });
 
-    describe('entryUrl', () => {
-      it('prefixes BlogPosting entries with /blog', () => {
-        const wrapper = factory();
+  describe('when there is a featured story', () => {
+    describe('and on the first page', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData });
 
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'BlogPosting',
-          identifier: 'interesting'
-        });
-
-        expect(entryUrl).toBe('/blog/interesting');
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
       });
+    });
+    describe('and on the second page', () => {
+      it('does NOT render a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { page: '2' } } } });
 
-      it('prefixes ExhibitionPage entries with /exhibitions', () => {
-        const wrapper = factory();
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
+      });
+    });
+    describe('and its tags match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'cooking,postcards' } } } });
 
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'ExhibitionPage',
-          identifier: 'educational'
-        });
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(true);
+      });
+    });
+    describe('but its tags do not match those applied', () => {
+      it('renders a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { tags: 'sport' } } } });
 
-        expect(entryUrl).toBe('/exhibitions/educational');
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
     });
   });

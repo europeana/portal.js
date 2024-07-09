@@ -23,12 +23,11 @@
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
-        :img="collectionPreview(collection)"
         :disabled="!fetched"
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
         :data-qa="`toggle item button ${index}`"
-        @toggle="toggleItem(collection.id)"
+        @toggle="toggleItem(collection)"
       />
     </div>
     <div class="modal-footer">
@@ -45,8 +44,10 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
+  import makeToastMixin from '@/mixins/makeToast';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'SetAddItemModal',
@@ -56,7 +57,8 @@
     },
 
     mixins: [
-      logEventMixin
+      logEventMixin,
+      makeToastMixin
     ],
 
     props: {
@@ -90,7 +92,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
+          .filter(collection => (collection.items || []).some(item => item.replace(ITEM_URL_PREFIX, '') === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -117,8 +119,8 @@
           ]
         };
 
-        const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.collections = searchResponse.data.items || [];
+        const searchResponse = await this.$apis.set.search(searchParams);
+        this.collections = searchResponse.items || [];
         this.fetched = true;
       },
 
@@ -130,19 +132,19 @@
         });
       },
 
-      collectionPreview(set) {
-        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
-      },
-
-      async toggleItem(setId) {
+      async toggleItem(set) {
+        const setId = set.id;
+        const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
             await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
             this.added = this.added.filter(id => id !== setId);
+            this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
             this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
+            this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });

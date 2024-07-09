@@ -1,58 +1,110 @@
 <template>
   <div
-    class="image-card d-lg-flex mx-auto"
+    ref="imagecard"
+    class="image-card d-lg-flex justify-content-center"
+    :class="[variant, cardClasses, parityClasses]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper"
+      class="image-wrapper d-lg-flex align-items-end"
     >
       <ImageWithAttribution
         class="image"
+        :class="{ 'svg-image': isSVG }"
         :alt="cardImageWithAttribution.image.description || ''"
         :src="cardImageWithAttribution.image.url"
         :width="612"
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="imageSizes"
+        :contentful-image-crop-presets="isSVG ? null : srcSetPresets"
+        :contentful-image-display-profile="card?.profile"
+        :image-sizes="isSVG ? null : sizesPresets"
       />
     </div>
     <div class="text-wrapper">
-      <h3 class="title mb-2 mb-lg-3">
+      <component
+        :is="titleTag"
+        class="title"
+      >
         {{ card.name }}
-      </h3>
+      </component>
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
         v-html="parseMarkdownHtml(card.text)"
       />
-    <!-- eslint-enable vue/no-v-html -->
+      <!-- eslint-enable vue/no-v-html -->
+      <SmartLink
+        v-if="card.link"
+        :destination="card.link.url"
+        data-qa="call to action"
+        class="btn"
+        :class="{
+          'btn-secondary icon-chevron': variant === 'ds4ch',
+          'btn-outline-primary': variant !== 'ds4ch'
+        }"
+        hide-external-icon
+      >
+        {{ card.link.text }}
+      </SmartLink>
     </div>
   </div>
 </template>
 
 <script>
+  import parityMixin from '@/mixins/parity.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 545, h: 270, fit: 'fill' },
-    medium: { w: 510, h: 306, fit: 'fill' },
-    large: { w: 510, h: 306, fit: 'fill' },
-    xl: { w: 570, h: 342, fit: 'fill' },
-    xxl: { w: 612, h: 367, fit: 'fill' },
-    xxxl: { w: 612, h: 367, fit: 'fill' },
-    wqhd: { w: 612, h: 367, fit: 'fill' },
-    '4k': { w: 918, h: 551, fit: 'fill' }
+    small: { w: 512, h: 342, fit: 'fill' },
+    medium: { w: 510, h: 340, fit: 'fill' },
+    large: { w: 690, h: 460, fit: 'fill' },
+    xl: { w: 465, h: 310, fit: 'fill' },
+    '4k': { w: 625, h: 417, fit: 'fill' },
+    '4k+': { w: 1225, h: 700, fit: 'fill' }
   };
+
+  const SIZES_PRESETS = [
+    '(max-width: 575px) 512px', // bp-small
+    '(max-width: 767px) 510px', // bp-medium
+    '(max-width: 991px) 690px', // bp-large
+    '(max-width: 1199px) 465px', // bp-xl
+    '(max-width: 3019px) 625px', // bp-4k
+    '1225px'
+  ].join(',');
+
+  const SRCSET_PRESETS_DS4CH = {
+    small: { w: 512, h: 342, fit: 'fill' },
+    medium: { w: 510, h: 340, fit: 'fill' },
+    large: { w: 690, h: 460, fit: 'fill' },
+    xl: { w: 600, h: 400, fit: 'fill' },
+    xxl: { w: 700, h: 467, fit: 'fill' },
+    '4k': { w: 625, h: 417, fit: 'fill' },
+    '4k+': { w: 1500, h: 1000, fit: 'fill' }
+  };
+
+  const SIZES_PRESETS_DS4CH = [
+    '(max-width: 575px) 512px', // bp-small
+    '(max-width: 767px) 510px', // bp-medium
+    '(max-width: 991px) 690px', // bp-large
+    '(max-width: 1199px) 600px', // bp-xl
+    '(max-width: 1399px) 700px', // bp-xxl
+    '(max-width: 3019px) 625px', // bp-4k
+    '1500px'
+  ].join(',');
 
   export default {
     name: 'LandingImageCard',
     components: {
-      ImageWithAttribution: () => import('@/components/image/ImageWithAttribution')
+      ImageWithAttribution: () => import('@/components/image/ImageWithAttribution'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [
+      parityMixin,
+      parseMarkdownHtmlMixin
+    ],
 
     props: {
       /**
@@ -61,31 +113,36 @@
       card: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
 
     data() {
       return {
-        imageSizes: [
-          '(max-width: 575px) 545px', // bp-small
-          '(max-width: 991px) 510px', // bp-large
-          '(max-width: 1199px) 570px', // bp-xl
-          '(max-width: 3019px) 612px', // bp-4k
-          '918px'
-        ].join(',')
+        cardClasses: this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '',
+        cardImageWithAttribution: this.card?.image,
+        isSVG: this.card?.image?.image?.contentType === 'image/svg+xml',
+        sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
+        srcSetPresets: this.variant === 'ds4ch' ? SRCSET_PRESETS_DS4CH : SRCSET_PRESETS
       };
     },
 
-    computed: {
-      cardImageWithAttribution() {
-        return this.card.image;
-      }
-    },
-
-    methods: {
-      imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
-      }
+    mounted() {
+      this.$nextTick(() => this.markParity('image-card', 'imagecard'));
     }
   };
   </script>
@@ -94,95 +151,233 @@
   @import '@europeana/style/scss/variables';
 
   .image-card {
-    margin-bottom: 2.375rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 
     @media (min-width: $bp-medium) {
-      max-width: 510px;
+      align-items: center;
     }
 
     @media (min-width: $bp-large) {
+      text-align: left;
       max-width: 1250px;
-      margin-bottom: 4.625rem;
+      margin-bottom: 6rem;
 
-      &:nth-child(even) {
+      &:nth-child(even),
+      &.image-card-even {
         .text-wrapper {
           order: -1;
-          padding: 5rem 3.625rem 5rem 6rem;
-          clip-path: polygon(95px 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 209px));
+          padding-right: 3.625rem;
+          padding-left: 2rem;
+
+          @media (min-width: $bp-extralarge) {
+            padding-left: 6rem;
+          }
+
+          @media (min-width: $bp-4k) {
+            padding-right: 6rem;
+          }
         }
       }
     }
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
+      max-width: 2500px;
+      margin-bottom: 15rem;
     }
 
     .image-wrapper {
+      margin-bottom: 1rem;
+
       @media (min-width: $bp-large) {
         flex: 0 0 49%;
+        margin-bottom: 0;
       }
     }
 
     .text-wrapper {
       @media (min-width: $bp-large) {
         flex: 0 0 51%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         background-color: $white;
-        padding: 5rem 6rem 5rem 3.625rem;
-        clip-path: polygon(0% 0%, calc(100% - 95px) 0, 100% calc(100% - 209px), 100% 100%, 0 100%);
+        padding-left: 3.625rem;
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-left: 6rem;
+      }
+    }
+
+    &.bg-color-alternate,
+    .image-card-container-wrapper &.bg-color-alternate {
+      background-color: $bodygrey;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      @media (min-width: $bp-large) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-top: 15rem;
+        padding-bottom: 15rem;
+      }
+
+      .text-wrapper {
+        background-color: $bodygrey;
       }
     }
 
     ::v-deep figure {
       margin: 0;
-      height: 100%;
+      width: 100%;
+      height: auto;
+    }
 
-      img {
-        height: 100%;
+    figure.svg-image {
+      width: 100%;
+      height: auto;
+
+      ::v-deep img {
+        width: 100%;
+        height: auto;
       }
     }
 
     .title {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
+      text-align: center;
 
-      @media (min-width: $bp-medium) {
-        font-size: 1.75rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.75rem);
+      @media (min-width: $bp-large) {
+        text-align: left;
       }
     }
 
     .text {
       color: $mediumgrey;
+      text-align: left;
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .ds4ch.image-card {
+    max-width: 100%;
+
+    @media (min-width: $bp-large) {
+      padding-right: 0;
+    }
+
+    .image-wrapper {
+      @media (min-width: $bp-large) {
+        max-width: none;
+      }
+
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+      }
+
+      @media (min-width: $bp-4k) {
+        flex-basis: 1500px;
+      }
+
+    }
+
+    .text-wrapper {
+      padding-right: 0;
+
+      @media (min-width: $bp-large) {
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+        padding-right: 0;
+      }
+
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-right: 4rem;
+        padding-left: 12rem;
+        flex-basis: 1500px;
+      }
+
+      .text {
+        color: $black;
+
+        @media(min-width: $bp-4k) {
+          font-size: 2.5rem;
+        }
+      }
+
+      .btn {
+        margin-top: 1rem;
+
+        @media (min-width: $bp-4k) {
+          margin-top: 3rem;
+        }
+      }
+    }
+
+    &:nth-child(even),
+    &.image-card-even {
+      .text-wrapper {
+        @media (min-width: $bp-large) {
+          order: -1;
+          padding-right: 3.625rem;
+          padding-left: 2rem;
+        }
+
+        @media (min-width: $bp-extralarge) {
+          padding-left: 6rem;
+        }
+        @media (min-width: $bp-xxl) {
+          padding-right: 6rem;
+          padding-left: 0;
+        }
+      }
     }
   }
 </style>
 
 <docs lang="md">
   ```jsx
-    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
+    import '@europeana/style/scss/landing.scss';
+    <div class="landing-page xxl-page">
       <LandingImageCard
         :card="{
           __typename: 'ImageCard',
           name: 'Card title',
           text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          image: {
-            name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
-            creator: 'Undefined',
-            provider: 'Wellcome Collection',
-            license: 'http://creativecommons.org/licenses/by/4.0/',
-            url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
-            image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
-            contentType: 'image/jpeg',
-            description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
-            width: 830, height: 470 }
-          }
+          image: imagesWithAttribution[0]
+        }"
+      />
+      <LandingImageCard
+        :card="{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0],
+          link: { text: 'read more', url: '/'}
         }"
       />
     </div>

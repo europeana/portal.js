@@ -1,24 +1,33 @@
 <template>
   <figcaption
+    ref="attributiontoggle"
     class="background-attribution"
+    data-qa="attribution toggle"
     @mouseleave="toggleCite"
   >
-    <span
-      v-if="citeCollapsed"
-      class="icon-info"
+    <b-button
+      v-show="!showCite"
+      ref="toggle"
+      :aria-expanded="showCite"
+      class="button-icon-only icon-info bg-transparent border-0"
+      data-qa="toggle"
+      :aria-label="$t('attribution.show')"
       @click="toggleCite"
       @mouseover="toggleCite"
       @touchstart="toggleCite"
+      @keydown="keyboardNav = true"
     />
     <CiteAttribution
-      v-else
+      v-if="showCite"
       :name="attribution ? attribution.name : null"
       :creator="attribution ? attribution.creator : null"
       :provider="attribution ? attribution.provider : null"
       :rights-statement="rightsStatement"
       :url="attribution ? attribution.url : null"
+      :set-focus="keyboardNav"
       extended
       data-qa="attribution"
+      @keydown.escape.native="handleCiteAttributionKeydownEscape"
     />
   </figcaption>
 </template>
@@ -42,7 +51,8 @@
 
     data() {
       return {
-        citeCollapsed: true
+        keyboardNav: false,
+        showCite: false
       };
     },
 
@@ -52,13 +62,52 @@
       }
     },
 
+    watch: {
+      showCite(newVal) {
+        if (newVal) {
+          window.addEventListener('focusin', this.handleWindowFocusin);
+        } else {
+          window.removeEventListener('focusin', this.handleWindowFocusin);
+        }
+      }
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('focusin', this.handleWindowFocusin);
+    },
+
     methods: {
       toggleCite() {
-        this.citeCollapsed = !this.citeCollapsed;
+        this.showCite = !this.showCite;
+      },
+      handleCiteAttributionKeydownEscape() {
+        this.resetKeyboardNav();
+        this.toggleCite();
+        this.$nextTick(() => {
+          this.$refs.toggle.focus();
+        });
+      },
+      handleWindowFocusin(event) {
+        // focus has changed, toggle the citation if not to a child element
+        !this.$refs.attributiontoggle?.contains(event.target) && this.toggleCite() && this.resetKeyboardNav();
+      },
+      resetKeyboardNav() {
+        this.keyboardNav = false;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .btn-secondary.button-icon-only {
+    &:focus {
+      background: transparent;
+      color: $white;
+    }
+  }
+</style>
 
 <docs lang="md">
   ```jsx

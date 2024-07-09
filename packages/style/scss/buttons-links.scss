@@ -134,24 +134,11 @@
     }
   }
 
-  &.like-button,
-  &.pin-button {
+  &.like-button {
 
     &.active,
     &:not(:disabled):not(.disabled).active {
-      color: $white;
-      background-color: $red;
-      border-color: $red;
-    }
-  }
-
-  .icon-heart {
-    font-size: $font-size-medium;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
-      }
+      color: $red;
     }
   }
 
@@ -183,6 +170,7 @@
 
   &:hover {
     box-shadow: none;
+    color: $darkblue;
   }
 }
 
@@ -291,7 +279,7 @@
     opacity: 0.7;
   }
 
-  .icon-ic-add {
+  .icon-add-circle-outlined {
     line-height: 1;
 
     &::before {
@@ -342,6 +330,14 @@
 
   &.icon-clear {
     font-size: $font-size-small;
+  }
+
+  .icon-pin,
+  .icon-pin-outlined,
+  .icon-add-circle-outlined,
+  .icon-heart,
+  .icon-heart-outlined {
+    font-size: $font-size-base;
   }
 
   &:hover {
@@ -413,7 +409,8 @@
   &.like-button,
   &.pin-button,
   &.recommendation-button,
-  &.move-button {
+  &.move-button,
+  &.remove-button {
     font-size: $font-size-large;
 
     @at-root .xxl-page & {
@@ -435,28 +432,22 @@
     }
   }
 
-  &.like-button,
+  &.like-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $red;
+    }
+  }
+
   &.pin-button {
 
     &.active,
     &:not(:disabled):not(.disabled).active {
-      color: $white;
-      background-color: $red;
-      border-color: $red;
+      color: $mediumgrey;
     }
   }
 
-  &.like-button {
-    font-size: $font-size-medium;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
-      }
-    }
-  }
-
-  &.pin-button,
   &.recommendation-button {
     &:hover {
       color: $innovationblue;

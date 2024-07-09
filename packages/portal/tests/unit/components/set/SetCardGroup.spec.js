@@ -42,10 +42,9 @@ const factory = ({ propsData } = {}) => {
       title: 'title value',
       ...propsData
     },
-
     mocks: {
       $apis: {
-        set: { search: sinon.stub().resolves(fetchedSets[0]) },
+        set: { search: sinon.stub().resolves({ items: fetchedSets }) },
         thumbnail: { edmPreview: (img) => img[0] }
       },
       $i18n: { locale: 'en' }

@@ -10,12 +10,18 @@ export default (config = {}) => {
         res.json({ viewCount: 0 });
         return;
       }
-      const url = req.query?.url;
+      const url = new URL(req.query?.url);
+      // Ignore any search query or hash
+      const uri = `${url.origin}${url.pathname}`;
+
+      // TODO: update old objects, then stop using legacy uris
+      // @/docker/compose/postgres/model/07-clean-up-blog-objects.psql
+      // TODO: or, stop hard-coding for blog posts/stories, and add redirects/
+      //       aliases to db to support other paths too
+      const legacyUri = url.pathname.startsWith('/stories') ? `${url.origin}${url.pathname.replace('/stories', '/blog')}` : uri;
 
       const result = await pg.query(`
-        SELECT uri,
-               action_type_name,
-               sum(views) AS views
+        SELECT SUM(views) AS views
         FROM
           (SELECT o.uri,
                   at.name AS action_type_name,
@@ -33,11 +39,9 @@ export default (config = {}) => {
            LEFT JOIN events.action_types AT ON a.action_type_id=at.id
            GROUP BY at.name,
                     o.uri) actions_and_history
-        WHERE action_type_name='view' AND uri=$1
-        GROUP BY uri,
-                 action_type_name
+        WHERE action_type_name='view' AND (uri=$1 OR uri=$2)
         `,
-      [url]
+      [uri, legacyUri]
       );
 
       const viewCount = Number(result.rows[0]?.views);

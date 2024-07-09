@@ -1,12 +1,14 @@
 <template>
-  <SmartLink
-    :destination="url"
-    data-qa="call to action"
-    class="btn btn-cta btn-primary d-inline-flex align-items-center"
-    hide-external-icon
-  >
-    {{ text }}
-  </SmartLink>
+  <div>
+    <SmartLink
+      :destination="url"
+      data-qa="call to action"
+      class="btn btn-cta btn-primary"
+      hide-external-icon
+    >
+      {{ text }}
+    </SmartLink>
+  </div>
 </template>
 
 <script>

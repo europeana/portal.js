@@ -30,13 +30,13 @@
               :datetime="datePublished"
               class="font-small font-weight-bold d-block mb-4"
             >
-              {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
+              {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
             </time>
-            <ShareButton class="mb-4 mr-4" />
-            <ShareSocialModal :media-url="heroImage && heroImage.url" />
-            <ViewCount
-              class="mb-4"
-            />
+            <div class="mb-4 d-flex align-items-center">
+              <ShareButton class="mr-4" />
+              <ShareSocialModal :media-url="pageMetaOgImage" />
+              <ViewCount />
+            </div>
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -148,7 +148,7 @@
 
       const variables = {
         identifier: params.exhibition,
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview'
       };
 
@@ -183,7 +183,7 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -198,12 +198,6 @@
       },
       mainContent() {
         return this.text ? marked.parse(this.text) : null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

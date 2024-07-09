@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <div
-      v-if="caption"
+  <div :class="`link-group-${variant}`">
+    <component
+      :is="titleTag"
+      v-if="title"
       class="group-title text-uppercase font-weight-bold"
-      data-qa="link group caption"
+      data-qa="link group title"
     >
-      {{ caption }}
-    </div>
+      {{ title }}
+    </component>
     <ul
-      class="m-0 p-0"
+      class="link-group-list m-0 p-0"
       data-qa="link group links"
-      :class="listClass"
     >
       <li
         v-for="(link, index) in filteredLinks"
@@ -20,7 +20,6 @@
         <SmartLink
           v-if="link.url"
           :destination="link.url"
-          :link-class="linkClass"
           :data-qa="link.dataQa"
           :hide-external-icon="link.hideExternalIcon"
         >
@@ -28,6 +27,12 @@
             v-if="link.icon"
             :class="`footer-link-icon ${link.icon}`"
             :title="link.text"
+          />
+          <b-img
+            v-else-if="link.image"
+            :src="link.image"
+            :alt="link.text"
+            lazy
           />
           <template v-else>
             {{ link.text }}
@@ -53,11 +58,18 @@
 
     props: {
       /**
-       * Caption of the link group
+       * Title of the link group
        */
-      caption: {
+      title: {
         type: String,
         default: ''
+      },
+      /**
+       * HTML tag element to use for the title
+       */
+      titleTag: {
+        type: String,
+        default: 'h3'
       },
 
       /**
@@ -69,19 +81,12 @@
       },
 
       /**
-       * Optional class for styling of links
+       * Variant for specific styles
+       * @values light, social, dark
        */
-      linkClass: {
+      variant: {
         type: String,
-        default: ''
-      },
-
-      /**
-       * Optional class for styling of list
-       */
-      listClass: {
-        type: String,
-        default: ''
+        default: 'light'
       }
     },
     computed: {
@@ -95,23 +100,62 @@
   };
 </script>
 
-<docs lang="md">
-  Variant without caption
-  ```jsx
-  <LinkGroup
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
-  />
-  ```
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
 
-  Variant with caption
+  .group-title {
+    font-size: $font-size-small;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .link-group-list {
+    list-style-type: none;
+
+    li {
+      a {
+        font-size: $font-size-small;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .link-group-light {
+    .group-title {
+      color: $bodygrey;
+    }
+
+    .link-group-list {
+      li {
+        a {
+          color: $white;
+        }
+      }
+    }
+  }
+</style>
+
+<docs lang="md">
+    Variant "light" (default)
+  ```jsx
+  <div style="background-color: #000; margin: -16px; padding: 16px;">
+    <LinkGroup
+      title="This title is optional"
+      :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
+    />
+  </div>
+  ```
+  Variant "dark"
   ```jsx
   <LinkGroup
-    caption="This is a link group"
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
+    title="This title is optional"
+    :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
+    variant="dark"
   />
+
   ```
 </docs>

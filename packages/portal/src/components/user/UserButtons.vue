@@ -25,6 +25,13 @@
       <span class="icon-ic-move-xy" />
       {{ buttonText ? $t('actions.move') : '' }}
     </b-button>
+    <ItemRemoveButton
+      v-if="showRemove"
+      data-qa="item remove button"
+      :identifier="identifier"
+      :button-variant="buttonVariant"
+      :button-text="buttonText"
+    />
     <ItemAddButton
       data-qa="item add button"
       :identifier="identifier"
@@ -41,9 +48,9 @@
 </template>
 
 <script>
-  import ItemAddButton from '../item/ItemAddButton';
-  import ItemLikeButton from '../item/ItemLikeButton';
-  import ItemPinButton from '../item/ItemPinButton';
+  import ItemAddButton from '@/components/item/ItemAddButton';
+  import ItemLikeButton from '@/components/item/ItemLikeButton';
+  import ItemPinButton from '@/components/item/ItemPinButton';
 
   export default {
     name: 'UserButtons',
@@ -51,7 +58,8 @@
     components: {
       ItemAddButton,
       ItemLikeButton,
-      ItemPinButton
+      ItemPinButton,
+      ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
     },
 
     props: {
@@ -78,6 +86,13 @@
        * If `true`, move button will be rendered
        */
       showMove: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * If `true`, remove button will be rendered
+       */
+      showRemove: {
         type: Boolean,
         default: false
       },

@@ -34,7 +34,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(EmbedOE
     $fetchState: {},
     $t: (key) => key
   },
-  stubs: ['EmbedHTML']
+  stubs: ['EmbedHTML', 'client-only']
 });
 
 describe('components/embed/EmbedOEmbed', () => {

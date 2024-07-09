@@ -4,6 +4,7 @@ import isbot from 'isbot';
 export default {
   data() {
     return {
+      eventBeingLogged: false,
       eventLogged: false,
       eventToLog: null
     };
@@ -15,6 +16,7 @@ export default {
         this.$features?.eventLogging &&
         this.eventToLog &&
         !this.eventLogged &&
+        !this.eventBeingLogged &&
         !this.$fetchState?.error &&
         process.client &&
         !isbot(navigator?.userAgent) &&
@@ -40,6 +42,8 @@ export default {
         return;
       }
 
+      this.eventBeingLogged = true;
+
       const postData = {
         ...this.eventToLog,
         sessionId: this.$session?.id
@@ -55,6 +59,8 @@ export default {
         this.eventLogged = true;
       } catch (e) {
         this.eventLogged = false;
+      } finally {
+        this.eventBeingLogged = false;
       }
     }
   }

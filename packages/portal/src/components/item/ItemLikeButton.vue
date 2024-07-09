@@ -8,10 +8,10 @@
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
-      :title="$t('set.actions.saveItemToLikes')"
+      :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
-      <span class="icon-heart" />
+      <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
     <!-- TODO: remove when 100-item like limit removed -->
@@ -28,6 +28,7 @@
 <script>
   import keycloak from '@/mixins/keycloak';
   import logEventMixin from '@/mixins/logEvent';
+  import makeToastMixin from '@/mixins/makeToast';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -35,7 +36,8 @@
 
     mixins: [
       keycloak,
-      logEventMixin
+      logEventMixin,
+      makeToastMixin
     ],
 
     props: {
@@ -96,6 +98,7 @@
         } else {
           this.keycloakLogin();
         }
+        this.$root.$emit('bv::hide::tooltip');
       },
       async like() {
         if (this.likesId === null) {
@@ -106,6 +109,7 @@
           await this.$store.dispatch('set/like', this.identifier);
           this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
           this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
+          this.makeToast(this.$t('set.notifications.itemLiked'));
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -117,7 +121,21 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
+        this.makeToast(this.$t('set.notifications.itemUnliked'));
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .like-button:hover {
+    .icon-heart-outlined::before {
+      content: '\e918';
+    }
+    .icon-heart::before {
+      content: '\e9da';
+    }
+  }
+</style>

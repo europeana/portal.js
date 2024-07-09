@@ -35,6 +35,11 @@
       class="card-deck-4-cols"
       deck
     >
+      <StoriesFeaturedCard
+        v-if="showFeaturedStory"
+        :featured-story="featuredStory"
+        data-qa="featured story card"
+      />
       <template
         v-for="(entry, index) in stories"
       >
@@ -56,10 +61,9 @@
           v-else-if="entry !== ctaBanner"
           :key="index"
           :title="entry.name"
-          :url="entryUrl(entry)"
+          :url="contentfulEntryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-          :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
         />
       </template>
     </b-card-group>
@@ -74,8 +78,10 @@
 <script>
   import uniq from 'lodash/uniq';
   import ClientOnly from 'vue-client-only';
+
   import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   const CTA_BANNER = 'cta-banner';
 
@@ -88,11 +94,16 @@
       ContentCard,
       LoadingSpinner,
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      StoriesFeaturedCard: () => import('./StoriesFeaturedCard'),
       StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
 
     props: {
       callToAction: {
+        type: Object,
+        default: () => {}
+      },
+      featuredStory: {
         type: Object,
         default: () => {}
       }
@@ -140,6 +151,15 @@
       },
       page() {
         return Number(this.$route.query.page || 1);
+      },
+      showFeaturedStory() {
+        let featuredStoryMatchesSelectedTags = true;
+        const featuredStoryTags = this.featuredStory?.categoriesCollection?.items?.map((cat) => cat.identifier) || [];
+        if (this.selectedTags.length > 0) {
+          featuredStoryMatchesSelectedTags = this.selectedTags.every((tag) => featuredStoryTags.includes(tag));
+        }
+
+        return this.featuredStory && featuredStoryMatchesSelectedTags && (this.page === 1);
       }
     },
 
@@ -153,12 +173,13 @@
         // Fetch minimal data for all stories to support ordering by datePublished
         // and filtering by categories.
         const storyIdsVariables = {
-          locale: this.$i18n.isoLocale(),
+          excludeSysId: this.featuredStory?.sys?.id || '',
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.blogPostingCollection.items,
+          storyIdsResponse.data.data.storyCollection.items,
           storyIdsResponse.data.data.exhibitionPageCollection.items
         ].flat();
 
@@ -179,14 +200,14 @@
 
         // Fetch full data for display of page of stories
         const storiesVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           limit: this.perPage,
           ids: storySysIds
         };
         const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
         const fullStories = [
-          storiesResponse.data.data.blogPostingCollection.items,
+          storiesResponse.data.data.storyCollection.items,
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
@@ -196,21 +217,7 @@
         this.$scrollTo?.('#header');
       },
 
-      entryUrl(entry) {
-        let urlPrefix;
-
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
-        } else if (entry['__typename'] === 'ExhibitionPage') {
-          urlPrefix = '/exhibitions';
-        }
-
-        return `${urlPrefix}/${entry.identifier}`;
-      },
-
-      entryImageOptions(image) {
-        return image.width <= image.height ? { width: 660 } : { height: 620 };
-      }
+      contentfulEntryUrl
     }
   };
 </script>

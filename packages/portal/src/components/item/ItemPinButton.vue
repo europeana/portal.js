@@ -9,7 +9,7 @@
       :aria-label="$t('entity.actions.pin')"
       @click="pinAction"
     >
-      <span class="icon-push-pin" />
+      <span :class="pinned ? 'icon-pin' : 'icon-pin-outlined'" />
       {{ pinButtonText }}
     </b-button>
     <b-modal
@@ -40,7 +40,7 @@
       v-if="identifier && entities.length > 0"
       :identifier="identifier"
       :modal-id="pinModalId"
-      :entities="entities"
+      :entity-uris="entityUris"
       data-qa="pin item to entities modal"
     />
   </div>
@@ -49,7 +49,7 @@
 <script>
   import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinButton',
@@ -102,6 +102,9 @@
     },
 
     computed: {
+      entityUris() {
+        return this.entities.map((entity) => entity.about);
+      },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
       },
@@ -155,3 +158,16 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .pin-button:hover {
+    .icon-pin-outlined::before {
+      content: '\e91e';
+    }
+    .icon-pin::before {
+      content: '\e936';
+    }
+  }
+</style>

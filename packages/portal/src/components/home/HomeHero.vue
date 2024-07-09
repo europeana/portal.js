@@ -1,8 +1,12 @@
 <template>
   <div
-    class="hero responsive-backround-image"
-    :style="imageCSSVars"
+    class="hero"
   >
+    <div
+      ref="heroBackground"
+      class="hero-background responsive-backround-image"
+      :style="imageCSSVars"
+    />
     <div
       class="hero-content"
     >
@@ -37,6 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
+  import { FULL_VIEWPORT_PRESETS as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'HomeHero',
@@ -59,17 +64,25 @@
         return this.backgroundImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.backgroundImage.image,
-            {
-              small: { w: 576, h: 896, fit: 'fill' },
-              medium: { w: 768, h: 1080, fit: 'fill' },
-              large: { w: 992, h: 1080, fit: 'fill' },
-              xl: { w: 1200, h: 1080, fit: 'fill' },
-              xxl: { w: 1440, h: 1080, fit: 'fill' },
-              xxxl: { w: 1920, h: 1080, fit: 'fill' },
-              wqhd: { w: 2560, h: 1440, fit: 'fill' },
-              '4k': { w: 3840, h: 2160, fit: 'fill' }
-            }
+            CSS_VARS_PRESETS
           );
+      }
+    },
+
+    mounted() {
+      window.addEventListener('scroll', this.transformBackground);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.transformBackground);
+    },
+
+    methods: {
+      transformBackground() {
+        const scrollPosition = window.scrollY || 1;
+        const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
+        const zoom = (scrollPosition / heroBackgroundHeight * 0.25) + 1;
+        this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }
   };
@@ -85,25 +98,13 @@
     background-color: $mediumgrey-light;
     padding: 25vh 1.5rem 1.5rem;
     min-height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
     position: relative;
     padding-bottom: 128px; // save space for absolute positioned EULogo of height 64px, doubled for spacing around the logo
+    overflow: hidden;
 
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
       padding-bottom: calc(1.5 * 128px);
-    }
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
-      mix-blend-mode: multiply;
-      position: absolute;
     }
 
     &::after {
@@ -125,23 +126,47 @@
       }
     }
 
+    .hero-background {
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 500ms ease-out;
+
+      &::before {
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(0deg, #000, #000);
+        mix-blend-mode: saturation;
+        position: absolute;
+      }
+
+      &::after {
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
+        mix-blend-mode: multiply;
+        position: absolute;
+      }
+    }
+
     h1,
     .sub-headline {
       color: $white;
     }
 
     h1 {
-      font-size: $font-size-xl;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: 2.875rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.875rem);
-      }
+      @extend %title-1;
 
       .digital-highlight {
         text-shadow: 3.5px 3.5px 0 $blue;

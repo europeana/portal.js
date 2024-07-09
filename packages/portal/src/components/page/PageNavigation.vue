@@ -16,7 +16,7 @@
         exact
       >
         <span :class="renderIcon(link.url)" />
-        <span>
+        <span class="nav-link-text">
           {{ link.text }}
         </span>
       </SmartLink>
@@ -52,7 +52,7 @@
           class="nav-link"
         >
           <span :class="renderIcon(item.url)" />
-          <span>
+          <span class="nav-link-text">
             {{ item.text }}
           </span>
         </b-link>
@@ -71,7 +71,7 @@
         @click.prevent="keycloakLogin"
       >
         <span :class="renderIcon('/account/login')" />
-        <span>
+        <span class="nav-link-text">
           {{ $t('account.linkLoginJoin') }}
         </span>
       </b-link>
@@ -158,7 +158,7 @@
           className = 'icon-info';
           break;
         case ('/share-your-data'):
-          className = 'icon-pro';
+          className = 'icon-institution';
           break;
         default:
           className = 'icon-info blank';
@@ -177,7 +177,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
 
   .nav-item {
     margin-right: 1rem;
@@ -234,7 +234,6 @@
         &::before {
           @extend %icon-font;
 
-          content: '';
           color: $greyblack;
           transition: $standard-transition;
           font-size: $font-size-large;
@@ -244,64 +243,8 @@
           }
         }
 
-        &.icon-home::before {
-          content: '\e922';
-        }
-
-        &.icon-collections::before {
-          content: '\e91d';
-        }
-
-        &.icon-pro::before {
-          content: '\e95a';
-        }
-
-        &.icon-school::before {
-          content: '\e952';
-        }
-
-        &.icon-info::before {
-          content: '\e91f';
-        }
-
-        &.icon-help::before {
-          content: '\e94f';
-        }
-
-        &.icon-login::before {
-          content: '\e950';
-        }
-
-        &.icon-logout::before {
-          content: '\e950';
-        }
-
-        &.icon-settings::before {
-          content: '\e928';
-        }
-
-        &.icon-account::before {
-          content: '\e932';
-        }
-
-        &.icon-stories::before {
-          content: '\e951';
-        }
-
         &.blank::before {
           color: transparent;
-        }
-
-        &.icon-school::before,
-        &.icon-stories::before,
-        &.icon-login::before,
-        &.icon-help::before {
-          font-size: $font-size-medium;
-          padding: 0.1rem;
-
-          @media (min-width: $bp-4k) {
-            font-size: $font-size-medium-4k;
-          }
         }
       }
     }
@@ -352,10 +295,6 @@
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
-        overflow: hidden;
-        white-space: nowrap;
-        display: block;
-        text-overflow: ellipsis;
 
         @media (min-width: $bp-4k) {
           border-radius: calc(1.5 * $border-radius-small);
@@ -377,8 +316,10 @@
           }
         }
 
-        span {
-          flex: 0 0 auto;
+        .nav-link-text {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
     }

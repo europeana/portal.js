@@ -1,0 +1,266 @@
+query LandingPage(
+  $identifier: String!
+  $locale: String!
+  $preview: Boolean = false
+) {
+  landingPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      description
+      image {
+        ...imageFields
+      }
+      headline
+      text
+      relatedLink {
+        url
+        text
+      }
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
+      hasPartCollection(limit: 20) {
+        total
+        items {
+          __typename
+          ... on CardGroup {
+            ...cardGroupFields
+          }
+          ... on IllustrationGroup {
+            ...illustrationGroupFields
+          }
+          ... on InfoCardGroup {
+            ...infoCardGroupFields
+          }
+          ... on ImageCard {
+            ...imageCardFields
+          }
+          ... on ImageCardGroup {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            image {
+              ...illustrationFields
+            }
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on ImageCard {
+                  ...imageCardFields
+                }
+              }
+            }
+          }
+          ... on LandingSubSection {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on CardGroup {
+                  ...cardGroupFields
+                }
+                ... on AutomatedCardGroup {
+                  ...automatedCardGroupFields
+                }
+                ... on IllustrationGroup {
+                  ...illustrationGroupFields
+                }
+                ... on ImageCard {
+                  ...imageCardFields
+                }
+                ... on InfoCardGroup {
+                  ...infoCardGroupFields
+                }
+              }
+            }
+          }
+          ... on EmbedSection {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            embed {
+              embed
+            }
+            link {
+              url
+              text
+            }
+            image {
+              ...illustrationFields
+            }
+          }
+          ... on PrimaryCallToAction {
+            ...primaryCallToActionFields
+          }
+        }
+      }
+    }
+  }
+}
+fragment imageFields on Asset {
+  title
+  url
+  contentType
+  description
+  width
+  height
+  contentfulMetadata {
+    tags {
+      id
+    }
+  }
+}
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  nameEN: name(locale: "en-GB")
+  creator
+  provider
+  license
+  url
+  image {
+    ...imageFields
+  }
+}
+fragment illustrationFields on Illustration {
+  name
+  nameEN: name(locale: "en-GB")
+  image {
+    ...imageFields
+  }
+  url
+  profile {
+    ...imageDisplayProfileFields
+  }
+}
+fragment infoCardFields on InfoCard {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  image {
+    ...imageFields
+  }
+  link {
+    url
+    text
+  }
+}
+fragment illustrationGroupFields on IllustrationGroup {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  hasPartCollection(limit: 20) {
+    items {
+      ... on Illustration {
+        ...illustrationFields
+      }
+    }
+  }
+}
+fragment infoCardGroupFields on InfoCardGroup {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  hasPartCollection(limit: 12) {
+    items {
+      __typename
+      ... on InfoCard {
+        ...infoCardFields
+      }
+    }
+  }
+  link {
+    url
+    text
+  }
+}
+fragment automatedCardGroupFields on AutomatedCardGroup {
+  genre
+  moreButton {
+    url
+    text
+  }
+}
+fragment automatedEntityCardFields on AutomatedEntityCard {
+  name
+  nameEN: name(locale: "en-GB")
+  identifier
+  description
+  slug
+  entityImage: image
+}
+fragment curatedCardFields on CuratedCard {
+  name
+  nameEN: name(locale: "en-GB")
+  description
+  url
+  image {
+    ...imageFields
+  }
+}
+fragment primaryCallToActionFields on PrimaryCallToAction {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  relatedLink {
+    url
+    text
+  }
+  image {
+    ...illustrationFields
+  }
+}
+fragment cardGroupFields on CardGroup {
+  headline
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
+  }
+}
+fragment imageDisplayProfileFields on ImageDisplayProfile {
+  fit
+  sizes
+  focus
+  quality
+  overlay
+  crop
+  background
+}
+fragment imageCardFields on ImageCard {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  link {
+    url
+    text
+  }
+  image {
+    ...imageWithAttributionFields
+  }
+  profile {
+    ...imageDisplayProfileFields
+  }
+}

@@ -55,6 +55,7 @@
         backdrop
         backdrop-variant="black"
         :aria-label="$t('header.sideNavigation')"
+        lazy
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
@@ -91,7 +92,7 @@
       </b-sidebar>
     </div>
     <div
-      v-show="showSearchBar"
+      v-if="showSearchBar"
       class="search-bar d-flex justify-content-center"
       data-qa="search form wrapper"
     >
@@ -105,8 +106,9 @@
 </template>
 
 <script>
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
+
   import SmartLink from '../generic/SmartLink';
-  import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
   import SearchSidebarToggleButton from '../search/SearchSidebarToggleButton';
 
@@ -115,9 +117,13 @@
 
     components: {
       SmartLink,
-      SearchForm,
+      SearchForm: () => import('../search/SearchForm'),
       PageNavigation,
       SearchSidebarToggleButton
+    },
+
+    directives: {
+      'visible-on-scroll': visibleOnScrollDirective
     },
 
     data() {
@@ -147,7 +153,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/icons';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);

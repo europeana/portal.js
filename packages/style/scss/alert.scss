@@ -29,6 +29,7 @@
 
     &::before {
       font-size: $font-size-extrasmall;
+      line-height: 1.5rem;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {

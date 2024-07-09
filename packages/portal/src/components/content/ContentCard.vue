@@ -19,25 +19,18 @@
         class="card-img"
         :class="{ logo }"
       >
-        <b-img-lazy
-          v-if="lazy"
-          :src="optimisedImageUrl"
-          :blank-width="blankImageWidth"
-          :blank-height="blankImageHeight"
-          :width="imageWidth"
-          :height="imageHeight"
+        <ImageOptimised
+          :src="cardImageUrl"
+          :width="imageWidthPerVariant"
+          :height="imageHeightPerVariant"
           :alt="imageAlt"
+          :content-type="imageContentType"
+          :contentful-image-crop-presets="contentfulImageCropPresets"
+          :image-sizes="imageSizes"
+          :picture-source-media-resolutions="[1, 2]"
+          :lazy="lazy"
           @error.native="imageNotFound"
           @load.native="imageLoaded"
-        />
-        <b-img
-          v-else
-          :src="optimisedImageUrl"
-          :width="imageWidth"
-          :height="imageHeight"
-          :alt="imageAlt"
-          @error="imageNotFound"
-          @load="imageLoaded"
         />
       </div>
       <SmartLink
@@ -47,9 +40,9 @@
       >
         <span
           v-if="displayTitle"
-          :lang="displayTitle.code"
+          :lang="langAttribute(displayTitle.code)"
         >
-          {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+          {{ truncate(displayTitle.value, 90) }}
         </span>
       </SmartLink>
       <b-card-body
@@ -69,7 +62,7 @@
             v-if="displayTitle"
             title-tag="div"
             data-qa="card title"
-            :lang="displayTitle.code"
+            :lang="langAttribute(displayTitle.code)"
           >
             <SmartLink
               :destination="url"
@@ -77,24 +70,24 @@
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
               <span>
-                {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+                {{ truncate(displayTitle.value, 90) }}
               </span>
             </SmartLink>
           </b-card-title>
           <b-card-text
-            v-if="hitsText"
+            v-if="hitText"
             text-tag="div"
             data-qa="highlighted search term"
           >
             <p>
-              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+              {{ hitTextPrefix }}<strong class="has-text-highlight">{{ hitText.exact }}</strong>{{ hitTextSuffix }}
             </p>
           </b-card-text>
           <template v-if="displayTexts.length > 0">
             <b-card-text
               v-for="(text, index) in displayTexts"
               :key="index"
-              :lang="text.code"
+              :lang="langAttribute(text.code)"
               text-tag="div"
             >
               <!-- eslint-disable vue/no-v-html -->
@@ -121,8 +114,12 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import truncateMixin from '@/mixins/truncate';
+  import { langMapValueForLocale } from '@europeana/i18n';
+
+  const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 
   export default {
     name: 'ContentCard',
@@ -130,11 +127,14 @@
     components: {
       ClientOnly,
       SmartLink,
-      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
 
     mixins: [
-      stripMarkdownMixin
+      langAttributeMixin,
+      stripMarkdownMixin,
+      truncateMixin
     ],
 
     props: {
@@ -164,9 +164,9 @@
         default: () => []
       },
       /**
-       * Hits from a search to highlight in the card texts
+       * Hit from a search to highlight in the card texts
        */
-      hitsText: {
+      hitText: {
         type: Object,
         default: null
       },
@@ -198,14 +198,14 @@
        */
       imageWidth: {
         type: Number,
-        default: null
+        default: 520
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: null
+        default: 338
       },
       /**
        * Image alt text
@@ -215,13 +215,19 @@
         default: ''
       },
       /**
-       * Image optimisation options
+       * Image crop presets for optimised images
        *
-       * Passed to `optimisedImageUrl` filter
        */
-      imageOptimisationOptions: {
+      contentfulImageCropPresets: {
         type: Object,
-        default: () => ({})
+        default: () => ({ 'small': { w: 520, h: 338, fit: 'fill', f: 'face' } })
+      },
+      /**
+       * Image sizes for optimised images
+       */
+      imageSizes: {
+        type: String,
+        default: null
       },
       /**
        * If `true`, image will be lazy-loaded
@@ -269,20 +275,6 @@
         default: -1
       },
       /**
-       * Height of image placeholder when lazy-loading image
-       */
-      blankImageHeight: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Width of image placeholder when lazy-loading image
-       */
-      blankImageWidth: {
-        type: Number,
-        default: null
-      },
-      /**
        * If `true`, the image is a logo and will be styled differently
        */
       logo: {
@@ -307,10 +299,13 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections|stories',
+        // hit prefix & suffix can be overly long for our display purposes;
+        // limit to max num of words each
+        hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
+        hitTextSuffix: this.hitText?.suffix?.split(/\s/).slice(0, HIT_TEXT_AFFIX_MAX_WORDS).join(' ')
       };
     },
-
     computed: {
       cardClass() {
         return `${this.variant}-card`;
@@ -341,7 +336,7 @@
         }
 
         if (this.displayLabelType === 'blog') {
-          return this.$tc('blog.posts', 1);
+          return this.$tc('stories.stories', 1);
         }
 
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
@@ -352,7 +347,7 @@
       },
 
       displayLabelType() {
-        return this.displayLabelMatch ? this.displayLabelMatch[1] : false;
+        return this.displayLabelMatch?.[1];
       },
 
       displayLabelMatch() {
@@ -379,16 +374,6 @@
         }).filter((displayText) => displayText.values.length > 0);
       },
 
-      optimisedImageUrl() {
-        if (!this.$contentful.assets.isValidUrl(this.imageUrl)) {
-          return this.imageUrl;
-        }
-        return this.$contentful.assets.optimisedSrc(
-          { url: this.imageUrl, contentType: this.imageContentType },
-          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
-        );
-      },
-
       tooltipTexts() {
         return this.displayTexts.map(text => text.values).join(' - ');
       },
@@ -401,6 +386,26 @@
           return this.displayTitle?.value || this.tooltipTexts;
         }
         return null;
+      },
+
+      imageWidthPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageWidth;
+        }
+      },
+
+      imageHeightPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageHeight;
+        }
       }
     },
 
@@ -414,11 +419,11 @@
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) {
-          limited.push(this.$t('formatting.ellipsis'));
+          limited.push('…');
         }
-        const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
+        const joined = limited.join('; ');
         const stripped = this.stripMarkdown(joined);
-        return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
+        return this.truncate(stripped, 255);
       },
 
       redrawMasonry() {
@@ -447,52 +452,48 @@
 <docs lang="md">
   Variant "default":
   ```jsx
-  <ContentCard
-    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
-    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
-    :texts="['Royal Museums Greenwich']"
-    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
-  />
-  ```
-
-  Variant "mini":
-  ```jsx
-  <ContentCard
-    variant="mini"
-    title="Photograph"
-    image-url="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE"
-    url="https://www.europeana.eu/collections/topic/48"
-  />
-  ```
-
-  Variant "mosaic":
-  ```jsx
-  <ContentCard
-    variant="mosaic"
-    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
-    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
-    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
-  />
-  ```
-
-  Variant "list":
-  ```jsx
-  <ContentCard
-    variant="list"
-    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
-    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
-    :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
-    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
-  />
-  ```
-  Variant "default" with colored default thumbnail:
-  ```jsx
-  <ContentCard
-    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
-    image-url="https://api.europeana.eu/thumbnail/v3/400/d141fa1321a1eb8f0527e6526b7b39b2"
-    :texts="['Royal Museums Greenwich']"
-    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
-    media-type="SOUND"
-  />
+    <div>
+    <ContentCard
+      title="Title"
+      :image-url="thumbnails[0]"
+      :texts="['Texts on a content card']"
+      class="mr-3 mb-3"
+      style="max-width: 18rem;"
+      url="/"
+    />
+    <ContentCard
+      variant="mini"
+      class="mr-3 mb-3"
+      style="max-width: 18rem;"
+      title="Title of a mini variant content card"
+      :image-url="thumbnails[1]"
+      url="/"
+    />
+    <ContentCard
+      variant="mosaic"
+      class="mr-3 mb-3"
+      style="max-width: 18rem;"
+      title="Title of a mosaic variant content card"
+      :texts="['Texts on mosaic card appear in the tooltip']"
+      :image-url="thumbnails[2]"
+      url="/"
+    />
+    <ContentCard
+      variant="list"
+      class="mr-3 mb-3"
+      title="Title of a list variant content card"
+      :image-url="thumbnails[3]"
+      :hitText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+      url="/"
+    />
+    <ContentCard
+      class="mr-3 mb-3"
+      style="max-width: 18rem;"
+      title="Title of a default card without displayable media"
+      :texts="['Texts on a content card']"
+      url="/"
+      media-type="SOUND"
+    />
+  </div>
   ```
 </docs>

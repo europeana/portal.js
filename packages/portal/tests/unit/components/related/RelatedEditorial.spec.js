@@ -10,11 +10,11 @@ const primaryImageOfPage = { image: {} };
 const contentfulQueryResponse = {
   data: {
     data: {
-      blogPostingCollection: {
+      storyCollection: {
         items: [
-          { identifier: 'blog-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'blog-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'blog-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
+          { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
         ]
       },
       exhibitionPageCollection: {
@@ -27,7 +27,7 @@ const contentfulQueryResponse = {
     }
   }
 };
-const relatedEditorialIdentifiers = ['blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'];
+const relatedEditorialIdentifiers = ['story-1', 'exhibition-1', 'exhibition-2', 'story-2'];
 
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditorial, {
   localVue,
@@ -37,7 +37,7 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
     $i18n: {
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {}
@@ -201,32 +201,6 @@ describe('components/related/RelatedEditorial', () => {
 
           expect(wrapper.vm.$contentful.query.called).toBe(false);
         });
-      });
-    });
-  });
-
-  describe('methods', () => {
-    describe('entryUrl', () => {
-      it('prefixes BlogPosting entries with /blog', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'BlogPosting',
-          identifier: 'interesting'
-        });
-
-        expect(entryUrl).toBe('/blog/interesting');
-      });
-
-      it('prefixes ExhibitionPage entries with /exhibitions', () => {
-        const wrapper = factory();
-
-        const entryUrl = wrapper.vm.entryUrl({
-          '__typename': 'ExhibitionPage',
-          identifier: 'educational'
-        });
-
-        expect(entryUrl).toBe('/exhibitions/educational');
       });
     });
   });

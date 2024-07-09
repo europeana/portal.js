@@ -10,18 +10,14 @@ localVue.use(BootstrapVue);
 const storiesPageContentfulResponse = {
   data: {
     data: {
-      browsePageCollection: {
+      storiesPageCollection: {
         items: [
           {
             image: {
               url: 'https://www.europeana.eu/example.jpg',
               description: 'image description'
             },
-            hasPartCollection: {
-              items: [
-                { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
-              ]
-            }
+            primaryCallToAction: { name: 'PrimaryCTA', relatedLink: {}, text: '' }
           }
         ]
       }
@@ -44,7 +40,7 @@ const factory = ({ $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(Stor
     $fetchState,
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: { query: {} },
     $scrollTo: sinon.spy(),
@@ -65,7 +61,6 @@ describe('pages/stories/index', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
-        identifier: 'stories',
         locale: 'en-GB',
         preview: false
       })).toBe(true);
@@ -75,12 +70,12 @@ describe('pages/stories/index', () => {
       const contentfulQueryStubNoStoriesPage = contentfulQueryStub();
       contentfulQueryStubNoStoriesPage
         .withArgs('storiesPage', sinon.match.object)
-        .resolves({ data: { data: { browsePageCollection: { items: [] } } } });
+        .resolves({ data: { data: { storiesPageCollection: { items: [] } } } });
 
       const wrapper = factory({ mocks: { $contentful: { query: contentfulQueryStubNoStoriesPage } } });
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.sections).toEqual([]);
+      expect(wrapper.vm.headline).toEqual(null);
     });
 
     describe('when fetch errors', () => {
@@ -101,18 +96,7 @@ describe('pages/stories/index', () => {
 
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.title).toBe('storiesPage.title');
-      });
-    });
-
-    describe('callToAction', () => {
-      it('gets a call to action from the contentful pageResponse', async() => {
-        const wrapper = factory();
-        await wrapper.vm.fetch();
-
-        const callsToAction = wrapper.vm.callToAction;
-
-        expect(callsToAction).toEqual({ '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' });
+        expect(pageMeta.title).toBe('stories.stories');
       });
     });
   });

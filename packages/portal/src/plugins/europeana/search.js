@@ -1,13 +1,12 @@
 /**
- * @file Interface to Europeana Record Search API
+ * @file Interface to Europeana Record API search method
  */
 
 import pick from 'lodash/pick.js';
 
-import {
-  escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils.js';
-import { truncate } from '../vue-filters.js';
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
+import { escapeLuceneSpecials } from './utils.js';
+import { truncate } from '../../mixins/truncate.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -104,7 +103,6 @@ export default function(params, options = {}) {
   const query = params.query || '*:*';
 
   const searchParams = {
-    ...this.axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
     qf: localParams.qf,
@@ -125,18 +123,16 @@ export default function(params, options = {}) {
     }
   }
 
-  return this.axios.get(`${options.url || ''}/search.json`, {
+  return this.request({
+    method: 'get',
+    url: `${options.url || ''}/search.json`,
     params: searchParams
   })
-    .then(response => response.data)
-    .then(data => ({
+    .then((data) => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, localOptions)),
+      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
-    }))
-    .catch((error) => {
-      throw this.apiError(error);
-    });
+    }));
 }
 
 const reduceFieldsForItem = (item, options = {}) => {

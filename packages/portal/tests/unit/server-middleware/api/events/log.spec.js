@@ -6,11 +6,12 @@ import logEventsHandler from '@/server-middleware/api/events/log';
 const fixtures = {
   db: {
     objectId: 2,
-    sessionId: 1
+    sessionId: 1,
+    uri: 'http://data.europeana.eu/item/123/abc'
   },
   reqBody: {
     actionType: 'like',
-    objectUri: 'http://data.europeana.eu/item/123/abc',
+    objectUri: 'http://data.europeana.eu/item/123/abc?campaign=newsletter',
     sessionId: 'uuid'
   }
 };
@@ -18,12 +19,12 @@ const fixtures = {
 const pgPoolQuery = sinon.stub();
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM events.objects ')),
-  [fixtures.reqBody.objectUri]
+  [fixtures.db.uri]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('INSERT INTO events.objects ')),
-  [fixtures.reqBody.objectUri]
+  [fixtures.db.uri]
 )
   .resolves({ rows: [{ id: fixtures.db.objectId }] });
 pgPoolQuery.withArgs(

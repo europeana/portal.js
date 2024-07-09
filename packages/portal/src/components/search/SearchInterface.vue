@@ -26,15 +26,9 @@
         <b-container
           class="px-0 pb-3"
         >
-          <client-only>
-            <SearchBoostingForm
-              v-if="showSearchBoostingForm"
-              class="mb-3"
-            />
-          </client-only>
           <section>
             <div
-              class="mb-3 d-flex align-items-start justify-content-between"
+              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
             >
               <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
@@ -47,6 +41,7 @@
               />
               <SearchViewToggles
                 v-model="view"
+                class="ml-auto"
               />
             </div>
             <b-row
@@ -165,6 +160,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import merge from 'deepmerge';
   import isEqual from 'lodash/isEqual';
 
@@ -183,8 +179,8 @@
     name: 'SearchInterface',
 
     components: {
+      ClientOnly,
       ErrorMessage: () => import('../error/ErrorMessage'),
-      SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -203,10 +199,6 @@
     ],
 
     props: {
-      doNotTranslate: {
-        type: Boolean,
-        default: false
-      },
       perPage: {
         type: Number,
         default: 24
@@ -268,7 +260,7 @@
           error.code = 'searchPaginationLimitExceeded';
           error.message = 'Pagination limit exceeded';
           this.$error(error, {
-            tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+            tValues: { description: { limit: this.$i18n.n(Number(paginationError[1])) } }
           });
         } else {
           this.$error(error);
@@ -339,15 +331,9 @@
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
       showErrorMessage() {
         return !this.$fetchState.error?.code ||
           !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
-      },
-      showSearchBoostingForm() {
-        return !!this.debugSettings?.boosting;
       },
       routeQueryView() {
         return this.$route.query.view;
@@ -370,8 +356,11 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
+      // Disable translate profile (multilingual search) when not logged in
+      doNotTranslate() {
+        return !this.$auth.loggedIn;
+      },
       translateLang() {
-        // Translation disabled from prop `doNotTranslate`
         if (this.doNotTranslate) {
           return null;
         }
@@ -402,7 +391,7 @@
       '$route.query.page': 'handlePaginationChanged'
     },
 
-    created() {
+    mounted() {
       if (this.query) {
         this.$store.commit('search/setShowSearchBar', true);
       }

@@ -41,18 +41,19 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         search: sinon.stub().resolves(searchResult)
       },
       fulltext: {
-        baseURL: 'https://newspapers.eanadev.org/api/v2'
+        baseURL: 'https://api.europeana.eu/fulltext'
       }
     },
+    $auth: {},
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      n: (num) => num
     },
     $config: mocks.$config,
     ...mocks,
     $store: {
       commit: sinon.spy(),
       getters: {
-        'debug/settings': { enabled: false },
         'search/activeView': 'grid',
         ...mocks.$store?.getters
       },
@@ -339,9 +340,11 @@ describe('components/search/SearchInterface', () => {
           describe('and current locale is one of the configured locales to translate', () => {
             const $i18n = { locale: 'nl' };
 
-            describe('and doNotTranslate prop is not set (defaulting to false)', () => {
+            describe('and user is logged in', () => {
+              const $auth = { loggedIn: true };
+
               it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $config, $i18n } });
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
 
                 const translateLang = wrapper.vm.apiOptions.translateLang;
 
@@ -349,11 +352,11 @@ describe('components/search/SearchInterface', () => {
               });
             });
 
-            describe('but doNotTranslate prop is set to `true`', () => {
-              const doNotTranslate = true;
+            describe('but user is not logged in', () => {
+              const $auth = { loggedIn: false };
 
               it('is undefined', () => {
-                const wrapper = factory({ mocks: { $config, $i18n }, propsData: { doNotTranslate } });
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
 
                 const translateLang = wrapper.vm.apiOptions.translateLang;
 
@@ -475,28 +478,6 @@ describe('components/search/SearchInterface', () => {
 
           expect(wrapper.vm.$store.commit.calledWith('search/setView', view)).toBe(true);
         });
-      });
-    });
-
-    describe('debugSettings', () => {
-      it('reads the debug settings from the store', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { enabled: false } } } } });
-
-        expect(wrapper.vm.debugSettings).toStrictEqual({ enabled: false });
-      });
-    });
-
-    describe('showSearchBoostingForm', () => {
-      it('is true when the boosting toggle is enabled', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { boosting: true } } } } });
-
-        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
-      });
-
-      it('is false when the boosting toggle is disabled', () => {
-        const wrapper = factory();
-
-        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
       });
     });
   });

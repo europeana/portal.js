@@ -11,14 +11,14 @@
       v-for="(entity, index) in entities"
       :key="index"
       :disabled="!fetched"
-      :pressed="selected === entity.about"
+      :pressed="selected === entity.id"
       :data-qa="`pin item to entity choice`"
       class="btn-collection w-100 text-left d-flex"
-      @click="selectEntity(entity.about)"
+      @click="selectEntity(entity.id)"
     >
       <span
         class="mr-auto"
-        :lang="entityDisplayLabel(entity).code"
+        :lang="langAttribute(entityDisplayLabel(entity).code)"
       >
         {{ entityDisplayLabel(entity).values[0] }}
       </span>
@@ -26,12 +26,12 @@
         class="icons text-left d-flex justify-content-end"
       >
         <span
-          v-if="selected === entity.about"
+          v-if="selected === entity.id"
           class="icon-check-circle d-inline-flex ml-auto"
         />
         <span
-          v-if="pinnedTo(entity.about)"
-          class="icon-push-pin d-inline-flex"
+          v-if="pinnedTo(entity.id)"
+          class="icon-pin d-inline-flex"
         />
       </span>
     </b-button>
@@ -71,15 +71,19 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import pick from 'lodash/pick.js';
+
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import makeToastMixin from '@/mixins/makeToast';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
       makeToastMixin,
+      langAttributeMixin,
       entityBestItemsSetMixin
     ],
 
@@ -92,14 +96,9 @@
         required: true
       },
       /**
-       * Entities associated with the item, to which it may be pinned
-       * @example
-       *   [
-       *     { about: 'entityUri1', prefLabel: { en: 'entity en label 1' } },
-       *     { about: 'entityUri2', prefLabel: { en: 'entity en label 2' } }
-       *   ]
+       * URIs of entities to which item may be pinned
        */
-      entities: {
+      entityUris: {
         type: Array,
         required: true
       },
@@ -118,6 +117,7 @@
 
     data() {
       return {
+        entities: [],
         fetched: false,
         selected: null,
         /**
@@ -128,10 +128,7 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: this.entities.reduce((memo, entity) => {
-          memo[entity.about] = this.setFactory();
-          return memo;
-        }, {})
+        sets: {}
       };
     },
 
@@ -161,7 +158,7 @@
         return this.selectedEntityPrefLabel?.values?.[0];
       },
       selectedEntity() {
-        return this.entities.find(entity => entity.about === this.selected);
+        return this.entities.find((entity) => entity.id === this.selected);
       },
       selectedEntitySet() {
         return this.sets[this.selected];
@@ -181,20 +178,31 @@
           return;
         }
 
+        // Fetch the full entities first
+        const entities = await this.$apis.entity.find(this.entityUris);
+        this.entities = entities.map((entity) => pick(entity, 'id', 'prefLabel'));
+
+        // Initialise empty set objects
+        this.sets = this.entities.reduce((memo, entity) => {
+          memo[entity.id] = this.setFactory();
+          return memo;
+        }, {});
+
         const searchParams = {
           query: 'type:EntityBestItemsSet',
           profile: 'minimal',
           pageSize: 1
         };
         await Promise.all(this.entities.map(async(entity) => {
-          const entityUri = entity.about;
+          const entityUri = entity.id;
           // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
           const searchResponse = await this.$apis.set.search({
             ...searchParams,
             qf: `subject:${entityUri}`
           });
-          if (searchResponse.data?.total > 0) {
-            await this.getOneSet(searchResponse.data.items[0].split('/').pop());
+
+          if (searchResponse?.total > 0) {
+            await this.getOneSet(searchResponse.items?.[0].split('/').pop());
           }
           // TODO: Should an else block actually be RESETTING the data to empty values?
         }));
@@ -288,7 +296,7 @@
       z-index: 10;
 
       &.icon-check-circle,
-      &.icon-push-pin {
+      &.icon-pin {
         margin-left: auto;
         font-size: $font-size-large;
       }

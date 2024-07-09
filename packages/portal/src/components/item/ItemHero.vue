@@ -5,15 +5,14 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <client-only>
-        <IIIFOpenLayers
-          :uri="iiifPresentationManifest"
-          :search-query="fulltextSearchQuery"
-          :aria-label="$t('actions.viewDocument')"
-          :item-id="identifier"
-          :provider-url="providerUrl"
-        />
-      </client-only>
+      <IIIFPresentation
+        :uri="iiifPresentationManifest"
+        :search-query="fulltextSearchQuery"
+        :aria-label="$t('actions.viewDocument')"
+        :item-id="identifier"
+        :provider-url="providerUrl"
+        @select="selectMedia"
+      />
     </div>
     <ItemMediaSwiper
       v-else
@@ -106,8 +105,7 @@
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFOpenLayers: () => import('../iiif/IIIFOpenLayers.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
@@ -188,7 +186,7 @@
           if (this.$nuxt.context.from.query.qa) {
             const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
             query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (rule.modifier === 'contains'))
+              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
               .map((rule) => rule.term);
           }
         }
@@ -205,7 +203,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;

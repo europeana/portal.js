@@ -84,6 +84,10 @@
       background: $offwhite;
     }
 
+    picture {
+      display: flex;
+    }
+
     img {
       object-fit: cover;
       width: 100%;
@@ -223,7 +227,7 @@
       line-height: 1.5;
     }
 
-    .icon-ic-add {
+    .icon-add-circle-outlined {
       color: #4d4d4d;
       font-size: 3.5rem;
     }
@@ -366,10 +370,6 @@
         &.pin-button {
           display: inline-flex;
           order: 3;
-        }
-
-        &:hover {
-          color: $innovationblue;
         }
 
         &.active {

@@ -34,7 +34,7 @@
 
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/content/ContentHeader';
@@ -65,7 +65,7 @@
     async fetch() {
       const entityIndexParams = {
         query: '*:*',
-        page: this.page - 1,
+        page: this.page,
         type: this.entityTypeApi,
         pageSize: this.perPage,
         scope: 'europeana',

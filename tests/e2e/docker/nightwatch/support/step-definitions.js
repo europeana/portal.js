@@ -171,6 +171,9 @@ defineStep('I should see alternate-hreflang tags', () =>
 defineStep('I should have a Europeana branded page title', () =>
   i.haveEuropeanaBrandedTitle());
 
+defineStep('I should not have a Europeana branded page title', () =>
+  i.doNotHaveEuropeanaBrandedTitle());
+
 defineStep('I hover over (a/an/the)( ){target}', (target) =>
   i.moveToElement(target));
 

@@ -115,13 +115,7 @@ Feature: item page
   Scenario: Seeing an item language selector
     When I open an `item page`
     Then I see an `item language selector`
-
-  Scenario: Using the item language selector
-    Given I am on the `"The Milkmaid" item page`
-    And I don't have a `translation tooltip`
-    When I click the `item language dropdown`
-    And I click the `item language option de`
-    Then I see a `translation tooltip`
+    Then I see a `translate item login suggestion`
 
   @resized-browser
   Scenario: HTML embedded media

@@ -84,24 +84,16 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [Pagination, Navigation],
+          modules: [Navigation, Pagination],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
-          slidesPerView: 'auto',
           spaceBetween: singleMediaResource ? null : 40,
           centeredSlides: true,
           slideToClickedSlide: true,
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          },
           pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
             type: 'fraction'
           },
           on: {
-            afterInit: this.swiperOnAfterInit,
             slideChange: this.onSlideChange,
             slideChangeTransitionEnd: this.updateSwiper
           }
