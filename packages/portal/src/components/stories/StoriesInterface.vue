@@ -129,6 +129,9 @@
       selectedTags() {
         return this.$route.query.tags?.split(',') || [];
       },
+      selectedType() {
+        return this.$route.query?.type || false;
+      },
       filteredTags() {
         const relevantTags = this.relevantStoryMetadata.map((story) => story.cats).flat();
         const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
@@ -175,12 +178,16 @@
         const storyIdsVariables = {
           excludeSysId: this.featuredStory?.sys?.id || '',
           locale: this.$i18n.localeProperties.iso,
-          preview: this.$route.query.mode === 'preview'
+          preview: this.$route.query.mode === 'preview',
+          ...this.selectedType && {
+            includeExhibitions: this.selectedType === 'exhibition',
+            includeStories: this.selectedType === 'story'
+          }
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.storyCollection.items,
-          storyIdsResponse.data.data.exhibitionPageCollection.items
+          storyIdsResponse.data.data.storyCollection?.items || [],
+          storyIdsResponse.data.data.exhibitionPageCollection?.items || []
         ].flat();
 
         // Simplify categories

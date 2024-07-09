@@ -1,13 +1,18 @@
 query storiesMinimal(
-  $locale: String!,
-  $preview: Boolean = false,
-  $query: String = "",
+  $locale: String!
+  $preview: Boolean = false
+  $query: String = ""
   $excludeSysId: String = ""
+  $includeExhibitions: Boolean = true
+  $includeStories: Boolean = true
 ) {
-	exhibitionPageCollection(
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: 150,
+  exhibitionPageCollection(
+    preview: $preview
+    locale: $locale
+    order: datePublished_DESC
+    limit: 150
     where: { name_contains: $query, sys: { id_not: $excludeSysId } }
-  ) {
+  ) @include(if: $includeExhibitions) {
     items {
       date: datePublished
       sys {
@@ -19,11 +24,14 @@ query storiesMinimal(
         }
       }
     }
-  },
-  storyCollection (
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: 1500,
+  }
+  storyCollection(
+    preview: $preview
+    locale: $locale
+    order: datePublished_DESC
+    limit: 1500
     where: { name_contains: $query, sys: { id_not: $excludeSysId } }
-  ) {
+  ) @include(if: $includeStories) {
     items {
       date: datePublished
       sys {

@@ -216,6 +216,38 @@ describe('components/stories/StoriesInterface', () => {
       });
     });
 
+    describe('when the type filter is set to "exhibition"', () => {
+      it('skips fetching story type stories', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: '',
+          includeExhibitions: true,
+          includeStories: false
+        })).toBe(true);
+      });
+    });
+
+    describe('when the type filter is set to "story"', () => {
+      it('skips fetching story type stories', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'story' } } } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: '',
+          includeExhibitions: false,
+          includeStories: true
+        })).toBe(true);
+      });
+    });
+
     it('fetches page of stories with full data from Contentful', async() => {
       const wrapper = factory();
 
