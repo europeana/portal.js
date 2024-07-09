@@ -9,9 +9,12 @@
       />
     </client-only>
     <div
-      class="mb-4 context-label"
+      class="d-flex justify-content-between align-items-center mb-4"
     >
-      {{ $tc('items.itemCount', total, { count: total }) }}
+      <span class="context-label">
+        {{ $tc('items.itemCount', total, { count: total }) }}
+      </span>
+      <StoriesTypeFilter />
       <div
         class="visually-hidden"
         role="status"
@@ -81,6 +84,7 @@
 
   import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import StoriesTypeFilter from '@/components/stories/StoriesTypeFilter';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   const CTA_BANNER = 'cta-banner';
@@ -95,6 +99,7 @@
       LoadingSpinner,
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       StoriesFeaturedCard: () => import('./StoriesFeaturedCard'),
+      StoriesTypeFilter,
       StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
 
@@ -168,7 +173,11 @@
 
     watch: {
       page: '$fetch',
-      selectedTags: '$fetch'
+      selectedTags: '$fetch',
+      selectedType() {
+        this.allStoryMetadata = null;
+        this.$fetch();
+      }
     },
 
     methods: {
