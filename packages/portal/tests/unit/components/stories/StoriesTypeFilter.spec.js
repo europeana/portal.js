@@ -11,28 +11,31 @@ const factory = (query = {}) => shallowMount(StoriesTypeFilter, {
     },
     $t: (key) => key
   },
-  stubs: ['b-dropdown', 'b-dropdown-item']
+  stubs: ['b-nav', 'b-nav-item', 'b-nav-item-dropdown', 'b-dropdown-item']
 });
 
 describe('StoriesTypeFilter', () => {
-  it('sets the correct initial data', () => {
-    const wrapper = factory();
-    expect(wrapper.vm.selectedStoryType).toBe(wrapper.vm.storyTypes[0]);
-  });
+  describe('typeFromRoute', () => {
+    it('defaults to undefined', () => {
+      const wrapper = factory();
 
-  describe('when type story is selected in route query', () => {
-    it('updates the selectedStoryType to the story type', () => {
-      const wrapper = factory({ type: 'story' });
-
-      expect(wrapper.vm.selectedStoryType.query).toBe('story');
+      expect(wrapper.vm.typeFromRoute).toBe(undefined);
     });
-  });
 
-  describe('when type exhibition is selected in route query', () => {
-    it('updates the selectedStoryType to the exhibition type', () => {
-      const wrapper = factory({ type: 'exhibition' });
+    describe('when type story is selected in route query', () => {
+      it('updates to the story type', () => {
+        const wrapper = factory({ type: 'story' });
 
-      expect(wrapper.vm.selectedStoryType.query).toBe('exhibition');
+        expect(wrapper.vm.typeFromRoute).toBe('story');
+      });
+    });
+
+    describe('when type exhibition is selected in route query', () => {
+      it('updates to the exhibition type', () => {
+        const wrapper = factory({ type: 'exhibition' });
+
+        expect(wrapper.vm.typeFromRoute).toBe('exhibition');
+      });
     });
   });
 });

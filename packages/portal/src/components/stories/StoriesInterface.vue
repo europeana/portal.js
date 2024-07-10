@@ -175,7 +175,7 @@
       page: '$fetch',
       selectedTags: '$fetch',
       selectedType() {
-        this.allStoryMetadata = null;
+        this.fetchStoryMetadata();
         this.$fetch();
       }
     },

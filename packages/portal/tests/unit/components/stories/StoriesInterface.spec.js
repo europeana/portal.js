@@ -284,6 +284,32 @@ describe('components/stories/StoriesInterface', () => {
       });
     });
 
+    describe('selectedType', () => {
+      it('defaults to false', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.selectedType).toBe(false);
+      });
+
+      it('is set to "exhibition" when the type is set in the URL', () => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        expect(wrapper.vm.selectedType).toBe('exhibition');
+      });
+
+      describe('when the type is changed to "story"', () => {
+        it('refetches all story metadata', async() => {
+          const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
+          const fetchStoryMetadata = sinon.spy(wrapper.vm, 'fetchStoryMetadata');
+
+          wrapper.vm.$route.query.type = 'story';
+          await wrapper.vm.$nextTick();
+
+          expect(fetchStoryMetadata.called).toBe(true);
+        });
+      });
+    });
+
     describe('filteredTags', () => {
       describe('when stories are filtered to a tag', () => {
         it('selects and sorts catagories that are shared with the active filter', async() => {
