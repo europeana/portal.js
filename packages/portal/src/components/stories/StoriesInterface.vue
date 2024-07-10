@@ -175,7 +175,7 @@
           featuredStoryMatchesSelectedTags = this.selectedTags.every((tag) => featuredStoryTags.includes(tag));
         }
 
-        return this.featuredStory && featuredStoryMatchesSelectedTags && (this.page === 1);
+        return this.featuredStory && this.selectedType !== 'exhibition' && featuredStoryMatchesSelectedTags && (this.page === 1);
       }
     },
 

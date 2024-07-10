@@ -492,5 +492,12 @@ describe('components/stories/StoriesInterface', () => {
         expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
     });
+    describe('and the type filter is set to "exhibition"', () => {
+      it('does NOT render a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
+      });
+    });
   });
 });
