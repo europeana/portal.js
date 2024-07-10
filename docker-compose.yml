@@ -9,7 +9,7 @@ services:
   #   env_file: packages/portal/.env
   #   environment:
   #     IIIF_PRESENTATION_PLUGIN: ${IIIF_PRESENTATION_PLUGIN:-mirador}
-  #     POSTGRES_URL: postgres://postgres:password@postgres/europeana_www
+  #     POSTGRES_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres-password}@postgres/europeana_www
   #     PORTAL_BASE_URL: http://localhost:8080
   #     REDIS_URL: redis://redis
   #   ports:
