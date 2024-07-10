@@ -146,13 +146,21 @@
         return uniq(tagsSortedByMostUsed);
       },
       relevantStoryMetadata() {
-        if (this.allStoryMetadata && (this.selectedTags.length > 0)) {
+        let allRelevantStoryMetadata = this.allStoryMetadata || [];
+        if (this.selectedType) {
+          // Filter by selected type
+          allRelevantStoryMetadata = allRelevantStoryMetadata.filter((story) => {
+            return (this.selectedType === 'exhibition' && story['__typename'] === 'ExhibitionPage') ||
+              (this.selectedType === 'story' && story['__typename'] === 'Story');
+          });
+        }
+        if (this.selectedTags.length > 0) {
           // Filter by selected categories
-          return this.allStoryMetadata.filter((story) => {
+          allRelevantStoryMetadata = allRelevantStoryMetadata.filter((story) => {
             return this.selectedTags.every((tag) => story.cats.includes(tag));
           });
         }
-        return this.allStoryMetadata || [];
+        return allRelevantStoryMetadata;
       },
       total() {
         return this.relevantStoryMetadata?.length || 0;
@@ -174,10 +182,7 @@
     watch: {
       page: '$fetch',
       selectedTags: '$fetch',
-      selectedType() {
-        this.fetchStoryMetadata();
-        this.$fetch();
-      }
+      selectedType: '$fetch'
     },
 
     methods: {
@@ -187,16 +192,12 @@
         const storyIdsVariables = {
           excludeSysId: this.featuredStory?.sys?.id || '',
           locale: this.$i18n.localeProperties.iso,
-          preview: this.$route.query.mode === 'preview',
-          ...this.selectedType && {
-            includeExhibitions: this.selectedType === 'exhibition',
-            includeStories: this.selectedType === 'story'
-          }
+          preview: this.$route.query.mode === 'preview'
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.storyCollection?.items || [],
-          storyIdsResponse.data.data.exhibitionPageCollection?.items || []
+          storyIdsResponse.data.data.storyCollection?.items,
+          storyIdsResponse.data.data.exhibitionPageCollection?.items
         ].flat();
 
         // Simplify categories

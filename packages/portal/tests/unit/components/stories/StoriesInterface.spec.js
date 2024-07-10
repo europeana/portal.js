@@ -225,9 +225,7 @@ describe('components/stories/StoriesInterface', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
           locale: 'en-GB',
           preview: false,
-          excludeSysId: '',
-          includeExhibitions: true,
-          includeStories: false
+          excludeSysId: ''
         })).toBe(true);
       });
     });
@@ -241,9 +239,7 @@ describe('components/stories/StoriesInterface', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
           locale: 'en-GB',
           preview: false,
-          excludeSysId: '',
-          includeExhibitions: false,
-          includeStories: true
+          excludeSysId: ''
         })).toBe(true);
       });
     });
@@ -295,18 +291,6 @@ describe('components/stories/StoriesInterface', () => {
         const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
 
         expect(wrapper.vm.selectedType).toBe('exhibition');
-      });
-
-      describe('when the type is changed to "story"', () => {
-        it('refetches all story metadata', async() => {
-          const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
-          const fetchStoryMetadata = sinon.spy(wrapper.vm, 'fetchStoryMetadata');
-
-          wrapper.vm.$route.query.type = 'story';
-          await wrapper.vm.$nextTick();
-
-          expect(fetchStoryMetadata.called).toBe(true);
-        });
       });
     });
 

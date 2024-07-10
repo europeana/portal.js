@@ -3,8 +3,6 @@ query storiesMinimal(
   $preview: Boolean = false
   $query: String = ""
   $excludeSysId: String = ""
-  $includeExhibitions: Boolean = true
-  $includeStories: Boolean = true
 ) {
   exhibitionPageCollection(
     preview: $preview
@@ -12,8 +10,9 @@ query storiesMinimal(
     order: datePublished_DESC
     limit: 150
     where: { name_contains: $query, sys: { id_not: $excludeSysId } }
-  ) @include(if: $includeExhibitions) {
+  ) {
     items {
+      __typename
       date: datePublished
       sys {
         id
@@ -31,8 +30,9 @@ query storiesMinimal(
     order: datePublished_DESC
     limit: 1500
     where: { name_contains: $query, sys: { id_not: $excludeSysId } }
-  ) @include(if: $includeStories) {
+  ) {
     items {
+      __typename
       date: datePublished
       sys {
         id
