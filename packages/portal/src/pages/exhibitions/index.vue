@@ -23,11 +23,6 @@
       ContentHubPage
     },
     mixins: [pageMetaMixin],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-
     middleware: 'sanitisePageQuery',
 
     asyncData({ query, error, app, store }) {

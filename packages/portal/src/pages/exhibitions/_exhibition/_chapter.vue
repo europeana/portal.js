@@ -3,6 +3,10 @@
     data-qa="exhibition chapter"
     class="text-page white-page "
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+      class="mb-5"
+    />
     <ContentWarningModal
       v-if="exhibitionContentWarning"
       :title="exhibitionContentWarning.name"
@@ -111,6 +115,7 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import ContentSection from '@/components/content/ContentSection';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -123,6 +128,7 @@
     name: 'ExhibitionChapterPage',
 
     components: {
+      BBreadcrumb,
       ContentSection,
       ClientOnly,
       ShareButton,
@@ -139,11 +145,7 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.exhibition,
         locale: app.i18n.localeProperties.iso,
@@ -166,25 +168,6 @@
             return {};
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: exhibition.name,
-              to: app.localePath({
-                name: 'exhibitions-exhibition',
-                params: {
-                  exhibition: exhibition.identifier
-                }
-              })
-            },
-            {
-              text: chapter.name,
-              active: true
-            }
-          ]);
           return {
             chapters: exhibition.hasPartCollection.items,
             credits: exhibition.credits,
@@ -202,6 +185,23 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          {
+            text: this.exhibitionTitle,
+            to: this.localePath({
+              name: 'exhibitions-exhibition',
+              params: {
+                exhibition: this.exhibitionIdentifier
+              }
+            })
+          },
+          {
+            text: this.page.name,
+            active: true
+          }
+        ];
+      },
       pageMeta() {
         return {
           title: this.page.name,

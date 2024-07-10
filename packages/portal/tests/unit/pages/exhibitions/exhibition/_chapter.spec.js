@@ -47,7 +47,8 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       app: {
         baseUrl: 'https://www.europeana.eu'
       }
-    }
+    },
+    localePath: () => '/'
   }
 });
 

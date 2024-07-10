@@ -1,8 +1,9 @@
 .breadcrumb {
   background-color: $white;
-  margin-top: -0.95rem;
   border-top: 1px solid $whitegrey;
   border-bottom: 1px solid $whitegrey;
+  top: 2rem;
+  position: relative;
 
   .breadcrumb-item {
     font-size: $font-size-small;

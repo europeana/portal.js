@@ -57,10 +57,12 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
         'http://data.europeana.eu/concept/21'
       ],
       categoriesCollection: options.tags || null,
-      genre: null
+      genre: null,
+      datePublished: '2020-01-01'
     };
   },
   mocks: {
+    $d: date => date,
     $features: {},
     $t: key => key,
     $tc: () => {},
@@ -151,20 +153,6 @@ describe('Exhibition landing page', () => {
 
       expect(headMeta.description).toBeUndefined();
       expect(headMeta.ogImage).toBe(null);
-    });
-  });
-
-  describe('beforeRouteLeave', () => {
-    it('resets set id and set entity', async() => {
-      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
-      const wrapper = factory();
-
-      const next = sinon.stub();
-
-      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
-
-      expect(wrapper.vm.$store.commit.calledWith('breadcrumb/clearBreadcrumb')).toBe(true);
-      expect(next.called).toBe(true);
     });
   });
 

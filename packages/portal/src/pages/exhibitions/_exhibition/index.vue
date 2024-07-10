@@ -3,6 +3,10 @@
     data-qa="exhibition page"
     class="text-page white-page "
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+      class="mb-5"
+    />
     <ContentWarningModal
       v-if="contentWarning"
       :title="contentWarning.name"
@@ -107,6 +111,7 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -121,6 +126,7 @@
     name: 'ExhibitionPage',
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      BBreadcrumb,
       ClientOnly,
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
@@ -137,11 +143,7 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    asyncData({ params, query, error, app, store, redirect }) {
+    asyncData({ params, query, error, app, redirect }) {
       if (params.exhibition === undefined) {
         redirect(app.localePath({ name: 'exhibitions' }));
       }
@@ -160,16 +162,6 @@
             return null;
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: data.exhibitionPageCollection.items[0].name,
-              active: true
-            }
-          ]);
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
@@ -178,6 +170,11 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          { text: this.name }
+        ];
+      },
       pageMeta() {
         return {
           title: this.name,
