@@ -5,14 +5,16 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <IIIFPresentation
-        :uri="iiifPresentationManifest"
-        :search-query="fulltextSearchQuery"
-        :aria-label="$t('actions.viewDocument')"
-        :item-id="identifier"
-        :provider-url="providerUrl"
-        @select="selectMedia"
-      />
+      <client-only>
+        <IIIFPresentation
+          :uri="iiifPresentationManifest"
+          :search-query="fulltextSearchQuery"
+          :aria-label="$t('actions.viewDocument')"
+          :item-id="identifier"
+          :provider-url="providerUrl"
+          @select="selectMedia"
+        />
+      </client-only>
     </div>
     <ItemMediaSwiper
       v-else
