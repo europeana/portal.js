@@ -172,7 +172,7 @@
     computed: {
       breadcrumbs() {
         return [
-          { text: this.name }
+          { text: this.$t('exhibitions.breadcrumbPrefix', { title: this.name }) }
         ];
       },
       pageMeta() {

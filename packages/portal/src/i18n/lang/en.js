@@ -275,6 +275,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exhibition: {title}",
     "chapters": "Chapters",
     "credits": "Credits",
     "currentChapter": "Current chapter",

@@ -160,7 +160,7 @@
       breadcrumbs() {
         return [
           {
-            text: this.exhibitionTitle,
+            text: this.$t('exhibitions.breadcrumbPrefix', { title: this.exhibitionTitle }),
             to: this.localePath({ name: 'exhibitions-exhibition', params: { exhibition: this.identifier } })
           },
           {
