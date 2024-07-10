@@ -71,10 +71,10 @@
         if (this.selected.includes(tagId)) {
           const tags = this.selected.filter(item => item !== tagId);
           if (tags.length > 0) {
-            route.query = { tags: tags.join(',') };
+            route.query = { ...this.$route.query, tags: tags.join(',') };
           }
         } else {
-          route.query = { tags: this.selected.concat(tagId).join(',') };
+          route.query = {  ...this.$route.query, tags: this.selected.concat(tagId).join(',') };
         }
 
         return this.localePath(route);

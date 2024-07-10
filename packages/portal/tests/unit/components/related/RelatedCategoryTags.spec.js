@@ -12,6 +12,7 @@ const factory = ({ propsData } = {})  => shallowMountNuxt(RelatedCategoryTags, {
   stubs: ['b-row', 'b-col', 'b-badge'],
   mocks: {
     localePath: (opts) => opts,
+    $route: {},
     $t: (key) => key,
     $matomo: { trackEvent: sinon.spy() }
   }
