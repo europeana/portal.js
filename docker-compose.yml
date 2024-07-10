@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+  # app:
+  #   image: europeana/portal.js:1.155.1-${IIIF_PRESENTATION_PLUGIN:-mirador}
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   env_file: packages/portal/.env
+  #   environment:
+  #     IIIF_PRESENTATION_PLUGIN: ${IIIF_PRESENTATION_PLUGIN:-mirador}
+  #     POSTGRES_URL: postgres://postgres:password@postgres/europeana_www
+  #     PORTAL_BASE_URL: http://localhost:8080
+  #     REDIS_URL: redis://redis
+  #   ports:
+  #     - "8080:8080"
   pgadmin:
     image: dpage/pgadmin4
     depends_on:
