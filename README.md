@@ -46,6 +46,16 @@ To build the Docker image, run:
 docker build -t europeana/portal.js -f packages/portal/Dockerfile .
 ```
 
+### Docker Compose
+
+To run everything with Docker Compose, including the app:
+
+```shell
+docker compose -f docker-compose.app.yml up
+```
+
+The app will be exposed on the host on port 8080.
+
 ## Testing
 
 To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/)
