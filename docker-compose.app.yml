@@ -1,0 +1,21 @@
+include:
+  - docker-compose.yml
+services:
+  app:
+    image: europeana/portal.js:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ./packages/portal/Dockerfile
+      args:
+        IIIF_PRESENTATION_PLUGIN: ${IIIF_PRESENTATION_PLUGIN:-open-layers}
+    depends_on:
+      - postgres
+      - redis
+    env_file: packages/portal/.env
+    environment:
+      IIIF_PRESENTATION_PLUGIN: ${IIIF_PRESENTATION_PLUGIN:-open-layers}
+      POSTGRES_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres-password}@postgres/europeana_www
+      PORTAL_BASE_URL: http://localhost:8080
+      REDIS_URL: redis://redis
+    ports:
+      - "8080:8080"
