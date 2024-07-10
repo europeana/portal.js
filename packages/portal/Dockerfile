@@ -2,8 +2,6 @@
 
 FROM node:18-alpine AS build
 
-ARG IIIF_PRESENTATION_PLUGIN
-
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -28,6 +26,8 @@ RUN npm -w packages/portal ci
 COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
+
+ARG IIIF_PRESENTATION_PLUGIN
 
 RUN npm run build
 RUN rm -rf node_modules packages/*/node_modules packages/mirador packages/style
