@@ -137,6 +137,7 @@
 
         swiperOptions: {
           modules: [Grid, Keyboard, Lazy, Navigation, Pagination],
+          centerInsufficientSlides: true,
           grid: {
             fill: 'row',
             rows: 2
@@ -291,14 +292,6 @@
         display: none;
       }
     }
-  }
-
-  .swiper-wrapper {
-    justify-content: center;
-  }
-
-  .paginated .swiper-wrapper {
-    justify-content: flex-start;
   }
 
   .swiper-button-prev,
