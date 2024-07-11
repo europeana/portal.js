@@ -8,7 +8,6 @@
     :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
@@ -183,14 +182,14 @@
        */
       imageWidth: {
         type: Number,
-        default: null
+        default: 400
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: null
+        default: 400
       }
     },
 
