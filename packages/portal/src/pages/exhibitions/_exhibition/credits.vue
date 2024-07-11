@@ -5,7 +5,6 @@
   >
     <b-breadcrumb
       :items="breadcrumbs"
-      class="mb-5"
     />
     <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
     <b-container

@@ -5,7 +5,6 @@
   >
     <b-breadcrumb
       :items="breadcrumbs"
-      class="mb-5"
     />
     <ContentWarningModal
       v-if="exhibitionContentWarning"
