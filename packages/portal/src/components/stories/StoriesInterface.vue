@@ -6,6 +6,7 @@
       <StoriesTagsDropdown
         :filtered-tags="filteredTags"
         :selected-tags="selectedTags"
+        data-qa="stories tags dropdown"
       />
     </client-only>
     <div

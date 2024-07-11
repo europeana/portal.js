@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-qa="stories type filter">
     <b-nav class="d-inline-flex">
       <b-nav-item
         v-for="type, index in storyTypes"
@@ -8,6 +8,7 @@
         link-classes="context-label text-decoration-none pr-0"
         :active="type.query === typeFromRoute"
         :to="{ ...$route , query: { ...$route.query, type: type.query}}"
+        :data-qa="`${type.name} type filter`"
       >
         {{ type.name }}
       </b-nav-item>

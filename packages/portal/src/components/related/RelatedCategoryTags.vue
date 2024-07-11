@@ -22,6 +22,7 @@
             variant="outline-light"
             :active="isActive(tag.identifier)"
             :to="badgeLink(tag.identifier)"
+            :data-qa="`${tag.name} category tag`"
             @click.native="clickBadge(tag.identifier)"
           >
             <span>{{ tag.name }}</span>
