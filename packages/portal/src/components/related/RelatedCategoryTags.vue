@@ -69,10 +69,9 @@
         const route = { name: 'stories' };
 
         if (this.selected.includes(tagId)) {
-          const tags = this.selected.filter(item => item !== tagId);
-          if (tags.length > 0) {
-            route.query = { ...this.$route.query, tags: tags.join(',') };
-          }
+          const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
+          const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
+          route.query = { ...this.$route.query, tags: tagsQuery };
         } else {
           route.query = {  ...this.$route.query, tags: this.selected.concat(tagId).join(',') };
         }
