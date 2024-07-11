@@ -51,6 +51,7 @@
         </div>
       </div>
       <div
+        v-if="illustrations.length > 4"
         class="swiper-pagination"
       />
       <div
