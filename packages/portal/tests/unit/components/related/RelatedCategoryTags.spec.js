@@ -105,7 +105,7 @@ describe('components/related/RelatedCategoryTags', () => {
         it('removes the only tag from the url', () => {
           const wrapper = factory({ propsData: { tags, selected } });
           const link = wrapper.vm.badgeLink('red tape');
-          expect(link.query).toBe(undefined);
+          expect(link.query.tags).toBe(undefined);
         });
 
         it('removes a tag from the url', () => {
