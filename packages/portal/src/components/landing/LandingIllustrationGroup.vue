@@ -273,6 +273,14 @@
         height: $swiper-slide-width-height-4k;
       }
 
+      ::v-deep picture {
+        width: 100%;
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       ::v-deep img {
         mix-blend-mode: multiply; // fixes logo img with white background
         max-height: 100%;
@@ -283,6 +291,14 @@
         display: none;
       }
     }
+  }
+
+  .swiper-wrapper {
+    justify-content: center;
+  }
+
+  .paginated .swiper-wrapper {
+    justify-content: flex-start;
   }
 
   .swiper-button-prev,
