@@ -26,6 +26,7 @@
     <b-container
       v-if="$fetchState.pending"
       data-qa="stories loading spinner container"
+      class="position-absolute"
     >
       <b-row class="flex-md-row py-4 text-center">
         <b-col cols="12">
@@ -33,43 +34,48 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-card-group
+    <transition
       v-else
-      class="card-deck-4-cols"
-      deck
+      appear
+      name="fade"
     >
-      <StoriesFeaturedCard
-        v-if="showFeaturedStory"
-        :featured-story="featuredStory"
-        data-qa="featured story card"
-      />
-      <template
-        v-for="(entry, index) in stories"
+      <b-card-group
+        class="card-deck-4-cols"
+        deck
       >
-        <div
-          v-if="entry === ctaBanner"
-          :key="index"
-          class="cta-banner-wrapper"
-        >
-          <CallToActionBanner
-            v-if="callToAction"
-            :name="callToAction.name"
-            :name-english="callToAction.nameEN"
-            :text="callToAction.text"
-            :link="callToAction.relatedLink"
-            :illustration="callToAction.image"
-          />
-        </div>
-        <ContentCard
-          v-else-if="entry !== ctaBanner"
-          :key="index"
-          :title="entry.name"
-          :url="contentfulEntryUrl(entry)"
-          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+        <StoriesFeaturedCard
+          v-if="showFeaturedStory"
+          :featured-story="featuredStory"
+          data-qa="featured story card"
         />
-      </template>
-    </b-card-group>
+        <template
+          v-for="(entry, index) in stories"
+        >
+          <div
+            v-if="entry === ctaBanner"
+            :key="index"
+            class="cta-banner-wrapper"
+          >
+            <CallToActionBanner
+              v-if="callToAction"
+              :name="callToAction.name"
+              :name-english="callToAction.nameEN"
+              :text="callToAction.text"
+              :link="callToAction.relatedLink"
+              :illustration="callToAction.image"
+            />
+          </div>
+          <ContentCard
+            v-else-if="entry !== ctaBanner"
+            :key="index"
+            :title="entry.name"
+            :url="contentfulEntryUrl(entry)"
+            :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+            :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+          />
+        </template>
+      </b-card-group>
+    </transition>
     <PaginationNavInput
       v-if="total > perPage"
       :per-page="perPage"
@@ -241,6 +247,7 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
 
 .context-label {
   font-size: $font-size-small;
