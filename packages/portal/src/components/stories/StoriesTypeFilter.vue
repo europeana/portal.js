@@ -6,8 +6,8 @@
         :key="index"
         class="d-none d-sm-block"
         link-classes="context-label text-decoration-none pr-0"
-        :active="type.query === typeFromRoute"
-        :to="{ ...$route , query: { ...$route.query, type: type.query}}"
+        :active="isTypeActive(type)"
+        :to="routeForType(type)"
         :data-qa="`${type.name} type filter`"
       >
         {{ type.name }}
@@ -16,14 +16,14 @@
         class="d-sm-none"
         toggle-class="btn-light"
         variant="light"
-        :text="storyTypes[0].name"
+        :text="activeType.name"
       >
         <b-dropdown-item
           v-for="type, index in storyTypes"
           :key="index"
           class="context-label"
-          :active="type.query === typeFromRoute"
-          :to="{ ...$route , query: { ...$route.query, type: type.query}}"
+          :active="isTypeActive(type)"
+          :to="routeForType(type)"
         >
           {{ type.name }}
         </b-dropdown-item>
@@ -47,8 +47,22 @@
     },
 
     computed: {
+      activeType() {
+        return this.storyTypes.find((type) => type.query === this.typeFromRoute) || this.storyTypes[0];
+      },
+
       typeFromRoute() {
-        return this.$route.query?.type || undefined;
+        return this.$route.query?.type;
+      }
+    },
+
+    methods: {
+      isTypeActive(type) {
+        return type === this.activeType;
+      },
+
+      routeForType(type) {
+        return { ...this.$route, query: { ...this.$route.query, type: type.query } };
       }
     }
   };
