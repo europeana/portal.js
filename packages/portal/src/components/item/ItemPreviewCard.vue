@@ -13,8 +13,6 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -176,20 +174,6 @@
       onAuxClickCard: {
         type: Function,
         default: null
-      },
-      /**
-       * Width of the image
-       */
-      imageWidth: {
-        type: Number,
-        default: 400
-      },
-      /**
-       * Height of the image
-       */
-      imageHeight: {
-        type: Number,
-        default: 400
       }
     },
 
