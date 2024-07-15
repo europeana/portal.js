@@ -72,9 +72,9 @@
         if (this.selected.includes(tagId)) {
           const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
           const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
-          route.query = { ...this.$route.query, tags: tagsQuery };
+          route.query = { ...this.$route.query, page: undefined, tags: tagsQuery };
         } else {
-          route.query = {  ...this.$route.query, tags: this.selected.concat(tagId).join(',') };
+          route.query = {  ...this.$route.query, page: undefined, tags: this.selected.concat(tagId).join(',') };
         }
 
         return this.localePath(route);

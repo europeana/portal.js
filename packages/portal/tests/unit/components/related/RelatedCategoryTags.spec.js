@@ -6,7 +6,7 @@ import RelatedCategoryTags from '@/components/related/RelatedCategoryTags.vue';
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData } = {})  => shallowMountNuxt(RelatedCategoryTags, {
+const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedCategoryTags, {
   localVue,
   propsData,
   stubs: ['b-row', 'b-col', 'b-badge'],
@@ -14,7 +14,8 @@ const factory = ({ propsData } = {})  => shallowMountNuxt(RelatedCategoryTags, {
     localePath: (opts) => opts,
     $route: {},
     $t: (key) => key,
-    $matomo: { trackEvent: sinon.spy() }
+    $matomo: { trackEvent: sinon.spy() },
+    ...mocks
   }
 });
 
@@ -112,6 +113,15 @@ describe('components/related/RelatedCategoryTags', () => {
           const wrapper = factory({ propsData: { tags, selected: ['red tape', 'blue tape'] } });
           const link = wrapper.vm.badgeLink('blue tape');
           expect(link.query.tags).toBe('red tape');
+        });
+
+        describe('when on page beyond the first page', () => {
+          it('resets the page query', () => {
+            const wrapper = factory({ propsData: { tags }, mocks: { $route: { query: { page: 2 } } } });
+
+            const link = wrapper.vm.badgeLink('red tape');
+            expect(link.query.page).toBe(undefined);
+          });
         });
       });
 

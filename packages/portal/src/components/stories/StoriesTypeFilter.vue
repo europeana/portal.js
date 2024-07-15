@@ -62,7 +62,7 @@
       },
 
       routeForType(type) {
-        return { ...this.$route, query: { ...this.$route.query, type: type.query } };
+        return { ...this.$route, query: { ...this.$route.query, page: undefined, type: type.query } };
       }
     }
   };

@@ -15,6 +15,16 @@ const factory = (query = {}) => shallowMount(StoriesTypeFilter, {
 });
 
 describe('StoriesTypeFilter', () => {
+  describe('activeType', () => {
+    describe('when an invalid type is selected', () => {
+      it('defaults to view all', () => {
+        const wrapper = factory({ type: 'invalid' });
+
+        expect(wrapper.vm.activeType.name).toBe('stories.filter.viewAll');
+      });
+    });
+  });
+
   describe('typeFromRoute', () => {
     it('defaults to undefined', () => {
       const wrapper = factory();
@@ -35,6 +45,17 @@ describe('StoriesTypeFilter', () => {
         const wrapper = factory({ type: 'exhibition' });
 
         expect(wrapper.vm.typeFromRoute).toBe('exhibition');
+      });
+    });
+  });
+
+  describe('routeForType', () => {
+    describe('when on page beyond the first page', () => {
+      it('resets the page query', () => {
+        const wrapper = factory({ page: 2 });
+
+        const routeForStories = wrapper.vm.routeForType(wrapper.vm.storyTypes[1]);
+        expect(routeForStories.query.page).toBe(undefined);
       });
     });
   });
