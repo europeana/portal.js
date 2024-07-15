@@ -79,6 +79,12 @@
   }
 }
 
+::v-deep .dropdown-toggle {
+  &::after {
+    padding-left: 0.5rem;
+  }
+}
+
 ::v-deep .dropdown-item {
   font-weight: 600;
   color: $mediumgrey;
