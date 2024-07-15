@@ -187,7 +187,10 @@
     },
 
     watch: {
-      page: '$fetch',
+      async page() {
+        await this.$fetch();
+        this.$scrollTo?.('#header');
+      },
       selectedTags: '$fetch',
       selectedType: '$fetch'
     },
@@ -238,7 +241,6 @@
         if (this.page === 1 && this.selectedTags.length === 0) {
           this.stories.splice(12, 0, this.ctaBanner);
         }
-        this.$scrollTo?.('#header');
       },
 
       contentfulEntryUrl

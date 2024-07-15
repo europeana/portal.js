@@ -444,14 +444,6 @@ describe('components/stories/StoriesInterface', () => {
         });
       });
 
-      it('scrolls to the page header element', async() => {
-        const wrapper = factory({ data: { allStoryMetadata } });
-
-        await wrapper.vm.fetchStories();
-
-        expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
-      });
-
       describe('when fetching with selected tags', () => {
         it('filters the stories', async() => {
           const wrapper = factory({ data: { allStoryMetadata }, mocks: { $route: { query: { tags: 'cooking' } } } });
@@ -498,6 +490,16 @@ describe('components/stories/StoriesInterface', () => {
 
         expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
+    });
+  });
+
+  describe('when paginating', () => {
+    it('scrolls to the top of the page', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.watch.page.call(wrapper.vm, { page: 2 });
+
+      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
     });
   });
 });
