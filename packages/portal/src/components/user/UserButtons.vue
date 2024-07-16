@@ -25,15 +25,15 @@
       <span class="icon-ic-move-xy" />
       {{ buttonText ? $t('actions.move') : '' }}
     </b-button>
-    <ItemRemoveButton
-      v-if="showRemove"
-      data-qa="item remove button"
+    <ItemAddButton
+      data-qa="item add button"
       :identifier="identifier"
       :button-variant="buttonVariant"
       :button-text="buttonText"
     />
-    <ItemAddButton
-      data-qa="item add button"
+    <ItemRemoveButton
+      v-if="showRemove"
+      data-qa="item remove button"
       :identifier="identifier"
       :button-variant="buttonVariant"
       :button-text="buttonText"
