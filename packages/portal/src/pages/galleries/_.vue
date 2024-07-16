@@ -149,9 +149,9 @@
         data-qa="user set"
       >
         <b-row>
-          <b-col>
+          <b-col class="d-flex align-items-center mb-3">
             <h2
-              class="related-heading text-uppercase"
+              class="related-heading text-uppercase mb-0"
               data-qa="item count"
             >
               {{ displayItemCount }}
