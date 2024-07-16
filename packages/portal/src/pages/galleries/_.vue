@@ -447,4 +447,8 @@
       font-weight: 600;
     }
   }
+
+  ::v-deep .card-group-list.card-columns {
+    column-count: 1;
+  }
 </style>
