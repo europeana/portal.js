@@ -70,61 +70,67 @@
       </TransitionGroup>
     </component>
   </div>
-  <component
-    :is="useDraggable ? 'draggable' : 'b-card-group'"
+  <b-card-group
     v-else
-    v-model="cards"
-    :draggable="useDraggable && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     :columns="view === 'list'"
     :deck="view !== 'list'"
-    @end="endItemDrag"
   >
     <slot />
-    <template
-      v-for="(card, index) in cards"
+    <component
+      :is="useDraggable ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="useDraggable && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <template v-if="card === relatedGalleries">
-        <div
-          v-if="$slots[relatedGalleries]"
-          :key="index"
-          class="related-results"
+      <TransitionGroup name="fade">
+        <template
+          v-for="(card, index) in cards"
         >
-          <slot
-            :name="relatedGalleries"
+          <template v-if="card === relatedGalleries">
+            <div
+              v-if="$slots[relatedGalleries]"
+              :key="index"
+              class="related-results"
+            >
+              <slot
+                :name="relatedGalleries"
+              />
+            </div>
+          </template>
+          <template v-else-if="card === relatedCollections">
+            <div
+              v-if="$slots[relatedCollections]"
+              :key="index"
+              class="related-results"
+            >
+              <slot
+                :name="relatedCollections"
+              />
+            </div>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
+            :item="card"
+            class="item"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            data-qa="item preview"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
           />
-        </div>
-      </template>
-      <template v-else-if="card === relatedCollections">
-        <div
-          v-if="$slots[relatedCollections]"
-          :key="index"
-          class="related-results"
-        >
-          <slot
-            :name="relatedCollections"
-          />
-        </div>
-      </template>
-      <ItemPreviewCard
-        v-else
-        :key="card.id"
-        ref="cards"
-        :item="card"
-        class="item"
-        :hit-selector="itemHitSelector(card)"
-        :variant="cardVariant"
-        :show-pins="showPins"
-        :show-move="useDraggable"
-        :show-remove="userEditableItems"
-        :offset="items.findIndex(item => item.id === card.id)"
-        data-qa="item preview"
-        :on-aux-click-card="onAuxClickCard"
-        :on-click-card="onClickCard"
-      />
-    </template>
-  </component>
+        </template>
+      </TransitionGroup>
+    </component>
+  </b-card-group>
 </template>
 
 <script>
