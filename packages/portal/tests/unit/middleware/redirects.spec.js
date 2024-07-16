@@ -19,7 +19,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/de/stories')).toBe(true);
+    expect(redirect.calledWith('/de/stories?type=story')).toBe(true);
   });
 
   it('redirects /blog/* to /stories/*', () => {
@@ -28,6 +28,14 @@ describe('middleware/redirects', () => {
     middleware({ route, redirect });
 
     expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
+  });
+
+  it('redirects /exhibitions to /stories?type=exhibition', () => {
+    const route = { path: '/es/exhibitions' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith('/es/stories?type=exhibition')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {

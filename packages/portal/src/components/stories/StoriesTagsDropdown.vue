@@ -130,6 +130,9 @@
           window.removeEventListener('click', this.handleClickOrTabOutside);
           window.removeEventListener('keydown', this.handleClickOrTabOutside);
         }
+      },
+      '$route.query.tags'() {
+        this.showDropdown = false;
       }
     },
 

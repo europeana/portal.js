@@ -216,6 +216,34 @@ describe('components/stories/StoriesInterface', () => {
       });
     });
 
+    describe('when the type filter is set to "exhibition"', () => {
+      it('skips fetching story type stories', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: ''
+        })).toBe(true);
+      });
+    });
+
+    describe('when the type filter is set to "story"', () => {
+      it('skips fetching story type stories', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'story' } } } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false,
+          excludeSysId: ''
+        })).toBe(true);
+      });
+    });
+
     it('fetches page of stories with full data from Contentful', async() => {
       const wrapper = factory();
 
@@ -249,6 +277,20 @@ describe('components/stories/StoriesInterface', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.selectedTags.length).toBe(3);
+      });
+    });
+
+    describe('selectedType', () => {
+      it('defaults to false', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.selectedType).toBe(false);
+      });
+
+      it('is set to "exhibition" when the type is set in the URL', () => {
+        const wrapper = factory({ mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        expect(wrapper.vm.selectedType).toBe('exhibition');
       });
     });
 
@@ -402,14 +444,6 @@ describe('components/stories/StoriesInterface', () => {
         });
       });
 
-      it('scrolls to the page header element', async() => {
-        const wrapper = factory({ data: { allStoryMetadata } });
-
-        await wrapper.vm.fetchStories();
-
-        expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
-      });
-
       describe('when fetching with selected tags', () => {
         it('filters the stories', async() => {
           const wrapper = factory({ data: { allStoryMetadata }, mocks: { $route: { query: { tags: 'cooking' } } } });
@@ -449,6 +483,23 @@ describe('components/stories/StoriesInterface', () => {
 
         expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
       });
+    });
+    describe('and the type filter is set to "exhibition"', () => {
+      it('does NOT render a featured story card', async() => {
+        const wrapper = factory({ propsData: fullPropsData, mocks: { $route: { query: { type: 'exhibition' } } } });
+
+        expect(wrapper.find('[data-qa="featured story card"]').exists()).toBe(false);
+      });
+    });
+  });
+
+  describe('when paginating', () => {
+    it('scrolls to the top of the page', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.watch.page.call(wrapper.vm, { page: 2 });
+
+      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
     });
   });
 });

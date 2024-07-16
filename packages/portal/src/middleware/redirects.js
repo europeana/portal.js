@@ -1,6 +1,7 @@
 const redirects = {
-  '/blog': '/stories',
+  '/blog': '/stories?type=story',
   '/blog/*': '/stories/*',
+  '/exhibitions': '/stories?type=exhibition',
   '/professionals': '/share-your-data'
 };
 

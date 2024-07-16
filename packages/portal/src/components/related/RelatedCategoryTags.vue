@@ -22,6 +22,7 @@
             variant="outline-light"
             :active="isActive(tag.identifier)"
             :to="badgeLink(tag.identifier)"
+            :data-qa="`${tag.name} category tag`"
             @click.native="clickBadge(tag.identifier)"
           >
             <span>{{ tag.name }}</span>
@@ -69,12 +70,11 @@
         const route = { name: 'stories' };
 
         if (this.selected.includes(tagId)) {
-          const tags = this.selected.filter(item => item !== tagId);
-          if (tags.length > 0) {
-            route.query = { tags: tags.join(',') };
-          }
+          const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
+          const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
+          route.query = { ...this.$route.query, page: undefined, tags: tagsQuery };
         } else {
-          route.query = { tags: this.selected.concat(tagId).join(',') };
+          route.query = {  ...this.$route.query, page: undefined, tags: this.selected.concat(tagId).join(',') };
         }
 
         return this.localePath(route);

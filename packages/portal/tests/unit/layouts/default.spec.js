@@ -30,9 +30,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   },
   mocks: {
     $store: {
-      state: {
-        breadcrumb: {}
-      },
+      state: {},
       getters: {
         'debug/settings': {}
       }

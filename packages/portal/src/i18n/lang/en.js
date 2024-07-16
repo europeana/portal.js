@@ -275,6 +275,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exhibition: {title}",
     "chapters": "Chapters",
     "credits": "Credits",
     "currentChapter": "Current chapter",
@@ -1229,7 +1230,12 @@ export default {
     "required": "Required"
   },
   "stories": {
-    "stories": "Story | Stories"
+    "stories": "Story | Stories",
+    "filter": {
+      "exhibitions": "Exhibitions",
+      "stories": "Stories",
+      "viewAll": "View all"
+    }
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} stories found"
