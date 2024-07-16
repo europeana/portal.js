@@ -97,18 +97,23 @@
                     <b-row
                       v-if="likedItems.length > 0"
                     >
-                      <b-col>
+                      <b-col class="d-flex align-items-center mb-3">
                         <h2
-                          class="related-heading text-uppercase"
+                          class="related-heading text-uppercase mb-0"
                         >
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
+                        <SearchViewToggles
+                          v-model="view"
+                          class="ml-auto"
+                        />
                       </b-col>
                     </b-row>
                     <b-row>
                       <ItemPreviewCardGroup
                         v-if="likesId && likedItems.length !== 0"
                         :items="likedItems"
+                        :view="view"
                         class="pb-5"
                       />
                     </b-row>
@@ -164,12 +169,14 @@
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import keycloak from '../../mixins/keycloak';
+  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
+  import keycloak from '@/mixins/keycloak';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
-  import UserSets from '../../components/user/UserSets';
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import AlertMessage from '@/components/generic/AlertMessage';
+  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import SearchViewToggles from '@/components/search/SearchViewToggles';
+  import UserSets from '@/components/user/UserSets';
 
   export default {
     name: 'AccountIndexPage',
@@ -180,10 +187,12 @@
       ClientOnly,
       ItemPreviewCardGroup,
       LoadingSpinner,
+      SearchViewToggles,
       UserSets
     },
 
     mixins: [
+      itemPreviewCardGroupViewMixin,
       keycloak,
       pageMetaMixin
     ],
