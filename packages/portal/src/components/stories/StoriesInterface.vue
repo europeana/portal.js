@@ -153,21 +153,21 @@
         return uniq(tagsSortedByMostUsed);
       },
       relevantStoryMetadata() {
-        let allRelevantStoryMetadata = this.allStoryMetadata || [];
+        let relevantStoryMetadata = this.allStoryMetadata || [];
         if (this.selectedType) {
           // Filter by selected type
-          allRelevantStoryMetadata = allRelevantStoryMetadata.filter((story) => {
+          relevantStoryMetadata = relevantStoryMetadata.filter((story) => {
             return (this.selectedType === 'exhibition' && story['__typename'] === 'ExhibitionPage') ||
               (this.selectedType === 'story' && story['__typename'] === 'Story');
           });
         }
         if (this.selectedTags.length > 0) {
           // Filter by selected categories
-          allRelevantStoryMetadata = allRelevantStoryMetadata.filter((story) => {
+          relevantStoryMetadata = relevantStoryMetadata.filter((story) => {
             return this.selectedTags.every((tag) => story.cats.includes(tag));
           });
         }
-        return allRelevantStoryMetadata;
+        return relevantStoryMetadata;
       },
       total() {
         return this.relevantStoryMetadata?.length || 0;
