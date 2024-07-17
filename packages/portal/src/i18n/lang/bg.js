@@ -262,6 +262,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Изложба: {title}",
     "chapters": "Глави",
     "credits": "Автори",
     "currentChapter": "Настояща глава",
@@ -913,9 +914,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Отхвърляне",
     "readMore": "Покажи ми",
-    "text": {
-      "trendingItems": "Открийте кои обекта привличат вниманието на хората и спечелете популярност в реално време. Възползвайте се от шанса да останете пред кривата - вижте какво хората гледат, харесват, подготвят и използват най-много в момента."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
@@ -1182,6 +1181,11 @@ export default {
     "required": "Задължително"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Изложби",
+      "stories": "Истории",
+      "viewAll": "Преглед на всички"
+    },
     "stories": "История | Истории"
   },
   "storiesPage": {

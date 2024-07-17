@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Kiállítás: {title}",
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",
     "currentChapter": "Jelenlegi fejezet",
@@ -907,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
-    "text": {
-      "trendingItems": "Fedezd fel, mely tárgyak ragadják meg valós időben az emberek figyelmét és szereznek népszerűséget. Használja ki a lehetőséget, hogy élen járjon – nézze meg, mit tekintenek meg, szeretnek, válogatnak össze és használnak fel újra az emberek a leghasznosabban."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1176,6 +1175,11 @@ export default {
     "required": "Szükséges"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Kiállítások",
+      "stories": "Történetek",
+      "viewAll": "Összes megtekintése"
+    },
     "stories": "Történet | Történetek"
   },
   "storiesPage": {

@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izložba: {title}",
     "chapters": "Poglavlja",
     "credits": "Krediti",
     "currentChapter": "Trenutno poglavlje",
@@ -908,9 +909,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
-    "text": {
-      "trendingItems": "Otkrijte koji predmeti privlače pažnju ljudi i stječu popularnost u stvarnom vremenu. Iskoristite priliku da ostanete ispred krivulje - pogledajte što ljudi trenutno najviše gledaju, sviđaju im se, pripremaju i ponovno koriste."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -1177,6 +1176,11 @@ export default {
     "required": "Potreban"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "izložbe",
+      "stories": "Priče",
+      "viewAll": "Pogledaj sve"
+    },
     "stories": "Priča | Priče"
   },
   "storiesPage": {

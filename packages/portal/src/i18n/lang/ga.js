@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Taispeántas: {title}",
     "chapters": "Caibidlí",
     "credits": "Creidiúintí",
     "currentChapter": "Caibidil reatha",
@@ -906,9 +907,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dún",
     "readMore": "Taispeáin dom",
-    "text": {
-      "trendingItems": "Faigh amach cé na míreanna a ghabháil aird daoine agus tóir a fháil i bhfíor-am. Bain leas as an deis chun fanachta chun tosaigh ar na gcuar - féach cad a amharcann daoine, cosúil le, curata agus athúsáid an chuid is mó ceart anois."
-    }
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1175,6 +1174,11 @@ export default {
     "required": "Riachtanach"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Taispeántais",
+      "stories": "Scéalta",
+      "viewAll": "Féach ar fad"
+    },
     "stories": "Scéal | Scéalta"
   },
   "storiesPage": {
