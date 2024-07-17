@@ -961,9 +961,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {
-      "immersiveStories": "Our stories have a new look — read one to see."
-    }
+    "text": {}
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
