@@ -1,6 +1,4 @@
-const features = [
-  { name: 'immersiveStories', url: '/stories/claude-cahun' }
-];
+const features = [];
 
 export const featureNotificationExpiration = (value) => {
   const date = new Date(value);
