@@ -509,8 +509,11 @@
       }
 
       .btn {
-        visibility: hidden;
         margin-right: 0.5rem;
+
+        @media (hover: hover) {
+          visibility: hidden;
+        }
       }
 
       .pin-button-wrapper {
