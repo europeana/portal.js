@@ -519,11 +519,6 @@
       .pin-button-wrapper {
         margin-right: auto;
       }
-
-      .pin-button,
-      .right-buttons-wrapper > :last-child .btn {
-        margin-right: 0;
-      }
     }
 
     &:hover {
@@ -538,6 +533,11 @@
           }
         }
       }
+    }
+
+    .pin-button,
+    .right-buttons-wrapper > :last-child .btn {
+      margin-right: 0;
     }
   }
 }
