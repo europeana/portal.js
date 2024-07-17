@@ -262,6 +262,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Erakusketa: {title}",
     "chapters": "Kapituluak",
     "credits": "Kredituak",
     "currentChapter": "Oraingo kapitulua",
@@ -914,7 +915,7 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
     "text": {
-      "trendingItems": "Ezagutu zein elementuk erakartzen duten jendearen arreta eta lortu ospea denbora errealean. Aprobetxatu kurbaren aurretik egoteko aukera. Ikusi jendeak zer ikusten duen, gustatzen, kudeatzen eta berrerabiltzen duena une honetan."
+      "immersiveStories": "Gure istorioek itxura berri bat dute: irakurri bat ikusteko."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -1182,6 +1183,11 @@ export default {
     "required": "Beharrezkoa"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Erakusketak",
+      "stories": "Istorioak",
+      "viewAll": "Ikusi denak"
+    },
     "stories": "Istorio | Istorioak"
   },
   "storiesPage": {

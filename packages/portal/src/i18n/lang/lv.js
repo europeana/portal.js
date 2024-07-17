@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izstāde: {title}",
     "chapters": "Nodaļas",
     "credits": "Kredīti",
     "currentChapter": "Pašreizējā nodaļa",
@@ -907,7 +908,7 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
     "text": {
-      "trendingItems": "Uzziniet, kuri digitālie objekti piesaista cilvēku uzmanību un iegūst popularitāti reālajā laikā. Izmantojiet iespēju būt priekšā līknei - skatieties, ko cilvēki skatās, patīk, kurē un atkārtoti izmanto tieši tagad."
+      "immersiveStories": "Mūsu stāstiem ir jauns izskats — izlasiet vienu, lai redzētu."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -1175,6 +1176,11 @@ export default {
     "required": "Nepieciešams"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Izstādes",
+      "stories": "Stāsti",
+      "viewAll": "Skatīt visu"
+    },
     "stories": "Stāsts | Stāsti"
   },
   "storiesPage": {

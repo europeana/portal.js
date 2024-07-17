@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Razstava: {title}",
     "chapters": "Poglavja",
     "credits": "Sodelavci",
     "currentChapter": "Trenutno poglavje",
@@ -907,7 +908,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
     "text": {
-      "trendingItems": "Odkrijte, kateri enote pritegnejo pozornost ljudi in pridobijo priljubljenost v realnem času. Izkoristite priložnost, da ostanete pred krivuljo – oglejte si, kaj si ljudje trenutno največ ogledujejo, všečkajo, kurirajo in ponovno uporabljajo."
+      "immersiveStories": "Naše zgodbe imajo nov videz – preberite eno, da vidite."
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -1175,6 +1176,11 @@ export default {
     "required": "Zahtevano"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Razstave",
+      "stories": "Zgodbe",
+      "viewAll": "Poglej vse"
+    },
     "stories": "Zgodba | Zgodbe"
   },
   "storiesPage": {

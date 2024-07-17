@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Utställning: {title}",
     "chapters": "Kapitel",
     "credits": "Upphovsmän",
     "currentChapter": "Aktuellt kapitel",
@@ -907,7 +908,7 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Visa mig",
     "text": {
-      "trendingItems": "Upptäck vilka objekt som fångar människors uppmärksamhet och blir populära i realtid. Utnyttja chansen att ligga före kurvan - se vad folk tittar på, gillar, kuraterar och återanvänder mest just nu."
+      "immersiveStories": "Våra berättelser har ett nytt utseende – läs en för att se."
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -1175,6 +1176,11 @@ export default {
     "required": "Obligatoriskt"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Utställningar",
+      "stories": "Berättelser",
+      "viewAll": "Visa alla"
+    },
     "stories": "Berättelse | Berättelser"
   },
   "storiesPage": {

@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wystawa: {title}",
     "chapters": "Rozdziały",
     "credits": "Twórcy",
     "currentChapter": "Aktualny rozdział",
@@ -907,7 +908,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
     "text": {
-      "trendingItems": "Dowiedz się, które obiekty cyfrowe przyciągają uwagę ludzi i stają się popularne w czasie rzeczywistym. Skorzystaj z okazji, aby być o krok do przodu-zobacz, co ludzie teraz najbardziej oglądają, lubią, kurują i ponownie wykorzystują."
+      "immersiveStories": "Nasze historie mają nowy wygląd — przeczytaj, żeby zobaczyć."
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -1175,6 +1176,11 @@ export default {
     "required": "Wymagane"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Wystawy",
+      "stories": "Historie",
+      "viewAll": "Zobacz wszystkie"
+    },
     "stories": "Historia | Historie"
   },
   "storiesPage": {

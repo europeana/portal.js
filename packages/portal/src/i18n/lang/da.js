@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Udstilling: {title}",
     "chapters": "Kapitler",
     "credits": "Credits",
     "currentChapter": "Aktuelt kapitel",
@@ -909,7 +910,7 @@ export default {
     "dismiss": "Luk",
     "readMore": "Vis mig",
     "text": {
-      "trendingItems": "Opdag hvilke genstande der fanger folks opmærksomhed og vinder popularitet i realtid. Udnyt chancen for at være på forkant med kurven - se, hvad folk ser, kan lide, kuraterer og genbruger mest lige nu."
+      "immersiveStories": "Vores historier har fået et nyt udseende - læs en for at se."
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -1177,6 +1178,11 @@ export default {
     "required": "Påkrævet"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Udstillinger",
+      "stories": "Historier",
+      "viewAll": "Se alle"
+    },
     "stories": "Historien | Historier"
   },
   "storiesPage": {

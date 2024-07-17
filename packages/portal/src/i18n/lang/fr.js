@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exposition: {title}",
     "chapters": "Chapitres",
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
@@ -909,7 +910,7 @@ export default {
     "dismiss": "Fermer",
     "readMore": "Montre-moi",
     "text": {
-      "trendingItems": "Découvrez quels items captivent l'attention des gens et gagnent en popularité en temps réel. Profitez de l'occasion pour rester en avance sur la courbe - voyez ce que les gens regardent, aiment, organisent et réutilisent le plus en ce moment."
+      "immersiveStories": "Nos histoires ont un nouveau look – lisez-en une pour voir."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -1177,6 +1178,11 @@ export default {
     "required": "Obligatoire"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Expositions",
+      "stories": "Histoires",
+      "viewAll": "Voir tout"
+    },
     "stories": "Histoire | Histoires"
   },
   "storiesPage": {

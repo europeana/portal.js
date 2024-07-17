@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Tentoonstelling: {title}",
     "chapters": "Hoofdstukken",
     "credits": "Credits",
     "currentChapter": "Huidig hoofdstuk",
@@ -909,7 +910,7 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
     "text": {
-      "trendingItems": "Ontdek welke objecten de aandacht van mensen trekken en in realtime aan populariteit winnen. Profiteer van de kans om voorop te blijven lopen en kijk wat mensen op dit moment het meest bekijken, leuk vinden, cureren en hergebruiken."
+      "immersiveStories": "Onze verhalen hebben een nieuwe look - lees er een om te zien."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -1177,6 +1178,11 @@ export default {
     "required": "Vereist"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Tentoonstellingen",
+      "stories": "Verhalen",
+      "viewAll": "Bekijk alles"
+    },
     "stories": "Verhaal | Verhalen"
   },
   "storiesPage": {

@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näyttely: {title}",
     "chapters": "Luvut",
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
@@ -909,7 +910,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
     "text": {
-      "trendingItems": "Selvitä, mitkä aineistot kiinnittävät ihmisten huomion ja saavat suosiota reaaliajassa. Hyödynnä tilaisuus pysyä kehityksen kärjessä – katso, mitä ihmiset näkevät, pitävät, kuratoivat ja käyttävät uudelleen eniten juuri nyt."
+      "immersiveStories": "Tarinoillamme on uusi ilme – lue yksi nähdäksesi."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -1177,6 +1178,11 @@ export default {
     "required": "Pakollinen"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näyttelyt",
+      "stories": "Tarinat",
+      "viewAll": "Näytä kaikki"
+    },
     "stories": "Tarina | Tarinoita"
   },
   "storiesPage": {

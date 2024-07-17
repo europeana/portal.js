@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näitus: {title}",
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
@@ -909,7 +910,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
     "text": {
-      "trendingItems": "Avastage, millised predmeti köidavad inimeste tähelepanu ja saavutavad populaarsuse reaalajas. Kasutage võimalust olla trendide ees - vaadake, mida inimesed praegu kõige rohkem vaatavad, meeldivad, kureerivad ja uuesti kasutavad."
+      "immersiveStories": "Meie lood on saanud uue ilme — loe ühte, et näha."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -1177,6 +1178,11 @@ export default {
     "required": "Nõutud"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näitused",
+      "stories": "Lood",
+      "viewAll": "Vaata kõiki"
+    },
     "stories": "Lugu | Lood"
   },
   "storiesPage": {
