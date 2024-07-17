@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Mostra: {title}",
     "chapters": "Capitoli",
     "credits": "Realizzato da",
     "currentChapter": "Capitolo attuale",
@@ -906,9 +907,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Chiudi",
     "readMore": "Mostrami",
-    "text": {
-      "trendingItems": "Scopri quali oggetti catturano l'attenzione delle persone e guadagnano popolarità in tempo reale. Approfitta dell'opportunità di rimanere avanti rispetto alla curva - vedi cosa le persone visualizzano, apprezzano, curano e riutilizzano di più in questo momento."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -1175,6 +1174,11 @@ export default {
     "required": "Richiesto"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Mostre",
+      "stories": "Storie",
+      "viewAll": "Visualizza tutto"
+    },
     "stories": "Storia | Storie"
   },
   "storiesPage": {

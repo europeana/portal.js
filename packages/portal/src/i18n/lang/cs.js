@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Výstava: {title}",
     "chapters": "Kapitoly",
     "credits": "Příspěvky",
     "currentChapter": "Aktuální kapitola",
@@ -908,9 +909,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zavřít",
     "readMore": "Ukaž mi",
-    "text": {
-      "trendingItems": "Zjistěte, které položky přitahují pozornost lidí a získávají popularitu v reálném čase. Využijte šanci zůstat na špici – podívejte se, co lidé právě teď nejvíce prohlížejí, co se jim líbí, upravují a opakovaně používají."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1177,6 +1176,11 @@ export default {
     "required": "Požadováno"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Výstavy",
+      "stories": "Příběhy",
+      "viewAll": "Zobrazit vše"
+    },
     "stories": "Příběh | Příběhy"
   },
   "storiesPage": {

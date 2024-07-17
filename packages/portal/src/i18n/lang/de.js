@@ -257,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Ausstellung: {title}",
     "chapters": "Kapitel",
     "credits": "Credits",
     "currentChapter": "Aktuelles Kapitel",
@@ -908,9 +909,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Schließen",
     "readMore": "Zeig mir",
-    "text": {
-      "trendingItems": "Entdecken Sie, welche Objekte die Aufmerksamkeit der Menschen auf sich ziehen und in Echtzeit an Beliebtheit gewinnen. Nutzen Sie die Chance, der Zeit voraus zu sein - sehen Sie, was die Leute gerade am meisten ansehen, mögen, kuratieren und wiederverwenden."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -1177,6 +1176,11 @@ export default {
     "required": "Erforderlich"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Ausstellungen",
+      "stories": "Geschichten",
+      "viewAll": "Alle anzeigen"
+    },
     "stories": "Geschichte | Geschichten"
   },
   "storiesPage": {

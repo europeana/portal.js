@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Expoziție: {title}",
     "chapters": "Capitole",
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
@@ -906,9 +907,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
-    "text": {
-      "trendingItems": "Descoperiți resursele culturale captivante care devin populare în timp real. Profitați de ocazia vizualizări lor în avans - cum le văd alții, cum le apreaciază, curatoriază și reutilizează ei, cel mai mult, acum."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1175,6 +1174,11 @@ export default {
     "required": "Necesar"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Expoziții",
+      "stories": "Narațiuni",
+      "viewAll": "Vizualizează tot"
+    },
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {
