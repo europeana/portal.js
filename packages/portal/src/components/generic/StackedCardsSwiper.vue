@@ -29,29 +29,23 @@
           <div
             class="card-body h-100 d-flex flex-column align-items-center position-relative"
           >
-            <h3>
-              <span>
-                {{ slide.title }}
-              </span>
-            </h3>
-            <div
-              class="my-4"
-            >
-              <p class="mb-0">
-                {{ slide.description }}
-              </p>
-            </div>
-            <span class="line pb-4" />
             <b-button
               ref="slideLink"
-              variant="outline-overlay"
+              variant="primary"
               :to="slide.url"
               class="slide-link swiper-no-swiping"
               :data-qa="`slide link ${i}`"
               @focus="swiper.slideTo(i)"
             >
-              {{ $t('actions.explore') }}
+              {{ slide.title }}
             </b-button>
+            <div
+              class="slide-description my-4"
+            >
+              <p class="mb-0">
+                {{ slide.description }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -212,7 +206,6 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(255 255 255 / 50%);
     }
   }
 
@@ -230,9 +223,10 @@
 
   .swiper-slide {
     width: 245px;
+    height: 385px;
     max-width: $max-card-width;
-    height: auto;
     overflow: hidden;
+    border-radius: $border-radius-small;
 
     @media (min-width: $bp-small) {
       width: 260px;
@@ -270,7 +264,7 @@
     }
 
     .card-body {
-      background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
+      // background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
       padding-top: 1.5rem;
       padding-bottom: 1.5rem;

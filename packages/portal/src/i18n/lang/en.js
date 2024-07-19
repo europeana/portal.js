@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
-    "explore": "Explore",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
