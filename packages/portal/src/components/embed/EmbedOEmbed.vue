@@ -51,7 +51,7 @@
 
     async fetch() {
       const response = await oEmbed(this.url, this.endpoint);
-      if (response.data?.html) {
+      if (response?.data?.html) {
         this.html = response.data.html;
         this.width = response.data.width;
         this.height = response.data.height;
