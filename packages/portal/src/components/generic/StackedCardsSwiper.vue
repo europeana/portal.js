@@ -115,9 +115,6 @@
             },
             576: {
               spaceBetween: -100
-            },
-            992: {
-              spaceBetween: 0
             }
           },
           coverflowEffect: {
@@ -232,6 +229,7 @@
     max-width: $max-card-width;
     overflow: visible;
     border-radius: $border-radius-small;
+    opacity: 0;
 
     @media (min-width: $bp-small) {
       width: 260px;
@@ -275,6 +273,10 @@
       @media (hover: none) {
         opacity: 1;
       }
+    }
+
+    &.swiper-slide-visible {
+      opacity: 1;
     }
 
     h3 {
