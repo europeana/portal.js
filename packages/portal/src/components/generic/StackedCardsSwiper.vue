@@ -33,14 +33,14 @@
               ref="slideLink"
               variant="primary"
               :to="slide.url"
-              class="slide-link swiper-no-swiping"
+              class="slide-link swiper-no-swiping mb-3"
               :data-qa="`slide link ${i}`"
               @focus="swiper.slideTo(i)"
             >
               {{ slide.title }}
             </b-button>
             <div
-              class="slide-description my-4"
+              class="slide-description mb-3"
             >
               <p class="mb-0">
                 {{ slide.description }}
@@ -197,11 +197,13 @@
 
   .slide-link {
     margin: auto 0 0;
-    padding: 0.375em 0.75em;
+    padding: 0 0.5rem;
+    font-size: $font-size-medium;
+    font-weight: 500;
 
     @media (min-width: $bp-4k) {
-      font-size: 1.5rem;
-      padding: calc(1.5 * 0.375em) calc(1.5 * 0.75em);
+      font-size: $font-size-medium-4k;
+      padding: 0 0.75rem;
     }
 
     &:focus {
@@ -212,6 +214,9 @@
   .swiper-container {
     width: 100%;
     padding: 0;
+  }
+
+  .swiper-wrapper {
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
 
@@ -225,7 +230,7 @@
     width: 245px;
     height: 385px;
     max-width: $max-card-width;
-    overflow: hidden;
+    overflow: visible;
     border-radius: $border-radius-small;
 
     @media (min-width: $bp-small) {
@@ -252,6 +257,26 @@
       width: 480px;
     }
 
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0;
+      background-image: linear-gradient(to top, rgb(0, 0, 0) 2%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0) 75%);
+      border-radius: $border-radius-small;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+
+    &.swiper-slide-active:before {
+      @media (hover: none) {
+        opacity: 1;
+      }
+    }
+
     h3 {
       font-weight: 500;
       text-transform: uppercase;
@@ -264,31 +289,60 @@
     }
 
     .card-body {
-      // background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
       padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
+      padding-bottom: 0;
+      transition: background-image 0.5s ease-in-out;
+      z-index: 2;
 
       @media (min-width: $bp-4k) {
         padding-top: calc(1.5 * 1.5rem);
-        padding-bottom: calc(1.5 * 1.5rem);
       }
     }
 
-    .line {
-      width: 40%;
-      border-top: 1px solid $white;
-      margin: auto;
+    .slide-description {
+      opacity: 0;
+      max-height: 0;
+      transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+    }
+
+    &.swiper-slide-active .slide-description {
+      @media (hover: none) {
+        opacity: 1;
+        max-height: 100%;
+      }
     }
 
     .image-overlay {
-      min-height: 100%;
-      min-width: 100%;
-      width: auto;
-      max-width: none;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
       left: -50%;
       right: -50%;
       margin: 0 auto;
+      border-radius: $border-radius-small;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    &.swiper-slide-active {
+      &:hover {
+        .image-overlay {
+          transform: scale(1.05);
+          transition: transform 0.5s ease-in-out;
+        }
+
+        &:before {
+          opacity: 1;
+          transform: scale(1.05);
+          transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .slide-description {
+          opacity: 1;
+          max-height: 100%;
+          transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+        }
+      }
     }
   }
 </style>
