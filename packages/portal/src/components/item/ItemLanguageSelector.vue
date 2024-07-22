@@ -9,8 +9,8 @@
     >
       <b-container>
         <b-row>
-          <b-col class="col-12 py-3 d-inline-flex align-items-center flex-wrap">
-            <span class="d-inline-flex align-items-center flex-wrap">
+          <b-col class="col-12 py-3 d-sm-inline-flex align-items-center flex-wrap">
+            <span class="d-sm-inline-flex align-items-center flex-wrap">
               <span class="icon-translate pr-2" />
               <i18n
                 v-if="fromTranslationError"
