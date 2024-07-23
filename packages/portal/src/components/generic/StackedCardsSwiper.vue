@@ -62,7 +62,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard } from 'swiper/modules';
+  import { A11y, EffectCoverflow, Keyboard } from 'swiper/modules';
 
   const SRCSET_PRESETS = {
     small: { w: 245, h: 440, fit: 'fill' },
@@ -100,7 +100,7 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard],
+          modules: [A11y, EffectCoverflow, Keyboard],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,

@@ -70,7 +70,7 @@
   import ImageOptimised from '@/components/image/ImageOptimised';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
-  import { Grid, Keyboard, Navigation, Pagination } from 'swiper/modules';
+  import { A11y, Grid, Keyboard, Navigation, Pagination } from 'swiper/modules';
 
   export default {
     name: 'LandingIllustrationGroup',
@@ -136,7 +136,7 @@
         ].join(','),
 
         swiperOptions: {
-          modules: [Grid, Keyboard, Navigation, Pagination],
+          modules: [A11y, Grid, Keyboard, Navigation, Pagination],
           centerInsufficientSlides: true,
           grid: {
             fill: 'row',

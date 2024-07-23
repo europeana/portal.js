@@ -7,6 +7,7 @@ export default {
     return {
       swiper: null,
       swiperDefaultOptions: {
+        a11y: true,
         keyboard: {
           enabled: true,
           pageUpDown: false
