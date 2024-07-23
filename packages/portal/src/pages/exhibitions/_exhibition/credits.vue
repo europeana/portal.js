@@ -3,6 +3,9 @@
     data-qa="exhibition credits page"
     class="text-page white-page"
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+    />
     <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
     <b-container
       class="footer-margin"
@@ -90,6 +93,7 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
 
@@ -102,6 +106,7 @@
   export default {
     name: 'ExhibitionCreditsPage',
     components: {
+      BBreadcrumb,
       ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       LinkList: () => import('../../../components/generic/LinkList'),
@@ -114,12 +119,8 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
 
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.exhibition,
         locale: app.i18n.localeProperties.iso,
@@ -136,25 +137,6 @@
 
           const exhibition = data.exhibitionPageCollection.items[0];
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: exhibition.name,
-              to: app.localePath({
-                name: 'exhibitions-exhibition',
-                params: {
-                  exhibition: exhibition.identifier
-                }
-              })
-            },
-            {
-              text: app.i18n.t('exhibitions.credits'),
-              active: true
-            }
-          ]);
           return exhibition;
         })
         .catch((e) => {
@@ -174,6 +156,18 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          {
+            text: this.$t('exhibitions.breadcrumbPrefix', { title: this.exhibitionTitle }),
+            to: this.localePath({ name: 'exhibitions-exhibition', params: { exhibition: this.identifier } })
+          },
+          {
+            text: this.$t('exhibitions.credits'),
+            active: true
+          }
+        ];
+      },
       pageMeta() {
         return {
           title: `${this.name} - ${this.$t('exhibitions.credits')}`,

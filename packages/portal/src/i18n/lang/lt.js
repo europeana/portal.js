@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Paroda: {title}",
     "chapters": "Skyriai",
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
@@ -906,9 +907,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
-    "text": {
-      "trendingItems": "Sužinokite, kurie skaitmeniniai objektai žmonių dėmesį ir tampa populiarūs realiuoju laiku. Pasinaudokite galimybe būti priekyje – pažiūrėkite, ką žmonės šiuo metu dažniausiai žiūri, mėgsta, kuruoja ir pakartotinai naudoja."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1175,6 +1174,11 @@ export default {
     "required": "Reikalingas"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Parodos",
+      "stories": "Istorijos",
+      "viewAll": "Peržiūrėti visus"
+    },
     "stories": "Istorija | Istorijos"
   },
   "storiesPage": {

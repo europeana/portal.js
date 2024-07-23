@@ -69,6 +69,11 @@
       }
     }
 
+    ::v-deep .btn-light {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+    }
+
     ::v-deep .dropdown-menu {
       max-height: 50vh;
       overflow: auto;

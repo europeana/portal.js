@@ -9,6 +9,9 @@ import oEmbed, { oEmbeddable } from '@/index.js';
 import registeredProviders from '@/providers.js';
 
 describe('oEmbed()', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
   afterEach(() => {
     nock.cleanAll();
   });
@@ -18,23 +21,32 @@ describe('oEmbed()', () => {
       const endpointUrl = new URL(provider.endpoint);
 
       for (const scheme of provider.schemes) {
-        const embeddableUrl = scheme.replace(/\*/g, 'abcdef');
+        describe(`when scheme is ${scheme}`, () => {
+          const embeddableUrl = scheme.replace(/\*/g, 'abcdef');
 
-        const nockRequest = (embeddableUrl) => {
-          nock(endpointUrl.origin)
+          const nockRequest = (embeddableUrl) => nock(endpointUrl.origin)
             .get(endpointUrl.pathname)
-            .query(query => {
+            .query((query) => {
               return query.url === embeddableUrl && query.format === 'json';
-            })
-            .reply(200);
-        };
+            });
 
-        it(`sends GET request to provider oEmbed endpoint for ${scheme}`, async() => {
-          nockRequest(embeddableUrl);
+          it('sends GET request to provider oEmbed endpoint', async() => {
+            nockRequest(embeddableUrl).reply(200);
 
-          await oEmbed(embeddableUrl);
+            await oEmbed(embeddableUrl);
 
-          expect(nock.isDone()).toBe(true);
+            expect(nock.isDone()).toBe(true);
+          });
+
+          describe('when network request throws error', () => {
+            it('returns `null`', async() => {
+              nockRequest(embeddableUrl).replyWithError('oh no');
+
+              const response = await oEmbed(embeddableUrl);
+
+              expect(response).toBeNull();
+            });
+          });
         });
       }
     });

@@ -31,11 +31,6 @@
           :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
         />
       </client-only>
-      <b-breadcrumb
-        v-if="breadcrumbs"
-        :items="breadcrumbs"
-        class="mb-5"
-      />
       <nuxt
         id="main"
       />
@@ -65,7 +60,6 @@
 </template>
 
 <script>
-  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
@@ -81,7 +75,6 @@
 
     components: {
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
-      BBreadcrumb,
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
       PageHeader,
@@ -134,12 +127,6 @@
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
         ]
       };
-    },
-
-    computed: {
-      breadcrumbs() {
-        return this.$store.state.breadcrumb.data;
-      }
     },
 
     watch: {

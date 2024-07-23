@@ -8,14 +8,11 @@
     :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -176,20 +173,6 @@
        */
       onAuxClickCard: {
         type: Function,
-        default: null
-      },
-      /**
-       * Width of the image
-       */
-      imageWidth: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Height of the image
-       */
-      imageHeight: {
-        type: Number,
         default: null
       }
     },

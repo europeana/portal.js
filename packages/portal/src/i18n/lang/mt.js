@@ -256,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wirja: {title}",
     "chapters": "Kapitoli",
     "credits": "Krediti",
     "currentChapter": "Kapitolu attwali",
@@ -906,9 +907,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
-    "text": {
-      "trendingItems": "Skopri liema oġġetti jiksbu l-attenzjoni tan-nies u jiksbu popolarità f'real-time. Approfitta mill-opportunità li tibqa' 'l quddiem mill-kurva - ara x'nies jaraw, jgħoġbuhom, jikkuraw u jerġgħu jużaw l-aktar issa."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1175,6 +1174,11 @@ export default {
     "required": "Meħtieġ"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Wirjiet",
+      "stories": "Stejjer",
+      "viewAll": "Ara kollha"
+    },
     "stories": "Storja | Stejjer"
   },
   "storiesPage": {
