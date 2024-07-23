@@ -20,7 +20,7 @@ describe('mixins/swiper', () => {
   describe('when swiper package is available', () => {
     it('initialises new swiper', () => {
       const wrapper = factory();
-      expect(wrapper.vm.swiper).toEqual({ element: '.swiper' });
+      expect(wrapper.vm.swiper.el).toEqual('.swiper');
     });
   });
   describe('swiperOnAfterInit()', () => {

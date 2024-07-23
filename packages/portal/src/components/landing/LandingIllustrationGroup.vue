@@ -70,7 +70,7 @@
   import ImageOptimised from '@/components/image/ImageOptimised';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
-  import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
+  import { Grid, Keyboard, Navigation, Pagination } from 'swiper/modules';
 
   export default {
     name: 'LandingIllustrationGroup',
@@ -136,16 +136,13 @@
         ].join(','),
 
         swiperOptions: {
-          modules: [Grid, Keyboard, Lazy, Navigation, Pagination],
+          modules: [Grid, Keyboard, Navigation, Pagination],
           centerInsufficientSlides: true,
           grid: {
             fill: 'row',
             rows: 2
           },
-          lazy: {
-            loadPrevNextAmount: 4
-          },
-          preloadImages: false,
+          lazyPreloadPrevNext: 4,
           slidesPerGroup: 2,
           slidesPerView: 2,
           speed: 600,
@@ -164,9 +161,6 @@
               slidesPerGroup: 5,
               slidesPerView: 5
             }
-          },
-          on: {
-            activeIndexChange: this.setFocusOnActiveSlideLink
           }
         }
       };

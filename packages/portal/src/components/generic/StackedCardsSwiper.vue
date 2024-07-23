@@ -20,11 +20,11 @@
           class="swiper-slide text-center"
         >
           <img
-            :data-src="imageSrc(slide.image)"
-            :data-srcset="imageSrcset(slide.image)"
-            :data-sizes="imageSizes"
+            :src="imageSrc(slide.image)"
+            :srcset="imageSrcset(slide.image)"
+            :sizes="imageSizes"
             :alt="slide.image && slide.image.description || ''"
-            class="image-overlay position-absolute swiper-lazy"
+            class="image-overlay position-absolute"
           >
           <div
             class="card-body h-100 d-flex flex-column align-items-center position-relative"
@@ -62,7 +62,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
+  import { EffectCoverflow, Keyboard } from 'swiper/modules';
 
   const SRCSET_PRESETS = {
     small: { w: 245, h: 440, fit: 'fill' },
@@ -100,15 +100,12 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard, Lazy],
+          modules: [EffectCoverflow, Keyboard],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
+          initialSlide: Math.floor(this.slides.length / 2),
           slideToClickedSlide: true,
-          preloadImages: false,
-          lazy: {
-            loadPrevNextAmount: 10
-          },
           breakpoints: {
             0: {
               spaceBetween: -150
@@ -141,14 +138,9 @@
       };
     },
 
-    mounted() {
-      const middleCardIndex = Math.floor(this.slides.length / 2);
-      this.swiper.slideTo(middleCardIndex);
-    },
-
     methods: {
       setFocusOnActiveSlideLink() {
-        this.$refs.slideLink[this.swiper.activeIndex].focus();
+        this.swiper && this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
         if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {

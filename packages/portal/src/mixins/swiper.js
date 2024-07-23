@@ -11,11 +11,7 @@ export default {
           enabled: true,
           pageUpDown: false
         },
-        lazy: {
-          enabled: true,
-          checkInView: true,
-          loadPrevNext: true
-        },
+        lazy: true,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
