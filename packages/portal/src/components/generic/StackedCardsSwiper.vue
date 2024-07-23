@@ -2,7 +2,7 @@
   <div class="stacked-cards-wrapper">
     <h2
       v-if="title"
-      class="heading text-center my-3 mx-1"
+      class="heading text-center mt-3 mb-0 mx-1"
     >
       {{ title }}
     </h2>
@@ -162,6 +162,9 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/swiper';
 
+  $slide-height: 385px;
+  $slide-height-4k: 500px;
+
   .stacked-cards-wrapper {
     font-size: 1rem;
     text-align: center;
@@ -201,27 +204,31 @@
   }
 
   .swiper-container {
+    height: calc($slide-height + (2 * 2.25rem));
     width: 100%;
     padding: 0;
+
+    @media (min-width: $bp-4k) {
+      height: calc($slide-height-4k + (3 * 2.25rem));
+    }
   }
 
   .swiper-wrapper {
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-
-    @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * 2.25rem);
-      margin-bottom: calc(1.5 * 2.25rem);
-    }
+    // Firefox fix where left outer slides become unclickable due to wrapper overflow and Firefox handling transform and z-index combination differently
+    height: 0;
+    width: 0;
+    overflow: visible;
   }
 
   .swiper-slide {
     width: 245px;
-    height: 385px;
+    height: $slide-height;
     max-width: $max-card-width;
     overflow: visible;
     border-radius: $border-radius-small;
     opacity: 0;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
 
     @media (min-width: $bp-small) {
       width: 260px;
@@ -245,6 +252,9 @@
 
     @media (min-width: $bp-4k) {
       width: 480px;
+      height: $slide-height-4k;
+      margin-top: calc(1.5 * 2.25rem);
+      margin-bottom: calc(1.5 * 2.25rem);
     }
 
     &:before {
