@@ -276,7 +276,7 @@
       opacity: 0;
       background-image: linear-gradient(to top, rgb(0, 0, 0) 2%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0) 75%);
       border-radius: $border-radius-small;
-      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      transition: opacity 900ms ease-out, transform 400ms ease-out;
     }
 
     &.swiper-slide-active:before {
@@ -304,7 +304,7 @@
       color: $white;
       padding-top: 1.5rem;
       padding-bottom: 0;
-      transition: background-image 0.5s ease-in-out;
+      transition: background-image 400ms ease-out;
       z-index: 2;
 
       @media (min-width: $bp-4k) {
@@ -315,7 +315,7 @@
     .slide-description {
       opacity: 0;
       max-height: 0;
-      transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+      transition: max-height 400ms ease-out, opacity 500ms ease-out;
     }
 
     &.swiper-slide-active .slide-description {
@@ -333,26 +333,26 @@
       right: -50%;
       margin: 0 auto;
       border-radius: $border-radius-small;
-      transition: transform 0.5s ease-in-out;
+      transition: transform 400ms ease-out;
     }
 
     &.swiper-slide-active {
       &:hover {
         .image-overlay {
           transform: scale(1.05);
-          transition: transform 0.5s ease-in-out;
+          transition: transform 400ms ease-out;
         }
 
         &:before {
           opacity: 1;
           transform: scale(1.05);
-          transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+          transition: opacity 400ms ease-out, transform 400ms ease-out;
         }
 
         .slide-description {
           opacity: 1;
           max-height: 100%;
-          transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+          transition: max-height 1000ms ease-out, opacity 600ms ease-out;
         }
       }
     }
