@@ -238,6 +238,7 @@
     padding: 0 0.5rem;
     font-size: $font-size-medium;
     font-weight: 500;
+    pointer-events: none;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-medium-4k;
@@ -259,6 +260,10 @@
       z-index: 1;
     }
   }
+
+  .swiper-slide-active .slide-link {
+      pointer-events: auto;
+    }
 
   .swiper-container {
     height: calc($slide-height + (2 * 2.25rem));
@@ -326,20 +331,6 @@
       background-image: linear-gradient(to top, rgb(0, 0, 0) 2%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0) 75%);
       border-radius: $border-radius-small;
       transition: opacity 900ms ease-out, transform 400ms ease-out;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-    }
-
-    &.swiper-slide-active::after {
-      content: none;
     }
 
     &.swiper-slide-visible {
