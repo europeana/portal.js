@@ -391,15 +391,15 @@
     }
   }
 
-  .show-swiper-slide-content .swiper-slide-active,
-  .show-initial-swiper-slide-content .swiper-slide-active:hover {
-    @include showSwiperSlideContent;
-  }
-
   .show-initial-swiper-slide-content .swiper-slide-active {
     @media (hover: none) {
       @include showSwiperSlideContent;
     }
+  }
+
+  .show-swiper-slide-content .swiper-slide-active,
+  .show-initial-swiper-slide-content .swiper-slide-active:hover {
+    @include showSwiperSlideContent;
   }
 </style>
 
