@@ -1,4 +1,4 @@
-const features = [];
+const features = [{ name: 'none' }];
 
 export const featureNotificationExpiration = (value) => {
   const date = new Date(value);

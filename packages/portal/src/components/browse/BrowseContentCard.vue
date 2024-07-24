@@ -5,7 +5,6 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :image-alt="imageAlt"
     :omit-all-uris="true"
     :logo="fields.logo"
     :variant="variant"
@@ -72,9 +71,6 @@
       },
       imageContentType() {
         return this.imageIsContentfulAsset ? this.cardFields.image.contentType : null;
-      },
-      imageAlt() {
-        return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
       },
       destination() {
         let destination = '';

@@ -18,7 +18,7 @@
   import AlertMessage from '../generic/AlertMessage';
   import EmbedHTML from './EmbedHTML';
 
-  const RESPONSIVE_PROVIDERS = ['YouTube', 'Vimeo', 'Sketchfab'];
+  const RESPONSIVE_PROVIDERS = ['CCMA', 'Ina.fr', 'Sketchfab', 'Vimeo', 'YouTube'];
 
   export default {
     name: 'EmbedOEmbed',
@@ -51,7 +51,7 @@
 
     async fetch() {
       const response = await oEmbed(this.url, this.endpoint);
-      if (response.data?.html) {
+      if (response?.data?.html) {
         this.html = response.data.html;
         this.width = response.data.width;
         this.height = response.data.height;

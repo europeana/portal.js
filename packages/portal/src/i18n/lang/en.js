@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
+    "unlike": "Unlike",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
