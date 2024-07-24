@@ -52,7 +52,7 @@ export default {
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
     "learnMore": "Apprendre encore plus",
-    "like": "Mention J'aime",
+    "like": "J'aime",
     "login": "Connexion",
     "move": "Déplacer",
     "next": "Suivant",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
     "transcribeNow": "Transcrivez maintenant",
+    "unlike": "Retirer le 'j'aime",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },

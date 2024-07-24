@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
     "editProfile": "Upraviť profil",
-    "likes": "Označenia Páči sa mi",
+    "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
-    "like": "Označenie Páči sa mi",
+    "like": "Páči sa mi",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
+    "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -1127,7 +1128,7 @@ export default {
       "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
-        "title": "100 označení Páči sa mi"
+        "title": "100 páči sa mi"
       },
       "updated": "Objekt bola pridaná do galérie.",
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
@@ -1169,7 +1170,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "liked": "Obľúbené",
+    "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
   },

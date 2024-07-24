@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
     "editProfile": "Rediger profil",
-    "likes": "Synes om'er",
+    "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har ikke syntes om nogen genstande endnu"
     },
     "privateCollections": "Private gallerier",
-    "profile": "Mine synes om'er og gallerier",
+    "profile": "Mine likes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
-    "like": "Synes om",
+    "like": "Like",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
+    "unlike": "Fjern like",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -1129,7 +1130,7 @@ export default {
       "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
-        "title": "100 synes om'er"
+        "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
@@ -1171,7 +1172,7 @@ export default {
     "search": "Søg"
   },
   "statuses": {
-    "liked": "Kunne lide",
+    "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },

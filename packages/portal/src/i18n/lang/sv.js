@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
+    "unlike": "Ogilla",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },

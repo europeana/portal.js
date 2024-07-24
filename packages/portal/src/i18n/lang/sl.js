@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
+    "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -1169,7 +1170,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
-    "liked": "Všeč",
+    "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
   },

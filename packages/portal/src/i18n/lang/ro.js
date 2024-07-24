@@ -52,7 +52,7 @@ export default {
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
-    "like": "Apreciere",
+    "like": "Îmi place",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
+    "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },

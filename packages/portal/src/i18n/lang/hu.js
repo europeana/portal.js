@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Még nem kedveltél meg egyetlen tárgyat sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és Galériák",
+    "profile": "Kedvelések és Galériák",
     "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
     "transcribeNow": "Átírás most",
+    "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -1104,7 +1105,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt az tárgyat a tetszésnyilvánítás közül.",
+      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
@@ -1170,7 +1171,7 @@ export default {
     "search": "Keresés"
   },
   "statuses": {
-    "liked": "Tetszett",
+    "liked": "Kedvelt",
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },

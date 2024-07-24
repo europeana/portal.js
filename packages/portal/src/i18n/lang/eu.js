@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
