@@ -14,6 +14,7 @@
       v-show="swiperReady"
       ref="swiper"
       class="swiper swiper-container"
+      data-qa="swiper"
     >
       <div
         class="swiper-wrapper"
@@ -158,21 +159,13 @@
       this.swiper.slideTo(middleCardIndex);
 
       // Swiper.js keyPress event does not handle shift + tab keydown event, so we need to manually handle it
-      this.$refs.swiper.addEventListener('keyup', (event) => {
-        this.setSwiperComponentClasses(event);
-      });
-      this.$refs.swiper.addEventListener('keydown', (event) => {
-        this.setSwiperComponentClasses(event);
-      });
+      this.$refs.swiper.addEventListener('keyup', this.setSwiperComponentClasses);
+      this.$refs.swiper.addEventListener('keydown', this.setSwiperComponentClasses);
     },
 
     beforeDestroy() {
-      this.$refs.swiper.removeEventListener('keyup', (event) => {
-        this.setSwiperComponentClasses(event);
-      });
-      this.$refs.swiper.removeEventListener('keydown', (event) => {
-        this.setSwiperComponentClasses(event);
-      });
+      this.$refs.swiper.removeEventListener('keyup', this.setSwiperComponentClasses);
+      this.$refs.swiper.removeEventListener('keydown', this.setSwiperComponentClasses);
     },
 
     methods: {

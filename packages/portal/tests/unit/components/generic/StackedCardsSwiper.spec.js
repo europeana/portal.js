@@ -1,4 +1,5 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { mountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -25,7 +26,7 @@ const swiperSlides = [{
   url: '/en/collections/topic/190-art'
 }];
 
-const factory = (options = {}) => mount(StackedCardsSwiper, {
+const factory = (options = {}) => mountNuxt(StackedCardsSwiper, {
   localVue,
   attachTo: document.body,
   propsData: {
@@ -71,6 +72,38 @@ describe('components/generic/StackedCardsSwiper', () => {
       const slideLink = wrapper.find(`[data-qa="slide link ${wrapper.vm.swiper.activeIndex}"]:focus`);
 
       expect(slideLink.exists()).toBe(true);
+    });
+  });
+
+  describe('On keydown event', () => {
+    it('resets the swiperComponentClasses', () => {
+      const wrapper = factory();
+
+      wrapper.find('[data-qa="swiper"]').trigger('keydown.right');
+
+      expect(wrapper.vm.swiperComponentClasses).toBe('');
+    });
+  });
+
+  describe('On keyup event', () => {
+    it('resets the swiperComponentClasses', () => {
+      const wrapper = factory();
+
+      wrapper.find('[data-qa="swiper"]').trigger('keyup.left');
+
+      expect(wrapper.vm.swiperComponentClasses).toBe('show-swiper-slide-content');
+    });
+  });
+
+  describe('beforeDestroy', () => {
+    it('removes the keydown and keyup event listeners', () => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$refs.swiper, 'removeEventListener');
+
+      wrapper.vm.beforeDestroy();
+
+      expect(wrapper.vm.$refs.swiper.removeEventListener.calledWith('keyup', wrapper.vm.setSwiperComponentClasses)).toBe(true);
+      expect(wrapper.vm.$refs.swiper.removeEventListener.calledWith('keydown', wrapper.vm.setSwiperComponentClasses)).toBe(true);
     });
   });
 });
