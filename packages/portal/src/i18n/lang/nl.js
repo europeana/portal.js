@@ -52,7 +52,7 @@ export default {
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },

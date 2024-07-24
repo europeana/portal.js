@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
+    "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },

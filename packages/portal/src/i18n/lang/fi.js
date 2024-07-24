@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },

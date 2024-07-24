@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },

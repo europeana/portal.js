@@ -52,7 +52,7 @@ export default {
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
-    "like": "Oblíbené",
+    "like": "Líbí se mi",
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
+    "unlike": "Nelíbí se mi",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -1105,7 +1106,7 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svých lajků.",
+      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },
@@ -1129,7 +1130,7 @@ export default {
       "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
-        "title": "100 oblíbených"
+        "title": "100 lajků"
       },
       "updated": "Položka byla přidána do galerie.",
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."

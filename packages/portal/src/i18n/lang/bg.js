@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Изпратено за публикуване",
     "transcribe": "Транскрибиране",
     "transcribeNow": "Транскрибирайте сега",
+    "unlike": "Не харесвам",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
   },
