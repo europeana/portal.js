@@ -137,6 +137,10 @@
 
         swiperOptions: {
           modules: [A11y, Grid, Keyboard, Navigation, Pagination],
+          a11y: {
+            paginationBulletMessage: this.$t('swiper.a11y.paginationBulletGroupedSlides', { page: '{{index}}' })
+
+          },
           centerInsufficientSlides: true,
           grid: {
             fill: 'row',
