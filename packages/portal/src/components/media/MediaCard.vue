@@ -38,10 +38,13 @@
       :type="media.ebucoreHasMimeType"
     />
   </div>
-  <EmbedOEmbed
+  <EmbedGateway
     v-else-if="media.isOEmbed"
-    :url="media.about"
-  />
+  >
+    <EmbedOEmbed
+      :url="media.about"
+    />
+  </EmbedGateway>
 </template>
 
 <script>
@@ -52,6 +55,7 @@
     components: {
       MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
+      EmbedGateway: () => import('../embed/EmbedGateway'),
       MediaVideoPlayer: () => import('../media/MediaVideoPlayer'),
       MediaAudioPlayer: () => import('../media/MediaAudioPlayer')
     },
