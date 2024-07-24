@@ -262,8 +262,8 @@
   }
 
   .swiper-slide-active .slide-link {
-      pointer-events: auto;
-    }
+    pointer-events: auto;
+  }
 
   .swiper-container {
     height: calc($slide-height + (2 * 2.25rem));
