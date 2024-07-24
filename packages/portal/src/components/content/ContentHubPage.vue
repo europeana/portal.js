@@ -22,7 +22,6 @@
               :url="{ name: cardUrlName, params: { pathMatch: item.identifier || item.slug, exhibition: item.identifier } }"
               :image-url="item.thumbnail || imageUrl(item.primaryImageOfPage)"
               :image-content-type="imageContentType(item.primaryImageOfPage)"
-              :image-alt="imageAlt(item.primaryImageOfPage)"
               :texts="[item.description]"
               :offset="index"
             />
@@ -97,9 +96,6 @@
       },
       imageContentType(image) {
         return image?.image?.contentType;
-      },
-      imageAlt(image) {
-        return image?.image?.description || '';
       }
     }
   };
