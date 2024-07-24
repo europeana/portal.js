@@ -140,7 +140,7 @@
             }
           }
         },
-        swiperComponentClasses: 'show-swiper-slide-content-hover',
+        swiperComponentClasses: 'show-initial-swiper-slide-content',
         imageSizes: [
           '(max-width: 575px) 245px', // bp-small
           '(max-width: 767px) 260px', // bp-medium
@@ -157,6 +157,7 @@
       const middleCardIndex = Math.floor(this.slides.length / 2);
       this.swiper.slideTo(middleCardIndex);
 
+      // Swiper.js keyPress event does not handle shift + tab keydown event, so we need to manually handle it
       this.$refs.swiper.addEventListener('keyup', (event) => {
         this.setSwiperComponentClasses(event);
       });
@@ -378,8 +379,7 @@
     }
   }
 
-  .show-swiper-slide-content .swiper-slide-active,
-  .show-swiper-slide-content-hover .swiper-slide-active:hover {
+  @mixin showSwiperSlideContent {
     .image-overlay {
       transform: scale(1.05);
       transition: transform 400ms ease-out;
@@ -395,6 +395,17 @@
       opacity: 1;
       max-height: 100%;
       transition: max-height 1000ms ease-out, opacity 600ms ease-out;
+    }
+  }
+
+  .show-swiper-slide-content .swiper-slide-active,
+  .show-initial-swiper-slide-content .swiper-slide-active:hover {
+    @include showSwiperSlideContent;
+  }
+
+  .show-initial-swiper-slide-content .swiper-slide-active {
+    @media (hover: none) {
+      @include showSwiperSlideContent;
     }
   }
 </style>
