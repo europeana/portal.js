@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wystawa: {title}",
     "chapters": "Rozdziały",
     "credits": "Twórcy",
     "currentChapter": "Aktualny rozdział",
@@ -906,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
-    "text": {
-      "trendingItems": "Dowiedz się, które obiekty cyfrowe przyciągają uwagę ludzi i stają się popularne w czasie rzeczywistym. Skorzystaj z okazji, aby być o krok do przodu-zobacz, co ludzie teraz najbardziej oglądają, lubią, kurują i ponownie wykorzystują."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1175,6 +1175,11 @@ export default {
     "required": "Wymagane"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Wystawy",
+      "stories": "Historie",
+      "viewAll": "Zobacz wszystkie"
+    },
     "stories": "Historia | Historie"
   },
   "storiesPage": {

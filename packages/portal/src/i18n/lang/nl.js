@@ -52,7 +52,7 @@ export default {
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -257,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Tentoonstelling: {title}",
     "chapters": "Hoofdstukken",
     "credits": "Credits",
     "currentChapter": "Huidig hoofdstuk",
@@ -908,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
-    "text": {
-      "trendingItems": "Ontdek welke objecten de aandacht van mensen trekken en in realtime aan populariteit winnen. Profiteer van de kans om voorop te blijven lopen en kijk wat mensen op dit moment het meest bekijken, leuk vinden, cureren en hergebruiken."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -1177,6 +1177,11 @@ export default {
     "required": "Vereist"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Tentoonstellingen",
+      "stories": "Verhalen",
+      "viewAll": "Bekijk alles"
+    },
     "stories": "Verhaal | Verhalen"
   },
   "storiesPage": {

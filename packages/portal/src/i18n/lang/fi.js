@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -257,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näyttely: {title}",
     "chapters": "Luvut",
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
@@ -908,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
-    "text": {
-      "trendingItems": "Selvitä, mitkä aineistot kiinnittävät ihmisten huomion ja saavat suosiota reaaliajassa. Hyödynnä tilaisuus pysyä kehityksen kärjessä – katso, mitä ihmiset näkevät, pitävät, kuratoivat ja käyttävät uudelleen eniten juuri nyt."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -1177,6 +1177,11 @@ export default {
     "required": "Pakollinen"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näyttelyt",
+      "stories": "Tarinat",
+      "viewAll": "Näytä kaikki"
+    },
     "stories": "Tarina | Tarinoita"
   },
   "storiesPage": {

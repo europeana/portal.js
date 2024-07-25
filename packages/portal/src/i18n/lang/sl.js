@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
+    "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Razstava: {title}",
     "chapters": "Poglavja",
     "credits": "Sodelavci",
     "currentChapter": "Trenutno poglavje",
@@ -906,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
-    "text": {
-      "trendingItems": "Odkrijte, kateri enote pritegnejo pozornost ljudi in pridobijo priljubljenost v realnem času. Izkoristite priložnost, da ostanete pred krivuljo – oglejte si, kaj si ljudje trenutno največ ogledujejo, všečkajo, kurirajo in ponovno uporabljajo."
-    }
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1170,11 +1170,16 @@ export default {
     "search": "Išči"
   },
   "statuses": {
-    "liked": "Všeč",
+    "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Razstave",
+      "stories": "Zgodbe",
+      "viewAll": "Poglej vse"
+    },
     "stories": "Zgodba | Zgodbe"
   },
   "storiesPage": {

@@ -23,7 +23,6 @@
           :src="cardImageUrl"
           :width="imageWidthPerVariant"
           :height="imageHeightPerVariant"
-          :alt="imageAlt"
           :content-type="imageContentType"
           :contentful-image-crop-presets="contentfulImageCropPresets"
           :image-sizes="imageSizes"
@@ -206,13 +205,6 @@
       imageHeight: {
         type: Number,
         default: 338
-      },
-      /**
-       * Image alt text
-       */
-      imageAlt: {
-        type: String,
-        default: ''
       },
       /**
        * Image crop presets for optimised images

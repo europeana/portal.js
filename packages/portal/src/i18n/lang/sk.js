@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
     "editProfile": "Upraviť profil",
-    "likes": "Označenia Páči sa mi",
+    "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
-    "like": "Označenie Páči sa mi",
+    "like": "Páči sa mi",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
+    "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Výstava: {title}",
     "chapters": "Kapitoly",
     "credits": "Autori",
     "currentChapter": "Aktuálna kapitola",
@@ -906,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
     "readMore": "Ukáž mi",
-    "text": {
-      "trendingItems": "Zistite, ktoré objekty zaujmú pozornosť ľudí a stávajú sa populárne v reálnom čase. Využite príležitosť byť o krok vpred-pozrite si, čo ľudia práve teraz najviac sledujú, majú radi, kurát ujú a znovu používajú."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1128,7 +1128,7 @@ export default {
       "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
-        "title": "100 označení Páči sa mi"
+        "title": "100 páči sa mi"
       },
       "updated": "Objekt bola pridaná do galérie.",
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
@@ -1170,11 +1170,16 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "liked": "Obľúbené",
+    "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Výstavy",
+      "stories": "Príbehy",
+      "viewAll": "Zobraziť všetko"
+    },
     "stories": "Príbeh | Príbehy"
   },
   "storiesPage": {

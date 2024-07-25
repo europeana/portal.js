@@ -7,7 +7,7 @@
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
-      :aria-label="$t('actions.like')"
+      :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
       :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >

@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Még nem kedveltél meg egyetlen tárgyat sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és Galériák",
+    "profile": "Kedvelések és Galériák",
     "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
     "transcribeNow": "Átírás most",
+    "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Kiállítás: {title}",
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",
     "currentChapter": "Jelenlegi fejezet",
@@ -907,9 +909,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
-    "text": {
-      "trendingItems": "Fedezd fel, mely tárgyak ragadják meg valós időben az emberek figyelmét és szereznek népszerűséget. Használja ki a lehetőséget, hogy élen járjon – nézze meg, mit tekintenek meg, szeretnek, válogatnak össze és használnak fel újra az emberek a leghasznosabban."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1105,7 +1105,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt az tárgyat a tetszésnyilvánítás közül.",
+      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
@@ -1171,11 +1171,16 @@ export default {
     "search": "Keresés"
   },
   "statuses": {
-    "liked": "Tetszett",
+    "liked": "Kedvelt",
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Kiállítások",
+      "stories": "Történetek",
+      "viewAll": "Összes megtekintése"
+    },
     "stories": "Történet | Történetek"
   },
   "storiesPage": {

@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izstāde: {title}",
     "chapters": "Nodaļas",
     "credits": "Kredīti",
     "currentChapter": "Pašreizējā nodaļa",
@@ -906,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": {
-      "trendingItems": "Uzziniet, kuri digitālie objekti piesaista cilvēku uzmanību un iegūst popularitāti reālajā laikā. Izmantojiet iespēju būt priekšā līknei - skatieties, ko cilvēki skatās, patīk, kurē un atkārtoti izmanto tieši tagad."
-    }
+    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1175,6 +1175,11 @@ export default {
     "required": "Nepieciešams"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Izstādes",
+      "stories": "Stāsti",
+      "viewAll": "Skatīt visu"
+    },
     "stories": "Stāsts | Stāsti"
   },
   "storiesPage": {

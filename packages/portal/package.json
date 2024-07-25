@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.155.1",
+  "version": "1.156.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.3.1",
     "@europeana/i18n": "^1.150.0",
-    "@europeana/oembed": "^1.150.0",
+    "@europeana/oembed": "^1.156.0",
     "@europeana/vue-router-query": "^1.150.0",
     "@europeana/vue-session": "^1.150.0",
     "@europeana/vue-visible-on-scroll": "^1.150.0",
@@ -60,7 +60,7 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@europeana/style": "^1.155.1",
+    "@europeana/style": "^1.156.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",

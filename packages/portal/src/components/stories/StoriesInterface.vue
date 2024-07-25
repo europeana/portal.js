@@ -6,12 +6,16 @@
       <StoriesTagsDropdown
         :filtered-tags="filteredTags"
         :selected-tags="selectedTags"
+        data-qa="stories tags dropdown"
       />
     </client-only>
     <div
-      class="mb-4 context-label"
+      class="d-flex justify-content-between align-items-center mb-4"
     >
-      {{ $tc('items.itemCount', total, { count: total }) }}
+      <span class="context-label">
+        {{ $tc('items.itemCount', total, { count: total }) }}
+      </span>
+      <StoriesTypeFilter />
       <div
         class="visually-hidden"
         role="status"
@@ -23,6 +27,7 @@
     <b-container
       v-if="$fetchState.pending"
       data-qa="stories loading spinner container"
+      class="position-absolute"
     >
       <b-row class="flex-md-row py-4 text-center">
         <b-col cols="12">
@@ -30,43 +35,48 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-card-group
+    <transition
       v-else
-      class="card-deck-4-cols"
-      deck
+      appear
+      name="fade"
     >
-      <StoriesFeaturedCard
-        v-if="showFeaturedStory"
-        :featured-story="featuredStory"
-        data-qa="featured story card"
-      />
-      <template
-        v-for="(entry, index) in stories"
+      <b-card-group
+        class="card-deck-4-cols"
+        deck
       >
-        <div
-          v-if="entry === ctaBanner"
-          :key="index"
-          class="cta-banner-wrapper"
-        >
-          <CallToActionBanner
-            v-if="callToAction"
-            :name="callToAction.name"
-            :name-english="callToAction.nameEN"
-            :text="callToAction.text"
-            :link="callToAction.relatedLink"
-            :illustration="callToAction.image"
-          />
-        </div>
-        <ContentCard
-          v-else-if="entry !== ctaBanner"
-          :key="index"
-          :title="entry.name"
-          :url="contentfulEntryUrl(entry)"
-          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+        <StoriesFeaturedCard
+          v-if="showFeaturedStory"
+          :featured-story="featuredStory"
+          data-qa="featured story card"
         />
-      </template>
-    </b-card-group>
+        <template
+          v-for="(entry, index) in stories"
+        >
+          <div
+            v-if="entry === ctaBanner"
+            :key="index"
+            class="cta-banner-wrapper"
+          >
+            <CallToActionBanner
+              v-if="callToAction"
+              :name="callToAction.name"
+              :name-english="callToAction.nameEN"
+              :text="callToAction.text"
+              :link="callToAction.relatedLink"
+              :illustration="callToAction.image"
+            />
+          </div>
+          <ContentCard
+            v-else-if="entry !== ctaBanner"
+            :key="index"
+            :title="entry.name"
+            :url="contentfulEntryUrl(entry)"
+            :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+            :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+          />
+        </template>
+      </b-card-group>
+    </transition>
     <PaginationNavInput
       v-if="total > perPage"
       :per-page="perPage"
@@ -81,6 +91,7 @@
 
   import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import StoriesTypeFilter from '@/components/stories/StoriesTypeFilter';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   const CTA_BANNER = 'cta-banner';
@@ -95,6 +106,7 @@
       LoadingSpinner,
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       StoriesFeaturedCard: () => import('./StoriesFeaturedCard'),
+      StoriesTypeFilter,
       StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
 
@@ -129,6 +141,9 @@
       selectedTags() {
         return this.$route.query.tags?.split(',') || [];
       },
+      selectedType() {
+        return this.$route.query?.type || false;
+      },
       filteredTags() {
         const relevantTags = this.relevantStoryMetadata.map((story) => story.cats).flat();
         const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
@@ -138,13 +153,21 @@
         return uniq(tagsSortedByMostUsed);
       },
       relevantStoryMetadata() {
-        if (this.allStoryMetadata && (this.selectedTags.length > 0)) {
+        let relevantStoryMetadata = this.allStoryMetadata || [];
+        if (this.selectedType) {
+          // Filter by selected type
+          relevantStoryMetadata = relevantStoryMetadata.filter((story) => {
+            return (this.selectedType === 'exhibition' && story['__typename'] === 'ExhibitionPage') ||
+              (this.selectedType === 'story' && story['__typename'] === 'Story');
+          });
+        }
+        if (this.selectedTags.length > 0) {
           // Filter by selected categories
-          return this.allStoryMetadata.filter((story) => {
+          relevantStoryMetadata = relevantStoryMetadata.filter((story) => {
             return this.selectedTags.every((tag) => story.cats.includes(tag));
           });
         }
-        return this.allStoryMetadata || [];
+        return relevantStoryMetadata;
       },
       total() {
         return this.relevantStoryMetadata?.length || 0;
@@ -159,13 +182,17 @@
           featuredStoryMatchesSelectedTags = this.selectedTags.every((tag) => featuredStoryTags.includes(tag));
         }
 
-        return this.featuredStory && featuredStoryMatchesSelectedTags && (this.page === 1);
+        return this.featuredStory && this.selectedType !== 'exhibition' && featuredStoryMatchesSelectedTags && (this.page === 1);
       }
     },
 
     watch: {
-      page: '$fetch',
-      selectedTags: '$fetch'
+      async page() {
+        await this.$fetch();
+        this.$scrollTo?.('#header');
+      },
+      selectedTags: '$fetch',
+      selectedType: '$fetch'
     },
 
     methods: {
@@ -179,8 +206,8 @@
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.storyCollection.items,
-          storyIdsResponse.data.data.exhibitionPageCollection.items
+          storyIdsResponse.data.data.storyCollection?.items,
+          storyIdsResponse.data.data.exhibitionPageCollection?.items
         ].flat();
 
         // Simplify categories
@@ -214,7 +241,6 @@
         if (this.page === 1 && this.selectedTags.length === 0) {
           this.stories.splice(12, 0, this.ctaBanner);
         }
-        this.$scrollTo?.('#header');
       },
 
       contentfulEntryUrl
@@ -224,6 +250,7 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
 
 .context-label {
   font-size: $font-size-small;

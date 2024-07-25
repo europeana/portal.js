@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -257,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näitus: {title}",
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
@@ -908,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
-    "text": {
-      "trendingItems": "Avastage, millised predmeti köidavad inimeste tähelepanu ja saavutavad populaarsuse reaalajas. Kasutage võimalust olla trendide ees - vaadake, mida inimesed praegu kõige rohkem vaatavad, meeldivad, kureerivad ja uuesti kasutavad."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1177,6 +1177,11 @@ export default {
     "required": "Nõutud"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näitused",
+      "stories": "Lood",
+      "viewAll": "Vaata kõiki"
+    },
     "stories": "Lugu | Lood"
   },
   "storiesPage": {

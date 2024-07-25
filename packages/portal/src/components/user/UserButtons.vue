@@ -11,39 +11,41 @@
       :button-variant="buttonVariant"
       :button-text="buttonText"
     />
-    <b-button
-      v-if="showMove"
-      v-b-tooltip.bottom
-      class="move-button text-uppercase d-inline-flex align-items-center"
-      :class="{ 'button-icon-only': !buttonText }"
-      data-qa="item move button"
-      :variant="buttonVariant"
-      :aria-label="$t('actions.move')"
-      :title="$t('account.tooltip.reorder')"
-      @mouseleave="hideTooltips"
-    >
-      <span class="icon-ic-move-xy" />
-      {{ buttonText ? $t('actions.move') : '' }}
-    </b-button>
-    <ItemAddButton
-      data-qa="item add button"
-      :identifier="identifier"
-      :button-variant="buttonVariant"
-      :button-text="buttonText"
-    />
-    <ItemRemoveButton
-      v-if="showRemove"
-      data-qa="item remove button"
-      :identifier="identifier"
-      :button-variant="buttonVariant"
-      :button-text="buttonText"
-    />
-    <ItemLikeButton
-      data-qa="item like button"
-      :identifier="identifier"
-      :button-variant="buttonVariant"
-      :button-text="buttonText"
-    />
+    <div class="right-buttons-wrapper d-inline-flex">
+      <b-button
+        v-if="showMove"
+        v-b-tooltip.bottom
+        class="move-button text-uppercase d-inline-flex align-items-center"
+        :class="{ 'button-icon-only': !buttonText }"
+        data-qa="item move button"
+        :variant="buttonVariant"
+        :aria-label="$t('actions.move')"
+        :title="$t('account.tooltip.reorder')"
+        @mouseleave="hideTooltips"
+      >
+        <span class="icon-ic-move-xy" />
+        {{ buttonText ? $t('actions.move') : '' }}
+      </b-button>
+      <ItemRemoveButton
+        v-if="showRemove"
+        data-qa="item remove button"
+        :identifier="identifier"
+        :button-variant="buttonVariant"
+        :button-text="buttonText"
+      />
+      <ItemAddButton
+        data-qa="item add button"
+        :identifier="identifier"
+        :button-variant="buttonVariant"
+        :button-text="buttonText"
+      />
+      <ItemLikeButton
+        data-qa="item like button"
+        :identifier="identifier"
+        :button-variant="buttonVariant"
+        :button-text="buttonText"
+      />
+    </div>
   </div>
 </template>
 

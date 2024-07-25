@@ -52,7 +52,7 @@ export default {
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
-    "like": "Apreciere",
+    "like": "Îmi place",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
+    "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -256,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Expoziție: {title}",
     "chapters": "Capitole",
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
@@ -906,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
-    "text": {
-      "trendingItems": "Descoperiți resursele culturale captivante care devin populare în timp real. Profitați de ocazia vizualizări lor în avans - cum le văd alții, cum le apreaciază, curatoriază și reutilizează ei, cel mai mult, acum."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1175,6 +1175,11 @@ export default {
     "required": "Necesar"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Expoziții",
+      "stories": "Narațiuni",
+      "viewAll": "Vizualizează tot"
+    },
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {

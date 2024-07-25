@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kurirane zbirke",
     "editProfile": "Uredi profil",
-    "likes": "Sviđanja",
+    "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
@@ -17,10 +17,10 @@ export default {
         "public": "Još niste stvorili javne galerije",
         "published": "Još niste objavili galerije"
       },
-      "noLikedItems": "Niste još ni za jednu predmeti označili da vam se sviđa"
+      "noLikedItems": "Niste još ni za jedan predmet lajkali"
     },
     "privateCollections": "Privatne galerije",
-    "profile": "Moja sviđanja i galerije",
+    "profile": "Moji lajkovi i galerije",
     "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
     "learnMore": "Uči više",
-    "like": "Sviđanje",
+    "like": "Lajk",
     "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Predano za objavu",
     "transcribe": "Prepisati",
     "transcribeNow": "Prepišite sada",
+    "unlike": "Ukloni lajk",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -257,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izložba: {title}",
     "chapters": "Poglavlja",
     "credits": "Krediti",
     "currentChapter": "Trenutno poglavlje",
@@ -780,7 +782,7 @@ export default {
     "trending": {
       "headline": "Istražite današnje popularne predmete"
     },
-    "youMightLike": "Predmeti koje vam se mogu sviđati"
+    "youMightLike": "Predmeti koje vam se mogu lajkati"
   },
   "klaro": {
     "main": {
@@ -901,16 +903,14 @@ export default {
     "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
-    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateLanguage": "Želite li vidjeti ovu predmet u {0} ?",
     "translateMetadata": "Prevedite metapodatke ove predmet.",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
-    "text": {
-      "trendingItems": "Otkrijte koji predmeti privlače pažnju ljudi i stječu popularnost u stvarnom vremenu. Iskoristite priliku da ostanete ispred krivulje - pogledajte što ljudi trenutno najviše gledaju, sviđaju im se, pripremaju i ponovno koriste."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -1106,7 +1106,7 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovu predmet iz svojih lajkova.",
+      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
@@ -1125,12 +1125,12 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše oznake sviđanja.",
+      "itemLiked": "Predmet je spremljen u vaše lajkove.",
       "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših oznaka sviđanja.",
+      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
-        "title": "100 sviđanja"
+        "title": "100 lajkova"
       },
       "updated": "Predmet je dodan u galeriju.",
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
@@ -1172,11 +1172,16 @@ export default {
     "search": "traži"
   },
   "statuses": {
-    "liked": "Volio",
+    "liked": "Lajkano",
     "pinned": "Prikvačeno",
     "required": "Potreban"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "izložbe",
+      "stories": "Priče",
+      "viewAll": "Pogledaj sve"
+    },
     "stories": "Priča | Priče"
   },
   "storiesPage": {
