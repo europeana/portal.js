@@ -25,13 +25,15 @@
           :index="i"
           class="swiper-slide text-center"
         >
-          <img
-            :src="imageSrc(slide.image)"
-            :srcset="imageSrcset(slide.image)"
+          <ImageOptimised
+            :src="slide.image.url"
+            :contentful-image-crop-presets="SRCSET_PRESETS"
             :sizes="imageSizes"
+            :width="slide.image.width"
+            :height="slide.image.height"
             :alt="slide.image && slide.image.description || ''"
             class="image-overlay position-absolute"
-          >
+          />
           <div
             class="card-body h-100 d-flex flex-column align-items-center position-relative"
           >
@@ -67,21 +69,16 @@
 </template>
 
 <script>
+  import ImageOptimised from '@/components/image/ImageOptimised';
   import swiperMixin from '@/mixins/swiper';
   import { A11y, EffectCoverflow, Keyboard } from 'swiper/modules';
 
-  const SRCSET_PRESETS = {
-    small: { w: 245, h: 440, fit: 'fill' },
-    medium: { w: 260, h: 420, fit: 'fill' },
-    large: { w: 280, h: 400, fit: 'fill' },
-    xl: { w: 300, h: 400, fit: 'fill' },
-    xxl: { w: 320, h: 370, fit: 'fill' },
-    '4k': { w: 355, h: 345, fit: 'fill' },
-    '4k+': { w: 480, h: 470, fit: 'fill' }
-  };
-
   export default {
     name: 'StackedCardsSwiper',
+
+    components: {
+      ImageOptimised
+    },
 
     mixins: [swiperMixin],
 
@@ -147,7 +144,16 @@
           '(max-width: 1399px) 320px', // bp-xxl
           '(max-width: 3019px) 355px', // bp-4k
           '480px'
-        ].join(',')
+        ].join(','),
+        SRCSET_PRESETS: {
+          small: { w: 245, h: 440, fit: 'fill' },
+          medium: { w: 260, h: 420, fit: 'fill' },
+          large: { w: 280, h: 400, fit: 'fill' },
+          xl: { w: 300, h: 400, fit: 'fill' },
+          xxl: { w: 320, h: 370, fit: 'fill' },
+          '4k': { w: 355, h: 345, fit: 'fill' },
+          '4k+': { w: 480, h: 470, fit: 'fill' }
+        }
       };
     },
 
@@ -175,18 +181,6 @@
         } else if (['pointerdown', 'touchstart'].includes(event.type) || (activeKeyboardNavigation && event.type === 'keydown')) {
           this.swiperComponentClasses = '';
         }
-      },
-      imageSrc(image) {
-        if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
-          return this.$contentful.assets.optimisedSrc(image, { w: 245, h: 440, fit: 'fill' });
-        } else if (image?.url) {
-          return image.url;
-        } else {
-          return null;
-        }
-      },
-      imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
       }
     }
   };
@@ -357,12 +351,17 @@
     .image-overlay {
       height: 100%;
       width: 100%;
-      object-fit: cover;
       left: -50%;
       right: -50%;
       margin: 0 auto;
-      border-radius: $border-radius-small;
       transition: transform 400ms ease-out;
+
+      ::v-deep img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: $border-radius-small;
+      }
     }
   }
 
