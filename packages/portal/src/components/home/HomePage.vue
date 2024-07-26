@@ -147,24 +147,20 @@
     }
   }
 
-  ::v-deep h2.card-group-title {
+  ::v-deep h2.card-group-title,
+  ::v-deep .stacked-cards-wrapper h2.heading {
+    @extend %title-2;
+
     color: $mediumgrey;
-    font-size: 2rem;
-    font-weight: 400;
-    text-align: center;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
       margin-bottom: calc( 1.5 * 2.25rem);
     }
+  }
 
-    @media (min-width: $bp-extralarge) {
-      font-size: $font-size-xxl;
-    }
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-xxl-4k;
-    }
+  ::v-deep h2.card-group-title {
+    text-align: left;
   }
 
   .home-page-card-group ::v-deep {
@@ -225,6 +221,10 @@
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
       margin-left: auto;
       margin-right: auto;
+    }
+
+    h2.card-group-title {
+      text-align: center;
     }
   }
 </style>
