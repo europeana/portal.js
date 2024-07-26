@@ -51,6 +51,15 @@ describe('components/stories/StoriesTagsDropdown', () => {
     expect(wrapper.vm.tags.length).toBe(3);
   });
 
+  describe('on focusin event', () => {
+    it('makes the click outside handler active, opens the dropdown', async() => {
+      const wrapper = factory();
+      await wrapper.vm.handleFocusin();
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+      expect(wrapper.vm.showDropdown).toBe(true);
+    });
+  });
+
   describe('when searching for tag', () => {
     it('filters by keyword', async() => {
       const wrapper = factory();
@@ -86,37 +95,26 @@ describe('components/stories/StoriesTagsDropdown', () => {
 
   describe('when user clicks outside the search form dropdown', () => {
     it('hides the search options', async() => {
-      const handleClickOrTabOutsideEvent = new Event('click');
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(handleClickOrTabOutsideEvent);
-
-      expect(wrapper.vm.showDropdown).toBe(false);
-    });
-  });
-
-  describe('when user tabs outside the search form dropdown', () => {
-    it('hides the search options', async() => {
-      const tabOutsideEvent = new KeyboardEvent('keydown', { 'key': 'Tab' });
-      const wrapper = factory();
-
-      await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(tabOutsideEvent);
+      wrapper.vm.handleClickOutside();
 
       expect(wrapper.vm.showDropdown).toBe(false);
     });
   });
 
   describe('when user uses escape key', () => {
-    it('hides the search options', async() => {
-      const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
+    it('hides the search options, emits an escape event for the interface to act on', async() => {
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(escapeEvent);
+      const emit = sinon.spy(wrapper.vm, '$emit');
+
+      await wrapper.vm.handleEsc();
 
       expect(wrapper.vm.showDropdown).toBe(false);
+      expect(emit.calledWith('escapeDropdown')).toBe(true);
     });
   });
 });

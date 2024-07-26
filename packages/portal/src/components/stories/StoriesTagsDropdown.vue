@@ -9,7 +9,10 @@
     />
     <div
       ref="tagsdropdown"
+      v-click-outside="clickOutsideConfig"
       class="position-relative mb-4"
+      @focusin="handleFocusin"
+      @keydown.esc="handleEsc"
     >
       <b-form
         class="search-form"
@@ -30,7 +33,7 @@
           :aria-controls="showDropdown ? 'tags-options' : null"
           :aria-expanded="showDropdown"
           :aria-label="$t('categories.label')"
-          @focus="showDropdown = true"
+          @keydown.down="handleInputDown"
         />
       </b-form>
       <div
@@ -41,9 +44,11 @@
       >
         <RelatedCategoryTags
           v-if="displayTags.length > 0"
+          ref="relatedCategoryTags"
           :tags="displayTags"
           :selected="selectedTags"
           :heading="false"
+          tabindex="-1"
           class="badge-container mb-2"
         />
         <p v-else-if="displayTags.length === 0">
@@ -55,6 +60,8 @@
 </template>
 
 <script>
+  import vClickOutside from 'v-click-outside';
+
   import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
 
   export default {
@@ -62,6 +69,10 @@
 
     components: {
       RelatedCategoryTags
+    },
+
+    directives: {
+      clickOutside: vClickOutside.directive
     },
 
     props: {
@@ -77,6 +88,13 @@
 
     data() {
       return {
+        // https://www.npmjs.com/package/v-click-outside
+        clickOutsideConfig: {
+          capture: true,
+          events: ['click', 'dblclick', 'focusin', 'touchstart'],
+          handler: this.handleClickOutside,
+          isActive: false
+        },
         showDropdown: false,
         searchTag: '',
         tags: []
@@ -122,26 +140,37 @@
     },
 
     watch: {
-      showDropdown(newVal) {
-        if (newVal === true) {
-          window.addEventListener('click', this.handleClickOrTabOutside);
-          window.addEventListener('keydown', this.handleClickOrTabOutside);
-        } else {
-          window.removeEventListener('click', this.handleClickOrTabOutside);
-          window.removeEventListener('keydown', this.handleClickOrTabOutside);
-        }
-      },
       '$route.query.tags'() {
         this.showDropdown = false;
       }
     },
 
     methods: {
-      handleClickOrTabOutside(event) {
-        const targetOutsideSearchDropdown = this.$refs.tagsdropdown && !this.$refs.tagsdropdown.contains(event.target);
-        if (((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) || event.key === 'Escape') {
-          this.showDropdown = false;
-        }
+      setClickOutsideConfigIsActive(isActive) {
+        // need to do this instead of just setting isActive due to
+        // https://github.com/ndelvalle/v-click-outside/issues/143
+        this.clickOutsideConfig = {
+          ...this.clickOutsideConfig,
+          isActive
+        };
+      },
+      handleFocusin() {
+        this.setClickOutsideConfigIsActive(true);
+        this.showDropdown = true;
+      },
+      handleClickOutside() {
+        this.setClickOutsideConfigIsActive(false);
+        this.showDropdown = false;
+      },
+      handleEsc() {
+        this.handleClickOutside();
+        console.log('hello');
+        this.$emit('escapeDropdown');
+        console.log('emmitted');
+      },
+      handleInputDown() {
+        const firstTag = this.$refs.relatedCategoryTags?.$el.getElementsByTagName('a')?.[0];
+        firstTag?.focus();
       }
     }
   };

@@ -24,6 +24,8 @@
             :to="badgeLink(tag.identifier)"
             :data-qa="`${tag.name} category tag`"
             @click.native="clickBadge(tag.identifier)"
+            @keydown.left="handleLeft"
+            @keydown.right="handleRight"
           >
             <span>{{ tag.name }}</span>
             <span
@@ -87,6 +89,12 @@
           const action = this.isActive(tagId) ? 'Deselect tag' : 'Select tag';
           this.$matomo.trackEvent('Tags', action, tagId);
         }
+      },
+      handleLeft(event) {
+        event.target.previousSibling?.focus();
+      },
+      handleRight(event) {
+        event.target.nextSibling?.focus();
       }
     }
   };
