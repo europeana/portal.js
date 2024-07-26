@@ -79,7 +79,7 @@
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
 
   export default {
     name: 'CollectionPage',
@@ -141,9 +141,9 @@
       this.$store.commit('entity/setId', entityUri);
 
       try {
-        const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+        const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
-        this.$store.commit('entity/setEntity', pick(response.entity, [
+        this.$store.commit('entity/setEntity', pick(entity, [
           'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);

@@ -17,7 +17,7 @@
             v-for="(entry, index) in related"
             :key="index"
             :title="entry.name"
-            :url="entryUrl(entry)"
+            :url="contentfulEntryUrl(entry)"
             :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
             :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
             :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -44,7 +44,7 @@
         v-for="(entry, index) in related"
         :key="index"
         :title="entry.name"
-        :url="entryUrl(entry)"
+        :url="contentfulEntryUrl(entry)"
         :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
         :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
         :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
   import ContentCard from '../content/ContentCard';
 
   export default {
@@ -131,7 +132,7 @@
       const response = await this.$contentful.query(queryName, variables);
       const entries = response.data.data;
 
-      this.related = entries.blogPostingCollection.items
+      this.related = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, this.limit);
@@ -145,17 +146,7 @@
     },
 
     methods: {
-      entryUrl(entry) {
-        let urlPrefix;
-
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
-        } else if (entry['__typename'] === 'ExhibitionPage') {
-          urlPrefix = '/exhibitions';
-        }
-
-        return `${urlPrefix}/${entry.identifier}`;
-      }
+      contentfulEntryUrl
     }
   };
 </script>
@@ -294,7 +285,7 @@
   ```jsx
   <RelatedEditorial
     entity-uri="http://data.europeana.eu/concept/190"
-    :related-editorial="[{'__typename': 'BlogPosting',
+    :related-editorial="[{'__typename': 'Story',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',
       'primaryImageOfPage': {
@@ -305,7 +296,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Jesuits in China, Part 2',
       'identifier': 'jesuits-in-china-part-2',
       'primaryImageOfPage': {
@@ -316,7 +307,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Wifredo Lam: disturbing the dreams of the exploiters',
       'identifier': 'wifredo-lam-disturbing-the-dreams-of-the-exploiters',
       'primaryImageOfPage': {
@@ -327,7 +318,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Vitalism: art celebrating sport, bodies & nature',
       'identifier': 'vitalism-art-celebrating-sport-bodies-and-nature',
       'primaryImageOfPage': {
@@ -343,7 +334,7 @@
   ```jsx
   <RelatedEditorial
     entity-uri="http://data.europeana.eu/concept/190"
-    :related-editorial="[{'__typename': 'BlogPosting',
+    :related-editorial="[{'__typename': 'Story',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',
       'primaryImageOfPage': {

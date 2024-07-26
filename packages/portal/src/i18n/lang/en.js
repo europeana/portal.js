@@ -31,6 +31,7 @@ export default {
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
       "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "remove": "Remove this item from this gallery.",
       "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
+    "remove": "Remove",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "share": "Share",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
+    "unlike": "Unlike",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Show attribution",
     "title": "Title:"
   },
+  "authored": {
+    "by": "by",
+    "publishedDate": "Published {date}"
+  },
   "automatedCardGroup": {
     "item": "Recent items",
     "gallery": "Latest galleries",
@@ -90,19 +97,7 @@ export default {
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
-    "topic": "Topics",
-    "trending": "Trending items"
-  },
-  "blog": {
-    "author": "Author",
-    "authors": "Authors",
-    "blog": "Blog",
-    "by": "by",
-    "categories": "Categories",
-    "category": "Category",
-    "posts": "Blog post | Blog posts",
-    "published": "Published {date}",
-    "relatedPosts": "Related posts"
+    "topic": "Topics"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -182,29 +177,15 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API key",
-      "noRequests": "No requests to Europeana APIs were used on this page.",
-      "settingsPageLinkText": "settings page",
-      "tip": "Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.",
-      "title": "API requests"
-    },
-    "debug": "Debug",
-    "settings": {
       "form": {
         "apiKey": {
-          "description": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "descriptionLine2": "Need an API key? Register for one {link}.",
+          "here": "here",
           "label": "API key"
-        },
-        "boosting": {
-          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
-          "label": "Enable field boosting"
-        },
-        "enabled": {
-          "description": "If enabled, the debug menu will be shown in the page footer.",
-          "label": "Enable debug menu"
         }
       },
-      "title": "Settings"
+      "noRequests": "No requests to Europeana APIs were used on this page."
     }
   },
   "depiction": "A depiction of {title}",
@@ -295,6 +276,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exhibition: {title}",
     "chapters": "Chapters",
     "credits": "Credits",
     "currentChapter": "Current chapter",
@@ -779,11 +761,12 @@ export default {
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "faq": "Frequently Asked Questions (FAQ)",
-      "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
+      "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
+      "supportingTechnicalPartners": "Supporting technical partners",
       "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
@@ -837,6 +820,9 @@ export default {
     "itemOf": "{max} of {count} items",
     "recent": "Recent items",
     "recommended": "Recommended items",
+    "trending": {
+      "headline": "Explore today’s popular items"
+    },
     "youMightLike": "Items you might like"
   },
   "klaro": {
@@ -916,6 +902,7 @@ export default {
         }
       },
       "header": {
+        "homeLinkAlt": "Europeana APIs home",
         "navigation": {
           "apiDemo": "API demo",
           "europeanaApis": "Europeana APIs",
@@ -975,9 +962,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {
-      "trendingItems": "Discover which items capture people's attention and gain popularity in real-time. Take advantage of the chance to stay ahead of the curve - see what people view, like, curate and reuse the most right now."
-    }
+    "text": {}
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1131,9 +1116,6 @@ export default {
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
-    "boost": {
-      "placeholder": "Enter field boosting query"
-    },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
       "loginToSeeMore": "{login} to see more results",
@@ -1180,9 +1162,6 @@ export default {
       "saveItemToLikes": "Save this item to your Likes.",
       "update": "Update gallery"
     },
-    "entityBestBets": {
-      "title": "{entity} Page"
-    },
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
@@ -1197,6 +1176,10 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "itemAdded": "Item has been added to the gallery \"{gallery}\".",
+      "itemLiked": "Item has been saved to your likes.",
+      "itemRemoved": "Item has been removed from gallery {gallery}.",
+      "itemUnliked": "Item has been removed from your likes.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
@@ -1245,8 +1228,15 @@ export default {
     "pinned": "Pinned",
     "required": "Required"
   },
+  "stories": {
+    "stories": "Story | Stories",
+    "filter": {
+      "exhibitions": "Exhibitions",
+      "stories": "Stories",
+      "viewAll": "View all"
+    }
+  },
   "storiesPage": {
-    "title": "Stories",
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {

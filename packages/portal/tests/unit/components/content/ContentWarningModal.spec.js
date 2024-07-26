@@ -32,7 +32,7 @@ describe('components/content/ContentWarning', () => {
   describe('in browser', () => {
     beforeEach(() => {
       process.browser = true;
-      global.sessionStorage.setItem('dismissedWarnings', '["blog/already-viewed"]');
+      global.sessionStorage.setItem('dismissedWarnings', '["story/already-viewed"]');
     });
 
     afterEach(() => {
@@ -84,7 +84,7 @@ describe('components/content/ContentWarning', () => {
 
         wrapper.vm.dismissWarning();
         expect(bvModalHide.calledWith('content-warning-modal')).toBe(true);
-        expect(global.sessionStorage.getItem('dismissedWarnings')).toBe('["blog/already-viewed","exhibition/slug-example"]');
+        expect(global.sessionStorage.getItem('dismissedWarnings')).toBe('["story/already-viewed","exhibition/slug-example"]');
       });
       it('tracks the continue event in Matomo', () => {
         const wrapper = factory(props);

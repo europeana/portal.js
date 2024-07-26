@@ -86,6 +86,22 @@ $max-card-width: 480px;
 $max-text-column-width: 932px;
 $max-text-column-width-landing-4k: 1450px;
 
+%title-1 {
+  font-family: $font-family-ubuntu;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: $bp-medium) {
+    font-size: 2.875rem;
+  }
+
+  @media (min-width: $bp-4k) {
+    font-size: calc(1.5 * 2.875rem);
+    margin-bottom: 0.5rem;
+  }
+}
+
 %title-2 {
   font-family: $font-family-ubuntu;
   font-size: 1.375rem;

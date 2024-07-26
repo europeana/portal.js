@@ -1,7 +1,6 @@
 <template>
   <PageFooter
     class="landing-page-footer"
-    :enable-debug-menu="false"
     :enable-lang-selector="false"
     :feedback-widget-faq-url="null"
     :help="null"

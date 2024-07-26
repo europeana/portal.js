@@ -117,6 +117,8 @@ module.exports = async() => {
           'Search',
           'Set',
           'Share',
+          'Stories',
+          'Story',
           'Theme',
           'User'
         ].map((name) => ({

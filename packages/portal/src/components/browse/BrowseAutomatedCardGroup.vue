@@ -8,7 +8,6 @@
     />
     <ItemTrendingItems
       v-else-if="trending"
-      :headline="headline"
     />
     <ContentCardSection
       v-else
@@ -22,7 +21,8 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { daily } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -105,7 +105,6 @@
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       } else if (this.sectionType === TRENDING_ITEMS) {
         data.trending = true;
-        data.headline = this.$i18n.t('automatedCardGroup.trending');
       }
 
       return data;
@@ -218,7 +217,7 @@
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
-        return response.data.items || [];
+        return response.items || [];
       },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;

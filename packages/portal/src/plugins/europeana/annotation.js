@@ -5,17 +5,13 @@ export default class EuropeanaAnnotationApi extends EuropeanaApi {
   static BASE_URL = 'https://api.europeana.eu/annotation';
   static AUTHENTICATING = true;
 
-  async search(params) {
-    try {
-      const response = await this.axios.get('/search', {
-        params: {
-          ...this.axios.defaults.params,
-          ...params
-        }
-      });
-      return response.data.items ? response.data.items : [];
-    } catch (error) {
-      throw this.apiError(error);
-    }
+  async search(params = {}) {
+    const response = await this.request({
+      method: 'get',
+      url: '/search',
+      params
+    });
+
+    return response.items || [];
   }
 }

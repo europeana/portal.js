@@ -13,7 +13,7 @@
 
 <script>
   import ThemeBadges from '../theme/ThemeBadges';
-  import themeDefinitions from '@/plugins/europeana/themes';
+  import themeDefinitions from '@/utils/europeana/themes';
 
   export default {
     name: 'SearchThemeBadges',

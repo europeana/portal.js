@@ -31,6 +31,7 @@ export default {
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
       "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
+      "remove": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
       "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikuoti",
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
+    "remove": "Pašalinti",
     "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
     "share": "Dalintis",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
+    "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
+  "authored": {
+    "by": "autorius",
+    "publishedDate": "Paskelbta {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Naujausios parodos",
     "item": "Naujausi skaitmeniniai objektai",
@@ -90,19 +97,7 @@ export default {
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
-    "topic": "Potemė",
-    "trending": "Populiarūs skaitmeniniai objektai"
-  },
-  "blog": {
-    "author": "Autorius",
-    "authors": "Autoriai",
-    "blog": "Tinklaraštis",
-    "by": "autorius",
-    "categories": "Kategorijos",
-    "category": "Kategorija",
-    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai",
-    "published": "Paskelbta {date}",
-    "relatedPosts": "Susiję įrašai"
+    "topic": "Potemė"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API raktas",
-      "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API.",
-      "settingsPageLinkText": "nustatymų puslapį",
-      "tip": "Patarimas: jei jau turite {apiKeyLink} , galite įvesti jį {settingsPageLink} ir jis bus įtrauktas į šias API užklausų nuorodas.",
-      "title": "API užklausos"
-    },
-    "debug": "Derinimo",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
-          "label": "API raktas"
-        },
-        "enabled": {
-          "description": "Jei įjungta, derinimo meniu bus rodomas puslapio poraštėje.",
-          "label": "Įgalinti derinimo meniu"
-        }
-      },
-      "title": "Nustatymai"
+      "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API."
     }
   },
   "depiction": "{title} vaizdavimas",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Paroda: {title}",
     "chapters": "Skyriai",
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
       "faq": "Dažnai užduodami klausimai (FAQ)",
-      "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
       "provide": "Tapkite teikėjas",
+      "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
+      "supportingTechnicalPartners": "Techninių partnerių palaikymas",
       "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} iš {count} skaitmeniniai objektai",
     "recent": "Naujausi skaitmeniniai objektai",
     "recommended": "Rekomenduojami skaitmeniniai objektai",
+    "trending": {
+      "headline": "Atraskite šiandienos populiariausius skaitmeninius objektus"
+    },
     "youMightLike": "Skaitmeniniai objektai, kurios jums gali patikti"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
-    "text": {
-      "trendingItems": "Sužinokite, kurie skaitmeniniai objektai žmonių dėmesį ir tampa populiarūs realiuoju laiku. Pasinaudokite galimybe būti priekyje – pažiūrėkite, ką žmonės šiuo metu dažniausiai žiūri, mėgsta, kuruoja ir pakartotinai naudoja."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
         "field": "Pasirinkite viso teksto arba metaduomenų lauką, kuriame norite ieškoti.",
         "fields": {
-          "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą."
+          "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą.",
+          "proxy_dc_coverage": "Įveskite terminą, nurodantį vietą arba tašką/laikotarpį. Pavyzdžiui, „1995–1996“ arba „Berlynas“ arba „http://sws.geonames.org/2287781/“.",
+          "proxy_dc_date": "Įveskite terminą, kuris nurodo reikšmingą datą, susijusią su skaitmeniniu objektu/objektais. Pavyzdžiui, data formatu ‘Metai-Mėnuo-Diena’ arba vieneri metai, ‘1919’, arba platesnės apibrėžtys, pavyzdžiui, ‘Ankstyvasis 20 amžius’.",
+          "proxy_dc_rights": "Įveskite terminą, kuris nurodo informaciją apie su skaitmeniniu objektu/objektais susijusias teises ar licencijas. Pavyzdžiui, ‘Copyright © British Library Board’. Norėdami filtruoti pagal pakartotinio naudojimo galimybę arba konkretų teisių pareiškimą, naudokite filtrus ‘Ar galiu tai naudoti?’ arba ‘Rights statement’.",
+          "proxy_dcterms_created": "Įveskite terminą, kuris nurodo skaitmeninio objekto sukūrimo datą. Pavyzdžiui, bet kuri data formatu ‘Metai-Mėnuo-Diena’, vieneri metai, pavyzdžiui, ‘1919’, ar platesnės apibrėžtys, pavyzdžiui, ‘Ankstyvasis 20 amžius’. Kitoms svarbioms datoms ieškokite laukeliuose Data, Išleidimo data ar Metai.",
+          "proxy_dcterms_hasPart": "Skaitmeninis objektas gali turėti kitų išteklių - įveskite terminą, kuris identifikuotų dalį įtrauktų išteklių. Jei pats skaitmeninis objektas yra kitos išteklio dalis, naudokite lauką ‘Yra dalis’.",
+          "proxy_dcterms_isPartOf": "Šis skaitmeninis objektas gali būti dalis kito susijusio ištekliaus - įveskite terminą ištekliui, kurio dalimi šis skaitmeninis objektas gali būti. Jei skaitmeninis objektas pats turi susijusių išteklių, naudokite lauką ‘Susideda iš’.",
+          "proxy_dcterms_issued": "Įveskite terminą, kuris nurodo skaitmeninio objekto išleidimo arba publikavimo datą. Pavyzdžiui, bet kuri data formatu ‘MMMM-MM-DD’, vieneri metai, pavyzdžiui, ‘1919’, ar platesnės apibrėžtys, pavyzdžiui, ‘ankstyvasis 20 amžius’. Kitoms svarbioms datoms ieškokite laukeliuose Data, Sukūrimo data ar Metai.",
+          "proxy_dcterms_medium": "Įveskite terminą, kuris nurodo naudojamas medžiagas arba skaitmeninio objekto fizines savybes. Pavyzdžiui, ‘metalas’ arba ‘popierius’. Didesnėms medžiagų apibrėžtims, pavyzdžiui, ‘skulptūra’ ar ‘tapyba’, išbandykite lauką ‘MEDIJOS TIPAS’.",
+          "proxy_dcterms_temporal": "Įveskite terminą, kuris nurodo laikotarpį ar laiko tašką, su kuriuo susijęs skaitmeninis objektas/objektai, pvz., paveikslą, vaizduojantį miestą 1930 m. Pavyzdžiui, įveskite ‘Romos imperija’ arba ‘Renesansas’. Konkrečioms datoms ieškokite laukeliuose Data, Sukūrimo data, Išleidimo data arba Metai.",
+          "proxy_edm_hasMet": "Įveskite terminą, kuris nurodo asmenį, vietą, laikotarpį ar bet ką kitą, su kuriuo skaitmeninis objektas/objektai gali būti glaudžiai susiję. Pavyzdžiui, ‘William Shakespeare’.",
+          "YEAR": "Įveskite metus, susijusius su skaitmeniniu objektu/objektais. Pavyzdžiui, ‘1919’."
         },
         "modifier": "Pasirinkite, kaip šis laukas turėtų keisti paiešką.",
         "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
       }
-    },
-    "boost": {
-      "placeholder": "Įveskite lauko didinimo užklausą"
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
+      "removeItemFromLikes": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
       "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
       "update": "Atnaujinti galeriją"
-    },
-    "entityBestBets": {
-      "title": "{entity} Puslapis"
     },
     "form": {
       "description": "Galerijos aprašymas",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
+      "itemAdded": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
+      "itemLiked": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
+      "itemRemoved": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
+      "itemUnliked": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Prisegtas",
     "required": "Reikalingas"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Parodos",
+      "stories": "Istorijos",
+      "viewAll": "Peržiūrėti visus"
+    },
+    "stories": "Istorija | Istorijos"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} rastos istorijos",
-    "title": "Istorijos"
+    "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {
     "paginationBulletLabel": "Skaidrių grupė {page}"

@@ -36,7 +36,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/icons';
 
   .btn.icon-filter {
     &.filters-applied {

@@ -31,6 +31,7 @@ export default {
       "private": "Una galería privada solo puede ser vista por usted.",
       "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
       "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías.",
+      "remove": "Eliminar este ítem de esta galería.",
       "reorder": "Puede reordenar ítems haciendo clic en este botón y arrastrando el ítem para moverlo."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicar",
     "readMore": "Leer más",
     "reject": "Rechazar",
+    "remove": "Eliminar",
     "requestDepublication": "Solicitud de despublicación",
     "save": "Salvar",
     "share": "Compartir",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Enviado para publicación",
     "transcribe": "Transcribir",
     "transcribeNow": "Transcribir ahora",
+    "unlike": "Ya no me gusta",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Mostrar atribución",
     "title": "Título:"
   },
+  "authored": {
+    "by": "por",
+    "publishedDate": "Publicado el {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Últimas galerías",
     "item": "Ítems recientes",
@@ -90,19 +97,7 @@ export default {
     "place": "Lugares",
     "theme": "Materias",
     "time": "Siglos",
-    "topic": "Temática",
-    "trending": "Ítems de tendencia"
-  },
-  "blog": {
-    "author": "Autor",
-    "authors": "Autores",
-    "blog": "Blog",
-    "by": "por",
-    "categories": "Categorías",
-    "category": "Categoría",
-    "posts": "Publicación de blog | Publicaciones de blog",
-    "published": "Publicado el {date}",
-    "relatedPosts": "Publicaciones relacionadas"
+    "topic": "Temática"
   },
   "cardLabels": {
     "organisation": "Organización",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Clave API de Europeana",
-      "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana.",
-      "settingsPageLinkText": "página de configuración",
-      "tip": "Sugerencia: si ya tiene un {apiKeyLink}, puede ingresarlo en {settingsPageLink} y se incluirá en estos enlaces de solicitud de API.",
-      "title": "Solicitudes de API"
-    },
-    "debug": "Depurar",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
-          "label": "Clave API"
-        },
-        "enabled": {
-          "description": "Si está habilitado, el menú de depuración se mostrará en el pie de página.",
-          "label": "Habilitar menú de depuración"
-        }
-      },
-      "title": "Configuración"
+      "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana."
     }
   },
   "depiction": "Una representación de {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exposición: {title}",
     "chapters": "Capítulos",
     "credits": "Créditos",
     "currentChapter": "Capítulo actual",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
       "faq": "Preguntas frecuentes (FAQ)",
-      "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
       "provide": "Conviértete en proveedor de datos",
+      "seeApiRequests": "Ver solicitudes a las API de Europeana",
       "subscribe": "Suscríbete a nuestro boletín",
+      "supportingTechnicalPartners": "Apoyando a socios técnicos",
       "terms": "Términos y Políticas"
     },
     "ourMission": "Nuestra misión",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} de {count} Ítems",
     "recent": "Ítems recientes",
     "recommended": "Ítems recomendados",
+    "trending": {
+      "headline": "Explora los ítems populares de hoy"
+    },
     "youMightLike": "Ítems que quizá te gusten"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Cerrar",
     "readMore": "Muéstrame",
-    "text": {
-      "trendingItems": "Descubre qué Ítems capturan la atención de las personas y ganan popularidad en tiempo real. Aprovecha la oportunidad de mantenerte a la vanguardia: ve lo que las personas ven, les gusta, curan y reutilizan más en este momento."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "La búsqueda avanzada le permite crear consultas de búsqueda personalizadas.",
         "field": "Seleccione el campo de texto completo o de metadatos para buscar dentro.",
         "fields": {
-          "fulltext": "El texto completo incluye transcripciones, subtítulos cerrados, subtítulos y texto del documento."
+          "fulltext": "El texto completo incluye transcripciones, subtítulos cerrados, subtítulos y texto del documento.",
+          "proxy_dc_coverage": "Introduzca un término que se refiere a un lugar o un momento/período en el tiempo. Por ejemplo, '1995-1996' o 'Berlín' o 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Introduzca un término que se refiera a una fecha significativa relacionada con el ítem/ítems. Por ejemplo, una fecha en el formato ‘AAAA-MM-DD’ o un año específico, ‘1919’, o definiciones más amplias como ‘Principios del siglo 20’.",
+          "proxy_dc_rights": "Introduzca un término que se refiera a la información sobre los derechos o licencias relacionados con el ítem/ítems. Por ejemplo, ‘Copyright © British Library Board’. Para filtrar por reusabilidad o una declaración de derechos específica, utilice los filtros ‘¿Puedo usar esto?’ o ‘Rights statement’.",
+          "proxy_dcterms_created": "Introduzca un término que se refiera a la fecha de creación del ítem/ítems. Por ejemplo, cualquier fecha en el formato ‘AAAA-MM-DD’, un solo año como ‘1919’, o definiciones más amplias como ‘Principios del siglo 20’. Para otras fechas que podrían ser significativas, busque en los campos Fecha, Fecha de emisión o Año.",
+          "proxy_dcterms_hasPart": "Este ítem puede tener otros recursos incluidos dentro de él - introduzca un término que identifique parte de los recursos incluidos. Si el propio ítem es parte de otro recurso, utilice el campo ‘forma parte de’.",
+          "proxy_dcterms_isPartOf": "Este ítem puede ser parte de otro recurso relacionado - introduzca un término para el recurso del cual este ítem puede ser parte. Si el propio ítem tiene recursos relacionados dentro de él, utilice el campo ‘contiene’ en su lugar.",
+          "proxy_dcterms_issued": "Introduzca un término que se refiera a la fecha de emisión o publicación del ítem/ítems. Por ejemplo, cualquier fecha en el formato ‘AAAA-MM-DD’, un solo año como ‘1919’, o definiciones más amplias como ‘principios del siglo 20’. Para otras fechas que podrían ser significativas, busque en los campos Fecha, Fecha de creación o Año.",
+          "proxy_dcterms_medium": "Introduzca un término que se refiera a los materiales utilizados o la naturaleza física del ítem. Por ejemplo, ‘metal’ o ‘papel’. Para definiciones más amplias de materiales, como ‘escultura’ o ‘pintura’, pruebe el campo ‘TIPO DE MEDIO’.",
+          "proxy_dcterms_temporal": "Introduzca un término que se refiera a un período o punto en el tiempo al que se relaciona el/los ítem(s), por ejemplo, una imagen que muestra una ciudad en 1930. Introduzca, por ejemplo, 'Imperio Romano' o 'Renacimiento'. Para fechas específicas, busque en los campos Fecha, Fecha de creación, Fecha de emisión o Año.",
+          "proxy_edm_hasMet": "Introduzca un término que se refiera a una persona, un lugar, un período de tiempo o cualquier otra cosa con la que el/los ítem(s) puedan tener estrechas conexiones. Por ejemplo, ‘William Shakespeare’.",
+          "YEAR": "Introduzca un año relacionado con el/los ítem(s). Por ejemplo, ‘1919’."
         },
         "modifier": "Elija cómo este campo debe modificar la búsqueda.",
         "term": "Ingrese los términos que el campo elegido contiene o no contiene."
       }
-    },
-    "boost": {
-      "placeholder": "Introduzca la consulta de refuerzo del campo"
     },
     "results": {
       "limitWarning": "No se muestran resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere refinar su búsqueda.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
+      "removeItemFromLikes": "Elimina este ítem de tus Me gusta.",
       "saveItemToLikes": "Guarde este ítem en sus Me gusta.",
       "update": "Actualizar galería"
-    },
-    "entityBestBets": {
-      "title": "{entity} Página"
     },
     "form": {
       "description": "Descripción de la galería",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
+      "itemAdded": "El ítem ha sido añadido a la galería \"{gallery}\".",
+      "itemLiked": "El ítem se ha guardado en tus Me gusta.",
+      "itemRemoved": "El ítem ha sido eliminado de la galería {gallery}.",
+      "itemUnliked": "El ítem se ha eliminado de tus Me gusta.",
       "likeLimit": {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 Ítems. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Fijado",
     "required": "Obligatorio"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Exposiciones",
+      "stories": "Historias",
+      "viewAll": "Ver todo"
+    },
+    "stories": "Historia | Historias"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} historias encontradas",
-    "title": "Historias"
+    "storiesHaveLoaded": "{0} historias encontradas"
   },
   "swiper": {
     "paginationBulletLabel": "Grupo de diapositivas {page}"

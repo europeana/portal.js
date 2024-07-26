@@ -24,7 +24,7 @@ export default {
 
     entitySetTitle(entity) {
       return Object.entries(entity?.prefLabel || {}).reduce((memo, [lang, value]) => {
-        memo[lang] = this.$t('set.entityBestBets.title', { entity: Array.isArray(value) ? value[0] : value });
+        memo[lang] = Array.isArray(value) ? value[0] : value;
         return memo;
       }, {});
     },
@@ -52,8 +52,8 @@ export default {
         qf: `subject:${entityId}`
       });
 
-      if (searchResponse.data.total > 0) {
-        return searchResponse.data.items[0].split('/').pop();
+      if (searchResponse.total > 0) {
+        return searchResponse.items[0].split('/').pop();
       } else {
         return null;
       }

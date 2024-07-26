@@ -54,7 +54,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $store: {
       commit: sinon.spy(),
       getters: {
-        'debug/settings': { enabled: false },
         'search/activeView': 'grid',
         ...mocks.$store?.getters
       },
@@ -479,28 +478,6 @@ describe('components/search/SearchInterface', () => {
 
           expect(wrapper.vm.$store.commit.calledWith('search/setView', view)).toBe(true);
         });
-      });
-    });
-
-    describe('debugSettings', () => {
-      it('reads the debug settings from the store', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { enabled: false } } } } });
-
-        expect(wrapper.vm.debugSettings).toStrictEqual({ enabled: false });
-      });
-    });
-
-    describe('showSearchBoostingForm', () => {
-      it('is true when the boosting toggle is enabled', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { boosting: true } } } } });
-
-        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
-      });
-
-      it('is false when the boosting toggle is disabled', () => {
-        const wrapper = factory();
-
-        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
       });
     });
   });

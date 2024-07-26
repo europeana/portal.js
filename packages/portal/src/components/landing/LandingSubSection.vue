@@ -47,6 +47,12 @@
           :info-cards="section.hasPartCollection && section.hasPartCollection.items"
           :link="section.link"
         />
+        <LandingIllustrationGroup
+          v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+          :title="section.name"
+          :text="section.text"
+          :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        />
       </div>
     </b-container>
   </div>
@@ -62,6 +68,7 @@
     components: {
       LandingContentCardGroup: () => import('@/components/landing/LandingContentCardGroup'),
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
+      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },

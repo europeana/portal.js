@@ -19,7 +19,9 @@
           :variant="callsToAction[2] ? 'light' : 'innovationblue'"
           class="home-cta"
         />
-        <HomeLatestStories />
+        <HomeLatestStories
+          class="home-page-card-group"
+        />
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
@@ -30,7 +32,9 @@
           :variant="callsToAction[2] ? 'innovationblue' : 'yellowgrey'"
           class="home-cta"
         />
-        <HomeLatestGalleries />
+        <HomeLatestGalleries
+          class="home-page-card-group"
+        />
         <CallToActionBanner
           v-if="callsToAction[2]"
           :name="callsToAction[2].name"
@@ -40,6 +44,7 @@
           :illustration="callsToAction[2].image"
           class="home-cta"
         />
+        <ItemTrendingItems />
       </b-container>
     </client-only>
   </div>
@@ -54,6 +59,7 @@
   import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
   import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
 
   export default {
     name: 'HomePage',
@@ -64,7 +70,8 @@
       HomeHero,
       HomeLatestGalleries,
       HomeLatestStories,
-      HomeThemes
+      HomeThemes,
+      ItemTrendingItems
     },
 
     mixins: [pageMetaMixin],
@@ -87,8 +94,8 @@
         return {
           title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
           description: this.$t('homePage.subHeadline'),
-          ogType: 'website',
-          ogImage: this.$contentful.assets.optimisedSrc(this.socialMediaImage, { w: 1200, h: 630, fit: 'fill' })
+          ogImage: this.socialMediaImage,
+          ogType: 'website'
         };
       }
     },
@@ -137,6 +144,87 @@
       .cta-banner {
         margin-bottom: calc(5.5rem + 0.75em);
       }
+    }
+  }
+
+  ::v-deep h2.card-group-title {
+    color: $mediumgrey;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc( 1.5 * 2.25rem);
+    }
+
+    @media (min-width: $bp-extralarge) {
+      font-size: $font-size-xxl;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-xxl-4k;
+    }
+  }
+
+  .home-page-card-group ::v-deep {
+
+    @media (min-width: $bp-wqhd) {
+      width: fit-content;
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter * 2}));
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+    }
+
+    .card:not(.mosaic-item) {
+
+      @media (min-width: ($bp-wqhd)) {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: ($bp-4k)) {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter-4k * 2});
+      }
+    }
+
+    h2.card-group-title {
+      margin-bottom: 0;
+    }
+
+    .card-deck {
+      flex-flow: row wrap;
+      justify-content: center;
+      margin-top: 2.25rem;
+      margin-bottom: 2.25rem;
+
+      @media (min-width: $bp-4k) {
+        margin-top: calc( 1.5 * 2.25rem);
+        margin-bottom: calc( 1.5 * 2.25rem);
+      }
+
+      .content-card.card {
+        @media (max-width: ($bp-medium - 1px)) {
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        @media (min-width: $bp-large) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  ::v-deep .trending-items {
+    @media (min-width: $bp-wqhd) {
+      max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>

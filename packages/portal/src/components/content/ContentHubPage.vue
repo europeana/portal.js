@@ -2,9 +2,9 @@
   <div class="page white-page xxl-page">
     <b-container>
       <ContentHeader
-        :title="pageMeta.title"
-        :description="pageMeta.description"
-        :media-url="pageMeta.ogImage"
+        :title="title"
+        :description="description"
+        :media-url="mediaUrl"
         button-variant="secondary"
         class="half-col"
       />
@@ -22,10 +22,7 @@
               :url="{ name: cardUrlName, params: { pathMatch: item.identifier || item.slug, exhibition: item.identifier } }"
               :image-url="item.thumbnail || imageUrl(item.primaryImageOfPage)"
               :image-content-type="imageContentType(item.primaryImageOfPage)"
-              :image-optimisation-options="{ width: 510 }"
-              :image-alt="imageAlt(item.primaryImageOfPage)"
               :texts="[item.description]"
-              :show-subtitle="false"
               :offset="index"
             />
           </b-card-group>
@@ -58,18 +55,31 @@
     },
 
     props: {
-      pageMeta: {
-        type: Object,
+      title: {
+        type: String,
+        required: true
+      },
+
+      description: {
+        type: String,
         default: null
       },
+
+      mediaUrl: {
+        type: String,
+        default: null
+      },
+
       items: {
         type: Array,
         default: () => []
       },
+
       perPage: {
         type: Number,
         default: null
       },
+
       total: {
         type: Number,
         default: null
@@ -86,9 +96,6 @@
       },
       imageContentType(image) {
         return image?.image?.contentType;
-      },
-      imageAlt(image) {
-        return image?.image?.description || '';
       }
     }
   };

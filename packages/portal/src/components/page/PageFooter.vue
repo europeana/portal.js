@@ -66,7 +66,7 @@
             v-if="enableLangSelector"
             sm="6"
             lg="3"
-            class="right-col pb-4  order-sm-2 order-lg-3"
+            class="right-col pb-4 order-sm-2 order-lg-3"
           >
             <h3 class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
@@ -77,15 +77,16 @@
             />
           </b-col>
           <b-col
-            v-if="showDebugLinkGroup"
+            v-if="supportingTechnicalPartners"
             sm="6"
             lg="3"
-            class="right-col pb-4  order-sm-4 order-lg-6"
+            class="pb-4 order-sm-4 order-lg-6"
           >
             <LinkGroup
-              :title="debugLinkGroup.name"
-              :links="debugLinkGroup.links"
-              data-qa="debug link group"
+              :title="supportingTechnicalPartners.name"
+              :links="supportingTechnicalPartners.links"
+              variant="supporting-tech-partners"
+              data-qa="supporting technical partners"
             />
           </b-col>
         </b-row>
@@ -128,10 +129,6 @@
     },
 
     props: {
-      enableDebugMenu: {
-        type: Boolean,
-        default: true
-      },
       enableLangSelector: {
         type: Boolean,
         default: true
@@ -163,7 +160,7 @@
             name: this.$t('footer.navigation.MoreInfoLabel'),
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
-              { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
+              { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
               { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
               { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
             ]
@@ -205,27 +202,15 @@
             icon: 'icon-linkedin',
             hideExternalIcon: true
           }
-        ]
-      };
-    },
-
-    computed: {
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
-      showDebugLinkGroup() {
-        return this.enableDebugMenu && !!this.debugSettings.enabled;
-      },
-      debugLinkGroup() {
-        return {
-          name: this.$t('debug.debug'),
+        ],
+        supportingTechnicalPartners: {
+          name: this.$t('footer.navigation.supportingTechnicalPartners'),
           links: [
-            { url: '/debug', text: this.$t('debug.settings.title') },
-            { url: '#api-requests', text: this.$t('debug.apiRequests.title'), dataQa: 'API requests link' },
-            { url: '/debug/oembed', text: 'oEmbed' }
+            { url: 'https://www.contentful.com', text: 'Powered by Contentful', image: require('@europeana/style/img/supporting-technical-partners/Contentful-logo.svg'), hideExternalIcon: true },
+            { url: 'https://lokalise.com/', text: 'Lokalise', image: require('@europeana/style/img/supporting-technical-partners/Lokalise-logo.svg'), hideExternalIcon: true }
           ]
-        };
-      }
+        }
+      };
     }
   };
 </script>

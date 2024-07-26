@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Még nem kedveltél meg egyetlen tárgyat sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és Galériák",
+    "profile": "Kedvelések és Galériák",
     "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
@@ -31,6 +31,7 @@ export default {
       "private": "A privát galériát csak Ön tekintheti meg.",
       "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
       "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon.",
+      "remove": "Távolítsa el ezt a tárgyat ebből a galériából.",
       "reorder": "Az tárgyak átrendezéséhez kattintson erre a gombra, és húzza az tárgyat az áthelyezéshez."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Közzététel",
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
+    "remove": "Eltávolít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
     "share": "Megosztás",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
     "transcribeNow": "Átírás most",
+    "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "authored": {
+    "by": "által",
+    "publishedDate": "Közzététel dátuma: {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Legújabb galériák",
     "item": "Legutóbbi tárgyak",
@@ -90,19 +97,7 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök",
-    "trending": "Népszerű tárgyak"
-  },
-  "blog": {
-    "author": "Szerző",
-    "authors": "Szerzők",
-    "blog": "Blog",
-    "by": "írta",
-    "categories": "Kategóriák",
-    "category": "Kategória",
-    "posts": "Blogbejegyzés | Blogbejegyzések",
-    "published": "Közzététel dátuma: {date}",
-    "relatedPosts": "Kapcsolódó bejegyzések"
+    "topic": "Témakörök"
   },
   "cardLabels": {
     "organisation": "Szervezet",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "technikák",
-          "name": "Technika | Technikák",
+          "name": "Technika",
           "select": "Technikák kiválasztása"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API kulcs",
-      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket.",
-      "settingsPageLinkText": "beállítások oldalon",
-      "tip": "Tipp: ha már rendelkezik {apiKeyLink} , megadhatja azt a {settingsPageLink} oldalon, és ez szerepelni fog ezekben az API-kérés hivatkozásokban.",
-      "title": "API kérések"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
-          "label": "API kulcs"
-        },
-        "enabled": {
-          "description": "Ha engedélyezve van, a hibakeresési menü megjelenik az oldal láblécében.",
-          "label": "Hibakeresési menü engedélyezése"
-        }
-      },
-      "title": "Beállítások"
+      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket."
     }
   },
   "depiction": "{title} ábrázolása",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Kiállítás: {title}",
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",
     "currentChapter": "Jelenlegi fejezet",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
       "faq": "Gyakran Ismételt Kérdések (FAQ)",
-      "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
       "provide": "Legyen szolgáltató intézmény",
+      "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
+      "supportingTechnicalPartners": "Technikai partnerek támogatása",
       "terms": "Feltételek és szabályzatok"
     },
     "ourMission": "Küldetésünk",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} {count} tárgyak",
     "recent": "Legutóbbi tárgyak",
     "recommended": "Ajánlott tárgyak",
+    "trending": {
+      "headline": "Fedezze fel a mai népszerű tárgyakat"
+    },
     "youMightLike": "Tárgyak, amik tetszhetnek Önnek"
   },
   "klaro": {
@@ -927,9 +909,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
-    "text": {
-      "trendingItems": "Fedezd fel, mely tárgyak ragadják meg valós időben az emberek figyelmét és szereznek népszerűséget. Használja ki a lehetőséget, hogy élen járjon – nézze meg, mit tekintenek meg, szeretnek, válogatnak össze és használnak fel újra az emberek a leghasznosabban."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1066,14 +1046,22 @@ export default {
         "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
         "field": "Válassza ki a teljes szöveges vagy metaadat-mezőt a kereséshez.",
         "fields": {
-          "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
+          "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét.",
+          "proxy_dc_coverage": "Adjon meg egy kifejezést, amely egy helyre vagy egy pontra/időszakra utal. Például „1995-1996” vagy „Berlin” vagy „http://sws.geonames.org/2287781/”.",
+          "proxy_dc_date": "Adjon meg egy kifejezést, amely az tárgy(ak)hoz kapcsolódó jelentős dátumra utal. Például egy dátum ‘ÉÉÉÉ-HH-NN’ formátumban vagy egy adott év, ‘1919’, vagy tágabb meghatározások, mint ‘A 20. század eleje’.",
+          "proxy_dc_rights": "Adjon meg egy kifejezést, amely az tárgy(ak)hoz kapcsolódó jogok vagy licencek információira utal. Például ‘Copyright © British Library Board’. Újrafelhasználhatóság vagy konkrét jogi nyilatkozat szűréséhez használja a ‘Használhatom ezt?’ vagy ‘Rights statement’ szűrőket.",
+          "proxy_dcterms_created": "Adjon meg egy kifejezést, amely az tárgy(ak) létrehozásának dátumára utal. Például bármely dátum ‘ÉÉÉÉ-HH-NN’ formátumban, egy adott év, mint ‘1919’, vagy tágabb meghatározások, mint ‘A 20. század eleje’. További jelentős dátumok esetén keressen a Dátum, Kiadási dátum vagy Év mezőkben.",
+          "proxy_dcterms_hasPart": "A tárgy más erőforrásokat is tartalmazhat magában - adja meg azt a kifejezést, amely azonosítja a belefoglalt erőforrások egy részét. Ha maga a tárgy egy másik erőforrás része, használja a ‘Része’ mezőt.",
+          "proxy_dcterms_isPartOf": "Ez a tárgy része lehet egy másik kapcsolódó erőforrásnak - adjon meg egy kifejezést az erőforráshoz, amelynek része ez a tárgy lehet. Ha a tárgy maga tartalmaz kapcsolódó erőforrásokat, használja helyette a ‘Tartalma’ mezőt.",
+          "proxy_dcterms_issued": "Adjon meg egy kifejezést, amely az tárgy(ak) kiadásának vagy közzétételének dátumára utal. Például bármely dátum ‘ÉÉÉÉ-HH-NN’ formátumban, egy adott év, mint ‘1919’, vagy tágabb meghatározások, mint ‘a 20. század eleje’. További jelentőségteljes dátumok esetén keressen a Dátum, Létrehozás dátuma vagy Év mezőkben.",
+          "proxy_dcterms_medium": "Adjon meg egy olyan kifejezést, amely az tárgy használt anyagaira vagy fizikai természetére utal. Például 'fémet' vagy 'papírt'. Szélesebb anyagmeghatározásokhoz, mint például 'szobor' vagy 'festmény', próbálja ki az 'ADATHORDOZÓ TÍPUSA' mezőt.",
+          "proxy_dcterms_temporal": "Adjon meg olyan kifejezést, amely egy időszakra vagy időpontra utal, amelyhez a tárgy(ak) kapcsolódnak, például egy kép, amely egy várost ábrázol 1930-ban. Írja be például a 'Római Birodalom' vagy a 'Reneszánsz'. Specifikus dátumok esetén keressen a Dátum, Létrehozás dátuma, Kiadás dátuma vagy Év mezőkben.",
+          "proxy_edm_hasMet": "Adjon meg egy kifejezést, amely személyre, helyre, időszakra vagy bármi másra utal, amellyel a tárgy/tárgyak szoros kapcsolatban állhatnak. Például ‘William Shakespeare’.",
+          "YEAR": "Adjon meg egy az tárgy(ak)hoz kapcsolódó évet. Például ‘1919’."
         },
         "modifier": "Válassza ki, hogy ez a mező hogyan módosítsa a keresést.",
         "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mező tartalmaz vagy nem tartalmaz."
       }
-    },
-    "boost": {
-      "placeholder": "Adja meg a mezőt növelő lekérdezést"
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
@@ -1117,11 +1105,9 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
+      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
-    },
-    "entityBestBets": {
-      "title": "{entity} Oldal"
     },
     "form": {
       "description": "Galéria leírása",
@@ -1137,6 +1123,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
+      "itemAdded": "A tárgyat hozzáadták a galériához \"{gallery}\".",
+      "itemLiked": "A tárgyat elmentettük a kedveléseidhez.",
+      "itemRemoved": "A tárgyat eltávolították a galériából {gallery}.",
+      "itemUnliked": "A tárgyat eltávolították a kedveléseid közül.",
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan tárgyak ezt a korlátozást!",
         "title": "100 kedvelés"
@@ -1181,13 +1171,20 @@ export default {
     "search": "Keresés"
   },
   "statuses": {
-    "liked": "Tetszett",
+    "liked": "Kedvelt",
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Kiállítások",
+      "stories": "Történetek",
+      "viewAll": "Összes megtekintése"
+    },
+    "stories": "Történet | Történetek"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} történet található",
-    "title": "Történetek"
+    "storiesHaveLoaded": "{0} történet található"
   },
   "swiper": {
     "paginationBulletLabel": "Diacsoport {page}"

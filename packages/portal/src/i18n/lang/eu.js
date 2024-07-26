@@ -31,6 +31,7 @@ export default {
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
       "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
+      "remove": "Kendu elementu hau galeria honetatik.",
       "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Argitaratu",
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
+    "remove": "Kendu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "share": "Partekatu",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "authored": {
+    "by": "arabera",
+    "publishedDate": "Argitaratze data {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
@@ -90,19 +97,7 @@ export default {
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak",
-    "trending": "Joerako elementuak"
-  },
-  "blog": {
-    "author": "Egilea",
-    "authors": "Egileak",
-    "blog": "Bloga",
-    "by": "egilea",
-    "categories": "Kategoriak",
-    "category": "Kategoria",
-    "posts": "Blogeko mezua | Blogeko argitalpenak",
-    "published": "Argitaratze data {date}",
-    "relatedPosts": "Lotutako argitalpenak"
+    "topic": "Gaiak"
   },
   "cardLabels": {
     "organisation": "Antolaketa",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "teknikak",
-          "name": "Teknika | Teknikak",
+          "name": "Teknika",
           "select": "Hautatu teknikak"
         },
         "proxy_dc_type": {
@@ -182,29 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API gakoa",
-      "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili.",
-      "settingsPageLinkText": "ezarpenen orria",
-      "tip": "Aholkua: dagoeneko {apiKeyLink} bat baduzu, {settingsPageLink} atalean sar dezakezu eta API eskaera-esteka hauetan sartuko da.",
-      "title": "API eskaerak"
-    },
-    "debug": "Araztu",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Sartu zure Europeana API gakoa eta API-eskaeretarako esteketan erabiliko da.",
-          "label": "API gakoa"
-        },
-        "boosting": {
-          "description": "Gaituta bazaude, aktibatu bilaketa-emaitzen orrietan bultzada-eremua, hainbat bultzada-konfigurazio ebaluatzeko.",
-          "label": "Gaitu eremua areagotzea"
-        },
-        "enabled": {
-          "description": "Gaituta badago, arazketa menua orri-oinean agertuko da.",
-          "label": "Gaitu arazketa-menua"
-        }
-      },
-      "title": "Ezarpenak"
+      "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
   "depiction": "{title}-ren irudikapena",
@@ -290,6 +263,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Erakusketa: {title}",
     "chapters": "Kapituluak",
     "credits": "Kredituak",
     "currentChapter": "Oraingo kapitulua",
@@ -686,7 +660,7 @@ export default {
       "dctermsAlternative": "Titulu alternatiboa",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
-      "dctermsHasPart": "honetan datza",
+      "dctermsHasPart": "Honetan datza",
       "dctermsHasVersion": "honen bertsioa du",
       "dctermsIsFormatOf": "formatu bat da",
       "dctermsIsPartOf": "Honen parte da",
@@ -750,12 +724,13 @@ export default {
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "faq": "Maiz Egindako Galderak (FAQ)",
-      "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Bihurtu erakunde hornitzaile bat",
+      "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
+      "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
       "terms": "Baldintzak eta politikak"
     },
     "ourMission": "Gure eginkizuna",
@@ -809,6 +784,9 @@ export default {
     "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
+    "trending": {
+      "headline": "Arakatu gaurko elementu ezagunak"
+    },
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "klaro": {
@@ -937,9 +915,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
-    "text": {
-      "trendingItems": "Ezagutu zein elementuk erakartzen duten jendearen arreta eta lortu ospea denbora errealean. Aprobetxatu kurbaren aurretik egoteko aukera. Ikusi jendeak zer ikusten duen, gustatzen, kudeatzen eta berrerabiltzen duena une honetan."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1076,14 +1052,22 @@ export default {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
         "field": "Hautatu testu-osoa edo metadatu-eremua bilatzeko",
         "fields": {
-          "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
+          "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu.",
+          "proxy_dc_coverage": "Idatzi leku edo denbora-puntu/aldi bati erreferentzia egiten dion terminoa. Adibidez, '1995-1996' edo 'Berlin' edo 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Sartu elementuarekin erlazionatutako data esanguratsu bati erreferentzia egiten dion termino bat. Adibidez, data bat \"AAAA-MM-DD\" edo urte bakarrekoa, \"1919\", edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak.",
+          "proxy_dc_rights": "Sartu elementuari lotutako eskubideei edo lizentziei buruzko informazioari erreferentzia egiten dion termino bat. Adibidez, 'Copyright © British Library Board'. Berrerabilgarritasunari edo eskubide-adierazpen zehatz bat iragazteko, erabili 'Hau erabili dezaket?' edo 'Rights statement' iragazkiak.",
+          "proxy_dcterms_created": "Sartu elementua(k) sortzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Jaulkipen data edo Urtea eremuetan.",
+          "proxy_dcterms_hasPart": "Elementuak beste baliabide batzuk izan ditzake barnean. Sartu baliabideen zati bat identifikatzen duen terminoa. Elementua bera beste baliabide baten parte bada, erabili 'Honen parte da' eremua.",
+          "proxy_dcterms_isPartOf": "Elementu hau erlazionatutako beste baliabide baten parte izan daiteke - idatzi elementu hau parte izan daitekeen baliabiderako termino bat. Elementuak bere baitan erlazionatutako baliabideak baditu, erabili 'Honetan datza' eremua.",
+          "proxy_dcterms_issued": "Idatzi elementua(k) jaulkitze edo argitaratzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Sorkuntza data edo Urtea eremuetan.",
+          "proxy_dcterms_medium": "Sartu erabilitako materialei edo elementuaren izaera fisikoari erreferentzia egiten dion terminoa. Adibidez, 'metal' edo 'paper'. Materialaren definizio zabalagoetarako, hala nola, \"eskultura\" edo \"pintura\", saiatu \"EUSKARRI MOTA\" eremua.",
+          "proxy_dcterms_temporal": "Idatzi elementua(k) erlazionatuta dagoen garai edo puntu bati erreferentzia egiten dion termino bat, adibidez, 1930eko hiri bat irudikatzen duen irudi bat. Sartu adibidez \"Erromatar Inperioa\" edo \"Errenazimentua\". Data zehatzetarako, bilatu Data, Sortze-data, Jaulkipen-data edo Urtea eremuetan.",
+          "proxy_edm_hasMet": "Idatzi elementuak lotura estua izan dezakeen pertsona, leku, denbora-tarte edo beste edozer aipatzen duen termino bat. Adibidez, 'William Shakespeare'.",
+          "YEAR": "Sartu elementuarekin erlazionatutako urtea. Adibidez, '1919'."
         },
         "modifier": "Aukeratu eremu honek bilaketa nola aldatu behar duen.",
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
-    },
-    "boost": {
-      "placeholder": "Sartu eremua sustatzeko kontsulta"
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
@@ -1127,11 +1111,9 @@ export default {
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
+      "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
       "update": "Eguneratu galeria"
-    },
-    "entityBestBets": {
-      "title": "{entity} Orria"
     },
     "form": {
       "description": "Bildumaren deskribapena",
@@ -1147,6 +1129,10 @@ export default {
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
+      "itemAdded": "Elementua \" {gallery} \" galerian gehitu da.",
+      "itemLiked": "Elementua zure gustukoetan gorde da.",
+      "itemRemoved": "Elementua {gallery} galeriatik kendu da.",
+      "itemUnliked": "Elementua zure gustukoenetatik kendu da.",
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
@@ -1195,9 +1181,16 @@ export default {
     "pinned": "Ainguratuta",
     "required": "Beharrezkoa"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Erakusketak",
+      "stories": "Istorioak",
+      "viewAll": "Ikusi denak"
+    },
+    "stories": "Istorio | Istorioak"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} istorio aurkitu dira",
-    "title": "Istorioak"
+    "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
     "paginationBulletLabel": "Diapositiva taldea {page}"

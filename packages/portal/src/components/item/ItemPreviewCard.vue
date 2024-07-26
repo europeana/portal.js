@@ -8,14 +8,11 @@
     :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -40,6 +37,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
           :button-text="true"
           button-variant="light-flat"
         />
@@ -63,6 +61,7 @@
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
+          :show-remove="showRemove"
         />
       </div>
     </template>
@@ -70,7 +69,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   import ContentCard from '../content/ContentCard';
 
@@ -131,6 +130,13 @@
         default: false
       },
       /**
+       * If `true`, remove button will be rendered
+       */
+      showRemove: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * If `true`, accept recommendation (thumb up) button will be rendered
        */
       enableAcceptRecommendation: {
@@ -167,20 +173,6 @@
        */
       onAuxClickCard: {
         type: Function,
-        default: null
-      },
-      /**
-       * Width of the image
-       */
-      imageWidth: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Height of the image
-       */
-      imageHeight: {
-        type: Number,
         default: null
       }
     },

@@ -19,10 +19,13 @@ export default {
   },
 
   methods: {
-    showError(error) {
+    showError(message, error) {
+      if (error?.message) {
+        console.error(error.message);
+      }
       this.contentfulExtensionSdk.dialogs.openAlert({
         title: 'Error',
-        message: error
+        message
       });
       this.message = 'Failed';
     }

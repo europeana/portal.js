@@ -71,13 +71,6 @@ const ds4chTestPropsDataNoCropProfile = {
 const factory = (propsData = testPropsData) => shallowMount(LandingImageCard, {
   localVue,
   propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveImageSrcset: (img, srcSet) => srcSet
-      }
-    }
-  },
   stubs: ['ImageWithAttribution']
 });
 
@@ -89,7 +82,7 @@ describe('components/landing/LandingImageCard', () => {
       const imageWithAttribution = wrapper.find('imagewithattribution-stub');
 
       expect(imageWithAttribution.attributes('image-sizes')).toEqual(SIZES_PRESETS);
-      expect(imageWithAttribution.attributes('image-srcset')).toEqual(SRCSET_PRESETS);
+      expect(imageWithAttribution.attributes('contentful-image-crop-presets')).toEqual(SRCSET_PRESETS);
     });
   });
 
@@ -100,7 +93,7 @@ describe('components/landing/LandingImageCard', () => {
       const imageWithAttribution = wrapper.find('imagewithattribution-stub');
 
       expect(imageWithAttribution.attributes('image-sizes')).toEqual(SIZES_PRESETS_DS4CH);
-      expect(imageWithAttribution.attributes('image-srcset')).toEqual(SRCSET_PRESETS_DS4CH);
+      expect(imageWithAttribution.attributes('contentful-image-crop-presets')).toEqual(SRCSET_PRESETS_DS4CH);
     });
     describe('and there is a profile image with pad fit and no crop set', () => {
       it('passes specific ds4ch image srcset and sizes', () => {
@@ -109,7 +102,7 @@ describe('components/landing/LandingImageCard', () => {
         const imageWithAttribution = wrapper.find('imagewithattribution-stub');
 
         expect(imageWithAttribution.attributes('image-sizes')).toEqual(SIZES_PRESETS_DS4CH);
-        expect(imageWithAttribution.attributes('image-srcset')).toEqual(SRCSET_PRESETS_DS4CH);
+        expect(imageWithAttribution.attributes('contentful-image-crop-presets')).toEqual(SRCSET_PRESETS_DS4CH);
       });
     });
   });

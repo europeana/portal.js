@@ -40,8 +40,6 @@
         :lazy="true"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
-        :image-width="100"
-        :image-height="100"
       />
     </div>
   </div>

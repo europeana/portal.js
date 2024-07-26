@@ -31,6 +31,7 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
+      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicēt",
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
+    "remove": "Noņemt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
     "share": "Dalies",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
+  "authored": {
+    "by": "autors",
+    "publishedDate": "Publicēts {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Jaunākās galerijas",
     "item": "Pēdējie digitālie objekti",
@@ -90,19 +97,7 @@ export default {
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
-    "topic": "Tematikas",
-    "trending": "Populārākās digitālie objekti"
-  },
-  "blog": {
-    "author": "Autors",
-    "authors": "Autori",
-    "blog": "Emuārs",
-    "by": "autors",
-    "categories": "Kategorijas",
-    "category": "Kategorija",
-    "posts": "Bloga ieraksts | Bloga ieraksti",
-    "published": "Publicēts {date}",
-    "relatedPosts": "Saistītās ziņas"
+    "topic": "Tematikas"
   },
   "cardLabels": {
     "organisation": "Organizācija",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "metodes",
-          "name": "Metode | Metodes",
+          "name": "Tehnika",
           "select": "Atlasīt metodes"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API atslēga",
-      "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums.",
-      "settingsPageLinkText": "iestatījumu lapa",
-      "tip": "Padoms. Ja jums jau ir {apiKeyLink} , varat to ievadīt {settingsPageLink} , un tas tiks iekļauts šajās API pieprasījumu saitēs.",
-      "title": "API pieprasījumi"
-    },
-    "debug": "Atkļūdošana",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Ievadiet savu Europeana API atslēgu, un tā tiks izmantota saitēs uz API pieprasījumiem.",
-          "label": "API atslēga"
-        },
-        "enabled": {
-          "description": "Ja tas ir iespējots, atkļūdošanas izvēlne tiks parādīta lapas kājenē.",
-          "label": "Iespējot atkļūdošanas izvēlni"
-        }
-      },
-      "title": "Lestatījumi"
+      "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums."
     }
   },
   "depiction": "{title} attēlojums",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izstāde: {title}",
     "chapters": "Nodaļas",
     "credits": "Kredīti",
     "currentChapter": "Pašreizējā nodaļa",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Pieejamība",
       "cookies": "Sīkdatnes",
       "faq": "Bieži uzdotie jautājumi (FAQ)",
-      "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
       "provide": "Kļūsti piegādājošā iestāde",
+      "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
+      "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
       "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} no {count} digitālie objekti",
     "recent": "Pēdējie digitālie objekti",
     "recommended": "Leteiktie digitālie objekti",
+    "trending": {
+      "headline": "Izpētiet šodienas populārākos digitālos objektus"
+    },
     "youMightLike": "Digitālie objekti, kas jums varētu patikt"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": {
-      "trendingItems": "Uzziniet, kuri digitālie objekti piesaista cilvēku uzmanību un iegūst popularitāti reālajā laikā. Izmantojiet iespēju būt priekšā līknei - skatieties, ko cilvēki skatās, patīk, kurē un atkārtoti izmanto tieši tagad."
-    }
+    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "Izvērstā meklēšana ļauj izveidot pielāgotus meklēšanas vaicājumus.",
         "field": "Atlasiet pilnteksta vai metadatu lauku, kurā veikt meklēšanu.",
         "fields": {
-          "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu."
+          "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu.",
+          "proxy_dc_coverage": "Ievadiet terminu, kas attiecas uz vietu vai laika punktu/periodu. Piemēram, ‘1995-1996’ vai ‘Berlīne’ vai ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Ievadiet terminu, kas attiecas uz nozīmīgu datumu, kas saistīts ar digitālo objektu/objektiem. Piemēram, datums formātā ‘GGGG-MM-DD’ vai viens gads, ‘1919’, vai plašākas definīcijas, piemēram, ‘20. gadsimta sākums’.",
+          "proxy_dc_rights": "Ievadiet terminu, kas attiecas uz informāciju par tiesībām vai licencēm, kas saistītas ar digitālo objektu/objektiem. Piemēram, ‘Copyright © British Library Board’. Lai filtrētu pēc atkārtotas izmantojamības vai konkrētas tiesību deklarācijas, izmantojiet filtri ‘Vai es varu to izmantot?’ vai ‘Rights statement’.",
+          "proxy_dcterms_created": "Ievadiet terminu, kas attiecas uz digitālā objekta/objektu izveides datumu. Piemēram, jebkurš datums formātā ‘GGGG-MM-DD’, viens gads, piemēram, ‘1919’, vai plašākas definīcijas, piemēram, ‘20. gadsimta sākums’. Citu nozīmīgu datumu meklēšanai skatiet laukos Datums, Izdošanas datums vai Gads.",
+          "proxy_dcterms_hasPart": "Digitālais objekts var ietvert citas resursēs - ievadiet terminu, kas identificē daļu no iekļautajām resursēm. Ja digitālais objekts pats ir daļa no citas resursēs, izmantojiet lauku ‘Ir daļa no’.",
+          "proxy_dcterms_isPartOf": "Šis digitālais objekts varētu būt daļa no cita saistīta resursa - ievadiet terminu resursam, kam šis digitālais objekts varētu piederēt. Ja digitālais objekts pats satur saistītus resursus, izmantojiet lauku ‘Sastāv no’.",
+          "proxy_dcterms_issued": "Ievadiet terminu, kas attiecas uz digitālā objekta/objektu izdošanas vai publicēšanas datumu. Piemēram, jebkurš datums formātā ‘GGGG-MM-DD’, viens gads, piemēram, ‘1919’, vai plašākas definīcijas, piemēram, ‘20. gadsimta sākums’. Citu nozīmīgu datumu meklēšanai skatiet laukos Datums, Izveides datums vai Gads.",
+          "proxy_dcterms_medium": "Ievadiet terminu, kas attiecas uz izmantotajiem materiāliem vai digitālā objekta fizisko dabu. Piemēram, ‘metāls’ vai ‘papīrs’. Plašākām materiālu definīcijām, piemēram, ‘skulptūra’ vai ‘glezna’, izmēģiniet lauku ‘LĪDZEKĻU VEIDS’.",
+          "proxy_dcterms_temporal": "Ievadiet terminu, kas attiecas uz periodu vai laika punktu, ar kuru digitālais objekts/objekti ir saistīti, piemēram, attēlu, kas attēlo pilsētu 1930. gadā. Ievadiet piemēram ‘Romas impērija’ vai ‘Renesanse’. Specifiskiem datumiem meklējiet Laukā Datums, Izveides datums, Izdošanas datums vai Gads.",
+          "proxy_edm_hasMet": "Ievadiet terminu, kas attiecas uz personu, vietu, laika periodu vai jebko citu, ar ko digitālais objekts/objekti varētu būt cieši saistīti. Piemēram, ‘William Shakespeare’.",
+          "YEAR": "Ievadiet gadu, kas saistīts ar digitālo objektu/objektiem. Piemēram, ‘1919’."
         },
         "modifier": "Izvēlieties, kā šim laukam vajadzētu mainīt meklēšanu.",
         "term": "Ievadiet terminu(-us), ko satur vai nesatur izvēlētais lauks."
       }
-    },
-    "boost": {
-      "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
+      "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
       "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
       "update": "Atjaunināt galeriju"
-    },
-    "entityBestBets": {
-      "title": "{entity} Lapa"
     },
     "form": {
       "description": "Galerijas apraksts",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
+      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
+      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
+      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
+      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Piesprausts",
     "required": "Nepieciešams"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Izstādes",
+      "stories": "Stāsti",
+      "viewAll": "Skatīt visu"
+    },
+    "stories": "Stāsts | Stāsti"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} atrasti stāsti",
-    "title": "Stāsti"
+    "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
     "paginationBulletLabel": "Slaidu grupa {page}"

@@ -39,7 +39,7 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
     $apis: {
-      set: { search: sinon.stub().resolves({ data: { items: sets, partOf: { total: sets.length } } }) },
+      set: { search: sinon.stub().resolves({ items: sets, partOf: { total: sets.length } }) },
       thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $t: (key) => key,

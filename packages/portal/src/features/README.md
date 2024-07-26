@@ -35,8 +35,8 @@ to be shown to users, its name needs to be set in the environment variable
 
 ```js
 // src/features/notifications.js
-export default [
-  { name: 'sideFilters', url: '/blog/side-filters' }
+const features = [
+  { name: 'immersiveStories', url: '/stories' }
 ];
 ```
 

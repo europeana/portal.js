@@ -4,7 +4,7 @@ query EntityRelatedContent(
   $limit: Int = 4,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  exhibitionPageCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
@@ -22,7 +22,7 @@ query EntityRelatedContent(
       datePublished
     }
   }
-  exhibitionPageCollection(
+  storyCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

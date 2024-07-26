@@ -31,6 +31,7 @@ export default {
       "private": "Una galleria privata può essere visualizzata solo da te.",
       "public": "Una galleria pubblica può essere visualizzata da chiunque disponga del collegamento.",
       "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie.",
+      "remove": "Rimuovi questo oggetto da questa galleria.",
       "reorder": "È possibile riordinare gli oggetti facendo clic su questo pulsante e trascinando l'oggetto per spostarlo."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Pubblicare",
     "readMore": "Leggi di più",
     "reject": "Rifiuta",
+    "remove": "Rimuovi",
     "requestDepublication": "Richiesta di depubblicazione",
     "save": "Salva",
     "share": "Condividi",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Inviato per la pubblicazione",
     "transcribe": "Trascrivere",
     "transcribeNow": "Trascrivi ora",
+    "unlike": "Rimuovi il mi piace",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Mostra attribuzione",
     "title": "Titolo:"
   },
+  "authored": {
+    "by": "di",
+    "publishedDate": "Pubblicato il giorno {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Ultime gallerie",
     "item": "Oggetti recenti",
@@ -90,19 +97,7 @@ export default {
     "place": "Posti",
     "theme": "Temi",
     "time": "Secoli",
-    "topic": "Argomenti",
-    "trending": "Oggetti di tendenza"
-  },
-  "blog": {
-    "author": "Autore",
-    "authors": "Autori",
-    "blog": "Blog",
-    "by": "di",
-    "categories": "Categorie",
-    "category": "Categoria",
-    "posts": "Post del blog | I post del blog",
-    "published": "Pubblicato il giorno {date}",
-    "relatedPosts": "Articoli correlati"
+    "topic": "Argomenti"
   },
   "cardLabels": {
     "organisation": "Organizzazione",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tecniche",
-          "name": "Tecnica | Tecniche",
+          "name": "Tecnica",
           "select": "Seleziona le tecniche"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Chiave API Europeana",
-      "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana.",
-      "settingsPageLinkText": "pagina delle impostazioni",
-      "tip": "Suggerimento: se hai già un {apiKeyLink} , puoi inserirlo in {settingsPageLink} e sarà incluso in questi link di richiesta API.",
-      "title": "Richieste API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Inserisci la tua chiave API Europeana e verrà utilizzata nei link alle richieste API.",
-          "label": "Chiave API"
-        },
-        "enabled": {
-          "description": "Se abilitato, il menu di debug verrà mostrato nel piè di pagina della pagina.",
-          "label": "Abilita menu di debug"
-        }
-      },
-      "title": "Impostazioni"
+      "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana."
     }
   },
   "depiction": "Una rappresentazione di {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Mostra: {title}",
     "chapters": "Capitoli",
     "credits": "Realizzato da",
     "currentChapter": "Capitolo attuale",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
       "faq": "Domande frequenti (FAQ)",
-      "forDevelopers": "Per sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
       "privacy": "Informativa sulla privacy",
       "provide": "Diventa un fornitore di contenuti",
+      "seeApiRequests": "Vedi le richieste alle API Europeana",
       "subscribe": "Iscriviti alla newsletter",
+      "supportingTechnicalPartners": "Supporto ai partner tecnici",
       "terms": "Termini e politiche"
     },
     "ourMission": "La nostra missione",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} di {count} oggetti",
     "recent": "Oggetti recenti",
     "recommended": "Oggetti consigliati",
+    "trending": {
+      "headline": "Esplora gli oggetti popolari di oggi"
+    },
     "youMightLike": "Oggetti che potrebbero piacerti"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Chiudi",
     "readMore": "Mostrami",
-    "text": {
-      "trendingItems": "Scopri quali oggetti catturano l'attenzione delle persone e guadagnano popolarità in tempo reale. Approfitta dell'opportunità di rimanere avanti rispetto alla curva - vedi cosa le persone visualizzano, apprezzano, curano e riutilizzano di più in questo momento."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "La ricerca avanzata ti consente di creare query di ricerca personalizzate.",
         "field": "Seleziona il campo di testo completo o di metadati in cui eseguire la ricerca.",
         "fields": {
-          "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento."
+          "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento.",
+          "proxy_dc_coverage": "Inserisci un termine che si riferisca a un luogo o a un punto/periodo di tempo. Ad esempio, \"1995-1996\" o \"Berlin\" o \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Inserisci un termine che si riferisce a una data significativa relativa all'oggetto/gli oggetti. Ad esempio, una data nel formato ‘AAAA-MM-GG’ o un singolo anno, ‘1919’, o definizioni più ampie come ‘Inizio del 20° secolo’.",
+          "proxy_dc_rights": "Inserisci un termine che si riferisce alle informazioni sui diritti o le licenze relative all'oggetto/gli oggetti. Per esempio ‘Copyright © British Library Board’. Per filtrare sulla riutilizzabilità o una dichiarazione di diritti specifica, utilizza i filtri ‘Posso usare questo?’ o ‘Rights statement’.",
+          "proxy_dcterms_created": "Inserisci un termine che si riferisce alla data di creazione dell'oggetto/gli oggetti. Per esempio, qualsiasi data nel formato ‘AAAA-MM-GG’, un singolo anno come ‘1919’, o definizioni più ampie come ‘Inizio del 20° secolo’. Per altre date che potrebbero essere significative, cerca nei campi Data, Data di emissione o Anno.",
+          "proxy_dcterms_hasPart": "L'oggetto può includere altre risorse al suo interno - inserisci un termine che identifichi una parte delle risorse incluse. Se l'oggetto stesso è parte di un'altra risorsa, utilizza il campo ‘È parte di’.",
+          "proxy_dcterms_isPartOf": "Questo oggetto potrebbe far parte di un'altra risorsa correlata - inserisci un termine per la risorsa di cui questo oggetto potrebbe far parte. Se l'oggetto stesso contiene risorse correlate, utilizza invece il campo ‘Si compone di’.",
+          "proxy_dcterms_issued": "Inserisci un termine che si riferisce alla data di emissione o pubblicazione dell'oggetto/gli oggetti. Per esempio, qualsiasi data nel formato ‘AAAA-MM-GG’, un singolo anno come ‘1919’, o definizioni più ampie come ‘inizio del 20° secolo’. Per altre date che potrebbero essere significative, cerca nei campi Data, Data di creazione o Anno.",
+          "proxy_dcterms_medium": "Inserisci un termine che si riferisce ai materiali utilizzati o alla natura fisica dell'oggetto. Per esempio ‘metallo’ o ‘carta’. Per definizioni più ampie dei materiali, come ‘scultura’ o ‘pittura’, prova il campo ‘TIPO DI MEDIA’.",
+          "proxy_dcterms_temporal": "Inserisci un termine che si riferisce a un periodo o a un momento specifico a cui l'oggetto/gli oggetti sono correlati, ad esempio un'immagine che ritrae una città nel 1930. Inserisci, per esempio, ‘Impero Romano’ o ‘Rinascimento’. Per date specifiche, cerca nei campi Data, Data di creazione, Data di emissione o Anno.",
+          "proxy_edm_hasMet": "Inserisci un termine che si riferisce a una persona, un luogo, un periodo di tempo o altro a cui l'oggetto/gli oggetti possono essere strettamente connessi. Ad esempio ‘William Shakespeare’.",
+          "YEAR": "Inserisci un anno relativo all'oggetto/gli oggetti. Ad esempio, ‘1919’."
         },
         "modifier": "Scegli come questo campo dovrebbe modificare la ricerca.",
         "term": "Immettere i termini che il campo scelto contiene o non contiene."
       }
-    },
-    "boost": {
-      "placeholder": "Immettere la query di potenziamento del campo"
     },
     "results": {
       "limitWarning": "I risultati aggiuntivi non vengono visualizzati, in quanto vengono mostrati solo i primi 1000 risultati più rilevanti. Se non avete trovato quello che cercate, potete affinare la vostra ricerca.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Crea una nuova galleria",
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
+      "removeItemFromLikes": "Rimuovi questo oggetto dai tuoi Mi piace.",
       "saveItemToLikes": "Salva questo oggetto nei tuoi Mi piace.",
       "update": "Aggiorna galleria"
-    },
-    "entityBestBets": {
-      "title": "{entity} Pagina"
     },
     "form": {
       "description": "Descrizione della galleria",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
+      "itemAdded": "L'oggetto è stato aggiunto alla galleria \"{gallery}\".",
+      "itemLiked": "L'oggetto è stato salvato nei tuoi Mi piace.",
+      "itemRemoved": "L'oggetto è stato rimosso dalla galleria {gallery}.",
+      "itemUnliked": "L'oggetto è stato rimosso dai tuoi Mi piace.",
       "likeLimit": {
         "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Appuntato",
     "required": "Richiesto"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Mostre",
+      "stories": "Storie",
+      "viewAll": "Visualizza tutto"
+    },
+    "stories": "Storia | Storie"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} storie trovate",
-    "title": "Storie"
+    "storiesHaveLoaded": "{0} storie trovate"
   },
   "swiper": {
     "paginationBulletLabel": "Gruppo di diapositive {page}"

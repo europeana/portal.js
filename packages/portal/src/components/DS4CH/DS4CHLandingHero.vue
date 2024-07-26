@@ -5,6 +5,7 @@
       :style="imageCSSVars"
       role="img"
       :aria-label="heroImage?.image?.description"
+      :alt="heroImage?.image?.description"
     />
     <b-container
       class="hero-content d-flex"

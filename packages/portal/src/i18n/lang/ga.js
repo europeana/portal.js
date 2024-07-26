@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Bailiúcháin Coimeádaithe",
     "editProfile": "Cuir do phróifíl in eagar",
-    "likes": "Toghanna",
+    "likes": "Taitníonn",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
@@ -31,6 +31,7 @@ export default {
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
       "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
+      "remove": "Bain an mír seo den ghailearaí seo.",
       "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Foilsiú",
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
+    "remove": "Bain",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
     "save": "Sábháil",
     "share": "Roinn",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Arna chur isteach le foilsiú",
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
+    "unlike": "Ní maith liom",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
+  "authored": {
+    "by": "le",
+    "publishedDate": "Foilsithe {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
@@ -90,19 +97,7 @@ export default {
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
-    "topic": "Ábhair",
-    "trending": "Míreanna treochta"
-  },
-  "blog": {
-    "author": "Údar",
-    "authors": "Údair",
-    "blog": "Blag",
-    "by": "le",
-    "categories": "Catagóirí",
-    "category": "Catagóir",
-    "posts": "Blag phost | Postálacha blag",
-    "published": "Foilsithe {date}",
-    "relatedPosts": "Postálacha gaolmhara"
+    "topic": "Ábhair"
   },
   "cardLabels": {
     "organisation": "Eagraíocht",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Eochair Europeana API",
-      "noRequests": "Níor úsáideadh aon iarratas chuig Europeana APIs ar an leathanach seo.",
-      "settingsPageLinkText": "leathanach socruithe",
-      "tip": "Leid: má tá {apiKeyLink} agat cheana féin, is féidir leat é a chur isteach ar an {settingsPageLink} agus beidh sé san áireamh sna naisc iarratais API seo.",
-      "title": "Iarratais API"
-    },
-    "debug": "Díbhug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Cuir isteach d’eochair API Europeana agus úsáidfear í sna naisc chuig iarratais API.",
-          "label": "Eochair API"
-        },
-        "enabled": {
-          "description": "Má tá sé cumasaithe, taispeánfar an roghchlár dífhabhtaithe i mbuntásc an leathanaigh.",
-          "label": "Cumasaigh roghchlár debug"
-        }
-      },
-      "title": "Socruithe"
+      "noRequests": "Níor úsáideadh aon iarratas chuig Europeana APIs ar an leathanach seo."
     }
   },
   "depiction": "Léiriú ar {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Taispeántas: {title}",
     "chapters": "Caibidlí",
     "credits": "Creidiúintí",
     "currentChapter": "Caibidil reatha",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
       "faq": "Ceisteanna Coitianta (FAQ)",
-      "forDevelopers": "Do fhorbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
       "provide": "Bí i d'institiúid sholáthartha",
+      "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
+      "supportingTechnicalPartners": "Tacú le comhpháirtithe teicniúla",
       "terms": "Téarmaí & Beartais"
     },
     "ourMission": "Ár misean",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} de mhíreanna {count}",
     "recent": "Míreanna le déanaí",
     "recommended": "Míreanna molta",
+    "trending": {
+      "headline": "Déan iniúchadh ar na míreanna coitianta an lae inniu"
+    },
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dún",
     "readMore": "Taispeáin dom",
-    "text": {
-      "trendingItems": "Faigh amach cé na míreanna a ghabháil aird daoine agus tóir a fháil i bhfíor-am. Bain leas as an deis chun fanachta chun tosaigh ar na gcuar - féach cad a amharcann daoine, cosúil le, curata agus athúsáid an chuid is mó ceart anois."
-    }
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
         "field": "Roghnaigh an réimse téacs iomlán nó meiteashonraí chun cuardach a dhéanamh laistigh de.",
         "fields": {
-          "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad."
+          "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad.",
+          "proxy_dc_coverage": "Cuir isteach téarma a thagraíonn d'áit nó do phointe/tréimhse ama. Mar shampla, ‘1995-1996’ nó ‘Berlin’ nó ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Cuir isteach téarma a bhaineann le dáta suntasach a bhaineann leis an mír/míreanna. Mar shampla, dáta i bhformáid ‘BBBB-MM-LL’ nó bliain ar leith, ‘1919’, nó sainmhínithe níos leithne mar ‘Tús an 20ú haois’.",
+          "proxy_dc_rights": "Cuir isteach téarma a bhaineann le faisnéis faoi na cearta nó ceadúnais a bhaineann leis an mír/míreanna. Mar shampla, ‘Copyright © British Library Board’. Chun scagtha a dhéanamh ar ath-inúsáidteacht nó ráiteas cearta sonrach, úsáid na scagairí ‘An féidir liom é seo a úsáid?’ nó ‘Rights statement’.",
+          "proxy_dcterms_created": "Cuir isteach téarma a bhaineann le dáta cruthaithe an mhír/míreanna. Mar shampla, aon dáta i bhformáid ‘BBBB-MM-LL’, bliain ar leith mar ‘1919’, nó sainmhínithe níos leithne mar ‘Tús an 20ú haois’. Maidir le dátaí eile a d'fhéadfadh a bheith tábhachtach, cuardaigh sna réimsí Dáta, Dáta Eisiúna nó Bliain.",
+          "proxy_dcterms_hasPart": "D'fhéadfadh go mbeadh acmhainní eile san mhír - cuir isteach téarma a aithníonn cuid de na hacmhainní atá san áireamh. Más cuid d'acmhainn eile í an mhír féin, bain d’úsáid as an réimse ‘Is cuid de’ ina ionad.",
+          "proxy_dcterms_isPartOf": "D'fhéadfadh an mír seo a bheith mar chuid d'acmhainn ghaolmhar eile - cuir isteach téarma don acmhainn a d’fhéadfadh an mír seo a bheith mar chuid di. Má (tá) acmhainní gaolmhara sa mhír féin, bain úsáid as an réimse ‘Lena gcuimsítear’ ina ionad.",
+          "proxy_dcterms_issued": "Cuir isteach téarma a bhaineann le dáta eisiúna nó foilsitheoireachta an mhír/míreanna. Mar shampla, aon dáta i bhformáid ‘BBBB-MM-LL’, bliain ar leith mar ‘1919’, nó sainmhínithe níos leithne mar ‘tús an 20ú haois’. Maidir le dátaí eile a d’fhéadfadh a bheith tábhachtach, cuardaigh sna réimsí Dáta, Dáta Cruthaithe nó Bliain.",
+          "proxy_dcterms_medium": "Cuir isteach téarma a bhaineann leis na hábhair a úsáideadh nó le nádúr fisic iúil an mír. Mar shampla, ‘miotal’ nó ‘páipéar’. Chun sainmhínithe níos leithne ar ábhair, mar shampla ‘dealbh’ nó ‘péintéireacht’, bain triail as réimse ‘CINEÁL MEÁN’.",
+          "proxy_dcterms_temporal": "Cuir isteach téarma a bhaineann le tréimhse nó pointe in am lena mbaineann an mír/míreanna, mar shampla íomhá a léiríonn cathair i 1930. Cuir isteach mar shampla ‘Impireacht na Róimhe’ nó ‘An Renaissance’. Maidir le dátaí sonracha, cuardaigh sna réimsí Dáta, Dáta Cruthaithe, Dáta Eisiúna nó Bliain.",
+          "proxy_edm_hasMet": "Cuir isteach téarma a bhaineann le duine, áit, tréimhse ama nó rud ar bith eile a (bhféadfadh) an mír/míreanna baint dhomhain a bheith acu leis. Mar shampla ‘William Shakespeare’.",
+          "YEAR": "Cuir isteach bliain a bhaineann leis an mír/na míreanna. Mar shampla, ‘1919’."
         },
         "modifier": "Roghnaigh conas ba cheart don réimse seo an cuardach a mhodhnú.",
         "term": "Cuir isteach an téarma(í) atá sa réimse roghnaithe nó nach bhfuil."
       }
-    },
-    "boost": {
-      "placeholder": "Cuir isteach ceist treisithe réimse"
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
+      "removeItemFromLikes": "Bain an mír seo ó do thaitin.",
       "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
       "update": "Nuashonraigh gailearaí"
-    },
-    "entityBestBets": {
-      "title": "{entity} Leathanach"
     },
     "form": {
       "description": "Tuairisc ar ghailearaí",
@@ -1136,9 +1122,13 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
+      "itemAdded": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
+      "itemLiked": "Sábháladh an mír le do rudaí is maith leat.",
+      "itemRemoved": "Baineadh an mhír as gailearaí {gallery}.",
+      "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
-        "title": "100 Is maith liom"
+        "title": "100 taitníonn"
       },
       "updated": "Cuireadh an mhír leis an ngailearaí.",
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
@@ -1180,13 +1170,20 @@ export default {
     "search": "Cuardaigh"
   },
   "statuses": {
-    "liked": "Thaitin sé",
+    "liked": "Taitníodh",
     "pinned": "Pionnáilte",
     "required": "Riachtanach"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Taispeántais",
+      "stories": "Scéalta",
+      "viewAll": "Féach ar fad"
+    },
+    "stories": "Scéal | Scéalta"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} scéalta aimsithe",
-    "title": "Scéalta"
+    "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {
     "paginationBulletLabel": "Grúpa sleamhnán {page}"

@@ -31,6 +31,7 @@ export default {
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
       "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
+      "remove": "Retirez cet item de cette galerie.",
       "reorder": "Vous pouvez réorganiser les items en cliquant sur ce bouton et en faisant glisser l'item pour le déplacer."
     }
   },
@@ -51,7 +52,7 @@ export default {
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
     "learnMore": "Apprendre encore plus",
-    "like": "Mention J'aime",
+    "like": "J'aime",
     "login": "Connexion",
     "move": "Déplacer",
     "next": "Suivant",
@@ -61,6 +62,7 @@ export default {
     "publish": "Publier",
     "readMore": "En savoir plus",
     "reject": "Rejeter",
+    "remove": "Supprimer",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
     "share": "Partagez",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
     "transcribeNow": "Transcrivez maintenant",
+    "unlike": "Retirer le 'j'aime",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Afficher l'attribution",
     "title": "Titre :"
   },
+  "authored": {
+    "by": "par",
+    "publishedDate": "Publié le {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Dernières galeries",
     "item": "Items récents",
@@ -90,19 +97,7 @@ export default {
     "place": "Des endroits",
     "theme": "Thèmes",
     "time": "Des siècles",
-    "topic": "Sujets",
-    "trending": "Items tendance"
-  },
-  "blog": {
-    "author": "Auteur",
-    "authors": "Auteurs",
-    "blog": "Blog",
-    "by": "par",
-    "categories": "Catégories",
-    "category": "Catégorie",
-    "posts": "Article de blog | Articles de blog",
-    "published": "Publié le {date}",
-    "relatedPosts": "Publications Similaires"
+    "topic": "Sujets"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "techniques",
-          "name": "Technique | Techniques",
+          "name": "Technique",
           "select": "Sélectionner les techniques"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Clé API Europeana",
-      "noRequests": "Aucune demande aux API Europeana n'a été utilisée sur cette page.",
-      "settingsPageLinkText": "page des paramètres",
-      "tip": "Astuce : si vous avez déjà un {apiKeyLink} , vous pouvez le saisir sur le {settingsPageLink} et il sera inclus dans ces liens de demande d'API.",
-      "title": "Requêtes API"
-    },
-    "debug": "Déboguer",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Entrez votre clé API Europeana et elle sera utilisée dans les liens vers les requêtes API.",
-          "label": "Clé API"
-        },
-        "enabled": {
-          "description": "S'il est activé, le menu de débogage sera affiché dans le pied de page.",
-          "label": "Activer le menu de débogage"
-        }
-      },
-      "title": "Paramètres"
+      "noRequests": "Aucune demande aux API Europeana n'a été utilisée sur cette page."
     }
   },
   "depiction": "Une description de {title}",
@@ -281,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Exposition: {title}",
     "chapters": "Chapitres",
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
@@ -741,12 +719,13 @@ export default {
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
       "faq": "Foire aux questions (FAQ)",
-      "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
       "provide": "Devenir une institution partenaire",
+      "seeApiRequests": "Voir les requêtes vers les API Europeana",
       "subscribe": "Abonnez-vous à notre newsletter",
+      "supportingTechnicalPartners": "Soutenir les partenaires techniques",
       "terms": "Conditions et politiques"
     },
     "ourMission": "Notre mission",
@@ -800,6 +779,9 @@ export default {
     "itemOf": "{max} sur {count} items",
     "recent": "Items récents",
     "recommended": "Items recommandés",
+    "trending": {
+      "headline": "Explorez les items populaires du jour"
+    },
     "youMightLike": "Items susceptibles de vous intéresser"
   },
   "klaro": {
@@ -928,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Fermer",
     "readMore": "Montre-moi",
-    "text": {
-      "trendingItems": "Découvrez quels items captivent l'attention des gens et gagnent en popularité en temps réel. Profitez de l'occasion pour rester en avance sur la courbe - voyez ce que les gens regardent, aiment, organisent et réutilisent le plus en ce moment."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -1067,14 +1047,22 @@ export default {
         "advancedSearch": "La recherche avancée vous permet de créer des requêtes de recherche personnalisées.",
         "field": "Sélectionnez le texte intégral ou le champ de métadonnées à rechercher.",
         "fields": {
-          "fulltext": "Le texte intégral comprend des transcriptions, des sous-titres codés, des sous-titres et du texte de document."
+          "fulltext": "Le texte intégral comprend des transcriptions, des sous-titres codés, des sous-titres et du texte de document.",
+          "proxy_dc_coverage": "Saisissez un terme qui fait référence à un lieu ou à un point/période dans le temps. Par exemple, '1995-1996' ou 'Berlin' ou 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Saisissez un terme qui fait référence à une date significative liée à l'item. Par exemple, une date au format ‘AAAA-MM-JJ’ ou une année seule, ‘1919’, ou des définitions plus larges comme ‘Début du 20e siècle’.",
+          "proxy_dc_rights": "Saisissez un terme qui se réfère aux informations sur les droits ou les licences liées à l'item. Par exemple ‘Copyright © British Library Board’. Pour filtrer sur la ré utilisabilité ou une déclaration de droits spécifique, utilisez les filtres ‘Puis-je l'utiliser?’ ou ‘Rights statement’.",
+          "proxy_dcterms_created": "Saisissez un terme qui se réfère à la date de création de l'item/ des items. Par exemple, toute date au format ‘AAAA-MM-JJ’, une année seule comme ‘1919’, ou des définitions plus larges comme ‘Début du 20e siècle’. Pour d'autres dates qui pourraient être significatives, recherchez dans les champs Date, Date de publication ou Année.",
+          "proxy_dcterms_hasPart": "L'item peut contenir d'autres ressources. Entrez un terme qui identifie une partie des ressources incluses. Si l'item lui-même fait partie d'une autre ressource, utilisez plutôt le champ 'Fait partie de'.",
+          "proxy_dcterms_isPartOf": "Cet item peut faire partie d'une autre ressource liée - saisissez un terme pour la ressource dont cet item peut faire partie. Si l'item lui-même contient des ressources liées, utilisez plutôt le champ ‘Est composé de’.",
+          "proxy_dcterms_issued": "Saisissez un terme qui se réfère à la date de publication ou d’émission de l'item/ des items. Par exemple, toute date au format ‘AAAA-MM-JJ’, une année seule comme ‘1919’, ou des définitions plus larges comme ‘début du 20e siècle’. Pour d’autres dates qui pourraient être significatives, recherchez dans les champs Date, Date de création ou Année.",
+          "proxy_dcterms_medium": "Saisissez un terme qui se réfère aux matériaux utilisés ou à la nature physique de l'item. Par exemple ‘métal’ ou ‘papier’. Pour des définitions plus larges des matériaux, telles que ‘sculpture’ ou ‘peinture’, essayez le champ ‘TYPE DE SUPPORT’.",
+          "proxy_dcterms_temporal": "Saisissez un terme qui se réfère à une période ou un point dans le temps auquel l'item ou les items sont associés, par exemple une image représentant une ville en 1930. Entrez par exemple ‘Empire Romain’ ou ‘Renaissance’. Pour des dates spécifiques, recherchez dans les champs Date, Date de création, Date de publication ou Année.",
+          "proxy_edm_hasMet": "Saisissez un terme qui se réfère à une personne, un lieu, une période ou tout autre élément auquel l'item peut être étroitement lié. Par exemple ‘William Shakespeare’.",
+          "YEAR": "Entrez une année liée à l'item/aux items. Par exemple, ‘1919’."
         },
         "modifier": "Choisissez comment ce champ doit modifier la recherche.",
         "term": "Entrez-le(s) terme(s) que le champ choisi contient ou ne contient pas."
       }
-    },
-    "boost": {
-      "placeholder": "Entrer une requête d’amplification de champ"
     },
     "results": {
       "limitWarning": "Les résultats supplémentaires ne sont pas affichés car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, pensez à affiner votre recherche.",
@@ -1118,11 +1106,9 @@ export default {
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
+      "removeItemFromLikes": "Retirer cet item de vos j'aime.",
       "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
       "update": "Mettre à jour la galerie"
-    },
-    "entityBestBets": {
-      "title": "{entity} Page"
     },
     "form": {
       "description": "Description de la galerie",
@@ -1138,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
+      "itemAdded": "L'item a été ajouté à la galerie \"{gallery}\".",
+      "itemLiked": "L'item a été enregistré dans vos j'aime.",
+      "itemRemoved": "L'item a été supprimé de la galerie {gallery}.",
+      "itemUnliked": "L'item a été supprimé de vos j'aime.",
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 items pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
@@ -1186,9 +1176,16 @@ export default {
     "pinned": "Épinglé",
     "required": "Obligatoire"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Expositions",
+      "stories": "Histoires",
+      "viewAll": "Voir tout"
+    },
+    "stories": "Histoire | Histoires"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} histoires trouvées",
-    "title": "Histoires"
+    "storiesHaveLoaded": "{0} histoires trouvées"
   },
   "swiper": {
     "paginationBulletLabel": "Groupe de diapositives {page}"

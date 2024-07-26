@@ -31,6 +31,7 @@ export default {
       "private": "Gallerija privata tista' taraha biss int.",
       "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
       "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
+      "remove": "Neħħi dan l-oġġett minn din il-gallerija.",
       "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Ippubblika",
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
+    "remove": "Neħħi",
     "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
     "share": "Ixxerja",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
+    "unlike": "Tneħħi l-like",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "authored": {
+    "by": "minn",
+    "publishedDate": "Ippubblikat {date}"
+  },
   "automatedCardGroup": {
     "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
@@ -90,19 +97,7 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti",
-    "trending": "Oġġetti trending"
-  },
-  "blog": {
-    "author": "Awtur",
-    "authors": "Awturi",
-    "blog": "Blog",
-    "by": "ta'",
-    "categories": "Kategoriji",
-    "category": "Kategorija",
-    "posts": "Blog post | Postijiet tal-blog",
-    "published": "Ippubblikat {date}",
-    "relatedPosts": "Posts relatati"
+    "topic": "Suġġetti"
   },
   "cardLabels": {
     "organisation": "Organizzazzjoni",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tekniki",
-          "name": "Teknika | Tekniki",
+          "name": "Teknika",
           "select": "Agħżel tekniki"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Ċavetta API Europeana",
-      "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna.",
-      "settingsPageLinkText": "paġna tas-settings",
-      "tip": "Tip: jekk diġà għandek {apiKeyLink} , tista' ddaħħalha fuq {settingsPageLink} u tkun inkluża f'dawn il-links ta' rikjesti API.",
-      "title": "Talbiet API"
-    },
-    "debug": "Iddibaggja",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Daħħal iċ-ċavetta API Europeana tiegħek u din tintuża fil-links għal talbiet għall-API.",
-          "label": "Ċavetta API"
-        },
-        "enabled": {
-          "description": "Jekk ikun attivat, il-menu tad-debug jintwera fil-footer tal-paġna.",
-          "label": "Ippermetti l-menu tad-debug"
-        }
-      },
-      "title": "Settings"
+      "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna."
     }
   },
   "depiction": "Tpinġija ta' {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wirja: {title}",
     "chapters": "Kapitoli",
     "credits": "Krediti",
     "currentChapter": "Kapitolu attwali",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "faq": "Mistoqsijiet Frekwenti (FAQ)",
-      "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
       "provide": "Issir istituzzjoni fornitriċi",
+      "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
+      "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
       "terms": "Termini u Politiki"
     },
     "ourMission": "Il-missjoni tagħna",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} minn {count} oġġett",
     "recent": "Oġġetti reċenti",
     "recommended": "Oġġetti rakkomandati",
+    "trending": {
+      "headline": "Esplora l-oġġetti popolari tal-lum"
+    },
     "youMightLike": "Oġġetti li jistgħu jinteressawk"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
-    "text": {
-      "trendingItems": "Skopri liema oġġetti jiksbu l-attenzjoni tan-nies u jiksbu popolarità f'real-time. Approfitta mill-opportunità li tibqa' 'l quddiem mill-kurva - ara x'nies jaraw, jgħoġbuhom, jikkuraw u jerġgħu jużaw l-aktar issa."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
         "field": "Agħżel il-qasam tat-test sħiħ jew tal-metadejta biex tfittex fih.",
         "fields": {
-          "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument."
+          "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument.",
+          "proxy_dc_coverage": "Daħħal terminu li jirreferi għal post jew punt/perjodu fiż-żmien. Pereżempju, '1995-1996' jew 'Berlin' jew 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Daħħal terminu li jirreferi għal data sinifikanti relatata mal-oġġett/oġġetti. Per eżempju, data fil-format ‘SSSS-XX-JJ’ jew sena waħda, ‘1919’, jew definizzjonijiet aktar wiesgħa bħal ‘Bidu tas-seklu 20’.",
+          "proxy_dc_rights": "Daħħal terminu li jirreferi għal informazzjoni dwar id-drittijiet jew il-liċenzji relatati mal-oġġett/oġġetti. Per eżempju, ‘Copyright © British Library Board’. Biex tiffiltra skont ir-riutilizzabbiltà jew dikjarazzjoni speċifika tad-drittijiet, uża l-filtri ‘Nista nuża dan?’ jew ‘Rights statement’.",
+          "proxy_dcterms_created": "Daħħal terminu li jirreferi għad-data ta' ħolqien tal-oġġett/oġġetti. Per eżempju, kwalunkwe data fil-format ‘SSSS-XX-JJ’, sena waħda bħal ‘1919’, jew definizzjonijiet aktar wiesgħa bħal ‘Bidu tas-seklu 20’. Għal dati oħra li jistgħu jkunu sinifikanti, fittex fil-qasam Data, Data tal-Ħruġ jew Sena.",
+          "proxy_dcterms_hasPart": "Dan l-oġġett jista' jkollu riżorsi oħra inklużi fih - daħħal terminu li jidentifika parti mir-riżorsi inklużi. Jekk l-oġġett innifsu huwa parti minn riżorsa oħra, uża l-qasam ‘Huwa parti minn’.",
+          "proxy_dcterms_isPartOf": "Dan l-oġġett jista' jkun parti minn riżorsa relatata oħra - daħħal terminu għar-riżorsa li dan l-oġġett jista' jkun parti minnha. Jekk l-oġġett innifsu għandu riżorsi relatati fih, uża minflok il-qasam ‘Jikkonsisti minn’’.",
+          "proxy_dcterms_issued": "Daħħal terminu li jirreferi għad-data tal-ħruġ jew pubblikazzjoni tal-oġġett/oġġetti. Pereżempju, kwalunkwe data fil-format ‘SSSS-XX-JJ’, sena waħda bħal ‘1919’, jew definizzjonijiet aktar wiesgħa bħal ‘Bidu tas-seklu 20’. Għal dati oħra li jistgħu jkunu sinifikanti, fittex fil-qasam Data, Data tal-Ħolqien jew Sena.",
+          "proxy_dcterms_medium": "Daħħal terminu li jirreferi għall-materjali użati jew in-natura fiżika tal-oġġett. Per eżempju ‘metall’ jew ‘karta’. Għal definizzjonijiet aktar wiesgħa tal-materjali, bħal ‘skultura’ jew ‘pittura’, ipprova l-qasam ‘TIP TA' MIDJA’.",
+          "proxy_dcterms_temporal": "Daħħal terminu li jirreferi għal perjodu jew mument fil-ħin li għalih jirrelata l-oġġett/oġġetti, pereżempju immaġni li turi belt fl-1930. Daħħal pereżempju ‘Imperu Ruman’ jew ‘Rinaxximent’. Għal dati speċifiċi, fittex fil-qasam tad-Data, Data tal-Ħolqien, Data tal-Ħruġ jew Sena.",
+          "proxy_edm_hasMet": "Daħħal terminu li jirreferi għal persuna, post, perjodu ta’ żmien jew xi ħaġa oħra li magħha l-oġġett/oġġetti jistgħu jkunu marbutin mill-qrib. Pereżempju ‘William Shakespeare’.",
+          "YEAR": "Daħħal sena relatata mal-oġġett/oġġetti. Per eżempju, ‘1919’."
         },
         "modifier": "Agħżel kif dan il-qasam għandu jimmodifika t-tfittxija.",
         "term": "Daħħal it-terminu(i) li l-qasam magħżul fih jew ma fihx."
       }
-    },
-    "boost": {
-      "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
+      "removeItemFromLikes": "Neħħi dan l-oġġett mill-Likes tiegħek.",
       "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
       "update": "Aġġorna d-direttorju tar-ritratti"
-    },
-    "entityBestBets": {
-      "title": "{entity} Paġna"
     },
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
+      "itemAdded": "L-oġġett ġie miżjud mal-gallerija \"{gallery}\".",
+      "itemLiked": "L-oġġett ġie ffrankat fil-“likes” tiegħek.",
+      "itemRemoved": "L-oġġett tneħħa mill-gallerija {gallery}.",
+      "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 like"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Mehmuż",
     "required": "Meħtieġ"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Wirjiet",
+      "stories": "Stejjer",
+      "viewAll": "Ara kollha"
+    },
+    "stories": "Storja | Stejjer"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} stejjer misjuba",
-    "title": "Stejjer"
+    "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {
     "paginationBulletLabel": "Grupp ta' slides {page}"

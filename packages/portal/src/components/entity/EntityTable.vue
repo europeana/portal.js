@@ -48,10 +48,10 @@
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="type === 'organisations'">
-            <strong :lang="data.item.prefLabelLang">{{ data.item.prefLabel }}</strong>
+            <strong :lang="langAttribute(data.item.prefLabelLang)">{{ data.item.prefLabel }}</strong>
             <span
               v-if="data.item.altLabel"
-              :lang="data.item.altLabelLang"
+              :lang="langAttribute(data.item.altLabelLang)"
               class="subtitle"
             >
               {{ data.item.altLabel }}
@@ -109,7 +109,8 @@
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'EntityTable',
@@ -123,7 +124,8 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin
+      europeanaEntitiesOrganizationsMixin,
+      langAttributeMixin
     ],
 
     props: {
@@ -263,7 +265,7 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
 
   .entity-table {

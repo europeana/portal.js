@@ -11,11 +11,6 @@ localVue.component('SmartLink', SmartLink);
 const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   localVue,
   mocks: {
-    $store: {
-      getters: {
-        'debug/settings': { enabled: false }
-      }
-    },
     $t: (key) => key,
     ...mocks
   },
@@ -42,19 +37,10 @@ describe('components/page/PageFooter', () => {
     expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
 
-  describe('debug link group', () => {
-    it('is not shown by default', () => {
-      const wrapper = factory();
+  it('displays links to supporting technical partners', () => {
+    const wrapper = factory();
+    const partners = wrapper.find('[data-qa="supporting technical partners"]');
 
-      expect(wrapper.vm.showDebugLinkGroup).toBe(false);
-    });
-
-    it('is shown if enabled in stored debug settings', () => {
-      const wrapper = factory();
-
-      wrapper.vm.$store.getters['debug/settings'] = { enabled: true };
-
-      expect(wrapper.vm.showDebugLinkGroup).toBe(true);
-    });
+    expect(partners.isVisible()).toBe(true);
   });
 });

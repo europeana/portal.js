@@ -10,10 +10,11 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/i18n/locales.js';
+import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled } from './src/features/index.js';
+import { featureNotificationExpiration } from './src/features/notifications.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -70,8 +71,11 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      featureNotification: {
+        expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
+        name: process.env.APP_FEATURE_NOTIFICATION
+      },
       feedback: {
         cors: {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
@@ -301,7 +305,8 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/features'
+    '~/plugins/features',
+    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'mirador'}`
   ],
 
   buildModules: [
@@ -322,7 +327,7 @@ export default {
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
-      locales: i18nLocales,
+      locales: i18nLocales.map((locale) => ({ ...locale, file: `${locale.code}.js` })),
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
@@ -469,7 +474,15 @@ export default {
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
     // same with some of our custom packages
-    transpile: ['dom7', '@europeana/vue-visible-on-scroll', 'ssr-window', 'swiper', 'vue-router-query']
+    transpile: [
+      'dom7',
+      '@europeana/i18n',
+      '@europeana/oembed',
+      '@europeana/vue-visible-on-scroll',
+      'ssr-window',
+      'swiper',
+      'vue-router-query'
+    ]
   },
 
   /*

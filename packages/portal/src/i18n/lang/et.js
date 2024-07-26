@@ -31,6 +31,7 @@ export default {
       "private": "Privaatset galeriid saate vaadata ainult teie.",
       "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
       "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
+      "remove": "Eemaldage see üksus sellest galeriist.",
       "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Avalda",
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
+    "remove": "Eemalda",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
     "share": "Jagage",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
+  "authored": {
+    "by": "poolt",
+    "publishedDate": "Avaldatud {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
     "item": "Hiljutised üksused",
@@ -90,19 +97,7 @@ export default {
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
-    "topic": "Teemad",
-    "trending": "Trendivad  üksused"
-  },
-  "blog": {
-    "author": "Autor",
-    "authors": "Autorid",
-    "blog": "Blogi",
-    "by": "poolt",
-    "categories": "Kategooriad",
-    "category": "Kategooria",
-    "posts": "Blogi postitus | Blogi postitused",
-    "published": "Avaldatud {date}",
-    "relatedPosts": "Seonduvad postitused"
+    "topic": "Teemad"
   },
   "cardLabels": {
     "organisation": "Organisatsioon",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "tehnikad",
-          "name": "Tehnika | Tehnikad",
+          "name": "Tehnika",
           "select": "Valige tehnikad"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API võti",
-      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid.",
-      "settingsPageLinkText": "seadete leht",
-      "tip": "Nõuanne: kui teil on juba {apiKeyLink} , võite selle sisestada lehel {settingsPageLink} ja see lisatakse nendele API päringu linkidele.",
-      "title": "API taotlused"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
-          "label": "API võti"
-        },
-        "enabled": {
-          "description": "Kui see on lubatud, kuvatakse lehe jaluses silumismenüü.",
-          "label": "Luba silumismenüü"
-        }
-      },
-      "title": "Seaded"
+      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid."
     }
   },
   "depiction": "{title} kujutis",
@@ -281,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näitus: {title}",
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
@@ -741,12 +719,13 @@ export default {
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "faq": "Korduma kippuvad küsimused  (FAQ)",
-      "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka pakkuvaks asutuseks",
+      "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
+      "supportingTechnicalPartners": "Tehniliste partnerite toetamine",
       "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",
@@ -800,6 +779,9 @@ export default {
     "itemOf": "{max} / {count} üksused",
     "recent": "Hiljutised üksused",
     "recommended": "Soovitatavad üksused",
+    "trending": {
+      "headline": "Avastage tänased populaarsed üksused"
+    },
     "youMightLike": "Üksused, mis võivad teile meeldida"
   },
   "klaro": {
@@ -928,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
-    "text": {
-      "trendingItems": "Avastage, millised predmeti köidavad inimeste tähelepanu ja saavutavad populaarsuse reaalajas. Kasutage võimalust olla trendide ees - vaadake, mida inimesed praegu kõige rohkem vaatavad, meeldivad, kureerivad ja uuesti kasutavad."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1067,14 +1047,22 @@ export default {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsinguks täistekst või metaandmete väli.",
         "fields": {
-          "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
+          "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti.",
+          "proxy_dc_coverage": "Sisestage termin, mis viitab kohale või ajapunktile/perioodile. Näiteks „1995–1996” või „Berliin” või „http://sws.geonames.org/2287781/”.",
+          "proxy_dc_date": "Sisestage termin, mis viitab üksuse/üksuste jaoks olulisele kuupäevale. Näiteks kuupäev formaadis ‘AAAA-KK-PP’ või üksik aasta, ‘1919’, või laiemad määratlused nagu ‘Varajane 20. sajand’.",
+          "proxy_dc_rights": "Sisestage termin, mis viitab õiguste või litsentsidega seotud teabele üksuse/üksuste kohta. Näiteks ‘Copyright © British Library Board’. Taaskasutatavuse või konkreetse õiguste avalduse filtreerimiseks kasutage filtreid ‘Kas ma saan seda kasutada?’ või ‘Rights statement’.",
+          "proxy_dcterms_created": "Sisestage termin, mis viitab üksuse/üksuste loomise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘Varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Väljaandmise kuupäev või Aasta.",
+          "proxy_dcterms_hasPart": "Üksus võib sisaldada teisi ressursse - sisestage termin, mis tuvastab osa kaasatud ressurssidest. Kui üksus ise on osa mõnest teisest ressursist, kasutage selle asemel välja ‘On osa’.",
+          "proxy_dcterms_isPartOf": "See üksus võib olla osa mõnest teisest seotud ressursist - sisestage termin ressursile, mille osa see üksus võib olla. Kui üksus ise sisaldab seotud ressursse, kasutage selle asemel välja ‘Koosneb’.",
+          "proxy_dcterms_issued": "Sisestage termin, mis viitab eseme(te) väljaandmise või avaldamise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Loomiskuupäev või Aasta.",
+          "proxy_dcterms_medium": "Sisestage termin, mis viitab kasutatud materjalidele või eseme füüsilisele olemusele. Näiteks ‘metall’ või ‘paber’. Laiemate materjalidefinitsioonide jaoks, nagu ‘skulptuur’ või ‘maal’, proovige välja ‘MEEDIUMITÜÜP’.",
+          "proxy_dcterms_temporal": "Sisestage termin, mis viitab perioodile või ajahetkele, millega ese/ esemed on seotud, näiteks pilt, mis kujutab linna 1930. aastal. Sisestage näiteks ‘Rooma Impeerium’ või ‘Renessanss’. Konkreetsete kuupäevade jaoks otsige väljadelt Kuupäev, Loomiskuupäev, Väljaandmiskuupäev või Aasta.",
+          "proxy_edm_hasMet": "Sisestage termin, mis viitab isikule, kohale, ajavahemikule või millelegi muule, millega üksus(ed) võivad olla tihedalt seotud. Näiteks \"William Shakespeare\".",
+          "YEAR": "Sisestage eseme(te)ga seotud aasta. Näiteks ‘1919’."
         },
         "modifier": "Valige, kuidas see väli peaks otsingut muutma.",
         "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
       }
-    },
-    "boost": {
-      "placeholder": "Sisestage välja võimendamise päring"
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
@@ -1118,11 +1106,9 @@ export default {
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
+      "removeItemFromLikes": "Eemaldage see üksus meeldimistest.",
       "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
       "update": "Värskenda galeriid"
-    },
-    "entityBestBets": {
-      "title": "{entity} Lehekülg"
     },
     "form": {
       "description": "Galerii kirjeldus",
@@ -1138,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
+      "itemAdded": "Üksus on lisatud galeriisse \"{gallery}\".",
+      "itemLiked": "Üksus on salvestatud teie meeldimiste hulka.",
+      "itemRemoved": "Üksus on eemaldatud galeriist {gallery}.",
+      "itemUnliked": "Üksus on eemaldatud teie meeldimistest.",
       "likeLimit": {
         "body": "Meil on kahju, kuid hetkel on teil piiratud maksimaalselt 100 üksused meeldimine. Me kaotame selle piirangu peagi!",
         "title": "100 meeldimist"
@@ -1186,9 +1176,16 @@ export default {
     "pinned": "Kinnitatud",
     "required": "Nõutud"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Näitused",
+      "stories": "Lood",
+      "viewAll": "Vaata kõiki"
+    },
+    "stories": "Lugu | Lood"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "Leiti {0} lugu",
-    "title": "Lood"
+    "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
     "paginationBulletLabel": "Slaidirühm {page}"

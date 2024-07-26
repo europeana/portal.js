@@ -9,8 +9,8 @@
     >
       <b-container>
         <b-row>
-          <b-col class="col-12 py-3 d-inline-flex align-items-center flex-wrap">
-            <span class="d-inline-flex align-items-center flex-wrap">
+          <b-col class="col-12 py-3 d-sm-inline-flex align-items-center flex-wrap">
+            <span class="d-sm-inline-flex align-items-center flex-wrap">
               <span class="icon-translate pr-2" />
               <i18n
                 v-if="fromTranslationError"
@@ -70,7 +70,7 @@
               />
             </span>
             <b-link
-              v-if="metadataLanguage"
+              v-if="translationLanguage"
               :to="translateParams(null)"
               data-qa="remove item translation button"
             >
@@ -79,7 +79,7 @@
                 tag="span"
                 class="pr-1"
               >
-                <span>{{ metadataLanguageLabel }}</span>
+                <span>{{ translationLanguageLabel }}</span>
               </i18n>
             </b-link>
           </b-col>
@@ -111,7 +111,7 @@
         type: Boolean,
         default: false
       },
-      metadataLanguage: {
+      translationLanguage: {
         type: String,
         default: null
       }
@@ -124,8 +124,8 @@
       };
     },
     computed: {
-      metadataLanguageLabel() {
-        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
+      translationLanguageLabel() {
+        return this.$i18n.locales.find(locale => locale.code === this.translationLanguage)?.name;
       }
     },
     methods: {
@@ -146,7 +146,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
 
   .icon-translate::before {
     font-size: 1.4375rem;

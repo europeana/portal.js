@@ -31,6 +31,7 @@ export default {
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
       "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
+      "remove": "Poista tämä aineisto tästä galleriasta.",
       "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Julkaista",
     "readMore": "Lue lisää",
     "reject": "Hylätä",
+    "remove": "Poista",
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "share": "Jaa",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
+  "authored": {
+    "by": "by",
+    "publishedDate": "Julkaistu {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
@@ -90,19 +97,7 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet",
-    "trending": "Trendaavat aineistot"
-  },
-  "blog": {
-    "author": "Kirjoittaja",
-    "authors": "Kirjoittajat",
-    "blog": "Blogi",
-    "by": "laatija",
-    "categories": "Luokat",
-    "category": "Kategoria",
-    "posts": "Blogiviesti | Blogikirjoituksia",
-    "published": "Julkaistu {date}",
-    "relatedPosts": "Aiheeseen liittyvät julkaisut"
+    "topic": "Aiheet"
   },
   "cardLabels": {
     "organisation": "Organisaatio",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API avain",
-      "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä.",
-      "settingsPageLinkText": "asetukset-sivu",
-      "tip": "Vinkki: jos sinulla on jo {apiKeyLink} , voit kirjoittaa sen {settingsPageLink} -sivulle ja se sisällytetään näihin API-pyyntölinkkeihin.",
-      "title": "API-pyynnöt"
-    },
-    "debug": "Virheenkorjaus",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Anna Europeana API -avaimesi, niin sitä käytetään API-pyyntöjen linkeissä.",
-          "label": "API-avain"
-        },
-        "enabled": {
-          "description": "Jos käytössä, virheenkorjausvalikko näkyy sivun alatunnisteessa.",
-          "label": "Ota virheenkorjausvalikko käyttöön"
-        }
-      },
-      "title": "Asetukset"
+      "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä."
     }
   },
   "depiction": "Kuvaus kohteesta {title}",
@@ -281,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näyttely: {title}",
     "chapters": "Luvut",
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
@@ -680,7 +658,7 @@ export default {
       "dctermsHasPart": "Koostuu seuraavista:",
       "dctermsHasVersion": "-kohteessa on versio",
       "dctermsIsFormatOf": "on formaatti kohteelle",
-      "dctermsIsPartOf": "On osa kohdetta",
+      "dctermsIsPartOf": "On osa",
       "dctermsIsReferencedBy": "-kohteeseen viittaa",
       "dctermsIsReplacedBy": "-kohteen vaihtaa",
       "dctermsIsRequiredBy": "Edellyttää kohteen",
@@ -741,12 +719,13 @@ export default {
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "faq": "Usein kysytyt kysymykset (FAQ)",
-      "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy aineiston tarjoaja",
+      "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
+      "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
       "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
@@ -800,6 +779,9 @@ export default {
     "itemOf": "{max} / {count} aineistot",
     "recent": "Viimeisimmät aineistot",
     "recommended": "Suositellut aineistot",
+    "trending": {
+      "headline": "Tutustu tämän päivän suosittuihin aineistoihin"
+    },
     "youMightLike": "Saattaisit tykätä näistä aineistot"
   },
   "klaro": {
@@ -928,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
-    "text": {
-      "trendingItems": "Selvitä, mitkä aineistot kiinnittävät ihmisten huomion ja saavat suosiota reaaliajassa. Hyödynnä tilaisuus pysyä kehityksen kärjessä – katso, mitä ihmiset näkevät, pitävät, kuratoivat ja käyttävät uudelleen eniten juuri nyt."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -1067,14 +1047,22 @@ export default {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse koko teksti tai metatietokenttä haettavaksi.",
         "fields": {
-          "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
+          "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin.",
+          "proxy_dc_coverage": "Kirjoita termi, joka viittaa paikkaan tai pisteeseen/ajanjaksoon. Esimerkiksi \"1995-1996\" tai \"Berliini\" tai \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Syötä termi, joka viittaa aineiston kannalta merkittävään päivämäärään. Esimerkiksi päivämäärä muodossa ‘VVVV-KK-PP’ tai yksittäinen vuosi, ‘1919’, tai laajemmat määritelmät kuten ‘Varhainen 20. vuosisata’.",
+          "proxy_dc_rights": "Syötä termi, joka viittaa aineiston oikeuksiin tai lisensseihin liittyviin tietoihin. Esimerkiksi ‘Copyright © British Library Board’. Uudelleenkäytettävyyden tai tietyn oikeuslausekkeen suodattamiseksi käytä ‘Voinko käyttää tätä?’ tai ‘Rights statement’ suodattimia.",
+          "proxy_dcterms_created": "Syötä termi, joka viittaa aineiston luontipäivämäärään. Esimerkiksi mikä tahansa päivämäärä muodossa ‘VVVV-KK-PP’, yksittäinen vuosi kuten ‘1919’, tai laajemmat määritelmät kuten ‘Varhainen 20. vuosisata’. Muiden merkityksellisten päivämäärien etsimiseksi katso Päivämäärä, Julkaisupäivä tai Vuosi -kentät.",
+          "proxy_dcterms_hasPart": "Aineisto voi sisältää muita resursseja - syötä termi, joka tunnistaa osan sisältyvistä resursseista. Jos aineisto itse on osa toisesta resurssista, käytä ‘On osa’ -kenttää.",
+          "proxy_dcterms_isPartOf": "Tämä aineisto voi olla osa jostakin muusta liittyvästä resurssista - syötä termi resurssille, jonka osa tämä aineisto voi olla. Jos aineisto itse sisältää liittyviä resursseja, käytä sen sijaan ‘Koostuu seuraavista:’-kenttää.",
+          "proxy_dcterms_issued": "Syötä termi, joka viittaa aineiston julkaisu- tai ilmestymispäivään. Esimerkiksi mikä tahansa päivämäärä muodossa ‘VVVV-KK-PP’, yksittäinen vuosi kuten ‘1919’, tai laajemmat määritelmät kuten ‘varhainen 20. vuosisata’. Muiden merkityksellisten päivämäärien etsimiseksi katso kentät Päivämäärä, Luontipäivämäärä tai Vuosi.",
+          "proxy_dcterms_medium": "Syötä termi, joka viittaa käytettyihin materiaaleihin tai aineiston fyysiseen luonteeseen. Esimerkiksi ‘metalli’ tai ‘paperi’. Laajempien materiaalimääritelmien osalta, kuten ‘veistos’ tai ‘maalaus’, kokeile ‘MEDIATYYPPI’ -kenttää.",
+          "proxy_dcterms_temporal": "Syötä termi, joka viittaa aikakauteen tai hetkeen, johon aineisto/aineistot liittyvät, esimerkiksi kuva, joka esittää kaupunkia vuonna 1930. Anna esimerkiksi 'Rooman valtakunta' tai 'Renessanssi'. Tarkkoja päivämääriä varten etsi Päivämäärä, Luontipäivämäärä, Julkaisupäivämäärä tai Vuosi -kentistä.",
+          "proxy_edm_hasMet": "Syötä termi, joka viittaa henkilöön, paikkaan, aikakauteen tai muuhun, johon aineisto voi olla läheisesti yhteydessä. Esimerkiksi ‘William Shakespeare’.",
+          "YEAR": "Syötä vuosi, joka liittyy kohteeseen/kohteisiin. Esimerkiksi ‘1919’."
         },
         "modifier": "Valitse, kuinka tämän kentän tulee muokata hakua.",
         "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
-    },
-    "boost": {
-      "placeholder": "Syötä kentän tehostamiskysely"
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
@@ -1118,11 +1106,9 @@ export default {
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
+      "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
       "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
       "update": "Päivitä galleria"
-    },
-    "entityBestBets": {
-      "title": "{entity} Sivu"
     },
     "form": {
       "description": "Gallerian kuvaus",
@@ -1138,6 +1124,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
+      "itemAdded": "Aineisto on lisätty galleriaan \"{gallery}\".",
+      "itemLiked": "Aineisto on tallennettu tykkääjäsi.",
+      "itemRemoved": "Aineisto on poistettu galleriasta {gallery}.",
+      "itemUnliked": "Aineisto on poistettu tykkäyksistäsi.",
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 aineistot. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
@@ -1186,9 +1176,16 @@ export default {
     "pinned": "Kiinnitetty",
     "required": "Pakollinen"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Näyttelyt",
+      "stories": "Tarinat",
+      "viewAll": "Näytä kaikki"
+    },
+    "stories": "Tarina | Tarinoita"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} tarinaa löydetty",
-    "title": "Tarinat"
+    "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {
     "paginationBulletLabel": "Dia-ryhmä {page}"

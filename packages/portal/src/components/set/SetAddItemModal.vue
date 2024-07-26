@@ -27,7 +27,7 @@
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
         :data-qa="`toggle item button ${index}`"
-        @toggle="toggleItem(collection.id)"
+        @toggle="toggleItem(collection)"
       />
     </div>
     <div class="modal-footer">
@@ -44,8 +44,10 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
+  import makeToastMixin from '@/mixins/makeToast';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'SetAddItemModal',
@@ -55,7 +57,8 @@
     },
 
     mixins: [
-      logEventMixin
+      logEventMixin,
+      makeToastMixin
     ],
 
     props: {
@@ -117,7 +120,7 @@
         };
 
         const searchResponse = await this.$apis.set.search(searchParams);
-        this.collections = searchResponse.data.items || [];
+        this.collections = searchResponse.items || [];
         this.fetched = true;
       },
 
@@ -129,15 +132,19 @@
         });
       },
 
-      async toggleItem(setId) {
+      async toggleItem(set) {
+        const setId = set.id;
+        const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
             await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
             this.added = this.added.filter(id => id !== setId);
+            this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
             this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
+            this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });

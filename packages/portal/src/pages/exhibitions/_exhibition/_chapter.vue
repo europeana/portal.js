@@ -3,6 +3,9 @@
     data-qa="exhibition chapter"
     class="text-page white-page "
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+    />
     <ContentWarningModal
       v-if="exhibitionContentWarning"
       :title="exhibitionContentWarning.name"
@@ -39,13 +42,15 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <ShareSocialModal :media-url="optimisedImageUrl" />
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
-              :rich-text-is-card="false"
-              class="authored-section"
-            />
+            <ShareSocialModal :media-url="pageMetaOgImage" />
+            <div class="authored-section">
+              <ContentSection
+                v-for="(section, index) in (page?.hasPartCollection?.items || [])"
+                :key="index"
+                :section="section"
+                :rich-text-is-card="false"
+              />
+            </div>
           </article>
         </b-col>
       </b-row>
@@ -109,11 +114,12 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
-  import BrowseSections from '../../../components/browse/BrowseSections';
-  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
-  import ShareButton from '../../../components/share/ShareButton.vue';
-  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import ContentSection from '@/components/content/ContentSection';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
   import logEventMixin from '@/mixins/logEvent';
 
@@ -121,12 +127,13 @@
     name: 'ExhibitionChapterPage',
 
     components: {
-      BrowseSections,
+      BBreadcrumb,
+      ContentSection,
       ClientOnly,
       ShareButton,
       ShareSocialModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      LinkList: () => import('../../../components/generic/LinkList'),
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      LinkList: () => import('@/components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
@@ -137,11 +144,7 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.exhibition,
         locale: app.i18n.localeProperties.iso,
@@ -164,25 +167,6 @@
             return {};
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: exhibition.name,
-              to: app.localePath({
-                name: 'exhibitions-exhibition',
-                params: {
-                  exhibition: exhibition.identifier
-                }
-              })
-            },
-            {
-              text: chapter.name,
-              active: true
-            }
-          ]);
           return {
             chapters: exhibition.hasPartCollection.items,
             credits: exhibition.credits,
@@ -200,12 +184,29 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          {
+            text: this.$t('exhibitions.breadcrumbPrefix', { title: this.exhibitionTitle }),
+            to: this.localePath({
+              name: 'exhibitions-exhibition',
+              params: {
+                exhibition: this.exhibitionIdentifier
+              }
+            })
+          },
+          {
+            text: this.page.name,
+            active: true
+          }
+        ];
+      },
       pageMeta() {
         return {
           title: this.page.name,
           description: this.page.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -224,12 +225,6 @@
       },
       heroImage() {
         return this.hero?.image || null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

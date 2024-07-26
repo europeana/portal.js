@@ -86,8 +86,9 @@
         @input="handleSelectedOptionInput"
         @hide="handleHide"
       />
+      <!-- v-if to prevent badge images loading before needed -->
       <SearchThemeBadges
-        v-show="showSearchThemeBadges"
+        v-if="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -194,7 +195,10 @@
       },
 
       showSearchThemeBadges() {
-        return (this.inPageHeader || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
+        return this.showForm &&
+          (this.inPageHeader || this.inSearchSidebar) &&
+          !this.onSearchableCollectionPage &&
+          !this.query;
       },
 
       searchFormOptionsId() {
@@ -355,7 +359,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/transitions';
 
   .search-dropdown {

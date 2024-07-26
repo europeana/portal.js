@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
     "editProfile": "Rediger profil",
-    "likes": "Synes om'er",
+    "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har ikke syntes om nogen genstande endnu"
     },
     "privateCollections": "Private gallerier",
-    "profile": "Mine synes om'er og gallerier",
+    "profile": "Mine likes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
@@ -31,6 +31,7 @@ export default {
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
       "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
+      "remove": "Fjern denne genstand fra dette galleri.",
       "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
@@ -51,7 +52,7 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
-    "like": "Synes om",
+    "like": "Like",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
@@ -61,6 +62,7 @@ export default {
     "publish": "Offentliggøre",
     "readMore": "Læs mere",
     "reject": "Afvise",
+    "remove": "Fjerne",
     "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
     "share": "Del",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
+    "unlike": "Fjern like",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "ved",
+    "publishedDate": "Offentliggjort {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
@@ -90,19 +97,7 @@ export default {
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
-    "topic": "Emner",
-    "trending": "Trending genstande"
-  },
-  "blog": {
-    "author": "Forfatter",
-    "authors": "Forfattere",
-    "blog": "Blog",
-    "by": "af",
-    "categories": "Kategorier",
-    "category": "Kategori",
-    "posts": "Blogindlæg | Blogindlæg",
-    "published": "Offentliggjort {date}",
-    "relatedPosts": "Relaterede indlæg"
+    "topic": "Emner"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -132,7 +127,7 @@ export default {
         },
         "proxy_dc_format": {
           "moreName": "teknikker",
-          "name": "Teknik | Teknikker",
+          "name": "Teknik",
           "select": "Vælg teknikker"
         },
         "proxy_dc_type": {
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API nøgle",
-      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side.",
-      "settingsPageLinkText": "indstillinger side",
-      "tip": "Tip: Hvis du allerede har en {apiKeyLink}, kan du indtaste den på {settingsPageLink} og den vil blive inkluderet i disse API-anmodningslinks.",
-      "title": "API-anmodninger"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
-          "label": "API nøgle"
-        },
-        "enabled": {
-          "description": "Hvis den er aktiveret, vil fejlretningsmenuen blive vist i sidefoden.",
-          "label": "Aktiver fejlretningsmenu"
-        }
-      },
-      "title": "Indstillinger"
+      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side."
     }
   },
   "depiction": "En skildring af {title}",
@@ -281,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Udstilling: {title}",
     "chapters": "Kapitler",
     "credits": "Credits",
     "currentChapter": "Aktuelt kapitel",
@@ -741,12 +719,13 @@ export default {
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "faq": "Ofte stillede spørgsmål (FAQ)",
-      "forDevelopers": "Til udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
       "provide": "Bliv en ejerinstiution",
+      "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
+      "supportingTechnicalPartners": "Support til tekniske partnere",
       "terms": "Vilkår og politikker"
     },
     "ourMission": "Vores mission",
@@ -800,6 +779,9 @@ export default {
     "itemOf": "{max} af {count} genstande",
     "recent": "Seneste genstande",
     "recommended": "Anbefalede genstande",
+    "trending": {
+      "headline": "Udforsk dagens populære genstande"
+    },
     "youMightLike": "Genstande, du måske vil synes om"
   },
   "klaro": {
@@ -928,9 +910,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Luk",
     "readMore": "Vis mig",
-    "text": {
-      "trendingItems": "Opdag hvilke genstande der fanger folks opmærksomhed og vinder popularitet i realtid. Udnyt chancen for at være på forkant med kurven - se, hvad folk ser, kan lide, kuraterer og genbruger mest lige nu."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -1067,14 +1047,22 @@ export default {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
         "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
         "fields": {
-          "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
+          "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst.",
+          "proxy_dc_coverage": "Indtast et udtryk, der refererer til et sted eller et tidspunkt/periode. For eksempel ‘1995-1996’ eller ‘Berlin’ eller ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Indtast et udtryk, der refererer til en betydningsfuld dato relateret til genstanden/genstandene. For eksempel en dato i formatet ‘ÅÅÅÅ-MM-DD’ eller et enkelt år, ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’.",
+          "proxy_dc_rights": "Indtast et udtryk, der refererer til oplysninger om rettigheder eller licenser relateret til genstanden/genstandene. For eksempel ‘Copyright © British Library Board’. For at filtrere på genanvendelighed eller en specifik rettighedserklæring, brug filtrene ‘Kan jeg bruge dette?’ eller ‘Rights statement’.",
+          "proxy_dcterms_created": "Indtast et udtryk, der refererer til oprettelsesdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Udgivelsesdato eller År.",
+          "proxy_dcterms_hasPart": "Genstanden kan have andre ressourcer inkluderet i sig - indtast et udtryk, der identificerer en del af de inkluderede ressourcer. Hvis genstanden selv er en del af en anden ressource, brug da feltet ‘Er en del af’.",
+          "proxy_dcterms_isPartOf": "Dette genstand kan være en del af en anden relateret ressource - indtast et udtryk for den ressource, som denne genstand kan være en del af. Hvis genstanden selv har relaterede ressourcer indeni, brug da ‘Består af’ feltet i stedet.",
+          "proxy_dcterms_issued": "Indtast et udtryk, der refererer til udgivelses- eller publiceringsdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Oprettelsesdato eller År.",
+          "proxy_dcterms_medium": "Indtast et udtryk, der refererer til de materialer, der er anvendt, eller genstandens fysiske beskaffenhed. For eksempel ‘metal’ eller ‘papir’. For bredere materialedefinitioner, såsom ‘skulptur’ eller ‘maleri’, prøv feltet ‘MEDIETYPE’.",
+          "proxy_dcterms_temporal": "Indtast et udtryk, der refererer til en periode eller et tidspunkt, som genstanden/genstandene relaterer til, f.eks. et billede der skildrer en by i 1930. Indtast for eksempel ‘Romerriget’ eller ‘Renæssancen’. For specifikke datoer, søg i felterne Dato, Oprettelsesdato, Udgivelsesdato eller År.",
+          "proxy_edm_hasMet": "Indtast et begreb, der refererer til en person, et sted, en tidsperiode eller noget andet, som genstanden/genstandene kan have tæt tilknytning til. For eksempel ‘William Shakespeare’.",
+          "YEAR": "Indtast et år relateret til genstand(en). For eksempel ‘1919’."
         },
         "modifier": "Vælg, hvordan dette felt skal ændre søgningen.",
         "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
       }
-    },
-    "boost": {
-      "placeholder": "Indtast feltforøgende forespørgsel"
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
@@ -1118,11 +1106,9 @@ export default {
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
+      "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
       "saveItemToLikes": "Gem dette genstand til dine likes.",
       "update": "Opdater galleri"
-    },
-    "entityBestBets": {
-      "title": "{entity} Side"
     },
     "form": {
       "description": "Beskrivelse af galleri",
@@ -1138,9 +1124,13 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
+      "itemAdded": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
+      "itemLiked": "Genstanden er blevet gemt i dine likes.",
+      "itemRemoved": "Genstanden er blevet fjernet fra galleriet {gallery}.",
+      "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
-        "title": "100 synes om'er"
+        "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
@@ -1182,13 +1172,20 @@ export default {
     "search": "Søg"
   },
   "statuses": {
-    "liked": "Kunne lide",
+    "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Udstillinger",
+      "stories": "Historier",
+      "viewAll": "Se alle"
+    },
+    "stories": "Historien | Historier"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} historier fundet",
-    "title": "Historier"
+    "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
     "paginationBulletLabel": "Slide gruppe {page}"

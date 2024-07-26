@@ -31,6 +31,7 @@ export default {
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
       "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
+      "remove": "Ta bort detta objekt från detta galleri.",
       "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publicera",
     "readMore": "Läs mer",
     "reject": "Avvisa",
+    "remove": "Ta bort",
     "requestDepublication": "Begär avpublicering",
     "save": "Spara",
     "share": "Dela",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
+    "unlike": "Ogilla",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Visa attribution",
     "title": "Titel:"
   },
+  "authored": {
+    "by": "av",
+    "publishedDate": "Publicerad {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
@@ -90,19 +97,7 @@ export default {
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
-    "topic": "Ämnen",
-    "trending": "Trendiga objekt"
-  },
-  "blog": {
-    "author": "Författare",
-    "authors": "Författare",
-    "blog": "Blogg",
-    "by": "av",
-    "categories": "Kategorier",
-    "category": "Kategori",
-    "posts": "Blogginlägg | Blogginlägg",
-    "published": "Publicerad {date}",
-    "relatedPosts": "Relaterade inlägg"
+    "topic": "Ämnen"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API-nyckel",
-      "noRequests": "Inga förfrågningar till Europeana API:er användes på den här sidan.",
-      "settingsPageLinkText": "inställningssidan",
-      "tip": "Tips: om du redan har en {apiKeyLink} kan du ange den på {settingsPageLink} och den kommer att inkluderas i dessa API-förfrågningslänkar.",
-      "title": "API-förfrågningar"
-    },
-    "debug": "Felsöka",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Ange din Europeana API-nyckel så kommer den att användas i länkarna till API-förfrågningar.",
-          "label": "API-nyckel"
-        },
-        "enabled": {
-          "description": "Om den är aktiverad kommer felsökningsmenyn att visas i sidfoten.",
-          "label": "Aktivera felsökningsmeny"
-        }
-      },
-      "title": "Inställningar"
+      "noRequests": "Inga förfrågningar till Europeana API:er användes på den här sidan."
     }
   },
   "depiction": "En skildring av {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Utställning: {title}",
     "chapters": "Kapitel",
     "credits": "Upphovsmän",
     "currentChapter": "Aktuellt kapitel",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "faq": "Vanliga frågor (FAQ)",
-      "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en tillhandahållande institution",
+      "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
+      "supportingTechnicalPartners": "Stödja tekniska partners",
       "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} av {count} objekt",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
+    "trending": {
+      "headline": "Utforska dagens populära objekt"
+    },
     "youMightLike": "Objekt som du kanske skulle gilla"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Stäng",
     "readMore": "Visa mig",
-    "text": {
-      "trendingItems": "Upptäck vilka objekt som fångar människors uppmärksamhet och blir populära i realtid. Utnyttja chansen att ligga före kurvan - se vad folk tittar på, gillar, kuraterar och återanvänder mest just nu."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
         "field": "Välj fulltext- eller metadatafältet att söka i.",
         "fields": {
-          "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext."
+          "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext.",
+          "proxy_dc_coverage": "Ange en term som hänvisar till en plats eller en punkt/period i tiden. Till exempel \"1995-1996\" eller \"Berlin\" eller \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Ange en term som hänvisar till ett betydande datum relaterat till objektet/objekten. Till exempel ett datum i formatet ‘ÅÅÅÅ-MM-DD’ eller ett enskilt år, ‘1919’, eller bredare definitioner som ‘Tidigt 1900-tal’.",
+          "proxy_dc_rights": "Ange en term som hänvisar till information om rättigheter eller licenser relaterade till objektet/objekten. Till exempel ‘Copyright © British Library Board’. För att filtrera på återanvändbarhet eller ett specifikt rättighetsuttalande, använd filtren ‘Kan jag använda detta?’ eller ‘Rights statement’.",
+          "proxy_dcterms_created": "Ange en term som hänvisar till skapelsedatumet för objektet/objekten. Till exempel vilket datum som helst i formatet ‘ÅÅÅÅ-MM-DD’, ett enskilt år som ‘1919’, eller bredare definitioner som ‘Tidigt 1900-tal’. För andra datum som kan vara av betydelse, sök i fälten Datum, Utgivningsdatum eller År.",
+          "proxy_dcterms_hasPart": "Detta objekt kan innehålla andra resurser inom sig - ange en term som identifierar en del av de inkluderade resurserna. Om objektet självt är en del av en annan resurs, använd fältet ‘Är del av’.",
+          "proxy_dcterms_isPartOf": "Detta objekt kan vara en del av en annan relaterad resurs - ange en term för resursen som detta objekt kan vara en del av. Om objektet självt innehåller relaterade resurser, använd fältet ‘Består av’ istället.",
+          "proxy_dcterms_issued": "Ange en term som hänvisar till utgivnings- eller publiceringsdatumet för objektet/objekten. Till exempel vilket datum som helst i formatet ‘ÅÅÅÅ-MM-DD’, ett enskilt år som ‘1919’, eller bredare definitioner som ‘tidigt 1900-tal’. För andra datum som kan vara av betydelse, sök i fälten Datum, Skapelsedatum eller År.",
+          "proxy_dcterms_medium": "Ange en term som hänvisar till de material som använts eller objektets fysiska beskaffenhet. Till exempel ‘metall’ eller ‘papper’. För bredare materialdefinitioner, som ‘skulptur’ eller ‘målning’, prova fältet ‘TYP AV MEDIA’",
+          "proxy_dcterms_temporal": "Ange en term som hänvisar till en period eller tidpunkt som objektet/objekten relaterar till, till exempel en bild som skildrar en stad år 1930. Ange till exempel 'Romerska riket' eller 'Renässansen'. För specifika datum, sök i fälten Datum, Skapelsedatum, Utgivningsdatum eller År.",
+          "proxy_edm_hasMet": "Ange en term som hänvisar till en person, en plats, en tidsperiod eller något annat som objektet/objekten kan ha nära kopplingar till. Till exempel ‘William Shakespeare’.",
+          "YEAR": "Ange ett år som relaterar till objektet/objekten. Till exempel ‘1919’."
         },
         "modifier": "Välj hur detta fält ska ändra sökningen.",
         "term": "Ange termen/termerna som det valda fältet innehåller eller inte innehåller."
       }
-    },
-    "boost": {
-      "placeholder": "Ange fältförstärkningsfråga"
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
+      "removeItemFromLikes": "Ta bort det här objektet från dina gilla-markeringar.",
       "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
       "update": "Uppdatera galleri"
-    },
-    "entityBestBets": {
-      "title": "{entity} Sida"
     },
     "form": {
       "description": "Beskrivning av galleri",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
+      "itemAdded": "Objektet har lagts till i galleriet \"{gallery}\".",
+      "itemLiked": "Objektet har sparats till dina gilla-markeringar.",
+      "itemRemoved": "Objektet har tagits bort från galleriet {gallery}.",
+      "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Fäst",
     "required": "Obligatoriskt"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Utställningar",
+      "stories": "Berättelser",
+      "viewAll": "Visa alla"
+    },
+    "stories": "Berättelse | Berättelser"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} berättelser hittades",
-    "title": "Berättelser"
+    "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {
     "paginationBulletLabel": "Bildgrupp {page}"

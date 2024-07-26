@@ -7,7 +7,7 @@
       :variant="badgeVariant"
       :class="{ 'img-chip': imageUrl }"
       :data-qa="localisedTitle.values[0] + ' related chip'"
-      :lang="localisedTitle.code"
+      :lang="langAttribute(localisedTitle.code)"
       @click.capture="clickEventHandler?.()"
     >
       <div
@@ -36,7 +36,8 @@
 
 <script>
   import SmartLink from './SmartLink';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'LinkBadge',
@@ -44,6 +45,10 @@
     components: {
       SmartLink
     },
+
+    mixins: [
+      langAttributeMixin
+    ],
 
     props: {
       linkTo: {

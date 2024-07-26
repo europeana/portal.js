@@ -14,32 +14,25 @@ export default class EuropeanaRecommendationApi extends EuropeanaApi {
    * @return {string[]} array of identifiers of recommended items
    */
   recommend(type, identifier) {
-    return this.axios.get(`/${type}${identifier}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+    return this.request({
+      method: 'get',
+      url: `/${type}${identifier}`
+    });
   }
 
-  accept(type, identifier, body) {
-    return this.axios.post(
-      `/${type}${identifier}`,
-      body
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+  accept(type, identifier, data) {
+    return this.request({
+      method: 'post',
+      url: `/${type}${identifier}`,
+      data
+    });
   }
 
-  reject(type, identifier, body) {
-    return this.axios.delete(
-      `/${type}${identifier}`,
-      { data: body }
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+  reject(type, identifier, data) {
+    return this.request({
+      method: 'delete',
+      url: `/${type}${identifier}`,
+      data
+    });
   }
 }

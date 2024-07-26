@@ -31,6 +31,7 @@ export default {
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
       "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
+      "remove": "Usuń ten obiekt cyfrowy z tej galerii.",
       "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
@@ -61,6 +62,7 @@ export default {
     "publish": "Publikować",
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
+    "remove": "Usunąć",
     "requestDepublication": "Poproś o wycofanie publikacji",
     "save": "Zapisać",
     "share": "Udostępnij",
@@ -72,6 +74,7 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -83,6 +86,10 @@ export default {
     "show": "Pokaż atrybucję",
     "title": "Tytuł:"
   },
+  "authored": {
+    "by": "przez",
+    "publishedDate": "Opublikowano w dniu {date}"
+  },
   "automatedCardGroup": {
     "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
@@ -90,19 +97,7 @@ export default {
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
-    "topic": "Tematy",
-    "trending": "Popularne obiekty cyfrowe"
-  },
-  "blog": {
-    "author": "Autor",
-    "authors": "Autorzy",
-    "blog": "Blog",
-    "by": "autorstwa",
-    "categories": "Kategorie",
-    "category": "Kategoria",
-    "posts": "Wpis na blogu | Posty na blogu",
-    "published": "Opublikowano w dniu {date}",
-    "relatedPosts": "Powiązane posty"
+    "topic": "Tematy"
   },
   "cardLabels": {
     "organisation": "Organizacja",
@@ -182,25 +177,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Klucz API Europeana",
-      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana.",
-      "settingsPageLinkText": "strona ustawień",
-      "tip": "Wskazówka: jeśli masz już {apiKeyLink}, możesz wprowadzić go na {settingsPageLink} i zostanie on uwzględniony w tych linkach żądań API.",
-      "title": "Żądania API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Wpisz swój klucz Europeana API, który będzie używany w linkach do żądań API.",
-          "label": "Klucz API"
-        },
-        "enabled": {
-          "description": "Jeśli ta opcja jest włączona, menu debugowania będzie wyświetlane w stopce strony.",
-          "label": "Włącz menu debugowania"
-        }
-      },
-      "title": "Ustawienia"
+      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana."
     }
   },
   "depiction": "Obraz {title}",
@@ -280,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wystawa: {title}",
     "chapters": "Rozdziały",
     "credits": "Twórcy",
     "currentChapter": "Aktualny rozdział",
@@ -740,12 +718,13 @@ export default {
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "faq": "Często zadawane pytania (FAQ)",
-      "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
       "provide": "Zostań dostawca danych",
+      "seeApiRequests": "Zobacz żądania do Europeana APIs",
       "subscribe": "Zapisz się do naszego newslettera",
+      "supportingTechnicalPartners": "Wspieranie partnerów technicznych",
       "terms": "Warunki i zasady"
     },
     "ourMission": "Nasza misja",
@@ -799,6 +778,9 @@ export default {
     "itemOf": "{max} z {count} obiekty cyfrowe",
     "recent": "Ostatnie obiekty cyfrowe",
     "recommended": "Polecane obiekty cyfrowe",
+    "trending": {
+      "headline": "Odkryj dzisiejsze popularne obiekty cyfrowe"
+    },
     "youMightLike": "Obiekty cyfrowe, które mogą Ci się spodobać"
   },
   "klaro": {
@@ -926,9 +908,7 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
-    "text": {
-      "trendingItems": "Dowiedz się, które obiekty cyfrowe przyciągają uwagę ludzi i stają się popularne w czasie rzeczywistym. Skorzystaj z okazji, aby być o krok do przodu-zobacz, co ludzie teraz najbardziej oglądają, lubią, kurują i ponownie wykorzystują."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1065,14 +1045,22 @@ export default {
         "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
         "field": "Wybierz pole pełny tekstu lub metadanych do wyszukiwania.",
         "fields": {
-          "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
+          "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu.",
+          "proxy_dc_coverage": "Wprowadź termin odnoszący się do miejsca lub punktu/okresu w czasie. Na przykład \"1995-1996\" lub \"Berlin\" lub \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Wprowadź termin odnoszący się do znaczącej daty związanej z obiekt cyfrowy/obiektami cyfrowymi. Na przykład data w formacie ‘RRRR-MM-DD’ lub pojedynczy rok, ‘1919’, lub szersze definicje, takie jak ‘Początek XX wieku’.",
+          "proxy_dc_rights": "Wprowadź termin odnoszący się do informacji o prawach lub licencjach związanych z obiekt cyfrowy/obiektami cyfrowymi. Na przykład ‘Copyright © British Library Board’. Aby filtrować według możliwości ponownego użycia lub konkretnego oświadczenia praw, użyj filtrów ‘Mogę tego użyć?’ lub ‘Rights statement’.",
+          "proxy_dcterms_created": "Wprowadź termin odnoszący się do daty utworzenia obiektu cyfrowy/obiektów cyfrowych. Na przykład dowolna data w formacie ‘RRRR-MM-DD’, pojedynczy rok, jak ‘1919’, lub szersze definicje, takie jak ‘Początek XX wieku’. Dla innych dat, które mogą być istotne, wyszukaj w polach Data, Data wydania lub Rok.",
+          "proxy_dcterms_hasPart": "Obiekt cyfrowy może zawierać inne zasoby w sobie — wprowadź termin identyfikujący część dołączonych zasobów. Jeśli obiekt cyfrowy sam jest częścią innego zasobu, użyj pola ‘jest częścią’.",
+          "proxy_dcterms_isPartOf": "Ten obiekt cyfrowy może być częścią innego powiązanego zasobu — wprowadź termin dla zasobu, którego częścią może być ten obiekt cyfrowy. Jeśli obiekt cyfrowy sam zawiera powiązane zasoby, użyj pola ‘Składa się z’.",
+          "proxy_dcterms_issued": "Wprowadź termin odnoszący się do daty wydania lub publikacji obiektu cyfrowego/obiektów cyfrowych. Na przykład dowolna data w formacie ‘RRRR-MM-DD’, pojedynczy rok, jak ‘1919’, lub szersze definicje, takie jak ‘początek XX wieku’. Dla innych dat, które mogą być istotne, wyszukaj w polach Data, Data utworzenia lub Rok.",
+          "proxy_dcterms_medium": "Wprowadź termin odnoszący się do materiałów użytych lub fizycznej natury obiektu cyfrowego. Na przykład ‘metal’ lub ‘papier’. Dla szerszych definicji materiałów, takich jak ‘rzeźba’ lub ‘malarstwo’, spróbuj pola ‘RODZAJ MEDIÓW’.",
+          "proxy_dcterms_temporal": "Wprowadź termin odnoszący się do okresu lub punktu czasowego, z którym związany jest obiekt cyfrowy/obiekty cyfrowe, na przykład obraz przedstawiający miasto w 1930 roku. Wpisz na przykład 'Cesarstwo Rzymskie' lub 'Renesans'. W przypadku konkretnych dat wyszukaj w polach Data, Data utworzenia, Data wydania lub Rok.",
+          "proxy_edm_hasMet": "Wprowadź termin odnoszący się do osoby, miejsca, okresu lub czegokolwiek innego, z którym obiekt cyfrowy/obiekty cyfrowe mogą być ściśle związane. Na przykład ‘William Shakespeare’.",
+          "YEAR": "Wprowadź rok związany z obiektem/obiektami cyfrowymi. Na przykład ‘1919’."
         },
         "modifier": "Wybierz, jak to pole powinno modyfikować wyszukiwanie.",
         "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
-    },
-    "boost": {
-      "placeholder": "Wpisz zapytanie zwiększające pole"
     },
     "results": {
       "limitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najtrafniejszych wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
@@ -1116,11 +1104,9 @@ export default {
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
+      "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
       "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
       "update": "Zaktualizuj galerię"
-    },
-    "entityBestBets": {
-      "title": "{entity} Strona"
     },
     "form": {
       "description": "Opis galerii",
@@ -1136,6 +1122,10 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
+      "itemAdded": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
+      "itemLiked": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
+      "itemRemoved": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
+      "itemUnliked": "Obiekt cyfrowy został usunięty z Twoich polubień.",
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"
@@ -1184,9 +1174,16 @@ export default {
     "pinned": "Przypięty",
     "required": "Wymagane"
   },
+  "stories": {
+    "filter": {
+      "exhibitions": "Wystawy",
+      "stories": "Historie",
+      "viewAll": "Zobacz wszystkie"
+    },
+    "stories": "Historia | Historie"
+  },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} znalezionych historii",
-    "title": "Historie"
+    "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {
     "paginationBulletLabel": "Grupa slajdów {page}"

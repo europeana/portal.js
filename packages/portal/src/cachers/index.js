@@ -1,7 +1,7 @@
 import defu from 'defu';
 import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
-import localeCodes from '../i18n/codes.js';
+import { codes as localeCodes } from '@europeana/i18n';
 
 const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);

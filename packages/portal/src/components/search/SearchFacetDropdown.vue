@@ -149,7 +149,7 @@
 <script>
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
-  import themes from '@/plugins/europeana/themes';
+  import themes from '@/utils/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
@@ -563,6 +563,11 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/dropdown-search-filter';
+</style>
 
 <docs lang="md">
   Type radio:

@@ -30,7 +30,7 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'RelatedGalleries',
@@ -72,7 +72,7 @@
         };
 
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.relatedGalleries = setResponse.data.items ? this.parseSets(setResponse.data.items) : [];
+        this.relatedGalleries = setResponse.items ? this.parseSets(setResponse.items) : [];
 
         this.$emit('fetched', this.relatedGalleries);
       }

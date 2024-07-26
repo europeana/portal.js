@@ -11,36 +11,81 @@ const factory = (propsData) => shallowMount(ImageOptimised, {
     $contentful: {
       assets: {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
+        responsiveImageSrcset: (img) => `${img.url} srcset`
       }
     }
-  },
-  stubs: ['b-img', 'b-img-lazy']
+  }
 });
 
 describe('components/generic/ImageOptimised', () => {
   afterEach(sinon.resetHistory);
 
-  it('uses a lazy loading image by default', () => {
-    const wrapper = factory({
-      src: 'https://www.example.org/image.jpeg',
-      width: 2000,
-      height: 1250
-    });
-    const lazyImage = wrapper.find('b-img-lazy-stub');
-    expect(lazyImage.exists()).toBeTruthy();
-  });
-
-  describe('when lazy is set to false', () => {
-    it('uses a non-lazy loading image', () => {
+  describe('template', () => {
+    it('uses a lazy loading image by default', () => {
       const wrapper = factory({
         src: 'https://www.example.org/image.jpeg',
         width: 2000,
-        height: 1250,
-        lazy: false
+        height: 1250
       });
-      const image = wrapper.find('b-img-stub');
-      expect(image.exists()).toBeTruthy();
+
+      const lazyImage = wrapper.find('imageeagerorlazy-stub');
+
+      expect(lazyImage.attributes('lazy')).toBe('true');
+    });
+
+    describe('when lazy is set to false', () => {
+      it('uses a non-lazy loading image', () => {
+        const wrapper = factory({
+          src: 'https://www.example.org/image.jpeg',
+          width: 2000,
+          height: 1250,
+          lazy: false
+        });
+
+        const image = wrapper.find('imageeagerorlazy-stub');
+
+        expect(image.attributes('lazy')).toBeUndefined();
+      });
+    });
+
+    describe('when image is contentful asset with image crop presets', () => {
+      const src = 'https://images.ctfassets.net/asset';
+      const contentfulImageCropPresets = {
+        small: { w: 576, h: 896, fit: 'fill' },
+        medium: { w: 768, h: 1080, fit: 'fill' }
+      };
+      const pictureSourceMediaResolutions = [1, 2];
+
+      it('renders an image component for the first resolution, with responsive srcset', () => {
+        const wrapper = factory({
+          contentfulImageCropPresets,
+          height: 1250,
+          pictureSourceMediaResolutions,
+          src,
+          width: 2000
+        });
+
+        const img = wrapper.find('picture imageeagerorlazy-stub');
+
+        expect(img.attributes('src')).toBe(src);
+        expect(img.attributes('srcset')).toBe('https://images.ctfassets.net/asset srcset');
+      });
+
+      it('renders a source element for other resolutions, with responsive srcset', () => {
+        const wrapper = factory({
+          contentfulImageCropPresets,
+          height: 1250,
+          pictureSourceMediaResolutions,
+          src,
+          width: 2000
+        });
+
+        const source = wrapper.find('picture source');
+
+        expect(source.attributes('srcset')).toBe('https://images.ctfassets.net/asset srcset');
+        expect(source.attributes('media')).toBe('(resolution: 2x)');
+      });
     });
   });
 
