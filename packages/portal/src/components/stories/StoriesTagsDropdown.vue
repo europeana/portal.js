@@ -35,7 +35,6 @@
           :aria-controls="showDropdown ? 'tags-options' : null"
           :aria-expanded="showDropdown"
           :aria-label="$t('categories.label')"
-          @keydown.down="handleInputDown"
         />
       </b-form>
       <div
@@ -167,10 +166,6 @@
       handleEsc() {
         this.$refs.tagsearchinput.$el?.blur();
         this.handleClickOutside();
-      },
-      handleInputDown() {
-        const firstTag = this.$refs.relatedCategoryTags?.$el.getElementsByTagName('a')?.[0];
-        firstTag?.focus();
       }
     }
   };
