@@ -16,6 +16,7 @@
       :headline="headline"
       :text="text"
       :cta="cta"
+      :cta-help-text="ctaHelpText"
       :hero-image="primaryImageOfPage"
     />
     <div
@@ -127,6 +128,10 @@
       },
       cta: {
         type: Object,
+        default: null
+      },
+      ctaHelpText: {
+        type: String,
         default: null
       },
       sections: {
