@@ -807,7 +807,6 @@ export default {
     "discoverEditorial": "Latest stories",
     "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
     "title": "Discover Europe’s {digital} cultural heritage",
     "titleDigital": "digital"
