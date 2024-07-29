@@ -105,16 +105,14 @@ describe('components/stories/StoriesTagsDropdown', () => {
   });
 
   describe('when user uses escape key', () => {
-    it('hides the search options, emits an escape event for the interface to act on', async() => {
+    it('hides the search options', async() => {
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      const emit = sinon.spy(wrapper.vm, '$emit');
-
-      await wrapper.vm.handleEsc();
+      const dropdown = wrapper.find('[data-qa="tags dropdown"]');
+      dropdown.trigger('keydown.esc');
 
       expect(wrapper.vm.showDropdown).toBe(false);
-      expect(emit.calledWith('escapeDropdown')).toBe(true);
     });
   });
 });

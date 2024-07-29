@@ -11,6 +11,7 @@
       ref="tagsdropdown"
       v-click-outside="clickOutsideConfig"
       class="position-relative mb-4"
+      data-qa="tags dropdown"
       @focusin="handleFocusin"
       @keydown.esc="handleEsc"
     >
@@ -22,6 +23,7 @@
       >
         <b-form-input
           :id="'tag-search-input'"
+          ref="tagsearchinput"
           v-model="searchTag"
           autocomplete="off"
           type="search"
@@ -163,10 +165,8 @@
         this.showDropdown = false;
       },
       handleEsc() {
+        this.$refs.tagsearchinput.$el?.blur();
         this.handleClickOutside();
-        console.log('hello');
-        this.$emit('escapeDropdown');
-        console.log('emmitted');
       },
       handleInputDown() {
         const firstTag = this.$refs.relatedCategoryTags?.$el.getElementsByTagName('a')?.[0];

@@ -16,9 +16,7 @@
       <span class="context-label">
         {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
-      <StoriesTypeFilter
-        ref="typeFilter"
-      />
+      <StoriesTypeFilter />
       <div
         class="visually-hidden"
         role="status"
@@ -244,12 +242,6 @@
         if (this.page === 1 && this.selectedTags.length === 0) {
           this.stories.splice(12, 0, this.ctaBanner);
         }
-      },
-
-      setFocusToTypeFilter() {
-        // Move the focus to the type filter
-        const typeFilter = this.$refs.typeFilter?.$el.getElementsByTagName('a')?.[0];
-        typeFilter?.focus();
       },
 
       contentfulEntryUrl
