@@ -12,7 +12,6 @@
       v-click-outside="clickOutsideConfig"
       class="position-relative mb-4"
       data-qa="tags dropdown"
-      @focusin="handleFocusin"
       @keydown.esc="handleEsc"
     >
       <b-form
@@ -35,6 +34,7 @@
           :aria-controls="showDropdown ? 'tags-options' : null"
           :aria-expanded="showDropdown"
           :aria-label="$t('categories.label')"
+          @focusin="handleFocusin"
         />
       </b-form>
       <div
