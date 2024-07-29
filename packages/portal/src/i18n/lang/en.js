@@ -886,8 +886,8 @@ export default {
         "title": "New feature notification"
       },
       "searchResultsView": {
-        "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
+        "title": "Search result, galleries and likes view (list/grid/mosaic)"
       }
     }
   },

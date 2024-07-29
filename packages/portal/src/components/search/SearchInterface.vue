@@ -174,6 +174,7 @@
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
 
   export default {
     name: 'SearchInterface',
@@ -195,6 +196,7 @@
     mixins: [
       advancedSearchMixin,
       elasticApmReporterMixin,
+      itemPreviewCardGroupViewMixin,
       makeToastMixin
     ],
 
@@ -236,7 +238,6 @@
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
-      this.setViewFromRouteQuery();
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -335,17 +336,6 @@
         return !this.$fetchState.error?.code ||
           !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
       },
-      routeQueryView() {
-        return this.$route.query.view;
-      },
-      view: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
-        }
-      },
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
@@ -382,7 +372,6 @@
     },
 
     watch: {
-      routeQueryView: 'setViewFromRouteQuery',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.qa': '$fetch',
@@ -507,13 +496,6 @@
         }
 
         this.$fetch();
-      },
-
-      setViewFromRouteQuery() {
-        if (this.routeQueryView) {
-          this.view = this.routeQueryView;
-          this.$cookies?.set('searchResultsView', this.routeQueryView);
-        }
       },
 
       advancedSearchQueriesForEntityLookUp() {
