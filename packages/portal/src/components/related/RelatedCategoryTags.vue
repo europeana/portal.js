@@ -74,9 +74,19 @@
         if (this.selected.includes(tagId)) {
           const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
           const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
-          route.query = { ...this.$route.query, page: undefined, tags: tagsQuery };
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          if (tagsQuery) {
+            newQuery.tags = tagsQuery;
+          } else {
+            delete newQuery.tags;
+          }
+          route.query = newQuery;
         } else {
-          route.query = {  ...this.$route.query, page: undefined, tags: this.selected.concat(tagId).join(',') };
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          newQuery.tags = this.selected.concat(tagId).join(',');
+          route.query = newQuery;
         }
 
         return this.localePath(route);
