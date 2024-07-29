@@ -850,8 +850,8 @@ export default {
         "title": "Ezaugarri berrien jakinarazpena"
       },
       "searchResultsView": {
-        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
       }
     }
   },

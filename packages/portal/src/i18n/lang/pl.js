@@ -844,8 +844,8 @@ export default {
         "title": "Powiadomienie o nowej funkcji"
       },
       "searchResultsView": {
-        "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "description": "Zapamiętuje, czy wolisz wyświetlać wyniki wyszukiwania, galerie i Twoje polubienia w formie listy, siatki czy mozaiki.",
+        "title": "Wyniki wyszukiwania, galerie i widok polubień (lista/siatka/mozaika)"
       }
     }
   },

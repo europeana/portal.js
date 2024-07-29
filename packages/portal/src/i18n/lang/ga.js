@@ -844,8 +844,8 @@ export default {
         "title": "Fógra gné nua"
       },
       "searchResultsView": {
-        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "description": "Cuimhnigh más fearr leat na torthaí cuardaigh, dánlanna agus do leithéidí a fheiceáil i liosta, greille nó mósáic amharc.",
+        "title": "Toradh cuardaigh, gailearaithe agus radharc na rudaí is maith liom (liosta/greille/mósáic)"
       }
     }
   },

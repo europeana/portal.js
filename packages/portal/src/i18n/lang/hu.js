@@ -844,8 +844,8 @@ export default {
         "title": "Új funkció értesítése"
       },
       "searchResultsView": {
-        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
+        "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
       }
     }
   },

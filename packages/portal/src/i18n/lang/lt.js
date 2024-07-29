@@ -844,8 +844,8 @@ export default {
         "title": "Pranešimas apie naują funkciją"
       },
       "searchResultsView": {
-        "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
+        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
       }
     }
   },

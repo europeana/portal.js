@@ -845,8 +845,8 @@ export default {
         "title": "Uuden ominaisuuden ilmoitus"
       },
       "searchResultsView": {
-        "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
+        "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
       }
     }
   },

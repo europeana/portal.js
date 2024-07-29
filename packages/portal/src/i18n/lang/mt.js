@@ -844,8 +844,8 @@ export default {
         "title": "Notifika ta' karatteristika ġdida"
       },
       "searchResultsView": {
-        "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
+        "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       }
     }
   },
