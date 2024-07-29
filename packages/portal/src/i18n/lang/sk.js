@@ -844,8 +844,8 @@ export default {
         "title": "Oznámenie o novej funkcii"
       },
       "searchResultsView": {
-        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "description": "Pamätá si, či chcete vidieť výsledky vyhľadávania, galérie a vaše hodnotenia, ktoré sa vám páčia, v zobrazení zoznamu, mriežky alebo mozaiky.",
+        "title": "Zobrazenie výsledkov vyhľadávania, galérií a hodnotení Páči sa mi (zoznam/mriežka/mozaika)"
       }
     }
   },

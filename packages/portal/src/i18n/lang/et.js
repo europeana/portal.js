@@ -845,8 +845,8 @@ export default {
         "title": "Uus funktsiooniteatis"
       },
       "searchResultsView": {
-        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
       }
     }
   },

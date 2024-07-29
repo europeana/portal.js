@@ -844,8 +844,8 @@ export default {
         "title": "Notificación de nuevas funciones"
       },
       "searchResultsView": {
-        "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "description": "Recuerda si prefieres ver los resultados de búsqueda, las galerías y tus me gusta en una vista de lista, cuadrícula o mosaico.",
+        "title": "Vista de resultados de búsqueda, galerías y Me gusta (lista/cuadrícula/mosaico)"
       }
     }
   },

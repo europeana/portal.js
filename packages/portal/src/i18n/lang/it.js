@@ -844,8 +844,8 @@ export default {
         "title": "Notifica di nuove funzionalità"
       },
       "searchResultsView": {
-        "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "description": "Ricorda se preferisci vedere i risultati della ricerca, le gallerie e i tuoi Mi piace in una visualizzazione elenco, griglia o mosaico.",
+        "title": "Visualizzazione dei risultati della ricerca, gallerie e Mi piace (elenco/griglia/mosaico)"
       }
     }
   },

@@ -844,8 +844,8 @@ export default {
         "title": "Notificare pentru funcții noi"
       },
       "searchResultsView": {
-        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
+        "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       }
     }
   },

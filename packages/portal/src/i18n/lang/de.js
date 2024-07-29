@@ -845,8 +845,8 @@ export default {
         "title": "Benachrichtigung über neue Funktionen"
       },
       "searchResultsView": {
-        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "description": "Merkt sich, ob Sie die Suchergebnisse, Galerien und Ihre Likes lieber in einer Listen-, Raster- oder Mosaikansicht sehen möchten.",
+        "title": "Ansicht von Suchergebnis, Galerien und Likes (Liste/Raster/Mosaik)"
       }
     }
   },

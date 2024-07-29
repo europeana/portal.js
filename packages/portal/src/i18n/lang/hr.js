@@ -845,8 +845,8 @@ export default {
         "title": "Obavijest o novoj značajki"
       },
       "searchResultsView": {
-        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
+        "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
       }
     }
   },

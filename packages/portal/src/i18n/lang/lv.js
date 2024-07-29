@@ -844,8 +844,8 @@ export default {
         "title": "Jaunas funkcijas paziņojums"
       },
       "searchResultsView": {
-        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
+        "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       }
     }
   },

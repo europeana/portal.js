@@ -845,8 +845,8 @@ export default {
         "title": "Meddelelse om ny funktion"
       },
       "searchResultsView": {
-        "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
+        "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
       }
     }
   },

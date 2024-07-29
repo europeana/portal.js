@@ -844,8 +844,8 @@ export default {
         "title": "Obvestilo o novi funkciji"
       },
       "searchResultsView": {
-        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "description": "Zapomni si, ali si raje ogledate rezultate iskanja, galerije in vaše všečke v obliki seznama, mreže ali mozaičnega pogleda.",
+        "title": "Rezultat iskanja, galerije in pogled všečkov (seznam/mreža/mozaik)"
       }
     }
   },

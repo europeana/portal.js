@@ -845,8 +845,8 @@ export default {
         "title": "Notification des nouvelles fonctionnalités"
       },
       "searchResultsView": {
-        "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "description": "Se souvient si vous préférez voir les résultats de la recherche, les galeries et vos j'aime sous forme de liste, de grille ou de mosaïque.",
+        "title": "Résultat de recherche, galeries et vues J’aime (liste/grille/mosaïque)"
       }
     }
   },

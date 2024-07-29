@@ -845,8 +845,8 @@ export default {
         "title": "Oznámení o nové funkci"
       },
       "searchResultsView": {
-        "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
+        "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
       }
     }
   },

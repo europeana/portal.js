@@ -845,8 +845,8 @@ export default {
         "title": "Melding van nieuwe functie"
       },
       "searchResultsView": {
-        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
       }
     }
   },

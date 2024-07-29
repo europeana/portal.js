@@ -844,8 +844,8 @@ export default {
         "title": "Notificação de novas funcionalidades"
       },
       "searchResultsView": {
-        "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "description": "Lembra-se se prefere ver os resultados da pesquisa, as galerias e os seus gostos numa vista de lista, grelha ou mosaico.",
+        "title": "Resultado da pesquisa, galerias e visualização de gostos (lista/grelha/mosaico)"
       }
     }
   },
