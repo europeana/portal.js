@@ -7,7 +7,6 @@
         :filtered-tags="filteredTags"
         :selected-tags="selectedTags"
         data-qa="stories tags dropdown"
-        @escapeDropdown="setFocusToTypeFilter"
       />
     </client-only>
     <div
