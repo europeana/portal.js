@@ -159,11 +159,8 @@
     }
   }
 
-  ::v-deep h2.card-group-title {
-    text-align: left;
-  }
-
   .home-page-card-group ::v-deep {
+    text-align: left;
 
     @media (min-width: $bp-wqhd) {
       width: fit-content;
@@ -200,6 +197,8 @@
       @media (min-width: $bp-4k) {
         margin-top: calc( 1.5 * 2.25rem);
         margin-bottom: calc( 1.5 * 2.25rem);
+        margin-left: -#{$grid-gutter-4k};
+        margin-right: -#{$grid-gutter-4k};
       }
 
       .content-card.card {
@@ -211,6 +210,18 @@
 
         @media (min-width: $bp-large) {
           margin-bottom: 0;
+        }
+      }
+    }
+
+    .row {
+      @media (min-width: $bp-4k) {
+        margin-left: 0;
+        margin-right: 0;
+
+        .col-12 {
+          padding-left: #{$grid-gutter-4k};
+          padding-right: #{$grid-gutter-4k};
         }
       }
     }
