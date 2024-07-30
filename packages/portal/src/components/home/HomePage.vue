@@ -155,7 +155,7 @@
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
-      margin-bottom: calc( 1.5 * 2.25rem);
+      margin-bottom: 4.5rem;
     }
   }
 
@@ -191,7 +191,7 @@
     .card-deck {
       flex-flow: row wrap;
       justify-content: center;
-      margin-top: 2.25rem;
+      margin-top: 1.5rem;
       margin-bottom: 2.25rem;
 
       @media (min-width: $bp-4k) {
@@ -199,6 +199,22 @@
         margin-bottom: calc( 1.5 * 2.25rem);
         margin-left: -#{$grid-gutter-4k};
         margin-right: -#{$grid-gutter-4k};
+      }
+
+      &::before {
+        content: '';
+        display: inline-block;
+        height: 2px;
+        background-color: $bodygrey;
+        margin-bottom: 2.25rem;
+        flex: 0 0 calc(100% - (2 * #{$grid-gutter}));
+        width: 100%;
+
+        @media (min-width: $bp-4k) {
+          height: 4px;
+          flex: 0 0 calc(100% - (2 * #{$grid-gutter-4k}));
+          margin-bottom: 4.5rem;
+        }
       }
 
       .content-card.card {
@@ -236,6 +252,29 @@
 
     h2.card-group-title {
       text-align: center;
+    }
+  }
+
+  ::v-deep .stacked-cards-wrapper h2.heading,
+  ::v-deep .trending-items h2.card-group-title {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      height: 2px;
+      background-color: $bodygrey;
+      margin-top: 1.5rem;
+      width: calc(100% + 3rem);
+      max-width: calc(100vw - 30px);
+
+      @media (min-width: $bp-4k) {
+        height: 4px;
+        width: calc(100% + 5rem);
+        margin-top: 3rem;
+      }
     }
   }
 </style>

@@ -208,7 +208,7 @@
   .swiper-container {
     width: 100%;
     padding: 0;
-    margin-top: 2.25rem;
+    margin-top: 1.5rem;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
