@@ -790,7 +790,7 @@ export default {
       "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Share your data",
+      "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
