@@ -173,6 +173,7 @@
         this.swiper && this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       setSwiperComponentClasses(event) {
+        // 9 = TAB, 37 = Arrow Left, 39 = Arrow Right
         const keyboardNavigationKeyCodes = [9, 37, 39];
         const activeKeyboardNavigation = keyboardNavigationKeyCodes.includes(event.keyCode);
 
@@ -220,7 +221,6 @@
     padding: 0 0.5rem;
     font-size: $font-size-medium;
     font-weight: 500;
-    pointer-events: none;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-medium-4k;
@@ -234,6 +234,7 @@
 
     &::after {
       content: '';
+      pointer-events: none;
       position: absolute;
       left: 0;
       top: 0;
