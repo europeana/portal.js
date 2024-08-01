@@ -227,6 +227,11 @@
       padding: 0 0.75rem;
     }
 
+    &:hover {
+      background-color: $blue;
+      cursor: grab;
+    }
+
     &:focus {
       outline: none;
       box-shadow: none;
@@ -245,7 +250,14 @@
   }
 
   .swiper-slide-active .slide-link {
-    pointer-events: auto;
+    &:hover {
+      background-color: $innovationblue-dark;
+      cursor: pointer;
+    }
+
+    &::after {
+      pointer-events: auto;
+    }
   }
 
   .swiper-container {
