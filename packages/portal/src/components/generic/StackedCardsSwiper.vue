@@ -56,13 +56,6 @@
         </div>
       </div>
     </div>
-    <b-button
-      v-if="cta"
-      variant="outline-secondary"
-      :to="cta.url"
-    >
-      {{ cta.text }}
-    </b-button>
   </div>
 </template>
 
@@ -88,10 +81,6 @@
     props: {
       title: {
         type: String,
-        default: null
-      },
-      cta: {
-        type: Object,
         default: null
       },
       /**
@@ -219,7 +208,7 @@
   .swiper-container {
     width: 100%;
     padding: 0;
-    margin-top: 2.25rem;
+    margin-top: 1.5rem;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {

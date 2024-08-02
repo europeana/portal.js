@@ -25,15 +25,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  ::v-deep {
-    .col-12 {
-      margin-right: auto;
-      margin-left: auto;
-    }
-  }
-
-</style>
