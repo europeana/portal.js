@@ -749,7 +749,7 @@ export default {
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Etusivu",
-      "shareYourData": "Jaa tietosi",
+      "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
@@ -766,7 +766,6 @@ export default {
     "discoverEditorial": "Uusimmat tarinat",
     "storiesCTA": "Katso kaikki tarinat",
     "subHeadline": "Hae, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansilta kulttuuriorganisaatioilta",
-    "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
     "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
     "titleDigital": "digitaaliseen"

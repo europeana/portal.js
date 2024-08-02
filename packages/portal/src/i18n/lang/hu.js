@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "shareYourData": "Ossza meg az adatait",
+      "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Legújabb történetek",
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
-    "themesCTA": "Minden téma megtekintése",
     "themesTitle": "Tematika szerint fedezze fel",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"

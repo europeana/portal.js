@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",
       "home": "Baile",
-      "shareYourData": "Comhroinn do shonraí",
+      "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Na scéalta is déanaí",
     "storiesCTA": "Féach gach scéal",
     "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
-    "themesCTA": "Féach ar na téamaí go léir",
     "themesTitle": "Déan iniúchadh de réir téama",
     "title": "Cuir eolas ar oidhreacht chultúrtha {digital} na hEorpa",
     "titleDigital": "dhigiteach"

@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "För lärare",
       "help": "Hjälp",
       "home": "Hem",
-      "shareYourData": "Dela dina data",
+      "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
-    "themesCTA": "Se alla teman",
     "themesTitle": "Utforska efter tema",
     "title": "Upptäck Europas {digital} kulturarv",
     "titleDigital": "digitala"
