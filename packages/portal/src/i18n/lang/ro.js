@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "help": "Help",
       "home": "Pagină natală",
-      "shareYourData": "Contribuiți datele voastre",
+      "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Ultimele narațiuni",
     "storiesCTA": "Vezi toate narațiuni",
     "subHeadline": "Căutați, preluați și partajați artă, cărți, filme și muzică provenind din mii de instituții culturale.",
-    "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
     "titleDigital": "digital"

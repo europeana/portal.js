@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "shareYourData": "Aqsam id-data tiegħek",
+      "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "L-aħħar stejjer",
     "storiesCTA": "Ara l-istejjer kollha",
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
-    "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
     "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
     "titleDigital": "diġitali"

@@ -749,7 +749,7 @@ export default {
       "europeanaClassroom": "Pro učitele",
       "help": "Pomoc",
       "home": "Domů",
-      "shareYourData": "Sdílejte svá data",
+      "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -766,7 +766,6 @@ export default {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
-    "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte {digital} kulturní dědictví Evropy",
     "titleDigital": "digitální"

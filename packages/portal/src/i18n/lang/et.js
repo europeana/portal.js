@@ -749,7 +749,7 @@ export default {
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "shareYourData": "Jaga oma andmeid",
+      "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -766,7 +766,6 @@ export default {
     "discoverEditorial": "Viimased lood",
     "storiesCTA": "Vaata kõiki lugusid",
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
-    "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
     "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
     "titleDigital": "digitaalsel"

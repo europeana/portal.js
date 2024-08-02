@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Pradžia",
-      "shareYourData": "Dalinkitės savo duomenimis",
+      "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Naujausios istorijos",
     "storiesCTA": "Žiūrėti visas istorijas",
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
-    "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
     "title": "Atraskite {digital} Europos kultūros paveldą",
     "titleDigital": "skaitmenintą"

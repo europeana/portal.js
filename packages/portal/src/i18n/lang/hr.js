@@ -749,7 +749,7 @@ export default {
       "europeanaClassroom": "Za nastavnike",
       "help": "Pomoć",
       "home": "Početna",
-      "shareYourData": "Podijelite svoje podatke",
+      "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -766,7 +766,6 @@ export default {
     "discoverEditorial": "Najnovije priče",
     "storiesCTA": "Pogledajte sve priče",
     "subHeadline": "Pretražite, spremite i podijelite, umjetnine, knjige, filmove i muziku iz mnogobrojnih kulturnih ustanova",
-    "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
     "title": "Otkrijte europsku {digital} kulturnu baštinu",
     "titleDigital": "digitalnu"

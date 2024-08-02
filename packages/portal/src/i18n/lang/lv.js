@@ -748,7 +748,7 @@ export default {
       "europeanaClassroom": "Pedagogiem",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "shareYourData": "Kopīgot savus datus",
+      "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -765,7 +765,6 @@ export default {
     "discoverEditorial": "Jaunākie stāsti",
     "storiesCTA": "Skatīt visus stāstus",
     "subHeadline": "Meklējiet, saglabājiet un dalieties ar mākslu, grāmatām, filmām un mūziku no tūkstošiem kultūras iestāžu krājumiem",
-    "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"

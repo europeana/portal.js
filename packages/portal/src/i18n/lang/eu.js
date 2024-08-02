@@ -754,7 +754,7 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "shareYourData": "Zure datuak partekatu",
+      "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -771,7 +771,6 @@ export default {
     "discoverEditorial": "Azken istorioak",
     "storiesCTA": "Ikusi istorio guztiak",
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
-    "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
     "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"

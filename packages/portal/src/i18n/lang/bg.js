@@ -754,7 +754,7 @@ export default {
       "europeanaClassroom": "За учители",
       "help": "Помощ",
       "home": "Начало",
-      "shareYourData": "Споделете вашите данни",
+      "shareYourCollections": "Споделете вашите колекции",
       "stories": "Истории"
     },
     "quickSearch": "Бързо търсене",
@@ -771,7 +771,6 @@ export default {
     "discoverEditorial": "Последни истории",
     "storiesCTA": "Вижте всички истории",
     "subHeadline": "Търсете, запазвайте и споделяйте изкуство, книги, филми и музика от хиляди културни институции",
-    "themesCTA": "Вижте всички теми",
     "themesTitle": "Разгледайте по тема",
     "title": "Открийте {digital} културно наследство на Европа",
     "titleDigital": "дигиталното"

@@ -749,7 +749,7 @@ export default {
       "europeanaClassroom": "Für Lehrende",
       "help": "Hilfe",
       "home": "Startseite",
-      "shareYourData": "Teilen Sie Ihre Daten",
+      "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -766,7 +766,6 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
     "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
