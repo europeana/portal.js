@@ -58,7 +58,7 @@ describe('IndexPage', () => {
       });
 
       describe('when landing page configured to act as home page', () => {
-        const slug = 'share-your-data';
+        const slug = 'share-your-collections';
         const $config = { app: { homeLandingPageSlug: slug } };
 
         it('fetches the content from Contentful', async() => {
@@ -78,8 +78,8 @@ describe('IndexPage', () => {
     });
 
     describe('landing pages', () => {
-      const slug = 'share-your-data';
-      const page = { name: 'Share your data' };
+      const slug = 'share-your-collections';
+      const page = { name: 'Share your collections' };
       const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
       const $route = { params: { pathMatch: slug }, query: {} };
 
