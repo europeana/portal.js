@@ -24,6 +24,7 @@
           :key="i"
           :index="i"
           class="swiper-slide text-center"
+          :class="swiper && `swiper-slide-active-offset-${Math.abs(swiper.activeIndex - i)}`"
           @click="handleSlideClick(i)"
         >
           <ImageOptimised
@@ -115,7 +116,22 @@
               spaceBetween: -150
             },
             576: {
-              spaceBetween: -100
+              spaceBetween: -140
+            },
+            768: {
+              spaceBetween: -125
+            },
+            992: {
+              spaceBetween: -107
+            },
+            1200: {
+              spaceBetween: -122
+            },
+            1400: {
+              spaceBetween: -147
+            },
+            1526: {
+              spaceBetween: -95
             }
           },
           coverflowEffect: {
@@ -289,12 +305,9 @@
     overflow: visible;
     border-radius: $border-radius-small;
     opacity: 0;
+    pointer-events: none;
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
-
-    @media (min-width: $bp-small) {
-      width: 260px;
-    }
 
     @media (min-width: $bp-medium) {
       width: 280px;
@@ -333,8 +346,81 @@
       transition: opacity 900ms ease-out, transform 400ms ease-out;
     }
 
-    &.swiper-slide-visible {
+    &.swiper-slide-active-offset-0,
+    &.swiper-slide-active-offset-1 {
       opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 461px) {
+      &.swiper-slide-active-offset-2 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 532px) {
+      &.swiper-slide-active-offset-3 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      &.swiper-slide-active-offset-4 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-extralarge) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-xxl) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    @media (min-width: 1666px) {
+      &.swiper-slide-active-offset-6 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-xxxl) {
+      &.swiper-slide-active-offset-5,
+      &.swiper-slide-active-offset-6 {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    @media (min-width: 1905px) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 2024px) {
+      &.swiper-slide-active-offset-6 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 2126px) {
+      &.swiper-slide-active-offset-7 {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
 
     h3 {
