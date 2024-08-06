@@ -52,7 +52,7 @@ export default {
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
-    "like": "Oblíbené",
+    "like": "Líbí se mi",
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
+    "unlike": "Nelíbí se mi",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Pro učitele",
       "help": "Pomoc",
       "home": "Domů",
-      "shareYourData": "Sdílejte svá data",
+      "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
-    "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte {digital} kulturní dědictví Evropy",
     "titleDigital": "digitální"
@@ -844,8 +844,8 @@ export default {
         "title": "Oznámení o nové funkci"
       },
       "searchResultsView": {
-        "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
+        "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
       }
     }
   },
@@ -1105,7 +1105,7 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svých lajků.",
+      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },
@@ -1129,7 +1129,7 @@ export default {
       "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
-        "title": "100 oblíbených"
+        "title": "100 lajků"
       },
       "updated": "Položka byla přidána do galerie.",
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."

@@ -52,7 +52,7 @@ export default {
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw data",
+      "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Laatste verhalen",
     "storiesCTA": "Bekijk alle verhalen",
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
-    "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
     "title": "Ontdek het {digital} culturele erfgoed van Europa",
     "titleDigital": "digitale"
@@ -844,8 +844,8 @@ export default {
         "title": "Melding van nieuwe functie"
       },
       "searchResultsView": {
-        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
       }
     }
   },

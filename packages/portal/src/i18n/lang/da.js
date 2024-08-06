@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
     "editProfile": "Rediger profil",
-    "likes": "Synes om'er",
+    "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har ikke syntes om nogen genstande endnu"
     },
     "privateCollections": "Private gallerier",
-    "profile": "Mine synes om'er og gallerier",
+    "profile": "Mine likes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
-    "like": "Synes om",
+    "like": "Like",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
+    "unlike": "Fjern like",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Til lærere",
       "help": "Hjælp",
       "home": "Hjem",
-      "shareYourData": "Del dine data",
+      "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Seneste historier",
     "storiesCTA": "Se alle historier",
     "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
-    "themesCTA": "Se alle temaer",
     "themesTitle": "Udforsk efter tema",
     "title": "Opdag Europas {digital} kulturarv",
     "titleDigital": "digitale"
@@ -844,8 +844,8 @@ export default {
         "title": "Meddelelse om ny funktion"
       },
       "searchResultsView": {
-        "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
+        "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
       }
     }
   },
@@ -1129,7 +1129,7 @@ export default {
       "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
-        "title": "100 synes om'er"
+        "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
@@ -1171,7 +1171,7 @@ export default {
     "search": "Søg"
   },
   "statuses": {
-    "liked": "Kunne lide",
+    "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },

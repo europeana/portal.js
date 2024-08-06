@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
+    "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
-      "shareYourData": "Delite vaše podatke",
+      "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Najnovejše zgodbe",
     "storiesCTA": "Oglejte si vse zgodbe",
     "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
-    "themesCTA": "Oglejte si vse teme",
     "themesTitle": "Raziščite po temi",
     "title": "Odkrijte evropsko {digital} kulturno dediščino",
     "titleDigital": "digitalno"
@@ -843,8 +843,8 @@ export default {
         "title": "Obvestilo o novi funkciji"
       },
       "searchResultsView": {
-        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "description": "Zapomni si, ali si raje ogledate rezultate iskanja, galerije in vaše všečke v obliki seznama, mreže ali mozaičnega pogleda.",
+        "title": "Rezultat iskanja, galerije in pogled všečkov (seznam/mreža/mozaik)"
       }
     }
   },
@@ -1169,7 +1169,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
-    "liked": "Všeč",
+    "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
   },

@@ -267,6 +267,8 @@
     height: calc($slide-height + (2 * 2.25rem));
     width: 100%;
     padding: 0;
+    margin-top: 1.5rem;
+    margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
       height: calc($slide-height-4k + (3 * 2.25rem));

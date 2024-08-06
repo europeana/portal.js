@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "transcribe": "Transkribieren",
     "transcribeNow": "Jetzt transkribieren",
+    "unlike": "Unlike",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Für Lehrende",
       "help": "Hilfe",
       "home": "Startseite",
-      "shareYourData": "Teilen Sie Ihre Daten",
+      "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
     "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
@@ -844,8 +844,8 @@ export default {
         "title": "Benachrichtigung über neue Funktionen"
       },
       "searchResultsView": {
-        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "description": "Merkt sich, ob Sie die Suchergebnisse, Galerien und Ihre Likes lieber in einer Listen-, Raster- oder Mosaikansicht sehen möchten.",
+        "title": "Ansicht von Suchergebnis, Galerien und Likes (Liste/Raster/Mosaik)"
       }
     }
   },

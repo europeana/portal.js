@@ -31,10 +31,17 @@ export function oEmbeddable(url) {
   return providerForUrl(url) !== null;
 }
 
-export function oEmbedForEndpoint(endpoint, url) {
-  return axios.get(endpoint, {
-    params: { url, format: 'json' }
-  });
+export async function oEmbedForEndpoint(endpoint, url) {
+  let response = null;
+  try {
+    response = await axios.get(endpoint, {
+      params: { url, format: 'json' }
+    });
+  } catch (e) {
+    // handle network etc errors quietly, letting the caller infer a problem
+    // based on null return value
+  }
+  return response;
 }
 
 export default function oEmbed(url, endpoint) {

@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Strona główna",
-      "shareYourData": "Udostępnij swoje dane",
+      "shareYourCollections": "Udostępnij swoje kolekcje",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Najnowsze historie",
     "storiesCTA": "Zobacz wszystkie historie",
     "subHeadline": "Wyszukaj, zapisz i udostępnij dzieła sztuki, książki, filmy oraz muzykę pochodzącą z tysięcy instytucji dziedzictwa kulturowego",
-    "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
     "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
     "titleDigital": "cyfrowe"
@@ -843,8 +843,8 @@ export default {
         "title": "Powiadomienie o nowej funkcji"
       },
       "searchResultsView": {
-        "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "description": "Zapamiętuje, czy wolisz wyświetlać wyniki wyszukiwania, galerie i Twoje polubienia w formie listy, siatki czy mozaiki.",
+        "title": "Wyniki wyszukiwania, galerie i widok polubień (lista/siatka/mozaika)"
       }
     }
   },

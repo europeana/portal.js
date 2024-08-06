@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
+    "unlike": "Tneħħi l-like",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "shareYourData": "Aqsam id-data tiegħek",
+      "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "L-aħħar stejjer",
     "storiesCTA": "Ara l-istejjer kollha",
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
-    "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
     "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
     "titleDigital": "diġitali"
@@ -843,8 +843,8 @@ export default {
         "title": "Notifika ta' karatteristika ġdida"
       },
       "searchResultsView": {
-        "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
+        "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       }
     }
   },

@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kurirane zbirke",
     "editProfile": "Uredi profil",
-    "likes": "Sviđanja",
+    "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
@@ -17,10 +17,10 @@ export default {
         "public": "Još niste stvorili javne galerije",
         "published": "Još niste objavili galerije"
       },
-      "noLikedItems": "Niste još ni za jednu predmeti označili da vam se sviđa"
+      "noLikedItems": "Niste još ni za jedan predmet lajkali"
     },
     "privateCollections": "Privatne galerije",
-    "profile": "Moja sviđanja i galerije",
+    "profile": "Moji lajkovi i galerije",
     "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
     "learnMore": "Uči više",
-    "like": "Sviđanje",
+    "like": "Lajk",
     "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Predano za objavu",
     "transcribe": "Prepisati",
     "transcribeNow": "Prepišite sada",
+    "unlike": "Ukloni lajk",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Za nastavnike",
       "help": "Pomoć",
       "home": "Početna",
-      "shareYourData": "Podijelite svoje podatke",
+      "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Najnovije priče",
     "storiesCTA": "Pogledajte sve priče",
     "subHeadline": "Pretražite, spremite i podijelite, umjetnine, knjige, filmove i muziku iz mnogobrojnih kulturnih ustanova",
-    "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
     "title": "Otkrijte europsku {digital} kulturnu baštinu",
     "titleDigital": "digitalnu"
@@ -781,7 +781,7 @@ export default {
     "trending": {
       "headline": "Istražite današnje popularne predmete"
     },
-    "youMightLike": "Predmeti koje vam se mogu sviđati"
+    "youMightLike": "Predmeti koje vam se mogu lajkati"
   },
   "klaro": {
     "main": {
@@ -844,8 +844,8 @@ export default {
         "title": "Obavijest o novoj značajki"
       },
       "searchResultsView": {
-        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
+        "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
       }
     }
   },
@@ -902,7 +902,7 @@ export default {
     "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
-    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateLanguage": "Želite li vidjeti ovu predmet u {0} ?",
     "translateMetadata": "Prevedite metapodatke ove predmet.",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
@@ -1105,7 +1105,7 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovu predmet iz svojih lajkova.",
+      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
@@ -1124,12 +1124,12 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše oznake sviđanja.",
+      "itemLiked": "Predmet je spremljen u vaše lajkove.",
       "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših oznaka sviđanja.",
+      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
-        "title": "100 sviđanja"
+        "title": "100 lajkova"
       },
       "updated": "Predmet je dodan u galeriju.",
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
@@ -1171,7 +1171,7 @@ export default {
     "search": "traži"
   },
   "statuses": {
-    "liked": "Volio",
+    "liked": "Lajkano",
     "pinned": "Prikvačeno",
     "required": "Potreban"
   },

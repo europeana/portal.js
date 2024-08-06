@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterade samlingar",
     "editProfile": "Redigera profil",
-    "likes": "Likes",
+    "likes": "Gilla-markeringar",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
     "linkLoginJoin": "Logga in / Gå med",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har inte gillat några objekt ännu"
     },
     "privateCollections": "Privata gallerier",
-    "profile": "Mina likes & gallerier",
+    "profile": "Mina gilla-markeringar & gallerier",
     "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
+    "unlike": "Ogilla",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "För lärare",
       "help": "Hjälp",
       "home": "Hem",
-      "shareYourData": "Dela dina data",
+      "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
-    "themesCTA": "Se alla teman",
     "themesTitle": "Utforska efter tema",
     "title": "Upptäck Europas {digital} kulturarv",
     "titleDigital": "digitala"
@@ -843,8 +843,8 @@ export default {
         "title": "Ny funktionsavisering"
       },
       "searchResultsView": {
-        "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "description": "Kommer ihåg om du föredrar att se sökresultat, gallerier och dina gilla-markeringar i en lista, rutnät eller mosaikvy.",
+        "title": "Sökresultat, gallerier och gilla markeringar (lista/rutnät/mosaik)"
       }
     }
   },
@@ -1127,7 +1127,7 @@ export default {
       "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
-        "title": "100 likes"
+        "title": "100 gilla-markeringar"
       },
       "updated": "Objektet lades till i galleriet.",
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."

@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
     "editProfile": "Upraviť profil",
-    "likes": "Označenia Páči sa mi",
+    "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
-    "like": "Označenie Páči sa mi",
+    "like": "Páči sa mi",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
+    "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
-      "shareYourData": "Zdieľajte svoje dáta",
+      "shareYourCollections": "Zdieľajte svoje zbierky",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Najnovšie príbehy",
     "storiesCTA": "Zobraziť všetky príbehy",
     "subHeadline": "Hľadaj, sťahuj a zdieľaj umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
-    "themesCTA": "Zobraziť všetky kategórie",
     "themesTitle": "Preskúmajte podľa kategórie",
     "title": "Objavuj {digital} európske kultúrne dedičstvo",
     "titleDigital": "digitalizované"
@@ -843,8 +843,8 @@ export default {
         "title": "Oznámenie o novej funkcii"
       },
       "searchResultsView": {
-        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "description": "Pamätá si, či chcete vidieť výsledky vyhľadávania, galérie a vaše hodnotenia, ktoré sa vám páčia, v zobrazení zoznamu, mriežky alebo mozaiky.",
+        "title": "Zobrazenie výsledkov vyhľadávania, galérií a hodnotení Páči sa mi (zoznam/mriežka/mozaika)"
       }
     }
   },
@@ -1127,7 +1127,7 @@ export default {
       "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
-        "title": "100 označení Páči sa mi"
+        "title": "100 páči sa mi"
       },
       "updated": "Objekt bola pridaná do galérie.",
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
@@ -1169,7 +1169,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "liked": "Obľúbené",
+    "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
   },

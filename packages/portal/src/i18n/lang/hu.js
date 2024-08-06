@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Még nem kedveltél meg egyetlen tárgyat sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és Galériák",
+    "profile": "Kedvelések és Galériák",
     "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
     "transcribeNow": "Átírás most",
+    "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "shareYourData": "Ossza meg az adatait",
+      "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Legújabb történetek",
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
-    "themesCTA": "Minden téma megtekintése",
     "themesTitle": "Tematika szerint fedezze fel",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
@@ -843,8 +843,8 @@ export default {
         "title": "Új funkció értesítése"
       },
       "searchResultsView": {
-        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
+        "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
       }
     }
   },
@@ -1104,7 +1104,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt az tárgyat a tetszésnyilvánítás közül.",
+      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
@@ -1170,7 +1170,7 @@ export default {
     "search": "Keresés"
   },
   "statuses": {
-    "liked": "Tetszett",
+    "liked": "Kedvelt",
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },

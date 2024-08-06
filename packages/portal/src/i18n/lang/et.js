@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "shareYourData": "Jaga oma andmeid",
+      "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Viimased lood",
     "storiesCTA": "Vaata kõiki lugusid",
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
-    "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
     "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
     "titleDigital": "digitaalsel"
@@ -844,8 +844,8 @@ export default {
         "title": "Uus funktsiooniteatis"
       },
       "searchResultsView": {
-        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
       }
     }
   },

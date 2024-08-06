@@ -112,7 +112,7 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: '/share-your-data', text: this.$t('header.navigation.shareYourData') }
+          { url: '/share-your-collections', text: this.$t('header.navigation.shareYourCollections') }
         ];
       },
       sidebarNavigation() {
@@ -157,7 +157,7 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('/share-your-data'):
+        case ('/share-your-collections'):
           className = 'icon-institution';
           break;
         default:

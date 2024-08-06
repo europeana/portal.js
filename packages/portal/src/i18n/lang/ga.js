@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Bailiúcháin Coimeádaithe",
     "editProfile": "Cuir do phróifíl in eagar",
-    "likes": "Toghanna",
+    "likes": "Taitníonn",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Arna chur isteach le foilsiú",
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
+    "unlike": "Ní maith liom",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",
       "home": "Baile",
-      "shareYourData": "Comhroinn do shonraí",
+      "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Na scéalta is déanaí",
     "storiesCTA": "Féach gach scéal",
     "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
-    "themesCTA": "Féach ar na téamaí go léir",
     "themesTitle": "Déan iniúchadh de réir téama",
     "title": "Cuir eolas ar oidhreacht chultúrtha {digital} na hEorpa",
     "titleDigital": "dhigiteach"
@@ -843,8 +843,8 @@ export default {
         "title": "Fógra gné nua"
       },
       "searchResultsView": {
-        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "description": "Cuimhnigh más fearr leat na torthaí cuardaigh, dánlanna agus do leithéidí a fheiceáil i liosta, greille nó mósáic amharc.",
+        "title": "Toradh cuardaigh, gailearaithe agus radharc na rudaí is maith liom (liosta/greille/mósáic)"
       }
     }
   },
@@ -1127,7 +1127,7 @@ export default {
       "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
-        "title": "100 Is maith liom"
+        "title": "100 taitníonn"
       },
       "updated": "Cuireadh an mhír leis an ngailearaí.",
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
@@ -1169,7 +1169,7 @@ export default {
     "search": "Cuardaigh"
   },
   "statuses": {
-    "liked": "Thaitin sé",
+    "liked": "Taitníodh",
     "pinned": "Pionnáilte",
     "required": "Riachtanach"
   },

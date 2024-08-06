@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Etusivu",
-      "shareYourData": "Jaa tietosi",
+      "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Uusimmat tarinat",
     "storiesCTA": "Katso kaikki tarinat",
     "subHeadline": "Hae, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansilta kulttuuriorganisaatioilta",
-    "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
     "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
     "titleDigital": "digitaaliseen"
@@ -844,8 +844,8 @@ export default {
         "title": "Uuden ominaisuuden ilmoitus"
       },
       "searchResultsView": {
-        "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
+        "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
       }
     }
   },

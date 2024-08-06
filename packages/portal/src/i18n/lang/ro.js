@@ -52,7 +52,7 @@ export default {
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
-    "like": "Apreciere",
+    "like": "Îmi place",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
+    "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "help": "Help",
       "home": "Pagină natală",
-      "shareYourData": "Contribuiți datele voastre",
+      "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Ultimele narațiuni",
     "storiesCTA": "Vezi toate narațiuni",
     "subHeadline": "Căutați, preluați și partajați artă, cărți, filme și muzică provenind din mii de instituții culturale.",
-    "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
     "titleDigital": "digital"
@@ -843,8 +843,8 @@ export default {
         "title": "Notificare pentru funcții noi"
       },
       "searchResultsView": {
-        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
+        "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       }
     }
   },

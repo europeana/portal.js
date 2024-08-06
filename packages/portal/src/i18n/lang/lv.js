@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Pedagogiem",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "shareYourData": "Kopīgot savus datus",
+      "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Jaunākie stāsti",
     "storiesCTA": "Skatīt visus stāstus",
     "subHeadline": "Meklējiet, saglabājiet un dalieties ar mākslu, grāmatām, filmām un mūziku no tūkstošiem kultūras iestāžu krājumiem",
-    "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
@@ -843,8 +843,8 @@ export default {
         "title": "Jaunas funkcijas paziņojums"
       },
       "searchResultsView": {
-        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
+        "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       }
     }
   },

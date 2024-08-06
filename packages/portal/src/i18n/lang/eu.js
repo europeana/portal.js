@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -753,7 +754,7 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "shareYourData": "Zure datuak partekatu",
+      "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -770,7 +771,6 @@ export default {
     "discoverEditorial": "Azken istorioak",
     "storiesCTA": "Ikusi istorio guztiak",
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
-    "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
     "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
@@ -849,8 +849,8 @@ export default {
         "title": "Ezaugarri berrien jakinarazpena"
       },
       "searchResultsView": {
-        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
       }
     }
   },

@@ -73,6 +73,7 @@ export default {
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
+    "unlike": "Unlike",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -788,7 +789,7 @@ export default {
       "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Share your data",
+      "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -805,7 +806,6 @@ export default {
     "discoverEditorial": "Latest stories",
     "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
     "title": "Discover Europe’s {digital} cultural heritage",
     "titleDigital": "digital"
@@ -884,8 +884,8 @@ export default {
         "title": "New feature notification"
       },
       "searchResultsView": {
-        "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
+        "title": "Search result, galleries and likes view (list/grid/mosaic)"
       }
     }
   },

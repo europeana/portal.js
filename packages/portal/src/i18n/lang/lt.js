@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
+    "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Pradžia",
-      "shareYourData": "Dalinkitės savo duomenimis",
+      "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Naujausios istorijos",
     "storiesCTA": "Žiūrėti visas istorijas",
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
-    "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
     "title": "Atraskite {digital} Europos kultūros paveldą",
     "titleDigital": "skaitmenintą"
@@ -843,8 +843,8 @@ export default {
         "title": "Pranešimas apie naują funkciją"
       },
       "searchResultsView": {
-        "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
+        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
       }
     }
   },

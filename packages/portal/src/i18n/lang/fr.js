@@ -52,7 +52,7 @@ export default {
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
     "learnMore": "Apprendre encore plus",
-    "like": "Mention J'aime",
+    "like": "J'aime",
     "login": "Connexion",
     "move": "Déplacer",
     "next": "Suivant",
@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
     "transcribeNow": "Transcrivez maintenant",
+    "unlike": "Retirer le 'j'aime",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -748,7 +749,7 @@ export default {
       "europeanaClassroom": "Pour les enseignants",
       "help": "Aide",
       "home": "Accueil",
-      "shareYourData": "Partagez vos données",
+      "shareYourCollections": "Partagez vos collections",
       "stories": "Histoires"
     },
     "quickSearch": "Recherche rapide",
@@ -765,7 +766,6 @@ export default {
     "discoverEditorial": "Dernières histoires",
     "storiesCTA": "Voir toutes les histoires",
     "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
-    "themesCTA": "Voir tous les thèmes",
     "themesTitle": "Explorez par thème",
     "title": "Découvrez le patrimoine culturel {digital} européen",
     "titleDigital": "numérique"
@@ -844,8 +844,8 @@ export default {
         "title": "Notification des nouvelles fonctionnalités"
       },
       "searchResultsView": {
-        "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "description": "Se souvient si vous préférez voir les résultats de la recherche, les galeries et vos j'aime sous forme de liste, de grille ou de mosaïque.",
+        "title": "Résultat de recherche, galeries et vues J’aime (liste/grille/mosaïque)"
       }
     }
   },

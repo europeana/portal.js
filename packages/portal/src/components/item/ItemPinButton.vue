@@ -6,7 +6,7 @@
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
-      :aria-label="$t('entity.actions.pin')"
+      :aria-label="pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin')"
       @click="pinAction"
     >
       <span :class="pinned ? 'icon-pin' : 'icon-pin-outlined'" />

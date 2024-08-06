@@ -74,6 +74,7 @@ export default {
     "submittedForPublication": "Enviado para publicação",
     "transcribe": "Transcrever",
     "transcribeNow": "Transcreva agora",
+    "unlike": "Não gosto",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -747,7 +748,7 @@ export default {
       "europeanaClassroom": "Para professores",
       "help": "Ajuda",
       "home": "Início",
-      "shareYourData": "Partilhe os seus dados",
+      "shareYourCollections": "Partilhe as suas coleções",
       "stories": "Histórias"
     },
     "quickSearch": "Pesquisa rápida",
@@ -764,7 +765,6 @@ export default {
     "discoverEditorial": "Últimas histórias",
     "storiesCTA": "Veja todas as histórias",
     "subHeadline": "Pesquisa, guarda e partilha arte, livros, filmes e música provenientes de milhares de instituições culturais",
-    "themesCTA": "Ver todos os temas",
     "themesTitle": "Explorar por tema",
     "title": "À descoberta do património cultural {digital} da Europa",
     "titleDigital": "digital"
@@ -843,8 +843,8 @@ export default {
         "title": "Notificação de novas funcionalidades"
       },
       "searchResultsView": {
-        "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "description": "Lembra-se se prefere ver os resultados da pesquisa, as galerias e os seus gostos numa vista de lista, grelha ou mosaico.",
+        "title": "Resultado da pesquisa, galerias e visualização de gostos (lista/grelha/mosaico)"
       }
     }
   },
