@@ -24,7 +24,10 @@
           :key="i"
           :index="i"
           class="swiper-slide text-center"
-          :class="swiper && `swiper-slide-active-offset-${Math.abs(swiper.activeIndex - i)}`"
+          :class="{
+            [`swiper-slide-active-offset-${swiper && Math.abs(swiper.activeIndex - i)}`]: !!swiper,
+            'swiper-slide-active': swiper && swiper.activeIndex === i
+          }"
           @click="handleSlideClick(i)"
         >
           <ImageOptimised
