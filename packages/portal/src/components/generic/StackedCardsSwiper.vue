@@ -391,7 +391,7 @@
     }
 
     @media (min-width: 1666px) {
-      &.swiper-slide-active-offset-6 {
+      &.swiper-slide-active-offset-5 {
         opacity: 1;
         pointer-events: auto;
       }
