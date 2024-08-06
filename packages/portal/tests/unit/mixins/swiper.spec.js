@@ -13,6 +13,9 @@ const factory = () => shallowMount(component, {
   localVue,
   data() {
     return { swiperReady: null };
+  },
+  mocks: {
+    $t: key => key
   }
 });
 

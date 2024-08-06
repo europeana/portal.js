@@ -12,18 +12,19 @@ const swiperSlides = [{
   title: 'World War I',
   description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
   url: '/en/collections/topic/83-world-war-i',
-  image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
+  image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214', width: 100, height: 100 }
 },
 {
   title: 'Archaeology',
   description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
   url: '/en/collections/topic/80-archaeology',
-  image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6g2HPP0JVfFh29Vx5nHPhO/fc1c1f817ef32fc9639013487759b45b/_15512_o_59888' }
+  image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6g2HPP0JVfFh29Vx5nHPhO/fc1c1f817ef32fc9639013487759b45b/_15512_o_59888', width: 100, height: 100 }
 },
 {
   title: 'Art',
   description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
-  url: '/en/collections/topic/190-art'
+  url: '/en/collections/topic/190-art',
+  image: { url: 'https://images.example.eu/01.jpeg', width: 100, height: 100 }
 }];
 
 const factory = (options = {}) => mountNuxt(StackedCardsSwiper, {
@@ -38,11 +39,12 @@ const factory = (options = {}) => mountNuxt(StackedCardsSwiper, {
       assets: {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
         optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
-        responsiveImageSrcset: sinon.spy((img, sizes) => Object.keys(sizes))
+        responsiveImageSrcset: (img) => `${img.url} srcset`
       }
     },
     $t: () => {}
-  }
+  },
+  stubs: ['ImageOptimised']
 });
 
 describe('components/generic/StackedCardsSwiper', () => {
@@ -65,6 +67,7 @@ describe('components/generic/StackedCardsSwiper', () => {
   describe('When active slide changes', () => {
     it('focus is set on the active\'s slide link', () => {
       const wrapper = factory();
+      wrapper.vm.swiper.slideTo = sinon.spy();
 
       wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.setFocusOnActiveSlideLink();
