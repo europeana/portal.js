@@ -24,6 +24,7 @@
           :key="i"
           :index="i"
           class="swiper-slide text-center"
+          @click="handleSlideClick(i)"
         >
           <ImageOptimised
             :src="slide.image.url"
@@ -33,6 +34,7 @@
             :height="slide.image.height"
             :alt="slide.image && slide.image.description || ''"
             class="image-overlay position-absolute"
+            :lazy="false"
           />
           <div
             class="card-body h-100 d-flex flex-column align-items-center position-relative"
@@ -41,7 +43,7 @@
               ref="slideLink"
               variant="primary"
               :to="slide.url"
-              class="slide-link swiper-no-swiping mb-3"
+              class="slide-link mb-3"
               :data-qa="`slide link ${i}`"
               @focus="swiper.slideTo(i)"
             >
@@ -108,7 +110,6 @@
           grabCursor: true,
           centeredSlides: true,
           initialSlide: Math.floor(this.slides.length / 2),
-          slideToClickedSlide: true,
           breakpoints: {
             0: {
               spaceBetween: -150
@@ -182,6 +183,10 @@
         } else if (['pointerdown', 'touchstart'].includes(event.type) || (activeKeyboardNavigation && event.type === 'keydown')) {
           this.swiperComponentClasses = '';
         }
+      },
+      // Swiper parameter slideToClickedSlide does not handle clicks on touch devices as expected (links to url instead of slide transition). This method is a workaround.
+      handleSlideClick(index) {
+        this.swiper.slideTo(index);
       }
     }
   };
@@ -221,6 +226,7 @@
     padding: 0 0.5rem;
     font-size: $font-size-medium;
     font-weight: 500;
+    pointer-events: none;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-medium-4k;
@@ -236,27 +242,24 @@
       outline: none;
       box-shadow: none;
     }
-
-    &::after {
-      content: '';
-      pointer-events: none;
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-    }
   }
 
   .swiper-slide-active .slide-link {
+    pointer-events: auto;
+
     &:hover {
       background-color: $innovationblue-dark;
       cursor: pointer;
     }
 
     &::after {
-      pointer-events: auto;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
     }
   }
 
