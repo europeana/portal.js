@@ -17,6 +17,7 @@
             <SearchQueryBuilder
               v-show="showAdvancedSearch"
               id="search-query-builder"
+              :show="showAdvancedSearch"
               class="d-none mb-3"
               :class="{'d-lg-block': showAdvancedSearch}"
               @show="(show) => showAdvancedSearch = show"

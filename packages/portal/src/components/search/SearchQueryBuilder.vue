@@ -25,7 +25,9 @@
                 >
                   <SearchQueryBuilderRule
                     :id="`${id}-rule-${index}`"
+                    ref="rule"
                     v-model="queryRules[index]"
+                    :tabindex="index === 0 && 0"
                     :tooltips="index === 0"
                     :validation="validations[index]"
                     @change="handleRuleChange"
@@ -79,6 +81,13 @@
       id: {
         type: String,
         default: 'search-query-builder'
+      },
+      /**
+       * Whether the component is shown
+       */
+      show: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -96,7 +105,12 @@
     },
 
     watch: {
-      '$route.query.qa': 'initRulesFromRouteQuery'
+      '$route.query.qa': 'initRulesFromRouteQuery',
+      show(newVal) {
+        if (newVal) {
+          this.$refs.rule[0].$el.focus();
+        }
+      }
     },
 
     created() {
