@@ -39,7 +39,7 @@
             >
               <b-button
                 aria-controls="search-query-builder search-query-builder-mobile"
-                :aria-expanded="showAdvancedSearch"
+                :aria-expanded="showAdvancedSearch ? 'true' : 'false'"
                 class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
                 :class="{ 'open': showAdvancedSearch }"
                 data-qa="toggle advanced search button"
