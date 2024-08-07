@@ -187,11 +187,11 @@
         return Object.keys(this.rule);
       },
       ruleValuesString() {
-        if (this.rule.field && this.rule.modifier && this.rule.term) {
-          return `${this.advancedSearchFieldLabel(this.rule.field)} ${this.$t(`search.advanced.modifiers.${this.rule.modifier}`)} ${this.rule.term}`;
-        } else {
-          return '';
-        }
+        const fieldLabel = this.rule.field ? this.advancedSearchFieldLabel(this.rule.field) + ' ' : '';
+        const modifierLabel = this.rule.modifier ? this.$t(`search.advanced.modifiers.${this.rule.modifier}`) + ' ' : '';
+        const term = this.rule.term || '';
+
+        return `${fieldLabel}${modifierLabel}${term}`;
       },
       suggestEntityTypeForTerm() {
         return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
