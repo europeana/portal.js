@@ -346,6 +346,7 @@
       opacity: 0;
       background-image: linear-gradient(to top, rgb(0, 0, 0) 2%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0) 75%);
       border-radius: $border-radius-small;
+      transform: scale(1);
       transition: opacity 900ms ease-out, transform 400ms ease-out;
     }
 
@@ -461,6 +462,7 @@
       left: -50%;
       right: -50%;
       margin: 0 auto;
+      transform: scale(1);
       transition: transform 400ms ease-out;
 
       ::v-deep img {
