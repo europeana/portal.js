@@ -77,6 +77,10 @@
     >
       <span class="icon-clear pr-2" />
       {{ $t('actions.clear') }}
+      <span
+        v-if="ruleValuesString"
+        class="visually-hidden"
+      >{{ ruleValuesString }}</span>
     </b-button>
   </div>
 </template>
@@ -181,6 +185,13 @@
       },
       ruleControls() {
         return Object.keys(this.rule);
+      },
+      ruleValuesString() {
+        if (this.rule.field && this.rule.modifier && this.rule.term) {
+          return `${this.advancedSearchFieldLabel(this.rule.field)} ${this.$t(`search.advanced.modifiers.${this.rule.modifier}`)} ${this.rule.term}`;
+        } else {
+          return '';
+        }
       },
       suggestEntityTypeForTerm() {
         return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;

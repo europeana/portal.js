@@ -42,6 +42,7 @@
                 >
                   <span class="icon-add pr-2" />
                   {{ $t('actions.add') }}
+                  <span class="visually-hidden">{{ $t('search.advanced.newRule') }}</span>
                 </b-button>
               </div>
               <input

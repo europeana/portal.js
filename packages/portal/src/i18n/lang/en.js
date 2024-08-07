@@ -1089,6 +1089,7 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
+      "newRule": "new advanced search rule",
       "placeholder": {
         "field": "Select a field",
         "modifier": "Select a modifier",
