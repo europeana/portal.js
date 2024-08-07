@@ -2,43 +2,44 @@
   <div
     class="d-flex align-items-center flex-wrap flex-lg-nowrap"
   >
-    <b-input-group
+    <b-form-group
       data-qa="search query builder rule"
-      class="query-rule"
+      class="query-rule mb-0"
     >
-      <b-form-group
+      <template
         v-for="control in ruleControls"
-        :key="`${id}-${control}`"
-        class="query-rule-form-group mr-lg-2"
       >
-        <component
-          :is="control === 'term' ? 'label' : 'span'"
-          :id="`${id}-${control}-label`"
-          class="query-rule-field-label d-inline-flex align-items-center"
-          :for="`${id}-${control}`"
+        <div
+          :key="`${id}-${control}`"
+          class="query-rule-form-control mr-lg-2 mb-3"
         >
-          <span
-            class="align-self-center"
+          <component
+            :is="control === 'term' ? 'label' : 'span'"
+            :id="`${id}-${control}-label`"
+            class="query-rule-field-label d-inline-flex align-items-center"
+            :for="`${id}-${control}`"
           >
-            {{ $t(`search.advanced.input.${control}`) }}
-          </span>
-          <template v-if="tooltips">
-            <b-button
-              :id="`${id}-${control}-tooltip-btn`"
-              class="icon-info-outline py-0 px-1 tooltip-button align-self-center"
-              :aria-label="$t(`search.advanced.tooltip.${control}`)"
-              variant="light-flat"
-            />
-            <b-tooltip
+            <span
               class="align-self-center"
-              :target="`${id}-${control}-tooltip-btn`"
-              :title="$t(`search.advanced.tooltip.${control}`)"
-              boundary-padding="0"
-              placement="bottom"
-            />
-          </template>
-        </component>
-        <div>
+            >
+              {{ $t(`search.advanced.input.${control}`) }}
+            </span>
+            <template v-if="tooltips">
+              <b-button
+                :id="`${id}-${control}-tooltip-btn`"
+                class="icon-info-outline py-0 px-1 tooltip-button align-self-center"
+                :aria-label="$t(`search.advanced.tooltip.${control}`)"
+                variant="light-flat"
+              />
+              <b-tooltip
+                class="align-self-center"
+                :target="`${id}-${control}-tooltip-btn`"
+                :title="$t(`search.advanced.tooltip.${control}`)"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
+          </component>
           <SearchQueryBuilderRuleTermInput
             v-if="control === 'term'"
             :id="`${id}-${control}`"
@@ -58,15 +59,16 @@
             :state="validation[control]?.state"
             @change="handleChange"
           />
+
+          <b-form-invalid-feedback
+            v-show="!validation[control]?.state"
+            :state="validation[control]?.state"
+          >
+            {{ validation[control]?.text }}
+          </b-form-invalid-feedback>
         </div>
-        <b-form-invalid-feedback
-          v-show="!validation[control]?.state"
-          :state="validation[control]?.state"
-        >
-          {{ validation[control]?.text }}
-        </b-form-invalid-feedback>
-      </b-form-group>
-    </b-input-group>
+      </template>
+    </b-form-group>
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
@@ -225,18 +227,25 @@
   @import '@europeana/style/scss/variables';
 
   .query-rule {
+    width: 100%;
     max-width: $max-text-column-width;
-
-    @media (min-width: $bp-large) {
-      flex-wrap: nowrap;
-    }
 
     @media (min-width: $bp-wqhd) {
       max-width: 50%;
     }
+
+    ::v-deep > div {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+
+      @media (min-width: $bp-large) {
+        flex-wrap: nowrap;
+      }
+    }
   }
 
-  .query-rule-form-group {
+  .query-rule-form-control {
     flex-basis: 100%;
 
     @media (min-width: $bp-large) {
