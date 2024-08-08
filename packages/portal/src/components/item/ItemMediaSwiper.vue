@@ -123,7 +123,8 @@
           direction: 'vertical',
           slidesPerView: 4,
           freeMode: true,
-          watchSlidesProgress: true
+          watchSlidesProgress: true,
+          spaceBetween: 16
         },
         thumbsSwiper: null,
         singleMediaResource,
@@ -171,7 +172,16 @@
     flex: 0 1 100%;
     background: black;
 
-    .swiper-slide {
+    .swiper-thumbs {
+      flex: 0 1 auto;
+
+      .swiper-slide {
+        padding: 0;
+        min-width: 10rem
+      }
+    }
+
+    .swiper .swiper-slide {
       width: 100%;
       min-width: 16rem;
       padding-top: 2.25rem;
@@ -236,7 +246,4 @@
     }
   }
 
-  .swiper-thumbs {
-    flex: 0 1 auto;
-  }
 </style>
