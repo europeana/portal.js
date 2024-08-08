@@ -3,16 +3,16 @@ name: CI
 on:
   push:
     branches:
-      - "master"
+      - 'master'
     tags:
-      - "v[0-9]+.[0-9]+.*"
+      - 'v[0-9]+.[0-9]+.*'
   pull_request:
     branches:
-      - "master"
+      - 'master'
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths-ignore:
-      - "**.md"
-      - "packages/contentful/migrations/**"
+    - '**.md'
+    - 'packages/contentful/migrations/**'
   workflow_dispatch:
 
 env:
@@ -29,9 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-') && github.event.action == 'opened'
     steps:
-      - name: Extract JIRA ticket number
+      -
+        name: Extract JIRA ticket number
         run: echo "JIRA_TICKET_NUMBER=$(echo ${{ github.head_ref }} | sed -r 's|^.*/(EC-[0-9]+).*$|\1|')" >> $GITHUB_ENV
-      - name: Link to JIRA ticket on pull request
+      -
+        name: Link to JIRA ticket on pull request
         uses: actions/github-script@v6
         with:
           script: |
@@ -54,25 +56,31 @@ jobs:
       docker-version: ${{ steps.docker.outputs.version }}
       docker-full-tag: ${{ steps.docker-image.outputs.full-tag }}
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Git metadata, master dispatch
+      -
+        name: Git metadata, master dispatch
         id: git-master-dispatch
         if: github.event_name == 'workflow_dispatch' && github.event.ref == 'refs/heads/master'
         run: echo "status=true" >> $GITHUB_OUTPUT
-      - name: Git metadata, master push
+      -
+        name: Git metadata, master push
         id: git-master-push
         if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
         run: echo "status=true" >> $GITHUB_OUTPUT
-      - name: Git metadata, PR draft
+      -
+        name: Git metadata, PR draft
         id: git-pr-draft
         if: github.event_name == 'pull_request' && github.event.pull_request.draft == true
         run: echo "status=true" >> $GITHUB_OUTPUT
-      - name: Git metadata, PR ready for review
+      -
+        name: Git metadata, PR ready for review
         id: git-pr-ready
         if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
         run: echo "status=true" >> $GITHUB_OUTPUT
-      - name: Docker metadata
+      -
+        name: Docker metadata
         id: docker
         uses: docker/metadata-action@v4
         with:
@@ -82,10 +90,12 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=semver,pattern={{version}}
-      - name: Output Docker image full tag
+      -
+        name: Output Docker image full tag
         id: docker-image
         run: |
           echo "full-tag=${{ env.DOCKER_REPOSITORY }}:${{ steps.docker.outputs.version }}" >> $GITHUB_OUTPUT
+
 
   # Run code linting on master and all PRs (including drafts)
   lint-code:
@@ -93,21 +103,25 @@ jobs:
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
+      -
+        name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
-      - name: Install eslint
+          cache: 'npm'
+      -
+        name: Install eslint
         run: |
           npm install --prefix tmp \
             eslint@$(jq -Mr '.packages["node_modules/eslint"].version' package-lock.json) \
             eslint-plugin-jest@$(jq -Mr '.packages["node_modules/eslint-plugin-jest"].version' package-lock.json) \
             eslint-plugin-vue@$(jq -Mr '.packages["node_modules/eslint-plugin-vue"].version' package-lock.json)
           mv tmp/node_modules ./
-      - name: Run eslint
+      -
+        name: Run eslint
         run: npm run lint
 
   # Run style linting on master and all PRs (including drafts)
@@ -116,21 +130,25 @@ jobs:
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
+      -
+        name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
-      - name: Install stylelint
+          cache: 'npm'
+      -
+        name: Install stylelint
         run: |
           npm install --prefix tmp \
             stylelint@$(jq -Mr '.packages["node_modules/stylelint"].version' package-lock.json) \
             stylelint-config-recommended-vue@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-vue"].version' package-lock.json) \ \
             stylelint-config-recommended-scss@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-scss"].version' package-lock.json)
           mv tmp/node_modules ./
-      - name: Run stylelint
+      -
+        name: Run stylelint
         run: npm run stylelint
 
   # Verify cachers can load in Node.js on master and all PRs (including drafts)
@@ -139,16 +157,20 @@ jobs:
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
+      -
+        name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: "npm"
-      - name: NPM install
+          cache: 'npm'
+      -
+        name: NPM install
         run: npm ci --include-workspace-root -w packages/portal
-      - name: List cachers
+      -
+        name: List cachers
         run: npm run cache list
 
   # Run unit tests on master (for coverage reports), and all pull requests
@@ -157,21 +179,27 @@ jobs:
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
+      -
+        name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
-      - name: NPM install
+          cache: 'npm'
+      -
+        name: NPM install
         run: npm ci --include-workspace-root -w packages/portal
-      - name: Run unit tests with coverage reporting
+      -
+        name: Run unit tests with coverage reporting
         run: npm run test:coverage:ci
-      - name: Archive code coverage
+      -
+        name: Archive code coverage
         run: |
           tar -cf test-coverage.tar coverage
-      - name: Upload code coverage
+      -
+        name: Upload code coverage
         uses: actions/upload-artifact@v3
         with:
           name: test-coverage
@@ -181,19 +209,23 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test-unit]
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
         with:
           # For SonarCloud to blame culprits
           fetch-depth: 0
-      - name: Download code coverage
+      -
+        name: Download code coverage
         uses: actions/download-artifact@v3
         with:
           name: test-coverage
           path: .
-      - name: Unarchive code coverage
+      -
+        name: Unarchive code coverage
         run: tar -xf test-coverage.tar && rm test-coverage.tar
-      - name: SonarCloud Scan
+      -
+        name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -206,17 +238,21 @@ jobs:
     runs-on: ubuntu-latest
     if: (github.event_name == 'push') || (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - if: github.actor != 'dependabot[bot]'
+      -
+        if: github.actor != 'dependabot[bot]'
         name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
+      -
+        name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -227,7 +263,8 @@ jobs:
           cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
-      - name: Build (from cache) and load app image
+      -
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -236,9 +273,10 @@ jobs:
           load: true
           tags: ${{ needs.metadata.outputs.docker-full-tag }}
           cache-from: type=gha,scope=${{ github.ref_name }}-app
-      - name: Check image size
+      -
+        name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: "362M"
+          DOCKER_IMAGE_SIZE_LIMIT: '362M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
@@ -254,11 +292,14 @@ jobs:
     needs: [metadata, docker-build]
     if: (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Build (from cache) and load app image
+      -
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -267,7 +308,8 @@ jobs:
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha,scope=${{ github.ref_name }}-app
-      - name: Build and load size test image
+      -
+        name: Build and load size test image
         uses: docker/build-push-action@v3
         with:
           context: ./packages/portal/tests/size
@@ -275,12 +317,14 @@ jobs:
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
           cache-from: type=gha,scope=${{ github.ref_name }}-test-size
           cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-test-size
-      - name: Prepare resources for size tests
+      -
+        name: Prepare resources for size tests
         run: |
           docker run --name portal.js --rm -d ${{ needs.metadata.outputs.docker-full-tag }}
           docker cp portal.js:/app/packages/portal/.nuxt ./.nuxt
           docker stop portal.js
-      - name: Run size tests
+      -
+        name: Run size tests
         run: |
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
@@ -293,11 +337,14 @@ jobs:
     needs: [metadata, docker-build]
     if: (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Build (from cache) and load app image
+      -
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -306,18 +353,23 @@ jobs:
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha,scope=${{ github.ref_name }}-app
-      - name: Prepare env for e2e tests
+      -
+        name: Prepare env for e2e tests
         run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
-      - name: Create e2e test container .env files
+      -
+        name: Create e2e test container .env files
         run: |
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - name: Pull images for e2e tests
+      -
+        name: Pull images for e2e tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
-      - name: Build images for e2e tests
+      -
+        name: Build images for e2e tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
-      - name: Run e2e tests
+      -
+        name: Run e2e tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   # Run visual tests on non-draft pull requests, and pushes to master
@@ -329,11 +381,14 @@ jobs:
       ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 0
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Build (from cache) and load app image
+      -
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -342,24 +397,31 @@ jobs:
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha,scope=${{ github.ref_name }}-app
-      - name: Prepare env for visual tests
+      -
+        name: Prepare env for visual tests
         run: |
           echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
           echo "PERCY_BRANCH=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF}} | sed 's|refs/heads/||')" >> $GITHUB_ENV
-      - name: Prepare env for visual tests (PRs only)
+      -
+        name: Prepare env for visual tests (PRs only)
         if: github.event_name == 'pull_request'
-        run: echo "PERCY_PULL_REQUEST=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      - name: Create visual test container .env files
+        run:
+          echo "PERCY_PULL_REQUEST=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      -
+        name: Create visual test container .env files
         run: |
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - name: Pull images for visual tests
+      -
+        name: Pull images for visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
-      - name: Build images for visual tests
+      -
+        name: Build images for visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
-      - name: Run visual tests
+      -
+        name: Run visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   # Deploy to IBM Cloud Kubernetes cluster:
@@ -376,35 +438,42 @@ jobs:
       IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
       IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Prepare env for dev deployments
+      -
+        name: Prepare env for dev deployments
         if: github.event_name == 'pull_request'
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
           echo "K8S_RESOURCE_NAME=portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "K8S_DEPLOYMENTS=deployment/portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
-      - name: Prepare env for test deployment
+      -
+        name: Prepare env for test deployment
         if: github.event_name == 'push'
         run: |
           echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
           echo "K8S_DEPLOYMENTS=deployment/portal-js deployment/ds4ch" >> $GITHUB_ENV
-      - name: Create K8s resource manifests for dev deployments
+      -
+        name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
         run: |
           envsubst < .github/workflows/support/ci/k8s/deployment.yml > deployment.yml
           envsubst < .github/workflows/support/ci/k8s/service.yml > service.yml
           envsubst < .github/workflows/support/ci/k8s/ingress.yml > ingress.yml
-      - name: Install ibmcloud CLI
+      -
+        name: Install ibmcloud CLI
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
           ibmcloud plugin install container-service
-      - name: Login to IBM Cloud
+      -
+        name: Login to IBM Cloud
         run: |
           ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
           ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
-      - name: Detect new deployment
+      -
+        name: Detect new deployment
         if: github.event_name == 'pull_request'
         run: |
           set +e
@@ -412,15 +481,18 @@ jobs:
           if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
           set -e
           echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
-      - name: Create new dev resources on IBM Cloud K8s
+      -
+        name: Create new dev resources on IBM Cloud K8s
         if: github.event_name == 'pull_request'
         run: |
           kubectl apply -f deployment.yml
           kubectl apply -f service.yml
           kubectl apply -f ingress.yml
-      - name: Restart deployment
+      -
+        name: Restart deployment
         run: kubectl rollout restart --namespace ${K8S_NAMESPACE} ${K8S_DEPLOYMENTS}
-      - name: Comment with deployment link on pull request
+      -
+        name: Comment with deployment link on pull request
         if: env.K8S_NEW_DEPLOYMENT == 'true'
         uses: actions/github-script@v6
         with:
