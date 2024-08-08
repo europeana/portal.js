@@ -17,7 +17,8 @@
             <SearchQueryBuilder
               v-show="showAdvancedSearch"
               id="search-query-builder"
-              :show="showAdvancedSearch"
+              ref="queryBuilder"
+              tabindex="0"
               class="d-none mb-3"
               :class="{'d-lg-block': showAdvancedSearch}"
               @show="(show) => showAdvancedSearch = show"
@@ -147,6 +148,7 @@
         :advanced-search-query-count="advancedSearchQueryCount"
         :show-advanced-search="showAdvancedSearch"
         @showAdvancedSearch="(val) => showAdvancedSearch = val"
+        @focusQueryBuilder="$refs.queryBuilder?.$el.focus();"
       >
         <SearchFilters
           :route="route"

@@ -76,17 +76,6 @@ describe('components/search/SearchQueryBuilder', () => {
     });
   });
 
-  describe('when the component show state changes to true', () => {
-    it('sets focus on the first rule', async() => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm.$refs.rule[0].$el, 'focus');
-
-      await wrapper.setProps({ show: true });
-
-      expect(wrapper.vm.$refs.rule[0].$el.focus.called).toBe(true);
-    });
-  });
-
   describe('add new rule button', () => {
     it('adds a new search query builder rule', () => {
       const wrapper = factory();

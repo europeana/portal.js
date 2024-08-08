@@ -44,7 +44,7 @@
                 :class="{ 'open': showAdvancedSearch }"
                 data-qa="toggle advanced search button"
                 variant="link"
-                @click="$emit('showAdvancedSearch', !showAdvancedSearch)"
+                @click="showOrHideAdvancedSearch"
               >
                 {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
               </b-button>
@@ -62,7 +62,9 @@
             <SearchQueryBuilder
               v-show="showAdvancedSearch"
               id="search-query-builder-mobile"
+              ref="queryBuilder"
               class="d-lg-none"
+              tabindex="0"
               @show="(show) => $emit('showAdvancedSearch', show)"
             />
           </transition>
@@ -124,6 +126,14 @@
     methods: {
       toggleSearchSidebar() {
         this.$store.commit('search/setShowSearchSidebar', !this.$store.state.search.showSearchSidebar);
+      },
+      async showOrHideAdvancedSearch() {
+        this.$emit('showAdvancedSearch', !this.showAdvancedSearch);
+        await this.$nextTick();
+        if (this.showAdvancedSearch) {
+          this.$emit('focusQueryBuilder');
+          this.$refs.queryBuilder?.$el.focus();
+        }
       }
     }
   };
