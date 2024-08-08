@@ -168,6 +168,8 @@
   .swiper-outer,
   .swiper-container {
     @include swiper-height(0px);
+    flex: 0 1 100%;
+    background: black;
 
     .swiper-slide {
       width: 100%;
@@ -232,5 +234,9 @@
     .swiper-pagination-bullet-active {
       background: $smoke;
     }
+  }
+
+  .swiper-thumbs {
+    flex: 0 1 auto;
   }
 </style>
