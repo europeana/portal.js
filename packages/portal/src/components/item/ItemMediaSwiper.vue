@@ -1,6 +1,6 @@
 <template>
   <div
-    class="swiper-outer"
+    class="swiper-outer d-flex overflow-hidden"
   >
     <div
       v-show="swiperReady"
@@ -39,12 +39,29 @@
           />
         </div>
       </div>
+    </div>
+    <div
+      v-if="!singleMediaResource"
+      v-show="swiperReady"
+      thumbsSlider=""
+      class="swiper-thumbs swiper-container"
+      data-qa="awesome swiper"
+    >
       <div
-        class="swiper-button-prev"
-      />
-      <div
-        class="swiper-button-next"
-      />
+        class="swiper-wrapper"
+      >
+        <div
+          v-for="(item, index) in displayableMedia"
+          :key="index"
+          class="swiper-slide"
+        >
+          <MediaDefaultThumbnail
+            :media-type="item.edmType || edmType"
+            :offset="displayableMedia.length > 1 ? index : null"
+            class="py-4"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -53,13 +70,15 @@
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { Pagination, Navigation } from 'swiper';
+  import { Pagination, Navigation, Thumbs } from 'swiper';
+  import Swiper from 'swiper';
 
   export default {
     name: 'ItemMediaSwiper',
 
     components: {
-      MediaCard
+      MediaCard,
+      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail')
     },
 
     mixins: [swiperMixin],
@@ -84,20 +103,29 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [Navigation, Pagination],
+          modules: [Navigation, Pagination, Thumbs],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
-          spaceBetween: singleMediaResource ? null : 40,
+          slidesPerView: 1,
           centeredSlides: true,
           slideToClickedSlide: true,
           pagination: {
             type: 'fraction'
           },
+          thumbs: { swiper: this.thumbsSwiper },
           on: {
+            afterInit: this.swiperOnAfterInit,
             slideChange: this.onSlideChange,
             slideChangeTransitionEnd: this.updateSwiper
           }
         },
+        thumbsSwiperOptions: {
+          direction: 'vertical',
+          slidesPerView: 4,
+          freeMode: true,
+          watchSlidesProgress: true
+        },
+        thumbsSwiper: null,
         singleMediaResource,
         swiperReady: singleMediaResource
       };
@@ -109,12 +137,24 @@
       }
     },
 
+    mounted() {
+      if (!this.singleMediaResource) {
+        this.thumbsSwiper = new Swiper('.swiper-thumbs', this.thumbsSwiperOptions);
+        this.swiper = new Swiper('.swiper', { ...this.swiperOptions, thumbs: {
+          swiper: this.thumbsSwiper
+        } });
+      }
+    },
+
     methods: {
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
       updateSwiper() {
         this.swiper.update();
+      },
+      swiperOnAfterInit() {
+        this.swiperReady = true;
       }
     }
   };
