@@ -1,0 +1,36 @@
+DROP SCHEMA IF EXISTS polls CASCADE;
+CREATE SCHEMA polls;
+SET search_path TO polls;
+
+CREATE TABLE options (
+  id SERIAL PRIMARY KEY,
+  external_id CHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  external_id VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE votes (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL,
+  option_id INT NOT NULL,
+  occurred_at TIMESTAMPTZ NOT NULL,
+  CONSTRAINT fk_user
+    FOREIGN KEY(user_id)
+	  REFERENCES users(id)
+        ON DELETE CASCADE,
+  CONSTRAINT fk_option
+    FOREIGN KEY(option_id)
+	  REFERENCES options(id)
+        ON DELETE CASCADE,
+  CONSTRAINT unq_user_id_option_id
+    UNIQUE(user_id, option_id);
+);
+
+CREATE INDEX ix_option_id ON polls.votes(option_id);
+CREATE INDEX ix_user_id ON polls.votes(user_id);
+CREATE INDEX ix_occurred_at ON polls.votes(occurred_at);
+CREATE INDEX ix_external_id ON polls.options(external_id);
+CREATE INDEX ix_external_id ON polls.users(external_id);
