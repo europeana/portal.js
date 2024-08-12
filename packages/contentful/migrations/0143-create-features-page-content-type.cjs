@@ -19,20 +19,6 @@ module.exports = function(migration) {
     .omitted(false);
 
   voteableFeature
-    .createField('identifier')
-    .name('identifier')
-    .type('Symbol')
-    .localized(false)
-    .required(true)
-    .validations([
-      {
-        unique: true
-      }
-    ])
-    .disabled(false)
-    .omitted(false);
-
-  voteableFeature
     .createField('text')
     .name('Text')
     .type('Text')
@@ -91,6 +77,18 @@ module.exports = function(migration) {
     .omitted(false);
 
   featureIdeasPage
+    .createField('text')
+    .name('Text')
+    .type('Text')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  featureIdeasPage.changeFieldControl('text', 'builtin', 'markdown', {});
+
+  featureIdeasPage
     .createField('description')
     .name('Description')
     .type('Symbol')
@@ -132,7 +130,7 @@ module.exports = function(migration) {
       type: 'Link',
       validations: [
         {
-          linkContentType: ['richText', 'voteableFeature']
+          linkContentType: ['voteableFeature']
         }
       ],
       linkType: 'Entry'
