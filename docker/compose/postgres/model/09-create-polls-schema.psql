@@ -26,11 +26,11 @@ CREATE TABLE votes (
 	  REFERENCES options(id)
         ON DELETE CASCADE,
   CONSTRAINT unq_user_id_option_id
-    UNIQUE(user_id, option_id);
+    UNIQUE(user_id, option_id)
 );
 
 CREATE INDEX ix_option_id ON polls.votes(option_id);
 CREATE INDEX ix_user_id ON polls.votes(user_id);
 CREATE INDEX ix_occurred_at ON polls.votes(occurred_at);
-CREATE INDEX ix_external_id ON polls.options(external_id);
-CREATE INDEX ix_external_id ON polls.users(external_id);
+CREATE INDEX ix_external_option_id ON polls.options(external_id);
+CREATE INDEX ix_external_user_id ON polls.users(external_id);
