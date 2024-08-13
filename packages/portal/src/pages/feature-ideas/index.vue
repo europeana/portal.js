@@ -46,16 +46,8 @@
                 :rich-text-is-card="false"
                 class="rich-text"
               />
-              <ContentCard
-                v-for="feature, i in features"
-                :key="i"
-                :title="feature.name"
-                :texts="[feature.text]"
-                :image-url="feature.image.image.url"
-                :image-content-type="feature.image.image.contentType"
-                :image-width="feature.image.image.width"
-                :image-height="feature.image.image.height"
-                variant="list"
+              <FeatureIdeas
+                :features="features"
               />
             </div>
           </article>
@@ -75,9 +67,9 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ContentCard: () => import('@/components/content/ContentCard'),
       ContentHeader,
       ContentRichText: () => import('@/components/content/ContentRichText'),
+      FeatureIdeas: () => import('@/components/generic/FeatureIdeas'),
       LoadingSpinner
     },
 
@@ -114,7 +106,7 @@
       this.description = featuresPage.description;
       this.socialMediaImage = featuresPage.image;
       this.text = featuresPage.text;
-      this.features = featuresPage.hasPartCollection.items;
+      this.features = featuresPage.hasPartCollection.items || [];
 
       this.pageFetched = true;
     },
