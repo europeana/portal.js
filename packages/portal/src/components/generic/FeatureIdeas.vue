@@ -104,22 +104,61 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
-  .vote-button {
+::v-deep .content-card.list-card {
+  max-width: none;
 
-    &:hover,
-    &.voted {
-      .icon-thumbsup-outlined::before {
-        content: '\e921';
+  .card-img {
+    background-color: $bodygrey;
+
+    img {
+      width: 80px;
+      height: auto;
+      margin: 0 auto;
+
+      @media (min-width: $bp-4k) {
+        width: 120px;
       }
     }
+  }
 
-    &.voted {
-      color: $blue;
+  .card-wrapper {
+
+    &:hover {
+      box-shadow: none;
     }
 
-    .icon-thumbsup-outlined,
-    .icon-thumbsup {
-      font-size: 1.125rem;
+    .title-texts-wrapper {
+      max-height: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-text p {
+      display: inline;
+      -webkit-line-clamp: none;
     }
   }
+}
+
+.vote-button {
+
+  &:hover,
+  &.voted {
+    .icon-thumbsup-outlined::before {
+      content: '\e921';
+    }
+  }
+
+  &.voted {
+    color: $blue;
+  }
+
+  .icon-thumbsup-outlined,
+  .icon-thumbsup {
+    font-size: 1.125rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
+    }
+  }
+}
 </style>

@@ -159,38 +159,4 @@
 .col-lg-8 {
   max-width: $max-text-column-width;
 }
-
-::v-deep .content-card.list-card {
-  max-width: none;
-
-  .card-img {
-    background-color: $bodygrey;
-
-    img {
-      width: 80px;
-      height: auto;
-      margin: 0 auto;
-
-      @media (min-width: $bp-4k) {
-        width: 120px;
-      }
-    }
-  }
-
-  .card-wrapper {
-
-    &:hover {
-      box-shadow: none;
-    }
-
-    .title-texts-wrapper {
-      max-height: none;
-    }
-
-    .card-text p {
-      display: inline;
-      -webkit-line-clamp: none;
-    }
-  }
-}
 </style>
