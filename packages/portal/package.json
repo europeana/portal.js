@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.157.0",
+  "version": "1.158.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -60,7 +60,7 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@europeana/style": "^1.157.0",
+    "@europeana/style": "^1.158.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
