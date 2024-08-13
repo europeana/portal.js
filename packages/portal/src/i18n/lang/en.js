@@ -1224,6 +1224,7 @@ export default {
   },
   "statuses": {
     "liked": "Liked",
+    "likesCount": "{count} likes",
     "pinned": "Pinned",
     "required": "Required"
   },
