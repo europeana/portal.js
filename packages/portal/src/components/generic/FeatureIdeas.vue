@@ -59,9 +59,11 @@
     },
 
     fetch() {
+      // TODO: fetch the votes for each feature and remove mock functionality
+      // const featureIds = this.features.map(feature => feature.sys.id).join(',');
+      // this.votesOnFeatures = await this.$axios.$get(`/api/votes/${featureIds}`);
       for (const feature of this.features) {
-        // TODO: fetch the votes for each feature and remove mock functionality
-        const featureVotes = { count: Math.floor(Math.random() * 99), userIds: ['001'] }; // await this.$axios.$get(`/api/votes/${feature.sys.id}`);
+        const featureVotes = { count: Math.floor(Math.random() * 99), currentlyVotedOn: false };
         this.votesOnFeatures[feature.sys.id] = featureVotes;
       }
     },
@@ -75,14 +77,15 @@
     methods: {
       voteOnFeature(featureId) {
         // TODO: Implement voting on feature and remove mock functionality
+        // await this.$axios.$post(`/api/vote/${featureId}`);
         console.log('Voting on feature', featureId);
         if (this.$auth.loggedIn) {
           if (this.hasVotedOnFeature(featureId)) {
             this.votesOnFeatures[featureId].count = this.votesOnFeatures[featureId].count - 1;
-            this.votesOnFeatures[featureId].userIds.splice(this.votesOnFeatures[featureId].userIds.indexOf(this.userId));
+            this.votesOnFeatures[featureId].currentlyVotedOn = false;
           } else {
             this.votesOnFeatures[featureId].count = this.votesOnFeatures[featureId].count + 1;
-            this.votesOnFeatures[featureId].userIds.push(this.userId);
+            this.votesOnFeatures[featureId].currentlyVotedOn = true;
           }
         } else {
           this.keycloakLogin();
@@ -92,7 +95,7 @@
         return this.votesOnFeatures[featureId].count;
       },
       hasVotedOnFeature(featureId) {
-        return this.votesOnFeatures[featureId].userIds.includes(this.userId);
+        return this.votesOnFeatures[featureId].currentlyVotedOn;
       }
     }
   };
