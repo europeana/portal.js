@@ -37,14 +37,14 @@ export default (config = {}) => {
         [optionExternalId]
       );
       if (selectOptionResult.rowCount > 0) {
-        optionRow =selectOptionResult.rows[0];
+        optionRow = selectOptionResult.rows[0];
       } else {
         const insertOptionResult = await pg.query(
           'INSERT INTO polls.options (external_id) VALUES($1) RETURNING id',
           [optionExternalId]
         );
         optionRow = insertOptionResult.rows[0];
-      };
+      }
 
       await pg.query(`
         INSERT INTO polls.votes (user_id, option_id, occurred_at)
