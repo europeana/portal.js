@@ -7,6 +7,7 @@ export default (config = {}) => {
   return async(req, res) => {
     try {
       if (!pg.enabled) {
+        res.sendStatus(503);
         return;
       }
 
@@ -45,6 +46,8 @@ export default (config = {}) => {
         );
         optionRow = insertOptionResult.rows[0];
       }
+
+      // TODO: should this query the DB as to whether the user has already voted on this option first?
 
       await pg.query(`
         INSERT INTO polls.votes (user_id, option_id, occurred_at)
