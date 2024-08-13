@@ -1,4 +1,4 @@
-import pg from './pg.js';
+import pg from '../pg/pg.js';
 
 // TODO: use `next` for error handling
 export default (config = {}) => {

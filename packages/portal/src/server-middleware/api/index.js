@@ -59,6 +59,11 @@ app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.
 import version from './version.js';
 app.get('/version', version);
 
+import votes from './polls/votes.js';
+app.get('/votes', votes);
+import vote from './polls/vote.js';
+app.post('/vote', vote);
+
 app.all('/*', (req, res) => res.sendStatus(404));
 
 export default app;
