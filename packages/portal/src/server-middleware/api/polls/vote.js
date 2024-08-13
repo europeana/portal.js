@@ -47,7 +47,7 @@ export default (config = {}) => {
         optionRow = insertOptionResult.rows[0];
       }
 
-      // TODO: should this query the DB as to whether the user has already voted on this option first?
+      // TODO: This needs to check if the vote already exists, then conditionally do the insert or a delete.
 
       await pg.query(`
         INSERT INTO polls.votes (user_id, option_id, occurred_at)
