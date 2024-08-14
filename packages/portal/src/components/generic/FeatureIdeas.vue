@@ -1,6 +1,13 @@
 <template>
   <div>
-    <template v-if="features?.length">
+    <ErrorMessage
+      v-if="$fetchState.error"
+      :error="$fetchState.error"
+      :full-height="false"
+      :show-message="false"
+      title-tag="h2"
+    />
+    <template v-else>
       <ContentCard
         v-for="feature, i in features"
         :key="i"
@@ -40,7 +47,8 @@
     name: 'FeatureIdeas',
 
     components: {
-      ContentCard
+      ContentCard,
+      ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
 
     mixins: [keycloak],
@@ -59,6 +67,12 @@
     },
 
     fetch() {
+      if (this.features.length < 1) {
+        const error = new Error('No feature ideas');
+        error.code = 'noFeatureIdeas';
+        this.$error(error);
+      }
+
       // TODO: fetch the votes for each feature and remove mock functionality
       // const featureIds = this.features.map(feature => feature.sys.id).join(',');
       // this.votesOnFeatures = await this.$axios.$get(`/api/votes/${featureIds}`);
@@ -160,5 +174,44 @@
       font-size: 1.5rem;
     }
   }
+}
+
+::v-deep .error-explanation {
+  flex-direction: column;
+
+  section {
+    width: 100%;
+  }
+
+  img {
+    max-width: 250px;
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 250px);
+    }
+  }
+
+  .title {
+    color: $greyblack;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    margin-bottom: 1rem !important;
+
+    @media (min-width: $bp-small) {
+      font-size: $font-size-large;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-large-4k;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+::v-deep .container.error-container {
+  max-width: none;
 }
 </style>

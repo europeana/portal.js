@@ -258,6 +258,10 @@ export default {
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
     },
+    "noFeatureIdeas": {
+      "title": "No new feature ideas at the moment.",
+      "description": "Check back again soon!"
+    },
     "pageNotFound": {
       "metaTitle": "Page not found",
       "title": "The page you are looking for doesn't exist."
