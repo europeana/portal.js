@@ -6,6 +6,8 @@
       :full-height="false"
       :show-message="false"
       title-tag="h2"
+      data-qa="error message"
+      class="feature-ideas-error-container"
     />
     <template v-else>
       <ContentCard
@@ -13,11 +15,12 @@
         :key="i"
         :title="feature.name"
         :texts="[feature.text]"
-        :image-url="feature.image.image.url"
-        :image-content-type="feature.image.image.contentType"
-        :image-width="feature.image.image.width"
-        :image-height="feature.image.image.height"
+        :image-url="feature.image?.image.url"
+        :image-content-type="feature.image?.image.contentType"
+        :image-width="feature.image?.image.width"
+        :image-height="feature.image?.image.height"
         variant="list"
+        data-qa="feature idea card"
       >
         <template #footer>
           <b-button
@@ -118,40 +121,42 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
-::v-deep .error-explanation {
-  flex-direction: column;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.feature-ideas-error-container {
+  ::v-deep .error-explanation {
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
-  section {
-    width: 100%;
-  }
-
-  img {
-    max-width: 250px;
-
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 250px);
-    }
-  }
-
-  .title {
-    color: $greyblack;
-    font-size: $font-size-medium;
-    font-weight: 600;
-    margin-bottom: 1rem !important;
-
-    @media (min-width: $bp-small) {
-      font-size: $font-size-large;
+    section {
+      width: 100%;
     }
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-large-4k;
-    }
-  }
+    img {
+      max-width: 250px;
 
-  p {
-    margin-bottom: 1rem;
+      @media (min-width: $bp-4k) {
+        max-width: calc(1.5 * 250px);
+      }
+    }
+
+    .title {
+      color: $greyblack;
+      font-size: $font-size-medium;
+      font-weight: 600;
+      margin-bottom: 1rem !important;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+      }
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
   }
 }
 

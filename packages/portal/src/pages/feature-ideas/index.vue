@@ -32,7 +32,8 @@
         >
           <article>
             <ContentHeader
-              :title="pageMeta.title"
+              v-if="name"
+              :title="name"
               :media-url="pageMetaOgImage"
               button-variant="secondary"
               class="half-col"
@@ -48,6 +49,7 @@
               />
               <FeatureIdeas
                 :features="features"
+                data-qa="feature ideas"
               />
             </div>
           </article>
@@ -87,9 +89,6 @@
     },
 
     async fetch() {
-      if (this.pageFetched) {
-        return;
-      }
       const pageVariables = {
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
@@ -106,9 +105,7 @@
       this.description = featuresPage.description;
       this.socialMediaImage = featuresPage.image;
       this.text = featuresPage.text;
-      this.features = featuresPage.hasPartCollection.items.filter(feature => !!feature) || [];
-
-      this.pageFetched = true;
+      this.features = featuresPage.hasPartCollection?.items.filter(feature => !!feature) || [];
     },
 
     computed: {
