@@ -3,13 +3,13 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
-import featureIdeas from '@/components/generic/featureIdeas.vue';
+import FeatureIdeas from '@/components/generic/FeatureIdeas.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = ({ propsData = {}, $fetchState = {} }) => {
-  return shallowMountNuxt(featureIdeas, {
+  return shallowMountNuxt(FeatureIdeas, {
     localVue,
     propsData,
     mocks: {
@@ -21,7 +21,7 @@ const factory = ({ propsData = {}, $fetchState = {} }) => {
   });
 };
 
-describe('components/generic/featureIdeas', () => {
+describe('components/generic/FeatureIdeas', () => {
   describe('fetch', () => {
     describe('when there are no features', () => {
       it('renders a message', async() => {
