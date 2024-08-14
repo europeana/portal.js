@@ -118,6 +118,41 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
+::v-deep .error-explanation {
+  flex-direction: column;
+
+  section {
+    width: 100%;
+  }
+
+  img {
+    max-width: 250px;
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 250px);
+    }
+  }
+
+  .title {
+    color: $greyblack;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    margin-bottom: 1rem !important;
+
+    @media (min-width: $bp-small) {
+      font-size: $font-size-large;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-large-4k;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
 ::v-deep .content-card.list-card {
   max-width: none;
 
@@ -173,41 +208,6 @@
     @media (min-width: $bp-4k) {
       font-size: 1.5rem;
     }
-  }
-}
-
-::v-deep .error-explanation {
-  flex-direction: column;
-
-  section {
-    width: 100%;
-  }
-
-  img {
-    max-width: 250px;
-
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 250px);
-    }
-  }
-
-  .title {
-    color: $greyblack;
-    font-size: $font-size-medium;
-    font-weight: 600;
-    margin-bottom: 1rem !important;
-
-    @media (min-width: $bp-small) {
-      font-size: $font-size-large;
-    }
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-large-4k;
-    }
-  }
-
-  p {
-    margin-bottom: 1rem;
   }
 }
 
