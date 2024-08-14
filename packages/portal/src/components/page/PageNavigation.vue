@@ -119,7 +119,8 @@
         return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
+          { url: '/help', text: this.$t('header.navigation.help') },
+          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
         ];
       },
       links() {
@@ -146,6 +147,7 @@
         case ('/account/login'):
         case ('/account/logout'):
         case ('/account/settings'):
+        case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
         case ('/'):

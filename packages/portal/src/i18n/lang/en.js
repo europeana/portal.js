@@ -792,6 +792,7 @@ export default {
       "about": "About",
       "collections": "Collections",
       "europeanaClassroom": "For teachers",
+      "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
       "shareYourCollections": "Share your collections",
