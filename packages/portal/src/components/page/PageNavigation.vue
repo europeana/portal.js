@@ -119,9 +119,8 @@
         return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') },
-          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
-        ];
+          { url: '/help', text: this.$t('header.navigation.help') }
+        ].concat(this.$features.featureIdeas ? [{ url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }] : []);
       },
       links() {
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
