@@ -120,6 +120,8 @@
 
 ::v-deep .error-explanation {
   flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   section {
     width: 100%;
