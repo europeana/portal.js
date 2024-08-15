@@ -7,6 +7,9 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingIllustrationGroup, {
   localVue,
   propsData,
+  mocks: {
+    $t: key => key
+  },
   stubs: ['b-container', 'b-col']
 });
 

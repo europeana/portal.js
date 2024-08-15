@@ -70,7 +70,7 @@
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { Pagination, Navigation, Thumbs } from 'swiper';
+  import { A11y, Pagination, Navigation, Thumbs } from 'swiper/modules';
   import Swiper from 'swiper';
 
   export default {
@@ -103,7 +103,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [Navigation, Pagination, Thumbs],
+          modules: [A11y, Navigation, Pagination, Thumbs],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 1,

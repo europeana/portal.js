@@ -1239,7 +1239,15 @@ export default {
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide group {page}"
+    "a11y": {
+      "firstSlide": "This is the first slide",
+      "lastSlide": "This is the last slide",
+      "nextSlide": "Next slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide group {page}",
+      "previousSlide": "Previous slide",
+      "slideLabel": "Slide {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "themes": "Themes",
