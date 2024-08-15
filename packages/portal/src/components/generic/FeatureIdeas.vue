@@ -98,10 +98,10 @@
         console.log('Voting on feature', featureId);
         if (this.$auth.loggedIn) {
           if (this.hasVotedOnFeature(featureId)) {
-            this.votesOnFeatures[featureId].count = this.votesOnFeatures[featureId].count - 1;
+            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) - 1;
             this.votesOnFeatures[featureId].currentlyVotedOn = false;
           } else {
-            this.votesOnFeatures[featureId].count = this.votesOnFeatures[featureId].count + 1;
+            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) + 1;
             this.votesOnFeatures[featureId].currentlyVotedOn = true;
           }
         } else {
@@ -109,10 +109,10 @@
         }
       },
       voteCountOnFeature(featureId) {
-        return this.votesOnFeatures[featureId].count;
+        return this.votesOnFeatures[featureId]?.count;
       },
       hasVotedOnFeature(featureId) {
-        return this.votesOnFeatures[featureId].currentlyVotedOn;
+        return this.votesOnFeatures[featureId]?.currentlyVotedOn;
       }
     }
   };
@@ -222,3 +222,30 @@
   max-width: none;
 }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <FeatureIdeas :features="[
+    { name: 'Feature 1',
+      text: 'Feature 1 description. Description of the feature. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      image: {
+        image: {
+          url: illustrations.search,
+          contentType: 'image/svg+xml',
+        }
+      },
+      sys: { id: '1' }
+    },
+    { name: 'Feature 2',
+      text: 'Feature 2 description. Description of the feature. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      image: {
+        image: {
+          url: illustrations.search,
+          contentType: 'image/svg+xml',
+        }
+      },
+      sys: { id: '2' }
+    }
+  ]" />
+  ```
+</docs>
