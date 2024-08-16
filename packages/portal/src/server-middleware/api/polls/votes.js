@@ -27,7 +27,7 @@ export default (config = {}) => {
       }
 
       const votesForOptions = await pg.query(`
-        SELECT o.external_id, COUNT(*) AS total, ((SELECT COUNT(*) FROM polls.votes WHERE user_id=$2 AND option_id=o.id) AS votedByCurrentUser
+        SELECT o.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE user_id=$2 AND option_id=o.id) AS votedByCurrentUser
           FROM polls.votes v LEFT JOIN polls.options o
           ON v.option_id=o.id
         WHERE o.external_id LIKE ANY('{$1}')
