@@ -1,6 +1,6 @@
 <template>
   <div
-    class="swiper-outer d-flex overflow-hidden"
+    class="swiper-outer d-flex flex-column flex-lg-row overflow-hidden"
   >
     <div
       v-show="swiperReady"
@@ -50,16 +50,19 @@
       <div
         class="swiper-wrapper"
       >
+        <!-- Should the slides be buttons? -->
         <div
           v-for="(item, index) in displayableMedia"
           :key="index"
           class="swiper-slide"
         >
-          <MediaDefaultThumbnail
-            :media-type="item.edmType || edmType"
+          <ItemMediaSwiperThumbnail
+            :media="item"
+            :edm-type="edmType"
             :offset="displayableMedia.length > 1 ? index : null"
-            class="py-4"
+            :lazy="index > 3"
           />
+          <span class="swiper-slide-thumbnail-page">{{ `p. ${index + 1}` }}</span>
         </div>
       </div>
     </div>
@@ -67,6 +70,7 @@
 </template>
 
 <script>
+  import merge from 'deepmerge';
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
@@ -77,8 +81,8 @@
     name: 'ItemMediaSwiper',
 
     components: {
-      MediaCard,
-      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail')
+      ItemMediaSwiperThumbnail: () => import('@/components/item/ItemMediaSwiperThumbnail'),
+      MediaCard
     },
 
     mixins: [swiperMixin],
@@ -112,19 +116,24 @@
           pagination: {
             type: 'fraction'
           },
-          thumbs: { swiper: this.thumbsSwiper },
           on: {
-            afterInit: this.swiperOnAfterInit,
             slideChange: this.onSlideChange,
             slideChangeTransitionEnd: this.updateSwiper
           }
         },
         thumbsSwiperOptions: {
-          direction: 'vertical',
           slidesPerView: 4,
           freeMode: true,
           watchSlidesProgress: true,
-          spaceBetween: 16
+          spaceBetween: 16,
+          breakpoints: {
+            0: {
+              direction: 'horizontal'
+            },
+            992: {
+              direction: 'vertical'
+            }
+          }
         },
         thumbsSwiper: null,
         singleMediaResource,
@@ -140,10 +149,11 @@
 
     mounted() {
       if (!this.singleMediaResource) {
-        this.thumbsSwiper = new Swiper('.swiper-thumbs', this.thumbsSwiperOptions);
-        this.swiper = new Swiper('.swiper', { ...this.swiperOptions, thumbs: {
-          swiper: this.thumbsSwiper
-        } });
+        this.thumbsSwiper = new Swiper('.swiper-thumbs', merge(this.swiperDefaultOptions, this.thumbsSwiperOptions));
+        // swiper needs to be reinitialised after thumbsSwiper is created
+        const mergedSwiperOptions = merge(this.swiperDefaultOptions, this.swiperOptions);
+        const updatedSwiperOptions = { ...mergedSwiperOptions, thumbs: { swiper: this.thumbsSwiper } };
+        this.swiper = new Swiper('.swiper', updatedSwiperOptions);
       }
     },
 
@@ -174,17 +184,43 @@
 
     .swiper-thumbs {
       flex: 0 1 auto;
+      background-color: $white;
+      padding: 1rem;
 
       .swiper-slide {
+        background-color: $grey;
         padding: 0;
-        min-width: 10rem
+        min-width: 11rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right:0;
+          bottom: 0;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
+        }
+      }
+
+      .swiper-slide-thumbnail-page {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        color: $white;
+        font-size: 0.75rem;
+        z-index: 1;
       }
     }
 
     .swiper .swiper-slide {
       width: 100%;
       min-width: 16rem;
-      padding-top: 2.25rem;
 
       @media (min-width: $bp-medium) {
         width: auto;
