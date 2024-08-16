@@ -4,7 +4,7 @@ SET search_path TO polls;
 
 CREATE TABLE options (
   id SERIAL PRIMARY KEY,
-  external_id CHAR(100) NOT NULL UNIQUE
+  external_id VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE users (
