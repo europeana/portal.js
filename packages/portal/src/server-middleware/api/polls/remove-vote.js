@@ -25,11 +25,9 @@ export default (config = {}) => {
       if (selectUserResult.rowCount > 0) {
         userRow = selectUserResult.rows[0];
       } else {
-        const insertUserResult = await pg.query(
-          'INSERT INTO polls.users (external_id) VALUES($1) RETURNING id',
-          [userExternalId]
-        );
-        userRow = insertUserResult.rows[0];
+        // user doesn't exist, can't have voted on anything
+        res.sendStatus(204);
+        return;
       }
 
       let optionRow;
@@ -40,11 +38,9 @@ export default (config = {}) => {
       if (selectOptionResult.rowCount > 0) {
         optionRow = selectOptionResult.rows[0];
       } else {
-        const insertOptionResult = await pg.query(
-          'INSERT INTO polls.options (external_id) VALUES($1) RETURNING id',
-          [optionExternalId]
-        );
-        optionRow = insertOptionResult.rows[0];
+        // option doesn't exist, can't have been voted on
+        res.sendStatus(204);
+        return;
       }
 
       let voteRow;
@@ -52,18 +48,18 @@ export default (config = {}) => {
         'SELECT id FROM polls.votes WHERE user_id=$1 AND option_id=$2',
         [userRow.id, optionRow.id]
       );
-
       if (selectVoteResult.rowCount > 0) {
-        // No need to insert new vote, user has already voted for this option
-        // Return 409 error?
+        voteRow = selectVoteResult.rows[0];
       } else {
-        await pg.query(`
-          INSERT INTO polls.votes (user_id, option_id, occurred_at)
-          VALUES($1, $2, CURRENT_TIMESTAMP)
-          `,
-        [userRow.id, optionRow.id]
-        );
+        // vote doesn't exist, no need to remove
+        res.sendStatus(204);
+        return;
       }
+
+      await pg.query(
+        'DELETE FROM polls.votes WHERE id=$1',
+        [voteRow.id]
+      );
       res.sendStatus(200);
     } catch (err) {
       res.sendStatus(409);

@@ -10,6 +10,7 @@ export default (config = {}) => {
   return async(req, res) => {
     try {
       if (!pg.enabled) {
+        res.json([]);
         return;
       }
 
@@ -38,6 +39,7 @@ export default (config = {}) => {
       if (votesForOptions.rowCount < 0) {
         // Nobody has voted on anything yet
         res.json([]);
+        return;
       }
 
       res.json(votesForOptions.rows.reduce((memo, row) => {

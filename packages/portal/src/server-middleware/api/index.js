@@ -63,6 +63,8 @@ import votes from './polls/votes.js';
 app.get('/votes', votes);
 import vote from './polls/vote.js';
 app.post('/vote', vote);
+import removeVote from './polls/removeVote.js';
+app.delete('/vote', removeVote);
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
