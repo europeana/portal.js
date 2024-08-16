@@ -128,6 +128,7 @@
   .swiper-outer,
   .swiper-container {
     @include swiper-height(0px);
+    background-color: $black;
 
     .swiper-slide {
       width: 100%;
