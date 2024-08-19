@@ -9,6 +9,10 @@
   content: '\e957';
 }
 
+.icon-3d-bold::before {
+  content: '\e935';
+}
+
 .icon-accept::before {
   content: '\e938';
 }
@@ -117,6 +121,10 @@
   content: '\e955';
 }
 
+.icon-image-bold::before {
+  content: '\e93e';
+}
+
 .icon-info::before {
   content: '\e91f';
 }
@@ -217,6 +225,10 @@
   content: '\e956';
 }
 
+.icon-sound-bold::before {
+  content: '\e958';
+}
+
 .icon-stories::before {
   content: '\e951';
 }
@@ -233,6 +245,10 @@
   content: '\e954';
 }
 
+.icon-text-bold::before {
+  content: '\e95c';
+}
+
 .icon-transcribe::before {
   content: '\e916';
 }
@@ -247,6 +263,10 @@
 
 .icon-video::before {
   content: '\e947';
+}
+
+.icon-video-bold::before {
+  content: '\e95d';
 }
 
 .icon-ic-view::before {

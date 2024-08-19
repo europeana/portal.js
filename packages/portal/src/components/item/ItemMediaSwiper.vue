@@ -41,26 +41,16 @@
       </div>
     </div>
     <div
-      v-if="!singleMediaResource"
-      class="swiper-thumbnails-wrapper"
+      class="swiper-thumbnails d-flex flex-row flex-lg-column"
     >
-      <div class="swiper-thumbnails d-flex flex-row flex-lg-column">
-        <!-- Should the slides be buttons? -->
-        <div
-          v-for="(item, index) in displayableMedia"
-          :key="index"
-          class="swiper-slide-thumbnail"
-          @click="swiper.slideTo(index)"
-        >
-          <ItemMediaSwiperThumbnail
-            :media="item"
-            :edm-type="edmType"
-            :offset="displayableMedia.length > 1 ? index : null"
-            :lazy="index > 3"
-          />
-          <span class="swiper-slide-thumbnail-page">{{ `p. ${index + 1}` }}</span>
-        </div>
-      </div>
+      <ItemMediaSwiperThumbnail
+        v-for="(media, index) in displayableMedia"
+        :key="index"
+        :media="media"
+        :index="index"
+        :lazy="index > 3"
+        @click="swiper.slideTo(index)"
+      />
     </div>
   </div>
 </template>
@@ -216,7 +206,9 @@
     }
   }
 
-  .swiper-thumbnails-wrapper {
+  .swiper-thumbnails {
+    padding: 1rem;
+    width: 13rem;
     flex: 1 0 auto;
     background-color: $white;
     overflow-x: scroll;
@@ -225,57 +217,6 @@
     @media (min-width: $bp-large) {
       overflow-x: hidden;
       overflow-y: auto;
-    }
-
-    .swiper-thumbnails {
-      padding: 1rem;
-      width: 13rem;
-    }
-
-    .swiper-slide-thumbnail {
-      background-color: $grey;
-      padding: 0;
-      flex-shrink: 0;
-      width: 11rem;
-      height: 7.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin-right: 1rem;
-      position: relative;;
-
-      @media (min-width: $bp-large) {
-        margin-bottom: 1rem;
-      }
-
-      &:last-child {
-        margin-right: 0;
-
-        @media (min-width: $bp-large) {
-          margin-bottom: 0;
-        }
-      }
-
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right:0;
-        bottom: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
-      }
-    }
-
-    .swiper-slide-thumbnail-page {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      color: $white;
-      font-size: 0.75rem;
-      z-index: 1;
     }
   }
 </style>
