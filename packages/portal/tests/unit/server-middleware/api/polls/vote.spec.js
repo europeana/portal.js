@@ -5,49 +5,49 @@ import voteEventsHandler from '@/server-middleware/api/polls/vote';
 
 const fixtures = {
   db: {
-    userId: 2,
-    optionId: 1
+    voterId: 2,
+    candidateId: 1
   },
   reqBody: {
-    userExternalId: 'keycloak_uuid',
-    optionExternalId: 'contentful_sys_id'
+    voterExternalId: 'keycloak_uuid',
+    candidateExternalId: 'contentful_sys_id'
   }
 };
 
 const pgPoolQuery = sinon.stub();
-// Stub user queries
+// Stub voter queries
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.users ')),
-  [fixtures.reqBody.userExternalId]
+  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.voters ')),
+  [fixtures.reqBody.voterExternalId]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('INSERT INTO polls.users ')),
-  [fixtures.reqBody.userExternalId]
+  sinon.match((sql) => sql.startsWith('INSERT INTO polls.voters ')),
+  [fixtures.reqBody.voterExternalId]
 )
-  .resolves({ rows: [{ id: fixtures.db.userId }] });
+  .resolves({ rows: [{ id: fixtures.db.voterId }] });
 
-// Stub option queries
+// Stub candidate queries
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.options ')),
-  [fixtures.reqBody.optionExternalId]
+  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.candidates ')),
+  [fixtures.reqBody.candidateExternalId]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('INSERT INTO polls.options ')),
-  [fixtures.reqBody.optionExternalId]
+  sinon.match((sql) => sql.startsWith('INSERT INTO polls.candidates ')),
+  [fixtures.reqBody.candidateExternalId]
 )
-  .resolves({ rows: [{ id: fixtures.db.optionId }] });
+  .resolves({ rows: [{ id: fixtures.db.candidateId }] });
 
 // Stub vote queries
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM polls.votes ')),
-  [fixtures.db.userId, fixtures.db.optionId]
+  [fixtures.db.voterId, fixtures.db.candidateId]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.trim().startsWith('INSERT INTO polls.votes ')),
-  [fixtures.db.userId, fixtures.db.optionId]
+  [fixtures.db.voterId, fixtures.db.candidateId]
 )
   .resolves({});
 
@@ -91,9 +91,9 @@ describe('@/server-middleware/api/polls/vote', () => {
       get: sinon.spy()
     };
 
-    describe('when for voting on behalf of a user with a valid session', () => {
+    describe('when for voting on behalf of a voter with a valid session', () => {
       // TODO: authorisation
-      it('runs all postgres queries to vote on the option', async() => {
+      it('runs all postgres queries to vote on the candidate', async() => {
         await voteEventsHandler(options)(expressReqStub, expressResStub);
 
         expect(pgPoolQuery.getCalls().length).toBe(6);

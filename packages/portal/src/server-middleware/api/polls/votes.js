@@ -1,6 +1,6 @@
 import pg from '../pg/pg.js';
 
-// TODO: authorisation for current user before retrieving the userId
+// TODO: authorisation for current user before retrieving the voterId
 export default (config = {}) => {
   pg.config = config;
 
@@ -11,39 +11,39 @@ export default (config = {}) => {
         return;
       }
 
-      const { optionIds, userExternalId } = req.body;
+      const { candidateIds, voterExternalId } = req.body;
 
-      let userRow = { id: null };
-      if (userExternalId) {
-        const selectUserResult = await pg.query(
-          'SELECT id FROM polls.users WHERE external_id=$1',
-          [userExternalId]
+      let voterRow = { id: null };
+      if (voterExternalId) {
+        const selectVoterResult = await pg.query(
+          'SELECT id FROM polls.voters WHERE external_id=$1',
+          [voterExternalId]
         );
-        if (selectUserResult.rowCount > 0) {
-          userRow = selectUserResult.rows[0];
+        if (selectVoterResult.rowCount > 0) {
+          voterRow = selectVoterResult.rows[0];
         }
       }
 
-      const votesForOptions = await pg.query(`
-        SELECT o.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE user_id=$2 AND option_id=o.id) AS votedByCurrentUser
-          FROM polls.votes v LEFT JOIN polls.options o
-          ON v.option_id=o.id
+      const votesForCandidates = await pg.query(`
+        SELECT o.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=o.id) AS votedByCurrentVoter
+          FROM polls.votes v LEFT JOIN polls.candidates o
+          ON v.candidate_id=o.id
         WHERE o.external_id LIKE ANY('{$1}')
         GROUP BY (o.id)
         `,
-      [optionIds, userRow.id]
+      [candidateIds, voterRow.id]
       );
 
-      if (votesForOptions.rowCount < 0) {
+      if (votesForCandidates.rowCount < 0) {
         // Nobody has voted on anything yet
         res.json([]);
         return;
       }
 
-      res.json(votesForOptions.rows.reduce((memo, row) => {
+      res.json(votesForCandidates.rows.reduce((memo, row) => {
         memo[row.id] = {
           total: row.total,
-          votedByCurrentUser: row.votedByCurrentUser
+          votedByCurrentVoter: row.votedByCurrentVoter
         };
         return memo;
       }, {}));

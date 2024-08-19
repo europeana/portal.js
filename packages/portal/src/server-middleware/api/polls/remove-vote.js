@@ -11,42 +11,42 @@ export default (config = {}) => {
         return;
       }
 
-      const { userExternalId, optionExternalId } = req.body;
+      const { voterExternalId, candidateExternalId } = req.body;
 
       // if(notAuthorized) {
       //   res.sendStatus(401);
       // }
 
-      let userRow;
-      const selectUserResult = await pg.query(
-        'SELECT id FROM polls.users WHERE external_id=$1',
-        [userExternalId]
+      let voterRow;
+      const selectVoterResult = await pg.query(
+        'SELECT id FROM polls.voters WHERE external_id=$1',
+        [voterExternalId]
       );
-      if (selectUserResult.rowCount > 0) {
-        userRow = selectUserResult.rows[0];
+      if (selectVoterResult.rowCount > 0) {
+        voterRow = selectVoterResult.rows[0];
       } else {
-        // user doesn't exist, can't have voted on anything
+        // voter doesn't exist, can't have voted on anything
         res.sendStatus(204);
         return;
       }
 
-      let optionRow;
-      const selectOptionResult = await pg.query(
-        'SELECT id FROM polls.options WHERE external_id=$1',
-        [optionExternalId]
+      let candidateRow;
+      const selectCandidateResult = await pg.query(
+        'SELECT id FROM polls.candidates WHERE external_id=$1',
+        [candidateExternalId]
       );
-      if (selectOptionResult.rowCount > 0) {
-        optionRow = selectOptionResult.rows[0];
+      if (selectCandidateResult.rowCount > 0) {
+        candidateRow = selectCandidateResult.rows[0];
       } else {
-        // option doesn't exist, can't have been voted on
+        // candidate doesn't exist, can't have been voted on
         res.sendStatus(204);
         return;
       }
 
       let voteRow;
       const selectVoteResult = await pg.query(
-        'SELECT id FROM polls.votes WHERE user_id=$1 AND option_id=$2',
-        [userRow.id, optionRow.id]
+        'SELECT id FROM polls.votes WHERE voter_id=$1 AND candidate_id=$2',
+        [voterRow.id, candidateRow.id]
       );
       if (selectVoteResult.rowCount > 0) {
         voteRow = selectVoteResult.rows[0];

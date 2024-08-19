@@ -11,55 +11,55 @@ export default (config = {}) => {
         return;
       }
 
-      const { userExternalId, optionExternalId } = req.body;
+      const { voterExternalId, candidateExternalId } = req.body;
 
       // if(notAuthorized) {
       //   res.sendStatus(401);
       // }
 
-      let userRow;
-      const selectUserResult = await pg.query(
-        'SELECT id FROM polls.users WHERE external_id=$1',
-        [userExternalId]
+      let voterRow;
+      const selectVoterResult = await pg.query(
+        'SELECT id FROM polls.voters WHERE external_id=$1',
+        [voterExternalId]
       );
-      if (selectUserResult.rowCount > 0) {
-        userRow = selectUserResult.rows[0];
+      if (selectVoterResult.rowCount > 0) {
+        voterRow = selectVoterResult.rows[0];
       } else {
-        const insertUserResult = await pg.query(
-          'INSERT INTO polls.users (external_id) VALUES($1) RETURNING id',
-          [userExternalId]
+        const insertVoterResult = await pg.query(
+          'INSERT INTO polls.voters (external_id) VALUES($1) RETURNING id',
+          [voterExternalId]
         );
-        userRow = insertUserResult.rows[0];
+        voterRow = insertVoterResult.rows[0];
       }
 
-      let optionRow;
-      const selectOptionResult = await pg.query(
-        'SELECT id FROM polls.options WHERE external_id=$1',
-        [optionExternalId]
+      let candidateRow;
+      const selectCandidateResult = await pg.query(
+        'SELECT id FROM polls.candidates WHERE external_id=$1',
+        [candidateExternalId]
       );
-      if (selectOptionResult.rowCount > 0) {
-        optionRow = selectOptionResult.rows[0];
+      if (selectCandidateResult.rowCount > 0) {
+        candidateRow = selectCandidateResult.rows[0];
       } else {
-        const insertOptionResult = await pg.query(
-          'INSERT INTO polls.options (external_id) VALUES($1) RETURNING id',
-          [optionExternalId]
+        const insertCandidateResult = await pg.query(
+          'INSERT INTO polls.candidates (external_id) VALUES($1) RETURNING id',
+          [candidateExternalId]
         );
-        optionRow = insertOptionResult.rows[0];
+        candidateRow = insertCandidateResult.rows[0];
       }
 
       const selectVoteResult = await pg.query(
-        'SELECT id FROM polls.votes WHERE user_id=$1 AND option_id=$2',
-        [userRow.id, optionRow.id]
+        'SELECT id FROM polls.votes WHERE voter_id=$1 AND candidate_id=$2',
+        [voterRow.id, candidateRow.id]
       );
 
       if (selectVoteResult.rowCount > 0) {
-        // No need to insert new vote, user has already voted for this option
+        // No need to insert new vote, voter has already voted for this candidate
       } else {
         await pg.query(`
-          INSERT INTO polls.votes (user_id, option_id, occurred_at)
+          INSERT INTO polls.votes (voter_id, candidate_id, occurred_at)
           VALUES($1, $2, CURRENT_TIMESTAMP)
           `,
-        [userRow.id, optionRow.id]
+        [voterRow.id, candidateRow.id]
         );
       }
       res.sendStatus(200);

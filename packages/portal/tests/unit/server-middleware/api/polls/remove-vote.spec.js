@@ -5,30 +5,30 @@ import removeVoteEventsHandler from '@/server-middleware/api/polls/remove-vote';
 
 const fixtures = {
   db: {
-    userId: 1,
-    optionId: 2,
+    voterId: 1,
+    candidateId: 2,
     voteId: 3
   },
   reqBody: {
-    userExternalId: 'keycloak_uuid',
-    optionExternalId: 'contentful_sys_id'
+    voterExternalId: 'keycloak_uuid',
+    candidateExternalId: 'contentful_sys_id'
   }
 };
 
 const pgPoolQuery = sinon.stub();
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.users ')),
-  [fixtures.reqBody.userExternalId]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.userId }] });
+  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.voters ')),
+  [fixtures.reqBody.voterExternalId]
+).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voterId }] });
 
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.options ')),
-  [fixtures.reqBody.optionExternalId]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.optionId }] });
+  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.candidates ')),
+  [fixtures.reqBody.candidateExternalId]
+).resolves({ rowCount: 1, rows: [{ id: fixtures.db.candidateId }] });
 
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM polls.votes ')),
-  [fixtures.db.userId, fixtures.db.optionId]
+  [fixtures.db.voterId, fixtures.db.candidateId]
 ).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voteId }] });
 
 pgPoolQuery.withArgs(
@@ -77,9 +77,9 @@ describe('@/server-middleware/api/polls/vote', () => {
       get: sinon.spy()
     };
 
-    describe('when voting on behalf of a user with a valid session', () => {
+    describe('when voting on behalf of a voter with a valid session', () => {
       // TODO: authorisation
-      it('runs all postgres queries to vote on the option', async() => {
+      it('runs all postgres queries to vote on the candidate', async() => {
         await removeVoteEventsHandler(options)(expressReqStub, expressResStub);
 
         expect(pgPoolQuery.getCalls().length).toBe(4);
