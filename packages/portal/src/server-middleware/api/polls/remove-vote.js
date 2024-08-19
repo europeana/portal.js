@@ -60,9 +60,9 @@ export default (config = {}) => {
         'DELETE FROM polls.votes WHERE id=$1',
         [voteRow.id]
       );
-      res.sendStatus(200);
+      res.sendStatus(204);
     } catch (err) {
-      res.sendStatus(409);
+      res.sendStatus(409); // 409 doesn't make sense here, what should this be?
       console.error(err);
     }
   };

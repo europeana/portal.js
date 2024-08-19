@@ -1,9 +1,6 @@
 import pg from '../pg/pg.js';
 
-// TODO: use `next` for error handling
-// TODO: accept multiple uris for the same action
-// TODO: log user agent?
-// TODO: validate action_types
+// TODO: authorisation for current user before retrieving the userId
 export default (config = {}) => {
   pg.config = config;
 
@@ -14,7 +11,7 @@ export default (config = {}) => {
         return;
       }
 
-      const { optionIDs, userExternalId } = req.body;
+      const { optionIds, userExternalId } = req.body;
 
       let userRow = { id: null };
       if (userExternalId) {
@@ -34,8 +31,9 @@ export default (config = {}) => {
         WHERE o.external_id LIKE ANY('{$1}')
         GROUP BY (o.id)
         `,
-      [optionIDs, userRow.id]
+      [optionIds, userRow.id]
       );
+
       if (votesForOptions.rowCount < 0) {
         // Nobody has voted on anything yet
         res.json([]);

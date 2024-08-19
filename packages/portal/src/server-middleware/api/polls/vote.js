@@ -55,7 +55,6 @@ export default (config = {}) => {
 
       if (selectVoteResult.rowCount > 0) {
         // No need to insert new vote, user has already voted for this option
-        // Return 409 error?
       } else {
         await pg.query(`
           INSERT INTO polls.votes (user_id, option_id, occurred_at)
