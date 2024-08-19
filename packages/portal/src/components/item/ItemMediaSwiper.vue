@@ -1,6 +1,6 @@
 <template>
   <div
-    class="swiper-outer d-flex flex-column flex-lg-row overflow-hidden"
+    class="swiper-outer d-flex flex-column flex-lg-row"
   >
     <div
       v-show="swiperReady"
@@ -42,19 +42,15 @@
     </div>
     <div
       v-if="!singleMediaResource"
-      v-show="swiperReady"
-      thumbsSlider=""
-      class="swiper-thumbs swiper-container"
-      data-qa="awesome swiper"
+      class="swiper-thumbnails-wrapper"
     >
-      <div
-        class="swiper-wrapper"
-      >
+      <div class="swiper-thumbnails d-flex flex-row flex-lg-column">
         <!-- Should the slides be buttons? -->
         <div
           v-for="(item, index) in displayableMedia"
           :key="index"
-          class="swiper-slide"
+          class="swiper-slide-thumbnail"
+          @click="swiper.slideTo(index)"
         >
           <ItemMediaSwiperThumbnail
             :media="item"
@@ -70,12 +66,10 @@
 </template>
 
 <script>
-  import merge from 'deepmerge';
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { A11y, Pagination, Navigation, Thumbs } from 'swiper/modules';
-  import Swiper from 'swiper';
+  import { A11y, Navigation, Pagination } from 'swiper/modules';
 
   export default {
     name: 'ItemMediaSwiper',
@@ -107,7 +101,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [A11y, Navigation, Pagination, Thumbs],
+          modules: [A11y, Navigation, Pagination],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 1,
@@ -121,21 +115,6 @@
             slideChangeTransitionEnd: this.updateSwiper
           }
         },
-        thumbsSwiperOptions: {
-          slidesPerView: 4,
-          freeMode: true,
-          watchSlidesProgress: true,
-          spaceBetween: 16,
-          breakpoints: {
-            0: {
-              direction: 'horizontal'
-            },
-            992: {
-              direction: 'vertical'
-            }
-          }
-        },
-        thumbsSwiper: null,
         singleMediaResource,
         swiperReady: singleMediaResource
       };
@@ -144,16 +123,6 @@
     computed: {
       isSinglePlayableMedia() {
         return this.displayableMedia.filter(resource => resource.isPlayableMedia).length === 1;
-      }
-    },
-
-    mounted() {
-      if (!this.singleMediaResource) {
-        this.thumbsSwiper = new Swiper('.swiper-thumbs', merge(this.swiperDefaultOptions, this.thumbsSwiperOptions));
-        // swiper needs to be reinitialised after thumbsSwiper is created
-        const mergedSwiperOptions = merge(this.swiperDefaultOptions, this.swiperOptions);
-        const updatedSwiperOptions = { ...mergedSwiperOptions, thumbs: { swiper: this.thumbsSwiper } };
-        this.swiper = new Swiper('.swiper', updatedSwiperOptions);
       }
     },
 
@@ -180,43 +149,8 @@
   .swiper-container {
     @include swiper-height(0px);
     flex: 0 1 100%;
+    width: 100%;
     background: black;
-
-    .swiper-thumbs {
-      flex: 0 1 auto;
-      background-color: $white;
-      padding: 1rem;
-
-      .swiper-slide {
-        background-color: $grey;
-        padding: 0;
-        min-width: 11rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-
-        &::after {
-          content: '';
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right:0;
-          bottom: 0;
-          background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
-        }
-      }
-
-      .swiper-slide-thumbnail-page {
-        position: absolute;
-        bottom: 1rem;
-        left: 1rem;
-        color: $white;
-        font-size: 0.75rem;
-        z-index: 1;
-      }
-    }
 
     .swiper .swiper-slide {
       width: 100%;
@@ -282,4 +216,66 @@
     }
   }
 
+  .swiper-thumbnails-wrapper {
+    flex: 1 0 auto;
+    background-color: $white;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+
+    @media (min-width: $bp-large) {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .swiper-thumbnails {
+      padding: 1rem;
+      width: 13rem;
+    }
+
+    .swiper-slide-thumbnail {
+      background-color: $grey;
+      padding: 0;
+      flex-shrink: 0;
+      width: 11rem;
+      height: 7.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-right: 1rem;
+      position: relative;;
+
+      @media (min-width: $bp-large) {
+        margin-bottom: 1rem;
+      }
+
+      &:last-child {
+        margin-right: 0;
+
+        @media (min-width: $bp-large) {
+          margin-bottom: 0;
+        }
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right:0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
+      }
+    }
+
+    .swiper-slide-thumbnail-page {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      color: $white;
+      font-size: 0.75rem;
+      z-index: 1;
+    }
+  }
 </style>
