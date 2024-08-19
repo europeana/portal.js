@@ -1,0 +1,11 @@
+include:
+  - docker-compose.app.yml
+services:
+  nginx:
+    image: europeana/portal.js-nginx:${TAG:-latest}
+    build:
+      context: ./docker/compose/nginx
+    depends_on:
+      - app
+    ports:
+      - "8081:8080"

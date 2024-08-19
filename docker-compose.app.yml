@@ -15,7 +15,8 @@ services:
     environment:
       IIIF_PRESENTATION_PLUGIN: ${IIIF_PRESENTATION_PLUGIN:-open-layers}
       POSTGRES_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres-password}@postgres/europeana_www
-      PORTAL_BASE_URL: http://localhost:8080
+      PORTAL_BASE_URL: http://localhost:8081
       REDIS_URL: redis://redis
+    stop_grace_period: 1s
     ports:
       - "8080:8080"
