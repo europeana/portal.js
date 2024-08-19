@@ -929,6 +929,9 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Loading",
   "loadingResults": "Loading results",
   "messages": {
@@ -1229,7 +1232,6 @@ export default {
   },
   "statuses": {
     "liked": "Liked",
-    "likesCount": "{count} likes",
     "pinned": "Pinned",
     "required": "Required"
   },

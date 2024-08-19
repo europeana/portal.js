@@ -11,8 +11,8 @@
     />
     <template v-else>
       <ContentCard
-        v-for="feature, i in features"
-        :key="i"
+        v-for="(feature, index) in features"
+        :key="index"
         :title="feature.name"
         :texts="[feature.text]"
         :image-url="feature.image?.image.url"
@@ -34,7 +34,7 @@
               class="mr-1"
               :class="feature.voted ? 'icon-thumbsup' : 'icon-thumbsup-outlined'"
             />
-            {{ $t('statuses.likesCount', { count: voteCountOnFeature(feature.sys.id) }) }}
+            {{ $tc('likes.count', voteCountOnFeature(feature.sys.id)) }}
           </b-button>
         </template>
       </ContentCard>
