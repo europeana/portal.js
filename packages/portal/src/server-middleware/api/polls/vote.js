@@ -47,7 +47,6 @@ export default (config = {}) => {
         optionRow = insertOptionResult.rows[0];
       }
 
-      let voteRow;
       const selectVoteResult = await pg.query(
         'SELECT id FROM polls.votes WHERE user_id=$1 AND option_id=$2',
         [userRow.id, optionRow.id]
