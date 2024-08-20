@@ -61,6 +61,7 @@
           :key="index"
           :media="media"
           :index="index"
+          :edm-type="edmType"
           :lazy="index > 3"
           :class="{ 'swiper-slide-active': index === swiper?.activeIndex }"
           @click="swiper.slideTo(index)"

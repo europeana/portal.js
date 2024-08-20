@@ -4,22 +4,13 @@
     data-qa="swiper slide thumbnail"
     @click="$emit('click')"
   >
-    <MediaDefaultThumbnail
-      v-if="showDefaultThumbnail"
-      :media-type="media.edmType"
+    <MediaCardImage
+      :media="media"
+      :lazy="lazy"
       :offset="index"
-      class="h-100"
-    />
-    <component
-      :is="lazy ? 'b-img-lazy' : 'b-img'"
-      v-else
-      :src="thumbnailSrc"
-      :width="thumbnailWidth"
-      :height="thumbnailHeight"
-      alt=""
-      data-qa="media preview image"
-      @error="imageNotFound"
-      @error.native="imageNotFound"
+      :edm-type="edmType"
+      thumbnail-size="small"
+      :linkable="false"
     />
     <span class="swiper-slide-thumbnail-page">{{ `p. ${index + 1}` }}</span>
     <span
@@ -34,7 +25,7 @@
     name: 'ItemMediaSwiperThumbnail',
 
     components: {
-      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail')
+      MediaCardImage: () => import('@/components/media/MediaCardImage')
     },
     props: {
       media: {
@@ -48,39 +39,17 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      edmType: {
+        type: String,
+        default: null
       }
     },
 
-    data() {
-      return {
-        showDefaultThumbnail: false
-      };
-    },
-
     computed: {
-      thumbnails() {
-        return this.media.thumbnails(this.$nuxt.context);
-      },
-      thumbnailSrc() {
-        return this.thumbnails.small;
-      },
-      thumbnailWidth() {
-        if (!this.media.ebucoreWidth) {
-          return null;
-        }
-        if (this.media.ebucoreWidth < 200) {
-          return this.media.ebucoreWidth;
-        }
-        return 200;
-      },
-      thumbnailHeight() {
-        if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
-          return null;
-        }
-        return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
-      },
       mediaTypeIconClass() {
-        return this.media.edmType ? `icon-${this.media.edmType.toLowerCase()}-bold` : '';
+        const mediaType = this.media.edmType || this.edmType;
+        return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       }
     },
 
@@ -168,6 +137,22 @@
 
     &.swiper-slide-active {
       border: 2px solid $blue;
+    }
+
+    ::v-deep .image-container {
+      width: 100%;
+      height: 100%;
+
+      div {
+        width: 100%;
+        height: 100%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     ::v-deep .card-img {
