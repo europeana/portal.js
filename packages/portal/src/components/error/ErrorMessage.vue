@@ -21,9 +21,10 @@
         class="mt-4"
       >
         <!-- eslint-disable vue/no-v-html -->
-        <h1
+        <component
+          :is="titleTag"
           v-if="title"
-          class="mb-4"
+          class="title mb-4"
           v-html="title"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -62,13 +63,13 @@
         type: Boolean,
         default: true
       },
-      gridless: {
-        type: Boolean,
-        default: true
-      },
       fullHeight: {
         type: Boolean,
         default: true
+      },
+      titleTag: {
+        type: String,
+        default: 'h1'
       }
     },
 
@@ -171,7 +172,7 @@
       max-width: calc(1.5 * 35rem);
     }
 
-    h1 {
+    .title {
       color: $mediumgrey;
       font-weight: 700;
       font-size: 2rem;

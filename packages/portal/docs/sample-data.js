@@ -4,7 +4,8 @@ export default {
     newsletter: 'https://images.ctfassets.net/i01duvb6kq77/1tvbbzdiq0sc0hBjbqlihZ/a60ff9eb7d24df0b0a1e54ae19d3c3d9/il_newsletter.svg',
     curate: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
     audience: 'https://images.ctfassets.net/i01duvb6kq77/B0VJ9of5sryy5n34hS93I/991133dbbc2dd0f48fd215e3aa1c3c75/Audience.svg',
-    support: 'https://images.ctfassets.net/i01duvb6kq77/KIMCBhGmlm90mxG8hldb1/8339d01737e9456cd10715b40f6c1925/feedback.svg'
+    support: 'https://images.ctfassets.net/i01duvb6kq77/KIMCBhGmlm90mxG8hldb1/8339d01737e9456cd10715b40f6c1925/feedback.svg',
+    search: 'https://images.ctfassets.net/i01duvb6kq77/JX06hL2kGk2mqCJLsoJUh/4d8bad1506779f0029c00f5f522e8e00/search.svg'
   },
   imagesWithAttribution: [
     {
