@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Τεκμήριο δεν βρέθηκε",
       "title": "Ωχ, όχι! {newline} Δεν μπορέσαμε να βρούμε αυτό το τεκμήριο."
     },
+    "noFeatureIdeas": {
+      "description": "Ελέγξτε ξανά σύντομα!",
+      "title": "Δεν υπάρχουν ιδέες για νέες δυνατότητες αυτή τη στιγμή."
+    },
     "pageNotFound": {
       "metaTitle": "Η σελίδα δε βρέθηκε",
       "title": "Η σελίδα που ψάχνετε δεν υπάρχει."
@@ -746,6 +750,7 @@ export default {
       "about": "Σχετικά",
       "collections": "Συλλογές",
       "europeanaClassroom": "Για εκπαιδευτικούς",
+      "featureIdeas": "Ιδέες χαρακτηριστικών",
       "help": "Βοήθεια",
       "home": "Αρχική",
       "shareYourCollections": "Μοιραστείτε τις συλλογές σας",
@@ -870,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Μετάβαση στο περιεχόμενο της σελίδας"
+  },
+  "likes": {
+    "count": "{count} σαν | {count} αρέσει"
   },
   "loading": "Φόρτωση",
   "loadingResults": "Φόρτωση αποτελεσμάτων",
