@@ -10,7 +10,7 @@ const fixtures = {
   },
   reqBody: {
     voterExternalId: 'keycloak_uuid',
-    candidateExternalId: 'contentful_sys_id'
+    candidateExternalId: 'contentful_id'
   }
 };
 

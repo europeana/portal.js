@@ -7,25 +7,25 @@ const fixtures = {
   db: {
     voterId: 1
   },
-  reqBody: {
-    candidateIds: ['5Ca2xEt6t10fxqMbvrw9aO', '5Ca2xEt6t10fxqMbvrw9a1', '5Ca2xEt6t10fxqMbvrw9a2'],
-    voterExternalId: 'keycloak_uuid'
+  reqQuery: {
+    candidate: ['feature-id-one', 'feature-id-two', 'feature-id-three'],
+    voter: 'keycloak_uuid'
   }
 };
 
 const pgPoolQuery = sinon.stub();
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM polls.voters ')),
-  [fixtures.reqBody.voterExternalId]
+  [fixtures.reqQuery.voter]
 ).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voterId }] });
 
 pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.trim().startsWith('SELECT o.external_id, COUNT(*) AS total, ')),
-  [fixtures.reqBody.candidateIds, fixtures.db.voterId]
-).resolves({ rowCount: 1, rows: [{ 'id': '5Ca2xEt6t10fxqMbvrw9aO', 'total': 40, votedByCurrentVoter: 1 }] });
+  sinon.match((sql) => sql.trim().startsWith('SELECT c.external_id, COUNT(*) AS total, ')),
+  [fixtures.reqQuery.candidate, fixtures.db.voterId]
+).resolves({ rowCount: 1, rows: [{ 'id': 'feature-id-one', 'total': 40, votedByCurrentVoter: 1 }] });
 
 const expressReqStub = {
-  body: fixtures.reqBody,
+  query: fixtures.reqQuery,
   get: sinon.spy()
 };
 const expressResStub = {
@@ -52,7 +52,7 @@ describe('@/server-middleware/api/polls/votes', () => {
 
       it('responds with the view count as json', async() => {
         await votesEventsHandler(options)(expressReqStub, expressResStub);
-        expect(expressResStub.json.calledWith({ '5Ca2xEt6t10fxqMbvrw9aO': { total: 40, votedByCurrentVoter: 1 } })).toBe(true);
+        expect(expressResStub.json.calledWith({ 'feature-id-one': { total: 40, votedByCurrentVoter: 1 } })).toBe(true);
       });
     });
   });

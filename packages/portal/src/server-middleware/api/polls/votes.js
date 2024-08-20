@@ -11,7 +11,8 @@ export default (config = {}) => {
         return;
       }
 
-      const { candidateIds, voterExternalId } = req.body;
+      const candidateExternalIds = req.query?.candidate || [];
+      const voterExternalId  = req.query?.voter;
 
       let voterRow = { id: null };
       if (voterExternalId) {
@@ -25,13 +26,13 @@ export default (config = {}) => {
       }
 
       const votesForCandidates = await pg.query(`
-        SELECT o.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=o.id) AS votedByCurrentVoter
-          FROM polls.votes v LEFT JOIN polls.candidates o
-          ON v.candidate_id=o.id
-        WHERE o.external_id LIKE ANY('{$1}')
-        GROUP BY (o.id)
+        SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS votedByCurrentVoter
+          FROM polls.votes v LEFT JOIN polls.candidates c
+          ON v.candidate_id=c.id
+        WHERE c.external_id LIKE ANY('{$1}')
+        GROUP BY (c.id)
         `,
-      [candidateIds, voterRow.id]
+      [candidateExternalIds, voterRow.id]
       );
 
       if (votesForCandidates.rowCount < 0) {
