@@ -11,7 +11,7 @@ export default (config = {}) => {
         return;
       }
 
-      const candidateExternalIds = req.query?.candidate || [];
+      const candidateExternalIds = req.query?.candidate?.split(',') || [];
       const voterExternalId  = req.query?.voter;
 
       let voterRow = { id: null };
@@ -29,7 +29,7 @@ export default (config = {}) => {
         SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS votedByCurrentVoter
           FROM polls.votes v LEFT JOIN polls.candidates c
           ON v.candidate_id=c.id
-        WHERE c.external_id LIKE ANY('{$1}')
+        WHERE c.external_id LIKE ANY($1)
         GROUP BY (c.id)
         `,
       [candidateExternalIds, voterRow.id]
@@ -50,6 +50,7 @@ export default (config = {}) => {
       }, {}));
     } catch (err) {
       console.error(err);
+      res.sendStatus(500);
     }
   };
 };
