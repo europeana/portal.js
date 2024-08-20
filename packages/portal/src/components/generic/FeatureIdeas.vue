@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
+  import keycloakMixin from '@/mixins/keycloak';
   import ContentCard from '@/components/content/ContentCard';
 
   export default {
@@ -54,7 +54,7 @@
       ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
 
-    mixins: [keycloak],
+    mixins: [keycloakMixin],
 
     props: {
       features: {
@@ -77,7 +77,7 @@
       }
 
       // TODO: fetch the votes for each feature and remove mock functionality
-      // const featureIds = this.features.map(feature => feature.sys.id).join(',');
+      // const featureIds = this.features.map((feature) => feature.sys.id).join(',');
       // this.votesOnFeatures = await this.$axios.$get(`/api/votes/${featureIds}`);
       for (const feature of this.features) {
         const featureVotes = { count: Math.floor(Math.random() * 99), currentlyVotedOn: false };

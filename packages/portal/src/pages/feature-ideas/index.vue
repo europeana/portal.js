@@ -105,7 +105,7 @@
       this.description = featuresPage.description;
       this.socialMediaImage = featuresPage.image;
       this.text = featuresPage.text;
-      this.features = featuresPage.hasPartCollection?.items.filter(feature => !!feature) || [];
+      this.features = featuresPage.hasPartCollection?.items.filter((feature) => !!feature) || [];
     },
 
     computed: {
