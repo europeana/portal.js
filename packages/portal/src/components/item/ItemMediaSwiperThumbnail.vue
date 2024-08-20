@@ -142,10 +142,6 @@
 
     &:last-child {
       margin-right: 0;
-
-      @media (min-width: $bp-large) {
-        margin-bottom: 0;
-      }
     }
 
     &.btn-secondary {

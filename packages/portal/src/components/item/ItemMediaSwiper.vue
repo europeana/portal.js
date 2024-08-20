@@ -3,11 +3,11 @@
     class="swiper-outer d-flex flex-column flex-lg-row"
   >
     <div
-      v-show="swiperReady"
       class="swiper swiper-container"
       data-qa="awesome swiper"
     >
       <div
+        v-show="swiperReady"
         class="swiper-wrapper"
       >
         <div
@@ -41,18 +41,31 @@
       </div>
     </div>
     <div
-      v-if="displayableMedia.length > 1 && swiperReady"
-      class="swiper-thumbnails d-flex flex-row flex-lg-column"
+      v-if="displayableMedia.length > 1"
+      class=" d-flex flex-column position-relative"
     >
-      <ItemMediaSwiperThumbnail
-        v-for="(media, index) in displayableMedia"
-        :key="index"
-        :media="media"
-        :index="index"
-        :lazy="index > 3"
-        :class="{ 'swiper-slide-active': index === swiper.activeIndex }"
-        @click="swiper.slideTo(index)"
-      />
+      <div class="swiper-thumbnails-toolbar d-flex align-items-center justify-content-center px-3 py-2 py-lg-1">
+        <b-button
+          variant="light-flat"
+          class="swiper-button-prev icon-arrow-outline mr-2"
+        />
+        <b-button
+          variant="light-flat"
+          class="swiper-button-next icon-arrow-outline mr-2"
+        />
+        <span class="swiper-pagination d-inline-flex" />
+      </div>
+      <div class="swiper-thumbnails d-flex flex-row flex-lg-column">
+        <ItemMediaSwiperThumbnail
+          v-for="(media, index) in displayableMedia"
+          :key="index"
+          :media="media"
+          :index="index"
+          :lazy="index > 3"
+          :class="{ 'swiper-slide-active': index === swiper?.activeIndex }"
+          @click="swiper.slideTo(index)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -191,39 +204,11 @@
         margin-right: auto;
       }
     }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      color: $lightgrey;
-      background: $white;
-      border-radius: 50%;
-      width: 45px;
-      opacity: 0.7;
-    }
-
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-      font-size: 22px;
-    }
-
-    .swiper-button-disabled {
-      display: none;
-    }
-
-    .swiper-container-horizontal > .swiper-pagination-bullets {
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-    }
-
-    .swiper-pagination-bullet-active {
-      background: $smoke;
-    }
   }
 
   .swiper-thumbnails {
     padding: 1rem;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     background-color: $white;
     overflow-x: scroll;
     scrollbar-width: thin;
@@ -233,5 +218,51 @@
       overflow-y: auto;
       width: 13rem;
     }
+  }
+
+  .swiper-thumbnails-toolbar {
+    background-color: rgba($black, 0.05);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    @media (min-width: $bp-large) {
+      background-color: rgba($white, 0.95);
+      position: absolute;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: $black;
+      position: static;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-top: auto;
+
+      &:before {
+        font-size: 1.5rem;
+      }
+
+      &::after {
+        content: none;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+    }
+
+    .swiper-button-prev {
+      transform: rotateY(180deg);
+    }
+
+    .swiper-pagination {
+      position: static;
+      transform: none;
+      color: $mediumgrey-light;
+      width: auto;
+    }
+
   }
 </style>

@@ -36,12 +36,6 @@
               data-qa="provider name"
             />
           </div>
-          <div
-            v-if="!iiifPresentationManifest && (media.length !== 1)"
-            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
-          >
-            <div class="swiper-pagination mx-lg-4" />
-          </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
@@ -253,17 +247,6 @@
       margin-top: 2.5rem;
     }
 
-    .swiper-pagination {
-      display: inline-flex;
-      position: relative;
-
-      &.swiper-pagination-fraction {
-        left: auto;
-        width: auto;
-        bottom: auto;
-      }
-    }
-
     .user-buttons {
       display: inline-flex;
 
@@ -297,15 +280,6 @@
         button {
           text-align: center;
           justify-content: center;
-        }
-
-        .pagination-wrapper {
-          order: 1;
-          margin-bottom: 1.125rem;
-
-          .swiper-pagination {
-            margin: auto;
-          }
         }
 
         .rights-wrapper {
