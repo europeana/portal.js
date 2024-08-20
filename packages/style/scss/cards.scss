@@ -360,26 +360,26 @@
         margin-right: 0.3rem;
         line-height: inherit;
       }
+    }
 
-      .btn-light-flat {
-        color: $mediumgrey;
-        padding: 0;
-        margin-right: 1rem;
-        line-height: inherit;
+    .btn-light-flat {
+      color: $mediumgrey;
+      padding: 0;
+      margin-right: 1rem;
+      line-height: inherit;
 
-        &.pin-button {
-          display: inline-flex;
-          order: 3;
+      &.pin-button {
+        display: inline-flex;
+        order: 3;
+      }
+
+      &.active {
+        &.like-button {
+          color: $red;
         }
 
-        &.active {
-          &.like-button {
-            color: $red;
-          }
-
-          &.pin-button {
-            color: $darkgreen;
-          }
+        &.pin-button {
+          color: $darkgreen;
         }
       }
     }

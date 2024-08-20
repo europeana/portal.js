@@ -70,9 +70,9 @@
                       <ErrorMessage
                         v-if="$fetchState.error"
                         :error="$fetchState.error"
-                        :gridless="false"
                         :full-height="false"
                         :show-message="showErrorMessage"
+                        title-tag="h2"
                       />
                       <template
                         v-else

@@ -63,7 +63,8 @@
             data-qa="card title"
             :lang="langAttribute(displayTitle.code)"
           >
-            <SmartLink
+            <component
+              :is="url ? 'SmartLink' : 'div'"
               :destination="url"
               link-class="card-link"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
@@ -71,7 +72,7 @@
               <span>
                 {{ truncate(displayTitle.value, 90) }}
               </span>
-            </SmartLink>
+            </component>
           </b-card-title>
           <b-card-text
             v-if="hitText"
