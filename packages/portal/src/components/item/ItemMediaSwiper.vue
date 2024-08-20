@@ -41,6 +41,7 @@
       </div>
     </div>
     <div
+      v-if="displayableMedia.length > 1 && swiperReady"
       class="swiper-thumbnails d-flex flex-row flex-lg-column"
     >
       <ItemMediaSwiperThumbnail
@@ -49,6 +50,7 @@
         :media="media"
         :index="index"
         :lazy="index > 3"
+        :class="{ 'swiper-slide-active': index === swiper.activeIndex }"
         @click="swiper.slideTo(index)"
       />
     </div>
@@ -135,14 +137,27 @@
   @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/swiper';
 
-  .swiper-outer,
+  .swiper-outer {
+    @media (min-width: $bp-large) {
+      height: $swiper-height;
+
+      @media (min-height: $bp-medium) {
+        max-height: $swiper-height-max;
+      }
+    }
+  }
+
   .swiper-container {
     @include swiper-height(0px);
-    flex: 0 1 100%;
+    flex: 1 1 100%;
     width: 100%;
     background: black;
 
-    .swiper .swiper-slide {
+    .swiper-wrapper {
+      @include swiper-height(0px);
+    }
+
+    .swiper-slide {
       width: 100%;
       min-width: 16rem;
 
@@ -208,7 +223,6 @@
 
   .swiper-thumbnails {
     padding: 1rem;
-    width: 13rem;
     flex: 1 0 auto;
     background-color: $white;
     overflow-x: scroll;
@@ -217,6 +231,7 @@
     @media (min-width: $bp-large) {
       overflow-x: hidden;
       overflow-y: auto;
+      width: 13rem;
     }
   }
 </style>
