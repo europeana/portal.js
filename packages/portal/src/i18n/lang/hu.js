@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Az tárgyat nem található",
       "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgyat."
     },
+    "noFeatureIdeas": {
+      "description": "Nézz vissza hamarosan!",
+      "title": "Jelenleg nincs új funkcióötlet."
+    },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
       "title": "A keresett oldal nem létezik."
@@ -746,6 +750,7 @@ export default {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanároknak",
+      "featureIdeas": "Funkcióötletek",
       "help": "Súgó",
       "home": "Kezdőlap",
       "shareYourCollections": "Ossza meg gyűjteményeit",
@@ -870,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
+  },
+  "likes": {
+    "count": "{count} kedvelés | {count} kedvelések"
   },
   "loading": "Betöltés",
   "loadingResults": "Eredmények betöltése",

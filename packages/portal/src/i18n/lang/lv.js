@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
     },
+    "noFeatureIdeas": {
+      "description": "Drīzumā pārbaudiet vēlreiz!",
+      "title": "Pašlaik nav jaunu funkciju ideju."
+    },
     "pageNotFound": {
       "metaTitle": "Lapa nav atrasta",
       "title": "Lapa, kuru meklējat, neeksistē."
@@ -746,6 +750,7 @@ export default {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Pedagogiem",
+      "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
       "shareYourCollections": "Kopīgojiet savas kolekcijas",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
+  },
+  "likes": {
+    "count": "{count} patīk | {count} Patīk"
   },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",

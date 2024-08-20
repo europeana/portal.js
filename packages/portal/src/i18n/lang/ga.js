@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
     },
+    "noFeatureIdeas": {
+      "description": "Seiceáil ar ais arís go luath!",
+      "title": "Níl aon smaointe gné nua ann faoi láthair."
+    },
     "pageNotFound": {
       "metaTitle": "Níor aimsíodh an leathanach",
       "title": "Níl an leathanach atá á lorg agat ann."
@@ -746,6 +750,7 @@ export default {
       "about": "Maidir linn",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Do mhúinteoirí",
+      "featureIdeas": "Smaointe gné",
       "help": "Cabhair",
       "home": "Baile",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
+  },
+  "likes": {
+    "count": "{count} Is maith liom | {count} taitníonn"
   },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",

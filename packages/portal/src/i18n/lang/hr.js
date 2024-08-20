@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
     },
+    "noFeatureIdeas": {
+      "description": "Provjerite uskoro!",
+      "title": "Trenutačno nema ideja za nove značajke."
+    },
     "pageNotFound": {
       "metaTitle": "Stranica nije pronađena",
       "title": "Stranica koju tražite ne postoji."
@@ -747,6 +751,7 @@ export default {
       "about": "O nama",
       "collections": "Zbirke",
       "europeanaClassroom": "Za nastavnike",
+      "featureIdeas": "Ideje za značajke",
       "help": "Pomoć",
       "home": "Početna",
       "shareYourCollections": "Podijelite svoje zbirke",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
+  },
+  "likes": {
+    "count": "{count} lajk | {count} lajkova"
   },
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",

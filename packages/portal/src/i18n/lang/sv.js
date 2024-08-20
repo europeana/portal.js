@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
     },
+    "noFeatureIdeas": {
+      "description": "Kom tillbaka snart igen!",
+      "title": "Inga nya funktionsidéer för tillfället."
+    },
     "pageNotFound": {
       "metaTitle": "Sidan har inte hittats",
       "title": "Sidan du letar efter finns inte."
@@ -746,6 +750,7 @@ export default {
       "about": "Om",
       "collections": "Samlingar",
       "europeanaClassroom": "För lärare",
+      "featureIdeas": "Idéer för funktioner",
       "help": "Hjälp",
       "home": "Hem",
       "shareYourCollections": "Dela dina samlingar",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
+  },
+  "likes": {
+    "count": "{count} gillar | {count} Gilla-markeringar"
   },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",

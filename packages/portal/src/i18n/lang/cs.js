@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
     },
+    "noFeatureIdeas": {
+      "description": "Brzy se znovu podívejte!",
+      "title": "Momentálně žádné nové nápady na funkce."
+    },
     "pageNotFound": {
       "metaTitle": "Stránka nenalezena",
       "title": "Stránka, kterou hledáte, neexistuje."
@@ -747,6 +751,7 @@ export default {
       "about": "O nás",
       "collections": "Sbírky",
       "europeanaClassroom": "Pro učitele",
+      "featureIdeas": "Nápady na funkce",
       "help": "Pomoc",
       "home": "Domů",
       "shareYourCollections": "Sdílejte své sbírky",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
+  },
+  "likes": {
+    "count": "{count} like | {count} lajků"
   },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",

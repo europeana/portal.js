@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
     },
+    "noFeatureIdeas": {
+      "description": "Reveniți în curând!",
+      "title": "Nu există idei de funcții noi în acest moment."
+    },
     "pageNotFound": {
       "metaTitle": "Pagina nu a fost găsita",
       "title": "Pagina pe care o cauți nu există."
@@ -746,6 +750,7 @@ export default {
       "about": "Despre",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
+      "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Pagină natală",
       "shareYourCollections": "Partajați colecțiile dvs.",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
+  },
+  "likes": {
+    "count": "{count} place | {count} aprecieri"
   },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",

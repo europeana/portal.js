@@ -245,6 +245,10 @@ export default {
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
     },
+    "noFeatureIdeas": {
+      "description": "Begiratu berriro laster!",
+      "title": "Ez dago ideia berririk une honetan."
+    },
     "pageNotFound": {
       "metaTitle": "Ez da orria aurkitu",
       "title": "Bilatzen ari zaren orria ez da existitzen."
@@ -752,6 +756,7 @@ export default {
       "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
+      "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
       "shareYourCollections": "Partekatu zure bildumak",
@@ -876,6 +881,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
+  },
+  "likes": {
+    "count": "{count} gustoko | {count} gustokoak"
   },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",

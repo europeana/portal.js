@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Item non-trouvé",
       "title": "Oh non! {newline} Nous n'avons pas pu trouver cet item."
     },
+    "noFeatureIdeas": {
+      "description": "Revenez bientôt !",
+      "title": "Pas d'idées de nouvelles fonctionnalités pour le moment."
+    },
     "pageNotFound": {
       "metaTitle": "Page non trouvée",
       "title": "La page que vous recherchez n'existe pas."
@@ -747,6 +751,7 @@ export default {
       "about": "À propos d'Europeana",
       "collections": "Collections",
       "europeanaClassroom": "Pour les enseignants",
+      "featureIdeas": "Idées de fonctionnalités",
       "help": "Aide",
       "home": "Accueil",
       "shareYourCollections": "Partagez vos collections",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Passer au contenu de la page"
+  },
+  "likes": {
+    "count": "{count} j'aime | {count} j'aime"
   },
   "loading": "Chargement",
   "loadingResults": "Chargement des résultats",

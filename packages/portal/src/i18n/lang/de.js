@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
     },
+    "noFeatureIdeas": {
+      "description": "Schauen Sie bald wieder vorbei!",
+      "title": "Im Moment gibt es keine Ideen für neue Funktionen."
+    },
     "pageNotFound": {
       "metaTitle": "Seite nicht gefunden",
       "title": "Die gesuchte Seite existiert nicht."
@@ -747,6 +751,7 @@ export default {
       "about": "Über (uns)",
       "collections": "Sammlungen",
       "europeanaClassroom": "Für Lehrende",
+      "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
       "shareYourCollections": "Teilen Sie Ihre Sammlungen",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
