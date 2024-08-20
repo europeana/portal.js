@@ -89,6 +89,10 @@
   content: '\e901';
 }
 
+.icon-feature-ideas::before {
+  content: '\e931';
+}
+
 .icon-ic-feedback::before {
   content: '\e933';
 }
@@ -251,6 +255,14 @@
 
 .icon-text-bold::before {
   content: '\e95c';
+}
+
+.icon-thumbsup::before {
+  content: '\e921';
+}
+
+.icon-thumbsup-outlined::before {
+  content: '\e92c';
 }
 
 .icon-transcribe::before {
