@@ -26,7 +26,7 @@ export default (config = {}) => {
       }
 
       const votesForCandidates = await pg.query(`
-        SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS votedByCurrentVoter
+        SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS voted_by_current_voter
           FROM polls.votes v LEFT JOIN polls.candidates c
           ON v.candidate_id=c.id
         WHERE c.external_id LIKE ANY($1)
@@ -42,9 +42,9 @@ export default (config = {}) => {
       }
 
       res.json(votesForCandidates.rows.reduce((memo, row) => {
-        memo[row.id] = {
+        memo[row.external_id] = {
           total: row.total,
-          votedByCurrentVoter: row.votedByCurrentVoter
+          votedByCurrentVoter: row.voted_by_current_voter
         };
         return memo;
       }, {}));

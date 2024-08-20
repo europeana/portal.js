@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import keycloakMixin from '@/mixins/keycloak';
   import ContentCard from '@/components/content/ContentCard';
 
@@ -69,20 +70,18 @@
       };
     },
 
-    fetch() {
+    async fetch() {
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
         error.code = 'noFeatureIdeas';
         this.$error(error);
       }
 
-      // TODO: fetch the votes for each feature and remove mock functionality
-      // const featureIds = this.features.map((feature) => feature.sys.id).join(',');
-      // this.votesOnFeatures = await this.$axios.$get(`/api/votes/${featureIds}`);
-      for (const feature of this.features) {
-        const featureVotes = { count: Math.floor(Math.random() * 99), currentlyVotedOn: false };
-        this.votesOnFeatures[feature.sys.id] = featureVotes;
-      }
+      const featureIds = this.features.map((feature) => feature.sys.id).join(',');
+      const votesResponse = await axios.create({
+        baseURL: this.$config.app.baseUrl
+      }).get('/_api/votes', { params: { candidate: featureIds, voter: this.userId } });
+      this.votesOnFeatures = votesResponse.data;
     },
 
     computed: {
@@ -92,27 +91,28 @@
     },
 
     methods: {
-      voteOnFeature(featureId) {
-        // TODO: Implement voting on feature and remove mock functionality
-        // await this.$axios.$post(`/api/vote/${featureId}`);
+      async voteOnFeature(featureId) {
         console.log('Voting on feature', featureId);
         if (this.$auth.loggedIn) {
           if (this.hasVotedOnFeature(featureId)) {
-            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) - 1;
-            this.votesOnFeatures[featureId].currentlyVotedOn = false;
+            await axios.create({
+              baseURL: this.$config.app.baseUrl
+            }).delete('/_api/vote', { data: { candidate: featureId, voter: this.userId } });
           } else {
-            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) + 1;
-            this.votesOnFeatures[featureId].currentlyVotedOn = true;
+            await axios.create({
+              baseURL: this.$config.app.baseUrl
+            }).post('/_api/vote', { candidate: featureId, voter: this.userId });
           }
+          this.$fetch();
         } else {
           this.keycloakLogin();
         }
       },
       voteCountOnFeature(featureId) {
-        return this.votesOnFeatures[featureId]?.count;
+        return this.votesOnFeatures[featureId]?.total || 0;
       },
       hasVotedOnFeature(featureId) {
-        return this.votesOnFeatures[featureId]?.currentlyVotedOn;
+        return this.votesOnFeatures[featureId]?.votedByCurrentVoter;
       }
     }
   };

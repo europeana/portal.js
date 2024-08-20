@@ -11,7 +11,8 @@ export default (config = {}) => {
         return;
       }
 
-      const { voterExternalId, candidateExternalId } = req.body;
+      const candidateExternalId = req.body?.candidate;
+      const voterExternalId = req.body?.voter;
 
       // if(notAuthorized) {
       //   res.sendStatus(401);
