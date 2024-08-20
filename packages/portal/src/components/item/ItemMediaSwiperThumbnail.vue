@@ -1,6 +1,6 @@
 <template>
   <b-button
-    class="swiper-slide-thumbnail"
+    class="swiper-slide-thumbnail text-lowercase"
     @click="$emit('click')"
   >
     <MediaDefaultThumbnail
@@ -102,25 +102,39 @@
 
   .icon-media-type {
     position: absolute;
-    right: 1rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
     z-index: 1;
-    bottom: 1rem;
     color: $white;
-    font-size: 1.5rem;
+    font-size: $font-size-small;
+    line-height: 1;
+
+    @media (min-width: $bp-medium) {
+      font-size: $font-size-large;
+      right: 0.75rem;
+      bottom: 0.75rem;
+    }
   }
 
   .swiper-slide-thumbnail {
     background-color: $grey;
     padding: 0;
     flex-shrink: 0;
-    width: 11rem;
-    height: 7.75rem;
+    width: 5.125rem;
+    height: 3.625rem;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     margin-right: 1rem;
-    position: relative;;
+    position: relative;
+    border-radius: 0;
+    color: $black;
+
+    @media (min-width: $bp-medium) {
+      width: 11rem;
+      height: 7.75rem;
+    }
 
     @media (min-width: $bp-large) {
       margin-bottom: 1rem;
@@ -134,6 +148,16 @@
       }
     }
 
+    &.btn-secondary {
+      &:hover,
+      &:not(:disabled):not(.disabled):active:hover,
+      &:not(:disabled):not(.disabled).active:hover {
+        color: $black;
+        background-color: $grey;
+        box-shadow: none;
+      }
+    }
+
     &::after {
       content: '';
       display: block;
@@ -144,14 +168,28 @@
       bottom: 0;
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
     }
+
+    &.swiper-slide-active {
+      border: 2px solid $blue;
+    }
+
+    ::v-deep .card-img {
+      border-radius: 0;
+    }
   }
 
   .swiper-slide-thumbnail-page {
     position: absolute;
-    bottom: 1rem;
-    left: 1rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
     color: $white;
-    font-size: 0.75rem;
     z-index: 1;
+    line-height: 1;
+
+    @media (min-width: $bp-medium) {
+      font-size: $font-size-small;
+      bottom: 1rem;
+      left: 1rem;
+    }
   }
 </style>
