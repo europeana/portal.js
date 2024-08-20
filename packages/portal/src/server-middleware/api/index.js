@@ -63,7 +63,7 @@ import votes from './polls/votes.js';
 app.get('/votes', votes(runtimeConfig.postgres));
 import vote from './polls/vote.js';
 app.post('/vote', vote(runtimeConfig.postgres));
-import removeVote from './polls/removeVote.js';
+import removeVote from './polls/remove-vote.js';
 app.delete('/vote', removeVote(runtimeConfig.postgres));
 
 app.all('/*', (req, res) => res.sendStatus(404));
