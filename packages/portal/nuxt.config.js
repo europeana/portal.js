@@ -43,7 +43,7 @@ const redisConfig = () => {
 const postgresConfig = () => {
   // see https://node-postgres.com/apis/pool
   const postgresOptions = {
-    enabled: featureIsEnabled('eventLogging'), // TODO: Split out option(s) for toggling event Logging and feature voting separately
+    enabled: featureIsEnabled('eventLogging') || featureIsEnabled('featureIdeas'),
     connectionString: process.env.POSTGRES_URL,
     connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
     idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),

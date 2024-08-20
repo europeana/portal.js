@@ -60,11 +60,11 @@ import version from './version.js';
 app.get('/version', version);
 
 import votes from './polls/votes.js';
-app.get('/votes', votes);
+app.get('/votes', votes(runtimeConfig.postgres));
 import vote from './polls/vote.js';
-app.post('/vote', vote);
+app.post('/vote', vote(runtimeConfig.postgres));
 import removeVote from './polls/removeVote.js';
-app.delete('/vote', removeVote);
+app.delete('/vote', removeVote(runtimeConfig.postgres));
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
