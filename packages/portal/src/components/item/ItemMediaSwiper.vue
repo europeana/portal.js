@@ -168,6 +168,7 @@
 
     .swiper-wrapper {
       @include swiper-height(0px);
+      transition: none;
     }
 
     .swiper-slide {
