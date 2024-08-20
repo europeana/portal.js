@@ -1,6 +1,7 @@
 <template>
   <b-button
     class="swiper-slide-thumbnail text-lowercase"
+    data-qa="swiper slide thumbnail"
     @click="$emit('click')"
   >
     <MediaDefaultThumbnail
