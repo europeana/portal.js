@@ -226,11 +226,15 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
 
     @media (min-width: $bp-large) {
       background-color: rgba($white, 0.95);
       position: absolute;
+    }
+
+    .swiper-button-prev {
+      transform: rotateY(180deg);
     }
 
     .swiper-button-prev,
@@ -254,15 +258,12 @@
       }
     }
 
-    .swiper-button-prev {
-      transform: rotateY(180deg);
-    }
-
     .swiper-pagination {
       position: static;
       transform: none;
       color: $mediumgrey-light;
       width: auto;
+      font-size: $font-size-small;
     }
 
   }
