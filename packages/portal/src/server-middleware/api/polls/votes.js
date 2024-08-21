@@ -14,14 +14,8 @@ export default (config = {}) => {
 
       let voterExternalId = null;
       if (req.headers.authorization) {
-        try {
-          const userinfo = await keycloakUserinfo(req, config.auth.strategies.keycloak);
-          voterExternalId = userinfo?.sub || null;
-        } catch (err) {
-          console.error('keycloak error', err);
-          // TODO: handle
-          res.sendStatus(500);
-        }
+        const userinfo = await keycloakUserinfo(req, config.auth.strategies.keycloak);
+        voterExternalId = userinfo?.sub || null;
       }
 
       const candidateExternalIds = req.query?.candidate?.split(',') || [];
@@ -63,7 +57,8 @@ export default (config = {}) => {
       }, {}));
     } catch (err) {
       console.error(err);
-      res.sendStatus(500);
+      const status = err.response?.status || 500;
+      res.sendStatus(status);
     }
   };
 };

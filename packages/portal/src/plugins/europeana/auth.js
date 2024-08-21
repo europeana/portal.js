@@ -7,6 +7,7 @@ const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConf
     // Refresh token is no longer valid; clear tokens and try again
     $auth.logout();
     delete requestConfig.headers['Authorization'];
+    delete requestConfig.headers['authorization'];
     return $axios.request(requestConfig);
   }
 
@@ -18,6 +19,7 @@ const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConf
   updateRefreshToken($auth, refreshAccessTokenResponse);
 
   // Retry request with new access token
+  console.log('retrying request with new access token', requestConfig);
   return $axios.request(requestConfig);
 };
 
@@ -58,6 +60,9 @@ const updateAccessToken = ($auth, requestConfig, refreshAccessTokenResponse) => 
   $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
 
   delete requestConfig.headers['Authorization'];
+  delete requestConfig.headers['authorization'];
+  // TODO: use axios instead of $axios, and set new Authorization header here
+  //       from newAccessToken?
 
   return newAccessToken;
 };

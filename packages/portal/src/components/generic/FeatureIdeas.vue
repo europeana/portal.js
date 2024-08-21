@@ -46,6 +46,7 @@
 <script>
   import axios from 'axios';
   import keycloakMixin from '@/mixins/keycloak';
+  import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
   import ContentCard from '@/components/content/ContentCard';
 
   export default {
@@ -67,12 +68,21 @@
 
     data() {
       return {
+        axiosInstance: null,
         votesOnFeatures: {}
       };
     },
 
     // TODO: prevent flickering from "0 votes" to "x votes"
     async fetch() {
+      this.axiosInstance = axios.create({
+        baseURL: this.$config.app.baseUrl
+      });
+      this.axiosInstance.interceptors.response.use(
+        (response) => response,
+        (error) => keycloakResponseErrorHandler(this.$nuxt.context, error)
+      );
+
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
         error.code = 'noFeatureIdeas';
@@ -80,11 +90,10 @@
       }
 
       const params = { candidate: this.features.map((feature) => feature.sys.id).join(',') };
-      const votesResponse = await axios({
-        baseURL: this.$config.app.baseUrl,
+      const votesResponse = await this.axiosInstance({
         url: '/_api/votes',
         method: 'get',
-        headers: this.headersForAuthorization,
+        headers: this.headersForAuthorization(),
         params
       });
 
@@ -94,7 +103,7 @@
     // client-side only for oAuth authorization
     fetchOnServer: false,
 
-    computed: {
+    methods: {
       headersForAuthorization() {
         if (this.$auth.loggedIn) {
           return {
@@ -103,21 +112,17 @@
         } else {
           return {};
         }
-      }
-    },
-
-    methods: {
+      },
       async voteOnFeature(featureId) {
         if (this.$auth.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'post';
           const data = { candidate: featureId };
 
-          await axios({
-            baseURL: this.$config.app.baseUrl,
+          await this.axiosInstance({
             url: '/_api/vote',
             method,
             data,
-            headers: this.headersForAuthorization
+            headers: this.headersForAuthorization()
           });
 
           this.$fetch();

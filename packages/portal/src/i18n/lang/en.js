@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "vote": "Vote"
   },
   "attribution": {
     "country": "Country:",
