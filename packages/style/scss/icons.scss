@@ -277,6 +277,10 @@
   content: '\e93c';
 }
 
+.icon-unavailable::before {
+  content: '\e953';
+}
+
 .icon-video::before {
   content: '\e947';
 }
@@ -287,10 +291,6 @@
 
 .icon-ic-view::before {
   content: '\e902';
-}
-
-.icon-unavailable::before {
-  content: '\e953';
 }
 
 .icon-x::before {
