@@ -79,13 +79,12 @@
         this.$error(error);
       }
 
-      const headers = { authorization: this.accessToken };
       const params = { candidate: this.features.map((feature) => feature.sys.id).join(',') };
       const votesResponse = await axios({
         baseURL: this.$config.app.baseUrl,
         url: '/_api/votes',
         method: 'get',
-        headers,
+        headers: this.headersForAuthorization,
         params
       });
 
@@ -96,25 +95,29 @@
     fetchOnServer: false,
 
     computed: {
-      accessToken() {
-        return this.$auth.getToken(this.$auth.strategy?.name) || null;
+      headersForAuthorization() {
+        if (this.$auth.loggedIn) {
+          return {
+            authorization: this.$auth.getToken(this.$auth.strategy?.name)
+          };
+        } else {
+          return {};
+        }
       }
     },
 
     methods: {
       async voteOnFeature(featureId) {
-        console.log('Voting on feature', featureId);
         if (this.$auth.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'post';
           const data = { candidate: featureId };
-          const headers = { authorization: this.accessToken };
 
           await axios({
             baseURL: this.$config.app.baseUrl,
             url: '/_api/vote',
             method,
             data,
-            headers
+            headers: this.headersForAuthorization
           });
 
           this.$fetch();
