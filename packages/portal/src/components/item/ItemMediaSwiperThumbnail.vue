@@ -51,12 +51,6 @@
         const mediaType = this.media.edmType || this.edmType;
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       }
-    },
-
-    methods: {
-      imageNotFound() {
-        this.showDefaultThumbnail = true;
-      }
     }
   };
 </script>
