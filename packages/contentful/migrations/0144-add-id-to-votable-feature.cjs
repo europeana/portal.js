@@ -2,7 +2,7 @@ module.exports = function(migration) {
   const voteableFeature = migration.editContentType('voteableFeature');
 
   voteableFeature
-    .createField('id')
+    .createField('identifier')
     .name('Identifier')
     .type('Symbol')
     .localized(true)
@@ -12,9 +12,9 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  voteableFeature.changeFieldControl('id', 'builtin', 'slugEditor', {});
+  voteableFeature.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
 
   voteableFeature
-    .moveField('id')
+    .moveField('identifier')
     .afterField('name');
 };
