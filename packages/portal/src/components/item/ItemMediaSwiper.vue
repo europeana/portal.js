@@ -240,6 +240,7 @@
 
     .swiper-button-prev,
     .swiper-button-next {
+      background-color: transparent;
       color: $black;
       position: static;
       width: 1.5rem;
