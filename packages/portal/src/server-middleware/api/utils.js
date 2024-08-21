@@ -1,3 +1,4 @@
+import axios from 'axios';
 import defu  from 'defu';
 import createHttpError from 'http-errors';
 
@@ -34,4 +35,14 @@ export const forbiddenUnlessOriginAllowed = (origins) => (origin, callback) => {
   } else {
     callback(createHttpError(403, 'Origin not permitted'));
   }
+};
+
+export const keycloakUserinfo = async(req, config) => {
+  const keycloakUserinfoResponse = await axios({
+    baseURL: config.origin,
+    url: `/auth/realms/${config.realm}/protocol/openid-connect/userinfo`,
+    method: 'get',
+    headers: { authorization: req.headers.authorization }
+  });
+  return keycloakUserinfoResponse.data;
 };

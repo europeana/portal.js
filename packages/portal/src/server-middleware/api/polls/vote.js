@@ -1,8 +1,9 @@
 import pg from '../pg/pg.js';
+import { keycloakUserinfo } from '../utils.js';
 
 // TODO: validate user login
 export default (config = {}) => {
-  pg.config = config;
+  pg.config = config.postgres;
 
   return async(req, res) => {
     try {
@@ -11,8 +12,19 @@ export default (config = {}) => {
         return;
       }
 
+      let voterExternalId = null;
+      if (req.headers.authorization) {
+        try {
+          const userinfo = await keycloakUserinfo(req, config.auth.strategies.keycloak);
+          voterExternalId = userinfo?.sub || null;
+        } catch (err) {
+          console.error('keycloak error', err);
+          // TODO: handle
+          res.sendStatus(500);
+        }
+      }
+
       const candidateExternalId = req.body?.candidate;
-      const voterExternalId = req.body?.voter;
 
       // if(notAuthorized) {
       //   res.sendStatus(401);

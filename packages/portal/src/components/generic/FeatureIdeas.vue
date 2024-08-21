@@ -24,6 +24,7 @@
       >
         <template #footer>
           <b-button
+            v-show="!$fetchState.pending"
             class="vote-button d-inline-flex align-items-center text-uppercase mt-auto mr-auto"
             :class="{ voted: hasVotedOnFeature(feature.sys.id) }"
             variant="light-flat"
@@ -70,6 +71,7 @@
       };
     },
 
+    // TODO: prevent flickering from "0 votes" to "x votes"
     async fetch() {
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
@@ -77,16 +79,25 @@
         this.$error(error);
       }
 
-      const featureIds = this.features.map((feature) => feature.sys.id).join(',');
-      const votesResponse = await axios.create({
-        baseURL: this.$config.app.baseUrl
-      }).get('/_api/votes', { params: { candidate: featureIds, voter: this.userId } });
+      const headers = { authorization: this.accessToken };
+      const params = { candidate: this.features.map((feature) => feature.sys.id).join(',') };
+      const votesResponse = await axios({
+        baseURL: this.$config.app.baseUrl,
+        url: '/_api/votes',
+        method: 'get',
+        headers,
+        params
+      });
+
       this.votesOnFeatures = votesResponse.data;
     },
 
+    // client-side only for oAuth authorization
+    fetchOnServer: false,
+
     computed: {
-      userId() {
-        return this.$auth.user?.sub;
+      accessToken() {
+        return this.$auth.getToken(this.$auth.strategy?.name) || null;
       }
     },
 
@@ -94,15 +105,18 @@
       async voteOnFeature(featureId) {
         console.log('Voting on feature', featureId);
         if (this.$auth.loggedIn) {
-          if (this.hasVotedOnFeature(featureId)) {
-            await axios.create({
-              baseURL: this.$config.app.baseUrl
-            }).delete('/_api/vote', { data: { candidate: featureId, voter: this.userId } });
-          } else {
-            await axios.create({
-              baseURL: this.$config.app.baseUrl
-            }).post('/_api/vote', { candidate: featureId, voter: this.userId });
-          }
+          const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'post';
+          const data = { candidate: featureId };
+          const headers = { authorization: this.accessToken };
+
+          await axios({
+            baseURL: this.$config.app.baseUrl,
+            url: '/_api/vote',
+            method,
+            data,
+            headers
+          });
+
           this.$fetch();
         } else {
           this.keycloakLogin();
@@ -112,7 +126,7 @@
         return this.votesOnFeatures[featureId]?.total || 0;
       },
       hasVotedOnFeature(featureId) {
-        return this.votesOnFeatures[featureId]?.votedByCurrentVoter;
+        return this.votesOnFeatures[featureId]?.votedByCurrentVoter || false;
       }
     }
   };

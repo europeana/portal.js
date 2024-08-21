@@ -59,12 +59,13 @@ app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.
 import version from './version.js';
 app.get('/version', version);
 
+const pollsConfig = { auth: runtimeConfig.auth, postgres: runtimeConfig.postgres };
 import votes from './polls/votes.js';
-app.get('/votes', votes(runtimeConfig.postgres));
+app.get('/votes', votes(pollsConfig));
 import vote from './polls/vote.js';
-app.post('/vote', vote(runtimeConfig.postgres));
+app.post('/vote', vote(pollsConfig));
 import removeVote from './polls/remove-vote.js';
-app.delete('/vote', removeVote(runtimeConfig.postgres));
+app.delete('/vote', removeVote(pollsConfig));
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
