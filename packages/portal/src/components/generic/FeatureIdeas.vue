@@ -24,7 +24,7 @@
       >
         <template #footer>
           <b-button
-            v-show="!$fetchState.pending"
+            v-if="!$fetchState.pending"
             class="vote-button d-inline-flex align-items-center text-uppercase mt-auto mr-auto"
             :class="{ voted: hasVotedOnFeature(feature.sys.id) }"
             variant="light-flat"
@@ -73,7 +73,6 @@
       };
     },
 
-    // TODO: prevent flickering from "0 votes" to "x votes"
     async fetch() {
       this.axiosInstance = axios.create({
         baseURL: this.$config.app.baseUrl
