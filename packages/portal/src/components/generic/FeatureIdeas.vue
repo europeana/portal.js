@@ -26,16 +26,16 @@
           <b-button
             v-if="!$fetchState.pending"
             class="vote-button d-inline-flex align-items-center text-uppercase mt-auto mr-auto"
-            :class="{ voted: hasVotedOnFeature(feature.sys.id) }"
+            :class="{ voted: hasVotedOnFeature(feature.identifier) }"
             variant="light-flat"
             :aria-label="$t('actions.vote')"
-            @click="voteOnFeature(feature.sys.id)"
+            @click="voteOnFeature(feature.identifier)"
           >
             <span
               class="mr-1"
               :class="feature.voted ? 'icon-thumbsup' : 'icon-thumbsup-outlined'"
             />
-            {{ $tc('likes.count', voteCountOnFeature(feature.sys.id)) }}
+            {{ $tc('likes.count', voteCountOnFeature(feature.identifier)) }}
           </b-button>
         </template>
       </ContentCard>
@@ -88,7 +88,7 @@
         this.$error(error);
       }
 
-      const params = { candidate: this.features.map((feature) => feature.sys.id).join(',') };
+      const params = { candidate: this.features.map((feature) => feature.identifier).join(',') };
       const votesResponse = await this.axiosInstance({
         url: '/_api/votes',
         method: 'get',
