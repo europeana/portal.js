@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Objekt sa nenašla",
       "title": "Ó nie! {newline} Túto objekt sa nám nepodarilo nájsť."
     },
+    "noFeatureIdeas": {
+      "description": "Vráťte sa sem čoskoro!",
+      "title": "Momentálne nemáte žiadne nápady na nové funkcie."
+    },
     "pageNotFound": {
       "metaTitle": "Stránka nenájdená",
       "title": "Stránka, ktorú hľadáte, neexistuje."
@@ -746,6 +750,7 @@ export default {
       "about": "O nás",
       "collections": "Kolekcie",
       "europeanaClassroom": "Pre učiteľov",
+      "featureIdeas": "Nápady na funkcie",
       "help": "Pomoc",
       "home": "Domov",
       "shareYourCollections": "Zdieľajte svoje zbierky",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
+  },
+  "likes": {
+    "count": "{count} Páči sa mi | {count} páči sa mi"
   },
   "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",

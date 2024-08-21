@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
     },
+    "noFeatureIdeas": {
+      "description": "Kontrollige varsti uuesti!",
+      "title": "Hetkel uusi funktsiooni ideid pole."
+    },
     "pageNotFound": {
       "metaTitle": "lehte ei leitud",
       "title": "Lehte, mida otsite, pole olemas."
@@ -747,6 +751,7 @@ export default {
       "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
+      "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
       "shareYourCollections": "Jaga oma kogusid",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
+  },
+  "likes": {
+    "count": "{count} meeldib | {count} meeldimist"
   },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",

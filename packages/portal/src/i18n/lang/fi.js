@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
     },
+    "noFeatureIdeas": {
+      "description": "Tarkista pian uudelleen!",
+      "title": "Ei uusia ominaisuus ideoita tällä hetkellä."
+    },
     "pageNotFound": {
       "metaTitle": "Sivua ei löydy",
       "title": "Etsimääsi sivua ei ole olemassa."
@@ -747,6 +751,7 @@ export default {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajille",
+      "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
       "shareYourCollections": "Jaa kokoelmasi",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
+  },
+  "likes": {
+    "count": "{count} tykkää | {count} tykkää"
   },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",

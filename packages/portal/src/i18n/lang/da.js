@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
     },
+    "noFeatureIdeas": {
+      "description": "Kom snart tilbage igen!",
+      "title": "Ingen nye funktionsideer i øjeblikket."
+    },
     "pageNotFound": {
       "metaTitle": "Siden blev ikke fundet",
       "title": "Den side du leder efter eksisterer ikke."
@@ -747,6 +751,7 @@ export default {
       "about": "Om",
       "collections": "Samlinger",
       "europeanaClassroom": "Til lærere",
+      "featureIdeas": "Funktionsideer",
       "help": "Hjælp",
       "home": "Hjem",
       "shareYourCollections": "Del dine samlinger",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",

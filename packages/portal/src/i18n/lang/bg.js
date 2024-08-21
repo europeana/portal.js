@@ -245,6 +245,10 @@ export default {
       "metaTitle": "Артикулът не е намерен",
       "title": "О, не! {newline} Не успяхме да намерим този обект."
     },
+    "noFeatureIdeas": {
+      "description": "Проверете отново скоро!",
+      "title": "В момента няма идеи за нови функции."
+    },
     "pageNotFound": {
       "metaTitle": "Страницата не е намерена",
       "title": "Страницата, която търсите, не съществува."
@@ -752,6 +756,7 @@ export default {
       "about": "За нас",
       "collections": "Колекции",
       "europeanaClassroom": "За учители",
+      "featureIdeas": "Идеи за функции",
       "help": "Помощ",
       "home": "Начало",
       "shareYourCollections": "Споделете вашите колекции",
@@ -876,6 +881,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Напред към съдържанието на страницата"
+  },
+  "likes": {
+    "count": "{count} харесване | {count} харесвания"
   },
   "loading": "Зареждане",
   "loadingResults": "Зареждане на резултати",

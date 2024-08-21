@@ -240,6 +240,10 @@ export default {
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
     },
+    "noFeatureIdeas": {
+      "description": "Kom snel weer terug!",
+      "title": "Op dit moment geen ideeën voor nieuwe functies."
+    },
     "pageNotFound": {
       "metaTitle": "Pagina niet gevonden",
       "title": "De pagina die u zoekt, bestaat niet."
@@ -747,6 +751,7 @@ export default {
       "about": "Over ons",
       "collections": "Collecties",
       "europeanaClassroom": "Voor leraren",
+      "featureIdeas": "Ideeën voor functies",
       "help": "Help",
       "home": "Home",
       "shareYourCollections": "Deel uw collecties",
@@ -871,6 +876,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",

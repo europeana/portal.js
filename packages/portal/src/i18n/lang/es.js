@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Item no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este Ítem."
     },
+    "noFeatureIdeas": {
+      "description": "¡Vuelva pronto!",
+      "title": "No hay ideas sobre nuevas funciones por el momento."
+    },
     "pageNotFound": {
       "metaTitle": "Página no encontrada",
       "title": "La página que buscas no existe."
@@ -746,6 +750,7 @@ export default {
       "about": "Sobre nosotros",
       "collections": "Colecciones",
       "europeanaClassroom": "Para docentes/profesores",
+      "featureIdeas": "Ideas destacadas",
       "help": "Ayuda",
       "home": "Inicio",
       "shareYourCollections": "Comparte tus colecciones",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
+  },
+  "likes": {
+    "count": "{count} me gusta | {count} me gusta"
   },
   "loading": "Cargando",
   "loadingResults": "Cargando resultados",
