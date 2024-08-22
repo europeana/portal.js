@@ -1,7 +1,6 @@
 import pg from '../pg.js';
 
-// TODO: use `next` for error handling
-export default async(req, res) => {
+export default async(req, res, next) => {
   try {
     if (!pg.enabled) {
       res.json({ viewCount: 0 });
@@ -45,8 +44,6 @@ export default async(req, res) => {
 
     res.json({ viewCount });
   } catch (err) {
-    console.error(err);
-    const status = err.response?.status || 500;
-    res.sendStatus(status);
+    next(err);
   }
 };

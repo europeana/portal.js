@@ -1,45 +1,36 @@
 import db from './model.js';
 import auth from '../auth.js';
+import createHttpError from 'http-errors';
 
 export default async(req, res) => {
-  try {
-    let voterExternalId = null;
-    if (req.headers.authorization) {
-      const userinfo = await auth.userinfo(req);
-      voterExternalId = userinfo?.sub || null;
-    }
-    if (voterExternalId === null) {
-      res.sendStatus(401);
-      return;
-    }
-
-    const voterRow = await db.findVoter(voterExternalId);
-    if (!voterRow) {
-      // voter doesn't exist, can't have voted on anything
-      res.sendStatus(403);
-      return;
-    }
-
-    const { candidateExternalId } = req.params;
-    const candidateRow = await db.findCandidate(candidateExternalId);
-    if (!candidateRow) {
-      // candidate doesn't exist, can't have been voted on
-      res.sendStatus(404);
-      return;
-    }
-
-    const voteRow = await db.findVote(voterRow.id, candidateRow.id);
-    if (!voteRow) {
-      // vote doesn't exist, no need to remove
-      res.sendStatus(404);
-      return;
-    }
-
-    await db.deleteVote(voteRow.id);
-    res.sendStatus(204);
-  } catch (err) {
-    console.error(err);
-    const status = err.response?.status || 500;
-    res.sendStatus(status);
+  let voterExternalId = null;
+  if (req.headers.authorization) {
+    const userinfo = await auth.userinfo(req);
+    voterExternalId = userinfo?.sub || null;
   }
+  if (voterExternalId === null) {
+    throw createHttpError(401);
+  }
+
+  const voterRow = await db.findVoter(voterExternalId);
+  if (!voterRow) {
+    // voter doesn't exist, can't have voted on anything
+    throw createHttpError(403);
+  }
+
+  const { candidateExternalId } = req.params;
+  const candidateRow = await db.findCandidate(candidateExternalId);
+  if (!candidateRow) {
+    // candidate doesn't exist, can't have been voted on
+    throw createHttpError(404);
+  }
+
+  const voteRow = await db.findVote(voterRow.id, candidateRow.id);
+  if (!voteRow) {
+    // vote doesn't exist, no need to remove
+    throw createHttpError(404);
+  }
+
+  await db.deleteVote(voteRow.id);
+  res.sendStatus(204);
 };

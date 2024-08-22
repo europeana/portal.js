@@ -3,13 +3,17 @@ import createHttpError from 'http-errors';
 
 import nuxtConfig from '../../../nuxt.config.js';
 
-export const errorHandler = (res, error) => {
-  let status = error.status || 500;
-  let message = error.message;
+export const errorHandler = (err, req, res) => {
+  console.error(err);
 
-  if (error.response) {
-    status = error.response.status;
-    message = error.response.data.errorMessage;
+  let status = err.status || 500;
+  let message = err.message;
+
+  if (err.response) {
+    status = err.response.status;
+    if (err.response.data.errorMessage) {
+      message = err.response.data.errorMessage;
+    }
   }
 
   res.status(status).set('Content-Type', 'text/plain').send(message);

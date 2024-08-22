@@ -1,11 +1,10 @@
 import isbot from 'isbot';
 import pg from '../pg.js';
 
-// TODO: use `next` for error handling
 // TODO: accept multiple uris for the same action
 // TODO: log user agent?
 // TODO: validate action_types
-export default async(req, res) => {
+export default async(req, res, next) => {
   try {
     // Respond early as clients don't need to wait for the results of this logging
     res.sendStatus(204);
@@ -74,8 +73,6 @@ export default async(req, res) => {
     [objectRow.id, sessionRow.id, actionType]
     );
   } catch (err) {
-    console.error(err);
-    const status = err.response?.status || 500;
-    res.sendStatus(status);
+    next(err);
   }
 };

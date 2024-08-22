@@ -1,6 +1,3 @@
-// TODO: replace route-specific error handling with one error handler middleware
-//       @see https://expressjs.com/en/guide/error-handling.html
-
 import express from 'express';
 import cors from 'cors';
 import apm from 'elastic-apm-node';
@@ -8,7 +5,7 @@ import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 import pg from './pg.js';
 import auth from './auth.js';
-import { forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
+import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
@@ -63,5 +60,6 @@ import polls from './polls/index.js';
 app.use('/votes', polls);
 
 app.all('/*', (req, res) => res.sendStatus(404));
+app.use(errorHandler);
 
 export default app;
