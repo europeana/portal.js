@@ -325,13 +325,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .entity-page {
-    &.top-header {
-      margin-top: -1rem;
-    }
-  }
+@import '@europeana/style/scss/variables';
 
-  .page-container {
-    max-width: none;
+.page-container {
+  max-width: none;
+  padding-top: 0.875rem;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 1.5rem;
   }
+}
 </style>

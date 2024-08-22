@@ -44,6 +44,6 @@
   @import '@europeana/style/scss/variables';
 
   .trending-page {
-    padding: 3rem 0 7rem;
+    padding-bottom: 7rem;
   }
 </style>

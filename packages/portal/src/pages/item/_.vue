@@ -597,10 +597,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
   .page {
-    padding-top: 2rem
+    padding-top: 0;
+    margin-top: -0.125rem;
   }
 
   .related-collections {

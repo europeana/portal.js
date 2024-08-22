@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="static page"
-    class="text-page"
+    class="page text-page"
   >
     <AuthoredHead
       :title="name"

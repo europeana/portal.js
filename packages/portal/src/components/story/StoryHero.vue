@@ -125,14 +125,18 @@
   @import '@europeana/style/scss/responsive-background-image';
 
   .story-hero {
-    margin-top: -70px;
+    margin-top: -5.5rem;
     background-color: $mediumgrey-light;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
 
+    @media (min-width: $bp-small) {
+      margin-top: -6.5rem;
+    }
+
     @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * -70px);
+      margin-top: -8.25rem;
     }
   }
 

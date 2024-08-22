@@ -75,10 +75,10 @@
   @import '@europeana/style/scss/variables';
 
   main {
-    margin-top: 70px;
+    margin-top: 3.5rem; // leave space for the fixed positioned header
 
     @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * 70px);
+      margin-top: calc(1.5 * 3.5rem);
     }
   }
 </style>
