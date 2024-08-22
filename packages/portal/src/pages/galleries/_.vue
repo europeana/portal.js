@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
@@ -11,13 +11,12 @@
     />
     <div
       v-if="set.id"
-      class="mt-n3"
       data-qa="user gallery page"
     >
       <b-container
         fluid
       >
-        <b-row class="flex-md-row pt-5 mb-4">
+        <b-row class="flex-md-row mb-4">
           <b-col
             cols="12"
           >

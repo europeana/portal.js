@@ -1,8 +1,6 @@
 <template>
   <div
     data-qa="item page"
-    class="page"
-    :class="$fetchState.error && 'pt-0'"
   >
     <LoadingSpinner
       v-if="$fetchState.pending"
@@ -666,12 +664,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .page {
-    padding-top: 2rem
-  }
-
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;

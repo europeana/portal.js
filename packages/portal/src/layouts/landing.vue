@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-layout">
+  <div>
     <a
       class="skip-main"
       href="#main"
@@ -11,6 +11,7 @@
       ref="pageHeader"
     />
     <main
+      id="landing-layout"
       role="main"
     >
       <nuxt
@@ -67,15 +68,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  main {
-    margin-top: 70px;
-
-    @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * 70px);
-    }
-  }
-</style>

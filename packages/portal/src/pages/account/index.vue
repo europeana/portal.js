@@ -1,11 +1,11 @@
 <template>
   <div
     data-qa="account page"
-    class="xxl-page mt-n3"
+    class="xxl-page page"
   >
     <b-container fluid>
       <b-row>
-        <b-col class="pt-5 pb-4">
+        <b-col class="pb-4">
           <h1 class="text-center">
             @{{ loggedInUser && loggedInUser.preferred_username }}
           </h1>
