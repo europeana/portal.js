@@ -1,3 +1,6 @@
+// TODO: replace route-specific error handling with one error handler middleware
+//       @see https://expressjs.com/en/guide/error-handling.html
+
 import express from 'express';
 import cors from 'cors';
 import apm from 'elastic-apm-node';
