@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="$fetchState.error && 'white-page'"
-  >
+  <div>
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -25,7 +23,7 @@
       <b-container
         fluid
       >
-        <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-row class="flex-md-row pt-5 mb-4">
           <b-col
             cols="12"
           >

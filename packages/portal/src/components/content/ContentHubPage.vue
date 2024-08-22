@@ -1,5 +1,5 @@
 <template>
-  <div class="page white-page xxl-page">
+  <div class="page xxl-page">
     <b-container>
       <ContentHeader
         :title="title"

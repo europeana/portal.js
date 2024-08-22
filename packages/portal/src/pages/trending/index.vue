@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page white-page trending-page xxl-page"
+    class="page trending-page xxl-page"
   >
     <b-container>
       <ContentHeader

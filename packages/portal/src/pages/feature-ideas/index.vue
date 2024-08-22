@@ -1,5 +1,5 @@
 <template>
-  <div class="page white-page text-page xxl-page">
+  <div class="page text-page xxl-page">
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"

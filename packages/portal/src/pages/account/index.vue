@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="account page"
-    class="white-page xxl-page mt-n3"
+    class="xxl-page mt-n3"
   >
     <b-container fluid>
       <b-row>

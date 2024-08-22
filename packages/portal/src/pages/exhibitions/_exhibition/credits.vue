@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition credits page"
-    class="text-page white-page"
+    class="text-page"
   >
     <b-breadcrumb
       :items="breadcrumbs"

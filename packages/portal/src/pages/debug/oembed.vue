@@ -1,5 +1,5 @@
 <template>
-  <div class="page white-page">
+  <div class="page">
     <b-container data-qa="debug oembed page">
       <ContentHeader
         :title="pageMeta.title"

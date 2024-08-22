@@ -1,7 +1,7 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="white-page pt-5 page-container side-filters-enabled"
+    class="pt-5 page-container side-filters-enabled"
     :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row

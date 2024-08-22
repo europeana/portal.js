@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="story page"
-    class="text-page white-page "
+    class="text-page"
   >
     <b-container
       v-if="$fetchState.pending"

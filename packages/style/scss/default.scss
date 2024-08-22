@@ -1,15 +1,11 @@
 @import 'mixins';
 
 body {
-  background-color: $bodygrey;
+  background-color: $white;
   color: $textcolor;
   font-family: $font-family-sans-serif;
   font-size: 16px;
   line-height: 1.5;
-
-  &.white {
-    background-color: $white;
-  }
 }
 
 // TODO: When all pages gridless/4k set this directly on body
@@ -330,10 +326,10 @@ input[type='checkbox']:focus + label {
 }
 
 main#default {
-  margin-top: 70px;
+  margin-top: 3.5rem; // leave space for the fixed positioned header
 
   @media (min-width: $bp-4k) {
-    margin-top: calc(1.5 * 70px);
+    margin-top: calc(1.5 * 3.5rem);
   }
 }
 

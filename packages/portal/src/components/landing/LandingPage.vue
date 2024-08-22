@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page landing-page white-page xxl-page"
+    class="page landing-page xxl-page"
     :class="`${variant}-page`"
     data-qa="landing page"
   >
