@@ -1,5 +1,5 @@
 <template>
-  <div class="collections-page white-page">
+  <div class="collections-page">
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"

@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
     <LoadingSpinner
       v-if="$fetchState.pending"

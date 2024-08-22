@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home page white-page xxl-page"
+    class="home page xxl-page"
     data-qa="home page"
   >
     <HomeHero

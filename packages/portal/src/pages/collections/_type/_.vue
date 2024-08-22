@@ -2,7 +2,6 @@
   <div
     data-qa="entity page"
     class="entity-page xxl-page"
-    :class="$fetchState.error && 'white-page'"
   >
     <ErrorMessage
       v-if="$fetchState.error"

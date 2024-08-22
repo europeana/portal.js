@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="$fetchState.error && 'white-page'"
-  >
+  <div>
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
@@ -19,7 +17,7 @@
       <b-container
         fluid
       >
-        <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-row class="flex-md-row pt-5 mb-4">
           <b-col
             cols="12"
           >

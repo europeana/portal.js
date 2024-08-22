@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="text-page white-page "
+    class="text-page"
   >
     <b-breadcrumb
       :items="breadcrumbs"

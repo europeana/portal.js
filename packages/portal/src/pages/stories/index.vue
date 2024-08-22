@@ -1,5 +1,5 @@
 <template>
-  <div class="page white-page xxl-page">
+  <div class="page xxl-page">
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"

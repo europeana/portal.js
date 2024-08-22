@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="browse page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
     <slot />
     <b-container
