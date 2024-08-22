@@ -1,7 +1,6 @@
 import pg from '../pg/pg.js';
 import { keycloakUserinfo } from '../utils.js';
 
-// TODO: validate user login
 export default (config = {}) => {
   pg.config = config.postgres;
 
@@ -17,12 +16,12 @@ export default (config = {}) => {
         const userinfo = await keycloakUserinfo(req, config.auth.strategies.keycloak);
         voterExternalId = userinfo?.sub || null;
       }
+      if (voterExternalId === null) {
+        res.sendStatus(401);
+        return;
+      }
 
-      const candidateExternalId = req.body?.candidate;
-
-      // if(notAuthorized) {
-      //   res.sendStatus(401);
-      // }
+      const { candidateExternalId } = req.params;
 
       let voterRow;
       const selectVoterResult = await pg.query(
@@ -39,6 +38,7 @@ export default (config = {}) => {
         voterRow = insertVoterResult.rows[0];
       }
 
+      // TODO: sanity check this against external data sources
       let candidateRow;
       const selectCandidateResult = await pg.query(
         'SELECT id FROM polls.candidates WHERE external_id=$1',
@@ -60,7 +60,9 @@ export default (config = {}) => {
       );
 
       if (selectVoteResult.rowCount > 0) {
-        // No need to insert new vote, voter has already voted for this candidate
+        // Voter has already voted for this candidate
+        res.sendStatus(409);
+        return;
       } else {
         await pg.query(`
           INSERT INTO polls.votes (voter_id, candidate_id, occurred_at)
@@ -69,7 +71,8 @@ export default (config = {}) => {
         [voterRow.id, candidateRow.id]
         );
       }
-      res.sendStatus(200);
+
+      res.sendStatus(204);
     } catch (err) {
       console.error(err);
       const status = err.response?.status || 500;

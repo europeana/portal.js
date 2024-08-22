@@ -17,12 +17,12 @@ export default (config = {}) => {
         const userinfo = await keycloakUserinfo(req, config.auth.strategies.keycloak);
         voterExternalId = userinfo?.sub || null;
       }
+      if (voterExternalId === null) {
+        res.sendStatus(401);
+        return;
+      }
 
-      const candidateExternalId = req.body?.candidate;
-
-      // if(notAuthorized) {
-      //   res.sendStatus(401);
-      // }
+      const { candidateExternalId } = req.params;
 
       let voterRow;
       const selectVoterResult = await pg.query(
@@ -33,7 +33,7 @@ export default (config = {}) => {
         voterRow = selectVoterResult.rows[0];
       } else {
         // voter doesn't exist, can't have voted on anything
-        res.sendStatus(204);
+        res.sendStatus(403);
         return;
       }
 
@@ -46,7 +46,7 @@ export default (config = {}) => {
         candidateRow = selectCandidateResult.rows[0];
       } else {
         // candidate doesn't exist, can't have been voted on
-        res.sendStatus(204);
+        res.sendStatus(404);
         return;
       }
 
@@ -59,7 +59,7 @@ export default (config = {}) => {
         voteRow = selectVoteResult.rows[0];
       } else {
         // vote doesn't exist, no need to remove
-        res.sendStatus(204);
+        res.sendStatus(404);
         return;
       }
 

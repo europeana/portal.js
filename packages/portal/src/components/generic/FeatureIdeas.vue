@@ -114,13 +114,11 @@
       },
       async voteOnFeature(featureId) {
         if (this.$auth.loggedIn) {
-          const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'post';
-          const data = { candidate: featureId };
+          const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
           await this.axiosInstance({
-            url: '/_api/vote',
+            url: `/_api/votes/${featureId}`,
             method,
-            data,
             headers: this.headersForAuthorization()
           });
 

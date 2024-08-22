@@ -62,10 +62,10 @@ app.get('/version', version);
 const pollsConfig = { auth: runtimeConfig.auth, postgres: runtimeConfig.postgres };
 import votes from './polls/votes.js';
 app.get('/votes', votes(pollsConfig));
-import vote from './polls/vote.js';
-app.post('/vote', vote(pollsConfig));
-import removeVote from './polls/remove-vote.js';
-app.delete('/vote', removeVote(pollsConfig));
+import putPollVote from './polls/vote.js';
+app.put('/votes/:candidateExternalId', putPollVote(pollsConfig));
+import deletePollVote from './polls/remove-vote.js';
+app.delete('/votes/:candidateExternalId', deletePollVote(pollsConfig));
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
