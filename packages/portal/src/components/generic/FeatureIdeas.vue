@@ -164,7 +164,7 @@
   max-width: none;
 
   .card-img {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
 
     img {
       width: 80px;

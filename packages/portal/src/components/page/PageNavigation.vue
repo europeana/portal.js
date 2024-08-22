@@ -188,7 +188,7 @@
     }
 
     .nav-link {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-decoration: none;
       font-size: $font-size-base;
       display: flex;

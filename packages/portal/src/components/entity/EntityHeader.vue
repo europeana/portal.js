@@ -249,7 +249,7 @@
 
     .card-text {
       font-size: $font-size-small;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
@@ -275,7 +275,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0.375rem;
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     text-transform: uppercase;
 
     @at-root .xxl-page & {

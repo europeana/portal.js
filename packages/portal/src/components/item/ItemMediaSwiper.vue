@@ -168,7 +168,7 @@
 
     .swiper-button-prev,
     .swiper-button-next {
-      color: $lightgrey;
+      color: $mediumgrey;
       background: $white;
       border-radius: 50%;
       width: 45px;

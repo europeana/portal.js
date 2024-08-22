@@ -250,7 +250,7 @@ figcaption {
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -401,11 +401,4 @@ main#default {
       }
     }
   }
-}
-
-.white-page {
-  margin-top: -3rem;
-  position: relative;
-
-  @include white-cutout;
 }

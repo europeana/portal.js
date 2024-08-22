@@ -182,7 +182,7 @@
   z-index: 20;
   box-shadow: $boxshadow;
   padding: 0.5rem 0 0 0.5rem;
-  border: 1px solid $bodygrey;
+  border: 1px solid $lightgrey;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 

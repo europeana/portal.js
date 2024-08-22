@@ -62,7 +62,7 @@
   @import '@europeana/style/scss/variables';
 
   .primary-cta {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     max-width: calc(100% + 100px);
     padding: 1.5rem calc((50vw - 50%) / 2);
     margin: 0 calc((-50vw + 50%) / 2) 2rem;

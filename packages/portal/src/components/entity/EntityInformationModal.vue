@@ -81,7 +81,7 @@
   @import '@europeana/style/scss/variables';
 
   .entity-data-row {
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid $lightgrey;
     padding: 1rem 0;
     list-style: none;
 

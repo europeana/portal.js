@@ -119,7 +119,7 @@
 
   .landing-content-card-group.ds4ch {
     &.landing-content-card-group-odd {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
       margin-top: 0;
       margin-bottom: 0;
 

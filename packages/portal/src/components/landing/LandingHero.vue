@@ -128,7 +128,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-hero {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     position: relative;
 
     .container {
@@ -145,7 +145,7 @@
   }
 
   .hero-content-wrapper {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     padding: 3rem 1rem 1rem;
 
     @media (min-width: $bp-large) {
@@ -188,7 +188,7 @@
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
 
     .btn-cta-helptext {
@@ -203,7 +203,7 @@
       }
 
       ::v-deep a {
-        color: $mediumgrey;
+        color: $darkgrey;
       }
     }
   }

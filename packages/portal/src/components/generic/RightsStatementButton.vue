@@ -84,7 +84,7 @@
   @import '@europeana/style/scss/variables';
 
   .rights-statement-button {
-    color: $mediumgrey;
+    color: $darkgrey;
     background: $offwhite;
     border-radius: 0.25rem;
     padding: 0.38rem 0.625rem;
