@@ -78,9 +78,10 @@ export default (config = {}) => {
       );
 
       res.json({ items: selectObjectResult.rows });
-    } catch (e) {
-      console.error(e);
-      res.sendStatus(500);
+    } catch (err) {
+      console.error(err);
+      const status = err.response?.status || 500;
+      res.sendStatus(status);
     }
   };
 };

@@ -47,9 +47,10 @@ export default (config = {}) => {
       const viewCount = Number(result.rows[0]?.views);
 
       res.json({ viewCount });
-    } catch (e) {
-      console.error(e);
-      res.sendStatus(500);
+    } catch (err) {
+      console.error(err);
+      const status = err.response?.status || 500;
+      res.sendStatus(status);
     }
   };
 };

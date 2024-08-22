@@ -78,6 +78,8 @@ export default (config = {}) => {
       );
     } catch (err) {
       console.error(err);
+      const status = err.response?.status || 500;
+      res.sendStatus(status);
     }
   };
 };
