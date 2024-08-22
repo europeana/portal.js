@@ -9,7 +9,7 @@ export default async(req, res, next) => {
     // Respond early as clients don't need to wait for the results of this logging
     res.sendStatus(204);
 
-    if (!pg.enabled || isbot(req.get('user-agent'))) {
+    if (isbot(req.get('user-agent'))) {
       return;
     }
 

@@ -2,10 +2,6 @@ import pg from '../pg.js';
 
 export default async(req, res, next) => {
   try {
-    if (!pg.enabled) {
-      res.json({ viewCount: 0 });
-      return;
-    }
     const url = new URL(req.query?.url);
     // Ignore any search query or hash
     const uri = `${url.origin}${url.pathname}`;
