@@ -86,6 +86,7 @@
         const error = new Error('No feature ideas');
         error.code = 'noFeatureIdeas';
         this.$error(error);
+        return;
       }
 
       const params = { candidate: this.features.map((feature) => feature.identifier).join(',') };
