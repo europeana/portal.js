@@ -6,6 +6,8 @@ import cors from 'cors';
 import apm from 'elastic-apm-node';
 
 import logging from '../logging.js';
+import pg from './pg.js';
+import auth from './auth.js';
 import { forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(logging);
 
 const runtimeConfig = nuxtRuntimeConfig();
+pg.config = runtimeConfig.postgres;
+auth.config = runtimeConfig.auth.strategies.keycloak;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
@@ -33,15 +37,8 @@ const cacheHandler = cache(runtimeConfig.redis);
 app.get('/cache', cacheHandler);
 app.get('/cache/*', cacheHandler);
 
-// TODO: move to a standalone express micro-service, so the portal.js app does
-//       not have a direct dependency on postgres, indeed need not know what
-//       back-end storage is used.
-import logEvent from './events/log.js';
-app.post('/events', logEvent(runtimeConfig.postgres));
-import eventTrending from './events/trending.js';
-app.get('/events/trending', eventTrending(runtimeConfig.postgres));
-import eventViews from './events/views.js';
-app.get('/events/views', eventViews(runtimeConfig.postgres));
+import events from './events/index.js';
+app.use('/events', events);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 const feedbackCorsOptions = {
@@ -62,13 +59,8 @@ app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.
 import version from './version.js';
 app.get('/version', version);
 
-const pollsConfig = { auth: runtimeConfig.auth, postgres: runtimeConfig.postgres };
-import votes from './polls/votes.js';
-app.get('/votes', votes(pollsConfig));
-import putPollVote from './polls/vote.js';
-app.put('/votes/:candidateExternalId', putPollVote(pollsConfig));
-import deletePollVote from './polls/remove-vote.js';
-app.delete('/votes/:candidateExternalId', deletePollVote(pollsConfig));
+import polls from './polls/index.js';
+app.use('/votes', polls);
 
 app.all('/*', (req, res) => res.sendStatus(404));
 

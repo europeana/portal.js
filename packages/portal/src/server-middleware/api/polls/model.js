@@ -1,4 +1,4 @@
-import pg from '../pg/pg.js';
+import pg from '../pg.js';
 
 const findVoter = async(voterExternalId) => {
   const selectVoterResult = await pg.query(
@@ -71,17 +71,13 @@ const deleteVote = async(voteId) => {
   );
 };
 
-export default (config = {}) => {
-  pg.config = config;
-
-  return {
-    createCandidate,
-    createVote,
-    createVoter,
-    deleteVote,
-    findCandidate,
-    findVote,
-    findVotes,
-    findVoter
-  };
+export default {
+  createCandidate,
+  createVote,
+  createVoter,
+  deleteVote,
+  findCandidate,
+  findVote,
+  findVotes,
+  findVoter
 };
