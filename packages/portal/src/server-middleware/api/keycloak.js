@@ -6,7 +6,7 @@ export default {
   async userInfo(authorization) {
     const keycloakUserinfoResponse = await axios({
       baseURL: this.config.origin,
-      url: `/auth/realms/${this.config.realm}/protocol/openid-connect/userInfo`,
+      url: `/auth/realms/${this.config.realm}/protocol/openid-connect/userinfo`,
       method: 'get',
       headers: { authorization }
     });

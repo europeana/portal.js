@@ -4,7 +4,7 @@ import apm from 'elastic-apm-node';
 
 import logging from '../logging.js';
 import pg from './pg.js';
-import auth from './auth.js';
+import keycloak from './keycloak.js';
 import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(logging);
 
 const runtimeConfig = nuxtRuntimeConfig();
 pg.config = runtimeConfig.postgres;
-auth.config = runtimeConfig.auth.strategies.keycloak;
+keycloak.config = runtimeConfig.auth.strategies.keycloak;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
