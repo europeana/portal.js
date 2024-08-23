@@ -1,96 +1,123 @@
-import pg from 'pg';
 import sinon from 'sinon';
 
-import removeVoteEventsHandler from '@/server-middleware/api/polls/remove-vote';
+import { expressReqStub, expressResStub, expressNextStub } from '../../utils.js';
+import removeVoteHandler from '@/server-middleware/api/polls/remove-vote.js';
+import pollsModel from '@/server-middleware/api/polls/model.js';
+import keycloak from '@/server-middleware/api/keycloak.js';
 
-const fixtures = {
-  db: {
-    voterId: 1,
-    candidateId: 2,
-    voteId: 3
-  },
-  reqBody: {
-    voterExternalId: 'keycloak_uuid',
-    candidateExternalId: 'contentful_id'
-  }
-};
-
-const pgPoolQuery = sinon.stub();
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.voters ')),
-  [fixtures.reqBody.voterExternalId]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voterId }] });
-
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.candidates ')),
-  [fixtures.reqBody.candidateExternalId]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.candidateId }] });
-
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.votes ')),
-  [fixtures.db.voterId, fixtures.db.candidateId]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voteId }] });
-
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('DELETE FROM polls.votes ')),
-  [fixtures.db.voteId]
-).resolves();
-
-const expressReqStub = {
-  body: fixtures.reqBody,
-  get: sinon.spy()
-};
-
-const expressResStub = {
-  json: sinon.spy(),
-  sendStatus: sinon.spy()
-};
-
-describe('@/server-middleware/api/polls/vote', () => {
-  beforeAll(() => {
-    sinon.replace(pg.Pool.prototype, 'query', pgPoolQuery);
+describe('@/server-middleware/api/polls/remove-vote', () => {
+  beforeEach(() => {
+    sinon.stub(keycloak, 'userId').resolves(null);
+    sinon.stub(pollsModel, 'findVoter').resolves(null);
+    sinon.stub(pollsModel, 'findCandidate').resolves(null);
+    sinon.stub(pollsModel, 'findVote').resolves(null);
+    sinon.stub(pollsModel, 'deleteVote').resolves({});
   });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.resetBehavior);
 
-  describe('when not explicitly enabled', () => {
-    const options = {};
+  afterEach(() => {
+    sinon.restore();
+  });
 
-    it('does not query postgres', async() => {
-      await removeVoteEventsHandler(options)(expressReqStub, expressResStub);
+  it('authorizes request via keycloak', async() => {
+    const authorization = 'Bearer token';
+    const headers = { authorization };
 
-      expect(pgPoolQuery.called).toBe(false);
-    });
+    await removeVoteHandler(expressReqStub({ headers }), expressResStub(), expressNextStub());
 
-    it('responds with 503 status', async() => {
-      await removeVoteEventsHandler(options)(expressReqStub, expressResStub);
+    expect(keycloak.userId.calledWith(authorization)).toBe(true);
+  });
 
-      expect(expressResStub.sendStatus.calledWith(503)).toBe(true);
+  describe('when unauthorized', () => {
+    it('calls next with 401 error', async() => {
+      const next = expressNextStub();
+
+      await removeVoteHandler(expressReqStub(), expressResStub(), next);
+
+      expect(next.calledWith(sinon.match.has('status', 401))).toBe(true);
     });
   });
 
-  describe('when explicitly enabled', () => {
-    const options = { enabled: true };
+  describe('when authorized', () => {
+    const keycloakUserId = 'keycloak-uuid';
+    beforeEach(() => keycloak.userId.resolves(keycloakUserId));
 
-    const expressReqStub = {
-      body: fixtures.reqBody,
-      get: sinon.spy()
-    };
+    it('queries db model to find voter row for keycloak user id', async() => {
+      await removeVoteHandler(expressReqStub(), expressResStub(), expressNextStub());
 
-    describe('when voting on behalf of a voter with a valid session', () => {
-      // TODO: authorisation
-      it('runs all postgres queries to vote on the candidate', async() => {
-        await removeVoteEventsHandler(options)(expressReqStub, expressResStub);
+      expect(pollsModel.findVoter.calledWith(keycloakUserId)).toBe(true);
+    });
 
-        expect(pgPoolQuery.getCalls().length).toBe(4);
+    describe('when voter row is not found', () => {
+      it('calls next with 403 error', async() => {
+        const next = expressNextStub();
+
+        await removeVoteHandler(expressReqStub(), expressResStub(), next);
+
+        expect(next.calledWith(sinon.match.has('status', 403))).toBe(true);
+      });
+    });
+
+    describe('when voter row is found', () => {
+      const voterId = 17;
+      beforeEach(() => pollsModel.findVoter.resolves({ id: voterId }));
+
+      it('queries db model to find candidate row from req params', async() => {
+        const candidateExternalId = 'new-feature';
+        const params = { candidateExternalId };
+        await removeVoteHandler(expressReqStub({ params }), expressResStub(), expressNextStub());
+
+        expect(pollsModel.findCandidate.calledWith(candidateExternalId)).toBe(true);
       });
 
-      it('responds with 204 status', async() => {
-        await removeVoteEventsHandler(options)(expressReqStub, expressResStub);
+      describe('when candidate row is not found', () => {
+        it('calls next with 404 error', async() => {
+          const next = expressNextStub();
 
-        expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
+          await removeVoteHandler(expressReqStub(), expressResStub(), next);
+
+          expect(next.calledWith(sinon.match.has('status', 404))).toBe(true);
+        });
+      });
+
+      describe('when candidate row is found', () => {
+        const candidateId = 10;
+        beforeEach(() => pollsModel.findCandidate.resolves({ id: candidateId }));
+
+        it('queries db model to check for an existing vote', async() => {
+          await removeVoteHandler(expressReqStub(), expressResStub(), expressNextStub());
+
+          expect(pollsModel.findVote.calledWith(voterId, candidateId)).toBe(true);
+        });
+
+        describe('when vote row does not exist', () => {
+          it('calls next with 404 error', async() => {
+            const next = expressNextStub();
+
+            await removeVoteHandler(expressReqStub(), expressResStub(), next);
+
+            expect(next.calledWith(sinon.match.has('status', 404))).toBe(true);
+          });
+        });
+
+        describe('when vote row exists', () => {
+          const voteId = 22;
+          beforeEach(() => pollsModel.findVote.resolves({ id: voteId }));
+
+          it('deletes vote from db', async() => {
+            await removeVoteHandler(expressReqStub(), expressResStub(), expressNextStub());
+
+            expect(pollsModel.deleteVote.calledWith(voteId)).toBe(true);
+          });
+
+          it('calls res.sendStatus with 204 status', async() => {
+            const res = expressResStub();
+
+            await removeVoteHandler(expressReqStub(), res, expressNextStub());
+
+            expect(res.sendStatus.calledWith(204)).toBe(true);
+          });
+        });
       });
     });
   });
 });
-

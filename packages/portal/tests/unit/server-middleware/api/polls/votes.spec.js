@@ -1,63 +1,68 @@
-import pg from 'pg';
 import sinon from 'sinon';
 
-import votesEventsHandler from '@/server-middleware/api/polls/votes';
-
-const fixtures = {
-  db: {
-    voterId: 1
-  },
-  reqQuery: {
-    candidate: ['feature-id-one', 'feature-id-two', 'feature-id-three'],
-    voter: 'keycloak_uuid'
-  }
-};
-
-const pgPoolQuery = sinon.stub();
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.startsWith('SELECT id FROM polls.voters ')),
-  [fixtures.reqQuery.voter]
-).resolves({ rowCount: 1, rows: [{ id: fixtures.db.voterId }] });
-
-pgPoolQuery.withArgs(
-  sinon.match((sql) => sql.trim().startsWith('SELECT c.external_id, COUNT(*) AS total, ')),
-  [fixtures.reqQuery.candidate, fixtures.db.voterId]
-).resolves({ rowCount: 1, rows: [{ 'id': 'feature-id-one', 'total': 40, votedByCurrentVoter: 1 }] });
-
-const expressReqStub = {
-  query: fixtures.reqQuery,
-  get: sinon.spy()
-};
-const expressResStub = {
-  json: sinon.spy(),
-  sendStatus: sinon.spy()
-};
+import { expressReqStub, expressResStub, expressNextStub } from '../../utils.js';
+import votesHandler from '@/server-middleware/api/polls/votes.js';
+import pollsModel from '@/server-middleware/api/polls/model.js';
+import keycloak from '@/server-middleware/api/keycloak.js';
 
 describe('@/server-middleware/api/polls/votes', () => {
-  beforeAll(() => {
-    sinon.replace(pg.Pool.prototype, 'query', pgPoolQuery);
-  });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.resetBehavior);
-
-  describe('when there is an external voter ID', () => {
-    describe('when some of the candidates have been voted on', () => {
-      const options = { enabled: true };
-
-      it('queries postgres for the votes', async() => {
-        await votesEventsHandler(options)(expressReqStub, expressResStub);
-
-        expect(pgPoolQuery.getCalls().length).toBe(2);
-      });
-
-      it('responds with the view count as json', async() => {
-        await votesEventsHandler(options)(expressReqStub, expressResStub);
-        expect(expressResStub.json.calledWith({ 'feature-id-one': { total: 40, votedByCurrentVoter: 1 } })).toBe(true);
-      });
-    });
+  afterEach(() => {
+    sinon.restore();
   });
 
-  describe('when there is NO external voter ID', () => {
-    // TODO: Add tests for anonymous retrieval
+  it('authorizes request via keycloak', async() => {
+    const authorization = 'Bearer token';
+    const headers = { authorization };
+    sinon.stub(keycloak, 'userId').resolves(null);
+    sinon.stub(pollsModel, 'findVoter').resolves(null);
+    sinon.stub(pollsModel, 'findVotes').resolves([]);
+
+    await votesHandler(expressReqStub({ headers }), expressResStub(), expressNextStub());
+
+    expect(keycloak.userId.calledWith(authorization)).toBe(true);
+  });
+
+  it('queries db model for authorized voter', async() => {
+    const voterExternalId = 'keycloak uuid';
+    sinon.stub(keycloak, 'userId').resolves(voterExternalId);
+    sinon.stub(pollsModel, 'findVoter').resolves(null);
+    sinon.stub(pollsModel, 'findVotes').resolves([]);
+
+    await votesHandler(expressReqStub(), expressResStub(), expressNextStub());
+
+    expect(pollsModel.findVoter.calledWith(voterExternalId)).toBe(true);
+  });
+
+  it('queries db model for votes on candidates (by voter)', async() => {
+    const candidates = ['new-thing', 'improve-that'];
+    const query = { candidate: 'new-thing,improve-that' };
+    const voterExternalId = 'keycloak uuid';
+    const voterId = 17;
+    sinon.stub(keycloak, 'userId').resolves(voterExternalId);
+    sinon.stub(pollsModel, 'findVoter').resolves({ id: voterId });
+    sinon.stub(pollsModel, 'findVotes').resolves([]);
+
+    await votesHandler(expressReqStub({ query }), expressResStub(), expressNextStub());
+
+    expect(pollsModel.findVotes.calledWith(voterId, candidates)).toBe(true);
+  });
+
+  it('responds with votes data as json', async() => {
+    const votes = [
+      { 'external_id': 'new-thing', total: '10', 'voted_by_current_voter': '0' },
+      { 'external_id': 'improve-that', total: '5', 'voted_by_current_voter': '1' }
+    ];
+    const votesResponse = {
+      'new-thing': { total: '10', votedByCurrentVoter: false },
+      'improve-that': { total: '5', votedByCurrentVoter: true }
+    };
+    sinon.stub(keycloak, 'userId').resolves(null);
+    sinon.stub(pollsModel, 'findVoter').resolves(null);
+    sinon.stub(pollsModel, 'findVotes').resolves(votes);
+    const res = expressResStub();
+
+    await votesHandler(expressReqStub(), res, expressNextStub());
+
+    expect(res.json.calledWith(votesResponse)).toBe(true);
   });
 });

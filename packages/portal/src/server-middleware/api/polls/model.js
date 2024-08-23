@@ -24,7 +24,7 @@ const findCandidate = async(candidateExternalId) => {
   return (selectCandidateResult.rowCount > 0) ? selectCandidateResult.rows[0] : null;
 };
 
-// TODO: sanity check this against external data sources
+// TODO: sanity check this against external data sources?
 const createCandidate = async(candidateExternalId) => {
   const insertCandidateResult = await pg.query(
     'INSERT INTO polls.candidates (external_id) VALUES($1) RETURNING id',
@@ -42,24 +42,23 @@ const findVote = async(voterId, candidateId) => {
 };
 
 const findVotes = async(voterId, candidateExternalIds) => {
-  const selectVotesResult = await pg.query(`
-    SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS voted_by_current_voter
-      FROM polls.votes v LEFT JOIN polls.candidates c
-      ON v.candidate_id=c.id
-      WHERE c.external_id LIKE ANY($1)
-      GROUP BY (c.id)
+  const selectVotesResult = await pg.query(
+    `
+      SELECT c.external_id, COUNT(*) AS total, (SELECT COUNT(*) FROM polls.votes WHERE voter_id=$2 AND candidate_id=c.id) AS voted_by_current_voter
+        FROM polls.votes v LEFT JOIN polls.candidates c
+        ON v.candidate_id=c.id
+        WHERE c.external_id LIKE ANY($1)
+        GROUP BY (c.id)
     `,
-  [candidateExternalIds, voterId]
+    [candidateExternalIds, voterId]
   );
   return selectVotesResult.rows || [];
 };
 
 const createVote = async(voterId, candidateId) => {
-  const insertVoteResult = await pg.query(`
-    INSERT INTO polls.votes (voter_id, candidate_id, occurred_at)
-    VALUES($1, $2, CURRENT_TIMESTAMP)
-    `,
-  [voterId, candidateId]
+  const insertVoteResult = await pg.query(
+    'INSERT INTO polls.votes (voter_id, candidate_id, occurred_at) VALUES($1, $2, CURRENT_TIMESTAMP)',
+    [voterId, candidateId]
   );
   return insertVoteResult.rows[0];
 };
