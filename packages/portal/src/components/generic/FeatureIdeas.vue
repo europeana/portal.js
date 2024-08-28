@@ -161,20 +161,21 @@
 
     .title {
       color: $greyblack;
-      font-size: $font-size-medium;
+      font-size: $font-size-large;
       font-weight: 600;
       margin-bottom: 1rem !important;
 
       @media (min-width: $bp-small) {
-        font-size: $font-size-large;
+        font-size: $font-size-xl;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
+        font-size: $font-size-xl-4k;
       }
     }
 
     p {
+      font-size: $font-size-medium;
       margin-bottom: 1rem;
     }
   }
@@ -184,15 +185,15 @@
   max-width: none;
 
   .card-img {
-    background-color: $bodygrey;
+    background-color: $white;
 
     img {
-      width: 80px;
+      width: 160px;
       height: auto;
       margin: 0 auto;
 
       @media (min-width: $bp-4k) {
-        width: 120px;
+        width: 240px;
       }
     }
   }
