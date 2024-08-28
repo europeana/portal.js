@@ -15,7 +15,9 @@ export const errorHandler = (err, req, res, next) => {
       apm.captureError(err, { message, request: req, response: res });
     }
 
-    res.status(errorStatus).send(message);
+    if (!res.writableEnded) {
+      res.status(errorStatus).send(message);
+    }
   } else {
     next();
   }
