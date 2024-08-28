@@ -188,9 +188,13 @@
     background-color: $white;
 
     img {
-      width: 124px;
+      width: 150px;
       height: auto;
       margin: 0 auto;
+
+      @media (min-width: $bp-medium) {
+        width: 124px;
+      }
 
       @media (min-width: $bp-4k) {
         width: 160px;
