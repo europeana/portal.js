@@ -1,12 +1,12 @@
 import pg from 'pg';
 import sinon from 'sinon';
 
-import pgEvents from '@/server-middleware/api/events/pg';
+import pgEvents from '@/server-middleware/api/pg.js';
 
 const pgPoolOn = sinon.stub();
 const pgPoolQuery = sinon.stub();
 
-describe('@/server-middleware/api/events/pg', () => {
+describe('@/server-middleware/api/pg', () => {
   beforeAll(() => {
     sinon.replace(pg.Pool.prototype, 'on', pgPoolOn);
     sinon.replace(pg.Pool.prototype, 'query', pgPoolQuery);

@@ -3,7 +3,9 @@ import cors from 'cors';
 import apm from 'elastic-apm-node';
 
 import logging from '../logging.js';
-import { forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
+import pg from './pg.js';
+import keycloak from './keycloak.js';
+import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
@@ -11,6 +13,8 @@ app.use(express.json());
 app.use(logging);
 
 const runtimeConfig = nuxtRuntimeConfig();
+pg.config = runtimeConfig.postgres;
+keycloak.config = runtimeConfig.auth.strategies.keycloak;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
@@ -30,15 +34,8 @@ const cacheHandler = cache(runtimeConfig.redis);
 app.get('/cache', cacheHandler);
 app.get('/cache/*', cacheHandler);
 
-// TODO: move to a standalone express micro-service, so the portal.js app does
-//       not have a direct dependency on postgres, indeed need not know what
-//       back-end storage is used.
-import logEvent from './events/log.js';
-app.post('/events', logEvent(runtimeConfig.postgres));
-import eventTrending from './events/trending.js';
-app.get('/events/trending', eventTrending(runtimeConfig.postgres));
-import eventViews from './events/views.js';
-app.get('/events/views', eventViews(runtimeConfig.postgres));
+import events from './events/index.js';
+app.use('/events', events);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 const feedbackCorsOptions = {
@@ -59,6 +56,10 @@ app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.
 import version from './version.js';
 app.get('/version', version);
 
+import polls from './polls/index.js';
+app.use('/votes', polls);
+
 app.all('/*', (req, res) => res.sendStatus(404));
+app.use(errorHandler);
 
 export default app;

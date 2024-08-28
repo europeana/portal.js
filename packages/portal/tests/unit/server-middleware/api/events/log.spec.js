@@ -48,14 +48,11 @@ pgPoolQuery.withArgs(
 )
   .resolves({});
 
-const expressReqStub = {
-  body: fixtures.reqBody,
-  get: sinon.spy()
-};
 const expressResStub = {
   json: sinon.spy(),
   sendStatus: sinon.spy()
 };
+const expressNextStub = sinon.spy();
 
 describe('@/server-middleware/api/events/log', () => {
   beforeAll(() => {
@@ -64,60 +61,40 @@ describe('@/server-middleware/api/events/log', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.resetBehavior);
 
-  describe('when not explicitly enabled', () => {
-    const options = {};
+  describe('when user agent is a known bot', () => {
+    const expressReqStub = {
+      get: sinon.stub().withArgs('user-agent').returns('search engine bot')
+    };
 
     it('does not query postgres', async() => {
-      await logEventsHandler(options)(expressReqStub, expressResStub);
+      await logEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
       expect(pgPoolQuery.called).toBe(false);
     });
 
     it('responds with 204 status', async() => {
-      await logEventsHandler(options)(expressReqStub, expressResStub);
+      await logEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
       expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
     });
   });
 
-  describe('when explicitly enabled', () => {
-    const options = { enabled: true };
+  describe('when user agent is not a known bot', () => {
+    const expressReqStub = {
+      body: fixtures.reqBody,
+      get: sinon.spy()
+    };
 
-    describe('and user agent is a known bot', () => {
-      const expressReqStub = {
-        get: sinon.stub().withArgs('user-agent').returns('search engine bot')
-      };
+    it('runs all postgres queries to log event', async() => {
+      await logEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-      it('does not query postgres', async() => {
-        await logEventsHandler(options)(expressReqStub, expressResStub);
-
-        expect(pgPoolQuery.called).toBe(false);
-      });
-
-      it('responds with 204 status', async() => {
-        await logEventsHandler(options)(expressReqStub, expressResStub);
-
-        expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
-      });
+      expect(pgPoolQuery.getCalls().length).toBe(6);
     });
 
-    describe('and user agent is not a known bot', () => {
-      const expressReqStub = {
-        body: fixtures.reqBody,
-        get: sinon.spy()
-      };
+    it('responds with 204 status', async() => {
+      await logEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-      it('runs all postgres queries to log event', async() => {
-        await logEventsHandler(options)(expressReqStub, expressResStub);
-
-        expect(pgPoolQuery.getCalls().length).toBe(6);
-      });
-
-      it('responds with 204 status', async() => {
-        await logEventsHandler(options)(expressReqStub, expressResStub);
-
-        expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
-      });
+      expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
     });
   });
 });

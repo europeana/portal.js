@@ -1,5 +1,4 @@
 import { createClient } from 'redis';
-import { errorHandler } from '../utils.js';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 
@@ -30,7 +29,7 @@ export const cached = async(ids, config = {}) => {
   return values;
 };
 
-export default (config = {}) => (req, res) => {
+export default (config = {}) => (req, res, next) => {
   const ids = req.params[0] ? req.params[0] : req.query.id;
 
   return cached(ids, config)
@@ -38,5 +37,5 @@ export default (config = {}) => (req, res) => {
       res.set('Content-Type', 'application/json');
       res.send(data);
     })
-    .catch(error => errorHandler(res, error));
+    .catch(next);
 };

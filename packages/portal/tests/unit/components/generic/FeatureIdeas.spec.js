@@ -1,5 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
@@ -8,24 +9,38 @@ import FeatureIdeas from '@/components/generic/FeatureIdeas.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ propsData = {}, $fetchState = {} }) => {
+const factory = ({ propsData = {}, mocks = {} } = {}) => {
   return shallowMountNuxt(FeatureIdeas, {
     localVue,
     propsData,
     mocks: {
+      $auth: {
+        loggedIn: false
+      },
+      $config: {
+        app: {
+          baseUrl: 'https://www.example.org'
+        }
+      },
       $error: sinon.spy(),
-      $fetchState,
-      $t: (key) => key
+      $fetchState: {},
+      $nuxt: { context: {} },
+      $t: (key) => key,
+      $tc: (key) => key,
+      ...mocks
     },
     stubs: ['ErrorMessage']
   });
 };
 
 describe('components/generic/FeatureIdeas', () => {
+  beforeAll(() => nock.disableNetConnect());
+  afterAll(() => nock.enableNetConnect());
+
   describe('fetch', () => {
     describe('when there are no features', () => {
       it('renders a message', async() => {
-        const wrapper = factory({ $fetchState: { error: { code: 'noFeatureIdeas' } } });
+        const wrapper = factory({ mocks: { $fetchState: { error: { code: 'noFeatureIdeas' } } } });
 
         await wrapper.vm.fetch();
 
