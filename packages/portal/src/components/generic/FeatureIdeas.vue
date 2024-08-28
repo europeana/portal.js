@@ -188,12 +188,12 @@
     background-color: $white;
 
     img {
-      width: 160px;
+      width: 124px;
       height: auto;
       margin: 0 auto;
 
       @media (min-width: $bp-4k) {
-        width: 240px;
+        width: 160px;
       }
     }
   }
