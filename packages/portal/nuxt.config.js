@@ -471,7 +471,7 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
+    // swiper v11 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
     // same with some of our custom packages
     transpile: [
       'dom7',

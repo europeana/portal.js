@@ -9,7 +9,6 @@
     :responsive="responsiveProvider"
     :height="height"
     :width="width"
-    class="mb-5"
   />
 </template>
 

@@ -83,20 +83,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
-
-  // TODO: move the code below to video component when we switch to new item page
-  ::v-deep video {
-    height: 80vh;
-    max-height: 25rem;
-    max-width: 100%;
-    width: auto;
-
-    @media (min-width: $bp-medium) {
-      max-height: 35.5rem;
-    }
-  }
-</style>
