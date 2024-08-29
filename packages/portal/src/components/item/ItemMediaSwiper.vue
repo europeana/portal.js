@@ -55,7 +55,9 @@
         />
         <span class="swiper-pagination d-inline-flex" />
       </div>
-      <div class="swiper-thumbnails d-flex flex-row flex-lg-column">
+      <div
+        ref="swiperThubmnails"
+        class="swiper-thumbnails d-flex flex-row flex-lg-column">
         <ItemMediaSwiperThumbnail
           v-for="(media, index) in displayableMedia"
           :key="index"
@@ -109,7 +111,7 @@
         swiperOptions: {
           modules: [A11y, Navigation, Pagination],
           init: true,
-          threshold: singleMediaResource ? 5000000 :  null,
+          threshold: 5000000,
           slidesPerView: 1,
           centeredSlides: true,
           slideToClickedSlide: true,
@@ -134,10 +136,21 @@
 
     methods: {
       onSlideChange() {
+        this.updateThubmnailScroll();
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
       updateSwiper() {
         this.swiper.update();
+      },
+      updateThubmnailScroll() {
+        // TODO: fix these values to use CSS values, not be hardcoded
+        if (window.innerWidth <= 767) {
+          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 96), 0);
+        } else if  (window.innerWidth <= 991) {
+          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 192), 0);
+        } else {
+          this.$refs.swiperThubmnails?.scroll(0, this.swiper.activeIndex * 138);
+        }
       },
       swiperOnAfterInit() {
         this.swiperReady = true;

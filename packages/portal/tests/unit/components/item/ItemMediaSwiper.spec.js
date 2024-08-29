@@ -1,5 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import BootstrapVue, { BSkeletonWrapper } from 'bootstrap-vue';
+import sinon from 'sinon';
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
 import ItemMediaSwiper from '@/components/item/ItemMediaSwiper.vue';
@@ -66,6 +67,8 @@ describe('components/item/ItemMediaSwiper', () => {
     it('emits a `select` event with the item identifier', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
+      wrapper.vm.$refs.swiperThubmnails.scroll = sinon.stub();
+
       wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.onSlideChange();
 
@@ -79,6 +82,18 @@ describe('components/item/ItemMediaSwiper', () => {
       wrapper.vm.updateSwiper();
 
       expect(wrapper.vm.swiper.update.mock.calls.length).toBe(1);
+    });
+  });
+  describe('updateThubmnailScroll()', () => {
+    it('calls `scroll` event on the thumbnail wrapper', () => {
+      const wrapper = factory({ europeanaIdentifier, displayableMedia });
+
+      wrapper.vm.$refs.swiperThubmnails.scroll = sinon.spy();
+
+      wrapper.vm.swiper.activeIndex = 1;
+      wrapper.vm.updateThubmnailScroll();
+
+      expect(wrapper.vm.$refs.swiperThubmnails.scroll.called).toEqual(true);
     });
   });
   describe('singleMediaResource', () => {
