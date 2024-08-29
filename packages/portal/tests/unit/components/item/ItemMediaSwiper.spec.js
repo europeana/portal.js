@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import BootstrapVue, { BSkeletonWrapper } from 'bootstrap-vue';
+import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
