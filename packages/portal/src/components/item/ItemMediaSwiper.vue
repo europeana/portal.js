@@ -1,13 +1,13 @@
 <template>
   <div
-    class="swiper-outer"
+    class="swiper-outer d-flex flex-column flex-lg-row"
   >
     <div
-      v-show="swiperReady"
       class="swiper swiper-container"
       data-qa="awesome swiper"
     >
       <div
+        v-show="swiperReady"
         class="swiper-wrapper"
       >
         <div
@@ -39,12 +39,36 @@
           />
         </div>
       </div>
+    </div>
+    <div
+      v-if="displayableMedia.length > 1"
+      class=" d-flex flex-column position-relative"
+    >
+      <div class="swiper-thumbnails-toolbar d-flex align-items-center justify-content-center px-3 py-2 py-lg-1">
+        <b-button
+          variant="light-flat"
+          class="swiper-button-prev icon-arrow-outline mr-2"
+        />
+        <b-button
+          variant="light-flat"
+          class="swiper-button-next icon-arrow-outline mr-2"
+        />
+        <span class="swiper-pagination d-inline-flex" />
+      </div>
       <div
-        class="swiper-button-prev"
-      />
-      <div
-        class="swiper-button-next"
-      />
+        ref="swiperThubmnails"
+        class="swiper-thumbnails d-flex flex-row flex-lg-column">
+        <ItemMediaSwiperThumbnail
+          v-for="(media, index) in displayableMedia"
+          :key="index"
+          :media="media"
+          :index="index"
+          :edm-type="edmType"
+          :lazy="index > 3"
+          :class="{ 'swiper-slide-active': index === swiper?.activeIndex }"
+          @click="swiper.slideTo(index)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -53,12 +77,13 @@
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { Pagination, Navigation } from 'swiper';
+  import { A11y, Navigation, Pagination } from 'swiper/modules';
 
   export default {
     name: 'ItemMediaSwiper',
 
     components: {
+      ItemMediaSwiperThumbnail: () => import('@/components/item/ItemMediaSwiperThumbnail'),
       MediaCard
     },
 
@@ -84,10 +109,10 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [Navigation, Pagination],
+          modules: [A11y, Navigation, Pagination],
           init: true,
-          threshold: singleMediaResource ? 5000000 :  null,
-          spaceBetween: singleMediaResource ? null : 40,
+          threshold: 5000000,
+          slidesPerView: 1,
           centeredSlides: true,
           slideToClickedSlide: true,
           pagination: {
@@ -111,10 +136,24 @@
 
     methods: {
       onSlideChange() {
+        this.updateThubmnailScroll();
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
       updateSwiper() {
         this.swiper.update();
+      },
+      updateThubmnailScroll() {
+        // TODO: fix these values to use CSS values, not be hardcoded
+        if (window.innerWidth <= 767) {
+          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 96), 0);
+        } else if  (window.innerWidth <= 991) {
+          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 192), 0);
+        } else {
+          this.$refs.swiperThubmnails?.scroll(0, this.swiper.activeIndex * 138);
+        }
+      },
+      swiperOnAfterInit() {
+        this.swiperReady = true;
       }
     }
   };
@@ -125,14 +164,30 @@
   @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/swiper';
 
-  .swiper-outer,
+  .swiper-outer {
+    @media (min-width: $bp-large) {
+      height: $swiper-height;
+
+      @media (min-height: $bp-medium) {
+        max-height: $swiper-height-max;
+      }
+    }
+  }
+
   .swiper-container {
     @include swiper-height(0px);
+    flex: 1 1 100%;
+    width: 100%;
+    background-color: $black;
+
+    .swiper-wrapper {
+      @include swiper-height(0px);
+      transition: none;
+    }
 
     .swiper-slide {
       width: 100%;
       min-width: 16rem;
-      padding-top: 2.25rem;
 
       @media (min-width: $bp-medium) {
         width: auto;
@@ -164,33 +219,67 @@
         margin-right: auto;
       }
     }
+  }
+
+  .swiper-thumbnails {
+    padding: 1rem;
+    flex: 1 1 auto;
+    background-color: $white;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+
+    @media (min-width: $bp-large) {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 13rem;
+    }
+  }
+
+  .swiper-thumbnails-toolbar {
+    background-color: rgba($black, 0.05);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    @media (min-width: $bp-large) {
+      background-color: rgba($white, 0.95);
+      position: absolute;
+    }
+
+    .swiper-button-prev {
+      transform: rotateY(180deg);
+    }
 
     .swiper-button-prev,
     .swiper-button-next {
-      color: $lightgrey;
-      background: $white;
-      border-radius: 50%;
-      width: 45px;
-      opacity: 0.7;
+      background-color: transparent;
+      color: $black;
+      position: static;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-top: auto;
+
+      &:before {
+        font-size: 1.5rem;
+      }
+
+      &::after {
+        content: none;
+      }
+
+      &:hover {
+        color: $blue;
+      }
     }
 
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-      font-size: 22px;
-    }
-
-    .swiper-button-disabled {
-      display: none;
-    }
-
-    .swiper-container-horizontal > .swiper-pagination-bullets {
-      left: 50%;
-      transform: translateX(-50%);
+    .swiper-pagination {
+      position: static;
+      transform: none;
+      color: $mediumgrey-light;
       width: auto;
+      font-size: $font-size-small;
     }
 
-    .swiper-pagination-bullet-active {
-      background: $smoke;
-    }
   }
 </style>

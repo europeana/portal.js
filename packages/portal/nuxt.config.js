@@ -43,7 +43,6 @@ const redisConfig = () => {
 const postgresConfig = () => {
   // see https://node-postgres.com/apis/pool
   const postgresOptions = {
-    enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
     connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
     idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
@@ -472,7 +471,8 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // Pure ESM modules need to be transpiled to be used by Vue2
+    // swiper v11 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
+    // same with some of our custom packages
     transpile: [
       '@europeana/i18n',
       '@europeana/iiif',

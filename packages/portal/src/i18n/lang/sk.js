@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
     "editProfile": "Upraviť profil",
-    "likes": "Označenia Páči sa mi",
+    "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
-    "like": "Označenie Páči sa mi",
+    "like": "Páči sa mi",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
+    "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
-    "viewDocument": "Zobraziť dokument"
+    "viewDocument": "Zobraziť dokument",
+    "vote": "Hlasujte"
   },
   "attribution": {
     "country": "Krajina:",
@@ -237,6 +239,10 @@ export default {
       "description": "Môže to byť z nasledujúcich dôvodov: táto objekt neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste objekt znova nájsť.",
       "metaTitle": "Objekt sa nenašla",
       "title": "Ó nie! {newline} Túto objekt sa nám nepodarilo nájsť."
+    },
+    "noFeatureIdeas": {
+      "description": "Vráťte sa sem čoskoro!",
+      "title": "Momentálne nemáte žiadne nápady na nové funkcie."
     },
     "pageNotFound": {
       "metaTitle": "Stránka nenájdená",
@@ -745,9 +751,10 @@ export default {
       "about": "O nás",
       "collections": "Kolekcie",
       "europeanaClassroom": "Pre učiteľov",
+      "featureIdeas": "Nápady na funkcie",
       "help": "Pomoc",
       "home": "Domov",
-      "shareYourData": "Zdieľajte svoje dáta",
+      "shareYourCollections": "Zdieľajte svoje zbierky",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Najnovšie príbehy",
     "storiesCTA": "Zobraziť všetky príbehy",
     "subHeadline": "Hľadaj, sťahuj a zdieľaj umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
-    "themesCTA": "Zobraziť všetky kategórie",
     "themesTitle": "Preskúmajte podľa kategórie",
     "title": "Objavuj {digital} európske kultúrne dedičstvo",
     "titleDigital": "digitalizované"
@@ -843,8 +849,8 @@ export default {
         "title": "Oznámenie o novej funkcii"
       },
       "searchResultsView": {
-        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "description": "Pamätá si, či chcete vidieť výsledky vyhľadávania, galérie a vaše hodnotenia, ktoré sa vám páčia, v zobrazení zoznamu, mriežky alebo mozaiky.",
+        "title": "Zobrazenie výsledkov vyhľadávania, galérií a hodnotení Páči sa mi (zoznam/mriežka/mozaika)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
+  },
+  "likes": {
+    "count": "{count} Páči sa mi | {count} páči sa mi"
   },
   "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
     "readMore": "Ukáž mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
+    }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1127,7 +1138,7 @@ export default {
       "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
-        "title": "100 označení Páči sa mi"
+        "title": "100 páči sa mi"
       },
       "updated": "Objekt bola pridaná do galérie.",
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
@@ -1169,7 +1180,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "liked": "Obľúbené",
+    "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
   },
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímok {page}"
+    "a11y": {
+      "firstSlide": "Toto je prvá snímka",
+      "lastSlide": "Toto je posledná snímka",
+      "nextSlide": "Ďalšia snímka",
+      "paginationBullet": "Snímka {page}",
+      "paginationBulletGroupedSlides": "Skupina snímok {page}",
+      "previousSlide": "Predchádzajúca snímka",
+      "slideLabel": "Snímka {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

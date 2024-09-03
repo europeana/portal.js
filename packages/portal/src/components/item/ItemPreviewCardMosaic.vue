@@ -94,9 +94,11 @@
   .mosaic-column-1,
   .mosaic-column-2 {
     flex: 0 0 calc(50%);
+    width: 50%;
 
     @media (min-width: $bp-large) {
       flex: 0 0 calc(25%);
+      width: auto;
     }
 
     @media (min-width: $bp-4k) {

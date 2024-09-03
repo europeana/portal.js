@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
     "editProfile": "Rediger profil",
-    "likes": "Synes om'er",
+    "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har ikke syntes om nogen genstande endnu"
     },
     "privateCollections": "Private gallerier",
-    "profile": "Mine synes om'er og gallerier",
+    "profile": "Mine likes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
@@ -52,7 +52,7 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
-    "like": "Synes om",
+    "like": "Like",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
+    "unlike": "Fjern like",
     "viewAt": "Se på {link}",
-    "viewDocument": "Se dokument"
+    "viewDocument": "Se dokument",
+    "vote": "Stemme"
   },
   "attribution": {
     "country": "Land:",
@@ -238,6 +240,10 @@ export default {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "noFeatureIdeas": {
+      "description": "Kom snart tilbage igen!",
+      "title": "Ingen nye funktionsideer i øjeblikket."
     },
     "pageNotFound": {
       "metaTitle": "Siden blev ikke fundet",
@@ -746,9 +752,10 @@ export default {
       "about": "Om",
       "collections": "Samlinger",
       "europeanaClassroom": "Til lærere",
+      "featureIdeas": "Funktionsideer",
       "help": "Hjælp",
       "home": "Hjem",
-      "shareYourData": "Del dine data",
+      "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Seneste historier",
     "storiesCTA": "Se alle historier",
     "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
-    "themesCTA": "Se alle temaer",
     "themesTitle": "Udforsk efter tema",
     "title": "Opdag Europas {digital} kulturarv",
     "titleDigital": "digitale"
@@ -844,8 +850,8 @@ export default {
         "title": "Meddelelse om ny funktion"
       },
       "searchResultsView": {
-        "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
+        "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Luk",
     "readMore": "Vis mig",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Udforsk de kommende ændringer, vi planlægger, og stem på dem, du gerne vil have prioriteret. Dine input hjælper os med at fokusere på det, der betyder mest for dig."
+    }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -1129,7 +1140,7 @@ export default {
       "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
-        "title": "100 synes om'er"
+        "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
@@ -1171,7 +1182,7 @@ export default {
     "search": "Søg"
   },
   "statuses": {
-    "liked": "Kunne lide",
+    "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide gruppe {page}"
+    "a11y": {
+      "firstSlide": "Dette er den første slide",
+      "lastSlide": "Dette er det sidste slide",
+      "nextSlide": "Næste slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide gruppe {page}",
+      "previousSlide": "Forrige slide",
+      "slideLabel": "Slide {slide} af {totalSlides}"
+    }
   },
   "themes": {
     "description": "Gennemse efter tema",

@@ -20,9 +20,9 @@
           class="swiper-slide text-center"
         >
           <img
-            :data-src="imageSrc(slide.image)"
-            :data-srcset="imageSrcset(slide.image)"
-            :data-sizes="imageSizes"
+            :src="imageSrc(slide.image)"
+            :srcset="imageSrcset(slide.image)"
+            :sizes="imageSizes"
             :alt="slide.image && slide.image.description || ''"
             class="image-overlay position-absolute swiper-lazy"
           >
@@ -56,19 +56,12 @@
         </div>
       </div>
     </div>
-    <b-button
-      v-if="cta"
-      variant="outline-secondary"
-      :to="cta.url"
-    >
-      {{ cta.text }}
-    </b-button>
   </div>
 </template>
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
+  import { A11y, EffectCoverflow, Keyboard } from 'swiper/modules';
 
   const SRCSET_PRESETS = {
     small: { w: 245, h: 440, fit: 'fill' },
@@ -90,10 +83,6 @@
         type: String,
         default: null
       },
-      cta: {
-        type: Object,
-        default: null
-      },
       /**
        * Slides that each contain data for title, description and url
        */
@@ -106,15 +95,12 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard, Lazy],
+          modules: [A11y, EffectCoverflow, Keyboard],
+          initialSlide: Math.floor(this.slides.length / 2),
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slideToClickedSlide: true,
-          preloadImages: false,
-          lazy: {
-            loadPrevNextAmount: 10
-          },
           breakpoints: {
             0: {
               spaceBetween: -150
@@ -150,14 +136,9 @@
       };
     },
 
-    mounted() {
-      const middleCardIndex = Math.floor(this.slides.length / 2);
-      this.swiper.slideTo(middleCardIndex);
-    },
-
     methods: {
       setFocusOnActiveSlideLink() {
-        this.$refs.slideLink[this.swiper.activeIndex].focus();
+        this.swiper && this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
         if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
@@ -219,7 +200,7 @@
   .swiper-container {
     width: 100%;
     padding: 0;
-    margin-top: 2.25rem;
+    margin-top: 1.5rem;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {

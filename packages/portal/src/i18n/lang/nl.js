@@ -52,7 +52,7 @@ export default {
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
-    "viewDocument": "Document weergeven"
+    "viewDocument": "Document weergeven",
+    "vote": "Stemmen"
   },
   "attribution": {
     "country": "Land:",
@@ -238,6 +240,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "noFeatureIdeas": {
+      "description": "Kom snel weer terug!",
+      "title": "Op dit moment geen ideeën voor nieuwe functies."
     },
     "pageNotFound": {
       "metaTitle": "Pagina niet gevonden",
@@ -746,9 +752,10 @@ export default {
       "about": "Over ons",
       "collections": "Collecties",
       "europeanaClassroom": "Voor leraren",
+      "featureIdeas": "Ideeën voor functies",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw data",
+      "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Laatste verhalen",
     "storiesCTA": "Bekijk alle verhalen",
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
-    "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
     "title": "Ontdek het {digital} culturele erfgoed van Europa",
     "titleDigital": "digitale"
@@ -844,8 +850,8 @@ export default {
         "title": "Melding van nieuwe functie"
       },
       "searchResultsView": {
-        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide groep {page}"
+    "a11y": {
+      "firstSlide": "Dit is de eerste slide",
+      "lastSlide": "Dit is de laatste slide",
+      "nextSlide": "Volgende slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide groep {page}",
+      "previousSlide": "Vorige slide",
+      "slideLabel": "Slide {slide} van {totalSlides}"
+    }
   },
   "themes": {
     "description": "Blader op thema",

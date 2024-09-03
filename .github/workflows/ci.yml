@@ -364,13 +364,13 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
         name: Run e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   # Run visual tests on non-draft pull requests, and pushes to master
   test-visual:
@@ -416,13 +416,13 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
         name: Run visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   # Deploy to IBM Cloud Kubernetes cluster:
   # * Pull requests are deployed as new resources in dev namespace

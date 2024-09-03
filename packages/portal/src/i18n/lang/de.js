@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "transcribe": "Transkribieren",
     "transcribeNow": "Jetzt transkribieren",
+    "unlike": "Unlike",
     "viewAt": "Ansicht unter {link}",
-    "viewDocument": "Dokument anzeigen"
+    "viewDocument": "Dokument anzeigen",
+    "vote": "Abstimmen"
   },
   "attribution": {
     "country": "Land:",
@@ -238,6 +240,10 @@ export default {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "noFeatureIdeas": {
+      "description": "Schauen Sie bald wieder vorbei!",
+      "title": "Im Moment gibt es keine Ideen für neue Funktionen."
     },
     "pageNotFound": {
       "metaTitle": "Seite nicht gefunden",
@@ -746,9 +752,10 @@ export default {
       "about": "Über (uns)",
       "collections": "Sammlungen",
       "europeanaClassroom": "Für Lehrende",
+      "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
-      "shareYourData": "Teilen Sie Ihre Daten",
+      "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
     "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
@@ -844,8 +850,8 @@ export default {
         "title": "Benachrichtigung über neue Funktionen"
       },
       "searchResultsView": {
-        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "description": "Merkt sich, ob Sie die Suchergebnisse, Galerien und Ihre Likes lieber in einer Listen-, Raster- oder Mosaikansicht sehen möchten.",
+        "title": "Ansicht von Suchergebnis, Galerien und Likes (Liste/Raster/Mosaik)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Schließen",
     "readMore": "Zeig mir",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Informieren Sie sich über die geplanten Änderungen und stimmen Sie ab, welche Änderungen für Sie Priorität haben sollen. Ihr Beitrag hilft uns, uns auf das zu konzentrieren, was für Sie am wichtigsten ist."
+    }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} Geschichten gefunden"
   },
   "swiper": {
-    "paginationBulletLabel": "Foliengruppe {page}"
+    "a11y": {
+      "firstSlide": "Dies ist die erste Folie",
+      "lastSlide": "Dies ist die letzte Folie",
+      "nextSlide": "Nächste Folie",
+      "paginationBullet": "Folie {page}",
+      "paginationBulletGroupedSlides": "Foliengruppe {page}",
+      "previousSlide": "Vorherige Folie",
+      "slideLabel": "Folie {slide} von {totalSlides}"
+    }
   },
   "themes": {
     "description": "Nach Themenbereiche durchsuchen",

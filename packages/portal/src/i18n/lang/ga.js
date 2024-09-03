@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Bailiúcháin Coimeádaithe",
     "editProfile": "Cuir do phróifíl in eagar",
-    "likes": "Toghanna",
+    "likes": "Taitníonn",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Arna chur isteach le foilsiú",
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
+    "unlike": "Ní maith liom",
     "viewAt": "Féach ar ag {link}",
-    "viewDocument": "Breathnaigh ar dhoiciméad"
+    "viewDocument": "Breathnaigh ar dhoiciméad",
+    "vote": "Vóta"
   },
   "attribution": {
     "country": "Tír:",
@@ -237,6 +239,10 @@ export default {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    },
+    "noFeatureIdeas": {
+      "description": "Seiceáil ar ais arís go luath!",
+      "title": "Níl aon smaointe gné nua ann faoi láthair."
     },
     "pageNotFound": {
       "metaTitle": "Níor aimsíodh an leathanach",
@@ -745,9 +751,10 @@ export default {
       "about": "Maidir linn",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Do mhúinteoirí",
+      "featureIdeas": "Smaointe gné",
       "help": "Cabhair",
       "home": "Baile",
-      "shareYourData": "Comhroinn do shonraí",
+      "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Na scéalta is déanaí",
     "storiesCTA": "Féach gach scéal",
     "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
-    "themesCTA": "Féach ar na téamaí go léir",
     "themesTitle": "Déan iniúchadh de réir téama",
     "title": "Cuir eolas ar oidhreacht chultúrtha {digital} na hEorpa",
     "titleDigital": "dhigiteach"
@@ -843,8 +849,8 @@ export default {
         "title": "Fógra gné nua"
       },
       "searchResultsView": {
-        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "description": "Cuimhnigh más fearr leat na torthaí cuardaigh, dánlanna agus do leithéidí a fheiceáil i liosta, greille nó mósáic amharc.",
+        "title": "Toradh cuardaigh, gailearaithe agus radharc na rudaí is maith liom (liosta/greille/mósáic)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
+  },
+  "likes": {
+    "count": "{count} Is maith liom | {count} taitníonn"
   },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dún",
     "readMore": "Taispeáin dom",
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Déan iniúchadh ar na hathruithe atá le teacht atá á bpleanáil againn agus vótáil ar son na cinn ar mhaith leat go dtabharfar tosaíocht dóibh. Cuidíonn d’ionchur linn díriú ar na rudaí is tábhachtaí duitse."
+    }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1127,7 +1138,7 @@ export default {
       "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
-        "title": "100 Is maith liom"
+        "title": "100 taitníonn"
       },
       "updated": "Cuireadh an mhír leis an ngailearaí.",
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
@@ -1169,7 +1180,7 @@ export default {
     "search": "Cuardaigh"
   },
   "statuses": {
-    "liked": "Thaitin sé",
+    "liked": "Taitníodh",
     "pinned": "Pionnáilte",
     "required": "Riachtanach"
   },
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {
-    "paginationBulletLabel": "Grúpa sleamhnán {page}"
+    "a11y": {
+      "firstSlide": "Is é seo an chéad sleamhnán",
+      "lastSlide": "Is é seo an sleamhnán deireanach",
+      "nextSlide": "Sleamhnán seo chugainn",
+      "paginationBullet": "Sleamhnán {page}",
+      "paginationBulletGroupedSlides": "Grúpa sleamhnán {page}",
+      "previousSlide": "Sleamhnán roimhe seo",
+      "slideLabel": "Sleamhnán {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Brabhsáil de réir téama",

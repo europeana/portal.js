@@ -1,7 +1,6 @@
 import serviceDesk from '@/server-middleware/api/jira-service-desk/feedback';
 
 import nock from 'nock';
-nock.disableNetConnect();
 import sinon from 'sinon';
 
 const options = {
@@ -31,11 +30,19 @@ const mockResponse = () => {
   res.send = sinon.stub().returns(res);
   return res;
 };
-const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
+const mockJiraApiRequest = (body) => nock(options.origin).post('/rest/servicedeskapi/request', body);
+const expressNextStub = sinon.spy();
 
 describe('server-middleware/api/jira-service-desk/feedback', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
   afterEach(() => {
+    sinon.resetHistory();
     nock.cleanAll();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('middleware', () => {
@@ -45,7 +52,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
         const res = mockResponse();
         mockJiraApiRequest().reply(201);
 
-        await middleware(req, res);
+        await middleware(req, res, expressNextStub);
 
         expect(nock.isDone()).toBe(true);
       });
@@ -59,7 +66,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
             (body.requestTypeId === options.serviceDesk.feedback.requestTypeId)
           )).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -72,7 +79,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
           mockJiraApiRequest(body => body.requestFieldValues.description === reqBody.feedback).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -84,9 +91,9 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const req = mockRequest(reqBody);
           const res = mockResponse();
 
-          await middleware(req, res);
-          expect(res.status.calledWith(400)).toBe(true);
-          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
+          await middleware(req, res, expressNextStub);
+          expect(expressNextStub.calledWith(sinon.match.has('message', 'Invalid feedback.'))).toBe(true);
+          expect(expressNextStub.calledWith(sinon.match.has('status', 400))).toBe(true);
         });
 
         it('responds with an error when the feedback is less than five words', async() => {
@@ -96,9 +103,9 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const req = mockRequest(reqBody);
           const res = mockResponse();
 
-          await middleware(req, res);
-          expect(res.status.calledWith(400)).toBe(true);
-          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
+          await middleware(req, res, expressNextStub);
+          expect(expressNextStub.calledWith(sinon.match.has('message', 'Invalid feedback.'))).toBe(true);
+          expect(expressNextStub.calledWith(sinon.match.has('status', 400))).toBe(true);
         });
 
         it('truncates feedback to 50 characters in summary field, removing newlines', async() => {
@@ -111,7 +118,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
           mockJiraApiRequest(body => body.requestFieldValues.summary === summary).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -127,7 +134,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
           mockJiraApiRequest(body => body.requestFieldValues[options.serviceDesk.feedback.customFields.pageUrl] === reqBody.pageUrl).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -140,7 +147,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
           mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf')).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -154,7 +161,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
           mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email).reply(201);
 
-          await middleware(req, res);
+          await middleware(req, res, expressNextStub);
 
           expect(nock.isDone()).toBe(true);
         });
@@ -168,35 +175,31 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
         const res = mockResponse();
         mockJiraApiRequest().reply(status);
 
-        await middleware(req, res);
+        await middleware(req, res, expressNextStub);
 
         expect(res.sendStatus.calledWith(status)).toBe(true);
       });
 
       it('responds with upstream error on failure', async() => {
         const status = 400;
-        const errorMessage = 'Summary is required.';
         const req = mockRequest();
         const res = mockResponse();
-        mockJiraApiRequest().reply(status, { errorMessage });
+        mockJiraApiRequest().reply(status);
 
-        await middleware(req, res);
+        await middleware(req, res, expressNextStub);
 
-        expect(res.status.calledWith(status)).toBe(true);
-        expect(res.send.calledWith(errorMessage)).toBe(true);
+        expect(expressNextStub.calledWith(sinon.match.has('message', 'Request failed with status code 400'))).toBe(true);
       });
 
-      it('responds with 500 status on request failure', async() => {
-        const status = 500;
+      it('responds with error on request failure', async() => {
         const errorMessage = 'Unknown error';
         const req = mockRequest();
         const res = mockResponse();
         mockJiraApiRequest().replyWithError(errorMessage);
 
-        await middleware(req, res);
+        await middleware(req, res, expressNextStub);
 
-        expect(res.status.calledWith(status)).toBe(true);
-        expect(res.send.calledWith(errorMessage)).toBe(true);
+        expect(expressNextStub.calledWith(sinon.match.has('message', errorMessage))).toBe(true);
       });
     });
   });

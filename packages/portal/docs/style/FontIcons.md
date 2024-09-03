@@ -25,6 +25,11 @@ Example:
           <td><span class="icon icon-3d" /></td>
         </tr>
         <tr>
+          <td>3d bold</td>
+          <td><code>icon-3d-bold</code></td>
+          <td><span class="icon icon-3d-bold" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
@@ -53,6 +58,11 @@ Example:
           <td>Arrow down</td>
           <td><code>icon-arrow-down</code></td>
           <td><span class="icon icon-arrow-down" /></td>
+        </tr>
+        <tr>
+          <td>Arrow outline</td>
+          <td><code>icon-arrow-outline</code></td>
+          <td><span class="icon icon-arrow-outline" /></td>
         </tr>
         <tr>
           <td>Automated</td>
@@ -115,6 +125,11 @@ Example:
           <td><span class="icon icon-facebook" /></td>
         </tr>
         <tr>
+          <td>Feature ideas</td>
+          <td><code>icon-feature-ideas</code></td>
+          <td><span class="icon icon-feature-ideas" /></td>
+        </tr>
+        <tr>
           <td>Feedback</td>
           <td><code>icon-ic-feedback</code></td>
           <td><span class="icon icon-ic-feedback" /></td>
@@ -158,6 +173,11 @@ Example:
           <td>Image</td>
           <td><code>icon-image</code></td>
           <td><span class="icon icon-image" /></td>
+        </tr>
+        <tr>
+          <td>Image bold</td>
+          <td><code>icon-image-bold</code></td>
+          <td><span class="icon icon-image-bold" /></td>
         </tr>
         <tr>
           <td>Info</td>
@@ -285,6 +305,11 @@ Example:
           <td><span class="icon icon-sound" /></td>
         </tr>
         <tr>
+          <td>Sound bold</td>
+          <td><code>icon-sound-bold</code></td>
+          <td><span class="icon icon-sound-bold" /></td>
+        </tr>
+        <tr>
           <td>Stories</td>
           <td><code>icon-stories</code></td>
           <td><span class="icon icon-stories" /></td>
@@ -303,6 +328,21 @@ Example:
           <td>Text</td>
           <td><code>icon-text</code></td>
           <td><span class="icon icon-text" /></td>
+        </tr>
+        <tr>
+          <td>Text bold</td>
+          <td><code>icon-text-bold</code></td>
+          <td><span class="icon icon-text-bold" /></td>
+        </tr>
+        <tr>
+          <td>Thumbsup</td>
+          <td><code>icon-thumbsup</code></td>
+          <td><span class="icon icon-thumbsup" /></td>
+        </tr>
+        <tr>
+          <td>Thumbsup outlined</td>
+          <td><code>icon-thumbsup-outlined</code></td>
+          <td><span class="icon icon-thumbsup-outlined" /></td>
         </tr>
         <tr>
           <td>Transcribe</td>
@@ -328,6 +368,11 @@ Example:
           <td>Video</td>
           <td><code>icon-video</code></td>
           <td><span class="icon icon-video" /></td>
+        </tr>
+        <tr>
+          <td>Video bold</td>
+          <td><code>icon-video-bold</code></td>
+          <td><span class="icon icon-video-bold" /></td>
         </tr>
         <tr>
           <td>View</td>

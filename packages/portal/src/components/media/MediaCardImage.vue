@@ -3,7 +3,7 @@
     class="image-container h-100"
   >
     <b-link
-      v-if="imageLink && thumbnails.large && !media.forEdmIsShownAt"
+      v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
       data-qa="media link"
@@ -85,6 +85,14 @@
       offset: {
         type: Number,
         default: null
+      },
+      thumbnailSize: {
+        type: String,
+        default: 'large'
+      },
+      linkable: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -102,16 +110,17 @@
         return this.media.thumbnails(this.$nuxt.context);
       },
       thumbnailSrc() {
-        return this.thumbnails.large;
+        return this.thumbnails[this.thumbnailSize];
       },
       thumbnailWidth() {
         if (!this.media.ebucoreWidth) {
           return null;
         }
-        if (this.media.ebucoreWidth < 400) {
+        const thumbnailMaxSize = this.thumbnailSize === 'large' ? 400 : 200;
+        if (this.media.ebucoreWidth < thumbnailMaxSize) {
           return this.media.ebucoreWidth;
         }
-        return 400;
+        return thumbnailMaxSize;
       },
       thumbnailHeight() {
         if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
@@ -140,10 +149,6 @@
   align-items: center;
   justify-content: center;
 
-  @media (max-height: $bp-small) {
-    align-items: flex-start;
-  }
-
   a {
     text-decoration: none;
   }
@@ -153,15 +158,15 @@ img {
   height: auto;
 
   @media (max-height: $bp-medium) {
-    max-height: calc($swiper-height - $swiper-top-padding);
+    max-height: $swiper-height;
   }
 
   @media (min-height: $bp-medium) {
-    max-height: calc($swiper-height-max - $swiper-top-padding);
+    max-height: $swiper-height-max;
   }
 
   @media (max-width: $bp-medium) {
-    max-height: calc($swiper-height-medium - $swiper-top-padding);
+    max-height: $swiper-height-medium;
   }
 }
 </style>

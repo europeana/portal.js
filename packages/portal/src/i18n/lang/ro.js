@@ -52,7 +52,7 @@ export default {
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
-    "like": "Apreciere",
+    "like": "Îmi place",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
+    "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
-    "viewDocument": "Vizualizare document"
+    "viewDocument": "Vizualizare document",
+    "vote": "Vot"
   },
   "attribution": {
     "country": "Țară:",
@@ -237,6 +239,10 @@ export default {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
+    },
+    "noFeatureIdeas": {
+      "description": "Reveniți în curând!",
+      "title": "Nu există idei de funcții noi în acest moment."
     },
     "pageNotFound": {
       "metaTitle": "Pagina nu a fost găsita",
@@ -745,9 +751,10 @@ export default {
       "about": "Despre",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
+      "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Pagină natală",
-      "shareYourData": "Contribuiți datele voastre",
+      "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Ultimele narațiuni",
     "storiesCTA": "Vezi toate narațiuni",
     "subHeadline": "Căutați, preluați și partajați artă, cărți, filme și muzică provenind din mii de instituții culturale.",
-    "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
     "titleDigital": "digital"
@@ -843,8 +849,8 @@ export default {
         "title": "Notificare pentru funcții noi"
       },
       "searchResultsView": {
-        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
+        "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
+  },
+  "likes": {
+    "count": "{count} place | {count} aprecieri"
   },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
+    }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {
-    "paginationBulletLabel": "Grup de diapozitive {page}"
+    "a11y": {
+      "firstSlide": "Acesta este primul diapozitiv",
+      "lastSlide": "Acesta este ultimul diapozitiv",
+      "nextSlide": "Următorul diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Grup de diapozitive {page}",
+      "previousSlide": "Diapozitivul anterior",
+      "slideLabel": "Diapozitiv {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Răsfoiți după temă",

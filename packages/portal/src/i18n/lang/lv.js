@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
-    "viewDocument": "Skatīt dokumentu"
+    "viewDocument": "Skatīt dokumentu",
+    "vote": "Balsojums"
   },
   "attribution": {
     "country": "Valsts",
@@ -237,6 +239,10 @@ export default {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
+    },
+    "noFeatureIdeas": {
+      "description": "Drīzumā pārbaudiet vēlreiz!",
+      "title": "Pašlaik nav jaunu funkciju ideju."
     },
     "pageNotFound": {
       "metaTitle": "Lapa nav atrasta",
@@ -745,9 +751,10 @@ export default {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Pedagogiem",
+      "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "shareYourData": "Kopīgot savus datus",
+      "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Jaunākie stāsti",
     "storiesCTA": "Skatīt visus stāstus",
     "subHeadline": "Meklējiet, saglabājiet un dalieties ar mākslu, grāmatām, filmām un mūziku no tūkstošiem kultūras iestāžu krājumiem",
-    "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
@@ -843,8 +849,8 @@ export default {
         "title": "Jaunas funkcijas paziņojums"
       },
       "searchResultsView": {
-        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
+        "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
+  },
+  "likes": {
+    "count": "{count} patīk | {count} Patīk"
   },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
+    }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidu grupa {page}"
+    "a11y": {
+      "firstSlide": "Šis ir pirmais slaids",
+      "lastSlide": "Šis ir pēdējais slaids",
+      "nextSlide": "Nākamais slaids",
+      "paginationBullet": "Slaids {page}",
+      "paginationBulletGroupedSlides": "Slaidu grupa {page}",
+      "previousSlide": "Iepriekšējais slaids",
+      "slideLabel": "Slaids {slide} no {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

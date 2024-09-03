@@ -23,7 +23,6 @@
           :src="cardImageUrl"
           :width="imageWidthPerVariant"
           :height="imageHeightPerVariant"
-          :alt="imageAlt"
           :content-type="imageContentType"
           :contentful-image-crop-presets="contentfulImageCropPresets"
           :image-sizes="imageSizes"
@@ -64,7 +63,8 @@
             data-qa="card title"
             :lang="langAttribute(displayTitle.code)"
           >
-            <SmartLink
+            <component
+              :is="url ? 'SmartLink' : 'div'"
               :destination="url"
               link-class="card-link"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
@@ -72,7 +72,7 @@
               <span>
                 {{ truncate(displayTitle.value, 90) }}
               </span>
-            </SmartLink>
+            </component>
           </b-card-title>
           <b-card-text
             v-if="hitText"
@@ -206,13 +206,6 @@
       imageHeight: {
         type: Number,
         default: 338
-      },
-      /**
-       * Image alt text
-       */
-      imageAlt: {
-        type: String,
-        default: ''
       },
       /**
        * Image crop presets for optimised images

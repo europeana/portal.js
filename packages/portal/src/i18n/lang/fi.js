@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
-    "viewDocument": "Näytä asiakirja"
+    "viewDocument": "Näytä asiakirja",
+    "vote": "Äänestää"
   },
   "attribution": {
     "country": "Maa:",
@@ -238,6 +240,10 @@ export default {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
+    },
+    "noFeatureIdeas": {
+      "description": "Tarkista pian uudelleen!",
+      "title": "Ei uusia ominaisuus ideoita tällä hetkellä."
     },
     "pageNotFound": {
       "metaTitle": "Sivua ei löydy",
@@ -746,9 +752,10 @@ export default {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajille",
+      "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
-      "shareYourData": "Jaa tietosi",
+      "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Uusimmat tarinat",
     "storiesCTA": "Katso kaikki tarinat",
     "subHeadline": "Hae, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansilta kulttuuriorganisaatioilta",
-    "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
     "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
     "titleDigital": "digitaaliseen"
@@ -844,8 +850,8 @@ export default {
         "title": "Uuden ominaisuuden ilmoitus"
       },
       "searchResultsView": {
-        "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
+        "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
+  },
+  "likes": {
+    "count": "{count} tykkää | {count} tykkää"
   },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Tutustu suunnittelemiimme tuleviin muutoksiin ja äänestä niitä, jotka haluaisit nähdä etusijalla. Palautteesi auttaa meitä keskittymään siihen, mikä on sinulle tärkeintä."
+    }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {
-    "paginationBulletLabel": "Dia-ryhmä {page}"
+    "a11y": {
+      "firstSlide": "Tämä on ensimmäinen dia",
+      "lastSlide": "Tämä on viimeinen dia",
+      "nextSlide": "Seuraava dia",
+      "paginationBullet": "Dia {page}",
+      "paginationBulletGroupedSlides": "Dia-ryhmä {page}",
+      "previousSlide": "Edellinen dia",
+      "slideLabel": "Dia {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Selaa teemoittain",

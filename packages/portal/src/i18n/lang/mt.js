@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
+    "unlike": "Tneħħi l-like",
     "viewAt": "Ara fuq {link}",
-    "viewDocument": "Ara d-dokument"
+    "viewDocument": "Ara d-dokument",
+    "vote": "Ivvota"
   },
   "attribution": {
     "country": "Pajjiż:",
@@ -237,6 +239,10 @@ export default {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    },
+    "noFeatureIdeas": {
+      "description": "Iċċekkja lura dalwaqt!",
+      "title": "Ebda ideat ta' karatteristiċi ġodda bħalissa."
     },
     "pageNotFound": {
       "metaTitle": "Paġna mhux misjuba",
@@ -745,9 +751,10 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għall-għalliema",
+      "featureIdeas": "Ideat tal-karatteristiċi",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "shareYourData": "Aqsam id-data tiegħek",
+      "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "L-aħħar stejjer",
     "storiesCTA": "Ara l-istejjer kollha",
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
-    "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
     "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
     "titleDigital": "diġitali"
@@ -843,8 +849,8 @@ export default {
         "title": "Notifika ta' karatteristika ġdida"
       },
       "searchResultsView": {
-        "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
+        "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Esplora l-bidliet li ġejjin li qed nippjanaw u ivvota għal dawk li tixtieq tara prijoritizzati. Il-kontribut tiegħek jgħinna niffukaw fuq dak li jgħodd l-aktar għalik."
+    }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1127,7 +1138,7 @@ export default {
       "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
-        "title": "100 like"
+        "title": "100 likes"
       },
       "updated": "L-oġġett ġie miżjud mal-gallerija.",
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupp ta' slides {page}"
+    "a11y": {
+      "firstSlide": "Din hija l-ewwel slide",
+      "lastSlide": "Din hija l-aħħar slide",
+      "nextSlide": "Slide li jmiss",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Grupp ta' slides {page}",
+      "previousSlide": "Slide preċedenti",
+      "slideLabel": "Slide {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

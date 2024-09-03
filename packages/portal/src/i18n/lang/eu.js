@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
-    "viewDocument": "Dokumentua ikusi"
+    "viewDocument": "Dokumentua ikusi",
+    "vote": "Bozkatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -243,6 +245,10 @@ export default {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "noFeatureIdeas": {
+      "description": "Begiratu berriro laster!",
+      "title": "Ez dago ideia berririk une honetan."
     },
     "pageNotFound": {
       "metaTitle": "Ez da orria aurkitu",
@@ -751,9 +757,10 @@ export default {
       "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
+      "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
-      "shareYourData": "Zure datuak partekatu",
+      "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -770,7 +777,6 @@ export default {
     "discoverEditorial": "Azken istorioak",
     "storiesCTA": "Ikusi istorio guztiak",
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
-    "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
     "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
@@ -849,8 +855,8 @@ export default {
         "title": "Ezaugarri berrien jakinarazpena"
       },
       "searchResultsView": {
-        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
       }
     }
   },
@@ -876,6 +882,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
+  },
+  "likes": {
+    "count": "{count} gustoko | {count} gustokoak"
   },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
@@ -914,7 +923,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1192,7 +1203,15 @@ export default {
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
-    "paginationBulletLabel": "Diapositiva taldea {page}"
+    "a11y": {
+      "firstSlide": "Hau da lehen diapositiba",
+      "lastSlide": "Hau da azken diapositiba",
+      "nextSlide": "Hurrengo diapositiba",
+      "paginationBullet": "Diapositiba {page}",
+      "paginationBulletGroupedSlides": "Diapositiva taldea {page}",
+      "previousSlide": "Aurreko diapositiba",
+      "slideLabel": "Diapositiba {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",

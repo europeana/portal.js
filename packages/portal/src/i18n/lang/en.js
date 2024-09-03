@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
+    "unlike": "Unlike",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "vote": "Vote"
   },
   "attribution": {
     "country": "Country:",
@@ -256,6 +258,10 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "noFeatureIdeas": {
+      "title": "No new feature ideas at the moment.",
+      "description": "Check back again soon!"
     },
     "pageNotFound": {
       "metaTitle": "Page not found",
@@ -787,9 +793,10 @@ export default {
       "about": "About",
       "collections": "Collections",
       "europeanaClassroom": "For teachers",
+      "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Share your data",
+      "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -806,7 +813,6 @@ export default {
     "discoverEditorial": "Latest stories",
     "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
     "title": "Discover Europe’s {digital} cultural heritage",
     "titleDigital": "digital"
@@ -885,8 +891,8 @@ export default {
         "title": "New feature notification"
       },
       "searchResultsView": {
-        "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
+        "title": "Search result, galleries and likes view (list/grid/mosaic)"
       }
     }
   },
@@ -923,6 +929,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Skip to page contents"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Loading",
   "loadingResults": "Loading results",
@@ -961,7 +970,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1239,7 +1250,15 @@ export default {
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide group {page}"
+    "a11y": {
+      "firstSlide": "This is the first slide",
+      "lastSlide": "This is the last slide",
+      "nextSlide": "Next slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide group {page}",
+      "previousSlide": "Previous slide",
+      "slideLabel": "Slide {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "themes": "Themes",

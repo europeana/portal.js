@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
-    "viewDocument": "Vaadake dokumenti"
+    "viewDocument": "Vaadake dokumenti",
+    "vote": "Hääletage"
   },
   "attribution": {
     "country": "Riik:",
@@ -238,6 +240,10 @@ export default {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "noFeatureIdeas": {
+      "description": "Kontrollige varsti uuesti!",
+      "title": "Hetkel uusi funktsiooni ideid pole."
     },
     "pageNotFound": {
       "metaTitle": "lehte ei leitud",
@@ -746,9 +752,10 @@ export default {
       "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
+      "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "shareYourData": "Jaga oma andmeid",
+      "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Viimased lood",
     "storiesCTA": "Vaata kõiki lugusid",
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
-    "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
     "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
     "titleDigital": "digitaalsel"
@@ -844,8 +850,8 @@ export default {
         "title": "Uus funktsiooniteatis"
       },
       "searchResultsView": {
-        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
+  },
+  "likes": {
+    "count": "{count} meeldib | {count} meeldimist"
   },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidirühm {page}"
+    "a11y": {
+      "firstSlide": "See on esimene slaid",
+      "lastSlide": "See on viimane slaid",
+      "nextSlide": "Järgmine slaid",
+      "paginationBullet": "Slaid {page}",
+      "paginationBulletGroupedSlides": "Slaidirühm {page}",
+      "previousSlide": "Eelmine slaid",
+      "slideLabel": "Slaid {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

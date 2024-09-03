@@ -52,7 +52,7 @@ export default {
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
-    "like": "Oblíbené",
+    "like": "Líbí se mi",
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
+    "unlike": "Nelíbí se mi",
     "viewAt": "Zobrazit na stránce {link}",
-    "viewDocument": "Zobrazit dokument"
+    "viewDocument": "Zobrazit dokument",
+    "vote": "Hlasování"
   },
   "attribution": {
     "country": "Země:",
@@ -238,6 +240,10 @@ export default {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "noFeatureIdeas": {
+      "description": "Brzy se znovu podívejte!",
+      "title": "Momentálně žádné nové nápady na funkce."
     },
     "pageNotFound": {
       "metaTitle": "Stránka nenalezena",
@@ -746,9 +752,10 @@ export default {
       "about": "O nás",
       "collections": "Sbírky",
       "europeanaClassroom": "Pro učitele",
+      "featureIdeas": "Nápady na funkce",
       "help": "Pomoc",
       "home": "Domů",
-      "shareYourData": "Sdílejte svá data",
+      "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
-    "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte {digital} kulturní dědictví Evropy",
     "titleDigital": "digitální"
@@ -844,8 +850,8 @@ export default {
         "title": "Oznámení o nové funkci"
       },
       "searchResultsView": {
-        "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
+        "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
       }
     }
   },
@@ -871,6 +877,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
+  },
+  "likes": {
+    "count": "{count} like | {count} lajků"
   },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
@@ -909,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zavřít",
     "readMore": "Ukaž mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
+    }
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1105,7 +1116,7 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svých lajků.",
+      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },
@@ -1129,7 +1140,7 @@ export default {
       "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
-        "title": "100 oblíbených"
+        "title": "100 lajků"
       },
       "updated": "Položka byla přidána do galerie.",
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
@@ -1187,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímků {page}"
+    "a11y": {
+      "firstSlide": "Toto je první snímek",
+      "lastSlide": "Toto je poslední snímek",
+      "nextSlide": "Další snímek",
+      "paginationBullet": "Snímek {page}",
+      "paginationBulletGroupedSlides": "Skupina snímků {page}",
+      "previousSlide": "Předchozí snímek",
+      "slideLabel": "Snímek {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Procházet podle tématu",

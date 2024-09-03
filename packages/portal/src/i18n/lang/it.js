@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Inviato per la pubblicazione",
     "transcribe": "Trascrivere",
     "transcribeNow": "Trascrivi ora",
+    "unlike": "Rimuovi il mi piace",
     "viewAt": "Vedi su {link}",
-    "viewDocument": "Visualizza documento"
+    "viewDocument": "Visualizza documento",
+    "vote": "Votare"
   },
   "attribution": {
     "country": "Paese:",
@@ -237,6 +239,10 @@ export default {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
       "metaTitle": "Elemento non trovato",
       "title": "Oh no! {newline} Non siamo riusciti a trovare questo elemento."
+    },
+    "noFeatureIdeas": {
+      "description": "Tornate a trovarci presto!",
+      "title": "Al momento non ci sono idee per nuove funzionalità."
     },
     "pageNotFound": {
       "metaTitle": "Pagina non trovata",
@@ -745,9 +751,10 @@ export default {
       "about": "Su di noi",
       "collections": "Collezioni",
       "europeanaClassroom": "Per insegnanti",
+      "featureIdeas": "Idee per le funzionalità",
       "help": "Aiuto",
       "home": "Home",
-      "shareYourData": "Condividi i tuoi dati",
+      "shareYourCollections": "Condividi le tue collezioni",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Ultime storie",
     "storiesCTA": "Vedi tutte le storie",
     "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica da migliaia di istituzioni culturali",
-    "themesCTA": "Vedi tutti i temi",
     "themesTitle": "Esplora per tema",
     "title": "Scopri il patrimonio culturale {digital} europeo",
     "titleDigital": "digitale"
@@ -843,8 +849,8 @@ export default {
         "title": "Notifica di nuove funzionalità"
       },
       "searchResultsView": {
-        "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "description": "Ricorda se preferisci vedere i risultati della ricerca, le gallerie e i tuoi Mi piace in una visualizzazione elenco, griglia o mosaico.",
+        "title": "Visualizzazione dei risultati della ricerca, gallerie e Mi piace (elenco/griglia/mosaico)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Passa al contenuto della pagina"
+  },
+  "likes": {
+    "count": "{count} Mi piace | {count} Mi piace"
   },
   "loading": "Caricamento",
   "loadingResults": "Caricamento dei risultati in corso",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Chiudi",
     "readMore": "Mostrami",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Esplora i prossimi cambiamenti che stiamo pianificando e vota per quelli che vorresti vedere prioritari. Il tuo contributo ci aiuta a concentrarci su ciò che conta di più per te."
+    }
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} storie trovate"
   },
   "swiper": {
-    "paginationBulletLabel": "Gruppo di diapositive {page}"
+    "a11y": {
+      "firstSlide": "Questa è la prima diapositiva",
+      "lastSlide": "Questa è l'ultima diapositiva",
+      "nextSlide": "Diapositiva successiva",
+      "paginationBullet": "Diapositiva {page}",
+      "paginationBulletGroupedSlides": "Gruppo di diapositive {page}",
+      "previousSlide": "Diapositiva precedente",
+      "slideLabel": "Diapositiva {slide} di {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sfoglia per tema",

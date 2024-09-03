@@ -360,26 +360,26 @@
         margin-right: 0.3rem;
         line-height: inherit;
       }
+    }
 
-      .btn-light-flat {
-        color: $mediumgrey;
-        padding: 0;
-        margin-right: 1rem;
-        line-height: inherit;
+    .btn-light-flat {
+      color: $mediumgrey;
+      padding: 0;
+      margin-right: 1rem;
+      line-height: inherit;
 
-        &.pin-button {
-          display: inline-flex;
-          order: 3;
+      &.pin-button {
+        display: inline-flex;
+        order: 3;
+      }
+
+      &.active {
+        &.like-button {
+          color: $red;
         }
 
-        &.active {
-          &.like-button {
-            color: $red;
-          }
-
-          &.pin-button {
-            color: $darkgreen;
-          }
+        &.pin-button {
+          color: $darkgreen;
         }
       }
     }
@@ -497,13 +497,27 @@
       display: flex;
       flex-wrap: wrap;
       position: absolute;
-      top: 1rem;
-      right: 0;
+      top: 0.5rem;
+      right: 0.5rem;
+      left: 0.5rem;
       z-index: 3;
-      width: 100%;
+
+      .right-buttons-wrapper,
+      .pin-button-wrapper {
+        visibility: visible;
+        padding: 0.5rem;
+      }
 
       .btn {
-        visibility: hidden;
+        margin-right: 0.5rem;
+
+        @media (hover: hover) {
+          visibility: hidden;
+        }
+      }
+
+      .pin-button-wrapper {
+        margin-right: auto;
       }
     }
 
@@ -513,30 +527,17 @@
       .user-buttons {
         .btn {
           visibility: visible;
-          margin-right: 0.5rem;
 
           &.pin-button.active {
             visibility: visible;
           }
         }
-
-        .pin-button-wrapper {
-          margin-left: 1rem;
-
-          + div,
-          + .btn {
-            margin-left: auto;
-          }
-        }
-
-        > :last-child {
-          margin-right: 1rem;
-
-          .btn {
-            margin-right: 0;
-          }
-        }
       }
+    }
+
+    .pin-button,
+    .right-buttons-wrapper > :last-child .btn {
+      margin-right: 0;
     }
   }
 }

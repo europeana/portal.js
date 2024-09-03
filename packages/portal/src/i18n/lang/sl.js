@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
+    "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
-    "viewDocument": "Ogled dokumenta"
+    "viewDocument": "Ogled dokumenta",
+    "vote": "Glasuj"
   },
   "attribution": {
     "country": "Država:",
@@ -237,6 +239,10 @@ export default {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
+    },
+    "noFeatureIdeas": {
+      "description": "Preverite spet kmalu!",
+      "title": "Trenutno ni idej za nove funkcije."
     },
     "pageNotFound": {
       "metaTitle": "Stran ni najdena",
@@ -745,9 +751,10 @@ export default {
       "about": "O nas",
       "collections": "Zbirke",
       "europeanaClassroom": "Za učitelje",
+      "featureIdeas": "Ideje za funkcije",
       "help": "Pomoč",
       "home": "Domov",
-      "shareYourData": "Delite vaše podatke",
+      "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Najnovejše zgodbe",
     "storiesCTA": "Oglejte si vse zgodbe",
     "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
-    "themesCTA": "Oglejte si vse teme",
     "themesTitle": "Raziščite po temi",
     "title": "Odkrijte evropsko {digital} kulturno dediščino",
     "titleDigital": "digitalno"
@@ -843,8 +849,8 @@ export default {
         "title": "Obvestilo o novi funkciji"
       },
       "searchResultsView": {
-        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "description": "Zapomni si, ali si raje ogledate rezultate iskanja, galerije in vaše všečke v obliki seznama, mreže ali mozaičnega pogleda.",
+        "title": "Rezultat iskanja, galerije in pogled všečkov (seznam/mreža/mozaik)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
+  },
+  "likes": {
+    "count": "{count} všečkov | {count} všečkov"
   },
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
+    }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1169,7 +1180,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
-    "liked": "Všeč",
+    "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
   },
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina diapozitivov {page}"
+    "a11y": {
+      "firstSlide": "To je prvi diapozitiv",
+      "lastSlide": "To je zadnji diapozitiv",
+      "nextSlide": "Naslednji diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Skupina diapozitivov {page}",
+      "previousSlide": "Prejšnji diapozitiv",
+      "slideLabel": "Diapozitiv {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Brskajte po temi",

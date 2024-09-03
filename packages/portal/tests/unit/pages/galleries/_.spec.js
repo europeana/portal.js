@@ -59,11 +59,13 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $route: {
       params: {
         pathMatch: (options.set?.id || '111') + '-my-set'
-      }
+      },
+      query: {}
     },
     $store: {
       commit: storeCommit,
       dispatch: storeDispatch,
+      getters: {},
       state: {
         set: { active: options.set || null }
       }

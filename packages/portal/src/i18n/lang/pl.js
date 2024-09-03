@@ -74,8 +74,10 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
-    "viewDocument": "Zobacz dokument"
+    "viewDocument": "Zobacz dokument",
+    "vote": "Głosować"
   },
   "attribution": {
     "country": "Kraj:",
@@ -237,6 +239,10 @@ export default {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
       "metaTitle": "Nie znaleziono przedmiotu",
       "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
+    },
+    "noFeatureIdeas": {
+      "description": "Sprawdź ponownie wkrótce!",
+      "title": "W tej chwili nie ma pomysłów na nowe funkcje."
     },
     "pageNotFound": {
       "metaTitle": "Nie znaleziono strony",
@@ -745,9 +751,10 @@ export default {
       "about": "O Europeana",
       "collections": "Kolekcje",
       "europeanaClassroom": "Dla nauczycieli",
+      "featureIdeas": "Pomysły na funkcje",
       "help": "Pomoc",
       "home": "Strona główna",
-      "shareYourData": "Udostępnij swoje dane",
+      "shareYourCollections": "Udostępnij swoje kolekcje",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Najnowsze historie",
     "storiesCTA": "Zobacz wszystkie historie",
     "subHeadline": "Wyszukaj, zapisz i udostępnij dzieła sztuki, książki, filmy oraz muzykę pochodzącą z tysięcy instytucji dziedzictwa kulturowego",
-    "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
     "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
     "titleDigital": "cyfrowe"
@@ -843,8 +849,8 @@ export default {
         "title": "Powiadomienie o nowej funkcji"
       },
       "searchResultsView": {
-        "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "description": "Zapamiętuje, czy wolisz wyświetlać wyniki wyszukiwania, galerie i Twoje polubienia w formie listy, siatki czy mozaiki.",
+        "title": "Wyniki wyszukiwania, galerie i widok polubień (lista/siatka/mozaika)"
       }
     }
   },
@@ -869,6 +875,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
+  },
+  "likes": {
+    "count": "{count} polubień | {count} polubień"
   },
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
@@ -907,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
+    }
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1185,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdów {page}"
+    "a11y": {
+      "firstSlide": "To jest pierwszy slajd",
+      "lastSlide": "To jest ostatni slajd",
+      "nextSlide": "Następny slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdów {page}",
+      "previousSlide": "Poprzedni slajd",
+      "slideLabel": "Slajd {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Przeglądaj według motywu",
