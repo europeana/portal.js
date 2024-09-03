@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Nie znaleziono przedmiotu",
       "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
     },
+    "noFeatureIdeas": {
+      "description": "Sprawdź ponownie wkrótce!",
+      "title": "W tej chwili nie ma pomysłów na nowe funkcje."
+    },
     "pageNotFound": {
       "metaTitle": "Nie znaleziono strony",
       "title": "Strona, której szukasz nie istnieje."
@@ -746,6 +750,7 @@ export default {
       "about": "O Europeana",
       "collections": "Kolekcje",
       "europeanaClassroom": "Dla nauczycieli",
+      "featureIdeas": "Pomysły na funkcje",
       "help": "Pomoc",
       "home": "Strona główna",
       "shareYourCollections": "Udostępnij swoje kolekcje",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
+  },
+  "likes": {
+    "count": "{count} polubień | {count} polubień"
   },
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",

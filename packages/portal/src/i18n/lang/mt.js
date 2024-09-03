@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
     },
+    "noFeatureIdeas": {
+      "description": "Iċċekkja lura dalwaqt!",
+      "title": "Ebda ideat ta' karatteristiċi ġodda bħalissa."
+    },
     "pageNotFound": {
       "metaTitle": "Paġna mhux misjuba",
       "title": "Il-paġna li qed tfittex ma teżistix."
@@ -746,6 +750,7 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għall-għalliema",
+      "featureIdeas": "Ideat tal-karatteristiċi",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
+  },
+  "likes": {
+    "count": "{count} like | {count} likes"
   },
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
@@ -1127,7 +1135,7 @@ export default {
       "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
-        "title": "100 like"
+        "title": "100 likes"
       },
       "updated": "L-oġġett ġie miżjud mal-gallerija.",
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."

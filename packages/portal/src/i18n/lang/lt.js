@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Skaitmeninis objektas nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio skaitmeninis objektas."
     },
+    "noFeatureIdeas": {
+      "description": "Netrukus vėl patikrinkite!",
+      "title": "Šiuo metu nėra naujų funkcijų idėjų."
+    },
     "pageNotFound": {
       "metaTitle": "Puslapis nerastas",
       "title": "Puslapis, kurio ieškote, neegzistuoja."
@@ -746,6 +750,7 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
+      "featureIdeas": "Funkcijų idėjos",
       "help": "Pagalba",
       "home": "Pradžia",
       "shareYourCollections": "Pasidalykite savo kolekcijomis",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
+  },
+  "likes": {
+    "count": "{count} patinka | {count} patinka"
   },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",

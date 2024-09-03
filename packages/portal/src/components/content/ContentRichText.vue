@@ -4,10 +4,12 @@
     :class="{ 'mb-5': richTextIsCard }"
     tag="section"
   >
-    <b-col class="col-12 col-lg-9">
+    <b-col
+      class="col-12"
+      :class="richTextIsCard ? 'col-lg-6' : 'col-lg-9'"
+    >
       <b-card
         v-if="html && richTextIsCard"
-        class="rich-text-card"
       >
         <!-- eslint-disable vue/no-v-html -->
         <div
@@ -59,14 +61,9 @@
   }
 
   .xxl-page {
-    .col-lg-9 {
-      @media (min-width: $bp-large) {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
-    }
 
-    .rich-text-card {
+    .col,
+    .card {
       max-width: $max-text-column-width;
     }
   }

@@ -75,7 +75,8 @@ export default {
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "vote": "Vote"
   },
   "attribution": {
     "country": "Country:",
@@ -256,6 +257,10 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "noFeatureIdeas": {
+      "title": "No new feature ideas at the moment.",
+      "description": "Check back again soon!"
     },
     "pageNotFound": {
       "metaTitle": "Page not found",
@@ -787,6 +792,7 @@ export default {
       "about": "About",
       "collections": "Collections",
       "europeanaClassroom": "For teachers",
+      "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
       "shareYourCollections": "Share your collections",
@@ -923,6 +929,9 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Loading",
   "loadingResults": "Loading results",
   "messages": {
@@ -960,7 +969,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

@@ -239,6 +239,10 @@ export default {
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
     },
+    "noFeatureIdeas": {
+      "description": "Preverite spet kmalu!",
+      "title": "Trenutno ni idej za nove funkcije."
+    },
     "pageNotFound": {
       "metaTitle": "Stran ni najdena",
       "title": "Stran, ki jo iščete, ne obstaja."
@@ -746,6 +750,7 @@ export default {
       "about": "O nas",
       "collections": "Zbirke",
       "europeanaClassroom": "Za učitelje",
+      "featureIdeas": "Ideje za funkcije",
       "help": "Pomoč",
       "home": "Domov",
       "shareYourCollections": "Delite svoje zbirke",
@@ -869,6 +874,9 @@ export default {
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
+  },
+  "likes": {
+    "count": "{count} všečkov | {count} všečkov"
   },
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
