@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transcreva agora",
     "unlike": "Não gosto",
     "viewAt": "Ver em {link}",
-    "viewDocument": "Ver documento"
+    "viewDocument": "Ver documento",
+    "vote": "Voto"
   },
   "attribution": {
     "country": "País:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Fechar",
     "readMore": "Mostre-me",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explore as próximas mudanças que estamos planeando e vote nas que você gostaria de ver priorizadas. Sua opinião nos ajuda a focar no que é mais importante para você."
+    }
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} histórias encontradas"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupo de slides {page}"
+    "a11y": {
+      "firstSlide": "Este é o primeiro slide",
+      "lastSlide": "Este é o último slide",
+      "nextSlide": "Próximo slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Grupo de slides {page}",
+      "previousSlide": "Slide anterior",
+      "slideLabel": "Slide {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Navegar por tema",

@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transskriber nu",
     "unlike": "Fjern like",
     "viewAt": "Se på {link}",
-    "viewDocument": "Se dokument"
+    "viewDocument": "Se dokument",
+    "vote": "Stemme"
   },
   "attribution": {
     "country": "Land:",
@@ -917,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Luk",
     "readMore": "Vis mig",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Udforsk de kommende ændringer, vi planlægger, og stem på dem, du gerne vil have prioriteret. Dine input hjælper os med at fokusere på det, der betyder mest for dig."
+    }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -1195,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide gruppe {page}"
+    "a11y": {
+      "firstSlide": "Dette er den første slide",
+      "lastSlide": "Dette er det sidste slide",
+      "nextSlide": "Næste slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide gruppe {page}",
+      "previousSlide": "Forrige slide",
+      "slideLabel": "Slide {slide} af {totalSlides}"
+    }
   },
   "themes": {
     "description": "Gennemse efter tema",

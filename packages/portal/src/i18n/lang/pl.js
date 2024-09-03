@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transkrybuj teraz",
     "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
-    "viewDocument": "Zobacz dokument"
+    "viewDocument": "Zobacz dokument",
+    "vote": "Głosować"
   },
   "attribution": {
     "country": "Kraj:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
+    }
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdów {page}"
+    "a11y": {
+      "firstSlide": "To jest pierwszy slajd",
+      "lastSlide": "To jest ostatni slajd",
+      "nextSlide": "Następny slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdów {page}",
+      "previousSlide": "Poprzedni slajd",
+      "slideLabel": "Slajd {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Przeglądaj według motywu",

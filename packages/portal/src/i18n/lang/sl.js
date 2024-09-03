@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Prepiši zdaj",
     "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
-    "viewDocument": "Ogled dokumenta"
+    "viewDocument": "Ogled dokumenta",
+    "vote": "Glasuj"
   },
   "attribution": {
     "country": "Država:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
+    }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina diapozitivov {page}"
+    "a11y": {
+      "firstSlide": "To je prvi diapozitiv",
+      "lastSlide": "To je zadnji diapozitiv",
+      "nextSlide": "Naslednji diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Skupina diapozitivov {page}",
+      "previousSlide": "Prejšnji diapozitiv",
+      "slideLabel": "Diapozitiv {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Brskajte po temi",
