@@ -51,25 +51,40 @@ describe('server-middleware/api/utils', () => {
   });
 
   describe('errorHandler', () => {
-    it('logs to the console, logs to the apm and sends a response status', async() => {
+    describe('when there is an error', () => {
       const err = { message: 'NOT FOUND', statusCode: 404 };
-      const consoleStub = sinon.stub(console, 'error');
-      const apmStartedStub = sinon.stub(apm, 'isStarted').returns(true);
-      const apmCaptureStub = sinon.stub(apm, 'captureError');
-      const resSendStub = sinon.stub();
-      const res = {
-        writableEnded: false,
-        status: () => {
-          return { send: resSendStub };
-        }
-      };
 
-      await utils.errorHandler(err, {}, res, {});
+      it('logs to the console, logs to the apm and sends a response status', () => {
+        const consoleStub = sinon.stub(console, 'error');
+        const apmStartedStub = sinon.stub(apm, 'isStarted').returns(true);
+        const apmCaptureStub = sinon.stub(apm, 'captureError');
+        const resSendStub = sinon.stub();
+        const res = {
+          writableEnded: false,
+          status: () => {
+            return { send: resSendStub };
+          }
+        };
 
-      expect(consoleStub.calledOnce).toBe(true);
-      expect(apmStartedStub.calledOnce).toBe(true);
-      expect(apmCaptureStub.calledOnce).toBe(true);
-      expect(resSendStub.calledOnce).toBe(true);
+        utils.errorHandler(err, {}, res, {});
+
+        expect(consoleStub.calledOnce).toBe(true);
+        expect(apmStartedStub.calledOnce).toBe(true);
+        expect(apmCaptureStub.calledOnce).toBe(true);
+        expect(resSendStub.calledOnce).toBe(true);
+      });
+    });
+
+    describe('when there is no error', () => {
+      const err = undefined;
+
+      it('calls next', () => {
+        const next = sinon.spy();
+
+        utils.errorHandler(err, {}, {}, next);
+
+        expect(next.calledOnce).toBe(true);
+      });
     });
   });
 });
