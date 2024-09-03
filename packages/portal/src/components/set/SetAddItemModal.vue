@@ -17,6 +17,7 @@
       {{ $t('set.actions.createNew') }}
     </b-button>
     <div
+      v-if="collections.length"
       class="collections"
     >
       <SetAddItemButton
@@ -177,8 +178,16 @@
 }
 
 .collections {
-  max-height: calc(100vh - 474px);
+  max-height: 10rem;
   overflow: auto;
+
+  @media (min-height: 444px) {
+    max-height: calc(100vh - 18rem);
+  }
+
+  @media (min-height: $bp-medium) {
+    max-height: calc(100vh - 27rem);
+  }
 
   .btn-collection {
     font-weight: 600;
