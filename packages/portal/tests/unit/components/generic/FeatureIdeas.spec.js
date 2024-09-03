@@ -59,6 +59,26 @@ describe('components/generic/FeatureIdeas', () => {
         expect(errorMessage.exists()).toBe(true);
       });
     });
+
+    describe('when there are features', () => {
+      it('fetches the features votes from the API', async() => {
+        const expectedVotesResponse = {
+          'feature-1': { total: 12 },
+          'feature-2': { total: 21 }
+        };
+
+        const wrapper = factory({ propsData: { features } });
+
+        nock(config.app.baseUrl)
+          .get('/_api/votes?candidate=feature-1,feature-2')
+          .reply(200, expectedVotesResponse);
+
+        await wrapper.vm.fetch();
+
+        expect(nock.isDone()).toBe(true);
+        expect(wrapper.vm.votesOnFeatures).toEqual(expectedVotesResponse);
+      });
+    });
   });
 
   describe('when there are features', () => {
