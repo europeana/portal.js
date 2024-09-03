@@ -970,7 +970,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Help shape the future of Europeana.eu! Share your ideas for new features and give the ones you like a ‘thumbs up’."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
