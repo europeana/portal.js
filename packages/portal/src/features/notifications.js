@@ -1,4 +1,4 @@
-const features = [{ name: 'none' }];
+const features = [{ name: 'featureIdeas', url: '/feature-ideas ' }];
 
 export const featureNotificationExpiration = (value) => {
   const date = new Date(value);

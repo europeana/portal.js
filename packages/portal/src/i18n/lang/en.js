@@ -970,7 +970,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
