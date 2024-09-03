@@ -971,7 +971,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Show me",
     "text": {
-      "featureIdeas": "Help shape the future of Europeana.eu! Share your ideas for new features and give the ones you like a ‘thumbs up’."
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
     }
   },
   "newWindow": "opens in new window",
