@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Přepište nyní",
     "unlike": "Nelíbí se mi",
     "viewAt": "Zobrazit na stránce {link}",
-    "viewDocument": "Zobrazit dokument"
+    "viewDocument": "Zobrazit dokument",
+    "vote": "Hlasování"
   },
   "attribution": {
     "country": "Země:",
@@ -917,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zavřít",
     "readMore": "Ukaž mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
+    }
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1195,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímků {page}"
+    "a11y": {
+      "firstSlide": "Toto je první snímek",
+      "lastSlide": "Toto je poslední snímek",
+      "nextSlide": "Další snímek",
+      "paginationBullet": "Snímek {page}",
+      "paginationBulletGroupedSlides": "Skupina snímků {page}",
+      "previousSlide": "Předchozí snímek",
+      "slideLabel": "Snímek {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Procházet podle tématu",

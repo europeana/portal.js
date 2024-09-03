@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Trascrivi ora",
     "unlike": "Rimuovi il mi piace",
     "viewAt": "Vedi su {link}",
-    "viewDocument": "Visualizza documento"
+    "viewDocument": "Visualizza documento",
+    "vote": "Votare"
   },
   "attribution": {
     "country": "Paese:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Chiudi",
     "readMore": "Mostrami",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Esplora i prossimi cambiamenti che stiamo pianificando e vota per quelli che vorresti vedere prioritari. Il tuo contributo ci aiuta a concentrarci su ciò che conta di più per te."
+    }
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} storie trovate"
   },
   "swiper": {
-    "paginationBulletLabel": "Gruppo di diapositive {page}"
+    "a11y": {
+      "firstSlide": "Questa è la prima diapositiva",
+      "lastSlide": "Questa è l'ultima diapositiva",
+      "nextSlide": "Diapositiva successiva",
+      "paginationBullet": "Diapositiva {page}",
+      "paginationBulletGroupedSlides": "Gruppo di diapositive {page}",
+      "previousSlide": "Diapositiva precedente",
+      "slideLabel": "Diapositiva {slide} di {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sfoglia per tema",

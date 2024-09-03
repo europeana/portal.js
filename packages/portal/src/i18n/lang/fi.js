@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transkriboi nyt",
     "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
-    "viewDocument": "Näytä asiakirja"
+    "viewDocument": "Näytä asiakirja",
+    "vote": "Äänestää"
   },
   "attribution": {
     "country": "Maa:",
@@ -917,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Tutustu suunnittelemiimme tuleviin muutoksiin ja äänestä niitä, jotka haluaisit nähdä etusijalla. Palautteesi auttaa meitä keskittymään siihen, mikä on sinulle tärkeintä."
+    }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -1195,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {
-    "paginationBulletLabel": "Dia-ryhmä {page}"
+    "a11y": {
+      "firstSlide": "Tämä on ensimmäinen dia",
+      "lastSlide": "Tämä on viimeinen dia",
+      "nextSlide": "Seuraava dia",
+      "paginationBullet": "Dia {page}",
+      "paginationBulletGroupedSlides": "Dia-ryhmä {page}",
+      "previousSlide": "Edellinen dia",
+      "slideLabel": "Dia {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Selaa teemoittain",

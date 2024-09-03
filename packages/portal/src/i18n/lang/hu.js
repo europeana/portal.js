@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Átírás most",
     "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
-    "viewDocument": "Dokumentum megtekintése"
+    "viewDocument": "Dokumentum megtekintése",
+    "vote": "Szavazás"
   },
   "attribution": {
     "country": "Ország:",
@@ -916,7 +917,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Fedezze fel az általunk tervezett közelgő változtatásokat, és szavazzon azokra, amelyeket prioritásként szeretne látni. Hozzászólása segít abban, hogy arra összpontosíthassunk, ami a legfontosabb az Ön számára."
+    }
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1194,7 +1197,15 @@ export default {
     "storiesHaveLoaded": "{0} történet található"
   },
   "swiper": {
-    "paginationBulletLabel": "Diacsoport {page}"
+    "a11y": {
+      "firstSlide": "Ez az első dia",
+      "lastSlide": "Ez az utolsó dia",
+      "nextSlide": "Következő dia",
+      "paginationBullet": "Dia {page}",
+      "paginationBulletGroupedSlides": "Diacsoport {page}",
+      "previousSlide": "Előző dia",
+      "slideLabel": "Dia: {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "description": "Böngésszen téma szerint",

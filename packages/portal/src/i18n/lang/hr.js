@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Prepišite sada",
     "unlike": "Ukloni lajk",
     "viewAt": "Pogledajte na {link}",
-    "viewDocument": "Pogledajte dokument"
+    "viewDocument": "Pogledajte dokument",
+    "vote": "Glasaj"
   },
   "attribution": {
     "country": "Država:",
@@ -917,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Istražite nadolazeće promjene koje planiramo i glasajte za one za koje biste željeli da imaju prioritet. Vaš nam doprinos pomaže da se usredotočimo na ono što vam je najvažnije."
+    }
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -1195,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdova {page}"
+    "a11y": {
+      "firstSlide": "Ovo je prvi slajd",
+      "lastSlide": "Ovo je zadnji slajd",
+      "nextSlide": "Sljedeći slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdova {page}",
+      "previousSlide": "Prethodni slajd",
+      "slideLabel": "Slajd {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pregledajte po temi",

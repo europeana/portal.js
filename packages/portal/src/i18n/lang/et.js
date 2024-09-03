@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transkribeeri nüüd",
     "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
-    "viewDocument": "Vaadake dokumenti"
+    "viewDocument": "Vaadake dokumenti",
+    "vote": "Hääletage"
   },
   "attribution": {
     "country": "Riik:",
@@ -917,7 +918,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1195,7 +1198,15 @@ export default {
     "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidirühm {page}"
+    "a11y": {
+      "firstSlide": "See on esimene slaid",
+      "lastSlide": "See on viimane slaid",
+      "nextSlide": "Järgmine slaid",
+      "paginationBullet": "Slaid {page}",
+      "paginationBulletGroupedSlides": "Slaidirühm {page}",
+      "previousSlide": "Eelmine slaid",
+      "slideLabel": "Slaid {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

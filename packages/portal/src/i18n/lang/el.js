@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Μεταγραφή τώρα",
     "unlike": "Δεν μου αρέσει",
     "viewAt": "Προβολή στο {link}",
-    "viewDocument": "Προβολή εγγράφου"
+    "viewDocument": "Προβολή εγγράφου",
+    "vote": "Ψήφος"
   },
   "attribution": {
     "country": "Χώρα:",
@@ -916,7 +917,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Κλείσιμο",
     "readMore": "Δείξε μου",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Εξερευνήστε τις επερχόμενες αλλαγές που σχεδιάζουμε και ψηφίστε αυτές που θα θέλατε να έχουν προτεραιότητα. Η συμβολή σας μας βοηθά να επικεντρωθούμε σε αυτό που έχει μεγαλύτερη σημασία για εσάς."
+    }
   },
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
@@ -1194,7 +1197,15 @@ export default {
     "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν"
   },
   "swiper": {
-    "paginationBulletLabel": "Ομάδα διαφανειών {page}"
+    "a11y": {
+      "firstSlide": "Αυτή είναι η πρώτη διαφάνεια",
+      "lastSlide": "Αυτή είναι η τελευταία διαφάνεια",
+      "nextSlide": "Επόμενη διαφάνεια",
+      "paginationBullet": "Διαφάνεια {page}",
+      "paginationBulletGroupedSlides": "Ομάδα διαφανειών {page}",
+      "previousSlide": "Προηγούμενη διαφάνεια",
+      "slideLabel": "Διαφάνεια {slide} από {totalSlides}"
+    }
   },
   "themes": {
     "description": "Περιήγηση ανά κατηγορίες.",
