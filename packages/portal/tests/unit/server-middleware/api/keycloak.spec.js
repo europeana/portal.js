@@ -15,7 +15,9 @@ describe('server-middleware/api/keycloak', () => {
   describe('userId', () => {
     it('extracts the ID from the user info', async() => {
       keycloak.config = config;
-      nock(config.origin)
+      nock(config.origin, {
+        reqHeaders: auth
+      })
         .get(`/auth/realms/${config.realm}/protocol/openid-connect/userinfo`)
         .reply(200, { sub: 'user ID' });
 
