@@ -187,11 +187,11 @@
         return Object.keys(this.rule);
       },
       ruleValuesString() {
-        const fieldLabel = this.rule.field ? this.advancedSearchFieldLabel(this.rule.field) + ' ' : '';
-        const modifierLabel = this.rule.modifier ? this.$t(`search.advanced.modifiers.${this.rule.modifier}`) + ' ' : '';
+        const fieldLabel = this.rule.field ? this.advancedSearchFieldLabel(this.rule.field) : '';
+        const modifierLabel = this.rule.modifier ? this.$t(`search.advanced.modifiers.${this.rule.modifier}`) : '';
         const term = this.rule.term || '';
 
-        return `${fieldLabel}${modifierLabel}${term}`;
+        return [fieldLabel, modifierLabel, term].join(' ').trim();
       },
       suggestEntityTypeForTerm() {
         return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
