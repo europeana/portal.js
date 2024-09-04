@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Transkribēt tūlīt",
     "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
-    "viewDocument": "Skatīt dokumentu"
+    "viewDocument": "Skatīt dokumentu",
+    "vote": "Balsojums"
   },
   "attribution": {
     "country": "Valsts",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
+    }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidu grupa {page}"
+    "a11y": {
+      "firstSlide": "Šis ir pirmais slaids",
+      "lastSlide": "Šis ir pēdējais slaids",
+      "nextSlide": "Nākamais slaids",
+      "paginationBullet": "Slaids {page}",
+      "paginationBulletGroupedSlides": "Slaidu grupa {page}",
+      "previousSlide": "Iepriekšējais slaids",
+      "slideLabel": "Slaids {slide} no {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

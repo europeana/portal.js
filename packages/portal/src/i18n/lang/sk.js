@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Teraz prepíšte",
     "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
-    "viewDocument": "Zobraziť dokument"
+    "viewDocument": "Zobraziť dokument",
+    "vote": "Hlasujte"
   },
   "attribution": {
     "country": "Krajina:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
     "readMore": "Ukáž mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
+    }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímok {page}"
+    "a11y": {
+      "firstSlide": "Toto je prvá snímka",
+      "lastSlide": "Toto je posledná snímka",
+      "nextSlide": "Ďalšia snímka",
+      "paginationBullet": "Snímka {page}",
+      "paginationBulletGroupedSlides": "Skupina snímok {page}",
+      "previousSlide": "Predchádzajúca snímka",
+      "slideLabel": "Snímka {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

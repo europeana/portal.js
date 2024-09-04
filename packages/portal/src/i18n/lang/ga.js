@@ -76,7 +76,8 @@ export default {
     "transcribeNow": "Tras-scríobh anois",
     "unlike": "Ní maith liom",
     "viewAt": "Féach ar ag {link}",
-    "viewDocument": "Breathnaigh ar dhoiciméad"
+    "viewDocument": "Breathnaigh ar dhoiciméad",
+    "vote": "Vóta"
   },
   "attribution": {
     "country": "Tír:",
@@ -915,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dún",
     "readMore": "Taispeáin dom",
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Déan iniúchadh ar na hathruithe atá le teacht atá á bpleanáil againn agus vótáil ar son na cinn ar mhaith leat go dtabharfar tosaíocht dóibh. Cuidíonn d’ionchur linn díriú ar na rudaí is tábhachtaí duitse."
+    }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1193,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {
-    "paginationBulletLabel": "Grúpa sleamhnán {page}"
+    "a11y": {
+      "firstSlide": "Is é seo an chéad sleamhnán",
+      "lastSlide": "Is é seo an sleamhnán deireanach",
+      "nextSlide": "Sleamhnán seo chugainn",
+      "paginationBullet": "Sleamhnán {page}",
+      "paginationBulletGroupedSlides": "Grúpa sleamhnán {page}",
+      "previousSlide": "Sleamhnán roimhe seo",
+      "slideLabel": "Sleamhnán {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Brabhsáil de réir téama",
