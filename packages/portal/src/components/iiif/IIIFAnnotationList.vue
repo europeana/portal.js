@@ -62,7 +62,7 @@
     async fetch() {
       const annotationPage = await IIIFFactory.fetch(this.uri);
 
-      await annotationPage.deferenceAnnotations();
+      await annotationPage.deferenceAnnotations?.();
 
       this.annotations = annotationPage.annotations;
     },

@@ -1,7 +1,7 @@
 import fetchResource from './utils/fetch.js';
 import V2Manifest from './presentation/v2/Manifest.js';
 import V3Manifest from './presentation/v3/Manifest.js';
-// import V2AnnotationPage from './presentation/v2/AnnotationPage.js';
+import V2AnnotationPage from './presentation/v2/AnnotationPage.js';
 import V3AnnotationPage from './presentation/v3/AnnotationPage.js';
 
 export default class IIIFFactory {
@@ -20,14 +20,14 @@ export default class IIIFFactory {
       } else if (presentationVersion === 3) {
         dataClass = V3Manifest;
       } else {
-        throw new Error(`Unknown manifest version in ${url}`);
+        throw new Error(`Unknown manifest version ${presentationVersion} in ${url}`);
       }
     } else if (type === 'AnnotationPage') {
       dataClass = V3AnnotationPage;
-    // } else if (type === 'sc:AnnotationList') {
-    //   dataClass = V2AnnotationPage;
+    } else if (type === 'sc:AnnotationList') {
+      dataClass = V2AnnotationPage;
     } else {
-      throw new Error(`Unknown IIIF resource type ${type}`);
+      throw new Error(`Unknown IIIF resource type ${type} in ${url}`);
     }
 
     return new dataClass(data);
