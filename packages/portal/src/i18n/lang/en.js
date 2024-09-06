@@ -767,7 +767,6 @@ export default {
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a providing institution",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
