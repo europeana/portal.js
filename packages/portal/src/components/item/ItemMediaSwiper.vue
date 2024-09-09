@@ -57,7 +57,8 @@
       </div>
       <div
         ref="swiperThubmnails"
-        class="swiper-thumbnails d-flex flex-row flex-lg-column">
+        class="swiper-thumbnails d-flex flex-row flex-lg-column"
+      >
         <ItemMediaSwiperThumbnail
           v-for="(media, index) in displayableMedia"
           :key="index"
