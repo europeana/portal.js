@@ -5,7 +5,7 @@
     <div
       class="h-100 d-flex flex-row-reverse overflow-auto"
     >
-      <CanvasImage
+      <MediaImageViewer
         v-if="content?.format?.startsWith('image/')"
         :url="content.id"
         :width="content.width"
@@ -172,7 +172,7 @@
     components: {
       BTab,
       BTabs,
-      CanvasImage: () => import('../canvas/CanvasImage.vue'),
+      MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       IIIFAnnotationList: () => import('./IIIFAnnotationList.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },

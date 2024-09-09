@@ -22,8 +22,7 @@
   import ZoomControl from 'ol/control/Zoom.js';
 
   export default {
-    // TODO: is this a good name for the component?
-    name: 'CanvasImage',
+    name: 'MediaImageViewer',
 
     props: {
       format: {
