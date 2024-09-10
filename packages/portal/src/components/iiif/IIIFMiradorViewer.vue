@@ -44,6 +44,11 @@
         default: null
       },
 
+      webResources: {
+        type: Array,
+        default: null
+      },
+
       searchQuery: {
         type: String,
         default: null

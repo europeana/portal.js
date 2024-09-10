@@ -305,7 +305,9 @@ export default {
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
     '~/plugins/features',
-    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'open-layers'}`
+    // FIXME: defaulting to "new" is needed to build preview deployments,
+    //        but switch to "legacy" before merging!
+    `~/plugins/media/${process.env.MEDIA_PRESENTATION_PLUGIN || 'new'}`
   ],
 
   buildModules: [

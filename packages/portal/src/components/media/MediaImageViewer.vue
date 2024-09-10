@@ -82,10 +82,7 @@
     },
 
     watch: {
-      image: {
-        deep: true,
-        handler: '$fetch'
-      }
+      url: '$fetch'
     },
 
     mounted() {

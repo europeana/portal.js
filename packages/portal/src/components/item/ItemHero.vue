@@ -1,28 +1,20 @@
 <template>
   <div class="item-hero">
-    <div
-      v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper d-flex flex-column"
-    >
-      <slot name="item-language-selector" />
-      <client-only>
-        <IIIFPresentation
-          :uri="iiifPresentationManifest"
-          :search-query="fulltextSearchQuery"
-          :aria-label="$t('actions.viewDocument')"
-          :item-id="identifier"
-          :provider-url="providerUrl"
-          @select="selectMedia"
-        />
-      </client-only>
-    </div>
-    <ItemMediaSwiper
-      v-else
-      :europeana-identifier="identifier"
-      :edm-type="edmType"
-      :displayable-media="media"
-      @select="selectMedia"
-    />
+    <client-only>
+      <ItemMediaPresentation
+        :uri="iiifPresentationManifest"
+        :search-query="fulltextSearchQuery"
+        :item-id="identifier"
+        :provider-url="providerUrl"
+        :web-resources="media"
+        :edm-type="edmType"
+        @select="selectMedia"
+      >
+        <template slot="item-language-selector">
+          <slot name="item-language-selector" />
+        </template>
+      </ItemMediaPresentation>
+    </client-only>
     <b-container>
       <b-row>
         <b-col
@@ -78,7 +70,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
@@ -240,7 +231,6 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
 
   .item-hero {
     padding-bottom: 1.625rem;
