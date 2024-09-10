@@ -1,14 +1,14 @@
 <template>
   <div
-    v-if="iiifPresentationManifest"
+    v-if="uri"
     class="iiif-viewer-wrapper d-flex flex-column"
   >
     <slot name="item-language-selector" />
     <IIIFMiradorViewer
-      :uri="iiifPresentationManifest"
-      :search-query="fulltextSearchQuery"
+      :uri="uri"
+      :search-query="searchQuery"
       :aria-label="$t('actions.viewDocument')"
-      :item-id="identifier"
+      :item-id="itemId"
       :provider-url="providerUrl"
       @select="selectMedia"
     />

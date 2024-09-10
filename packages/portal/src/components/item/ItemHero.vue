@@ -87,7 +87,6 @@
       ClientOnly,
       DownloadWidget,
       ItemEmbedCode,
-      ItemMediaSwiper,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
