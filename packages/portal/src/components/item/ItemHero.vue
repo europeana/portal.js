@@ -9,11 +9,7 @@
         :web-resources="media"
         :edm-type="edmType"
         @select="selectMedia"
-      >
-        <template slot="item-language-selector">
-          <slot name="item-language-selector" />
-        </template>
-      </ItemMediaPresentation>
+      />
     </client-only>
     <b-container>
       <b-row>

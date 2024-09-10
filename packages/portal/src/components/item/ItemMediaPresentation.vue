@@ -21,7 +21,7 @@
           :url="content.url || content.id"
         />
         <MediaAudioVisualPlayer
-          v-else-if="content.playable"
+          v-else-if="content?.playable"
           :url="content.id"
           :format="content.format"
           :item-id="itemId"

@@ -3,7 +3,6 @@
     v-if="uri"
     class="iiif-viewer-wrapper d-flex flex-column"
   >
-    <slot name="item-language-selector" />
     <IIIFMiradorViewer
       :uri="uri"
       :search-query="searchQuery"
