@@ -23,6 +23,13 @@
     <template
       v-else
     >
+      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
+      <ItemLanguageSelector
+        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
+        :from-translation-error="fromTranslationError"
+        :translation-language="translationLanguage"
+        @hidden="() => showItemLanguageSelector = false"
+      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
