@@ -33,12 +33,12 @@
               :disabled="!annotationPage"
               :active="!!annotationPage"
             >
-              <IIIFAnnotationList
+              <!-- <IIIFAnnotationList
                 v-if="!!annotationPage"
                 :uri="annotationPage.url.toString()"
                 class="iiif-viewer-sidebar-panel"
                 @clickAnno="onClickAnno"
-              />
+              /> -->
             </b-tab>
             <b-tab title="Manifest">
               <a
@@ -80,7 +80,6 @@
     components: {
       BTab,
       BTabs,
-      IIIFAnnotationList: () => import('../iiif/IIIFAnnotationList.vue'),
       MediaImageViewer: () => import('./MediaImageViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
