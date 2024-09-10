@@ -305,9 +305,7 @@ export default {
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
     '~/plugins/features',
-    // FIXME: defaulting to "new" is needed to build preview deployments,
-    //        but switch to "legacy" before merging!
-    `~/plugins/media/${process.env.MEDIA_PRESENTATION_PLUGIN || 'new'}`
+    `~/plugins/media/${process.env.BUILD_MEDIA_PRESENTATION_PLUGIN || 'switch'}`
   ],
 
   buildModules: [
