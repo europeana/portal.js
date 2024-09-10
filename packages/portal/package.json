@@ -81,7 +81,7 @@
     "vuedraggable": "^2.24.3"
   },
   "peerDependencies": {
-    "@europeana/mirador": "^1.155.1"
+    "@europeana/mirador": "^1.128.1"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
