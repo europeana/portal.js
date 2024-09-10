@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
-    "explore": "Explore",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
@@ -768,7 +767,6 @@ export default {
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a providing institution",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -1099,6 +1097,7 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
+      "newRule": "new advanced search rule",
       "placeholder": {
         "field": "Select a field",
         "modifier": "Select a modifier",

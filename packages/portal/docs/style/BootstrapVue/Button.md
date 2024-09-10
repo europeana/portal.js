@@ -288,25 +288,3 @@ _Used in the 'add item to gallery' modal_
     </b-button>
   </b-container>
 ```
-
-Variant "outline-overlay"<br>
-_Used in the themes swiper_
-
-```jsx
-  <b-container class="d-flex flex-wrap">
-    <div class="mr-3 mb-3" :style="`{ margin: -16px; padding: 32px; background-color: #000; }`">
-      <b-button
-        variant="outline-overlay"
-      >
-        <span>Label no image</span>
-      </b-button>
-    </div>
-    <div class="mr-3 mb-3" :style="`{ margin: -16px; padding: 32px; background-image: url(${thumbnails[3]}); background-size: cover; }`">
-      <b-button
-        variant="outline-overlay"
-      >
-        <span>Label with image</span>
-      </b-button>
-    </div>
-  </b-container>
-```
