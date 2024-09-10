@@ -8,25 +8,32 @@
       <div
         class="h-100 d-flex flex-row-reverse overflow-auto"
       >
-        <MediaImageViewer
-          v-if="content?.format?.startsWith('image/')"
-          :url="content.url || content.id"
-          :width="content.width"
-          :height="content.height"
-          :format="content.format"
-          :service="content.service"
+        <div
           :class="{ 'w-75': showSidebar, 'w-100': !showSidebar }"
-        />
-        <code
-          v-else
-          class="h-50 w-100 p-5"
         >
-          <pre
-            :style="{ color: 'white' }"
-          ><!--
-          -->{{ JSON.stringify(content, null, 2) }}
-          </pre>
-        </code>
+          <MediaImageViewer
+            v-if="content?.format?.startsWith('image/')"
+            :url="content.url || content.id"
+            :width="content.width"
+            :height="content.height"
+            :format="content.format"
+            :service="content.service"
+          />
+          <MediaPDFViewer
+            v-else-if="content?.format === 'application/pdf'"
+            :url="content.url || content.id"
+          />
+          <code
+            v-else
+            class="h-50 w-100 p-5"
+          >
+            <pre
+              :style="{ color: 'white' }"
+            ><!--
+            -->{{ JSON.stringify(content, null, 2) }}
+            </pre>
+          </code>
+        </div>
         <transition
           appear
           name="fade"
@@ -90,6 +97,7 @@
       BTab,
       BTabs,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
+      MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
 
