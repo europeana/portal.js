@@ -1,6 +1,7 @@
 <template>
   <div
     id="iiif-open-layers"
+    class="h-100 w-100"
   />
 </template>
 

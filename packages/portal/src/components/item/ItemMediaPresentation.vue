@@ -8,32 +8,34 @@
       <div
         class="h-100 d-flex flex-row-reverse overflow-auto"
       >
-        <div
-          :class="{ 'w-75': showSidebar, 'w-100': !showSidebar }"
+        <MediaImageViewer
+          v-if="content?.format?.startsWith('image/')"
+          :url="content.url || content.id"
+          :width="content.width"
+          :height="content.height"
+          :format="content.format"
+          :service="content.service"
+        />
+        <MediaPDFViewer
+          v-else-if="content?.format === 'application/pdf'"
+          :url="content.url || content.id"
+        />
+        <MediaAudioVisualPlayer
+          v-else-if="content.playable"
+          :url="content.id"
+          :format="content.format"
+          :item-id="itemId"
+        />
+        <code
+          v-else
+          class="h-50 w-100 p-5"
         >
-          <MediaImageViewer
-            v-if="content?.format?.startsWith('image/')"
-            :url="content.url || content.id"
-            :width="content.width"
-            :height="content.height"
-            :format="content.format"
-            :service="content.service"
-          />
-          <MediaPDFViewer
-            v-else-if="content?.format === 'application/pdf'"
-            :url="content.url || content.id"
-          />
-          <code
-            v-else
-            class="h-50 w-100 p-5"
-          >
-            <pre
-              :style="{ color: 'white' }"
-            ><!--
-            -->{{ JSON.stringify(content, null, 2) }}
-            </pre>
-          </code>
-        </div>
+          <pre
+            :style="{ color: 'white' }"
+          ><!--
+          -->{{ JSON.stringify(content, null, 2) }}
+          </pre>
+        </code>
         <transition
           appear
           name="fade"
@@ -96,6 +98,7 @@
     components: {
       BTab,
       BTabs,
+      MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
@@ -156,7 +159,8 @@
                   url: this.$apis.record.mediaProxyUrl(wr.about, this.itemId, { disposition: 'inline' }),
                   width: wr.ebucoreWidth,
                   height: wr.ebucoreHeight,
-                  format: wr.ebucoreHasMimeType
+                  format: wr.ebucoreHasMimeType,
+                  playable: wr.isPlayableMedia
                 }
               ]
             };
