@@ -76,7 +76,7 @@ export default class EuropeanaPresentationManifest {
           return {
             id: canvas.id,
             // TODO: limit to motivation "painting"?
-            content: canvas.images.map((image) => image.resource)
+            content: canvas.images[0].resource
           };
         });
       }).flat()
@@ -90,10 +90,8 @@ export default class EuropeanaPresentationManifest {
       canvases: manifest.items.map((canvas) => {
         return {
           id: canvas.id,
-          content: canvas.items.map((annoPage) => {
-            // TODO: limit to motivation "painting"?
-            return annoPage.items.map((anno) => anno.body);
-          }).flat()
+          // TODO: limit to motivation "painting"?
+          content: canvas.items[0].items[0].body
         };
       })
     };

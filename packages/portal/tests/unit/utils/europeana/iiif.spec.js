@@ -130,12 +130,10 @@ describe('@/utils/europeana/iiif', () => {
           canvases: [
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-              content: [
-                {
-                  id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                  format: 'image/jpeg'
-                }
-              ]
+              content: {
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
+              }
             }
           ]
         });
@@ -192,12 +190,10 @@ describe('@/utils/europeana/iiif', () => {
           canvases: [
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-              content: [
-                {
-                  id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                  format: 'image/jpeg'
-                }
-              ]
+              content: {
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
+              }
             }
           ]
         });
