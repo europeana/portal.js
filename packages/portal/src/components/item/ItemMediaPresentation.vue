@@ -151,6 +151,8 @@
         const manifest = new EuropeanaPresentationManifest(this.uri);
         this.manifest = await manifest.fetch();
       } else if (this.webResources) {
+        // TODO: mv to factory function on EuropeanaPresentationManifest?
+        //       e.g. EuropeanaPresentationManifest.fromItemWebResources(itemId, webResources)
         this.manifest = {
           canvases: this.webResources.map((wr) => {
             return {
@@ -161,6 +163,9 @@
                   width: wr.ebucoreWidth,
                   height: wr.ebucoreHeight,
                   format: wr.ebucoreHasMimeType,
+                  // TODO: playable is added by our EDM WebResource class; mv playable
+                  //       check to a method of this component instead, perhaps after
+                  //       legacy media presentation has gone away.
                   playable: wr.isPlayableMedia
                 }
               ]
