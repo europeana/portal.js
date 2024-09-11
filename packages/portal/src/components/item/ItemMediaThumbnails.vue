@@ -12,7 +12,7 @@
         class="d-flex-inline mr-2"
         :src="image.id"
         alt=""
-        @click="$emit('clickThumbnail', index)"
+        @click.native="$emit('clickThumbnail', index)"
       />
     </div>
   </div>

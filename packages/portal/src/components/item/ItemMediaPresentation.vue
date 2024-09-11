@@ -230,6 +230,7 @@
 
     methods: {
       handleClickThumbnail(index) {
+        console.log('handleClickThumbnail', arguments)
         const page = index + 1;
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
