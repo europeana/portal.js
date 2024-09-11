@@ -6,13 +6,14 @@
     <div
       class="d-flex overflow-auto"
     >
-      <img
+      <b-img-lazy
         v-for="(image, index) in thumbnails"
         :key="index"
         class="d-flex-inline mr-2"
         :src="image.id"
+        alt=""
         @click="$emit('clickThumbnail', index)"
-      >
+      />
     </div>
   </div>
 </template>

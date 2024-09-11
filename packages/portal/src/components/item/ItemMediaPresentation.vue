@@ -220,7 +220,7 @@
       },
 
       thumbnails() {
-        return this.manifest?.canvases.map((canvas) => canvas.thumbnail).filter(Boolean);
+        return this.manifest?.canvases.map((canvas) => canvas.thumbnail).filter(Boolean) || [];
       }
     },
 
