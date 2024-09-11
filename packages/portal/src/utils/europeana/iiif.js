@@ -11,37 +11,63 @@ export const isForEuropeanaPresentationManifest = (id) => {
   return isInEuropeanaDomain(id) && url.pathname.endsWith('/manifest');
 };
 
+export const IIIF_PRESENTATION_V2_CONTEXT = 'http://iiif.io/api/presentation/2/context.json';
+export const IIIF_PRESENTATION_V3_CONTEXT = 'http://iiif.io/api/presentation/3/context.json';
+export const JSON_LD_MEDIA_TYPE = 'application/ld+json';
+export const JSON_MEDIA_TYPE = 'application/json';
+
 export default class EuropeanaPresentationManifest {
-  static async fetch(uri) {
-    const options = {
-      url: uri,
+  id;
+
+  constructor(id) {
+    this.id = id;
+  }
+
+  async fetch() {
+    const response = await axios({
+      url: this.id,
       method: 'get',
-      headers: {}
-    };
+      headers: this.#headers
+    });
+
+    const data = this.constructor.parse(this.constructor.normalize(response.data));
+    for (const key in data) {
+      this[key] = data[key];
+    }
+    return this;
+  }
+
+  get #headers() {
+    const headers = {};
+
     // NOTE: it would be preferable to do this with all requests, but some providers
     //       CORS support do not permit the Accept header, preventing the manifest
     //       loading
-    if (isForEuropeanaPresentationManifest(uri)) {
-      options.headers['Accept'] = (
-        'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0, application/ld+json;profile="http://iiif.io/api/presentation/2/context.json";q=0.9, application/ld+json;q=0.8, application/json;q=0.7'
-      );
+    if (isForEuropeanaPresentationManifest(this.id)) {
+      headers['Accept'] = [
+        `${JSON_LD_MEDIA_TYPE};profile="${IIIF_PRESENTATION_V3_CONTEXT}";q=1.0`,
+        `${JSON_LD_MEDIA_TYPE};profile="${IIIF_PRESENTATION_V2_CONTEXT}";q=0.9`,
+        `${JSON_LD_MEDIA_TYPE};q=0.8`,
+        `${JSON_MEDIA_TYPE};q=0.7`
+      ].join(', ');
     }
-    const response = await axios(options);
 
-    const data = EuropeanaPresentationManifest.normalize(response.data);
+    return headers;
+  }
 
+  static parse(data) {
     const context = [].concat(data?.context || []);
-    if (context.includes('http://iiif.io/api/presentation/3/context.json')) {
-      return this.parseV3Manifest(data);
-    } else if (context.includes('http://iiif.io/api/presentation/2/context.json')) {
-      return this.parseV2Manifest(data);
+    if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
+      return this.#parseV3Manifest(data);
+    } else if (context.includes(IIIF_PRESENTATION_V2_CONTEXT)) {
+      return this.#parseV2Manifest(data);
     }
 
     // TODO: throw version unknown error?
-    return data;
+    return {};
   }
 
-  static parseV2Manifest(manifest) {
+  static #parseV2Manifest(manifest) {
     return {
       id: manifest.id,
       service: [].concat(manifest.service || []),
@@ -57,7 +83,7 @@ export default class EuropeanaPresentationManifest {
     };
   }
 
-  static parseV3Manifest(manifest) {
+  static #parseV3Manifest(manifest) {
     return {
       id: manifest.id,
       service: [].concat(manifest.service || []),

@@ -148,7 +148,8 @@
 
     async fetch() {
       if (this.uri) {
-        this.manifest = await EuropeanaPresentationManifest.fetch(this.uri);
+        const manifest = new EuropeanaPresentationManifest(this.uri);
+        this.manifest = await manifest.fetch();
       } else if (this.webResources) {
         this.manifest = {
           canvases: this.webResources.map((wr) => {
