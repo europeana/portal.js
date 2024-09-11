@@ -14,13 +14,16 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMe
     $apis: {
       record: {
         mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
+      },
+      thumbnail: {
+        media: (url) => `thumbnail api ${url}`
       }
     },
     $route: { query: {} },
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'b-button']
+  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'b-button', 'ItemMediaThumbnails']
 });
 
 describe('components/item/ItemMediaPresentation', () => {
@@ -73,7 +76,10 @@ describe('components/item/ItemMediaPresentation', () => {
                     motivation: 'painting',
                     body: {
                       id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                      format: 'image/jpeg'
+                      format: 'image/jpeg',
+                      service: {
+                        id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
+                      }
                     }
                   }
                 ]
@@ -105,12 +111,18 @@ describe('components/item/ItemMediaPresentation', () => {
           canvases: [
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-              content: [
-                {
-                  id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                  format: 'image/jpeg'
+              content: {
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg',
+                service: {
+                  id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
                 }
-              ]
+              },
+              thumbnail: {
+                format: 'image/jpeg',
+                id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg/full/200,/0/default.jpg',
+                width: 200
+              }
             }
           ]
         });
@@ -138,16 +150,19 @@ describe('components/item/ItemMediaPresentation', () => {
         expect(wrapper.vm.manifest).toEqual({
           canvases: [
             {
-              content: [
-                {
-                  id: 'https://example.org/video.mp4',
-                  url: 'mediaProxyUrl https://example.org/video.mp4',
-                  format: 'video/mp4',
-                  height: 576,
-                  width: 720,
-                  playable: true
-                }
-              ]
+              content: {
+                id: 'https://example.org/video.mp4',
+                url: 'mediaProxyUrl https://example.org/video.mp4',
+                format: 'video/mp4',
+                height: 576,
+                width: 720,
+                playable: true
+              },
+              thumbnail: {
+                format: 'image/jpeg',
+                id: 'thumbnail api https://example.org/video.mp4',
+                width: 200
+              }
             }
           ]
         });
