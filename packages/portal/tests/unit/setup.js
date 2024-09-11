@@ -29,3 +29,12 @@ if (global.navigator.clipboard) {
     writeText: sinon.spy()
   };
 }
+
+// Used by OpenLayers (ol)
+if (!global.ResizeObserver) {
+  global.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}

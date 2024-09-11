@@ -1,6 +1,6 @@
 <template>
   <div
-    id="iiif-open-layers"
+    id="media-image-viewer"
     class="h-100 w-100"
   />
 </template>
@@ -67,8 +67,6 @@
         const infoResponse = await axios.get(infoUri);
         this.info = infoResponse.data;
         this.source = 'IIIF';
-        // TODO: can we get a IIIF thumbnail from the image service, without
-        //       fetching the info.json first? (Mirador appears to manage to.)
         // this.fullsize = true;
       }
 
@@ -103,7 +101,7 @@
           this.map = new Map({
             controls,
             layers: [],
-            target: 'iiif-open-layers'
+            target: 'media-image-viewer'
           });
         }
       },
