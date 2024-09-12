@@ -14,6 +14,8 @@
           v-for="(item, index) in displayableMedia"
           :key="index"
           class="swiper-slide"
+          tabindex="-1"
+          @focus.capture="swiper.slideTo(index)"
         >
           <div
             v-if="singleMediaResource"
