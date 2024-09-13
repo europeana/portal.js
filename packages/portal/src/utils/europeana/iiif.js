@@ -57,54 +57,52 @@ export default class EuropeanaPresentationManifest {
 
   static parse(data) {
     const context = [].concat(data?.context || []);
+
+    const parsed = {
+      id: data.id,
+      service: [].concat(data.service || [])
+    };
+
     if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
-      return this.#parseV3Manifest(data);
+      parsed.canvases = this.#extractV3Canvases(data);
     } else if (context.includes(IIIF_PRESENTATION_V2_CONTEXT)) {
-      return this.#parseV2Manifest(data);
+      parsed.canvases = this.#extractV2Canvases(data);
+    } else {
+      // TODO: throw version unknown error?
+      return {};
     }
 
-    // TODO: throw version unknown error?
-    return {};
+    for (const canvas of parsed.canvases) {
+      if (canvas.content.service && Array.isArray(canvas.content.service)) {
+        canvas.content.service = canvas.content.service[0];
+      }
+    }
+
+    return parsed;
   }
 
-  static #parseV2Manifest(manifest) {
-    return {
-      id: manifest.id,
-      service: [].concat(manifest.service || []),
-      canvases: manifest.sequences.map((sequence) => {
-        return sequence.canvases.map((canvas) => {
-          // TODO: limit to motivation "painting"?
-          const content = canvas.images[0].resource;
-          if (content.service && Array.isArray(content.service)) {
-            content.service = content.service[0];
-          }
-
-          return {
-            id: canvas.id,
-            content
-          };
-        });
-      }).flat()
-    };
-  }
-
-  static #parseV3Manifest(manifest) {
-    return {
-      id: manifest.id,
-      service: [].concat(manifest.service || []),
-      canvases: manifest.items.map((canvas) => {
+  static #extractV2Canvases(manifest) {
+    return manifest.sequences.map((sequence) => {
+      return sequence.canvases.map((canvas) => {
         // TODO: limit to motivation "painting"?
-        const content = canvas.items[0].items[0].body;
-        if (content.service && Array.isArray(content.service)) {
-          content.service = content.service[0];
-        }
-
+        const content = canvas.images[0].resource;
         return {
           id: canvas.id,
           content
         };
-      })
-    };
+      });
+    }).flat();
+  }
+
+  static #extractV3Canvases(manifest) {
+    return manifest.items.map((canvas) => {
+      // TODO: limit to motivation "painting"?
+      const content = canvas.items[0].items[0].body;
+      return {
+        id: canvas.id,
+        content
+      };
+    });
   }
 
   // removes "@" from start of all keys
