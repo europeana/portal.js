@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <div
       class="iiif-viewer-wrapper d-flex flex-column"
@@ -23,9 +23,10 @@
           />
           <MediaAudioVisualPlayer
             v-else-if="content?.playable"
-            :url="content.id"
+            :url="content.url || content.id"
             :format="content.format"
             :item-id="itemId"
+            :poster="thumbnail?.id"
           />
           <code
             v-else
@@ -216,11 +217,11 @@
       },
 
       thumbnail() {
-        return this.canvas?.thumbnail;
+        return this.canvas.thumbnail;
       },
 
       thumbnails() {
-        return this.manifest?.canvases.map((canvas) => canvas.thumbnail).filter(Boolean) || [];
+        return this.manifest?.canvases.map((canvas) => canvas.thumbnail) || [];
       }
     },
 
