@@ -2,17 +2,23 @@
   <div
     class="media-player-wrapper col-lg-10 col-12"
   >
-    <iframe
-      data-qa="media player"
-      allowfullscreen="true"
-      :src="localePath({ name: 'media', query: { id: itemId, mediaUrl: url, mediaType: format } })"
-      class="media-player"
+    <component
+      :is="format.startsWith('video/') ? 'video' : 'audio'"
+      :key="url"
+      ref="avPlayer"
+      class="media-player video-js"
+      controls
       :title="$t('record.mediaPlayer')"
+      :poster="poster"
     />
   </div>
 </template>
 
 <script>
+  import videojs from 'video.js';
+  // TODO: don't import this; write our own CSS in this component instead
+  import 'video.js/dist/video-js.min.css';
+
   export default {
     name: 'MediaAudioVisualPlayer',
 
@@ -27,9 +33,39 @@
         default: null
       },
 
+      poster: {
+        type: String,
+        default: null
+      },
+
       url: {
         type: String,
         required: true
+      }
+    },
+
+    data() {
+      return {
+        options: {},
+        player: null
+      };
+    },
+
+    mounted() {
+      this.player = videojs(this.$refs.avPlayer, {
+        ...this.options,
+        sources: [
+          {
+            src: this.url,
+            type: this.format
+          }
+        ]
+      });
+    },
+
+    beforeDestroy() {
+      if (this.player) {
+        this.player.dispose();
       }
     }
   };
@@ -42,18 +78,5 @@
     margin: 0 auto;
     overflow: hidden;
     min-width: 19rem;
-
-    iframe {
-      border: 0;
-      border-radius: 0;
-      box-shadow: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-    }
   }
 </style>
