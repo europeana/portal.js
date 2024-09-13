@@ -73,10 +73,15 @@ export default class EuropeanaPresentationManifest {
       service: [].concat(manifest.service || []),
       canvases: manifest.sequences.map((sequence) => {
         return sequence.canvases.map((canvas) => {
+          // TODO: limit to motivation "painting"?
+          const content = canvas.images[0].resource;
+          if (content.service && Array.isArray(content.service)) {
+            content.service = content.service[0];
+          }
+
           return {
             id: canvas.id,
-            // TODO: limit to motivation "painting"?
-            content: canvas.images[0].resource
+            content
           };
         });
       }).flat()
@@ -88,10 +93,15 @@ export default class EuropeanaPresentationManifest {
       id: manifest.id,
       service: [].concat(manifest.service || []),
       canvases: manifest.items.map((canvas) => {
+        // TODO: limit to motivation "painting"?
+        const content = canvas.items[0].items[0].body;
+        if (content.service && Array.isArray(content.service)) {
+          content.service = content.service[0];
+        }
+
         return {
           id: canvas.id,
-          // TODO: limit to motivation "painting"?
-          content: canvas.items[0].items[0].body
+          content
         };
       })
     };
