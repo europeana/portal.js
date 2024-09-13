@@ -94,8 +94,11 @@
       drawMap() {
         if (!this.map) {
           const controls = new Collection([
-            new FullScreenControl(),
-            new ZoomControl()
+            new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
+            new ZoomControl({
+              zoomInTipLabel: this.$t('media.controls.zoomIn'),
+              zoomOutTipLabel: this.$t('media.controls.zoomOut')
+            })
           ]);
 
           this.map = new Map({
