@@ -11,7 +11,8 @@
         >
           <MediaImageViewer
             v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
-            :url="resource.url || resource.about"
+            :url="resource.about"
+            :item-id="itemId"
             :width="resource.ebucoreWidth"
             :height="resource.ebucoreHeight"
             :format="resource.ebucoreHasMimeType"
@@ -19,7 +20,8 @@
           />
           <MediaPDFViewer
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.url || resource.about"
+            :url="resource.about"
+            :item-id="itemId"
           />
           <MediaAudioVisualPlayer
             v-else-if="resource?.isPlayableMedia"
@@ -159,8 +161,6 @@
       } else if (this.webResources) {
         this.presentation = {
           resources: this.webResources
-          // FIXME: restore use of media proxy for non-IIIF, either here or in child components
-          // url: this.$apis.record.mediaProxyUrl(wr.about, this.itemId, { disposition: 'inline' }),
         };
       } else {
         // TODO: what to do!?
