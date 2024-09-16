@@ -69,7 +69,7 @@
 
     @media (min-width: $bp-large) {
       padding: 1.5rem 50px;
-      margin: 0 auto 2rem;
+      margin: 0 -50px 2rem;
     }
   }
 
