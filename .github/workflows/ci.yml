@@ -276,7 +276,7 @@ jobs:
       -
         name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: '362M'
+          DOCKER_IMAGE_SIZE_LIMIT: '367M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then

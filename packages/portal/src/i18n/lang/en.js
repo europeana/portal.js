@@ -933,6 +933,13 @@ export default {
   },
   "loading": "Loading",
   "loadingResults": "Loading results",
+  "media": {
+    "controls": {
+      "fullscreen": "Full screen",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",

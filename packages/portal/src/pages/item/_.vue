@@ -23,9 +23,8 @@
     <template
       v-else
     >
-      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
       <ItemLanguageSelector
-        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
+        v-if="translatedItemsEnabled && showItemLanguageSelector"
         :from-translation-error="fromTranslationError"
         :translation-language="translationLanguage"
         @hidden="() => showItemLanguageSelector = false"
@@ -45,16 +44,7 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
-        >
-          <template slot="item-language-selector">
-            <ItemLanguageSelector
-              v-if="translatedItemsEnabled && showItemLanguageSelector"
-              :from-translation-error="fromTranslationError"
-              :translation-language="translationLanguage"
-              @hidden="() => showItemLanguageSelector = false"
-            />
-          </template>
-        </ItemHero>
+        />
       </b-container>
       <b-container
         class="footer-margin"

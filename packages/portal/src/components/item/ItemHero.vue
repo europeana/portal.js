@@ -1,26 +1,16 @@
 <template>
   <div class="item-hero">
-    <div
-      v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper d-flex flex-column"
-    >
-      <slot name="item-language-selector" />
-      <IIIFPresentation
+    <client-only>
+      <ItemMediaPresentation
         :uri="iiifPresentationManifest"
         :search-query="fulltextSearchQuery"
-        :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
+        :web-resources="media"
+        :edm-type="edmType"
         @select="selectMedia"
       />
-    </div>
-    <ItemMediaSwiper
-      v-else
-      :europeana-identifier="identifier"
-      :edm-type="edmType"
-      :displayable-media="media"
-      @select="selectMedia"
-    />
+    </client-only>
     <b-container>
       <b-row>
         <b-col
@@ -76,7 +66,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
@@ -94,7 +83,6 @@
       ClientOnly,
       DownloadWidget,
       ItemEmbedCode,
-      ItemMediaSwiper,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
@@ -197,7 +185,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed && !!this.downloadUrl;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -238,7 +226,6 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
 
   .item-hero {
     padding-bottom: 1.625rem;

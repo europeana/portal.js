@@ -47,8 +47,12 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, 
         }
       }
     },
+    $nuxt: {
+      context: {}
+    },
     ...mocks
-  }
+  },
+  stubs: ['ItemMediaPresentation']
 });
 
 const media = [

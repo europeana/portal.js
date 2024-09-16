@@ -7,19 +7,12 @@
     :lazy="lazy"
     :offset="offset"
   />
-  <div
+  <MediaAudioVisualPlayer
     v-else-if="isSinglePlayableMedia"
-    ref="player"
-    class="media-player-wrapper col-lg-10 col-12"
-  >
-    <iframe
-      data-qa="media player"
-      allowfullscreen="true"
-      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
-      class="media-player"
-      :title="$t('record.mediaPlayer')"
-    />
-  </div>
+    :item-id="europeanaIdentifier"
+    :url="media.about"
+    :format="media.ebucoreHasMimeType"
+  />
   <MediaVideoPlayer
     v-else-if="media.isHTMLVideo"
     :europeana-identifier="europeanaIdentifier"
@@ -52,8 +45,9 @@
     components: {
       MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
-      MediaVideoPlayer: () => import('../media/MediaVideoPlayer'),
-      MediaAudioPlayer: () => import('../media/MediaAudioPlayer')
+      MediaAudioVisualPlayer: () => import('./MediaAudioVisualPlayer'),
+      MediaVideoPlayer: () => import('./MediaVideoPlayer'),
+      MediaAudioPlayer: () => import('./MediaAudioPlayer')
     },
     props: {
       media: {
