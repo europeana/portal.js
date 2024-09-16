@@ -10,21 +10,21 @@
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
           <MediaImageViewer
-            v-if="content?.format?.startsWith('image/')"
-            :url="content.url || content.id"
-            :width="content.width"
-            :height="content.height"
-            :format="content.format"
-            :service="content.service"
+            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+            :url="resource.url || resource.about"
+            :width="resource.ebucoreWidth"
+            :height="resource.ebucoreHeight"
+            :format="resource.ebucoreHasMimeType"
+            :service="resource.svcsHasService"
           />
           <MediaPDFViewer
-            v-else-if="content?.format === 'application/pdf'"
-            :url="content.url || content.id"
+            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
+            :url="resource.url || resource.about"
           />
           <MediaAudioVisualPlayer
-            v-else-if="content?.playable"
-            :url="content.id"
-            :format="content.format"
+            v-else-if="resource?.isPlayableMedia"
+            :url="resource.about"
+            :format="resource.ebucoreHasMimeType"
             :item-id="itemId"
           />
           <code
@@ -34,7 +34,7 @@
             <pre
               :style="{ color: 'white' }"
             ><!--
-            -->{{ JSON.stringify(content, null, 2) }}
+            -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
           <transition
@@ -81,7 +81,7 @@
           </b-button>
           <PaginationNavInput
             :per-page="1"
-            :total-results="canvasCount"
+            :total-results="resourceCount"
             class="pagination mx-auto"
           />
         </div>
@@ -97,7 +97,7 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
-  import EuropeanaPresentationManifest from '@/utils/europeana/iiif.js';
+  import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -147,80 +147,43 @@
     data() {
       return {
         annotationPage: null,
-        manifest: null,
+        presentation: null,
         page: 1,
         showSidebar: null
       };
     },
 
     async fetch() {
-      let manifest;
-
       if (this.uri) {
-        manifest = await (new EuropeanaPresentationManifest(this.uri)).fetch();
+        this.presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
       } else if (this.webResources) {
-        // TODO: mv to factory function on EuropeanaPresentationManifest?
-        //       e.g. EuropeanaPresentationManifest.fromItemWebResources(itemId, webResources)
-        manifest = {
-          canvases: this.webResources.map((wr) => {
-            return {
-              content: {
-                id: wr.about,
-                url: this.$apis.record.mediaProxyUrl(wr.about, this.itemId, { disposition: 'inline' }),
-                width: wr.ebucoreWidth,
-                height: wr.ebucoreHeight,
-                format: wr.ebucoreHasMimeType,
-                // TODO: playable is added by our EDM WebResource class; mv playable
-                //       check to a method of this component instead, perhaps after
-                //       legacy media presentation has gone away.
-                playable: wr.isPlayableMedia
-              }
-            };
-          })
+        this.presentation = {
+          resources: this.webResources
+          // FIXME: restore use of media proxy for non-IIIF, either here or in child components
+          // url: this.$apis.record.mediaProxyUrl(wr.about, this.itemId, { disposition: 'inline' }),
         };
+      } else {
+        // TODO: what to do!?
       }
-
-      for (const canvas of manifest.canvases) {
-        if (canvas.content.service) {
-          canvas.thumbnail = {
-            id: `${canvas.content.service.id}/full/200,/0/default.jpg`,
-            width: 200,
-            format: 'image/jpeg'
-          };
-        } else {
-          canvas.thumbnail = {
-            id: this.$apis.thumbnail.media(canvas.content.id, { size: 200 }),
-            width: 200,
-            format: 'image/jpeg'
-          };
-        }
-      }
-
-      this.manifest = manifest;
 
       this.setPage();
     },
 
     computed: {
-      canvas() {
-        return this.manifest?.canvases[this.page - 1];
+      resource() {
+        return this.presentation?.resources[this.page - 1];
       },
 
-      canvasCount() {
-        return this.manifest?.canvases?.length || 0;
-      },
-
-      // first content resource of the current canvas/page
-      content() {
-        return this.canvas?.content;
+      resourceCount() {
+        return this.presentation?.resources?.length || 0;
       },
 
       thumbnail() {
-        return this.canvas?.thumbnail;
+        return this.thumbnails[this.page - 1];
       },
 
       thumbnails() {
-        return this.manifest?.canvases.map((canvas) => canvas.thumbnail).filter(Boolean) || [];
+        return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
       }
     },
 
@@ -242,7 +205,7 @@
       setPage() {
         this.page = Number(this.$route.query.page) || 1;
         this.$nextTick(() => {
-          this.$emit('select', this.content.id);
+          this.$emit('select', this.resource?.about);
         });
       }
     }
