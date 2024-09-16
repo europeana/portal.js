@@ -1,6 +1,6 @@
 <template>
   <iframe
-    :src="url"
+    :src="src"
     class="w-100 h-100"
   />
 </template>
@@ -13,6 +13,17 @@
       url: {
         type: String,
         required: true
+      },
+
+      itemId: {
+        type: String,
+        default: null
+      }
+    },
+
+    computed: {
+      src() {
+        return this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
       }
     }
   };

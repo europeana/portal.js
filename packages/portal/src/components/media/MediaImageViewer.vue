@@ -34,6 +34,10 @@
         type: Number,
         default: null
       },
+      itemId: {
+        type: String,
+        default: null
+      },
       service: {
         type: Object,
         default: null
@@ -161,7 +165,8 @@
           extent
         });
         const staticImageSource = new ImageStatic({
-          url: this.url,
+          // TODO: always use media proxy if static image?
+          url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
           projection,
           imageExtent: extent
         });

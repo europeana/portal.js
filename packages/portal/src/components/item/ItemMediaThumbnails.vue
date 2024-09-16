@@ -10,7 +10,7 @@
         v-for="(image, index) in thumbnails"
         :key="index"
         class="d-flex-inline mr-2"
-        :src="image.id"
+        :src="image"
         alt=""
         @click.native="$emit('clickThumbnail', index)"
       />

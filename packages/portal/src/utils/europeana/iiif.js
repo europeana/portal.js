@@ -1,4 +1,5 @@
 import axios from 'axios';
+import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
 export const isInEuropeanaDomain = (id) => {
   const url = typeof (id) === 'string' ? new URL(id) : id;
@@ -6,7 +7,7 @@ export const isInEuropeanaDomain = (id) => {
     url.origin.endsWith('.eanadev.org');
 };
 
-export const isForEuropeanaPresentationManifest = (id) => {
+export const isForEuropeanaMediaPresentation = (id) => {
   const url = typeof (id) === 'string' ? new URL(id) : id;
   return isInEuropeanaDomain(id) && url.pathname.endsWith('/manifest');
 };
@@ -16,7 +17,7 @@ export const IIIF_PRESENTATION_V3_CONTEXT = 'http://iiif.io/api/presentation/3/c
 export const JSON_LD_MEDIA_TYPE = 'application/ld+json';
 export const JSON_MEDIA_TYPE = 'application/json';
 
-export default class EuropeanaPresentationManifest {
+export default class EuropeanaMediaPresentation {
   id;
 
   constructor(id) {
@@ -43,7 +44,7 @@ export default class EuropeanaPresentationManifest {
     // NOTE: it would be preferable to do this with all requests, but some providers
     //       CORS support do not permit the Accept header, preventing the manifest
     //       loading
-    if (isForEuropeanaPresentationManifest(this.id)) {
+    if (isForEuropeanaMediaPresentation(this.id)) {
       headers['Accept'] = [
         `${JSON_LD_MEDIA_TYPE};profile="${IIIF_PRESENTATION_V3_CONTEXT}";q=1.0`,
         `${JSON_LD_MEDIA_TYPE};profile="${IIIF_PRESENTATION_V2_CONTEXT}";q=0.9`,
@@ -60,49 +61,44 @@ export default class EuropeanaPresentationManifest {
 
     const parsed = {
       id: data.id,
-      service: [].concat(data.service || [])
+      // TODO: find/filter for service matching IIIF search profile
+      search: [].concat(data.service || [])
     };
 
+    let resources = [];
+
     if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
-      parsed.canvases = this.#extractV3Canvases(data);
+      resources = this.#extractV3Resources(data);
     } else if (context.includes(IIIF_PRESENTATION_V2_CONTEXT)) {
-      parsed.canvases = this.#extractV2Canvases(data);
+      resources = this.#extractV2Resources(data);
     } else {
       // TODO: throw version unknown error?
       return {};
     }
 
-    for (const canvas of parsed.canvases) {
-      if (canvas.content.service && Array.isArray(canvas.content.service)) {
-        canvas.content.service = canvas.content.service[0];
-      }
-    }
+    parsed.resources = resources.map((resource) => {
+      const data = {
+        about: resource.id,
+        ebucoreHasMimeType: resource.format,
+        ebucoreHeight: resource.height,
+        ebucoreWidth: resource.width,
+        // TODO: filter for IIIF Image service
+        svcsHasService: [].concat(resource.service || [])[0]
+      };
+      return new WebResource(data);
+    });
 
     return parsed;
   }
 
-  static #extractV2Canvases(manifest) {
-    return manifest.sequences.map((sequence) => {
-      return sequence.canvases.map((canvas) => {
-        // TODO: limit to motivation "painting"?
-        const content = canvas.images[0].resource;
-        return {
-          id: canvas.id,
-          content
-        };
-      });
-    }).flat();
+  static #extractV2Resources(manifest) {
+    // TODO: limit to images w/ motivation "painting"?
+    return manifest.sequences.map((sequence) => sequence.canvases.map((canvas) => canvas.images[0].resource)).flat();
   }
 
-  static #extractV3Canvases(manifest) {
-    return manifest.items.map((canvas) => {
-      // TODO: limit to motivation "painting"?
-      const content = canvas.items[0].items[0].body;
-      return {
-        id: canvas.id,
-        content
-      };
-    });
+  static #extractV3Resources(manifest) {
+    // TODO: limit to "annotations" w/ motivation "painting"?
+    return manifest.items.map((canvas) => canvas.items[0].items[0].body);
   }
 
   // removes "@" from start of all keys
@@ -110,11 +106,11 @@ export default class EuropeanaPresentationManifest {
   // TODO: normalize v2/v3 language maps
   static normalize(thing) {
     if (Array.isArray(thing)) {
-      return thing.map(EuropeanaPresentationManifest.normalize);
+      return thing.map(EuropeanaMediaPresentation.normalize);
     } else if (typeof thing === 'object') {
       return Object.keys(thing).reduce((memo, key) => {
         const normKey = key.startsWith('@') ? key.slice(1) : key;
-        memo[normKey] = EuropeanaPresentationManifest.normalize(thing[key]);
+        memo[normKey] = EuropeanaMediaPresentation.normalize(thing[key]);
         return memo;
       }, {});
     } else {
