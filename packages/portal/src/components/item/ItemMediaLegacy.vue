@@ -6,9 +6,9 @@
     <IIIFMiradorViewer
       :uri="uri"
       :search-query="searchQuery"
-      :aria-label="$t('actions.viewDocument')"
       :item-id="itemId"
       :provider-url="providerUrl"
+      :aria-label="$t('actions.viewDocument')"
       @select="selectMedia"
     />
   </div>
