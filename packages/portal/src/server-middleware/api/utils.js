@@ -1,18 +1,26 @@
+import apm from 'elastic-apm-node';
 import defu  from 'defu';
 import createHttpError from 'http-errors';
 
 import nuxtConfig from '../../../nuxt.config.js';
 
-export const errorHandler = (res, error) => {
-  let status = error.status || 500;
-  let message = error.message;
+export const errorHandler = (err, req, res, next) => {
+  if (err) {
+    console.error(process.NODE_ENV === 'production' ? err.message : err.stack);
 
-  if (error.response) {
-    status = error.response.status;
-    message = error.response.data.errorMessage;
+    const errorStatus = err.response?.status || err.status || err.statusCode || 500;
+    const message = err.response?.data?.error || err.response?.data?.errorMessage || err.message;
+
+    if (apm.isStarted()) {
+      apm.captureError(err, { message, request: req, response: res });
+    }
+
+    if (!res.writableEnded) {
+      res.status(errorStatus).send(message);
+    }
+  } else {
+    next();
   }
-
-  res.status(status).set('Content-Type', 'text/plain').send(message);
 };
 
 let runtimeConfig;

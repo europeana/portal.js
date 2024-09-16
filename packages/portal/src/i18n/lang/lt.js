@@ -47,7 +47,6 @@ export default {
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
-    "explore": "Naršyti",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transkribuokite dabar",
     "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
-    "viewDocument": "Peržiūrėti dokumentą"
+    "viewDocument": "Peržiūrėti dokumentą",
+    "vote": "Balsuoti"
   },
   "attribution": {
     "country": "Šalis:",
@@ -725,7 +725,6 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite teikėjas",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "supportingTechnicalPartners": "Techninių partnerių palaikymas",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
+    }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {
-    "paginationBulletLabel": "Skaidrių grupė {page}"
+    "a11y": {
+      "firstSlide": "Tai pirmoji skaidrė",
+      "lastSlide": "Tai paskutinė skaidrė",
+      "nextSlide": "Kita skaidrė",
+      "paginationBullet": "Skaidrė {page}",
+      "paginationBulletGroupedSlides": "Skaidrių grupė {page}",
+      "previousSlide": "Ankstesnė skaidrė",
+      "slideLabel": "Skaidrė {slide} iš {totalSlides}"
+    }
   },
   "themes": {
     "description": "Naršyti pagal temą",

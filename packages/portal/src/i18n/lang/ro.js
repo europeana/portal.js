@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
-    "explore": "Explora",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transcrie acum",
     "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
-    "viewDocument": "Vizualizare document"
+    "viewDocument": "Vizualizare document",
+    "vote": "Vot"
   },
   "attribution": {
     "country": "Țară:",
@@ -725,7 +725,6 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
-      "provide": "Devino instituție furnizoare",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
+    }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {
-    "paginationBulletLabel": "Grup de diapozitive {page}"
+    "a11y": {
+      "firstSlide": "Acesta este primul diapozitiv",
+      "lastSlide": "Acesta este ultimul diapozitiv",
+      "nextSlide": "Următorul diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Grup de diapozitive {page}",
+      "previousSlide": "Diapozitivul anterior",
+      "slideLabel": "Diapozitiv {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Răsfoiți după temă",

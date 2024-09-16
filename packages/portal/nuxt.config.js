@@ -43,7 +43,6 @@ const redisConfig = () => {
 const postgresConfig = () => {
   // see https://node-postgres.com/apis/pool
   const postgresOptions = {
-    enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
     connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
     idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
@@ -306,7 +305,7 @@ export default {
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
     '~/plugins/features',
-    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'mirador'}`
+    `~/plugins/media/${process.env.BUILD_MEDIA_PRESENTATION_PLUGIN || 'switch'}`
   ],
 
   buildModules: [
@@ -472,13 +471,27 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    // same with some of our custom packages
+    // Pure ESM needs to be transpiled to be used by Vue2
     transpile: [
-      'dom7',
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
+      'color-parse',
+      'color-rgba',
+      'color-space',
+      'dom7',
+      'ol/Collection.js',
+      'ol/color.js',
+      'ol/extent.js',
+      'ol/format/IIIFInfo.js',
+      'ol/layer/Image.js',
+      'ol/layer/Tile.js',
+      'ol/Map.js',
+      'ol/proj/Projection.js',
+      'ol/source/IIIF.js',
+      'ol/source/ImageStatic.js',
+      'ol/structs/LRUCache.js',
+      'ol/View.js',
       'ssr-window',
       'swiper',
       'vue-router-query'

@@ -8,7 +8,7 @@
     <b-button
       v-show="!showCite"
       ref="toggle"
-      :aria-expanded="showCite"
+      :aria-expanded="showCite ? 'true' : 'false'"
       class="button-icon-only icon-info bg-transparent border-0"
       data-qa="toggle"
       :aria-label="$t('attribution.show')"

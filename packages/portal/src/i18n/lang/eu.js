@@ -47,7 +47,6 @@ export default {
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
-    "explore": "Esploratu",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transkribatu orain",
     "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
-    "viewDocument": "Dokumentua ikusi"
+    "viewDocument": "Dokumentua ikusi",
+    "vote": "Bozkatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -731,7 +731,6 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
-      "provide": "Bihurtu erakunde hornitzaile bat",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
@@ -922,7 +921,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1200,7 +1201,15 @@ export default {
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
-    "paginationBulletLabel": "Diapositiva taldea {page}"
+    "a11y": {
+      "firstSlide": "Hau da lehen diapositiba",
+      "lastSlide": "Hau da azken diapositiba",
+      "nextSlide": "Hurrengo diapositiba",
+      "paginationBullet": "Diapositiba {page}",
+      "paginationBulletGroupedSlides": "Diapositiva taldea {page}",
+      "previousSlide": "Aurreko diapositiba",
+      "slideLabel": "Diapositiba {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",

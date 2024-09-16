@@ -24,17 +24,18 @@
       >
         <template #footer>
           <b-button
+            v-if="!$fetchState.pending"
             class="vote-button d-inline-flex align-items-center text-uppercase mt-auto mr-auto"
-            :class="{ voted: hasVotedOnFeature(feature.sys.id) }"
+            :class="{ voted: hasVotedOnFeature(feature.identifier) }"
             variant="light-flat"
             :aria-label="$t('actions.vote')"
-            @click="voteOnFeature(feature.sys.id)"
+            @click="voteOnFeature(feature.identifier)"
           >
             <span
               class="mr-1"
               :class="feature.voted ? 'icon-thumbsup' : 'icon-thumbsup-outlined'"
             />
-            {{ $tc('likes.count', voteCountOnFeature(feature.sys.id)) }}
+            {{ $tc('likes.count', voteCountOnFeature(feature.identifier)) }}
           </b-button>
         </template>
       </ContentCard>
@@ -43,7 +44,9 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import keycloakMixin from '@/mixins/keycloak';
+  import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
   import ContentCard from '@/components/content/ContentCard';
 
   export default {
@@ -65,54 +68,71 @@
 
     data() {
       return {
+        axiosInstance: null,
         votesOnFeatures: {}
       };
     },
 
-    fetch() {
+    async fetch() {
+      this.axiosInstance = axios.create({
+        baseURL: this.$config.app.baseUrl
+      });
+      this.axiosInstance.interceptors.response.use(
+        (response) => response,
+        (error) => keycloakResponseErrorHandler(this.$nuxt.context, error)
+      );
+
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
         error.code = 'noFeatureIdeas';
         this.$error(error);
+        return;
       }
 
-      // TODO: fetch the votes for each feature and remove mock functionality
-      // const featureIds = this.features.map((feature) => feature.sys.id).join(',');
-      // this.votesOnFeatures = await this.$axios.$get(`/api/votes/${featureIds}`);
-      for (const feature of this.features) {
-        const featureVotes = { count: Math.floor(Math.random() * 99), currentlyVotedOn: false };
-        this.votesOnFeatures[feature.sys.id] = featureVotes;
-      }
+      const params = { candidate: this.features.map((feature) => feature.identifier).join(',') };
+      const votesResponse = await this.axiosInstance({
+        url: '/_api/votes',
+        method: 'get',
+        headers: this.headersForAuthorization(),
+        params
+      });
+
+      this.votesOnFeatures = votesResponse.data;
     },
 
-    computed: {
-      userId() {
-        return this.$auth.user?.sub;
-      }
-    },
+    // client-side only for oAuth authorization
+    fetchOnServer: false,
 
     methods: {
-      voteOnFeature(featureId) {
-        // TODO: Implement voting on feature and remove mock functionality
-        // await this.$axios.$post(`/api/vote/${featureId}`);
-        console.log('Voting on feature', featureId);
+      headersForAuthorization() {
         if (this.$auth.loggedIn) {
-          if (this.hasVotedOnFeature(featureId)) {
-            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) - 1;
-            this.votesOnFeatures[featureId].currentlyVotedOn = false;
-          } else {
-            this.votesOnFeatures[featureId].count = (this.votesOnFeatures[featureId]?.count || 0) + 1;
-            this.votesOnFeatures[featureId].currentlyVotedOn = true;
-          }
+          return {
+            authorization: this.$auth.getToken(this.$auth.strategy?.name)
+          };
+        } else {
+          return {};
+        }
+      },
+      async voteOnFeature(featureId) {
+        if (this.$auth.loggedIn) {
+          const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
+
+          await this.axiosInstance({
+            url: `/_api/votes/${featureId}`,
+            method,
+            headers: this.headersForAuthorization()
+          });
+
+          this.$fetch();
         } else {
           this.keycloakLogin();
         }
       },
       voteCountOnFeature(featureId) {
-        return this.votesOnFeatures[featureId]?.count;
+        return this.votesOnFeatures[featureId]?.total || 0;
       },
       hasVotedOnFeature(featureId) {
-        return this.votesOnFeatures[featureId]?.currentlyVotedOn;
+        return this.votesOnFeatures[featureId]?.votedByCurrentVoter || false;
       }
     }
   };
@@ -141,20 +161,21 @@
 
     .title {
       color: $greyblack;
-      font-size: $font-size-medium;
+      font-size: $font-size-large;
       font-weight: 600;
       margin-bottom: 1rem !important;
 
       @media (min-width: $bp-small) {
-        font-size: $font-size-large;
+        font-size: $font-size-xl;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
+        font-size: $font-size-xl-4k;
       }
     }
 
     p {
+      font-size: $font-size-medium;
       margin-bottom: 1rem;
     }
   }
@@ -164,15 +185,19 @@
   max-width: none;
 
   .card-img {
-    background-color: $lightgrey;
+    background-color: $white;
 
     img {
-      width: 80px;
+      width: 150px;
       height: auto;
       margin: 0 auto;
 
+      @media (min-width: $bp-medium) {
+        width: 124px;
+      }
+
       @media (min-width: $bp-4k) {
-        width: 120px;
+        width: 160px;
       }
     }
   }

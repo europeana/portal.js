@@ -72,4 +72,29 @@ describe('components/search/SearchSidebar', () => {
       expect(wrapper.vm.$store.commit.calledWith('search/setShowSearchSidebar', true)).toBe(true);
     });
   });
+
+  describe('toggle advanced search', () => {
+    describe('when the advanced search toggle is clicked', () => {
+      it('toggles the advanced search display state', () => {
+        const wrapper = factory();
+
+        const advancedSearchToggle = wrapper.find('[data-qa="toggle advanced search button"]');
+        advancedSearchToggle.trigger('click');
+
+        expect(wrapper.emitted('showAdvancedSearch')).toEqual([[true]]);
+      });
+      it('sets focus on the query builder when shown', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm.$refs.queryBuilder.$el, 'focus');
+
+        const advancedSearchToggle = wrapper.find('[data-qa="toggle advanced search button"]');
+        advancedSearchToggle.trigger('click');
+        wrapper.setProps({ showAdvancedSearch: true });
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.emitted('focusQueryBuilder').length).toBe(1);
+        expect(wrapper.vm.$refs.queryBuilder.$el.focus.called).toBe(true);
+      });
+    });
+  });
 });

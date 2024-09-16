@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
-    "explore": "Explore",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "vote": "Vote"
   },
   "attribution": {
     "country": "Country:",
@@ -767,7 +767,6 @@ export default {
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a providing institution",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -934,6 +933,13 @@ export default {
   },
   "loading": "Loading",
   "loadingResults": "Loading results",
+  "media": {
+    "controls": {
+      "fullscreen": "Full screen",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
@@ -969,7 +975,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1096,6 +1104,7 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
+      "newRule": "new advanced search rule",
       "placeholder": {
         "field": "Select a field",
         "modifier": "Select a modifier",
@@ -1247,7 +1256,15 @@ export default {
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide group {page}"
+    "a11y": {
+      "firstSlide": "This is the first slide",
+      "lastSlide": "This is the last slide",
+      "nextSlide": "Next slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide group {page}",
+      "previousSlide": "Previous slide",
+      "slideLabel": "Slide {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "themes": "Themes",

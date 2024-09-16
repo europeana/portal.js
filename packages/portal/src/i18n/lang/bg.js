@@ -47,7 +47,6 @@ export default {
     "depublish": "Депубликувай",
     "download": "Изтегляне",
     "edit": "Редактиране",
-    "explore": "Разгледайте",
     "filter": "Филтър",
     "goHome": "Отидете на началната страница",
     "hide": "Скрий",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Транскрибирайте сега",
     "unlike": "Не харесвам",
     "viewAt": "Преглед на {link}",
-    "viewDocument": "Преглед на документа"
+    "viewDocument": "Преглед на документа",
+    "vote": "Гласувайте"
   },
   "attribution": {
     "country": "Държава:",
@@ -731,7 +731,6 @@ export default {
       "help": "Помощ",
       "MoreInfoLabel": "Повече информация",
       "privacy": "Политика за поверителност",
-      "provide": "Станете доставчик на данни",
       "seeApiRequests": "Вижте заявките към API на Europeana",
       "subscribe": "Абонирайте се за нашия бюлетин",
       "supportingTechnicalPartners": "Поддържащи технически партньори",
@@ -922,7 +921,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Отхвърляне",
     "readMore": "Покажи ми",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Разгледайте предстоящите промени, които планираме, и гласувайте за тези, които искате да видите като приоритетни. Вашият принос ни помага да се съсредоточим върху това, което е най-важно за вас."
+    }
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
@@ -1200,7 +1201,15 @@ export default {
     "storiesHaveLoaded": "{0} намерени истории"
   },
   "swiper": {
-    "paginationBulletLabel": "Група слайдове {page}"
+    "a11y": {
+      "firstSlide": "Това е първият слайд",
+      "lastSlide": "Това е последният слайд",
+      "nextSlide": "Следващ слайд",
+      "paginationBullet": "Слайд {page}",
+      "paginationBulletGroupedSlides": "Група слайдове {page}",
+      "previousSlide": "Предишен слайд",
+      "slideLabel": "Слайд {slide} от {totalSlides}"
+    }
   },
   "themes": {
     "description": "Преглед по тема",

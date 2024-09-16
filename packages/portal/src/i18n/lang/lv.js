@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
-    "explore": "Izpētīt",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transkribēt tūlīt",
     "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
-    "viewDocument": "Skatīt dokumentu"
+    "viewDocument": "Skatīt dokumentu",
+    "vote": "Balsojums"
   },
   "attribution": {
     "country": "Valsts",
@@ -725,7 +725,6 @@ export default {
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
-      "provide": "Kļūsti piegādājošā iestāde",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
+    }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidu grupa {page}"
+    "a11y": {
+      "firstSlide": "Šis ir pirmais slaids",
+      "lastSlide": "Šis ir pēdējais slaids",
+      "nextSlide": "Nākamais slaids",
+      "paginationBullet": "Slaids {page}",
+      "paginationBulletGroupedSlides": "Slaidu grupa {page}",
+      "previousSlide": "Iepriekšējais slaids",
+      "slideLabel": "Slaids {slide} no {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

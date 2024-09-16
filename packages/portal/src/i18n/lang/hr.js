@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublish",
     "download": "Preuzmi",
     "edit": "Uredi",
-    "explore": "Istražiti",
     "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Prepišite sada",
     "unlike": "Ukloni lajk",
     "viewAt": "Pogledajte na {link}",
-    "viewDocument": "Pogledajte dokument"
+    "viewDocument": "Pogledajte dokument",
+    "vote": "Glasaj"
   },
   "attribution": {
     "country": "Država:",
@@ -726,7 +726,6 @@ export default {
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
-      "provide": "Postanite pružanje institucija",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",
@@ -917,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Istražite nadolazeće promjene koje planiramo i glasajte za one za koje biste željeli da imaju prioritet. Vaš nam doprinos pomaže da se usredotočimo na ono što vam je najvažnije."
+    }
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -1195,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdova {page}"
+    "a11y": {
+      "firstSlide": "Ovo je prvi slajd",
+      "lastSlide": "Ovo je zadnji slajd",
+      "nextSlide": "Sljedeći slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdova {page}",
+      "previousSlide": "Prethodni slajd",
+      "slideLabel": "Slajd {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pregledajte po temi",

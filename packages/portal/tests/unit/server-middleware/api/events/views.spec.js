@@ -16,6 +16,7 @@ const expressResStub = {
   json: sinon.spy(),
   sendStatus: sinon.spy()
 };
+const expressNextStub = sinon.spy();
 
 describe('@/server-middleware/api/events/views', () => {
   beforeAll(() => {
@@ -24,38 +25,18 @@ describe('@/server-middleware/api/events/views', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.resetBehavior);
 
-  describe('when not explicitly enabled', () => {
-    const options = {};
+  it('queries postgres for the views', async() => {
+    await viewsEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-    it('does not query postgres', async() => {
-      await viewsEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(pgPoolQuery.called).toBe(false);
-    });
-
-    it('responds with viewCount 0 as json', async() => {
-      await viewsEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(expressResStub.json.calledWith({ viewCount: 0 })).toBe(true);
-    });
+    expect(pgPoolQuery.calledWith(
+      sinon.match((sql) => sql.trim().startsWith('SELECT ')),
+      ['https://example.com/example', 'https://example.com/example']
+    )).toBe(true);
   });
 
-  describe('when explicitly enabled', () => {
-    const options = { enabled: true };
+  it('responds with the view count as json', async() => {
+    await viewsEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-    it('queries postgres for the views', async() => {
-      await viewsEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(pgPoolQuery.calledWith(
-        sinon.match((sql) => sql.trim().startsWith('SELECT ')),
-        ['https://example.com/example', 'https://example.com/example']
-      )).toBe(true);
-    });
-
-    it('responds with the view count as json', async() => {
-      await viewsEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(expressResStub.json.calledWith({ viewCount: 128 })).toBe(true);
-    });
+    expect(expressResStub.json.calledWith({ viewCount: 128 })).toBe(true);
   });
 });

@@ -47,7 +47,6 @@ export default {
     "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
-    "explore": "Utforska",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transkribera nu",
     "unlike": "Ogilla",
     "viewAt": "Visa på {link}",
-    "viewDocument": "Visa dokument"
+    "viewDocument": "Visa dokument",
+    "vote": "Rösta"
   },
   "attribution": {
     "country": "Land:",
@@ -725,7 +725,6 @@ export default {
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
-      "provide": "Bli en tillhandahållande institution",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "supportingTechnicalPartners": "Stödja tekniska partners",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Stäng",
     "readMore": "Visa mig",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Utforska de kommande förändringarna vi planerar och rösta på de du vill se prioriterade. Din input hjälper oss att fokusera på det som är viktigast för dig."
+    }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {
-    "paginationBulletLabel": "Bildgrupp {page}"
+    "a11y": {
+      "firstSlide": "Detta är den första bilden",
+      "lastSlide": "Detta är den sista bilden",
+      "nextSlide": "Nästa bild",
+      "paginationBullet": "Bild {page}",
+      "paginationBulletGroupedSlides": "Bildgrupp {page}",
+      "previousSlide": "Föregående bild",
+      "slideLabel": "Bild {slide} av {totalSlides}"
+    }
   },
   "themes": {
     "description": "Bläddra efter tema",

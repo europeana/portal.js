@@ -47,7 +47,6 @@ export default {
     "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
-    "explore": "Ontdekken",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Nu transcriberen",
     "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
-    "viewDocument": "Document weergeven"
+    "viewDocument": "Document weergeven",
+    "vote": "Stemmen"
   },
   "attribution": {
     "country": "Land:",
@@ -726,7 +726,6 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
-      "provide": "Word een deelnemende erfgoedorganisatie",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "supportingTechnicalPartners": "Ondersteunende technische partners",
@@ -917,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -1195,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide groep {page}"
+    "a11y": {
+      "firstSlide": "Dit is de eerste slide",
+      "lastSlide": "Dit is de laatste slide",
+      "nextSlide": "Volgende slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide groep {page}",
+      "previousSlide": "Vorige slide",
+      "slideLabel": "Slide {slide} van {totalSlides}"
+    }
   },
   "themes": {
     "description": "Blader op thema",

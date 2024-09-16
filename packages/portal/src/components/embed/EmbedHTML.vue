@@ -107,19 +107,19 @@
 
       iframe {
         width: 100%;
-        max-height: calc($swiper-height-max - $swiper-top-padding);
+        max-height: $swiper-height-max;
         height: $swiper-height;
 
         @media (max-width: $bp-medium) {
-          height: calc(22.5rem - $swiper-top-padding);
+          height: 22.5rem;
         }
       }
     }
   }
 
   .responsive-embed-wrapper {
-    height: calc($swiper-height - $swiper-top-padding);
-    max-height: calc($swiper-height-max - $swiper-top-padding);
+    height: $swiper-height;
+    max-height: $swiper-height-max;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;
@@ -142,15 +142,15 @@
         height: 100%;
 
         @media (max-height: $bp-medium) {
-          max-height: calc($swiper-height - $swiper-top-padding);
+          max-height: $swiper-height;
         }
 
         @media (min-height: $bp-medium) {
-          max-height: calc($swiper-height-max - $swiper-top-padding);
+          max-height: $swiper-height-max;
         }
 
         @media (max-width: $bp-medium) {
-          max-height: calc($swiper-height-medium - $swiper-top-padding);
+          max-height: $swiper-height-medium;
         }
       }
     }

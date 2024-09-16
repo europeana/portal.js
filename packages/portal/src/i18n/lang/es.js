@@ -47,7 +47,6 @@ export default {
     "depublish": "Despublicar",
     "download": "Descargar",
     "edit": "Editar",
-    "explore": "Explorar",
     "filter": "Filtrar",
     "goHome": "Ir a la página de inicio",
     "hide": "Ocultar",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transcribir ahora",
     "unlike": "Ya no me gusta",
     "viewAt": "Ver en {link}",
-    "viewDocument": "Ver documento"
+    "viewDocument": "Ver documento",
+    "vote": "Votar"
   },
   "attribution": {
     "country": "País:",
@@ -725,7 +725,6 @@ export default {
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
-      "provide": "Conviértete en proveedor de datos",
       "seeApiRequests": "Ver solicitudes a las API de Europeana",
       "subscribe": "Suscríbete a nuestro boletín",
       "supportingTechnicalPartners": "Apoyando a socios técnicos",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Cerrar",
     "readMore": "Muéstrame",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explora los próximos cambios que estamos planificando y vota por los que te gustaría que se priorizaran. Tus comentarios nos ayudan a centrarnos en lo que más te importa."
+    }
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} historias encontradas"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupo de diapositivas {page}"
+    "a11y": {
+      "firstSlide": "Esta es la primera diapositiva",
+      "lastSlide": "Esta es la última diapositiva",
+      "nextSlide": "Diapositiva siguiente",
+      "paginationBullet": "Diapositiva {page}",
+      "paginationBulletGroupedSlides": "Grupo de diapositivas {page}",
+      "previousSlide": "Diapositiva anterior",
+      "slideLabel": "Diapositiva {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Navegar por materias",

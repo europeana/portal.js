@@ -47,7 +47,6 @@ export default {
     "depublish": "Dépublier",
     "download": "Télécharger",
     "edit": "Modifier",
-    "explore": "Explorer",
     "filter": "Filtre",
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Transcrivez maintenant",
     "unlike": "Retirer le 'j'aime",
     "viewAt": "Consulter sur {link}",
-    "viewDocument": "Afficher le document"
+    "viewDocument": "Afficher le document",
+    "vote": "Voter"
   },
   "attribution": {
     "country": "Pays :",
@@ -726,7 +726,6 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
-      "provide": "Devenir une institution partenaire",
       "seeApiRequests": "Voir les requêtes vers les API Europeana",
       "subscribe": "Abonnez-vous à notre newsletter",
       "supportingTechnicalPartners": "Soutenir les partenaires techniques",
@@ -917,7 +916,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Fermer",
     "readMore": "Montre-moi",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Découvrez les changements à venir que nous prévoyons et votez pour ceux que vous aimeriez voir prioritaires. Vos commentaires nous aident à nous concentrer sur ce qui compte le plus pour vous."
+    }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -1195,7 +1196,15 @@ export default {
     "storiesHaveLoaded": "{0} histoires trouvées"
   },
   "swiper": {
-    "paginationBulletLabel": "Groupe de diapositives {page}"
+    "a11y": {
+      "firstSlide": "Ceci est la première diapositive",
+      "lastSlide": "Ceci est la dernière diapositive",
+      "nextSlide": "Diapositive suivante",
+      "paginationBullet": "Diapositive {page}",
+      "paginationBulletGroupedSlides": "Groupe de diapositives {page}",
+      "previousSlide": "Diapositive précédente",
+      "slideLabel": "Diapositive {slide} sur {totalSlides}"
+    }
   },
   "themes": {
     "description": "Parcourir par thème",

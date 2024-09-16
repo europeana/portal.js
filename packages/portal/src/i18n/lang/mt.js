@@ -47,7 +47,6 @@ export default {
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
     "edit": "Editja",
-    "explore": "Esplora",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
@@ -76,7 +75,8 @@ export default {
     "transcribeNow": "Traskrivi issa",
     "unlike": "Tneħħi l-like",
     "viewAt": "Ara fuq {link}",
-    "viewDocument": "Ara d-dokument"
+    "viewDocument": "Ara d-dokument",
+    "vote": "Ivvota"
   },
   "attribution": {
     "country": "Pajjiż:",
@@ -725,7 +725,6 @@ export default {
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
-      "provide": "Issir istituzzjoni fornitriċi",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
@@ -915,7 +914,9 @@ export default {
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Esplora l-bidliet li ġejjin li qed nippjanaw u ivvota għal dawk li tixtieq tara prijoritizzati. Il-kontribut tiegħek jgħinna niffukaw fuq dak li jgħodd l-aktar għalik."
+    }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1193,7 +1194,15 @@ export default {
     "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupp ta' slides {page}"
+    "a11y": {
+      "firstSlide": "Din hija l-ewwel slide",
+      "lastSlide": "Din hija l-aħħar slide",
+      "nextSlide": "Slide li jmiss",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Grupp ta' slides {page}",
+      "previousSlide": "Slide preċedenti",
+      "slideLabel": "Slide {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",
