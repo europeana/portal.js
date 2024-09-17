@@ -20,22 +20,26 @@
         inline
         @submit.stop.prevent="() => {}"
       >
-        <b-form-input
-          :id="'tag-search-input'"
-          ref="tagsearchinput"
-          v-model="searchTag"
-          autocomplete="off"
-          type="search"
-          :placeholder="$t('categories.search')"
-          data-qa="tags dropdown search input"
-          role="searchbox"
-          aria-autocomplete="list"
+        <b-input-group
+          role="combobox"
           :aria-owns="showDropdown ? 'tags-options' : null"
-          :aria-controls="showDropdown ? 'tags-options' : null"
           :aria-expanded="showDropdown ? 'true' : 'false'"
-          :aria-label="$t('categories.label')"
-          @focusin="handleFocusin"
-        />
+        >
+          <b-form-input
+            :id="'tag-search-input'"
+            ref="tagsearchinput"
+            v-model="searchTag"
+            autocomplete="off"
+            type="search"
+            :placeholder="$t('categories.search')"
+            data-qa="tags dropdown search input"
+            role="searchbox"
+            aria-autocomplete="list"
+            :aria-controls="showDropdown ? 'tags-options' : null"
+            :aria-label="$t('categories.label')"
+            @focusin="handleFocusin"
+          />
+        </b-input-group>
       </b-form>
       <div
         v-if="showDropdown"
@@ -49,6 +53,7 @@
           :tags="displayTags"
           :selected="selectedTags"
           :heading="false"
+          :aria-listbox="true"
           tabindex="-1"
           class="badge-container mb-2"
         />
