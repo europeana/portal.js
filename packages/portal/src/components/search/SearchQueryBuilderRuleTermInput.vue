@@ -6,21 +6,26 @@
     :class="{ 'open': showSearchOptions }"
     @focusin="handleFocusin"
   >
-    <b-form-input
-      :id="id"
-      v-model="term"
-      :name="name"
-      :data-qa="`advanced search query builder: ${name} control`"
-      :placeholder="$t('search.advanced.placeholder.term')"
-      :state="state"
-      role="searchbox"
-      aria-autocomplete="list"
+    <b-input-group
+      role="combobox"
       :aria-owns="showSearchOptions ? optionsId : null"
       :aria-expanded="showSearchOptions ? 'true' : 'false'"
-      :aria-controls="showSearchOptions ? optionsId : null"
-      @input="handleInput"
-      @blur="handleBlur"
-    />
+    >
+      <b-form-input
+        :id="id"
+        v-model="term"
+        :name="name"
+        :data-qa="`advanced search query builder: ${name} control`"
+        :placeholder="$t('search.advanced.placeholder.term')"
+        :state="state"
+        role="searchbox"
+        aria-autocomplete="list"
+
+        :aria-controls="showSearchOptions ? optionsId : null"
+        @input="handleInput"
+        @blur="handleBlur"
+      />
+    </b-input-group>
     <SearchQueryOptions
       v-show="showSearchOptions"
       :id="optionsId"
