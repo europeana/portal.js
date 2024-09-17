@@ -53,6 +53,7 @@
           :tags="displayTags"
           :selected="selectedTags"
           :heading="false"
+          :aria-listbox="true"
           tabindex="-1"
           class="badge-container mb-2"
         />

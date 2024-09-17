@@ -16,9 +16,9 @@
       >
         <span class="icon-ic-tag" />
         <div
-          role="listbox"
-          :aria-label="$t('categories.label')"
-          aria-orientation="horizontal"
+          :role="ariaListbox && 'listbox'"
+          :aria-label="ariaListbox && $t('categories.label')"
+          :aria-orientation="ariaListbox && 'horizontal'"
         >
           <b-badge
             v-for="(tag, index) in tags.filter((tag) => !!tag)"
@@ -69,6 +69,10 @@
       heading: {
         type: Boolean,
         default: true
+      },
+      ariaListbox: {
+        type: Boolean,
+        default: false
       }
     },
 
