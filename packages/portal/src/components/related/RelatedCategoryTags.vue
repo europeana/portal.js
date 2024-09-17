@@ -15,7 +15,11 @@
         class="d-flex"
       >
         <span class="icon-ic-tag" />
-        <div>
+        <div
+          role="listbox"
+          :aria-label="$t('categories.label')"
+          aria-orientation="horizontal"
+        >
           <b-badge
             v-for="(tag, index) in tags.filter((tag) => !!tag)"
             :key="index"
@@ -23,6 +27,7 @@
             :active="isActive(tag.identifier)"
             :to="badgeLink(tag.identifier)"
             :data-qa="`${tag.name} category tag`"
+            role="option"
             @click.native="clickBadge(tag.identifier)"
             @keydown.left="handleLeft"
             @keydown.right="handleRight"
