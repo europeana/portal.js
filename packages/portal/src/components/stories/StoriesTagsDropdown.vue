@@ -32,7 +32,6 @@
           aria-autocomplete="list"
           :aria-owns="showDropdown ? 'tags-options' : null"
           :aria-controls="showDropdown ? 'tags-options' : null"
-          :aria-expanded="showDropdown"
           :aria-label="$t('categories.label')"
           @focusin="handleFocusin"
         />
