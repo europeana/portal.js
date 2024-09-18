@@ -16,7 +16,7 @@
       role="searchbox"
       aria-autocomplete="list"
       :aria-owns="showSearchOptions ? optionsId : null"
-      :aria-expanded="showSearchOptions ? 'true' : 'false'"
+      :aria-expanded="showSearchOptions"
       :aria-controls="showSearchOptions ? optionsId : null"
       @input="handleInput"
       @blur="handleBlur"
