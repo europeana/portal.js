@@ -68,8 +68,10 @@ export default class EuropeanaMediaPresentation {
     let resources = [];
 
     if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
+      parsed.annotations = this.#extractV3Annotations(data);
       resources = this.#extractV3Resources(data);
     } else if (context.includes(IIIF_PRESENTATION_V2_CONTEXT)) {
+      parsed.annotations = this.#extractV2Annotations(data);
       resources = this.#extractV2Resources(data);
     } else {
       // TODO: throw version unknown error?
@@ -89,6 +91,14 @@ export default class EuropeanaMediaPresentation {
     });
 
     return parsed;
+  }
+
+  static #extractV2Annotations(manifest) {
+    return manifest.sequences.map((sequence) => sequence.canvases.map((canvas) => [].concat(canvas.otherContent || [])[0])).flat();
+  }
+
+  static #extractV3Annotations(manifest) {
+    return manifest.items.map((canvas) => [].concat(canvas.annotations || []).map((anno) => anno.id)[0]);
   }
 
   static #extractV2Resources(manifest) {

@@ -50,15 +50,15 @@
               <b-tabs>
                 <b-tab
                   title="Annotations"
-                  :disabled="!annotationPage"
-                  :active="!!annotationPage"
+                  :disabled="!annotationsId"
+                  :active="!!annotationsId"
                 >
-                  <!-- <IIIFAnnotationList
-                    v-if="!!annotationPage"
-                    :uri="annotationPage.url.toString()"
+                  <MediaAnnotationList
+                    v-if="!!annotationsId"
+                    :uri="annotationsId"
                     class="iiif-viewer-sidebar-panel"
                     @clickAnno="onClickAnno"
-                  /> -->
+                  />
                 </b-tab>
                 <b-tab title="Manifest">
                   <a
@@ -107,6 +107,7 @@
     components: {
       BTab,
       BTabs,
+      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
@@ -148,7 +149,6 @@
 
     data() {
       return {
-        annotationPage: null,
         presentation: null,
         page: 1,
         showSidebar: null
@@ -170,6 +170,10 @@
     },
 
     computed: {
+      annotationsId() {
+        return this.presentation?.annotations[this.page - 1];
+      },
+
       resource() {
         return this.presentation?.resources[this.page - 1];
       },
