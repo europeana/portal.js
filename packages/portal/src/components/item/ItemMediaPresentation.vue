@@ -84,9 +84,9 @@
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
-            button-variant="icon"
-            :show-input="false"
-            :show-progress="true"
+            :button-text="false"
+            :page-input="false"
+            :progress="true"
             class="pagination mx-auto"
           />
         </div>
