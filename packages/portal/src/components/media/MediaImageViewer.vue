@@ -9,18 +9,19 @@
   import axios from 'axios';
   // NOTE: each of the imported OpenLayers modules needs to be added to
   //       build.transpile in nuxt.config.js
-  import IIIFSource from 'ol/source/IIIF.js';
-  import IIIFInfo from 'ol/format/IIIFInfo.js';
-  import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
-  import Collection from 'ol/Collection.js';
+  import IIIFSource from 'ol/source/IIIF.js';
+  import TileLayer from 'ol/layer/Tile.js';
   import ImageLayer from 'ol/layer/Image.js';
-  import Projection from 'ol/proj/Projection.js';
-  import ImageStatic from 'ol/source/ImageStatic.js';
-  import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
+  import IIIFInfo from 'ol/format/IIIFInfo.js';
+  import ImageStatic from 'ol/source/ImageStatic.js';
+  import Collection from 'ol/Collection.js';
+  import Projection from 'ol/proj/Projection.js';
+  import { getCenter } from 'ol/extent.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
   import ZoomControl from 'ol/control/Zoom.js';
+  import ResetZoomControl from '@/utils/ol/control/ResetZoom.js';
 
   export default {
     name: 'MediaImageViewer',
@@ -102,7 +103,8 @@
             new ZoomControl({
               zoomInTipLabel: this.$t('media.controls.zoomIn'),
               zoomOutTipLabel: this.$t('media.controls.zoomOut')
-            })
+            }),
+            new ResetZoomControl()
           ]);
 
           this.map = new Map({
