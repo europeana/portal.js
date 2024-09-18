@@ -25,6 +25,7 @@
             v-if="buttonIcons"
             class="icon-arrow-down"
             :class="{ 'mr-1': pageInput }"
+            data-qa="prev button icon"
           />
           <template v-if="buttonText">
             {{ $t('actions.previous') }}
@@ -65,12 +66,14 @@
             v-if="buttonIcons"
             class="icon-arrow-down"
             :class="{ 'ml-1': pageInput }"
+            data-qa="next button icon"
           />
         </SmartLink>
       </li>
       <li
         v-if="progress"
         class="page-item pr-0"
+        data-qa="pagination progress"
       >
         {{ page }}/{{ totalPages }}
       </li>
