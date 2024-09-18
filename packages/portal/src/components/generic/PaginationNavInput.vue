@@ -21,11 +21,18 @@
           :aria-hidden="prevDisabled"
           class="page-link"
         >
-          <span class="icon-arrow-down mr-1" />
-          {{ $t('actions.previous') }}
+          <span
+            v-if="showButtonIcons"
+            class="icon-arrow-down"
+            :class="{ 'mr-1': showInput }"
+          />
+          <template v-if="showButtonText">
+            {{ $t('actions.previous') }}
+          </template>
         </SmartLink>
       </li>
       <li
+        v-if="showInput"
         class="page-item page-input"
       >
         <b-form-input
@@ -40,8 +47,8 @@
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
-        :class="{ 'disabled' : nextDisabled }"
-        class="page-item btn-next pr-0"
+        :class="{ 'disabled' : nextDisabled, 'pr-0': !showProgress }"
+        class="page-item btn-next"
         data-qa="next button"
       >
         <SmartLink
@@ -51,9 +58,21 @@
           :aria-hidden="nextDisabled"
           class="page-link"
         >
-          {{ $t('actions.next') }}
-          <span class="icon-arrow-down ml-1" />
+          <template v-if="showButtonText">
+            {{ $t('actions.next') }}
+          </template>
+          <span
+            v-if="showButtonIcons"
+            class="icon-arrow-down"
+            :class="{ 'ml-1': showInput }"
+          />
         </SmartLink>
+      </li>
+      <li
+        v-if="showProgress"
+        class="page-item pr-0"
+      >
+        {{ page }}/{{ totalPages }}
       </li>
     </ul>
   </nav>
@@ -81,12 +100,30 @@
       maxResults: {
         type: Number,
         default: null
+      },
+      /**
+       * Button variant to use
+       * @values text, icon, both
+       */
+      buttonVariant: {
+        type: String,
+        default: 'both'
+      },
+      showInput: {
+        type: Boolean,
+        default: true
+      },
+      showProgress: {
+        type: Boolean,
+        default: true
       }
     },
 
     data() {
       return {
-        page: Number(this.$route?.query?.page) || 1
+        page: Number(this.$route?.query?.page) || 1,
+        showButtonIcons: this.buttonVariant !== 'text',
+        showButtonText: this.buttonVariant !== 'icon'
       };
     },
 
