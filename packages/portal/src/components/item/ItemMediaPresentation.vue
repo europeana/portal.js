@@ -47,12 +47,15 @@
               v-if="showSidebar"
               class="w-25 iiif-viewer-sidebar border-bottom"
             >
-              <b-tabs>
+              <b-tabs vertical>
                 <b-tab
-                  title="Annotations"
-                  :disabled="!annotationPage"
-                  :active="!!annotationPage"
+                  v-if="!!annotationPage"
                 >
+                  <template #title>
+                    <!-- TODO: label for a11y -->
+                    <!-- TODO: replace with new icon for annotations -->
+                    <span class="icon icon-text-bold" />
+                  </template>
                   <!-- <IIIFAnnotationList
                     v-if="!!annotationPage"
                     :uri="annotationPage.url.toString()"
@@ -60,7 +63,11 @@
                     @clickAnno="onClickAnno"
                   /> -->
                 </b-tab>
-                <b-tab title="Manifest">
+                <b-tab>
+                  <template #title>
+                    <!-- TODO: label for a11y -->
+                    <span class="icon icon-link" />
+                  </template>
                   <a
                     :href="uri"
                   >
@@ -75,12 +82,16 @@
           class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
         >
           <b-button
-            class="d-inline-flex"
-            variant="secondary"
+            variant="light-flat"
+            class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
+            :aria-label="$t('header.showSidebar')"
             @click="showSidebar = !showSidebar"
           >
-            {{ showSidebar ? 'Hide sidebar' : 'Show sidebar' }}
+            <!-- TODO: replace with a new "kebab" (three vertically stacked dots) icon -->
+            <!-- TODO: label for a11y -->
+            <span class="icon icon-menu" />
           </b-button>
+
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
