@@ -39,52 +39,11 @@
             -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
-          <transition
-            appear
-            name="fade"
-          >
-            <div
-              v-if="showSidebar"
-              class="iiif-viewer-sidebar border-bottom"
-            >
-              <b-tabs vertical>
-                <b-tab
-                  v-if="!!annotationPage"
-                >
-                  <template #title>
-                    <!-- TODO: label for a11y -->
-                    <!-- TODO: replace with new icon for annotations -->
-                    <span class="icon icon-text-bold" />
-                  </template>
-                  <!-- <IIIFAnnotationList
-                    v-if="!!annotationPage"
-                    :uri="annotationPage.url.toString()"
-                    class="iiif-viewer-sidebar-panel"
-                    @clickAnno="onClickAnno"
-                  /> -->
-                </b-tab>
-                <b-tab
-                  v-if="!!uri"
-                >
-                  <template #title>
-                    <span
-                      v-b-tooltip.bottom
-                      :title="$t('media.sidebar.links')"
-                      :aria-label="$t('media.sidebar.links')"
-                      class="icon icon-link"
-                    />
-                  </template>
-                  <h2>{{ $t('media.sidebar.links') }}</h2>
-                  <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
-                  <b-link
-                    :href="uri"
-                  >
-                    {{ uri }}
-                  </b-link>
-                </b-tab>
-              </b-tabs>
-            </div>
-          </transition>
+          <ItemMediaSidebar
+            v-if="showSidebar"
+            :annotation-page="annotationPage"
+            :uri="uri"
+          />
         </div>
         <div
           class="iiif-viewer-toolbar d-flex align-items-center"
@@ -100,7 +59,6 @@
           >
             <span class="icon icon-kebab" />
           </b-button>
-
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
@@ -118,15 +76,13 @@
 </template>
 
 <script>
-  import { BTab, BTabs } from 'bootstrap-vue';
   import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
-      BTab,
-      BTabs,
+      ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
@@ -236,7 +192,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
-  @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
