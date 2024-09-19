@@ -87,7 +87,7 @@
           </transition>
         </div>
         <div
-          class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
+          class="iiif-viewer-toolbar d-flex align-items-center"
         >
           <b-button
             v-if="sidebarHasContent"
@@ -95,11 +95,10 @@
             :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
-            class="navbar-toggle"
+            class="sidebar-toggle button-icon-only"
             @click="showSidebar = !showSidebar"
           >
-            <!-- TODO: replace with a new "kebab" (three vertically stacked dots) icon -->
-            <span class="icon icon-menu" />
+            <span class="icon icon-kebab" />
           </b-button>
 
           <PaginationNavInput
@@ -241,6 +240,7 @@
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
+    position: relative;
 
     &.error {
       overflow: auto;
@@ -257,7 +257,17 @@
     }
 
     .iiif-viewer-toolbar {
-      background-color: $white;
+      background-color: rgba($white, 0.95);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.875rem 1rem;
+
+      .sidebar-toggle {
+        background-color: transparent;
+        font-size: $font-size-large;
+      }
     }
   }
 
