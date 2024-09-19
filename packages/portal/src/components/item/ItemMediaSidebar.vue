@@ -74,4 +74,32 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
 
+  .iiif-viewer-sidebar {
+    flex-basis: 260px;
+    flex-shrink: 0;
+
+    ::v-deep .tab-content {
+      padding: 1rem 1.5rem 1rem 0.875rem;
+      overflow: auto;
+
+      h2 {
+        font-size: 1.125rem;
+      }
+
+      h3 {
+        font-size: $font-size-base;
+        margin-bottom: 0.5rem;
+      }
+
+      a {
+        overflow-wrap: anywhere;
+        color: $blue;
+        font-size: $font-size-small;
+      }
+    }
+
+    .icon {
+      font-size: $font-size-large;
+    }
+  }
 </style>
