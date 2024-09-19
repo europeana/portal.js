@@ -45,7 +45,7 @@
           >
             <div
               v-if="showSidebar"
-              class="w-25 iiif-viewer-sidebar border-bottom"
+              class="iiif-viewer-sidebar border-bottom"
             >
               <b-tabs vertical>
                 <b-tab
@@ -63,16 +63,24 @@
                     @clickAnno="onClickAnno"
                   /> -->
                 </b-tab>
-                <b-tab>
+                <b-tab
+                  v-if="!!uri"
+                >
                   <template #title>
-                    <!-- TODO: label for a11y -->
-                    <span class="icon icon-link" />
+                    <span
+                      v-b-tooltip.bottom
+                      :title="$t('media.sidebar.links')"
+                      :aria-label="$t('media.sidebar.links')"
+                      class="icon icon-link"
+                    />
                   </template>
-                  <a
+                  <h2>{{ $t('media.sidebar.links') }}</h2>
+                  <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
+                  <b-link
                     :href="uri"
                   >
                     {{ uri }}
-                  </a>
+                  </b-link>
                 </b-tab>
               </b-tabs>
             </div>
@@ -82,13 +90,14 @@
           class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
         >
           <b-button
+            v-b-tooltip.bottom
+            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
-            class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
-            :aria-label="$t('header.showSidebar')"
+            class="navbar-toggle"
             @click="showSidebar = !showSidebar"
           >
             <!-- TODO: replace with a new "kebab" (three vertically stacked dots) icon -->
-            <!-- TODO: label for a11y -->
             <span class="icon icon-menu" />
           </b-button>
 

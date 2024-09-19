@@ -938,6 +938,12 @@ export default {
       "fullscreen": "Full screen",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
+    },
+    "sidebar": {
+      "hide": "Hide sidebar",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "show": "Show sidebar"
     }
   },
   "messages": {
