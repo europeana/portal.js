@@ -90,6 +90,7 @@
           class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
         >
           <b-button
+            v-if="sidebarHasContent"
             v-b-tooltip.bottom
             :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
@@ -171,7 +172,8 @@
         annotationPage: null,
         presentation: null,
         page: 1,
-        showSidebar: null
+        showSidebar: null,
+        sidebarHasContent: !!this.annotationPage || !!this.uri
       };
     },
 
