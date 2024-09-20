@@ -86,13 +86,12 @@
             :total-results="resourceCount"
             class="pagination mx-auto"
           />
-          <b-button
-            class="d-inline-flex"
-            variant="secondary"
+          <span
+            class="icon-pages mr-1 show-thumbnails-toggle"
+            :class="showThumbnails ? 'active' : ''"
+            data-qa="show thumbnails button icon"
             @click="showThumbnails = !showThumbnails"
-          >
-            {{ showThumbnails ? 'Hide thumbnails' : 'Show thumbnails' }}
-          </b-button>
+          />
         </div>
       </div>
       <ItemMediaThumbnails
@@ -237,6 +236,14 @@
     .iiif-viewer-toolbar {
       background-color: $white;
     }
+  }
+
+  .show-thumbnails-toggle {
+    font-size: 1.5rem;
+    &.active {
+      color: $blue;
+    }
+
   }
 
   ::v-deep .pagination {

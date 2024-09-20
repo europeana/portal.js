@@ -16,7 +16,7 @@
       class="icon-media-type"
       :class="mediaTypeIconClass"
     />
-</div>
+  </div>
 </template>
 
 <script>
