@@ -256,12 +256,4 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
-
-  .hero-container {
-    max-height: 37.75rem;
-  }
-
-  .iiif-viewer-wrapper {
-    width: 100%
-  }
 </style>
