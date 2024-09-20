@@ -1,8 +1,8 @@
 import nock from 'nock';
 
-import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
 
-describe('@/utils/europeana/iiif', () => {
+describe('@/utils/europeana/media/presentation', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });

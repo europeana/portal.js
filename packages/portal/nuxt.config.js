@@ -476,6 +476,7 @@ export default {
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
+      'axios-cache-interceptor',
       'color-parse',
       'color-rgba',
       'color-space',

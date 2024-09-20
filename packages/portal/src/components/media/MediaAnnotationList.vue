@@ -19,16 +19,17 @@
         :key="index"
         :action="true"
         :active="activeAnnotation === anno.id"
+        :lang="anno.lang"
         @click="onClickAnnotation(anno)"
       >
-        {{ anno.body.value }}
+        {{ anno.value }}
       </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
+  import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -40,9 +41,16 @@
 
     props: {
       /**
-       * URI of the annotation page/list
+       * Annotation page/list: either a URI as a string, or an object with id
+       * property being the URI
+       * TODO: rename
        */
-      uri: {
+      anno: {
+        type: [Object, String],
+        required: true
+      },
+
+      target: {
         type: String,
         required: true
       }
@@ -54,23 +62,47 @@
         /**
          * Individual annotations
          */
-        annotations: null
+        annotations: null,
+        textGranularity: this.anno.textGranularity,
+        uri: typeof this.anno === 'string' ? this.anno : this.anno.id
       };
     },
 
     // TODO: filter by motivation(s)
     async fetch() {
-      // TODO: req in format 3 for europeana domain
-      // TODO: mv fetch & normalize to another utility class, as w/ presentation
-      const annotationPage = (await axios.get(this.uri)).data;
-      console.log('annotationPage', annotationPage);
+      if (this.uri) {
+        const annotations = await (new EuropeanaMediaAnnotations({
+          id: this.uri,
+          textGranularity: this.textGranularity
+        })).fetch();
 
-      // await annotationPage.deferenceAnnotations();
+        const annotationsFor = annotations.for(this.target);
+        await Promise.all(annotationsFor.map((anno) => anno.embedBodies()));
 
-      // this.annotations = annotationPage.annotations;
+        this.annotations = annotationsFor.map((anno) => {
+          const data = {
+            id: anno.id, // adds to size of data; use index instead?
+            value: anno.body.value,
+            lang: anno.body.language
+          };
+
+          if (anno.target.startsWith('#')) {
+            const fragment = new URLSearchParams(anno.target.slice(1));
+            const xywhSelector = fragment.get('xywh');
+            if (xywhSelector) {
+              [data.x, data.y, data.w, data.h] = xywhSelector.split(',');
+            }
+          }
+
+          return data;
+        });
+      } else {
+        // TODO: what to do!?
+      }
     },
 
     watch: {
+      // TODO: when will it change though?
       uri: '$fetch'
     },
 

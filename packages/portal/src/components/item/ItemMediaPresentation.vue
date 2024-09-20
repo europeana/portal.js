@@ -50,12 +50,13 @@
               <b-tabs>
                 <b-tab
                   title="Annotations"
-                  :disabled="!annotationsId"
-                  :active="!!annotationsId"
+                  :disabled="!annotations"
+                  :active="!!annotations"
                 >
                   <MediaAnnotationList
-                    v-if="!!annotationsId"
-                    :uri="annotationsId"
+                    v-if="!!annotations"
+                    :anno="annotations"
+                    :target="resource.about"
                     class="iiif-viewer-sidebar-panel"
                     @clickAnno="onClickAnno"
                   />
@@ -99,7 +100,7 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
-  import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+  import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -160,7 +161,9 @@
         this.presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
       } else if (this.webResources) {
         this.presentation = {
-          resources: this.webResources
+          canvases: this.webResources.map((resource) => {
+            resource;
+          })
         };
       } else {
         // TODO: what to do!?
@@ -170,24 +173,32 @@
     },
 
     computed: {
-      annotationsId() {
-        return this.presentation?.annotations[this.page - 1];
+      annotations() {
+        return this.canvas?.annotations?.[0];
+      },
+
+      canvas() {
+        return this.presentation?.canvases?.[this.page - 1];
       },
 
       resource() {
-        return this.presentation?.resources[this.page - 1];
+        return this.canvas?.resource;
+      },
+
+      resources() {
+        return this.presentation?.canvases?.map((canvas) => canvas.resource);
       },
 
       resourceCount() {
-        return this.presentation?.resources?.length || 0;
+        return this.resources?.length || 0;
       },
 
       thumbnail() {
-        return this.thumbnails[this.page - 1];
+        return this.thumbnails?.[this.page - 1];
       },
 
       thumbnails() {
-        return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
       }
     },
 
