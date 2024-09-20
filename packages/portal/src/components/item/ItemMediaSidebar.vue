@@ -5,6 +5,7 @@
   >
     <div
       class="iiif-viewer-sidebar border-bottom"
+      data-qa="item media sidebar"
     >
       <b-tabs vertical>
         <b-tab
@@ -24,6 +25,7 @@
         </b-tab>
         <b-tab
           v-if="!!uri"
+          data-qa="item media sidebar links"
         >
           <template #title>
             <span
