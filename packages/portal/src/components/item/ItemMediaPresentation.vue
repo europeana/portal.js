@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
-      class="iiif-viewer-wrapper d-flex flex-column"
+      class="iiif-viewer-wrapper d-flex flex-column flex-lg-row"
     >
       <div
-        class="iiif-viewer-inner-wrapper h-100 d-flex flex-column overflow-hidden"
+        class="iiif-viewer-inner-wrapper h-100 w-100 d-flex flex-column overflow-hidden"
       >
         <div
           class="h-100 d-flex flex-row-reverse overflow-auto"
@@ -86,14 +86,22 @@
             :total-results="resourceCount"
             class="pagination mx-auto"
           />
+          <b-button
+            class="d-inline-flex"
+            variant="secondary"
+            @click="showThumbnails = !showThumbnails"
+          >
+            {{ showThumbnails ? 'Hide thumbnails' : 'Show thumbnails' }}
+          </b-button>
         </div>
       </div>
+      <ItemMediaThumbnails
+        v-if="showThumbnails"
+        :resources="thumbnailResources"
+        :selected-index="page -1"
+        :edm-type="edmType"
+      />
     </div>
-    <ItemMediaThumbnails
-      v-if="thumbnails.length > 0"
-      :thumbnails="thumbnails"
-      @clickThumbnail="handleClickThumbnail"
-    />
   </div>
 </template>
 
@@ -151,7 +159,8 @@
         annotationPage: null,
         presentation: null,
         page: 1,
-        showSidebar: null
+        showSidebar: null,
+        showThumbnails: true
       };
     },
 
@@ -178,12 +187,8 @@
         return this.presentation?.resources?.length || 0;
       },
 
-      thumbnail() {
-        return this.thumbnails[this.page - 1];
-      },
-
-      thumbnails() {
-        return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+      thumbnailResources() {
+        return this.presentation?.resources || [];
       }
     },
 
@@ -192,11 +197,6 @@
     },
 
     methods: {
-      handleClickThumbnail(index) {
-        const page = index + 1;
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
-      },
-
       onClickAnno(anno) {
         console.log('onClickAnno', anno);
         // const layer = this.map.getLayers()[0];
@@ -249,4 +249,12 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
+
+  .hero-container {
+    max-height: 37.75rem;
+  }
+
+  .iiif-viewer-wrapper {
+    width: 100%
+  }
 </style>
