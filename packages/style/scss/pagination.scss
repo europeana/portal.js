@@ -1,9 +1,8 @@
 .pagination-nav-input {
-  .page-item {
+  .btn-text {
     font-weight: 600;
     padding: 0.5rem 0.75rem;
     text-transform: uppercase;
-    align-items: center;
     white-space: nowrap;
   }
 
@@ -34,6 +33,10 @@
     &.disabled {
       .page-link {
         color: $mediumgrey;
+      }
+
+      .icon-arrow-outline {
+        color: $middlegrey;
       }
     }
 
@@ -72,6 +75,9 @@
   }
 
   .page-input {
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
     line-height: 1.375;
     padding: 0;
     display: flex;

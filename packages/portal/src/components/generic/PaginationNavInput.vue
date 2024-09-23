@@ -11,11 +11,11 @@
     >
       <li
         :class="{
-          'page-item': pageInput,
           'disabled' : prevDisabled,
+          'btn-text': buttonText,
           'mr-md-3': pageInput
         }"
-        class="btn-prev d-flex pl-0 mr-2"
+        class="page-item btn-prev d-flex pl-0 mr-2"
         data-qa="prev button"
       >
         <SmartLink
@@ -55,11 +55,12 @@
       </li>
       <li
         :class="{
-          'page-item ml-2 ml-md-3': pageInput,
+          'btn-text': buttonText,
           'disabled' : nextDisabled,
+          'ml-2 ml-md-3': pageInput,
           'mr-2': progress
         }"
-        class="btn-next d-flex pr-0"
+        class="page-item btn-next d-flex pr-0"
         data-qa="next button"
       >
         <SmartLink
@@ -85,9 +86,6 @@
       <li
         v-if="progress"
         class="pagination-progress d-flex align-items-center"
-        :class="{
-          'page-item': pageInput
-        }"
         data-qa="pagination progress"
       >
         {{ page }}/{{ totalPages }}
