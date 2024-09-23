@@ -3,7 +3,6 @@
     font-weight: 600;
     padding: 0.5rem 0.75rem;
     text-transform: uppercase;
-    display: flex;
     align-items: center;
     white-space: nowrap;
   }
@@ -37,27 +36,34 @@
         color: $mediumgrey;
       }
     }
+
+    .icon-arrow-outline {
+      font-size: $font-size-large;
+      transition: $standard-transition;
+    }
+
+    &:not(.disabled) .icon-arrow-outline {
+      &:hover {
+        color: $blue;
+        transition: $standard-transition;
+      }
+    }
   }
 
   .btn-prev {
-    margin-right: 0.5rem;
-
-    @media (min-width: $bp-medium) {
-      margin-right: 1rem;
-    }
 
     .icon-arrow-down::before {
       display: inline-block;
       transform: rotate(90deg);
     }
+
+    .icon-arrow-outline::before {
+      display: inline-block;
+      transform: rotate(180deg);
+    }
   }
 
   .btn-next {
-    margin-left: 0.5rem;
-
-    @media (min-width: $bp-medium) {
-      margin-left: 1rem;
-    }
 
     .icon-arrow-down::before {
       display: inline-block;
@@ -99,5 +105,10 @@
         }
       }
     }
+  }
+
+  .pagination-progress {
+    color: $mediumgrey-light;
+    font-size: $font-size-small;
   }
 }

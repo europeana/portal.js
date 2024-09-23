@@ -7,11 +7,15 @@
     class="pagination-nav-input"
   >
     <ul
-      class="pl-0 d-flex justify-content-center"
+      class="pl-0 d-flex justify-content-center align-items-center"
     >
       <li
-        :class="{ 'disabled' : prevDisabled }"
-        class="page-item btn-prev pl-0"
+        :class="{
+          'page-item': pageInput,
+          'disabled' : prevDisabled,
+          'mr-md-3': pageInput
+        }"
+        class="btn-prev d-flex pl-0 mr-2"
         data-qa="prev button"
       >
         <SmartLink
@@ -23,8 +27,10 @@
         >
           <span
             v-if="buttonIcons"
-            class="icon-arrow-down"
-            :class="{ 'mr-1': pageInput }"
+            :class="{
+              'icon-arrow-down mr-1': buttonText,
+              'icon-arrow-outline': !buttonText
+            }"
             data-qa="prev button icon"
           />
           <template v-if="buttonText">
@@ -34,7 +40,7 @@
       </li>
       <li
         v-if="pageInput"
-        class="page-item page-input"
+        class="page-item page-input d-flex "
       >
         <b-form-input
           v-model="page"
@@ -48,8 +54,12 @@
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
-        :class="{ 'disabled' : nextDisabled, 'pr-0': !progress }"
-        class="page-item btn-next"
+        :class="{
+          'page-item ml-2 ml-md-3': pageInput,
+          'disabled' : nextDisabled,
+          'mr-2': progress
+        }"
+        class="btn-next d-flex pr-0"
         data-qa="next button"
       >
         <SmartLink
@@ -64,15 +74,20 @@
           </template>
           <span
             v-if="buttonIcons"
-            class="icon-arrow-down"
-            :class="{ 'ml-1': pageInput }"
+            :class="{
+              'icon-arrow-down ml-1': buttonText,
+              'icon-arrow-outline': !buttonText
+            }"
             data-qa="next button icon"
           />
         </SmartLink>
       </li>
       <li
         v-if="progress"
-        class="page-item pr-0"
+        class="pagination-progress d-flex align-items-center"
+        :class="{
+          'page-item': pageInput
+        }"
         data-qa="pagination progress"
       >
         {{ page }}/{{ totalPages }}

@@ -72,7 +72,7 @@
           </transition>
         </div>
         <div
-          class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
+          class="iiif-viewer-toolbar d-flex align-items-center"
         >
           <b-button
             class="d-inline-flex"
@@ -87,7 +87,7 @@
             :button-text="false"
             :page-input="false"
             :progress="true"
-            class="pagination mx-auto"
+            class="pagination ml-auto"
           />
         </div>
       </div>
@@ -222,6 +222,7 @@
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
+    position: relative;
 
     &.error {
       overflow: auto;
@@ -238,7 +239,12 @@
     }
 
     .iiif-viewer-toolbar {
-      background-color: $white;
+      background-color: rgba($white, 0.95);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.875rem 1rem;
     }
   }
 
