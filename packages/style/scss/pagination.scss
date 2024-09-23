@@ -34,15 +34,15 @@
       .page-link {
         color: $mediumgrey;
       }
-
-      .icon-arrow-outline {
-        color: $middlegrey;
-      }
     }
 
     .icon-arrow-outline {
       font-size: $font-size-large;
       transition: $standard-transition;
+    }
+
+    &.disabled .icon-arrow-outline {
+      color: $middlegrey;
     }
 
     &:not(.disabled) .icon-arrow-outline {
