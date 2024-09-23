@@ -48,6 +48,15 @@
         <div
           class="iiif-viewer-toolbar d-flex align-items-center"
         >
+          <div
+            id="zoomButtons"
+          />
+          <div
+            id="resetZoomButtons"
+          />
+          <div
+            id="fullScreenButton"
+          />
           <b-button
             v-if="sidebarHasContent"
             v-b-tooltip.bottom

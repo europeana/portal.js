@@ -936,6 +936,7 @@ export default {
   "media": {
     "controls": {
       "fullscreen": "Full screen",
+      "resetZoom": "Reset zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },

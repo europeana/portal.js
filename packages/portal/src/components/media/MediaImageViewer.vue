@@ -21,6 +21,7 @@
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
   import ZoomControl from 'ol/control/Zoom.js';
+  import ZoomToExtent from 'ol/control/ZoomToExtent.js';
 
   export default {
     name: 'MediaImageViewer',
@@ -97,12 +98,26 @@
     methods: {
       drawMap() {
         if (!this.map) {
+          const fullScreenButton = document.getElementById('fullScreenButton');
+          const zoomButtons = document.getElementById('zoomButtons');
+          const resetZoomButtons = document.getElementById('resetZoomButtons');
+
           const controls = new Collection([
+            // Link toolbar controls
+            new FullScreenControl({ target: fullScreenButton, tipLabel: this.$t('media.controls.fullscreen') }),
+            new ZoomControl({
+              target: zoomButtons,
+              zoomInTipLabel: this.$t('media.controls.zoomIn'),
+              zoomOutTipLabel: this.$t('media.controls.zoomOut')
+            }),
+            new ZoomToExtent({ target: resetZoomButtons, tipLabel: this.$t('media.controls.resetZoom') }),
+            // Fullscreen controls:
             new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
             new ZoomControl({
               zoomInTipLabel: this.$t('media.controls.zoomIn'),
               zoomOutTipLabel: this.$t('media.controls.zoomOut')
-            })
+            }),
+            new ZoomToExtent({ tipLabel: this.$t('media.controls.resetZoom') })
           ]);
 
           this.map = new Map({
@@ -195,3 +210,22 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+::v-deep {
+  .ol-zoom-in, .ol-zoom-out, .ol-full-screen, .ol-zoom-extent {
+    display: none;
+  }
+}
+
+#media-image-viewer {
+  &:fullscreen {
+    ::v-deep {
+      .ol-zoom-in, .ol-zoom-out, .ol-full-screen, .ol-zoom-extent {
+        display: inline;
+      }
+    }
+  }
+}
+
+</style>
