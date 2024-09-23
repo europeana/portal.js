@@ -39,47 +39,25 @@
             -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
-          <transition
-            appear
-            name="fade"
-          >
-            <div
-              v-if="showSidebar"
-              class="w-25 iiif-viewer-sidebar border-bottom"
-            >
-              <b-tabs>
-                <b-tab
-                  title="Annotations"
-                  :disabled="!annotationPage"
-                  :active="!!annotationPage"
-                >
-                  <!-- <IIIFAnnotationList
-                    v-if="!!annotationPage"
-                    :uri="annotationPage.url.toString()"
-                    class="iiif-viewer-sidebar-panel"
-                    @clickAnno="onClickAnno"
-                  /> -->
-                </b-tab>
-                <b-tab title="Manifest">
-                  <a
-                    :href="uri"
-                  >
-                    {{ uri }}
-                  </a>
-                </b-tab>
-              </b-tabs>
-            </div>
-          </transition>
+          <ItemMediaSidebar
+            v-if="showSidebar"
+            :annotation-page="annotationPage"
+            :uri="uri"
+          />
         </div>
         <div
-          class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
+          class="iiif-viewer-toolbar d-flex align-items-center"
         >
           <b-button
-            class="d-inline-flex"
-            variant="secondary"
+            v-if="sidebarHasContent"
+            v-b-tooltip.bottom
+            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            variant="light-flat"
+            class="sidebar-toggle button-icon-only"
             @click="showSidebar = !showSidebar"
           >
-            {{ showSidebar ? 'Hide sidebar' : 'Show sidebar' }}
+            <span class="icon icon-kebab" />
           </b-button>
           <PaginationNavInput
             :per-page="1"
@@ -105,15 +83,13 @@
 </template>
 
 <script>
-  import { BTab, BTabs } from 'bootstrap-vue';
   import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
-      BTab,
-      BTabs,
+      ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
@@ -159,7 +135,8 @@
         presentation: null,
         page: 1,
         showSidebar: null,
-        showThumbnails: true
+        showThumbnails: true,
+        sidebarHasContent: !!this.annotationPage || !!this.uri
       };
     },
 
@@ -214,10 +191,10 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
-  @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
+    position: relative;
 
     &.error {
       overflow: auto;
@@ -234,16 +211,24 @@
     }
 
     .iiif-viewer-toolbar {
-      background-color: $white;
+      background-color: rgba($white, 0.95);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.875rem 1rem;
+
+      .sidebar-toggle {
+        background-color: transparent;
+        font-size: $font-size-large;
+      }
     }
   }
-
   .show-thumbnails-toggle {
     font-size: 1.5rem;
     &.active {
       color: $blue;
     }
-
   }
 
   ::v-deep .pagination {
