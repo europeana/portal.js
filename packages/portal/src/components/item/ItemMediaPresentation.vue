@@ -50,12 +50,12 @@
         >
           <b-button
             v-if="sidebarHasContent"
-            v-b-tooltip.bottom
-            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
             class="sidebar-toggle button-icon-only"
             @click="showSidebar = !showSidebar"
+            @mouseleave="hideTooltips"
           >
             <span class="icon icon-kebab" />
           </b-button>
@@ -187,6 +187,10 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
+      },
+
+      hideTooltips() {
+        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };

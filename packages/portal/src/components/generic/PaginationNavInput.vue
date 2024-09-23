@@ -19,11 +19,13 @@
         data-qa="prev button"
       >
         <SmartLink
+          v-b-tooltip.top="!buttonText && $t('actions.previousPage')"
           :destination="prevUrl"
           :aria-label="$t('actions.previous')"
           :disabled="prevDisabled"
           :aria-hidden="prevDisabled"
           class="page-link"
+          @mouseleave.native="hideTooltips"
         >
           <span
             v-if="buttonIcons"
@@ -64,11 +66,13 @@
         data-qa="next button"
       >
         <SmartLink
+          v-b-tooltip.top="!buttonText && $t('actions.nextPage')"
           :destination="nextUrl"
           :aria-label="$t('actions.next')"
           :disabled="nextDisabled"
           :aria-hidden="nextDisabled"
           class="page-link"
+          @mouseleave.native="hideTooltips"
         >
           <template v-if="buttonText">
             {{ $t('actions.next') }}
@@ -188,6 +192,9 @@
           query: { ...this.$route.query, page: pageNo },
           hash: this.$route.hash
         };
+      },
+      hideTooltips() {
+        this.$root.$emit('bv::hide::tooltip');
       }
     }
 
