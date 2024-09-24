@@ -40,57 +40,26 @@
             -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
-          <transition
-            appear
-            name="fade"
-          >
-            <div
-              v-if="showSidebar"
-              class="w-25 iiif-viewer-sidebar border-bottom"
-            >
-              <b-tabs>
-                <b-tab
-                  title="Annotations"
-                  :disabled="!annotations"
-                  :active="!!annotations"
-                >
-                  <b-container
-                    v-if="fetchingAnnotations"
-                    data-qa="loading spinner container"
-                  >
-                    <b-row class="flex-md-row py-4 text-center">
-                      <b-col cols="12">
-                        <LoadingSpinner />
-                      </b-col>
-                    </b-row>
-                  </b-container>
-                  <MediaAnnotationList
-                    v-else-if="annotations"
-                    :annotations="annotations"
-                    class="iiif-viewer-sidebar-panel"
-                    @clickAnno="onClickAnno"
-                  />
-                </b-tab>
-                <b-tab title="Manifest">
-                  <a
-                    :href="uri"
-                  >
-                    {{ uri }}
-                  </a>
-                </b-tab>
-              </b-tabs>
-            </div>
-          </transition>
+          <ItemMediaSidebar
+            v-if="showSidebar"
+            :annotations="annotations"
+            :uri="uri"
+            @clickAnno="onClickAnno"
+          />
         </div>
         <div
-          class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
+          class="iiif-viewer-toolbar d-flex align-items-center"
         >
           <b-button
-            class="d-inline-flex"
-            variant="secondary"
+            v-if="sidebarHasContent"
+            v-b-tooltip.bottom
+            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            variant="light-flat"
+            class="sidebar-toggle button-icon-only"
             @click="showSidebar = !showSidebar"
           >
-            {{ showSidebar ? 'Hide sidebar' : 'Show sidebar' }}
+            <span class="icon icon-kebab" />
           </b-button>
           <PaginationNavInput
             :per-page="1"
@@ -109,19 +78,14 @@
 </template>
 
 <script>
-  import { BTab, BTabs } from 'bootstrap-vue';
   import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
   import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
-  import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
-      BTab,
-      BTabs,
-      LoadingSpinner,
-      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
+      ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
@@ -168,7 +132,8 @@
         fetchingAnnotations: false,
         presentation: null,
         page: 1,
-        showSidebar: null
+        showSidebar: null,
+        sidebarHasContent: !!this.annotationPage || !!this.uri
       };
     },
 
@@ -304,10 +269,10 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
-  @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
+    position: relative;
 
     &.error {
       overflow: auto;
@@ -324,7 +289,17 @@
     }
 
     .iiif-viewer-toolbar {
-      background-color: $white;
+      background-color: rgba($white, 0.95);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.875rem 1rem;
+
+      .sidebar-toggle {
+        background-color: transparent;
+        font-size: $font-size-large;
+      }
     }
   }
 
