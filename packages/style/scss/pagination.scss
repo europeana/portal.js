@@ -6,6 +6,25 @@
     white-space: nowrap;
   }
 
+  .btn-prev {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(90deg);
+    }
+
+    .icon-arrow-outline {
+      display: inline-block;
+      transform: rotateY(180deg);
+    }
+  }
+
+  .btn-next {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(270deg);
+    }
+  }
+
   .btn-next,
   .btn-prev {
     .page-link {
@@ -50,27 +69,6 @@
         color: $blue;
         transition: $standard-transition;
       }
-    }
-  }
-
-  .btn-prev {
-
-    .icon-arrow-down::before {
-      display: inline-block;
-      transform: rotate(90deg);
-    }
-
-    .icon-arrow-outline {
-      display: inline-block;
-      transform: rotateY(180deg);
-    }
-  }
-
-  .btn-next {
-
-    .icon-arrow-down::before {
-      display: inline-block;
-      transform: rotate(270deg);
     }
   }
 
