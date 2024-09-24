@@ -47,7 +47,7 @@
             :annotation-text-granularity="annotationTextGranularity"
             :manifest-uri="uri"
             :resource-uri="resource?.about"
-            @clickAnno="onClickAnno"
+            @selectAnno="onSelectAnno"
           />
         </div>
         <div
@@ -213,9 +213,10 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
-      onClickAnno(anno) {
-        console.log('onClickAnno', anno);
+      onSelectAnno(anno) {
         this.activeAnnotation = anno;
+        // store the annotation id in the route hash, to pre-highlight it on page reload
+        // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
       },
 
       setPage() {

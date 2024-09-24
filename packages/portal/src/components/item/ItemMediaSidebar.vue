@@ -21,7 +21,7 @@
             :resource-uri="resourceUri"
             :text-granularity="annotationTextGranularity"
             class="iiif-viewer-sidebar-panel"
-            @clickAnno="onClickAnno"
+            @selectAnno="onSelectAnno"
           />
         </b-tab>
         <b-tab
@@ -81,8 +81,8 @@
     },
 
     methods: {
-      onClickAnno(anno) {
-        this.$emit('clickAnno', anno);
+      onSelectAnno(anno) {
+        this.$emit('selectAnno', anno);
       }
     }
   };
