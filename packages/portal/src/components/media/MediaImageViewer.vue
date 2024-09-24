@@ -11,6 +11,10 @@
   //       build.transpile in nuxt.config.js
   import IIIFSource from 'ol/source/IIIF.js';
   import IIIFInfo from 'ol/format/IIIFInfo.js';
+  import { fromExtent } from 'ol/geom/Polygon.js';
+  import Feature from 'ol/Feature.js';
+  import VectorLayer from 'ol/layer/Vector.js';
+  import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
   import Collection from 'ol/Collection.js';
@@ -26,6 +30,10 @@
     name: 'MediaImageViewer',
 
     props: {
+      annotation: {
+        type: Object,
+        default: null
+      },
       format: {
         type: String,
         default: null
@@ -56,8 +64,15 @@
       return {
         // fullsize: true,
         info: null,
-        layer: null,
-        map: null,
+        olAnnotationFeature: null,
+        olAnnotationSource: null,
+        olAnnotationLayer: null,
+        olExtent: null,
+        olImageLayer: null,
+        olImageSource: null,
+        olMap: null,
+        olProjection: null,
+        olView: null,
         /**
          * @values IIIF,ImageStatic
          */
@@ -74,17 +89,16 @@
         // this.fullsize = true;
       }
 
-      // if (this.layer) {
-      //   this.map.removeLayer(this.layer);
-      //   this.layer = null;
-      // }
-
       if (process.client) {
         this.renderImage();
       }
     },
 
     watch: {
+      annotation: {
+        deep: true,
+        handler: 'drawAnnotation'
+      },
       url: '$fetch'
     },
 
@@ -95,102 +109,131 @@
     },
 
     methods: {
-      drawMap() {
-        if (!this.map) {
-          const controls = new Collection([
-            new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
-            new ZoomControl({
-              zoomInTipLabel: this.$t('media.controls.zoomIn'),
-              zoomOutTipLabel: this.$t('media.controls.zoomOut')
-            })
-          ]);
+      drawAnnotation() {
+        if (this.olAnnotationFeature) {
+          this.olAnnotationSource.removeFeature(this.olAnnotationFeature);
+          this.olAnnotationFeature = null;
+        }
+        if (!this.annotation) {
+          return;
+        }
 
-          this.map = new Map({
+        const poly = fromExtent([
+          this.annotation.x,
+          this.annotation.y,
+          this.annotation.x + this.annotation.w,
+          this.annotation.y + this.annotation.h
+        ]);
+
+        // Vector Layer co-ordinates start bottom left, not top left, so transform
+        // Y co-ordinates accordingly.
+        // TODO: this seems like it should be handled by ol's projections...
+        for (let i = 0; i < poly.flatCoordinates.length; i = i + 1) {
+          if ((i % 2) === 1) { // even indices only
+            poly.flatCoordinates[i] = this.olExtent[3] - poly.flatCoordinates[i];
+          }
+        }
+        this.olAnnotationFeature = new Feature(poly);
+
+        this.olAnnotationSource.addFeature(this.olAnnotationFeature);
+      },
+
+      initOlMap() {
+        const controls = new Collection([
+          new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
+          new ZoomControl({
+            zoomInTipLabel: this.$t('media.controls.zoomIn'),
+            zoomOutTipLabel: this.$t('media.controls.zoomOut')
+          })
+        ]);
+
+        this.olProjection = new Projection({
+          units: 'pixels',
+          extent: this.olExtent
+        });
+
+        this.olAnnotationSource = new VectorSource();
+        this.olAnnotationLayer = new VectorLayer({
+          source: this.olAnnotationSource
+        });
+
+        this.olView = new View({
+          center: getCenter(this.olExtent),
+          constrainOnlyCenter: true,
+          maxZoom: 8,
+          projection: this.olProjection,
+          resolutions: this.olImageSource.getTileGrid?.().getResolutions()
+        });
+
+        if (!this.olMap) {
+          this.olMap = new Map({
             controls,
-            layers: [],
             target: 'media-image-viewer'
           });
         }
+
+        this.olMap.setLayers([this.olImageLayer, this.olAnnotationLayer]);
+        this.olMap.setView(this.olView);
+        this.olMap.getView().fit(this.olExtent);
       },
 
       // renderThumbnail() {
-      //   this.map.getInteractions().forEach((interaction) => interaction.setActive(false));
-      //   this.map.on('singleclick', this.onSingleClickThumbnail);
+      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
+      //   this.olMap.on('singleclick', this.onSingleClickThumbnail);
       //
       //   if ((this.source === 'ImageStatic') && this.thumbnail) {
       //     const thumbWidth = 400;
       //     const thumbHeight = (this?.height / this?.width) * thumbWidth;
-      //     this.renderStaticImage(this.thumbnail.url, thumbWidth, thumbHeight);
+      //     this.initOlImageLayerStatic(this.thumbnail.url, thumbWidth, thumbHeight);
       //   }
       // },
       //
       // onSingleClickThumbnail() {
-      //   this.map.un('singleclick', this.onSingleClickThumbnail);
-      //   this.map.getInteractions().forEach((interaction) => interaction.setActive(true));
+      //   this.olMap.un('singleclick', this.onSingleClickThumbnail);
+      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
       //   this.fullsize = true;
       //   this.renderImage();
       // },
 
-      renderIIIFImage() {
-        // IIIF Image API
-        // https://openlayers.org/en/latest/examples/iiif.html
-        this.layer = new TileLayer();
-        this.map.setLayers([this.layer]);
+      // IIIF Image API
+      // https://openlayers.org/en/latest/examples/iiif.html
+      initOlImageLayerIIIF() {
+        const iiifTileSourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
 
-        const options = new IIIFInfo(this.info).getTileSourceOptions();
-        options.zDirection = -1;
-        const iiifTileSource = new IIIFSource(options);
+        this.olExtent = [0, 0, iiifTileSourceOptions.size[0], iiifTileSourceOptions.size[1]];
 
-        this.layer.setSource(iiifTileSource);
-        this.map.setView(
-          new View({
-            resolutions: iiifTileSource.getTileGrid().getResolutions(),
-            extent: iiifTileSource.getTileGrid().getExtent(),
-            constrainOnlyCenter: true
-          })
-        );
-        this.map.getView().fit(iiifTileSource.getTileGrid().getExtent());
+        iiifTileSourceOptions.extent = this.olExtent;
+        iiifTileSourceOptions.zDirection = -1;
+
+        this.olImageSource = new IIIFSource(iiifTileSourceOptions);
+        this.olImageLayer = new TileLayer({
+          source: this.olImageSource
+        });
       },
 
-      renderStaticImage() {
-        // Static image
-        // https://openlayers.org/en/latest/examples/static-image.html
-
-        this.layer = new ImageLayer();
-        this.map.setLayers([this.layer]);
-
-        const extent = [0, 0, this.width, this.height];
-        const projection = new Projection({
-          units: 'pixels',
-          extent
-        });
-        const staticImageSource = new ImageStatic({
+      // Static image
+      // https://openlayers.org/en/latest/examples/static-image.html
+      initOlImageLayerStatic() {
+        this.olExtent = [0, 0, this.width, this.height];
+        this.olImageSource = new ImageStatic({
           // TODO: always use media proxy if static image?
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
-          projection,
-          imageExtent: extent
+          imageExtent: this.olExtent
         });
-
-        this.layer.setSource(staticImageSource);
-        this.map.setView(
-          new View({
-            projection,
-            center: getCenter(extent),
-            zoom: 1,
-            maxZoom: 8
-          })
-        );
-        this.map.getView().fit(extent);
+        this.olImageLayer = new ImageLayer({
+          source: this.olImageSource
+        });
       },
 
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
-        this.drawMap();
         if (this.source === 'IIIF') {
-          this.renderIIIFImage();
+          this.initOlImageLayerIIIF();
         } else if (this.source === 'ImageStatic') {
-          this.renderStaticImage();
+          this.initOlImageLayerStatic();
         }
+        this.initOlMap();
+        this.drawAnnotation();
       }
     }
   };

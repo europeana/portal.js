@@ -17,6 +17,7 @@
             :height="resource.ebucoreHeight"
             :format="resource.ebucoreHasMimeType"
             :service="resource.svcsHasService"
+            :annotation="activeAnnotation"
           />
           <MediaPDFViewer
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -53,10 +54,19 @@
                   :disabled="!annotations"
                   :active="!!annotations"
                 >
+                  <b-container
+                    v-if="fetchingAnnotations"
+                    data-qa="loading spinner container"
+                  >
+                    <b-row class="flex-md-row py-4 text-center">
+                      <b-col cols="12">
+                        <LoadingSpinner />
+                      </b-col>
+                    </b-row>
+                  </b-container>
                   <MediaAnnotationList
-                    v-if="!!annotations"
-                    :anno="annotations"
-                    :target="resource.about"
+                    v-else-if="annotations"
+                    :annotations="annotations"
                     class="iiif-viewer-sidebar-panel"
                     @clickAnno="onClickAnno"
                   />
@@ -101,6 +111,8 @@
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
   import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
+  import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -108,6 +120,7 @@
     components: {
       BTab,
       BTabs,
+      LoadingSpinner,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
@@ -150,6 +163,9 @@
 
     data() {
       return {
+        activeAnnotation: null,
+        annotations: null,
+        fetchingAnnotations: false,
         presentation: null,
         page: 1,
         showSidebar: null
@@ -173,8 +189,25 @@
     },
 
     computed: {
-      annotations() {
+      /**
+       * Annotation page/list: either a URI as a string, or an object with id
+       * property being the URI
+       */
+      annotationCollection() {
         return this.canvas?.annotations?.[0];
+      },
+
+      annotationUri() {
+        if (!this.annotationCollection) {
+          return null;
+        } else if (typeof this.annotationCollection === 'string') {
+          return this.annotationCollection;
+        }
+        return this.annotationCollection.id;
+      },
+
+      annotationTextGranularity() {
+        return this.annotationCollection.textGranularity;
       },
 
       canvas() {
@@ -203,10 +236,51 @@
     },
 
     watch: {
-      '$route.query.page': 'setPage'
+      '$route.query.page': 'setPage',
+      'annotationUri': 'fetchAnnotations'
     },
 
     methods: {
+      // TODO: filter by motivation(s)
+      async fetchAnnotations() {
+        this.activeAnnotation = null;
+        if (!this.annotationUri || !this.resource) {
+          return;
+        }
+        this.fetchingAnnotations = true;
+
+        try {
+          const annotations = await (new EuropeanaMediaAnnotations({
+            id: this.annotationUri,
+            textGranularity: this.annotationTextGranularity
+          })).fetch();
+
+          const annotationsFor = annotations.for(this.resource.about);
+          await Promise.all(annotationsFor.map((anno) => anno.embedBodies()));
+
+          // TODO: move transofmration to EuropeanaMediaAnno class?
+          this.annotations = Object.freeze(annotationsFor.map((anno) => {
+            const data = {
+              id: anno.id, // adds to size of data; use index instead?
+              value: anno.body.value,
+              lang: anno.body.language
+            };
+
+            if (anno.target.startsWith('#')) {
+              const fragment = new URLSearchParams(anno.target.slice(1));
+              const xywhSelector = fragment.get('xywh');
+              if (xywhSelector) {
+                [data.x, data.y, data.w, data.h] = xywhSelector.split(',').map((xywh) => xywh.length === 0 ? null : Number(xywh));
+              }
+            }
+
+            return data;
+          }));
+        } finally {
+          this.fetchingAnnotations = false;
+        }
+      },
+
       handleClickThumbnail(index) {
         const page = index + 1;
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
@@ -214,7 +288,7 @@
 
       onClickAnno(anno) {
         console.log('onClickAnno', anno);
-        // const layer = this.map.getLayers()[0];
+        this.activeAnnotation = anno;
       },
 
       setPage() {
