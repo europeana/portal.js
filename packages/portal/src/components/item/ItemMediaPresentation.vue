@@ -42,8 +42,10 @@
           </code>
           <ItemMediaSidebar
             v-if="showSidebar"
-            :annotations="annotations"
-            :uri="uri"
+            :annotation-uri="annotationUri"
+            :annotation-text-granularity="annotationTextGranularity"
+            :manifest-uri="uri"
+            :resource-uri="resource?.about"
             @clickAnno="onClickAnno"
           />
         </div>
@@ -79,7 +81,6 @@
 
 <script>
   import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
-  import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -128,12 +129,9 @@
     data() {
       return {
         activeAnnotation: null,
-        annotations: null,
-        fetchingAnnotations: false,
         presentation: null,
         page: 1,
-        showSidebar: null,
-        sidebarHasContent: !!this.annotationPage || !!this.uri
+        showSidebar: null
       };
     },
 
@@ -191,6 +189,10 @@
         return this.resources?.length || 0;
       },
 
+      sidebarHasContent() {
+        return !!this.annotationUri || !!this.uri;
+      },
+
       thumbnail() {
         return this.thumbnails?.[this.page - 1];
       },
@@ -201,51 +203,10 @@
     },
 
     watch: {
-      '$route.query.page': 'setPage',
-      'annotationUri': 'fetchAnnotations'
+      '$route.query.page': 'setPage'
     },
 
     methods: {
-      // TODO: filter by motivation(s)
-      async fetchAnnotations() {
-        this.activeAnnotation = null;
-        if (!this.annotationUri || !this.resource) {
-          return;
-        }
-        this.fetchingAnnotations = true;
-
-        try {
-          const annotations = await (new EuropeanaMediaAnnotations({
-            id: this.annotationUri,
-            textGranularity: this.annotationTextGranularity
-          })).fetch();
-
-          const annotationsFor = annotations.for(this.resource.about);
-          await Promise.all(annotationsFor.map((anno) => anno.embedBodies()));
-
-          // TODO: move transofmration to EuropeanaMediaAnno class?
-          this.annotations = Object.freeze(annotationsFor.map((anno) => {
-            const data = {
-              id: anno.id, // adds to size of data; use index instead?
-              value: anno.body.value,
-              lang: anno.body.language
-            };
-
-            if (anno.target.startsWith('#')) {
-              const fragment = new URLSearchParams(anno.target.slice(1));
-              const xywhSelector = fragment.get('xywh');
-              if (xywhSelector) {
-                [data.x, data.y, data.w, data.h] = xywhSelector.split(',').map((xywh) => xywh.length === 0 ? null : Number(xywh));
-              }
-            }
-
-            return data;
-          }));
-        } finally {
-          this.fetchingAnnotations = false;
-        }
-      },
-
       handleClickThumbnail(index) {
         const page = index + 1;
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
@@ -258,6 +219,7 @@
 
       setPage() {
         this.page = Number(this.$route.query.page) || 1;
+        this.activeAnnotation = null;
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });

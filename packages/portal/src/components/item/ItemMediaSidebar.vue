@@ -9,23 +9,23 @@
     >
       <b-tabs vertical>
         <b-tab
-          v-if="!!annotations"
+          v-if="annotationUri"
         >
           <template #title>
             <!-- TODO: label for a11y -->
             <!-- TODO: replace with new icon for annotations -->
             <span class="icon icon-text-bold" />
           </template>
-          <!-- TODO: show loading spinner when they are being fetched -->
           <MediaAnnotationList
-            v-if="annotations"
-            :annotations="annotations"
+            :annotation-uri="annotationUri"
+            :resource-uri="resourceUri"
+            :text-granularity="annotationTextGranularity"
             class="iiif-viewer-sidebar-panel"
             @clickAnno="onClickAnno"
           />
         </b-tab>
         <b-tab
-          v-if="!!uri"
+          v-if="!!manifestUri"
           data-qa="item media sidebar links"
         >
           <template #title>
@@ -39,9 +39,9 @@
           <h2>{{ $t('media.sidebar.links') }}</h2>
           <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
           <b-link
-            :href="uri"
+            :href="manifestUri"
           >
-            {{ uri }}
+            {{ manifestUri }}
           </b-link>
         </b-tab>
       </b-tabs>
@@ -62,11 +62,19 @@
     },
 
     props: {
-      annotations: {
-        type: Array,
+      annotationTextGranularity: {
+        type: Array, String,
         default: null
       },
-      uri: {
+      annotationUri: {
+        type: String,
+        default: null
+      },
+      manifestUri: {
+        type: String,
+        default: null
+      },
+      resourceUri: {
         type: String,
         default: null
       }

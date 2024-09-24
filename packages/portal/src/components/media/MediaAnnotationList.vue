@@ -1,6 +1,17 @@
 <template>
   <div>
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
     <b-list-group
+      v-else
       class="iiif-annotation-list"
     >
       <b-list-group-item
@@ -18,23 +29,75 @@
 </template>
 
 <script>
+  import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
+
   export default {
     name: 'MediaAnnotationList',
 
+    components: {
+      LoadingSpinner
+    },
+
     props: {
-      /**
-       * Individual annotations
-       */
-      annotations: {
-        type: Array,
-        required: true
+      annotationUri: {
+        type: String,
+        default: null
+      },
+      resourceUri: {
+        type: String,
+        default: null
+      },
+      textGranularity: {
+        type: Array, String,
+        default: null
       }
     },
 
     data() {
       return {
-        activeAnnotation: null
+        activeAnnotation: null,
+        annotations: null
       };
+    },
+
+    // TODO: filter by motivation(s)
+    async fetch() {
+      this.activeAnnotation = null;
+      if (!this.annotationUri || !this.resourceUri) {
+        return;
+      }
+
+      const annotations = await (new EuropeanaMediaAnnotations({
+        id: this.annotationUri,
+        textGranularity: this.textGranularity
+      })).fetch();
+
+      const annotationsFor = annotations.for(this.resourceUri);
+      await Promise.all(annotationsFor.map((anno) => anno.embedBodies()));
+
+      // TODO: move transofmration to EuropeanaMediaAnno class?
+      this.annotations = Object.freeze(annotationsFor.map((anno) => {
+        const data = {
+          id: anno.id, // adds to size of data; use index instead?
+          value: anno.body.value,
+          lang: anno.body.language
+        };
+
+        if (anno.target.startsWith('#')) {
+          const fragment = new URLSearchParams(anno.target.slice(1));
+          const xywhSelector = fragment.get('xywh');
+          if (xywhSelector) {
+            [data.x, data.y, data.w, data.h] = xywhSelector.split(',').map((xywh) => xywh.length === 0 ? null : Number(xywh));
+          }
+        }
+
+        return data;
+      }));
+    },
+
+    watch: {
+      annotationUri: '$fetch'
     },
 
     methods: {
