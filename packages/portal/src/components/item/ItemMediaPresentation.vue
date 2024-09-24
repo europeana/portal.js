@@ -141,9 +141,9 @@
         this.presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
       } else if (this.webResources) {
         this.presentation = {
-          canvases: this.webResources.map((resource) => {
-            resource;
-          })
+          canvases: this.webResources.map((resource) => ({
+            resource
+          }))
         };
       } else {
         // TODO: what to do!?
