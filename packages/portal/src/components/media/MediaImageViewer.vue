@@ -137,7 +137,8 @@
         this.olAnnotationFeature = new Feature(poly);
 
         this.olAnnotationSource.addFeature(this.olAnnotationFeature);
-        this.olMap.getView().fit(poly);
+        // uncomment to have the view follow the selected annotation
+        // this.olMap.getView().fit(poly);
       },
 
       initOlMap() {
