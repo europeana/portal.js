@@ -28,11 +28,10 @@
           @mouseleave.native="hideTooltips"
         >
           <span
-            v-if="buttonIcons"
-            :class="{
-              'icon-arrow-down mr-1': buttonText,
-              'icon-arrow-outline': !buttonText
-            }"
+            v-if="buttonIconClass"
+            :class="[buttonIconClass, {
+              'mr-1': buttonText
+            }]"
             data-qa="prev button icon"
           />
           <template v-if="buttonText">
@@ -78,11 +77,10 @@
             {{ $t('actions.next') }}
           </template>
           <span
-            v-if="buttonIcons"
-            :class="{
-              'icon-arrow-down ml-1': buttonText,
-              'icon-arrow-outline': !buttonText
-            }"
+            v-if="buttonIconClass"
+            :class="[buttonIconClass,{
+              'ml-1': buttonText
+            }]"
             data-qa="next button icon"
           />
         </SmartLink>
@@ -109,30 +107,52 @@
     },
 
     props: {
+      /**
+       * Number of items per page
+       */
       perPage: {
         type: Number,
         default: 24
       },
+      /**
+       * Total number of results
+       */
       totalResults: {
         type: Number,
         default: 0
       },
+      /**
+       * Maximum number of results to show
+       */
       maxResults: {
         type: Number,
         default: null
       },
-      buttonIcons: {
-        type: Boolean,
-        default: true
+      /**
+       * Icon to use for the previous/next buttons. Set to null to hide the icon
+       * @values icon-arrow-down, icon-arrow-outline
+       */
+      buttonIconClass: {
+        type: String,
+        default: 'icon-arrow-down'
       },
+      /**
+       * If true, show text on the previous/next buttons
+       */
       buttonText: {
         type: Boolean,
         default: true
       },
+      /**
+       * If true, add an input field for the page number
+       */
       pageInput: {
         type: Boolean,
         default: true
       },
+      /**
+       * If true, show progress indicator
+       */
       progress: {
         type: Boolean,
         default: false
@@ -205,3 +225,24 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/pagination';
 </style>
+
+<docs lang="md">
+  Default:
+  ```jsx
+  <PaginationNavInput
+    :perPage="24"
+    :totalResults="100"
+  />
+  ```
+  With outlined icon buttons and progress indicator and no button text, no input field:
+  ```jsx
+  <PaginationNavInput
+    :perPage="24"
+    :totalResults="100"
+    :buttonIconClass="'icon-arrow-outline'"
+    :buttonText="false"
+    :pageInput="false"
+    :progress="true"
+  />
+  ```
+</docs>

@@ -64,6 +64,7 @@
             :total-results="resourceCount"
             :button-text="false"
             :page-input="false"
+            :button-icon-class="'icon-arrow-outline'"
             :progress="true"
             class="pagination ml-auto"
           />
