@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
       class="iiif-viewer-wrapper d-flex flex-column"
     >
