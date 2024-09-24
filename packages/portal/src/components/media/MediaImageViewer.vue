@@ -204,22 +204,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-::v-deep {
-  .ol-zoom-in, .ol-zoom-out, .ol-full-screen, .ol-zoom-extent {
-    display: none;
-  }
-}
-
-#media-image-viewer {
-  &:fullscreen {
-    ::v-deep {
-      .ol-zoom-in, .ol-zoom-out, .ol-full-screen, .ol-zoom-extent {
-        display: inline;
-      }
-    }
-  }
-}
-
-</style>
