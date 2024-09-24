@@ -118,12 +118,13 @@
           return;
         }
 
-        const poly = fromExtent([
+        const extent = [
           this.annotation.x,
           this.annotation.y,
           this.annotation.x + this.annotation.w,
           this.annotation.y + this.annotation.h
-        ]);
+        ];
+        const poly = fromExtent(extent);
 
         // Vector Layer co-ordinates start bottom left, not top left, so transform
         // Y co-ordinates accordingly.
@@ -136,6 +137,7 @@
         this.olAnnotationFeature = new Feature(poly);
 
         this.olAnnotationSource.addFeature(this.olAnnotationFeature);
+        this.olMap.getView().fit(poly);
       },
 
       initOlMap() {
