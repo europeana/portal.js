@@ -30,6 +30,10 @@ export default class EuropeanaMediaAnnotations extends EuropeanaMediaBase {
   async for(target, { embed, reduce } = {}) {
     let annos = this.items.map((anno) => anno.for(target)).flat().filter(Boolean);
 
+    // NOTE: this may result in duplicate network requests for the same anno resource
+    //       if there are multiple external annos with the same resource URL,
+    //       e.g. with just a different hash char selector.
+    //       use a caching mechanism like axios-cache-interceptor to alleviate this.
     if (embed) {
       await Promise.all(annos.map((anno) => anno.embedBodies()));
     }

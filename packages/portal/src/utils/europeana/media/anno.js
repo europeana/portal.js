@@ -38,8 +38,8 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
     const hash = url.hash;
     url.hash = ''; // so that axios caching works
 
-    const fullBodyResponse = await this.$axios.get(url.toString());
-    // clone to respect reuse of caching, given modification of `value` below
+    const fullBodyResponse = await this.constructor.axios.get(url.toString());
+    // clone before modifying
     const fullBody = {
       ...fullBodyResponse.data
     };

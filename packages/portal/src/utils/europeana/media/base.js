@@ -1,7 +1,4 @@
 import axios from 'axios';
-// TODO: consider using this more widely as it brings a very nice performance
-//       boost when navigating back and forth e.g. back to search results
-import { setupCache } from 'axios-cache-interceptor';
 
 import {
   JSON_MEDIA_TYPE,
@@ -29,18 +26,16 @@ function normalize(thing) {
 
 export default class EuropeanaMediaBase {
   id;
-  $axios;
   static $axios;
 
   static get axios() {
     if (!this.$axios) {
-      this.$axios = setupCache(axios);
+      this.$axios = axios.create();
     }
     return this.$axios;
   }
 
   constructor(data) {
-    this.$axios = EuropeanaMediaBase.axios;
     if (typeof data === 'string') {
       this.id = data;
     } else {
@@ -52,7 +47,7 @@ export default class EuropeanaMediaBase {
   }
 
   async fetch({ params } = {}) {
-    const response = await this.$axios({
+    const response = await this.constructor.axios({
       url: this.id,
       method: 'get',
       headers: this.headers,
@@ -60,7 +55,7 @@ export default class EuropeanaMediaBase {
     });
 
     const data = this.parse(this.normalize(response.data));
-    
+
     for (const key in data) {
       this[key] = data[key];
     }

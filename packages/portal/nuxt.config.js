@@ -299,6 +299,7 @@ export default {
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
+    '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
