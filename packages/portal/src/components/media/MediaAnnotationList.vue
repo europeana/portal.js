@@ -69,32 +69,11 @@
         return;
       }
 
-      const annotations = await (new EuropeanaMediaAnnotations({
-        id: this.annotationUri,
-        textGranularity: this.textGranularity
-      })).fetch();
+      const textGranularity = [].concat(this.textGranularity).includes('line') ? 'line' : this.textGranularity[0];
 
-      const annotationsFor = annotations.for(this.resourceUri);
-      await Promise.all(annotationsFor.map((anno) => anno.embedBodies()));
-
-      // TODO: move transformation to EuropeanaMediaAnno class?
-      this.annotations = Object.freeze(annotationsFor.map((anno) => {
-        const data = {
-          id: anno.id, // TODO: adds to size of data; use index instead?
-          value: anno.body.value,
-          lang: anno.body.language
-        };
-
-        if (anno.target.startsWith('#')) {
-          const fragment = new URLSearchParams(anno.target.slice(1));
-          const xywhSelector = fragment.get('xywh');
-          if (xywhSelector) {
-            [data.x, data.y, data.w, data.h] = xywhSelector.split(',').map((xywh) => xywh.length === 0 ? null : Number(xywh));
-          }
-        }
-
-        return data;
-      }));
+      const annos = new EuropeanaMediaAnnotations(this.annotationUri);
+      await annos.fetch({ params: { textGranularity } });
+      this.annotations = Object.freeze(await annos.for(this.resourceUri, { embed: true, reduce: true }));
     },
 
     watch: {

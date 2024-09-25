@@ -2,17 +2,6 @@ import EuropeanaMediaBase from './base.js';
 import EuropeanaMediaAnno from './anno.js';
 
 export default class EuropeanaMediaAnnotations extends EuropeanaMediaBase {
-  get params() {
-    const params = super.params;
-
-    if (this.textGranularity && this.isInEuropeanaDomain) {
-      // TODO: this needs to be made specifiable somehow
-      params.textGranularity = this.textGranularity.includes('line') ? 'line' : this.textGranularity[0];
-    }
-
-    return params;
-  }
-
   parse(data) {
     const preParsed = super.parse(data);
 
@@ -38,7 +27,17 @@ export default class EuropeanaMediaAnnotations extends EuropeanaMediaBase {
     return parsed;
   }
 
-  for(target) {
-    return this.items.map((anno) => anno.for(target)).flat().filter(Boolean);
+  async for(target, { embed, reduce } = {}) {
+    let annos = this.items.map((anno) => anno.for(target)).flat().filter(Boolean);
+
+    if (embed) {
+      await Promise.all(annos.map((anno) => anno.embedBodies()));
+    }
+
+    if (reduce) {
+      annos = annos.map((anno) => anno.reduce());
+    }
+
+    return annos;
   }
 }

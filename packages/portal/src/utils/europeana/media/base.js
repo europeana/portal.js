@@ -48,12 +48,12 @@ export default class EuropeanaMediaBase {
     }
   }
 
-  async fetch() {
+  async fetch({ params } = {}) {
     const response = await this.$axios({
       url: this.id,
       method: 'get',
       headers: this.headers,
-      params: this.params
+      params
     });
 
     const data = this.parse(this.normalize(response.data));
@@ -81,10 +81,6 @@ export default class EuropeanaMediaBase {
     return headers;
   }
 
-  get params() {
-    return {};
-  }
-
   get isInEuropeanaDomain() {
     const url = typeof (this.id) === 'string' ? new URL(this.id) : this.id;
     return url.origin.endsWith('.europeana.eu') ||
@@ -110,5 +106,13 @@ export default class EuropeanaMediaBase {
   // TODO: normalize v2/v3 language maps
   normalize(thing) {
     return normalize(thing);
+  }
+
+  getHashParam(hash, key) {
+    if (hash?.startsWith?.('#')) {
+      return new URLSearchParams(hash.slice(1)).get(key);
+    } else {
+      return undefined;
+    }
   }
 }

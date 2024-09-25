@@ -25,6 +25,7 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
     } else {
       this.body = await this.#embedBody(this.body);
     }
+    return this;
   }
 
   async #embedBody(body) {
@@ -43,8 +44,7 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
     };
 
     if (hash && fullBody.value) {
-      const fragment = new URLSearchParams(hash.slice(1));
-      const charSelector = fragment.get('char');
+      const charSelector = this.getHashParam(hash, 'char');
       if (charSelector) {
         const [position, range] = charSelector.split(',');
         fullBody.value = fullBody.value.slice(position, range);
@@ -52,5 +52,22 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
     }
 
     return fullBody;
+  }
+
+  reduce() {
+    const data = {
+      id: this.id, // TODO: adds to size of data; use index instead?
+      value: this.body.value,
+      lang: this.body.language
+    };
+
+    const xywhSelector = this.getHashParam(this.target, 'xywh');
+    if (xywhSelector) {
+      [data.x, data.y, data.w, data.h] = xywhSelector
+        .split(',')
+        .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
+    }
+
+    return data;
   }
 }
