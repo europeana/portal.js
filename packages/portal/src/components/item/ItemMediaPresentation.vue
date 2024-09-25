@@ -54,6 +54,7 @@
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
             class="sidebar-toggle button-icon-only"
+            data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
             @mouseleave="hideTooltips"
           >
@@ -81,6 +82,7 @@
 
 <script>
   import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -93,6 +95,8 @@
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
+
+    mixins: [hideTooltips],
 
     props: {
       uri: {
@@ -131,8 +135,7 @@
         annotationPage: null,
         presentation: null,
         page: 1,
-        showSidebar: null,
-        sidebarHasContent: !!this.annotationPage || !!this.uri
+        showSidebar: null
       };
     },
 
@@ -165,6 +168,10 @@
 
       thumbnails() {
         return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+      },
+
+      sidebarHasContent() {
+        return !!this.annotationPage || !!this.uri;
       }
     },
 
@@ -188,10 +195,6 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
-      },
-
-      hideTooltips() {
-        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };

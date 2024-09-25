@@ -8,6 +8,7 @@ localVue.use(BootstrapVue);
 
 const factory = ({ data, mocks, propsData } = {}) => shallowMount(PaginationNavInput, {
   localVue,
+  attachTo: document.body,
   data() {
     return {
       ...data
@@ -63,9 +64,9 @@ describe('components/generic/PaginationNavInput', () => {
         expect(prevButtonIcon.exists()).toBe(true);
       });
 
-      it('omits icon if `buttonIcons` prop is `false`', () => {
+      it('omits icon if `buttonIconClass` prop is `null`', () => {
         const wrapper = factory({
-          propsData: { buttonIcons: false }
+          propsData: { buttonIconClass: null }
         });
 
         const prevButtonIcon = wrapper.find('[data-qa="prev button icon"]');
@@ -112,9 +113,9 @@ describe('components/generic/PaginationNavInput', () => {
         expect(nextButtonIcon.exists()).toBe(true);
       });
 
-      it('omits icon if `buttonIcons` prop is `false`', () => {
+      it('omits icon if `buttonIconClass` prop is `null`', () => {
         const wrapper = factory({
-          propsData: { buttonIcons: false }
+          propsData: { buttonIconClass: null }
         });
 
         const nextButtonIcon = wrapper.find('[data-qa="next button icon"]');

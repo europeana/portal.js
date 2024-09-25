@@ -55,6 +55,7 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -64,6 +65,8 @@
       BTabs
     },
 
+    mixins: [hideTooltips],
+
     props: {
       annotationPage: {
         type: Object,
@@ -72,12 +75,6 @@
       uri: {
         type: String,
         default: null
-      }
-    },
-
-    methods: {
-      hideTooltips() {
-        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };

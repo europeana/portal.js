@@ -25,6 +25,7 @@
           :disabled="prevDisabled"
           :aria-hidden="prevDisabled"
           class="page-link"
+          data-qa="prev button link"
           @mouseleave.native="hideTooltips"
         >
           <span
@@ -97,6 +98,7 @@
 </template>
 
 <script>
+  import hideTooltips from '@/mixins/hideTooltips';
   import SmartLink from './SmartLink';
 
   export default {
@@ -105,6 +107,8 @@
     components: {
       SmartLink
     },
+
+    mixins: [hideTooltips],
 
     props: {
       /**
@@ -212,9 +216,6 @@
           query: { ...this.$route.query, page: pageNo },
           hash: this.$route.hash
         };
-      },
-      hideTooltips() {
-        this.$root.$emit('bv::hide::tooltip');
       }
     }
 
