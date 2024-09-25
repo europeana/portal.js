@@ -1,5 +1,6 @@
 <template>
-  <div
+  <SmartLink
+    :destination="link"
     class="item-media-thumbnail text-lowercase"
     data-qa="item media thumbnail"
   >
@@ -11,19 +12,22 @@
       thumbnail-size="small"
       :linkable="false"
     />
-    <span class="thumbnail-page">{{ `p. ${offset + 1}` }}</span>
+    <span class="thumbnail-page">{{ label }}</span>
     <span
       class="icon-media-type"
       :class="mediaTypeIconClass"
     />
-  </div>
+  </SmartLink>
 </template>
 
 <script>
+  import SmartLink from '../generic/SmartLink';
+
   export default {
     name: 'ItemMediaThumbnail',
 
     components: {
+      SmartLink,
       MediaCardImage: () => import('@/components/media/MediaCardImage')
     },
     props: {
@@ -46,9 +50,22 @@
     },
 
     computed: {
+      link() {
+        return {
+          path: this.$route.path,
+          query: { ...this.$route.query, page: this.page },
+          hash: this.$route.hash
+        };
+      },
+      page() {
+        return this.offset + 1;
+      },
       mediaTypeIconClass() {
         const mediaType = this.resource.edmType || this.edmType;
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
+      },
+      label() {
+        return this.$t('media.pages.indexLabel', { pageNumber: this.page });
       }
     }
   };

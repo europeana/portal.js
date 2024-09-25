@@ -1,16 +1,13 @@
-import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ItemMediaThumbnails from '@/components/item/ItemMediaThumbnails';
 // import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaThumbnails, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaThumbnails, {
   localVue,
-  attachTo: document.body,
   propsData,
   mocks: {
-    $route: { query: {} },
     $t: (key) => key,
     ...mocks
   }

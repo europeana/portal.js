@@ -64,19 +64,27 @@
             :total-results="resourceCount"
             class="pagination mx-auto"
           />
-          <span
-            class="icon-pages mr-1 show-thumbnails-toggle"
-            :class="showThumbnails ? 'active' : ''"
-            data-qa="show thumbnails button icon"
-            @click="showThumbnails = !showThumbnails"
-          />
+          <b-button
+            v-if="resourceCount >= 2"
+            v-b-tooltip.bottom
+            :title="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
+            :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
+            variant="light-flat"
+            class="pages-toggle button-icon-only"
+            :class="showPages ? 'active' : ''"
+            data-qa="show thumbnails button"
+            @click="togglePages"
+          >
+            <span class="icon icon-pages" />
+          </b-button>
         </div>
       </div>
       <ItemMediaThumbnails
-        v-if="showThumbnails"
+        v-if="resourceCount >= 2"
         :resources="thumbnailResources"
         :selected-index="page -1"
         :edm-type="edmType"
+        :show="showPages"
       />
     </div>
   </div>
@@ -135,7 +143,7 @@
         presentation: null,
         page: 1,
         showSidebar: null,
-        showThumbnails: true,
+        showPages: true,
         sidebarHasContent: !!this.annotationPage || !!this.uri
       };
     },
@@ -183,6 +191,11 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
+      },
+
+      togglePages() {
+        this.showPages = !this.showPages;
+        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };
@@ -222,12 +235,14 @@
         background-color: transparent;
         font-size: $font-size-large;
       }
-    }
-  }
-  .show-thumbnails-toggle {
-    font-size: 1.5rem;
-    &.active {
-      color: $blue;
+
+      .pages-toggle {
+        background-color: transparent;
+        font-size: $font-size-large;
+        &.active {
+          color: $blue;
+        }
+      }
     }
   }
 

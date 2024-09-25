@@ -84,14 +84,14 @@ describe('components/item/ItemMediaSwiper', () => {
       expect(wrapper.vm.swiper.update.mock.calls.length).toBe(1);
     });
   });
-  describe('updateThubmnailScroll()', () => {
+  describe('updateThumbnailScroll()', () => {
     it('calls `scroll` event on the thumbnail wrapper', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
       wrapper.vm.$refs.swiperThubmnails.scroll = sinon.spy();
 
       wrapper.vm.swiper.activeIndex = 1;
-      wrapper.vm.updateThubmnailScroll();
+      wrapper.vm.updateThumbnailScroll();
 
       expect(wrapper.vm.$refs.swiperThubmnails.scroll.called).toEqual(true);
     });
