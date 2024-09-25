@@ -13,127 +13,117 @@
       v-if="set.id"
       data-qa="user gallery page"
     >
-      <b-container
-        fluid
-      >
-        <b-row class="flex-md-row mb-4">
-          <b-col
-            cols="12"
-          >
-            <b-container class="mb-5">
-              <b-row class="mb-2">
-                <b-col>
-                  <div
-                    class="context-label"
-                  >
-                    {{ $tc('galleries.galleries', 1) }}
-                  </div>
-                  <h1
-                    :lang="langAttribute(displayTitle.code)"
-                  >
-                    {{ displayTitle.values[0] }}
-                  </h1>
-                  <p
-                    class="usergallery-description mb-3 w-75"
-                    :lang="langAttribute(displayDescription.code)"
-                  >
-                    {{ displayDescription.values[0] }}
-                  </p>
-                  <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+      <b-container class="mb-5">
+        <b-row class="mb-2">
+          <b-col>
+            <div
+              class="context-label"
+            >
+              {{ $tc('galleries.galleries', 1) }}
+            </div>
+            <h1
+              :lang="langAttribute(displayTitle.code)"
+            >
+              {{ displayTitle.values[0] }}
+            </h1>
+            <p
+              class="usergallery-description mb-3 w-75"
+              :lang="langAttribute(displayDescription.code)"
+            >
+              {{ displayDescription.values[0] }}
+            </p>
+            <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
                       This can be changed when this functionality is further developed
                   -->
-                  <div
-                    v-if="displayMetadata"
-                    class="usergallery-metadata"
-                  >
-                    <span
-                      v-if="set.creator.nickname"
-                      class="curator mb-2"
-                    >
-                      {{ $t('set.labels.curatedBy') }}
-                      <img
-                        v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
-                        :src="logoSrc"
-                        alt="Europeana"
-                        width="96"
-                        height="20"
-                        class="ml-1 logo"
-                      >
-                      <template
-                        v-else
-                      >
-                        @{{ set.creator.nickname }}
-                      </template>
-                    </span>
-                    <span
-                      v-if="set.visibility === 'private'"
-                      class="visibility mb-2"
-                    >
-                      <span class="icon-lock" />
-                      {{ $t('set.labels.private') }}
-                    </span>
-                    <span
-                      v-if="set.visibility === 'published'"
-                      class="visibility mb-2"
-                    >
-                      <span class="icon-ic-download" />
-                      {{ $t('set.labels.published') }}
-                    </span>
-                  </div>
-                </b-col>
-              </b-row>
-              <div class="d-inline-flex flex-wrap collection-buttons">
-                <template v-if="set.visibility !== 'private'">
-                  <ShareButton
-                    class="mr-2 mt-2"
-                  />
-                  <ShareSocialModal
-                    :media-url="shareMediaUrl"
-                    :share-to="[{
-                      identifier: 'weavex',
-                      name: 'WEAVEx',
-                      url: weaveUrl,
-                      tooltip: $t('set.shareTo.weavex.tooltip')
-                    }]"
-                  />
-                </template>
-                <template
-                  v-if="userCanEditSet"
+            <div
+              v-if="displayMetadata"
+              class="usergallery-metadata"
+            >
+              <span
+                v-if="set.creator.nickname"
+                class="curator mb-2"
+              >
+                {{ $t('set.labels.curatedBy') }}
+                <img
+                  v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
+                  :src="logoSrc"
+                  alt="Europeana"
+                  width="96"
+                  height="20"
+                  class="ml-1 logo"
                 >
-                  <b-button
-                    class="d-inline-flex align-items-center mr-2 mt-2"
-                    data-qa="edit set button"
-                    @click="$bvModal.show(setFormModalId)"
-                  >
-                    <span class="icon-edit pr-1" />
-                    {{ $t('actions.edit') }}
-                  </b-button>
-                  <SetFormModal
-                    :set-id="set.id"
-                    :modal-id="setFormModalId"
-                    :title="set.title"
-                    :description="set.description"
-                    :visibility="set.visibility"
-                    :user-is-owner="userIsOwner"
-                    :type="set.type"
-                  />
+                <template
+                  v-else
+                >
+                  @{{ set.creator.nickname }}
                 </template>
-                <SetPublicationRequestWidget
-                  v-if="userCanRequestSetPublication"
-                  :set="set"
-                  data-qa="set request publication button"
-                  class="mr-2 mt-2"
-                />
-                <SetPublishButton
-                  v-if="userCanPublishSet"
-                  :set-id="set.id"
-                  :visibility="set.visibility"
-                  class="mr-2 mt-2"
-                />
-              </div>
-            </b-container>
+              </span>
+              <span
+                v-if="set.visibility === 'private'"
+                class="visibility mb-2"
+              >
+                <span class="icon-lock" />
+                {{ $t('set.labels.private') }}
+              </span>
+              <span
+                v-if="set.visibility === 'published'"
+                class="visibility mb-2"
+              >
+                <span class="icon-ic-download" />
+                {{ $t('set.labels.published') }}
+              </span>
+            </div>
           </b-col>
         </b-row>
+        <div class="d-inline-flex flex-wrap collection-buttons">
+          <template v-if="set.visibility !== 'private'">
+            <ShareButton
+              class="mr-2 mt-2"
+            />
+            <ShareSocialModal
+              :media-url="shareMediaUrl"
+              :share-to="[{
+                identifier: 'weavex',
+                name: 'WEAVEx',
+                url: weaveUrl,
+                tooltip: $t('set.shareTo.weavex.tooltip')
+              }]"
+            />
+          </template>
+          <template
+            v-if="userCanEditSet"
+          >
+            <b-button
+              class="d-inline-flex align-items-center mr-2 mt-2"
+              data-qa="edit set button"
+              @click="$bvModal.show(setFormModalId)"
+            >
+              <span class="icon-edit pr-1" />
+              {{ $t('actions.edit') }}
+            </b-button>
+            <SetFormModal
+              :set-id="set.id"
+              :modal-id="setFormModalId"
+              :title="set.title"
+              :description="set.description"
+              :visibility="set.visibility"
+              :user-is-owner="userIsOwner"
+              :type="set.type"
+            />
+          </template>
+          <SetPublicationRequestWidget
+            v-if="userCanRequestSetPublication"
+            :set="set"
+            data-qa="set request publication button"
+            class="mr-2 mt-2"
+          />
+          <SetPublishButton
+            v-if="userCanPublishSet"
+            :set-id="set.id"
+            :visibility="set.visibility"
+            class="mr-2 mt-2"
+          />
+        </div>
       </b-container>
       <b-container
         class="mb-3"
