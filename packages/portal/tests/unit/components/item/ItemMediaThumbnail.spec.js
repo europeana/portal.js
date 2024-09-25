@@ -57,7 +57,7 @@ describe('components/item/ItemMediaThumbnail', () => {
 
       const pageLabel = wrapper.vm.label;
 
-      expect(pageLabel).toBe('media.pages.indexLabel{\"pageNumber\":6}');
+      expect(pageLabel).toBe('media.pages.indexLabel{"pageNumber":6}');
     });
   });
 });

@@ -18,6 +18,7 @@ const $apis = {
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
   localVue,
   attachTo: document.body,
+  directives: { 'b-tooltip': () => {} },
   propsData,
   mocks: {
     $apis,
