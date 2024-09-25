@@ -11,6 +11,7 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
       } else if (ownTarget.startsWith(`${target}#`)) {
         return new EuropeanaMediaAnno({
           ...this,
+          // reduce to just the hash for brevity
           target: ownTarget.replace(target, '')
         });
       } else {
@@ -35,10 +36,10 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
     const id = typeof body === 'string' ? body : body.id;
     const url = new URL(id);
     const hash = url.hash;
-    url.hash = ''; // so that caching works
+    url.hash = ''; // so that axios caching works
 
     const fullBodyResponse = await this.$axios.get(url.toString());
-    // clone to respect reuse of caching, given modification of value below
+    // clone to respect reuse of caching, given modification of `value` below
     const fullBody = {
       ...fullBodyResponse.data
     };
@@ -56,7 +57,7 @@ export default class EuropeanaMediaAnno extends EuropeanaMediaBase {
 
   reduce() {
     const data = {
-      id: this.id, // TODO: adds to size of data; use index instead?
+      id: this.id, // TODO: bloats size of data; how to alleviate?
       value: this.body.value,
       lang: this.body.language
     };
