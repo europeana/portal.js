@@ -10,6 +10,9 @@ import {
   IIIF_PRESENTATION_V3_CONTEXT
 } from './constants.js';
 
+// removes "@" from start of all keys
+// TODO: rm known prefixes from types, e.g. 'dctypes:', 'sc:', 'oa:'
+// TODO: normalize v2/v3 language maps
 function normalize(thing) {
   if (Array.isArray(thing)) {
     return thing.map(normalize);
@@ -57,6 +60,7 @@ export default class EuropeanaMediaBase {
     });
 
     const data = this.parse(this.normalize(response.data));
+    
     for (const key in data) {
       this[key] = data[key];
     }
@@ -82,7 +86,7 @@ export default class EuropeanaMediaBase {
   }
 
   get isInEuropeanaDomain() {
-    const url = typeof (this.id) === 'string' ? new URL(this.id) : this.id;
+    const url = this.id instanceof URL ? this.id : new URL(this.id);
     return url.origin.endsWith('.europeana.eu') ||
       url.origin.endsWith('.eanadev.org');
   }
@@ -97,13 +101,11 @@ export default class EuropeanaMediaBase {
     }
   }
 
+  // sub-classes may implement their own parsing logic
   parse(data) {
     return data;
   }
 
-  // removes "@" from start of all keys
-  // TODO: rm known prefixes from types, e.g. 'dctypes:', 'sc:', 'oa:'
-  // TODO: normalize v2/v3 language maps
   normalize(thing) {
     return normalize(thing);
   }
