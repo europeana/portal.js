@@ -10,37 +10,39 @@
         <div
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
-          <MediaImageViewer
-            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
-            :url="resource.about"
-            :item-id="itemId"
-            :width="resource.ebucoreWidth"
-            :height="resource.ebucoreHeight"
-            :format="resource.ebucoreHasMimeType"
-            :service="resource.svcsHasService"
-            :annotation="activeAnnotation"
-          />
-          <MediaPDFViewer
-            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.about"
-            :item-id="itemId"
-          />
-          <MediaAudioVisualPlayer
-            v-else-if="resource?.isPlayableMedia"
-            :url="resource.about"
-            :format="resource.ebucoreHasMimeType"
-            :item-id="itemId"
-          />
-          <code
-            v-else
-            class="h-50 w-100 p-5"
-          >
-            <pre
-              :style="{ color: 'white' }"
-            ><!--
-            -->{{ JSON.stringify(resource, null, 2) }}
-            </pre>
-          </code>
+          <client-only>
+            <MediaImageViewer
+              v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+              :url="resource.about"
+              :item-id="itemId"
+              :width="resource.ebucoreWidth"
+              :height="resource.ebucoreHeight"
+              :format="resource.ebucoreHasMimeType"
+              :service="resource.svcsHasService"
+              :annotation="activeAnnotation"
+            />
+            <MediaPDFViewer
+              v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
+              :url="resource.about"
+              :item-id="itemId"
+            />
+            <MediaAudioVisualPlayer
+              v-else-if="resource?.isPlayableMedia"
+              :url="resource.about"
+              :format="resource.ebucoreHasMimeType"
+              :item-id="itemId"
+            />
+            <code
+              v-else
+              class="h-50 w-100 p-5"
+            >
+              <pre
+                :style="{ color: 'white' }"
+              ><!--
+              -->{{ JSON.stringify(resource, null, 2) }}
+              </pre>
+            </code>
+          </client-only>
           <ItemMediaSidebar
             v-if="showSidebar"
             :annotation-uri="annotationUri"
@@ -151,6 +153,8 @@
 
       this.setPage();
     },
+
+    fetchOnServer: false,
 
     computed: {
       /**
