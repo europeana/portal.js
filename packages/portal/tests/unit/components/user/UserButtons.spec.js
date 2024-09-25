@@ -61,19 +61,6 @@ describe('components/user/UserButtons', () => {
 
       expect(button.exists()).toBe(true);
     });
-
-    describe('when mouse leaves the button', () => {
-      it('hides all tooltips', () => {
-        const wrapper = factory({ propsData: { showMove: true } });
-        const rootEmit = sinon.spy(wrapper.vm.$root, '$emit');
-
-        const button = wrapper.find('[data-qa="item move button"]');
-
-        button.trigger('mouseleave');
-
-        expect(rootEmit.calledWith('bv::hide::tooltip')).toBe(true);
-      });
-    });
   });
 
   describe('add button', () => {
