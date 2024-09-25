@@ -55,6 +55,11 @@ Example:
           <td><span class="icon icon-add-circle-outlined" /></td>
         </tr>
         <tr>
+          <td>Annotations</td>
+          <td><code>icon-annotations</code></td>
+          <td><span class="icon icon-annotations" /></td>
+        </tr>
+        <tr>
           <td>Arrow down</td>
           <td><code>icon-arrow-down</code></td>
           <td><span class="icon icon-arrow-down" /></td>
@@ -145,6 +150,16 @@ Example:
           <td><span class="icon icon-filter" /></td>
         </tr>
         <tr>
+          <td>Fullscreen</td>
+          <td><code>icon-fullscreen</code></td>
+          <td><span class="icon icon-fullscreen" /></td>
+        </tr>
+        <tr>
+          <td>Fullscreen exit</td>
+          <td><code>icon-fullscreen-exit</code></td>
+          <td><span class="icon icon-fullscreen-exit" /></td>
+        </tr>
+        <tr>
           <td>Globe</td>
           <td><code>icon-globe</code></td>
           <td><span class="icon icon-globe" /></td>
@@ -200,6 +215,11 @@ Example:
           <td><span class="icon icon-institution" /></td>
         </tr>
         <tr>
+          <td>Kebab</td>
+          <td><code>icon-kebab</code></td>
+          <td><span class="icon icon-kebab" /></td>
+        </tr>
+        <tr>
           <td>Language</td>
           <td><code>icon-language</code></td>
           <td><span class="icon icon-language" /></td>
@@ -250,6 +270,11 @@ Example:
           <td><span class="icon icon-original" /></td>
         </tr>
         <tr>
+          <td>Pages</td>
+          <td><code>icon-pages</code></td>
+          <td><span class="icon icon-pages" /></td>
+        </tr>
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>
@@ -280,6 +305,11 @@ Example:
           <td><span class="icon icon-remove-circle-outlined" /></td>
         </tr>
         <tr>
+          <td>Reset</td>
+          <td><code>icon-reset</code></td>
+          <td><span class="icon icon-reset" /></td>
+        </tr>
+        <tr>
           <td>School</td>
           <td><code>icon-school</code></td>
           <td><span class="icon icon-school" /></td>
@@ -288,6 +318,11 @@ Example:
           <td>Search</td>
           <td><code>icon-search</code></td>
           <td><span class="icon icon-search" /></td>
+        </tr>
+        <tr>
+          <td>Search in text</td>
+          <td><code>icon-search-in-text</code></td>
+          <td><span class="icon icon-search-in-text" /></td>
         </tr>
         <tr>
           <td>Settings</td>
@@ -383,6 +418,16 @@ Example:
           <td>X</td>
           <td><code>icon-x</code></td>
           <td><span class="icon icon-x" /></td>
+        </tr>
+        <tr>
+          <td>Zoom in</td>
+          <td><code>icon-zoom-in</code></td>
+          <td><span class="icon icon-zoom-in" /></td>
+        </tr>
+        <tr>
+          <td>Zoom out</td>
+          <td><code>icon-zoom-out</code></td>
+          <td><span class="icon icon-zoom-out" /></td>
         </tr>
         <!-- Template for additional icons follows.
              Be sure to insert into table in alphabetical order. -->

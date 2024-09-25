@@ -32,6 +32,7 @@ To add new icons:
 
 - Extract this config file into `icomoon-config.json`
 
+- Consider updating the style guide with new icons
 
 # License
 

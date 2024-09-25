@@ -10,6 +10,11 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
   attachTo: document.body,
   propsData,
   mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
+      }
+    },
     $fetchState: {},
     $t: (key) => key,
     ...mocks

@@ -83,13 +83,26 @@ export default class WebResource extends Base {
 
   // TODO: refactor as a getter, not requiring passing Nuxt context,
   //       or move out into Nuxt mixin?
+  // TODO: use IIIF Image service if present
   thumbnails(context) {
     const uri = this.thumbnail || this.about;
 
-    return {
-      small: context.$apis.thumbnail.media(uri, { size: 200 }),
-      large: context.$apis.thumbnail.media(uri, { size: 400 })
-    };
+    const smallWidth = 200;
+    const largeWidth = 400;
+
+    if (this.svcsHasService) {
+      // TODO: assess impact of this outside of new ItemMediaPresentation component
+      const serviceId = this.svcsHasService.id || this.svcsHasService.about || this.svcsHasService;
+      return {
+        large: `${serviceId}/full/${largeWidth},/0/default.jpg`,
+        small: `${serviceId}/full/${smallWidth},/0/default.jpg`
+      };
+    } else {
+      return {
+        small: context.$apis.thumbnail.media(uri, { size: smallWidth }),
+        large: context.$apis.thumbnail.media(uri, { size: largeWidth })
+      };
+    }
   }
 
   get codecName() {

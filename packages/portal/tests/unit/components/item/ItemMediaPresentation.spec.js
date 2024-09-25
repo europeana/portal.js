@@ -6,17 +6,24 @@ import nock from 'nock';
 
 const localVue = createLocalVue();
 
+const $apis = {
+  record: {
+    mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
+  },
+  thumbnail: {
+    media: (url) => `thumbnail api ${url}`
+  }
+};
+
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
   localVue,
   attachTo: document.body,
   propsData,
   mocks: {
-    $apis: {
-      record: {
-        mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
-      },
-      thumbnail: {
-        media: (url) => `thumbnail api ${url}`
+    $apis,
+    $nuxt: {
+      context: {
+        $apis
       }
     },
     $route: { query: {} },
@@ -92,36 +99,28 @@ describe('components/item/ItemMediaPresentation', () => {
         uri
       };
 
-      it('fetches it and stores the parsed data to `manifest`', async() => {
+      it('fetches it and stores the parsed data to `presentation`', async() => {
         const wrapper = factory({ propsData });
         nock(origin).get(path).reply(200, responseData);
 
         await wrapper.vm.fetch();
 
         expect(nock.isDone()).toBe(true);
-        expect(wrapper.vm.manifest).toEqual({
+        expect(wrapper.vm.presentation).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
-          service: [
+          search: [
             {
               context: 'http://iiif.io/api/search/1/context.json',
               id: 'https://iiif.europeana.eu/presentation/123/abc/search',
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          canvases: [
+          resources: [
             {
-              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-              content: {
-                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                format: 'image/jpeg',
-                service: {
-                  id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
-                }
-              },
-              thumbnail: {
-                format: 'image/jpeg',
-                id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg/full/200,/0/default.jpg',
-                width: 200
+              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+              ebucoreHasMimeType: 'image/jpeg',
+              svcsHasService: {
+                id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
               }
             }
           ]
@@ -136,35 +135,18 @@ describe('components/item/ItemMediaPresentation', () => {
           about: 'https://example.org/video.mp4',
           ebucoreHasMimeType: 'video/mp4',
           ebucoreHeight: 576,
-          ebucoreWidth: 720,
-          isPlayableMedia: true
+          ebucoreWidth: 720
         }
       ];
       const propsData = { itemId, webResources };
 
-      it('converts and stores them to `manifest`', async() => {
+      it('stores them to `presentation`', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.manifest).toEqual({
-          canvases: [
-            {
-              content: {
-                id: 'https://example.org/video.mp4',
-                url: 'mediaProxyUrl https://example.org/video.mp4',
-                format: 'video/mp4',
-                height: 576,
-                width: 720,
-                playable: true
-              },
-              thumbnail: {
-                format: 'image/jpeg',
-                id: 'thumbnail api https://example.org/video.mp4',
-                width: 200
-              }
-            }
-          ]
+        expect(wrapper.vm.presentation).toEqual({
+          resources: webResources
         });
       });
     });
