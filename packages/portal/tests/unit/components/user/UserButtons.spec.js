@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import UserButtons from '@/components/user/UserButtons';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
