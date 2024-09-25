@@ -26,11 +26,16 @@
         <b-tab
           v-if="!!uri"
           data-qa="item media sidebar links"
+          button-id="item-media-sidebar-links"
+          @mouseleave.native="hideTooltips"
         >
+          <b-tooltip
+            target="item-media-sidebar-links"
+            :title="$t('media.sidebar.links')"
+            boundary=".iiif-viewer-sidebar"
+          />
           <template #title>
             <span
-              v-b-tooltip.bottom
-              :title="$t('media.sidebar.links')"
               :aria-label="$t('media.sidebar.links')"
               class="icon icon-link"
             />
@@ -67,6 +72,12 @@
       uri: {
         type: String,
         default: null
+      }
+    },
+
+    methods: {
+      hideTooltips() {
+        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };
