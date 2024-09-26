@@ -4,7 +4,8 @@ import TextualBody from './TextualBody.js';
 export default class EuropeanaMediaAnnotation extends Base {
   targetFor(id) {
     return [].concat(this.target).filter((target) => {
-      return target === id || target.startsWith(`${id}#`);
+      const targetId = target?.id || target;
+      return targetId === id || targetId.startsWith(`${id}#`);
     });
   }
 

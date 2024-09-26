@@ -40,7 +40,7 @@ export default class EuropeanaMediaBase {
     if (typeof data === 'string') {
       this.id = data;
     } else {
-      const parsed = this.parse(this.normalize(data));
+      const parsed = this.parse(data);
       for (const key in parsed) {
         // preserve id, e.g. for hash
         this[key] = parsed[key];
@@ -58,7 +58,7 @@ export default class EuropeanaMediaBase {
 
     this.#fetched = true;
 
-    const data = this.parse(this.normalize(response.data));
+    const data = this.parse(response.data);
 
     for (const key in data) {
       // TODO: store in one data property instead of multiple arbitrary top-level
@@ -110,7 +110,7 @@ export default class EuropeanaMediaBase {
 
   // sub-classes may implement their own parsing logic
   parse(data) {
-    return data;
+    return this.normalize(data);
   }
 
   normalize(thing) {

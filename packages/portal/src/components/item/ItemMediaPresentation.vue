@@ -46,9 +46,9 @@
           <ItemMediaSidebar
             v-if="showSidebar"
             :annotation-uri="annotationUri"
+            :annotation-target-id="annotationTargetId"
             :annotation-text-granularity="annotationTextGranularity"
             :manifest-uri="uri"
-            :resource-uri="resource?.about"
             @selectAnno="onSelectAnno"
           />
         </div>
@@ -163,6 +163,12 @@
        */
       annotationCollection() {
         return this.canvas?.annotations?.[0];
+      },
+
+      annotationTargetId() {
+        // account for Europeana fulltext annotations incorrectly targeting IIIF
+        // images instead of canvases
+        return this.presentation.isInEuropeanaDomain ? this.resource.about : this.canvas.id;
       },
 
       annotationUri() {

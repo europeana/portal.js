@@ -41,16 +41,16 @@
     },
 
     props: {
-      annotationUri: {
-        type: String,
-        default: null
-      },
-      resourceUri: {
+      targetId: {
         type: String,
         default: null
       },
       textGranularity: {
         type: Array, String,
+        default: null
+      },
+      uri: {
+        type: String,
         default: null
       }
     },
@@ -65,20 +65,25 @@
     // TODO: filter by motivation(s)
     async fetch() {
       this.activeAnnotation = null;
-      if (!this.annotationUri || !this.resourceUri) {
+      if (!this.uri || !this.targetId) {
         return;
       }
 
-      const textGranularity = [].concat(this.textGranularity).includes('line') ? 'line' : this.textGranularity[0];
+      let textGranularity;
+      if (Array.isArray(this.textGranularity)) {
+        textGranularity = this.textGranularity.includes('line') ? 'line' : this.textGranularity[0];
+      } else {
+        textGranularity = this.textGranularity;
+      }
 
-      const list = new EuropeanaMediaAnnotationList(this.annotationUri);
+      const list = new EuropeanaMediaAnnotationList(this.uri);
       await list.fetch({ params: { textGranularity } });
-      const annos = list.annotationsForTarget(this.resourceUri);
+      const annos = list.annotationsForTarget(this.targetId);
 
       // NOTE: this may result in duplicate network requests for the same body resource
       //       if there are multiple external annotations with the same resource URL,
       //       e.g. with just a different hash char selector.
-      //       we use an axios caching interceptor to alleviate this.
+      //       we use an axios caching interceptor to avoid this.
       await Promise.all(annos.map((anno) => anno.embedBodies()));
 
       for (const anno of annos) {
@@ -91,7 +96,7 @@
     },
 
     watch: {
-      annotationUri: '$fetch'
+      uri: '$fetch'
     },
 
     methods: {

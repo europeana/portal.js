@@ -17,8 +17,8 @@
             <span class="icon icon-text-bold" />
           </template>
           <MediaAnnotationList
-            :annotation-uri="annotationUri"
-            :resource-uri="resourceUri"
+            :uri="annotationUri"
+            :target-id="annotationTargetId"
             :text-granularity="annotationTextGranularity"
             class="iiif-viewer-sidebar-panel"
             @selectAnno="onSelectAnno"
@@ -62,6 +62,10 @@
     },
 
     props: {
+      annotationTargetId: {
+        type: String,
+        default: null
+      },
       annotationTextGranularity: {
         type: Array, String,
         default: null
@@ -71,10 +75,6 @@
         default: null
       },
       manifestUri: {
-        type: String,
-        default: null
-      },
-      resourceUri: {
         type: String,
         default: null
       }

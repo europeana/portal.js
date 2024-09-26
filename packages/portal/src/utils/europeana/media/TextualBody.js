@@ -4,20 +4,26 @@ export default class EuropeanaMediaTextualBody extends EuropeanaMediaBase {
   parse(data) {
     data = super.parse(data);
 
-    // preserve original id, e.g. w/ hash
-    data.id = this.id || data.id;
+    const parsed = {
+      // preserve original id, e.g. w/ hash
+      id: this.id || data.id,
+      value: data.value || data.chars,
+      language: data.language
+    };
 
-    const url = new URL(data.id);
+    if (parsed.id) {
+      const url = new URL(parsed.id);
 
-    if (url.hash && data.value) {
-      const charSelector = this.getHashParam(url.hash, 'char');
-      if (charSelector) {
-        const [position, range] = charSelector.split(',');
-        data.value = data.value.slice(position, range);
+      if (url.hash && parsed.value) {
+        const charSelector = this.getHashParam(url.hash, 'char');
+        if (charSelector) {
+          const [position, range] = charSelector.split(',');
+          parsed.value = parsed.value.slice(position, range);
+        }
       }
     }
 
-    return data;
+    return parsed;
   }
 
   async embed() {

@@ -2,10 +2,9 @@ import EuropeanaMediaBase from './Base.js';
 import EuropeanaMediaAnnotation from './Annotation.js';
 
 export default class EuropeanaMediaAnnotationList extends EuropeanaMediaBase {
+  // TODO: this will result in some superfluous undefined values; avoid that
   parse(data) {
     data = super.parse(data);
-
-    const context = [].concat(data?.context || []);
 
     const parsed = {
       id: data.id,
@@ -13,15 +12,20 @@ export default class EuropeanaMediaAnnotationList extends EuropeanaMediaBase {
       textGranularity: data.textGranularity
     };
 
-    const version = EuropeanaMediaBase.iiifPresentationApiVersion(context);
-    if (version === 3) {
+    if (data.type === 'AnnotationPage') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=3
       parsed.items = data.items.map((item) => new EuropeanaMediaAnnotation(item));
-    } else if (version === 2) {
+    } else if (data.type === 'sc:AnnotationList') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=2
-      // TODO: convert to body/target as w/ v3
+      parsed.items = data.resources.map((resource) => new EuropeanaMediaAnnotation({
+        id: resource.id,
+        motivation: resource.motivation,
+        textGranularity: resource.textGranularity,
+        body: resource.resource,
+        target: resource.on
+      }));
     } else {
-      // TODO: throw version unknown error?
+      parsed.items = [];
     }
 
     return parsed;

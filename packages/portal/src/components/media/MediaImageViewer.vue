@@ -119,10 +119,11 @@
           return;
         }
 
-        // TODO: move to computed property `annotationXywh`?
+        // TODO: move to computed property `annotationXywh`? or onto Annotation class?
         let [x, y, w, h] = this.olExtent;
         const target = this.annotation.targetFor(this.url)[0];
-        const targetHash = new URL(target).hash;
+        const targetId = target?.id || target;
+        const targetHash = new URL(targetId).hash;
         const xywhSelector = this.annotation.getHashParam(targetHash, 'xywh');
         if (xywhSelector) {
           [x, y, w, h] = xywhSelector
