@@ -8,6 +8,7 @@
         class="iiif-viewer-inner-wrapper h-100 d-flex flex-column overflow-hidden"
       >
         <div
+          v-if="!$fetchState.pending"
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
           <client-only>
