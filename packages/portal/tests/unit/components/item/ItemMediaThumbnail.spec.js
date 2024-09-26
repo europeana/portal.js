@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ItemMediaThumbnail from '@/components/item/ItemMediaThumbnail';
-// import sinon from 'sinon';
 
 const localVue = createLocalVue();
 

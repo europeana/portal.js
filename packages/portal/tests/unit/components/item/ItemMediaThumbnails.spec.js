@@ -1,15 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ItemMediaThumbnails from '@/components/item/ItemMediaThumbnails';
-// import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaThumbnails, {
+const factory = ({ propsData = {} } = {}) => shallowMount(ItemMediaThumbnails, {
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key,
-    ...mocks
+    $t: (key) => key
   }
 });
 
