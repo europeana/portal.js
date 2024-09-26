@@ -1,27 +1,28 @@
 <template>
-  <div
-    class="d-flex flex-column position-relative"
+  <transition
+    appear
+    name="fade"
   >
-    <ol
-      ref="mediaThumbnails"
-      class="media-thumbnails d-flex flex-row flex-lg-column"
-      :class="{ 'show': show }"
-    >
-      <li
-        v-for="(resource, index) in resources"
-        :key="index"
+    <div>
+      <ol
+        ref="mediaThumbnails"
+        class="media-thumbnails d-flex flex-row flex-lg-column"
       >
-        <ItemMediaThumbnail
-          :offset="index"
-          class="d-flex-inline mr-2"
-          :class="index === selectedIndex ? 'selected' : ''"
-          :resource="resource"
-          :edm-type="edmType"
-          alt=""
-        />
-      </li>
-    </ol>
-  </div>
+        <li
+          v-for="(resource, index) in resources"
+          :key="index"
+        >
+          <ItemMediaThumbnail
+            :offset="index"
+            class="d-flex-inline mr-2"
+            :class="{ 'selected': index === selectedIndex }"
+            :resource="resource"
+            :edm-type="edmType"
+          />
+        </li>
+      </ol>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -45,10 +46,6 @@
       selectedIndex: {
         type: Number,
         required: true
-      },
-      show: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -87,36 +84,26 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/transitions';
 
   .media-thumbnails {
-    padding: 0 1rem;
+    padding: 1rem;
     flex: 1 1 auto;
     background-color: $white;
     overflow-x: scroll;
     scrollbar-width: thin;
-    height: 0;
+    height: 100%;
     transition: $standard-transition;
 
     li {
       list-style-type: none;
     }
 
-    &.show {
-      transition: $standard-transition;
-      padding: 1rem;
-      height: auto;
-    }
-
     @media (min-width: $bp-large) {
       overflow-x: hidden;
       overflow-y: auto;
-      width: 0;
-      height: auto;
-      padding: 1rem 0;
-
-      &.show {
-        width: auto;
-      }
+      padding: 1rem;
+      width: 13rem;
     }
   }
 </style>

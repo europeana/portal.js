@@ -54,6 +54,7 @@
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
             class="sidebar-toggle button-icon-only"
+            :class="{ 'active': showSidebar }"
             data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
             @mouseleave="hideTooltips"
@@ -71,14 +72,14 @@
           />
           <b-button
             v-if="resourceCount >= 2"
-            v-b-tooltip.bottom
-            :title="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
+            v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             variant="light-flat"
             class="pages-toggle button-icon-only ml-3"
-            :class="showPages ? 'active' : ''"
+            :class="{ 'active': showPages }"
             data-qa="show thumbnails button"
-            @click="togglePages"
+            @click="showPages = !showPages"
+            @mouseleave="hideTooltips"
           >
             <span class="icon icon-pages" />
           </b-button>
@@ -86,10 +87,10 @@
       </div>
       <ItemMediaThumbnails
         v-if="resourceCount >= 2"
+        v-show="showPages"
         :resources="thumbnailResources"
         :selected-index="page -1"
         :edm-type="edmType"
-        :show="showPages"
       />
     </div>
   </div>
@@ -202,11 +203,6 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
-      },
-
-      togglePages() {
-        this.showPages = !this.showPages;
-        this.hideTooltips();
       }
     }
   };
@@ -242,14 +238,11 @@
       right: 0;
       padding: 0.875rem 1rem;
 
-      .sidebar-toggle {
-        background-color: transparent;
-        font-size: $font-size-large;
-      }
-
+      .sidebar-toggle,
       .pages-toggle {
         background-color: transparent;
         font-size: $font-size-large;
+
         &.active {
           color: $blue;
         }

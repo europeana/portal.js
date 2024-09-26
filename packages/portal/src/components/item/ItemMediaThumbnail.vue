@@ -1,7 +1,7 @@
 <template>
   <SmartLink
     :destination="link"
-    class="item-media-thumbnail text-lowercase"
+    class="item-media-thumbnail text-lowercase text-decoration-none"
     data-qa="item media thumbnail"
   >
     <MediaCardImage
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import SmartLink from '../generic/SmartLink';
+  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'ItemMediaThumbnail',
@@ -135,7 +135,7 @@
     }
 
     &.selected {
-      border: 2px solid $blue;
+      outline: 2px solid $blue;
     }
 
     &::after {
