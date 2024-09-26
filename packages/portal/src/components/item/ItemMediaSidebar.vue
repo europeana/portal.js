@@ -27,6 +27,7 @@
           v-if="!!uri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links') }"
           @mouseleave.native="hideTooltips"
         >
           <b-tooltip
@@ -36,7 +37,6 @@
           />
           <template #title>
             <span
-              :aria-label="$t('media.sidebar.links')"
               class="icon icon-link"
             />
           </template>
