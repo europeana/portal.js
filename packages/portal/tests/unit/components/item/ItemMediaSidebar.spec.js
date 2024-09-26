@@ -5,11 +5,12 @@ const localVue = createLocalVue();
 
 const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   localVue,
+  attachTo: document.body,
   propsData,
   mocks: {
     $t: (key) => key
   },
-  stubs: ['b-link']
+  stubs: ['b-link', 'b-tooltip']
 });
 
 describe('components/item/ItemMediaSidebar', () => {

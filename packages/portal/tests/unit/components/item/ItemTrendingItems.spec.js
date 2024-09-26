@@ -31,6 +31,7 @@ const fixtures = {
 const factory = ({ mocks = {} } = {}) => shallowMountNuxt(ItemTrendingItems, {
   localVue,
   mocks: {
+    $t: (key) => key,
     $apis: {
       record: {
         find: sinon.stub().resolves(fixtures.recordApiFindResponse),
