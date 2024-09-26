@@ -59,19 +59,24 @@
           />
           <b-button
             v-if="sidebarHasContent"
-            v-b-tooltip.bottom
-            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
             class="sidebar-toggle button-icon-only"
+            data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
+            @mouseleave="hideTooltips"
           >
             <span class="icon icon-kebab" />
           </b-button>
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
-            class="pagination mx-auto"
+            :button-text="false"
+            :page-input="false"
+            :button-icon-class="'icon-arrow-outline'"
+            :progress="true"
+            class="pagination ml-auto"
           />
         </div>
       </div>
@@ -86,6 +91,7 @@
 
 <script>
   import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -98,6 +104,8 @@
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
+
+    mixins: [hideTooltips],
 
     props: {
       uri: {
@@ -136,8 +144,7 @@
         annotationPage: null,
         presentation: null,
         page: 1,
-        showSidebar: null,
-        sidebarHasContent: !!this.annotationPage || !!this.uri
+        showSidebar: null
       };
     },
 
@@ -170,6 +177,10 @@
 
       thumbnails() {
         return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+      },
+
+      sidebarHasContent() {
+        return !!this.annotationPage || !!this.uri;
       }
     },
 
