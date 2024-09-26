@@ -106,7 +106,6 @@
       />
     </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -254,6 +253,7 @@
 
     @media (max-width: ($bp-large - 1px)) {
       max-height: calc($swiper-height + 12.375rem);
+      height: auto;
     }
   }
 
