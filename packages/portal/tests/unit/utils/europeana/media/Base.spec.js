@@ -1,8 +1,8 @@
 import nock from 'nock';
 
-import EuropeanaMediaBase from '@/utils/europeana/media/base.js';
+import EuropeanaMediaBase from '@/utils/europeana/media/Base.js';
 
-describe('@/utils/europeana/media/base', () => {
+describe('@/utils/europeana/media/Base', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
