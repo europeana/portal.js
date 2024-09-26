@@ -40,7 +40,11 @@
             </pre>
           </code>
           <ItemMediaSidebar
-            v-if="showSidebar"
+            v-if="sidebarHasContent"
+            v-show="showSidebar"
+            id="item-media-sidebar"
+            ref="sidebar"
+            tabindex="0"
             :annotation-page="annotationPage"
             :uri="uri"
           />
@@ -56,7 +60,9 @@
             class="sidebar-toggle button-icon-only"
             :class="{ 'active': showSidebar }"
             data-qa="iiif viewer toolbar sidebar toggle"
-            @click="showSidebar = !showSidebar"
+            aria-controls="item-media-sidebar"
+            :aria-expanded="showSidebar ? 'true' : 'false'"
+            @click="toggleSidebar"
             @mouseleave="hideTooltips"
           >
             <span class="icon icon-kebab" />
@@ -78,6 +84,8 @@
             class="pages-toggle button-icon-only ml-3"
             :class="{ 'active': showPages }"
             data-qa="show thumbnails button"
+            aria-controls="item-media-thumbnails"
+            :aria-expanded="showPages ? 'true' : 'false'"
             @click="showPages = !showPages"
             @mouseleave="hideTooltips"
           >
@@ -88,6 +96,7 @@
       <ItemMediaThumbnails
         v-if="resourceCount >= 2"
         v-show="showPages"
+        id="item-media-thumbnails"
         :resources="thumbnailResources"
         :selected-index="page -1"
         :edm-type="edmType"
@@ -203,6 +212,15 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
+      },
+      async toggleSidebar() {
+        this.showSidebar = !this.showSidebar;
+
+        if (this.showSidebar) {
+          this.$nextTick(() => {
+            this.$refs.sidebar?.$el.focus();
+          });
+        }
       }
     }
   };
