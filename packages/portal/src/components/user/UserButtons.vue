@@ -53,6 +53,7 @@
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
   import ItemPinButton from '@/components/item/ItemPinButton';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'UserButtons',
@@ -63,6 +64,8 @@
       ItemPinButton,
       ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
     },
+
+    mixins: [hideTooltips],
 
     props: {
       /**
@@ -111,12 +114,6 @@
       buttonText: {
         type: Boolean,
         default: false
-      }
-    },
-
-    methods: {
-      hideTooltips() {
-        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };
