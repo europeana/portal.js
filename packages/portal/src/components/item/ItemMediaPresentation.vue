@@ -7,8 +7,17 @@
         class="iiif-viewer-inner-wrapper h-100 w-100 d-flex flex-column overflow-hidden"
       >
         <div
-          class="h-100 d-flex flex-row-reverse overflow-auto"
+          class="h-100 d-flex overflow-auto"
         >
+          <ItemMediaSidebar
+            v-if="sidebarHasContent"
+            v-show="showSidebar"
+            id="item-media-sidebar"
+            ref="sidebar"
+            tabindex="0"
+            :annotation-page="annotationPage"
+            :uri="uri"
+          />
           <MediaImageViewer
             v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
             :url="resource.about"
@@ -39,14 +48,15 @@
             -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
-          <ItemMediaSidebar
-            v-if="sidebarHasContent"
-            v-show="showSidebar"
-            id="item-media-sidebar"
-            ref="sidebar"
+          <ItemMediaThumbnails
+            v-if="resourceCount >= 2"
+            v-show="showPages"
+            id="item-media-thumbnails"
+            ref="itemPages"
             tabindex="0"
-            :annotation-page="annotationPage"
-            :uri="uri"
+            :resources="thumbnailResources"
+            :selected-index="page -1"
+            :edm-type="edmType"
           />
         </div>
         <div
@@ -86,21 +96,13 @@
             data-qa="show thumbnails button"
             aria-controls="item-media-thumbnails"
             :aria-expanded="showPages ? 'true' : 'false'"
-            @click="showPages = !showPages"
+            @click="togglePages"
             @mouseleave="hideTooltips"
           >
             <span class="icon icon-pages" />
           </b-button>
         </div>
       </div>
-      <ItemMediaThumbnails
-        v-if="resourceCount >= 2"
-        v-show="showPages"
-        id="item-media-thumbnails"
-        :resources="thumbnailResources"
-        :selected-index="page -1"
-        :edm-type="edmType"
-      />
     </div>
   </div>
 </template>
@@ -213,12 +215,23 @@
           this.$emit('select', this.resource?.about);
         });
       },
-      async toggleSidebar() {
+
+      toggleSidebar() {
         this.showSidebar = !this.showSidebar;
 
         if (this.showSidebar) {
           this.$nextTick(() => {
             this.$refs.sidebar?.$el.focus();
+          });
+        }
+      },
+
+      togglePages() {
+        this.showPages = !this.showPages;
+
+        if (this.showPages) {
+          this.$nextTick(() => {
+            this.$refs.itemPages?.$el.focus();
           });
         }
       }

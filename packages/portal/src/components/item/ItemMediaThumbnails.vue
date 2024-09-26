@@ -6,7 +6,7 @@
     <div>
       <ol
         ref="mediaThumbnails"
-        class="media-thumbnails d-flex flex-row flex-lg-column"
+        class="media-thumbnails d-flex flex-row flex-lg-column mb-0"
       >
         <li
           v-for="(resource, index) in resources"
