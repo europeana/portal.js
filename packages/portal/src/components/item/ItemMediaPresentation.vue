@@ -17,6 +17,7 @@
             tabindex="0"
             :annotation-page="annotationPage"
             :uri="uri"
+            @keydown.escape.native="showSidebar = false"
           />
           <MediaImageViewer
             v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
@@ -57,6 +58,7 @@
             :resources="thumbnailResources"
             :selected-index="page -1"
             :edm-type="edmType"
+            @keydown.escape.native="showPages = false"
           />
         </div>
         <div
