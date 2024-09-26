@@ -101,18 +101,18 @@
           const zoomControls = document.getElementById('zoomControls');
           const itemHero = document.getElementsByClassName('item-hero')[0];
 
-          const fullscreenLabel = document.createElement('span');
-          fullscreenLabel.className = 'icon icon-fullscreen';
-          const fullscreenLabelActive = document.createElement('span');
-          fullscreenLabelActive.className = 'icon icon-fullscreen-exit';
+          const fullScreenLabel = document.createElement('span');
+          fullScreenLabel.className = 'icon icon-fullscreen';
+          const fullScreenLabelActive = document.createElement('span');
+          fullScreenLabelActive.className = 'icon icon-fullscreen-exit';
 
           const controls = new Collection([
             // Link toolbar controls
             new FullScreenControl({
               target: fullScreenButton,
               source: itemHero,
-              label: fullscreenLabel,
-              labelActive: fullscreenLabelActive,
+              label: fullScreenLabel,
+              labelActive: fullScreenLabelActive,
               tipLabel: this.$t('media.controls.fullscreen')
             }),
             new ZoomControlsControl({
