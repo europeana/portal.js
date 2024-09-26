@@ -1,4 +1,4 @@
-import EuropeanaMediaBase from './base.js';
+import EuropeanaMediaBase from './Base.js';
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
 export default class EuropeanaMediaPresentation extends EuropeanaMediaBase {

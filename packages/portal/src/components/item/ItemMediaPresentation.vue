@@ -83,7 +83,7 @@
 </template>
 
 <script>
-  import EuropeanaMediaPresentation from '@/utils/europeana/media/presentation.js';
+  import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
 
   export default {
     name: 'ItemMediaPresentation',

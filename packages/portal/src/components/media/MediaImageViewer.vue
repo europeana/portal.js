@@ -64,6 +64,7 @@
       return {
         // fullsize: true,
         info: null,
+        // TODO: reconsider if all these should be on data props
         olAnnotationFeature: null,
         olAnnotationSource: null,
         olAnnotationLayer: null,
@@ -118,12 +119,18 @@
           return;
         }
 
-        const extent = [
-          this.annotation.x,
-          this.annotation.y,
-          this.annotation.x + this.annotation.w,
-          this.annotation.y + this.annotation.h
-        ];
+        // TODO: move to computed property `annotationXywh`?
+        let [x, y, w, h] = this.olExtent;
+        const target = this.annotation.targetFor(this.url)[0];
+        const targetHash = new URL(target).hash;
+        const xywhSelector = this.annotation.getHashParam(targetHash, 'xywh');
+        if (xywhSelector) {
+          [x, y, w, h] = xywhSelector
+            .split(',')
+            .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
+        }
+
+        const extent = [x, y, x + w, y + h];
         const poly = fromExtent(extent);
 
         // Vector Layer co-ordinates start bottom left, not top left, so transform

@@ -26,6 +26,7 @@ function normalize(thing) {
 
 export default class EuropeanaMediaBase {
   id;
+  #fetched = false;
   static $axios;
 
   static get axios() {
@@ -41,6 +42,7 @@ export default class EuropeanaMediaBase {
     } else {
       const parsed = this.parse(this.normalize(data));
       for (const key in parsed) {
+        // preserve id, e.g. for hash
         this[key] = parsed[key];
       }
     }
@@ -48,18 +50,28 @@ export default class EuropeanaMediaBase {
 
   async fetch({ params } = {}) {
     const response = await this.constructor.axios({
-      url: this.id,
+      url: this.axiosUrl,
       method: 'get',
       headers: this.headers,
       params
     });
 
+    this.#fetched = true;
+
     const data = this.parse(this.normalize(response.data));
 
     for (const key in data) {
+      // TODO: store in one data property instead of multiple arbitrary top-level
+      //       properties, to avoid naming clashes with class getters etc?
       this[key] = data[key];
     }
     return this;
+  }
+
+  get axiosUrl() {
+    const url = new URL(this.id);
+    url.hash = ''; // so that axios caching works
+    return url.toString();
   }
 
   get headers() {

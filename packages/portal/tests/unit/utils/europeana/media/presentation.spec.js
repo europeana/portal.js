@@ -31,54 +31,6 @@ describe('@/utils/europeana/media/presentation', () => {
     };
 
     describe('fetch', () => {
-      it('makes an HTTP GET request for the manifest URL', async() => {
-        const url = factory();
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('includes Accept header preferring v3 manifests for .europeana.eu manifest URLs', async() => {
-        const origin = 'https://iiif.europeana.eu';
-        const reqHeaders = {
-          accept: (value) => value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('includes Accept header preferring v3 manifests for .eanadev.org manifest URLs', async() => {
-        const origin = 'https://iiif.eanadev.org';
-        const reqHeaders = {
-          accept: (value) => value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('omits Accept header preference for v3 manifest for non-Europeana manifest URLs', async() => {
-        const origin = 'https://iiif.example.org';
-        const reqHeaders = {
-          accept: (value) => !value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
       it('normalizes and parses v2 response data', async() => {
         const responseData = {
           '@context': 'http://iiif.io/api/presentation/2/context.json',

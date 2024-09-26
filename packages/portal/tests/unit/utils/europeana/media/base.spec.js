@@ -101,7 +101,7 @@ describe('@/utils/europeana/media/base', () => {
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
           context: 'http://iiif.io/api/presentation/2/context.json',
           type: 'sc:Manifest',
-          search: [
+          service: [
             {
               context: 'http://iiif.io/api/search/1/context.json',
               id: 'https://iiif.europeana.eu/presentation/123/abc/search',

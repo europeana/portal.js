@@ -20,17 +20,17 @@
         :key="index"
         :action="true"
         :active="activeAnnotation === anno.id"
-        :lang="anno.lang"
+        :lang="anno.body.language"
         @click="selectAnno(anno)"
       >
-        {{ anno.value }}
+        {{ anno.body.value }}
       </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
-  import EuropeanaMediaAnnotations from '@/utils/europeana/media/annotations.js';
+  import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -71,9 +71,23 @@
 
       const textGranularity = [].concat(this.textGranularity).includes('line') ? 'line' : this.textGranularity[0];
 
-      const annos = new EuropeanaMediaAnnotations(this.annotationUri);
-      await annos.fetch({ params: { textGranularity } });
-      this.annotations = Object.freeze(await annos.for(this.resourceUri, { embed: true, reduce: true }));
+      const list = new EuropeanaMediaAnnotationList(this.annotationUri);
+      await list.fetch({ params: { textGranularity } });
+      const annos = list.annotationsForTarget(this.resourceUri);
+
+      // NOTE: this may result in duplicate network requests for the same body resource
+      //       if there are multiple external annotations with the same resource URL,
+      //       e.g. with just a different hash char selector.
+      //       we use an axios caching interceptor to alleviate this.
+      await Promise.all(annos.map((anno) => anno.embedBodies()));
+
+      for (const anno of annos) {
+        if (Array.isArray(anno.body)) {
+          anno.body = anno.body[0];
+        }
+      }
+
+      this.annotations = Object.freeze(annos);
     },
 
     watch: {
