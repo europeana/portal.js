@@ -3,10 +3,10 @@
     appear
     name="fade"
   >
-    <div>
+    <div class="media-thumbnails">
       <ol
         ref="mediaThumbnails"
-        class="media-thumbnails d-flex flex-row flex-lg-column mb-0"
+        class="d-flex flex-row flex-lg-column mb-0 pl-0"
       >
         <li
           v-for="(resource, index) in resources"
@@ -14,7 +14,7 @@
         >
           <ItemMediaThumbnail
             :offset="index"
-            class="d-flex-inline mr-2"
+            class="d-flex-inline mr-2 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
             :resource="resource"
             :edm-type="edmType"
@@ -92,18 +92,22 @@
     background-color: $white;
     overflow-x: scroll;
     scrollbar-width: thin;
-    height: 100%;
-    transition: $standard-transition;
 
     li {
       list-style-type: none;
     }
 
     @media (min-width: $bp-large) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
       overflow-x: hidden;
       overflow-y: auto;
       padding: 1rem;
       width: 13rem;
+      height: 100%;
     }
   }
 </style>

@@ -1,84 +1,72 @@
 <template>
   <div>
     <div
-      class="iiif-viewer-wrapper d-flex flex-column flex-lg-row"
+      class="iiif-viewer-wrapper overflow-hidden"
     >
       <div
-        class="iiif-viewer-inner-wrapper h-100 w-100 d-flex flex-column overflow-hidden"
+        class="iiif-viewer-inner-wrapper w-100 overflow-auto"
       >
-        <div
-          class="h-100 d-flex overflow-auto"
+        <ItemMediaSidebar
+          v-if="sidebarHasContent"
+          v-show="showSidebar"
+          id="item-media-sidebar"
+          ref="sidebar"
+          tabindex="0"
+          :annotation-page="annotationPage"
+          :uri="uri"
+          @keydown.escape.native="showSidebar = false"
+        />
+        <MediaImageViewer
+          v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+          :url="resource.about"
+          :item-id="itemId"
+          :width="resource.ebucoreWidth"
+          :height="resource.ebucoreHeight"
+          :format="resource.ebucoreHasMimeType"
+          :service="resource.svcsHasService"
+        />
+        <MediaPDFViewer
+          v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
+          :url="resource.about"
+          :item-id="itemId"
+        />
+        <MediaAudioVisualPlayer
+          v-else-if="resource?.isPlayableMedia"
+          :url="resource.about"
+          :format="resource.ebucoreHasMimeType"
+          :item-id="itemId"
+        />
+        <code
+          v-else
+          class="h-50 w-100 p-5"
         >
-          <ItemMediaSidebar
-            v-if="sidebarHasContent"
-            v-show="showSidebar"
-            id="item-media-sidebar"
-            ref="sidebar"
-            tabindex="0"
-            :annotation-page="annotationPage"
-            :uri="uri"
-            @keydown.escape.native="showSidebar = false"
-          />
-          <MediaImageViewer
-            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
-            :url="resource.about"
-            :item-id="itemId"
-            :width="resource.ebucoreWidth"
-            :height="resource.ebucoreHeight"
-            :format="resource.ebucoreHasMimeType"
-            :service="resource.svcsHasService"
-          />
-          <MediaPDFViewer
-            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.about"
-            :item-id="itemId"
-          />
-          <MediaAudioVisualPlayer
-            v-else-if="resource?.isPlayableMedia"
-            :url="resource.about"
-            :format="resource.ebucoreHasMimeType"
-            :item-id="itemId"
-          />
-          <code
-            v-else
-            class="h-50 w-100 p-5"
-          >
-            <pre
-              :style="{ color: 'white' }"
-            ><!--
+          <pre
+            :style="{ color: 'white' }"
+          ><!--
             -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
-          </code>
-          <ItemMediaThumbnails
-            v-if="resourceCount >= 2"
-            v-show="showPages"
-            id="item-media-thumbnails"
-            ref="itemPages"
-            tabindex="0"
-            :resources="thumbnailResources"
-            :selected-index="page -1"
-            :edm-type="edmType"
-            @keydown.escape.native="showPages = false"
-          />
-        </div>
-        <div
-          class="iiif-viewer-toolbar d-flex align-items-center"
+        </code>
+      </div>
+      <div
+        class="iiif-viewer-toolbar d-flex flex-wrap flex-lg-nowrap align-items-center"
+      >
+        <!-- TODO: Refactor into separate ItemMediaToolbar component -->
+        <b-button
+          v-if="sidebarHasContent"
+          v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+          :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+          variant="light-flat"
+          class="sidebar-toggle button-icon-only"
+          :class="{ 'active': showSidebar }"
+          data-qa="iiif viewer toolbar sidebar toggle"
+          aria-controls="item-media-sidebar"
+          :aria-expanded="showSidebar ? 'true' : 'false'"
+          @click="toggleSidebar"
+          @mouseleave="hideTooltips"
         >
-          <b-button
-            v-if="sidebarHasContent"
-            v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
-            :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
-            variant="light-flat"
-            class="sidebar-toggle button-icon-only"
-            :class="{ 'active': showSidebar }"
-            data-qa="iiif viewer toolbar sidebar toggle"
-            aria-controls="item-media-sidebar"
-            :aria-expanded="showSidebar ? 'true' : 'false'"
-            @click="toggleSidebar"
-            @mouseleave="hideTooltips"
-          >
-            <span class="icon icon-kebab" />
-          </b-button>
+          <span class="icon icon-kebab" />
+        </b-button>
+        <div class="d-flex w-100 w-lg-auto">
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
@@ -93,7 +81,7 @@
             v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             variant="light-flat"
-            class="pages-toggle button-icon-only ml-3"
+            class="pages-toggle button-icon-only ml-3 mr-auto"
             :class="{ 'active': showPages }"
             data-qa="show thumbnails button"
             aria-controls="item-media-thumbnails"
@@ -105,7 +93,19 @@
           </b-button>
         </div>
       </div>
+      <ItemMediaThumbnails
+        v-if="resourceCount >= 2"
+        v-show="showPages"
+        id="item-media-thumbnails"
+        ref="itemPages"
+        tabindex="0"
+        :resources="thumbnailResources"
+        :selected-index="page -1"
+        :edm-type="edmType"
+        @keydown.escape.native="showPages = false"
+      />
     </div>
+  </div>
   </div>
 </template>
 
@@ -245,40 +245,50 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
 
+  .iiif-viewer-wrapper {
+    position: relative;
+
+    @media (max-width: ($bp-medium - 1px)) {
+      max-height: calc($swiper-height-medium + 12.375rem);
+    }
+
+    @media (max-width: ($bp-large - 1px)) {
+      max-height: calc($swiper-height + 12.375rem);
+    }
+  }
+
   .iiif-viewer-inner-wrapper {
     background-color: $black;
-    position: relative;
+    @include swiper-height(4rem);
+
+    @media (max-width: ($bp-large - 1px)) {
+      position: relative;
+    }
 
     &.error {
       overflow: auto;
     }
+  }
 
-    .iiif-viewer-sidebar {
-      background-color: $white;
-      overflow: auto;
+  .iiif-viewer-toolbar {
+    background-color: rgba($white, 0.95);
+    padding: 0.875rem 1rem;
 
-      .tab-pane {
-        overflow-wrap: break-word;
-        padding: 1rem;
-      }
-    }
-
-    .iiif-viewer-toolbar {
-      background-color: rgba($white, 0.95);
+    @media (min-width: $bp-large) {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 0.875rem 1rem;
+      z-index: 2;
+    }
 
-      .sidebar-toggle,
-      .pages-toggle {
-        background-color: transparent;
-        font-size: $font-size-large;
+    .sidebar-toggle,
+    .pages-toggle {
+      background-color: transparent;
+      font-size: $font-size-large;
 
-        &.active {
-          color: $blue;
-        }
+      &.active {
+        color: $blue;
       }
     }
   }
