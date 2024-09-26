@@ -1,10 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import BootstrapVue from 'bootstrap-vue';
 import ItemMediaPresentation from '@/components/item/ItemMediaPresentation';
-// import sinon from 'sinon';
 import nock from 'nock';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const $apis = {
   record: {
@@ -31,7 +32,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMe
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'b-button', 'ItemMediaThumbnails']
+  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails']
 });
 
 describe('components/item/ItemMediaPresentation', () => {
@@ -52,6 +53,30 @@ describe('components/item/ItemMediaPresentation', () => {
       const viewerWrapper = wrapper.find('.iiif-viewer-wrapper');
 
       expect(viewerWrapper.isVisible()).toBe(true);
+    });
+
+    describe('sidebar toggle button', () => {
+      describe('when there is a manifest uri', () => {
+        it('is visible', () => {
+          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+
+          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('or when there is an annotationPage', () => {
+        it('is visible', async() => {
+          const wrapper = factory();
+
+          await wrapper.setData({ annotationPage: [] });
+
+          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
     });
   });
 

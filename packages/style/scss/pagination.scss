@@ -1,11 +1,28 @@
 .pagination-nav-input {
-  .page-item {
+  .btn-text {
     font-weight: 600;
     padding: 0.5rem 0.75rem;
     text-transform: uppercase;
-    display: flex;
-    align-items: center;
     white-space: nowrap;
+  }
+
+  .btn-prev {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(90deg);
+    }
+
+    .icon-arrow-outline {
+      display: inline-block;
+      transform: rotateY(180deg);
+    }
+  }
+
+  .btn-next {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(270deg);
+    }
   }
 
   .btn-next,
@@ -37,35 +54,28 @@
         color: $mediumgrey;
       }
     }
-  }
 
-  .btn-prev {
-    margin-right: 0.5rem;
-
-    @media (min-width: $bp-medium) {
-      margin-right: 1rem;
+    .icon-arrow-outline {
+      font-size: $font-size-large;
+      transition: $standard-transition;
     }
 
-    .icon-arrow-down::before {
-      display: inline-block;
-      transform: rotate(90deg);
-    }
-  }
-
-  .btn-next {
-    margin-left: 0.5rem;
-
-    @media (min-width: $bp-medium) {
-      margin-left: 1rem;
+    &.disabled .icon-arrow-outline {
+      color: $middlegrey;
     }
 
-    .icon-arrow-down::before {
-      display: inline-block;
-      transform: rotate(270deg);
+    &:not(.disabled) .icon-arrow-outline {
+      &:hover {
+        color: $blue;
+        transition: $standard-transition;
+      }
     }
   }
 
   .page-input {
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
     line-height: 1.375;
     padding: 0;
     display: flex;
@@ -99,5 +109,10 @@
         }
       }
     }
+  }
+
+  .pagination-progress {
+    color: $mediumgrey-light;
+    font-size: $font-size-small;
   }
 }

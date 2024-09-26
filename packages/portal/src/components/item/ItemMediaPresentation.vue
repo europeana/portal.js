@@ -50,19 +50,24 @@
         >
           <b-button
             v-if="sidebarHasContent"
-            v-b-tooltip.bottom
-            :title="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+            v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
             class="sidebar-toggle button-icon-only"
+            data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
+            @mouseleave="hideTooltips"
           >
             <span class="icon icon-kebab" />
           </b-button>
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
-            class="pagination mx-auto"
+            :button-text="false"
+            :page-input="false"
+            :button-icon-class="'icon-arrow-outline'"
+            :progress="true"
+            class="pagination ml-auto"
           />
           <b-button
             v-if="resourceCount >= 2"
@@ -70,7 +75,7 @@
             :title="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             variant="light-flat"
-            class="pages-toggle button-icon-only"
+            class="pages-toggle button-icon-only ml-3"
             :class="showPages ? 'active' : ''"
             data-qa="show thumbnails button"
             @click="togglePages"
@@ -91,6 +96,7 @@
 </template>
 
 <script>
+  import hideTooltips from '@/mixins/hideTooltips';
   import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
 
   export default {
@@ -104,6 +110,8 @@
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
+
+    mixins: [hideTooltips],
 
     props: {
       uri: {
@@ -143,8 +151,7 @@
         presentation: null,
         page: 1,
         showSidebar: null,
-        showPages: true,
-        sidebarHasContent: !!this.annotationPage || !!this.uri
+        showPages: true
       };
     },
 
@@ -173,6 +180,10 @@
 
       thumbnailResources() {
         return this.presentation?.resources || [];
+      },
+
+      sidebarHasContent() {
+        return !!this.annotationPage || !!this.uri;
       }
     },
 
@@ -195,7 +206,7 @@
 
       togglePages() {
         this.showPages = !this.showPages;
-        this.$root.$emit('bv::hide::tooltip');
+        this.hideTooltips();
       }
     }
   };
