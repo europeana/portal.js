@@ -48,15 +48,6 @@
         <div
           class="iiif-viewer-toolbar d-flex align-items-center"
         >
-          <div
-            id="zoomButtons"
-          />
-          <div
-            id="resetZoomButtons"
-          />
-          <div
-            id="fullScreenButton"
-          />
           <b-button
             v-if="sidebarHasContent"
             v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
@@ -69,6 +60,12 @@
           >
             <span class="icon icon-kebab" />
           </b-button>
+          <div
+            id="zoomControls"
+          />
+          <div
+            id="fullScreenButton"
+          />
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"

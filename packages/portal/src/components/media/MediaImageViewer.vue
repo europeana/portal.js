@@ -20,8 +20,7 @@
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
-  import ZoomControl from 'ol/control/Zoom.js';
-  import ZoomToExtent from 'ol/control/ZoomToExtent.js';
+  import ZoomControlsControl from '@/utils/ol/control/ZoomControls.js';
 
   export default {
     name: 'MediaImageViewer',
@@ -99,19 +98,18 @@
       drawMap() {
         if (!this.map) {
           const fullScreenButton = document.getElementById('fullScreenButton');
-          const zoomButtons = document.getElementById('zoomButtons');
-          const resetZoomButtons = document.getElementById('resetZoomButtons');
+          const zoomControls = document.getElementById('zoomControls');
           const itemHero = document.getElementsByClassName('item-hero')[0];
 
           const controls = new Collection([
             // Link toolbar controls
             new FullScreenControl({ target: fullScreenButton, source: itemHero, tipLabel: this.$t('media.controls.fullscreen') }),
-            new ZoomControl({
-              target: zoomButtons,
+            new ZoomControlsControl({
+              target: zoomControls,
               zoomInTipLabel: this.$t('media.controls.zoomIn'),
-              zoomOutTipLabel: this.$t('media.controls.zoomOut')
-            }),
-            new ZoomToExtent({ target: resetZoomButtons, tipLabel: this.$t('media.controls.resetZoom') })
+              zoomOutTipLabel: this.$t('media.controls.zoomOut'),
+              resetZoomTipLabel: this.$t('media.controls.resetZoom')
+            })
           ]);
 
           this.map = new Map({
@@ -149,16 +147,18 @@
         const options = new IIIFInfo(this.info).getTileSourceOptions();
         options.zDirection = -1;
         const iiifTileSource = new IIIFSource(options);
+        const extent = iiifTileSource.getTileGrid().getExtent();
 
         this.layer.setSource(iiifTileSource);
         this.map.setView(
           new View({
             resolutions: iiifTileSource.getTileGrid().getResolutions(),
-            extent: iiifTileSource.getTileGrid().getExtent(),
+            extent,
             constrainOnlyCenter: true
           })
         );
-        this.map.getView().fit(iiifTileSource.getTileGrid().getExtent());
+        this.map.getView().fit(extent);
+        this.map.getControls().getArray()[1].setDefaultExtent(extent);
       },
 
       renderStaticImage() {
@@ -190,6 +190,7 @@
           })
         );
         this.map.getView().fit(extent);
+        this.map.getControls().getArray()[1].setDefaultExtent(extent);
       },
 
       async renderImage() {
