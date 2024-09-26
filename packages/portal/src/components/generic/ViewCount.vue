@@ -66,7 +66,7 @@
   }
 
   .view-count {
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     font-size: $font-size-base;
     line-height: 1.5;
   }

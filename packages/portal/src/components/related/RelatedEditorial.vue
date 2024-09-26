@@ -172,7 +172,7 @@
       line-height: 1rem;
       text-transform: uppercase;
       margin-bottom: 1.25rem;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-extrasmall-4k;
@@ -208,7 +208,7 @@
         }
 
         &:hover {
-          background: $bodygrey;
+          background: $lightgrey;
         }
 
         .card-wrapper {

@@ -172,7 +172,7 @@
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
 
       &.request-failed {
         font-size: $font-size-small;

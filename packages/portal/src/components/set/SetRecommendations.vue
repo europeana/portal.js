@@ -88,7 +88,7 @@
   @import '@europeana/style/scss/variables';
 
   .recommendations h2 {
-    color: $mediumgrey;
+    color: $darkgrey;
     font-size: $font-size-medium;
   }
 </style>

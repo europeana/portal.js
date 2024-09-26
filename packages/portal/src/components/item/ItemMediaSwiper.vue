@@ -277,7 +277,7 @@
     .swiper-pagination {
       position: static;
       transform: none;
-      color: $mediumgrey-light;
+      color: $darkgrey-light;
       width: auto;
       font-size: $font-size-small;
     }

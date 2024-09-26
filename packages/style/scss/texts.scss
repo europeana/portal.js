@@ -30,7 +30,7 @@ header .col {
 }
 
 .related-heading {
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
   font-weight: 600;
   line-height: 1;
@@ -45,7 +45,7 @@ header .col {
 }
 
 .related-subtitle {
-  color: $mediumgrey;
+  color: $darkgrey;
 
   .icon-info-outline {
     position: relative;
@@ -95,7 +95,7 @@ header .col {
 
   .subtitle,
   p.lead {
-    color: $mediumgrey;
+    color: $darkgrey;
     font-weight: normal;
     margin-bottom: 0;
     font-size: 1.125rem;
@@ -199,7 +199,7 @@ header .col {
   }
 
   .description .description-text .description-text-paragraph {
-    color: $mediumgrey;
+    color: $darkgrey;
 
     &:last-child {
       margin-bottom: 0 !important;
@@ -212,7 +212,7 @@ header .col {
   font-size: $font-size-extrasmall;
   text-transform: uppercase;
   font-weight: 600;
-  color: $mediumgrey;
+  color: $darkgrey;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
@@ -222,5 +222,5 @@ header .col {
 }
 
 .secondary-text {
-  color: $mediumgrey;
+  color: $darkgrey;
 }

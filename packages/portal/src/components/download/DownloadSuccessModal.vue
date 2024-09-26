@@ -205,7 +205,7 @@
 
     .help {
       font-size: $font-size-extrasmall;
-      color: $mediumgrey;
+      color: $darkgrey;
       display: flex;
       align-items: center;
       margin-bottom: 1.25rem;

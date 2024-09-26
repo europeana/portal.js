@@ -2,9 +2,9 @@
   .dropdown-toggle {
     background: $white;
     font-size: $font-size-small;
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     height: 3rem;
-    border: 1px solid $bodygrey;
+    border: 1px solid $lightgrey;
     text-align: left;
     display: inline-flex;
     align-items: center;
@@ -25,7 +25,7 @@
     }
 
     &::after {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
 
     span.select-label {
@@ -93,7 +93,7 @@
           font-size: $font-size-small;
           padding-right: 0.5rem;
           padding-left: 0;
-          color: $mediumgrey;
+          color: $darkgrey;
           height: 2rem;
 
           @at-root .xxl-page & {
@@ -201,7 +201,7 @@
     &:active,
     &.active {
       background: $white;
-      color: $mediumgrey-light;
+      color: $darkgrey-light;
       border: 1px solid $blue;
     }
   }

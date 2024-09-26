@@ -53,7 +53,7 @@
 
         .form-control {
           background: $white;
-          border: 1px solid $mediumgrey;
+          border: 1px solid $darkgrey;
           border-radius: 0.375rem;
           font-size: $font-size-base;
           height: 3rem;
@@ -80,7 +80,7 @@
         }
 
         .custom-control-label::before {
-          border-color: $mediumgrey;
+          border-color: $darkgrey;
         }
 
         .custom-control-input:checked ~ .custom-control-label::before {
