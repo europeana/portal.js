@@ -18,9 +18,6 @@ export default class EuropeanaMediaPresentation extends EuropeanaMediaBase {
       parsed.canvases = this.#extractV3Canvases(preParsed);
     } else if (version === 2) {
       parsed.canvases = this.#extractV2Canvases(preParsed);
-    } else {
-      // TODO: throw version unknown error?
-      return {};
     }
 
     return parsed;

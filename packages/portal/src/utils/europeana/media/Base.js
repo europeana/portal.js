@@ -13,7 +13,7 @@ import {
 function normalize(thing) {
   if (Array.isArray(thing)) {
     return thing.map(normalize);
-  } else if (typeof thing === 'object') {
+  } else if (thing && typeof thing === 'object') {
     return Object.keys(thing).reduce((memo, key) => {
       const normKey = key.startsWith('@') ? key.slice(1) : key;
       memo[normKey] = normalize(thing[key]);
@@ -37,7 +37,9 @@ export default class EuropeanaMediaBase {
   }
 
   constructor(data) {
-    if (typeof data === 'string') {
+    if (!data) {
+      return;
+    } else if (typeof data === 'string') {
       this.id = data;
     } else {
       const parsed = this.parse(data);
@@ -93,6 +95,9 @@ export default class EuropeanaMediaBase {
   }
 
   get isInEuropeanaDomain() {
+    if (!this.id) {
+      return undefined;
+    }
     const url = this.id instanceof URL ? this.id : new URL(this.id);
     return url.origin.endsWith('.europeana.eu') ||
       url.origin.endsWith('.eanadev.org');
