@@ -2,6 +2,20 @@ import Base from './Base.js';
 import TextualBody from './TextualBody.js';
 
 export default class EuropeanaMediaAnnotation extends Base {
+  parseData(data) {
+    data = super.parseData(data);
+
+    const body = Array.isArray(data.body) ? data.body.map((oneBody) => (new TextualBody).parse(oneBody)) : (new TextualBody).parse(data.body);
+
+    const parsed = {
+      id: data.id, // TODO: bloats size of data; how to alleviate?
+      body,
+      target: data.target
+    };
+
+    return parsed;
+  }
+
   targetFor(id) {
     return [].concat(this.target).filter((target) => {
       const targetId = target?.id || target;
@@ -15,19 +29,5 @@ export default class EuropeanaMediaAnnotation extends Base {
     } else if (this.body) {
       await this.body.embed();
     }
-  }
-
-  parse(data) {
-    data = super.parse(data);
-
-    const body = Array.isArray(data.body) ? data.body.map(new TextualBody) : new TextualBody(data.body);
-
-    const parsed = {
-      id: data.id, // TODO: bloats size of data; how to alleviate?
-      body,
-      target: data.target
-    };
-
-    return parsed;
   }
 }

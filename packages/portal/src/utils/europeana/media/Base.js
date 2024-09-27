@@ -1,4 +1,6 @@
 import axios from 'axios';
+import isUndefined from 'lodash/isUndefined.js';
+import omitBy from 'lodash/omitBy.js';
 
 import {
   JSON_MEDIA_TYPE,
@@ -26,7 +28,6 @@ function normalize(thing) {
 
 export default class EuropeanaMediaBase {
   id;
-  #fetched = false;
   static $axios;
 
   static get axios() {
@@ -36,44 +37,87 @@ export default class EuropeanaMediaBase {
     return this.$axios;
   }
 
-  constructor(data) {
-    if (!data) {
-      return;
-    } else if (typeof data === 'string') {
-      this.id = data;
-    } else {
-      const parsed = this.parse(data);
-      for (const key in parsed) {
-        // preserve id, e.g. for hash
-        this[key] = parsed[key];
+  static axiosUrl(id) {
+    const url = new URL(id);
+    url.hash = ''; // so that axios caching works
+    return url.toString();
+  }
+
+  // factory method to create an instance, fetch it, and parse the response to
+  // initialise its properties
+  static async from(id, fetchOptions) {
+    const resource = new this(id);
+    const response = await resource.fetch(fetchOptions);
+    resource.parse(response.data);
+    return resource;
+  }
+
+  static fetch(options = {}) {
+    return this.axios({
+      method: 'get',
+      ...options
+    });
+  }
+
+  constructor(idOrData) {
+    if (typeof idOrData === 'string') {
+      this.id = idOrData;
+    } else if (idOrData && typeof idOrData === 'object') {
+      for (const key in idOrData) {
+        this[key] = idOrData[key];
       }
     }
   }
 
-  async fetch({ params } = {}) {
-    const response = await this.constructor.axios({
+  parseData(data) {
+    return data;
+  }
+
+  preParseData(data) {
+    return normalize(data);
+  }
+
+  postParseData(data) {
+    return omitBy(data, isUndefined);
+  }
+
+  getHashParam(hash, key) {
+    if (hash?.startsWith?.('#')) {
+      return new URLSearchParams(hash.slice(1)).get(key);
+    } else {
+      return undefined;
+    }
+  }
+
+  fetch({ params } = {}) {
+    return this.constructor.fetch({
       url: this.axiosUrl,
-      method: 'get',
       headers: this.headers,
       params
     });
+  }
 
-    this.#fetched = true;
+  parse(data) {
+    data = this.preParseData(data);
 
-    const data = this.parse(response.data);
+    // preserve original id, e.g. w/ hash which may not be included in a fetched
+    // representation
+    if (this.id && (data.id !== this.id)) {
+      data.id = this.id;
+    }
+
+    data = this.parseData(data);
+    data = this.postParseData(data);
 
     for (const key in data) {
-      // TODO: store in one data property instead of multiple arbitrary top-level
-      //       properties, to avoid naming clashes with class getters etc?
       this[key] = data[key];
     }
+
     return this;
   }
 
   get axiosUrl() {
-    const url = new URL(this.id);
-    url.hash = ''; // so that axios caching works
-    return url.toString();
+    return this.constructor.axiosUrl(this.id);
   }
 
   get headers() {
@@ -96,37 +140,10 @@ export default class EuropeanaMediaBase {
 
   get isInEuropeanaDomain() {
     if (!this.id) {
-      return undefined;
+      return false;
     }
     const url = this.id instanceof URL ? this.id : new URL(this.id);
     return url.origin.endsWith('.europeana.eu') ||
       url.origin.endsWith('.eanadev.org');
-  }
-
-  static iiifPresentationApiVersion(context) {
-    if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
-      return 3;
-    } else if (context.includes(IIIF_PRESENTATION_V2_CONTEXT)) {
-      return 2;
-    } else {
-      return undefined;
-    }
-  }
-
-  // sub-classes may implement their own parsing logic
-  parse(data) {
-    return this.normalize(data);
-  }
-
-  normalize(thing) {
-    return normalize(thing);
-  }
-
-  getHashParam(hash, key) {
-    if (hash?.startsWith?.('#')) {
-      return new URLSearchParams(hash.slice(1)).get(key);
-    } else {
-      return undefined;
-    }
   }
 }

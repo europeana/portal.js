@@ -149,16 +149,15 @@
       let presentation;
 
       if (this.uri) {
-        presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
+        presentation = await EuropeanaMediaPresentation.from(this.uri);
       } else if (this.webResources) {
-        // TODO: constructor ought to accept canvases without automatically parsing
-        //       (and losing it)
-        presentation = new EuropeanaMediaPresentation();
-        presentation.canvases = this.webResources.map((resource) => ({
-          resource
-        }));
+        presentation = new EuropeanaMediaPresentation({
+          canvases: this.webResources.map((resource) => ({
+            resource
+          }))
+        });
       } else {
-        // TODO: throw a fetchState error
+        throw new Error('No manifest URI or web resources for presentation');
       }
 
       this.presentation = Object.freeze(presentation);

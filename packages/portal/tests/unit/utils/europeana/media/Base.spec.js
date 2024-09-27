@@ -14,23 +14,51 @@ describe('@/utils/europeana/media/Base', () => {
   });
 
   describe('EuropeanaMediaBase', () => {
-    const factory = (options = {}) => {
-      const defaults = {
-        origin: 'https://example.org',
-        path: '/something',
-        reqHeaders: {},
-        responseStatus: 200,
-        responseData: {}
-      };
-      const { origin, path, reqHeaders, responseStatus, responseData } = { ...defaults, ...options };
+    describe('constructor', () => {
+      it('permits no argument', () => {
+        const resource = new EuropeanaMediaBase();
 
-      nock(origin, { reqHeaders }).get(path).reply(responseStatus, responseData);
+        expect(resource.id).toBeUndefined();
+      });
 
-      const url = `${origin}${path}`;
-      return { url };
-    };
+      it('accepts string argument as ID', () => {
+        const id = 'http://data.europeana.eu/item/123/abc';
+
+        const resource = new EuropeanaMediaBase(id);
+
+        expect(resource.id).toBe(id);
+      });
+
+      it('accepts object of properties argument', () => {
+        const data = {
+          id: 'http://data.europeana.eu/item/123/abc',
+          context: 'http://data.europeana.eu/schema.json'
+        };
+
+        const resource = new EuropeanaMediaBase(data);
+
+        expect(resource.id).toBe(data.id);
+        expect(resource.context).toBe(data.context);
+      });
+    });
 
     describe('fetch', () => {
+      const factory = (options = {}) => {
+        const defaults = {
+          origin: 'https://example.org',
+          path: '/something',
+          reqHeaders: {},
+          responseStatus: 200,
+          responseData: {}
+        };
+        const { origin, path, reqHeaders, responseStatus, responseData } = { ...defaults, ...options };
+
+        nock(origin, { reqHeaders }).get(path).reply(responseStatus, responseData);
+
+        const url = `${origin}${path}`;
+        return { url };
+      };
+
       it('makes an HTTP GET request for the resource URL', async() => {
         const { url } = factory();
         const resource = new EuropeanaMediaBase(url);

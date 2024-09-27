@@ -1,10 +1,9 @@
-import EuropeanaMediaBase from './Base.js';
-import EuropeanaMediaAnnotation from './Annotation.js';
+import Base from './Base.js';
+import Annotation from './Annotation.js';
 
-export default class EuropeanaMediaAnnotationList extends EuropeanaMediaBase {
-  // TODO: this will result in some superfluous undefined values; avoid that
-  parse(data) {
-    data = super.parse(data);
+export default class EuropeanaMediaAnnotationList extends Base {
+  parseData(data) {
+    data = super.parseData(data);
 
     const parsed = {
       id: data.id,
@@ -14,16 +13,24 @@ export default class EuropeanaMediaAnnotationList extends EuropeanaMediaBase {
 
     if (data.type === 'AnnotationPage') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=3
-      parsed.items = data.items.map((item) => new EuropeanaMediaAnnotation(item));
+      parsed.items = data.items.map((item) => {
+        const anno = new Annotation;
+        anno.parse(item);
+        return anno;
+      });
     } else if (data.type === 'sc:AnnotationList') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=2
-      parsed.items = data.resources.map((resource) => new EuropeanaMediaAnnotation({
-        id: resource.id,
-        motivation: resource.motivation,
-        textGranularity: resource.textGranularity,
-        body: resource.resource,
-        target: resource.on
-      }));
+      parsed.items = data.resources.map((resource) => {
+        const anno = new Annotation;
+        anno.parse({
+          id: resource.id,
+          motivation: resource.motivation,
+          textGranularity: resource.textGranularity,
+          body: resource.resource,
+          target: resource.on
+        });
+        return anno;
+      });
     } else {
       parsed.items = [];
     }

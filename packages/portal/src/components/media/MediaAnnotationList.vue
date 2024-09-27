@@ -76,8 +76,7 @@
         textGranularity = this.textGranularity;
       }
 
-      const list = new EuropeanaMediaAnnotationList(this.uri);
-      await list.fetch({ params: { textGranularity } });
+      const list = await EuropeanaMediaAnnotationList.from(this.uri, { params: { textGranularity } });
       const annos = list.annotationsForTarget(this.targetId);
 
       // NOTE: this may result in duplicate network requests for the same body resource

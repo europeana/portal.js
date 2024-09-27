@@ -79,10 +79,13 @@ describe('@/utils/europeana/media/Presentation', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg'
+              }
             }
           ]
         });
@@ -136,10 +139,13 @@ describe('@/utils/europeana/media/Presentation', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg'
+              }
             }
           ]
         });

@@ -1,12 +1,11 @@
-import EuropeanaMediaBase from './Base.js';
+import Base from './Base.js';
 
-export default class EuropeanaMediaTextualBody extends EuropeanaMediaBase {
-  parse(data) {
-    data = super.parse(data);
+export default class EuropeanaMediaTextualBody extends Base {
+  parseData(data) {
+    data = super.parseData(data);
 
     const parsed = {
-      // preserve original id, e.g. w/ hash
-      id: this.id || data.id,
+      id: data.id,
       value: data.value || data.chars,
       language: data.language
     };
@@ -28,7 +27,8 @@ export default class EuropeanaMediaTextualBody extends EuropeanaMediaBase {
 
   async embed() {
     if (!this.value) {
-      await this.fetch();
+      const response = await this.fetch();
+      this.parse(response.data);
     }
     return this;
   }
