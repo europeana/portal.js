@@ -5,7 +5,7 @@ export default class EuropeanaMediaAnnotation extends Base {
   parseData(data) {
     data = super.parseData(data);
 
-    const body = Array.isArray(data.body) ? data.body.map((oneBody) => (new TextualBody).parse(oneBody)) : (new TextualBody).parse(data.body);
+    const body = Array.isArray(data.body) ? data.body.map((bod) => TextualBody.parse(bod)) : TextualBody.parse(data.body);
 
     const parsed = {
       id: data.id, // TODO: bloats size of data; how to alleviate?

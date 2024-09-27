@@ -52,6 +52,14 @@ export default class EuropeanaMediaBase {
     return resource;
   }
 
+  // factory method to create an instance and parse some data to initialise its
+  // properties
+  static parse(data) {
+    const resource = new this;
+    resource.parse(data);
+    return resource;
+  }
+
   static fetch(options = {}) {
     return this.axios({
       method: 'get',
