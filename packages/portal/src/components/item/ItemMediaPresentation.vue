@@ -11,39 +11,37 @@
           v-if="!$fetchState.pending"
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
-          <client-only>
-            <MediaImageViewer
-              v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
-              :url="resource.about"
-              :item-id="itemId"
-              :width="resource.ebucoreWidth"
-              :height="resource.ebucoreHeight"
-              :format="resource.ebucoreHasMimeType"
-              :service="resource.svcsHasService"
-              :annotation="activeAnnotation"
-            />
-            <MediaPDFViewer
-              v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-              :url="resource.about"
-              :item-id="itemId"
-            />
-            <MediaAudioVisualPlayer
-              v-else-if="resource?.isPlayableMedia"
-              :url="resource.about"
-              :format="resource.ebucoreHasMimeType"
-              :item-id="itemId"
-            />
-            <code
-              v-else
-              class="h-50 w-100 p-5"
-            >
-              <pre
-                :style="{ color: 'white' }"
-              ><!--
-              -->{{ JSON.stringify(resource, null, 2) }}
-              </pre>
-            </code>
-          </client-only>
+          <MediaImageViewer
+            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+            :url="resource.about"
+            :item-id="itemId"
+            :width="resource.ebucoreWidth"
+            :height="resource.ebucoreHeight"
+            :format="resource.ebucoreHasMimeType"
+            :service="resource.svcsHasService"
+            :annotation="activeAnnotation"
+          />
+          <MediaPDFViewer
+            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
+            :url="resource.about"
+            :item-id="itemId"
+          />
+          <MediaAudioVisualPlayer
+            v-else-if="resource?.isPlayableMedia"
+            :url="resource.about"
+            :format="resource.ebucoreHasMimeType"
+            :item-id="itemId"
+          />
+          <code
+            v-else
+            class="h-50 w-100 p-5"
+          >
+            <pre
+              :style="{ color: 'white' }"
+            ><!--
+            -->{{ JSON.stringify(resource, null, 2) }}
+            </pre>
+          </code>
           <ItemMediaSidebar
             v-if="showSidebar"
             :annotation-uri="annotationUri"
@@ -148,22 +146,25 @@
     },
 
     async fetch() {
+      let presentation;
+
       if (this.uri) {
-        this.presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
+        presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
       } else if (this.webResources) {
-        this.presentation = {
-          canvases: this.webResources.map((resource) => ({
-            resource
-          }))
-        };
+        // TODO: constructor ought to accept canvases without automatically parsing
+        //       (and losing it)
+        presentation = new EuropeanaMediaPresentation();
+        presentation.canvases = this.webResources.map((resource) => ({
+          resource
+        }));
       } else {
-        // TODO: what to do!?
+        // TODO: throw a fetchState error
       }
+
+      this.presentation = Object.freeze(presentation);
 
       this.setPage();
     },
-
-    fetchOnServer: false,
 
     computed: {
       /**
@@ -190,7 +191,7 @@
       },
 
       annotationTextGranularity() {
-        return this.annotationCollection.textGranularity;
+        return this.annotationCollection?.textGranularity;
       },
 
       canvas() {

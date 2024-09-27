@@ -163,6 +163,7 @@
           extent: this.olExtent
         });
 
+        // TODO: only init when needed, i.e. when 1st drawing annotation
         this.olAnnotationSource = new VectorSource();
         this.olAnnotationLayer = new VectorLayer({
           source: this.olAnnotationSource
@@ -227,7 +228,7 @@
       initOlImageLayerStatic() {
         this.olExtent = [0, 0, this.width, this.height];
         this.olImageSource = new ImageStatic({
-          // TODO: always use media proxy if static image?
+          // TODO: should we always be using the media proxy for static images?
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
           imageExtent: this.olExtent
         });

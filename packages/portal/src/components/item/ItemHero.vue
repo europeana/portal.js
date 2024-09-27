@@ -1,14 +1,20 @@
 <template>
   <div class="item-hero">
-    <ItemMediaPresentation
-      :uri="iiifPresentationManifest"
-      :search-query="fulltextSearchQuery"
-      :item-id="identifier"
-      :provider-url="providerUrl"
-      :web-resources="media"
-      :edm-type="edmType"
-      @select="selectMedia"
-    />
+    <!--
+      TODO: render the media presentation container here, both SSR and CSR,
+            to reduce UI jumpiness
+    -->
+    <client-only>
+      <ItemMediaPresentation
+        :uri="iiifPresentationManifest"
+        :search-query="fulltextSearchQuery"
+        :item-id="identifier"
+        :provider-url="providerUrl"
+        :web-resources="media"
+        :edm-type="edmType"
+        @select="selectMedia"
+      />
+    </client-only>
     <b-container>
       <b-row>
         <b-col
