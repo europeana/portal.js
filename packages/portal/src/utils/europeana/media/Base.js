@@ -63,7 +63,8 @@ export default class EuropeanaMediaBase {
   static fetch(options = {}) {
     return this.axios({
       method: 'get',
-      ...options
+      ...options,
+      url: this.axiosUrl(options.url)
     });
   }
 
@@ -99,7 +100,7 @@ export default class EuropeanaMediaBase {
 
   fetch({ params } = {}) {
     return this.constructor.fetch({
-      url: this.axiosUrl,
+      url: this.id,
       headers: this.headers,
       params
     });
@@ -122,10 +123,6 @@ export default class EuropeanaMediaBase {
     }
 
     return this;
-  }
-
-  get axiosUrl() {
-    return this.constructor.axiosUrl(this.id);
   }
 
   get headers() {
