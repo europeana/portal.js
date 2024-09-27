@@ -64,16 +64,8 @@
       return {
         // fullsize: true,
         info: null,
-        // TODO: reconsider if all these should be on data props
-        olAnnotationFeature: null,
-        olAnnotationSource: null,
-        olAnnotationLayer: null,
         olExtent: null,
-        olImageLayer: null,
-        olImageSource: null,
         olMap: null,
-        olProjection: null,
-        olView: null,
         /**
          * @values IIIF,ImageStatic
          */
@@ -98,7 +90,7 @@
     watch: {
       annotation: {
         deep: true,
-        handler: 'drawAnnotation'
+        handler: 'highlightAnnotation'
       },
       url: '$fetch'
     },
@@ -110,16 +102,22 @@
     },
 
     methods: {
-      drawAnnotation() {
-        if (this.olAnnotationFeature) {
-          this.olAnnotationSource.removeFeature(this.olAnnotationFeature);
-          this.olAnnotationFeature = null;
+      initOlAnnotationLayer() {
+        const layerCount = this.olMap.getLayers().getLength();
+        if (layerCount === 0) {
+          throw new Error('No image layer to annotate.');
         }
+        if (layerCount === 1) {
+          this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
+        }
+      },
+
+      constructAnnotationFeature() {
         if (!this.annotation) {
-          return;
+          return null;
         }
 
-        // TODO: move to computed property `annotationXywh`? or onto Annotation class?
+        // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
         let [x, y, w, h] = this.olExtent;
         const target = this.annotation.targetFor(this.url)[0];
         const targetId = target?.id || target;
@@ -142,14 +140,29 @@
             poly.flatCoordinates[i] = this.olExtent[3] - poly.flatCoordinates[i];
           }
         }
-        this.olAnnotationFeature = new Feature(poly);
 
-        this.olAnnotationSource.addFeature(this.olAnnotationFeature);
-        // uncomment to have the view follow the selected annotation
+        // uncomment to have the view follow the highlighted annotation
         // this.olMap.getView().fit(poly);
+
+        return new Feature(poly);
       },
 
-      initOlMap() {
+      highlightAnnotation() {
+        this.initOlAnnotationLayer();
+
+        const layer = this.olMap.getLayers().item(1);
+
+        // remove any existing features, i.e. previously highlighted annotations
+        layer.getSource().clear();
+
+        const feature = this.constructAnnotationFeature();
+
+        if (feature) {
+          layer.getSource().addFeature(feature);
+        }
+      },
+
+      initOlMap({ extent, layer, source } = {}) {
         const controls = new Collection([
           new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
           new ZoomControl({
@@ -158,23 +171,14 @@
           })
         ]);
 
-        this.olProjection = new Projection({
-          units: 'pixels',
-          extent: this.olExtent
-        });
+        const projection = new Projection({ units: 'pixels', extent });
 
-        // TODO: only init when needed, i.e. when 1st drawing annotation
-        this.olAnnotationSource = new VectorSource();
-        this.olAnnotationLayer = new VectorLayer({
-          source: this.olAnnotationSource
-        });
-
-        this.olView = new View({
-          center: getCenter(this.olExtent),
+        const view = new View({
+          center: getCenter(extent),
           constrainOnlyCenter: true,
           maxZoom: 8,
-          projection: this.olProjection,
-          resolutions: this.olImageSource.getTileGrid?.().getResolutions()
+          projection,
+          resolutions: source.getTileGrid?.().getResolutions()
         });
 
         if (!this.olMap) {
@@ -183,10 +187,11 @@
             target: 'media-image-viewer'
           });
         }
+        this.olExtent = extent;
 
-        this.olMap.setLayers([this.olImageLayer, this.olAnnotationLayer]);
-        this.olMap.setView(this.olView);
-        this.olMap.getView().fit(this.olExtent);
+        this.olMap.setLayers([layer]);
+        this.olMap.setView(view);
+        this.olMap.getView().fit(extent);
       },
 
       // renderThumbnail() {
@@ -210,42 +215,45 @@
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
       initOlImageLayerIIIF() {
-        const iiifTileSourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
+        const sourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
 
-        this.olExtent = [0, 0, iiifTileSourceOptions.size[0], iiifTileSourceOptions.size[1]];
+        const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
 
-        iiifTileSourceOptions.extent = this.olExtent;
-        iiifTileSourceOptions.zDirection = -1;
+        sourceOptions.extent = extent;
 
-        this.olImageSource = new IIIFSource(iiifTileSourceOptions);
-        this.olImageLayer = new TileLayer({
-          source: this.olImageSource
-        });
+        const source = new IIIFSource(sourceOptions);
+        const layer = new TileLayer({ source });
+
+        return { extent, layer, source };
       },
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
       initOlImageLayerStatic() {
-        this.olExtent = [0, 0, this.width, this.height];
-        this.olImageSource = new ImageStatic({
+        const extent = [0, 0, this.width, this.height];
+        const source = new ImageStatic({
           // TODO: should we always be using the media proxy for static images?
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
-          imageExtent: this.olExtent
+          imageExtent: extent
         });
-        this.olImageLayer = new ImageLayer({
-          source: this.olImageSource
-        });
+        const layer = new ImageLayer({ source });
+
+        return { extent, layer, source };
       },
 
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
+
+        let mapOptions = {};
+
         if (this.source === 'IIIF') {
-          this.initOlImageLayerIIIF();
-        } else if (this.source === 'ImageStatic') {
-          this.initOlImageLayerStatic();
+          mapOptions = this.initOlImageLayerIIIF();
+        } else {
+          mapOptions = this.initOlImageLayerStatic();
         }
-        this.initOlMap();
-        this.drawAnnotation();
+
+        this.initOlMap(mapOptions);
+        this.highlightAnnotation();
       }
     }
   };
