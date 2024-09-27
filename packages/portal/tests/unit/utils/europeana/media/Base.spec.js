@@ -107,7 +107,19 @@ describe('@/utils/europeana/media/Base', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('normalizes response data', async() => {
+      it('returns response', async() => {
+        const responseData = 'OK';
+        const { url } = factory({ responseData });
+        const resource = new EuropeanaMediaBase(url);
+
+        const response = await resource.fetch();
+
+        expect(response.data).toBe(responseData);
+      });
+    });
+
+    describe('parse', () => {
+      it('normalizes response data', () => {
         const responseData = {
           '@context': 'http://iiif.io/api/presentation/2/context.json',
           '@id': 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -120,10 +132,8 @@ describe('@/utils/europeana/media/Base', () => {
             }
           ]
         };
-        const { url } = factory({ responseData });
-        const resource = new EuropeanaMediaBase(url);
-
-        await resource.fetch();
+        const resource = new EuropeanaMediaBase();
+        resource.parse(responseData);
 
         expect(resource).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',

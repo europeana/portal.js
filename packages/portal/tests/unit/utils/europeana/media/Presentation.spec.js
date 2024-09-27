@@ -14,24 +14,8 @@ describe('@/utils/europeana/media/Presentation', () => {
   });
 
   describe('EuropeanaMediaPresentation', () => {
-    const factory = (options = {}) => {
-      const defaults = {
-        origin: 'https://iiif.example.org',
-        path: '/123/abc/manifest',
-        reqHeaders: {},
-        responseStatus: 200,
-        responseData: {}
-      };
-      const { origin, path, reqHeaders, responseStatus, responseData } = { ...defaults, ...options };
-
-      nock(origin, { reqHeaders }).get(path).reply(responseStatus, responseData);
-
-      const url = `${origin}${path}`;
-      return url;
-    };
-
-    describe('fetch', () => {
-      it('normalizes and parses v2 response data', async() => {
+    describe('parse', () => {
+      it('normalizes and parses v2 response data', () => {
         const responseData = {
           '@context': 'http://iiif.io/api/presentation/2/context.json',
           '@id': 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -65,10 +49,9 @@ describe('@/utils/europeana/media/Presentation', () => {
             }
           ]
         };
-        const url = factory({ responseData });
-        const presentation = new EuropeanaMediaPresentation(url);
+        const presentation = new EuropeanaMediaPresentation();
 
-        await presentation.fetch();
+        presentation.parse(responseData);
 
         expect(presentation).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -125,10 +108,9 @@ describe('@/utils/europeana/media/Presentation', () => {
             }
           ]
         };
-        const url = factory({ responseData });
-        const presentation = new EuropeanaMediaPresentation(url);
+        const presentation = new EuropeanaMediaPresentation();
 
-        await presentation.fetch();
+        presentation.parse(responseData);
 
         expect(presentation).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
