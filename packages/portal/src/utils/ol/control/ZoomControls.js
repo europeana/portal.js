@@ -9,48 +9,51 @@ export default class ZoomControlsControl extends Control {
   constructor(options = {}) {
     const delta = options.delta ? options.delta : 1;
 
-    const inButton = document.createElement('button');
+    const zoomInButton = document.createElement('button');
+    zoomInButton.id = 'zoomInButton';
     const zoomInIcon = document.createElement('span');
     zoomInIcon.className = 'icon icon-zoom-in';
-    inButton.appendChild(zoomInIcon);
-    inButton.setAttribute('title', options.zoomInTipLabel || 'Zoom in');
+    zoomInButton.appendChild(zoomInIcon);
+    zoomInButton.setAttribute('title', options.zoomInTipLabel || 'Zoom in');
 
-    const resetButton = document.createElement('button');
+    const resetZoomButton = document.createElement('button');
+    resetZoomButton.id = 'resetZoomButton';
     const resetZoomIcon = document.createElement('span');
     resetZoomIcon.className = 'icon icon-reset';
-    resetButton.appendChild(resetZoomIcon);
-    resetButton.setAttribute('title', options.resetZoomTipLabel || 'Reset zoom');
+    resetZoomButton.appendChild(resetZoomIcon);
+    resetZoomButton.setAttribute('title', options.resetZoomTipLabel || 'Reset zoom');
 
-    const outButton = document.createElement('button');
+    const zoomOutButton = document.createElement('button');
+    zoomOutButton.id = 'zoomOutButton';
     const zoomOutIcon = document.createElement('span');
     zoomOutIcon.className = 'icon icon-zoom-out';
-    outButton.appendChild(zoomOutIcon);
-    outButton.setAttribute('title', options.zoomOutTipLabel || 'Zoom out');
+    zoomOutButton.appendChild(zoomOutIcon);
+    zoomOutButton.setAttribute('title', options.zoomOutTipLabel || 'Zoom out');
 
     const element = document.createElement('div');
     element.className = 'ol-zoom-controls ol-unselectable ol-control';
-    element.appendChild(inButton);
-    element.appendChild(resetButton);
-    element.appendChild(outButton);
+    element.appendChild(zoomInButton);
+    element.appendChild(resetZoomButton);
+    element.appendChild(zoomOutButton);
 
     super({
       element,
       target: options.target
     });
 
-    inButton.addEventListener(
+    zoomInButton.addEventListener(
       EventType.CLICK,
       this.handleClick.bind(this, delta),
       false
     );
 
-    outButton.addEventListener(
+    zoomOutButton.addEventListener(
       EventType.CLICK,
       this.handleClick.bind(this, -delta),
       false
     );
 
-    resetButton.addEventListener(
+    resetZoomButton.addEventListener(
       EventType.CLICK,
       this.handleResetZoom.bind(this),
       false
@@ -60,9 +63,10 @@ export default class ZoomControlsControl extends Control {
     this.duration = options.duration ? options.duration : 250;
   }
 
-  handleResetZoom() {
+  handleResetZoom(event) {
     event.preventDefault();
     this.getMap().getView().fit(this.defaultExtent);
+    this.updateControlState();
   }
 
   /**
@@ -81,6 +85,7 @@ export default class ZoomControlsControl extends Control {
   handleClick(delta, event) {
     event.preventDefault();
     this.zoomByDelta(delta);
+    this.updateControlState();
   }
 
   /**
@@ -109,6 +114,41 @@ export default class ZoomControlsControl extends Control {
         });
       } else {
         view.setZoom(newZoom);
+      }
+    }
+  }
+
+  /**
+   * @private
+   */
+  updateControlState() {
+    // TODO: Fix this as it's very percise. Consider rounding zoom levels.
+    // TODO: Fix this for when screen dimensions are changed, especially wrt default zoom.
+    const map = this.getMap();
+    const view = map.getView();
+    if (!view) {
+      // the map does not have a view, so we can't act
+      // upon it
+      return;
+    }
+    const currentZoom = view.getZoom();
+
+    if (currentZoom !== undefined) {
+      if (currentZoom === view.getZoomForResolution(view.getResolutionForExtent(this.defaultExtent))) {
+        document.getElementById('resetZoomButton').disabled = true;
+      } else {
+        document.getElementById('resetZoomButton').disabled = false;
+      }
+
+      if (currentZoom >= view.getMaxZoom()) {
+        document.getElementById('zoomInButton').disabled = true;
+      } else {
+        document.getElementById('zoomInButton').disabled = false;
+      }
+      if (currentZoom <= view.getMinZoom()) {
+        document.getElementById('zoomOutButton').disabled = true;
+      } else {
+        document.getElementById('zoomOutButton').disabled = false;
       }
     }
   }

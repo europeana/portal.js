@@ -10,7 +10,7 @@
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
           <MediaImageViewer
-            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+            v-if="mediaIsImage"
             :url="resource.about"
             :item-id="itemId"
             :width="resource.ebucoreWidth"
@@ -53,7 +53,7 @@
             v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
-            class="sidebar-toggle button-icon-only"
+            class="sidebar-toggle button-icon-only mr-auto"
             data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
             @mouseleave="hideTooltips"
@@ -61,10 +61,9 @@
             <span class="icon icon-kebab" />
           </b-button>
           <div
-            id="zoomControls"
-          />
-          <div
-            id="fullScreenButton"
+            v-if="mediaIsImage"
+            id="viewerControls"
+            class="viewer-controls ml-auto mr-auto"
           />
           <PaginationNavInput
             :per-page="1"
@@ -160,6 +159,10 @@
     },
 
     computed: {
+      mediaIsImage() {
+        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+      },
+
       resource() {
         return this.presentation?.resources[this.page - 1];
       },
@@ -228,7 +231,7 @@
       }
     }
 
-    .iiif-viewer-toolbar {
+    ::v-deep .iiif-viewer-toolbar {
       background-color: rgba($white, 0.95);
       position: absolute;
       bottom: 0;
@@ -236,9 +239,36 @@
       right: 0;
       padding: 0.875rem 1rem;
 
-      .sidebar-toggle {
+       button {
         background-color: transparent;
         font-size: $font-size-large;
+      }
+
+      .viewer-controls {
+        display: inline-flex;
+
+        button {
+          border-style: none;
+        }
+
+        .ol-zoom-controls {
+          padding-right: 1rem;
+        }
+
+        .ol-full-screen {
+          padding-left: 1rem;
+          position: relative;
+          &:before {
+            content: '';
+            width: 2px;
+            height: 1.5rem;
+            background: $lightgrey;
+            display: inline;
+            position: absolute;
+            left: 0;
+            top: .7rem;
+          }
+        }
       }
     }
   }

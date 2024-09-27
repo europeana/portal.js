@@ -97,29 +97,29 @@
     methods: {
       drawMap() {
         if (!this.map) {
-          const fullScreenButton = document.getElementById('fullScreenButton');
-          const zoomControls = document.getElementById('zoomControls');
-          const itemHero = document.getElementsByClassName('item-hero')[0];
+          // viewerControls largerly conifgured directly in the custom control in /utils/ol/control/ZoomControls.js
+          const viewerControls = document.getElementById('viewerControls');
 
+          // Set up variables for elements passed to the fullscreen control
           const fullScreenLabel = document.createElement('span');
           fullScreenLabel.className = 'icon icon-fullscreen';
           const fullScreenLabelActive = document.createElement('span');
           fullScreenLabelActive.className = 'icon icon-fullscreen-exit';
+          const iiifViewerWrapper = document.getElementsByClassName('iiif-viewer-wrapper')[0];
 
           const controls = new Collection([
-            // Link toolbar controls
-            new FullScreenControl({
-              target: fullScreenButton,
-              source: itemHero,
-              label: fullScreenLabel,
-              labelActive: fullScreenLabelActive,
-              tipLabel: this.$t('media.controls.fullscreen')
-            }),
             new ZoomControlsControl({
-              target: zoomControls,
+              target: viewerControls,
               zoomInTipLabel: this.$t('media.controls.zoomIn'),
               zoomOutTipLabel: this.$t('media.controls.zoomOut'),
               resetZoomTipLabel: this.$t('media.controls.resetZoom')
+            }),
+            new FullScreenControl({
+              target: viewerControls,
+              source: iiifViewerWrapper,
+              label: fullScreenLabel,
+              labelActive: fullScreenLabelActive,
+              tipLabel: this.$t('media.controls.fullscreen')
             })
           ]);
 
@@ -169,7 +169,8 @@
           })
         );
         this.map.getView().fit(extent);
-        this.map.getControls().getArray()[1].setDefaultExtent(extent);
+        // TODO: selecting the control via index is prone to break when control order changes
+        this.map.getControls().getArray()[0].setDefaultExtent(extent);
       },
 
       renderStaticImage() {
@@ -201,7 +202,8 @@
           })
         );
         this.map.getView().fit(extent);
-        this.map.getControls().getArray()[1].setDefaultExtent(extent);
+        // TODO: selecting the control via index is prone to break when control order changes
+        this.map.getControls().getArray()[0].setDefaultExtent(extent);
       },
 
       async renderImage() {
