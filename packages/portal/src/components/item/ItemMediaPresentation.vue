@@ -250,19 +250,20 @@
   .iiif-viewer-wrapper {
     position: relative;
 
-    @media (max-width: ($bp-medium - 1px)) {
-      max-height: calc($swiper-height-medium + 12.375rem);
+    @media (max-width: ($bp-large - 1px)) {
+      max-height: none;
+      height: auto
     }
 
-    @media (max-width: ($bp-large - 1px)) {
-      max-height: calc($swiper-height + 13.375rem);
-      height: auto;
+    // prevent feedback button overlapping thumbnails toggle laptop screens
+    @media (min-width: $bp-large) and (max-height: 845px) {
+      height: calc($swiper-height - 2rem);
     }
   }
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
-    @include swiper-height(4rem);
+    @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
