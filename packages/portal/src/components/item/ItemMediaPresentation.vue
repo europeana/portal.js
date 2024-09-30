@@ -66,7 +66,10 @@
         >
           <span class="icon icon-kebab" />
         </b-button>
-        <div class="d-flex w-100 w-lg-auto">
+        <div
+          class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
+          :class="{ closed: !showPages }"
+        >
           <PaginationNavInput
             :per-page="1"
             :total-results="resourceCount"
@@ -81,7 +84,7 @@
             v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             variant="light-flat"
-            class="pages-toggle button-icon-only ml-3 mr-auto"
+            class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
             :class="{ 'active': showPages }"
             data-qa="show thumbnails button"
             aria-controls="item-media-thumbnails"
@@ -252,7 +255,7 @@
     }
 
     @media (max-width: ($bp-large - 1px)) {
-      max-height: calc($swiper-height + 12.375rem);
+      max-height: calc($swiper-height + 13.375rem);
       height: auto;
     }
   }
@@ -272,7 +275,6 @@
 
   .iiif-viewer-toolbar {
     background-color: rgba($white, 0.95);
-    padding: 0.875rem 1rem;
 
     @media (min-width: $bp-large) {
       position: absolute;
@@ -282,6 +284,10 @@
       z-index: 2;
     }
 
+    .sidebar-toggle {
+      margin: 0.875rem 1rem;
+    }
+
     .sidebar-toggle,
     .pages-toggle {
       background-color: transparent;
@@ -289,6 +295,18 @@
 
       &.active {
         color: $blue;
+      }
+    }
+  }
+
+  .iiif-viewer-toolbar-pagination {
+    padding: 0.875rem 1rem;
+
+    @media(max-width: ($bp-large - 1px)) {
+      border-top: 1px solid $bodygrey;
+
+      &.closed {
+        border-bottom: 1px solid $bodygrey;
       }
     }
   }

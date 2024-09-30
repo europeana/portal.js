@@ -14,7 +14,7 @@
         >
           <ItemMediaThumbnail
             :offset="index"
-            class="d-flex-inline mr-2 mr-lg-auto"
+            class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
             :resource="resource"
             :edm-type="edmType"
@@ -87,10 +87,12 @@
   @import '@europeana/style/scss/transitions';
 
   .media-thumbnails {
-    padding: 1rem;
+    // overlap 2px to save space for focus outline
+    margin-top: -2px;
+    padding: 2px 1rem 1rem;
     flex: 1 1 auto;
     background-color: $white;
-    overflow-x: scroll;
+    overflow-x: auto;
     scrollbar-width: thin;
 
     li {
