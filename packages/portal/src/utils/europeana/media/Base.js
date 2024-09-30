@@ -78,7 +78,7 @@ export default class EuropeanaMediaBase {
   }
 
   parseData(data) {
-    return data;
+    return data || {};
   }
 
   preParseData(data) {

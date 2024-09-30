@@ -11,10 +11,12 @@ export default class EuropeanaMediaAnnotationList extends Base {
       textGranularity: data.textGranularity
     };
 
-    if (['sc:AnnotationList', 'AnnotationPage'].includes(data.type)) {
-      // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=2
+    if (data.type === 'AnnotationPage') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=3
       parsed.items = data.items.map((item) => Annotation.parse(item));
+    } else if (data.type === 'sc:AnnotationList') {
+      // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=2
+      parsed.items = data.resources.map((resource) => Annotation.parse(resource));
     } else {
       parsed.items = [];
     }

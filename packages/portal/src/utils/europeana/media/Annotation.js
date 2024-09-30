@@ -5,14 +5,15 @@ export default class EuropeanaMediaAnnotation extends Base {
   parseData(data) {
     data = super.parseData(data);
 
-    let bodyOrResource = data.body || data.resource;
-    const body = Array.isArray(bodyOrResource) ? bodyOrResource.map((bod) => TextualBody.parse(bod)) : TextualBody.parse(bodyOrResource);
-
     const parsed = {
       id: data.id, // TODO: bloats size of data; how to alleviate?
-      body,
+      body: data.body || data.resource,
       target: data.target || data.on
     };
+
+    if (parsed.body) {
+      parsed.body = Array.isArray(parsed.body) ? parsed.body.map((bod) => TextualBody.parse(bod)) : TextualBody.parse(parsed.body);
+    }
 
     return parsed;
   }
