@@ -3,9 +3,12 @@
     appear
     name="fade"
   >
-    <div class="media-thumbnails">
+    <div
+      ref="mediaThumbnails"
+      class="media-thumbnails"
+    >
       <ol
-        ref="mediaThumbnails"
+        ref="mediaThumbnailsList"
         class="d-flex flex-row flex-lg-column mb-0 pl-0"
       >
         <li
@@ -56,6 +59,14 @@
     created() {
       window.addEventListener('resize', this.updateThumbnailScroll);
     },
+
+    mounted() {
+      if (this.selectedIndex > 0) {
+        this.$nextTick(() => {
+          this.updateThumbnailScroll();
+        });
+      }
+    },
     destroyed() {
       window.removeEventListener('resize', this.updateThumbnailScroll);
     },
@@ -63,19 +74,25 @@
     methods: {
       updateThumbnailScroll() {
         const mediaThumbnailsElement = this.$refs.mediaThumbnails;
+        if (!mediaThumbnailsElement) {
+          return;
+        }
+
         const elementWidth = mediaThumbnailsElement.offsetWidth;
         const elementHeight = mediaThumbnailsElement.offsetHeight;
 
-        if (window?.innerWidth <= 991) {
+        if (window.innerWidth <= 991) {
           let cardWidth = 184;
           const padding = 16;
-          if (window?.innerWidth <= 767) {
+          if (window.innerWidth <= 767) {
             cardWidth = 90;
           }
-          mediaThumbnailsElement?.scroll(padding + (this.selectedIndex * cardWidth) - ((elementWidth / 2) - (cardWidth / 2)), 0);
+          const scrollLeft = padding + (this.selectedIndex * cardWidth) - ((elementWidth / 2) - (cardWidth / 2));
+          mediaThumbnailsElement.scroll(scrollLeft, 0);
         } else {
           const cardHeight = 140; // includes bottom padding
-          mediaThumbnailsElement?.scroll(0, (this.selectedIndex * cardHeight) - ((elementHeight / 2) - (cardHeight / 2)));
+          const scrollHeight = (this.selectedIndex * cardHeight) - ((elementHeight / 2) - (cardHeight / 2));
+          mediaThumbnailsElement.scroll(0, scrollHeight);
         }
       }
     }
