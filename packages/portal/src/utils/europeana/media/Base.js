@@ -27,7 +27,6 @@ function normalize(thing) {
 }
 
 export default class EuropeanaMediaBase {
-  id;
   static $axios;
 
   static get axios() {
@@ -71,7 +70,7 @@ export default class EuropeanaMediaBase {
   constructor(idOrData) {
     if (typeof idOrData === 'string') {
       this.id = idOrData;
-    } else if (idOrData && typeof idOrData === 'object') {
+    } else if (idOrData && (typeof idOrData === 'object')) {
       for (const key in idOrData) {
         this[key] = idOrData[key];
       }
@@ -88,22 +87,6 @@ export default class EuropeanaMediaBase {
 
   postParseData(data) {
     return omitBy(data, isUndefined);
-  }
-
-  getHashParam(hash, key) {
-    if (hash?.startsWith?.('#')) {
-      return new URLSearchParams(hash.slice(1)).get(key);
-    } else {
-      return undefined;
-    }
-  }
-
-  fetch({ params } = {}) {
-    return this.constructor.fetch({
-      url: this.id,
-      headers: this.headers,
-      params
-    });
   }
 
   parse(data) {
@@ -123,6 +106,22 @@ export default class EuropeanaMediaBase {
     }
 
     return this;
+  }
+
+  getHashParam(hash, key) {
+    if (hash?.startsWith?.('#')) {
+      return new URLSearchParams(hash.slice(1)).get(key);
+    } else {
+      return undefined;
+    }
+  }
+
+  fetch({ params } = {}) {
+    return this.constructor.fetch({
+      url: this.id,
+      headers: this.headers,
+      params
+    });
   }
 
   get headers() {
