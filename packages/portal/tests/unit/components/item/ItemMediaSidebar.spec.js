@@ -25,7 +25,7 @@ describe('components/item/ItemMediaSidebar', () => {
 
     describe('when there is a manifest URI', () => {
       it('has a tab for links', () => {
-        const wrapper = factory({ uri: 'https://example.com/iiif/123/manifest' });
+        const wrapper = factory({ manifestUri: 'https://example.com/iiif/123/manifest' });
 
         const linksTab = wrapper.find('[data-qa="item media sidebar links"]');
 
