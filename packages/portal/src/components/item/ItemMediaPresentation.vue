@@ -202,7 +202,7 @@
       },
 
       resources() {
-        return this.presentation?.canvases?.map((canvas) => canvas.resource);
+        return this.presentation?.canvases?.map((canvas) => canvas.resource).filter(Boolean);
       },
 
       resourceCount() {
