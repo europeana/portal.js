@@ -46,7 +46,7 @@
         default: null
       },
       textGranularity: {
-        type: Array, String,
+        type: [Array, String],
         default: null
       },
       uri: {
