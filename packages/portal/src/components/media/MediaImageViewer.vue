@@ -26,10 +26,13 @@
   import FullScreenControl from 'ol/control/FullScreen.js';
   import ZoomControl from 'ol/control/Zoom.js';
 
+  import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
+
   export default {
     name: 'MediaImageViewer',
 
     props: {
+      // TODO: all we need is the target, not the full object
       annotation: {
         type: Object,
         default: null
@@ -113,16 +116,22 @@
       },
 
       constructAnnotationFeature() {
-        if (!this.annotation) {
+        let annotation = this.annotation;
+        if (!annotation) {
           return null;
+        } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
+          annotation = new EuropeanaMediaAnnotation(annotation);
         }
 
         // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
         let [x, y, w, h] = this.olExtent;
-        const target = this.annotation.targetFor(this.url)[0];
+        // FIXME: this.url will always be for the image, not the canvas, which works
+        //        with europeana's incorrect annotation modelling, but not with
+        //        others' correct modelling
+        const target = annotation.targetFor(this.url)[0];
         const targetId = target?.id || target;
         const targetHash = new URL(targetId).hash;
-        const xywhSelector = this.annotation.getHashParam(targetHash, 'xywh');
+        const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
         if (xywhSelector) {
           [x, y, w, h] = xywhSelector
             .split(',')
