@@ -85,7 +85,7 @@
   @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-sidebar {
-    width: 260px;
+    width: 230px;
     position: absolute;
     top: 0;
     left: 0;
@@ -93,12 +93,16 @@
     z-index: 1;
     background-color: $white;
 
+    .tabs {
+      background-color: $white;
+    }
+
     .tab-pane {
       overflow-wrap: break-word;
     }
 
     ::v-deep .tab-content {
-      padding: 1rem 1.5rem 1rem 0.875rem;
+      padding: 1rem 1.5rem 4rem 0.875rem;
       overflow: auto;
 
       h2 {

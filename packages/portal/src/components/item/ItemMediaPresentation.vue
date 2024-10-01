@@ -249,6 +249,7 @@
 
   .iiif-viewer-wrapper {
     position: relative;
+    @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
       max-height: none;
@@ -276,13 +277,16 @@
 
   .iiif-viewer-toolbar {
     background-color: rgba($white, 0.95);
+    margin-top: -3.25rem;
+    position: relative;
+    z-index: 2;
 
     @media (min-width: $bp-large) {
+      margin-top: 0;
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 2;
     }
 
     .sidebar-toggle {
