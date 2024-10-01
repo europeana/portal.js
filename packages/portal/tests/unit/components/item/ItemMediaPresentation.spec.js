@@ -3,6 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemMediaPresentation from '@/components/item/ItemMediaPresentation';
 import nock from 'nock';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -70,11 +71,71 @@ describe('components/item/ItemMediaPresentation', () => {
         it('is visible', async() => {
           const wrapper = factory();
 
-          await wrapper.setData({ annotationPage: [] });
+          await wrapper.setData({ annotationPage: {} });
 
           const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
 
           expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('on click', () => {
+        it('opens the sidebar', () => {
+          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+
+          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
+
+          expect(wrapper.vm.showSidebar).toBe(true);
+        });
+        it('sets focus to the sidebar', async() => {
+          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+          wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
+
+          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
+
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$refs.sidebar.$el.focus.called).toBe(true);
+        });
+      });
+    });
+
+    describe('pages toggle button', () => {
+      describe('when there are two or more pages', () => {
+        it('is visible', async() => {
+          const wrapper = factory();
+
+          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+
+          const pagesToggle = wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]');
+
+          expect(pagesToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('on click', () => {
+        it('closes and opens the item media thumbnails sidebar', async() => {
+          const wrapper = factory();
+
+          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+
+          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
+          expect(wrapper.vm.showPages).toBe(false);
+          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
+          expect(wrapper.vm.showPages).toBe(true);
+        });
+        it('sets focus to the item media thumbnails sidebar', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+
+          wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
+          wrapper.vm.showPages = false;
+
+          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
+
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
         });
       });
     });

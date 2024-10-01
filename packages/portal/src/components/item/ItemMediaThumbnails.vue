@@ -67,6 +67,7 @@
         });
       }
     },
+
     destroyed() {
       window.removeEventListener('resize', this.updateThumbnailScroll);
     },

@@ -67,6 +67,7 @@
           <span class="icon icon-kebab" />
         </b-button>
         <div
+          v-if="resourceCount >= 2"
           class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
           :class="{ closed: !showPages }"
         >
@@ -80,13 +81,12 @@
             class="pagination ml-auto"
           />
           <b-button
-            v-if="resourceCount >= 2"
             v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
             variant="light-flat"
             class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
             :class="{ 'active': showPages }"
-            data-qa="show thumbnails button"
+            data-qa="iiif viewer toolbar pages toggle"
             aria-controls="item-media-thumbnails"
             :aria-expanded="showPages ? 'true' : 'false'"
             @click="togglePages"
@@ -105,6 +105,7 @@
         :resources="thumbnailResources"
         :selected-index="page -1"
         :edm-type="edmType"
+        data-qa="item media thumbnails"
         @keydown.escape.native="showPages = false"
       />
     </div>
