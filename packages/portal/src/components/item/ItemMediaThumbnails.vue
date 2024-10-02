@@ -107,6 +107,8 @@
   .media-thumbnails {
     // overlap 2px to save space for focus outline
     margin-top: -2px;
+    position: relative;
+    z-index: 3;
     padding: 2px 1rem 1rem;
     flex: 1 1 auto;
     background-color: $white;
@@ -118,6 +120,7 @@
     }
 
     @media (min-width: $bp-large) {
+      margin-top: 0;
       position: absolute;
       top: 0;
       right: 0;
@@ -125,7 +128,7 @@
       z-index: 1;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: 1rem;
+      padding: 1rem 1rem 3.25rem;
       width: 13rem;
       height: 100%;
     }
