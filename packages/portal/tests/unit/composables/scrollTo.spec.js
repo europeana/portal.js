@@ -5,6 +5,22 @@ describe('useScrollTo', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
+  describe('queue array', () => {
+    it('is included in return value', () => {
+      const { queue } = useScrollTo();
+
+      expect(queue.value).toEqual([]);
+    });
+  });
+
+  describe('scrolling boolean', () => {
+    it('is included in return value', () => {
+      const { scrolling } = useScrollTo();
+
+      expect(scrolling.value).toBe(false);
+    });
+  });
+
   describe('scrollToElement function', () => {
     it('is included in return value', () => {
       const { scrollToElement } = useScrollTo();
