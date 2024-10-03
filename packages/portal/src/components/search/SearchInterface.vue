@@ -178,6 +178,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
     name: 'SearchInterface',
@@ -222,6 +223,11 @@
       }
     },
 
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
+
     data() {
       return {
         apiParams: {},
@@ -240,7 +246,7 @@
 
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
+      process.client && this.scrollToSelector('#header');
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
