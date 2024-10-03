@@ -2,6 +2,7 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
+    tabindex="0"
   />
 </template>
 
