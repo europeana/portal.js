@@ -28,7 +28,7 @@ describe('useScrollTo', () => {
       expect(typeof scrollToElement).toBe('function');
     });
 
-    it('smooth scrolls container to element', () => {
+    it('scrolls container to element', () => {
       const container = {
         scroll: sinon.spy()
       };
@@ -40,7 +40,7 @@ describe('useScrollTo', () => {
       const { scrollToElement } = useScrollTo();
       scrollToElement(element, { container });
 
-      expect(container.scroll.calledWith({ behavior: 'smooth', left: 10, top: 20 })).toBe(true);
+      expect(container.scroll.calledWith({ left: 10, top: 20 })).toBe(true);
     });
 
     it('applies optional offsets if given', () => {
@@ -55,7 +55,23 @@ describe('useScrollTo', () => {
       const { scrollToElement } = useScrollTo();
       scrollToElement(element, { container, offsetLeft: 5, offsetTop: -5 });
 
-      expect(container.scroll.calledWith({ behavior: 'smooth', left: 15, top: 15 })).toBe(true);
+      expect(container.scroll.calledWith({ left: 15, top: 15 })).toBe(true);
+    });
+
+    it('sets scroll behavior if given', () => {
+      const container = {
+        scroll: sinon.spy()
+      };
+      const element = {
+        offsetLeft: 10,
+        offsetTop: 20
+      };
+      const behavior = 'smooth';
+
+      const { scrollToElement } = useScrollTo();
+      scrollToElement(element, { behavior, container });
+
+      expect(container.scroll.calledWith({ behavior, left: 10, top: 20 })).toBe(true);
     });
 
     it('enqueues additional scroll requests, once per element', () => {
@@ -88,7 +104,7 @@ describe('useScrollTo', () => {
       expect(typeof scrollElementToCentre).toBe('function');
     });
 
-    it('smooth scrolls container to centre element', () => {
+    it('scrolls container to centre element', () => {
       const container = {
         offsetHeight: 200,
         offsetWidth: 100,
@@ -104,7 +120,7 @@ describe('useScrollTo', () => {
       const { scrollElementToCentre } = useScrollTo();
       scrollElementToCentre(element, { container });
 
-      expect(container.scroll.calledWith({ behavior: 'smooth', left: 15, top: 20 })).toBe(true);
+      expect(container.scroll.calledWith({ left: 15, top: 20 })).toBe(true);
     });
   });
 });

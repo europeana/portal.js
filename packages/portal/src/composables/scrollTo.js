@@ -36,7 +36,7 @@ export default function useScrollTo() {
     }
     scrolling.value = true;
 
-    const { container, offsetLeft, offsetTop } = {
+    const { behavior, container, offsetLeft, offsetTop } = {
       container: window,
       offsetLeft: 0,
       offsetTop: 0,
@@ -50,7 +50,12 @@ export default function useScrollTo() {
     const left = element.offsetLeft + offsetLeft;
     const top = element.offsetTop + offsetTop;
 
-    container.scroll({ behavior: 'smooth', left, top });
+    const scrollOptions = { left, top };
+    if (behavior) {
+      scrollOptions.behavior = behavior;
+    }
+
+    container.scroll(scrollOptions);
 
     // debounce, e.g. if triggered by window resize event
     setTimeout(finishScrolling, 300);
