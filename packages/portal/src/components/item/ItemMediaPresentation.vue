@@ -97,8 +97,7 @@
         </div>
       </div>
       <ItemMediaThumbnails
-        v-if="resourceCount >= 2"
-        v-show="showPages"
+        v-if="resourceCount >= 2 && showPages"
         id="item-media-thumbnails"
         ref="itemPages"
         tabindex="0"
