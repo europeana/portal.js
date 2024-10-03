@@ -26,7 +26,7 @@ export default function useScrollTo() {
   };
 
   const scrollToSelector = (selector, options = {}) => {
-    scrollToElement(document.querySelector(selector, options));
+    scrollToElement(document.querySelector(selector), options);
   };
 
   const scrollToElement = (element, options = {}) => {
