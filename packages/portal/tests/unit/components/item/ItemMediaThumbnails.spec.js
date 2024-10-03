@@ -40,19 +40,20 @@ describe('components/item/ItemMediaThumbnail', () => {
   describe('when the selected page is after the first page', () => {
     it('scrolls the thumbnails bar to the active position', async() => {
       const wrapper = factory({ ...props, selectedIndex: 2 });
-      wrapper.vm.$refs.mediaThumbnails.scroll = sinon.spy();
+      wrapper.vm.scrollElementToCentre = sinon.spy();
 
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.$refs.mediaThumbnails.scroll.called).toBe(true);
+      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
     });
 
     describe('when the media thumbnails element is not yet available', () => {
       it('does not scroll the thumbnails bar', () => {
         const wrapper = factory({ ...props, selectedIndex: 2 });
+        wrapper.vm.scrollElementToCentre = sinon.spy();
         wrapper.vm.$refs.mediaThumbnails = null;
 
-        expect(wrapper.vm.$refs.mediaThumbnails?.scroll).toBe(undefined);
+        expect(wrapper.vm.scrollElementToCentre.called).toBe(false);
       });
     });
   });
@@ -60,35 +61,11 @@ describe('components/item/ItemMediaThumbnail', () => {
   describe('on resize', () => {
     it('scrolls the thumbnails bar to the active position', () => {
       const wrapper = factory();
-      wrapper.vm.$refs.mediaThumbnails.scroll = sinon.spy();
+      wrapper.vm.scrollElementToCentre = sinon.spy();
 
       window.dispatchEvent(new Event('resize'));
 
-      expect(wrapper.vm.$refs.mediaThumbnails.scroll.called).toBe(true);
-    });
-
-    describe('when the viewport is 991 pixels or less', () => {
-      it('scrolls the thumbnails bar to the active position', () => {
-        const wrapper = factory();
-        wrapper.vm.$refs.mediaThumbnails.scroll = sinon.spy();
-
-        window.innerWidth = 991;
-        window.dispatchEvent(new Event('resize'));
-
-        expect(wrapper.vm.$refs.mediaThumbnails.scroll.calledWith(108, 0)).toBe(true);
-      });
-    });
-
-    describe('when the viewport is 767 pixels or less', () => {
-      it('scrolls the thumbnails bar to the active position', () => {
-        const wrapper = factory();
-        wrapper.vm.$refs.mediaThumbnails.scroll = sinon.spy();
-
-        window.innerWidth = 767;
-        window.dispatchEvent(new Event('resize'));
-
-        expect(wrapper.vm.$refs.mediaThumbnails.scroll.calledWith(61, 0)).toBe(true);
-      });
+      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
     });
   });
 

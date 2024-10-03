@@ -4,15 +4,15 @@
     name="fade"
   >
     <div
-      ref="mediaThumbnails"
+      ref="mediaThumbnailsContainer"
       class="media-thumbnails"
     >
       <ol
-        ref="mediaThumbnailsList"
         class="d-flex flex-row flex-lg-column mb-0 pl-0"
       >
         <li
           v-for="(resource, index) in resources"
+          ref="mediaThumbnails"
           :key="index"
         >
           <ItemMediaThumbnail
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import useScrollTo from '@/composables/scrollTo.js';
   import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
 
   export default {
@@ -37,6 +38,7 @@
     components: {
       ItemMediaThumbnail
     },
+
     props: {
       resources: {
         type: Array,
@@ -50,6 +52,11 @@
         type: Number,
         required: true
       }
+    },
+
+    setup() {
+      const { scrollElementToCentre } = useScrollTo();
+      return { scrollElementToCentre };
     },
 
     watch: {
@@ -74,27 +81,13 @@
 
     methods: {
       updateThumbnailScroll() {
-        const mediaThumbnailsElement = this.$refs.mediaThumbnails;
-        if (!mediaThumbnailsElement) {
-          return;
-        }
-
-        const elementWidth = mediaThumbnailsElement.offsetWidth;
-        const elementHeight = mediaThumbnailsElement.offsetHeight;
-
-        if (window.innerWidth <= 991) {
-          let cardWidth = 184;
-          const padding = 16;
-          if (window.innerWidth <= 767) {
-            cardWidth = 90;
+        this.scrollElementToCentre(
+          this.$refs.mediaThumbnails?.[this.selectedIndex],
+          {
+            behavior: 'smooth',
+            container: this.$refs.mediaThumbnailsContainer
           }
-          const scrollLeft = padding + (this.selectedIndex * cardWidth) - ((elementWidth / 2) - (cardWidth / 2));
-          mediaThumbnailsElement.scroll(scrollLeft, 0);
-        } else {
-          const cardHeight = 140; // includes bottom padding
-          const scrollHeight = (this.selectedIndex * cardHeight) - ((elementHeight / 2) - (cardHeight / 2));
-          mediaThumbnailsElement.scroll(0, scrollHeight);
-        }
+        );
       }
     }
   };
