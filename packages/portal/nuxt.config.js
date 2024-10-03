@@ -303,7 +303,6 @@ export default {
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto.client',
     '~/plugins/features',
     `~/plugins/media/${process.env.BUILD_MEDIA_PRESENTATION_PLUGIN || 'switch'}`
   ],
