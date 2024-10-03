@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import MediaCardImage from '../media/MediaCardImage.vue';
   import SmartLink from '@/components/generic/SmartLink';
 
   export default {
@@ -28,7 +29,7 @@
 
     components: {
       SmartLink,
-      MediaCardImage: () => import('@/components/media/MediaCardImage')
+      MediaCardImage
     },
     props: {
       resource: {
