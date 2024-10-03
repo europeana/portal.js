@@ -81,6 +81,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
 
 describe('components/search/SearchInterface', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('activates the search in the store', async() => {
@@ -150,11 +151,12 @@ describe('components/search/SearchInterface', () => {
 
     it('scrolls to the page header element', async() => {
       const wrapper = factory();
-      wrapper.vm.$scrollTo = sinon.spy();
+      process.client = true;
+      wrapper.vm.scrollToSelector = sinon.spy();
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
     });
 
     it('logs the search interaction to APM', async() => {
