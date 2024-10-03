@@ -20,6 +20,7 @@
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
+  // import DoubleClickZoom from 'ol/interaction/DoubleClickZoom.js';
   import ZoomControlsControl from '@/utils/ol/control/ZoomControls.js';
 
   export default {
@@ -100,6 +101,9 @@
           // viewerControls largerly conifgured directly in the custom control in /utils/ol/control/ZoomControls.js
           const viewerControls = document.getElementById('viewerControls');
 
+          // Remove any existing controls to avoid duplication, this also removes any event listeners
+          viewerControls.innerHTML = '';
+
           // Set up variables for elements passed to the fullscreen control
           const fullScreenLabel = document.createElement('span');
           fullScreenLabel.className = 'icon icon-fullscreen';
@@ -127,6 +131,7 @@
             controls,
             layers: [],
             target: 'media-image-viewer'
+            // interactions: [new DoubleClickZoom()]
           });
         }
       },
@@ -168,9 +173,9 @@
             constrainOnlyCenter: true
           })
         );
+
         this.map.getView().fit(extent);
-        // TODO: selecting the control via index is prone to break when control order changes
-        this.map.getControls().getArray()[0].setDefaultExtent(extent);
+        this.configureZoomLevels(extent);
       },
 
       renderStaticImage() {
@@ -198,12 +203,11 @@
             projection,
             center: getCenter(extent),
             zoom: 1,
-            maxZoom: 8
+            maxZoom: 4 // TODO: Calculate, based on image size. Take viewport size into consideration?
           })
         );
         this.map.getView().fit(extent);
-        // TODO: selecting the control via index is prone to break when control order changes
-        this.map.getControls().getArray()[0].setDefaultExtent(extent);
+        this.configureZoomLevels(extent);
       },
 
       async renderImage() {
@@ -214,6 +218,18 @@
         } else if (this.source === 'ImageStatic') {
           this.renderStaticImage();
         }
+      },
+
+      configureZoomLevels(extent) {
+        const view = this.map.getView();
+
+        // TODO: selecting the control via index is prone to break when control order changes
+        const viewControls = this.map.getControls().getArray()[0];
+        viewControls.setDefaultExtent(extent);
+        this.map.getView().on('change:resolution', () => {
+          viewControls.updateControlState(view);
+        });
+        viewControls.updateControlState(view); // Call once to disable initial zoom button.
       }
     }
   };

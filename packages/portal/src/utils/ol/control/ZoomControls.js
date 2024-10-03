@@ -66,7 +66,6 @@ export default class ZoomControlsControl extends Control {
   handleResetZoom(event) {
     event.preventDefault();
     this.getMap().getView().fit(this.defaultExtent);
-    this.updateControlState();
   }
 
   /**
@@ -85,7 +84,6 @@ export default class ZoomControlsControl extends Control {
   handleClick(delta, event) {
     event.preventDefault();
     this.zoomByDelta(delta);
-    this.updateControlState();
   }
 
   /**
@@ -119,16 +117,14 @@ export default class ZoomControlsControl extends Control {
   }
 
   /**
-   * @private
+   * @param {object} view The view used to determine which zoom actions are active
+   * @public
    */
-  updateControlState() {
-    // TODO: Fix this as it's very percise. Consider rounding zoom levels.
+  updateControlState(view) {
     // TODO: Fix this for when screen dimensions are changed, especially wrt default zoom.
-    const map = this.getMap();
-    const view = map.getView();
+    // TODO: Take into account view positioning, so that reset can be used to re-center?
+
     if (!view) {
-      // the map does not have a view, so we can't act
-      // upon it
       return;
     }
     const currentZoom = view.getZoom();
