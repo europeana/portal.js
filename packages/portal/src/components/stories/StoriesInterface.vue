@@ -1,6 +1,5 @@
 <template>
   <div
-    ref="container"
     data-qa="stories interface"
   >
     <client-only>
