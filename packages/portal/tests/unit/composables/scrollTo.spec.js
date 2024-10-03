@@ -62,17 +62,22 @@ describe('useScrollTo', () => {
       const container = {
         scroll: sinon.spy()
       };
-      const element = {
+      const element1 = {
         offsetLeft: 10,
         offsetTop: 20
       };
+      const element2 = {
+        offsetLeft: 20,
+        offsetTop: 10
+      };
 
       const { queue, scrollToElement } = useScrollTo();
-      scrollToElement(element, { container });
-      scrollToElement(element, { container });
-      scrollToElement(element, { container });
+      scrollToElement(element1, { container });
+      scrollToElement(element1, { container });
+      scrollToElement(element1, { container });
+      scrollToElement(element2, { container });
 
-      expect(queue.value.length).toBe(1);
+      expect(queue.value.length).toBe(2);
     });
   });
 
