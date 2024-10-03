@@ -57,6 +57,23 @@ describe('useScrollTo', () => {
 
       expect(container.scroll.calledWith({ behavior: 'smooth', left: 15, top: 15 })).toBe(true);
     });
+
+    it('enqueues additional scroll requests, once per element', () => {
+      const container = {
+        scroll: sinon.spy()
+      };
+      const element = {
+        offsetLeft: 10,
+        offsetTop: 20
+      };
+
+      const { queue, scrollToElement } = useScrollTo();
+      scrollToElement(element, { container });
+      scrollToElement(element, { container });
+      scrollToElement(element, { container });
+
+      expect(queue.value.length).toBe(1);
+    });
   });
 
   describe('scrollElementToCentre function', () => {
