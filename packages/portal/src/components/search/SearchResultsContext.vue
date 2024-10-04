@@ -58,6 +58,7 @@
         <b-link
           class="more-link"
           :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          :target="null"
           @click.prevent="keycloakLogin"
         >
           {{ $t('actions.login') }}

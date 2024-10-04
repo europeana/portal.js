@@ -4,6 +4,7 @@
     :to="path"
     :class="linkClass"
     :disabled="disabled"
+    :target="null"
     @click.capture.native="logSearchLink && setLoggableInteraction()"
   >
     <slot />
@@ -11,7 +12,7 @@
   <b-link
     v-else
     :href="path"
-    :target="isExternalLink ? '_blank' : '_self'"
+    :target="isExternalLink ? '_blank' : null"
     :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass]"
     :disabled="disabled"
   >
