@@ -2,6 +2,7 @@
   <SmartLink
     :destination="link"
     class="item-media-thumbnail text-lowercase text-decoration-none"
+    :aria-label="label"
   >
     <MediaCardImage
       :media="resource"
@@ -11,7 +12,6 @@
       thumbnail-size="small"
       :linkable="false"
     />
-    <span class="thumbnail-page">{{ label }}</span>
     <span
       class="icon-media-type"
       :class="mediaTypeIconClass"
@@ -98,6 +98,22 @@
       margin-bottom: 1rem;
     }
 
+    &[aria-label]:before {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      color: $white;
+      z-index: 1;
+      line-height: 1;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-small;
+        bottom: 1rem;
+        left: 1rem;
+      }
+    }
+
     &:last-child {
       margin-right: 0;
     }
@@ -166,21 +182,6 @@
         font-size: $font-size-large;
         right: 0.75rem;
         bottom: 0.75rem;
-      }
-    }
-
-    .thumbnail-page {
-      position: absolute;
-      bottom: 0.5rem;
-      left: 0.5rem;
-      color: $white;
-      z-index: 1;
-      line-height: 1;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-small;
-        bottom: 1rem;
-        left: 1rem;
       }
     }
   }
