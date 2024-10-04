@@ -71,30 +71,8 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .icon-media-type {
-    position: absolute;
-    right: 0.5rem;
-    bottom: 0.5rem;
-    z-index: 1;
-    color: $white;
-    font-size: $font-size-small;
-    line-height: 1;
-
-    @media (min-width: $bp-medium) {
-      font-size: $font-size-large;
-      right: 0.75rem;
-      bottom: 0.75rem;
-    }
-  }
 
   .item-media-thumbnail {
     background-color: $grey;
@@ -168,20 +146,42 @@
     ::v-deep .card-img {
       border-radius: 0;
     }
-  }
 
-  .thumbnail-page {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    color: $white;
-    z-index: 1;
-    line-height: 1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-    @media (min-width: $bp-medium) {
+    .icon-media-type {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      z-index: 1;
+      color: $white;
       font-size: $font-size-small;
-      bottom: 1rem;
-      left: 1rem;
+      line-height: 1;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-large;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+    }
+
+    .thumbnail-page {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      color: $white;
+      z-index: 1;
+      line-height: 1;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-small;
+        bottom: 1rem;
+        left: 1rem;
+      }
     }
   }
 </style>
