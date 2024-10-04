@@ -45,6 +45,7 @@
           <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
           <b-link
             :href="manifestUri"
+            target="_blank"
           >
             {{ manifestUri }}
           </b-link>
