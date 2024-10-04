@@ -2,7 +2,6 @@
   <SmartLink
     :destination="link"
     class="item-media-thumbnail text-lowercase text-decoration-none"
-    data-qa="item media thumbnail"
   >
     <MediaCardImage
       :media="resource"
