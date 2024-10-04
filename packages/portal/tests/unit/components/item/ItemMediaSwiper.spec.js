@@ -64,7 +64,7 @@ describe('components/item/ItemMediaSwiper', () => {
     });
   });
   describe('onSlideChange()', () => {
-    it('emits a `select` event with the item identifier', () => {
+    it('emits a `select` event with the item', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
       wrapper.vm.$refs.swiperThubmnails.scroll = sinon.stub();
@@ -72,7 +72,7 @@ describe('components/item/ItemMediaSwiper', () => {
       wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.onSlideChange();
 
-      expect(wrapper.emitted('select')).toEqual([[displayableMedia[1].about]]);
+      expect(wrapper.emitted('select')).toEqual([[displayableMedia[1]]]);
     });
   });
   describe('updateSwiper()', () => {

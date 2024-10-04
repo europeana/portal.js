@@ -138,7 +138,7 @@
     methods: {
       onSlideChange() {
         this.updateThubmnailScroll();
-        this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
+        this.$emit('select', this.displayableMedia[this.swiper.activeIndex]);
       },
       updateSwiper() {
         this.swiper.update();
