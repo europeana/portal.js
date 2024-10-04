@@ -29,6 +29,7 @@
                   <b-link
                     data-qa="log in button"
                     :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+                    :target="null"
                     @click.prevent="keycloakLogin"
                   >
                     {{ $t('actions.login') }}<!-- This comment removes white space
@@ -72,6 +73,7 @@
             <b-link
               v-if="translationLanguage"
               :to="translateParams(null)"
+              :target="null"
               data-qa="remove item translation button"
             >
               <i18n
