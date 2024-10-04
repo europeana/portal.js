@@ -34,6 +34,8 @@ describe('components/media/MediaImageViewer', () => {
   });
 
   const url = 'https://example.org/image.jpeg';
+  const width = 100;
+  const height = 400;
 
   describe('template', () => {
     it('renders a wrapper', () => {
@@ -85,6 +87,64 @@ describe('components/media/MediaImageViewer', () => {
 
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('IIIF');
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('highlightAnnotation', () => {
+      it('initialises a vector layer for annotations', async() => {
+        const annotation = {
+          target: {
+            id: url
+          }
+        };
+        const wrapper = factory({ propsData: { url, annotation, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.highlightAnnotation();
+
+        expect(wrapper.vm.olMap.getLayers().getLength()).toBe(2);
+      });
+
+      describe('when annotation has no xywh co-ordinates', () => {
+        const annotation = {
+          target: {
+            id: url
+          }
+        };
+
+        it('adds a feature for the annotation at the full image size', async() => {
+          const wrapper = factory({ propsData: { url, annotation, width, height } });
+
+          await new Promise(process.nextTick);
+          wrapper.vm.highlightAnnotation();
+          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+
+          expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
+            0, 400, 0, 0, 100, 0, 100, 400, 0, 400
+          ]);
+        });
+      });
+
+      describe('when annotation has xywh co-ordinates', () => {
+        const annotation = {
+          target: {
+            id: `${url}#xywh=0,0,40,20`
+          }
+        };
+
+        it('adds a feature for the annotation at its xywh co-ordinates', async() => {
+          const wrapper = factory({ propsData: { url, annotation, width, height } });
+
+          await new Promise(process.nextTick);
+          wrapper.vm.highlightAnnotation();
+          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+
+          expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
+            0, 400, 0, 380, 40, 380, 40, 400, 0, 400
+          ]);
+        });
       });
     });
   });

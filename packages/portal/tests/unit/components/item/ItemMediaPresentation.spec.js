@@ -17,13 +17,17 @@ const $apis = {
   }
 };
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
+const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
   localVue,
   attachTo: document.body,
   directives: { 'b-tooltip': () => {} },
   propsData,
+  data() {
+    return { ...data };
+  },
   mocks: {
     $apis,
+    $fetchState: { pending: false },
     $nuxt: {
       context: {
         $apis
@@ -67,11 +71,15 @@ describe('components/item/ItemMediaPresentation', () => {
         });
       });
 
-      describe('or when there is an annotationPage', () => {
-        it('is visible', async() => {
-          const wrapper = factory();
-
-          await wrapper.setData({ annotationPage: {} });
+      describe('or when there are annotations', () => {
+        it('is visible', () => {
+          const wrapper = factory({ data: {
+            presentation: {
+              canvases: [
+                { annotations: ['https://example.org/anno'] }
+              ]
+            }
+          } });
 
           const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
 
@@ -87,6 +95,7 @@ describe('components/item/ItemMediaPresentation', () => {
 
           expect(wrapper.vm.showSidebar).toBe(true);
         });
+
         it('sets focus to the sidebar', async() => {
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
           wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
@@ -101,11 +110,16 @@ describe('components/item/ItemMediaPresentation', () => {
     });
 
     describe('pages toggle button', () => {
-      describe('when there are two or more pages', () => {
-        it('is visible', async() => {
-          const wrapper = factory();
+      const presentation = {
+        canvases: [
+          { resource: {} },
+          { resource: {} }
+        ]
+      };
 
-          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+      describe('when there are two or more pages', () => {
+        it('is visible', () => {
+          const wrapper = factory({ data: { presentation } });
 
           const pagesToggle = wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]');
 
@@ -114,19 +128,17 @@ describe('components/item/ItemMediaPresentation', () => {
       });
 
       describe('on click', () => {
-        it('closes and opens the item media thumbnails sidebar', async() => {
-          const wrapper = factory();
-
-          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+        it('closes and opens the item media thumbnails sidebar', () => {
+          const wrapper = factory({ data: { presentation } });
 
           wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
           expect(wrapper.vm.showPages).toBe(false);
           wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
           expect(wrapper.vm.showPages).toBe(true);
         });
+
         it('sets focus to the item media thumbnails sidebar', async() => {
-          const wrapper = factory();
-          await wrapper.setData({ presentation: { resources: [{}, {}] } });
+          const wrapper = factory({ data: { presentation } });
 
           wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
           wrapper.vm.showPages = false;
@@ -202,12 +214,15 @@ describe('components/item/ItemMediaPresentation', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg',
-              svcsHasService: {
-                id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg',
+                svcsHasService: {
+                  id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
+                }
               }
             }
           ]
@@ -233,7 +248,9 @@ describe('components/item/ItemMediaPresentation', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.presentation).toEqual({
-          resources: webResources
+          canvases: [
+            { resource: webResources[0] }
+          ]
         });
       });
     });
