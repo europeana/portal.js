@@ -202,7 +202,6 @@
         return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(resource) {
-        console.log('ItemHero selectMedia', resource);
         this.selectedMedia = resource;
       }
     }
