@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: are we only ever using large thumbnails here? why? stop storing small? -->
   <div
-    class="image-container h-100"
+    class="image-container"
   >
     <b-link
       v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
@@ -149,6 +149,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 
   a {
     text-decoration: none;
