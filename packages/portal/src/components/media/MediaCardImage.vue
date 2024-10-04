@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: are we only ever using large thumbnails here? why? stop storing small? -->
   <div
     class="image-container h-100"
   >
@@ -31,7 +32,7 @@
         ({{ $t('newWindow') }})
       </span>
     </b-link>
-    <div
+    <template
       v-else-if="thumbnails.large"
     >
       <MediaDefaultThumbnail
@@ -51,7 +52,7 @@
         @error="imageNotFound"
         @error.native="imageNotFound"
       />
-    </div>
+    </template>
   </div>
 </template>
 
