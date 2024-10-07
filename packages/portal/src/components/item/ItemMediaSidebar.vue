@@ -9,22 +9,23 @@
     >
       <b-tabs vertical>
         <b-tab
-          v-if="!!annotationPage"
+          v-if="annotationUri"
         >
           <template #title>
             <!-- TODO: label for a11y -->
             <!-- TODO: replace with new icon for annotations -->
             <span class="icon icon-text-bold" />
           </template>
-          <!-- <IIIFAnnotationList
-                    v-if="!!annotationPage"
-                    :uri="annotationPage.url.toString()"
-                    class="iiif-viewer-sidebar-panel"
-                    @clickAnno="onClickAnno"
-                  /> -->
+          <MediaAnnotationList
+            :uri="annotationUri"
+            :target-id="annotationTargetId"
+            :text-granularity="annotationTextGranularity"
+            class="iiif-viewer-sidebar-panel"
+            @selectAnno="onSelectAnno"
+          />
         </b-tab>
         <b-tab
-          v-if="!!uri"
+          v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
           @mouseleave.native="hideTooltips"
@@ -43,9 +44,9 @@
           <h2>{{ $t('media.sidebar.links') }}</h2>
           <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
           <b-link
-            :href="uri"
+            :href="manifestUri"
           >
-            {{ uri }}
+            {{ manifestUri }}
           </b-link>
         </b-tab>
       </b-tabs>
@@ -62,19 +63,34 @@
 
     components: {
       BTab,
-      BTabs
+      BTabs,
+      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue')
     },
 
     mixins: [hideTooltips],
 
     props: {
-      annotationPage: {
-        type: Object,
-        default: null
-      },
-      uri: {
+      annotationTargetId: {
         type: String,
         default: null
+      },
+      annotationTextGranularity: {
+        type: Array, String,
+        default: null
+      },
+      annotationUri: {
+        type: String,
+        default: null
+      },
+      manifestUri: {
+        type: String,
+        default: null
+      }
+    },
+
+    methods: {
+      onSelectAnno(anno) {
+        this.$emit('selectAnno', anno);
       }
     }
   };

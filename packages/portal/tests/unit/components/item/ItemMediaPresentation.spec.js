@@ -22,6 +22,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMe
   propsData,
   mocks: {
     $apis,
+    $fetchState: { pending: false },
     $nuxt: {
       context: {
         $apis
@@ -65,11 +66,17 @@ describe('components/item/ItemMediaPresentation', () => {
         });
       });
 
-      describe('or when there is an annotationPage', () => {
+      describe('or when there are annotations', () => {
         it('is visible', async() => {
           const wrapper = factory();
 
-          await wrapper.setData({ annotationPage: [] });
+          await wrapper.setData({
+            presentation: {
+              canvases: [
+                { annotations: ['https://example.org/anno'] }
+              ]
+            }
+          });
 
           const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
 
@@ -140,12 +147,15 @@ describe('components/item/ItemMediaPresentation', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg',
-              svcsHasService: {
-                id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg',
+                svcsHasService: {
+                  id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
+                }
               }
             }
           ]
@@ -171,7 +181,9 @@ describe('components/item/ItemMediaPresentation', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.presentation).toEqual({
-          resources: webResources
+          canvases: [
+            { resource: webResources[0] }
+          ]
         });
       });
     });

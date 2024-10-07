@@ -1,8 +1,8 @@
 import nock from 'nock';
 
-import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
 
-describe('@/utils/europeana/iiif', () => {
+describe('@/utils/europeana/media/Presentation', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
@@ -14,72 +14,8 @@ describe('@/utils/europeana/iiif', () => {
   });
 
   describe('EuropeanaMediaPresentation', () => {
-    const factory = (options = {}) => {
-      const defaults = {
-        origin: 'https://iiif.example.org',
-        path: '/123/abc/manifest',
-        reqHeaders: {},
-        responseStatus: 200,
-        responseData: {}
-      };
-      const { origin, path, reqHeaders, responseStatus, responseData } = { ...defaults, ...options };
-
-      nock(origin, { reqHeaders }).get(path).reply(responseStatus, responseData);
-
-      const url = `${origin}${path}`;
-      return url;
-    };
-
-    describe('fetch', () => {
-      it('makes an HTTP GET request for the manifest URL', async() => {
-        const url = factory();
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('includes Accept header preferring v3 manifests for .europeana.eu manifest URLs', async() => {
-        const origin = 'https://iiif.europeana.eu';
-        const reqHeaders = {
-          accept: (value) => value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('includes Accept header preferring v3 manifests for .eanadev.org manifest URLs', async() => {
-        const origin = 'https://iiif.eanadev.org';
-        const reqHeaders = {
-          accept: (value) => value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('omits Accept header preference for v3 manifest for non-Europeana manifest URLs', async() => {
-        const origin = 'https://iiif.example.org';
-        const reqHeaders = {
-          accept: (value) => !value.startsWith('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0')
-        };
-        const url = factory({ origin, reqHeaders });
-        const presentation = new EuropeanaMediaPresentation(url);
-
-        await presentation.fetch();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('normalizes and parses v2 response data', async() => {
+    describe('parse', () => {
+      it('normalizes and parses v2 response data', () => {
         const responseData = {
           '@context': 'http://iiif.io/api/presentation/2/context.json',
           '@id': 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -113,10 +49,9 @@ describe('@/utils/europeana/iiif', () => {
             }
           ]
         };
-        const url = factory({ responseData });
-        const presentation = new EuropeanaMediaPresentation(url);
+        const presentation = new EuropeanaMediaPresentation();
 
-        await presentation.fetch();
+        presentation.parse(responseData);
 
         expect(presentation).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -127,10 +62,13 @@ describe('@/utils/europeana/iiif', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg'
+              }
             }
           ]
         });
@@ -170,10 +108,9 @@ describe('@/utils/europeana/iiif', () => {
             }
           ]
         };
-        const url = factory({ responseData });
-        const presentation = new EuropeanaMediaPresentation(url);
+        const presentation = new EuropeanaMediaPresentation();
 
-        await presentation.fetch();
+        presentation.parse(responseData);
 
         expect(presentation).toEqual({
           id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
@@ -184,10 +121,13 @@ describe('@/utils/europeana/iiif', () => {
               profile: 'http://iiif.io/api/search/1/search'
             }
           ],
-          resources: [
+          canvases: [
             {
-              about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg'
+              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
+              resource: {
+                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                ebucoreHasMimeType: 'image/jpeg'
+              }
             }
           ]
         });

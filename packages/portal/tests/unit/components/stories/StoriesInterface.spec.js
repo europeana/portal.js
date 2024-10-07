@@ -159,7 +159,6 @@ const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {
         page: '1'
       }
     },
-    $scrollTo: sinon.stub(),
     $fetchState,
     $t: (key) => key,
     $tc: (key) => key,
@@ -496,10 +495,11 @@ describe('components/stories/StoriesInterface', () => {
   describe('when paginating', () => {
     it('scrolls to the top of the page', async() => {
       const wrapper = factory();
+      wrapper.vm.scrollToSelector = sinon.spy();
 
       await wrapper.vm.watch.page.call(wrapper.vm, { page: 2 });
 
-      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
     });
   });
 });

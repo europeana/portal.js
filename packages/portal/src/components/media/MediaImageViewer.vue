@@ -11,6 +11,10 @@
   //       build.transpile in nuxt.config.js
   import IIIFSource from 'ol/source/IIIF.js';
   import IIIFInfo from 'ol/format/IIIFInfo.js';
+  import { fromExtent } from 'ol/geom/Polygon.js';
+  import Feature from 'ol/Feature.js';
+  import VectorLayer from 'ol/layer/Vector.js';
+  import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
   import Collection from 'ol/Collection.js';
@@ -20,13 +24,19 @@
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
-  // import DoubleClickZoom from 'ol/interaction/DoubleClickZoom.js';
   import ZoomControlsControl from '@/utils/ol/control/ZoomControls.js';
+
+  import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
   export default {
     name: 'MediaImageViewer',
 
     props: {
+      // TODO: all we need is the target, not the full object
+      annotation: {
+        type: Object,
+        default: null
+      },
       format: {
         type: String,
         default: null
@@ -57,8 +67,8 @@
       return {
         // fullsize: true,
         info: null,
-        layer: null,
-        map: null,
+        olExtent: null,
+        olMap: null,
         /**
          * @values IIIF,ImageStatic
          */
@@ -75,17 +85,16 @@
         // this.fullsize = true;
       }
 
-      // if (this.layer) {
-      //   this.map.removeLayer(this.layer);
-      //   this.layer = null;
-      // }
-
       if (process.client) {
         this.renderImage();
       }
     },
 
     watch: {
+      annotation: {
+        deep: true,
+        handler: 'highlightAnnotation'
+      },
       url: '$fetch'
     },
 
@@ -96,137 +105,195 @@
     },
 
     methods: {
-      drawMap() {
-        if (!this.map) {
-          // viewerControls largerly conifgured directly in the custom control in /utils/ol/control/ZoomControls.js
-          const viewerControls = document.getElementById('viewerControls');
-
-          // Remove any existing controls to avoid duplication, this also removes any event listeners
-          viewerControls.innerHTML = '';
-
-          // Set up variables for elements passed to the fullscreen control
-          const fullScreenLabel = document.createElement('span');
-          fullScreenLabel.className = 'icon icon-fullscreen';
-          const fullScreenLabelActive = document.createElement('span');
-          fullScreenLabelActive.className = 'icon icon-fullscreen-exit';
-          const iiifViewerWrapper = document.getElementsByClassName('iiif-viewer-wrapper')[0];
-
-          const controls = new Collection([
-            new ZoomControlsControl({
-              target: viewerControls,
-              zoomInTipLabel: this.$t('media.controls.zoomIn'),
-              zoomOutTipLabel: this.$t('media.controls.zoomOut'),
-              resetZoomTipLabel: this.$t('media.controls.resetZoom')
-            }),
-            new FullScreenControl({
-              target: viewerControls,
-              source: iiifViewerWrapper,
-              label: fullScreenLabel,
-              labelActive: fullScreenLabelActive,
-              tipLabel: this.$t('media.controls.fullscreen')
-            })
-          ]);
-
-          this.map = new Map({
-            controls,
-            layers: [],
-            target: 'media-image-viewer'
-            // interactions: [new DoubleClickZoom()]
-          });
+      initOlAnnotationLayer() {
+        const layerCount = this.olMap.getLayers().getLength();
+        if (layerCount === 0) {
+          throw new Error('No image layer to annotate.');
+        }
+        if (layerCount === 1) {
+          this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
         }
       },
 
+      constructAnnotationFeature() {
+        let annotation = this.annotation;
+        if (!annotation) {
+          return null;
+        } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
+          annotation = new EuropeanaMediaAnnotation(annotation);
+        }
+
+        // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
+        let [x, y, w, h] = this.olExtent;
+        // FIXME: this.url will always be for the image, not the canvas, which works
+        //        with europeana's incorrect annotation modelling, but not with
+        //        others' correct modelling
+        const target = annotation.targetFor(this.url)[0];
+        const targetId = target?.id || target;
+        const targetHash = new URL(targetId).hash;
+        const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
+        if (xywhSelector) {
+          [x, y, w, h] = xywhSelector
+            .split(',')
+            .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
+        }
+
+        const extent = [x, y, x + w, y + h];
+        const poly = fromExtent(extent);
+
+        // Vector Layer co-ordinates start bottom left, not top left, so transform
+        // Y co-ordinates accordingly.
+        // TODO: this seems like it should be handled by ol's projections...
+        for (let i = 0; i < poly.flatCoordinates.length; i = i + 1) {
+          if ((i % 2) === 1) { // even indices only
+            poly.flatCoordinates[i] = this.olExtent[3] - poly.flatCoordinates[i];
+          }
+        }
+
+        // uncomment to have the view follow the highlighted annotation
+        // this.olMap.getView().fit(poly);
+
+        return new Feature(poly);
+      },
+
+      highlightAnnotation() {
+        this.initOlAnnotationLayer();
+
+        const layer = this.olMap.getLayers().item(1);
+
+        // remove any existing features, i.e. previously highlighted annotations
+        layer.getSource().clear();
+
+        const feature = this.constructAnnotationFeature();
+
+        if (feature) {
+          layer.getSource().addFeature(feature);
+        }
+      },
+
+      initOlMap({ extent, layer, source } = {}) {
+        // viewerControls largerly conifgured directly in the custom control in /utils/ol/control/ZoomControls.js
+        const viewerControls = document.getElementById('viewerControls');
+
+        // Remove any existing controls to avoid duplication, this also removes any event listeners
+        viewerControls.innerHTML = '';
+
+        // Set up variables for elements passed to the fullscreen control
+        const fullScreenLabel = document.createElement('span');
+        fullScreenLabel.className = 'icon icon-fullscreen';
+        const fullScreenLabelActive = document.createElement('span');
+        fullScreenLabelActive.className = 'icon icon-fullscreen-exit';
+        const iiifViewerWrapper = document.getElementsByClassName('iiif-viewer-wrapper')[0];
+
+        const controls = new Collection([
+          new ZoomControlsControl({
+            target: viewerControls,
+            zoomInTipLabel: this.$t('media.controls.zoomIn'),
+            zoomOutTipLabel: this.$t('media.controls.zoomOut'),
+            resetZoomTipLabel: this.$t('media.controls.resetZoom')
+          }),
+          new FullScreenControl({
+            target: viewerControls,
+            source: iiifViewerWrapper,
+            label: fullScreenLabel,
+            labelActive: fullScreenLabelActive,
+            tipLabel: this.$t('media.controls.fullscreen')
+          })
+        ]);
+
+        const projection = new Projection({ units: 'pixels', extent });
+
+        const view = new View({
+          center: getCenter(extent),
+          constrainOnlyCenter: true,
+          maxZoom: 8,
+          projection,
+          resolutions: source.getTileGrid?.().getResolutions()
+        });
+
+        if (!this.olMap) {
+          this.olMap = new Map({
+            controls,
+            target: 'media-image-viewer'
+          });
+        }
+        this.olExtent = extent;
+        this.configureZoomLevels(extent);
+
+        this.olMap.setLayers([layer]);
+        this.olMap.setView(view);
+        this.olMap.getView().fit(extent);
+      },
+
       // renderThumbnail() {
-      //   this.map.getInteractions().forEach((interaction) => interaction.setActive(false));
-      //   this.map.on('singleclick', this.onSingleClickThumbnail);
+      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
+      //   this.olMap.on('singleclick', this.onSingleClickThumbnail);
       //
       //   if ((this.source === 'ImageStatic') && this.thumbnail) {
       //     const thumbWidth = 400;
       //     const thumbHeight = (this?.height / this?.width) * thumbWidth;
-      //     this.renderStaticImage(this.thumbnail.url, thumbWidth, thumbHeight);
+      //     this.initOlImageLayerStatic(this.thumbnail.url, thumbWidth, thumbHeight);
       //   }
       // },
       //
       // onSingleClickThumbnail() {
-      //   this.map.un('singleclick', this.onSingleClickThumbnail);
-      //   this.map.getInteractions().forEach((interaction) => interaction.setActive(true));
+      //   this.olMap.un('singleclick', this.onSingleClickThumbnail);
+      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
       //   this.fullsize = true;
       //   this.renderImage();
       // },
 
-      renderIIIFImage() {
-        // IIIF Image API
-        // https://openlayers.org/en/latest/examples/iiif.html
-        this.layer = new TileLayer();
-        this.map.setLayers([this.layer]);
+      // IIIF Image API
+      // https://openlayers.org/en/latest/examples/iiif.html
+      initOlImageLayerIIIF() {
+        const sourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
 
-        const options = new IIIFInfo(this.info).getTileSourceOptions();
-        options.zDirection = -1;
-        const iiifTileSource = new IIIFSource(options);
-        const extent = iiifTileSource.getTileGrid().getExtent();
+        const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
 
-        this.layer.setSource(iiifTileSource);
-        this.map.setView(
-          new View({
-            resolutions: iiifTileSource.getTileGrid().getResolutions(),
-            extent,
-            constrainOnlyCenter: true
-          })
-        );
+        sourceOptions.extent = extent;
 
-        this.map.getView().fit(extent);
-        this.configureZoomLevels(extent);
+        const source = new IIIFSource(sourceOptions);
+        const layer = new TileLayer({ source });
+
+        return { extent, layer, source };
       },
 
-      renderStaticImage() {
-        // Static image
-        // https://openlayers.org/en/latest/examples/static-image.html
-
-        this.layer = new ImageLayer();
-        this.map.setLayers([this.layer]);
-
+      // Static image
+      // https://openlayers.org/en/latest/examples/static-image.html
+      initOlImageLayerStatic() {
         const extent = [0, 0, this.width, this.height];
-        const projection = new Projection({
-          units: 'pixels',
-          extent
-        });
-        const staticImageSource = new ImageStatic({
-          // TODO: always use media proxy if static image?
+        const source = new ImageStatic({
+          // TODO: should we always be using the media proxy for static images?
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
-          projection,
           imageExtent: extent
         });
+        const layer = new ImageLayer({ source });
 
-        this.layer.setSource(staticImageSource);
-        this.map.setView(
-          new View({
-            projection,
-            center: getCenter(extent),
-            zoom: 1,
-            maxZoom: 4 // TODO: Calculate, based on image size. Take viewport size into consideration?
-          })
-        );
-        this.map.getView().fit(extent);
-        this.configureZoomLevels(extent);
+        return { extent, layer, source };
       },
 
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
-        this.drawMap();
+
+        let mapOptions = {};
+
         if (this.source === 'IIIF') {
-          this.renderIIIFImage();
-        } else if (this.source === 'ImageStatic') {
-          this.renderStaticImage();
+          mapOptions = this.initOlImageLayerIIIF();
+        } else {
+          mapOptions = this.initOlImageLayerStatic();
         }
+
+        this.initOlMap(mapOptions);
+        this.highlightAnnotation();
       },
 
       configureZoomLevels(extent) {
-        const view = this.map.getView();
+        const view = this.olMap.getView();
 
         // TODO: selecting the control via index is prone to break when control order changes
-        const viewControls = this.map.getControls().getArray()[0];
+        const viewControls = this.olMap.getControls().getArray()[0];
         viewControls.setDefaultExtent(extent);
-        this.map.getView().on('change:resolution', () => {
+        this.olMap.getView().on('change:resolution', () => {
           viewControls.updateControlState(view);
         });
         viewControls.updateControlState(view); // Call once to disable initial zoom button.

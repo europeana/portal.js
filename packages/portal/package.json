@@ -28,6 +28,7 @@
     "@nuxtjs/i18n": "^7.2.0",
     "autosuggest-highlight": "^3.2.0",
     "axios": "^0.21.4",
+    "axios-cache-interceptor": "^0.10.7",
     "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "2.22.0",
@@ -47,6 +48,7 @@
     "marked": "^4.0.10",
     "md5": "^2.3.0",
     "morgan": "^1.10.0",
+    "ol": "^10.2.0",
     "pg": "^8.11.3",
     "qs": "^6.10.1",
     "redis": "^4.6.8",
@@ -66,7 +68,6 @@
     "css-loader": "^4.2.0",
     "nock": "^13.2.7",
     "nuxt": "2.17.0",
-    "ol": "^8.1.0",
     "postcss": "^8.4.16",
     "postcss-html": "^1.5.0",
     "postcss-scss": "^4.0.4",
@@ -77,7 +78,6 @@
     "svg-url-loader": "^7.1.1",
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.2.0",
-    "vue-scrollto": "^2.20.0",
     "vuedraggable": "^2.24.3"
   },
   "peerDependencies": {

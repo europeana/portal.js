@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
       class="iiif-viewer-wrapper d-flex flex-column"
     >
@@ -7,16 +8,18 @@
         class="iiif-viewer-inner-wrapper h-100 d-flex flex-column overflow-hidden"
       >
         <div
+          v-if="!$fetchState.pending"
           class="h-100 d-flex flex-row-reverse overflow-auto"
         >
           <MediaImageViewer
-            v-if="mediaIsImage"
+            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
             :url="resource.about"
             :item-id="itemId"
             :width="resource.ebucoreWidth"
             :height="resource.ebucoreHeight"
             :format="resource.ebucoreHasMimeType"
             :service="resource.svcsHasService"
+            :annotation="activeAnnotation"
           />
           <MediaPDFViewer
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -41,8 +44,11 @@
           </code>
           <ItemMediaSidebar
             v-if="showSidebar"
-            :annotation-page="annotationPage"
-            :uri="uri"
+            :annotation-uri="annotationUri"
+            :annotation-target-id="annotationTargetId"
+            :annotation-text-granularity="annotationTextGranularity"
+            :manifest-uri="uri"
+            @selectAnno="onSelectAnno"
           />
         </div>
         <div
@@ -53,7 +59,7 @@
             v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
             variant="light-flat"
-            class="sidebar-toggle button-icon-only mr-auto"
+            class="sidebar-toggle button-icon-only"
             data-qa="iiif viewer toolbar sidebar toggle"
             @click="showSidebar = !showSidebar"
             @mouseleave="hideTooltips"
@@ -61,7 +67,7 @@
             <span class="icon icon-kebab" />
           </b-button>
           <div
-            v-if="mediaIsImage"
+            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
             id="viewerControls"
             class="viewer-controls ml-auto mr-auto"
           />
@@ -86,7 +92,7 @@
 </template>
 
 <script>
-  import EuropeanaMediaPresentation from '@/utils/europeana/iiif.js';
+  import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
   import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
@@ -137,7 +143,7 @@
 
     data() {
       return {
-        annotationPage: null,
+        activeAnnotation: null,
         presentation: null,
         page: 1,
         showSidebar: null
@@ -145,42 +151,79 @@
     },
 
     async fetch() {
+      let presentation;
+
       if (this.uri) {
-        this.presentation = await (new EuropeanaMediaPresentation(this.uri)).fetch();
+        presentation = await EuropeanaMediaPresentation.from(this.uri);
       } else if (this.webResources) {
-        this.presentation = {
-          resources: this.webResources
-        };
+        presentation = new EuropeanaMediaPresentation({
+          canvases: this.webResources.map((resource) => ({
+            resource
+          }))
+        });
       } else {
-        // TODO: what to do!?
+        throw new Error('No manifest URI or web resources for presentation');
       }
+
+      this.presentation = Object.freeze(presentation);
 
       this.setPage();
     },
 
     computed: {
-      mediaIsImage() {
-        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+      /**
+       * Annotation page/list: either a URI as a string, or an object with id
+       * property being the URI
+       */
+      annotationCollection() {
+        return this.canvas?.annotations?.[0];
+      },
+
+      annotationTargetId() {
+        // account for Europeana fulltext annotations incorrectly targeting IIIF
+        // images instead of canvases
+        return this.presentation.isInEuropeanaDomain ? this.resource.about : this.canvas.id;
+      },
+
+      annotationUri() {
+        if (!this.annotationCollection) {
+          return null;
+        } else if (typeof this.annotationCollection === 'string') {
+          return this.annotationCollection;
+        }
+        return this.annotationCollection.id;
+      },
+
+      annotationTextGranularity() {
+        return this.annotationCollection?.textGranularity;
+      },
+
+      canvas() {
+        return this.presentation?.canvases?.[this.page - 1];
       },
 
       resource() {
-        return this.presentation?.resources[this.page - 1];
+        return this.canvas?.resource;
+      },
+
+      resources() {
+        return this.presentation?.canvases?.map((canvas) => canvas.resource).filter(Boolean);
       },
 
       resourceCount() {
-        return this.presentation?.resources?.length || 0;
-      },
-
-      thumbnail() {
-        return this.thumbnails[this.page - 1];
-      },
-
-      thumbnails() {
-        return this.presentation?.resources.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+        return this.resources?.length || 0;
       },
 
       sidebarHasContent() {
-        return !!this.annotationPage || !!this.uri;
+        return !!this.annotationUri || !!this.uri;
+      },
+
+      thumbnail() {
+        return this.thumbnails?.[this.page - 1];
+      },
+
+      thumbnails() {
+        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
       }
     },
 
@@ -194,13 +237,15 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
-      onClickAnno(anno) {
-        console.log('onClickAnno', anno);
-        // const layer = this.map.getLayers()[0];
+      onSelectAnno(anno) {
+        this.activeAnnotation = anno;
+        // store the annotation id in the route hash, to pre-highlight it on page reload
+        // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
       },
 
       setPage() {
         this.page = Number(this.$route.query.page) || 1;
+        this.activeAnnotation = null;
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
@@ -239,7 +284,7 @@
       right: 0;
       padding: 0.875rem 1rem;
 
-       button {
+      .sidebar-toggle {
         background-color: transparent;
         font-size: $font-size-large;
       }
