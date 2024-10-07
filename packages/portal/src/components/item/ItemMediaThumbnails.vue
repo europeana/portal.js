@@ -6,12 +6,13 @@
     <div
       ref="mediaThumbnailsContainer"
       class="media-thumbnails"
+      @scroll="handleScrollMediaThumbnailsContainer"
     >
       <ol
         class="d-flex flex-row flex-lg-column mb-0 pl-0"
       >
         <li
-          v-for="(resource, index) in resources"
+          v-for="(resource, index) in resources.slice(0, displayCount)"
           ref="mediaThumbnails"
           :key="index"
         >
@@ -59,6 +60,12 @@
       return { scrollElementToCentre };
     },
 
+    data() {
+      return {
+        displayCount: this.selectedIndex + 10
+      };
+    },
+
     watch: {
       selectedIndex: 'updateThumbnailScroll'
     },
@@ -80,6 +87,26 @@
     },
 
     methods: {
+      handleScrollMediaThumbnailsContainer() {
+        const lastThumb = this.$refs.mediaThumbnails?.[this.$refs.mediaThumbnails.length - 1];
+        if (this.isVisible(lastThumb) && (this.displayCount < this.resources.length)) {
+          this.displayCount = this.displayCount + 10;
+        }
+      },
+
+      isVisible(thumb) {
+        const container = this.$refs.mediaThumbnailsContainer;
+        const containerRect = container.getBoundingClientRect();
+        const thumbRect = thumb.getBoundingClientRect();
+
+        const thumbTopVisible = (thumbRect.top < (containerRect.top + containerRect.height)) &&
+          (thumbRect.top > containerRect.top);
+        const thumbLeftVisible = (thumbRect.left < (containerRect.left + containerRect.width)) &&
+          (thumbRect.left > containerRect.left);
+
+        return thumbTopVisible && thumbLeftVisible;
+      },
+
       updateThumbnailScroll() {
         this.scrollElementToCentre(
           this.$refs.mediaThumbnails?.[this.selectedIndex],
