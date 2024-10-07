@@ -35,14 +35,16 @@ const factory = () => shallowMount(MediaCardImage, {
 describe('components/media/MediaCardImage', () => {
   it('has a link', () => {
     const wrapper = factory();
-    const link = wrapper.find('[data-qa="media link"]');
+
+    const link = wrapper.find('b-link-stub');
 
     expect(link.exists()).toBe(true);
   });
 
   it('has a preview image', () => {
     const wrapper = factory();
-    const image = wrapper.find('[data-qa="media preview image"]');
+
+    const image = wrapper.find('b-img-stub');
 
     expect(image.exists()).toBe(true);
   });
@@ -51,6 +53,7 @@ describe('components/media/MediaCardImage', () => {
     describe('imageNotFound', () => {
       it('shows the default thumbnail', async() => {
         const wrapper = factory();
+
         await wrapper.vm.imageNotFound();
 
         expect(wrapper.vm.showDefaultThumbnail).toBe(true);
