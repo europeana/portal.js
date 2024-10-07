@@ -6,7 +6,8 @@
     :item-id="itemId"
     :edm-type="edmType"
     :search-query="searchQuery"
-    :provider-url="provider-url"
+    :provider-url="providerUrl"
+    @select="selectMedia"
   />
   <ItemMediaLegacy
     v-else
@@ -15,7 +16,8 @@
     :item-id="itemId"
     :edm-type="edmType"
     :search-query="searchQuery"
-    :provider-url="provider-url"
+    :provider-url="providerUrl"
+    @select="selectMedia"
   />
 </template>
 
@@ -57,6 +59,12 @@
       providerUrl: {
         type: String,
         default: null
+      }
+    },
+
+    methods: {
+      selectMedia(resource) {
+        this.$emit('select', resource);
       }
     }
   };
