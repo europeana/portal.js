@@ -12,11 +12,12 @@
         class="d-flex flex-row flex-lg-column mb-0 pl-0"
       >
         <li
-          v-for="(resource, index) in resources.slice(0, displayCount)"
+          v-for="(resource, index) in resources"
           ref="mediaThumbnails"
           :key="index"
         >
           <ItemMediaThumbnail
+            v-if="isToRender(index)"
             :offset="index"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
@@ -56,14 +57,24 @@
     },
 
     setup() {
-      const { scrollElementToCentre } = useScrollTo();
-      return { scrollElementToCentre };
+      const { scrollElementToCentre, scrolling: scrollToScrolling } = useScrollTo();
+      return { scrollElementToCentre, scrollToScrolling };
     },
 
     data() {
       return {
-        displayCount: this.selectedIndex + 10
+        middleVisibleElementIndex: this.selectedIndex
       };
+    },
+
+    computed: {
+      firstVisibleElementIndex() {
+        return Math.max(this.middleVisibleElementIndex - 5, 0);
+      },
+
+      lastVisibleElementIndex() {
+        return Math.min(this.middleVisibleElementIndex + 5, this.resources.length - 1);
+      }
     },
 
     watch: {
@@ -88,10 +99,24 @@
 
     methods: {
       handleScrollMediaThumbnailsContainer() {
-        const lastThumb = this.$refs.mediaThumbnails?.[this.$refs.mediaThumbnails.length - 1];
-        if (this.isVisible(lastThumb) && (this.displayCount < this.resources.length)) {
-          this.displayCount = this.displayCount + 10;
+        // wait for useScrollTo to finish what it's doing
+        if (this.scrollToScrolling) {
+          setTimeout(this.handleScrollMediaThumbnailsContainer, 100);
+          return;
         }
+
+        // find the thumbnail nearest the middle of the container
+        const visibleElementIndices = [];
+        for (let i = this.firstVisibleElementIndex; i <= this.lastVisibleElementIndex; i = i + 1) {
+          if (this.isVisible(this.$refs.mediaThumbnails[i])) {
+            visibleElementIndices.push(i);
+          }
+        }
+        this.middleVisibleElementIndex = visibleElementIndices[Math.ceil(visibleElementIndices.length / 2) - 1];
+      },
+
+      isToRender(index) {
+        return (index >= this.firstVisibleElementIndex) && (index <= this.lastVisibleElementIndex);
       },
 
       isVisible(thumb) {
