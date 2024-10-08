@@ -67,7 +67,7 @@
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       },
       label() {
-        return this.$t('media.pages.indexLabel', { pageNumber: this.page });
+        return this.$n(this.page);
       }
     }
   };
