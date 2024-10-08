@@ -166,6 +166,7 @@
         width: 100%;
         height: 100%;
         min-width: 3rem;
+        aspect-ratio: auto;
 
         @media (min-width: $bp-medium) {
           min-width: 5rem;
