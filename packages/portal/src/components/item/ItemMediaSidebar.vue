@@ -28,6 +28,7 @@
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links') }"
           @mouseleave.native="hideTooltips"
         >
           <b-tooltip
@@ -37,7 +38,6 @@
           />
           <template #title>
             <span
-              :aria-label="$t('media.sidebar.links')"
               class="icon icon-link"
             />
           </template>
@@ -45,6 +45,7 @@
           <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
           <b-link
             :href="manifestUri"
+            target="_blank"
           >
             {{ manifestUri }}
           </b-link>
@@ -101,11 +102,24 @@
   @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-sidebar {
-    flex-basis: 260px;
-    flex-shrink: 0;
+    width: 230px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: $white;
+
+    .tabs {
+      background-color: $white;
+    }
+
+    .tab-pane {
+      overflow-wrap: break-word;
+    }
 
     ::v-deep .tab-content {
-      padding: 1rem 1.5rem 1rem 0.875rem;
+      padding: 1rem 1.5rem 4rem 0.875rem;
       overflow: auto;
 
       h2 {
