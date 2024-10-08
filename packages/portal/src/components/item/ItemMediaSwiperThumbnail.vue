@@ -133,7 +133,7 @@
       border: 2px solid $blue;
     }
 
-    ::v-deep .image-container {
+    ::v-deep .media-card-image {
       width: 100%;
       height: 100%;
 
