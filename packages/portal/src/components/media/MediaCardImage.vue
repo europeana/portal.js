@@ -37,7 +37,6 @@
         v-if="showDefaultThumbnail"
         :media-type="edmTypeWithFallback"
         :offset="offset"
-        class="h-100"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -147,8 +146,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
 
     a {
       text-decoration: none;

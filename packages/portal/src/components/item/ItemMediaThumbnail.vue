@@ -127,13 +127,17 @@
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
     }
 
-    ::v-deep .image-container {
+    .media-card-image {
       width: 100%;
       height: 100%;
 
-      div {
+      .default-thumbnail {
         width: 100%;
         height: 100%;
+      }
+
+      .card-img {
+        border-radius: 0;
       }
 
       img {
@@ -141,16 +145,6 @@
         height: 100%;
         object-fit: cover;
       }
-    }
-
-    ::v-deep .card-img {
-      border-radius: 0;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     .icon-media-type {
