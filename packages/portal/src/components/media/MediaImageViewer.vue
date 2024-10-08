@@ -2,8 +2,15 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
-    tabindex="0"
-  />
+  >
+    <b-button
+      id="media-image-viewer-link"
+      class="visually-hidden"
+      variant="outline-light"
+    >
+      {{ $t('media.controls.keyboardNavigation') }}
+    </b-button>
+  </div>
 </template>
 
 <script>
@@ -194,7 +201,8 @@
         if (!this.olMap) {
           this.olMap = new Map({
             controls,
-            target: 'media-image-viewer'
+            target: 'media-image-viewer',
+            keyboardEventTarget: 'media-viewer-image-link'
           });
         }
         this.olExtent = extent;
@@ -268,3 +276,25 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+
+  #media-image-viewer-link {
+    color: $lightgrey;
+    background-color: transparent;
+
+    &:focus {
+      clip: auto;
+      clip-path: none;
+      white-space: unset;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 170px;
+      height: auto;
+      z-index: 1;
+      box-shadow: none;
+    }
+  }
+</style>
