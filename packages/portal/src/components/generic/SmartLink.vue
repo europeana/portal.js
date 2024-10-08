@@ -2,8 +2,9 @@
   <b-link
     v-if="useRouterLink"
     :to="path"
-    :class="linkClass"
+    :class="[linkClass, 'smart-link']"
     :disabled="disabled"
+    :target="null"
     @click.capture.native="logSearchLink && setLoggableInteraction()"
   >
     <slot />
@@ -11,8 +12,8 @@
   <b-link
     v-else
     :href="path"
-    :target="isExternalLink ? '_blank' : '_self'"
-    :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass]"
+    :target="isExternalLink ? '_blank' : null"
+    :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass, 'smart-link']"
     :disabled="disabled"
   >
     <slot /><!-- This comment removes white space which gets underlined
@@ -138,8 +139,10 @@
   };
 </script>
 
-<style lang="scss" scoped>
-.btn .icon-external-link {
-  margin-left: 0.5rem;
-}
+<style lang="scss">
+  .smart-link {
+    .btn .icon-external-link {
+      margin-left: 0.5rem;
+    }
+  }
 </style>

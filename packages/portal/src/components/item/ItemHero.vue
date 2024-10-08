@@ -1,5 +1,9 @@
 <template>
   <div class="item-hero">
+    <!--
+      TODO: render the media presentation container here, both SSR and CSR,
+            to reduce UI jumpiness
+    -->
     <client-only>
       <ItemMediaPresentation
         :uri="iiifPresentationManifest"

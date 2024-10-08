@@ -20,7 +20,10 @@
         tag="p"
       >
         <template #galleries>
-          <b-link :to="localePath('/galleries')">
+          <b-link
+            :to="localePath('/galleries')"
+            :target="null"
+          >
             {{ $t('set.publication.galleries') }}<!-- This comment removes white space
                   -->
           </b-link>
@@ -32,7 +35,10 @@
         tag="p"
       >
         <template #guidelines>
-          <b-link :to="localePath('/create-and-use-a-europeana-account')">
+          <b-link
+            :to="localePath('/create-and-use-a-europeana-account')"
+            :target="null"
+          >
             {{ $t('set.publication.process.guidelines') }}<!-- This comment removes white space
                   -->
           </b-link>
@@ -86,6 +92,7 @@
           <b-link
             class="text-decoration-none"
             :to="localePath('/galleries')"
+            :target="null"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>

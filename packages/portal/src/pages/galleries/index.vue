@@ -39,6 +39,7 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   const PER_PAGE = 24;
 
@@ -51,6 +52,10 @@
     },
     mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
     data() {
       return {
         galleries: [],
@@ -71,8 +76,6 @@
       this.galleries = setResponse.items && this.parseSets(setResponse.items);
       this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;
-
-      this.$scrollTo?.('#header');
     },
     computed: {
       pageMeta() {
@@ -90,7 +93,10 @@
       }
     },
     watch: {
-      '$route.query.page': '$fetch'
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.scrollToSelector('#header');
+      }
     },
     methods: {
       parseSets(sets) {

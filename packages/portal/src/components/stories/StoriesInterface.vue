@@ -93,6 +93,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesTypeFilter from '@/components/stories/StoriesTypeFilter';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   const CTA_BANNER = 'cta-banner';
 
@@ -119,6 +120,11 @@
         type: Object,
         default: () => {}
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -189,7 +195,7 @@
     watch: {
       async page() {
         await this.$fetch();
-        this.$scrollTo?.('#header');
+        this.scrollToSelector('#header');
       },
       selectedTags: '$fetch',
       selectedType: '$fetch'
