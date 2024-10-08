@@ -110,6 +110,7 @@
 
     li {
       list-style-type: none;
+      flex-shrink: 0;
     }
 
     @media (min-width: $bp-large) {
