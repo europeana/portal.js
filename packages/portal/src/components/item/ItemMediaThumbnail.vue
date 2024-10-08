@@ -81,7 +81,7 @@
     padding: 0;
     width: auto;
     height: 3.625rem;
-    min-width: 2rem;
+    min-width: 3rem;
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -93,7 +93,6 @@
 
     @media (min-width: $bp-medium) {
       height: 7.75rem;
-      min-width: 3rem;
     }
 
     @media (min-width: $bp-large) {
