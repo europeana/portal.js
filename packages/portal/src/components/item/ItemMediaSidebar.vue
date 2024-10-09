@@ -7,6 +7,8 @@
       class="iiif-viewer-sidebar border-bottom"
       data-qa="item media sidebar"
     >
+      <!-- TODO: fetch requests from child components of the tabs run before
+                 the tab is shown; prevent that -->
       <b-tabs vertical>
         <b-tab
           v-if="annotationUri"
