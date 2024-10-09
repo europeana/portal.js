@@ -143,7 +143,7 @@
       updateSwiper() {
         this.swiper.update();
       },
-      updateThubmnailScroll() {
+      updateThumbnailScroll() {
         // TODO: fix these values to use CSS values, not be hardcoded
         if (window.innerWidth <= 767) {
           this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 96), 0);

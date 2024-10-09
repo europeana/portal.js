@@ -43,7 +43,7 @@ export default function useScrollTo() {
       ...options
     };
 
-    if (!element || !container) {
+    if (!element || !container || !container.scroll) {
       return;
     }
 

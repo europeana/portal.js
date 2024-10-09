@@ -1,40 +1,43 @@
 <template>
-  <b-button
-    class="swiper-slide-thumbnail text-lowercase"
-    data-qa="swiper slide thumbnail"
-    @click="$emit('click')"
+  <SmartLink
+    :destination="link"
+    class="item-media-thumbnail text-lowercase text-decoration-none"
   >
     <MediaCardImage
-      :media="media"
+      :media="resource"
       :lazy="lazy"
-      :offset="index"
+      :offset="offset"
       :edm-type="edmType"
       thumbnail-size="small"
       :linkable="false"
     />
-    <span class="swiper-slide-thumbnail-page">{{ `p. ${index + 1}` }}</span>
+    <span class="thumbnail-page">{{ label }}</span>
     <span
       class="icon-media-type"
       :class="mediaTypeIconClass"
     />
-  </b-button>
+  </SmartLink>
 </template>
 
 <script>
+  import MediaCardImage from '../media/MediaCardImage.vue';
+  import SmartLink from '@/components/generic/SmartLink';
+
   export default {
-    name: 'ItemMediaSwiperThumbnail',
+    name: 'ItemMediaThumbnail',
 
     components: {
-      MediaCardImage: () => import('@/components/media/MediaCardImage')
+      SmartLink,
+      MediaCardImage
     },
     props: {
-      media: {
+      resource: {
         type: Object,
         required: true
       },
-      index: {
+      offset: {
         type: Number,
-        default: null
+        default: 0
       },
       lazy: {
         type: Boolean,
@@ -47,40 +50,31 @@
     },
 
     computed: {
+      link() {
+        return {
+          path: this.$route.path,
+          query: { ...this.$route.query, page: this.page },
+          hash: this.$route.hash
+        };
+      },
+      page() {
+        return this.offset + 1;
+      },
       mediaTypeIconClass() {
-        const mediaType = this.media.edmType || this.edmType;
+        const mediaType = this.resource.edmType || this.edmType;
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
+      },
+      label() {
+        return this.$t('media.pages.indexLabel', { pageNumber: this.page });
       }
     }
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .icon-media-type {
-    position: absolute;
-    right: 0.5rem;
-    bottom: 0.5rem;
-    z-index: 1;
-    color: $white;
-    font-size: $font-size-small;
-    line-height: 1;
-
-    @media (min-width: $bp-medium) {
-      font-size: $font-size-large;
-      right: 0.75rem;
-      bottom: 0.75rem;
-    }
-  }
-
-  .swiper-slide-thumbnail {
+  .item-media-thumbnail {
     background-color: $grey;
     padding: 0;
     flex-shrink: 0;
@@ -118,6 +112,10 @@
       }
     }
 
+    &.selected {
+      outline: 2px solid $blue;
+    }
+
     &::after {
       content: '';
       display: block;
@@ -129,17 +127,17 @@
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
     }
 
-    &.swiper-slide-active {
-      border: 2px solid $blue;
-    }
-
-    ::v-deep .media-card-image {
+    .media-card-image {
       width: 100%;
       height: 100%;
 
-      div {
+      .default-thumbnail {
         width: 100%;
         height: 100%;
+      }
+
+      .card-img {
+        border-radius: 0;
       }
 
       img {
@@ -149,23 +147,35 @@
       }
     }
 
-    ::v-deep .card-img {
-      border-radius: 0;
-    }
-  }
-
-  .swiper-slide-thumbnail-page {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    color: $white;
-    z-index: 1;
-    line-height: 1;
-
-    @media (min-width: $bp-medium) {
+    .icon-media-type {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      z-index: 1;
+      color: $white;
       font-size: $font-size-small;
-      bottom: 1rem;
-      left: 1rem;
+      line-height: 1;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-large;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+    }
+
+    .thumbnail-page {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      color: $white;
+      z-index: 1;
+      line-height: 1;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-small;
+        bottom: 1rem;
+        left: 1rem;
+      }
     }
   }
 </style>
