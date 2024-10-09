@@ -17,14 +17,12 @@
   import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
-  import Collection from 'ol/Collection.js';
   import ImageLayer from 'ol/layer/Image.js';
   import Projection from 'ol/proj/Projection.js';
   import ImageStatic from 'ol/source/ImageStatic.js';
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
-  import FullScreenControl from 'ol/control/FullScreen.js';
-  import ZoomControlsControl from '@/utils/ol/control/ZoomControls.js';
+  import { easeOut } from 'ol/easing.js';
 
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
@@ -35,6 +33,10 @@
       // TODO: all we need is the target, not the full object
       annotation: {
         type: Object,
+        default: null
+      },
+      currentZoom: {
+        type: Number,
         default: null
       },
       format: {
@@ -95,7 +97,8 @@
         deep: true,
         handler: 'highlightAnnotation'
       },
-      url: '$fetch'
+      url: '$fetch',
+      currentZoom: 'setZoom'
     },
 
     mounted() {
@@ -172,35 +175,6 @@
       },
 
       initOlMap({ extent, layer, source } = {}) {
-        // viewerControls largerly conifgured directly in the custom control in /utils/ol/control/ZoomControls.js
-        const viewerControls = document.getElementById('viewerControls');
-
-        // Remove any existing controls to avoid duplication, this also removes any event listeners
-        viewerControls.innerHTML = '';
-
-        // Set up variables for elements passed to the fullscreen control
-        const fullScreenLabel = document.createElement('span');
-        fullScreenLabel.className = 'icon icon-fullscreen';
-        const fullScreenLabelActive = document.createElement('span');
-        fullScreenLabelActive.className = 'icon icon-fullscreen-exit';
-        const iiifViewerWrapper = document.getElementsByClassName('iiif-viewer-wrapper')[0];
-
-        const controls = new Collection([
-          new ZoomControlsControl({
-            target: viewerControls,
-            zoomInTipLabel: this.$t('media.controls.zoomIn'),
-            zoomOutTipLabel: this.$t('media.controls.zoomOut'),
-            resetZoomTipLabel: this.$t('media.controls.resetZoom')
-          }),
-          new FullScreenControl({
-            target: viewerControls,
-            source: iiifViewerWrapper,
-            label: fullScreenLabel,
-            labelActive: fullScreenLabelActive,
-            tipLabel: this.$t('media.controls.fullscreen')
-          })
-        ]);
-
         const projection = new Projection({ units: 'pixels', extent });
 
         const view = new View({
@@ -213,16 +187,15 @@
 
         if (!this.olMap) {
           this.olMap = new Map({
-            controls,
             target: 'media-image-viewer'
           });
         }
         this.olExtent = extent;
-        this.configureZoomLevels(extent);
 
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
         this.olMap.getView().fit(extent);
+        this.configureZoomLevels();
       },
 
       // renderThumbnail() {
@@ -287,16 +260,42 @@
         this.highlightAnnotation();
       },
 
-      configureZoomLevels(extent) {
+      setZoom() {
+        const view = this.olMap.getView();
+        if (!view) {
+          // the map does not have a view, so we can't act
+          // upon it
+          return;
+        }
+        const viewZoom = view.getZoom();
+        if (viewZoom !== undefined) {
+          const newZoom = this.currentZoom;
+          if (this.duration > 0) {
+            if (view.getAnimating()) {
+              view.cancelAnimations();
+            }
+            view.animate({
+              zoom: newZoom,
+              duration: this.duration,
+              easing: easeOut
+            });
+          } else {
+            view.setZoom(this.currentZoom);
+          }
+        }
+      },
+
+      configureZoomLevels() {
         const view = this.olMap.getView();
 
-        // TODO: selecting the control via index is prone to break when control order changes
-        const viewControls = this.olMap.getControls().getArray()[0];
-        viewControls.setDefaultExtent(extent);
-        this.olMap.getView().on('change:resolution', () => {
-          viewControls.updateControlState(view);
+        this.$emit('viewportInitialised', {
+          defaultZoom: view.getZoom(),
+          maxZoom: view.getMaxZoom(),
+          minZoom: view.getMinZoom()
         });
-        viewControls.updateControlState(view); // Call once to disable initial zoom button.
+        this.olMap.getView().on('change:resolution', () => {
+          this.$emit('zoomChanged', view.getZoom());
+        });
       }
     }
   };

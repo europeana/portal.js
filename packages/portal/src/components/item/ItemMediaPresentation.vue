@@ -20,6 +20,9 @@
             :format="resource.ebucoreHasMimeType"
             :service="resource.svcsHasService"
             :annotation="activeAnnotation"
+            :current-zoom="currentZoom"
+            @zoomChanged="updateCurrentZoom"
+            @viewportInitialised="updateZoomLevels"
           />
           <MediaPDFViewer
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -66,10 +69,17 @@
           >
             <span class="icon icon-kebab" />
           </b-button>
-          <div
+          <MediaImageViewerZoomControls
             v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
-            id="viewerControls"
-            class="viewer-controls ml-auto mr-auto"
+            :max-zoom="maxZoom"
+            :min-zoom="minZoom"
+            :default-zoom="deafultZoom"
+            :current-zoom="currentZoom"
+            :fullscreen="fullscreen"
+            @zoomIn="zoomIn"
+            @zoomOut="zoomOut"
+            @resetZoom="resetZoom"
+            @toggleFullscreen="toggleFullscreen"
           />
           <PaginationNavInput
             :per-page="1"
@@ -103,6 +113,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
+      MediaImageViewerZoomControls: () => import('../media/MediaImageViewerZoomControls.vue'),
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
@@ -146,7 +157,12 @@
         activeAnnotation: null,
         presentation: null,
         page: 1,
-        showSidebar: null
+        showSidebar: null,
+        minZoom: 0,
+        maxZoom: 0,
+        defaultZoom: 0,
+        currentZoom: 0,
+        fullscreen: false
       };
     },
 
@@ -249,6 +265,27 @@
         this.$nextTick(() => {
           this.$emit('select', this.resource?.about);
         });
+      },
+      updateCurrentZoom(currentZoom) {
+        this.currentZoomZoom = currentZoom;
+      },
+      updateZoomLevels(zoomLevels) {
+        this.defaultZoom = zoomLevels?.defaultZoom;
+        this.maxZoom = zoomLevels?.maxZoom;
+        this.minZoom = zoomLevels?.minZoom;
+      },
+      zoomIn() {
+        this.currentZoom += 1;
+      },
+      zoomOut() {
+        this.currentZoom -= 1;
+      },
+      resetZoom() {
+        this.currentZoom = this.defaultZoom;
+      },
+      toggleFullscreen() {
+        // TODO: wire up fullscreen logic here, in MediaImageViewer, or revert to native ol fullscreen control
+        this.fullscreen = !this.fullscreen;
       }
     }
   };
