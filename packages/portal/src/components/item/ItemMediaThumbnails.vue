@@ -60,31 +60,39 @@
     },
 
     watch: {
-      selectedIndex: 'updateThumbnailScroll'
+      selectedIndex() {
+        this.updateThumbnailScroll();
+      }
     },
 
     created() {
-      window.addEventListener('resize', this.updateThumbnailScroll);
+      window.addEventListener('resize', this.handleWindowResize);
     },
 
     mounted() {
       if (this.selectedIndex > 0) {
         this.$nextTick(() => {
-          this.updateThumbnailScroll();
+          // instant scroll when first loaded, so that browser skips loading of
+          // images not in view
+          this.updateThumbnailScroll('instant');
         });
       }
     },
 
     destroyed() {
-      window.removeEventListener('resize', this.updateThumbnailScroll);
+      window.removeEventListener('resize', this.handleWindowResize);
     },
 
     methods: {
-      updateThumbnailScroll() {
+      handleWindowResize() {
+        this.updateThumbnailScroll();
+      },
+
+      updateThumbnailScroll(behavior = 'smooth') {
         this.scrollElementToCentre(
           this.$refs.mediaThumbnails?.[this.selectedIndex],
           {
-            behavior: 'smooth',
+            behavior,
             container: this.$refs.mediaThumbnailsContainer
           }
         );
