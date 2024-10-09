@@ -947,6 +947,11 @@ export default {
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
       "show": "Show sidebar"
+    },
+    "pages": {
+      "hide": "Hide pages",
+      "show": "Show pages",
+      "indexLabel": "p. {pageNumber}"
     }
   },
   "messages": {
