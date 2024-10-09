@@ -281,8 +281,8 @@
   @import '@europeana/style/scss/variables';
 
   #media-image-viewer-link {
-    color: $lightgrey;
-    background-color: transparent;
+    color: $white;
+    background-color: $blue;
 
     &:focus {
       clip: auto;
@@ -290,11 +290,28 @@
       white-space: unset;
       position: absolute;
       left: 0;
-      top: 0;
+      right: 0;
+      bottom: 4rem;
+      margin: auto;
       width: 170px;
       height: auto;
-      z-index: 1;
+      z-index: 2;
       box-shadow: none;
+      animation: disappear 300ms ease-out 4s forwards;
+    }
+  }
+
+  @keyframes disappear {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      padding: 0;
+      z-index: 0;
     }
   }
 </style>
