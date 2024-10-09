@@ -9,7 +9,9 @@
       variant="outline-light"
       data-qa="media image viewer keyboard toggle button"
       @focus="showToast"
-    />
+    >
+      {{ $t('media.controls.keyboardNavigation') }}
+    </b-button>
     <b-toast
       id="media-image-viewer-toast"
       static
@@ -23,6 +25,7 @@
         variant="light-flat"
         :aria-label="$t('actions.close')"
         @click="hideToast"
+        @focusout="hideToast"
       >
         <span class="icon-clear" />
       </b-button>
