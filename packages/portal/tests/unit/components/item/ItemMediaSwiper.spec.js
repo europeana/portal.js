@@ -67,7 +67,7 @@ describe('components/item/ItemMediaSwiper', () => {
     it('emits a `select` event with the item', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
-      wrapper.vm.$refs.swiperThubmnails.scroll = sinon.stub();
+      wrapper.vm.$refs.swiperThumbnails.scroll = sinon.stub();
 
       wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.onSlideChange();
@@ -88,12 +88,12 @@ describe('components/item/ItemMediaSwiper', () => {
     it('calls `scroll` event on the thumbnail wrapper', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
-      wrapper.vm.$refs.swiperThubmnails.scroll = sinon.spy();
+      wrapper.vm.$refs.swiperThumbnails.scroll = sinon.spy();
 
       wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.updateThumbnailScroll();
 
-      expect(wrapper.vm.$refs.swiperThubmnails.scroll.called).toEqual(true);
+      expect(wrapper.vm.$refs.swiperThumbnails.scroll.called).toEqual(true);
     });
   });
   describe('singleMediaResource', () => {
