@@ -949,8 +949,7 @@ export default {
     },
     "pages": {
       "hide": "Hide pages",
-      "show": "Show pages",
-      "indexLabel": "p. {pageNumber}"
+      "show": "Show pages"
     }
   },
   "messages": {
