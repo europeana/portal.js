@@ -51,7 +51,7 @@
       },
       uri: {
         type: String,
-        default: null
+        required: true
       }
     },
 
@@ -65,9 +65,6 @@
     // TODO: filter by motivation(s)
     async fetch() {
       this.activeAnnotation = null;
-      if (!this.uri || !this.targetId) {
-        return;
-      }
 
       let textGranularity;
       if (Array.isArray(this.textGranularity)) {
@@ -77,7 +74,7 @@
       }
 
       const list = await EuropeanaMediaAnnotationList.from(this.uri, { params: { textGranularity } });
-      const annos = list.annotationsForTarget(this.targetId);
+      const annos = this.targetId ? list.annotationsForTarget(this.targetId) : list.items;
 
       // NOTE: this may result in duplicate network requests for the same body resource
       //       if there are multiple external annotations with the same resource URL,

@@ -10,7 +10,7 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $t: (key) => key
   },
-  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList']
+  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
 
 describe('components/item/ItemMediaSidebar', () => {

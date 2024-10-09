@@ -50,12 +50,11 @@
             />
           </template>
           <h2>{{ $t('media.sidebar.search') }}</h2>
-          <b-link
-            :href="searchUri"
-            target="_blank"
-          >
-            {{ searchUri }}
-          </b-link>
+          <MediaAnnotationSearch
+            :uri="searchUri"
+            :target-id="annotationTargetId"
+            :text-granularity="annotationTextGranularity"
+          />
         </b-tab>
         <b-tab
           v-if="!!manifestUri"
@@ -98,7 +97,8 @@
     components: {
       BTab,
       BTabs,
-      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue')
+      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
+      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
     },
 
     mixins: [hideTooltips],
