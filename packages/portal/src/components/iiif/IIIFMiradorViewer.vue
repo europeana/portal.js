@@ -218,7 +218,7 @@
 
       *watchMiradorSetCanvas({ canvasId }) {
         this.memoiseImageToCanvasMap();
-        this.postUpdatedDownloadLinkMessage(canvasId);
+        this.emitSelectEvent(canvasId);
         yield;
       },
 
@@ -615,7 +615,7 @@
         }
       },
 
-      postUpdatedDownloadLinkMessage(pageId) {
+      emitSelectEvent(pageId) {
         if (!this.manifest) {
           return;
         }
@@ -623,7 +623,7 @@
         const link = this.findDownloadLinkForPage(pageId);
 
         if (link) {
-          window.parent.postMessage({ event: 'updateDownloadLink', id: link }, window.location.origin);
+          this.$emit('select', { about: link });
         }
       },
 

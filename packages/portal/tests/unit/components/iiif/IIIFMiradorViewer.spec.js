@@ -121,16 +121,16 @@ describe('components/iiif/IIIFMiradorViewer.vue', () => {
         expect(wrapper.vm.memoiseImageToCanvasMap.called).toBe(true);
       });
 
-      it('calls postUpdatedDownloadLinkMessage with canvasId', () => {
+      it('calls emitSelectEvent with canvasId', () => {
         const manifest = {
           '@context': 'http://iiif.io/api/presentation/3/context.json'
         };
         const wrapper = factory({ data: { manifest } });
-        sinon.spy(wrapper.vm, 'postUpdatedDownloadLinkMessage');
+        sinon.spy(wrapper.vm, 'emitSelectEvent');
 
         wrapper.vm.watchMiradorSetCanvas({ canvasId: 'https://example.org/canvas' }).next();
 
-        expect(wrapper.vm.postUpdatedDownloadLinkMessage.calledWith('https://example.org/canvas')).toBe(true);
+        expect(wrapper.vm.emitSelectEvent.calledWith('https://example.org/canvas')).toBe(true);
       });
     });
 
@@ -684,7 +684,7 @@ describe('components/iiif/IIIFMiradorViewer.vue', () => {
       });
     });
 
-    describe('postUpdatedDownloadLinkMessage', () => {
+    describe('emitSelectEvent', () => {
       const pageId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
       const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg';
 
@@ -696,17 +696,10 @@ describe('components/iiif/IIIFMiradorViewer.vue', () => {
 
         it('posts image URL from sequences canvas matching page ID', () => {
           const wrapper = factory({ data: { manifest } });
-          sinon.spy(window.parent, 'postMessage');
 
-          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+          wrapper.vm.emitSelectEvent(pageId);
 
-          expect(window.parent.postMessage.calledWith(
-            {
-              event: 'updateDownloadLink',
-              id: imageUrl
-            },
-            'http://localhost'
-          )).toBe(true);
+          expect(wrapper.emitted('select')).toEqual([[{ about: imageUrl }]]);
         });
       });
 
@@ -716,19 +709,12 @@ describe('components/iiif/IIIFMiradorViewer.vue', () => {
           items: [{ id: pageId, items: [{ items: [{ body: { id: imageUrl } }] }] }]
         };
 
-        it('posts image URL from canvas item matching page ID', () => {
+        it('emits select event with image URL from canvas item matching page ID', () => {
           const wrapper = factory({ data: { manifest } });
-          sinon.spy(window.parent, 'postMessage');
 
-          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+          wrapper.vm.emitSelectEvent(pageId);
 
-          expect(window.parent.postMessage.calledWith(
-            {
-              event: 'updateDownloadLink',
-              id: imageUrl
-            },
-            'http://localhost'
-          )).toBe(true);
+          expect(wrapper.emitted('select')).toEqual([[{ about: imageUrl }]]);
         });
       });
     });

@@ -9,6 +9,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaT
   mocks: {
     $route: { path: '/mock/path/', query: {} },
     $t: (key, opts) => key + JSON.stringify(opts),
+    $n: num => num,
     $nuxt: {},
     ...mocks
   }
@@ -56,7 +57,7 @@ describe('components/item/ItemMediaThumbnail', () => {
 
       const pageLabel = wrapper.vm.label;
 
-      expect(pageLabel).toBe('media.pages.indexLabel{"pageNumber":6}');
+      expect(pageLabel).toBe(6);
     });
   });
 });

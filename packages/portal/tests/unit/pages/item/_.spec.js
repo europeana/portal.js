@@ -19,12 +19,18 @@ const apiResponse = () => ({
             { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } }
           ]
         },
+        edmIsShownBy: 'http://example.org/image.jpeg',
         edmProvider: {
           def: [
             { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Provider'] } }
           ]
         },
-        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
+        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] },
+        webResources: [
+          {
+            about: 'http://example.org/image.jpeg'
+          }
+        ]
       }
     ],
     europeanaAggregation: {
@@ -312,6 +318,16 @@ describe('pages/item/_.vue', () => {
           expect(wrapper.vm.entities.every((entity) => entity.about)).toBe(true);
           expect(wrapper.vm.entities.every((entity) => entity.prefLabel)).toBe(true);
           expect(wrapper.vm.entities.some((entity) => entity.note)).toBe(false);
+        });
+      });
+
+      describe('`ogImage`', () => {
+        it('uses first media large thumbnail for og:image', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
         });
       });
 
@@ -771,21 +787,6 @@ describe('pages/item/_.vue', () => {
 
   describe('computed', () => {
     describe('pageMeta', () => {
-      it('uses first media large thumbnail for og:image', async() => {
-        const mediaUrl = 'http://example.org/image.jpeg';
-        const wrapper = factory({
-          data: {
-            media: [
-              { about: mediaUrl }
-            ]
-          }
-        });
-
-        const pageMeta = wrapper.vm.pageMeta;
-
-        expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
-      });
-
       it('uses the title in current language', async() => {
         const wrapper = factory();
 

@@ -295,7 +295,7 @@
         this.page = Number(this.$route.query.page) || 1;
         this.activeAnnotation = null;
         this.$nextTick(() => {
-          this.$emit('select', this.resource?.about);
+          this.$emit('select', this.resource);
         });
       },
 
