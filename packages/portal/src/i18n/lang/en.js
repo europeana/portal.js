@@ -942,6 +942,7 @@ export default {
       "zoomOut": "Zoom out"
     },
     "sidebar": {
+      "annotations": "Annotations",
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
