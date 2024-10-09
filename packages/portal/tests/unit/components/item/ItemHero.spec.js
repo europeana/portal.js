@@ -102,19 +102,14 @@ describe('components/item/ItemHero', () => {
     describe('when a new item is selected', () => {
       it('updates the identifier', () => {
         const wrapper = factory({ propsData: { media, identifier } });
-        wrapper.vm.selectMedia(media[1].about);
+        wrapper.vm.selectMedia(media[1]);
         expect(wrapper.vm.selectedMedia.about).toBe(media[1].about);
       });
+
       it('updates the rights statement', () => {
         const wrapper = factory({ propsData: { media, identifier } });
-        wrapper.vm.selectMedia(media[1].about);
+        wrapper.vm.selectMedia(media[1]);
         expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
-      });
-      it('unsets any selected IIIF canvas', async() => {
-        const wrapper = factory({ propsData: { media, identifier } });
-        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
-        wrapper.vm.selectMedia(media[1].about);
-        expect(wrapper.vm.selectedCanvas === null).toBe(true);
       });
     });
   });
@@ -141,29 +136,25 @@ describe('components/item/ItemHero', () => {
   });
 
   describe('downloadUrl', () => {
-    // allMediaUris set to existing media plus one iiif canvas
-    const propsData = { allMediaUris: media.map((media) => media.about).concat('http://www.example.org/canvas'), media, identifier };
+    const propsData = { allMediaUris: media.map((media) => media.about) };
+
     describe('when the webresource is the isShownBy', () => {
       it('uses the proxy', async() => {
         const wrapper = factory({ propsData });
+
         await wrapper.setData({ selectedMedia: media[0] });
+
         expect(wrapper.vm.downloadUrl).toBe('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
       });
     });
-    describe('when the webresource is a newspaper IIIF canvas', () => {
-      it('uses the proxy', async() => {
-        const wrapper = factory({ propsData });
-        await wrapper.setData({ selectedMedia: media[0] });
-        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
-        expect(wrapper.vm.downloadUrl).toBe('proxied - http://www.example.org/canvas');
-      });
-    });
-    describe('when the webresource is an unknown IIIF canvas', () => {
+
+    describe('when the webresource is an unknown image, e.g. from IIIF', () => {
       it('does not use the proxy', async() => {
         const wrapper = factory({ propsData });
-        await wrapper.setData({ selectedMedia: media[0] });
-        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/another-canvas' } });
-        expect(wrapper.vm.downloadUrl).toBe('http://www.example.org/another-canvas');
+
+        await wrapper.setData({ selectedMedia: { about: 'http://www.example.org/other.jpeg' } });
+
+        expect(wrapper.vm.downloadUrl).toBe('http://www.example.org/other.jpeg');
       });
     });
   });

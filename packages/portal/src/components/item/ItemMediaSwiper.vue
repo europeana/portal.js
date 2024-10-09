@@ -56,7 +56,7 @@
         <span class="swiper-pagination d-inline-flex" />
       </div>
       <div
-        ref="swiperThubmnails"
+        ref="swiperThumbnails"
         class="swiper-thumbnails d-flex flex-row flex-lg-column"
       >
         <ItemMediaSwiperThumbnail
@@ -138,7 +138,7 @@
     methods: {
       onSlideChange() {
         this.updateThumbnailScroll();
-        this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
+        this.$emit('select', this.displayableMedia[this.swiper.activeIndex]);
       },
       updateSwiper() {
         this.swiper.update();
@@ -146,11 +146,11 @@
       updateThumbnailScroll() {
         // TODO: fix these values to use CSS values, not be hardcoded
         if (window.innerWidth <= 767) {
-          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 96), 0);
+          this.$refs.swiperThumbnails?.scroll(16 + (this.swiper.activeIndex * 96), 0);
         } else if  (window.innerWidth <= 991) {
-          this.$refs.swiperThubmnails?.scroll(16 + (this.swiper.activeIndex * 192), 0);
+          this.$refs.swiperThumbnails?.scroll(16 + (this.swiper.activeIndex * 192), 0);
         } else {
-          this.$refs.swiperThubmnails?.scroll(0, this.swiper.activeIndex * 138);
+          this.$refs.swiperThumbnails?.scroll(0, this.swiper.activeIndex * 138);
         }
       },
       swiperOnAfterInit() {

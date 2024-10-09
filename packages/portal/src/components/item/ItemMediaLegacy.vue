@@ -63,8 +63,10 @@
     },
 
     methods: {
-      selectMedia(id) {
-        this.$emit('select', id);
+      selectMedia(resource) {
+        this.$nextTick(() => {
+          this.$emit('select', resource);
+        });
       }
     }
   };
