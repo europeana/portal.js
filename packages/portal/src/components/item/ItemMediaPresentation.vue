@@ -65,7 +65,7 @@
           v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           variant="light-flat"
-          class="sidebar-toggle button-icon-only"
+          class="sidebar-toggle button-icon-only mr-auto"
           :class="{ 'active': showSidebar }"
           data-qa="iiif viewer toolbar sidebar toggle"
           aria-controls="item-media-sidebar"
@@ -79,7 +79,7 @@
           v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
           :max-zoom="maxZoom"
           :min-zoom="minZoom"
-          :default-zoom="deafultZoom"
+          :default-zoom="defaultZoom"
           :current-zoom="currentZoom"
           :fullscreen="fullscreen"
           @zoomIn="zoomIn"
@@ -89,7 +89,7 @@
         />
         <div
           v-if="resourceCount >= 2"
-          class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
+          class="iiif-viewer-toolbar-pagination d-flex w-lg-auto ml-auto"
           :class="{ closed: !showPages }"
         >
           <PaginationNavInput
@@ -323,6 +323,7 @@
       },
       updateZoomLevels(zoomLevels) {
         this.defaultZoom = zoomLevels?.defaultZoom;
+        this.currentZoom = zoomLevels?.defaultZoom;
         this.maxZoom = zoomLevels?.maxZoom;
         this.minZoom = zoomLevels?.minZoom;
       },
@@ -393,8 +394,7 @@
       margin: 0.875rem 1rem;
     }
 
-    .sidebar-toggle,
-    .pages-toggle {
+    ::v-deep button {
       background-color: transparent;
       font-size: $font-size-large;
 

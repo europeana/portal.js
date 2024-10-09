@@ -5,6 +5,7 @@
   >
     <b-button
       :disabled="atMaxZoom"
+      class="button-icon-only btn-light-flat"
       @click="$emit('zoomIn')"
     >
       <span
@@ -13,6 +14,7 @@
     </b-button>
     <b-button
       :disabled="atDefaultZoom"
+      class="button-icon-only btn-light-flat"
       @click="$emit('resetZoom')"
     >
       <span
@@ -21,6 +23,7 @@
     </b-button>
     <b-button
       :disabled="atMinZoom"
+      class="button-icon-only btn-light-flat"
       @click="$emit('zoomOut')"
     >
       <span
@@ -28,6 +31,7 @@
       />
     </b-button>
     <b-button
+      class="fullscreen-button button-icon-only btn-light-flat"
       @click="$emit('toggleFullscreen')"
     >
       <span
@@ -74,11 +78,41 @@
         return this.currentZoom === this.defaultZoom;
       },
       atMaxZoom() {
-        return this.currentZoom === this.maxZoom;
+        return this.currentZoom >= this.maxZoom;
       },
       atMinZoom() {
-        return this.currentZoom === this.minZoom;
+        return this.currentZoom <= this.minZoom;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .viewer-controls {
+    display: inline-flex;
+
+    .btn {
+      &:focus {
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    .fullscreen-button {
+      padding-left: 1rem;
+      position: relative;
+      &:before {
+        content: '';
+        width: 2px;
+        height: 1.5rem;
+        background: $lightgrey;
+        display: inline;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+
+</style>
