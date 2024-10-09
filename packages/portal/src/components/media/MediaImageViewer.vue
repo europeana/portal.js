@@ -3,13 +3,7 @@
     id="media-image-viewer"
     class="h-100 w-100"
   >
-    <b-button
-      id="media-image-viewer-link"
-      class="visually-hidden"
-      variant="outline-light"
-    >
-      {{ $t('media.controls.keyboardNavigation') }}
-    </b-button>
+    <MediaImageViewerKeyboardToggle id="media-image-viewer-keyboard-toggle" />
   </div>
 </template>
 
@@ -36,8 +30,14 @@
 
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
+  import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
+
   export default {
     name: 'MediaImageViewer',
+
+    components: {
+      MediaImageViewerKeyboardToggle
+    },
 
     props: {
       // TODO: all we need is the target, not the full object
@@ -202,7 +202,7 @@
           this.olMap = new Map({
             controls,
             target: 'media-image-viewer',
-            keyboardEventTarget: 'media-viewer-image-link'
+            keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
         }
         this.olExtent = extent;
@@ -276,42 +276,3 @@
     }
   };
 </script>
-
-<style lang="scss">
-  @import '@europeana/style/scss/variables';
-
-  #media-image-viewer-link {
-    color: $white;
-    background-color: $blue;
-
-    &:focus {
-      clip: auto;
-      clip-path: none;
-      white-space: unset;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 4rem;
-      margin: auto;
-      width: 170px;
-      height: auto;
-      z-index: 2;
-      box-shadow: none;
-      animation: disappear 300ms ease-out 4s forwards;
-    }
-  }
-
-  @keyframes disappear {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      height: 1px;
-      padding: 0;
-      z-index: 0;
-    }
-  }
-</style>
