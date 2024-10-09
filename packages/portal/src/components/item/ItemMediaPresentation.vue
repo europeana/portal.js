@@ -18,6 +18,7 @@
           :annotation-target-id="annotationTargetId"
           :annotation-text-granularity="annotationTextGranularity"
           :manifest-uri="uri"
+          :search-uri="searchUri"
           @selectAnno="onSelectAnno"
           @keydown.escape.native="showSidebar = false"
         />
@@ -239,6 +240,10 @@
 
       resourceCount() {
         return this.resources?.length || 0;
+      },
+
+      searchUri() {
+        return [].concat(this.presentation?.search).filter(Boolean)[0]?.id;
       },
 
       sidebarHasContent() {

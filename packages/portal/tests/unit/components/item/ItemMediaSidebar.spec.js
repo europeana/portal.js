@@ -33,6 +33,16 @@ describe('components/item/ItemMediaSidebar', () => {
       });
     });
 
+    describe('when there is a search URI', () => {
+      it('has a tab for search', () => {
+        const wrapper = factory({ searchUri: 'https://example.com/iiif/123/search' });
+
+        const searchTab = wrapper.find('[data-qa="item media sidebar search"]');
+
+        expect(searchTab.exists()).toBe(true);
+      });
+    });
+
     describe('when there is a manifest URI', () => {
       it('has a tab for links', () => {
         const wrapper = factory({ manifestUri: 'https://example.com/iiif/123/manifest' });

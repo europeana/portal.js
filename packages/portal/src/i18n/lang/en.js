@@ -946,6 +946,7 @@ export default {
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "search": "Search",
       "show": "Show sidebar"
     },
     "pages": {

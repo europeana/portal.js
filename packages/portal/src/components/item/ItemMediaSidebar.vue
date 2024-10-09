@@ -33,6 +33,31 @@
           />
         </b-tab>
         <b-tab
+          v-if="!!searchUri"
+          data-qa="item media sidebar search"
+          button-id="item-media-sidebar-search"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.search') }"
+          @mouseleave.native="hideTooltips"
+        >
+          <b-tooltip
+            target="item-media-sidebar-search"
+            :title="$t('media.sidebar.search')"
+            boundary=".iiif-viewer-sidebar"
+          />
+          <template #title>
+            <span
+              class="icon icon-search-in-text"
+            />
+          </template>
+          <h2>{{ $t('media.sidebar.search') }}</h2>
+          <b-link
+            :href="searchUri"
+            target="_blank"
+          >
+            {{ searchUri }}
+          </b-link>
+        </b-tab>
+        <b-tab
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
@@ -92,6 +117,10 @@
         default: null
       },
       manifestUri: {
+        type: String,
+        default: null
+      },
+      searchUri: {
         type: String,
         default: null
       }
