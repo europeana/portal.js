@@ -376,6 +376,10 @@
         max-height: 100%;
         height: 100%;
       }
+
+      #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
+        display: none !important;
+      }
     }
   }
 
@@ -406,7 +410,7 @@
       right: 0;
     }
 
-    .sidebar-toggle {
+    .sidebar-toggle, .viewer-controls {
       margin: 0.875rem 1rem;
     }
 
