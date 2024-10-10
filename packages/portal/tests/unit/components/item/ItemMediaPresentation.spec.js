@@ -381,4 +381,3 @@ describe('components/item/ItemMediaPresentation', () => {
   });
 });
 
-
