@@ -2,6 +2,7 @@
   <div>
     <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
+      ref="viewerWrapper"
       class="iiif-viewer-wrapper overflow-hidden"
     >
       <div
@@ -338,6 +339,13 @@
       },
       toggleFullscreen() {
         // TODO: wire up fullscreen logic here, in MediaImageViewer, or revert to native ol fullscreen control
+        // Check for fullscreen support first?
+        if (this.fullscreen) {
+          document.exitFullscreen();
+        } else {
+          this.$refs.viewerWrapper.requestFullscreen();
+        }
+
         this.fullscreen = !this.fullscreen;
       }
     }
@@ -360,6 +368,14 @@
     // prevent feedback button overlapping thumbnails toggle laptop screens
     @media (min-width: $bp-large) and (max-height: 845px) {
       height: calc($swiper-height - 2rem);
+    }
+
+    &:fullscreen {
+      max-height: 100%;
+      .iiif-viewer-inner-wrapper {
+        max-height: 100%;
+        height: 100%;
+      }
     }
   }
 

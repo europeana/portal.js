@@ -187,6 +187,7 @@
 
         if (!this.olMap) {
           this.olMap = new Map({
+            controls: [],
             target: 'media-image-viewer'
           });
         }
