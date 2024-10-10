@@ -38,13 +38,16 @@ describe('components/item/ItemMediaThumbnail', () => {
   });
 
   describe('when the selected page is after the first page', () => {
-    it('scrolls the thumbnails bar to the active position', async() => {
+    it('instant-scrolls the thumbnails bar to the active position', async() => {
       const wrapper = factory({ ...props, selectedIndex: 2 });
       wrapper.vm.scrollElementToCentre = sinon.spy();
 
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
+      expect(wrapper.vm.scrollElementToCentre.calledWith(
+        sinon.match.any,
+        sinon.match.has('behavior', 'instant')
+      )).toBe(true);
     });
 
     describe('when the media thumbnails element is not yet available', () => {
@@ -59,13 +62,16 @@ describe('components/item/ItemMediaThumbnail', () => {
   });
 
   describe('on resize', () => {
-    it('scrolls the thumbnails bar to the active position', () => {
+    it('smooth-scrolls the thumbnails bar to the active position', () => {
       const wrapper = factory();
       wrapper.vm.scrollElementToCentre = sinon.spy();
 
       window.dispatchEvent(new Event('resize'));
 
-      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
+      expect(wrapper.vm.scrollElementToCentre.calledWith(
+        sinon.match.any,
+        sinon.match.has('behavior', 'smooth')
+      )).toBe(true);
     });
   });
 

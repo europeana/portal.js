@@ -938,11 +938,13 @@ export default {
   "media": {
     "controls": {
       "fullscreen": "Full screen",
+      "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
       "resetZoom": "Reset zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },
     "sidebar": {
+      "annotations": "Annotations",
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
