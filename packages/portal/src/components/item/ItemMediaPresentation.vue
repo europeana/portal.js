@@ -373,18 +373,6 @@
     @media (min-width: $bp-large) and (max-height: 845px) {
       height: calc($swiper-height - 2rem);
     }
-
-    &:fullscreen {
-      max-height: 100%;
-      .iiif-viewer-inner-wrapper {
-        max-height: 100%;
-        height: 100%;
-      }
-
-      #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
-        display: none !important;
-      }
-    }
   }
 
   .iiif-viewer-inner-wrapper {
@@ -443,6 +431,17 @@
   ::v-deep .pagination {
     ul {
       margin-bottom: 0;
+    }
+  }
+
+  .iiif-viewer-wrapper:fullscreen {
+    max-height: 100%;
+    .iiif-viewer-inner-wrapper {
+      max-height: 100%;
+      height: 100%;
+    }
+    #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
+      display: none !important;
     }
   }
 </style>
