@@ -25,6 +25,7 @@
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
   import ZoomControl from 'ol/control/Zoom.js';
+  import { defaults } from 'ol/interaction/defaults';
 
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
@@ -193,6 +194,7 @@
         if (!this.olMap) {
           this.olMap = new Map({
             controls,
+            interactions: defaults({ mouseWheelZoom: false }),
             target: 'media-image-viewer'
           });
         }
