@@ -10,12 +10,20 @@
       <b-tabs vertical>
         <b-tab
           v-if="annotationUri"
+          data-qa="item media sidebar annotations"
+          button-id="item-media-sidebar-annotations"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations') }"
+          @mouseleave.native="hideTooltips"
         >
+          <b-tooltip
+            target="item-media-sidebar-annotations"
+            :title="$t('media.sidebar.annotations')"
+            boundary=".iiif-viewer-sidebar"
+          />
           <template #title>
-            <!-- TODO: label for a11y -->
-            <!-- TODO: replace with new icon for annotations -->
-            <span class="icon icon-text-bold" />
+            <span class="icon icon-annotations" />
           </template>
+          <h2>{{ $t('media.sidebar.annotations') }}</h2>
           <MediaAnnotationList
             :uri="annotationUri"
             :target-id="annotationTargetId"
