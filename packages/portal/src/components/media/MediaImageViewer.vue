@@ -271,30 +271,31 @@
         const viewZoom = view.getZoom();
         if (viewZoom !== undefined) {
           const newZoom = this.currentZoom;
-          if (this.duration > 0) {
-            if (view.getAnimating()) {
-              view.cancelAnimations();
-            }
-            view.animate({
-              zoom: newZoom,
-              duration: this.duration,
-              easing: easeOut
-            });
-          } else {
-            view.setZoom(this.currentZoom);
+
+          if (view.getAnimating()) {
+            view.cancelAnimations();
           }
+          view.animate({
+            zoom: newZoom,
+            duration: 250, // Hardcoded to default ol annimation duration
+            easing: easeOut
+          });
         }
       },
 
       configureZoomLevels() {
         const view = this.olMap.getView();
 
-        this.$emit('viewportInitialised', {
+        this.$emit('viewInitialised', {
           defaultZoom: view.getZoom(),
           maxZoom: view.getMaxZoom(),
           minZoom: view.getMinZoom()
         });
-        this.olMap.getView().on('change:resolution', () => {
+
+        // This uses "moveend" instead of "change:resolution" on the view as that can fire many times during an animation
+        // TODO: Move out of configureZoomLevels?
+        this.olMap.on('moveend', () => {
+          console.log('moveended');
           this.$emit('zoomChanged', view.getZoom());
         });
       }

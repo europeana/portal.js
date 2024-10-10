@@ -33,7 +33,7 @@
           :annotation="activeAnnotation"
           :current-zoom="currentZoom"
           @zoomChanged="updateCurrentZoom"
-          @viewportInitialised="updateZoomLevels"
+          @viewInitialised="updateZoomLevels"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -319,8 +319,8 @@
           });
         }
       },
-      updateCurrentZoom(currentZoom) {
-        this.currentZoomZoom = currentZoom;
+      updateCurrentZoom(newZoom) {
+        this.currentZoom = newZoom;
       },
       updateZoomLevels(zoomLevels) {
         this.defaultZoom = zoomLevels?.defaultZoom;
@@ -341,7 +341,11 @@
         // TODO: wire up fullscreen logic here, in MediaImageViewer, or revert to native ol fullscreen control
         // Check for fullscreen support first?
         if (this.fullscreen) {
-          document.exitFullscreen();
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document['webKitExitFullscreen']) {
+            document['webKitExitFullscreen']();
+          }
         } else {
           this.$refs.viewerWrapper.requestFullscreen();
         }
