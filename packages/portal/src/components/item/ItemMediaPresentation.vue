@@ -2,6 +2,7 @@
   <div>
     <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
+      ref="viewerWrapper"
       class="iiif-viewer-wrapper overflow-hidden"
     >
       <div
@@ -30,6 +31,9 @@
           :format="resource.ebucoreHasMimeType"
           :service="resource.svcsHasService"
           :annotation="activeAnnotation"
+          :current-zoom="currentZoom"
+          @zoomChanged="updateCurrentZoom"
+          @viewInitialised="updateZoomLevels"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -62,7 +66,7 @@
           v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           variant="light-flat"
-          class="sidebar-toggle button-icon-only"
+          class="sidebar-toggle button-icon-only mr-auto"
           :class="{ 'active': showSidebar }"
           data-qa="iiif viewer toolbar sidebar toggle"
           aria-controls="item-media-sidebar"
@@ -72,9 +76,21 @@
         >
           <span class="icon icon-kebab" />
         </b-button>
+        <MediaImageViewerZoomControls
+          v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+          :max-zoom="maxZoom"
+          :min-zoom="minZoom"
+          :default-zoom="defaultZoom"
+          :current-zoom="currentZoom"
+          :fullscreen="fullscreen"
+          @zoomIn="zoomIn"
+          @zoomOut="zoomOut"
+          @resetZoom="resetZoom"
+          @toggleFullscreen="toggleFullscreen"
+        />
         <div
           v-if="resourceCount >= 2"
-          class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
+          class="iiif-viewer-toolbar-pagination d-flex w-lg-auto ml-auto"
           :class="{ closed: !showPages }"
         >
           <PaginationNavInput
@@ -129,6 +145,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
+      MediaImageViewerZoomControls: () => import('../media/MediaImageViewerZoomControls.vue'),
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
@@ -172,8 +189,13 @@
         activeAnnotation: null,
         presentation: null,
         page: 1,
-        showSidebar: false,
-        showPages: true
+        showSidebar: null,
+        showPages: true,
+        minZoom: 0,
+        maxZoom: 0,
+        defaultZoom: 0,
+        currentZoom: 0,
+        fullscreen: false
       };
     },
 
@@ -296,6 +318,39 @@
             this.$refs.itemPages?.$el.focus();
           });
         }
+      },
+      updateCurrentZoom(newZoom) {
+        this.currentZoom = newZoom;
+      },
+      updateZoomLevels(zoomLevels) {
+        this.defaultZoom = zoomLevels?.defaultZoom;
+        this.currentZoom = zoomLevels?.defaultZoom;
+        this.maxZoom = zoomLevels?.maxZoom;
+        this.minZoom = zoomLevels?.minZoom;
+      },
+      zoomIn() {
+        this.currentZoom += 1;
+      },
+      zoomOut() {
+        this.currentZoom -= 1;
+      },
+      resetZoom() {
+        this.currentZoom = this.defaultZoom;
+      },
+      toggleFullscreen() {
+        // TODO: wire up fullscreen logic here, in MediaImageViewer, or revert to native ol fullscreen control
+        // Check for fullscreen support first?
+        if (this.fullscreen) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document['webKitExitFullscreen']) {
+            document['webKitExitFullscreen']();
+          }
+        } else {
+          this.$refs.viewerWrapper.requestFullscreen();
+        }
+
+        this.fullscreen = !this.fullscreen;
       }
     }
   };
@@ -347,12 +402,11 @@
       right: 0;
     }
 
-    .sidebar-toggle {
+    .sidebar-toggle, .viewer-controls {
       margin: 0.875rem 1rem;
     }
 
-    .sidebar-toggle,
-    .pages-toggle {
+    ::v-deep button {
       background-color: transparent;
       font-size: $font-size-large;
 
@@ -377,6 +431,17 @@
   ::v-deep .pagination {
     ul {
       margin-bottom: 0;
+    }
+  }
+
+  .iiif-viewer-wrapper:fullscreen {
+    max-height: 100%;
+    .iiif-viewer-inner-wrapper {
+      max-height: 100%;
+      height: 100%;
+    }
+    #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
+      display: none !important;
     }
   }
 </style>

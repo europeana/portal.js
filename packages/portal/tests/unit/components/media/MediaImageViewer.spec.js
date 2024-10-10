@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import nock from 'nock';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
@@ -147,5 +148,23 @@ describe('components/media/MediaImageViewer', () => {
         });
       });
     });
+
+    describe('configureZoomLevels', () => {
+      it('emmits an event containing information about the current zoom levels', async() => {
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.$emit = sinon.spy();
+        wrapper.vm.configureZoomLevels();
+
+        expect(wrapper.vm.$emit.calledWith('viewInitialised', sinon.match({ defaultZoom: 0, maxZoom: 8, minZoom: 0 }))).toBe(true);
+      });
+    });
+
+    // describe('setZoom', () => {
+    //   it('sets the view to the data property currentZoom', async() => {
+    //     // TODO: the currentZoom property is bieng watched. How to test this?
+    //   });
+    // });
   });
 });
