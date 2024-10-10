@@ -18,6 +18,7 @@
       v-if="query"
       :uri="uriWithQuery"
       :text-granularity="textGranularity"
+      @selectAnno="onSelectAnno"
     />
   </div>
 </template>
@@ -73,6 +74,10 @@
       handleSubmitForm() {
         // console.log
         this.$router.push({ ...this.$route, query: { ...this.$route.query, query: this.query } });
+      },
+
+      onSelectAnno(anno) {
+        this.$emit('selectAnno', anno);
       }
     }
   };

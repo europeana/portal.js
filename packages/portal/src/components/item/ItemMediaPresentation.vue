@@ -198,6 +198,12 @@
       this.setPage();
     },
 
+    mounted() {
+      const annoHashParam = EuropeanaMediaPresentation.getHashParam(this.$route.hash, 'anno');
+      this.annotation
+      console.log('annoHashParam', annoHashParam)
+    },
+
     computed: {
       /**
        * Annotation page/list: either a URI as a string, or an object with id
@@ -271,8 +277,33 @@
 
       onSelectAnno(anno) {
         this.activeAnnotation = anno;
+
         // store the annotation id in the route hash, to pre-highlight it on page reload
-        // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
+        this.$router.push({
+          ...this.$route,
+          hash: `#anno=${anno.id}`,
+          query: {
+            ...this.$route.query,
+            page: this.pageForTarget(anno.target)
+          }
+        });
+      },
+
+      pageForTarget(annoTarget) {
+        const annoTargets = [].concat(annoTarget).filter(Boolean);
+        let targetIds;
+        if (this.presentation?.isInEuropeanaDomain) {
+          targetIds = this.resources.map((resource) => resource.about);
+        } else {
+          targetIds = this.canvases.map((canvas) => canvas.id);
+        }
+
+        const i = targetIds.findIndex((id) => annoTargets.some((at) => (at === id) || at.startsWith(`${id}#`)));
+
+        if (i === -1) {
+          return undefined;
+        }
+        return i + 1;
       },
 
       setPage() {

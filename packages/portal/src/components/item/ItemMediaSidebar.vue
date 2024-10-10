@@ -56,6 +56,7 @@
             :uri="searchUri"
             :target-id="annotationTargetId"
             :text-granularity="annotationTextGranularity"
+            @selectAnno="onSelectAnno"
           />
         </b-tab>
         <b-tab
