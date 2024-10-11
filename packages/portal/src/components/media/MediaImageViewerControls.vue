@@ -8,7 +8,7 @@
       :disabled="atMaxZoom"
       :aria-label="$t('media.controls.zoomIn')"
       variant="light-flat"
-      class="button-icon-only btn-light-flat"
+      class="button-icon-only btn-light-flat mr-2"
       @click="$emit('zoomIn')"
     >
       <span
@@ -20,7 +20,7 @@
       :disabled="atDefaultZoom"
       :aria-label="$t('media.controls.resetZoom')"
       variant="light-flat"
-      class="button-icon-only btn-light-flat"
+      class="button-icon-only btn-light-flat mr-2"
       @click="$emit('resetZoom')"
     >
       <span
@@ -32,7 +32,7 @@
       :disabled="atMinZoom"
       :aria-label="$t('media.controls.zoomOut')"
       variant="light-flat"
-      class="button-icon-only btn-light-flat"
+      class="button-icon-only btn-light-flat mr-2"
       @click="$emit('zoomOut')"
     >
       <span
@@ -43,7 +43,7 @@
       v-b-tooltip.top="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       :aria-label="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       variant="light-flat"
-      class="fullscreen-button button-icon-only btn-light-flat"
+      class="fullscreen-button button-icon-only btn-light-flat ml-2"
       @click="$emit('toggleFullscreen')"
     >
       <span
@@ -113,7 +113,7 @@
     }
 
     .fullscreen-button {
-      padding-left: 1rem;
+      padding-left: 2rem;
       position: relative;
       &:before {
         content: '';

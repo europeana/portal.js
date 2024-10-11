@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaImageViewerControls from '@/components/media/MediaImageViewerControls';
-import sinon from 'sinon';
+// import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
