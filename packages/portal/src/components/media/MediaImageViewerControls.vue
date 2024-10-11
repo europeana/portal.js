@@ -1,11 +1,11 @@
 <template>
   <div
-    id="viewerControls"
+    id="viewer-controls"
     class="viewer-controls ml-auto mr-auto"
   >
     <b-button
-      :disabled="atMaxZoom"
       v-b-tooltip.top="$t('media.controls.zoomIn')"
+      :disabled="atMaxZoom"
       :aria-label="$t('media.controls.zoomIn')"
       variant="light-flat"
       class="button-icon-only btn-light-flat"
@@ -16,8 +16,8 @@
       />
     </b-button>
     <b-button
-      :disabled="atDefaultZoom"
       v-b-tooltip.top="$t('media.controls.resetZoom')"
+      :disabled="atDefaultZoom"
       :aria-label="$t('media.controls.resetZoom')"
       variant="light-flat"
       class="button-icon-only btn-light-flat"
@@ -28,8 +28,8 @@
       />
     </b-button>
     <b-button
-      :disabled="atMinZoom"
       v-b-tooltip.top="$t('media.controls.zoomOut')"
+      :disabled="atMinZoom"
       :aria-label="$t('media.controls.zoomOut')"
       variant="light-flat"
       class="button-icon-only btn-light-flat"
@@ -56,7 +56,7 @@
 
 <script>
   export default {
-    name: 'MediaImageViewerZoomControls',
+    name: 'MediaImageViewerControls',
 
     props: {
       minZoom: {

@@ -76,7 +76,7 @@
         >
           <span class="icon icon-kebab" />
         </b-button>
-        <MediaImageViewerZoomControls
+        <MediaImageViewerControls
           v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
           :max-zoom="maxZoom"
           :min-zoom="minZoom"
@@ -145,7 +145,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
-      MediaImageViewerZoomControls: () => import('../media/MediaImageViewerZoomControls.vue'),
+      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
