@@ -1,7 +1,7 @@
 <template>
   <div
     id="viewer-controls"
-    class="viewer-controls ml-auto mr-auto"
+    class="viewer-controls mx-auto"
   >
     <b-button
       v-b-tooltip.top="$t('media.controls.zoomIn')"

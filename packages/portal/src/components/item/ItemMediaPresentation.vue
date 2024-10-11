@@ -70,7 +70,7 @@
           v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
           variant="light-flat"
-          class="sidebar-toggle button-icon-only mr-auto"
+          class="sidebar-toggle button-icon-only"
           :class="{ 'active': showSidebar }"
           data-qa="iiif viewer toolbar sidebar toggle"
           aria-controls="item-media-sidebar"
@@ -80,10 +80,6 @@
         >
           <span class="icon icon-kebab" />
         </b-button>
-        <div
-          v-else
-          class="sidebar-toggle-placeholder mr-auto"
-        />
         <MediaImageViewerControls
           v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
           :max-zoom="maxZoom"
@@ -98,8 +94,8 @@
         />
         <div
           v-if="resourceCount >= 2"
-          class="iiif-viewer-toolbar-pagination d-flex w-lg-auto ml-auto"
-          :class="{ closed: !showPages }"
+          class="iiif-viewer-toolbar-pagination d-flex mx-auto mx-sm-0"
+          :class="{ closed: !showPages, 'ml-auto': !resource?.ebucoreHasMimeType?.startsWith('image/') }"
         >
           <PaginationNavInput
             :per-page="1"
@@ -125,10 +121,6 @@
             <span class="icon icon-pages" />
           </b-button>
         </div>
-        <div
-          v-else
-          class="viewer-toolbar-pagination-placeholder ml-auto"
-        />
       </div>
       <ItemMediaThumbnails
         v-if="resourceCount >= 2 && showPages"
@@ -431,6 +423,11 @@
 
   .iiif-viewer-toolbar-pagination {
     padding: 0.875rem 1rem;
+    width: 100% !important;
+
+    @media(min-width: ($bp-small)) {
+      width: auto !important;
+    }
 
     @media(max-width: ($bp-large - 1px)) {
       border-top: 1px solid $bodygrey;
