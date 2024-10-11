@@ -46,6 +46,10 @@
           :format="resource.ebucoreHasMimeType"
           :item-id="itemId"
         />
+        <EmbedOEmbed
+          v-else-if="resource?.isOEmbed"
+          :url="resource.about"
+        />
         <code
           v-else
           class="h-50 w-100 p-5"
@@ -149,6 +153,7 @@
     name: 'ItemMediaPresentation',
 
     components: {
+      EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
