@@ -260,11 +260,6 @@
     },
 
     methods: {
-      handleClickThumbnail(index) {
-        const page = index + 1;
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
-      },
-
       onSelectAnno(anno) {
         this.activeAnnotation = anno;
         // store the annotation id in the route hash, to pre-highlight it on page reload

@@ -223,6 +223,7 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
+        // TODO: add other interactions + toolbar button clicks
         this.olMap.on('singleclick', this.onSingleClickThumbnail);
       },
 
