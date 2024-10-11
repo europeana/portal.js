@@ -127,6 +127,10 @@
       }
     },
 
+    mounted() {
+      // console.log('fieldData', this.name, this.hasValuesForLocale, this.fieldData)
+    },
+
     computed: {
       displayValues() {
         const display = { ...this.langMappedValues };
@@ -134,12 +138,19 @@
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat('…');
         }
+
         return display;
       },
 
       limitDisplayValues() {
         return (this.limit > -1);
       },
+
+      // normalisedValues() {
+      //   return this.fieldData.map((value) => {
+      //
+      //   });
+      // },
 
       prefLanguage() {
         return this.getPrefLanguage(this.name, this.fieldData);

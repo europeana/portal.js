@@ -129,6 +129,8 @@
   import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
+  import isEqual from 'lodash/isEqual.js';
+  import uniqWith from 'lodash/uniqWith.js';
   import merge from 'deepmerge';
 
   import ItemDataProvider from '@/components/item/ItemDataProvider';
@@ -139,7 +141,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
-    forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
+    forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, selectLocaleForLangMap, undefinedLocaleCodes
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
@@ -367,6 +369,7 @@
           }
         }
         const edm = data.object;
+        console.log('edm', edm)
 
         if (this.identifier !== edm.about) {
           return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
@@ -491,13 +494,67 @@
         const europeanaCollectionName = this.extractEuropeanaCollectionName(edm);
 
         const metadata = pick({
-          ...this.lookupEntities(metadataSources),
-          europeanaCollectionName,
+          // ...this.lookupEntities(metadataSources),
+          ...metadataSources,
+          europeanaCollectionName: edm.europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
         }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
 
-        return reduceLangMapsForLocale(metadata, this.metadataLanguage);
+        console.log('metadata', metadata)
+
+        console.log('normalised', this.normaliseMetadata(metadata))
+
+        // return reduceLangMapsForLocale(metadata, this.metadataLanguage);
+        return this.normaliseMetadata(metadata);
+      },
+
+      normaliseLiteral(literal) {
+        return literal;
+      },
+
+      normaliseLangMap(langMap) {
+        const lang = selectLocaleForLangMap(langMap, this.metadataLanguage);
+        const values = this.normaliseMetadataProperty(langMap[lang]);
+        return [].concat(values).map((value) => ({ lang, value }));
+      },
+
+      normaliseArray(array) {
+        const values = array.map((element) => this.normaliseMetadataProperty(element));
+        return uniqWith(values, isEqual);
+      },
+
+      normaliseEntity(entity) {
+        const about = entity.about;
+        const lang = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage);
+        const prefLabel = entity.prefLabel[lang];
+        const value = [].concat(prefLabel)[0];
+        return { about, lang, value };
+      },
+
+      // each property may be:
+      // - single literal
+      // - array of literals
+      // - lang map object, values of which may be arrays, literals, or entities
+      normaliseMetadataProperty(property) {
+        if (Array.isArray(property)) {
+          return this.normaliseArray(property);
+        } else if (isLangMap(property)) {
+          return this.normaliseLangMap(property);
+        } else {
+          return this.normaliseLiteral(property);
+        }
+      },
+
+      normaliseMetadata(metadata) {
+        return Object.keys(metadata).reduce((memo, key) => {
+          const values = [].concat(this.normaliseMetadataProperty(metadata[key]));
+          memo[key] = values.map((element) => {
+            const valueElement = element?.value ? element : { value: element };
+            return this.findEntity(valueElement.value) || valueElement;
+          });
+          return memo;
+        }, {});
       },
 
       /**
@@ -505,21 +562,12 @@
        * will match any literal values in  the 'def' key to about fields
        * in any of the entities and return the related object instead of
        * the plain string.
-       * @param fields Object representing the metadata fields
-       * @return {Object[]} The fields with any entities as JSON objects
+       * @param value Object representing a **normalised** metadata field
+       * @return {Object[]} The value with any entities as JSON objects
        */
-      lookupEntities(fields) {
-        for (const key in fields) {
-          // Only looks for entities in 'def'
-          const values = (fields[key].def || []);
-          for (const [index, value] of values.entries()) {
-            const entity = this.entities.find((entity) => entity.about === value);
-            if (entity) {
-              fields[key].def[index] = entity;
-            }
-          }
-        }
-        return fields;
+      findEntity(value) {
+        const entity = this.entities.find((entity) => entity.about === value);
+        return entity ? this.normaliseEntity(entity) : null;
       },
 
       /**
