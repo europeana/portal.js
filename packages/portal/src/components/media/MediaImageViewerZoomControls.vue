@@ -5,6 +5,9 @@
   >
     <b-button
       :disabled="atMaxZoom"
+      v-b-tooltip.top="$t('media.controls.zoomIn')"
+      :aria-label="$t('media.controls.zoomIn')"
+      variant="light-flat"
       class="button-icon-only btn-light-flat"
       @click="$emit('zoomIn')"
     >
@@ -14,6 +17,9 @@
     </b-button>
     <b-button
       :disabled="atDefaultZoom"
+      v-b-tooltip.top="$t('media.controls.resetZoom')"
+      :aria-label="$t('media.controls.resetZoom')"
+      variant="light-flat"
       class="button-icon-only btn-light-flat"
       @click="$emit('resetZoom')"
     >
@@ -23,6 +29,9 @@
     </b-button>
     <b-button
       :disabled="atMinZoom"
+      v-b-tooltip.top="$t('media.controls.zoomOut')"
+      :aria-label="$t('media.controls.zoomOut')"
+      variant="light-flat"
       class="button-icon-only btn-light-flat"
       @click="$emit('zoomOut')"
     >
@@ -31,6 +40,9 @@
       />
     </b-button>
     <b-button
+      v-b-tooltip.top="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
+      :aria-label="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
+      variant="light-flat"
       class="fullscreen-button button-icon-only btn-light-flat"
       @click="$emit('toggleFullscreen')"
     >
