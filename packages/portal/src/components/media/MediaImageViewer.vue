@@ -69,7 +69,8 @@
 
     data() {
       return {
-        // fullsize: true,
+        // TODO: is the fullsize needed? unused.
+        fullsize: false,
         info: null,
         olExtent: null,
         olMap: null,
@@ -86,7 +87,6 @@
         const infoResponse = await axios.get(infoUri);
         this.info = infoResponse.data;
         this.source = 'IIIF';
-        // this.fullsize = true;
       }
 
       if (process.client) {
@@ -205,8 +205,12 @@
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
 
-        // TODO: check if extent size < mapSize, than fit to image size instead of map size
-        this.olMap.getView().fit(extent);
+        const mapSize = this.olMap.getSize();
+        const imageSize = extent.slice(2);
+        const imageSmallerThanMap = imageSize[1] < mapSize[1] && imageSize[0] < mapSize[0];
+        const imageMaxFitSize =  imageSmallerThanMap ? imageSize : undefined;
+
+        this.olMap.getView().fit(extent, { size: imageMaxFitSize });
       },
 
       async renderThumbnail() {
@@ -217,21 +221,19 @@
         if (this.thumbnail) {
           const thumbWidth = 400;
           const thumbHeight = (this.height / this.width) * thumbWidth;
-          console.log(thumbHeight);
           mapOptions = this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
         }
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions + toolbar button clicks
+        // TODO: add other interactions + toolbar button clicks, anno click
         this.olMap.on('singleclick', this.onSingleClickThumbnail);
       },
 
       onSingleClickThumbnail() {
         this.olMap.on('singleclick', this.onSingleClickThumbnail);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
-        // TODO: handle fullsize state / configurable to load fullsize at first load
-        // this.fullsize = true;
+        this.fullsize = true;
         this.renderImage();
       },
 
