@@ -76,6 +76,10 @@
         >
           <span class="icon icon-kebab" />
         </b-button>
+        <div
+          v-else
+          class="sidebar-toggle-placeholder mr-auto"
+        />
         <MediaImageViewerControls
           v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
           :max-zoom="maxZoom"
@@ -117,6 +121,10 @@
             <span class="icon icon-pages" />
           </b-button>
         </div>
+        <div
+          v-else
+          class="viewer-toolbar-pagination-placeholder ml-auto"
+        />
       </div>
       <ItemMediaThumbnails
         v-if="resourceCount >= 2 && showPages"
