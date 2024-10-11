@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -40,61 +40,35 @@
       LoadingSpinner
     },
 
+    // TODO: support supplying annotations as a prop, e.g. from search results.
+    //       if not present, then use the composable's fetchAnnotations
     props: {
-      targetId: {
-        type: String,
-        default: null
-      },
-      textGranularity: {
-        type: [Array, String],
-        default: null
-      },
       uri: {
         type: String,
         default: null
       }
     },
 
+    setup() {
+      const { annotations, annotationUri, fetchAnnotations } = useItemMediaPresentation();
+      return { annotations, annotationUri, fetchAnnotations };
+    },
+
     data() {
       return {
-        activeAnnotation: null,
-        annotations: null
+        activeAnnotation: null
       };
     },
 
     // TODO: filter by motivation(s)
     async fetch() {
       this.activeAnnotation = null;
-      if (!this.uri || !this.targetId) {
-        return;
-      }
-
-      let textGranularity;
-      if (Array.isArray(this.textGranularity)) {
-        textGranularity = this.textGranularity.includes('line') ? 'line' : this.textGranularity[0];
-      } else {
-        textGranularity = this.textGranularity;
-      }
-
-      const list = await EuropeanaMediaAnnotationList.from(this.uri, { params: { textGranularity } });
-      const annos = list.annotationsForTarget(this.targetId);
-
-      // NOTE: this may result in duplicate network requests for the same body resource
-      //       if there are multiple external annotations with the same resource URL,
-      //       e.g. with just a different hash char selector.
-      //       we use an axios caching interceptor to avoid this.
-      await Promise.all(annos.map((anno) => anno.embedBodies()));
-
-      for (const anno of annos) {
-        if (Array.isArray(anno.body)) {
-          anno.body = anno.body[0];
-        }
-      }
-
-      this.annotations = Object.freeze(annos);
+      await this.fetchAnnotations(this.uri || this.annotationUri);
     },
 
     watch: {
+      // TODO: should this watcher go into useItemMediaPresentation?
+      annotationUri: '$fetch',
       uri: '$fetch'
     },
 
