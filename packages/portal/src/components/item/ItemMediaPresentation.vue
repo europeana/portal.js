@@ -329,10 +329,10 @@
         this.minZoom = zoomLevels?.minZoom;
       },
       zoomIn() {
-        this.currentZoom += 1;
+        this.currentZoom = Math.min(this.maxZoom, this.currentZoom + 1);
       },
       zoomOut() {
-        this.currentZoom -= 1;
+        this.currentZoom = Math.max(this.minZoom, this.currentZoom - 1);
       },
       resetZoom() {
         this.currentZoom = this.defaultZoom;
