@@ -109,11 +109,11 @@ const setPage = (value) => {
 export default function useItemMediaPresentation() {
   return {
     annotations,
-    annotationCollection,
-    annotationTargetId,
+    // annotationCollection,
+    // annotationTargetId,
     annotationUri,
-    annotationTextGranularity,
-    canvas,
+    // annotationTextGranularity,
+    // canvas,
     fetchAnnotations,
     fetchPresentation,
     hasAnnotations,
@@ -121,7 +121,7 @@ export default function useItemMediaPresentation() {
     resource,
     resources,
     resourceCount,
-    presentation,
+    // presentation,
     setPage,
     setPresentationFromWebResources
   };
