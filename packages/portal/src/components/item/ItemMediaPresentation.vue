@@ -30,6 +30,7 @@
           :format="resource.ebucoreHasMimeType"
           :service="resource.svcsHasService"
           :annotation="activeAnnotation"
+          :thumbnail="thumbnail"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -250,7 +251,7 @@
       },
 
       thumbnails() {
-        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.large) || [];
       }
     },
 

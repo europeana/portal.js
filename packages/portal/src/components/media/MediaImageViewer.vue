@@ -53,6 +53,10 @@
         type: Object,
         default: null
       },
+      thumbnail: {
+        type: String,
+        default: null
+      },
       url: {
         type: String,
         required: true
@@ -86,7 +90,7 @@
       }
 
       if (process.client) {
-        this.renderImage();
+        this.renderThumbnail();
       }
     },
 
@@ -100,7 +104,7 @@
 
     mounted() {
       if (!this.$fetchState.pending) {
-        this.renderImage();
+        this.renderThumbnail();
       }
     },
 
@@ -200,26 +204,35 @@
 
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
+
+        // TODO: check if extent size < mapSize, than fit to image size instead of map size
         this.olMap.getView().fit(extent);
       },
 
-      // renderThumbnail() {
-      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-      //   this.olMap.on('singleclick', this.onSingleClickThumbnail);
-      //
-      //   if ((this.source === 'ImageStatic') && this.thumbnail) {
-      //     const thumbWidth = 400;
-      //     const thumbHeight = (this?.height / this?.width) * thumbWidth;
-      //     this.initOlImageLayerStatic(this.thumbnail.url, thumbWidth, thumbHeight);
-      //   }
-      // },
-      //
-      // onSingleClickThumbnail() {
-      //   this.olMap.un('singleclick', this.onSingleClickThumbnail);
-      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
-      //   this.fullsize = true;
-      //   this.renderImage();
-      // },
+      async renderThumbnail() {
+        await (this.$nextTick()); // without this static images won't render, some race condition
+
+        let mapOptions;
+
+        if (this.thumbnail) {
+          const thumbWidth = 400;
+          const thumbHeight = (this.height / this.width) * thumbWidth;
+          console.log(thumbHeight);
+          mapOptions = this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
+        }
+
+        this.initOlMap(mapOptions);
+        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
+        this.olMap.on('singleclick', this.onSingleClickThumbnail);
+      },
+
+      onSingleClickThumbnail() {
+        this.olMap.on('singleclick', this.onSingleClickThumbnail);
+        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
+        // TODO: handle fullsize state / configurable to load fullsize at first load
+        // this.fullsize = true;
+        this.renderImage();
+      },
 
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
@@ -238,11 +251,10 @@
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      initOlImageLayerStatic() {
-        const extent = [0, 0, this.width, this.height];
+      initOlImageLayerStatic(url, width, height) {
+        const extent = [0, 0, width, height];
         const source = new ImageStatic({
-          // TODO: should we always be using the media proxy for static images?
-          url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
+          url,
           imageExtent: extent
         });
         const layer = new ImageLayer({ source });
@@ -258,7 +270,9 @@
         if (this.source === 'IIIF') {
           mapOptions = this.initOlImageLayerIIIF();
         } else {
-          mapOptions = this.initOlImageLayerStatic();
+          // TODO: should we always be using the media proxy for static images?
+          const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
+          mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
         }
 
         this.initOlMap(mapOptions);
