@@ -37,7 +37,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails']
+  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
 });
 
 describe('components/item/ItemMediaPresentation', () => {
@@ -126,8 +126,7 @@ describe('components/item/ItemMediaPresentation', () => {
           const wrapper = factory({ propsData });
           await wrapper.vm.fetch();
 
-          console.log(wrapper.html());
-          const viewerControls = wrapper.find('#viewer-controls');
+          const viewerControls = wrapper.find('mediaImageviewercontrols-stub');
 
           expect(viewerControls.isVisible()).toBe(true);
         });
