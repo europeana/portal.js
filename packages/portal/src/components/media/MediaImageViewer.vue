@@ -25,6 +25,7 @@
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
   import { easeOut } from 'ol/easing.js';
+  import { defaults } from 'ol/interaction/defaults';
 
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
@@ -196,6 +197,7 @@
         if (!this.olMap) {
           this.olMap = new Map({
             controls: [],
+            interactions: defaults({ mouseWheelZoom: false }),
             target: 'media-image-viewer',
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
