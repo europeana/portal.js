@@ -10,7 +10,7 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $t: (key) => key
   },
-  stubs: ['b-link', 'b-tooltip']
+  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList']
 });
 
 describe('components/item/ItemMediaSidebar', () => {
@@ -21,6 +21,16 @@ describe('components/item/ItemMediaSidebar', () => {
       const sidebar = wrapper.find('[data-qa="item media sidebar"]');
 
       expect(sidebar.exists()).toBe(true);
+    });
+
+    describe('when there is an annotation URI', () => {
+      it('has a tab for annotations', () => {
+        const wrapper = factory({ annotationUri: 'https://example.com/iiif/123/annotations' });
+
+        const annotationsTab = wrapper.find('[data-qa="item media sidebar annotations"]');
+
+        expect(annotationsTab.exists()).toBe(true);
+      });
     });
 
     describe('when there is a manifest URI', () => {
