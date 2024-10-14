@@ -216,22 +216,29 @@
       async renderThumbnail() {
         await (this.$nextTick()); // without this static images won't render, some race condition
 
+        if (!this.thumbnail) {
+          this.renderFullImage();
+        }
+
         let mapOptions;
 
-        if (this.thumbnail) {
-          const thumbWidth = 400;
-          const thumbHeight = (this.height / this.width) * thumbWidth;
-          mapOptions = this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
+        let thumbWidth;
+        let thumbHeight;
+        if (this.width && this.height) {
+          thumbWidth = 400;
+          thumbHeight = (this.height / this.width) * thumbWidth;
         }
+        mapOptions = this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
         // TODO: add other interactions + toolbar button clicks, anno click
-        this.olMap.on('singleclick', this.onSingleClickThumbnail);
+        this.olMap.on('singleclick', this.renderFullImage);
       },
 
-      onSingleClickThumbnail() {
-        this.olMap.on('singleclick', this.onSingleClickThumbnail);
+      renderFullImage() {
+        // TODO remove click listener?
+        this.olMap.on('singleclick', this.renderFullImage);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
         this.fullsize = true;
         this.renderImage();
