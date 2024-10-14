@@ -43,6 +43,15 @@
           :format="resource.ebucoreHasMimeType"
           :item-id="itemId"
         />
+        <MediaImageViewer
+          v-else-if="resource?.forEdmIsShownAt"
+          :url="resource.thumbnail"
+          :thumbnail="thumbnail"
+          :item-id="itemId"
+          :annotation="activeAnnotation"
+          :width="resource.ebucoreWidth"
+          :height="resource.ebucoreHeight"
+        />
         <code
           v-else
           class="h-50 w-100 p-5"

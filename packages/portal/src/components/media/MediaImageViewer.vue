@@ -228,7 +228,7 @@
           thumbWidth = 400;
           thumbHeight = (this.height / this.width) * thumbWidth;
         }
-        mapOptions = this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
+        mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
@@ -261,8 +261,19 @@
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      initOlImageLayerStatic(url, width, height) {
-        const extent = [0, 0, width, height];
+      async initOlImageLayerStatic(url, width, height) {
+        let extent;
+        if (width && height) {
+          extent = [0, 0, width, height];
+        } else {
+          try {
+            const imageSize = await this.getImageDimensions(url);
+            extent = [0, 0].concat(imageSize);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
         const source = new ImageStatic({
           url,
           imageExtent: extent
@@ -270,6 +281,20 @@
         const layer = new ImageLayer({ source });
 
         return { extent, layer, source };
+      },
+
+      getImageDimensions(src) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+
+          image.onload = () => {
+            resolve([image.width, image.height]);
+          };
+          image.onerror = () => {
+            reject('Image error');
+          };
+          image.src = src;
+        });
       },
 
       async renderImage() {
@@ -282,7 +307,7 @@
         } else {
           // TODO: should we always be using the media proxy for static images?
           const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-          mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
+          mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
         }
 
         this.initOlMap(mapOptions);
