@@ -109,29 +109,30 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    // describe('viewer zoom controls', () => {
-    //   describe('when the current resource is of type image', () => {
-    //     const itemId = '/123/abc';
-    //     const webResources = [
-    //       {
-    //         about: 'https://example.org/image.jpg',
-    //         ebucoreHasMimeType: 'image/jpeg',
-    //         ebucoreHeight: 576,
-    //         ebucoreWidth: 720
-    //       }
-    //     ];
-    //     const propsData = { itemId, webResources };
+    describe('viewer zoom controls', () => {
+      describe('when the current resource is of type image', () => {
+        const itemId = '/123/abc';
+        const webResources = [
+          {
+            about: 'https://example.org/image.jpg',
+            ebucoreHasMimeType: 'image/jpeg',
+            ebucoreHeight: 576,
+            ebucoreWidth: 720
+          }
+        ];
+        const propsData = { itemId, webResources };
 
-    //     it('has viewer zoom control', async() => {
-    //       const wrapper = factory({ propsData });
-    //       await wrapper.vm.fetch();
+        it('has viewer zoom controls', async() => {
+          const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
 
-    //       const viewerControls = wrapper.find('#viewer-controls');
+          console.log(wrapper.html());
+          const viewerControls = wrapper.find('#viewer-controls');
 
-    //       expect(viewerControls.isVisible()).toBe(true);
-    //     });
-    //   });
-    // });
+          expect(viewerControls.isVisible()).toBe(true);
+        });
+      });
+    });
 
     describe('pages toggle button', () => {
       const presentation = {
@@ -350,20 +351,17 @@ describe('components/item/ItemMediaPresentation', () => {
       });
 
       describe('toggleFullscreen', () => {
-        // describe('when in fullscreen mode already', () => {
-        //   it('calls the document exitFullscreen method', () => {
-        //     const mocks =  {
-        //       document: {}
-        //     };
-        //     const wrapper = factory({ data, mocks });
-        //     wrapper.setData({ fullscreen: true });
-        //     wrapper.vm.document.exitFullscreen = sinon.spy();
-        //     wrapper.vm.toggleFullscreen();
+        describe('when in fullscreen mode already', () => {
+          it('calls the document exitFullscreen method', () => {
+            const wrapper = factory({ data });
+            wrapper.setData({ fullscreen: true });
+            document.exitFullscreen = sinon.spy();
+            wrapper.vm.toggleFullscreen();
 
-        //     expect(wrapper.vm.document.exitFullscreen.calledOnce).toBe(true);
-        //     expect(wrapper.vm.fullscreen).toEqual(false);
-        //   });
-        // });
+            expect(document.exitFullscreen.calledOnce).toBe(true);
+            expect(wrapper.vm.fullscreen).toEqual(false);
+          });
+        });
 
         describe('when not in fullscreen mode', () => {
           it('makes the viewerWrapper fullscreen', () => {

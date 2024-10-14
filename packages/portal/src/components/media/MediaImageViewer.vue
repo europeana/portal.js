@@ -272,6 +272,7 @@
 
       setZoom() {
         const view = this.olMap.getView();
+
         if (!view) {
           // the map does not have a view, so we can't act
           // upon it

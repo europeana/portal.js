@@ -343,7 +343,6 @@
         this.currentZoom = this.defaultZoom;
       },
       toggleFullscreen() {
-        // TODO: wire up fullscreen logic here, in MediaImageViewer, or revert to native ol fullscreen control
         // Check for fullscreen support first?
         if (this.fullscreen) {
           if (document.exitFullscreen) {

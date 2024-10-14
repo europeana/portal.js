@@ -161,10 +161,24 @@ describe('components/media/MediaImageViewer', () => {
       });
     });
 
-    // describe('setZoom', () => {
-    //   it('sets the view to the data property currentZoom', async() => {
-    //     // TODO: the currentZoom property is bieng watched. How to test this?
-    //   });
-    // });
+    describe('setZoom', () => {
+      it('sets the view to the data property currentZoom', async() => {
+        const animateSpy = sinon.spy();
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.olMap.getView = sinon.stub().returns({
+          getZoom: () => 4,
+          animate: animateSpy,
+          getAnimating: () => true,
+          cancelAnimations: () => true
+        });
+
+        // setZoom is called via watcher of currentZoom
+        await wrapper.setProps({ currentZoom: 6 });
+
+        expect(animateSpy.calledWith(sinon.match({ zoom: 6, duration: 250, easing: sinon.match.func }))).toBe(true);
+      });
+    });
   });
 });
