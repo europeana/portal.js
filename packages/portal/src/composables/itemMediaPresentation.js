@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
 
-const page = ref(null);
+const page = ref(1);
 const presentation = ref(null);
 const annotations = ref([]);
 
@@ -121,7 +121,7 @@ export default function useItemMediaPresentation() {
     resource,
     resources,
     resourceCount,
-    // presentation,
+    presentation,
     setPage,
     setPresentationFromWebResources
   };
