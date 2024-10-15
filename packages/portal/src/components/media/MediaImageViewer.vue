@@ -3,7 +3,10 @@
     id="media-image-viewer"
     class="h-100 w-100"
   >
-    <MediaImageViewerKeyboardToggle id="media-image-viewer-keyboard-toggle" />
+    <MediaImageViewerKeyboardToggle
+      id="media-image-viewer-keyboard-toggle"
+      @renderFullImage="renderFullImage"
+    />
   </div>
 </template>
 
@@ -243,14 +246,15 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions + toolbar button clicks, anno click
+        // TODO: add other interactions: toolbar button clicks, anno click
         this.olMap.on('singleclick', this.renderFullImage);
       },
 
       renderFullImage() {
-        // TODO remove click listener?
-        this.olMap.on('singleclick', this.renderFullImage);
-        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
+        if (this.olMap) {
+          this.olMap.un('singleclick', this.renderFullImage);
+          this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
+        }
         this.fullsize = true;
         this.renderImage();
       },
