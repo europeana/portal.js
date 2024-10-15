@@ -28,6 +28,7 @@
           :format="resource.ebucoreHasMimeType"
           :service="resource.svcsHasService"
           :annotation="activeAnnotation"
+          :thumbnail="thumbnail"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -43,6 +44,15 @@
         <EmbedOEmbed
           v-else-if="resource?.isOEmbed"
           :url="resource.about"
+        />
+        <MediaImageViewer
+          v-else-if="resource?.forEdmIsShownAt"
+          :url="resource.thumbnail.url"
+          :thumbnail="thumbnail"
+          :item-id="itemId"
+          :annotation="activeAnnotation"
+          :width="resource.thumbnail.ebucoreWidth"
+          :height="resource.thumbnail.ebucoreHeight"
         />
         <code
           v-else
@@ -210,6 +220,10 @@
 
       sidebarHasContent() {
         return this.hasAnnotations || this.hasManifest;
+      },
+
+      thumbnail() {
+        return this.resource.thumbnails?.(this.$nuxt.context)?.large;
       }
     },
 
@@ -225,11 +239,6 @@
     },
 
     methods: {
-      handleClickThumbnail(index) {
-        const page = index + 1;
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
-      },
-
       onSelectAnno(anno) {
         this.activeAnnotation = anno;
         // store the annotation id in the route hash, to pre-highlight it on page reload

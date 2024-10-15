@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import nock from 'nock';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
@@ -34,6 +35,7 @@ describe('components/media/MediaImageViewer', () => {
   });
 
   const url = 'https://example.org/image.jpeg';
+  const thumbnail = 'https://example.org/thumbnail.jpeg';
   const width = 100;
   const height = 400;
 
@@ -87,6 +89,29 @@ describe('components/media/MediaImageViewer', () => {
 
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('IIIF');
+      });
+    });
+  });
+
+  describe('on mounted', () => {
+    it('renders the thumbnail with thumbnail sizes', async() => {
+      const wrapper = factory({ propsData: { url, thumbnail, width, height } });
+      sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
+
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
+    });
+
+    describe('when there is no thumbnail', () => {
+      it('renders the full image', async() => {
+        const wrapper = factory({ propsData: { url, width, height } });
+        sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
+
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
       });
     });
   });
