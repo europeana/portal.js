@@ -14,9 +14,7 @@
           id="item-media-sidebar"
           ref="sidebar"
           tabindex="0"
-          :annotation-uri="annotationUri"
-          :annotation-target-id="annotationTargetId"
-          :annotation-text-granularity="annotationTextGranularity"
+          :annotation-list="hasAnnotations"
           :manifest-uri="uri"
           @selectAnno="onSelectAnno"
           @keydown.escape.native="showSidebar = false"
@@ -111,8 +109,6 @@
         id="item-media-thumbnails"
         ref="itemPages"
         tabindex="0"
-        :resources="resources"
-        :selected-index="page -1"
         :edm-type="edmType"
         data-qa="item media thumbnails"
         @keydown.escape.native="showPages = false"
@@ -123,7 +119,7 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
-  import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -172,95 +168,60 @@
       }
     },
 
+    setup() {
+      const {
+        fetchPresentation,
+        hasAnnotations,
+        page,
+        resource,
+        resourceCount,
+        setPage,
+        setPresentationFromWebResources
+      } = useItemMediaPresentation();
+      return { fetchPresentation, hasAnnotations, page, resource, resourceCount, setPage, setPresentationFromWebResources };
+    },
+
     data() {
       return {
         activeAnnotation: null,
-        presentation: null,
-        page: 1,
         showSidebar: false,
         showPages: true
       };
     },
 
     async fetch() {
-      let presentation;
+      this.setPage(this.$route.query.page);
 
       if (this.uri) {
-        presentation = await EuropeanaMediaPresentation.from(this.uri);
+        await this.fetchPresentation(this.uri);
       } else if (this.webResources) {
-        presentation = new EuropeanaMediaPresentation({
-          canvases: this.webResources.map((resource) => ({
-            resource
-          }))
-        });
+        this.setPresentationFromWebResources(this.webResources);
       } else {
         throw new Error('No manifest URI or web resources for presentation');
       }
 
-      this.presentation = Object.freeze(presentation);
-
-      this.setPage();
+      this.selectResource();
     },
 
     computed: {
-      /**
-       * Annotation page/list: either a URI as a string, or an object with id
-       * property being the URI
-       */
-      annotationCollection() {
-        return this.canvas?.annotations?.[0];
-      },
-
-      annotationTargetId() {
-        // account for Europeana fulltext annotations incorrectly targeting IIIF
-        // images instead of canvases
-        return this.presentation?.isInEuropeanaDomain ? this.resource?.about : this.canvas?.id;
-      },
-
-      annotationUri() {
-        if (!this.annotationCollection) {
-          return null;
-        } else if (typeof this.annotationCollection === 'string') {
-          return this.annotationCollection;
-        }
-        return this.annotationCollection.id;
-      },
-
-      annotationTextGranularity() {
-        return this.annotationCollection?.textGranularity;
-      },
-
-      canvas() {
-        return this.presentation?.canvases?.[this.page - 1];
-      },
-
-      resource() {
-        return this.canvas?.resource;
-      },
-
-      resources() {
-        return this.presentation?.canvases?.map((canvas) => canvas.resource).filter(Boolean);
-      },
-
-      resourceCount() {
-        return this.resources?.length || 0;
+      hasManifest() {
+        return !!this.uri;
       },
 
       sidebarHasContent() {
-        return !!this.annotationUri || !!this.uri;
-      },
-
-      thumbnail() {
-        return this.thumbnails?.[this.page - 1];
-      },
-
-      thumbnails() {
-        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+        return this.hasAnnotations || this.hasManifest;
       }
     },
 
     watch: {
-      '$route.query.page': 'setPage'
+      '$route.query.page'() {
+        this.setPage(this.$route.query.page);
+      },
+
+      resource: {
+        deep: true,
+        handler: 'selectResource'
+      }
     },
 
     methods: {
@@ -275,12 +236,9 @@
         // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
       },
 
-      setPage() {
-        this.page = Number(this.$route.query.page) || 1;
+      selectResource() {
         this.activeAnnotation = null;
-        this.$nextTick(() => {
-          this.$emit('select', this.resource);
-        });
+        this.$emit('select', this.resource);
       },
 
       toggleSidebar() {
