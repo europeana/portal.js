@@ -1,11 +1,25 @@
-import nock from 'nock';
 import { createLocalVue } from '@vue/test-utils';
+import sinon from 'sinon';
+
 import { shallowMountNuxt } from '../../utils';
 import MediaAnnotationList from '@/components/media/MediaAnnotationList.vue';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData } = {}) => shallowMountNuxt(MediaAnnotationList, {
+const annotations = [
+  { body: { value: 'anno 1' }, id: 'anno1' },
+  { body: { value: 'anno 2' }, id: 'anno2' }
+];
+const fetchAnnotationsStub = sinon.stub();
+const uri = 'https://iiif.europeana.eu/annos/1';
+
+const factory = ({ data, propsData } = {}) => shallowMountNuxt(MediaAnnotationList, {
+  data() {
+    return {
+      ...data
+    };
+  },
   propsData,
   mocks: {
     $fetchState: {}
@@ -16,69 +30,50 @@ const factory = ({ propsData } = {}) => shallowMountNuxt(MediaAnnotationList, {
 
 describe('components/media/MediaAnnotationList', () => {
   beforeAll(() => {
-    nock.disableNetConnect();
+    sinon.stub(itemMediaPresentation, 'default').returns({
+      annotations,
+      fetchAnnotations: fetchAnnotationsStub
+    });
   });
-  afterEach(() => {
-    nock.cleanAll();
-  });
-  afterAll(() => {
-    nock.enableNetConnect();
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
+  describe('template', () => {
+    it('renders annotations', () => {
+      const wrapper = factory({ propsData: { uri } });
+
+      const listItems = wrapper.findAll('b-list-group-item-stub');
+
+      expect(listItems.at(0).text()).toBe('anno 1');
+      expect(listItems.at(1).text()).toBe('anno 2');
+    });
+
+    it('marks active annotation', () => {
+      const activeAnnotation = 'anno2';
+      const wrapper = factory({ data: { activeAnnotation }, propsData: { uri } });
+
+      const listItems = wrapper.findAll('b-list-group-item-stub');
+
+      expect(listItems.at(1).attributes('active')).toBe('true');
+    });
+
+    it('emits selectAnno event when annotation is clicked', async() => {
+      const wrapper = factory({ propsData: { uri } });
+
+      const listItem = wrapper.find('b-list-group-item-stub');
+      await listItem.vm.$emit('click');
+
+      expect(wrapper.emitted().selectAnno[0]).toEqual([annotations[0]]);
+    });
   });
 
   describe('fetch', () => {
-    const origin = 'https://iiif.europeana.eu';
-    const targetId = `${origin}/canvas/1`;
-    const bodyPath = '/fulltext/1';
-    const bodyUri = `${origin}${bodyPath}`;
-    const bodyResponseData = {
-      id: bodyUri,
-      type: 'TextualBody',
-      value: 'full text'
-    };
-    const listPath = '/annos/1';
-    const listUri = `${origin}${listPath}`;
-    const listResponseData = {
-      id: listUri,
-      type: 'AnnotationPage',
-      items: [{
-        type: 'Annotation',
-        body: {
-          id: bodyUri
-        },
-        target: [{
-          id: targetId
-        }]
-      }]
-    };
-    const textGranularity = 'line';
-
-    beforeEach(() => {
-      nock(origin).get(listPath).query({ textGranularity }).reply(200, listResponseData);
-      nock(origin).get(bodyPath).reply(200, bodyResponseData);
-    });
-
-    it('fetches annotation list w/ text granularity and embeds bodies', async() => {
-      const wrapper = factory({ propsData: { uri: listUri, targetId, textGranularity } });
+    it('fetches annotation list via itemMediaPresentation composable', async() => {
+      const wrapper = factory({ propsData: { uri } });
 
       await wrapper.vm.fetch();
 
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('stores relevant annotations', async() => {
-      const wrapper = factory({ propsData: { uri: listUri, targetId, textGranularity } });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.annotations).toEqual([
-        {
-          body: {
-            id: 'https://iiif.europeana.eu/fulltext/1',
-            value: 'full text'
-          },
-          target: [{ id: 'https://iiif.europeana.eu/canvas/1' }]
-        }
-      ]);
+      expect(fetchAnnotationsStub.calledWith(uri)).toBe(true);
     });
   });
 });

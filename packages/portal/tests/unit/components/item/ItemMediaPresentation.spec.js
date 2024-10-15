@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import ItemMediaPresentation from '@/components/item/ItemMediaPresentation';
 import nock from 'nock';
 import sinon from 'sinon';
+
+import { shallowMountNuxt } from '../../utils';
+import ItemMediaPresentation from '@/components/item/ItemMediaPresentation';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -40,12 +42,33 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
 });
 
+const fetchPresentationStub = sinon.stub();
+const setPresentationFromWebResourcesStub = sinon.stub();
+const setPageStub = sinon.stub();
+
+const stubItemMediaPresentationComposable = (stubs = {}) => {
+  sinon.stub(itemMediaPresentation, 'default').returns({
+    fetchPresentation: fetchPresentationStub,
+    presentation: {
+      canvases: [
+        { annotations: ['https://example.org/anno'], resource: {} },
+        { resource: {} }
+      ]
+    },
+    resourceCount: 2,
+    setPage: setPageStub,
+    setPresentationFromWebResources: setPresentationFromWebResourcesStub,
+    ...stubs
+  });
+};
+
 describe('components/item/ItemMediaPresentation', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
   afterEach(() => {
     nock.cleanAll();
+    sinon.restore();
   });
   afterAll(() => {
     nock.enableNetConnect();
@@ -53,6 +76,7 @@ describe('components/item/ItemMediaPresentation', () => {
 
   describe('template', () => {
     it('renders a viewer wrapper', () => {
+      stubItemMediaPresentationComposable();
       const wrapper = factory();
 
       const viewerWrapper = wrapper.find('.iiif-viewer-wrapper');
@@ -63,6 +87,7 @@ describe('components/item/ItemMediaPresentation', () => {
     describe('sidebar toggle button', () => {
       describe('when there is a manifest uri', () => {
         it('is visible', () => {
+          stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
 
           const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
@@ -73,13 +98,8 @@ describe('components/item/ItemMediaPresentation', () => {
 
       describe('or when there are annotations', () => {
         it('is visible', () => {
-          const wrapper = factory({ data: {
-            presentation: {
-              canvases: [
-                { annotations: ['https://example.org/anno'] }
-              ]
-            }
-          } });
+          stubItemMediaPresentationComposable({ hasAnnotations: true });
+          const wrapper = factory();
 
           const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
 
@@ -89,6 +109,7 @@ describe('components/item/ItemMediaPresentation', () => {
 
       describe('on click', () => {
         it('opens the sidebar', () => {
+          stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
 
           wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
@@ -97,6 +118,7 @@ describe('components/item/ItemMediaPresentation', () => {
         });
 
         it('sets focus to the sidebar', async() => {
+          stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
           wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
 
@@ -134,16 +156,10 @@ describe('components/item/ItemMediaPresentation', () => {
     });
 
     describe('pages toggle button', () => {
-      const presentation = {
-        canvases: [
-          { resource: {} },
-          { resource: {} }
-        ]
-      };
-
       describe('when there are two or more pages', () => {
         it('is visible', () => {
-          const wrapper = factory({ data: { presentation } });
+          stubItemMediaPresentationComposable();
+          const wrapper = factory();
 
           const pagesToggle = wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]');
 
@@ -153,7 +169,8 @@ describe('components/item/ItemMediaPresentation', () => {
 
       describe('on click', () => {
         it('closes and opens the item media thumbnails sidebar', () => {
-          const wrapper = factory({ data: { presentation } });
+          stubItemMediaPresentationComposable();
+          const wrapper = factory();
 
           wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
           expect(wrapper.vm.showPages).toBe(false);
@@ -162,7 +179,8 @@ describe('components/item/ItemMediaPresentation', () => {
         });
 
         it('sets focus to the item media thumbnails sidebar', async() => {
-          const wrapper = factory({ data: { presentation } });
+          stubItemMediaPresentationComposable();
+          const wrapper = factory();
 
           wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
           wrapper.vm.showPages = false;
@@ -179,78 +197,15 @@ describe('components/item/ItemMediaPresentation', () => {
 
   describe('fetch', () => {
     describe('when supplied a manifest URI', () => {
-      const origin = 'https://iiif.europeana.eu';
-      const path = '/presentation/123/abc/manifest';
-      const uri = `${origin}${path}`;
-      const responseData = {
-        '@context': ['http://www.w3.org/ns/anno.jsonld', 'http://iiif.io/api/presentation/3/context.json'],
-        id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
-        type: 'Manifest',
-        service: [
-          {
-            '@context': 'http://iiif.io/api/search/1/context.json',
-            id: 'https://iiif.europeana.eu/presentation/123/abc/search',
-            profile: 'http://iiif.io/api/search/1/search'
-          }
-        ],
-        items: [
-          {
-            type: 'Canvas',
-            id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-            items: [
-              {
-                type: 'AnnotationPage',
-                items: [
-                  {
-                    type: 'Annotation',
-                    motivation: 'painting',
-                    body: {
-                      id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                      format: 'image/jpeg',
-                      service: {
-                        id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      };
-      const propsData = {
-        uri
-      };
+      const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
 
-      it('fetches it and stores the parsed data to `presentation`', async() => {
-        const wrapper = factory({ propsData });
-        nock(origin).get(path).reply(200, responseData);
+      it('fetches manifest via itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
+        const wrapper = factory({ propsData: { uri } });
 
         await wrapper.vm.fetch();
 
-        expect(nock.isDone()).toBe(true);
-        expect(wrapper.vm.presentation).toEqual({
-          id: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
-          search: [
-            {
-              context: 'http://iiif.io/api/search/1/context.json',
-              id: 'https://iiif.europeana.eu/presentation/123/abc/search',
-              profile: 'http://iiif.io/api/search/1/search'
-            }
-          ],
-          canvases: [
-            {
-              id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
-              resource: {
-                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                ebucoreHasMimeType: 'image/jpeg',
-                svcsHasService: {
-                  id: 'https://iiif.europeana.eu/image/123/abc/image1.jpg'
-                }
-              }
-            }
-          ]
-        });
+        expect(fetchPresentationStub.calledWith(uri)).toBe(true);
       });
     });
 
@@ -266,16 +221,13 @@ describe('components/item/ItemMediaPresentation', () => {
       ];
       const propsData = { itemId, webResources };
 
-      it('stores them to `presentation`', async() => {
+      it('initialises presentation from them via itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.presentation).toEqual({
-          canvases: [
-            { resource: webResources[0] }
-          ]
-        });
+        expect(setPresentationFromWebResourcesStub.calledWith(webResources)).toBe(true);
       });
     });
   });
