@@ -10,6 +10,7 @@
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
       @click="$emit('zoomIn')"
+      @mouseleave="hideTooltips"
     >
       <span
         class="icon icon-zoom-in"
@@ -22,6 +23,7 @@
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
       @click="$emit('resetZoom')"
+      @mouseleave="hideTooltips"
     >
       <span
         class="icon icon-reset"
@@ -34,6 +36,7 @@
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
       @click="$emit('zoomOut')"
+      @mouseleave="hideTooltips"
     >
       <span
         class="icon icon-zoom-out"
@@ -45,6 +48,7 @@
       variant="light-flat"
       class="fullscreen-button button-icon-only btn-light-flat ml-2"
       @click="$emit('toggleFullscreen')"
+      @mouseleave="hideTooltips"
     >
       <span
         class="icon"
@@ -55,8 +59,12 @@
 </template>
 
 <script>
+  import hideTooltips from '@/mixins/hideTooltips';
+
   export default {
     name: 'MediaImageViewerControls',
+
+    mixins: [hideTooltips],
 
     props: {
       minZoom: {

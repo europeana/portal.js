@@ -307,7 +307,6 @@
         // This uses "moveend" instead of "change:resolution" on the view as that can fire many times during an animation
         // TODO: Move out of configureZoomLevels?
         this.olMap.on('moveend', () => {
-          console.log('moveended');
           this.$emit('zoomChanged', view.getZoom());
         });
       }
