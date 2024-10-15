@@ -100,9 +100,8 @@
         this.info = infoResponse.data;
         this.source = 'IIIF';
       }
-
-      // TODO call renderThumbnail on SSR, but prevent duplicate calls
       if (process.client) {
+        // TODO: this is called twice, also in mounted
         this.renderThumbnail();
       }
     },
@@ -113,6 +112,12 @@
         handler: 'highlightAnnotation'
       },
       url: '$fetch'
+    },
+
+    mounted() {
+      if (!this.$fetchState.pending) {
+        this.renderThumbnail();
+      }
     },
 
     methods: {

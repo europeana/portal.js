@@ -17,7 +17,7 @@ describe('plugins/europeana/edm/Aggregation', () => {
         it('gets edm:object as thumbnail', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].thumbnail.url).toBe(edmObject);
         });
       });
 
@@ -35,7 +35,7 @@ describe('plugins/europeana/edm/Aggregation', () => {
         it('gets edm:object as thumbnail', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].thumbnail.url).toBe(edmObject);
         });
 
         it('gets forEdmIsShownAt set to `true`', () => {
