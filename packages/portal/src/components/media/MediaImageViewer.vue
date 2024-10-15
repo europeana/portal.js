@@ -100,10 +100,6 @@
         this.info = infoResponse.data;
         this.source = 'IIIF';
       }
-
-      if (process.client) {
-        this.renderThumbnail();
-      }
     },
 
     watch: {
@@ -221,7 +217,7 @@
 
         const mapSize = this.olMap.getSize();
         const imageSize = extent.slice(2);
-        const imageSmallerThanMap = imageSize[1] < mapSize[1] && imageSize[0] < mapSize[0];
+        const imageSmallerThanMap = imageSize[1] < mapSize?.[1] && imageSize[0] < mapSize?.[0];
         const imageMaxFitSize =  imageSmallerThanMap ? imageSize : undefined;
 
         this.olMap.getView().fit(extent, { size: imageMaxFitSize });
@@ -232,6 +228,7 @@
 
         if (!this.thumbnail) {
           this.renderFullImage();
+          return;
         }
 
         let mapOptions;
@@ -306,7 +303,7 @@
             resolve([image.width, image.height]);
           };
           image.onerror = () => {
-            reject('Image error');
+            reject(new Error('Image error'));
           };
           image.src = src;
         });
