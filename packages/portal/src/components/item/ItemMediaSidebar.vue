@@ -9,7 +9,7 @@
     >
       <b-tabs vertical>
         <b-tab
-          v-if="annotationUri"
+          v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations') }"
@@ -25,9 +25,6 @@
           </template>
           <h2>{{ $t('media.sidebar.annotations') }}</h2>
           <MediaAnnotationList
-            :uri="annotationUri"
-            :target-id="annotationTargetId"
-            :text-granularity="annotationTextGranularity"
             class="iiif-viewer-sidebar-panel"
             @selectAnno="onSelectAnno"
           />
@@ -79,17 +76,9 @@
     mixins: [hideTooltips],
 
     props: {
-      annotationTargetId: {
-        type: String,
-        default: null
-      },
-      annotationTextGranularity: {
-        type: Array, String,
-        default: null
-      },
-      annotationUri: {
-        type: String,
-        default: null
+      annotationList: {
+        type: Boolean,
+        default: false
       },
       manifestUri: {
         type: String,

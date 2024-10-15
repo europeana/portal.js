@@ -23,9 +23,9 @@ describe('components/item/ItemMediaSidebar', () => {
       expect(sidebar.exists()).toBe(true);
     });
 
-    describe('when there is an annotation URI', () => {
+    describe('when there is an annotation list', () => {
       it('has a tab for annotations', () => {
-        const wrapper = factory({ annotationUri: 'https://example.com/iiif/123/annotations' });
+        const wrapper = factory({ annotationList: true });
 
         const annotationsTab = wrapper.find('[data-qa="item media sidebar annotations"]');
 
