@@ -100,6 +100,11 @@
         this.info = infoResponse.data;
         this.source = 'IIIF';
       }
+
+      // TODO call renderThumbnail on SSR, but prevent duplicate calls
+      if (process.client) {
+        this.renderThumbnail();
+      }
     },
 
     watch: {
@@ -108,12 +113,6 @@
         handler: 'highlightAnnotation'
       },
       url: '$fetch'
-    },
-
-    mounted() {
-      if (!this.$fetchState.pending) {
-        this.renderThumbnail();
-      }
     },
 
     methods: {
@@ -233,12 +232,9 @@
 
         let mapOptions;
 
-        let thumbWidth;
-        let thumbHeight;
-        if (this.width && this.height) {
-          thumbWidth = 400;
-          thumbHeight = (this.height / this.width) * thumbWidth;
-        }
+        const thumbWidth = 400;
+        const thumbHeight = (this.height / this.width) * thumbWidth;
+
         mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
 
         this.initOlMap(mapOptions);
@@ -274,17 +270,7 @@
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
       async initOlImageLayerStatic(url, width, height) {
-        let extent;
-        if (width && height) {
-          extent = [0, 0, width, height];
-        } else {
-          try {
-            const imageSize = await this.getImageDimensions(url);
-            extent = [0, 0].concat(imageSize);
-          } catch (error) {
-            console.error(error);
-          }
-        }
+        const extent = [0, 0, width, height];
 
         const source = new ImageStatic({
           url,
@@ -293,20 +279,6 @@
         const layer = new ImageLayer({ source });
 
         return { extent, layer, source };
-      },
-
-      getImageDimensions(src) {
-        return new Promise((resolve, reject) => {
-          const image = new Image();
-
-          image.onload = () => {
-            resolve([image.width, image.height]);
-          };
-          image.onerror = () => {
-            reject(new Error('Image error'));
-          };
-          image.src = src;
-        });
       },
 
       async renderImage() {

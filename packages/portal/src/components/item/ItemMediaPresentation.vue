@@ -49,12 +49,12 @@
         />
         <MediaImageViewer
           v-else-if="resource?.forEdmIsShownAt"
-          :url="resource.thumbnail"
+          :url="resource.thumbnail.url"
           :thumbnail="thumbnail"
           :item-id="itemId"
           :annotation="activeAnnotation"
-          :width="resource.ebucoreWidth"
-          :height="resource.ebucoreHeight"
+          :width="resource.thumbnail.ebucoreWidth"
+          :height="resource.thumbnail.ebucoreHeight"
         />
         <code
           v-else

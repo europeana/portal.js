@@ -85,7 +85,7 @@ export default class WebResource extends Base {
   //       or move out into Nuxt mixin?
   // TODO: use IIIF Image service if present
   thumbnails(context) {
-    const uri = this.thumbnail || this.about;
+    const uri = this.thumbnail?.url || this.about;
 
     const smallWidth = 200;
     const largeWidth = 400;
