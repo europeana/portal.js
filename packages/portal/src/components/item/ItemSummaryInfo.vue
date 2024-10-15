@@ -1,52 +1,52 @@
 <template>
   <div class="card rounded-0 border-0 mb-3 info-panel">
     <header
-      v-if="titles.length > 0"
+      v-if="titles?.length > 0"
     >
       <template
-        v-for="(heading, index) in titles"
+        v-for="(title, index) in titles"
       >
         <h1
           v-if="index === 0"
           :key="index"
-          :lang="langAttribute(heading.code)"
+          :lang="langAttribute(title.lang)"
           class="mb-0"
         >
-          {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
+          {{ title.value }}
+          <MetadataOriginLabel :translation-source="title.translationSource" />
         </h1>
         <p
           v-else
           :key="index"
-          :lang="langAttribute(heading.code)"
+          :lang="langAttribute(title.lang)"
           class="font-weight-bold mt-3 mb-0"
         >
-          {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
+          {{ title.value }}
+          <MetadataOriginLabel :translation-source="title.translationSource" />
         </p>
       </template>
     </header>
     <div
-      v-if="description"
+      v-if="descriptions?.length > 0"
       class="description"
     >
       <div
-        v-for="(value, index) in description.values"
+        v-for="(description, index) in descriptions"
         :key="index"
         class="description-text"
       >
         <!-- eslint-disable vue/no-v-html -->
         <p
           v-if="index === 0"
-          :lang="langAttribute(description.code)"
+          :lang="langAttribute(description.lang)"
           class="description-text-paragraph"
-          v-html="convertNewLine(showAll ? value : truncatedDescription)"
+          v-html="convertNewLine(showAll ? description.value : truncatedDescription(description))"
         />
         <p
           v-else-if="showAll"
-          :lang="langAttribute(description.code)"
+          :lang="langAttribute(description.lang)"
           class="description-text-paragraph"
-          v-html="convertNewLine(value)"
+          v-html="convertNewLine(description.value)"
         />
         <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
@@ -58,11 +58,11 @@
           :translation-source="description.translationSource"
         />
         <hr
-          v-if="(index + 1) < description.values.length && showAll"
+          v-if="(index + 1) < descriptions.length && showAll"
         >
       </div>
       <b-button
-        v-if="expandableDescription"
+        v-if="expandableDescription(descriptions?.[0])"
         data-qa="description show link"
         class="btn-link is-size-4 p-0 mt-2"
         variant="link"
@@ -92,13 +92,13 @@
     ],
 
     props: {
-      description: {
-        type: Object,
+      descriptions: {
+        type: Array,
         default: null
       },
       titles: {
         type: Array,
-        default: () => []
+        default: null
       }
     },
     data() {
@@ -108,16 +108,6 @@
       };
     },
     computed: {
-      expandableDescription() {
-        return this.description?.values &&
-          (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
-      },
-      truncatedDescription() {
-        if (this.description?.values) {
-          return this.truncate(this.description.values[0], this.limitCharacters);
-        }
-        return false;
-      },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
       }
@@ -131,11 +121,19 @@
       convertNewLine(val) {
         return val.replace(/\n/g, '<br/>');
       },
+      expandableDescription(description) {
+        return description.value?.length > this.limitCharacters;
+      },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
+      },
+      truncatedDescription(description) {
+        if (description?.value) {
+          return this.truncate(description.value, this.limitCharacters);
+        }
+        return false;
       }
     }
-
   };
 </script>
 

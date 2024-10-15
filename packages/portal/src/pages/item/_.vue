@@ -55,8 +55,8 @@
             class="col-lg-10"
           >
             <ItemSummaryInfo
-              :description="descriptionInCurrentLanguage"
-              :titles="titlesInCurrentLanguage"
+              :descriptions="metadata.dcDescription"
+              :titles="allTitles"
             />
           </b-col>
         </b-row>
@@ -68,9 +68,8 @@
             class="col-lg-10"
           >
             <ItemDataProvider
-              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
+              :data-provider="dataProviderEntityUri ? null : metadata.edmDataProvider?.[0]"
               :data-provider-entity="dataProviderEntity"
-              :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
               :user-generated-content="metadata.edmUgc === 'true'"
             />
@@ -84,7 +83,6 @@
             <MetadataBox
               :metadata="fieldsAndKeywords"
               :location="locationData"
-              :metadata-language="metadataLanguage"
             />
           </b-col>
         </b-row>
@@ -127,7 +125,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
   import isEqual from 'lodash/isEqual.js';
   import uniqWith from 'lodash/uniqWith.js';
@@ -212,8 +209,8 @@
       },
       pageMeta() {
         return {
-          title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
-          description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
+          title: this.metadata.dcTitle?.[0]?.value || this.$t('record.record'),
+          description: this.metadata.dcDescription?.[0]?.value,
           ogType: 'article',
           ogImage: this.ogImage
         };
@@ -237,7 +234,7 @@
         return this.metadata.dctermsSpatial;
       },
       edmRights() {
-        return this.metadata.edmRights?.def[0] || '';
+        return this.metadata.edmRights?.[0]?.value || '';
       },
       europeanaEntities() {
         return this.entities.filter((entity) => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
@@ -248,39 +245,22 @@
       },
       attributionFields() {
         return {
-          title: langMapValueForLocale(this.metadata.dcTitle, this.metadataLanguage).values[0],
-          creator: langMapValueForLocale(this.metadata.dcCreator, this.metadataLanguage).values[0],
-          year: langMapValueForLocale(this.metadata.year, this.metadataLanguage).values[0],
-          provider: langMapValueForLocale(this.metadata.edmDataProvider, this.metadataLanguage).values[0],
-          country: langMapValueForLocale(this.metadata.edmCountry, this.metadataLanguage).values[0],
+          title: this.metadata.dcTitle?.[0]?.value,
+          creator: this.metadata.dcCreator?.[0]?.value,
+          year: this.metadata.year?.[0]?.value,
+          provider: this.metadata.edmDataProvider?.[0]?.value,
+          country: this.metadata.edmCountry?.[0]?.value,
           url: this.shareUrl
         };
       },
-      titlesInCurrentLanguage() {
-        const titles = [];
-
-        const mainTitle = this.metadata.dcTitle ? langMapValueForLocale(this.metadata.dcTitle, this.metadataLanguage) : '';
-        const alternativeTitle = this.metadata.dctermsAlternative ? langMapValueForLocale(this.metadata.dctermsAlternative, this.metadataLanguage) : '';
-
-        const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
-        for (const title of allTitles) {
-          for (const value of title.values) {
-            titles.push({ 'code': title.code, value, translationSource: title.translationSource });
-          }
-        }
-        return titles;
-      },
-      descriptionInCurrentLanguage() {
-        if (!this.metadata.dcDescription) {
-          return null;
-        }
-        return langMapValueForLocale(this.metadata.dcDescription, this.metadataLanguage);
+      allTitles() {
+        return [].concat(this.metadata.dcTitle, this.metadata.dctermsAlternative).filter(Boolean);
       },
       dataProviderEntityUri() {
-        return this.metadata.edmDataProvider?.def?.[0].about || null;
+        return this.metadata.edmDataProvider?.[0]?.about || null;
       },
       dataProviderEntityLabel() {
-        return this.metadata.edmDataProvider?.def?.[0].prefLabel;
+        return this.metadata.edmDataProvider?.[0]?.value;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -299,6 +279,7 @@
       },
       matomoOptions() {
         return {
+          // FIXME: store these during the metadata fetch
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
           dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
           dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
@@ -369,7 +350,6 @@
           }
         }
         const edm = data.object;
-        console.log('edm', edm)
 
         if (this.identifier !== edm.about) {
           return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
@@ -458,19 +438,19 @@
         return this.findProxy(edm.proxies, 'provider') || {};
       },
 
-      extractEuropeanaCollectionName(edm) {
-        return edm.europeanaCollectionName ? {
-          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
-          value: edm.europeanaCollectionName
-        } : null;
-      },
-
       /**
        * Parse the record data based on the data from the API response
        * @param {Object} edm data from API response
        * @return {Object} parsed data
        */
       extractMetadata(edm) {
+        let metadata = this.pickMetadata(edm);
+        metadata = this.normaliseMetadata(metadata);
+        metadata = this.limitMetadata(metadata);
+        return this.linkMetadata(metadata);
+      },
+
+      pickMetadata(edm) {
         const providerAggregation = edm.aggregations[0];
         const europeanaAggregation = edm.europeanaAggregation;
         const providerProxy = this.extractProviderProxy(edm);
@@ -485,28 +465,32 @@
           europeanaProxy
         ]);
 
-        forEachLangMapValue(metadataSources, (field, locale) => {
-          if (Array.isArray(metadataSources[field][locale]) && metadataSources[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
-            metadataSources[field][locale] = metadataSources[field][locale].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
-          }
-        });
-
-        const europeanaCollectionName = this.extractEuropeanaCollectionName(edm);
-
-        const metadata = pick({
-          // ...this.lookupEntities(metadataSources),
+        return pick({
           ...metadataSources,
           europeanaCollectionName: edm.europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
         }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
+      },
 
-        console.log('metadata', metadata)
+      limitMetadata(metadata) {
+        for (const key in metadata) {
+          if ((metadata[key].length || 0) > this.MAX_VALUES_PER_METADATA_FIELD) {
+            metadata[key] = metadata[key].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
+          }
+        }
 
-        console.log('normalised', this.normaliseMetadata(metadata))
+        return metadata;
+      },
 
-        // return reduceLangMapsForLocale(metadata, this.metadataLanguage);
-        return this.normaliseMetadata(metadata);
+      linkMetadata(metadata) {
+        if (metadata.europeanaCollectionName?.[0]) {
+          metadata.europeanaCollectionName[0].url = {
+            name: 'search', query: { query: `europeana_collectionName:"${metadata.europeanaCollectionName[0].value}"` }
+          };
+        }
+
+        return metadata;
       },
 
       normaliseLiteral(literal) {
@@ -515,8 +499,16 @@
 
       normaliseLangMap(langMap) {
         const lang = selectLocaleForLangMap(langMap, this.metadataLanguage);
-        const values = this.normaliseMetadataProperty(langMap[lang]);
-        return [].concat(values).map((value) => ({ lang, value }));
+        const values = langMap[lang]
+          .map((value) => ({ lang, value }));
+
+        let entityDefValues = [];
+        if ((lang !== 'def') && langMap.def) {
+          entityDefValues = (langMap.def.filter((def) => this.findEntity(def)) || [])
+            .map((value) => ({ lang: 'def', value }));
+        }
+
+        return values.concat(entityDefValues);
       },
 
       normaliseArray(array) {
@@ -535,7 +527,7 @@
       // each property may be:
       // - single literal
       // - array of literals
-      // - lang map object, values of which may be arrays, literals, or entities
+      // - lang map object, values of which may be arrays, literals, or entity IDs
       normaliseMetadataProperty(property) {
         if (Array.isArray(property)) {
           return this.normaliseArray(property);
@@ -562,11 +554,11 @@
        * will match any literal values in  the 'def' key to about fields
        * in any of the entities and return the related object instead of
        * the plain string.
-       * @param value Object representing a **normalised** metadata field
-       * @return {Object[]} The value with any entities as JSON objects
+       * @param id Entity id
+       * @return {Object[]} The normalised entity object
        */
-      findEntity(value) {
-        const entity = this.entities.find((entity) => entity.about === value);
+      findEntity(id) {
+        const entity = this.entities.find((entity) => entity.about === id);
         return entity ? this.normaliseEntity(entity) : null;
       },
 
@@ -620,19 +612,6 @@
             this.dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
           } catch {
             // don't fall over
-          } finally {
-            if (!this.dataProviderEntity) {
-              const dataProviderPrefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
-              if (dataProviderPrefLabel) {
-                const prefLabel = { ...dataProviderPrefLabel };
-                for (const key in prefLabel) {
-                  if (Array.isArray(prefLabel[key])) {
-                    prefLabel[key] = prefLabel[key][0];
-                  }
-                }
-                this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
-              }
-            }
           }
         } else if (this.relatedEntityUris.length > 0) {
           this.dataProviderEntity = null;

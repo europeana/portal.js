@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isValidFieldData && hasValuesForLocale"
+    v-if="isValidFieldData"
     :data-field-name="name"
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
@@ -17,57 +17,35 @@
       class="m-0 p-0 text-left text-lg-right list-unstyled"
       :aria-labelledby="labelled && labelId"
     >
-      <MetadataOriginLabel :translation-source="fieldData.translationSource" />
-      <template
-        v-for="(value, index) of displayValues.values"
+      <li
+        v-for="(value, index) of displayValues"
+        :key="index"
+        :lang="langAttribute(value.lang)"
       >
+        <MetadataOriginLabel :translation-source="value.translationSource" />
+        <SmartLink
+          v-if="value.url"
+          :destination="value.url"
+        >
+          {{ value.value }}
+        </SmartLink>
+        <!-- TODO: can't this just use SmartLink with url set for the entity page? -->
+        <ItemEntityField
+          v-else-if="value.about"
+          :text="value.value"
+          :about="value.about"
+        />
         <template
-          v-if="value.about"
-        >
-          <li
-            v-for="(nestedValue, nestedIndex) of value.values"
-            :key="index + '_' + nestedIndex"
-            :lang="langAttribute(value.code)"
-            :data-qa="fieldData.url ? 'entity link' : 'entity value'"
-          >
-            <SmartLink
-              v-if="fieldData.url"
-              :destination="fieldData.url"
-            >
-              {{ nestedValue }}
-            </SmartLink>
-            <ItemEntityField
-              v-else
-              :text="nestedValue"
-              :about="value.about"
-            />
-          </li>
-        </template>
-        <li
           v-else
-          :key="index"
-          :lang="langAttribute(langMappedValues.code)"
-          data-qa="literal value"
         >
-          <SmartLink
-            v-if="fieldData.url"
-            :destination="fieldData.url"
-          >
-            {{ value }}
-          </SmartLink>
-          <template
-            v-else
-          >
-            {{ value }}
-          </template>
-        </li>
-      </template>
+          {{ value.value }}
+        </template>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@europeana/i18n';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
@@ -91,15 +69,11 @@
     props: {
       name: {
         type: String,
-        default: ''
-      },
-      metadataLanguage: {
-        type: String,
-        default: null
+        required: true
       },
       fieldData: {
-        type: [String, Object, Array],
-        default: null
+        type: Array,
+        required: true
       },
       context: {
         type: String,
@@ -127,57 +101,21 @@
       }
     },
 
-    mounted() {
-      // console.log('fieldData', this.name, this.hasValuesForLocale, this.fieldData)
-    },
-
     computed: {
       displayValues() {
-        const display = { ...this.langMappedValues };
-
-        if (this.limitDisplayValues && (display.values.length > this.limit)) {
-          display.values = display.values.slice(0, this.limit).concat('…');
+        if (!this.limitDisplayValues) {
+          return this.fieldData;
         }
-
-        return display;
+        return this.fieldData.slice(0, this.limit).concat('…');
       },
 
       limitDisplayValues() {
         return (this.limit > -1);
       },
 
-      // normalisedValues() {
-      //   return this.fieldData.map((value) => {
-      //
-      //   });
-      // },
-
-      prefLanguage() {
-        return this.getPrefLanguage(this.name, this.fieldData);
-      },
-
-      langMappedValues() {
-        if (this.fieldData === null) {
-          return null;
-        } else if (typeof (this.fieldData) === 'string') {
-          return { values: [this.fieldData], code: '' };
-        } else if (Array.isArray(this.fieldData)) {
-          return { values: this.fieldData, code: '' };
-        } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
-        }
-        return langMapValueForLocale(this.fieldData, this.prefLanguage, {
-          omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
-        });
-      },
-
-      hasValuesForLocale() {
-        return (this.langMappedValues?.values?.length || 0) >= 1;
-      },
-
       timestampIsUnixEpochValue() {
         if (['timestampCreated', 'timestampUpdate'].includes(this.name)) {
-          return new Date(this.fieldData).getTime() === 0;
+          return new Date(this.fieldData[0].value).getTime() === 0;
         } else {
           return false;
         }

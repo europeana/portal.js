@@ -18,14 +18,17 @@
             text-tag="div"
             data-qa="main metadata section"
           >
-            <MetadataField
+            <template
               v-for="name in CORE_FIELDS"
-              :key="name"
-              :metadata-language="metadataLanguage"
-              :name="name"
-              :field-data="metadata[name]"
-              :label-id="`${name}-main-label`"
-            />
+            >
+              <MetadataField
+                v-if="(metadata[name]?.length || 0) > 0"
+                :key="name"
+                :name="name"
+                :field-data="metadata[name]"
+                :label-id="`${name}-main-label`"
+              />
+            </template>
           </b-card-text>
         </b-tab>
         <b-tab
@@ -37,14 +40,17 @@
           <b-card-text
             text-tag="div"
           >
-            <MetadataField
+            <template
               v-for="name in ALL_FIELDS"
-              :key="name"
-              :metadata-language="metadataLanguage"
-              :name="name"
-              :field-data="metadata[name]"
-              :label-id="`${name}-label`"
-            />
+            >
+              <MetadataField
+                v-if="(metadata[name]?.length || 0) > 0"
+                :key="name"
+                :name="name"
+                :field-data="metadata[name]"
+                :label-id="`${name}-label`"
+              />
+            </template>
           </b-card-text>
         </b-tab>
         <b-tab
@@ -93,11 +99,7 @@
         required: true
       },
       location: {
-        type: Object,
-        default: null
-      },
-      metadataLanguage: {
-        type: String,
+        type: [Object, Array],
         default: null
       }
     },
@@ -112,9 +114,7 @@
 
     computed: {
       mappableLocation() {
-        return this.location?.def?.find(loc => (
-          (typeof loc === 'object') && loc.latitude && loc.longitude
-        )) || null;
+        return [].concat(this.location).find((loc) => loc.latitude && loc.longitude);
       }
     },
 

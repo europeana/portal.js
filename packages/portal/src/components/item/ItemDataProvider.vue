@@ -27,9 +27,9 @@
           <span
             v-else
             data-qa="data provider name"
-            :lang="langAttribute(namePrefLanguage)"
+            :lang="langAttribute(dataProvider.lang)"
           >
-            {{ displayName }}
+            {{ dataProvider.value }}
           </span>
         </template>
       </i18n>
@@ -47,7 +47,6 @@
 
 <script>
   import { isEntityUri } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
@@ -69,16 +68,13 @@
       europeanaEntityLinks
     ],
     props: {
+      // TODO: normalise this and the entity prop to just one
       dataProvider: {
         type: Object,
         default: null
       },
       dataProviderEntity: {
         type: Object,
-        default: null
-      },
-      metadataLanguage: {
-        type: String,
         default: null
       },
       isShownAt: {
@@ -94,12 +90,6 @@
     computed: {
       providedByStringPath() {
         return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
-      },
-      namePrefLanguage() {
-        return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
-      },
-      displayName() {
-        return langMapValueForLocale(this.dataProviderEntity?.prefLabel || this.dataProvider, this.namePrefLanguage).values[0];
       }
     },
 

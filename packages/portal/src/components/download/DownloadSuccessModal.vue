@@ -47,14 +47,8 @@
 </template>
 
 <script>
-  import stringify from '@/mixins/stringify';
-
   export default {
     name: 'DownloadSuccessModal',
-
-    mixins: [
-      stringify
-    ],
 
     props: {
       title: {
@@ -62,15 +56,15 @@
         default: null
       },
       creator: {
-        type: [String, Object],
+        type: String,
         default: null
       },
       year: {
-        type: [String, Object],
+        type: String,
         default: null
       },
       provider: {
-        type: [String, Object],
+        type: String,
         default: null
       },
       country: {
@@ -88,19 +82,14 @@
     },
 
     data() {
-      return {
-        snippetCopied: false,
-        providerString: this.stringify(this.provider),
-        creatorString: this.stringify(this.creator),
-        yearString: this.stringify(this.year)
-      };
+      return { snippetCopied: false      };
     },
 
     computed: {
       attributionSnippet() {
         let attributionData = [
           this.titleCreator,
-          this.yearString,
+          this.year,
           this.providerCountry,
           this.rights
         ]
@@ -118,10 +107,10 @@
       titleCreator() {
         let titleCreator;
 
-        if (this.title && this.creatorString) {
-          titleCreator = `${this.title} ${this.$t('authored.by')} ${this.creatorString}`;
+        if (this.title && this.creator) {
+          titleCreator = `${this.title} ${this.$t('authored.by')} ${this.creator}`;
         } else {
-          titleCreator = this.title || this.creatorString;
+          titleCreator = this.title || this.creator;
         }
 
         return titleCreator;
@@ -130,10 +119,10 @@
       providerCountry() {
         let providerCountry;
 
-        if (this.providerString && this.country) {
-          providerCountry = `${this.providerString}, ${this.country}`;
+        if (this.provider && this.country) {
+          providerCountry = `${this.provider}, ${this.country}`;
         } else {
-          providerCountry = this.providerString || this.country;
+          providerCountry = this.provider || this.country;
         }
 
         return providerCountry;
