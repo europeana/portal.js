@@ -57,6 +57,7 @@
       </div>
       <div
         class="iiif-viewer-toolbar d-flex flex-wrap flex-lg-nowrap align-items-center"
+        :class="{ black: resource?.isPlayableMedia }"
       >
         <!-- TODO: Refactor into separate ItemMediaToolbar component -->
         <b-button
@@ -76,7 +77,7 @@
         </b-button>
         <div
           v-if="resourceCount >= 2"
-          class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
+          class="iiif-viewer-toolbar-pagination d-flex ml-lg-auto"
           :class="{ closed: !showPages }"
         >
           <PaginationNavInput
@@ -323,13 +324,29 @@
         color: $blue;
       }
     }
+
+    &.black {
+      background-color: transparent;
+
+      .sidebar-toggle,
+      .pages-toggle {
+        color: $white;
+      }
+    }
   }
 
   .iiif-viewer-toolbar-pagination {
     padding: 0.875rem 1rem;
+    background-color: rgba($white, 0.95);
+    width: 13rem;
+
+    &.closed {
+      background-color: transparent;
+    }
 
     @media(max-width: ($bp-large - 1px)) {
       border-top: 1px solid $bodygrey;
+      width: auto;
 
       &.closed {
         border-bottom: 1px solid $bodygrey;
