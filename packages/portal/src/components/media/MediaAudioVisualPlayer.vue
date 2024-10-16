@@ -1,15 +1,17 @@
 <template>
-  <div
-    class="media-player-wrapper col-lg-10 col-12"
-  >
-    <iframe
-      data-qa="media player"
-      allowfullscreen="true"
-      :src="localePath({ name: 'media', query: { id: itemId, mediaUrl: url, mediaType: format } })"
-      class="media-player"
-      :title="$t('record.mediaPlayer')"
-    />
-  </div>
+  <b-container class="h-100">
+    <div
+      class="media-player-wrapper col-lg-10 col-12"
+    >
+      <iframe
+        data-qa="media player"
+        allowfullscreen="true"
+        :src="localePath({ name: 'media', query: { id: itemId, mediaUrl: url, mediaType: format } })"
+        class="media-player"
+        :title="$t('record.mediaPlayer')"
+      />
+    </div>
+  </b-container>
 </template>
 
 <script>
@@ -42,6 +44,8 @@
     margin: 0 auto;
     overflow: hidden;
     min-width: 19rem;
+    z-index: 3;
+    // max-width: ;
 
     iframe {
       border: 0;
