@@ -331,6 +331,10 @@
       .sidebar-toggle,
       .pages-toggle {
         color: $white;
+
+        &.active {
+          color: $blue;
+        }
       }
     }
   }
