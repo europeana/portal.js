@@ -14,11 +14,9 @@
           id="item-media-sidebar"
           ref="sidebar"
           tabindex="0"
-          :annotation-uri="annotationUri"
-          :annotation-target-id="annotationTargetId"
-          :annotation-text-granularity="annotationTextGranularity"
+          :annotation-list="hasAnnotations"
+          :annotation-search="hasSearchService"
           :manifest-uri="uri"
-          :search-uri="searchUri"
           @selectAnno="onSelectAnno"
           @keydown.escape.native="showSidebar = false"
         />
@@ -42,6 +40,10 @@
           :url="resource.about"
           :format="resource.ebucoreHasMimeType"
           :item-id="itemId"
+        />
+        <EmbedOEmbed
+          v-else-if="resource?.isOEmbed"
+          :url="resource.about"
         />
         <code
           v-else
@@ -108,8 +110,6 @@
         id="item-media-thumbnails"
         ref="itemPages"
         tabindex="0"
-        :resources="resources"
-        :selected-index="page -1"
         :edm-type="edmType"
         data-qa="item media thumbnails"
         @keydown.escape.native="showPages = false"
@@ -120,12 +120,13 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
-  import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
+      EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
@@ -168,105 +169,79 @@
       }
     },
 
+    setup() {
+      const {
+        fetchPresentation,
+        hasAnnotations,
+        hasSearchService,
+        page,
+        pageForAnnotationTarget,
+        resource,
+        resourceCount,
+        setPage,
+        setPresentationFromWebResources
+      } = useItemMediaPresentation();
+
+      return {
+        fetchPresentation,
+        hasAnnotations,
+        hasSearchService,
+        page,
+        pageForAnnotationTarget,
+        resource,
+        resourceCount,
+        setPage,
+        setPresentationFromWebResources
+      };
+    },
+
     data() {
       return {
         activeAnnotation: null,
-        presentation: null,
-        page: 1,
         showSidebar: false,
         showPages: true
       };
     },
 
     async fetch() {
-      let presentation;
+      this.setPage(this.$route.query.page);
 
       if (this.uri) {
-        presentation = await EuropeanaMediaPresentation.from(this.uri);
+        await this.fetchPresentation(this.uri);
       } else if (this.webResources) {
-        presentation = new EuropeanaMediaPresentation({
-          canvases: this.webResources.map((resource) => ({
-            resource
-          }))
-        });
+        this.setPresentationFromWebResources(this.webResources);
       } else {
         throw new Error('No manifest URI or web resources for presentation');
       }
 
-      this.presentation = Object.freeze(presentation);
-
-      this.setPage();
+      this.selectResource();
     },
 
     mounted() {
-      const annoHashParam = EuropeanaMediaPresentation.getHashParam(this.$route.hash, 'anno');
-      this.annotation
-      console.log('annoHashParam', annoHashParam)
+      // const annoHashParam = EuropeanaMediaPresentation.getHashParam(this.$route.hash, 'anno');
+      // this.annotation
+      // console.log('annoHashParam', annoHashParam)
     },
 
     computed: {
-      /**
-       * Annotation page/list: either a URI as a string, or an object with id
-       * property being the URI
-       */
-      annotationCollection() {
-        return this.canvas?.annotations?.[0];
-      },
-
-      annotationTargetId() {
-        // account for Europeana fulltext annotations incorrectly targeting IIIF
-        // images instead of canvases
-        return this.presentation?.isInEuropeanaDomain ? this.resource?.about : this.canvas?.id;
-      },
-
-      annotationUri() {
-        if (!this.annotationCollection) {
-          return null;
-        } else if (typeof this.annotationCollection === 'string') {
-          return this.annotationCollection;
-        }
-        return this.annotationCollection.id;
-      },
-
-      annotationTextGranularity() {
-        return this.annotationCollection?.textGranularity;
-      },
-
-      canvas() {
-        return this.presentation?.canvases?.[this.page - 1];
-      },
-
-      resource() {
-        return this.canvas?.resource;
-      },
-
-      resources() {
-        return this.presentation?.canvases?.map((canvas) => canvas.resource).filter(Boolean);
-      },
-
-      resourceCount() {
-        return this.resources?.length || 0;
-      },
-
-      searchUri() {
-        return [].concat(this.presentation?.search).filter(Boolean)[0]?.id;
+      hasManifest() {
+        return !!this.uri;
       },
 
       sidebarHasContent() {
-        return !!this.annotationUri || !!this.uri;
-      },
-
-      thumbnail() {
-        return this.thumbnails?.[this.page - 1];
-      },
-
-      thumbnails() {
-        return this.resources?.map((resource) => resource.thumbnails?.(this.$nuxt.context)?.small) || [];
+        return this.hasAnnotations || this.hasSearchService || this.hasManifest;
       }
     },
 
     watch: {
-      '$route.query.page': 'setPage'
+      '$route.query.page'() {
+        this.setPage(this.$route.query.page);
+      },
+
+      resource: {
+        deep: true,
+        handler: 'selectResource'
+      }
     },
 
     methods: {
@@ -275,6 +250,7 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
+      // TODO: move this to MediaAnnotationList!
       onSelectAnno(anno) {
         this.activeAnnotation = anno;
 
@@ -284,34 +260,14 @@
           hash: `#anno=${anno.id}`,
           query: {
             ...this.$route.query,
-            page: this.pageForTarget(anno.target)
+            page: this.pageForAnnotationTarget(anno.target)
           }
         });
       },
 
-      pageForTarget(annoTarget) {
-        const annoTargets = [].concat(annoTarget).filter(Boolean);
-        let targetIds;
-        if (this.presentation?.isInEuropeanaDomain) {
-          targetIds = this.resources.map((resource) => resource.about);
-        } else {
-          targetIds = this.canvases.map((canvas) => canvas.id);
-        }
-
-        const i = targetIds.findIndex((id) => annoTargets.some((at) => (at === id) || at.startsWith(`${id}#`)));
-
-        if (i === -1) {
-          return undefined;
-        }
-        return i + 1;
-      },
-
-      setPage() {
-        this.page = Number(this.$route.query.page) || 1;
+      selectResource() {
         this.activeAnnotation = null;
-        this.$nextTick(() => {
-          this.$emit('select', this.resource?.about);
-        });
+        this.$emit('select', this.resource);
       },
 
       toggleSidebar() {

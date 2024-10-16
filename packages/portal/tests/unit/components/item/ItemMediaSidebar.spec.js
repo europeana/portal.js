@@ -10,7 +10,11 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $t: (key) => key
   },
+<<<<<<< HEAD
   stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
+=======
+  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList']
+>>>>>>> master
 });
 
 describe('components/item/ItemMediaSidebar', () => {
@@ -23,9 +27,15 @@ describe('components/item/ItemMediaSidebar', () => {
       expect(sidebar.exists()).toBe(true);
     });
 
+<<<<<<< HEAD
     describe('when there is an annotation URI', () => {
       it('has a tab for annotations', () => {
         const wrapper = factory({ annotationUri: 'https://example.com/iiif/123/annotations' });
+=======
+    describe('when there is an annotation list', () => {
+      it('has a tab for annotations', () => {
+        const wrapper = factory({ annotationList: true });
+>>>>>>> master
 
         const annotationsTab = wrapper.find('[data-qa="item media sidebar annotations"]');
 
@@ -33,6 +43,7 @@ describe('components/item/ItemMediaSidebar', () => {
       });
     });
 
+<<<<<<< HEAD
     describe('when there is a search URI', () => {
       it('has a tab for search', () => {
         const wrapper = factory({ searchUri: 'https://example.com/iiif/123/search' });
@@ -43,6 +54,8 @@ describe('components/item/ItemMediaSidebar', () => {
       });
     });
 
+=======
+>>>>>>> master
     describe('when there is a manifest URI', () => {
       it('has a tab for links', () => {
         const wrapper = factory({ manifestUri: 'https://example.com/iiif/123/manifest' });

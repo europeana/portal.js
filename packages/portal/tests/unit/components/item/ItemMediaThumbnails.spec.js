@@ -1,35 +1,31 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ItemMediaThumbnails from '@/components/item/ItemMediaThumbnails';
 import sinon from 'sinon';
+
+import ItemMediaThumbnails from '@/components/item/ItemMediaThumbnails';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
 const localVue = createLocalVue();
 
-const props = {
-  edmType: 'image',
-  selectedIndex: 0,
-  resources: [
-    { edmType: '' },
-    { edmType: '' },
-    { edmType: '' },
-    { edmType: '' },
-    { edmType: '' }
-  ]
-};
-
-const factory = (propsData = props) => shallowMount(ItemMediaThumbnails, {
+const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(ItemMediaThumbnails, {
   localVue,
   attachTo: document.body,
-  propsData,
+  propsData: {
+    edmType: 'image',
+    ...propsData
+  },
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    ...mocks
   }
 });
 
 describe('components/item/ItemMediaThumbnail', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('template', () => {
-    it('renders a item media thumbnail', () => {
+    it('renders media thumbnails', () => {
       const wrapper = factory();
-      wrapper.vm.$refs.mediaThumbnails.scroll = sinon.spy();
 
       const thumbnail = wrapper.find('.media-thumbnails');
 
@@ -38,18 +34,34 @@ describe('components/item/ItemMediaThumbnail', () => {
   });
 
   describe('when the selected page is after the first page', () => {
-    it('scrolls the thumbnails bar to the active position', async() => {
-      const wrapper = factory({ ...props, selectedIndex: 2 });
+    beforeAll(() => {
+      sinon.stub(itemMediaPresentation, 'default').returns({
+        page: 2,
+        resources: [
+          {},
+          {}
+        ]
+      });
+    });
+    afterAll(() => {
+      itemMediaPresentation.default.restore();
+    });
+
+    it('instant-scrolls the thumbnails bar to the active position', async() => {
+      const wrapper = factory({ mocks: { page: 2 } });
       wrapper.vm.scrollElementToCentre = sinon.spy();
 
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
+      expect(wrapper.vm.scrollElementToCentre.calledWith(
+        sinon.match.any,
+        sinon.match.has('behavior', 'instant')
+      )).toBe(true);
     });
 
     describe('when the media thumbnails element is not yet available', () => {
       it('does not scroll the thumbnails bar', () => {
-        const wrapper = factory({ ...props, selectedIndex: 2 });
+        const wrapper = factory({ mocks: { page: 2 } });
         wrapper.vm.scrollElementToCentre = sinon.spy();
         wrapper.vm.$refs.mediaThumbnails = null;
 
@@ -59,13 +71,16 @@ describe('components/item/ItemMediaThumbnail', () => {
   });
 
   describe('on resize', () => {
-    it('scrolls the thumbnails bar to the active position', () => {
+    it('smooth-scrolls the thumbnails bar to the active position', () => {
       const wrapper = factory();
       wrapper.vm.scrollElementToCentre = sinon.spy();
 
       window.dispatchEvent(new Event('resize'));
 
-      expect(wrapper.vm.scrollElementToCentre.called).toBe(true);
+      expect(wrapper.vm.scrollElementToCentre.calledWith(
+        sinon.match.any,
+        sinon.match.has('behavior', 'smooth')
+      )).toBe(true);
     });
   });
 

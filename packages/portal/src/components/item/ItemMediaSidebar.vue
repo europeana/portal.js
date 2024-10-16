@@ -11,7 +11,7 @@
                  the tab is shown; prevent that -->
       <b-tabs vertical>
         <b-tab
-          v-if="annotationUri"
+          v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations') }"
@@ -27,15 +27,12 @@
           </template>
           <h2>{{ $t('media.sidebar.annotations') }}</h2>
           <MediaAnnotationList
-            :uri="annotationUri"
-            :target-id="annotationTargetId"
-            :text-granularity="annotationTextGranularity"
             class="iiif-viewer-sidebar-panel"
             @selectAnno="onSelectAnno"
           />
         </b-tab>
         <b-tab
-          v-if="!!searchUri"
+          v-if="!!annotationSearch"
           data-qa="item media sidebar search"
           button-id="item-media-sidebar-search"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.search') }"
@@ -53,9 +50,6 @@
           </template>
           <h2>{{ $t('media.sidebar.search') }}</h2>
           <MediaAnnotationSearch
-            :uri="searchUri"
-            :target-id="annotationTargetId"
-            :text-granularity="annotationTextGranularity"
             @selectAnno="onSelectAnno"
           />
         </b-tab>
@@ -107,23 +101,15 @@
     mixins: [hideTooltips],
 
     props: {
-      annotationTargetId: {
-        type: String,
-        default: null
+      annotationList: {
+        type: Boolean,
+        default: false
       },
-      annotationTextGranularity: {
-        type: Array, String,
-        default: null
-      },
-      annotationUri: {
-        type: String,
-        default: null
+      annotationSearch: {
+        type: Boolean,
+        default: false
       },
       manifestUri: {
-        type: String,
-        default: null
-      },
-      searchUri: {
         type: String,
         default: null
       }

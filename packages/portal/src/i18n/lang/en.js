@@ -938,6 +938,7 @@ export default {
   "media": {
     "controls": {
       "fullscreen": "Full screen",
+      "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },

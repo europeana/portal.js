@@ -2,7 +2,9 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
-  />
+  >
+    <MediaImageViewerKeyboardToggle id="media-image-viewer-keyboard-toggle" />
+  </div>
 </template>
 
 <script>
@@ -25,11 +27,18 @@
   import View from 'ol/View.js';
   import FullScreenControl from 'ol/control/FullScreen.js';
   import ZoomControl from 'ol/control/Zoom.js';
+  import { defaults } from 'ol/interaction/defaults';
 
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
+  import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
+
   export default {
     name: 'MediaImageViewer',
+
+    components: {
+      MediaImageViewerKeyboardToggle
+    },
 
     props: {
       // TODO: all we need is the target, not the full object
@@ -193,7 +202,9 @@
         if (!this.olMap) {
           this.olMap = new Map({
             controls,
-            target: 'media-image-viewer'
+            interactions: defaults({ mouseWheelZoom: false }),
+            target: 'media-image-viewer',
+            keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
         }
         this.olExtent = extent;

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
 
@@ -40,51 +41,59 @@
     },
 
     props: {
-      resources: {
-        type: Array,
-        required: true
-      },
       edmType: {
         type: String,
         default: null
-      },
-      selectedIndex: {
-        type: Number,
-        required: true
       }
     },
 
     setup() {
+      const { page, resources } = useItemMediaPresentation();
       const { scrollElementToCentre } = useScrollTo();
-      return { scrollElementToCentre };
+
+      return { page, resources, scrollElementToCentre };
+    },
+
+    computed: {
+      selectedIndex() {
+        return this.page - 1;
+      }
     },
 
     watch: {
-      selectedIndex: 'updateThumbnailScroll'
+      page() {
+        this.updateThumbnailScroll();
+      }
     },
 
     created() {
-      window.addEventListener('resize', this.updateThumbnailScroll);
+      window.addEventListener('resize', this.handleWindowResize);
     },
 
     mounted() {
-      if (this.selectedIndex > 0) {
+      if (this.page > 1) {
         this.$nextTick(() => {
-          this.updateThumbnailScroll();
+          // instant scroll when first loaded, so that browser skips loading of
+          // images not in view
+          this.updateThumbnailScroll('instant');
         });
       }
     },
 
     destroyed() {
-      window.removeEventListener('resize', this.updateThumbnailScroll);
+      window.removeEventListener('resize', this.handleWindowResize);
     },
 
     methods: {
-      updateThumbnailScroll() {
+      handleWindowResize() {
+        this.updateThumbnailScroll();
+      },
+
+      updateThumbnailScroll(behavior = 'smooth') {
         this.scrollElementToCentre(
           this.$refs.mediaThumbnails?.[this.selectedIndex],
           {
-            behavior: 'smooth',
+            behavior,
             container: this.$refs.mediaThumbnailsContainer
           }
         );

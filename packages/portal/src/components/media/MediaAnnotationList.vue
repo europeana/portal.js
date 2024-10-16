@@ -16,7 +16,7 @@
       class="iiif-annotation-list"
     >
       <b-list-group-item
-        v-for="(anno, index) in annotations"
+        v-for="(anno, index) in annotationList"
         :key="index"
         :action="true"
         :active="activeAnnotation === anno.id"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -41,57 +41,46 @@
     },
 
     props: {
-      targetId: {
+      query: {
         type: String,
         default: null
-      },
-      textGranularity: {
-        type: [Array, String],
-        default: null
-      },
-      uri: {
-        type: String,
-        required: true
       }
+    },
+
+    setup() {
+      const { annotations, annotationSearchResults, fetchCanvasAnnotations, searchAnnotations } = useItemMediaPresentation();
+      return { annotations, annotationSearchResults, fetchCanvasAnnotations, searchAnnotations };
     },
 
     data() {
       return {
-        activeAnnotation: null,
-        annotations: null
+        activeAnnotation: null
       };
     },
 
     // TODO: filter by motivation(s)
+    // TODO: prevent re-fetching if the page/query/whatever hasn't changed but
+    //       the component has been hidden/shown/whatever in the meantime,
+    //       i.e. in the itemMediaPresentation composable
     async fetch() {
       this.activeAnnotation = null;
 
-      let textGranularity;
-      if (Array.isArray(this.textGranularity)) {
-        textGranularity = this.textGranularity.includes('line') ? 'line' : this.textGranularity[0];
-      } else {
-        textGranularity = this.textGranularity;
+      await this.searching ? this.searchAnnotations(this.query) : this.fetchCanvasAnnotations();
+    },
+
+    computed: {
+      annotationList() {
+        return this.searching ? this.annotationSearchResults : this.annotations;
+      },
+
+      searching() {
+        return !!this.query;
       }
-
-      const list = await EuropeanaMediaAnnotationList.from(this.uri, { params: { textGranularity } });
-      const annos = this.targetId ? list.annotationsForTarget(this.targetId) : list.items;
-
-      // NOTE: this may result in duplicate network requests for the same body resource
-      //       if there are multiple external annotations with the same resource URL,
-      //       e.g. with just a different hash char selector.
-      //       we use an axios caching interceptor to avoid this.
-      await Promise.all(annos.map((anno) => anno.embedBodies()));
-
-      for (const anno of annos) {
-        if (Array.isArray(anno.body)) {
-          anno.body = anno.body[0];
-        }
-      }
-
-      this.annotations = Object.freeze(annos);
     },
 
     watch: {
+      // TODO: should this watcher go into useItemMediaPresentation?
+      annotationUri: '$fetch',
       uri: '$fetch'
     },
 
