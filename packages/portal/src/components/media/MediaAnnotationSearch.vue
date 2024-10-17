@@ -1,11 +1,10 @@
 <template>
   <div>
     <b-form
+      id="media-annotation-search-form"
       @submit.prevent="handleSubmitForm"
     >
-      <b-form-group
-        id="input-group-1"
-      >
+      <b-form-group>
         <b-form-input
           id="media-annotation-search-query"
           v-model="query"
