@@ -11,8 +11,9 @@ const annotations = [
   { body: { value: 'anno 1' }, id: 'anno1' },
   { body: { value: 'anno 2' }, id: 'anno2' }
 ];
-const fetchCanvasAnnotationsStub = sinon.stub();
-const selectAnnotationStub = sinon.stub();
+const fetchCanvasAnnotationsSpy = sinon.spy();
+const searchAnnotationsSpy = sinon.spy();
+const selectAnnotationSpy = sinon.spy();
 const routerPushSpy = sinon.spy();
 
 const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnotationList, {
@@ -39,8 +40,9 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
     annotations,
-    fetchCanvasAnnotations: fetchCanvasAnnotationsStub,
-    selectAnnotation: selectAnnotationStub,
+    fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
+    searchAnnotations: searchAnnotationsSpy,
+    selectAnnotation: selectAnnotationSpy,
     ...stubs
   });
 };
@@ -75,18 +77,32 @@ describe('components/media/MediaAnnotationList', () => {
       const listItem = wrapper.find('b-list-group-item-stub');
       await listItem.vm.$emit('click');
 
-      expect(selectAnnotationStub.calledWith(annotations[0])).toBe(true);
+      expect(selectAnnotationSpy.calledWith(annotations[0])).toBe(true);
     });
   });
 
   describe('fetch', () => {
-    it('fetches annotation list via itemMediaPresentation composable', async() => {
-      stubItemMediaPresentationComposable();
-      const wrapper = factory();
+    describe('without a query', () => {
+      it('fetches canvas annotations via itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
+        const wrapper = factory();
 
-      await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-      expect(fetchCanvasAnnotationsStub.called).toBe(true);
+        expect(fetchCanvasAnnotationsSpy.called).toBe(true);
+      });
+    });
+
+    describe('with a query', () => {
+      it('searches for annotations via itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
+        const query = 'something';
+        const wrapper = factory({ propsData: { query } });
+
+        await wrapper.vm.fetch();
+
+        expect(searchAnnotationsSpy.calledWith(query)).toBe(true);
+      });
     });
   });
 });
