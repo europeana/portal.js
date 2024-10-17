@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import nock from 'nock';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
@@ -145,6 +146,38 @@ describe('components/media/MediaImageViewer', () => {
             0, 400, 0, 380, 40, 380, 40, 400, 0, 400
           ]);
         });
+      });
+    });
+
+    describe('configureZoomLevels', () => {
+      it('emmits an event containing information about the current zoom levels', async() => {
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.$emit = sinon.spy();
+        wrapper.vm.configureZoomLevels();
+
+        expect(wrapper.vm.$emit.calledWith('viewInitialised', sinon.match({ defaultZoom: 0, maxZoom: 8, minZoom: 0 }))).toBe(true);
+      });
+    });
+
+    describe('setZoom', () => {
+      it('sets the view to the data property currentZoom', async() => {
+        const animateSpy = sinon.spy();
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.olMap.getView = sinon.stub().returns({
+          getZoom: () => 4,
+          animate: animateSpy,
+          getAnimating: () => true,
+          cancelAnimations: () => true
+        });
+
+        // setZoom is called via watcher of currentZoom
+        await wrapper.setProps({ currentZoom: 6 });
+
+        expect(animateSpy.calledWith(sinon.match({ zoom: 6, duration: 250, easing: sinon.match.func }))).toBe(true);
       });
     });
   });
