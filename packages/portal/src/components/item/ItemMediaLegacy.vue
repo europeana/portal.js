@@ -50,11 +50,6 @@
         default: null
       },
 
-      searchQuery: {
-        type: String,
-        default: null
-      },
-
       providerUrl: {
         type: String,
         default: null
