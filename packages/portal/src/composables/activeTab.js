@@ -4,9 +4,9 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue2-helpers/vue-router';
 
 export default function useActiveTab(tabHashes) {
-  const activeTabIndex = ref(-1);
   const router = useRouter();
   const route = useRoute();
+  const activeTabIndex = ref(-1);
 
   const setActiveTabIndexFromRouteHash = () => {
     if (tabHashes.includes(route?.hash)) {

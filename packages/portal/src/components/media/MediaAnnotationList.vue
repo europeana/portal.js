@@ -76,7 +76,7 @@
     //       the component has been hidden/shown/whatever in the meantime,
     //       i.e. in the itemMediaPresentation composable
     async fetch() {
-      await (this.searching ? this.searchAnnotations(this.query) : this.fetchCanvasAnnotations());
+      await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
 
       if (this.$route.query.anno) {
         this.selectAnnotation(this.$route.query.anno);

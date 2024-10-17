@@ -5,7 +5,6 @@
   >
     <IIIFMiradorViewer
       :uri="uri"
-      :search-query="searchQuery"
       :item-id="itemId"
       :provider-url="providerUrl"
       :aria-label="$t('actions.viewDocument')"

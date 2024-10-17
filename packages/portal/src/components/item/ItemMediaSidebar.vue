@@ -116,6 +116,10 @@
       manifestUri: {
         type: String,
         default: null
+      },
+      query: {
+        type: String,
+        default: null
       }
     },
 

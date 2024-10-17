@@ -71,6 +71,7 @@
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
 
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import ContentCard from '../content/ContentCard';
 
   export default {
@@ -82,6 +83,10 @@
       UserButtons: () => import('../user/UserButtons'),
       RightsStatement: () => import('../generic/RightsStatement')
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
 
     props: {
       /**
@@ -214,7 +219,25 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+        return {
+          hash: this.fulltextSearchQuery ? '#search' : null,
+          name: 'item-all',
+          params: { pathMatch: this.identifier.slice(1) },
+          query: { query: this.fulltextSearchQuery }
+        };
+      },
+
+      // TODO: this will be computed for each preview card; move to a composable?
+      fulltextSearchQuery() {
+        if (this.$route.query?.qa) {
+          const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa);
+          const query = advSearchRules
+            .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
+            .map((rule) => rule.term);
+          return query.join(' ');
+        } else {
+          return null;
+        }
       },
 
       imageUrl() {

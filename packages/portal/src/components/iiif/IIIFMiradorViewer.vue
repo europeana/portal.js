@@ -44,11 +44,6 @@
         default: null
       },
 
-      searchQuery: {
-        type: String,
-        default: null
-      },
-
       providerUrl: {
         type: String,
         default: null
@@ -62,6 +57,7 @@
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
         miradorViewer: null,
+        searchQuery: this.$route.query.query,
         showAnnotations: false,
         isMobileViewport: false,
         isMiradorLoaded: process.client ? !!window.Mirador : false,
