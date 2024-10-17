@@ -23,7 +23,18 @@
         :lang="anno.body.language"
         @click="handleClickListItem(anno)"
       >
-        {{ anno.body.value }}
+        <template
+          v-if="searching"
+        >
+          {{ annotationSearchHitSelectorFor(anno.id).prefix }}<!--
+          --><strong class="has-text-highlight">{{ annotationSearchHitSelectorFor(anno.id).exact }}</strong><!--
+          -->{{ annotationSearchHitSelectorFor(anno.id).suffix }}
+        </template>
+        <template
+          v-else
+        >
+          {{ anno.body.value }}
+        </template>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -50,6 +61,7 @@
     setup() {
       const {
         annotations,
+        annotationSearchHitSelectorFor,
         annotationSearchResults,
         activeAnnotation,
         annotationUri,
@@ -61,6 +73,7 @@
 
       return {
         annotations,
+        annotationSearchHitSelectorFor,
         annotationSearchResults,
         annotationUri,
         activeAnnotation,
@@ -121,7 +134,10 @@
           page = this.pageForAnnotationTarget(this.activeAnnotation.target);
         }
 
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, anno, page } });
+        // use replace, not push, so that the back button will leave the page,
+        // and e.g. go back to search results instead of through myriad
+        // previously selected annotations
+        this.$router.replace({ ...this.$route, query: { ...this.$route.query, anno, page } });
       }
     }
   };

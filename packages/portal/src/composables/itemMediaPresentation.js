@@ -4,6 +4,7 @@ import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
 
 const annotations = ref([]);
+const annotationSearchHits = ref([]);
 const annotationSearchResults = ref([]);
 const activeAnnotation = ref(null);
 const page = ref(1);
@@ -16,6 +17,10 @@ const presentation = ref(null);
 const annotationCollection = computed(() => {
   return canvas.value?.annotations?.[0];
 });
+
+const annotationSearchHitSelectorFor = (annoId) => {
+  return annotationSearchHits.value.find((hit) => [].concat(hit.annotations).includes(annoId))?.selectors?.[0] || null;
+};
 
 const annotationTargetId = computed(() => {
   // account for Europeana fulltext annotations incorrectly targeting IIIF
@@ -80,7 +85,7 @@ const setPresentationFromWebResources = (webResources) => {
   });
 };
 
-const fetchAnnotations = async(uri, { params = {}, target } = {}) => {
+const fetchAnnotations = async(uri, { params = {} } = {}) => {
   if (!uri) {
     return;
   }
@@ -93,8 +98,13 @@ const fetchAnnotations = async(uri, { params = {}, target } = {}) => {
     textGranularity = annotationTextGranularity.value;
   }
 
-  const list = await EuropeanaMediaAnnotationList.from(uri, { params: { textGranularity, ...params } });
-  const annos = target ? list.annotationsForTarget(target) : list.items;
+  return await EuropeanaMediaAnnotationList.from(uri, { params: { textGranularity, ...params } });
+};
+
+const fetchCanvasAnnotations = async() => {
+  const list = await fetchAnnotations(annotationUri.value);
+
+  const annos = annotationTargetId.value ? list.annotationsForTarget(annotationTargetId.value) : list.items;
 
   // NOTE: this may result in duplicate network requests for the same body resource
   //       if there are multiple external annotations with the same resource URL,
@@ -108,13 +118,7 @@ const fetchAnnotations = async(uri, { params = {}, target } = {}) => {
     }
   }
 
-  return annos;
-};
-
-const fetchCanvasAnnotations = async() => {
-  const annos = await fetchAnnotations(annotationUri.value, { target: annotationTargetId.value });
   annotations.value = annos;
-  return annotations;
 };
 
 const pageForAnnotationTarget = (annoTarget) => {
@@ -135,9 +139,9 @@ const pageForAnnotationTarget = (annoTarget) => {
 };
 
 const searchAnnotations = async(query) => {
-  const annos = await fetchAnnotations(searchServiceUri.value, { params: { query } });
-  annotationSearchResults.value = annos;
-  return annotationSearchResults;
+  const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
+  annotationSearchResults.value = list.items;
+  annotationSearchHits.value = list.hits || [];
 };
 
 const selectAnnotation = (active) => {
@@ -156,6 +160,8 @@ export default function useItemMediaPresentation() {
   return {
     annotations,
     annotationCollection,
+    annotationSearchHits,
+    annotationSearchHitSelectorFor,
     annotationSearchResults,
     annotationTargetId,
     annotationUri,

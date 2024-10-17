@@ -14,7 +14,7 @@ const annotations = [
 const fetchCanvasAnnotationsSpy = sinon.spy();
 const searchAnnotationsSpy = sinon.spy();
 const selectAnnotationSpy = sinon.spy();
-const routerPushSpy = sinon.spy();
+const routerReplaceSpy = sinon.spy();
 
 const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnotationList, {
   data() {
@@ -29,7 +29,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
       query: {}
     },
     $router: {
-      push: routerPushSpy
+      replace: routerReplaceSpy
     },
     ...mocks
   },
@@ -101,7 +101,7 @@ describe('components/media/MediaAnnotationList', () => {
 
         await wrapper.vm.fetch();
 
-        expect(searchAnnotationsSpy.calledWith(query)).toBe(true);
+        expect(searchAnnotationsSpy.calledWith('"something"')).toBe(true);
       });
     });
   });
