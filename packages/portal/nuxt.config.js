@@ -494,7 +494,6 @@ export default {
       'ol/layer/Layer.js',
       'ol/layer/Tile.js',
       'ol/Map.js',
-      'ol/Overlay.js',
       'ol/proj.js',
       'ol/proj/epsg3857.js',
       'ol/render/canvas/ZIndexContext.js',
