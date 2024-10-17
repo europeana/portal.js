@@ -1,13 +1,12 @@
 <template>
   <!-- TODO: are we only ever using large thumbnails here? why? stop storing small? -->
   <div
-    class="image-container"
+    class="media-card-image"
   >
     <b-link
       v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
-      data-qa="media link"
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
@@ -22,7 +21,6 @@
         :height="thumbnailHeight"
         class="w-auto"
         alt=""
-        data-qa="media preview image"
         @error="imageNotFound"
         @error.native="imageNotFound"
       />
@@ -48,7 +46,6 @@
         :height="thumbnailHeight"
         alt=""
         class="mw-100"
-        data-qa="media preview image"
         @error="imageNotFound"
         @error.native="imageNotFound"
       />
@@ -142,34 +139,33 @@
   };
 </script>
 
-<style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
 
-.image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  .media-card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 
-  a {
-    text-decoration: none;
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      height: auto;
+
+      @media (max-height: $bp-medium) {
+        max-height: $swiper-height;
+      }
+
+      @media (min-height: $bp-medium) {
+        max-height: $swiper-height-max;
+      }
+
+      @media (max-width: $bp-medium) {
+        max-height: $swiper-height-medium;
+      }
+    }
   }
-}
-
-img {
-  height: auto;
-
-  @media (max-height: $bp-medium) {
-    max-height: $swiper-height;
-  }
-
-  @media (min-height: $bp-medium) {
-    max-height: $swiper-height-max;
-  }
-
-  @media (max-width: $bp-medium) {
-    max-height: $swiper-height-medium;
-  }
-}
 </style>

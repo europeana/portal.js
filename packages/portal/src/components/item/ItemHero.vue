@@ -145,13 +145,15 @@
     },
     data() {
       return {
-        selectedMediaItem: null,
-        selectedCanvas: null
+        selectedMedia: this.media?.[0] || {}
       };
     },
     computed: {
+      downloadEnabled() {
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed && !!this.downloadUrl;
+      },
       downloadUrl() {
-        const url = (this.selectedCanvas || this.selectedMedia).about;
+        const url = this.selectedMedia.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
@@ -179,18 +181,6 @@
 
         return query.join(' ');
       },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedCanvas = null;
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed && !!this.downloadUrl;
-      },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
       },
@@ -204,16 +194,6 @@
         return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
-    mounted() {
-      window.addEventListener('message', msg => {
-        if (msg.origin !== window.location.origin) {
-          return;
-        }
-        if (msg.data.event === 'updateDownloadLink') {
-          this.selectedCanvas = { about: msg.data.id };
-        }
-      });
-    },
     methods: {
       // Ensure we only proxy web resource media, preventing proxying of
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
@@ -221,8 +201,8 @@
       downloadViaProxy(url) {
         return this.allMediaUris.some(uri => uri === url);
       },
-      selectMedia(about) {
-        this.selectedMedia = about;
+      selectMedia(resource) {
+        this.selectedMedia = resource;
       }
     }
   };

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
 
@@ -42,28 +43,21 @@
     },
 
     props: {
-      resources: {
-        type: Array,
-        required: true
-      },
       edmType: {
         type: String,
         default: null
-      },
-      selectedIndex: {
-        type: Number,
-        required: true
       }
     },
 
     setup() {
+      const { page, resources } = useItemMediaPresentation();
       const { scrollElementToCentre, scrolling: scrollToScrolling } = useScrollTo();
-      return { scrollElementToCentre, scrollToScrolling };
+      return {  page, resources, scrollElementToCentre, scrollToScrolling };
     },
 
     data() {
       return {
-        middleVisibleElementIndex: this.selectedIndex
+        middleVisibleElementIndex: this.page
       };
     },
 
@@ -74,30 +68,52 @@
 
       lastVisibleElementIndex() {
         return Math.min(this.middleVisibleElementIndex + 5, this.resources.length - 1);
+      },
+
+      selectedIndex() {
+        return this.page - 1;
       }
     },
 
     watch: {
-      selectedIndex: 'updateThumbnailScroll'
+      page() {
+        this.updateThumbnailScroll();
+      }
     },
 
     created() {
-      window.addEventListener('resize', this.updateThumbnailScroll);
+      window.addEventListener('resize', this.handleWindowResize);
     },
 
     mounted() {
-      if (this.selectedIndex > 0) {
+      if (this.page > 1) {
         this.$nextTick(() => {
-          this.updateThumbnailScroll();
+          // instant scroll when first loaded, so that browser skips loading of
+          // images not in view
+          this.updateThumbnailScroll('instant');
         });
       }
     },
 
     destroyed() {
-      window.removeEventListener('resize', this.updateThumbnailScroll);
+      window.removeEventListener('resize', this.handleWindowResize);
     },
 
     methods: {
+      handleWindowResize() {
+        this.updateThumbnailScroll();
+      },
+
+      updateThumbnailScroll(behavior = 'smooth') {
+        this.scrollElementToCentre(
+          this.$refs.mediaThumbnails?.[this.selectedIndex],
+          {
+            behavior,
+            container: this.$refs.mediaThumbnailsContainer
+          }
+        );
+      },
+
       handleScrollMediaThumbnailsContainer() {
         // wait for useScrollTo to finish what it's doing
         if (this.scrollToScrolling) {
@@ -130,16 +146,6 @@
           (thumbRect.left > containerRect.left);
 
         return thumbTopVisible && thumbLeftVisible;
-      },
-
-      updateThumbnailScroll() {
-        this.scrollElementToCentre(
-          this.$refs.mediaThumbnails?.[this.selectedIndex],
-          {
-            behavior: 'smooth',
-            container: this.$refs.mediaThumbnailsContainer
-          }
-        );
       }
     }
   };
@@ -162,6 +168,7 @@
 
     li {
       list-style-type: none;
+      flex-shrink: 0;
     }
 
     @media (min-width: $bp-large) {

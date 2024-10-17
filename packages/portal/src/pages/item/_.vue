@@ -187,6 +187,7 @@
         isShownAt: null,
         media: [],
         metadata: {},
+        ogImage: null,
         relatedCollections: [],
         showItemLanguageSelector: true,
         type: null,
@@ -212,7 +213,7 @@
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
+          ogImage: this.ogImage
         };
       },
       keywords() {
@@ -375,10 +376,23 @@
 
         const item = new Item(edm);
 
+        // TODO: ideally, wouldn't store these as can be a large list if many WRs,
+        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       could we deduce that from whether iiif is in use or not, and if
+        //       so, whether a europeana manifest?
+        //       - not iiif: proxy
+        //       - iiif, europeana: proxy
+        //       - iiif, institution: don't proxy
         this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
-        this.media = item.providerAggregation.displayableWebResources;
+
+        this.ogImage = new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)?.thumbnails(this.$nuxt.context)?.large;
+
+        // don't store the web resources when using iiif as the manifest will be used
+        if (!this.iiifPresentationManifest) {
+          this.media = item.providerAggregation.displayableWebResources;
+        }
 
         this.entities = this.extractEntities(edm);
 

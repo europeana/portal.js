@@ -11,11 +11,13 @@
       thumbnail-size="small"
       :linkable="false"
     />
-    <span class="thumbnail-page">{{ label }}</span>
-    <span
-      class="icon-media-type"
-      :class="mediaTypeIconClass"
-    />
+    <span class="thumbnail-content d-flex flex-wrap align-items-center position-absolute">
+      {{ label }}
+      <span
+        class="icon-media-type ml-auto"
+        :class="mediaTypeIconClass"
+      />
+    </span>
   </SmartLink>
 </template>
 
@@ -65,7 +67,7 @@
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       },
       label() {
-        return this.$t('media.pages.indexLabel', { pageNumber: this.page });
+        return this.$n(this.page);
       }
     }
   };
@@ -77,11 +79,11 @@
   .item-media-thumbnail {
     background-color: $grey;
     padding: 0;
-    flex-shrink: 0;
-    width: 5.125rem;
+    width: auto;
     height: 3.625rem;
+    min-width: 3rem;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     overflow: hidden;
     margin-right: 1rem;
@@ -90,11 +92,14 @@
     color: $black;
 
     @media (min-width: $bp-medium) {
-      width: 11rem;
       height: 7.75rem;
     }
 
     @media (min-width: $bp-large) {
+      width: 11rem;
+      height: auto;
+      min-height: 5rem;
+      max-height: 28rem;
       margin-bottom: 1rem;
     }
 
@@ -127,13 +132,54 @@
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
     }
 
-    ::v-deep .image-container {
-      width: 100%;
-      height: 100%;
+    .thumbnail-content {
+      left: 0.25rem;
+      right: 0.25rem;
+      bottom: 0.25rem;
+      z-index: 1;
+      font-size: $font-size-small;
+      color: $white;
+      line-height: 1;
 
-      div {
+      @media (min-width: $bp-medium) {
+        left: 0.5rem;
+        right: 0.5rem;
+        bottom: 0.5rem;
+      }
+
+      @media (min-width: $bp-large) {
+        left: 1rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+    }
+
+    .media-card-image {
+      width: 100%;
+
+      @media (min-width: $bp-large) {
+        height: auto;
+      }
+
+      .default-thumbnail {
         width: 100%;
         height: 100%;
+        min-width: 3rem;
+        aspect-ratio: auto;
+
+        @media (min-width: $bp-medium) {
+          min-width: 5rem;
+        }
+
+        [class^='icon-'] {
+          @media (max-width: ($bp-medium - 1px)) {
+            font-size: $font-size-large;
+          }
+        }
+      }
+
+      .card-img {
+        border-radius: 0;
       }
 
       img {
@@ -143,44 +189,9 @@
       }
     }
 
-    ::v-deep .card-img {
-      border-radius: 0;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     .icon-media-type {
-      position: absolute;
-      right: 0.5rem;
-      bottom: 0.5rem;
-      z-index: 1;
-      color: $white;
-      font-size: $font-size-small;
-      line-height: 1;
-
       @media (min-width: $bp-medium) {
         font-size: $font-size-large;
-        right: 0.75rem;
-        bottom: 0.75rem;
-      }
-    }
-
-    .thumbnail-page {
-      position: absolute;
-      bottom: 0.5rem;
-      left: 0.5rem;
-      color: $white;
-      z-index: 1;
-      line-height: 1;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-small;
-        bottom: 1rem;
-        left: 1rem;
       }
     }
   }
