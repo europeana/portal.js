@@ -17,18 +17,17 @@
           :annotation-list="hasAnnotations"
           :annotation-search="hasSearchService"
           :manifest-uri="uri"
-          @selectAnno="onSelectAnno"
           @keydown.escape.native="showSidebar = false"
         />
         <MediaImageViewer
           v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
           :url="resource.about"
+          :annotation="activeAnnotation"
           :item-id="itemId"
           :width="resource.ebucoreWidth"
           :height="resource.ebucoreHeight"
           :format="resource.ebucoreHasMimeType"
           :service="resource.svcsHasService"
-          :annotation="activeAnnotation"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -171,6 +170,7 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -178,11 +178,13 @@
         pageForAnnotationTarget,
         resource,
         resourceCount,
+        selectAnnotation,
         setPage,
         setPresentationFromWebResources
       } = useItemMediaPresentation();
 
       return {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -190,6 +192,7 @@
         pageForAnnotationTarget,
         resource,
         resourceCount,
+        selectAnnotation,
         setPage,
         setPresentationFromWebResources
       };
@@ -197,14 +200,14 @@
 
     data() {
       return {
-        activeAnnotation: null,
-        showSidebar: false,
+        showSidebar: !!this.$route.hash,
         showPages: true
       };
     },
 
     async fetch() {
       this.setPage(this.$route.query.page);
+      // this.selectAnnotation(this.$route.query.anno);
 
       if (this.uri) {
         await this.fetchPresentation(this.uri);
@@ -215,12 +218,6 @@
       }
 
       this.selectResource();
-    },
-
-    mounted() {
-      // const annoHashParam = EuropeanaMediaPresentation.getHashParam(this.$route.hash, 'anno');
-      // this.annotation
-      // console.log('annoHashParam', annoHashParam)
     },
 
     computed: {
@@ -250,23 +247,7 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
-      // TODO: move this to MediaAnnotationList!
-      onSelectAnno(anno) {
-        this.activeAnnotation = anno;
-
-        // store the annotation id in the route hash, to pre-highlight it on page reload
-        this.$router.push({
-          ...this.$route,
-          hash: `#anno=${anno.id}`,
-          query: {
-            ...this.$route.query,
-            page: this.pageForAnnotationTarget(anno.target)
-          }
-        });
-      },
-
       selectResource() {
-        this.activeAnnotation = null;
         this.$emit('select', this.resource);
       },
 

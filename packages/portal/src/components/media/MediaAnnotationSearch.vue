@@ -15,9 +15,8 @@
       </b-form-group>
     </b-form>
     <MediaAnnotationList
-      v-if="query"
-      :query="query"
-      @selectAnno="onSelectAnno"
+      v-if="annoQuery"
+      :query="annoQuery"
     />
   </div>
 </template>
@@ -34,23 +33,20 @@
 
     data() {
       return {
+        annoQuery: this.$route.query.query || null,
         query: this.$route.query.query || null
       };
     },
 
     watch: {
       '$route.query.query'() {
-        this.query = this.$route.query.query || null;
+        this.annoQuery = this.$route.query.query || null;
       }
     },
 
     methods: {
       handleSubmitForm() {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, query: this.query } });
-      },
-
-      onSelectAnno(anno) {
-        this.$emit('selectAnno', anno);
       }
     }
   };

@@ -5,6 +5,7 @@ import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js'
 
 const annotations = ref([]);
 const annotationSearchResults = ref([]);
+const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
 
@@ -135,9 +136,16 @@ const pageForAnnotationTarget = (annoTarget) => {
 
 const searchAnnotations = async(query) => {
   const annos = await fetchAnnotations(searchServiceUri.value, { params: { query } });
-  console.log('search annos', annos)
   annotationSearchResults.value = annos;
   return annotationSearchResults;
+};
+
+const selectAnnotation = (active) => {
+  if (typeof active === 'string') {
+    activeAnnotation.value = annotations.value?.find((anno) => anno.id === active) || null;
+  } else {
+    activeAnnotation.value = active;
+  }
 };
 
 const setPage = (value) => {
@@ -152,6 +160,7 @@ export default function useItemMediaPresentation() {
     annotationTargetId,
     annotationUri,
     annotationTextGranularity,
+    activeAnnotation,
     canvas,
     fetchAnnotations,
     fetchCanvasAnnotations,
@@ -166,6 +175,7 @@ export default function useItemMediaPresentation() {
     presentation,
     searchAnnotations,
     searchServiceUri,
+    selectAnnotation,
     setPage,
     setPresentationFromWebResources
   };

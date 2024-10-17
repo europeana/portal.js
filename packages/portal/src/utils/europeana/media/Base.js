@@ -117,14 +117,6 @@ export default class EuropeanaMediaBase {
   }
 
   getHashParam(hash, key) {
-    if (hash?.startsWith?.('#')) {
-      return new URLSearchParams(hash.slice(1)).get(key);
-    } else {
-      return undefined;
-    }
-  }
-
-  getHashParam(hash, key) {
     return this.constructor.getHashParam(hash, key);
   }
 

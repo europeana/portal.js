@@ -19,9 +19,9 @@
         v-for="(anno, index) in annotationList"
         :key="index"
         :action="true"
-        :active="activeAnnotation === anno.id"
+        :active="anno.id === activeAnnotation?.id"
         :lang="anno.body.language"
-        @click="selectAnno(anno)"
+        @click="handleClickListItem(anno)"
       >
         {{ anno.body.value }}
       </b-list-group-item>
@@ -48,13 +48,26 @@
     },
 
     setup() {
-      const { annotations, annotationSearchResults, fetchCanvasAnnotations, searchAnnotations } = useItemMediaPresentation();
-      return { annotations, annotationSearchResults, fetchCanvasAnnotations, searchAnnotations };
-    },
+      const {
+        annotations,
+        annotationSearchResults,
+        activeAnnotation,
+        annotationUri,
+        fetchCanvasAnnotations,
+        pageForAnnotationTarget,
+        searchAnnotations,
+        selectAnnotation
+      } = useItemMediaPresentation();
 
-    data() {
       return {
-        activeAnnotation: null
+        annotations,
+        annotationSearchResults,
+        annotationUri,
+        activeAnnotation,
+        fetchCanvasAnnotations,
+        pageForAnnotationTarget,
+        searchAnnotations,
+        selectAnnotation
       };
     },
 
@@ -63,9 +76,13 @@
     //       the component has been hidden/shown/whatever in the meantime,
     //       i.e. in the itemMediaPresentation composable
     async fetch() {
-      this.activeAnnotation = null;
+      await (this.searching ? this.searchAnnotations(this.query) : this.fetchCanvasAnnotations());
 
-      await this.searching ? this.searchAnnotations(this.query) : this.fetchCanvasAnnotations();
+      if (this.$route.query.anno) {
+        this.selectAnnotation(this.$route.query.anno);
+        // TODO: would be nice to scroll to the active annotation, but that is
+        //       made awkward by the scrollbar being on the ancestor sidebar component...
+      }
     },
 
     computed: {
@@ -80,14 +97,31 @@
 
     watch: {
       // TODO: should this watcher go into useItemMediaPresentation?
-      annotationUri: '$fetch',
-      uri: '$fetch'
+      annotationUri() {
+        !this.searching && this.$fetch();
+      },
+      query() {
+        this.searching && this.$fetch();
+      }
     },
 
     methods: {
-      selectAnno(anno) {
-        this.activeAnnotation = anno.id;
-        this.$emit('selectAnno', anno);
+      handleClickListItem(anno) {
+        this.selectAnnotation(anno);
+        this.updateAnnoRoute();
+      },
+
+      updateAnnoRoute() {
+        let page = null;
+        let anno = null;
+        if (this.activeAnnotation) {
+          // store the annotation id in the route, to pre-highlight it on page reload
+          // TODO: md5 this else the url will too long
+          anno = this.activeAnnotation.id;
+          page = this.pageForAnnotationTarget(this.activeAnnotation.target);
+        }
+
+        this.$router.push({ ...this.$route, query: { ...this.$route.query, anno, page } });
       }
     }
   };
