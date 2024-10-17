@@ -9,7 +9,7 @@ export default function useActiveTab(tabHashes) {
   const route = useRoute();
 
   const setActiveTabIndexFromRouteHash = () => {
-    if (tabHashes.includes(route.hash)) {
+    if (tabHashes.includes(route?.hash)) {
       activeTabIndex.value = tabHashes.indexOf(route.hash);
     }
   };
@@ -24,9 +24,11 @@ export default function useActiveTab(tabHashes) {
     }
   });
 
-  watch(route, () => {
-    setActiveTabIndexFromRouteHash();
-  });
+  if (route) {
+    watch(route, () => {
+      setActiveTabIndexFromRouteHash();
+    });
+  }
 
   onBeforeMount(() => {
     setActiveTabIndexFromRouteHash();
