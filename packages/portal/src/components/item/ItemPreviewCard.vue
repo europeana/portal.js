@@ -220,7 +220,7 @@
 
       url() {
         return {
-          hash: this.fulltextSearchQuery ? '#search' : null,
+          hash: this.fulltextSearchQuery ? '#search' : undefined,
           name: 'item-all',
           params: { pathMatch: this.identifier.slice(1) },
           query: { query: this.fulltextSearchQuery }
@@ -236,7 +236,7 @@
             .map((rule) => rule.term);
           return query.join(' ');
         } else {
-          return null;
+          return undefined;
         }
       },
 
