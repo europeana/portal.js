@@ -21,7 +21,7 @@
           @keydown.escape.native="showSidebar = false"
         />
         <MediaImageViewer
-          v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+          v-if="imageTypeResource"
           :url="resource.about"
           :item-id="itemId"
           :width="resource.ebucoreWidth"
@@ -79,7 +79,7 @@
           <span class="icon icon-kebab" />
         </b-button>
         <MediaImageViewerControls
-          v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+          v-if="imageTypeResource"
           :max-zoom="maxZoom"
           :min-zoom="minZoom"
           :default-zoom="defaultZoom"
@@ -92,8 +92,12 @@
         />
         <div
           v-if="resourceCount >= 2"
-          class="iiif-viewer-toolbar-pagination d-flex mx-auto mx-sm-0"
-          :class="{ closed: !showPages, 'ml-auto': !resource?.ebucoreHasMimeType?.startsWith('image/') }"
+          class="iiif-viewer-toolbar-pagination d-flex mx-auto"
+          :class="{
+            closed: !showPages,
+            'mx-sm-0': imageTypeResource,
+            'mr-lg-0': !imageTypeResource
+          }"
         >
           <PaginationNavInput
             :per-page="1"
@@ -232,6 +236,10 @@
 
       sidebarHasContent() {
         return this.hasAnnotations || this.hasManifest;
+      },
+
+      imageTypeResource() {
+        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
       }
     },
 

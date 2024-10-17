@@ -1,7 +1,7 @@
 <template>
   <div
     id="viewer-controls"
-    class="viewer-controls mx-auto"
+    class="viewer-controls d-inline-flex align-items-center mx-auto"
   >
     <b-button
       v-b-tooltip.top="$t('media.controls.zoomIn')"
@@ -34,7 +34,7 @@
       :disabled="atMinZoom"
       :aria-label="$t('media.controls.zoomOut')"
       variant="light-flat"
-      class="button-icon-only btn-light-flat mr-2"
+      class="button-icon-only btn-light-flat mr-3"
       @click="$emit('zoomOut')"
       @mouseleave="hideTooltips"
     >
@@ -42,11 +42,12 @@
         class="icon icon-zoom-out"
       />
     </b-button>
+    <span class="divider" />
     <b-button
       v-b-tooltip.top="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       :aria-label="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       variant="light-flat"
-      class="fullscreen-button button-icon-only btn-light-flat ml-2"
+      class="fullscreen-button button-icon-only btn-light-flat ml-3"
       @click="$emit('toggleFullscreen')"
       @mouseleave="hideTooltips"
     >
@@ -111,28 +112,22 @@
   @import '@europeana/style/scss/variables';
 
   .viewer-controls {
-    display: inline-flex;
-
     .btn {
+      &.disabled {
+        opacity: 1;
+        color: $middlegrey;
+      }
+
       &:focus {
         box-shadow: none;
         border: none;
       }
     }
 
-    .fullscreen-button {
-      padding-left: 2rem;
-      position: relative;
-      &:before {
-        content: '';
-        width: 2px;
-        height: 1.5rem;
-        background: $lightgrey;
-        display: inline;
-        position: absolute;
-        left: 0;
-      }
+    .divider {
+      width: 1px;
+      height: 1rem;
+      background: $middlegrey;
     }
   }
-
 </style>
