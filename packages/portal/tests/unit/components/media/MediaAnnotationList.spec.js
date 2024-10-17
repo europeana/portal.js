@@ -11,10 +11,11 @@ const annotations = [
   { body: { value: 'anno 1' }, id: 'anno1' },
   { body: { value: 'anno 2' }, id: 'anno2' }
 ];
-const fetchAnnotationsStub = sinon.stub();
-const uri = 'https://iiif.europeana.eu/annos/1';
+const fetchCanvasAnnotationsStub = sinon.stub();
+const selectAnnotationStub = sinon.stub();
+const routerPushSpy = sinon.spy();
 
-const factory = ({ data, propsData } = {}) => shallowMountNuxt(MediaAnnotationList, {
+const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnotationList, {
   data() {
     return {
       ...data
@@ -22,25 +23,35 @@ const factory = ({ data, propsData } = {}) => shallowMountNuxt(MediaAnnotationLi
   },
   propsData,
   mocks: {
-    $fetchState: {}
+    $fetchState: {},
+    $route: {
+      query: {}
+    },
+    $router: {
+      push: routerPushSpy
+    },
+    ...mocks
   },
   localVue,
   stubs: ['b-list-group', 'b-list-group-item']
 });
 
-describe('components/media/MediaAnnotationList', () => {
-  beforeAll(() => {
-    sinon.stub(itemMediaPresentation, 'default').returns({
-      annotations,
-      fetchAnnotations: fetchAnnotationsStub
-    });
+const stubItemMediaPresentationComposable = (stubs = {}) => {
+  sinon.stub(itemMediaPresentation, 'default').returns({
+    annotations,
+    fetchCanvasAnnotations: fetchCanvasAnnotationsStub,
+    selectAnnotation: selectAnnotationStub,
+    ...stubs
   });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.restore);
+};
+
+describe('components/media/MediaAnnotationList', () => {
+  afterEach(sinon.restore);
 
   describe('template', () => {
     it('renders annotations', () => {
-      const wrapper = factory({ propsData: { uri } });
+      stubItemMediaPresentationComposable();
+      const wrapper = factory();
 
       const listItems = wrapper.findAll('b-list-group-item-stub');
 
@@ -49,31 +60,33 @@ describe('components/media/MediaAnnotationList', () => {
     });
 
     it('marks active annotation', () => {
-      const activeAnnotation = 'anno2';
-      const wrapper = factory({ data: { activeAnnotation }, propsData: { uri } });
+      stubItemMediaPresentationComposable({ activeAnnotation: { id: 'anno2' } });
+      const wrapper = factory();
 
       const listItems = wrapper.findAll('b-list-group-item-stub');
 
       expect(listItems.at(1).attributes('active')).toBe('true');
     });
 
-    it('emits selectAnno event when annotation is clicked', async() => {
-      const wrapper = factory({ propsData: { uri } });
+    it('calls selectAnnotation on itemMediaPresentation composable when annotation is clicked', async() => {
+      stubItemMediaPresentationComposable();
+      const wrapper = factory();
 
       const listItem = wrapper.find('b-list-group-item-stub');
       await listItem.vm.$emit('click');
 
-      expect(wrapper.emitted().selectAnno[0]).toEqual([annotations[0]]);
+      expect(selectAnnotationStub.calledWith(annotations[0])).toBe(true);
     });
   });
 
   describe('fetch', () => {
     it('fetches annotation list via itemMediaPresentation composable', async() => {
-      const wrapper = factory({ propsData: { uri } });
+      stubItemMediaPresentationComposable();
+      const wrapper = factory();
 
       await wrapper.vm.fetch();
 
-      expect(fetchAnnotationsStub.calledWith(uri)).toBe(true);
+      expect(fetchCanvasAnnotationsStub.called).toBe(true);
     });
   });
 });
