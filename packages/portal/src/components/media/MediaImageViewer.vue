@@ -307,7 +307,10 @@
         // This uses "moveend" instead of "change:resolution" on the view as that can fire many times during an animation
         // TODO: Move out of configureZoomLevels?
         this.olMap.on('moveend', () => {
-          this.$emit('zoomChanged', view.getZoom());
+          // "moveend" can be called by non zoom interactions, we only want to emit when it was triggered after a zoom.
+          if (view.getZoom() !== this.currentZoom) {
+            this.$emit('zoomChanged', view.getZoom());
+          }
         });
       }
     }
