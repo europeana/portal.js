@@ -175,19 +175,6 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('fulltextSearchQuery', () => {
-    it('includes adv search fulltext contains terms from Nuxt context from route', () => {
-      const query = 'hamburger';
-      const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
-      const mocks = { $nuxt: { context: { from: { query: { qa, query } } } } };
-      const wrapper = factory({ propsData: { identifier }, mocks });
-
-      const fulltextSearchQuery = wrapper.vm.fulltextSearchQuery;
-
-      expect(fulltextSearchQuery).toBe('theater zeitung');
-    });
-  });
-
   describe('showTranscribathonLink', () => {
     describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
       it('is true', async() => {

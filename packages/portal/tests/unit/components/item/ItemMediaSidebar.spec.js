@@ -10,7 +10,7 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $t: (key) => key
   },
-  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList']
+  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
 
 describe('components/item/ItemMediaSidebar', () => {
@@ -30,6 +30,16 @@ describe('components/item/ItemMediaSidebar', () => {
         const annotationsTab = wrapper.find('[data-qa="item media sidebar annotations"]');
 
         expect(annotationsTab.exists()).toBe(true);
+      });
+    });
+
+    describe('when there is an annotation search service', () => {
+      it('has a tab for search', () => {
+        const wrapper = factory({ annotationSearch: true });
+
+        const searchTab = wrapper.find('[data-qa="item media sidebar search"]');
+
+        expect(searchTab.exists()).toBe(true);
       });
     });
 

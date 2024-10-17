@@ -5,7 +5,6 @@
     :web-resources="webResources"
     :item-id="itemId"
     :edm-type="edmType"
-    :search-query="searchQuery"
     :provider-url="providerUrl"
     @select="selectMedia"
   />
@@ -15,7 +14,6 @@
     :web-resources="webResources"
     :item-id="itemId"
     :edm-type="edmType"
-    :search-query="searchQuery"
     :provider-url="providerUrl"
     @select="selectMedia"
   />
@@ -47,11 +45,6 @@
       },
 
       edmType: {
-        type: String,
-        default: null
-      },
-
-      searchQuery: {
         type: String,
         default: null
       },

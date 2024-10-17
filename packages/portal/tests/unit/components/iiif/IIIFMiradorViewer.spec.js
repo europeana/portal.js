@@ -56,6 +56,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFMir
       }
     },
     $axios: axios,
+    $route: { query: {} },
     $t: key => key
   }
 });

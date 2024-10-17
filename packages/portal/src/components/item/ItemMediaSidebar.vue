@@ -7,12 +7,17 @@
       class="iiif-viewer-sidebar border-bottom"
       data-qa="item media sidebar"
     >
-      <b-tabs vertical>
+      <!-- TODO: fetch requests from child components of the tabs run before
+                 the tab is shown; prevent that? -->
+      <b-tabs
+        v-model="activeTabIndex"
+        vertical
+      >
         <b-tab
           v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations') }"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
           @mouseleave.native="hideTooltips"
         >
           <b-tooltip
@@ -26,14 +31,35 @@
           <h2>{{ $t('media.sidebar.annotations') }}</h2>
           <MediaAnnotationList
             class="iiif-viewer-sidebar-panel"
-            @selectAnno="onSelectAnno"
+          />
+        </b-tab>
+        <b-tab
+          v-if="!!annotationSearch"
+          data-qa="item media sidebar search"
+          button-id="item-media-sidebar-search"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
+          @mouseleave.native="hideTooltips"
+        >
+          <b-tooltip
+            target="item-media-sidebar-search"
+            :title="$t('media.sidebar.search')"
+            boundary=".iiif-viewer-sidebar"
+          />
+          <template #title>
+            <span
+              class="icon icon-search-in-text"
+            />
+          </template>
+          <h2>{{ $t('media.sidebar.search') }}</h2>
+          <MediaAnnotationSearch
+            class="iiif-viewer-sidebar-panel"
           />
         </b-tab>
         <b-tab
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links') }"
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
           @mouseleave.native="hideTooltips"
         >
           <b-tooltip
@@ -62,6 +88,8 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
+
+  import useActiveTab from '@/composables/activeTab.js';
   import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
@@ -70,7 +98,8 @@
     components: {
       BTab,
       BTabs,
-      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue')
+      MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
+      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
     },
 
     mixins: [hideTooltips],
@@ -80,16 +109,34 @@
         type: Boolean,
         default: false
       },
+      annotationSearch: {
+        type: Boolean,
+        default: false
+      },
       manifestUri: {
+        type: String,
+        default: null
+      },
+      query: {
         type: String,
         default: null
       }
     },
 
-    methods: {
-      onSelectAnno(anno) {
-        this.$emit('selectAnno', anno);
+    setup(props) {
+      const tabHashes = [];
+      if (props.annotationList) {
+        tabHashes.push('#annotations');
       }
+      if (props.annotationSearch) {
+        tabHashes.push('#search');
+      }
+      if (props.manifestUri) {
+        tabHashes.push('#links');
+      }
+
+      const { activeTabIndex } = useActiveTab(tabHashes);
+      return { activeTabIndex };
     }
   };
 </script>
