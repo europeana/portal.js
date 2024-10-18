@@ -137,6 +137,8 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
 
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
     forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
@@ -171,6 +173,18 @@
       redirectToMixin,
       logEventMixin
     ],
+
+    beforeRouteUpdate(to, from, next) {
+      if (to.path !== from.path) {
+        this.setPresentationFromWebResources([]);
+      }
+      next();
+    },
+
+    setup() {
+      const { setPresentationFromWebResources } = useItemMediaPresentation();
+      return { setPresentationFromWebResources };
+    },
 
     data() {
       return {
