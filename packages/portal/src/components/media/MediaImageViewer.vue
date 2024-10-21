@@ -27,6 +27,7 @@
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
 
+  import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
@@ -42,10 +43,6 @@
       // TODO: all we need is the target, not the full object
       annotation: {
         type: Object,
-        default: null
-      },
-      currentZoom: {
-        type: Number,
         default: null
       },
       format: {
@@ -72,6 +69,18 @@
         type: Number,
         default: null
       }
+    },
+
+    setup() {
+      const {
+        current: currentZoom,
+        setCurrent: setCurrentZoom,
+        setDefault: setDefaultZoom,
+        setMax: setMaxZoom,
+        setMin: setMinZoom
+      } = useZoom();
+
+      return { currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -298,18 +307,16 @@
       configureZoomLevels() {
         const view = this.olMap.getView();
 
-        this.$emit('viewInitialised', {
-          defaultZoom: view.getZoom(),
-          maxZoom: view.getMaxZoom(),
-          minZoom: view.getMinZoom()
-        });
+        this.setDefaultZoom(view.getZoom());
+        this.setMaxZoom(view.getMaxZoom());
+        this.setMinZoom(view.getMinZoom());
 
         // This uses "moveend" instead of "change:resolution" on the view as that can fire many times during an animation
         // TODO: Move out of configureZoomLevels?
         this.olMap.on('moveend', () => {
           // "moveend" can be called by non zoom interactions, we only want to emit when it was triggered after a zoom.
           if (view.getZoom() !== this.currentZoom) {
-            this.$emit('zoomChanged', view.getZoom());
+            this.setCurrentZoom(view.getZoom());
           }
         });
       }

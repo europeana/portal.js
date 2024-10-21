@@ -9,7 +9,7 @@
       :aria-label="$t('media.controls.zoomIn')"
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
-      @click="$emit('zoomIn')"
+      @click="zoomIn"
       @mouseleave="hideTooltips"
     >
       <span
@@ -22,7 +22,7 @@
       :aria-label="$t('media.controls.resetZoom')"
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
-      @click="$emit('resetZoom')"
+      @click="resetZoom"
       @mouseleave="hideTooltips"
     >
       <span
@@ -35,7 +35,7 @@
       :aria-label="$t('media.controls.zoomOut')"
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-3"
-      @click="$emit('zoomOut')"
+      @click="zoomOut"
       @mouseleave="hideTooltips"
     >
       <span
@@ -61,6 +61,7 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
+  import useZoom from '@/composables/zoom.js';
 
   export default {
     name: 'MediaImageViewerControls',
@@ -68,42 +69,23 @@
     mixins: [hideTooltips],
 
     props: {
-      minZoom: {
-        type: Number,
-        default: null
-      },
-      maxZoom: {
-        type: Number,
-        default: null
-      },
-      defaultZoom: {
-        type: Number,
-        default: null
-      },
-      currentZoom: {
-        type: Number,
-        default: null
-      },
       fullscreen: {
         type: Boolean,
         default: false
       }
     },
 
-    data() {
-      return {};
-    },
+    setup() {
+      const {
+        atMin: atMinZoom,
+        atMax: atMaxZoom,
+        atDefault: atDefaultZoom,
+        reset: resetZoom,
+        zoomIn,
+        zoomOut
+      } = useZoom();
 
-    computed: {
-      atDefaultZoom() {
-        return this.currentZoom === this.defaultZoom;
-      },
-      atMaxZoom() {
-        return this.currentZoom >= this.maxZoom;
-      },
-      atMinZoom() {
-        return this.currentZoom <= this.minZoom;
-      }
+      return { atMinZoom, atMaxZoom, atDefaultZoom, resetZoom, zoomIn, zoomOut };
     }
   };
 </script>
