@@ -29,9 +29,6 @@
           :format="resource.ebucoreHasMimeType"
           :service="resource.svcsHasService"
           :annotation="activeAnnotation"
-          :current-zoom="currentZoom"
-          @zoomChanged="updateCurrentZoom"
-          @viewInitialised="updateZoomLevels"
         />
         <MediaPDFViewer
           v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -80,14 +77,7 @@
         </b-button>
         <MediaImageViewerControls
           v-if="imageTypeResource"
-          :max-zoom="maxZoom"
-          :min-zoom="minZoom"
-          :default-zoom="defaultZoom"
-          :current-zoom="currentZoom"
           :fullscreen="fullscreen"
-          @zoomIn="zoomIn"
-          @zoomOut="zoomOut"
-          @resetZoom="resetZoom"
           @toggleFullscreen="toggleFullscreen"
         />
         <div
@@ -207,10 +197,6 @@
         activeAnnotation: null,
         showSidebar: null,
         showPages: true,
-        minZoom: 0,
-        maxZoom: 0,
-        defaultZoom: 0,
-        currentZoom: 0,
         fullscreen: false
       };
     },
@@ -290,24 +276,7 @@
           });
         }
       },
-      updateCurrentZoom(newZoom) {
-        this.currentZoom = newZoom;
-      },
-      updateZoomLevels(zoomLevels) {
-        this.defaultZoom = zoomLevels?.defaultZoom;
-        this.currentZoom = zoomLevels?.defaultZoom;
-        this.maxZoom = zoomLevels?.maxZoom;
-        this.minZoom = zoomLevels?.minZoom;
-      },
-      zoomIn() {
-        this.currentZoom = Math.min(this.maxZoom, this.currentZoom + 1);
-      },
-      zoomOut() {
-        this.currentZoom = Math.max(this.minZoom, this.currentZoom - 1);
-      },
-      resetZoom() {
-        this.currentZoom = this.defaultZoom;
-      },
+
       toggleFullscreen() {
         // Check for fullscreen support first?
         if (this.fullscreen) {
