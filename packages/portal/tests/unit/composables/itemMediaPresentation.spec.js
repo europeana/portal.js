@@ -190,4 +190,15 @@ describe('useItemMediaPresentation', () => {
       });
     });
   });
+
+  describe('pageForAnnotationTarget', () => {
+    it('finds the page/canvas number for an annotation target', () => {
+      const { pageForAnnotationTarget, presentation } = useItemMediaPresentation();
+      presentation.value = presentationValue;
+
+      const page = pageForAnnotationTarget(canvasId);
+
+      expect(page).toBe(1);
+    });
+  });
 });
