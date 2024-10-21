@@ -93,7 +93,7 @@
 
       if (this.$route.query.anno) {
         this.selectAnnotation(this.$route.query.anno);
-        // TODO: would be nice to scroll to the active annotation, but that is
+        // TODO: it would be nice to scroll to the active annotation, but that is
         //       made awkward by the scrollbar being on the ancestor sidebar component...
       }
     },

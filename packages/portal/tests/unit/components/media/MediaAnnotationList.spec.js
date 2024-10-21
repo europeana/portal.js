@@ -70,14 +70,29 @@ describe('components/media/MediaAnnotationList', () => {
       expect(listItems.at(1).attributes('active')).toBe('true');
     });
 
-    it('calls selectAnnotation on itemMediaPresentation composable when annotation is clicked', async() => {
-      stubItemMediaPresentationComposable();
-      const wrapper = factory();
+    describe('when annotation is clicked', () => {
+      it('calls selectAnnotation on itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
+        const wrapper = factory();
 
-      const listItem = wrapper.find('b-list-group-item-stub');
-      await listItem.vm.$emit('click');
+        const listItem = wrapper.find('b-list-group-item-stub');
+        await listItem.vm.$emit('click');
 
-      expect(selectAnnotationSpy.calledWith(annotations[0])).toBe(true);
+        expect(selectAnnotationSpy.calledWith(annotations[0])).toBe(true);
+      });
+
+      it('replaces route', async() => {
+        stubItemMediaPresentationComposable({
+          activeAnnotation: { id: 'anno2' },
+          pageForAnnotationTarget: () => 2
+        });
+        const wrapper = factory();
+
+        const listItem = wrapper.find('b-list-group-item-stub');
+        await listItem.vm.$emit('click');
+
+        expect(routerReplaceSpy.calledWith({ query: { anno: 'anno2', page: 2 } })).toBe(true);
+      });
     });
   });
 
@@ -102,6 +117,18 @@ describe('components/media/MediaAnnotationList', () => {
         await wrapper.vm.fetch();
 
         expect(searchAnnotationsSpy.calledWith('"something"')).toBe(true);
+      });
+    });
+
+    describe('when there is an annotation in the route query', () => {
+      it('calls selectAnnotation on itemMediaPresentation composable', async() => {
+        stubItemMediaPresentationComposable();
+        const $route = { query: { anno: 'anno1' } };
+        const wrapper = factory({ mocks: { $route } });
+
+        await wrapper.vm.fetch();
+
+        expect(selectAnnotationSpy.calledWith('anno1')).toBe(true);
       });
     });
   });
