@@ -81,8 +81,6 @@
 
     data() {
       return {
-        // TODO: is the fullsize needed? unused.
-        fullsize: false,
         info: null,
         olExtent: null,
         olMap: null,
@@ -102,7 +100,7 @@
       }
       if (process.client) {
         // TODO: this is called twice, also in mounted
-        this.renderThumbnail();
+        this.renderImage();
       }
     },
 
@@ -116,7 +114,7 @@
 
     mounted() {
       if (!this.$fetchState.pending) {
-        this.renderThumbnail();
+        this.renderImage();
       }
     },
 
@@ -203,7 +201,7 @@
           constrainOnlyCenter: true,
           maxZoom: 8,
           projection,
-          resolutions: source.getTileGrid?.().getResolutions()
+          resolutions: source.getTileGrid?.()?.getResolutions()
         });
 
         if (!this.olMap) {
@@ -228,8 +226,6 @@
       },
 
       async renderThumbnail() {
-        await (this.$nextTick()); // without this static images won't render, some race condition
-
         if (!this.thumbnail) {
           this.renderFullImage();
           return;
@@ -244,17 +240,20 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions: toolbar button clicks, anno click
+        // TODO: add other interactions: toolbar button clicks, anno click, full-text search
         this.olMap.on('singleclick', this.renderFullImage);
       },
 
-      renderFullImage() {
+      async renderFullImage() {
         if (this.olMap) {
           this.olMap.un('singleclick', this.renderFullImage);
           this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
         }
-        this.fullsize = true;
-        this.renderImage();
+
+        // TODO: should we always be using the media proxy for static images?
+        const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
+        const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
+        this.initMapWithFullImage(mapOptions);
       },
 
       // IIIF Image API
@@ -289,16 +288,15 @@
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
 
-        let mapOptions = {};
-
         if (this.source === 'IIIF') {
-          mapOptions = this.initOlImageLayerIIIF();
+          const mapOptions = this.initOlImageLayerIIIF();
+          this.initMapWithFullImage(mapOptions);
         } else {
-          // TODO: should we always be using the media proxy for static images?
-          const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-          mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
+          this.renderThumbnail();
         }
+      },
 
+      initMapWithFullImage(mapOptions) {
         this.initOlMap(mapOptions);
         this.highlightAnnotation();
       }

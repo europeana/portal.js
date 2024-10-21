@@ -3,6 +3,14 @@ import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import nock from 'nock';
 import sinon from 'sinon';
+jest.mock('ol/format/IIIFInfo', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      getTileSourceOptions: () => ({ size: [100, 100] })
+    };
+  });
+});
+jest.mock('ol/source/IIIF');
 
 const localVue = createLocalVue();
 
@@ -51,14 +59,30 @@ describe('components/media/MediaImageViewer', () => {
 
   describe('fetch', () => {
     describe('without an image service', () => {
-      it('renders a static image', async() => {
-        const wrapper = factory({ propsData: { url } });
+      it('renders the thumbnail with thumbnail sizes as static image', async() => {
+        const wrapper = factory({ propsData: { url, thumbnail, width, height } });
+        sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
 
+        process.client = true;
         await wrapper.vm.fetch();
-        await new Promise(process.nextTick);
+        await wrapper.vm.$nextTick();
 
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('ImageStatic');
+        expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
+      });
+
+      describe('when there is no thumbnail', () => {
+        it('renders the full image', async() => {
+          const wrapper = factory({ propsData: { url, width, height } });
+          sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
+
+          process.client = true;
+          await wrapper.vm.fetch();
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
+        });
       });
     });
 
@@ -83,35 +107,15 @@ describe('components/media/MediaImageViewer', () => {
 
       it('renders a IIIF image', async() => {
         const wrapper = factory({ propsData: { url, service } });
+        sinon.spy(wrapper.vm, 'initOlImageLayerIIIF');
 
+        process.client = true;
         await wrapper.vm.fetch();
-        await new Promise(process.nextTick);
+        await wrapper.vm.$nextTick();
 
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('IIIF');
-      });
-    });
-  });
-
-  describe('on mounted', () => {
-    it('renders the thumbnail with thumbnail sizes', async() => {
-      const wrapper = factory({ propsData: { url, thumbnail, width, height } });
-      sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
-
-      await wrapper.vm.$nextTick();
-
-      expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
-    });
-
-    describe('when there is no thumbnail', () => {
-      it('renders the full image', async() => {
-        const wrapper = factory({ propsData: { url, width, height } });
-        sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
-
-        await wrapper.vm.$nextTick();
-        await wrapper.vm.$nextTick();
-
-        expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
+        expect(wrapper.vm.initOlImageLayerIIIF.called).toBe(true);
       });
     });
   });
