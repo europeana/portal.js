@@ -7,11 +7,12 @@ const localVue = createLocalVue();
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(MediaImageViewerControls, {
   localVue,
   propsData,
+  directives: { 'b-tooltip': () => {} },
   mocks: {
     $t: (key) => key,
     ...mocks
   },
-  stubs: []
+  stubs: ['b-button']
 });
 
 describe('components/media/MediaImageViewerControls', () => {

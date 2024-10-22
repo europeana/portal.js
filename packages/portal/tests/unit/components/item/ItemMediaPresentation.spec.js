@@ -233,100 +233,39 @@ describe('components/item/ItemMediaPresentation', () => {
   });
 
   describe('methods', () => {
-    describe('zoom control supporting methods', () => {
+    describe('toggleFullscreen', () => {
       const data = {
         activeAnnotation: null,
         presentation: null,
         page: 1,
         showSidebar: null,
         showPages: true,
-        minZoom: 0,
-        maxZoom: 8,
-        defaultZoom: 2.5,
-        currentZoom: 2.5,
         fullscreen: false
       };
 
-      describe('updateCurrentZoom', () => {
-        it('sets the currentZoom to the new value', () => {
+      describe('when in fullscreen mode already', () => {
+        it('calls the document exitFullscreen method', () => {
           const wrapper = factory({ data });
-          wrapper.vm.updateCurrentZoom(3.5);
+          wrapper.setData({ fullscreen: true });
+          document.exitFullscreen = sinon.spy();
+          wrapper.vm.toggleFullscreen();
 
-          expect(wrapper.vm.currentZoom).toEqual(3.5);
+          expect(document.exitFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.fullscreen).toEqual(false);
         });
       });
 
-      describe('updateZoomLevels', () => {
-        it('sets new current, default, min and max zoom levels', () => {
-          const newValues = {
-            defaultZoom: 3.5,
-            maxZoom: 9,
-            minZoom: 0
-          };
+      describe('when not in fullscreen mode', () => {
+        it('makes the viewerWrapper fullscreen', () => {
           const wrapper = factory({ data });
-          wrapper.vm.updateZoomLevels(newValues);
 
-          expect(wrapper.vm.defaultZoom).toEqual(3.5);
-          expect(wrapper.vm.currentZoom).toEqual(3.5);
-          expect(wrapper.vm.maxZoom).toEqual(9);
-          expect(wrapper.vm.minZoom).toEqual(0);
-        });
-      });
+          wrapper.vm.$refs.viewerWrapper.requestFullscreen = sinon.spy();
+          wrapper.vm.toggleFullscreen();
 
-      describe('zoomIn', () => {
-        it('increases the currentZoom value', () => {
-          const wrapper = factory({ data });
-          wrapper.vm.zoomIn();
-
-          expect(wrapper.vm.currentZoom).toEqual(3.5);
-        });
-      });
-
-      describe('zoomOut', () => {
-        it('decreases the currentZoom value', () => {
-          const wrapper = factory({ data });
-          wrapper.vm.zoomOut();
-
-          expect(wrapper.vm.currentZoom).toEqual(1.5);
-        });
-      });
-
-      describe('resetZoom', () => {
-        it('sets the currentZoom value to the defaultZoom', () => {
-          const wrapper = factory({ data });
-          wrapper.setData({ currentZoom: 5 });
-          wrapper.vm.resetZoom();
-
-          expect(wrapper.vm.currentZoom).toEqual(2.5);
-        });
-      });
-
-      describe('toggleFullscreen', () => {
-        describe('when in fullscreen mode already', () => {
-          it('calls the document exitFullscreen method', () => {
-            const wrapper = factory({ data });
-            wrapper.setData({ fullscreen: true });
-            document.exitFullscreen = sinon.spy();
-            wrapper.vm.toggleFullscreen();
-
-            expect(document.exitFullscreen.calledOnce).toBe(true);
-            expect(wrapper.vm.fullscreen).toEqual(false);
-          });
-        });
-
-        describe('when not in fullscreen mode', () => {
-          it('makes the viewerWrapper fullscreen', () => {
-            const wrapper = factory({ data });
-
-            wrapper.vm.$refs.viewerWrapper.requestFullscreen = sinon.spy();
-            wrapper.vm.toggleFullscreen();
-
-            expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
-            expect(wrapper.vm.fullscreen).toEqual(true);
-          });
+          expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.fullscreen).toEqual(true);
         });
       });
     });
   });
 });
-
