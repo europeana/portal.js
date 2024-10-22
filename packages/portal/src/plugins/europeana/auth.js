@@ -19,7 +19,6 @@ const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConf
   updateRefreshToken($auth, refreshAccessTokenResponse);
 
   // Retry request with new access token
-  console.log('retrying request with new access token', requestConfig);
   return $axios.request(requestConfig);
 };
 
