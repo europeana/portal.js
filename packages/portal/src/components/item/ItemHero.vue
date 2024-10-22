@@ -150,7 +150,7 @@
     },
     computed: {
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMediaforEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
       },
       downloadUrl() {
         const url = this.selectedMedia?.about;
