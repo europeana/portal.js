@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
+import useZoom from '@/composables/zoom.js';
 import nock from 'nock';
 import sinon from 'sinon';
 
@@ -19,8 +20,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
     $fetchState: {},
     $t: (key) => key,
     ...mocks
-  },
-  stubs: []
+  }
 });
 
 describe('components/media/MediaImageViewer', () => {
@@ -29,9 +29,11 @@ describe('components/media/MediaImageViewer', () => {
   });
   afterEach(() => {
     nock.cleanAll();
+    sinon.resetHistory();
   });
   afterAll(() => {
     nock.enableNetConnect();
+    sinon.restore();
   });
 
   const url = 'https://example.org/image.jpeg';
@@ -150,20 +152,29 @@ describe('components/media/MediaImageViewer', () => {
     });
 
     describe('configureZoomLevels', () => {
-      it('emmits an event containing information about the current zoom levels', async() => {
+      it('configures zoom levels via useZoom composable', async() => {
+        const {
+          default: defaultZoom,
+          max: maxZoom,
+          min: minZoom
+        } = useZoom();
         const wrapper = factory({ propsData: { url, width, height } });
 
         await new Promise(process.nextTick);
-        wrapper.vm.$emit = sinon.spy();
         wrapper.vm.configureZoomLevels();
 
-        expect(wrapper.vm.$emit.calledWith('viewInitialised', sinon.match({ defaultZoom: 0, maxZoom: 8, minZoom: 0 }))).toBe(true);
+        expect(defaultZoom.value).toBe(0);
+        expect(minZoom.value).toBe(0);
+        expect(maxZoom.value).toBe(8);
       });
     });
 
     describe('setZoom', () => {
       it('sets the view to the data property currentZoom', async() => {
         const animateSpy = sinon.spy();
+        const {
+          setCurrent: setCurrentZoom
+        } = useZoom();
         const wrapper = factory({ propsData: { url, width, height } });
 
         await new Promise(process.nextTick);
@@ -174,8 +185,9 @@ describe('components/media/MediaImageViewer', () => {
           cancelAnimations: () => true
         });
 
-        // setZoom is called via watcher of currentZoom
-        await wrapper.setProps({ currentZoom: 6 });
+        // setZoom is called via watcher of currentZoom (via useZoom composable)
+        setCurrentZoom(6);
+        await new Promise(process.nextTick);
 
         expect(animateSpy.calledWith(sinon.match({ zoom: 6, duration: 250, easing: sinon.match.func }))).toBe(true);
       });
