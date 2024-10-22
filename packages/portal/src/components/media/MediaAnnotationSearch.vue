@@ -32,20 +32,20 @@
 
     data() {
       return {
-        annoQuery: this.$route.query.query || null,
-        query: this.$route.query.query || null
+        annoQuery: this.$route.query.fulltext || null,
+        query: this.$route.query.fulltext || null
       };
     },
 
     watch: {
-      '$route.query.query'() {
-        this.annoQuery = this.$route.query.query || null;
+      '$route.query.fulltext'() {
+        this.annoQuery = this.$route.query.fulltext || null;
       }
     },
 
     methods: {
       handleSubmitForm() {
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, query: this.query } });
+        this.$router.push({ ...this.$route, query: { ...this.$route.query, fulltext: this.query } });
       }
     }
   };

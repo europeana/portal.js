@@ -5,7 +5,7 @@ import MediaAnnotationSearch from '@/components/media/MediaAnnotationSearch.vue'
 
 const localVue = createLocalVue();
 const routerPushSpy = sinon.spy();
-const query = 'something';
+const fulltext = 'something';
 
 const factory = ({ data, propsData, mocks } = {}) => shallowMount(MediaAnnotationSearch, {
   data() {
@@ -16,7 +16,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMount(MediaAnnotatio
   propsData,
   mocks: {
     $route: {
-      query: { query }
+      query: { fulltext }
     },
     $router: {
       push: routerPushSpy
@@ -45,7 +45,7 @@ describe('components/media/MediaAnnotationSearch', () => {
 
       const input = wrapper.find('#media-annotation-search-query');
 
-      expect(input.attributes('value')).toBe(query);
+      expect(input.attributes('value')).toBe(fulltext);
     });
 
     it('renders MediaAnnotationList to run the search', () => {
@@ -54,7 +54,7 @@ describe('components/media/MediaAnnotationSearch', () => {
       const list = wrapper.find('MediaAnnotationList-stub');
 
       expect(list.isVisible()).toBe(true);
-      expect(list.attributes('query')).toBe(query);
+      expect(list.attributes('query')).toBe(fulltext);
     });
 
     // FIXME: submit.prevent trigger isn't working here (but does when rendered)

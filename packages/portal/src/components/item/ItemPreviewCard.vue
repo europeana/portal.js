@@ -71,7 +71,6 @@
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
 
-  import advancedSearchMixin from '@/mixins/advancedSearch';
   import ContentCard from '../content/ContentCard';
 
   export default {
@@ -83,10 +82,6 @@
       UserButtons: () => import('../user/UserButtons'),
       RightsStatement: () => import('../generic/RightsStatement')
     },
-
-    mixins: [
-      advancedSearchMixin
-    ],
 
     props: {
       /**
@@ -179,6 +174,20 @@
       onAuxClickCard: {
         type: Function,
         default: null
+      },
+      /**
+       * Hash to include in router link to item
+       */
+      routeHash: {
+        type: String,
+        default: undefined
+      },
+      /**
+       * Query to include in router link to item
+       */
+      routeQuery: {
+        type: [Object, String],
+        default: undefined
       }
     },
 
@@ -220,24 +229,11 @@
 
       url() {
         return {
-          hash: this.fulltextSearchQuery ? '#search' : undefined,
+          hash: this.routeHash,
           name: 'item-all',
           params: { pathMatch: this.identifier.slice(1) },
-          query: { query: this.fulltextSearchQuery }
+          query: this.routeQuery
         };
-      },
-
-      // TODO: this will be computed for each preview card; move to a composable?
-      fulltextSearchQuery() {
-        if (this.$route.query?.qa) {
-          const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa);
-          const query = advSearchRules
-            .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-            .map((rule) => rule.term);
-          return query.join(' ');
-        } else {
-          return undefined;
-        }
       },
 
       imageUrl() {

@@ -57,7 +57,7 @@
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
         miradorViewer: null,
-        searchQuery: this.$route.query.query,
+        searchQuery: this.$route.query.fulltext,
         showAnnotations: false,
         isMobileViewport: false,
         isMiradorLoaded: process.client ? !!window.Mirador : false,

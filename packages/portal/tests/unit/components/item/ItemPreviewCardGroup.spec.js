@@ -26,6 +26,7 @@ const factory = ({ propsData } = {}) => {
       $i18n: {
         locale: 'en'
       },
+      $route: { query: {} },
       $t: () => {},
       $store: {
         state: {
@@ -144,6 +145,19 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
           expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
         });
+      });
+    });
+
+    describe('routeQuery', () => {
+      it('includes adv search fulltext contains terms from route', () => {
+        const query = 'hamburger';
+        const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
+        const mocks = { $route: { query: { qa, query } } };
+        const wrapper = factory({ propsData: { item }, mocks });
+
+        const routeQuery = wrapper.vm.routeQuery;
+
+        expect(routeQuery).toBe('theater zeitung');
       });
     });
   });

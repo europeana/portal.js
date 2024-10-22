@@ -118,17 +118,4 @@ describe('components/item/ItemPreviewCard', () => {
       });
     });
   });
-
-  describe('fulltextSearchQuery', () => {
-    it('includes adv search fulltext contains terms from Nuxt context from route', () => {
-      const query = 'hamburger';
-      const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
-      const mocks = { $route: { query: { qa, query } } };
-      const wrapper = factory({ propsData: { item }, mocks });
-
-      const fulltextSearchQuery = wrapper.vm.fulltextSearchQuery;
-
-      expect(fulltextSearchQuery).toBe('theater zeitung');
-    });
-  });
 });

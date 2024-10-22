@@ -58,6 +58,8 @@
             :lazy="true"
             :enable-accept-recommendation="enableAcceptRecommendations"
             :enable-reject-recommendation="enableRejectRecommendations"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
             :show-pins="showPins"
             :show-move="useDraggable"
             :show-remove="userEditableItems"
@@ -119,6 +121,8 @@
             class="item"
             :hit-selector="itemHitSelector(card)"
             :variant="cardVariant"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
             :show-pins="showPins"
             :show-move="useDraggable"
             :show-remove="userEditableItems"
@@ -134,6 +138,7 @@
 </template>
 
 <script>
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
@@ -143,6 +148,10 @@
       draggable: () => import('vuedraggable'),
       ItemPreviewCard
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
 
     props: {
       items: {
@@ -209,6 +218,22 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      routeHash() {
+        return this.routeQuery ? '#search' : undefined;
+      },
+
+      routeQuery() {
+        if (this.$route.query?.qa) {
+          const fulltext = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa)
+            .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
+            .map((rule) => rule.term)
+            .join(' ');
+          return { fulltext };
+        } else {
+          return undefined;
+        }
       },
 
       masonryActive() {
