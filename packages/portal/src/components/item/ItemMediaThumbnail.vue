@@ -1,6 +1,6 @@
 <template>
-  <SmartLink
-    :destination="link"
+  <NuxtLink
+    :to="link"
     class="item-media-thumbnail text-lowercase text-decoration-none"
   >
     <MediaCardImage
@@ -18,7 +18,7 @@
         :class="mediaTypeIconClass"
       />
     </span>
-  </SmartLink>
+  </NuxtLink>
 </template>
 
 <script>
