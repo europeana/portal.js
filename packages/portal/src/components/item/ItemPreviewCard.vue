@@ -174,6 +174,20 @@
       onAuxClickCard: {
         type: Function,
         default: null
+      },
+      /**
+       * Hash to include in router link to item
+       */
+      routeHash: {
+        type: String,
+        default: undefined
+      },
+      /**
+       * Query to include in router link to item
+       */
+      routeQuery: {
+        type: [Object, String],
+        default: undefined
       }
     },
 
@@ -214,7 +228,12 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+        return {
+          hash: this.routeHash,
+          name: 'item-all',
+          params: { pathMatch: this.identifier.slice(1) },
+          query: this.routeQuery
+        };
       },
 
       imageUrl() {

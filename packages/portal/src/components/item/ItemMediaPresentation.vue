@@ -16,8 +16,8 @@
             ref="sidebar"
             tabindex="0"
             :annotation-list="hasAnnotations"
+            :annotation-search="hasSearchService"
             :manifest-uri="uri"
-            @selectAnno="onSelectAnno"
             @keydown.escape.native="showSidebar = false"
           />
           <MediaImageViewer
@@ -169,11 +169,6 @@
         default: null
       },
 
-      searchQuery: {
-        type: String,
-        default: null
-      },
-
       providerUrl: {
         type: String,
         default: null
@@ -182,21 +177,37 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
+        hasSearchService,
         page,
+        pageForAnnotationTarget,
         resource,
         resourceCount,
+        selectAnnotation,
         setPage,
         setPresentationFromWebResources
       } = useItemMediaPresentation();
-      return { fetchPresentation, hasAnnotations, page, resource, resourceCount, setPage, setPresentationFromWebResources };
+
+      return {
+        activeAnnotation,
+        fetchPresentation,
+        hasAnnotations,
+        hasSearchService,
+        page,
+        pageForAnnotationTarget,
+        resource,
+        resourceCount,
+        selectAnnotation,
+        setPage,
+        setPresentationFromWebResources
+      };
     },
 
     data() {
       return {
-        activeAnnotation: null,
-        showSidebar: null,
+        showSidebar: !!this.$route.hash,
         showPages: true,
         fullscreen: false
       };
@@ -204,6 +215,7 @@
 
     async fetch() {
       this.setPage(this.$route.query.page);
+      // this.selectAnnotation(this.$route.query.anno);
 
       if (this.uri) {
         await this.fetchPresentation(this.uri);
@@ -222,7 +234,7 @@
       },
 
       sidebarHasContent() {
-        return this.hasAnnotations || this.hasManifest;
+        return this.hasAnnotations || this.hasSearchService || this.hasManifest;
       },
 
       imageTypeResource() {
@@ -247,14 +259,7 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
-      onSelectAnno(anno) {
-        this.activeAnnotation = anno;
-        // store the annotation id in the route hash, to pre-highlight it on page reload
-        // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
-      },
-
       selectResource() {
-        this.activeAnnotation = null;
         this.$emit('select', this.resource);
       },
 

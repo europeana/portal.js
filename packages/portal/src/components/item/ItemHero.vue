@@ -7,7 +7,6 @@
     <client-only>
       <ItemMediaPresentation
         :uri="iiifPresentationManifest"
-        :search-query="fulltextSearchQuery"
         :item-id="identifier"
         :provider-url="providerUrl"
         :web-resources="media"
@@ -77,7 +76,6 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
-  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
@@ -95,7 +93,6 @@
     },
 
     mixins: [
-      advancedSearchMixin,
       rightsStatementMixin
     ],
 
@@ -166,20 +163,6 @@
           return this.edmRights;
         }
         return '';
-      },
-      fulltextSearchQuery() {
-        let query = [];
-
-        if (this.$nuxt.context.from) {
-          if (this.$nuxt.context.from.query.qa) {
-            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
-            query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-              .map((rule) => rule.term);
-          }
-        }
-
-        return query.join(' ');
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;

@@ -5,7 +5,6 @@
   >
     <IIIFMiradorViewer
       :uri="uri"
-      :search-query="searchQuery"
       :item-id="itemId"
       :provider-url="providerUrl"
       :aria-label="$t('actions.viewDocument')"
@@ -47,11 +46,6 @@
       },
 
       edmType: {
-        type: String,
-        default: null
-      },
-
-      searchQuery: {
         type: String,
         default: null
       },

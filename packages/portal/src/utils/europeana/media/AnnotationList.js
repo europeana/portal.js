@@ -1,5 +1,6 @@
 import Base from './Base.js';
 import Annotation from './Annotation.js';
+import SearchHit from './SearchHit.js';
 
 export default class EuropeanaMediaAnnotationList extends Base {
   parseData(data) {
@@ -7,6 +8,7 @@ export default class EuropeanaMediaAnnotationList extends Base {
 
     const parsed = {
       id: data.id,
+      hits: (data.hits || []).map((hit) => SearchHit.parse(hit)),
       language: data.language,
       textGranularity: data.textGranularity
     };
