@@ -57,7 +57,7 @@
         </b-col>
       </b-row>
       <ShareSocialModal
-        :media-url="selectedMedia.about"
+        :media-url="selectedMedia?.about"
       >
         <ItemEmbedCode
           :identifier="identifier"
@@ -147,18 +147,18 @@
     },
     computed: {
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed && !!this.downloadUrl;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
       },
       downloadUrl() {
-        const url = this.selectedMedia.about;
+        const url = this.selectedMedia?.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
-        if (this.selectedMedia.webResourceEdmRights) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
+        if (this.selectedMedia?.webResourceEdmRights) {
+          return this.selectedMedia?.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;
         }
