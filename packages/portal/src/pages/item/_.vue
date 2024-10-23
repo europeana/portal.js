@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="item page"
-    class="page white-page"
+    class="page"
     :class="$fetchState.error && 'pt-0'"
   >
     <b-container
@@ -31,7 +31,7 @@
       />
       <b-container
         fluid
-        class="bg-white mb-3 px-0"
+        class="mb-3 px-0"
       >
         <ItemHero
           :all-media-uris="allMediaUris"
@@ -601,10 +601,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
   .page {
-    padding-top: 2rem
+    padding-top: 0;
+    margin-top: -0.125rem;
   }
 
   .related-collections {

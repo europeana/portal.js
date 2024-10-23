@@ -1,7 +1,7 @@
 .dropdown {
   .btn-light {
     background: $white;
-    color: $mediumgrey;
+    color: $darkgrey;
     text-decoration: none;
 
     &:hover,
@@ -15,7 +15,7 @@
   &.show {
     .btn-light.dropdown-toggle {
       background-color: $white;
-      color: $mediumgrey;
+      color: $darkgrey;
     }
   }
 
@@ -28,7 +28,7 @@
     font-weight: 600;
     text-transform: uppercase;
     padding-left: 1rem;
-    color: $mediumgrey;
+    color: $darkgrey;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {

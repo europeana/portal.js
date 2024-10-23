@@ -3,7 +3,7 @@
     class="landing-embed"
     :class="{
       'background-applied': backgroundImage,
-      'bg-bodygrey': !backgroundImage
+      'bg-lightgrey': !backgroundImage
     }"
   >
     <div
@@ -111,7 +111,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-embed {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     padding-bottom: 3rem;
 
     @media (min-width: $bp-large) {

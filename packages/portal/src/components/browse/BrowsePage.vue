@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="browse page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
     <slot />
     <b-container
@@ -70,13 +70,9 @@
 
   .page {
     padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
 
     @media (min-width: $bp-4k) {
       padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
     }
   }
 
