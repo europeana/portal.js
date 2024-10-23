@@ -245,13 +245,22 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions: toolbar button clicks, anno click, full-text search
-        this.olMap.on('singleclick', this.renderFullImage);
+        // TODO: add other interactions: anno click, full-text search
+        this.olMap.on('click', this.renderFullImage);
+        this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
+      },
+
+      renderFullImageOnFirstZoomIn(event) {
+        // check if zoom in, not out
+        if (event.oldValue < 1) {
+          this.renderFullImage();
+        }
       },
 
       async renderFullImage() {
         if (this.olMap) {
-          this.olMap.un('singleclick', this.renderFullImage);
+          this.olMap.un('click', this.renderFullImage);
+          this.olMap.getView().un('change:resolution', this.renderFullImageOnFirstZoomIn);
           this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
         }
 
