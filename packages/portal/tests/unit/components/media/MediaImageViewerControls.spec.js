@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaImageViewerControls from '@/components/media/MediaImageViewerControls';
 import useZoom from '@/composables/zoom.js';
-// import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
