@@ -2,6 +2,7 @@
   <div>
     <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
+      ref="viewerWrapper"
       class="iiif-viewer-wrapper overflow-hidden"
     >
       <template v-if="!$fetchState.pending">
@@ -20,7 +21,7 @@
             @keydown.escape.native="showSidebar = false"
           />
           <MediaImageViewer
-            v-if="resource?.ebucoreHasMimeType?.startsWith('image/')"
+            v-if="imageTypeResource"
             :url="resource.about"
             :item-id="itemId"
             :width="resource.ebucoreWidth"
@@ -74,10 +75,19 @@
           >
             <span class="icon icon-kebab" />
           </b-button>
+          <MediaImageViewerControls
+            v-if="imageTypeResource"
+            :fullscreen="fullscreen"
+            @toggleFullscreen="toggleFullscreen"
+          />
           <div
             v-if="resourceCount >= 2"
-            class="iiif-viewer-toolbar-pagination d-flex w-100 w-lg-auto"
-            :class="{ closed: !showPages }"
+            class="iiif-viewer-toolbar-pagination d-flex mx-auto"
+            :class="{
+              closed: !showPages,
+              'mx-sm-0': imageTypeResource,
+              'mr-lg-0': !imageTypeResource
+            }"
           >
             <PaginationNavInput
               :per-page="1"
@@ -131,6 +141,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
+      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
       MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
       PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
     },
@@ -185,8 +196,9 @@
     data() {
       return {
         activeAnnotation: null,
-        showSidebar: false,
-        showPages: true
+        showSidebar: null,
+        showPages: true,
+        fullscreen: false
       };
     },
 
@@ -211,6 +223,10 @@
 
       sidebarHasContent() {
         return this.hasAnnotations || this.hasManifest;
+      },
+
+      imageTypeResource() {
+        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
       }
     },
 
@@ -260,6 +276,21 @@
             this.$refs.itemPages?.$el.focus();
           });
         }
+      },
+
+      toggleFullscreen() {
+        // Check for fullscreen support first?
+        if (this.fullscreen) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document['webKitExitFullscreen']) {
+            document['webKitExitFullscreen']();
+          }
+        } else {
+          this.$refs.viewerWrapper.requestFullscreen();
+        }
+
+        this.fullscreen = !this.fullscreen;
       }
     }
   };
@@ -311,12 +342,11 @@
       right: 0;
     }
 
-    .sidebar-toggle {
+    .sidebar-toggle, .viewer-controls {
       margin: 0.875rem 1rem;
     }
 
-    .sidebar-toggle,
-    .pages-toggle {
+    ::v-deep button {
       background-color: transparent;
       font-size: $font-size-large;
 
@@ -328,6 +358,11 @@
 
   .iiif-viewer-toolbar-pagination {
     padding: 0.875rem 1rem;
+    width: 100% !important;
+
+    @media(min-width: ($bp-small)) {
+      width: auto !important;
+    }
 
     @media(max-width: ($bp-large - 1px)) {
       border-top: 1px solid $bodygrey;
@@ -341,6 +376,17 @@
   ::v-deep .pagination {
     ul {
       margin-bottom: 0;
+    }
+  }
+
+  .iiif-viewer-wrapper:fullscreen {
+    max-height: 100%;
+    .iiif-viewer-inner-wrapper {
+      max-height: 100%;
+      height: 100%;
+    }
+    #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
+      display: none !important;
     }
   }
 </style>

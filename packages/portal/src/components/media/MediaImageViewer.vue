@@ -19,16 +19,15 @@
   import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
-  import Collection from 'ol/Collection.js';
   import ImageLayer from 'ol/layer/Image.js';
   import Projection from 'ol/proj/Projection.js';
   import ImageStatic from 'ol/source/ImageStatic.js';
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
-  import FullScreenControl from 'ol/control/FullScreen.js';
-  import ZoomControl from 'ol/control/Zoom.js';
+  import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
 
+  import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
@@ -72,6 +71,18 @@
       }
     },
 
+    setup() {
+      const {
+        current: currentZoom,
+        setCurrent: setCurrentZoom,
+        setDefault: setDefaultZoom,
+        setMax: setMaxZoom,
+        setMin: setMinZoom
+      } = useZoom();
+
+      return { currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+    },
+
     data() {
       return {
         // fullsize: true,
@@ -104,7 +115,8 @@
         deep: true,
         handler: 'highlightAnnotation'
       },
-      url: '$fetch'
+      url: '$fetch',
+      currentZoom: 'setZoom'
     },
 
     mounted() {
@@ -181,14 +193,6 @@
       },
 
       initOlMap({ extent, layer, source } = {}) {
-        const controls = new Collection([
-          new FullScreenControl({ tipLabel: this.$t('media.controls.fullscreen') }),
-          new ZoomControl({
-            zoomInTipLabel: this.$t('media.controls.zoomIn'),
-            zoomOutTipLabel: this.$t('media.controls.zoomOut')
-          })
-        ]);
-
         const projection = new Projection({ units: 'pixels', extent });
 
         const view = new View({
@@ -201,7 +205,7 @@
 
         if (!this.olMap) {
           this.olMap = new Map({
-            controls,
+            controls: [],
             interactions: defaults({ mouseWheelZoom: false }),
             target: 'media-image-viewer',
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
@@ -212,6 +216,7 @@
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
         this.olMap.getView().fit(extent);
+        this.configureZoomLevels();
       },
 
       // renderThumbnail() {
@@ -274,6 +279,46 @@
 
         this.initOlMap(mapOptions);
         this.highlightAnnotation();
+      },
+
+      setZoom() {
+        const view = this.olMap.getView();
+
+        if (!view) {
+          // the map does not have a view, so we can't act
+          // upon it
+          return;
+        }
+        const viewZoom = view.getZoom();
+        if (viewZoom !== undefined) {
+          const newZoom = this.currentZoom;
+
+          if (view.getAnimating()) {
+            view.cancelAnimations();
+          }
+          view.animate({
+            zoom: newZoom,
+            duration: 250, // Hardcoded to default ol annimation duration
+            easing: easeOut
+          });
+        }
+      },
+
+      configureZoomLevels() {
+        const view = this.olMap.getView();
+
+        this.setDefaultZoom(view.getZoom());
+        this.setMaxZoom(view.getMaxZoom());
+        this.setMinZoom(view.getMinZoom());
+
+        // This uses "moveend" instead of "change:resolution" on the view as that can fire many times during an animation
+        // TODO: Move out of configureZoomLevels?
+        this.olMap.on('moveend', () => {
+          // "moveend" can be called by non zoom interactions, we only want to emit when it was triggered after a zoom.
+          if (view.getZoom() !== this.currentZoom) {
+            this.setCurrentZoom(view.getZoom());
+          }
+        });
       }
     }
   };
