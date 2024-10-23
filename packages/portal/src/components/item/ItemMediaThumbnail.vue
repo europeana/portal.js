@@ -23,13 +23,11 @@
 
 <script>
   import MediaCardImage from '../media/MediaCardImage.vue';
-  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'ItemMediaThumbnail',
 
     components: {
-      SmartLink,
       MediaCardImage
     },
     props: {
