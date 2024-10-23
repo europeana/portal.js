@@ -937,8 +937,10 @@ export default {
   "loadingResults": "Loading results",
   "media": {
     "controls": {
+      "exitFullscreen": "Exit full screen",
       "fullscreen": "Full screen",
       "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
+      "resetZoom": "Reset zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },

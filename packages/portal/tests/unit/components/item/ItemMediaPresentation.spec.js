@@ -39,7 +39,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails']
+  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
 });
 
 const fetchPresentationStub = sinon.stub();
@@ -131,6 +131,30 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
+    describe('viewer zoom controls', () => {
+      describe('when the current resource is of type image', () => {
+        const itemId = '/123/abc';
+        const webResources = [
+          {
+            about: 'https://example.org/image.jpg',
+            ebucoreHasMimeType: 'image/jpeg',
+            ebucoreHeight: 576,
+            ebucoreWidth: 720
+          }
+        ];
+        const propsData = { itemId, webResources };
+
+        it('has viewer zoom controls', async() => {
+          const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
+
+          const viewerControls = wrapper.find('mediaImageviewercontrols-stub');
+
+          expect(viewerControls.isVisible()).toBe(true);
+        });
+      });
+    });
+
     describe('pages toggle button', () => {
       describe('when there are two or more pages', () => {
         it('is visible', () => {
@@ -204,6 +228,43 @@ describe('components/item/ItemMediaPresentation', () => {
         await wrapper.vm.fetch();
 
         expect(setPresentationFromWebResourcesStub.calledWith(webResources)).toBe(true);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('toggleFullscreen', () => {
+      const data = {
+        activeAnnotation: null,
+        presentation: null,
+        page: 1,
+        showSidebar: null,
+        showPages: true,
+        fullscreen: false
+      };
+
+      describe('when in fullscreen mode already', () => {
+        it('calls the document exitFullscreen method', () => {
+          const wrapper = factory({ data });
+          wrapper.setData({ fullscreen: true });
+          document.exitFullscreen = sinon.spy();
+          wrapper.vm.toggleFullscreen();
+
+          expect(document.exitFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.fullscreen).toEqual(false);
+        });
+      });
+
+      describe('when not in fullscreen mode', () => {
+        it('makes the viewerWrapper fullscreen', () => {
+          const wrapper = factory({ data });
+
+          wrapper.vm.$refs.viewerWrapper.requestFullscreen = sinon.spy();
+          wrapper.vm.toggleFullscreen();
+
+          expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.fullscreen).toEqual(true);
+        });
       });
     });
   });

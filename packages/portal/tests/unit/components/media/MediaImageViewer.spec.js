@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
+import useZoom from '@/composables/zoom.js';
 import nock from 'nock';
 import sinon from 'sinon';
 jest.mock('ol/format/IIIFInfo', () => {
@@ -27,8 +28,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
     $fetchState: {},
     $t: (key) => key,
     ...mocks
-  },
-  stubs: []
+  }
 });
 
 describe('components/media/MediaImageViewer', () => {
@@ -37,9 +37,11 @@ describe('components/media/MediaImageViewer', () => {
   });
   afterEach(() => {
     nock.cleanAll();
+    sinon.resetHistory();
   });
   afterAll(() => {
     nock.enableNetConnect();
+    sinon.restore();
   });
 
   const url = 'https://example.org/image.jpeg';
@@ -174,6 +176,48 @@ describe('components/media/MediaImageViewer', () => {
             0, 400, 0, 380, 40, 380, 40, 400, 0, 400
           ]);
         });
+      });
+    });
+
+    describe('configureZoomLevels', () => {
+      it('configures zoom levels via useZoom composable', async() => {
+        const {
+          default: defaultZoom,
+          max: maxZoom,
+          min: minZoom
+        } = useZoom();
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.configureZoomLevels();
+
+        expect(defaultZoom.value).toBe(0);
+        expect(minZoom.value).toBe(0);
+        expect(maxZoom.value).toBe(8);
+      });
+    });
+
+    describe('setZoom', () => {
+      it('sets the view to the data property currentZoom', async() => {
+        const animateSpy = sinon.spy();
+        const {
+          setCurrent: setCurrentZoom
+        } = useZoom();
+        const wrapper = factory({ propsData: { url, width, height } });
+
+        await new Promise(process.nextTick);
+        wrapper.vm.olMap.getView = sinon.stub().returns({
+          getZoom: () => 4,
+          animate: animateSpy,
+          getAnimating: () => true,
+          cancelAnimations: () => true
+        });
+
+        // setZoom is called via watcher of currentZoom (via useZoom composable)
+        setCurrentZoom(6);
+        await new Promise(process.nextTick);
+
+        expect(animateSpy.calledWith(sinon.match({ zoom: 6, duration: 250, easing: sinon.match.func }))).toBe(true);
       });
     });
   });
