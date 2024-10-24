@@ -8,21 +8,40 @@
       class="media-thumbnails"
     >
       <ol
-        class="d-flex flex-row flex-lg-column mb-0 pl-0"
+        ref="mediaThumbnailsList"
+        class="d-flex flex-row flex-lg-column pl-0"
       >
         <li
-          v-for="(resource, index) in resources"
-          ref="mediaThumbnails"
-          :key="index"
+          v-if="firstRenderedResourceIndex > 0"
+          ref="thumbnailSkeletonBefore"
+          class="thumbnail-skeleton-before"
+          :style="{ '--itemsbefore': firstRenderedResourceIndex + 1 }"
+        />
+
+        <!-- The ref array does not guarantee the same order as the source array. This causes issues when prepending resources.
+       Workaround: Read list elements from the list parent's children to get them at the actual rendered index. -->
+        <!-- Unique key for each resource to prevent prepended resources reusing existing elements and causing jumpiness -->
+        <li
+          v-for="(resource, index) in resourcesToRender"
+          :key="resource.about"
         >
+          <!-- TODO: calc offset/page separately -->
           <ItemMediaThumbnail
-            :offset="index"
+            :offset="firstRenderedResourceIndex + index"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
             :resource="resource"
             :edm-type="edmType"
           />
         </li>
+
+        <!-- TODO: calc condition and height separately -->
+        <li
+          v-if="lastRenderedResourceIndex + 1 !== resources.length"
+          ref="thumbnailSkeletonAfter"
+          class="thumbnail-skeleton-after"
+          :style="{ '--itemsafter': (resources.length - (lastRenderedResourceIndex + 1 ))}"
+        />
       </ol>
     </div>
   </transition>
@@ -32,6 +51,8 @@
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
+
+  const perPage = 10;
 
   export default {
     name: 'ItemMediaThumbnails',
@@ -49,14 +70,28 @@
 
     setup() {
       const { page, resources } = useItemMediaPresentation();
-      const { scrollElementToCentre } = useScrollTo();
+      const { scrollElementToCentre, scrollToElement, scrolling: scrollToScrolling } = useScrollTo();
+      return {  page, resources, scrollElementToCentre, scrollToElement, scrollToScrolling };
+    },
 
-      return { page, resources, scrollElementToCentre };
+    data() {
+      return {
+        resourcesToRender: this.page < perPage ? this.resources.slice(0, perPage * 2) :
+          this.resources.slice(Math.max(this.page - perPage - 1, 0), Math.min(this.page + perPage, this.resources.length - 1))
+      };
     },
 
     computed: {
+      firstRenderedResourceIndex() {
+        return this.resources.findIndex(resource => resource === this.resourcesToRender[0]);
+      },
+
+      lastRenderedResourceIndex() {
+        return this.resources.findIndex(resource => resource === this.resourcesToRender[this.resourcesToRender.length - 1]);
+      },
+
       selectedIndex() {
-        return this.page - 1;
+        return this.page - this.firstRenderedResourceIndex - 1;
       }
     },
 
@@ -64,10 +99,6 @@
       page() {
         this.updateThumbnailScroll();
       }
-    },
-
-    created() {
-      window.addEventListener('resize', this.handleWindowResize);
     },
 
     mounted() {
@@ -78,6 +109,54 @@
           this.updateThumbnailScroll('instant');
         });
       }
+
+      // TODO: can we have just one observer? Move out of mounted?
+      const ioFirst = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(async(entry) => {
+            if (entry.isIntersecting) {
+              this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
+
+              await this.$nextTick();
+
+              // prepending items causes a jump in the scroll container. This sets it back.
+              if (this.firstRenderedResourceIndex > 0) {
+                this.$refs.mediaThumbnailsContainer.scroll({
+                  top: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetTop,
+                  left: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetLeft - 16, // acount for margin
+                  behavior: 'instant'
+                });
+              }
+            }
+          });
+        },
+        { root: this.$refs.mediaThumbnailsContainer });
+
+      const ioLast = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(async(entry) => {
+            if (entry.isIntersecting) {
+              this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
+              await this.$nextTick();
+
+              // refresh observing the list item to see if after appending still intersecting (This can happen when scrolling fast and far)
+              ioLast.unobserve(entry.target);
+              ioLast.observe(entry.target);
+            }
+          });
+        },
+        { root: this.$refs.mediaThumbnailsContainer });
+
+      const thumbnailSkeletonBefore = this.$refs.thumbnailSkeletonBefore;
+      const thumbnailSkeletonAfter = this.$refs.thumbnailSkeletonAfter;
+
+      if (this.page > perPage) {
+        ioFirst.observe(thumbnailSkeletonBefore);
+      }
+      ioLast.observe(thumbnailSkeletonAfter);
+
+      // TODO: pause observing on resize
+      window.addEventListener('resize', this.handleWindowResize);
     },
 
     destroyed() {
@@ -91,7 +170,8 @@
 
       updateThumbnailScroll(behavior = 'smooth') {
         this.scrollElementToCentre(
-          this.$refs.mediaThumbnails?.[this.selectedIndex],
+          // + 1 to account for the skeleton li
+          this.$refs.mediaThumbnailsList.children?.[this.firstRenderedResourceIndex > 0 ? this.selectedIndex + 1 : 0],
           {
             behavior,
             container: this.$refs.mediaThumbnailsContainer
@@ -116,6 +196,23 @@
     background-color: $white;
     overflow-x: auto;
     scrollbar-width: thin;
+
+    .thumbnail-skeleton-before {
+      width: calc(var(--itemsbefore) * 30px);
+
+      @media (min-width: $bp-large) {
+        width: auto;
+        height: calc(var(--itemsbefore) * 80px);
+      }
+    }
+
+    .thumbnail-skeleton-after {
+      width: calc(var(--itemsafter) * 30px);
+
+      @media (min-width: $bp-large) {
+        height: calc(var(--itemsafter) * 80px);
+      }
+    }
 
     li {
       list-style-type: none;
