@@ -36,6 +36,18 @@ describe('components/media/MediaImageViewerKeyboardToggle', () => {
 
         expect(showToast.calledWith('media-image-viewer-toast')).toBe(true);
       });
+      describe('and keydown on a key that triggers a zoom or pan', () => {
+        it('emits to render full image media', () => {
+          const wrapper = factory();
+
+          const keyboardToggleButton = wrapper.find('[data-qa="media image viewer keyboard toggle button"]');
+
+          keyboardToggleButton.element.dispatchEvent(new Event('focus'));
+          wrapper.vm.$refs.keyboardtoggle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+
+          expect(wrapper.emitted('renderFullImage').length).toBe(1);
+        });
+      });
     });
   });
 

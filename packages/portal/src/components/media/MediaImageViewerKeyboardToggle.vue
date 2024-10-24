@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="keyboardtoggle"
     data-qa="media image viewer keyboard toggle"
     @keyup.escape="hideToast"
   >
@@ -45,6 +46,13 @@
       },
       showToast() {
         this.$bvToast.show('media-image-viewer-toast');
+        this.$refs.keyboardtoggle.addEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
+      },
+      renderFullMediaOnKeyboardInteraction(event) {
+        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
+          this.$emit('renderFullImage');
+          this.$refs.keyboardtoggle.removeEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
+        }
       }
     }
   };

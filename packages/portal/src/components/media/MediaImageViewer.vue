@@ -3,7 +3,10 @@
     id="media-image-viewer"
     class="h-100 w-100"
   >
-    <MediaImageViewerKeyboardToggle id="media-image-viewer-keyboard-toggle" />
+    <MediaImageViewerKeyboardToggle
+      id="media-image-viewer-keyboard-toggle"
+      @renderFullImage="renderFullImage"
+    />
   </div>
 </template>
 
@@ -61,6 +64,10 @@
         type: Object,
         default: null
       },
+      thumbnail: {
+        type: String,
+        default: null
+      },
       url: {
         type: String,
         required: true
@@ -85,7 +92,6 @@
 
     data() {
       return {
-        // fullsize: true,
         info: null,
         olExtent: null,
         olMap: null,
@@ -102,10 +108,9 @@
         const infoResponse = await axios.get(infoUri);
         this.info = infoResponse.data;
         this.source = 'IIIF';
-        // this.fullsize = true;
       }
-
       if (process.client) {
+        // TODO: this is called twice, also in mounted
         this.renderImage();
       }
     },
@@ -200,7 +205,7 @@
           constrainOnlyCenter: true,
           maxZoom: 8,
           projection,
-          resolutions: source.getTileGrid?.().getResolutions()
+          resolutions: source.getTileGrid?.()?.getResolutions()
         });
 
         if (!this.olMap) {
@@ -215,27 +220,55 @@
 
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
-        this.olMap.getView().fit(extent);
+
+        const mapSize = this.olMap.getSize();
+        const imageSize = extent.slice(2);
+        const imageSmallerThanMap = imageSize[1] < mapSize?.[1] && imageSize[0] < mapSize?.[0];
+        const imageMaxFitSize =  imageSmallerThanMap ? imageSize : undefined;
+
+        this.olMap.getView().fit(extent, { size: imageMaxFitSize });
         this.configureZoomLevels();
       },
 
-      // renderThumbnail() {
-      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-      //   this.olMap.on('singleclick', this.onSingleClickThumbnail);
-      //
-      //   if ((this.source === 'ImageStatic') && this.thumbnail) {
-      //     const thumbWidth = 400;
-      //     const thumbHeight = (this?.height / this?.width) * thumbWidth;
-      //     this.initOlImageLayerStatic(this.thumbnail.url, thumbWidth, thumbHeight);
-      //   }
-      // },
-      //
-      // onSingleClickThumbnail() {
-      //   this.olMap.un('singleclick', this.onSingleClickThumbnail);
-      //   this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
-      //   this.fullsize = true;
-      //   this.renderImage();
-      // },
+      async renderThumbnail() {
+        if (!this.thumbnail) {
+          this.renderFullImage();
+          return;
+        }
+
+        let mapOptions;
+
+        const thumbWidth = 400;
+        const thumbHeight = (this.height / this.width) * thumbWidth;
+
+        mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
+
+        this.initOlMap(mapOptions);
+        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
+        // TODO: add other interactions: anno click, full-text search
+        this.olMap.on('click', this.renderFullImage);
+        this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
+      },
+
+      renderFullImageOnFirstZoomIn(event) {
+        // check if zoom in, not out
+        if (event.oldValue < 1) {
+          this.renderFullImage();
+        }
+      },
+
+      async renderFullImage() {
+        if (this.olMap) {
+          this.olMap.un('click', this.renderFullImage);
+          this.olMap.getView().un('change:resolution', this.renderFullImageOnFirstZoomIn);
+          this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
+        }
+
+        // TODO: should we always be using the media proxy for static images?
+        const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
+        const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
+        this.initMapWithFullImage(mapOptions);
+      },
 
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
@@ -254,11 +287,11 @@
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      initOlImageLayerStatic() {
-        const extent = [0, 0, this.width, this.height];
+      async initOlImageLayerStatic(url, width, height) {
+        const extent = [0, 0, width, height];
+
         const source = new ImageStatic({
-          // TODO: should we always be using the media proxy for static images?
-          url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
+          url,
           imageExtent: extent
         });
         const layer = new ImageLayer({ source });
@@ -269,14 +302,15 @@
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
 
-        let mapOptions = {};
-
         if (this.source === 'IIIF') {
-          mapOptions = this.initOlImageLayerIIIF();
+          const mapOptions = this.initOlImageLayerIIIF();
+          this.initMapWithFullImage(mapOptions);
         } else {
-          mapOptions = this.initOlImageLayerStatic();
+          this.renderThumbnail();
         }
+      },
 
+      initMapWithFullImage(mapOptions) {
         this.initOlMap(mapOptions);
         this.highlightAnnotation();
       },
