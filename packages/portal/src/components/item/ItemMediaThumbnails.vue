@@ -9,8 +9,15 @@
     >
       <ol
         ref="mediaThumbnailsList"
-        class="d-flex flex-row flex-lg-column mb-0 pl-0"
+        class="d-flex flex-row flex-lg-column pl-0"
       >
+        <li
+          v-if="firstRenderedResourceIndex > 0"
+          ref="thumbnailSkeletonBefore"
+          class="thumbnail-skeleton-before"
+          :style="{ '--itemsbefore': firstRenderedResourceIndex + 1 }"
+        />
+
         <!-- The ref array does not guarantee the same order as the source array. This causes issues when prepending resources.
        Workaround: Read list elements from the list parent's children to get them at the actual rendered index. -->
         <!-- Unique key for each resource to prevent prepended resources reusing existing elements and causing jumpiness -->
@@ -27,6 +34,14 @@
             :edm-type="edmType"
           />
         </li>
+
+        <!-- TODO: calc condition and height separately -->
+        <li
+          v-if="lastRenderedResourceIndex + 1 !== resources.length"
+          ref="thumbnailSkeletonAfter"
+          class="thumbnail-skeleton-after"
+          :style="{ '--itemsafter': (resources.length - (lastRenderedResourceIndex + 1 ))}"
+        />
       </ol>
     </div>
   </transition>
@@ -96,53 +111,49 @@
       }
 
       // TODO: can we have just one observer? Move out of mounted?
-      const ioFirst = new IntersectionObserver((entries) => {
-        entries.forEach(async(entry) => {
-          if (entry.intersectionRatio > 0) {
-            ioFirst.unobserve(this.$refs.mediaThumbnailsList.children[0]);
-            this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
+      const ioFirst = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(async(entry) => {
+            if (entry.isIntersecting) {
+              this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
 
-            await this.$nextTick();
-            if (this.firstRenderedResourceIndex > 0) {
-              const firstRenderedThumbnail = this.$refs.mediaThumbnailsList.children[0];
-              // On the horizontal scroll bar (small screens), items are prepended and push the scroll container. This scrolls back to the offset where the prepend was triggered.
-              // TODO: ideally this should be less jumpy
-              const leftScrollOffset = entry.boundingClientRect.left;
-              if (leftScrollOffset < 0) {
-                this.scrollToElement(this.$refs.mediaThumbnailsList.children[perPage], {
-                  behavior: 'instant',
-                  container: this.$refs.mediaThumbnailsContainer,
-                  left: leftScrollOffset
+              await this.$nextTick();
+
+              // prepending items causes a jump in the scroll container. This sets it back.
+              if (this.firstRenderedResourceIndex > 0) {
+                this.$refs.mediaThumbnailsContainer.scroll({
+                  top: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetTop,
+                  left: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetLeft - 16, // acount for margin
+                  behavior: 'instant'
                 });
               }
-              // Is this nextTick needed?
-              await this.$nextTick();
-              ioFirst.observe(firstRenderedThumbnail);
             }
-          }
-        });
-      });
+          });
+        },
+        { root: this.$refs.mediaThumbnailsContainer });
 
-      const ioLast = new IntersectionObserver((entries) => {
-        entries.forEach(async(entry) => {
-          if (entry.intersectionRatio > 0) {
-            ioLast.unobserve(this.$refs.mediaThumbnailsList.children[this.$refs.mediaThumbnailsList.children.length - 1]);
-            this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
+      const ioLast = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(async(entry) => {
+            if (entry.isIntersecting) {
+              this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
+              await this.$nextTick();
 
-            await this.$nextTick();
-            const lastRenderedThumbnail = this.$refs.mediaThumbnailsList.children[this.$refs.mediaThumbnailsList.children.length - 1];
-            ioLast.observe(lastRenderedThumbnail);
-          }
-        });
-      });
+              // refresh observing the list item to see if after appending still intersecting (This can happen when scrolling fast and far)
+              ioLast.unobserve(entry.target);
+              ioLast.observe(entry.target);
+            }
+          });
+        },
+        { root: this.$refs.mediaThumbnailsContainer });
 
-      const firstRenderedThumbnail = this.$refs.mediaThumbnailsList.children[0];
-      const lastRenderedThumbnail = this.$refs.mediaThumbnailsList.children[this.$refs.mediaThumbnailsList.children.length - 1];
+      const thumbnailSkeletonBefore = this.$refs.thumbnailSkeletonBefore;
+      const thumbnailSkeletonAfter = this.$refs.thumbnailSkeletonAfter;
 
       if (this.page > perPage) {
-        ioFirst.observe(firstRenderedThumbnail);
+        ioFirst.observe(thumbnailSkeletonBefore);
       }
-      ioLast.observe(lastRenderedThumbnail);
+      ioLast.observe(thumbnailSkeletonAfter);
 
       // TODO: pause observing on resize
       window.addEventListener('resize', this.handleWindowResize);
@@ -159,7 +170,8 @@
 
       updateThumbnailScroll(behavior = 'smooth') {
         this.scrollElementToCentre(
-          this.$refs.mediaThumbnailsList.children?.[this.selectedIndex],
+          // + 1 to account for the skeleton li
+          this.$refs.mediaThumbnailsList.children?.[this.firstRenderedResourceIndex > 0 ? this.selectedIndex + 1 : 0],
           {
             behavior,
             container: this.$refs.mediaThumbnailsContainer
@@ -184,6 +196,23 @@
     background-color: $white;
     overflow-x: auto;
     scrollbar-width: thin;
+
+    .thumbnail-skeleton-before {
+      width: calc(var(--itemsbefore) * 30px);
+
+      @media (min-width: $bp-large) {
+        width: auto;
+        height: calc(var(--itemsbefore) * 80px);
+      }
+    }
+
+    .thumbnail-skeleton-after {
+      width: calc(var(--itemsafter) * 30px);
+
+      @media (min-width: $bp-large) {
+        height: calc(var(--itemsafter) * 80px);
+      }
+    }
 
     li {
       list-style-type: none;
