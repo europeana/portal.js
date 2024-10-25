@@ -182,10 +182,8 @@
         hasAnnotations,
         hasSearchService,
         page,
-        pageForAnnotationTarget,
         resource,
         resourceCount,
-        selectAnnotation,
         setPage,
         setPresentationFromWebResources
       } = useItemMediaPresentation();
@@ -196,10 +194,8 @@
         hasAnnotations,
         hasSearchService,
         page,
-        pageForAnnotationTarget,
         resource,
         resourceCount,
-        selectAnnotation,
         setPage,
         setPresentationFromWebResources
       };
@@ -215,7 +211,6 @@
 
     async fetch() {
       this.setPage(this.$route.query.page);
-      // this.selectAnnotation(this.$route.query.anno);
 
       if (this.uri) {
         await this.fetchPresentation(this.uri);
