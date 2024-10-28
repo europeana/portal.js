@@ -218,9 +218,10 @@
           return;
         }
         const skeletonWidth = skeletonResources.reduce((accumulatedWidth, resource) => {
+          const cssHeight = window.innerWidth < 768 ? 58 : 124; // CSS height bp-small 3.625rem, bp-medium 7.75rem
           let imageWidth;
           if (resource.ebucoreHeight && resource.ebucoreWidth) {
-            imageWidth = (resource.ebucoreWidth / resource.ebucoreHeight) * 58; // CSS height 3.625rem
+            imageWidth = (resource.ebucoreWidth / resource.ebucoreHeight) * cssHeight;
           } else {
             imageWidth = 48; // CSS min-width 3rem
           }
