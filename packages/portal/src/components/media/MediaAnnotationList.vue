@@ -10,34 +10,42 @@
         </b-col>
       </b-row>
     </b-container>
-    <!-- TODO: consider what the best markup is for these annotations, for UX and a11y -->
-    <b-list-group
+    <ol
       v-else
-      class="iiif-annotation-list"
+      class="iiif-annotation-list list-group"
     >
-      <b-list-group-item
+      <li
         v-for="(anno, index) in annotationList"
         :key="index"
         ref="annotationListItems"
-        :action="true"
-        :active="anno.id === activeAnnotation?.id"
         :lang="anno.body.language"
-        @click="handleClickListItem(anno)"
       >
-        <template
-          v-if="searching"
+        <!--
+          use replace, not push, so that the back button will leave the page,
+          and e.g. go back to search results instead of through myriad
+          previously selected annotations
+        -->
+        <NuxtLink
+          :to="annotationLinkRoute(anno)"
+          :replace="true"
+          class="list-group-item list-group-item-action"
+          :class="{ active: anno.id === activeAnnotation?.id }"
         >
-          {{ annotationSearchHitSelectorFor(anno.id).prefix }}<!--
-          --><strong class="has-text-highlight">{{ annotationSearchHitSelectorFor(anno.id).exact }}</strong><!--
-          -->{{ annotationSearchHitSelectorFor(anno.id).suffix }}
-        </template>
-        <template
-          v-else
-        >
-          {{ anno.body.value }}
-        </template>
-      </b-list-group-item>
-    </b-list-group>
+          <template
+            v-if="searching"
+          >
+            {{ annotationSearchHitSelectorFor(anno.id).prefix }}<!--
+            --><strong class="has-text-highlight">{{ annotationSearchHitSelectorFor(anno.id).exact }}</strong><!--
+            -->{{ annotationSearchHitSelectorFor(anno.id).suffix }}
+          </template>
+          <template
+            v-else
+          >
+            {{ anno.body.value }}
+          </template>
+        </NuxtLink>
+      </li>
+    </ol>
   </div>
 </template>
 
@@ -103,10 +111,7 @@
 
       await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
 
-      if (this.$route.query.anno) {
-        this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
-        process.client && this.scrollActiveAnnotationToCentre('instant');
-      }
+      this.setActiveAnnotationFromRouteQuery();
     },
 
     computed: {
@@ -133,15 +138,25 @@
       '$route.hash'() {
         this.scrollActiveAnnotationToCentre();
       },
+      '$route.query.anno'() {
+        this.setActiveAnnotationFromRouteQuery();
+      },
       query() {
         this.searching && this.$fetch();
       }
     },
 
     methods: {
-      handleClickListItem(anno) {
-        this.setActiveAnnotation(anno);
-        this.updateAnnoRoute();
+      // TODO: md5 the anno param to prevent the url getting too long?
+      annotationLinkRoute(anno) {
+        return {
+          ...this.$route,
+          query: {
+            ...this.$route.query,
+            anno: anno.id,
+            page: this.pageForAnnotationTarget(anno.target)
+          }
+        };
       },
 
       async scrollActiveAnnotationToCentre(behavior = 'smooth') {
@@ -161,33 +176,20 @@
         }
       },
 
-      updateAnnoRoute() {
-        let page = null;
-        let anno = null;
-        if (this.activeAnnotation) {
-          // store the annotation id in the route, to pre-highlight it on page reload
-          // TODO: md5 this to prevent the url getting too long?
-          anno = this.activeAnnotation.id;
-          page = this.pageForAnnotationTarget(this.activeAnnotation.target);
+      setActiveAnnotationFromRouteQuery() {
+        if (this.$route.query.anno) {
+          this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
+          process.client && this.scrollActiveAnnotationToCentre('instant');
         }
-
-        // use replace, not push, so that the back button will leave the page,
-        // and e.g. go back to search results instead of through myriad
-        // previously selected annotations
-        this.$router.replace({ ...this.$route, query: { ...this.$route.query, anno, page } });
       }
     }
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
 
   .iiif-annotation-list {
     background-color: $white;
-
-    .list-group-item-action {
-      cursor: pointer;
-    }
   }
 </style>
