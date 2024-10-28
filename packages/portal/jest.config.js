@@ -24,7 +24,7 @@ export default {
     '<rootDir>/tmp/'
   ],
   transformIgnorePatterns: [
-    '/node_modules/(?!decamelize|swiper|ol|color-space|color-parse|color-rgba|color-name|rbush|quickselect)'
+    '/node_modules/(?!decamelize|swiper|ol|color-space|color-parse|color-rgba|color-name|rbush|quickselect|vue2-helpers)'
   ],
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
