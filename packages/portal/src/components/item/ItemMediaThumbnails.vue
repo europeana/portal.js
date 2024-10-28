@@ -12,7 +12,7 @@
         class="d-flex flex-row flex-lg-column pl-0"
       >
         <li
-          v-if="firstRenderedResourceIndex > 0"
+          v-if="skeletonBefore"
           ref="thumbnailSkeletonBefore"
           class="thumbnail-skeleton-before"
           :style="{
@@ -39,7 +39,7 @@
           />
         </li>
         <li
-          v-if="lastRenderedResourceIndex + 1 !== resources.length"
+          v-if="skeletonAfter"
           ref="thumbnailSkeletonAfter"
           class="thumbnail-skeleton-after"
           :style="{
@@ -81,8 +81,9 @@
 
     data() {
       return {
-        resourcesToRender: this.page < perPage ? this.resources.slice(0, perPage * 2) :
-          this.resources.slice(Math.max(this.page - perPage - 1, 0), Math.min(this.page + perPage, this.resources.length - 1))
+        resourcesToRender: this.page <= perPage ? this.resources.slice(0, perPage * 2) :
+          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length - 1)),
+        skeletonObserver: null
       };
     },
 
@@ -97,6 +98,14 @@
 
       selectedIndex() {
         return this.page - this.firstRenderedResourceIndex - 1;
+      },
+
+      skeletonBefore() {
+        return this.page > perPage;
+      },
+
+      skeletonAfter() {
+        return this.lastRenderedResourceIndex < this.resources.length - 1;
       }
     },
 
@@ -115,52 +124,10 @@
         });
       }
 
-      // TODO: can we have just one observer? Move out of mounted?
-      const ioFirst = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(async(entry) => {
-            if (entry.isIntersecting) {
-              this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
-
-              await this.$nextTick();
-
-              // prepending items causes a jump in the scroll container. This sets it back.
-              if (this.firstRenderedResourceIndex > 0) {
-                this.$refs.mediaThumbnailsContainer.scroll({
-                  top: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetTop,
-                  left: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetLeft - 16, // acount for margin
-                  behavior: 'instant'
-                });
-              }
-            }
-          });
-        },
-        { root: this.$refs.mediaThumbnailsContainer });
-
-      const ioLast = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(async(entry) => {
-            if (entry.isIntersecting) {
-              this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
-              await this.$nextTick();
-
-              // refresh observing the list item to see if after appending still intersecting (This can happen when scrolling fast and far)
-              ioLast.unobserve(entry.target);
-              ioLast.observe(entry.target);
-            }
-          });
-        },
-        { root: this.$refs.mediaThumbnailsContainer });
-
-      const thumbnailSkeletonBefore = this.$refs.thumbnailSkeletonBefore;
-      const thumbnailSkeletonAfter = this.$refs.thumbnailSkeletonAfter;
-
-      if (this.page > perPage) {
-        ioFirst.observe(thumbnailSkeletonBefore);
+      if (this.skeletonBefore || this.skeletonAfter) {
+        this.observeSkeleton();
       }
-      ioLast.observe(thumbnailSkeletonAfter);
 
-      // TODO: pause observing on resize
       window.addEventListener('resize', this.handleWindowResize);
     },
 
@@ -169,7 +136,7 @@
     },
 
     methods: {
-      handleWindowResize() {
+      async handleWindowResize() {
         this.updateThumbnailScroll();
       },
 
@@ -182,6 +149,50 @@
             container: this.$refs.mediaThumbnailsContainer
           }
         );
+      },
+
+      observeSkeleton() {
+        this.skeletonObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(async(entry) => {
+              if (entry.isIntersecting) {
+                if (entry.target === thumbnailSkeletonBefore) {
+                  this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
+
+                  await this.$nextTick();
+
+                  // prepending items causes a jump in the scroll container. This sets it back.
+                  if (this.firstRenderedResourceIndex > 0) {
+                    this.$refs.mediaThumbnailsContainer.scroll({
+                      top: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetTop,
+                      left: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetLeft - 16, // acount for margin
+                      behavior: 'instant'
+                    });
+                  }
+                }
+
+                if (entry.target === thumbnailSkeletonAfter) {
+                  this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
+                  await this.$nextTick();
+
+                  // refresh observing the list item to see if after appending still intersecting (This can happen when scrolling fast and far)
+                  this.skeletonObserver.unobserve(entry.target);
+                  this.skeletonObserver.observe(entry.target);
+                }
+              }
+            });
+          },
+          { root: this.$refs.mediaThumbnailsContainer });
+
+        const thumbnailSkeletonBefore = this.$refs.thumbnailSkeletonBefore;
+        const thumbnailSkeletonAfter = this.$refs.thumbnailSkeletonAfter;
+
+        if (thumbnailSkeletonBefore) {
+          this.skeletonObserver.observe(thumbnailSkeletonBefore);
+        }
+        if (thumbnailSkeletonAfter) {
+          this.skeletonObserver.observe(thumbnailSkeletonAfter);
+        }
       },
 
       calculateSkeletonHeight(skeletonResources) {
