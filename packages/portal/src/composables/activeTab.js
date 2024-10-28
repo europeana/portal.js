@@ -7,6 +7,7 @@ export default function useActiveTab(tabHashes) {
   const router = useRouter();
   const route = useRoute();
   const activeTabIndex = ref(-1);
+  const activeTabHistory = ref([]);
 
   const setActiveTabIndexFromRouteHash = () => {
     if (tabHashes.includes(route?.hash)) {
@@ -20,6 +21,7 @@ export default function useActiveTab(tabHashes) {
 
   watch(activeTabIndex, () => {
     if (activeTabIndex.value !== -1) {
+      activeTabHistory.value.push(activeTabHash.value);
       router.push({ ...route, hash: activeTabHash.value });
     }
   });
@@ -36,6 +38,7 @@ export default function useActiveTab(tabHashes) {
 
   return {
     activeTabHash,
+    activeTabHistory,
     activeTabIndex
   };
 }

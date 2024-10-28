@@ -32,6 +32,7 @@ const annotationTextGranularity = computed(() => {
   return annotationCollection.value?.textGranularity;
 });
 
+// TODO: ambiguous name; rename `annotationCollectionUri`
 const annotationUri = computed(() => {
   if (!annotationCollection.value) {
     return null;
@@ -144,12 +145,8 @@ const searchAnnotations = async(query) => {
   annotationSearchHits.value = list.hits || [];
 };
 
-const selectAnnotation = (active) => {
-  if (typeof active === 'string') {
-    activeAnnotation.value = annotations.value?.find((anno) => anno.id === active) || null;
-  } else {
-    activeAnnotation.value = active;
-  }
+const setActiveAnnotation = (active) => {
+  activeAnnotation.value = active;
 };
 
 const setPage = (value) => {
@@ -181,7 +178,7 @@ export default function useItemMediaPresentation() {
     presentation,
     searchAnnotations,
     searchServiceUri,
-    selectAnnotation,
+    setActiveAnnotation,
     setPage,
     setPresentationFromWebResources
   };

@@ -13,7 +13,7 @@ const annotations = [
 ];
 const fetchCanvasAnnotationsSpy = sinon.spy();
 const searchAnnotationsSpy = sinon.spy();
-const selectAnnotationSpy = sinon.spy();
+const setActiveAnnotationSpy = sinon.spy();
 const routerReplaceSpy = sinon.spy();
 
 const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnotationList, {
@@ -23,6 +23,9 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     };
   },
   propsData,
+  provide: {
+    annotationScrollToContainerSelector: '#list-container'
+  },
   mocks: {
     $fetchState: {},
     $route: {
@@ -42,7 +45,7 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
     annotations,
     fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
     searchAnnotations: searchAnnotationsSpy,
-    selectAnnotation: selectAnnotationSpy,
+    setActiveAnnotation: setActiveAnnotationSpy,
     ...stubs
   });
 };
@@ -71,14 +74,14 @@ describe('components/media/MediaAnnotationList', () => {
     });
 
     describe('when annotation is clicked', () => {
-      it('calls selectAnnotation on itemMediaPresentation composable', async() => {
+      it('calls setActiveAnnotation on itemMediaPresentation composable', async() => {
         stubItemMediaPresentationComposable();
         const wrapper = factory();
 
         const listItem = wrapper.find('b-list-group-item-stub');
         await listItem.vm.$emit('click');
 
-        expect(selectAnnotationSpy.calledWith(annotations[0])).toBe(true);
+        expect(setActiveAnnotationSpy.calledWith(annotations[0])).toBe(true);
       });
 
       it('replaces route', async() => {
@@ -121,14 +124,14 @@ describe('components/media/MediaAnnotationList', () => {
     });
 
     describe('when there is an annotation in the route query', () => {
-      it('calls selectAnnotation on itemMediaPresentation composable', async() => {
+      it('calls setActiveAnnotation on itemMediaPresentation composable', async() => {
         stubItemMediaPresentationComposable();
         const $route = { query: { anno: 'anno1' } };
         const wrapper = factory({ mocks: { $route } });
 
         await wrapper.vm.fetch();
 
-        expect(selectAnnotationSpy.calledWith('anno1')).toBe(true);
+        expect(setActiveAnnotationSpy.calledWith(annotations[0])).toBe(true);
       });
     });
   });

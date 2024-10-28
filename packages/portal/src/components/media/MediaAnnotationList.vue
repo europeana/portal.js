@@ -18,6 +18,7 @@
       <b-list-group-item
         v-for="(anno, index) in annotationList"
         :key="index"
+        ref="annotationListItems"
         :action="true"
         :active="anno.id === activeAnnotation?.id"
         :lang="anno.body.language"
@@ -42,6 +43,7 @@
 
 <script>
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import useScrollTo from '@/composables/scrollTo.js';
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -51,7 +53,14 @@
       LoadingSpinner
     },
 
+    inject: ['annotationScrollToContainerSelector'],
+
     props: {
+      active: {
+        type: Boolean,
+        default: true
+      },
+
       query: {
         type: String,
         default: null
@@ -60,41 +69,43 @@
 
     setup() {
       const {
+        activeAnnotation,
         annotations,
         annotationSearchHitSelectorFor,
         annotationSearchResults,
-        activeAnnotation,
         annotationUri,
         fetchCanvasAnnotations,
         pageForAnnotationTarget,
         searchAnnotations,
-        selectAnnotation
+        setActiveAnnotation
       } = useItemMediaPresentation();
+      const { scrollElementToCentre } = useScrollTo();
 
       return {
+        activeAnnotation,
         annotations,
         annotationSearchHitSelectorFor,
         annotationSearchResults,
         annotationUri,
-        activeAnnotation,
         fetchCanvasAnnotations,
         pageForAnnotationTarget,
+        scrollElementToCentre,
         searchAnnotations,
-        selectAnnotation
+        setActiveAnnotation
       };
     },
 
     // TODO: filter by motivation(s)
-    // TODO: prevent re-fetching if the page/query/whatever hasn't changed but
-    //       the component has been hidden/shown/whatever in the meantime,
-    //       i.e. in the itemMediaPresentation composable
     async fetch() {
+      if (!this.active) {
+        return;
+      }
+
       await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
 
       if (this.$route.query.anno) {
-        this.selectAnnotation(this.$route.query.anno);
-        // TODO: it would be nice to scroll to the active annotation, but that is
-        //       made awkward by the scrollbar being on the ancestor sidebar component...
+        this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
+        process.client && this.scrollActiveAnnotationToCentre('instant');
       }
     },
 
@@ -109,9 +120,18 @@
     },
 
     watch: {
+      activeAnnotation: {
+        deep: true,
+        handler() {
+          this.scrollActiveAnnotationToCentre();
+        }
+      },
       // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
         !this.searching && this.$fetch();
+      },
+      '$route.hash'() {
+        this.scrollActiveAnnotationToCentre();
       },
       query() {
         this.searching && this.$fetch();
@@ -120,8 +140,24 @@
 
     methods: {
       handleClickListItem(anno) {
-        this.selectAnnotation(anno);
+        this.setActiveAnnotation(anno);
         this.updateAnnoRoute();
+      },
+
+      async scrollActiveAnnotationToCentre(behavior = 'smooth') {
+        if (!this.active) {
+          return;
+        }
+        await this.$nextTick();
+        if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
+          this.scrollElementToCentre(
+            this.$refs.annotationListItems[this.annotationList.indexOf(this.activeAnnotation)],
+            {
+              behavior,
+              container: document.querySelector(this.annotationScrollToContainerSelector)
+            }
+          );
+        }
       },
 
       updateAnnoRoute() {
@@ -129,7 +165,7 @@
         let anno = null;
         if (this.activeAnnotation) {
           // store the annotation id in the route, to pre-highlight it on page reload
-          // TODO: md5 this else the url will too long
+          // TODO: md5 this to prevent the url getting too long?
           anno = this.activeAnnotation.id;
           page = this.pageForAnnotationTarget(this.activeAnnotation.target);
         }

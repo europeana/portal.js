@@ -12,7 +12,6 @@
           <ItemMediaSidebar
             v-if="sidebarHasContent"
             v-show="showSidebar"
-            id="item-media-sidebar"
             ref="sidebar"
             tabindex="0"
             :annotation-list="hasAnnotations"
@@ -52,8 +51,8 @@
             <pre
               :style="{ color: 'white' }"
             ><!--
-          -->{{ JSON.stringify(resource, null, 2) }}
-          </pre>
+              -->{{ JSON.stringify(resource, null, 2) }}
+            </pre>
           </code>
         </div>
         <div
@@ -148,6 +147,12 @@
 
     mixins: [hideTooltips],
 
+    provide() {
+      return {
+        annotationScrollToContainerSelector: `#${this.sidebarId}__BV_tab_container_`
+      };
+    },
+
     props: {
       uri: {
         type: String,
@@ -205,6 +210,7 @@
       return {
         showSidebar: !!this.$route.hash,
         showPages: true,
+        sidebarId: 'item-media-sidebar',
         fullscreen: false
       };
     },

@@ -7,9 +7,8 @@
       class="iiif-viewer-sidebar border-bottom"
       data-qa="item media sidebar"
     >
-      <!-- TODO: fetch requests from child components of the tabs run before
-                 the tab is shown; prevent that? -->
       <b-tabs
+        id="item-media-sidebar"
         v-model="activeTabIndex"
         vertical
       >
@@ -17,6 +16,7 @@
           v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
+          lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
           @mouseleave.native="hideTooltips"
         >
@@ -30,11 +30,13 @@
           </template>
           <h2>{{ $t('media.sidebar.annotations') }}</h2>
           <MediaAnnotationList
+            v-if="activeTabHistory.includes('#annotations')"
+            :active="activeTabHash === '#annotations'"
             class="iiif-viewer-sidebar-panel"
           />
         </b-tab>
         <b-tab
-          v-if="!!annotationSearch"
+          v-if="annotationSearch"
           data-qa="item media sidebar search"
           button-id="item-media-sidebar-search"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
@@ -52,6 +54,8 @@
           </template>
           <h2>{{ $t('media.sidebar.search') }}</h2>
           <MediaAnnotationSearch
+            v-if="activeTabHistory.includes('#search')"
+            :active="activeTabHash === '#search'"
             class="iiif-viewer-sidebar-panel"
           />
         </b-tab>
@@ -59,6 +63,7 @@
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
+          lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
           @mouseleave.native="hideTooltips"
         >
@@ -135,8 +140,8 @@
         tabHashes.push('#links');
       }
 
-      const { activeTabIndex } = useActiveTab(tabHashes);
-      return { activeTabIndex };
+      const { activeTabHash, activeTabHistory, activeTabIndex } = useActiveTab(tabHashes);
+      return { activeTabHash, activeTabHistory, activeTabIndex };
     }
   };
 </script>
@@ -146,7 +151,7 @@
   @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-sidebar {
-    width: 230px;
+    width: 300px;
     position: absolute;
     top: 0;
     left: 0;

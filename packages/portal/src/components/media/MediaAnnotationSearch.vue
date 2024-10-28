@@ -15,6 +15,7 @@
     </b-form>
     <MediaAnnotationList
       v-if="annoQuery"
+      :active="active"
       :query="annoQuery"
     />
   </div>
@@ -28,6 +29,13 @@
 
     components: {
       MediaAnnotationList
+    },
+
+    props: {
+      active: {
+        type: Boolean,
+        default: true
+      }
     },
 
     data() {
