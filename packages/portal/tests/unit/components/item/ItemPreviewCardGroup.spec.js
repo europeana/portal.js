@@ -14,7 +14,7 @@ const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = ({ propsData } = {}) => {
+const factory = ({ propsData, mocks } = {}) => {
   return shallowMountNuxt(ItemPreviewCardGroup, {
     localVue,
     propsData,
@@ -26,6 +26,7 @@ const factory = ({ propsData } = {}) => {
       $i18n: {
         locale: 'en'
       },
+      $route: { query: {} },
       $t: () => {},
       $store: {
         state: {
@@ -45,7 +46,8 @@ const factory = ({ propsData } = {}) => {
           edmPreview: () => '',
           generic: (id) => id
         }
-      }
+      },
+      ...mocks
     }
   });
 };
@@ -144,6 +146,19 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
           expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
         });
+      });
+    });
+
+    describe('routeQuery', () => {
+      it('includes adv search fulltext terms from route', () => {
+        const query = 'hamburger';
+        const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
+        const mocks = { $route: { query: { qa, query } } };
+        const wrapper = factory({ propsData: { items: results }, mocks });
+
+        const routeQuery = wrapper.vm.routeQuery;
+
+        expect(routeQuery).toEqual({ fulltext: 'theater zeitung' });
       });
     });
   });

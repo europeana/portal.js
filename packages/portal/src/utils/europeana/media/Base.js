@@ -67,6 +67,14 @@ export default class EuropeanaMediaBase {
     });
   }
 
+  static getHashParam(hash, key) {
+    if (hash?.startsWith?.('#')) {
+      return new URLSearchParams(hash.slice(1)).get(key);
+    } else {
+      return undefined;
+    }
+  }
+
   constructor(idOrData) {
     if (typeof idOrData === 'string') {
       this.id = idOrData;
@@ -109,11 +117,7 @@ export default class EuropeanaMediaBase {
   }
 
   getHashParam(hash, key) {
-    if (hash?.startsWith?.('#')) {
-      return new URLSearchParams(hash.slice(1)).get(key);
-    } else {
-      return undefined;
-    }
+    return this.constructor.getHashParam(hash, key);
   }
 
   fetch({ params } = {}) {

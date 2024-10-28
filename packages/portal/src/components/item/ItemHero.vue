@@ -7,7 +7,6 @@
     <client-only>
       <ItemMediaPresentation
         :uri="iiifPresentationManifest"
-        :search-query="fulltextSearchQuery"
         :item-id="identifier"
         :provider-url="providerUrl"
         :web-resources="media"
@@ -58,7 +57,7 @@
         </b-col>
       </b-row>
       <ShareSocialModal
-        :media-url="selectedMedia.about"
+        :media-url="selectedMedia?.about"
       >
         <ItemEmbedCode
           :identifier="identifier"
@@ -77,7 +76,6 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
-  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
@@ -95,7 +93,6 @@
     },
 
     mixins: [
-      advancedSearchMixin,
       rightsStatementMixin
     ],
 
@@ -150,36 +147,22 @@
     },
     computed: {
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed && !!this.downloadUrl;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
       },
       downloadUrl() {
-        const url = this.selectedMedia.about;
+        const url = this.selectedMedia?.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
-        if (this.selectedMedia.webResourceEdmRights) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
+        if (this.selectedMedia?.webResourceEdmRights) {
+          return this.selectedMedia?.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;
         }
         return '';
-      },
-      fulltextSearchQuery() {
-        let query = [];
-
-        if (this.$nuxt.context.from) {
-          if (this.$nuxt.context.from.query.qa) {
-            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
-            query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-              .map((rule) => rule.term);
-          }
-        }
-
-        return query.join(' ');
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;

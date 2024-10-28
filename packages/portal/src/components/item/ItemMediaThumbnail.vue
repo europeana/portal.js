@@ -1,6 +1,6 @@
 <template>
-  <SmartLink
-    :destination="link"
+  <NuxtLink
+    :to="link"
     class="item-media-thumbnail text-lowercase text-decoration-none"
   >
     <MediaCardImage
@@ -18,18 +18,16 @@
         :class="mediaTypeIconClass"
       />
     </span>
-  </SmartLink>
+  </NuxtLink>
 </template>
 
 <script>
   import MediaCardImage from '../media/MediaCardImage.vue';
-  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'ItemMediaThumbnail',
 
     components: {
-      SmartLink,
       MediaCardImage
     },
     props: {
