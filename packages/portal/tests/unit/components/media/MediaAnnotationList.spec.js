@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import { shallowMountNuxt } from '../../utils';
 import MediaAnnotationList from '@/components/media/MediaAnnotationList.vue';
 import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
+import * as scrollTo from '@/composables/scrollTo.js';
 
 const localVue = createLocalVue();
 
@@ -124,14 +125,30 @@ describe('components/media/MediaAnnotationList', () => {
     });
 
     describe('when there is an annotation in the route query', () => {
+      const $route = { query: { anno: 'anno1' } };
+
       it('calls setActiveAnnotation on itemMediaPresentation composable', async() => {
         stubItemMediaPresentationComposable();
-        const $route = { query: { anno: 'anno1' } };
         const wrapper = factory({ mocks: { $route } });
 
         await wrapper.vm.fetch();
 
         expect(setActiveAnnotationSpy.calledWith(annotations[0])).toBe(true);
+      });
+
+      it('instant-scrolls to the annotation via scrollTo composable', async() => {
+        const scrollElementToCentreSpy = sinon.spy();
+        sinon.stub(scrollTo, 'default').returns({
+          scrollElementToCentre: scrollElementToCentreSpy
+        });
+        stubItemMediaPresentationComposable({ activeAnnotation: annotations[0] });
+        process.client = true;
+        const wrapper = factory({ mocks: { $route }, propsData: { active: true } });
+
+        wrapper.vm.fetch();
+        await new Promise(process.nextTick);
+
+        expect(scrollElementToCentreSpy.calledWith(sinon.match.any, sinon.match.has('behavior', 'instant'))).toBe(true);
       });
     });
   });

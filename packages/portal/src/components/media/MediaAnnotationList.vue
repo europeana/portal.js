@@ -149,6 +149,7 @@
           return;
         }
         await this.$nextTick();
+
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
           this.scrollElementToCentre(
             this.$refs.annotationListItems[this.annotationList.indexOf(this.activeAnnotation)],
