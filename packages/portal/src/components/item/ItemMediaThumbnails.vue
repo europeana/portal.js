@@ -15,7 +15,10 @@
           v-if="firstRenderedResourceIndex > 0"
           ref="thumbnailSkeletonBefore"
           class="thumbnail-skeleton-before"
-          :style="{ '--itemsbefore': firstRenderedResourceIndex + 1 }"
+          :style="{
+            '--skeletonheightbefore': calculateSkeletonHeight(resources.slice(0, firstRenderedResourceIndex)),
+            '--skeletonwidthbefore': calculateSkeletonWidth(resources.slice(0, firstRenderedResourceIndex))
+          }"
         />
 
         <!-- The ref array does not guarantee the same order as the source array. This causes issues when prepending resources.
@@ -40,7 +43,10 @@
           v-if="lastRenderedResourceIndex + 1 !== resources.length"
           ref="thumbnailSkeletonAfter"
           class="thumbnail-skeleton-after"
-          :style="{ '--itemsafter': (resources.length - (lastRenderedResourceIndex + 1 ))}"
+          :style="{
+            '--skeletonheightafter': calculateSkeletonHeight(resources.slice(lastRenderedResourceIndex, resources.length - 1)),
+            '--skeletonwidthafter': calculateSkeletonWidth(resources.slice(lastRenderedResourceIndex, resources.length - 1))
+          }"
         />
       </ol>
     </div>
@@ -177,6 +183,42 @@
             container: this.$refs.mediaThumbnailsContainer
           }
         );
+      },
+
+      calculateSkeletonHeight(skeletonResources) {
+        if (!skeletonResources.length) {
+          return;
+        }
+        const skeletonHeight = skeletonResources.reduce((accumulatedHeight, resource) => {
+          let imageHeight;
+          if (resource.ebucoreHeight && resource.ebucoreWidth) {
+            imageHeight = (resource.ebucoreHeight / resource.ebucoreWidth) * 176; // CSS width 11rem
+          } else {
+            imageHeight = 80; // CSS min-height 5rem
+          }
+          const renderedHeight = imageHeight < 480 ? imageHeight : 480;
+          return accumulatedHeight + renderedHeight + 16; // add 16px margin
+        }, 0);
+
+        return `${skeletonHeight}px`;
+      },
+
+      calculateSkeletonWidth(skeletonResources) {
+        if (!skeletonResources.length) {
+          return;
+        }
+        const skeletonWidth = skeletonResources.reduce((accumulatedWidth, resource) => {
+          let imageWidth;
+          if (resource.ebucoreHeight && resource.ebucoreWidth) {
+            imageWidth = (resource.ebucoreWidth / resource.ebucoreHeight) * 58; // CSS height 3.625rem
+          } else {
+            imageWidth = 48; // CSS min-width 3rem
+          }
+          const renderedWidth = imageWidth < 200 ? imageWidth : 200;
+          return accumulatedWidth + renderedWidth + 16; // add 16px margin
+        }, 0);
+
+        return `${skeletonWidth}px`;
       }
     }
   };
@@ -198,19 +240,20 @@
     scrollbar-width: thin;
 
     .thumbnail-skeleton-before {
-      width: calc(var(--itemsbefore) * 30px);
+      width: var(--skeletonwidthbefore);
 
       @media (min-width: $bp-large) {
         width: auto;
-        height: calc(var(--itemsbefore) * 80px);
+        height: var(--skeletonheightbefore);
       }
     }
 
     .thumbnail-skeleton-after {
-      width: calc(var(--itemsafter) * 30px);
+      width: var(--skeletonwidthafter);
 
       @media (min-width: $bp-large) {
-        height: calc(var(--itemsafter) * 80px);
+        width: auto;
+        height: var(--skeletonheightafter);
       }
     }
 
