@@ -28,7 +28,11 @@
           <template #title>
             <span class="icon icon-annotations" />
           </template>
-          <h2>{{ $t('media.sidebar.annotations') }}</h2>
+          <h2
+            class="px-3"
+          >
+            {{ $t('media.sidebar.annotations') }}
+          </h2>
           <MediaAnnotationList
             v-if="activeTabHistory.includes('#annotations')"
             :active="activeTabHash === '#annotations'"
@@ -52,7 +56,11 @@
               class="icon icon-search-in-text"
             />
           </template>
-          <h2>{{ $t('media.sidebar.search') }}</h2>
+          <h2
+            class="px-3"
+          >
+            {{ $t('media.sidebar.search') }}
+          </h2>
           <MediaAnnotationSearch
             v-if="activeTabHistory.includes('#search')"
             :active="activeTabHash === '#search'"
@@ -168,7 +176,7 @@
     }
 
     ::v-deep .tab-content {
-      padding: 1rem 1.5rem 4rem 0.875rem;
+      padding: 1rem 0 4rem 0;
       overflow: auto;
 
       h2 {

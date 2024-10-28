@@ -2,6 +2,7 @@
   <div>
     <b-form
       id="media-annotation-search-form"
+      class="px-3"
       @submit.prevent="handleSubmitForm"
     >
       <b-form-group>
