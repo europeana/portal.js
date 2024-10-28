@@ -27,8 +27,9 @@
         <li
           v-for="(resource, index) in resourcesToRender"
           :key="resource.about"
+          :aria-setsize="resources.length"
+          :aria-posinset="firstRenderedResourceIndex + index + 1"
         >
-          <!-- TODO: calc offset/page separately -->
           <ItemMediaThumbnail
             :offset="firstRenderedResourceIndex + index"
             class="d-flex-inline mr-3 mr-lg-auto"
@@ -37,8 +38,6 @@
             :edm-type="edmType"
           />
         </li>
-
-        <!-- TODO: calc condition and height separately -->
         <li
           v-if="lastRenderedResourceIndex + 1 !== resources.length"
           ref="thumbnailSkeletonAfter"
