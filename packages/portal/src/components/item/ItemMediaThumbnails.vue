@@ -81,19 +81,19 @@
 
     data() {
       return {
-        resourcesToRender: this.page <= perPage ? this.resources.slice(0, perPage * 2) :
-          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length - 1)),
+        resourcesToRender: !!this.resources && (this.page <= perPage ? this.resources.slice(0, perPage * 2) :
+          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length - 1))),
         skeletonObserver: null
       };
     },
 
     computed: {
       firstRenderedResourceIndex() {
-        return this.resources.findIndex(resource => resource === this.resourcesToRender[0]);
+        return this.resources?.findIndex(resource => resource === this.resourcesToRender[0]);
       },
 
       lastRenderedResourceIndex() {
-        return this.resources.findIndex(resource => resource === this.resourcesToRender[this.resourcesToRender.length - 1]);
+        return this.resources?.findIndex(resource => resource === this.resourcesToRender[this.resourcesToRender.length - 1]);
       },
 
       selectedIndex() {
@@ -105,7 +105,7 @@
       },
 
       skeletonAfter() {
-        return this.lastRenderedResourceIndex < this.resources.length - 1;
+        return this.lastRenderedResourceIndex < this.resources?.length - 1;
       }
     },
 
@@ -152,33 +152,29 @@
       },
 
       observeSkeleton() {
+        // Render all list items when IntersectionObserver not fully supported
+        if (!('IntersectionObserver' in window) ||
+          !('IntersectionObserverEntry' in window) ||
+          !('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
+          this.resourcesToRender = this.resources;
+        }
+
         this.skeletonObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach(async(entry) => {
               if (entry.isIntersecting) {
                 if (entry.target === thumbnailSkeletonBefore) {
                   this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
-
-                  await this.$nextTick();
-
-                  // prepending items causes a jump in the scroll container. This sets it back.
-                  if (this.firstRenderedResourceIndex > 0) {
-                    this.$refs.mediaThumbnailsContainer.scroll({
-                      top: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetTop,
-                      left: this.$refs.mediaThumbnailsList.children[perPage + 1].offsetLeft - 16, // acount for margin
-                      behavior: 'instant'
-                    });
-                  }
                 }
 
                 if (entry.target === thumbnailSkeletonAfter) {
                   this.resourcesToRender = this.resourcesToRender.concat(this.resources.slice(this.lastRenderedResourceIndex + 1, this.lastRenderedResourceIndex + perPage + 1));
-                  await this.$nextTick();
-
-                  // refresh observing the list item to see if after appending still intersecting (This can happen when scrolling fast and far)
-                  this.skeletonObserver.unobserve(entry.target);
-                  this.skeletonObserver.observe(entry.target);
                 }
+
+                await this.$nextTick();
+                // refresh observing the list item to see if after pre/appending still intersecting (This can happen when scrolling fast and far)
+                this.skeletonObserver.unobserve(entry.target);
+                this.skeletonObserver.observe(entry.target);
               }
             });
           },
