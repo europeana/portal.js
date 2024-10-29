@@ -77,8 +77,8 @@
 
     setup() {
       const { page, resources } = useItemMediaPresentation();
-      const { scrollElementToCentre, scrollToElement, scrolling: scrollToScrolling } = useScrollTo();
-      return {  page, resources, scrollElementToCentre, scrollToElement, scrollToScrolling };
+      const { scrollElementToCentre } = useScrollTo();
+      return {  page, resources, scrollElementToCentre };
     },
 
     data() {
@@ -138,7 +138,7 @@
     },
 
     methods: {
-      async handleWindowResize() {
+      handleWindowResize() {
         this.updateThumbnailScroll();
       },
 
