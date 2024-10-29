@@ -90,6 +90,7 @@
           <b-link
             :href="manifestUri"
             target="_blank"
+            class="manifest-link"
           >
             {{ manifestUri }}
           </b-link>
@@ -188,7 +189,7 @@
         margin-bottom: 0.5rem;
       }
 
-      a {
+      .manifest-link {
         overflow-wrap: anywhere;
         color: $blue;
         font-size: $font-size-small;

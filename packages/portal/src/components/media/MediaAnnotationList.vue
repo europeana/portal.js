@@ -19,6 +19,8 @@
         :key="index"
         ref="annotationListItems"
         :lang="anno.body.language"
+        class="list-group-item list-group-item-action"
+        :class="{ active: anno.id === activeAnnotation?.id }"
       >
         <!--
           use replace, not push, so that the back button will leave the page,
@@ -28,8 +30,6 @@
         <NuxtLink
           :to="annotationLinkRoute(anno)"
           :replace="true"
-          class="list-group-item list-group-item-action"
-          :class="{ active: anno.id === activeAnnotation?.id }"
         >
           <template
             v-if="searching"
@@ -191,5 +191,30 @@
 
   .iiif-annotation-list {
     background-color: $white;
+
+    .list-group-item {
+      border-radius: 0;
+      border-color: $middlegrey;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      &.active {
+        background-color: transparent;
+        border-color: $blue;
+      }
+
+      a {
+        color: $mediumgrey;
+        text-decoration: none;
+        font-size: $font-size-small;
+
+        &:hover {
+          color: $blue;
+        }
+      }
+
+    }
   }
 </style>
