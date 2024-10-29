@@ -950,6 +950,7 @@ export default {
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
       "search": "Search",
+      "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
     },
     "pages": {

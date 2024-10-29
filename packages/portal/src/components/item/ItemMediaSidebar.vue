@@ -57,6 +57,7 @@
             />
           </template>
           <h2
+            id="item-media-sidebar-search-title"
             class="px-3"
           >
             {{ $t('media.sidebar.search') }}

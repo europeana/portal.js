@@ -2,15 +2,20 @@
   <div>
     <b-form
       id="media-annotation-search-form"
-      class="px-3"
+      class="search-form position-relative"
+      inline
+      role="search"
       @submit.prevent="handleSubmitForm"
     >
       <b-form-group>
         <b-form-input
           id="media-annotation-search-query"
           v-model="query"
+          :placeholder="$t('media.sidebar.searchPlaceholder')"
           name="query"
-          type="text"
+          type="search"
+          aria-labelledby="item-media-sidebar-search-title"
+          class="form-control"
         />
       </b-form-group>
     </b-form>
@@ -59,3 +64,26 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .search-form {
+    width: auto;
+    margin: 0 0.75rem 1.5rem;
+    padding-left: 2rem;
+
+    &::before {
+      top: 0.75rem;
+      left: 0.75rem;
+    }
+
+    &.form-inline .form-group {
+      flex-shrink: 1;
+    }
+
+    .form-control {
+      padding: 0.75rem;
+    }
+  }
+</style>
