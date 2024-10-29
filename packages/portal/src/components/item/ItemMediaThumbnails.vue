@@ -19,6 +19,7 @@
             '--skeletonheightbefore': calculateSkeletonHeight(resources.slice(0, firstRenderedResourceIndex)),
             '--skeletonwidthbefore': calculateSkeletonWidth(resources.slice(0, firstRenderedResourceIndex))
           }"
+          data-qa="item media thumbnail skeleton before"
         />
 
         <!-- The ref array does not guarantee the same order as the source array. This causes issues when prepending resources.
@@ -46,6 +47,7 @@
             '--skeletonheightafter': calculateSkeletonHeight(resources.slice(lastRenderedResourceIndex, resources.length - 1)),
             '--skeletonwidthafter': calculateSkeletonWidth(resources.slice(lastRenderedResourceIndex, resources.length - 1))
           }"
+          data-qa="item media thumbnail skeleton after"
         />
       </ol>
     </div>
@@ -82,7 +84,7 @@
     data() {
       return {
         resourcesToRender: !!this.resources && (this.page <= perPage ? this.resources.slice(0, perPage * 2) :
-          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length - 1))),
+          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length))),
         skeletonObserver: null
       };
     },
@@ -143,7 +145,7 @@
       updateThumbnailScroll(behavior = 'smooth') {
         this.scrollElementToCentre(
           // + 1 to account for the skeleton li
-          this.$refs.mediaThumbnailsList.children?.[this.firstRenderedResourceIndex > 0 ? this.selectedIndex + 1 : 0],
+          this.$refs.mediaThumbnailsList.children?.[this.skeletonBefore ? this.selectedIndex + 1 : this.selectedIndex],
           {
             behavior,
             container: this.$refs.mediaThumbnailsContainer
@@ -154,15 +156,16 @@
       observeSkeleton() {
         // Render all list items when IntersectionObserver not fully supported
         if (!('IntersectionObserver' in window) ||
-          !('IntersectionObserverEntry' in window) ||
-          !('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
+          !('IntersectionObserverEntry' in window)) {
           this.resourcesToRender = this.resources;
+          return;
         }
 
         this.skeletonObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach(async(entry) => {
-              if (entry.isIntersecting) {
+              // intersectionRatio is supported by older browsers, isIntersecting is not always
+              if (entry.isIntersecting || entry.intersectionRatio > 0) {
                 if (entry.target === thumbnailSkeletonBefore) {
                   this.resourcesToRender = this.resources.slice(Math.max(this.firstRenderedResourceIndex - perPage, 0), this.firstRenderedResourceIndex).concat(this.resourcesToRender);
                 }
@@ -192,9 +195,6 @@
       },
 
       calculateSkeletonHeight(skeletonResources) {
-        if (!skeletonResources.length) {
-          return;
-        }
         const skeletonHeight = skeletonResources.reduce((accumulatedHeight, resource) => {
           let imageHeight;
           if (resource.ebucoreHeight && resource.ebucoreWidth) {
@@ -206,13 +206,10 @@
           return accumulatedHeight + renderedHeight + 16; // add 16px margin
         }, 0);
 
-        return `${skeletonHeight}px`;
+        return `${Math.round(skeletonHeight)}px`;
       },
 
       calculateSkeletonWidth(skeletonResources) {
-        if (!skeletonResources.length) {
-          return;
-        }
         const skeletonWidth = skeletonResources.reduce((accumulatedWidth, resource) => {
           const cssHeight = window.innerWidth < 768 ? 58 : 124; // CSS height bp-small 3.625rem, bp-medium 7.75rem
           let imageWidth;
@@ -225,7 +222,7 @@
           return accumulatedWidth + renderedWidth + 16; // add 16px margin
         }, 0);
 
-        return `${skeletonWidth}px`;
+        return `${Math.round(skeletonWidth)}px`;
       }
     }
   };
