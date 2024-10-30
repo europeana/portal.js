@@ -70,7 +70,7 @@ describe('components/media/MediaAnnotationList', () => {
       stubItemMediaPresentationComposable({ activeAnnotation: { id: 'anno2' } });
       const wrapper = factory();
 
-      const listItems = wrapper.findAll('NuxtLink-stub');
+      const listItems = wrapper.findAll('[data-qa="annotation list item"');
 
       expect(listItems.at(1).classes('active')).toBe(true);
     });

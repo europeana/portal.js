@@ -15,6 +15,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMount(MediaAnnotatio
   },
   propsData,
   mocks: {
+    $t: key => key,
     $route: {
       query: { fulltext }
     },
