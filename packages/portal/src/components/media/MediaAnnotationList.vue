@@ -195,7 +195,12 @@
 
     .list-group-item {
       border-radius: 0;
-      border-color: $middlegrey;
+      border: none;
+      border-top: 1px solid $middlegrey;
+
+      &:last-child {
+        border-bottom: 1px solid $middlegrey;
+      }
 
       &:hover {
         background-color: transparent;
