@@ -403,7 +403,6 @@
           this.media = item.providerAggregation.displayableWebResources;
         }
 
-        this.headLinkPreconnect = [];
         if (this.iiifPresentationManifest) {
           this.headLinkPreconnect.push((new URL(this.iiifPresentationManifest)).origin);
         }
