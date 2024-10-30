@@ -403,11 +403,12 @@
           this.media = item.providerAggregation.displayableWebResources;
         }
 
-        if (this.iiifPresentationManifest) {
-          this.headLinkPreconnect.push((new URL(this.iiifPresentationManifest)).origin);
-        }
-        if (item.providerAggregation.displayableWebResources?.[0]?.about) {
-          this.headLinkPreconnect.push((new URL(item.providerAggregation.displayableWebResources[0].about)).origin);
+        for (const preconnect of [this.iiifPresentationManifest, item.providerAggregation.displayableWebResources?.[0]?.about].filter(Boolean)) {
+          try {
+            this.headLinkPreconnect.push((new URL(preconnect)).origin);
+          } catch {
+            // URL parsing error
+          }
         }
 
         this.entities = this.extractEntities(edm);
