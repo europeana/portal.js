@@ -4,7 +4,7 @@
     name="fade"
   >
     <div
-      class="iiif-viewer-sidebar border-bottom"
+      class="iiif-viewer-sidebar"
       data-qa="item media sidebar"
     >
       <b-tabs
