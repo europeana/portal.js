@@ -208,7 +208,7 @@
 
       &.active {
         background-color: transparent;
-        border-color: $blue;
+        border: 1px solid $blue;
       }
 
       a {
