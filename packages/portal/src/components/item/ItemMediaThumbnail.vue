@@ -1,6 +1,6 @@
 <template>
-  <SmartLink
-    :destination="link"
+  <NuxtLink
+    :to="link"
     class="item-media-thumbnail text-lowercase text-decoration-none"
   >
     <MediaCardImage
@@ -18,20 +18,19 @@
         :class="mediaTypeIconClass"
       />
     </span>
-  </SmartLink>
+  </NuxtLink>
 </template>
 
 <script>
   import MediaCardImage from '../media/MediaCardImage.vue';
-  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'ItemMediaThumbnail',
 
     components: {
-      SmartLink,
       MediaCardImage
     },
+
     props: {
       resource: {
         type: Object,
@@ -51,24 +50,28 @@
       }
     },
 
-    computed: {
-      link() {
-        return {
-          path: this.$route.path,
-          query: { ...this.$route.query, page: this.page },
-          hash: this.$route.hash
-        };
-      },
-      page() {
-        return this.offset + 1;
-      },
-      mediaTypeIconClass() {
-        const mediaType = this.resource.edmType || this.edmType;
-        return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
-      },
-      label() {
-        return this.$n(this.page);
-      }
+    data() {
+      return {
+        label: null,
+        link: null,
+        mediaTypeIconClass: null,
+        page: null
+      };
+    },
+
+    created() {
+      this.page = this.offset + 1;
+
+      this.label = this.$n(this.page);
+
+      this.link = Object.freeze({
+        path: this.$route.path,
+        query: { ...this.$route.query, page: this.page },
+        hash: this.$route.hash
+      });
+
+      const mediaType = this.resource.edmType || this.edmType;
+      this.mediaTypeIconClass = mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
     }
   };
 </script>

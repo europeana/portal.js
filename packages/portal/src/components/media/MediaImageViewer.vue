@@ -151,6 +151,10 @@
         //        others' correct modelling
         const target = annotation.targetFor(this.url)[0];
         const targetId = target?.id || target;
+        if (!targetId) {
+          return;
+        }
+
         const targetHash = new URL(targetId).hash;
         const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
         if (xywhSelector) {
