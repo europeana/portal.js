@@ -134,14 +134,14 @@ describe('components/item/ItemMediaThumbnail', () => {
           const wrapper = factory();
 
           expect(wrapper.vm.skeletonObserver).toBeInstanceOf(IntersectionObserver);
-          expect(wrapper.vm.resourcesToRender.length).toBe(20);
+          expect(wrapper.vm.resourcesToRender.length).toBe(5);
 
           // Simulate the intersection
           const entries = [{ intersectionRatio: 0.5,
             target: wrapper.vm.$refs.thumbnailSkeletonAfter }];
           wrapper.vm.skeletonObserver.callback(entries);
 
-          expect(wrapper.vm.resourcesToRender.length).toBe(30);
+          expect(wrapper.vm.resourcesToRender.length).toBe(10);
         });
       });
     });
@@ -177,13 +177,13 @@ describe('components/item/ItemMediaThumbnail', () => {
           const wrapper = factory();
 
           expect(wrapper.vm.skeletonObserver).toBeInstanceOf(IntersectionObserver);
-          expect(wrapper.vm.resourcesToRender.length).toBe(20);
+          expect(wrapper.vm.resourcesToRender.length).toBe(10);
 
           // Simulate the intersection
           const entries = [{ isIntersecting: true, target: wrapper.vm.$refs.thumbnailSkeletonBefore }];
           wrapper.vm.skeletonObserver.callback(entries);
 
-          expect(wrapper.vm.resourcesToRender.length).toBe(30);
+          expect(wrapper.vm.resourcesToRender.length).toBe(15);
         });
       });
     });

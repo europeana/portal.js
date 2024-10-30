@@ -37,6 +37,7 @@
             :class="{ 'selected': index === selectedIndex }"
             :resource="resource"
             :edm-type="edmType"
+            :lazy="true"
           />
         </li>
         <li
@@ -59,7 +60,7 @@
   import useScrollTo from '@/composables/scrollTo.js';
   import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
 
-  const perPage = 10;
+  const perPage = 5;
 
   export default {
     name: 'ItemMediaThumbnails',
@@ -83,7 +84,7 @@
 
     data() {
       return {
-        resourcesToRender: !!this.resources && (this.page <= perPage ? this.resources.slice(0, perPage * 2) :
+        resourcesToRender: !!this.resources && (this.page <= perPage ? this.resources.slice(0, perPage) :
           this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length))),
         skeletonObserver: null
       };
@@ -181,7 +182,8 @@
               }
             });
           },
-          { root: this.$refs.mediaThumbnailsContainer });
+          { root: this.$refs.mediaThumbnailsContainer }
+        );
 
         const thumbnailSkeletonBefore = this.$refs.thumbnailSkeletonBefore;
         const thumbnailSkeletonAfter = this.$refs.thumbnailSkeletonAfter;
