@@ -19,7 +19,7 @@
           :title="$t('media.sidebar.annotations')"
           boundary=".iiif-viewer-sidebar"
           placement="right"
-          class="ml-0"
+          custom-class="ml-0"
         />
         <b-tab
           v-if="annotationList"
@@ -52,7 +52,7 @@
           :title="$t('media.sidebar.search')"
           boundary=".iiif-viewer-sidebar"
           placement="right"
-          class="ml-0"
+          custom-class="ml-0"
         />
         <b-tab
           v-if="annotationSearch"
@@ -84,7 +84,7 @@
           :title="$t('media.sidebar.links')"
           boundary=".iiif-viewer-sidebar"
           placement="right"
-          class="ml-0"
+          custom-class="ml-0"
         />
         <b-tab
           v-if="!!manifestUri"
