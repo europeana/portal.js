@@ -30,7 +30,6 @@
     components: {
       MediaCardImage
     },
-
     props: {
       resource: {
         type: Object,
@@ -50,28 +49,24 @@
       }
     },
 
-    data() {
-      return {
-        label: null,
-        link: null,
-        mediaTypeIconClass: null,
-        page: null
-      };
-    },
-
-    created() {
-      this.page = this.offset + 1;
-
-      this.label = this.$n(this.page);
-
-      this.link = Object.freeze({
-        path: this.$route.path,
-        query: { ...this.$route.query, page: this.page },
-        hash: this.$route.hash
-      });
-
-      const mediaType = this.resource.edmType || this.edmType;
-      this.mediaTypeIconClass = mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
+    computed: {
+      link() {
+        return {
+          path: this.$route.path,
+          query: { ...this.$route.query, page: this.page },
+          hash: this.$route.hash
+        };
+      },
+      page() {
+        return this.offset + 1;
+      },
+      mediaTypeIconClass() {
+        const mediaType = this.resource.edmType || this.edmType;
+        return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
+      },
+      label() {
+        return this.$n(this.page);
+      }
     }
   };
 </script>
