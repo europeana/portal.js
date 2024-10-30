@@ -13,7 +13,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaT
     $nuxt: {},
     ...mocks
   },
-  stubs: ['NuxtLink'],
+  stubs: ['NuxtLink']
 });
 
 const props = {
