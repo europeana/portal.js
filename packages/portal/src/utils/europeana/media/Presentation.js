@@ -39,7 +39,7 @@ export default class EuropeanaMediaPresentation extends Base {
 
   static extractV2Canvases(manifest) {
     // TODO: limit to images w/ motivation "painting"?
-    return manifest.sequences.map((sequence) => sequence.canvases.map((canvas) => ({
+    return (manifest.sequences || []).map((sequence) => sequence.canvases.map((canvas) => ({
       id: canvas.id,
       annotations: canvas.otherContent,
       resource: EuropeanaMediaPresentation.webResource(canvas.images[0].resource)
@@ -48,7 +48,7 @@ export default class EuropeanaMediaPresentation extends Base {
 
   static extractV3Canvases(manifest) {
     // TODO: limit to "annotations" w/ motivation "painting"?
-    return manifest.items.map((canvas) => ({
+    return (manifest.items || []).map((canvas) => ({
       id: canvas.id,
       annotations: canvas.annotations,
       resource: EuropeanaMediaPresentation.webResource(canvas.items[0].items[0].body)
