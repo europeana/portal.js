@@ -113,6 +113,8 @@
       await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
 
       this.setActiveAnnotationFromRouteQuery();
+
+      this.$emit('fetched', this.annotations.length);
     },
 
     computed: {

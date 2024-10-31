@@ -37,13 +37,15 @@
           </template>
           <h2
             class="px-3"
+            data-qa="item media sidebar annotations title"
           >
-            {{ $tc('media.sidebar.annotationsCount', annotations.length, { count: annotations.length }) }}
+            {{ $tc('media.sidebar.annotationsCount', annotationsCount) }}
           </h2>
           <MediaAnnotationList
             v-if="activeTabHistory.includes('#annotations')"
             :active="activeTabHash === '#annotations'"
             class="iiif-viewer-sidebar-panel"
+            @fetched="handleAnnotationsFetched"
           />
         </b-tab>
         <b-tooltip
@@ -122,7 +124,6 @@
   import { BTab, BTabs } from 'bootstrap-vue';
 
   import useActiveTab from '@/composables/activeTab.js';
-  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
@@ -168,10 +169,20 @@
         tabHashes.push('#links');
       }
 
-      const { annotations } = useItemMediaPresentation();
-
       const { activeTabHash, activeTabHistory, activeTabIndex } = useActiveTab(tabHashes);
-      return { activeTabHash, activeTabHistory, activeTabIndex, annotations };
+      return { activeTabHash, activeTabHistory, activeTabIndex };
+    },
+
+    data() {
+      return {
+        annotationsCount: null
+      };
+    },
+
+    methods: {
+      handleAnnotationsFetched(annotationsLength) {
+        this.annotationsCount = annotationsLength;
+      }
     }
   };
 </script>
