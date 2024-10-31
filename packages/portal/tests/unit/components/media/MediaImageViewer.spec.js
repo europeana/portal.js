@@ -134,7 +134,8 @@ describe('components/media/MediaImageViewer', () => {
         const annotation = {
           target: {
             id: `${url}#xywh=0,0,40,20`
-          }
+          },
+          extent: [0, 0, 40, 20]
         };
 
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {

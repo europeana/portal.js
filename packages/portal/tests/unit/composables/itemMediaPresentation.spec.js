@@ -23,9 +23,9 @@ const listResponseData = {
     body: {
       id: bodyUri
     },
-    target: [{
+    target: {
       id: canvasId
-    }]
+    }
   }]
 };
 const manifestPath = '/presentation/123/abc/manifest';
@@ -123,7 +123,7 @@ describe('useItemMediaPresentation', () => {
             id: 'https://iiif.example.org/fulltext/1',
             value: 'full text'
           },
-          target: [{ id: 'https://iiif.example.org/canvas/1' }]
+          target: { id: 'https://iiif.example.org/canvas/1' }
         }
       ]);
     });

@@ -28,6 +28,7 @@
   import { defaults } from 'ol/interaction/defaults';
 
   import useZoom from '@/composables/zoom.js';
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
@@ -79,8 +80,13 @@
         setMax: setMaxZoom,
         setMin: setMinZoom
       } = useZoom();
+      const {
+        annotationAtCoordinate,
+        hasAnnotations,
+        setActiveAnnotation
+      } = useItemMediaPresentation();
 
-      return { currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return { annotationAtCoordinate, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -144,8 +150,7 @@
           annotation = new EuropeanaMediaAnnotation(annotation);
         }
 
-        // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
-        let [x, y, w, h] = this.olExtent;
+        let [x, y, w, h] = annotation.extent || this.olExtent;
         // FIXME: this.url will always be for the image, not the canvas, which works
         //        with europeana's incorrect annotation modelling, but not with
         //        others' correct modelling
@@ -153,14 +158,6 @@
         const targetId = target?.id || target;
         if (!targetId) {
           return;
-        }
-
-        const targetHash = new URL(targetId).hash;
-        const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
-        if (xywhSelector) {
-          [x, y, w, h] = xywhSelector
-            .split(',')
-            .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
         }
 
         const extent = [x, y, x + w, y + h];
@@ -179,6 +176,12 @@
         // this.olMap.getView().fit(poly);
 
         return new Feature(poly);
+      },
+
+      handleMapClick(coordinate) {
+        const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
+        this.setActiveAnnotation(clickedAnnotation);
+        console.log(clickedAnnotation);
       },
 
       highlightAnnotation() {
@@ -221,6 +224,11 @@
         this.olMap.setView(view);
         this.olMap.getView().fit(extent);
         this.configureZoomLevels();
+        if (this.hasAnnotations) {
+          this.olMap.on('click', (evt) => {
+            this.handleMapClick(evt.coordinate);
+          });
+        }
       },
 
       // renderThumbnail() {
