@@ -179,11 +179,6 @@
     },
 
     methods: {
-      handleClickThumbnail(index) {
-        const page = index + 1;
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
-      },
-
       selectResource() {
         this.$emit('select', this.resource);
       },
