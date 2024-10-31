@@ -8,7 +8,7 @@
       data-qa="item media sidebar"
     >
       <b-tabs
-        id="item-media-sidebar"
+        :id="sidebarId"
         v-model="activeTabIndex"
         vertical
       >
@@ -117,6 +117,12 @@
 
     mixins: [hideTooltips],
 
+    provide() {
+      return {
+        annotationScrollToContainerSelector: `#${this.sidebarId}__BV_tab_container_`
+      };
+    },
+
     props: {
       annotationList: {
         type: Boolean,
@@ -150,6 +156,10 @@
 
       const { activeTabHash, activeTabHistory, activeTabIndex } = useActiveTab(tabHashes);
       return { activeTabHash, activeTabHistory, activeTabIndex };
+    },
+
+    data() {
+      return { sidebarId: 'item-media-sidebar' };
     }
   };
 </script>

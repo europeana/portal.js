@@ -4,6 +4,7 @@
     class="h-100 w-100"
   >
     <MediaImageViewerKeyboardToggle id="media-image-viewer-keyboard-toggle" />
+    <slot />
   </div>
 </template>
 

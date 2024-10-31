@@ -1,6 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import nock from 'nock';
 import sinon from 'sinon';
 
 import { shallowMountNuxt } from '../../utils';
@@ -10,36 +9,18 @@ import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $apis = {
-  record: {
-    mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
-  },
-  thumbnail: {
-    media: (url) => `thumbnail api ${url}`
-  }
-};
-
 const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
   localVue,
-  attachTo: document.body,
-  directives: { 'b-tooltip': () => {} },
   propsData,
   data() {
     return { ...data };
   },
   mocks: {
-    $apis,
     $fetchState: { pending: false },
-    $nuxt: {
-      context: {
-        $apis
-      }
-    },
     $route: { query: {} },
-    $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
+  stubs: ['ItemMediaSidebarWidget', 'ItemMediaPaginationWidget', 'MediaAudioVisualPlayer', 'MediaImageViewer', 'MediaImageViewerControls']
 });
 
 const fetchPresentationStub = sinon.stub();
@@ -63,15 +44,8 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
 };
 
 describe('components/item/ItemMediaPresentation', () => {
-  beforeAll(() => {
-    nock.disableNetConnect();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.restore();
-  });
-  afterAll(() => {
-    nock.enableNetConnect();
   });
 
   describe('template', () => {
@@ -84,15 +58,15 @@ describe('components/item/ItemMediaPresentation', () => {
       expect(viewerWrapper.isVisible()).toBe(true);
     });
 
-    describe('sidebar toggle button', () => {
+    describe('sidebar widget', () => {
       describe('when there is a manifest uri', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
 
-          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+          const sidebarWidget = wrapper.find('itemmediasidebarwidget-stub');
 
-          expect(sidebarToggle.isVisible()).toBe(true);
+          expect(sidebarWidget.isVisible()).toBe(true);
         });
       });
 
@@ -101,32 +75,9 @@ describe('components/item/ItemMediaPresentation', () => {
           stubItemMediaPresentationComposable({ hasAnnotations: true });
           const wrapper = factory();
 
-          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+          const sidebarWidget = wrapper.find('itemmediasidebarwidget-stub');
 
-          expect(sidebarToggle.isVisible()).toBe(true);
-        });
-      });
-
-      describe('on click', () => {
-        it('opens the sidebar', () => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
-
-          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
-
-          expect(wrapper.vm.showSidebar).toBe(true);
-        });
-
-        it('sets focus to the sidebar', async() => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
-          wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
-
-          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
-
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.$refs.sidebar.$el.focus.called).toBe(true);
+          expect(sidebarWidget.isVisible()).toBe(true);
         });
       });
     });
@@ -155,41 +106,15 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    describe('pages toggle button', () => {
+    describe('pagination widget', () => {
       describe('when there are two or more pages', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory();
 
-          const pagesToggle = wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]');
+          const pagesToggle = wrapper.find('itemmediapaginationwidget-stub');
 
           expect(pagesToggle.isVisible()).toBe(true);
-        });
-      });
-
-      describe('on click', () => {
-        it('closes and opens the item media thumbnails sidebar', () => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory();
-
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-          expect(wrapper.vm.showPages).toBe(false);
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-          expect(wrapper.vm.showPages).toBe(true);
-        });
-
-        it('sets focus to the item media thumbnails sidebar', async() => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory();
-
-          wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
-          wrapper.vm.showPages = false;
-
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
         });
       });
     });
