@@ -403,7 +403,11 @@
           this.media = item.providerAggregation.displayableWebResources;
         }
 
-        for (const preconnect of [this.iiifPresentationManifest, item.providerAggregation.displayableWebResources?.[0]?.about].filter(Boolean)) {
+        const preconnects = [
+          this.iiifPresentationManifest,
+          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+        ].filter(Boolean);
+        for (const preconnect of preconnects) {
           try {
             this.headLinkPreconnect.push((new URL(preconnect)).origin);
           } catch {
