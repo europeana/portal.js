@@ -5,7 +5,21 @@
       ref="viewerWrapper"
       class="iiif-viewer-wrapper overflow-hidden"
     >
-      <template v-if="!$fetchState.pending">
+      <IIIFErrorMessage
+        v-if="$fetchState.error"
+        :provider-url="providerUrl"
+      />
+      <b-container
+        v-else-if="$fetchState.pending"
+        data-qa="loading spinner container"
+      >
+        <b-row class="flex-md-row py-4 text-center">
+          <b-col cols="12">
+            <LoadingSpinner :style="{ background: 'white' }"/>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template v-else>
         <div
           class="iiif-viewer-inner-wrapper w-100 overflow-auto"
         >
@@ -28,6 +42,7 @@
             :format="resource.ebucoreHasMimeType"
             :service="resource.svcsHasService"
             :annotation="activeAnnotation"
+            @error="handleMediaRendererError"
           />
           <MediaPDFViewer
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
@@ -128,16 +143,19 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
+      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
+      LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
@@ -258,6 +276,14 @@
       handleClickThumbnail(index) {
         const page = index + 1;
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
+      },
+
+      handleMediaRendererError(error) {
+        if (error.isAxiosError) {
+          this.$fetchState.error = error;
+        } else {
+          // else what?
+        }
       },
 
       selectResource() {

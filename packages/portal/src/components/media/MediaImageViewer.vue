@@ -97,16 +97,23 @@
     },
 
     async fetch() {
-      if (this.service?.id) {
-        const infoUri = `${this.service.id}/info.json`;
-        const infoResponse = await axios.get(infoUri);
-        this.info = infoResponse.data;
-        this.source = 'IIIF';
-        // this.fullsize = true;
-      }
+      try {
+        if (this.service?.id) {
+          const infoUri = `${this.service.id}/info.json`;
+          // TODO: move to utils/europeana/media or composables/itemMediaPresentation,
+          //       with a 10s timeout
+          const infoResponse = await axios.get(infoUri);
+          this.info = infoResponse.data;
+          this.source = 'IIIF';
+          // this.fullsize = true;
+        }
 
-      if (process.client) {
-        this.renderImage();
+        if (process.client) {
+          this.renderImage();
+        }
+      } catch (e) {
+        this.$emit('error', e);
+        throw e;
       }
     },
 
