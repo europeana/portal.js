@@ -121,9 +121,7 @@
     }
 
     .divider {
-      width: 1px;
-      height: 1rem;
-      background: $middlegrey;
+      border-color: $mediumgrey-light;
     }
   }
 </style>

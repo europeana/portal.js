@@ -9,7 +9,7 @@
     >
       <ol
         ref="mediaThumbnailsList"
-        class="d-flex flex-row flex-lg-column pl-0"
+        class="d-flex flex-row flex-lg-column pl-0 mb-0"
       >
         <li
           v-if="skeletonBefore"

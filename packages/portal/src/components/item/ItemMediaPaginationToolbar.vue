@@ -1,6 +1,6 @@
 <template>
   <div
-    class="iiif-viewer-toolbar-pagination d-inline-flex"
+    class="iiif-viewer-toolbar-pagination d-inline-flex align-items-center"
     :class="{ closed: !showPages }"
   >
     <PaginationNavInput
@@ -12,6 +12,7 @@
       :progress="true"
       class="pagination ml-auto"
     />
+    <span class="divider" />
     <b-button
       v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
@@ -71,14 +72,6 @@
     background-color: rgba($white, 0.95);
     padding: 0.875rem 1rem;
 
-    @media(max-width: ($bp-large - 1px)) {
-      border-top: 1px solid $bodygrey;
-
-      &.closed {
-        border-bottom: 1px solid $bodygrey;
-      }
-    }
-
     @media (min-width: $bp-large) {
       position: absolute;
       right: 0;
@@ -97,12 +90,18 @@
             color: $white;
           }
         }
+
+        .divider {
+          border-color: $mediumgrey-light;
+        }
       }
     }
   }
 
-  ::v-deep .pagination {
-    ul {
+  .pagination {
+    margin-right: 0.75rem;
+
+    ::v-deep ul {
       margin-bottom: 0;
     }
   }

@@ -66,13 +66,20 @@
             </pre>
           </code>
         </div>
-        <div class="d-flex justify-content-center">
+        <div
+          class="sidebar-toggle-pagination-toolbar"
+          :class="{ closed: !showPages || resourceCount < 2}"
+        >
           <!-- Sidebar toggle for mobile and tablet screens -->
           <ItemMediaSidebarToggle
             v-if="sidebarHasContent"
             :show-sidebar="showSidebar"
             class="d-inline-flex d-lg-none"
             @toggleSidebar="toggleSidebar"
+          />
+          <span
+            v-if="sidebarHasContent && resourceCount >= 2"
+            class="divider"
           />
           <ItemMediaPaginationToolbar
             v-if="resourceCount >= 2"
@@ -263,7 +270,6 @@
 
   .iiif-viewer-wrapper {
     position: relative;
-    background-color: $black;
     @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
@@ -278,6 +284,7 @@
   }
 
   .iiif-viewer-inner-wrapper {
+    background-color: $black;
     @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
@@ -289,18 +296,16 @@
     }
   }
 
-  .iiif-viewer-toolbar {
-    background-color: rgba($white, 0.95);
-    margin-top: -3.25rem;
-    position: relative;
-    z-index: 2;
+  .sidebar-toggle-pagination-toolbar {
+    @media (max-width: ($bp-large - 1px)) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
 
-    @media (min-width: $bp-large) {
-      margin-top: 0;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      &.closed {
+        border-bottom: 1px solid $middlegrey;
+      }
     }
   }
 
@@ -314,6 +319,12 @@
     ::v-deep .iiif-viewer-toolbar-pagination {
       display: none !important;
     }
+  }
+
+  ::v-deep .divider {
+    border: 1px solid $middlegrey;
+    height: 1rem;
+    box-sizing: content-box;
   }
 </style>
 
