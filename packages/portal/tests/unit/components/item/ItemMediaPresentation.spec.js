@@ -20,7 +20,15 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $route: { query: {} },
     ...mocks
   },
-  stubs: ['ItemMediaSidebarWidget', 'ItemMediaPaginationWidget', 'MediaAudioVisualPlayer', 'MediaImageViewer', 'MediaImageViewerControls']
+  stubs: [
+    'ItemMediaPaginationToolbar',
+    'ItemMediaSidebarToggle',
+    'ItemMediaSidebar',
+    'ItemMediaThumbnails',
+    'MediaAudioVisualPlayer',
+    'MediaImageViewer',
+    'MediaImageViewerControls'
+  ]
 });
 
 const fetchPresentationStub = sinon.stub();
@@ -59,15 +67,15 @@ describe('components/item/ItemMediaPresentation', () => {
       expect(viewerWrapper.isVisible()).toBe(true);
     });
 
-    describe('sidebar widget', () => {
+    describe('sidebar toggle', () => {
       describe('when there is a manifest uri', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
 
-          const sidebarWidget = wrapper.find('itemmediasidebarwidget-stub');
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
-          expect(sidebarWidget.isVisible()).toBe(true);
+          expect(sidebarToggle.isVisible()).toBe(true);
         });
       });
 
@@ -76,9 +84,9 @@ describe('components/item/ItemMediaPresentation', () => {
           stubItemMediaPresentationComposable({ hasAnnotations: true });
           const wrapper = factory();
 
-          const sidebarWidget = wrapper.find('itemmediasidebarwidget-stub');
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
-          expect(sidebarWidget.isVisible()).toBe(true);
+          expect(sidebarToggle.isVisible()).toBe(true);
         });
       });
     });
@@ -107,13 +115,13 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    describe('pagination widget', () => {
+    describe('pagination toolbar', () => {
       describe('when there are two or more pages', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory();
 
-          const pagesToggle = wrapper.find('itemmediapaginationwidget-stub');
+          const pagesToggle = wrapper.find('itemmediapaginationtoolbar-stub');
 
           expect(pagesToggle.isVisible()).toBe(true);
         });
@@ -191,6 +199,41 @@ describe('components/item/ItemMediaPresentation', () => {
           expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
           expect(wrapper.vm.fullscreen).toEqual(true);
         });
+      });
+    });
+
+    describe('toggleSidebar', () => {
+      it('toggles the sidebar visibility and focus', async() => {
+        const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+        wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
+
+        expect(wrapper.vm.showSidebar).toBe(false);
+
+        wrapper.vm.toggleSidebar();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.showSidebar).toBe(true);
+        expect(wrapper.vm.$refs.sidebar.$el.focus.called).toBe(true);
+      });
+    });
+
+    describe('togglePages', () => {
+      it('toggles the item media thumbnails sidebar visibility and focus', async() => {
+        stubItemMediaPresentationComposable();
+        const wrapper = factory();
+        wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
+
+        expect(wrapper.vm.showPages).toBe(true);
+
+        wrapper.vm.togglePages();
+
+        expect(wrapper.vm.showPages).toBe(false);
+
+        wrapper.vm.togglePages();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.showPages).toBe(true);
+        expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
       });
     });
   });

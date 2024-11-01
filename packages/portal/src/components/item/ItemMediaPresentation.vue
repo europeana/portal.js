@@ -9,10 +9,22 @@
         <div
           class="iiif-viewer-inner-wrapper w-100 overflow-auto"
         >
-          <ItemMediaSidebarWidget
-            v-if="sidebarHasContent"
-            :uri="uri"
-          />
+          <template v-if="sidebarHasContent">
+            <ItemMediaSidebar
+              v-show="showSidebar"
+              ref="sidebar"
+              tabindex="0"
+              :annotation-list="hasAnnotations"
+              :annotation-search="hasSearchService"
+              :manifest-uri="uri"
+              @keydown.escape.native="showSidebar = false"
+            />
+            <ItemMediaSidebarToggle
+              :show-sidebar="showSidebar"
+              class="d-none d-lg-block"
+              @toggleSidebar="toggleSidebar"
+            />
+          </template>
           <MediaImageViewer
             v-if="imageTypeResource"
             :url="resource.about"
@@ -54,10 +66,30 @@
             </pre>
           </code>
         </div>
-        <ItemMediaPaginationWidget
+        <div class="d-flex justify-content-center">
+          <!-- Sidebar toggle for mobile and tablet screens -->
+          <ItemMediaSidebarToggle
+            v-if="sidebarHasContent"
+            :show-sidebar="showSidebar"
+            class="d-inline-flex d-lg-none"
+            @toggleSidebar="toggleSidebar"
+          />
+          <ItemMediaPaginationToolbar
+            v-if="resourceCount >= 2"
+            :show-pages="showPages"
+            :total-results="resourceCount"
+            @togglePages="togglePages"
+          />
+        </div>
+        <ItemMediaThumbnails
           v-if="resourceCount >= 2"
-          :total-results="resourceCount"
+          v-show="showPages"
+          id="item-media-thumbnails"
+          ref="itemPages"
+          tabindex="0"
           :edm-type="edmType"
+          data-qa="item media thumbnails"
+          @keydown.escape.native="showPages = false"
         />
       </template>
     </div>
@@ -72,8 +104,10 @@
 
     components: {
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
-      ItemMediaPaginationWidget: () => import('./ItemMediaPaginationWidget.vue'),
-      ItemMediaSidebarWidget: () => import('./ItemMediaSidebarWidget.vue'),
+      ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
+      ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
+      ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
+      ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
@@ -135,7 +169,9 @@
 
     data() {
       return {
-        fullscreen: false
+        fullscreen: false,
+        showPages: true,
+        showSidebar: !!this.$route.hash
       };
     },
 
@@ -196,6 +232,26 @@
         }
 
         this.fullscreen = !this.fullscreen;
+      },
+
+      togglePages() {
+        this.showPages = !this.showPages;
+
+        if (this.showPages) {
+          this.$nextTick(() => {
+            this.$refs.itemPages?.$el.focus();
+          });
+        }
+      },
+
+      toggleSidebar() {
+        this.showSidebar = !this.showSidebar;
+
+        if (this.showSidebar) {
+          this.$nextTick(() => {
+            this.$refs.sidebar?.$el.focus();
+          });
+        }
       }
     }
   };
