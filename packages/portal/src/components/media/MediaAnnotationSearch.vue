@@ -80,10 +80,12 @@
 
     &.form-inline .form-group {
       flex-shrink: 1;
+      margin-bottom: 0;
     }
 
     .form-control {
       padding: 0.75rem;
+      border-radius: 0.5rem
     }
   }
 </style>
