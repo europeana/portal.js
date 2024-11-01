@@ -8,7 +8,8 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   attachTo: document.body,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key, count) => `${key} ${count}`
   },
   stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
@@ -50,6 +51,24 @@ describe('components/item/ItemMediaSidebar', () => {
         const linksTab = wrapper.find('[data-qa="item media sidebar links"]');
 
         expect(linksTab.exists()).toBe(true);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('handleAnnotationsFetched', () => {
+      it('sets the annotations count to be displayed in the title', async() => {
+        const wrapper = factory({ annotationList: true });
+
+        const annotationsTitle = wrapper.find('[data-qa="item media sidebar annotations title"]');
+
+        expect(annotationsTitle.text()).toBe('media.sidebar.annotationsCount null');
+
+        wrapper.vm.handleAnnotationsFetched(40);
+
+        await wrapper.vm.$nextTick();
+
+        expect(annotationsTitle.text()).toBe('media.sidebar.annotationsCount 40');
       });
     });
   });

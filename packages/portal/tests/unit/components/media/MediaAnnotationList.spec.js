@@ -38,13 +38,14 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     ...mocks
   },
   localVue,
-  stubs: ['b-list-group', 'b-list-group-item']
+  stubs: ['NuxtLink']
 });
 
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
     annotations,
     fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
+    pageForAnnotationTarget: () => 1,
     searchAnnotations: searchAnnotationsSpy,
     setActiveAnnotation: setActiveAnnotationSpy,
     ...stubs
@@ -59,7 +60,7 @@ describe('components/media/MediaAnnotationList', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();
 
-      const listItems = wrapper.findAll('b-list-group-item-stub');
+      const listItems = wrapper.findAll('NuxtLink-stub');
 
       expect(listItems.at(0).text()).toBe('anno 1');
       expect(listItems.at(1).text()).toBe('anno 2');
@@ -69,34 +70,9 @@ describe('components/media/MediaAnnotationList', () => {
       stubItemMediaPresentationComposable({ activeAnnotation: { id: 'anno2' } });
       const wrapper = factory();
 
-      const listItems = wrapper.findAll('b-list-group-item-stub');
+      const listItems = wrapper.findAll('[data-qa="annotation list item"');
 
-      expect(listItems.at(1).attributes('active')).toBe('true');
-    });
-
-    describe('when annotation is clicked', () => {
-      it('calls setActiveAnnotation on itemMediaPresentation composable', async() => {
-        stubItemMediaPresentationComposable();
-        const wrapper = factory();
-
-        const listItem = wrapper.find('b-list-group-item-stub');
-        await listItem.vm.$emit('click');
-
-        expect(setActiveAnnotationSpy.calledWith(annotations[0])).toBe(true);
-      });
-
-      it('replaces route', async() => {
-        stubItemMediaPresentationComposable({
-          activeAnnotation: { id: 'anno2' },
-          pageForAnnotationTarget: () => 2
-        });
-        const wrapper = factory();
-
-        const listItem = wrapper.find('b-list-group-item-stub');
-        await listItem.vm.$emit('click');
-
-        expect(routerReplaceSpy.calledWith({ query: { anno: 'anno2', page: 2 } })).toBe(true);
-      });
+      expect(listItems.at(1).classes('active')).toBe(true);
     });
   });
 

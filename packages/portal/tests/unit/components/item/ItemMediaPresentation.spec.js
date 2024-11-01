@@ -37,6 +37,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     },
     $route: { query: {} },
     $t: (key) => key,
+    $tc: (key) => key,
     ...mocks
   },
   stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
@@ -48,6 +49,7 @@ const setPageStub = sinon.stub();
 
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
+    annotations: ['https://example.org/anno'],
     fetchPresentation: fetchPresentationStub,
     presentation: {
       canvases: [

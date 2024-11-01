@@ -4,7 +4,7 @@
     name="fade"
   >
     <div
-      class="iiif-viewer-sidebar border-bottom"
+      class="iiif-viewer-sidebar"
       data-qa="item media sidebar"
     >
       <b-tabs
@@ -12,51 +12,64 @@
         v-model="activeTabIndex"
         vertical
       >
+        <!-- Place tooltip outside tab to prevent being lazy loaded -->
+        <b-tooltip
+          v-if="annotationList"
+          target="item-media-sidebar-annotations"
+          :title="$t('media.sidebar.annotations')"
+          boundary=".iiif-viewer-sidebar"
+          placement="right"
+          custom-class="ml-0"
+        />
         <b-tab
           v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
           lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
-          @mouseleave.native="hideTooltips"
         >
-          <b-tooltip
-            target="item-media-sidebar-annotations"
-            :title="$t('media.sidebar.annotations')"
-            boundary=".iiif-viewer-sidebar"
-          />
           <template #title>
-            <span class="icon icon-annotations" />
+            <!-- Listen to mouseleave on span, on b-tab does not work -->
+            <span
+              class="icon icon-annotations"
+              @mouseleave="hideTooltips"
+            />
           </template>
           <h2
             class="px-3"
+            data-qa="item media sidebar annotations title"
           >
-            {{ $t('media.sidebar.annotations') }}
+            {{ $tc('media.sidebar.annotationsCount', annotationsCount) }}
           </h2>
           <MediaAnnotationList
             v-if="activeTabHistory.includes('#annotations')"
             :active="activeTabHash === '#annotations'"
             class="iiif-viewer-sidebar-panel"
+            @fetched="handleAnnotationsFetched"
           />
         </b-tab>
+        <b-tooltip
+          v-if="annotationSearch"
+          target="item-media-sidebar-search"
+          :title="$t('media.sidebar.search')"
+          boundary=".iiif-viewer-sidebar"
+          placement="right"
+          custom-class="ml-0"
+        />
         <b-tab
           v-if="annotationSearch"
           data-qa="item media sidebar search"
           button-id="item-media-sidebar-search"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
-          @mouseleave.native="hideTooltips"
         >
-          <b-tooltip
-            target="item-media-sidebar-search"
-            :title="$t('media.sidebar.search')"
-            boundary=".iiif-viewer-sidebar"
-          />
           <template #title>
             <span
               class="icon icon-search-in-text"
+              @mouseleave="hideTooltips"
             />
           </template>
           <h2
+            id="item-media-sidebar-search-title"
             class="px-3"
           >
             {{ $t('media.sidebar.search') }}
@@ -67,29 +80,37 @@
             class="iiif-viewer-sidebar-panel"
           />
         </b-tab>
+        <b-tooltip
+          v-if="!!manifestUri"
+          target="item-media-sidebar-links"
+          :title="$t('media.sidebar.links')"
+          boundary=".iiif-viewer-sidebar"
+          placement="right"
+          custom-class="ml-0"
+        />
         <b-tab
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
           button-id="item-media-sidebar-links"
           lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
-          @mouseleave.native="hideTooltips"
         >
-          <b-tooltip
-            target="item-media-sidebar-links"
-            :title="$t('media.sidebar.links')"
-            boundary=".iiif-viewer-sidebar"
-          />
           <template #title>
             <span
               class="icon icon-link"
+              @mouseleave="hideTooltips"
             />
           </template>
-          <h2>{{ $t('media.sidebar.links') }}</h2>
-          <h3>{{ $t('media.sidebar.IIIFManifest') }}</h3>
+          <h2 class="px-3">
+            {{ $t('media.sidebar.links') }}
+          </h2>
+          <h3 class="px-3">
+            {{ $t('media.sidebar.IIIFManifest') }}
+          </h3>
           <b-link
             :href="manifestUri"
             target="_blank"
+            class="manifest-link d-inline-block px-3"
           >
             {{ manifestUri }}
           </b-link>
@@ -150,6 +171,18 @@
 
       const { activeTabHash, activeTabHistory, activeTabIndex } = useActiveTab(tabHashes);
       return { activeTabHash, activeTabHistory, activeTabIndex };
+    },
+
+    data() {
+      return {
+        annotationsCount: null
+      };
+    },
+
+    methods: {
+      handleAnnotationsFetched(annotationsLength) {
+        this.annotationsCount = annotationsLength;
+      }
     }
   };
 </script>
@@ -188,7 +221,7 @@
         margin-bottom: 0.5rem;
       }
 
-      a {
+      .manifest-link {
         overflow-wrap: anywhere;
         color: $blue;
         font-size: $font-size-small;
