@@ -86,6 +86,15 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .pages-toggle {
+    background-color: transparent;
+    font-size: $font-size-large;
+
+    &.active {
+      color: $blue;
+    }
+  }
+
   .iiif-viewer-toolbar-pagination {
     background-color: rgba($white, 0.95);
     padding: 0.875rem 1rem;
@@ -102,17 +111,21 @@
       position: absolute;
       right: 0;
       bottom: 0;
-      z-index: 4;
+      z-index: 3;
       width: 13rem;
-    }
-  }
+      transition: background-color $standard-transition;
 
-  .pages-toggle {
-    background-color: transparent;
-    font-size: $font-size-large;
+      &.closed {
+        background-color: transparent;
+        transition: background-color $standard-transition;
 
-    &.active {
-      color: $blue;
+        ::v-deep .pagination-nav-input .page-link,
+        .pages-toggle {
+          &:not(:hover):not(.disabled) {
+            color: $white;
+          }
+        }
+      }
     }
   }
 

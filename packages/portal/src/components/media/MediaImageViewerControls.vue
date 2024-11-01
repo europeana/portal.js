@@ -94,20 +94,24 @@
   @import '@europeana/style/scss/variables';
 
   .viewer-controls {
-    background-color: rgba($white, 0.95);
+    background-color: rgba($black, 0.7);
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 3;
+    z-index: 1;
     padding: 0.875rem 1rem;
 
     .btn {
       background-color: transparent;
       font-size: $font-size-large;
 
+      &:not(:hover) {
+        color: $white;
+      }
+
       &.disabled {
         opacity: 1;
-        color: $middlegrey;
+        color: $mediumgrey-light;
       }
 
       &:focus {

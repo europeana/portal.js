@@ -9,7 +9,10 @@
       :manifest-uri="uri"
       @keydown.escape.native="showSidebar = false"
     />
-    <div class="sidebar-toolbar">
+    <div
+      class="sidebar-toolbar"
+      :class="{ 'closed': !showSidebar }"
+    >
       <b-button
         v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
         :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
@@ -86,8 +89,14 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      z-index: 4;
-      width: 300px;
+      z-index: 3;
+      width: 315px;
+      transition: background-color $standard-transition;
+
+      &.closed {
+        background-color: transparent;
+        transition: background-color $standard-transition;
+      }
     }
   }
 
@@ -98,6 +107,14 @@
 
     &.active {
       color: $blue;
+    }
+
+    @media (min-width: $bp-large) {
+      @at-root .closed & {
+        &:not(:hover) {
+          color: $white;
+        }
+      }
     }
   }
 </style>
