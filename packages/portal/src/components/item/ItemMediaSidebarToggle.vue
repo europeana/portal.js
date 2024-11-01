@@ -9,7 +9,7 @@
       variant="light-flat"
       class="sidebar-toggle button-icon-only"
       :class="{ 'active': showSidebar }"
-      data-qa="iiif viewer toolbar sidebar toggle"
+      data-qa="media viewer toolbar sidebar toggle"
       aria-controls="item-media-sidebar"
       :aria-expanded="showSidebar ? 'true' : 'false'"
       @click="$emit('toggleSidebar')"

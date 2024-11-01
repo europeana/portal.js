@@ -62,7 +62,7 @@ describe('components/item/ItemMediaPresentation', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();
 
-      const viewerWrapper = wrapper.find('.iiif-viewer-wrapper');
+      const viewerWrapper = wrapper.find('.media-viewer-wrapper');
 
       expect(viewerWrapper.isVisible()).toBe(true);
     });
@@ -193,10 +193,10 @@ describe('components/item/ItemMediaPresentation', () => {
         it('makes the viewerWrapper fullscreen', () => {
           const wrapper = factory({ data });
 
-          wrapper.vm.$refs.viewerWrapper.requestFullscreen = sinon.spy();
+          wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen = sinon.spy();
           wrapper.vm.toggleFullscreen();
 
-          expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen.calledOnce).toBe(true);
           expect(wrapper.vm.fullscreen).toEqual(true);
         });
       });

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
-      ref="viewerWrapper"
-      class="iiif-viewer-wrapper overflow-hidden"
+      ref="mediaViewerWrapper"
+      class="media-viewer-wrapper overflow-hidden"
     >
       <template v-if="!$fetchState.pending">
         <div
-          class="iiif-viewer-inner-wrapper w-100 overflow-auto"
+          class="media-viewer-inner-wrapper w-100 overflow-auto"
           :class="{
             'pagination-toolbar-padding': addPaginationToolbarPadding,
             'sidebar-toggle-padding': addSidebarTogglePadding
@@ -251,7 +250,7 @@
             document['webKitExitFullscreen']();
           }
         } else {
-          this.$refs.viewerWrapper.requestFullscreen();
+          this.$refs.mediaViewerWrapper.requestFullscreen();
         }
 
         this.fullscreen = !this.fullscreen;
@@ -282,9 +281,9 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
+  @import '@europeana/style/scss/mixins';
 
-  .iiif-viewer-wrapper {
+  .media-viewer-wrapper {
     position: relative;
     @include swiper-height(0px);
 
@@ -297,9 +296,14 @@
     @media (min-width: $bp-large) and (max-height: 845px) {
       height: calc($swiper-height - 2rem);
     }
+
+    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+      max-height: 50vh;
+      height: 50vh;
+    }
   }
 
-  .iiif-viewer-inner-wrapper {
+  .media-viewer-inner-wrapper {
     background-color: $black;
     @include swiper-height(0px);
 
@@ -335,14 +339,14 @@
     }
   }
 
-  .iiif-viewer-wrapper:fullscreen {
+  .media-viewer-wrapper:fullscreen {
     max-height: 100%;
-    .iiif-viewer-inner-wrapper {
+    .media-viewer-inner-wrapper {
       max-height: 100%;
       height: 100%;
     }
     ::v-deep #item-media-thumbnails,
-    ::v-deep .iiif-viewer-toolbar-pagination {
+    ::v-deep .media-viewer-toolbar-pagination {
       display: none !important;
     }
   }
@@ -352,9 +356,4 @@
     height: 1rem;
     box-sizing: content-box;
   }
-</style>
-
-<style lang="scss">
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
 </style>

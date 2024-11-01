@@ -4,7 +4,7 @@
     name="fade"
   >
     <div
-      class="iiif-viewer-sidebar"
+      class="media-viewer-sidebar"
       data-qa="item media sidebar"
     >
       <b-tabs
@@ -17,7 +17,7 @@
           v-if="annotationList"
           target="item-media-sidebar-annotations"
           :title="$t('media.sidebar.annotations')"
-          boundary=".iiif-viewer-sidebar"
+          boundary=".media-viewer-sidebar"
           placement="right"
           custom-class="ml-0"
         />
@@ -44,7 +44,7 @@
           <MediaAnnotationList
             v-if="activeTabHistory.includes('#annotations')"
             :active="activeTabHash === '#annotations'"
-            class="iiif-viewer-sidebar-panel"
+            class="media-viewer-sidebar-panel"
             @fetched="handleAnnotationsFetched"
           />
         </b-tab>
@@ -52,7 +52,7 @@
           v-if="annotationSearch"
           target="item-media-sidebar-search"
           :title="$t('media.sidebar.search')"
-          boundary=".iiif-viewer-sidebar"
+          boundary=".media-viewer-sidebar"
           placement="right"
           custom-class="ml-0"
         />
@@ -77,14 +77,14 @@
           <MediaAnnotationSearch
             v-if="activeTabHistory.includes('#search')"
             :active="activeTabHash === '#search'"
-            class="iiif-viewer-sidebar-panel"
+            class="media-viewer-sidebar-panel"
           />
         </b-tab>
         <b-tooltip
           v-if="!!manifestUri"
           target="item-media-sidebar-links"
           :title="$t('media.sidebar.links')"
-          boundary=".iiif-viewer-sidebar"
+          boundary=".media-viewer-sidebar"
           placement="right"
           custom-class="ml-0"
         />
@@ -198,7 +198,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
 
-  .iiif-viewer-sidebar {
+  .media-viewer-sidebar {
     width: 300px;
     position: absolute;
     top: 0;

@@ -21,7 +21,7 @@ describe('components/item/ItemMediaSidebarToggle', () => {
         it('emits the toggleSidebar event', () => {
           const wrapper = factory();
 
-          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
+          wrapper.find('[data-qa="media viewer toolbar sidebar toggle"]').trigger('click');
 
           expect(wrapper.emitted('toggleSidebar').length).toEqual(1);
         });

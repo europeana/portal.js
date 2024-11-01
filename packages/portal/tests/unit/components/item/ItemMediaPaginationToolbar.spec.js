@@ -22,7 +22,7 @@ describe('components/item/ItemMediaPaginationToolbar', () => {
         it('emits the togglePages event', () => {
           const wrapper = factory();
 
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
+          wrapper.find('[data-qa="media viewer toolbar pages toggle"]').trigger('click');
 
           expect(wrapper.emitted('togglePages').length).toEqual(1);
         });

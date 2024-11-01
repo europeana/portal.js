@@ -1,6 +1,6 @@
 <template>
   <div
-    class="iiif-viewer-toolbar-pagination d-inline-flex align-items-center"
+    class="media-viewer-toolbar-pagination d-inline-flex align-items-center"
     :class="{ closed: !showPages }"
   >
     <PaginationNavInput
@@ -19,7 +19,7 @@
       variant="light-flat"
       class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
       :class="{ 'active': showPages }"
-      data-qa="iiif viewer toolbar pages toggle"
+      data-qa="media viewer toolbar pages toggle"
       aria-controls="item-media-thumbnails"
       :aria-expanded="showPages ? 'true' : 'false'"
       @click="$emit('togglePages')"
@@ -68,7 +68,7 @@
     }
   }
 
-  .iiif-viewer-toolbar-pagination {
+  .media-viewer-toolbar-pagination {
     background-color: rgba($white, 0.95);
     padding: 0.875rem 1rem;
 

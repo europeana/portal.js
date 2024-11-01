@@ -12,7 +12,7 @@
     </b-container>
     <ol
       v-else
-      class="iiif-annotation-list list-group"
+      class="media-viewer-annotation-list list-group"
     >
       <li
         v-for="(anno, index) in annotationList"
@@ -192,7 +192,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .iiif-annotation-list {
+  .media-viewer-annotation-list {
     background-color: $white;
 
     .list-group-item {
