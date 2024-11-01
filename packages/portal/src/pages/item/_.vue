@@ -182,6 +182,7 @@
         entities: [],
         error: null,
         fromTranslationError: null,
+        headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
         isShownAt: null,
@@ -202,6 +203,14 @@
       } else {
         await this.fetchMetadata();
       }
+    },
+
+    head() {
+      return {
+        link: this.headLinkPreconnect.map((href) => ({ rel: 'preconnect', href })),
+        title: this.headTitle,
+        meta: this.headMeta
+      };
     },
 
     computed: {
@@ -392,6 +401,18 @@
         // don't store the web resources when using iiif as the manifest will be used
         if (!this.iiifPresentationManifest) {
           this.media = item.providerAggregation.displayableWebResources;
+        }
+
+        const preconnects = [
+          this.iiifPresentationManifest,
+          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+        ].filter(Boolean);
+        for (const preconnect of preconnects) {
+          try {
+            this.headLinkPreconnect.push((new URL(preconnect)).origin);
+          } catch {
+            // URL parsing error
+          }
         }
 
         this.entities = this.extractEntities(edm);

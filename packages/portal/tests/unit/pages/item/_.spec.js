@@ -28,7 +28,8 @@ const apiResponse = () => ({
         edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] },
         webResources: [
           {
-            about: 'http://example.org/image.jpeg'
+            about: 'http://example.org/image.jpeg',
+            ebucoreHasMimeType: 'image/jpeg'
           }
         ]
       }
@@ -450,6 +451,32 @@ describe('pages/item/_.vue', () => {
           });
         });
       });
+
+      describe('preconnect links', () => {
+        it('includes first displayable web resource origin', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('http://example.org')).toBe(true);
+        });
+
+        it('includes IIIF Presentation manifest origin', async() => {
+          const wrapper = factory();
+          const response = apiResponse();
+          const manifest = 'https://iiif.example.org/presentation/123/abc/manifest';
+          response.object.aggregations[0].webResources[0].dctermsIsReferencedBy = manifest;
+          response.object.aggregations[0].webResources.push({
+            about: manifest,
+            rdfType: 'http://iiif.io/api/presentation/3#Manifest'
+          });
+          wrapper.vm.$apis.record.get.resolves(response);
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
+        });
+      });
     });
 
     describe('on errors', () => {
@@ -487,6 +514,15 @@ describe('pages/item/_.vue', () => {
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
+    });
+  });
+
+  describe('head', () => {
+    it('includes preconnect links', () => {
+      const origin = 'https://example.org';
+      const wrapper = factory({ data: { headLinkPreconnect: [origin] } });
+
+      expect(wrapper.vm.head().link).toContainEqual({ rel: 'preconnect', href: origin });
     });
   });
 

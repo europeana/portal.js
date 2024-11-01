@@ -29,6 +29,7 @@ const setPageStub = sinon.stub();
 
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
+    annotations: ['https://example.org/anno'],
     fetchPresentation: fetchPresentationStub,
     presentation: {
       canvases: [
