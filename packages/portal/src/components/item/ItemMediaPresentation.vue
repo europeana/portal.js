@@ -8,6 +8,10 @@
       <template v-if="!$fetchState.pending">
         <div
           class="iiif-viewer-inner-wrapper w-100 overflow-auto"
+          :class="{
+            'pagination-toolbar-padding': addPaginationToolbarPadding,
+            'sidebar-toggle-padding': addSidebarTogglePadding
+          }"
         >
           <template v-if="sidebarHasContent">
             <ItemMediaSidebar
@@ -68,7 +72,7 @@
         </div>
         <div
           class="sidebar-toggle-pagination-toolbar"
-          :class="{ closed: !showPages || resourceCount < 2}"
+          :class="{ closed: !showPages || !multiplePages}"
         >
           <!-- Sidebar toggle for mobile and tablet screens -->
           <ItemMediaSidebarToggle
@@ -78,18 +82,18 @@
             @toggleSidebar="toggleSidebar"
           />
           <span
-            v-if="sidebarHasContent && resourceCount >= 2"
+            v-if="sidebarHasContent && multiplePages"
             class="divider"
           />
           <ItemMediaPaginationToolbar
-            v-if="resourceCount >= 2"
+            v-if="multiplePages"
             :show-pages="showPages"
             :total-results="resourceCount"
             @togglePages="togglePages"
           />
         </div>
         <ItemMediaThumbnails
-          v-if="resourceCount >= 2"
+          v-if="multiplePages"
           v-show="showPages"
           id="item-media-thumbnails"
           ref="itemPages"
@@ -205,8 +209,20 @@
         return this.hasAnnotations || this.hasSearchService || this.hasManifest;
       },
 
+      multiplePages() {
+        return this.resourceCount >= 2;
+      },
+
       imageTypeResource() {
         return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+      },
+
+      addPaginationToolbarPadding() {
+        return !this.imageTypeResource && this.multiplePages;
+      },
+
+      addSidebarTogglePadding() {
+        return !this.imageTypeResource && this.sidebarHasContent;
       }
     },
 
@@ -289,6 +305,16 @@
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
+    }
+
+    @media (min-width: $bp-large) {
+      &.pagination-toolbar-padding {
+        padding-right: 13rem;
+      }
+
+      &.sidebar-toggle-padding {
+        padding-left: 1.5rem;
+      }
     }
 
     &.error {
