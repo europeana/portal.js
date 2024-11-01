@@ -31,7 +31,9 @@ export default class EuropeanaMediaBase {
 
   static get axios() {
     if (!this.$axios) {
-      this.$axios = axios.create();
+      this.$axios = axios.create({
+        timeout: 10000
+      });
     }
     return this.$axios;
   }
