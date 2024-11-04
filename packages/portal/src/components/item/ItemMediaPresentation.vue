@@ -15,7 +15,7 @@
             ref="sidebar"
             tabindex="0"
             :annotation-list="hasAnnotations"
-            :annotation-search="hasSearchService"
+            :annotation-search="hasAnnotations && hasSearchService"
             :manifest-uri="uri"
             @keydown.escape.native="showSidebar = false"
           />
