@@ -98,6 +98,8 @@
 
     async fetch() {
       if (this.service?.id) {
+        // TODO: mv info retrieval into the itemMediaPresentation composable?
+        //       e.g. for centralised error handling
         const infoResponse = await this.service.fetchInfo();
         this.info = infoResponse.data;
         this.source = 'IIIF';
