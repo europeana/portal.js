@@ -10,14 +10,19 @@ export default class EuropeanaMediaResource extends Base {
       return undefined;
     }
 
-    const data = this.omitIsUndefined({
-      edm,
-      id: edm.about,
-      format: edm.ebucoreHasMimeType,
-      height: edm.ebucoreHeight,
-      width: edm.ebucoreWidth,
-      service: Service.fromEDM([].concat(edm.svcsHasService)[0])
-    });
+    let data = {};
+    if (typeof edm === 'string') {
+      data.id = edm;
+    } else {
+      data = this.omitIsUndefined({
+        edm,
+        id: edm.about,
+        format: edm.ebucoreHasMimeType,
+        height: edm.ebucoreHeight,
+        width: edm.ebucoreWidth,
+        service: Service.fromEDM([].concat(edm.svcsHasService)[0])
+      });
+    }
 
     return new this(data);
   }

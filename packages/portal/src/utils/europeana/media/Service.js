@@ -9,12 +9,17 @@ export default class EuropeanaMediaService extends Base {
       return undefined;
     }
 
-    const data = this.omitIsUndefined({
-      edm,
-      context: 'http://iiif.io/api/image/2/context.json',
-      id: edm.about,
-      profile: edm.doapImplements
-    });
+    let data = {};
+    if (typeof edm === 'string') {
+      data.id = edm;
+    } else {
+      data = this.omitIsUndefined({
+        edm,
+        context: 'http://iiif.io/api/image/2/context.json',
+        id: edm.about,
+        profile: edm.doapImplements
+      });
+    }
 
     return new this(data);
   }
