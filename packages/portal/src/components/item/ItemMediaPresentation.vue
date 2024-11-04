@@ -15,7 +15,7 @@
       >
         <b-row class="flex-md-row py-4 text-center">
           <b-col cols="12">
-            <LoadingSpinner :style="{ background: 'white' }"/>
+            <LoadingSpinner :style="{ background: 'white' }" />
           </b-col>
         </b-row>
       </b-container>
@@ -35,36 +35,36 @@
           />
           <MediaImageViewer
             v-if="imageTypeResource"
-            :url="resource.about"
+            :url="resource.id"
             :item-id="itemId"
-            :width="resource.ebucoreWidth"
-            :height="resource.ebucoreHeight"
-            :format="resource.ebucoreHasMimeType"
-            :service="resource.svcsHasService"
+            :width="resource.width"
+            :height="resource.height"
+            :format="resource.format"
+            :service="resource.service"
             :annotation="activeAnnotation"
             @error="handleMediaRendererError"
           />
           <MediaPDFViewer
-            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.about"
+            v-else-if="resource?.format === 'application/pdf'"
+            :url="resource.id"
             :item-id="itemId"
           />
           <MediaAudioVisualPlayer
-            v-else-if="resource?.isPlayableMedia"
-            :url="resource.about"
-            :format="resource.ebucoreHasMimeType"
+            v-else-if="resource?.edm.isPlayableMedia"
+            :url="resource.id"
+            :format="resource.format"
             :item-id="itemId"
           />
           <EmbedOEmbed
-            v-else-if="resource?.isOEmbed"
-            :url="resource.about"
+            v-else-if="resource?.edm.isOEmbed"
+            :url="resource.id"
           />
           <code
             v-else
             class="h-50 w-100 p-5"
           >
             <pre
-              :style="{ color: 'white' }"
+              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
             ><!--
               -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
@@ -257,7 +257,7 @@
       },
 
       imageTypeResource() {
-        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+        return this.resource?.format?.startsWith('image/');
       }
     },
 

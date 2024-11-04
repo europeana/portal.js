@@ -66,8 +66,8 @@ describe('@/utils/europeana/media/Presentation', () => {
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
               resource: {
-                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                ebucoreHasMimeType: 'image/jpeg'
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
               }
             }
           ]
@@ -125,8 +125,8 @@ describe('@/utils/europeana/media/Presentation', () => {
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
               resource: {
-                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                ebucoreHasMimeType: 'image/jpeg'
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
               }
             }
           ]
