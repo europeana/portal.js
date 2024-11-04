@@ -4,14 +4,14 @@
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"
     >
-      <template v-if="!$fetchState.pending">
-        <div
-          class="media-viewer-inner-wrapper w-100 overflow-auto"
-          :class="{
-            'pagination-toolbar-padding': addPaginationToolbarPadding,
-            'sidebar-toggle-padding': addSidebarTogglePadding
-          }"
-        >
+      <div
+        class="media-viewer-inner-wrapper w-100 overflow-auto"
+        :class="{
+          'pagination-toolbar-padding': addPaginationToolbarPadding,
+          'sidebar-toggle-padding': addSidebarTogglePadding
+        }"
+      >
+        <template v-if="!$fetchState.pending">
           <template v-if="sidebarHasContent">
             <ItemMediaSidebar
               v-show="showSidebar"
@@ -68,7 +68,9 @@
               -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
           </code>
-        </div>
+        </template>
+      </div>
+      <template v-if="!$fetchState.pending">
         <div
           class="sidebar-toggle-pagination-toolbar"
           :class="{ closed: !showPages || !multiplePages}"
