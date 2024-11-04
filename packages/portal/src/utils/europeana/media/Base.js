@@ -54,8 +54,13 @@ export default class EuropeanaMediaBase {
   // factory method to create an instance and parse some data to initialise its
   // properties
   static parse(data) {
+    if (!data) {
+      return undefined;
+    }
+
     const resource = new this;
     resource.parse(data);
+
     return resource;
   }
 
@@ -65,6 +70,10 @@ export default class EuropeanaMediaBase {
       ...options,
       url: this.axiosUrl(options.url)
     });
+  }
+
+  static omitIsUndefined(data) {
+    return omitBy(data, isUndefined);
   }
 
   static getHashParam(hash, key) {
@@ -94,7 +103,7 @@ export default class EuropeanaMediaBase {
   }
 
   postParseData(data) {
-    return omitBy(data, isUndefined);
+    return this.constructor.omitIsUndefined(data);
   }
 
   parse(data) {
