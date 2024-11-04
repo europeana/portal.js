@@ -5,12 +5,8 @@
       ref="viewerWrapper"
       class="iiif-viewer-wrapper overflow-hidden"
     >
-      <IIIFErrorMessage
-        v-if="$fetchState.error"
-        :provider-url="providerUrl"
-      />
       <b-container
-        v-else-if="$fetchState.pending"
+        v-if="$fetchState.pending"
         data-qa="loading spinner container"
       >
         <b-row class="flex-md-row py-4 text-center">
@@ -23,8 +19,12 @@
         <div
           class="iiif-viewer-inner-wrapper w-100 overflow-auto"
         >
+          <IIIFErrorMessage
+            v-if="$fetchState.error"
+            :provider-url="providerUrl"
+          />
           <ItemMediaSidebar
-            v-if="sidebarHasContent"
+            v-else-if="sidebarHasContent"
             v-show="showSidebar"
             ref="sidebar"
             tabindex="0"
@@ -34,7 +34,7 @@
             @keydown.escape.native="showSidebar = false"
           />
           <MediaImageViewer
-            v-if="imageTypeResource"
+            v-else-if="imageTypeResource"
             :url="resource.id"
             :item-id="itemId"
             :width="resource.width"
@@ -240,11 +240,13 @@
         await this.fetchPresentation(this.uri);
       } else if (this.webResources) {
         this.setPresentationFromWebResources(this.webResources);
-      } else {
-        throw new Error('No manifest URI or web resources for presentation');
       }
 
       this.selectResource();
+
+      if (!this.resource) {
+        throw new Error('No resource to present.');
+      }
     },
 
     computed: {
@@ -279,11 +281,7 @@
       },
 
       handleMediaRendererError(error) {
-        if (error.isAxiosError) {
-          this.$fetchState.error = error;
-        } else {
-          // else what?
-        }
+        this.$fetchState.error = error;
       },
 
       selectResource() {
