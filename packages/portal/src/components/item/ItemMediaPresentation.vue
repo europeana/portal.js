@@ -230,6 +230,10 @@
         this.setPage(this.$route.query.page);
       },
 
+      '$route.hash'(newVal) {
+        this.showSidebar = !!newVal;
+      },
+
       resource: {
         deep: true,
         handler: 'selectResource'

@@ -1,6 +1,5 @@
 <template>
   <transition
-    appear
     name="fade"
   >
     <div
