@@ -19,12 +19,8 @@
         <div
           class="iiif-viewer-inner-wrapper w-100 overflow-auto"
         >
-          <IIIFErrorMessage
-            v-if="$fetchState.error"
-            :provider-url="providerUrl"
-          />
           <ItemMediaSidebar
-            v-else-if="sidebarHasContent"
+            v-if="sidebarHasContent"
             v-show="showSidebar"
             ref="sidebar"
             tabindex="0"
@@ -32,6 +28,10 @@
             :annotation-search="hasAnnotations && hasSearchService"
             :manifest-uri="uri"
             @keydown.escape.native="showSidebar = false"
+          />
+          <IIIFErrorMessage
+            v-if="$fetchState.error"
+            :provider-url="providerUrl"
           />
           <MediaImageViewer
             v-else-if="imageTypeResource"
