@@ -2,7 +2,6 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import useZoom from '@/composables/zoom.js';
-import nock from 'nock';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -24,15 +23,10 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
 });
 
 describe('components/media/MediaImageViewer', () => {
-  beforeAll(() => {
-    nock.disableNetConnect();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.resetHistory();
   });
   afterAll(() => {
-    nock.enableNetConnect();
     sinon.restore();
   });
 
@@ -67,11 +61,18 @@ describe('components/media/MediaImageViewer', () => {
       const origin = 'https://iiif.example.org';
       const path = '/image/image.jpeg';
       const id = `${origin}${path}`;
-      const service = { id };
-
-      beforeEach(() => {
-        nock(origin).get(`${path}/info.json`).reply(200, { id });
-      });
+      const imageInfoData = {
+        '@context': 'http://iiif.io/api/image/2/context.json',
+        '@id': id,
+        height: 500,
+        protocol: 'http://iiif.io/api/image',
+        sizes: [
+          { height: 500, width: 1000 }
+        ],
+        width: 1000
+      };
+      const fetchInfoStub = sinon.stub().resolves({ data: imageInfoData });
+      const service = { id, fetchInfo: fetchInfoStub };
 
       it('fetches the service info', async() => {
         const wrapper = factory({ propsData: { url, service } });
@@ -79,7 +80,7 @@ describe('components/media/MediaImageViewer', () => {
         await wrapper.vm.fetch();
         await new Promise(process.nextTick);
 
-        expect(nock.isDone()).toBe(true);
+        expect(fetchInfoStub.called).toBe(true);
       });
 
       it('renders a IIIF image', async() => {

@@ -2,7 +2,7 @@ import { computed, ref } from 'vue';
 
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
-import { fromExtent } from 'ol/geom/Polygon.js';
+import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
 
 const annotations = ref([]);
 const annotationSearchHits = ref([]);
@@ -113,7 +113,7 @@ const fetchPresentation = async(uri) => {
 const setPresentationFromWebResources = (webResources) => {
   presentation.value = new EuropeanaMediaPresentation({
     canvases: webResources.map((resource) => ({
-      resource
+      resource: EuropeanaMediaResource.fromEDM(resource)
     }))
   });
 };
