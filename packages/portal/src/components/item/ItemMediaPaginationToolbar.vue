@@ -18,14 +18,16 @@
       :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       variant="light-flat"
       class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
-      :class="{ 'active': showPages }"
       data-qa="media viewer toolbar pages toggle"
       aria-controls="item-media-thumbnails"
       :aria-expanded="showPages ? 'true' : 'false'"
       @click="$emit('togglePages')"
       @mouseleave="hideTooltips"
     >
-      <span class="icon icon-pages" />
+      <span
+        class="icon"
+        :class="showPages ? 'icon-clear' : 'icon-pages'"
+      />
     </b-button>
   </div>
 </template>
@@ -63,8 +65,8 @@
     background-color: transparent;
     font-size: $font-size-large;
 
-    &.active {
-      color: $blue;
+    .icon-clear {
+      font-size: $font-size-small;
     }
   }
 

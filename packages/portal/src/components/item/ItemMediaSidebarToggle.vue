@@ -8,14 +8,16 @@
       :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       variant="light-flat"
       class="sidebar-toggle button-icon-only"
-      :class="{ 'active': showSidebar }"
       data-qa="media viewer toolbar sidebar toggle"
       aria-controls="item-media-sidebar"
       :aria-expanded="showSidebar ? 'true' : 'false'"
       @click="$emit('toggleSidebar')"
       @mouseleave="hideTooltips"
     >
-      <span class="icon icon-kebab" />
+      <span
+        class="icon"
+        :class="showSidebar ? 'icon-clear' : 'icon-kebab'"
+      />
     </b-button>
   </div>
 </template>
@@ -63,8 +65,8 @@
     background-color: transparent;
     font-size: $font-size-large;
 
-    &.active {
-      color: $blue;
+    .icon-clear {
+      font-size: $font-size-small;
     }
 
     @media (min-width: $bp-large) {
