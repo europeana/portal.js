@@ -240,7 +240,7 @@
         this.olExtent = extent;
 
         this.olMap.setLayers([layer]);
-        // this.olMap.setView(view);
+        this.olMap.setView(view);
         this.olMap.getView().fit(extent);
         this.configureZoomLevels();
       },
