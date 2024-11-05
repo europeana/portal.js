@@ -18,7 +18,7 @@
               ref="sidebar"
               tabindex="0"
               :annotation-list="hasAnnotations"
-              :annotation-search="hasSearchService"
+              :annotation-search="hasAnnotations && hasSearchService"
               :manifest-uri="uri"
               @keydown.escape.native="showSidebar = false"
             />
@@ -30,12 +30,12 @@
           </template>
           <MediaImageViewer
             v-if="imageTypeResource"
-            :url="resource.about"
+            :url="resource.id"
             :item-id="itemId"
-            :width="resource.ebucoreWidth"
-            :height="resource.ebucoreHeight"
-            :format="resource.ebucoreHasMimeType"
-            :service="resource.svcsHasService"
+            :width="resource.width"
+            :height="resource.height"
+            :format="resource.format"
+            :service="resource.service"
             :annotation="activeAnnotation"
           >
             <MediaImageViewerControls
@@ -44,21 +44,21 @@
             />
           </MediaImageViewer>
           <MediaPDFViewer
-            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.about"
+            v-else-if="resource?.format === 'application/pdf'"
+            :url="resource.id"
             :item-id="itemId"
             class="media-viewer-content"
           />
           <MediaAudioVisualPlayer
-            v-else-if="resource?.isPlayableMedia"
-            :url="resource.about"
-            :format="resource.ebucoreHasMimeType"
+            v-else-if="resource?.edm.isPlayableMedia"
+            :url="resource.id"
+            :format="resource.format"
             :item-id="itemId"
             class="media-viewer-content"
           />
           <EmbedOEmbed
-            v-else-if="resource?.isOEmbed"
-            :url="resource.about"
+            v-else-if="resource?.edm.isOEmbed"
+            :url="resource.id"
             class="media-viewer-content"
           />
           <code
@@ -66,7 +66,7 @@
             class="media-viewer-content h-50 w-100 p-5"
           >
             <pre
-              :style="{ color: 'white' }"
+              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
             ><!--
               -->{{ JSON.stringify(resource, null, 2) }}
             </pre>
@@ -218,7 +218,7 @@
       },
 
       imageTypeResource() {
-        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+        return this.resource?.format?.startsWith('image/');
       },
 
       addPaginationToolbarMaxWidth() {

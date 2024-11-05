@@ -9,7 +9,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   // NOTE: each of the imported OpenLayers modules needs to be added to
   //       build.transpile in nuxt.config.js
   import IIIFSource from 'ol/source/IIIF.js';
@@ -30,6 +29,7 @@
 
   import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
+  import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
@@ -59,7 +59,7 @@
         default: null
       },
       service: {
-        type: Object,
+        type: EuropeanaMediaService,
         default: null
       },
       url: {
@@ -99,8 +99,9 @@
 
     async fetch() {
       if (this.service?.id) {
-        const infoUri = `${this.service.id}/info.json`;
-        const infoResponse = await axios.get(infoUri);
+        // TODO: mv info retrieval into the itemMediaPresentation composable?
+        //       e.g. for centralised error handling
+        const infoResponse = await this.service.fetchInfo();
         this.info = infoResponse.data;
         this.source = 'IIIF';
         // this.fullsize = true;
