@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue';
+import { fromExtent } from 'ol/geom/Polygon.js';
 
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
