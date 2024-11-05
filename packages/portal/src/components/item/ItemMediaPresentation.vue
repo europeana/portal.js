@@ -7,8 +7,8 @@
       <div
         class="media-viewer-inner-wrapper w-100 overflow-auto"
         :class="{
-          'pagination-toolbar-padding': addPaginationToolbarPadding,
-          'sidebar-toggle-padding': addSidebarTogglePadding
+          'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
+          'sidebar-toggle-max-width': addSidebarToggleMaxWidth
         }"
       >
         <template v-if="!$fetchState.pending">
@@ -47,20 +47,23 @@
             v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
             :url="resource.about"
             :item-id="itemId"
+            class="media-viewer-content"
           />
           <MediaAudioVisualPlayer
             v-else-if="resource?.isPlayableMedia"
             :url="resource.about"
             :format="resource.ebucoreHasMimeType"
             :item-id="itemId"
+            class="media-viewer-content"
           />
           <EmbedOEmbed
             v-else-if="resource?.isOEmbed"
             :url="resource.about"
+            class="media-viewer-content"
           />
           <code
             v-else
-            class="h-50 w-100 p-5"
+            class="media-viewer-content h-50 w-100 p-5"
           >
             <pre
               :style="{ color: 'white' }"
@@ -218,11 +221,11 @@
         return this.resource?.ebucoreHasMimeType?.startsWith('image/');
       },
 
-      addPaginationToolbarPadding() {
+      addPaginationToolbarMaxWidth() {
         return !this.imageTypeResource && this.multiplePages;
       },
 
-      addSidebarTogglePadding() {
+      addSidebarToggleMaxWidth() {
         return !this.imageTypeResource && this.sidebarHasContent;
       }
     },
@@ -317,18 +320,56 @@
       position: relative;
     }
 
-    @media (min-width: $bp-large) {
-      &.pagination-toolbar-padding {
-        padding-right: 13rem;
-      }
+    &.error {
+      overflow: auto;
+    }
 
-      &.sidebar-toggle-padding {
-        padding-left: 1.5rem;
+    &.sidebar-toggle-max-width {
+      .media-viewer-content {
+        @media (min-width: $bp-large) {
+          // Reserve space for sidebar toggle (3.5rem width, doubled to center align) to prevent overlap
+          max-width: calc(100% - 7rem);
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
       }
     }
 
-    &.error {
-      overflow: auto;
+    &.pagination-toolbar-max-width {
+      .media-viewer-content {
+        // helper SCSS variables and functions to replicate the item page content width (based on b-container and b-col-8 layout)
+        // and calculate the space needed to reserve for the pagination toolbar
+        $container-lg-max-width: 960px;
+        $container-xl-max-width: 1140px;
+        $col-8-max-width: 0.8333; // 83.333%;
+        $col-padding: 15px;
+        $pagination-bar-width: 13rem;
+        @function mediaMarginRight($container-width) {
+          @return calc(50vw - (($col-8-max-width / 2) * $container-width));
+        }
+        @function borderWidth($container-width) {
+          @return max(0px, $pagination-bar-width - mediaMarginRight($container-width));
+        }
+        @function maxWidth($container-width) {
+          @return calc(($col-8-max-width * $container-width) - (2 * $col-padding));
+        }
+
+        @media (min-width: $bp-large) {
+          // Align with item page content
+          max-width: maxWidth($container-lg-max-width);
+          // Add right border when right margins are less than 13rem to prevent pagination and media overlap
+          border-right: borderWidth($container-lg-max-width) solid transparent;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
+
+        @media (min-width: $bp-extralarge) {
+          max-width: maxWidth($container-xl-max-width);
+          border-right: borderWidth($container-xl-max-width) solid transparent;
+        }
+      }
     }
   }
 
