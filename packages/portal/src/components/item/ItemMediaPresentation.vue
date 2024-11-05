@@ -43,7 +43,7 @@
             :format="resource.format"
             :service="resource.service"
             :annotation="activeAnnotation"
-            @error="handleMediaRendererError"
+            @error="handleImageError"
           />
           <MediaPDFViewer
             v-else-if="resource?.format === 'application/pdf'"
@@ -148,6 +148,13 @@
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import hideTooltips from '@/mixins/hideTooltips';
 
+  export class ItemMediaPresentationError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'ItemMediaPresentationError';
+    }
+  }
+
   export default {
     name: 'ItemMediaPresentation',
 
@@ -237,16 +244,29 @@
     async fetch() {
       this.setPage(this.$route.query.page);
 
+      let error;
+
       if (this.uri) {
-        await this.fetchPresentation(this.uri);
+        try {
+          await this.fetchPresentation(this.uri);
+          await this.$nextTick();
+          if (!this.resource) {
+            error = new ItemMediaPresentationError('No canvases in IIIF manifest');
+          }
+        } catch (e) {
+          error = e;
+        }
       } else if (this.webResources) {
         this.setPresentationFromWebResources(this.webResources);
+      } else {
+        error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
 
       this.selectResource();
 
-      if (!this.resource) {
-        throw new Error('No resource to present.');
+      if (error) {
+        this.handleError(error, 'IIIFManifestError');
+        throw error;
       }
     },
 
@@ -281,8 +301,23 @@
         this.$router.push({ ...this.$route, query: { ...this.$route.query, page } });
       },
 
-      handleMediaRendererError(error) {
+      handleImageError(error) {
         this.$fetchState.error = error;
+        this.handleError(error);
+      },
+
+      handleError(error) {
+        const message = error.message || error.name;
+        const url = error.url || this.uri;
+
+        const errorData = {
+          item: this.itemId,
+          message,
+          name: error.name,
+          url
+        };
+
+        this.$apm?.captureError(errorData);
       },
 
       selectResource() {

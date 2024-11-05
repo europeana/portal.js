@@ -32,6 +32,13 @@
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
+  export class MediaImageViewerError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'MediaImageViewerError';
+    }
+  }
+
   export default {
     name: 'MediaImageViewer',
 
@@ -108,9 +115,9 @@
         if (process.client) {
           this.renderImage();
         }
-      } catch (e) {
-        this.$emit('error', e);
-        throw e;
+      } catch (error) {
+        this.$emit('error', error);
+        throw error;
       }
     },
 
@@ -200,6 +207,15 @@
         }
       },
 
+      handleOlError(olError) {
+        const error = new MediaImageViewerError('OpenLayers image error');
+        error.type = olError.type;
+        if (olError.target?.['url_']) {
+          error.url = olError.target['url_'];
+        }
+        this.$emit('error', error);
+      },
+
       initOlMap({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
@@ -210,6 +226,7 @@
           projection,
           resolutions: source.getTileGrid?.().getResolutions()
         });
+        view.on('error', this.handleOlError);
 
         if (!this.olMap) {
           this.olMap = new Map({
@@ -218,11 +235,12 @@
             target: 'media-image-viewer',
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
+          this.olMap.on('error', this.handleOlError);
         }
         this.olExtent = extent;
 
         this.olMap.setLayers([layer]);
-        this.olMap.setView(view);
+        // this.olMap.setView(view);
         this.olMap.getView().fit(extent);
         this.configureZoomLevels();
       },
@@ -255,7 +273,11 @@
         sourceOptions.extent = extent;
 
         const source = new IIIFSource(sourceOptions);
+        source.on('error', this.handleOlError);
+        source.on('imageloaderror', this.handleOlError);
+        source.on('tileloaderror', this.handleOlError);
         const layer = new TileLayer({ source });
+        layer.on('error', this.handleOlError);
 
         return { extent, layer, source };
       },
@@ -269,7 +291,10 @@
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
           imageExtent: extent
         });
+        source.on('error', this.handleOlError);
+        source.on('imageloaderror', this.handleOlError);
         const layer = new ImageLayer({ source });
+        layer.on('error', this.handleOlError);
 
         return { extent, layer, source };
       },
