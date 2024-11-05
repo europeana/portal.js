@@ -57,6 +57,7 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
         { resource: {} }
       ]
     },
+    resource: { edm: {}, id: 'https://iiif.example.org/image.jpeg' },
     resourceCount: 2,
     setPage: setPageStub,
     setPresentationFromWebResources: setPresentationFromWebResourcesStub,
