@@ -87,7 +87,7 @@
           />
           <span
             v-if="sidebarHasContent && multiplePages"
-            class="divider"
+            class="divider d-lg-none"
           />
           <ItemMediaPaginationToolbar
             v-if="multiplePages"
@@ -318,6 +318,16 @@
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
+    }
+
+    // prevent feedback button overlapping thumbnails toggle laptop screens
+    @media (min-width: $bp-large) and (max-height: 845px) {
+      height: calc($swiper-height - 2rem);
+    }
+
+    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+      max-height: 50vh;
+      height: 50vh;
     }
 
     &.error {
