@@ -164,6 +164,17 @@ describe('components/item/ItemMediaPresentation', () => {
         expect(setPresentationFromWebResourcesStub.calledWith(webResources)).toBe(true);
       });
     });
+
+    describe('when there are annotations', () => {
+      it('shows the sidebar', async() => {
+        stubItemMediaPresentationComposable({ hasAnnotations: true });
+        const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.showSidebar).toBe(true);
+      });
+    });
   });
 
   describe('methods', () => {

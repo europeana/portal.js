@@ -202,6 +202,10 @@
       }
 
       this.selectResource();
+
+      if (this.hasAnnotations) {
+        this.showSidebar = true;
+      }
     },
 
     computed: {
@@ -233,10 +237,6 @@
     watch: {
       '$route.query.page'() {
         this.setPage(this.$route.query.page);
-      },
-
-      '$route.hash'(newVal) {
-        this.showSidebar = !!newVal;
       },
 
       resource: {
