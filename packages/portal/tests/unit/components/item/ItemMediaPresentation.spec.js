@@ -1,4 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
+import { ref } from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import nock from 'nock';
 import sinon from 'sinon';
@@ -29,6 +30,9 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   },
   mocks: {
     $apis,
+    $apm: {
+      captureError: sinon.spy()
+    },
     $nuxt: {
       context: {
         $apis
@@ -39,7 +43,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $tc: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
+  stubs: ['IIIFErrorMessage', 'MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
 });
 
 const fetchPresentationStub = sinon.stub();
@@ -192,6 +196,50 @@ describe('components/item/ItemMediaPresentation', () => {
           await wrapper.vm.$nextTick();
 
           expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
+        });
+      });
+    });
+
+    describe('error handling', ()=> {
+      describe('when a fetch error occurs', () => {
+        it('displays the error message component', async() => {
+          stubItemMediaPresentationComposable({
+            fetchPresentation: sinon.stub().rejects('Network error')
+          });
+          const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const wrapper = factory({ propsData: { uri } });
+
+          await wrapper.vm.fetch();
+          await wrapper.vm.$nextTick();
+
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
+        });
+      });
+
+      describe('when the image viewer component emits an error', () => {
+        const itemId = '/123/abc';
+        const webResources = [
+          {
+            about: 'https://example.org/image.jpg',
+            ebucoreHasMimeType: 'image/jpeg',
+            ebucoreHeight: 576,
+            ebucoreWidth: 720
+          }
+        ];
+        const propsData = { itemId, webResources };
+
+        it('displays the error message component', async() => {
+          const wrapper = factory({ propsData });
+          const imageViewer = wrapper.find('mediaimageviewer-stub');
+          const imageError = new Error('Image failed to load');
+          imageViewer.vm.$emit('error', imageError);
+          await wrapper.vm.$nextTick();
+
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
         });
       });
     });
