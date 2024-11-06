@@ -81,8 +81,8 @@ const fetchPresentation = async(uri) => {
 
 const setPresentationFromWebResources = (webResources) => {
   presentation.value = new EuropeanaMediaPresentation({
-    canvases: webResources.map((resource) => ({
-      resource: EuropeanaMediaResource.fromEDM(resource)
+    canvases: webResources.map((wr) => ({
+      resource: EuropeanaMediaResource.fromEDM(wr)
     }))
   });
 };
