@@ -61,7 +61,6 @@ describe('pages/feature-ideas/index', () => {
         const alertMessage = wrapper.find('[data-qa="alert message container"]');
 
         expect(alertMessage.exists()).toBe(true);
-
       });
     });
   });
