@@ -7,7 +7,6 @@
       <b-row class="flex-md-row py-4 text-center">
         <b-col cols="12">
           <LoadingSpinner />
-          {{ $fetchState }}
         </b-col>
       </b-row>
     </b-container>
