@@ -24,10 +24,7 @@ const fixtures = {
 
 const factory = (propsData = {}) => shallowMountNuxt(EmbedHTML, {
   propsData,
-  localVue,
-  mocks: {
-    $fetchState: {}
-  }
+  localVue
 });
 
 describe('components/embed/EmbedHTML', () => {

@@ -19,16 +19,17 @@ const contentfulFullResponse = { data: { data: { featureIdeasPageCollection: { i
   ] }
 }] } } } };
 
-const factory = ({ contentfulResponse = {}, $fetchState = {} }) => shallowMountNuxt(featureIdeasPage, {
+const factory = ({ contentfulResponse = {}, mocks = {} }) => shallowMountNuxt(featureIdeasPage, {
   localVue,
   mocks: {
     $contentful: {
       query: sinon.stub().resolves(contentfulResponse)
     },
-    $fetchState,
     $i18n: { localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
-    $t: key => key
+    $t: (key) => key,
+    $tc: (key) => key,
+    ...mocks
   }
 });
 
@@ -55,11 +56,12 @@ describe('pages/feature-ideas/index', () => {
 
     describe('when fetch errors', () => {
       it('renders an alert message', () => {
-        const wrapper = factory({ $fetchState: { error: { message: 'Error message' } } });
+        const wrapper = factory({ mocks: { $fetchState: { error: { message: 'Error message' } } } });
 
         const alertMessage = wrapper.find('[data-qa="alert message container"]');
 
         expect(alertMessage.exists()).toBe(true);
+
       });
     });
   });
