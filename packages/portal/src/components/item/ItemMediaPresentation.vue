@@ -387,6 +387,7 @@
       justify-content: center;
       background-color: $white;
       position: relative;
+      height: 3.5rem;
 
       &.closed {
         border-bottom: 1px solid $middlegrey;
