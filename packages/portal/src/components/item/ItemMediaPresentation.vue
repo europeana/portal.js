@@ -68,7 +68,7 @@
             <pre
               :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
             ><!--
-              -->{{ JSON.stringify(resource, null, 2) }}
+            -->{{ JSON.stringify(resource?.edm, null, 2) }}
             </pre>
           </code>
         </template>
