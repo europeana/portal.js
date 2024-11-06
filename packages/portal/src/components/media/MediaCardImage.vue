@@ -4,7 +4,7 @@
     class="media-card-image"
   >
     <b-link
-      v-if="linkable && imageLink && thumbnails.large && !webResource.forEdmIsShownAt"
+      v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
     >
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
   export default {
@@ -68,7 +67,7 @@
       media: {
         // TODO: refactor to only receive EuropeanaMediaResource, once legacy
         //       media presentation is gone
-        type: [EuropeanaMediaResource, WebResource],
+        type: WebResource,
         default: null
       },
       lazy: {
@@ -99,39 +98,38 @@
 
     data() {
       return {
-        webResource: (this.media instanceof WebResource) ? this.media : this.media.edm,
         showDefaultThumbnail: false
       };
     },
 
     computed: {
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.webResource.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        return this.webResource.thumbnails(this.$nuxt.context);
+        return this.media.thumbnails(this.$nuxt.context);
       },
       thumbnailSrc() {
         return this.thumbnails[this.thumbnailSize];
       },
       thumbnailWidth() {
-        if (!this.webResource.ebucoreWidth) {
+        if (!this.media.ebucoreWidth) {
           return null;
         }
         const thumbnailMaxSize = this.thumbnailSize === 'large' ? 400 : 200;
-        if (this.webResource.ebucoreWidth < thumbnailMaxSize) {
-          return this.webResource.ebucoreWidth;
+        if (this.media.ebucoreWidth < thumbnailMaxSize) {
+          return this.media.ebucoreWidth;
         }
         return thumbnailMaxSize;
       },
       thumbnailHeight() {
-        if (!this.webResource.ebucoreHeight || !this.thumbnailWidth) {
+        if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
           return null;
         }
-        return (this.webResource.ebucoreHeight / this.webResource.ebucoreWidth) * this.thumbnailWidth;
+        return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
       },
       edmTypeWithFallback() {
-        return this.webResource.edmType || this.edmType;
+        return this.media.edmType || this.edmType;
       }
     },
 

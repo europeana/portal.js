@@ -3,7 +3,7 @@ import Service from './Service.js';
 import EDMWebResource from '@/plugins/europeana/edm/WebResource.js';
 
 export default class EuropeanaMediaResource extends Base {
-  $edm;
+  #edm;
 
   static fromEDM(edm) {
     if (!edm) {
@@ -15,7 +15,6 @@ export default class EuropeanaMediaResource extends Base {
       data.id = edm;
     } else {
       data = this.omitIsUndefined({
-        edm,
         id: edm.about,
         format: edm.ebucoreHasMimeType,
         height: edm.ebucoreHeight,
@@ -24,7 +23,9 @@ export default class EuropeanaMediaResource extends Base {
       });
     }
 
-    return new this(data);
+    const resource = new this(data);
+    resource.edm = edm;
+    return resource;
   }
 
   parseData(data) {
@@ -42,7 +43,7 @@ export default class EuropeanaMediaResource extends Base {
   }
 
   get edm() {
-    if (!this.$edm) {
+    if (!this.#edm) {
       const data = this.constructor.omitIsUndefined({
         about: this.id,
         ebucoreHasMimeType: this.format,
@@ -51,12 +52,12 @@ export default class EuropeanaMediaResource extends Base {
         svcsHasService: [].concat(this.service || [])[0]?.edm
       });
 
-      this.$edm = new EDMWebResource(data);
+      this.#edm = new EDMWebResource(data);
     }
-    return this.$edm;
+    return this.#edm;
   }
 
   set edm(value) {
-    this.$edm = value;
+    this.#edm = value;
   }
 }

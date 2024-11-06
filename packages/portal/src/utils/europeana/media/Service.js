@@ -3,7 +3,7 @@ import { IIIFInfoJsonError } from './Error.js';
 import EDMService from '@/plugins/europeana/edm/Service.js';
 
 export default class EuropeanaMediaService extends Base {
-  $edm;
+  #edm;
 
   static fromEDM(edm) {
     if (!edm) {
@@ -15,14 +15,15 @@ export default class EuropeanaMediaService extends Base {
       data.id = edm;
     } else {
       data = this.omitIsUndefined({
-        edm,
         context: 'http://iiif.io/api/image/2/context.json',
         id: edm.about,
         profile: edm.doapImplements
       });
     }
 
-    return new this(data);
+    const service = new this(data);
+    service.edm = edm;
+    return service;
   }
 
   get infoUrl() {
@@ -43,19 +44,19 @@ export default class EuropeanaMediaService extends Base {
   }
 
   get edm() {
-    if (!this.$edm) {
+    if (!this.#edm) {
       const data = this.constructor.omitIsUndefined({
         about: this.id,
         doapImplements: this.profile,
         dctermsConformsTo: ['http://iiif.io/api/image']
       });
 
-      this.$edm = new EDMService(data);
+      this.#edm = new EDMService(data);
     }
-    return this.$edm;
+    return this.#edm;
   }
 
   set edm(value) {
-    this.$edm = value;
+    this.#edm = value;
   }
 }
