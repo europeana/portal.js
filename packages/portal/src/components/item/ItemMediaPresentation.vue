@@ -75,6 +75,7 @@
       </div>
       <template v-if="!$fetchState.pending">
         <div
+          v-if="sidebarHasContent || multiplePages"
           class="sidebar-toggle-pagination-toolbar"
           :class="{ closed: !showPages || !multiplePages}"
         >
@@ -84,10 +85,6 @@
             :show-sidebar="showSidebar"
             class="d-inline-flex d-lg-none"
             @toggleSidebar="toggleSidebar"
-          />
-          <span
-            v-if="sidebarHasContent && multiplePages"
-            class="divider d-lg-none"
           />
           <ItemMediaPaginationToolbar
             v-if="multiplePages"
@@ -203,7 +200,7 @@
 
       this.selectResource();
 
-      if (this.hasAnnotations) {
+      if (this.hasAnnotations && window.innerWidth >= 768) {
         this.showSidebar = true;
       }
     },
@@ -389,6 +386,7 @@
       align-items: center;
       justify-content: center;
       background-color: $white;
+      position: relative;
 
       &.closed {
         border-bottom: 1px solid $middlegrey;

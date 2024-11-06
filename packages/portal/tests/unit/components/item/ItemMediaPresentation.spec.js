@@ -165,10 +165,11 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    describe('when there are annotations', () => {
+    describe('when there are annotations and on larger window', () => {
       it('shows the sidebar', async() => {
         stubItemMediaPresentationComposable({ hasAnnotations: true });
         const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+        window.innerWidth = 992;
 
         await wrapper.vm.fetch();
 

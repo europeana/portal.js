@@ -44,12 +44,12 @@
 
   .sidebar-toolbar {
     background-color: rgba($white, 0.95);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
 
     @media (min-width: $bp-large) {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      z-index: 3;
       width: 315px;
       transition: background-color $standard-transition;
 
