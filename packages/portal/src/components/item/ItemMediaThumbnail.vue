@@ -4,7 +4,7 @@
     class="item-media-thumbnail text-lowercase text-decoration-none"
   >
     <MediaCardImage
-      :media="resource"
+      :media="resource.edm"
       :lazy="lazy"
       :offset="offset"
       :edm-type="edmType"
@@ -23,6 +23,7 @@
 
 <script>
   import MediaCardImage from '../media/MediaCardImage.vue';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
 
   export default {
     name: 'ItemMediaThumbnail',
@@ -32,7 +33,7 @@
     },
     props: {
       resource: {
-        type: Object,
+        type: EuropeanaMediaResource,
         required: true
       },
       offset: {
@@ -61,7 +62,7 @@
         return this.offset + 1;
       },
       mediaTypeIconClass() {
-        const mediaType = this.resource.edmType || this.edmType;
+        const mediaType = this.resource.edm.edmType || this.edmType;
         return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       },
       label() {
