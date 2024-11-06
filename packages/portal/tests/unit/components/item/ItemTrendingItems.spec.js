@@ -44,7 +44,6 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(ItemTrendingItems, {
       }
     },
     $features: { mockTrendingItems: false },
-    $fetchState: {},
     ...mocks
   },
   stubs: ['b-container']

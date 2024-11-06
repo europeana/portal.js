@@ -29,7 +29,6 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   },
   mocks: {
     $apis,
-    $fetchState: { pending: false },
     $nuxt: {
       context: {
         $apis

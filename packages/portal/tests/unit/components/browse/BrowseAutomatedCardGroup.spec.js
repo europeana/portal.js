@@ -37,10 +37,6 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     $contentful: {
       query: sinon.stub()
     },
-    $fetchState: {
-      error: false,
-      pending: false
-    },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },

@@ -1,25 +1,44 @@
 import { mount, shallowMount } from '@vue/test-utils';
+import { ref } from 'vue';
 import sinon from 'sinon';
 
 const NUXT_METHODS = [
-  'asyncData', 'fetch', 'head', 'beforeRouteEnter', 'beforeDestroy', 'watch', 'mounted', 'middleware', 'layout'
+  'asyncData', 'head', 'beforeRouteEnter', 'beforeDestroy', 'watch', 'mounted', 'middleware', 'layout'
 ];
 
 const injectNuxtMethods = (wrapper, pageOrComponent) => {
   for (const method of NUXT_METHODS) {
     wrapper.vm[method] = pageOrComponent[method];
-    wrapper.vm['$fetch'] = pageOrComponent.fetch;
   }
+
+  wrapper.vm.fetch = async function() {
+    try {
+      wrapper.vm['$fetchState'].pending = true;
+      await pageOrComponent.fetch.bind(wrapper.vm)();
+    } catch (e) {
+      wrapper.vm['$fetchState'].error = e;
+    } finally {
+      wrapper.vm['$fetchState'].pending = false;
+    }
+  };
+  wrapper.vm['$fetch'] = wrapper.vm.fetch;
+
   return wrapper;
 };
 
+const mountOptionsWithFetchState = (options) => {
+  options.mocks ||= {};
+  options.mocks.$fetchState ||= { error: ref(null), pending: ref(false) };
+  return options;
+};
+
 export const shallowMountNuxt = (pageOrComponent, options = {}) => {
-  const wrapper = shallowMount(pageOrComponent, options);
+  const wrapper = shallowMount(pageOrComponent, mountOptionsWithFetchState(options));
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
 
 export const mountNuxt = (pageOrComponent, options = {}) => {
-  const wrapper = mount(pageOrComponent, options);
+  const wrapper = mount(pageOrComponent, mountOptionsWithFetchState(options));
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
 

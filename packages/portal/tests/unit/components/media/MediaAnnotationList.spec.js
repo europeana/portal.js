@@ -28,7 +28,6 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     annotationScrollToContainerSelector: '#list-container'
   },
   mocks: {
-    $fetchState: {},
     $route: {
       query: {}
     },
@@ -38,7 +37,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     ...mocks
   },
   localVue,
-  stubs: ['NuxtLink']
+  stubs: ['NuxtLink', 'b-col', 'b-row', 'b-container']
 });
 
 const stubItemMediaPresentationComposable = (stubs = {}) => {

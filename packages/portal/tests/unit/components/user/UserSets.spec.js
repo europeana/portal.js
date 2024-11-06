@@ -37,7 +37,6 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
   mocks: {
     $auth: { user: { sub: 'user-id' } },
     $config: { app: { internalLinkDomain: null } },
-    $fetchState: {},
     $apis: {
       set: { search: sinon.stub().resolves({ items: sets, partOf: { total: sets.length } }) },
       thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }

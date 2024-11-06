@@ -31,10 +31,9 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(EmbedOE
   }),
   localVue,
   mocks: {
-    $fetchState: {},
     $t: (key) => key
   },
-  stubs: ['EmbedHTML', 'client-only']
+  stubs: ['EmbedHTML', 'client-only', 'AlertMessage']
 });
 
 describe('components/embed/EmbedOEmbed', () => {
@@ -74,21 +73,17 @@ describe('components/embed/EmbedOEmbed', () => {
       expect(wrapper.vm.providerName).toBe(response['provider_name']);
     });
 
-    it('throws an error if response does not contain HTML', async() => {
+    it('displays an error if response does not contain HTML', async() => {
       const response = {
         type: 'link'
       };
       const wrapper = factory({ propsData: { url, endpoint } });
       nockRequest().reply(200, response);
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
+      const alertMessage = wrapper.find('alertmessage-stub');
 
-      expect(error.message).toBe('messages.externalContentError');
+      expect(alertMessage.attributes('error')).toContain('messages.externalContentError');
     });
   });
 
