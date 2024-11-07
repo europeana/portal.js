@@ -207,8 +207,8 @@
         }
       },
 
-      handleOlError(olError) {
-        const error = new MediaImageViewerError('OpenLayers image error');
+      handleOlError(olError, message) {
+        const error = new MediaImageViewerError(message);
         error.type = olError.type;
         if (olError.target?.['url_']) {
           error.url = olError.target['url_'];
@@ -226,7 +226,7 @@
           projection,
           resolutions: source.getTileGrid?.().getResolutions()
         });
-        view.on('error', this.handleOlError);
+        view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
 
         if (!this.olMap) {
           this.olMap = new Map({
@@ -235,7 +235,7 @@
             target: 'media-image-viewer',
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
-          this.olMap.on('error', this.handleOlError);
+          this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
         }
         this.olExtent = extent;
 
@@ -273,11 +273,13 @@
         sourceOptions.extent = extent;
 
         const source = new IIIFSource(sourceOptions);
-        source.on('error', this.handleOlError);
-        source.on('imageloaderror', this.handleOlError);
-        source.on('tileloaderror', this.handleOlError);
+        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
+        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
+        source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         const layer = new TileLayer({ source });
-        layer.on('error', this.handleOlError);
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
+
+        MediaImageViewerError;
 
         return { extent, layer, source };
       },
@@ -291,10 +293,10 @@
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
           imageExtent: extent
         });
-        source.on('error', this.handleOlError);
-        source.on('imageloaderror', this.handleOlError);
+        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
+        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         const layer = new ImageLayer({ source });
-        layer.on('error', this.handleOlError);
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
         return { extent, layer, source };
       },

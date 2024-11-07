@@ -1,5 +1,4 @@
 import { createLocalVue } from '@vue/test-utils';
-import { ref } from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import nock from 'nock';
 import sinon from 'sinon';
@@ -200,7 +199,7 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    describe('error handling', ()=> {
+    describe('error handling', () => {
       describe('when a fetch error occurs', () => {
         it('displays the error message component', async() => {
           stubItemMediaPresentationComposable({

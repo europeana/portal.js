@@ -1,6 +1,6 @@
 import Base from './Base.js';
 import Resource from './Resource.js';
-import { IIIFManifestError } from './Error.js';
+import { IIIFManifestError } from './errors.js';
 import {
   IIIF_PRESENTATION_V2_CONTEXT,
   IIIF_PRESENTATION_V3_CONTEXT

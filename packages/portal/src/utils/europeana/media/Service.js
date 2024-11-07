@@ -1,5 +1,5 @@
 import Base from './Base.js';
-import { IIIFInfoJsonError } from './Error.js';
+import { IIIFInfoJsonError } from './errors.js';
 import EDMService from '@/plugins/europeana/edm/Service.js';
 
 export default class EuropeanaMediaService extends Base {
