@@ -11,8 +11,7 @@
       >
         <b-row class="flex-md-row py-4 text-center">
           <b-col cols="12">
-            <!-- TODO: style properly -->
-            <LoadingSpinner :style="{ background: 'white' }" />
+            <LoadingSpinner class="text-white" />
           </b-col>
         </b-row>
       </b-container>
