@@ -140,7 +140,7 @@
       initOlAnnotationLayer() {
         const layerCount = this.olMap.getLayers().getLength();
         if (layerCount === 0) {
-          throw new Error('No image layer to annotate.');
+          throw new MediaImageViewerError('No image layer to annotate');
         }
         if (layerCount === 1) {
           this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
