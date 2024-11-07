@@ -279,8 +279,6 @@
         const layer = new TileLayer({ source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
-        MediaImageViewerError;
-
         return { extent, layer, source };
       },
 
