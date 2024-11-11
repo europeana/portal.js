@@ -46,10 +46,6 @@
         type: Object,
         default: null
       },
-      format: {
-        type: String,
-        default: null
-      },
       height: {
         type: Number,
         default: null
@@ -98,6 +94,7 @@
     },
 
     async fetch() {
+      console.log('image fetch', this.url, this.service)
       if (this.service?.id) {
         // TODO: mv info retrieval into the itemMediaPresentation composable?
         //       e.g. for centralised error handling

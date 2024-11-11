@@ -11,6 +11,7 @@
         :provider-url="providerUrl"
         :web-resources="media"
         :edm-type="edmType"
+        :currentWebResource="currentWebResource"
         @select="selectMedia"
       />
     </client-only>
@@ -137,6 +138,10 @@
       },
       iiifPresentationManifest: {
         type: String,
+        default: null
+      },
+      currentWebResource: {
+        type: Object,
         default: null
       }
     },

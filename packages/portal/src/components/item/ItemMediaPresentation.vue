@@ -11,8 +11,8 @@
           'sidebar-toggle-max-width': addSidebarToggleMaxWidth
         }"
       >
-        <template v-if="!$fetchState.pending">
-          <template v-if="sidebarHasContent">
+        <template v-if="renderViewerContent">
+          <template v-if="!$fetchState.pending && sidebarHasContent">
             <ItemMediaSidebar
               v-show="showSidebar"
               ref="sidebar"
@@ -29,13 +29,13 @@
             />
           </template>
           <MediaImageViewer
-            v-if="imageTypeResource"
-            :url="resource.id"
+            v-if="imageTypeResource || resourceService"
+            :url="resourceUrl"
             :item-id="itemId"
-            :width="resource.width"
-            :height="resource.height"
-            :format="resource.format"
-            :service="resource.service"
+            :width="resource?.width"
+            :height="resource?.height"
+            :format="resource?.format"
+            :service="resourceService"
             :annotation="activeAnnotation"
           >
             <MediaImageViewerControls
@@ -110,6 +110,7 @@
 
 <script>
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
 
   export default {
     name: 'ItemMediaPresentation',
@@ -149,6 +150,11 @@
 
       providerUrl: {
         type: String,
+        default: null
+      },
+
+      currentWebResource: {
+        type: Object,
         default: null
       }
     },
@@ -206,6 +212,11 @@
     },
 
     computed: {
+      renderViewerContent() {
+        console.log('renderViewerContent', this.resource, this.currentWebResource, this.resourceService)
+        return !!this.resourceService || !this.$fetchState.pending;
+      },
+
       hasManifest() {
         return !!this.uri;
       },
@@ -228,6 +239,27 @@
 
       addSidebarToggleMaxWidth() {
         return !this.imageTypeResource && this.sidebarHasContent;
+      },
+
+      resourceService() {
+        console.log('resourceService', this.resource?.service, this.currentWebResource)
+        if (this.resource?.service) {
+          return this.resource.service;
+        } else if (this.currentWebResource?.svcsHasService) {
+          return new EuropeanaMediaService(this.currentWebResource.svcsHasService[0]);
+        } else {
+          return null;
+        }
+      },
+
+      resourceUrl() {
+        if (this.resource?.id) {
+          return this.resource.id;
+        } else if (this.currentWebResource?.about) {
+          return this.currentWebResource.about;
+        } else {
+          return null;
+        }
       }
     },
 

@@ -44,6 +44,7 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
+          :current-web-resource="currentWebResource"
         />
       </b-container>
       <b-container
@@ -178,6 +179,7 @@
         allMediaUris: [],
         annotations: [],
         cardGridClass: null,
+        currentWebResource: null,
         dataProviderEntity: null,
         entities: [],
         error: null,
@@ -398,6 +400,9 @@
 
         this.ogImage = new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)?.thumbnails(this.$nuxt.context)?.large;
 
+        this.currentWebResource = item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1];
+        console.log('currentWebResource', this.currentWebResource)
+
         // don't store the web resources when using iiif as the manifest will be used
         if (!this.iiifPresentationManifest) {
           this.media = item.providerAggregation.displayableWebResources;
@@ -405,7 +410,7 @@
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          this.currentWebResource?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
