@@ -31,14 +31,31 @@
           :aria-setsize="resources.length"
           :aria-posinset="firstRenderedResourceIndex + index + 1"
         >
-          <ItemMediaThumbnail
-            :offset="firstRenderedResourceIndex + index"
-            class="d-flex-inline mr-3 mr-lg-auto"
+          <NuxtLink
+            :to="{
+              path: $route.path,
+              query: { ...$route.query, page: firstRenderedResourceIndex + index + 1 },
+              hash: $route.hash
+            }"
+            class="item-media-thumbnail text-lowercase text-decoration-none d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
-            :resource="resource"
-            :edm-type="edmType"
-            :lazy="true"
-          />
+          >
+            <MediaCardImage
+              :media="resource.edm"
+              :lazy="true"
+              :offset="firstRenderedResourceIndex + index"
+              :edm-type="edmType"
+              thumbnail-size="small"
+              :linkable="false"
+            />
+            <span class="thumbnail-content d-flex flex-wrap align-items-center position-absolute">
+              {{ $n(firstRenderedResourceIndex + index + 1) }}
+              <span
+                class="icon-media-type ml-auto"
+                :class="`icon-${resource.edm.edmType || edmType.toLowerCase()}-bold`"
+              />
+            </span>
+          </NuxtLink>
         </li>
         <li
           v-if="skeletonAfter"
@@ -58,7 +75,7 @@
 <script>
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useScrollTo from '@/composables/scrollTo.js';
-  import ItemMediaThumbnail from './ItemMediaThumbnail.vue';
+  import MediaCardImage from '../media/MediaCardImage.vue';
 
   const perPage = 5;
 
@@ -66,7 +83,7 @@
     name: 'ItemMediaThumbnails',
 
     components: {
-      ItemMediaThumbnail
+      MediaCardImage
     },
 
     props: {
@@ -265,6 +282,122 @@
     li {
       list-style-type: none;
       flex-shrink: 0;
+
+      .item-media-thumbnail {
+        background-color: $grey;
+        padding: 0;
+        width: auto;
+        height: 7.75rem;
+        min-width: 3rem;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        overflow: hidden;
+        margin-right: 1rem;
+        position: relative;
+        border-radius: 0;
+        color: $black;
+
+        @media (min-width: $bp-large) {
+          width: 11rem;
+          height: auto;
+          min-height: 5rem;
+          max-height: 28rem;
+          margin-bottom: 1rem;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.btn-secondary {
+          &:hover,
+          &:not(:disabled):not(.disabled):active:hover,
+          &:not(:disabled):not(.disabled).active:hover {
+            color: $black;
+            background-color: $grey;
+            box-shadow: none;
+          }
+        }
+
+        &.selected {
+          outline: 2px solid $blue;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%);
+        }
+
+        .thumbnail-content {
+          left: 0.25rem;
+          right: 0.25rem;
+          bottom: 0.25rem;
+          z-index: 1;
+          font-size: $font-size-small;
+          color: $white;
+          line-height: 1;
+
+          @media (min-width: $bp-medium) {
+            left: 0.5rem;
+            right: 0.5rem;
+            bottom: 0.5rem;
+          }
+
+          @media (min-width: $bp-large) {
+            left: 1rem;
+            right: 0.75rem;
+            bottom: 0.75rem;
+          }
+        }
+
+        .media-card-image {
+          width: 100%;
+
+          @media (min-width: $bp-large) {
+            height: auto;
+          }
+
+          .default-thumbnail {
+            width: 100%;
+            height: 100%;
+            min-width: 3rem;
+            aspect-ratio: auto;
+
+            @media (min-width: $bp-medium) {
+              min-width: 5rem;
+            }
+
+            [class^='icon-'] {
+              @media (max-width: ($bp-medium - 1px)) {
+                font-size: $font-size-large;
+              }
+            }
+          }
+
+          .card-img {
+            border-radius: 0;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .icon-media-type {
+          @media (min-width: $bp-medium) {
+            font-size: $font-size-large;
+          }
+        }
+      }
     }
 
     @media (min-width: $bp-large) {
