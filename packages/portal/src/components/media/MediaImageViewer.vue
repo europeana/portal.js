@@ -26,8 +26,9 @@
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
 
-  import useZoom from '@/composables/zoom.js';
+  import useActiveTab from '@/composables/activeTab.js';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
 
@@ -86,7 +87,10 @@
         setActiveAnnotation
       } = useItemMediaPresentation();
 
-      return { annotationAtCoordinate, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      const tabHashes = ['#annotations', '#search', '#links'];
+      const { activeTabIndex } = useActiveTab(tabHashes);
+
+      return { activeTabIndex, annotationAtCoordinate, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -180,9 +184,9 @@
       },
 
       handleMapClick(coordinate) {
+        this.activeTabIndex = 0;
         const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
         this.setActiveAnnotation(clickedAnnotation);
-        console.log(clickedAnnotation);
       },
 
       highlightAnnotation() {

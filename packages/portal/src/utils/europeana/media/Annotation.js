@@ -16,7 +16,6 @@ export default class EuropeanaMediaAnnotation extends Base {
     }
 
     if (parsed.target) {
-      console.log(parsed.target);
       const targetHash = new URL(parsed.target?.id || parsed.target).hash;
       const xywhSelector = this.getHashParam(targetHash, 'xywh');
       if (xywhSelector) {

@@ -1,5 +1,4 @@
 import { computed, ref } from 'vue';
-import { fromExtent } from 'ol/geom/Polygon.js';
 
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
@@ -13,33 +12,10 @@ const page = ref(1);
 const presentation = ref(null);
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
-  console.log(coordinate);
+  const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
   return annotations.value.find((annotation) => {
-    const extent = [annotation.extent[0], annotation.extent[1], annotation.extent[0] + annotation.extent[2], annotation.extent[1] + annotation.extent[3]];
-
-    // TODO: instead of transforming the annotation xywh through poly and then accounting for the Y co-oordinate orientation for each,
-    // can we transform the clicked coordinate into the annotation layer/view so we only need to do one transform?
-    const poly = fromExtent(extent);
-
-    // TODO: this duplicates logic from "constructAnnotationFeature" in MediaImageViewer.
-    // If the above previous TODO doesn't work and we need to rely on poly.flatcoordinates,
-    // consider moving this onto EuropeanaMediaAnnotation and computing once there.
-
-    // Vector Layer co-ordinates start bottom left, not top left, so transform
-    // Y co-ordinates accordingly.
-    // TODO: this seems like it should be handled by ol's projections...
-    for (let i = 0; i < poly.flatCoordinates.length; i = i + 1) {
-      if ((i % 2) === 1) { // even indices only
-        poly.flatCoordinates[i] = fullExtent[3] - poly.flatCoordinates[i];
-      }
-    }
-    const result = poly.flatCoordinates[0] <= coordinate[0] && poly.flatCoordinates[4] >= coordinate[0] &&
-    poly.flatCoordinates[3] <= coordinate[1] && poly.flatCoordinates[1] >= coordinate[1];
-
-    // remove console.log debug & just return on line above.
-    console.log(`checking for:[${poly.flatCoordinates[0]}, ${poly.flatCoordinates[4]}, ${poly.flatCoordinates[1]}, ${poly.flatCoordinates[3]}] (${result})`);
-
-    return result;
+    return annotation.extent[0] <= coordinateToCompare[0] && annotation.extent[0] + annotation.extent[2] >= coordinateToCompare[0] &&
+    annotation.extent[1] <= coordinateToCompare[1] &&  annotation.extent[1] + annotation.extent[3] >= coordinateToCompare[1];
   });
 };
 

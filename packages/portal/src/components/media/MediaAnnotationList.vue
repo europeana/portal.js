@@ -110,7 +110,7 @@
         return;
       }
 
-      await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
+      await Promise.all([this.fetchCanvasAnnotations()].join(this.searching ? this.searchAnnotations(`"${this.query}"`) : null));
 
       this.setActiveAnnotationFromRouteQuery();
 
