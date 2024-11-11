@@ -55,9 +55,11 @@ export default {
     "login": "Logga in",
     "move": "Flytta",
     "next": "Nästa",
+    "nextPage": "Nästa sida",
     "pin": "Stift",
     "preview": "Förhandsvisning",
     "previous": "Föregående",
+    "previousPage": "Föregående sida",
     "publish": "Publicera",
     "readMore": "Läs mer",
     "reject": "Avvisa",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Avsluta helskärm",
+      "fullscreen": "Helskärm",
+      "keyboardNavigation": "Använd +, - och piltangenterna för att zooma och panorera runt bilden.",
+      "resetZoom": "Återställ zoom",
+      "zoomIn": "Zooma in",
+      "zoomOut": "Zooma ut"
+    },
+    "pages": {
+      "hide": "Dölj sidor",
+      "show": "Visa sidor"
+    },
+    "sidebar": {
+      "annotations": "Anteckningar",
+      "annotationsCount": "1 Anteckning | {count} Anteckningar",
+      "hide": "Dölj sidofältet",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Länkar",
+      "search": "Sök",
+      "searchPlaceholder": "Ange villkor",
+      "show": "Visa sidofältet"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "innehåller inte",
         "exact": "innehåller frasen"
       },
+      "newRule": "ny regel för avancerad sökning",
       "placeholder": {
         "field": "Välj ett fält",
         "modifier": "Välj en modifierare",

@@ -55,9 +55,11 @@ export default {
     "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
+    "nextPage": "Järgmine lehekülg",
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
+    "previousPage": "Eelmine lehekülg",
     "publish": "Avalda",
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Välju täisekraanist",
+      "fullscreen": "Täisekraan",
+      "keyboardNavigation": "Kasutage +, - ja nooleklahve pildi suurendamiseks ja liigutamiseks.",
+      "resetZoom": "Lähtestage suum",
+      "zoomIn": "Suumi sisse",
+      "zoomOut": "Suumi välja"
+    },
+    "pages": {
+      "hide": "Peida leheküljed",
+      "show": "Kuva leheküljed"
+    },
+    "sidebar": {
+      "annotations": "Märkused",
+      "annotationsCount": "1 märkus |{count} märkused",
+      "hide": "Peida külgriba",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Lingid",
+      "search": "Otsing",
+      "searchPlaceholder": "Sisestage tingimused",
+      "show": "Kuva külgriba"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "ei sisalda",
         "exact": "sisaldab fraasi"
       },
+      "newRule": "uus täpsema otsingu reegel",
       "placeholder": {
         "field": "Valige väli",
         "modifier": "Valige modifikaator",

@@ -55,9 +55,11 @@ export default {
     "login": "Влизане",
     "move": "Ход",
     "next": "Следваща",
+    "nextPage": "Следваща страница",
     "pin": "Щифт",
     "preview": "Преглед",
     "previous": "Предишна",
+    "previousPage": "Предишна страница",
     "publish": "Публикувайте",
     "readMore": "Прочетете повече",
     "reject": "Отхвърляне",
@@ -886,6 +888,30 @@ export default {
   },
   "loading": "Зареждане",
   "loadingResults": "Зареждане на резултати",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Изход от цял екран",
+      "fullscreen": "Цял екран",
+      "keyboardNavigation": "Използвайте +, - и клавишите със стрелки, за да увеличите и панорамирате изображението.",
+      "resetZoom": "Нулиране на мащаба",
+      "zoomIn": "Увеличете мащаба",
+      "zoomOut": "Намаляване на мащаба"
+    },
+    "pages": {
+      "hide": "Скриване на страници",
+      "show": "Показване на страници"
+    },
+    "sidebar": {
+      "annotations": "Анотации",
+      "annotationsCount": "1 Анотация |{count} Анотации",
+      "hide": "Скриване на страничната лента",
+      "IIIFManifest": "IIIF Манифест",
+      "links": "Връзки",
+      "search": "Търсене",
+      "searchPlaceholder": "Въведете термини",
+      "show": "Показване на страничната лента"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Копирано в клипборда",
     "externalContentError": "Външното съдържание не можа да се зареди",
@@ -1050,6 +1076,7 @@ export default {
         "doesNotContain": "не съдържа",
         "exact": "съдържа фразата"
       },
+      "newRule": "ново правило за разширено търсене",
       "placeholder": {
         "field": "Изберете поле",
         "modifier": "Изберете модификатор",
