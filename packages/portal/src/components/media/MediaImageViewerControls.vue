@@ -1,7 +1,7 @@
 <template>
   <div
     id="viewer-controls"
-    class="viewer-controls d-inline-flex align-items-center mx-auto"
+    class="viewer-controls position-absolute d-inline-flex align-items-center justify-content-center mx-auto"
   >
     <b-button
       v-b-tooltip.top="$t('media.controls.zoomIn')"
@@ -94,10 +94,24 @@
   @import '@europeana/style/scss/variables';
 
   .viewer-controls {
+    background-color: rgba($black, 0.7);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    padding: 0.875rem 1rem;
+
     .btn {
+      background-color: transparent;
+      font-size: $font-size-large;
+
+      &:not(:hover) {
+        color: $white;
+      }
+
       &.disabled {
         opacity: 1;
-        color: $middlegrey;
+        color: $mediumgrey-light;
       }
 
       &:focus {
@@ -107,9 +121,7 @@
     }
 
     .divider {
-      width: 1px;
-      height: 1rem;
-      background: $middlegrey;
+      border-color: $mediumgrey-light;
     }
   }
 </style>
