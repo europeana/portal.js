@@ -55,9 +55,11 @@ export default {
     "login": "Vpis",
     "move": "Premakni se",
     "next": "Naslednji",
+    "nextPage": "Naslednja stran",
     "pin": "Pin",
     "preview": "Predogled",
     "previous": "Prejšnji",
+    "previousPage": "Prejšnja stran",
     "publish": "Objavi",
     "readMore": "Preberi več",
     "reject": "Zavrne",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Izhod iz celotnega zaslona",
+      "fullscreen": "Celoten zaslon",
+      "keyboardNavigation": "Uporabite tipke +, - in puščice za povečavo in premikanje po sliki.",
+      "resetZoom": "Ponastavi povečavo",
+      "zoomIn": "Povečaj",
+      "zoomOut": "Pomanjšaj"
+    },
+    "pages": {
+      "hide": "Skrij strani",
+      "show": "Prikaži strani"
+    },
+    "sidebar": {
+      "annotations": "Opombe",
+      "annotationsCount": "1 Opomba | {count} opomb",
+      "hide": "Skrij stransko vrstico",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Povezave",
+      "search": "Išči",
+      "searchPlaceholder": "Vnesite pogoje",
+      "show": "Pokaži stransko vrstico"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "ne vsebuje",
         "exact": "vsebuje frazo"
       },
+      "newRule": "novo pravilo naprednega iskanja",
       "placeholder": {
         "field": "Izberite polje",
         "modifier": "Izberite modifikator",

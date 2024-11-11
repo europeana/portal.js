@@ -55,9 +55,11 @@ export default {
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
+    "nextPage": "Ďalšia strana",
     "pin": "Kolík",
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
+    "previousPage": "Predchádzajúca strana",
     "publish": "Publikovať",
     "readMore": "Čítaj viac",
     "reject": "Odmietnuť",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ukončiť celú obrazovku",
+      "fullscreen": "Celá obrazovka",
+      "keyboardNavigation": "Použite klávesy +, - a šípky na priblíženie a oddialenie a pohyb okolo obrázka.",
+      "resetZoom": "Obnoviť priblíženie",
+      "zoomIn": "Priblížiť",
+      "zoomOut": "Oddialiť"
+    },
+    "pages": {
+      "hide": "Skryť stránky",
+      "show": "Zobraziť stránky"
+    },
+    "sidebar": {
+      "annotations": "Anotácie",
+      "annotationsCount": "1 Anotácia | {count} Anotácie",
+      "hide": "Skryť bočný panel",
+      "IIIFManifest": "Manifest IIIF",
+      "links": "Odkazy",
+      "search": "Hľadať",
+      "searchPlaceholder": "Zadajte podmienky",
+      "show": "Zobraziť bočný panel"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "neobsahuje",
         "exact": "obsahuje frázu"
       },
+      "newRule": "nové pravidlo rozšíreného vyhľadávania",
       "placeholder": {
         "field": "Vyberte pole",
         "modifier": "Vyberte modifikátor",

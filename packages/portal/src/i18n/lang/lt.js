@@ -55,9 +55,11 @@ export default {
     "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
+    "nextPage": "Kitas puslapis",
     "pin": "Kaištis",
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
+    "previousPage": "Ankstesnis puslapis",
     "publish": "Publikuoti",
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Išeiti iš viso ekrano režimo",
+      "fullscreen": "Visas ekranas",
+      "keyboardNavigation": "Naudokite +, - ir rodyklių klavišus, kad priartintumėte ir atitolintumėte, taip pat judėtumėte aplink vaizdą.",
+      "resetZoom": "Iš naujo nustatyti mastelį",
+      "zoomIn": "Priartinti",
+      "zoomOut": "Nutolinti"
+    },
+    "pages": {
+      "hide": "Slėpti puslapius",
+      "show": "Rodyti puslapius"
+    },
+    "sidebar": {
+      "annotations": "Anotacijos",
+      "annotationsCount": "1 Anotacija |{count} Anotacijos",
+      "hide": "Slėpti šoninę juostą",
+      "IIIFManifest": "IIIF manifestas",
+      "links": "Nuorodos",
+      "search": "Paieška",
+      "searchPlaceholder": "Įveskite terminus",
+      "show": "Rodyti šoninę juostą"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "sudėtyje nėra",
         "exact": "yra frazė"
       },
+      "newRule": "nauja išplėstinės paieškos taisyklė",
       "placeholder": {
         "field": "Pasirinkite lauką",
         "modifier": "Pasirinkite modifikatorių",

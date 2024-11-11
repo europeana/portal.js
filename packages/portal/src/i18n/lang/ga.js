@@ -55,9 +55,11 @@ export default {
     "login": "Logáil isteach",
     "move": "Bog",
     "next": "Ar Aghaidh",
+    "nextPage": "An chéad leathanach eile",
     "pin": "Bioráin",
     "preview": "Réamhamharc",
     "previous": "Roimhe Seo",
+    "previousPage": "An leathanach roimhe seo",
     "publish": "Foilsiú",
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Scoir scáileán iomlán",
+      "fullscreen": "Scáileán iomlán",
+      "keyboardNavigation": "Bain úsáid as na heochracha +, - agus saigheada chun súmáil agus pánáil timpeall na híomhá.",
+      "resetZoom": "Athshocraigh súmáil",
+      "zoomIn": "Súmáil isteach",
+      "zoomOut": "Súmáil amach"
+    },
+    "pages": {
+      "hide": "Folaigh leathanaigh",
+      "show": "Taispeáin leathanaigh"
+    },
+    "sidebar": {
+      "annotations": "Anótálacha",
+      "annotationsCount": "1 Anótáil |{count} Anótálacha",
+      "hide": "Folaigh bharra taoibh",
+      "IIIFManifest": "Manifest IIIF",
+      "links": "Naisc",
+      "search": "Cuardaigh",
+      "searchPlaceholder": "Cuir isteach téarmaí",
+      "show": "Taispeáin barra taoibh"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Cóipeáilte ar ghearrthaisce",
     "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "nach bhfuil",
         "exact": "ina bhfuil an frása"
       },
+      "newRule": "riail nua cuardaigh chun cinn",
       "placeholder": {
         "field": "Roghnaigh réimse",
         "modifier": "Roghnaigh mionathraitheoir",
