@@ -55,9 +55,11 @@ export default {
     "login": "Bejelentkezés",
     "move": "Mozgás",
     "next": "Következő",
+    "nextPage": "Következő oldal",
     "pin": "Pin",
     "preview": "Előnézet",
     "previous": "Előző",
+    "previousPage": "Előző oldal",
     "publish": "Közzététel",
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
@@ -880,6 +882,30 @@ export default {
   },
   "loading": "Betöltés",
   "loadingResults": "Eredmények betöltése",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Kilépés a teljes képernyőről",
+      "fullscreen": "Teljes képernyő",
+      "keyboardNavigation": "Használja a +, - és nyílbillentyűket a kép nagyításához és pásztázásához.",
+      "resetZoom": "Zoom visszaállítása",
+      "zoomIn": "Nagyítás",
+      "zoomOut": "Kicsinyítés"
+    },
+    "pages": {
+      "hide": "Oldalak elrejtése",
+      "show": "Oldalak megjelenítése"
+    },
+    "sidebar": {
+      "annotations": "Megjegyzések",
+      "annotationsCount": "1 Megjegyzések |{count} Megjegyzések",
+      "hide": "Oldalsáv elrejtése",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linkek",
+      "search": "Keresés",
+      "searchPlaceholder": "Adja meg a kifejezéseket",
+      "show": "Oldalsáv megjelenítése"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
@@ -1044,6 +1070,7 @@ export default {
         "doesNotContain": "nem tartalmaz",
         "exact": "tartalmazza a kifejezést"
       },
+      "newRule": "új speciális keresési szabály",
       "placeholder": {
         "field": "Válasszon egy mezőt",
         "modifier": "Válasszon egy módosítót",

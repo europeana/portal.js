@@ -55,9 +55,11 @@ export default {
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
+    "nextPage": "Další stránka",
     "pin": "Kolík",
     "preview": "Náhled",
     "previous": "Předchozí",
+    "previousPage": "Předchozí stránka",
     "publish": "Publikovat",
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ukončete celou obrazovku",
+      "fullscreen": "Celá obrazovka",
+      "keyboardNavigation": "Použijte klávesy +, - a šipky pro přiblížení a posun po obrázku.",
+      "resetZoom": "Obnovit přiblížení",
+      "zoomIn": "Přiblížit",
+      "zoomOut": "Oddálit"
+    },
+    "pages": {
+      "hide": "Skrýt stránky",
+      "show": "Zobrazit stránky"
+    },
+    "sidebar": {
+      "annotations": "Anotace",
+      "annotationsCount": "1 Anotace | {count} Anotace",
+      "hide": "Skrýt postranní panel",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Odkazy",
+      "search": "Vyhledat",
+      "searchPlaceholder": "Zadejte podmínky",
+      "show": "Zobrazit postranní panel"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Zkopírováno do schránky",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "neobsahuje",
         "exact": "obsahuje frázi"
       },
+      "newRule": "nové pravidlo pokročilého vyhledávání",
       "placeholder": {
         "field": "Vyberte pole",
         "modifier": "Vyberte modifikátor",

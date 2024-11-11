@@ -55,9 +55,11 @@ export default {
     "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
+    "nextPage": "Il-paġna li jmiss",
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Preċedenti",
+    "previousPage": "Il-paġna ta' qabel",
     "publish": "Ippubblika",
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Oħroġ mill-iskrin sħiħ",
+      "fullscreen": "Skrin sħiħ",
+      "keyboardNavigation": "Uża l-buttuni +, - u vleġeġ biex tkabbar u tiċċaqlaq madwar l-immaġni.",
+      "resetZoom": "Irrisettja ż-żum",
+      "zoomIn": "Iżżumja 'l ġewwa",
+      "zoomOut": "Iżżumja 'l barra"
+    },
+    "pages": {
+      "hide": "Aħbi l-paġni",
+      "show": "Uri l-paġni"
+    },
+    "sidebar": {
+      "annotations": "Annotazzjonijiet",
+      "annotationsCount": "1 Annotazzjoni | {count} Annotazzjonijiet",
+      "hide": "Aħbi l-istrixxa tal-ġenb",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Fittex",
+      "searchPlaceholder": "Daħħal it-termini",
+      "show": "Uri l-istrixxa tal-ġenb"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "ma fihx",
         "exact": "fih il-frażi"
       },
+      "newRule": "regola ġdida ta’ tfittxija avvanzata",
       "placeholder": {
         "field": "Agħżel qasam",
         "modifier": "Agħżel modifikatur",
