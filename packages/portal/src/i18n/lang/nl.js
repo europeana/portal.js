@@ -55,9 +55,11 @@ export default {
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
+    "nextPage": "Volgende pagina",
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
+    "previousPage": "Vorige pagina",
     "publish": "Publiceren",
     "readMore": "Lees verder",
     "reject": "Afwijzen",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Volledig scherm afsluiten",
+      "fullscreen": "Volledig scherm",
+      "keyboardNavigation": "Gebruik de +, - en pijltjestoetsen om de afbeelding in en uit te zoomen en te verplaatsen.",
+      "resetZoom": "Zoom resetten",
+      "zoomIn": "Inzoomen",
+      "zoomOut": "Uitzoomen"
+    },
+    "pages": {
+      "hide": "Verberg pagina's",
+      "show": "Pagina's weergeven"
+    },
+    "sidebar": {
+      "annotations": "Annotaties",
+      "annotationsCount": "1 Annotatie | {count} Annotaties",
+      "hide": "Verberg zijbalk",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Zoeken",
+      "searchPlaceholder": "Voer termen in",
+      "show": "Zijbalk weergeven"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "bevat geen",
         "exact": "bevat de zin"
       },
+      "newRule": "nieuwe geavanceerde zoekregel",
       "placeholder": {
         "field": "Selecteer een veld",
         "modifier": "Selecteer een modificator",

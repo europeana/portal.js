@@ -55,9 +55,11 @@ export default {
     "login": "Zaloguj się",
     "move": "Przesuń",
     "next": "Następny",
+    "nextPage": "Następna strona",
     "pin": "Szpilka",
     "preview": "Podgląd",
     "previous": "Poprzedni",
+    "previousPage": "Poprzednia strona",
     "publish": "Publikować",
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Wyjdź z pełnego ekranu",
+      "fullscreen": "Pełny ekran",
+      "keyboardNavigation": "Użyj klawiszy +, - oraz strzałek, aby powiększać, zmniejszać i przesuwać obraz.",
+      "resetZoom": "Zresetuj powiększenie",
+      "zoomIn": "Powiększ",
+      "zoomOut": "Pomniejsz"
+    },
+    "pages": {
+      "hide": "Ukryj strony",
+      "show": "Pokaż strony"
+    },
+    "sidebar": {
+      "annotations": "Adnotacje",
+      "annotationsCount": "1 Adnotacja | {count} Adnotacje",
+      "hide": "Ukryj pasek boczny",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linki",
+      "search": "Szukaj",
+      "searchPlaceholder": "Wprowadź terminy",
+      "show": "Pokaż pasek boczny"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "nie zawiera",
         "exact": "zawiera frazę"
       },
+      "newRule": "nowa zaawansowana zasada wyszukiwania",
       "placeholder": {
         "field": "Wybierz pole",
         "modifier": "Wybierz modyfikator",
