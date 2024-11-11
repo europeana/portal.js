@@ -111,6 +111,12 @@
           ...i18nHead.htmlAttrs
         },
         link: [
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/icomoon.woff'), type: 'font/woff' },
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/opensans/v34/400-normal-latin.woff2'), type: 'font/woff2' },
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/opensans/v34/600-normal-latin.woff2'), type: 'font/woff2' },
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/opensans/v34/700-normal-latin.woff2'), type: 'font/woff2' },
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/ubuntu/v20/400-normal-latin.woff2'), type: 'font/woff2' },
+          { rel: 'preload', as: 'font', href: require('@europeana/style/fonts/ubuntu/v20/700-normal-latin.woff2'), type: 'font/woff2' },
           { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
