@@ -200,7 +200,7 @@
 
       this.selectResource();
 
-      if (this.hasAnnotations && window.innerWidth >= 768) {
+      if (this.hasAnnotations && window?.innerWidth >= 768) {
         this.showSidebar = true;
       }
     },
