@@ -25,14 +25,13 @@ const searchResult = {
 
 const logApmTransactionSpy = sinon.spy();
 
-const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
+const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
   attachTo: document.body,
   mocks: {
     $t: (key) => key,
     localePath: () => '/',
     $router: { push: sinon.spy() },
-    $fetchState,
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
     localise: (val) => val,
