@@ -155,7 +155,7 @@
           annotation = new EuropeanaMediaAnnotation(annotation);
         }
 
-        let [x, y, w, h] = annotation.extent || this.olExtent;
+        const extent = annotation.extent || this.olExtent;
         // FIXME: this.url will always be for the image, not the canvas, which works
         //        with europeana's incorrect annotation modelling, but not with
         //        others' correct modelling
@@ -165,7 +165,6 @@
           return;
         }
 
-        const extent = [x, y, x + w, y + h];
         const poly = fromExtent(extent);
 
         // Vector Layer co-ordinates start bottom left, not top left, so transform

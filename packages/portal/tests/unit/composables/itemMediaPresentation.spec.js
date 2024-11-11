@@ -204,4 +204,48 @@ describe('useItemMediaPresentation', () => {
       expect(page).toBe(1);
     });
   });
+
+  describe('annotationAtCoordinate', () => {
+    const extent = [0, 0, 400, 600];
+    const canvasAnnotations = [
+      {
+        id: 'https://data.europeana.eu/annotation/123/abc/def',
+        body: {
+          id: 'https://api.europeana.eu/fulltext/123/abc/2d05ecd#char=0,30',
+          value: 'First line of text annotation.',
+          language: 'en'
+        },
+        target: ['https://iiif.example.org/presentation/123/abc/image1.jpg#xywh=20,20,360,40'],
+        extent: [20, 20, 380, 60]
+      },
+      {
+        id: 'https://data.europeana.eu/annotation/123/abc/ghi',
+        body: {
+          id: 'https://api.europeana.eu/fulltext/123/abc/2d05ecd#char=31,62',
+          value: 'Second line of text annotation.',
+          language: 'en'
+        },
+        target: ['https://iiif.example.org/presentation/123/abc/image1.jpg#xywh=20,60,360,40'],
+        extent: [20, 60, 380, 100]
+      }
+    ];
+
+    describe('when the cooordinates are outside of any annotations', () => {
+      it('returns undefined', () => {
+        const { annotations, annotationAtCoordinate } = useItemMediaPresentation();
+        annotations.value = canvasAnnotations;
+        let annotation = annotationAtCoordinate([1, 1], extent);
+        expect(annotation).toBe(undefined);
+      });
+    });
+
+    describe('when the cooordinates are inside one of the annotations', () => {
+      it('returns undefined', () => {
+        const { annotations, annotationAtCoordinate } = useItemMediaPresentation();
+        annotations.value = canvasAnnotations;
+        let annotation = annotationAtCoordinate([40, 535], extent);
+        expect(annotation).toBe(canvasAnnotations[1]);
+      });
+    });
+  });
 });

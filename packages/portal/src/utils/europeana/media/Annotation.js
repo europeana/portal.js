@@ -22,7 +22,7 @@ export default class EuropeanaMediaAnnotation extends Base {
         const extent = xywhSelector
           .split(',')
           .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
-        parsed.extent = extent;
+        parsed.extent = [extent[0], extent[1], extent[0] + extent[2], extent[1] + extent[3]];
       }
     }
 

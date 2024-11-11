@@ -489,7 +489,6 @@ export default {
       'ol/events.js',
       'ol/format/IIIFInfo.js',
       'ol/geom/LineString.js',
-      'ol/geom/Polygon.js',
       'ol/interaction/DragBox.js',
       'ol/layer/Image.js',
       'ol/layer/Layer.js',
