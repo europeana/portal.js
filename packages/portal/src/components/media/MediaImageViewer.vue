@@ -83,11 +83,12 @@
       } = useZoom();
       const {
         annotationAtCoordinate,
+        fetchCanvasAnnotations,
         hasAnnotations,
         setActiveAnnotation
       } = useItemMediaPresentation();
 
-      return { annotationAtCoordinate, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return { annotationAtCoordinate, fetchCanvasAnnotations, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -122,6 +123,9 @@
       annotation: {
         deep: true,
         handler: 'highlightAnnotation'
+      },
+      '$route.query.page'() {
+        this.fetchCanvasAnnotations();
       },
       url: '$fetch',
       currentZoom: 'setZoom'
