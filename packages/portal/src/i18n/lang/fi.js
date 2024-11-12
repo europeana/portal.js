@@ -55,9 +55,11 @@ export default {
     "login": "Kirjaudu sisään",
     "move": "Liikkua",
     "next": "Seuraava",
+    "nextPage": "Seuraava sivu",
     "pin": "Pin",
     "preview": "Esikatselu",
     "previous": "Edellinen",
+    "previousPage": "Edellinen sivu",
     "publish": "Julkaista",
     "readMore": "Lue lisää",
     "reject": "Hylätä",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Poistu koko näytöstä",
+      "fullscreen": "Koko näyttö",
+      "keyboardNavigation": "Käytä +, - ja nuolinäppäimiä kuvan zoomaamiseen ja panorointiin.",
+      "resetZoom": "Nollaa zoomaus",
+      "zoomIn": "Lähennä",
+      "zoomOut": "Loitonna"
+    },
+    "pages": {
+      "hide": "Piilota sivut",
+      "show": "Näytä sivut"
+    },
+    "sidebar": {
+      "annotations": "Huomautukset",
+      "annotationsCount": "1 Huomautus |{count} Huomautukset",
+      "hide": "Piilota sivupalkki",
+      "IIIFManifest": "IIIF manifesti",
+      "links": "Linkit",
+      "search": "Hae",
+      "searchPlaceholder": "Syötä ehdot",
+      "show": "Näytä sivupalkki"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "ei sisällä",
         "exact": "sisältää lauseen"
       },
+      "newRule": "uusi tarkennetun haun sääntö",
       "placeholder": {
         "field": "Valitse kenttä",
         "modifier": "Valitse muokkaaja",

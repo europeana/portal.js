@@ -55,9 +55,11 @@ export default {
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
+    "nextPage": "Pagina următoare",
     "pin": "Pin",
     "preview": "Previzualizare",
     "previous": "Anterior",
+    "previousPage": "Pagina anterioară",
     "publish": "Publica",
     "readMore": "Citește mai mult",
     "reject": "Respinge",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ieșiți din ecranul complet",
+      "fullscreen": "Ecran complet",
+      "keyboardNavigation": "Folosește tastele +, - și săgețile pentru a mări și a deplasa imaginea.",
+      "resetZoom": "Resetați zoomul",
+      "zoomIn": "Mărește",
+      "zoomOut": "Micșorează"
+    },
+    "pages": {
+      "hide": "Ascunde paginile",
+      "show": "Afișați paginile"
+    },
+    "sidebar": {
+      "annotations": "Adnotări",
+      "annotationsCount": "1 Adnotare | {count} adnotări",
+      "hide": "Ascunde bara laterală",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linkuri",
+      "search": "Căutare",
+      "searchPlaceholder": "Introduceți termeni",
+      "show": "Afișați bara laterală"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "nu conține",
         "exact": "conţine fraza"
       },
+      "newRule": "noua regulă de căutare avansată",
       "placeholder": {
         "field": "Selectați un câmp",
         "modifier": "Selectați un modificator",

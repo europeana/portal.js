@@ -55,9 +55,11 @@ export default {
     "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
+    "nextPage": "Hurrengo orrialdea",
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
+    "previousPage": "Aurreko orrialdea",
     "publish": "Argitaratu",
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
@@ -886,6 +888,30 @@ export default {
   },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Irten pantaila osotik",
+      "fullscreen": "Pantaila osoa",
+      "keyboardNavigation": "Erabili +, - eta gezi-teklak irudia handitzeko eta mugitzeko.",
+      "resetZoom": "Berrezarri zooma",
+      "zoomIn": "Handitu",
+      "zoomOut": "Urrundu"
+    },
+    "pages": {
+      "hide": "Ezkutatu orriak",
+      "show": "Erakutsi orrialdeak"
+    },
+    "sidebar": {
+      "annotations": "Oharpenak",
+      "annotationsCount": "1 Oharpena |{count} Oharpenak",
+      "hide": "Ezkutatu alboko barra",
+      "IIIFManifest": "IIIF Manifestua",
+      "links": "Loturak",
+      "search": "Bilatu",
+      "searchPlaceholder": "Sartu terminoak",
+      "show": "Erakutsi alboko barra"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
@@ -1050,6 +1076,7 @@ export default {
         "doesNotContain": "ez dauka",
         "exact": "esaldia dauka"
       },
+      "newRule": "bilaketa aurreratu-arau berria",
       "placeholder": {
         "field": "Hautatu eremu bat",
         "modifier": "Hautatu modifikatzaile bat",

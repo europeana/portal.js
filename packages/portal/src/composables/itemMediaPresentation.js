@@ -34,7 +34,7 @@ const annotationSearchHitSelectorFor = (annoId) => {
 const annotationTargetId = computed(() => {
   // account for Europeana fulltext annotations incorrectly targeting IIIF
   // images instead of canvases
-  return presentation.value?.isInEuropeanaDomain ? resource.value?.about : canvas.value?.id;
+  return presentation.value?.isInEuropeanaDomain ? resource.value?.id : canvas.value?.id;
 });
 
 const annotationTextGranularity = computed(() => {
@@ -135,7 +135,7 @@ const pageForAnnotationTarget = (annoTarget) => {
   const annoTargets = [].concat(annoTarget).filter(Boolean);
   let targetIds;
   if (presentation.value?.isInEuropeanaDomain) {
-    targetIds = resources.value.map((resource) => resource.about);
+    targetIds = resources.value.map((resource) => resource.id);
   } else {
     targetIds = canvases.value.map((canvas) => canvas.id);
   }
