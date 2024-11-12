@@ -131,6 +131,9 @@
       activeAnnotation: {
         deep: true,
         handler() {
+          if (this.$route.query.anno !== this.activeAnnotation?.id) {
+            this.$router.replace(this.annotationLinkRoute(this.activeAnnotation, { hash: '#annotations' }));
+          }
           this.scrollActiveAnnotationToCentre();
         }
       },
@@ -151,14 +154,15 @@
 
     methods: {
       // TODO: md5 the anno param to prevent the url getting too long?
-      annotationLinkRoute(anno) {
+      annotationLinkRoute(anno, options = {}) {
         return {
           ...this.$route,
           query: {
             ...this.$route.query,
-            anno: anno.id,
-            page: this.pageForAnnotationTarget(anno.target)
-          }
+            anno: anno?.id,
+            page: this.pageForAnnotationTarget(anno?.target) || this.$route.query.page
+          },
+          ...options
         };
       },
 
@@ -180,7 +184,7 @@
       },
 
       setActiveAnnotationFromRouteQuery() {
-        if (this.$route.query.anno) {
+        if (this.$route.query.anno && (this.$route.query.anno !== this.activeAnnotation?.id)) {
           this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
           process.client && this.scrollActiveAnnotationToCentre('instant');
         }
