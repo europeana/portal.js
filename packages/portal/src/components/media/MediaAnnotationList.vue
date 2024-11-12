@@ -185,7 +185,7 @@
 
       setActiveAnnotationFromRouteQuery() {
         if (this.$route.query.anno && (this.$route.query.anno !== this.activeAnnotation?.id)) {
-          this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
+          this.setActiveAnnotation(this.annotations.find((anno) => anno.id === this.$route.query.anno) || null);
           process.client && this.scrollActiveAnnotationToCentre('instant');
         }
       }
