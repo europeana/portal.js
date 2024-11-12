@@ -8,6 +8,7 @@ const annotations = ref([]);
 const annotationSearchHits = ref([]);
 const annotationSearchResults = ref([]);
 const activeAnnotation = ref(null);
+const highlightedAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
 
@@ -158,6 +159,10 @@ const setActiveAnnotation = (active) => {
   activeAnnotation.value = active;
 };
 
+const setHighlightedAnnotation = (highlighted) => {
+  highlightedAnnotation.value = highlighted;
+};
+
 const setPage = (value) => {
   page.value = Number(value) || 1;
 };
@@ -180,6 +185,7 @@ export default function useItemMediaPresentation() {
     fetchPresentation,
     hasAnnotations,
     hasSearchService,
+    highlightedAnnotation,
     page,
     pageForAnnotationTarget,
     resource,
@@ -189,6 +195,7 @@ export default function useItemMediaPresentation() {
     searchAnnotations,
     searchServiceUri,
     setActiveAnnotation,
+    setHighlightedAnnotation,
     setPage,
     setPresentationFromWebResources
   };

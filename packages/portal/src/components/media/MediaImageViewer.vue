@@ -84,13 +84,15 @@
       const {
         annotationAtCoordinate,
         hasAnnotations,
-        setActiveAnnotation
+        highlightedAnnotation,
+        setActiveAnnotation,
+        setHighlightedAnnotation
       } = useItemMediaPresentation();
 
       const tabHashes = ['#annotations', '#search', '#links'];
       const { activeTabIndex } = useActiveTab(tabHashes);
 
-      return { activeTabIndex, annotationAtCoordinate, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return { activeTabIndex, annotationAtCoordinate, hasAnnotations, highlightedAnnotation, currentZoom, setActiveAnnotation, setHighlightedAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -124,6 +126,10 @@
     watch: {
       annotation: {
         deep: true,
+        handler: 'selectAnnotation'
+      },
+      highlightedAnnotation: {
+        deep: true,
         handler: 'highlightAnnotation'
       },
       url: '$fetch',
@@ -147,8 +153,7 @@
         }
       },
 
-      constructAnnotationFeature() {
-        let annotation = this.annotation;
+      constructAnnotationFeature(annotation) {
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
@@ -184,11 +189,16 @@
 
       handleMapClick(coordinate) {
         this.activeTabIndex = 0;
-        const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
-        this.setActiveAnnotation(clickedAnnotation);
+        this.setActiveAnnotation(this.annotationAtCoordinate(coordinate, this.olExtent));
       },
 
-      highlightAnnotation() {
+      handlPointerMove(pixel) {
+        const coordinate = this.olMap.getCoordinateFromPixel(pixel);
+        const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
+        this.setHighlightedAnnotation(anno);
+      },
+
+      selectAnnotation() {
         this.initOlAnnotationLayer();
 
         const layer = this.olMap.getLayers().item(1);
@@ -196,8 +206,27 @@
         // remove any existing features, i.e. previously highlighted annotations
         layer.getSource().clear();
 
-        const feature = this.constructAnnotationFeature();
+        let feature;
+        if (this.annotation) {
+          feature = this.constructAnnotationFeature(this.annotation);
+        }
+        if (feature) {
+          layer.getSource().addFeature(feature);
+        }
+      },
 
+      highlightAnnotation() {
+        console.log('handling highlight');
+        this.initOlAnnotationLayer();
+
+        const layer = this.olMap.getLayers().item(1);
+
+        // remove any existing features, i.e. previously highlighted annotations
+        layer.getSource().clear();
+        let feature;
+        if (this.highlightedAnnotation) {
+          feature = this.constructAnnotationFeature(this.highlightedAnnotation);
+        }
         if (feature) {
           layer.getSource().addFeature(feature);
         }
@@ -231,6 +260,9 @@
         if (this.hasAnnotations) {
           this.olMap.on('click', (evt) => {
             this.handleMapClick(evt.coordinate);
+          });
+          this.olMap.on('pointermove', (evt) => {
+            this.handlPointerMove(evt.pixel);
           });
         }
       },
@@ -294,7 +326,7 @@
         }
 
         this.initOlMap(mapOptions);
-        this.highlightAnnotation();
+        this.selectAnnotation();
       },
 
       setZoom() {
