@@ -1,8 +1,11 @@
 <template>
-  <iframe
-    :src="src"
-    class="w-100 h-100"
-  />
+  <div class="w-100 h-100 overflow-hidden">
+    <iframe
+      title="pdf-viewer"
+      :src="`https://docs.google.com/viewer?url=${src}&embedded=true`"
+      class="w-100 h-100 border-0"
+    />
+  </div>
 </template>
 
 <script>
