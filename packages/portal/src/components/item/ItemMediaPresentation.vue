@@ -12,84 +12,14 @@
         }"
       >
         <b-container
-          v-if="$fetchState.pending"
+          class="h-100 d-flex align-items-center justify-content-center"
           data-qa="loading spinner container"
         >
-          <b-row class="flex-md-row py-4 text-center">
-            <b-col cols="12">
-              <LoadingSpinner
-                class="text-white"
-                size="lg"
-              />
-            </b-col>
-          </b-row>
+          <LoadingSpinner
+            class="text-white"
+            size="lg"
+          />
         </b-container>
-        <template v-else>
-          <template v-if="sidebarHasContent">
-            <ItemMediaSidebar
-              v-show="showSidebar"
-              ref="sidebar"
-              tabindex="0"
-              :annotation-list="hasAnnotations"
-              :annotation-search="hasAnnotations && hasSearchService"
-              :manifest-uri="uri"
-              @keydown.escape.native="showSidebar = false"
-            />
-            <ItemMediaSidebarToggle
-              :show-sidebar="showSidebar"
-              class="d-none d-lg-block"
-              @toggleSidebar="toggleSidebar"
-            />
-          </template>
-          <IIIFErrorMessage
-            v-if="$fetchState.error"
-            :provider-url="providerUrl"
-          />
-          <MediaImageViewer
-            v-else-if="imageTypeResource"
-            :url="resource.id"
-            :item-id="itemId"
-            :width="resource.width"
-            :height="resource.height"
-            :format="resource.format"
-            :service="resource.service"
-            :annotation="activeAnnotation"
-            @error="handleImageError"
-          >
-            <MediaImageViewerControls
-              :fullscreen="fullscreen"
-              @toggleFullscreen="toggleFullscreen"
-            />
-          </MediaImageViewer>
-          <MediaPDFViewer
-            v-else-if="resource?.format === 'application/pdf'"
-            :url="resource.id"
-            :item-id="itemId"
-            class="media-viewer-content"
-          />
-          <MediaAudioVisualPlayer
-            v-else-if="resource?.edm.isPlayableMedia"
-            :url="resource.id"
-            :format="resource.format"
-            :item-id="itemId"
-            class="media-viewer-content"
-          />
-          <EmbedOEmbed
-            v-else-if="resource?.edm.isOEmbed"
-            :url="resource.id"
-            class="media-viewer-content"
-          />
-          <code
-            v-else
-            class="media-viewer-content h-50 w-100 p-5"
-          >
-            <pre
-              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
-            ><!--
-            -->{{ JSON.stringify(resource?.edm, null, 2) }}
-            </pre>
-          </code>
-        </template>
       </div>
       <div
         v-if="sidebarHasContent || multiplePages"
