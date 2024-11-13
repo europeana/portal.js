@@ -111,7 +111,6 @@
       }
 
       await Promise.all([this.fetchCanvasAnnotations(), (this.searching ? this.searchAnnotations(`"${this.query}"`) : null)]);
-
       this.setActiveAnnotationFromRouteQuery();
 
       this.$emit('fetched', this.annotations.length);
@@ -173,8 +172,9 @@
         await this.$nextTick();
 
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
+          const elementOffset = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
           this.scrollElementToCentre(
-            this.$refs.annotationListItems[this.annotationList.indexOf(this.activeAnnotation)],
+            this.$refs.annotationListItems[elementOffset],
             {
               behavior,
               container: document.querySelector(this.annotationScrollToContainerSelector)
@@ -185,7 +185,8 @@
 
       setActiveAnnotationFromRouteQuery() {
         if (this.$route.query.anno && (this.$route.query.anno !== this.activeAnnotation?.id)) {
-          this.setActiveAnnotation(this.annotations.find((anno) => anno.id === this.$route.query.anno) || null);
+          const activeAnnotation = this.annotations.find((anno) => anno.id === this.$route.query.anno) || this.annotationSearchResults.find((anno) => anno.id === this.$route.query.anno);
+          this.setActiveAnnotation(activeAnnotation || null);
           process.client && this.scrollActiveAnnotationToCentre('instant');
         }
       }
