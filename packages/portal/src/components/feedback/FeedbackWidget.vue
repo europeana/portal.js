@@ -16,6 +16,11 @@
         <!-- prevent eslint closing this -->
       </script>
       <link
+        rel="preload"
+        as="style"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.3.0/dist/europeana-feedback-widget.css"
+      >
+      <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.3.0/dist/europeana-feedback-widget.css"
       >

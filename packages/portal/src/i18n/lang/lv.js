@@ -55,9 +55,11 @@ export default {
     "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
+    "nextPage": "Nākamā lapa",
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
+    "previousPage": "Iepriekšējā lapa",
     "publish": "Publicēt",
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Iziet pilnekrāna režīmā",
+      "fullscreen": "Pilnekrāna",
+      "keyboardNavigation": "Izmantojiet +, - un bulttaustiņus, lai tuvinātu un panoramētu attēlu.",
+      "resetZoom": "Atiestatīt tālummaiņu",
+      "zoomIn": "Pietuvināt",
+      "zoomOut": "Attālināt"
+    },
+    "pages": {
+      "hide": "Slēpt lapas",
+      "show": "Rādīt lapas"
+    },
+    "sidebar": {
+      "annotations": "Anotācijas",
+      "annotationsCount": "1 Anotācija | {count} Anotācijas",
+      "hide": "Paslēpt sānjoslu",
+      "IIIFManifest": "IIIF manifests",
+      "links": "Saites",
+      "search": "Meklēt",
+      "searchPlaceholder": "Ievadiet terminus",
+      "show": "Rādīt sānjoslu"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "nesatur",
         "exact": "satur frāzi"
       },
+      "newRule": "jauns izvērstās meklēšanas noteikums",
       "placeholder": {
         "field": "Izvēlieties lauku",
         "modifier": "Izvēlieties modifikatoru",

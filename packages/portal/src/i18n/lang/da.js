@@ -55,9 +55,11 @@ export default {
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
+    "nextPage": "Næste side",
     "pin": "Pin",
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
+    "previousPage": "Forrige side",
     "publish": "Offentliggøre",
     "readMore": "Læs mere",
     "reject": "Afvise",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Afslut fuld skærm",
+      "fullscreen": "Fuld skærm",
+      "keyboardNavigation": "Brug +, - og piletasterne til at zoome og panorere rundt i billedet.",
+      "resetZoom": "Nulstil zoom",
+      "zoomIn": "Zoom ind",
+      "zoomOut": "Zoom ud"
+    },
+    "pages": {
+      "hide": "Skjul sider",
+      "show": "Vis sider"
+    },
+    "sidebar": {
+      "annotations": "Annotationer",
+      "annotationsCount": "1 Annotation |{count} Annotationer",
+      "hide": "Skjul sidebjælke",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Søg",
+      "searchPlaceholder": "Indtast vilkår",
+      "show": "Vis sidebjælke"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "indeholder ikke",
         "exact": "indeholder sætningen"
       },
+      "newRule": "ny avanceret søgeregel",
       "placeholder": {
         "field": "Vælg et felt",
         "modifier": "Vælg en modifikator",

@@ -55,9 +55,11 @@ export default {
     "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
+    "nextPage": "Nächste Seite",
     "pin": "Anheften",
     "preview": "Vorschau",
     "previous": "Vorherige",
+    "previousPage": "Vorherige Seite",
     "publish": "Veröffentlichen",
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
@@ -881,6 +883,30 @@ export default {
   },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Vollbild beenden",
+      "fullscreen": "Vollbild",
+      "keyboardNavigation": "Verwenden Sie die +, - und Pfeiltasten, um das Bild zu zoomen und zu verschieben.",
+      "resetZoom": "Zoom zurücksetzen",
+      "zoomIn": "Vergrößern",
+      "zoomOut": "Verkleinern"
+    },
+    "pages": {
+      "hide": "Seiten ausblenden",
+      "show": "Seiten anzeigen"
+    },
+    "sidebar": {
+      "annotations": "Anmerkungen",
+      "annotationsCount": "1 Anmerkung | {count} Anmerkungen",
+      "hide": "Seitenleiste ausblenden",
+      "IIIFManifest": "IIIF-Manifest",
+      "links": "Links",
+      "search": "Suche",
+      "searchPlaceholder": "Begriffe eingeben",
+      "show": "Seitenleiste anzeigen"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
@@ -1045,6 +1071,7 @@ export default {
         "doesNotContain": "enthält nicht",
         "exact": "enthält die Phrase"
       },
+      "newRule": "neue erweiterte Suchregel",
       "placeholder": {
         "field": "Wählen Sie ein Feld aus",
         "modifier": "Wählen Sie einen Modifikator",

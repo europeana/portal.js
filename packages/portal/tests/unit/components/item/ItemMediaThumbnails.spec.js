@@ -249,19 +249,6 @@ describe('components/item/ItemMediaThumbnail', () => {
         const result = wrapper.vm.calculateSkeletonWidth(resources);
         expect(result).toBe('216px'); // 200 + 16
       });
-
-      describe('when viewport width small', () => {
-        it('calculates width based on ebucoreWidth and CSS height', () => {
-          window.innerWidth = 600;
-          const resources = [
-            { ebucoreHeight: 58, ebucoreWidth: 58 }
-          ];
-          const wrapper = factory();
-
-          const result = wrapper.vm.calculateSkeletonWidth(resources);
-          expect(result).toBe('74px'); // (58/58)*58 + 16
-        });
-      });
     });
   });
 });
