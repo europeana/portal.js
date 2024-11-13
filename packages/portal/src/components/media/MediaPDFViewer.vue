@@ -1,37 +1,17 @@
 <template>
-  <div id="pdfvuer">
-    <PaginationNavInput
-      :per-page="1"
-      :total-results="numPages"
-      :button-text="false"
-      :button-icon-class="'icon-arrow-outline'"
-      class="pagination"
-    />
-    <PDFViewer
-      v-for="i in numPages"
-      :id="i"
-      :key="i"
-      :src="src"
-      :page="i"
-    >
-      <template slot="loading">
-        loading content here...
-      </template>
-    </PDFViewer>
-  </div>
+  <canvas id="the-canvas" />
 </template>
 
 <script>
-  import PDFViewer from 'pdfvuer';
-  import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import * as pdfjsLib from 'pdfjs-dist';
+  // import { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer';
+  // import 'pdfjs-dist/web/pdf_viewer.css';
+
+  import 'pdfjs-dist/build/pdf.worker.entry';
 
   export default {
     name: 'MediaPDFViewer',
 
-    components: {
-      PaginationNavInput,
-      PDFViewer
-    },
     props: {
       url: {
         type: String,
@@ -46,11 +26,6 @@
 
     data() {
       return {
-        page: this.$route.query.page,
-        numPages: 0,
-        pdfdata: undefined,
-        errors: [],
-        scale: 'page-width',
         src: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' })
       };
     },
@@ -61,24 +36,49 @@
 
     methods: {
       getPdf() {
-        let self = this;
-        self.pdfdata = PDFViewer.createLoadingTask(this.src);
-        self.pdfdata.then(pdf => {
-          self.numPages = pdf.numPages;
+        // let pdfViewer = new PDFViewer({
+        //   container: this.$refs.container,
+        //   viewer: this.$refs.viewer,
+        //   eventBus: new EventBus
+        // });
+        // let pdf = await pdfjsLib.getDocument(this.src).promise;
+
+        // pdfViewer.setDocument(pdf);
+
+        // Asynchronous download of PDF
+        let loadingTask = pdfjsLib.getDocument(this.src);
+        loadingTask.promise.then((pdf) => {
+          console.log('PDF loaded');
+
+          // Fetch the first page
+          let pageNumber = 1;
+          pdf.getPage(pageNumber).then((page) => {
+            console.log('Page loaded');
+
+            let scale = 1.5;
+            let viewport = page.getViewport({ scale });
+
+            // Prepare canvas using PDF page dimensions
+            let canvas = document.getElementById('the-canvas');
+            let context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page into canvas context
+            let renderContext = {
+              canvasContext: context,
+              viewport
+            };
+            let renderTask = page.render(renderContext);
+            renderTask.promise.then(() => {
+              console.log('Page rendered');
+            });
+          });
+        }, (reason) => {
+          // PDF loading error
+          console.error(reason);
         });
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .pagination {
-    background-color: rgba($white, 0.95);
-
-    ::v-deep ul {
-      margin: 0 auto;
-    }
-  }
-</style>
