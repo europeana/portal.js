@@ -185,6 +185,9 @@
 
       handleMapClick(coordinate) {
         const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
+        if (clickedAnnotation && this.$route.hash !== '#annotations') {
+          this.$router.replace({ ...this.$route, hash: '#annotations' });
+        }
         this.setActiveAnnotation(clickedAnnotation);
       },
 

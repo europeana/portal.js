@@ -130,9 +130,6 @@
       activeAnnotation: {
         deep: true,
         handler() {
-          if (this.$route.query.anno !== this.activeAnnotation?.id) {
-            this.$router.replace(this.annotationLinkRoute(this.activeAnnotation, { hash: '#annotations' }));
-          }
           this.scrollActiveAnnotationToCentre();
         }
       },
