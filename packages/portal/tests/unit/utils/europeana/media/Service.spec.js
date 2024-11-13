@@ -37,6 +37,8 @@ describe('EuropeanaMediaService', () => {
       const origin = 'http://example.org';
       const path = '/image.jpeg';
       const id = `${origin}${path}`;
+      const infoPath = `${path}/info.json`;
+      const infoUrl = `${origin}${infoPath}`;
       const responseData = {
         '@context': 'http://iiif.io/api/image/2/context.json',
         '@id': id,
@@ -48,16 +50,33 @@ describe('EuropeanaMediaService', () => {
         width: 1000
       };
 
-      beforeEach(() => {
-        nock(origin).get(`${path}/info.json`).reply(200, responseData);
-      });
-
       it('retrieves info.json resource', async() => {
+        nock(origin).get(infoPath).reply(200, responseData);
         const service = new EuropeanaMediaService({ id });
 
         await service.fetchInfo();
 
         expect(nock.isDone()).toBe(true);
+      });
+
+      describe('on request error', () => {
+        beforeEach(() => {
+          nock(origin).get(infoPath).reply(404);
+        });
+
+        it('throws a custom error with url from request config', async() => {
+          const service = new EuropeanaMediaService({ id });
+
+          let error;
+          try {
+            await service.fetchInfo();
+          } catch (e) {
+            error = e;
+          }
+
+          expect(error.message).toBe('Request failed with status code 404');
+          expect(error.url).toBe(infoUrl);
+        });
       });
     });
   });

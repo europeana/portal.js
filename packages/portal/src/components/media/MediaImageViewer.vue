@@ -33,6 +33,13 @@
 
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
+  export class MediaImageViewerError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'MediaImageViewerError';
+    }
+  }
+
   export default {
     name: 'MediaImageViewer',
 
@@ -98,17 +105,20 @@
     },
 
     async fetch() {
-      if (this.service?.id) {
-        // TODO: mv info retrieval into the itemMediaPresentation composable?
-        //       e.g. for centralised error handling
-        const infoResponse = await this.service.fetchInfo();
-        this.info = infoResponse.data;
-        this.source = 'IIIF';
-        // this.fullsize = true;
-      }
+      try {
+        if (this.service?.id) {
+          const infoResponse = await this.service.fetchInfo();
+          this.info = infoResponse.data;
+          this.source = 'IIIF';
+          // this.fullsize = true;
+        }
 
-      if (process.client) {
-        this.renderImage();
+        if (process.client) {
+          this.renderImage();
+        }
+      } catch (error) {
+        this.$emit('error', error);
+        throw error;
       }
     },
 
@@ -131,7 +141,7 @@
       initOlAnnotationLayer() {
         const layerCount = this.olMap.getLayers().getLength();
         if (layerCount === 0) {
-          throw new Error('No image layer to annotate.');
+          throw new MediaImageViewerError('No image layer to annotate');
         }
         if (layerCount === 1) {
           this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
@@ -198,6 +208,15 @@
         }
       },
 
+      handleOlError(olError, message) {
+        const error = new MediaImageViewerError(message);
+        error.type = olError.type;
+        if (olError.target?.['url_']) {
+          error.url = olError.target['url_'];
+        }
+        this.$emit('error', error);
+      },
+
       initOlMap({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
@@ -208,6 +227,7 @@
           projection,
           resolutions: source.getTileGrid?.().getResolutions()
         });
+        view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
 
         if (!this.olMap) {
           this.olMap = new Map({
@@ -216,6 +236,7 @@
             target: 'media-image-viewer',
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
+          this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
         }
         this.olExtent = extent;
 
@@ -253,7 +274,11 @@
         sourceOptions.extent = extent;
 
         const source = new IIIFSource(sourceOptions);
+        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
+        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
+        source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         const layer = new TileLayer({ source });
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
         return { extent, layer, source };
       },
@@ -267,7 +292,10 @@
           url: this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' }),
           imageExtent: extent
         });
+        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
+        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         const layer = new ImageLayer({ source });
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
         return { extent, layer, source };
       },

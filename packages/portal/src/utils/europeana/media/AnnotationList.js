@@ -15,10 +15,10 @@ export default class EuropeanaMediaAnnotationList extends Base {
 
     if (data.type === 'AnnotationPage') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=3
-      parsed.items = data.items.map((item) => Annotation.parse(item));
+      parsed.items = (data.items || []).map((item) => Annotation.parse(item));
     } else if (data.type === 'sc:AnnotationList') {
       // e.g. https://iiif.europeana.eu/presentation/9200338/BibliographicResource_3000127242400/annopage/90b837b?lang=de&format=2
-      parsed.items = data.resources.map((resource) => Annotation.parse(resource));
+      parsed.items = (data.resources || []).map((resource) => Annotation.parse(resource));
     } else {
       parsed.items = [];
     }
