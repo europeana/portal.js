@@ -3,14 +3,6 @@ import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import useZoom from '@/composables/zoom.js';
 import sinon from 'sinon';
-jest.mock('ol/format/IIIFInfo', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      getTileSourceOptions: () => ({ size: [100, 100] })
-    };
-  });
-});
-jest.mock('ol/source/IIIF');
 
 const localVue = createLocalVue();
 
