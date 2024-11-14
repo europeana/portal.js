@@ -36,7 +36,6 @@
             :height="resource.height"
             :format="resource.format"
             :service="resource.service"
-            :annotation="activeAnnotation"
           >
             <MediaImageViewerControls
               :fullscreen="fullscreen"
@@ -155,7 +154,6 @@
 
     setup() {
       const {
-        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -167,7 +165,6 @@
       } = useItemMediaPresentation();
 
       return {
-        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,

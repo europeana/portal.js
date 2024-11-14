@@ -133,6 +133,9 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
+      active() {
+        this.scrollActiveAnnotationToCentre();
+      },
       // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
         !this.searching && this.$fetch();
@@ -150,23 +153,25 @@
 
     methods: {
       // TODO: md5 the anno param to prevent the url getting too long?
-      annotationLinkRoute(anno, options = {}) {
+      annotationLinkRoute(anno) {
         return {
           ...this.$route,
           query: {
             ...this.$route.query,
             anno: anno?.id,
             page: this.pageForAnnotationTarget(anno?.target) || this.$route.query.page
-          },
-          ...options
+          }
         };
       },
 
       async scrollActiveAnnotationToCentre(behavior = 'smooth') {
-        if (!this.active) {
+        if (!this.active || !this.activeAnnotation) {
           return;
         }
         await this.$nextTick();
+
+        // TODO: Selecting a search result, switching page & selecting an annotation causes annotationListItems to be undefined
+        console.log(this.$refs.annotationListItems);
 
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
           const elementOffset = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
@@ -181,7 +186,11 @@
       },
 
       setActiveAnnotationFromRouteQuery() {
-        if (this.$route.query.anno && (this.$route.query.anno !== this.activeAnnotation?.id)) {
+        if (!this.$route.query.anno) {
+          this.setActiveAnnotation(null);
+          return;
+        }
+        if (this.$route.query.anno !== this.activeAnnotation?.id) {
           const activeAnnotation = this.annotations.find((anno) => anno.id === this.$route.query.anno) || this.annotationSearchResults.find((anno) => anno.id === this.$route.query.anno);
           this.setActiveAnnotation(activeAnnotation || null);
           process.client && this.scrollActiveAnnotationToCentre('instant');

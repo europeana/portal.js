@@ -127,7 +127,6 @@ const fetchCanvasAnnotations = async() => {
       anno.body = anno.body[0];
     }
   }
-
   annotations.value = annos;
 };
 

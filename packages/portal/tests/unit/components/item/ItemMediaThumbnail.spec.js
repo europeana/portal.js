@@ -41,7 +41,7 @@ describe('components/item/ItemMediaThumbnail', () => {
   });
 
   describe('link', () => {
-    it('uses current URL, plus adds the page as a query param', () => {
+    it('uses current URL, removing any annotation links, plus adds the page as a query param', () => {
       const wrapper = factory({ propsData: { ...props, offset: 5 } });
 
       const pageLink = wrapper.vm.link;
@@ -49,7 +49,7 @@ describe('components/item/ItemMediaThumbnail', () => {
       expect(pageLink).toStrictEqual({
         hash: undefined,
         path: '/mock/path/',
-        query: { page: 6 }
+        query: { page: 6, anno: undefined }
       });
     });
   });

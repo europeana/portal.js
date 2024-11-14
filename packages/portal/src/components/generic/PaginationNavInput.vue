@@ -160,6 +160,13 @@
       progress: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Array of url params to exclude on pagination
+       */
+      excludeParams: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -206,14 +213,18 @@
     methods: {
       changePaginationNav() {
         if (this.page) {
-          this.$router.push(this.linkGen(this.page));
+          this.$router.push(this.linkGen(this.page, false));
         }
       },
 
-      linkGen(pageNo) {
+      linkGen(pageNo, exclude = true) {
+        const excludeParams =  exclude ? this.excludeParams.reduce((memo, param) => {
+          memo[param] = undefined;
+          return memo;
+        }, {}) : {};
         return {
           path: this.$route.path,
-          query: { ...this.$route.query, page: pageNo },
+          query: { ...this.$route.query, page: pageNo, ...excludeParams },
           hash: this.$route.hash
         };
       }

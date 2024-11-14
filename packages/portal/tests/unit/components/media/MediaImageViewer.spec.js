@@ -1,10 +1,14 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 import useZoom from '@/composables/zoom.js';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+
+const fetchCanvasAnnotationsSpy = sinon.spy();
+const setActiveAnnotationSpy = sinon.spy();
 
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaImageViewer, {
   localVue,
@@ -21,9 +25,20 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
   }
 });
 
+const stubItemMediaPresentationComposable = (stubs = {}) => {
+  sinon.stub(itemMediaPresentation, 'default').returns({
+    activeAnnotation: undefined,
+    fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
+    pageForAnnotationTarget: () => 1,
+    setActiveAnnotation: setActiveAnnotationSpy,
+    ...stubs
+  });
+};
+
 describe('components/media/MediaImageViewer', () => {
   afterEach(() => {
     sinon.resetHistory();
+    sinon.restore();
   });
   afterAll(() => {
     sinon.restore();
@@ -118,7 +133,8 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at the full image size', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();
@@ -130,7 +146,7 @@ describe('components/media/MediaImageViewer', () => {
         });
       });
 
-      describe('when annotation has xywh co-ordinates', () => {
+      describe('when annotation has xywh co-ordinates/extent', () => {
         const annotation = {
           target: {
             id: `${url}#xywh=0,0,40,20`
@@ -139,7 +155,8 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();

@@ -42,11 +42,6 @@
     },
 
     props: {
-      // TODO: all we need is the target, not the full object
-      annotation: {
-        type: Object,
-        default: null
-      },
       format: {
         type: String,
         default: null
@@ -82,13 +77,14 @@
         setMin: setMinZoom
       } = useZoom();
       const {
+        activeAnnotation,
         annotationAtCoordinate,
         fetchCanvasAnnotations,
         hasAnnotations,
-        setActiveAnnotation
+        pageForAnnotationTarget
       } = useItemMediaPresentation();
 
-      return { annotationAtCoordinate, fetchCanvasAnnotations, hasAnnotations, currentZoom, setActiveAnnotation, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return { activeAnnotation, annotationAtCoordinate, fetchCanvasAnnotations, hasAnnotations, pageForAnnotationTarget, currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
     },
 
     data() {
@@ -120,7 +116,7 @@
     },
 
     watch: {
-      annotation: {
+      activeAnnotation: {
         deep: true,
         handler: 'highlightAnnotation'
       },
@@ -149,7 +145,7 @@
       },
 
       constructAnnotationFeature() {
-        let annotation = this.annotation;
+        let annotation = this.activeAnnotation;
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
@@ -185,10 +181,23 @@
 
       handleMapClick(coordinate) {
         const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
-        if (clickedAnnotation && this.$route.hash !== '#annotations') {
-          this.$router.replace({ ...this.$route, hash: '#annotations' });
+        if (clickedAnnotation?.id !== this.activeAnnotation?.id || this.$route.hash !== '#annotations') {
+          let options = {};
+          if (this.$route.hash !== '#annotations') {
+            options.hash = '#annotations';
+          }
+
+          // consider using 'replace' instead of 'push' to not include in history. Seems to cause errors somtimes.
+          this.$router.push({
+            ...this.$route,
+            query: {
+              ...this.$route.query,
+              anno: clickedAnnotation?.id || undefined,
+              page: this.pageForAnnotationTarget(clickedAnnotation?.target) || this.$route.query.page
+            },
+            ...options
+          });
         }
-        this.setActiveAnnotation(clickedAnnotation);
       },
 
       highlightAnnotation() {
