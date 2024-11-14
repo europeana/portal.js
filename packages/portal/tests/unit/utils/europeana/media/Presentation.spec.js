@@ -14,6 +14,30 @@ describe('@/utils/europeana/media/Presentation', () => {
   });
 
   describe('EuropeanaMediaPresentation', () => {
+    describe('Static methods', () => {
+      describe('EuropeanaMediaPresentation.fetch()', () => {
+        describe('on request error', () => {
+          it('throws a custom error with url from request config', async() => {
+            const origin = 'https://iiif.example.org';
+            const path = '/123/abc/manifest';
+            const url = `${origin}${path}`;
+            const options = { url };
+            nock(origin).get(path).reply(404);
+
+            let error;
+            try {
+              await EuropeanaMediaPresentation.fetch(options);
+            } catch (e) {
+              error = e;
+            }
+
+            expect(error.message).toBe('Request failed with status code 404');
+            expect(error.url).toBe(url);
+          });
+        });
+      });
+    });
+
     describe('parse', () => {
       it('normalizes and parses v2 response data', () => {
         const responseData = {
@@ -66,8 +90,8 @@ describe('@/utils/europeana/media/Presentation', () => {
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
               resource: {
-                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                ebucoreHasMimeType: 'image/jpeg'
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
               }
             }
           ]
@@ -125,8 +149,8 @@ describe('@/utils/europeana/media/Presentation', () => {
             {
               id: 'https://iiif.europeana.eu/presentation/123/abc/canvas/1',
               resource: {
-                about: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
-                ebucoreHasMimeType: 'image/jpeg'
+                id: 'https://iiif.europeana.eu/presentation/123/abc/image1.jpg',
+                format: 'image/jpeg'
               }
             }
           ]

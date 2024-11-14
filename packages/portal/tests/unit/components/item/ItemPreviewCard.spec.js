@@ -19,7 +19,7 @@ const item = {
   type: 'IMAGE'
 };
 
-const factory = (propsData) => {
+const factory = ({ mocks, propsData } = {}) => {
   return shallowMount(ItemPreviewCard, {
     localVue,
     propsData,
@@ -36,6 +36,7 @@ const factory = (propsData) => {
       $i18n: {
         locale: 'en'
       },
+      $route: { query: {} },
       $t: () => {},
       $store: {
         state: {
@@ -45,7 +46,8 @@ const factory = (propsData) => {
           'set/isLiked': storeIsLikedGetter,
           'entity/isPinned': storeIsPinnedGetter
         }
-      }
+      },
+      ...mocks
     }
   });
 };
@@ -53,7 +55,7 @@ const factory = (propsData) => {
 describe('components/item/ItemPreviewCard', () => {
   describe('default card', () => {
     it('renders a default content card without any recommendation buttons', () => {
-      const wrapper = factory({ item });
+      const wrapper = factory({ propsData: { item } });
 
       expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
     });
@@ -68,7 +70,7 @@ describe('components/item/ItemPreviewCard', () => {
           prefix: 'Prefix text ',
           suffix: 'suffix text.'
         };
-        const wrapper = factory({ item, variant: 'list', hitSelector });
+        const wrapper = factory({ propsData: { item, variant: 'list', hitSelector } });
 
         expect(wrapper.vm.texts).toEqual([]);
         expect(wrapper.vm.hitText).toEqual(hitSelector);
@@ -76,28 +78,28 @@ describe('components/item/ItemPreviewCard', () => {
     });
     describe('when no hit-selector is present, but there is a description', () => {
       it('renders a list content card with description text', () => {
-        const wrapper = factory({ item, variant: 'list' });
+        const wrapper = factory({ propsData: { item, variant: 'list' } });
 
         expect(wrapper.vm.texts).toEqual([item.dcDescriptionLangAware]);
       });
     });
     it('renders a list content card with license label', () => {
-      const wrapper = factory({ item, variant: 'list' });
+      const wrapper = factory({ propsData: { item, variant: 'list' } });
 
       expect(wrapper.vm.rights).toEqual(item.rights[0]);
     });
     it('renders a list content card with type label', () => {
-      const wrapper = factory({ item, variant: 'list' });
+      const wrapper = factory({ propsData: { item, variant: 'list' } });
 
       expect(wrapper.vm.type).toEqual(item.type);
     });
   });
 
-  describe('event listeneres', () => {
+  describe('event listeners', () => {
     describe('onClickCard', () => {
       it('is called with item ID when card receives `click` event', () => {
         const onClickCard = sinon.spy();
-        const wrapper = factory({ item, onClickCard });
+        const wrapper = factory({ propsData: { item, onClickCard } });
 
         wrapper.vm.$refs.card.$el.dispatchEvent(new Event('click'));
 
@@ -108,7 +110,7 @@ describe('components/item/ItemPreviewCard', () => {
     describe('onAuxClickCard', () => {
       it('is called with item ID when card receives `click` event', () => {
         const onAuxClickCard = sinon.spy();
-        const wrapper = factory({ item, onAuxClickCard });
+        const wrapper = factory({ propsData: { item, onAuxClickCard } });
 
         wrapper.vm.$refs.card.$el.dispatchEvent(new Event('auxclick'));
 

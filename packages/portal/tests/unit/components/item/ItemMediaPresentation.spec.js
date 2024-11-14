@@ -1,6 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import nock from 'nock';
 import sinon from 'sinon';
 
 import { shallowMountNuxt } from '../../utils';
@@ -10,36 +9,29 @@ import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $apis = {
-  record: {
-    mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
-  },
-  thumbnail: {
-    media: (url) => `thumbnail api ${url}`
-  }
-};
-
 const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemMediaPresentation, {
   localVue,
-  attachTo: document.body,
-  directives: { 'b-tooltip': () => {} },
   propsData,
   data() {
     return { ...data };
   },
   mocks: {
-    $apis,
-    $fetchState: { pending: false },
-    $nuxt: {
-      context: {
-        $apis
-      }
+    $apm: {
+      captureError: sinon.spy()
     },
     $route: { query: {} },
-    $t: (key) => key,
     ...mocks
   },
-  stubs: ['MediaAudioVisualPlayer', 'MediaImageViewer', 'PaginationNavInput', 'ItemMediaThumbnails', 'MediaImageViewerControls']
+  stubs: [
+    'IIIFErrorMessage',
+    'ItemMediaPaginationToolbar',
+    'ItemMediaSidebarToggle',
+    'ItemMediaSidebar',
+    'ItemMediaThumbnails',
+    'MediaAudioVisualPlayer',
+    'MediaImageViewer',
+    'MediaImageViewerControls'
+  ]
 });
 
 const fetchPresentationStub = sinon.stub();
@@ -48,6 +40,7 @@ const setPageStub = sinon.stub();
 
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
+    annotations: ['https://example.org/anno'],
     fetchPresentation: fetchPresentationStub,
     presentation: {
       canvases: [
@@ -55,6 +48,7 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
         { resource: {} }
       ]
     },
+    resource: { edm: {}, id: 'https://iiif.example.org/image.jpeg' },
     resourceCount: 2,
     setPage: setPageStub,
     setPresentationFromWebResources: setPresentationFromWebResourcesStub,
@@ -63,15 +57,8 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
 };
 
 describe('components/item/ItemMediaPresentation', () => {
-  beforeAll(() => {
-    nock.disableNetConnect();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.restore();
-  });
-  afterAll(() => {
-    nock.enableNetConnect();
   });
 
   describe('template', () => {
@@ -79,18 +66,18 @@ describe('components/item/ItemMediaPresentation', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();
 
-      const viewerWrapper = wrapper.find('.iiif-viewer-wrapper');
+      const viewerWrapper = wrapper.find('.media-viewer-wrapper');
 
       expect(viewerWrapper.isVisible()).toBe(true);
     });
 
-    describe('sidebar toggle button', () => {
+    describe('sidebar toggle', () => {
       describe('when there is a manifest uri', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
 
-          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
           expect(sidebarToggle.isVisible()).toBe(true);
         });
@@ -101,32 +88,9 @@ describe('components/item/ItemMediaPresentation', () => {
           stubItemMediaPresentationComposable({ hasAnnotations: true });
           const wrapper = factory();
 
-          const sidebarToggle = wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]');
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
           expect(sidebarToggle.isVisible()).toBe(true);
-        });
-      });
-
-      describe('on click', () => {
-        it('opens the sidebar', () => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
-
-          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
-
-          expect(wrapper.vm.showSidebar).toBe(true);
-        });
-
-        it('sets focus to the sidebar', async() => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
-          wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
-
-          wrapper.find('[data-qa="iiif viewer toolbar sidebar toggle"]').trigger('click');
-
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.$refs.sidebar.$el.focus.called).toBe(true);
         });
       });
     });
@@ -155,41 +119,59 @@ describe('components/item/ItemMediaPresentation', () => {
       });
     });
 
-    describe('pages toggle button', () => {
+    describe('pagination toolbar', () => {
       describe('when there are two or more pages', () => {
         it('is visible', () => {
           stubItemMediaPresentationComposable();
           const wrapper = factory();
 
-          const pagesToggle = wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]');
+          const pagesToggle = wrapper.find('itemmediapaginationtoolbar-stub');
 
           expect(pagesToggle.isVisible()).toBe(true);
         });
       });
+    });
 
-      describe('on click', () => {
-        it('closes and opens the item media thumbnails sidebar', () => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory();
+    describe('error handling', () => {
+      describe('when a fetch error occurs', () => {
+        it('displays the error message component', async() => {
+          stubItemMediaPresentationComposable({
+            fetchPresentation: sinon.stub().rejects('Network error')
+          });
+          const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const wrapper = factory({ propsData: { uri } });
 
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-          expect(wrapper.vm.showPages).toBe(false);
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-          expect(wrapper.vm.showPages).toBe(true);
-        });
-
-        it('sets focus to the item media thumbnails sidebar', async() => {
-          stubItemMediaPresentationComposable();
-          const wrapper = factory();
-
-          wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
-          wrapper.vm.showPages = false;
-
-          wrapper.find('[data-qa="iiif viewer toolbar pages toggle"]').trigger('click');
-
+          await wrapper.vm.fetch();
           await wrapper.vm.$nextTick();
 
-          expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
+        });
+      });
+
+      describe('when the image viewer component emits an error', () => {
+        const itemId = '/123/abc';
+        const webResources = [
+          {
+            about: 'https://example.org/image.jpg',
+            ebucoreHasMimeType: 'image/jpeg',
+            ebucoreHeight: 576,
+            ebucoreWidth: 720
+          }
+        ];
+        const propsData = { itemId, webResources };
+
+        it('displays the error message component', async() => {
+          const wrapper = factory({ propsData });
+          const imageViewer = wrapper.find('mediaimageviewer-stub');
+          const imageError = new Error('Image failed to load');
+          imageViewer.vm.$emit('error', imageError);
+          await wrapper.vm.$nextTick();
+
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
         });
       });
     });
@@ -230,6 +212,18 @@ describe('components/item/ItemMediaPresentation', () => {
         expect(setPresentationFromWebResourcesStub.calledWith(webResources)).toBe(true);
       });
     });
+
+    describe('when there are annotations and on larger window', () => {
+      it('shows the sidebar', async() => {
+        stubItemMediaPresentationComposable({ hasAnnotations: true });
+        const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+        window.innerWidth = 992;
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.showSidebar).toBe(true);
+      });
+    });
   });
 
   describe('methods', () => {
@@ -259,12 +253,47 @@ describe('components/item/ItemMediaPresentation', () => {
         it('makes the viewerWrapper fullscreen', () => {
           const wrapper = factory({ data });
 
-          wrapper.vm.$refs.viewerWrapper.requestFullscreen = sinon.spy();
+          wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen = sinon.spy();
           wrapper.vm.toggleFullscreen();
 
-          expect(wrapper.vm.$refs.viewerWrapper.requestFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen.calledOnce).toBe(true);
           expect(wrapper.vm.fullscreen).toEqual(true);
         });
+      });
+    });
+
+    describe('toggleSidebar', () => {
+      it('toggles the sidebar visibility and focus', async() => {
+        const wrapper = factory({ propsData: { uri: 'https://example.org/manifest' } });
+        wrapper.vm.$refs.sidebar.$el.focus = sinon.spy();
+
+        expect(wrapper.vm.showSidebar).toBe(false);
+
+        wrapper.vm.toggleSidebar();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.showSidebar).toBe(true);
+        expect(wrapper.vm.$refs.sidebar.$el.focus.called).toBe(true);
+      });
+    });
+
+    describe('togglePages', () => {
+      it('toggles the item media thumbnails sidebar visibility and focus', async() => {
+        stubItemMediaPresentationComposable();
+        const wrapper = factory();
+        wrapper.vm.$refs.itemPages.$el.focus = sinon.spy();
+
+        expect(wrapper.vm.showPages).toBe(true);
+
+        wrapper.vm.togglePages();
+
+        expect(wrapper.vm.showPages).toBe(false);
+
+        wrapper.vm.togglePages();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.showPages).toBe(true);
+        expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
       });
     });
   });

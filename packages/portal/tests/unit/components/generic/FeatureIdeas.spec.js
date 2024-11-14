@@ -30,7 +30,6 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => {
       },
       $config: config,
       $error: sinon.spy(),
-      $fetchState: {},
       $nuxt: { context: {} },
       $t: (key) => key,
       $tc: (key) => key,

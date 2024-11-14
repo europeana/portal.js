@@ -89,7 +89,6 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: options.fetchState || {},
     $route: {
       query: {}
     },
@@ -108,7 +107,8 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
       state: {
         search: {}
       }
-    }
+    },
+    ...options.mocks || {}
   },
   stubs: {
     'b-form-tags': {
@@ -131,7 +131,6 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: options.fetchState || {},
     $route: {
       query: {}
     },
@@ -150,7 +149,8 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
       state: {
         search: {}
       }
-    }
+    },
+    ...options.mocks || {}
   },
   stubs: ['i18n'],
   propsData: {
@@ -857,9 +857,6 @@ describe('components/search/SearchFacetDropdown', () => {
           propsData: {
             search: true,
             name: 'PROVIDER'
-          },
-          fetchState: {
-            pending: false
           }
         });
         await wrapper.setData({ fetched: true, fields: providerFields });

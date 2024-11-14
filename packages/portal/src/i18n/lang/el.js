@@ -55,9 +55,11 @@ export default {
     "login": "Σύνδεση",
     "move": "Μετακινήστε",
     "next": "Επόμενο",
+    "nextPage": "Επόμενη σελίδα",
     "pin": "Καρφίτσα",
     "preview": "Προεπισκόπηση",
     "previous": "Προηγούμενος",
+    "previousPage": "Προηγούμενη σελίδα",
     "publish": "Δημοσιεύω",
     "readMore": "Διαβάστε περισσότερα",
     "reject": "Απορρίπτω",
@@ -880,6 +882,30 @@ export default {
   },
   "loading": "Φόρτωση",
   "loadingResults": "Φόρτωση αποτελεσμάτων",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Έξοδος από πλήρη οθόνη",
+      "fullscreen": "Πλήρης οθόνη",
+      "keyboardNavigation": "Χρησιμοποιήστε τα πλήκτρα +, - και τα βέλη για μεγέθυνση και μετατόπιση γύρω από την εικόνα.",
+      "resetZoom": "Επαναφορά ζουμ",
+      "zoomIn": "Μεγέθυνση",
+      "zoomOut": "Σμίκρυνση"
+    },
+    "pages": {
+      "hide": "Απόκρυψη σελίδων",
+      "show": "Εμφάνιση σελίδων"
+    },
+    "sidebar": {
+      "annotations": "Σχολιασμοί",
+      "annotationsCount": "1 Σχολιασμός | {count} Σχολιασμοί",
+      "hide": "Απόκρυψη πλαϊνής γραμμής",
+      "IIIFManifest": "IIIF Μανιφέστο",
+      "links": "Σύνδεσμοι",
+      "search": "Αναζήτηση",
+      "searchPlaceholder": "Εισάγετε όρους",
+      "show": "Εμφάνιση πλαϊνής γραμμής"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Αντιγράφηκε στο πρόχειρο",
     "externalContentError": "Η φόρτωση του εξωτερικού συνδέσμου απέτυχε",
@@ -1044,6 +1070,7 @@ export default {
         "doesNotContain": "δεν περιέχει",
         "exact": "περιέχει τη φράση"
       },
+      "newRule": "νέος κανόνας σύνθετης αναζήτησης",
       "placeholder": {
         "field": "Επιλέξτε ένα πεδίο",
         "modifier": "Επιλέξτε έναν τροποποιητή",

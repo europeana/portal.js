@@ -2,10 +2,14 @@ import { computed, ref } from 'vue';
 
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
+import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
 
+const annotations = ref([]);
+const annotationSearchHits = ref([]);
+const annotationSearchResults = ref([]);
+const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
-const annotations = ref([]);
 
 /**
  * Annotation page/list: either a URI as a string, or an object with id
@@ -15,16 +19,21 @@ const annotationCollection = computed(() => {
   return canvas.value?.annotations?.[0];
 });
 
+const annotationSearchHitSelectorFor = (annoId) => {
+  return annotationSearchHits.value.find((hit) => [].concat(hit.annotations).includes(annoId))?.selectors?.[0] || null;
+};
+
 const annotationTargetId = computed(() => {
   // account for Europeana fulltext annotations incorrectly targeting IIIF
   // images instead of canvases
-  return presentation.value?.isInEuropeanaDomain ? resource.value?.about : canvas.value?.id;
+  return presentation.value?.isInEuropeanaDomain ? resource.value?.id : canvas.value?.id;
 });
 
 const annotationTextGranularity = computed(() => {
   return annotationCollection.value?.textGranularity;
 });
 
+// TODO: ambiguous name; rename `annotationCollectionUri`
 const annotationUri = computed(() => {
   if (!annotationCollection.value) {
     return null;
@@ -46,6 +55,10 @@ const hasAnnotations = computed(() => {
   return !!annotationUri.value;
 });
 
+const hasSearchService = computed(() => {
+  return !!searchServiceUri.value;
+});
+
 const resource = computed(() => {
   return canvas.value?.resource;
 });
@@ -58,21 +71,24 @@ const resourceCount = computed(() => {
   return resources?.value?.length || 0;
 });
 
+const searchServiceUri = computed(() => {
+  return [].concat(presentation.value?.search).filter(Boolean)[0]?.id;
+});
+
 const fetchPresentation = async(uri) => {
   presentation.value = await EuropeanaMediaPresentation.from(uri);
 };
 
 const setPresentationFromWebResources = (webResources) => {
   presentation.value = new EuropeanaMediaPresentation({
-    canvases: webResources.map((resource) => ({
-      resource
+    canvases: webResources.map((wr) => ({
+      resource: EuropeanaMediaResource.fromEDM(wr)
     }))
   });
 };
 
-// TODO: default param to using annotationUri?
-const fetchAnnotations = async(uri) => {
-  if (!uri || !annotationTargetId.value) {
+const fetchAnnotations = async(uri, { params = {} } = {}) => {
+  if (!uri) {
     return;
   }
 
@@ -84,8 +100,13 @@ const fetchAnnotations = async(uri) => {
     textGranularity = annotationTextGranularity.value;
   }
 
-  const list = await EuropeanaMediaAnnotationList.from(uri, { params: { textGranularity } });
-  const annos = list.annotationsForTarget(annotationTargetId.value);
+  return await EuropeanaMediaAnnotationList.from(uri, { params: { textGranularity, ...params } });
+};
+
+const fetchCanvasAnnotations = async() => {
+  const list = await fetchAnnotations(annotationUri.value);
+
+  const annos = annotationTargetId.value ? list.annotationsForTarget(annotationTargetId.value) : list.items;
 
   // NOTE: this may result in duplicate network requests for the same body resource
   //       if there are multiple external annotations with the same resource URL,
@@ -102,6 +123,33 @@ const fetchAnnotations = async(uri) => {
   annotations.value = annos;
 };
 
+const pageForAnnotationTarget = (annoTarget) => {
+  const annoTargets = [].concat(annoTarget).filter(Boolean);
+  let targetIds;
+  if (presentation.value?.isInEuropeanaDomain) {
+    targetIds = resources.value.map((resource) => resource.id);
+  } else {
+    targetIds = canvases.value.map((canvas) => canvas.id);
+  }
+
+  const i = targetIds.findIndex((id) => annoTargets.some((at) => (at === id) || at.startsWith(`${id}#`)));
+
+  if (i === -1) {
+    return undefined;
+  }
+  return i + 1;
+};
+
+const searchAnnotations = async(query) => {
+  const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
+  annotationSearchResults.value = list.items;
+  annotationSearchHits.value = list.hits || [];
+};
+
+const setActiveAnnotation = (active) => {
+  activeAnnotation.value = active;
+};
+
 const setPage = (value) => {
   page.value = Number(value) || 1;
 };
@@ -109,19 +157,29 @@ const setPage = (value) => {
 export default function useItemMediaPresentation() {
   return {
     annotations,
-    // annotationCollection,
-    // annotationTargetId,
+    annotationCollection,
+    annotationSearchHits,
+    annotationSearchHitSelectorFor,
+    annotationSearchResults,
+    annotationTargetId,
     annotationUri,
-    // annotationTextGranularity,
-    // canvas,
+    annotationTextGranularity,
+    activeAnnotation,
+    canvas,
     fetchAnnotations,
+    fetchCanvasAnnotations,
     fetchPresentation,
     hasAnnotations,
+    hasSearchService,
     page,
+    pageForAnnotationTarget,
     resource,
     resources,
     resourceCount,
     presentation,
+    searchAnnotations,
+    searchServiceUri,
+    setActiveAnnotation,
     setPage,
     setPresentationFromWebResources
   };

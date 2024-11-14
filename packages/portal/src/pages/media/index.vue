@@ -34,6 +34,7 @@
         ],
 
         link: [
+          { rel: 'preload', as: 'style', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` },
           { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }
         ],
 

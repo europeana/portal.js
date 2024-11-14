@@ -15,7 +15,6 @@ const factory = ({ propsData = {}, data = {}, responses } = {}) => {
       $apis: {
         record: { search: sinon.stub().resolves(responses?.record?.search || {}) }
       },
-      $fetchState: {},
       $store: {
         state: {
           search: {

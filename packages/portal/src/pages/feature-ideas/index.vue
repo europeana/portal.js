@@ -82,7 +82,6 @@
         name: null,
         description: null,
         socialMediaImage: null,
-        pageFetched: false,
         text: null,
         features: []
       };

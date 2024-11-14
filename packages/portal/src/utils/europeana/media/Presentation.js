@@ -1,11 +1,23 @@
-import WebResource from '@/plugins/europeana/edm/WebResource.js';
 import Base from './Base.js';
+import Resource from './Resource.js';
+import { IIIFManifestError } from './errors.js';
 import {
   IIIF_PRESENTATION_V2_CONTEXT,
   IIIF_PRESENTATION_V3_CONTEXT
 } from './constants.js';
 
 export default class EuropeanaMediaPresentation extends Base {
+  static async fetch(options = {}) {
+    try {
+      const response = await super.fetch(options);
+      return response;
+    } catch (e) {
+      const error = new IIIFManifestError(e.message);
+      error.url = e.config?.url;
+      throw error;
+    }
+  }
+
   static iiifPresentationApiVersion(context) {
     if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
       return 3;
@@ -38,32 +50,18 @@ export default class EuropeanaMediaPresentation extends Base {
   }
 
   static extractV2Canvases(manifest) {
-    // TODO: limit to images w/ motivation "painting"?
-    return manifest.sequences.map((sequence) => sequence.canvases.map((canvas) => ({
+    return (manifest.sequences || []).map((sequence) => sequence.canvases.map((canvas) => ({
       id: canvas.id,
       annotations: canvas.otherContent,
-      resource: EuropeanaMediaPresentation.webResource(canvas.images[0].resource)
+      resource: Resource.parse(canvas.images[0].resource)
     }))).flat();
   }
 
   static extractV3Canvases(manifest) {
-    // TODO: limit to "annotations" w/ motivation "painting"?
-    return manifest.items.map((canvas) => ({
+    return (manifest.items || []).map((canvas) => ({
       id: canvas.id,
       annotations: canvas.annotations,
-      resource: EuropeanaMediaPresentation.webResource(canvas.items[0].items[0].body)
+      resource: Resource.parse(canvas.items[0].items[0].body)
     }));
-  }
-
-  static webResource(data) {
-    return new WebResource({
-      // TODO: rename this `id`, but do so throughout the app too
-      about: data.id,
-      ebucoreHasMimeType: data.format,
-      ebucoreHeight: data.height,
-      ebucoreWidth: data.width,
-      // TODO: filter for IIIF Image service
-      svcsHasService: [].concat(data.service || [])[0]
-    });
   }
 }

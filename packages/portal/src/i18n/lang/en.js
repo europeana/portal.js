@@ -946,9 +946,12 @@ export default {
     },
     "sidebar": {
       "annotations": "Annotations",
+      "annotationsCount": "1 Annotation |{count} Annotations",
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "search": "Search",
+      "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
     },
     "pages": {

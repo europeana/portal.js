@@ -2,7 +2,6 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
 import useZoom from '@/composables/zoom.js';
-import nock from 'nock';
 import sinon from 'sinon';
 jest.mock('ol/format/IIIFInfo', () => {
   return jest.fn().mockImplementation(() => {
@@ -25,22 +24,16 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
         mediaProxyUrl: (url) => `mediaProxyUrl ${url}`
       }
     },
-    $fetchState: {},
     $t: (key) => key,
     ...mocks
   }
 });
 
 describe('components/media/MediaImageViewer', () => {
-  beforeAll(() => {
-    nock.disableNetConnect();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.resetHistory();
   });
   afterAll(() => {
-    nock.enableNetConnect();
     sinon.restore();
   });
 
@@ -92,11 +85,18 @@ describe('components/media/MediaImageViewer', () => {
       const origin = 'https://iiif.example.org';
       const path = '/image/image.jpeg';
       const id = `${origin}${path}`;
-      const service = { id };
-
-      beforeEach(() => {
-        nock(origin).get(`${path}/info.json`).reply(200, { id });
-      });
+      const imageInfoData = {
+        '@context': 'http://iiif.io/api/image/2/context.json',
+        '@id': id,
+        height: 500,
+        protocol: 'http://iiif.io/api/image',
+        sizes: [
+          { height: 500, width: 1000 }
+        ],
+        width: 1000
+      };
+      const fetchInfoStub = sinon.stub().resolves({ data: imageInfoData });
+      const service = { id, fetchInfo: fetchInfoStub };
 
       it('fetches the service info', async() => {
         const wrapper = factory({ propsData: { url, service } });
@@ -104,7 +104,7 @@ describe('components/media/MediaImageViewer', () => {
         await wrapper.vm.fetch();
         await new Promise(process.nextTick);
 
-        expect(nock.isDone()).toBe(true);
+        expect(fetchInfoStub.called).toBe(true);
       });
 
       it('renders a IIIF image', async() => {
@@ -118,6 +118,21 @@ describe('components/media/MediaImageViewer', () => {
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('IIIF');
         expect(wrapper.vm.initOlImageLayerIIIF.called).toBe(true);
+      });
+
+      describe('when request errors', () => {
+        const error = new Error('fail');
+        const fetchInfoStub = sinon.stub().rejects(error);
+        const service = { id, fetchInfo: fetchInfoStub };
+
+        it('emits the error', async() => {
+          const wrapper = factory({ propsData: { url, service } });
+
+          await wrapper.vm.fetch();
+          await new Promise(process.nextTick);
+
+          expect(wrapper.emitted('error')[0][0]).toEqual(error);
+        });
       });
     });
   });

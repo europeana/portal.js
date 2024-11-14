@@ -96,26 +96,26 @@ describe('useItemMediaPresentation', () => {
     nock.enableNetConnect();
   });
 
-  describe('fetchAnnotations', () => {
+  describe('fetchCanvasAnnotations', () => {
     beforeEach(() => {
       nock(origin).get(listPath).query({ textGranularity }).reply(200, listResponseData);
       nock(origin).get(bodyPath).reply(200, bodyResponseData);
     });
 
     it('fetches annotation list w/ text granularity and embeds bodies', async() => {
-      const { presentation, fetchAnnotations } = useItemMediaPresentation();
+      const { presentation, fetchCanvasAnnotations } = useItemMediaPresentation();
       presentation.value = presentationValue;
 
-      await fetchAnnotations(listUri);
+      await fetchCanvasAnnotations(listUri);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('stores relevant annotations', async() => {
-      const { annotations, presentation, fetchAnnotations } = useItemMediaPresentation();
+      const { annotations, presentation, fetchCanvasAnnotations } = useItemMediaPresentation();
       presentation.value = presentationValue;
 
-      await fetchAnnotations(listUri);
+      await fetchCanvasAnnotations(listUri);
 
       expect(annotations.value).toEqual([
         {
@@ -160,9 +160,9 @@ describe('useItemMediaPresentation', () => {
           {
             id: 'https://iiif.example.org/presentation/123/abc/canvas/1',
             resource: {
-              about: 'https://iiif.example.org/presentation/123/abc/image1.jpg',
-              ebucoreHasMimeType: 'image/jpeg',
-              svcsHasService: {
+              id: 'https://iiif.example.org/presentation/123/abc/image1.jpg',
+              format: 'image/jpeg',
+              service: {
                 id: 'https://iiif.example.org/image/123/abc/image1.jpg'
               }
             }
@@ -176,7 +176,7 @@ describe('useItemMediaPresentation', () => {
     it('initialises presentation value from web resources', () => {
       const { presentation, setPresentationFromWebResources } = useItemMediaPresentation();
       const webResources = [
-        { about: 'https://example.org/video.mp4', ebucoreMimeType: 'video/mp4' }
+        { about: 'https://example.org/video.mp4', ebucoreHasMimeType: 'video/mp4' }
       ];
 
       setPresentationFromWebResources(webResources);
@@ -184,10 +184,24 @@ describe('useItemMediaPresentation', () => {
       expect(presentation.value).toEqual({
         canvases: [
           {
-            resource: webResources[0]
+            resource: {
+              id: webResources[0].about,
+              format: webResources[0].ebucoreHasMimeType
+            }
           }
         ]
       });
+    });
+  });
+
+  describe('pageForAnnotationTarget', () => {
+    it('finds the page/canvas number for an annotation target', () => {
+      const { pageForAnnotationTarget, presentation } = useItemMediaPresentation();
+      presentation.value = presentationValue;
+
+      const page = pageForAnnotationTarget(canvasId);
+
+      expect(page).toBe(1);
     });
   });
 });

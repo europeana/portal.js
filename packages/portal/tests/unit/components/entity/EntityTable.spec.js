@@ -10,11 +10,10 @@ localVue.use(BootstrapVue);
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => mountNuxt(EntityTable, {
+const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable, {
   localVue,
   propsData,
   mocks: {
-    $fetchState: fetchState,
     $axios: {
       get: $axiosGetStub
     },

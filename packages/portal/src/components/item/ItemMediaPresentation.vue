@@ -1,162 +1,163 @@
 <template>
   <div>
-    <!-- TODO: remove "iiif" from class names as this component is for more than just IIIF -->
     <div
-      ref="viewerWrapper"
-      class="iiif-viewer-wrapper overflow-hidden"
+      ref="mediaViewerWrapper"
+      class="media-viewer-wrapper overflow-hidden"
     >
-      <template v-if="!$fetchState.pending">
-        <div
-          class="iiif-viewer-inner-wrapper w-100 overflow-auto"
+      <div
+        class="media-viewer-inner-wrapper w-100 overflow-auto"
+        :class="{
+          'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
+          'sidebar-toggle-max-width': addSidebarToggleMaxWidth
+        }"
+      >
+        <b-container
+          v-if="$fetchState.pending"
+          class="h-100 d-flex align-items-center justify-content-center"
+          data-qa="loading spinner container"
         >
-          <ItemMediaSidebar
-            v-if="sidebarHasContent"
-            v-show="showSidebar"
-            id="item-media-sidebar"
-            ref="sidebar"
-            tabindex="0"
-            :annotation-list="hasAnnotations"
-            :manifest-uri="uri"
-            @selectAnno="onSelectAnno"
-            @keydown.escape.native="showSidebar = false"
+          <LoadingSpinner
+            class="text-white"
+            size="lg"
+          />
+        </b-container>
+        <template v-else>
+          <template v-if="sidebarHasContent">
+            <ItemMediaSidebar
+              v-show="showSidebar"
+              ref="sidebar"
+              tabindex="0"
+              :annotation-list="hasAnnotations"
+              :annotation-search="hasAnnotations && hasSearchService"
+              :manifest-uri="uri"
+              @keydown.escape.native="showSidebar = false"
+            />
+            <ItemMediaSidebarToggle
+              :show-sidebar="showSidebar"
+              class="d-none d-lg-block"
+              @toggleSidebar="toggleSidebar"
+            />
+          </template>
+          <IIIFErrorMessage
+            v-if="$fetchState.error"
+            :provider-url="providerUrl"
           />
           <MediaImageViewer
-            v-if="imageTypeResource"
-            :url="resource.about"
+            v-else-if="imageTypeResource"
+            :url="resource.id"
             :item-id="itemId"
-            :width="resource.ebucoreWidth"
-            :height="resource.ebucoreHeight"
-            :format="resource.ebucoreHasMimeType"
-            :service="resource.svcsHasService"
+            :width="resource.width"
+            :height="resource.height"
+            :format="resource.format"
+            :service="resource.service"
             :annotation="activeAnnotation"
             :thumbnail="thumbnail"
-          />
+            @error="handleImageError"
+          >
+            <MediaImageViewerControls
+              :fullscreen="fullscreen"
+              @toggleFullscreen="toggleFullscreen"
+            />
+          </MediaImageViewer>
           <MediaPDFViewer
-            v-else-if="resource?.ebucoreHasMimeType === 'application/pdf'"
-            :url="resource.about"
+            v-else-if="resource?.format === 'application/pdf'"
+            :url="resource.id"
             :item-id="itemId"
+            class="media-viewer-content"
           />
           <MediaAudioVisualPlayer
-            v-else-if="resource?.isPlayableMedia"
-            :url="resource.about"
-            :format="resource.ebucoreHasMimeType"
+            v-else-if="resource?.edm.isPlayableMedia"
+            :url="resource.id"
+            :format="resource.format"
             :item-id="itemId"
+            class="media-viewer-content"
           />
           <EmbedOEmbed
-            v-else-if="resource?.isOEmbed"
-            :url="resource.about"
+            v-else-if="resource?.edm.isOEmbed"
+            :url="resource.id"
+            class="media-viewer-content"
           />
           <MediaImageViewer
-            v-else-if="resource?.forEdmIsShownAt"
-            :url="resource.thumbnail.url"
+            v-else-if="resource?.edm.forEdmIsShownAt"
+            :url="resource.edm.thumbnail.url"
             :thumbnail="thumbnail"
             :item-id="itemId"
             :annotation="activeAnnotation"
-            :width="resource.thumbnail.ebucoreWidth"
-            :height="resource.thumbnail.ebucoreHeight"
+            :width="resource.edm.thumbnail.ebucoreWidth"
+            :height="resource.edm.thumbnail.ebucoreHeight"
           />
           <code
             v-else
-            class="h-50 w-100 p-5"
+            class="media-viewer-content h-50 w-100 p-5"
           >
             <pre
-              :style="{ color: 'white' }"
+              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
             ><!--
-          -->{{ JSON.stringify(resource, null, 2) }}
-          </pre>
+            -->{{ JSON.stringify(resource?.edm, null, 2) }}
+            </pre>
           </code>
-        </div>
-        <div
-          class="iiif-viewer-toolbar d-flex flex-wrap flex-lg-nowrap align-items-center"
-        >
-          <!-- TODO: Refactor into separate ItemMediaToolbar component -->
-          <b-button
-            v-if="sidebarHasContent"
-            v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
-            :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
-            variant="light-flat"
-            class="sidebar-toggle button-icon-only"
-            :class="{ 'active': showSidebar }"
-            data-qa="iiif viewer toolbar sidebar toggle"
-            aria-controls="item-media-sidebar"
-            :aria-expanded="showSidebar ? 'true' : 'false'"
-            @click="toggleSidebar"
-            @mouseleave="hideTooltips"
-          >
-            <span class="icon icon-kebab" />
-          </b-button>
-          <MediaImageViewerControls
-            v-if="imageTypeResource"
-            :fullscreen="fullscreen"
-            @toggleFullscreen="toggleFullscreen"
-          />
-          <div
-            v-if="resourceCount >= 2"
-            class="iiif-viewer-toolbar-pagination d-flex mx-auto"
-            :class="{
-              closed: !showPages,
-              'mx-sm-0': imageTypeResource,
-              'mr-lg-0': !imageTypeResource
-            }"
-          >
-            <PaginationNavInput
-              :per-page="1"
-              :total-results="resourceCount"
-              :button-text="false"
-              :page-input="false"
-              :button-icon-class="'icon-arrow-outline'"
-              :progress="true"
-              class="pagination ml-auto"
-            />
-            <b-button
-              v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
-              :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
-              variant="light-flat"
-              class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
-              :class="{ 'active': showPages }"
-              data-qa="iiif viewer toolbar pages toggle"
-              aria-controls="item-media-thumbnails"
-              :aria-expanded="showPages ? 'true' : 'false'"
-              @click="togglePages"
-              @mouseleave="hideTooltips"
-            >
-              <span class="icon icon-pages" />
-            </b-button>
-          </div>
-        </div>
-        <ItemMediaThumbnails
-          v-if="resourceCount >= 2 && showPages"
-          id="item-media-thumbnails"
-          ref="itemPages"
-          tabindex="0"
-          :edm-type="edmType"
-          data-qa="item media thumbnails"
-          @keydown.escape.native="showPages = false"
+        </template>
+      </div>
+      <div
+        v-if="sidebarHasContent || multiplePages"
+        class="sidebar-toggle-pagination-toolbar"
+        :class="{ closed: !showPages || !multiplePages}"
+      >
+        <!-- Sidebar toggle for mobile and tablet screens -->
+        <ItemMediaSidebarToggle
+          v-if="sidebarHasContent"
+          :show-sidebar="showSidebar"
+          class="d-inline-flex d-lg-none"
+          @toggleSidebar="toggleSidebar"
         />
-      </template>
+        <ItemMediaPaginationToolbar
+          v-if="multiplePages"
+          :show-pages="showPages"
+          :total-results="resourceCount"
+          @togglePages="togglePages"
+        />
+      </div>
+      <ItemMediaThumbnails
+        v-if="multiplePages"
+        v-show="showPages"
+        id="item-media-thumbnails"
+        ref="itemPages"
+        tabindex="0"
+        :edm-type="edmType"
+        data-qa="item media thumbnails"
+        @keydown.escape.native="showPages = false"
+      />
     </div>
   </div>
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+
+  export class ItemMediaPresentationError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'ItemMediaPresentationError';
+    }
+  }
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
+      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
+      ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
+      ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
+      LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
-      MediaPDFViewer: () => import('../media/MediaPDFViewer.vue'),
-      PaginationNavInput: () => import('../generic/PaginationNavInput.vue')
+      MediaPDFViewer: () => import('../media/MediaPDFViewer.vue')
     },
-
-    mixins: [hideTooltips],
 
     props: {
       uri: {
@@ -179,11 +180,6 @@
         default: null
       },
 
-      searchQuery: {
-        type: String,
-        default: null
-      },
-
       providerUrl: {
         type: String,
         default: null
@@ -192,38 +188,69 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
+        hasSearchService,
         page,
         resource,
         resourceCount,
         setPage,
         setPresentationFromWebResources
       } = useItemMediaPresentation();
-      return { fetchPresentation, hasAnnotations, page, resource, resourceCount, setPage, setPresentationFromWebResources };
+
+      return {
+        activeAnnotation,
+        fetchPresentation,
+        hasAnnotations,
+        hasSearchService,
+        page,
+        resource,
+        resourceCount,
+        setPage,
+        setPresentationFromWebResources
+      };
     },
 
     data() {
       return {
-        activeAnnotation: null,
-        showSidebar: null,
+        fullscreen: false,
         showPages: true,
-        fullscreen: false
+        showSidebar: !!this.$route.hash
       };
     },
 
     async fetch() {
       this.setPage(this.$route.query.page);
 
+      let error;
+
       if (this.uri) {
-        await this.fetchPresentation(this.uri);
+        try {
+          await this.fetchPresentation(this.uri);
+          await this.$nextTick();
+          if (!this.resource) {
+            error = new ItemMediaPresentationError('No canvases in IIIF manifest');
+          }
+        } catch (e) {
+          error = e;
+        }
       } else if (this.webResources) {
         this.setPresentationFromWebResources(this.webResources);
       } else {
-        throw new Error('No manifest URI or web resources for presentation');
+        error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
 
       this.selectResource();
+
+      if (this.hasAnnotations && window?.innerWidth >= 768) {
+        this.showSidebar = true;
+      }
+
+      if (error) {
+        this.handleError(error, 'IIIFManifestError');
+        throw error;
+      }
     },
 
     computed: {
@@ -232,15 +259,27 @@
       },
 
       sidebarHasContent() {
-        return this.hasAnnotations || this.hasManifest;
+        return this.hasAnnotations || this.hasSearchService || this.hasManifest;
+      },
+
+      multiplePages() {
+        return this.resourceCount >= 2;
       },
 
       thumbnail() {
-        return this.resource.thumbnails?.(this.$nuxt.context)?.large;
+        return this.resource.edm.thumbnails?.(this.$nuxt.context)?.large;
       },
 
       imageTypeResource() {
-        return this.resource?.ebucoreHasMimeType?.startsWith('image/');
+        return this.resource?.format?.startsWith('image/');
+      },
+
+      addPaginationToolbarMaxWidth() {
+        return !this.imageTypeResource && this.multiplePages;
+      },
+
+      addSidebarToggleMaxWidth() {
+        return !this.imageTypeResource && this.sidebarHasContent;
       }
     },
 
@@ -256,25 +295,42 @@
     },
 
     methods: {
-      onSelectAnno(anno) {
-        this.activeAnnotation = anno;
-        // store the annotation id in the route hash, to pre-highlight it on page reload
-        // this.$router.push({ ...this.$route, hash: `#anno=${anno.id}` });
+      handleImageError(error) {
+        this.$fetchState.error = error;
+        this.handleError(error);
+      },
+
+      handleError(error) {
+        const message = error.message || error.name;
+        const url = error.url || this.uri;
+
+        const errorData = {
+          item: this.itemId,
+          message,
+          name: error.name,
+          url
+        };
+
+        this.$apm?.captureError(errorData);
       },
 
       selectResource() {
-        this.activeAnnotation = null;
         this.$emit('select', this.resource);
       },
 
-      toggleSidebar() {
-        this.showSidebar = !this.showSidebar;
-
-        if (this.showSidebar) {
-          this.$nextTick(() => {
-            this.$refs.sidebar?.$el.focus();
-          });
+      toggleFullscreen() {
+        // Check for fullscreen support first?
+        if (this.fullscreen) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document['webKitExitFullscreen']) {
+            document['webKitExitFullscreen']();
+          }
+        } else {
+          this.$refs.mediaViewerWrapper.requestFullscreen();
         }
+
+        this.fullscreen = !this.fullscreen;
       },
 
       togglePages() {
@@ -287,19 +343,14 @@
         }
       },
 
-      toggleFullscreen() {
-        // Check for fullscreen support first?
-        if (this.fullscreen) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document['webKitExitFullscreen']) {
-            document['webKitExitFullscreen']();
-          }
-        } else {
-          this.$refs.viewerWrapper.requestFullscreen();
-        }
+      toggleSidebar() {
+        this.showSidebar = !this.showSidebar;
 
-        this.fullscreen = !this.fullscreen;
+        if (this.showSidebar) {
+          this.$nextTick(() => {
+            this.$refs.sidebar?.$el.focus();
+          });
+        }
       }
     }
   };
@@ -307,11 +358,10 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
+  @import '@europeana/style/scss/mixins';
 
-  .iiif-viewer-wrapper {
+  .media-viewer-wrapper {
     position: relative;
-    background-color: $black;
     @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
@@ -323,84 +373,114 @@
     @media (min-width: $bp-large) and (max-height: 845px) {
       height: calc($swiper-height - 2rem);
     }
+
+    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+      max-height: 50vh;
+      height: 50vh;
+    }
   }
 
-  .iiif-viewer-inner-wrapper {
+  .media-viewer-inner-wrapper {
+    background-color: $black;
     @include swiper-height(0px);
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
     }
 
+    // prevent feedback button overlapping thumbnails toggle laptop screens
+    @media (min-width: $bp-large) and (max-height: 845px) {
+      height: calc($swiper-height - 2rem);
+    }
+
+    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+      max-height: 50vh;
+      height: 50vh;
+    }
+
     &.error {
       overflow: auto;
     }
-  }
 
-  .iiif-viewer-toolbar {
-    background-color: rgba($white, 0.95);
-    margin-top: -3.25rem;
-    position: relative;
-    z-index: 2;
-
-    @media (min-width: $bp-large) {
-      margin-top: 0;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+    &.sidebar-toggle-max-width {
+      .media-viewer-content {
+        @media (min-width: $bp-large) {
+          // Reserve space for sidebar toggle (3.5rem width, doubled to center align) to prevent overlap
+          max-width: calc(100% - 7rem);
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
+      }
     }
 
-    .sidebar-toggle, .viewer-controls {
-      margin: 0.875rem 1rem;
-    }
+    &.pagination-toolbar-max-width {
+      .media-viewer-content {
+        // helper SCSS variables and functions to replicate the item page content width (based on b-container and b-col-8 layout)
+        // and calculate the space needed to reserve for the pagination toolbar
+        $container-lg-max-width: 960px;
+        $container-xl-max-width: 1140px;
+        $col-8-max-width: 0.8333; // 83.333%;
+        $col-padding: 15px;
+        $pagination-bar-width: 13rem;
+        @function mediaMarginRight($container-width) {
+          @return calc(50vw - (($col-8-max-width / 2) * $container-width));
+        }
+        @function borderWidth($container-width) {
+          @return max(0px, $pagination-bar-width - mediaMarginRight($container-width));
+        }
+        @function maxWidth($container-width) {
+          @return calc(($col-8-max-width * $container-width) - (2 * $col-padding));
+        }
 
-    ::v-deep button {
-      background-color: transparent;
-      font-size: $font-size-large;
+        @media (min-width: $bp-large) {
+          // Align with item page content
+          max-width: maxWidth($container-lg-max-width);
+          // Add right border when right margins are less than 13rem to prevent pagination and media overlap
+          border-right: borderWidth($container-lg-max-width) solid transparent;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
 
-      &.active {
-        color: $blue;
+        @media (min-width: $bp-extralarge) {
+          max-width: maxWidth($container-xl-max-width);
+          border-right: borderWidth($container-xl-max-width) solid transparent;
+        }
       }
     }
   }
 
-  .iiif-viewer-toolbar-pagination {
-    padding: 0.875rem 1rem;
-    width: 100% !important;
-
-    @media(min-width: ($bp-small)) {
-      width: auto !important;
-    }
-
-    @media(max-width: ($bp-large - 1px)) {
-      border-top: 1px solid $bodygrey;
+  .sidebar-toggle-pagination-toolbar {
+    @media (max-width: ($bp-large - 1px)) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      position: relative;
+      height: 3.5rem;
 
       &.closed {
-        border-bottom: 1px solid $bodygrey;
+        border-bottom: 1px solid $middlegrey;
       }
     }
   }
 
-  ::v-deep .pagination {
-    ul {
-      margin-bottom: 0;
-    }
-  }
-
-  .iiif-viewer-wrapper:fullscreen {
+  .media-viewer-wrapper:fullscreen {
     max-height: 100%;
-    .iiif-viewer-inner-wrapper {
+    .media-viewer-inner-wrapper {
       max-height: 100%;
       height: 100%;
     }
-    #item-media-thumbnails, .iiif-viewer-toolbar-pagination {
+    ::v-deep #item-media-thumbnails,
+    ::v-deep .media-viewer-toolbar-pagination {
       display: none !important;
     }
   }
-</style>
 
-<style lang="scss">
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
+  ::v-deep .divider {
+    border: 1px solid $middlegrey;
+    height: 1rem;
+    box-sizing: content-box;
+  }
 </style>

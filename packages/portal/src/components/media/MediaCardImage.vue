@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/edm/WebResource';
+  import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
   export default {
     name: 'MediaCardImage',
@@ -65,6 +65,8 @@
 
     props: {
       media: {
+        // TODO: refactor to only receive EuropeanaMediaResource, once legacy
+        //       media presentation is gone
         type: WebResource,
         default: null
       },

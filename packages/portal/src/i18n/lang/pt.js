@@ -55,9 +55,11 @@ export default {
     "login": "Inicie sessão",
     "move": "Jogada",
     "next": "Próximo",
+    "nextPage": "Próxima página",
     "pin": "Alfinete",
     "preview": "Visualizar",
     "previous": "Anterior",
+    "previousPage": "Página anterior",
     "publish": "Publicar",
     "readMore": "Ler mais",
     "reject": "Rejeitar",
@@ -879,6 +881,30 @@ export default {
   },
   "loading": "A carregar",
   "loadingResults": "A carregar resultados",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Sair do ecrã inteiro",
+      "fullscreen": "Tela cheia",
+      "keyboardNavigation": "Use as teclas +, - e seta para ampliar e deslocar a imagem.",
+      "resetZoom": "Redefinir zoom",
+      "zoomIn": "Ampliar",
+      "zoomOut": "Reduzir o zoom"
+    },
+    "pages": {
+      "hide": "Ocultar páginas",
+      "show": "Mostrar páginas"
+    },
+    "sidebar": {
+      "annotations": "Anotações",
+      "annotationsCount": "1 Anotação | {count} Anotações",
+      "hide": "Ocultar barra lateral",
+      "IIIFManifest": "Manifesto IIIF",
+      "links": "Links",
+      "search": "Procurar",
+      "searchPlaceholder": "Insira os termos",
+      "show": "Mostrar barra lateral"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiado para a prancheta",
     "externalContentError": "Falha ao carregar o conteúdo externo",
@@ -1043,6 +1069,7 @@ export default {
         "doesNotContain": "não contém",
         "exact": "contém a frase"
       },
+      "newRule": "nova regra de pesquisa avançada",
       "placeholder": {
         "field": "Selecione um campo",
         "modifier": "Selecione um modificador",

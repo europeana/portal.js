@@ -31,7 +31,9 @@ export default class EuropeanaMediaBase {
 
   static get axios() {
     if (!this.$axios) {
-      this.$axios = axios.create();
+      this.$axios = axios.create({
+        timeout: 10000
+      });
     }
     return this.$axios;
   }
@@ -54,8 +56,13 @@ export default class EuropeanaMediaBase {
   // factory method to create an instance and parse some data to initialise its
   // properties
   static parse(data) {
+    if (!data) {
+      return undefined;
+    }
+
     const resource = new this;
     resource.parse(data);
+
     return resource;
   }
 
@@ -65,6 +72,18 @@ export default class EuropeanaMediaBase {
       ...options,
       url: this.axiosUrl(options.url)
     });
+  }
+
+  static omitIsUndefined(data) {
+    return omitBy(data, isUndefined);
+  }
+
+  static getHashParam(hash, key) {
+    if (hash?.startsWith?.('#')) {
+      return new URLSearchParams(hash.slice(1)).get(key);
+    } else {
+      return undefined;
+    }
   }
 
   constructor(idOrData) {
@@ -86,7 +105,7 @@ export default class EuropeanaMediaBase {
   }
 
   postParseData(data) {
-    return omitBy(data, isUndefined);
+    return this.constructor.omitIsUndefined(data);
   }
 
   parse(data) {
@@ -109,11 +128,7 @@ export default class EuropeanaMediaBase {
   }
 
   getHashParam(hash, key) {
-    if (hash?.startsWith?.('#')) {
-      return new URLSearchParams(hash.slice(1)).get(key);
-    } else {
-      return undefined;
-    }
+    return this.constructor.getHashParam(hash, key);
   }
 
   fetch({ params } = {}) {

@@ -12,17 +12,20 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaT
     $n: num => num,
     $nuxt: {},
     ...mocks
-  }
+  },
+  stubs: ['NuxtLink']
 });
 
 const props = {
   edmType: 'image',
   offset: 0,
   resource: {
-    thumbnails: () => {
-      return { small: '', large: '' };
-    },
-    edmType: ''
+    edm: {
+      thumbnails: () => {
+        return { small: '', large: '' };
+      },
+      edmType: ''
+    }
   }
 };
 

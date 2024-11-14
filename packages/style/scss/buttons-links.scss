@@ -315,6 +315,7 @@
     height: 1.5rem;
     width: 1.5rem;
     font-size: 1.1rem;
+    padding: 0; // Chrome 82 fix
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -322,6 +323,11 @@
         width: calc(1.5 * 1.5rem);
         font-size: calc(1.5 * 1.1rem);
       }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
     }
   }
 
