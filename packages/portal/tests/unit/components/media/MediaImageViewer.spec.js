@@ -106,6 +106,21 @@ describe('components/media/MediaImageViewer', () => {
         // TODO: we should be testing the resultant html, but it's blank here
         expect(wrapper.vm.source).toBe('IIIF');
       });
+
+      describe('when request errors', () => {
+        const error = new Error('fail');
+        const fetchInfoStub = sinon.stub().rejects(error);
+        const service = { id, fetchInfo: fetchInfoStub };
+
+        it('emits the error', async() => {
+          const wrapper = factory({ propsData: { url, service } });
+
+          await wrapper.vm.fetch();
+          await new Promise(process.nextTick);
+
+          expect(wrapper.emitted('error')[0][0]).toEqual(error);
+        });
+      });
     });
   });
 

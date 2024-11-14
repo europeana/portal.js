@@ -16,11 +16,14 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     return { ...data };
   },
   mocks: {
-    $fetchState: { pending: false },
+    $apm: {
+      captureError: sinon.spy()
+    },
     $route: { query: {} },
     ...mocks
   },
   stubs: [
+    'IIIFErrorMessage',
     'ItemMediaPaginationToolbar',
     'ItemMediaSidebarToggle',
     'ItemMediaSidebar',
@@ -45,6 +48,7 @@ const stubItemMediaPresentationComposable = (stubs = {}) => {
         { resource: {} }
       ]
     },
+    resource: { edm: {}, id: 'https://iiif.example.org/image.jpeg' },
     resourceCount: 2,
     setPage: setPageStub,
     setPresentationFromWebResources: setPresentationFromWebResourcesStub,
@@ -124,6 +128,50 @@ describe('components/item/ItemMediaPresentation', () => {
           const pagesToggle = wrapper.find('itemmediapaginationtoolbar-stub');
 
           expect(pagesToggle.isVisible()).toBe(true);
+        });
+      });
+    });
+
+    describe('error handling', () => {
+      describe('when a fetch error occurs', () => {
+        it('displays the error message component', async() => {
+          stubItemMediaPresentationComposable({
+            fetchPresentation: sinon.stub().rejects('Network error')
+          });
+          const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const wrapper = factory({ propsData: { uri } });
+
+          await wrapper.vm.fetch();
+          await wrapper.vm.$nextTick();
+
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
+        });
+      });
+
+      describe('when the image viewer component emits an error', () => {
+        const itemId = '/123/abc';
+        const webResources = [
+          {
+            about: 'https://example.org/image.jpg',
+            ebucoreHasMimeType: 'image/jpeg',
+            ebucoreHeight: 576,
+            ebucoreWidth: 720
+          }
+        ];
+        const propsData = { itemId, webResources };
+
+        it('displays the error message component', async() => {
+          const wrapper = factory({ propsData });
+          const imageViewer = wrapper.find('mediaimageviewer-stub');
+          const imageError = new Error('Image failed to load');
+          imageViewer.vm.$emit('error', imageError);
+          await wrapper.vm.$nextTick();
+
+          const errorMessage = wrapper.find('iiiferrormessage-stub');
+
+          expect(errorMessage.isVisible()).toBe(true);
         });
       });
     });

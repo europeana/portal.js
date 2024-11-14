@@ -11,7 +11,17 @@
           'sidebar-toggle-max-width': addSidebarToggleMaxWidth
         }"
       >
-        <template v-if="!$fetchState.pending">
+        <b-container
+          v-if="$fetchState.pending"
+          class="h-100 d-flex align-items-center justify-content-center"
+          data-qa="loading spinner container"
+        >
+          <LoadingSpinner
+            class="text-white"
+            size="lg"
+          />
+        </b-container>
+        <template v-else>
           <template v-if="sidebarHasContent">
             <ItemMediaSidebar
               v-show="showSidebar"
@@ -28,14 +38,19 @@
               @toggleSidebar="toggleSidebar"
             />
           </template>
+          <IIIFErrorMessage
+            v-if="$fetchState.error"
+            :provider-url="providerUrl"
+          />
           <MediaImageViewer
-            v-if="imageTypeResource"
+            v-else-if="imageTypeResource"
             :url="resource.id"
             :item-id="itemId"
             :width="resource.width"
             :height="resource.height"
             :format="resource.format"
             :service="resource.service"
+            @error="handleImageError"
           >
             <MediaImageViewerControls
               :fullscreen="fullscreen"
@@ -72,53 +87,61 @@
           </code>
         </template>
       </div>
-      <template v-if="!$fetchState.pending">
-        <div
-          v-if="sidebarHasContent || multiplePages"
-          class="sidebar-toggle-pagination-toolbar"
-          :class="{ closed: !showPages || !multiplePages}"
-        >
-          <!-- Sidebar toggle for mobile and tablet screens -->
-          <ItemMediaSidebarToggle
-            v-if="sidebarHasContent"
-            :show-sidebar="showSidebar"
-            class="d-inline-flex d-lg-none"
-            @toggleSidebar="toggleSidebar"
-          />
-          <ItemMediaPaginationToolbar
-            v-if="multiplePages"
-            :show-pages="showPages"
-            :total-results="resourceCount"
-            @togglePages="togglePages"
-          />
-        </div>
-        <ItemMediaThumbnails
-          v-if="multiplePages"
-          v-show="showPages"
-          id="item-media-thumbnails"
-          ref="itemPages"
-          tabindex="0"
-          :edm-type="edmType"
-          data-qa="item media thumbnails"
-          @keydown.escape.native="showPages = false"
+      <div
+        v-if="sidebarHasContent || multiplePages"
+        class="sidebar-toggle-pagination-toolbar"
+        :class="{ closed: !showPages || !multiplePages}"
+      >
+        <!-- Sidebar toggle for mobile and tablet screens -->
+        <ItemMediaSidebarToggle
+          v-if="sidebarHasContent"
+          :show-sidebar="showSidebar"
+          class="d-inline-flex d-lg-none"
+          @toggleSidebar="toggleSidebar"
         />
-      </template>
+        <ItemMediaPaginationToolbar
+          v-if="multiplePages"
+          :show-pages="showPages"
+          :total-results="resourceCount"
+          @togglePages="togglePages"
+        />
+      </div>
+      <ItemMediaThumbnails
+        v-if="multiplePages"
+        v-show="showPages"
+        id="item-media-thumbnails"
+        ref="itemPages"
+        tabindex="0"
+        :edm-type="edmType"
+        data-qa="item media thumbnails"
+        @keydown.escape.native="showPages = false"
+      />
     </div>
   </div>
 </template>
 
 <script>
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+
+  export class ItemMediaPresentationError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'ItemMediaPresentationError';
+    }
+  }
 
   export default {
     name: 'ItemMediaPresentation',
 
     components: {
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
+      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
+      LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
@@ -187,18 +210,33 @@
     async fetch() {
       this.setPage(this.$route.query.page);
 
+      let error;
+
       if (this.uri) {
-        await this.fetchPresentation(this.uri);
+        try {
+          await this.fetchPresentation(this.uri);
+          await this.$nextTick();
+          if (!this.resource) {
+            error = new ItemMediaPresentationError('No canvases in IIIF manifest');
+          }
+        } catch (e) {
+          error = e;
+        }
       } else if (this.webResources) {
         this.setPresentationFromWebResources(this.webResources);
       } else {
-        throw new Error('No manifest URI or web resources for presentation');
+        error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
 
       this.selectResource();
 
       if (this.hasAnnotations && window?.innerWidth >= 768) {
         this.showSidebar = true;
+      }
+
+      if (error) {
+        this.handleError(error, 'IIIFManifestError');
+        throw error;
       }
     },
 
@@ -240,6 +278,25 @@
     },
 
     methods: {
+      handleImageError(error) {
+        this.$fetchState.error = error;
+        this.handleError(error);
+      },
+
+      handleError(error) {
+        const message = error.message || error.name;
+        const url = error.url || this.uri;
+
+        const errorData = {
+          item: this.itemId,
+          message,
+          name: error.name,
+          url
+        };
+
+        this.$apm?.captureError(errorData);
+      },
+
       selectResource() {
         this.$emit('select', this.resource);
       },
