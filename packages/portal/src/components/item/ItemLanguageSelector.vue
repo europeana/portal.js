@@ -1,101 +1,54 @@
 <template>
-  <transition
-    name="fade"
-  >
-    <b-container
-      fluid
-      class="d-flex border-bottom align-items-center"
+  <div>
+    <b-dropdown
+      no-flip
       data-qa="item language selector"
+      :disabled="fromTranslationError"
+      @show="login"
     >
-      <b-container>
-        <b-row>
-          <b-col class="col-12 py-3 d-sm-inline-flex align-items-center flex-wrap">
-            <span class="d-sm-inline-flex align-items-center flex-wrap">
-              <span class="icon-translate pr-2" />
-              <i18n
-                v-if="fromTranslationError"
-                path="multilingual.translateQuotaError"
-                tag="span"
-                class="pr-1"
-                data-qa="translate item error"
-              />
-              <i18n
-                v-else-if="!$auth.loggedIn"
-                path="multilingual.loginToTranslate"
-                tag="span"
-                data-qa="translate item login suggestion"
-              >
-                <template #login>
-                  <b-link
-                    data-qa="log in button"
-                    :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-                    :target="null"
-                    @click.prevent="keycloakLogin"
-                  >
-                    {{ $t('actions.login') }}<!-- This comment removes white space
-                  -->
-                  </b-link>
-                </template>
-              </i18n>
-              <i18n
-                v-else
-                path="multilingual.translateLanguage"
-                tag="span"
-                data-qa="translate item suggestion"
-              >
-                <b-dropdown
-                  :text="$t('multilingual.other')"
-                  variant="link"
-                  toggle-class="multilingual-dropdown border-0"
-                  toggle-tag="span"
-                  no-flip
-                  class="multilingual-selector"
-                  data-qa="item language dropdown"
-                >
-                  <b-dropdown-item
-                    v-for="locale in translateLocales"
-                    :key="locale.code"
-                    class="multilingual-dropdown-item"
-                    :to="translateParams(locale.code)"
-                    :data-qa="`item language option ${locale.code}`"
-                  >
-                    {{ locale.name }}
-                  </b-dropdown-item>
-                </b-dropdown>
-              </i18n>
-              <b-button
-                v-b-tooltip.bottom
-                :title="$t('multilingual.translateMetadata')"
-                class="icon-info-outline tooltip-button px-2"
-                variant="light-flat"
-              />
-            </span>
-            <b-link
-              v-if="translationLanguage"
-              :to="translateParams(null)"
-              :target="null"
-              data-qa="remove item translation button"
-            >
-              <i18n
-                path="multilingual.stopTranslating"
-                tag="span"
-                class="pr-1"
-              >
-                <span>{{ translationLanguageLabel }}</span>
-              </i18n>
-            </b-link>
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-button
-        class="button-icon-only icon-clear"
-        variant="light-flat"
-        :aria-label="$t('actions.close')"
-        data-qa="item language selector close button"
-        @click="handleClose()"
-      />
-    </b-container>
-  </transition>
+      <template #button-content>
+        <span class="icon-translate pr-2" />
+        <i18n
+          v-if="translationLanguage"
+          path="multilingual.viewingThisItemIn"
+          tag="span"
+        >
+          <strong>{{ translationLanguageLabel }}</strong>
+        </i18n>
+        <span v-else>{{ $t('multilingual.viewItemInAnotherLanguage') }}</span>
+      </template>
+      <b-dropdown-item
+        v-if="translationLanguage"
+        :to="translateParams(null)"
+        :target="null"
+        data-qa="remove item translation button"
+      >
+        <i18n
+          path="multilingual.stopTranslating"
+          tag="span"
+          class="pr-1"
+        >
+          <span>{{ translationLanguageLabel }}</span>
+        </i18n>
+      </b-dropdown-item>
+      <b-dropdown-item
+        v-for="locale in translateLocales"
+        :key="locale.code"
+        class="multilingual-dropdown-item"
+        :to="translateParams(locale.code)"
+        :data-qa="`item language option ${locale.code}`"
+      >
+        {{ locale.name }}
+      </b-dropdown-item>
+    </b-dropdown>
+    <i18n
+      v-if="fromTranslationError"
+      path="multilingual.translateQuotaError"
+      tag="p"
+      class="form-text text-muted"
+      data-qa="translate item error"
+    />
+  </div>
 </template>
 
 <script>
@@ -121,8 +74,7 @@
     data() {
       return {
         // "eu" language code not supported for translation
-        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu'),
-        hide: false
+        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
       };
     },
     computed: {
@@ -138,8 +90,10 @@
         }
         return { path: this.$route.path, query };
       },
-      handleClose() {
-        this.$emit('hidden');
+      login() {
+        if (!this.$auth.loggedIn) {
+          this.keycloakLogin();
+        }
       }
     }
   };
@@ -147,34 +101,28 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/transitions';
-  @import '@europeana/style/scss/icon-font';
 
   .icon-translate::before {
-    font-size: 1.4375rem;
+    font-size: 1.125rem;
   }
 
-  .multilingual-selector {
-    vertical-align: baseline;
-  }
+  ::v-deep .dropdown-toggle {
+    text-transform: none;
 
-  ::v-deep .multilingual-dropdown {
-    padding: 0;
-    color: $greyblack;
-    text-decoration: underline;
-
-    &::after {
-      @extend %icon-font;
-
-      // icon-chevron
-      content: '\e91b';
-      font-size: 0.5rem;
-      border: none;
-      margin-left: 0.25rem;
+    strong {
+      font-weight: 700;
     }
   }
 
-  .multilingual-dropdown-item {
+  ::v-deep .dropdown-menu {
+    width: 100%;
     font-size: $font-size-small;
+    max-height: 15rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 0;
+    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: $boxshadow-large;
+    border: 0;
   }
 </style>

@@ -989,7 +989,9 @@ export default {
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
     "translateMetadata": "Translate the metadata of this item.",
-    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later.",
+    "viewingThisItemIn": "Viewing this item in {0}",
+    "viewItemInAnotherLanguage": "View this item in another language"
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
