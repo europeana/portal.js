@@ -17,12 +17,14 @@
           path="multilingual.viewingThisItemIn"
           tag="span"
           class="d-none d-sm-inline"
+          data-qa="item language selector toggle text translated"
         >
           <strong>{{ translationLanguageLabel }}</strong>
         </i18n>
         <span
           v-else
           class="d-none d-sm-inline"
+          data-qa="item language selector toggle text suggestion"
         >
           {{ $t('multilingual.viewItemInAnotherLanguage') }}
         </span>

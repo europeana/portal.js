@@ -1,16 +1,16 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemLanguageSelector from '@/components/item/ItemLanguageSelector';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = {}) => mount(ItemLanguageSelector, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => mount(ItemLanguageSelector, {
   localVue,
-  attachTo: document.body,
   propsData,
   mocks: {
-    $auth: { loggedIn: propsData.loggedIn || false },
+    $auth: { loggedIn: mocks.loggedIn || false },
     localePath: () => {},
     $i18n: {
       locale: 'en',
@@ -32,55 +32,32 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
     $route: {
       path: 'item/example/123',
       query: {
-        lang: propsData.translationLanguage
+        lang: mocks.translationLanguage
       }
     }
   },
-  stubs: ['NuxtLink', 'i18n']
+  stubs: ['i18n']
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  describe('when not logged in', () => {
-    it('suggests to log in to enable the translation feature', () => {
+  describe('when item metadata is not translated', () => {
+    it('suggests to translate the item', () => {
       const wrapper = factory();
 
-      const suggestion = wrapper.find('[data-qa="translate item login suggestion"]');
+      const suggestion = wrapper.find('[data-qa="item language selector toggle text suggestion"]');
 
       expect(suggestion.exists()).toBe(true);
+      expect(wrapper.findAll('[data-qa="item language selector toggle text translated"]').exists()).toBe(false);
     });
   });
-  describe('when logged in', () => {
-    describe('when no translations are applied', () => {
-      it('suggests to translate the item metadata to other languages', () => {
-        const wrapper = factory({ loggedIn: true });
 
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+  describe('when item metadata is translated', () => {
+    it('the first option in the dropdown is to remove translations', () => {
+      const wrapper = factory({ propsData: { translationLanguage: 'de' }, mocks: { loggedIn: true } });
 
-        expect(suggestion.exists()).toBe(true);
-        expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
-      });
-    });
-    describe('when tanslations are requested to a language other than the UI language', () => {
-      it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-        const wrapper = factory({ translationLanguage: 'de', loggedIn: true });
+      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
 
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-
-        expect(suggestion.exists()).toBe(true);
-        expect(removeButton.exists()).toBe(true);
-      });
-    });
-    describe('when tanslations are requested to the UI language', () => {
-      it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-        const wrapper = factory({ translationLanguage: 'en', loggedIn: true  });
-
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-
-        expect(suggestion.exists()).toBe(true);
-        expect(removeButton.exists()).toBe(true);
-      });
+      expect(removeButton.exists()).toBe(true);
     });
   });
 
@@ -93,24 +70,29 @@ describe('components/item/ItemLanguageSelector', () => {
     });
   });
 
-  describe('when the recuested translation failed', () => {
+  describe('login', () => {
+    describe('when not logged in', () => {
+      it('redirects to login', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.keycloakLogin = sinon.spy();
+
+        wrapper.vm.login();
+
+        expect(wrapper.vm.keycloakLogin.called).toBe(true);
+      });
+    });
+  });
+
+  describe('when the requested translation failed', () => {
     it('shows an error message', () => {
-      const wrapper = factory({ fromTranslationError: true });
+      const wrapper = factory({ propsData: { fromTranslationError: true } });
 
       const suggestion = wrapper.find('[data-qa="translate item error"]');
 
       expect(suggestion.exists()).toBe(true);
       expect(wrapper.findAll('[data-qa="translate item suggestion"]').exists()).toBe(false);
       expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
-    });
-  });
-  describe('when close button is clicked', () => {
-    it('emits the hidden event', () => {
-      const wrapper = factory();
-      const button = wrapper.find('[data-qa="item language selector close button"]');
-      button.trigger('click');
-
-      expect(wrapper.emitted('hidden').length).toBe(1);
     });
   });
 });
