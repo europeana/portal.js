@@ -108,13 +108,13 @@
 
       iframe {
         width: 100%;
-        @include swiper-height;
+        @include media-viewer-height;
       }
     }
   }
 
   .responsive-embed-wrapper {
-    @include swiper-height;
+    @include media-viewer-height;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;

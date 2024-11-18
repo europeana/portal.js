@@ -1,7 +1,7 @@
 @import 'mixins';
 
 .iiif-viewer-wrapper {
-  @include swiper-height;
+  @include media-viewer-height;
 
   @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
     max-height: 50vh;

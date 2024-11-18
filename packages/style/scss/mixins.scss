@@ -27,25 +27,25 @@
   }
 }
 
-@mixin swiper-height {
-  height: $swiper-height;
+@mixin media-viewer-height {
+  height: $media-viewer-height;
 
   @media (max-height: ($bp-medium - 1px)) {
-    max-height: $swiper-height;
+    max-height: $media-viewer-height;
   }
 
   @media (min-height: $bp-medium) {
-    max-height: $swiper-height-max;
+    max-height: $media-viewer-height-max;
   }
 
   @media (max-width: ($bp-medium - 1px)) {
-    max-height: $swiper-height-medium;
-    height: $swiper-height-medium;
+    max-height: $media-viewer-height-medium;
+    height: $media-viewer-height-medium;
   }
 
   // prevent feedback button overlapping thumbnails toggle laptop screens
   @media (min-width: $bp-large) and (max-height: $bp-small) {
-    height: calc($swiper-height - 2rem);
+    height: calc($media-viewer-height - 2rem);
   }
 
   @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {

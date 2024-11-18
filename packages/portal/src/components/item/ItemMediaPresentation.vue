@@ -348,7 +348,7 @@
 
   .media-viewer-wrapper {
     position: relative;
-    @include swiper-height;
+    @include media-viewer-height;
 
     @media (max-width: ($bp-large - 1px)) {
       max-height: none;
@@ -358,7 +358,7 @@
 
   .media-viewer-inner-wrapper {
     background-color: $black;
-    @include swiper-height;
+    @include media-viewer-height;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;

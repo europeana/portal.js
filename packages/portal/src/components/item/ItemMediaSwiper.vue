@@ -167,22 +167,22 @@
 
   .swiper-outer {
     @media (min-width: $bp-large) {
-      height: $swiper-height;
+      height: $media-viewer-height;
 
       @media (min-height: $bp-medium) {
-        max-height: $swiper-height-max;
+        max-height: $media-viewer-height-max;
       }
     }
   }
 
   .swiper-container {
-    @include swiper-height;
+    @include media-viewer-height;
     flex: 1 1 100%;
     width: 100%;
     background-color: $black;
 
     .swiper-wrapper {
-      @include swiper-height;
+      @include media-viewer-height;
       transition: none;
     }
 
