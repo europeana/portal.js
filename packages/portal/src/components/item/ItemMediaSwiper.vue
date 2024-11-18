@@ -166,13 +166,7 @@
   @import '@europeana/style/scss/swiper';
 
   .swiper-outer {
-    @media (min-width: $bp-large) {
-      height: $media-viewer-height;
-
-      @media (min-height: $bp-medium) {
-        max-height: $media-viewer-height-max;
-      }
-    }
+    @include media-viewer-height;
   }
 
   .swiper-container {
@@ -184,6 +178,10 @@
     .swiper-wrapper {
       @include media-viewer-height;
       transition: none;
+
+      @media (max-width: ($bp-large - 1px)) {
+        max-height: 100%;
+      }
     }
 
     .swiper-slide {
