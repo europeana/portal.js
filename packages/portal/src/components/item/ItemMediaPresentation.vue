@@ -451,11 +451,11 @@
   }
 
   ::v-deep .responsive-embed-wrapper {
-      display: flex;
-      align-items: center;
+    display: flex;
+    align-items: center;
 
-      .html-embed {
-        flex-grow: 1;
-      }
+    .html-embed {
+      flex-grow: 1;
     }
+  }
 </style>
