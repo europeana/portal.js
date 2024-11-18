@@ -176,13 +176,13 @@
   }
 
   .swiper-container {
-    @include swiper-height(0px);
+    @include swiper-height;
     flex: 1 1 100%;
     width: 100%;
     background-color: $black;
 
     .swiper-wrapper {
-      @include swiper-height(0px);
+      @include swiper-height;
       transition: none;
     }
 

@@ -167,6 +167,10 @@
     border-radius: 0 0 0.375rem 0.375rem;
     box-shadow: $boxshadow-large;
     border: 0;
+
+    @media (min-width: $bp-small) {
+      width: 100%;
+    }
   }
 
   ::v-deep .stop-link {

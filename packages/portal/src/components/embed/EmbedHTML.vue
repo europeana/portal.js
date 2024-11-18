@@ -87,6 +87,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .html-embed {
     height: 100%;
@@ -107,26 +108,16 @@
 
       iframe {
         width: 100%;
-        max-height: $swiper-height-max;
-        height: $swiper-height;
-
-        @media (max-width: $bp-medium) {
-          height: 22.5rem;
-        }
+        @include swiper-height;
       }
     }
   }
 
   .responsive-embed-wrapper {
-    height: $swiper-height;
-    max-height: $swiper-height-max;
+    @include swiper-height;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;
-
-    @media (max-width: $bp-medium) {
-      height: 22.5rem;
-    }
 
     .html-embed {
       display: block;
@@ -140,18 +131,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-
-        @media (max-height: $bp-medium) {
-          max-height: $swiper-height;
-        }
-
-        @media (min-height: $bp-medium) {
-          max-height: $swiper-height-max;
-        }
-
-        @media (max-width: $bp-medium) {
-          max-height: $swiper-height-medium;
-        }
       }
     }
   }
