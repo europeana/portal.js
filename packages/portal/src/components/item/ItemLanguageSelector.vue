@@ -78,13 +78,23 @@
       locales
     ],
     props: {
+      /**
+       * Translation request error
+       */
       fromTranslationError: {
         type: Boolean,
         default: false
       },
+      /**
+       * Language the item is translated to
+       */
       translationLanguage: {
         type: String,
         default: null
+      },
+      behindLogin: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -107,7 +117,7 @@
         return { path: this.$route.path, query };
       },
       login() {
-        if (!this.$auth.loggedIn) {
+        if (this.behindLogin && !this.$auth.loggedIn) {
           this.keycloakLogin();
         }
       }
@@ -191,3 +201,26 @@
     }
   }
 </style>
+
+<docs lang="md">
+  No language selected
+  ```jsx
+    <ItemLanguageSelector
+      :behind-login="false"
+    />
+  ```
+  Translation language set to Nederlands
+  ```jsx
+    <ItemLanguageSelector
+      :behind-login="false"
+      translation-language="nl"
+    />
+  ```
+  Translation error
+  ```jsx
+    <ItemLanguageSelector
+      :behind-login="false"
+      :from-translation-error="true"
+    />
+  ```
+</docs>
