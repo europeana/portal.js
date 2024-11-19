@@ -16,14 +16,14 @@
           v-if="translationLanguage"
           path="multilingual.viewingThisItemIn"
           tag="span"
-          class="d-none d-sm-inline"
+          class="d-none d-sm-inline align-middle"
           data-qa="item language selector toggle text translated"
         >
           <strong>{{ translationLanguageLabel }}</strong>
         </i18n>
         <span
           v-else
-          class="d-none d-sm-inline"
+          class="d-none d-sm-inline align-middle"
           data-qa="item language selector toggle text suggestion"
         >
           {{ $t('multilingual.viewItemInAnotherLanguage') }}
@@ -40,7 +40,6 @@
           <i18n
             path="multilingual.stopViewingThisItemIn"
             tag="span"
-            class="pr-1"
           >
             <strong>{{ translationLanguageLabel }}</strong>
           </i18n>
@@ -156,6 +155,7 @@
 
     &:after {
       padding-left: 0.5rem;
+      vertical-align: baseline;
 
       @media (min-width: $bp-small) {
         padding-left: 0.25rem;
@@ -197,7 +197,7 @@
 
     .icon-clear {
       font-size: $font-size-extrasmall;
-      line-height: 1.75;
+      line-height: 1.875;
     }
   }
 </style>
