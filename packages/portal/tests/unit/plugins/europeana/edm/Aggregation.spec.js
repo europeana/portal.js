@@ -10,14 +10,15 @@ describe('plugins/europeana/edm/Aggregation', () => {
           edmIsShownBy,
           edmObject,
           webResources: [
-            { about: edmIsShownBy }
+            { about: edmIsShownBy },
+            { about: edmObject }
           ]
         };
 
-        it('gets edm:object as thumbnail', () => {
+        it('gets edm:object as preview', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].preview.about).toBe(edmObject);
         });
       });
 
@@ -28,14 +29,15 @@ describe('plugins/europeana/edm/Aggregation', () => {
           edmIsShownAt,
           edmObject,
           webResources: [
-            { about: edmIsShownAt }
+            { about: edmIsShownAt },
+            { about: edmObject }
           ]
         };
 
-        it('gets edm:object as thumbnail', () => {
+        it('gets edm:object as preview', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].preview.about).toBe(edmObject);
         });
 
         it('gets forEdmIsShownAt set to `true`', () => {
