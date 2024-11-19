@@ -50,6 +50,7 @@
             :height="resource.height"
             :format="resource.format"
             :service="resource.service"
+            :thumbnail="thumbnail"
             @error="handleImageError"
           >
             <MediaImageViewerControls
@@ -74,6 +75,15 @@
             v-else-if="resource?.edm.isOEmbed"
             :url="resource.id"
             class="media-viewer-content"
+          />
+          <MediaImageViewer
+            v-else-if="resource?.edm.forEdmIsShownAt"
+            :url="resource.edm.preview.about"
+            :item-id="itemId"
+            :annotation="activeAnnotation"
+            :width="resource.edm.preview.ebucoreWidth"
+            :height="resource.edm.preview.ebucoreHeight"
+            :thumbnail="thumbnail"
           />
           <code
             v-else
@@ -177,6 +187,7 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -188,6 +199,7 @@
       } = useItemMediaPresentation();
 
       return {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -251,6 +263,10 @@
 
       multiplePages() {
         return this.resourceCount >= 2;
+      },
+
+      thumbnail() {
+        return this.resource.edm.thumbnails?.(this.$nuxt.context)?.large;
       },
 
       imageTypeResource() {

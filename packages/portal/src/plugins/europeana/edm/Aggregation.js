@@ -61,9 +61,13 @@ export default class Aggregation extends Base {
   constructor(data) {
     super(data);
 
+    const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
+
     for (const wr of (this.webResources || [])) {
       wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
-      wr.thumbnail = ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && data.edmObject) ? data.edmObject : null;
+      if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
+        wr.preview = edmObjectWebResource;
+      }
     }
   }
 

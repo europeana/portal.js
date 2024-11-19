@@ -49,11 +49,11 @@ export default class WebResource extends Base {
     'ebucoreHeight',
     'ebucoreWidth',
     'edmCodecName',
+    'forEdmIsShownAt',
     'isNextInSequence',
+    'preview',
     'rdfType',
     'svcsHasService',
-    'thumbnail',
-    'forEdmIsShownAt',
     'webResourceEdmRights'
   ];
 
@@ -85,7 +85,7 @@ export default class WebResource extends Base {
   //       or move out into Nuxt mixin?
   // TODO: use IIIF Image service if present
   thumbnails(context) {
-    const uri = this.thumbnail || this.about;
+    const uri = this.preview?.about || this.about;
 
     const smallWidth = 200;
     const largeWidth = 400;
