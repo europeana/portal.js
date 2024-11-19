@@ -237,6 +237,18 @@ describe('components/generic/PaginationNavInput', () => {
         const generatedLink = wrapper.vm.linkGen(2);
         expect(generatedLink).toEqual({ query: { page: 2 } });
       });
+
+      it('removes any params from paginated links that have been specified by the excludeParams prop', () => {
+        const wrapper = factory({
+          propsData: { totalResults: 240, perPage: 24, excludeParams: ['remove'] },
+          mocks: {
+            $route: { query: { page: 1, remove: 'exists', maintain: 'exists' } }
+          }
+        });
+
+        const generatedLink = wrapper.vm.linkGen(2);
+        expect(generatedLink).toEqual({ query: { page: 2, maintain: 'exists' } });
+      });
     });
   });
 });
