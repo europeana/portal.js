@@ -10,9 +10,8 @@
         <span
           class="icon-translate pr-sm-2"
           :class="{'translation-applied': translationLanguage}"
-        /><!--
-        This comment removes whitespace
-        --><i18n
+        />
+        <i18n
           v-if="translationLanguage"
           path="multilingual.viewingThisItemIn"
           tag="span"
@@ -148,6 +147,8 @@
   ::v-deep .dropdown-toggle {
     text-transform: none;
     padding: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
 
     @media (min-width: $bp-small) {
       padding: 0.25rem 0.75rem;
@@ -155,7 +156,7 @@
 
     &:after {
       padding-left: 0.5rem;
-      vertical-align: baseline;
+      margin: 0;
 
       @media (min-width: $bp-small) {
         padding-left: 0.25rem;
