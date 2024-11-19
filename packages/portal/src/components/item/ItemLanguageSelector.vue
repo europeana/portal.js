@@ -156,7 +156,7 @@
 
     &:after {
       padding-left: 0.5rem;
-      margin: 0;
+      margin: 2px 0 0 0;
 
       @media (min-width: $bp-small) {
         padding-left: 0.25rem;
