@@ -1,8 +1,7 @@
 @import 'mixins';
 
 .iiif-viewer-wrapper {
-  // add extra space for item language selector
-  @include swiper-height(4rem);
+  @include media-viewer-height;
 
   @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
     max-height: 50vh;

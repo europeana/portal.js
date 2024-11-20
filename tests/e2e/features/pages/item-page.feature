@@ -115,7 +115,7 @@ Feature: item page
   Scenario: Seeing an item language selector
     When I open an `item page`
     Then I see an `item language selector`
-    Then I see a `translate item login suggestion`
+    Then I see a `item language selector toggle text suggestion`
 
   @resized-browser
   Scenario: HTML embedded media

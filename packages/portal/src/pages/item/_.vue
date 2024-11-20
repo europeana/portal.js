@@ -23,12 +23,6 @@
     <template
       v-else
     >
-      <ItemLanguageSelector
-        v-if="translatedItemsEnabled && showItemLanguageSelector"
-        :from-translation-error="fromTranslationError"
-        :translation-language="translationLanguage"
-        @hidden="() => showItemLanguageSelector = false"
-      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -85,6 +79,11 @@
               :metadata="fieldsAndKeywords"
               :location="locationData"
               :metadata-language="metadataLanguage"
+            />
+            <ItemLanguageSelector
+              v-if="translatedItemsEnabled"
+              :from-translation-error="fromTranslationError"
+              :translation-language="translationLanguage"
             />
           </b-col>
         </b-row>
@@ -190,7 +189,6 @@
         metadata: {},
         ogImage: null,
         relatedCollections: [],
-        showItemLanguageSelector: true,
         type: null,
         useProxy: true
       };
