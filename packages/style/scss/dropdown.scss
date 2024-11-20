@@ -21,6 +21,15 @@
 
   .dropdown-item {
     text-decoration: none;
+
+    &:hover {
+      background-color: $bodygrey;
+    }
+
+    &:active,
+    &.active {
+      background-color: $blue;
+    }
   }
 
   .dropdown-header {
