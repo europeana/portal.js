@@ -78,12 +78,21 @@
             class="media-viewer-content"
           />
           <MediaImageViewer
-            v-else-if="resource?.edm.forEdmIsShownAt"
+            v-else-if="resource?.edm?.preview"
             :url="resource.edm.preview.about"
             :item-id="itemId"
             :annotation="activeAnnotation"
             :width="resource.edm.preview.ebucoreWidth"
             :height="resource.edm.preview.ebucoreHeight"
+            :thumbnail="thumbnail"
+          />
+          <MediaImageViewer
+            v-else-if="thumbnail"
+            :url="resource.edm.about"
+            :item-id="itemId"
+            :annotation="activeAnnotation"
+            :width="resource.edm.ebucoreWidth"
+            :height="resource.edm.ebucoreHeight"
             :thumbnail="thumbnail"
           />
           <code
@@ -271,7 +280,7 @@
       },
 
       imageTypeResource() {
-        return this.resource?.format?.startsWith('image/');
+        return this.resource.edm.isHTMLImage;
       },
 
       addPaginationToolbarMaxWidth() {

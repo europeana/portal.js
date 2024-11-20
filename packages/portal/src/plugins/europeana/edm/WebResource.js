@@ -29,10 +29,8 @@ const EDM_TYPE_SOUND = 'SOUND';
 const EDM_TYPE_VIDEO = 'VIDEO';
 const EDM_TYPE_TEXT = 'TEXT';
 
-const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 const HTML_AUDIO_MEDIA_TYPES = [MEDIA_TYPE_AUDIO_FLAC, MEDIA_TYPE_AUDIO_OGG, MEDIA_TYPE_AUDIO_MPEG];
-
-const IIIF_DISPLAYABLE_MEDIA_TYPES = [
+const HTML_IMAGE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_BMP,
   MEDIA_TYPE_IMAGE_GIF,
   MEDIA_TYPE_IMAGE_JPEG,
@@ -40,6 +38,7 @@ const IIIF_DISPLAYABLE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_SVG_XML,
   MEDIA_TYPE_IMAGE_WEBP
 ];
+const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 
 export default class WebResource extends Base {
   static fields = [
@@ -135,6 +134,10 @@ export default class WebResource extends Base {
     return this.mediaType && HTML_AUDIO_MEDIA_TYPES.includes(this.mediaType);
   }
 
+  get isHTMLImage() {
+    return this.mediaType && HTML_IMAGE_MEDIA_TYPES.includes(this.mediaType);
+  }
+
   get isOEmbed() {
     return oEmbeddable(this.id);
   }
@@ -165,7 +168,7 @@ export default class WebResource extends Base {
 
   isDisplayableByIIIFPresentationManifest(iiifPresentationManifest) {
     return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest) &&
-      IIIF_DISPLAYABLE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
+      HTML_IMAGE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
   }
 
   get requiresDashJS() {
