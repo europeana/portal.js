@@ -132,6 +132,9 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
+      '$fetchState.pending'(pending) {
+        !pending && this.scrollActiveAnnotationToCentre();
+      },
       // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
         !this.searching && this.$fetch();
@@ -162,9 +165,6 @@
           return;
         }
         await this.$nextTick();
-
-        // TODO: Selecting a search result, switching page & selecting an annotation causes annotationListItems to be undefined
-        console.log(this.$refs.annotationListItems);
 
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
           const elementOffset = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
