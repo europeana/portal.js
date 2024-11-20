@@ -3,7 +3,6 @@
     <b-dropdown
       data-qa="item language selector"
       :disabled="fromTranslationError"
-      @show="login"
     >
       <template #button-content>
         <span
@@ -50,6 +49,7 @@
         class="multilingual-dropdown-item"
         :to="translateParams(locale.code)"
         :data-qa="`item language option ${locale.code}`"
+        @click="login"
       >
         {{ locale.name }}
       </b-dropdown-item>
@@ -88,10 +88,6 @@
       translationLanguage: {
         type: String,
         default: null
-      },
-      behindLogin: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -114,7 +110,7 @@
         return { path: this.$route.path, query };
       },
       login() {
-        if (this.behindLogin && !this.$auth.loggedIn) {
+        if (!this.$auth.loggedIn) {
           this.keycloakLogin();
         }
       }
@@ -215,21 +211,17 @@
 <docs lang="md">
   No language selected
   ```jsx
-    <ItemLanguageSelector
-      :behind-login="false"
-    />
+    <ItemLanguageSelector />
   ```
   Translation language set to Nederlands
   ```jsx
     <ItemLanguageSelector
-      :behind-login="false"
       translation-language="nl"
     />
   ```
   Translation error
   ```jsx
     <ItemLanguageSelector
-      :behind-login="false"
       :from-translation-error="true"
     />
   ```

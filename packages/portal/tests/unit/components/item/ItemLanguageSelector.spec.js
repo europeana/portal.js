@@ -70,14 +70,14 @@ describe('components/item/ItemLanguageSelector', () => {
     });
   });
 
-  describe('login', () => {
+  describe('when clicking a language option', () => {
     describe('when not logged in', () => {
       it('redirects to login', async() => {
         const wrapper = factory();
 
         wrapper.vm.keycloakLogin = sinon.spy();
 
-        wrapper.vm.login();
+        wrapper.find('[data-qa="item language option nl"]').trigger('click');
 
         expect(wrapper.vm.keycloakLogin.called).toBe(true);
       });
