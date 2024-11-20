@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-dropdown
-      no-flip
       data-qa="item language selector"
       :disabled="fromTranslationError"
       @show="login"
@@ -154,6 +153,11 @@
       padding: 0.25rem 0.75rem;
     }
 
+    // dropdown is flipped up
+    &:has(+ [x-placement='top-start']) {
+      border-radius: 0 0 0.375rem 0.375rem;
+    }
+
     &:after {
       padding-left: 0.5rem;
       margin: 2px 0 0 0;
@@ -181,6 +185,11 @@
 
     @media (min-width: $bp-small) {
       width: 100%;
+    }
+
+    // dropdown is flipped up
+    &[x-placement='top-start'] {
+      border-radius: 0.375rem 0.375rem 0 0;
     }
   }
 
