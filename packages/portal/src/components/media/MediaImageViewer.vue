@@ -137,8 +137,11 @@
         deep: true,
         handler: 'highlightAnnotation'
       },
-      '$route.query.page'() {
-        this.fetchCanvasAnnotations();
+      async '$route.query.page'() {
+        await this.fetchCanvasAnnotations();
+        if (this.activeAnnotation) {
+          this.highlightAnnotation();
+        }
       },
       url: '$fetch',
       currentZoom: 'setZoom'

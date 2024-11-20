@@ -109,7 +109,6 @@
       if (!this.active) {
         return;
       }
-
       await Promise.all([this.fetchCanvasAnnotations(), (this.searching ? this.searchAnnotations(`"${this.query}"`) : null)]);
       this.setActiveAnnotationFromRouteQuery();
 
@@ -133,15 +132,9 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
-      active() {
-        this.scrollActiveAnnotationToCentre();
-      },
       // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
         !this.searching && this.$fetch();
-      },
-      '$route.hash'() {
-        this.scrollActiveAnnotationToCentre();
       },
       '$route.query.anno'() {
         this.setActiveAnnotationFromRouteQuery();
