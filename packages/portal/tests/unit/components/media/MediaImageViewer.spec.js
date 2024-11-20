@@ -131,6 +131,15 @@ describe('components/media/MediaImageViewer', () => {
 
   describe('methods', () => {
     describe('highlightAnnotation', () => {
+      describe('when the full image is not yet rendered', () => {
+        it('renders the full image', async() => {
+          const wrapper = factory({ propsData: { url, width, height } });
+
+          await wrapper.vm.highlightAnnotation();
+
+          expect(wrapper.vm.fullImageRendered).toBe(true);
+        });
+      });
       it('initialises a vector layer for annotations', async() => {
         const annotation = {
           target: {

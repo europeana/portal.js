@@ -100,6 +100,7 @@
 
     data() {
       return {
+        fullImageRendered: false,
         info: null,
         olExtent: null,
         olMap: null,
@@ -199,7 +200,11 @@
         return new Feature(poly);
       },
 
-      highlightAnnotation() {
+      async highlightAnnotation() {
+        if (!this.fullImageRendered) {
+          await this.renderFullImage();
+        }
+
         this.initOlAnnotationLayer();
 
         const layer = this.olMap.getLayers().item(1);
@@ -273,9 +278,10 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions: anno click, full-text search
+
         this.olMap.on('click', this.renderFullImage);
         this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
+        this.fullImageRendered = false;
       },
 
       renderFullImageOnFirstZoomIn(event) {
@@ -296,6 +302,8 @@
         const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
         const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
         this.initMapWithFullImage(mapOptions);
+
+        this.fullImageRendered = true;
       },
 
       // IIIF Image API
@@ -340,6 +348,9 @@
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
+          this.fullImageRendered = true;
+        } else if (this.annotation) {
+          this.renderFullImage();
         } else {
           this.renderThumbnail();
         }
