@@ -26,7 +26,7 @@ COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
-ARG IIIF_PRESENTATION_PLUGIN
+ARG BUILD_MEDIA_PRESENTATION_PLUGIN
 
 RUN npm run build
 RUN rm -rf node_modules packages/*/node_modules packages/mirador packages/style
