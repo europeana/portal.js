@@ -132,9 +132,6 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
-      '$fetchState.pending'(pending) {
-        !pending && this.scrollActiveAnnotationToCentre();
-      },
       // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
         !this.searching && this.$fetch();
@@ -186,8 +183,10 @@
         if (this.$route.query.anno !== this.activeAnnotation?.id) {
           const activeAnnotation = this.annotations.find((anno) => anno.id === this.$route.query.anno) || this.annotationSearchResults.find((anno) => anno.id === this.$route.query.anno);
           this.setActiveAnnotation(activeAnnotation || null);
-          process.client && this.scrollActiveAnnotationToCentre('instant');
         }
+        this.$nextTick(() => {
+          process.client && this.scrollActiveAnnotationToCentre('instant');
+        });
       }
     }
   };
