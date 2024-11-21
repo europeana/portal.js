@@ -264,6 +264,10 @@
       },
 
       async renderThumbnail() {
+        if (this.source !== 'ImageStatic') {
+          // TODO: this method shouldn't even be called on IIIF
+          return;
+        }
         if (!this.thumbnail) {
           this.renderFullImage();
           return;
@@ -292,6 +296,11 @@
       },
 
       async renderFullImage() {
+        if (this.source !== 'ImageStatic') {
+          // TODO: this method shouldn't even be called on IIIF
+          return;
+        }
+
         if (this.olMap) {
           this.olMap.un('click', this.renderFullImage);
           this.olMap.getView().un('change:resolution', this.renderFullImageOnFirstZoomIn);
