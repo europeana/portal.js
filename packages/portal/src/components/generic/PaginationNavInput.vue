@@ -213,19 +213,24 @@
     methods: {
       changePaginationNav() {
         if (this.page) {
+          // TODO: why doesn't this exclude the params specified in the prop?
           this.$router.push(this.linkGen(this.page, false));
         }
       },
 
-      linkGen(pageNo, exclude = true) {
-        const excludeParams =  exclude ? this.excludeParams.reduce((memo, param) => {
-          memo[param] = undefined;
-          return memo;
-        }, {}) : {};
+      linkGen(page, exclude = true) {
+        const query = { ...this.$route.query, page };
+
+        if (exclude) {
+          for (const excludeParam of this.excludeParams) {
+            delete query[excludeParam];
+          }
+        }
+
         return {
+          hash: this.$route.hash,
           path: this.$route.path,
-          query: { ...this.$route.query, page: pageNo, ...excludeParams },
-          hash: this.$route.hash
+          query
         };
       }
     }
