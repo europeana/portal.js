@@ -932,7 +932,10 @@ export default {
     "automated": "Automatisierte Übersetzung",
     "automatedPageTranslations": "Diese Seite verwendet automatisch generierte Übersetzungen aus dem Englischen.",
     "enrichment": "Anreicherung durch Partnerprojekte",
-    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
+    "stopViewingThisItemIn": "Dieses Objekt nicht mehr anzeigen in {0}",
+    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "viewingThisItemIn": "Dieses Objekt in {0} anzeigen",
+    "viewItemInAnotherLanguage": "Dieses Objekt in einer anderen Sprache anzeigen"
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",

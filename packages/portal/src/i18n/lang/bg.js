@@ -937,7 +937,10 @@ export default {
     "automated": "Автоматизиран превод",
     "automatedPageTranslations": "Тази страница използва автоматично генерирани преводи от английски.",
     "enrichment": "Обогатяване по партньорски проекти",
-    "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно."
+    "stopViewingThisItemIn": "Спрете да преглеждате този обект в {0}",
+    "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно.",
+    "viewingThisItemIn": "Преглеждате този обект в {0}",
+    "viewItemInAnotherLanguage": "Преглед на този обект на друг език"
   },
   "newFeatureNotification": {
     "dismiss": "Отхвърляне",

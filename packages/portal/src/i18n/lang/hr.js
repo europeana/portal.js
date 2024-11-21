@@ -932,7 +932,10 @@ export default {
     "automated": "Automatizirani prijevod",
     "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
-    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
+    "stopViewingThisItemIn": "Prestanite pregledavati ovaj predmet na {0}",
+    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije.",
+    "viewingThisItemIn": "Pregledavate ovaj predmet na {0}",
+    "viewItemInAnotherLanguage": "Pogledajte ovaj predmet na drugom jeziku"
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",

@@ -930,7 +930,10 @@ export default {
     "automated": "Aistriúchán uathoibrithe",
     "automatedPageTranslations": "Úsáideann an leathanach seo aistriúcháin uathghinte ón mBéarla.",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
+    "stopViewingThisItemIn": "Stop ag féachaint ar an mír seo i {0}",
+    "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí.",
+    "viewingThisItemIn": "Ag féachaint ar an mír seo i {0}",
+    "viewItemInAnotherLanguage": "Féach ar an mír seo i dteanga eile"
   },
   "newFeatureNotification": {
     "dismiss": "Dún",

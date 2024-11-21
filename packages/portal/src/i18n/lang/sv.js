@@ -930,7 +930,10 @@ export default {
     "automated": "Automatiserad översättning",
     "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
-    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
+    "stopViewingThisItemIn": "Sluta visa detta objekt i {0}",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare.",
+    "viewingThisItemIn": "Visar detta objekt i {0}",
+    "viewItemInAnotherLanguage": "Visa detta objekt på ett annat språk"
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",

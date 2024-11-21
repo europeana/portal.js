@@ -930,7 +930,10 @@ export default {
     "automated": "Traducere automată",
     "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
+    "stopViewingThisItemIn": "Opriți vizualizarea acestei resurse culturale în {0}",
+    "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu.",
+    "viewingThisItemIn": "Vizualizarea acestei resurse culturale în {0}",
+    "viewItemInAnotherLanguage": "Vizualizați această resursă culturală în altă limbă"
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",

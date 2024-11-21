@@ -932,7 +932,10 @@ export default {
     "automated": "Automatisoitu käännös",
     "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
+    "stopViewingThisItemIn": "Lopeta tämän aineiston tarkastelu {0}",
+    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin.",
+    "viewingThisItemIn": "Tarkastelet tätä aineistoa {0}-kielellä",
+    "viewItemInAnotherLanguage": "Tarkastele tätä aineistoa toisella kielellä"
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",

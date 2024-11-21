@@ -930,7 +930,10 @@ export default {
     "automated": "Traduzzjoni awtomatizzata",
     "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
+    "stopViewingThisItemIn": "Waqqaf milli tara dan l-oġġett f'{0}",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard.",
+    "viewingThisItemIn": "Ara dan l-oġġett fi {0}",
+    "viewItemInAnotherLanguage": "Ara dan l-oġġett f’lingwa oħra"
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
