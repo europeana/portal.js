@@ -3,6 +3,16 @@
     id="media-image-viewer"
     class="h-100 w-100"
   >
+    <b-container
+      v-if="imageLoading"
+      class="h-100 d-flex align-items-center justify-content-center"
+      data-qa="loading spinner container"
+    >
+      <LoadingSpinner
+        class="text-white"
+        size="lg"
+      />
+    </b-container>
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
       @renderFullImage="renderFullImage"
@@ -34,6 +44,7 @@
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
 
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
   export class MediaImageViewerError extends Error {
@@ -47,6 +58,7 @@
     name: 'MediaImageViewer',
 
     components: {
+      LoadingSpinner,
       MediaImageViewerKeyboardToggle
     },
 
@@ -101,6 +113,7 @@
     data() {
       return {
         fullImageRendered: false,
+        imageLoading: null,
         info: null,
         olExtent: null,
         olMap: null,
@@ -317,7 +330,9 @@
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
+        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
+        source.on('imageloadend', () => this.imageLoading = false);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         const layer = new TileLayer({ source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
@@ -335,7 +350,9 @@
           imageExtent: extent
         });
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
+        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
+        source.on('imageloadend', () => this.imageLoading = false);
         const layer = new ImageLayer({ source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
