@@ -2,11 +2,10 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
+    @keydown="handleKeyboardToggleKeydown"
   >
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
-      :full-image-rendered="fullImageRendered"
-      @renderFullImage="renderFullImage"
     />
     <slot />
   </div>
@@ -146,6 +145,12 @@
     },
 
     methods: {
+      handleKeyboardToggleKeydown(event) {
+        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
+          this.fullImageRendered || this.renderFullImage();
+        }
+      },
+
       initOlAnnotationLayer() {
         const layerCount = this.olMap.getLayers().getLength();
         if (layerCount === 0) {

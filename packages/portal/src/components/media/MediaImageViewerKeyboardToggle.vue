@@ -39,13 +39,6 @@
   export default {
     name: 'MediaImageViewerKeyboardToggle',
 
-    props: {
-      fullImageRendered: {
-        type: Boolean,
-        default: false
-      }
-    },
-
     methods: {
       hideToast() {
         this.$bvToast.hide('media-image-viewer-toast');
@@ -53,15 +46,6 @@
       },
       showToast() {
         this.$bvToast.show('media-image-viewer-toast');
-        if (!this.fullImageRendered) {
-          this.$refs.keyboardtoggle.addEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
-        }
-      },
-      renderFullMediaOnKeyboardInteraction(event) {
-        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
-          !this.fullImageRendered && this.$emit('renderFullImage');
-          this.$refs.keyboardtoggle.removeEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
-        }
       }
     }
   };
