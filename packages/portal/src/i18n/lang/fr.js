@@ -932,11 +932,6 @@ export default {
     "automated": "Traduction automatisée",
     "automatedPageTranslations": "Cette page utilise des traductions générées automatiquement à partir de l’anglais.",
     "enrichment": "Enrichissement par des projets partenaires",
-    "loginToTranslate": "{login} pour voir cet item dans d'autres langues",
-    "other": "autres langues",
-    "stopTranslating": "Arrêtez de traduire cet item en {0}.",
-    "translateLanguage": "Souhaitez-vous voir cet item dans {0} ?",
-    "translateMetadata": "Traduisez les métadonnées de cet item.",
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newFeatureNotification": {

@@ -937,11 +937,6 @@ export default {
     "automated": "Автоматизиран превод",
     "automatedPageTranslations": "Тази страница използва автоматично генерирани преводи от английски.",
     "enrichment": "Обогатяване по партньорски проекти",
-    "loginToTranslate": "{login}, за да видите тази обект на други езици",
-    "other": "други езици",
-    "stopTranslating": "Спрете превода на този обект на {0}.",
-    "translateLanguage": "Искате ли да видите този обект в {0} ?",
-    "translateMetadata": "Преведете метаданните на този обект.",
     "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно."
   },
   "newFeatureNotification": {

@@ -932,11 +932,6 @@ export default {
     "automated": "Automatizirani prijevod",
     "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
-    "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
-    "other": "drugi jezici",
-    "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
-    "translateLanguage": "Želite li vidjeti ovu predmet u {0} ?",
-    "translateMetadata": "Prevedite metapodatke ove predmet.",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newFeatureNotification": {

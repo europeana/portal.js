@@ -930,11 +930,6 @@ export default {
     "automated": "Avtomatizirano prevajanje",
     "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
-    "other": "drugi jeziki",
-    "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
-    "translateLanguage": "Želite ta enota videti v {0}?",
-    "translateMetadata": "Prevedite metapodatke tega enota.",
     "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
   },
   "newFeatureNotification": {

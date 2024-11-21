@@ -930,11 +930,6 @@ export default {
     "automated": "Tłumaczenie zautomatyzowane",
     "automatedPageTranslations": "Na tej stronie zastosowano automatycznie wygenerowane tłumaczenia z języka angielskiego.",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
-    "loginToTranslate": "{login} aby zobaczyć ten obiekt cyfrowy w innych językach",
-    "other": "inne języki",
-    "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
-    "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
-    "translateMetadata": "Przetłumacz metadane tego obiekt cyfrowy.",
     "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
   "newFeatureNotification": {
