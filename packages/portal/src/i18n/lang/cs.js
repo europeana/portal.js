@@ -932,11 +932,6 @@ export default {
     "automated": "Automatizovaný překlad",
     "automatedPageTranslations": "Tato stránka používá automaticky generované překlady z angličtiny.",
     "enrichment": "Obohacení partnerskými projekty",
-    "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
-    "other": "jiné jazyky",
-    "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
-    "translateLanguage": "Chcete tuto položku vidět v {0}?",
-    "translateMetadata": "Přeložte metadata této položka.",
     "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
   "newFeatureNotification": {

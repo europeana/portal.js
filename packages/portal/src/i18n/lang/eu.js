@@ -937,11 +937,6 @@ export default {
     "automated": "Itzulpen automatizatua",
     "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
-    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
-    "other": "beste hizkuntza batzuk",
-    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
-    "translateLanguage": "{0} -n ikusi nahi duzu?",
-    "translateMetadata": "Itzuli elementu honen metadatuak.",
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newFeatureNotification": {

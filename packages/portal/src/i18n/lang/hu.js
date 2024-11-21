@@ -931,11 +931,6 @@ export default {
     "automated": "Automatizált fordítás",
     "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
-    "other": "egyéb nyelvek",
-    "stopTranslating": "Állítsa le ennek az tárgynak a fordítását {0}-ra.",
-    "translateLanguage": "Szeretné megtekinteni ezt az tárgyat itt: {0}?",
-    "translateMetadata": "Fordítsa le ennek az tárgynak a metaadatait.",
     "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
   "newFeatureNotification": {

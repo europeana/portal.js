@@ -930,11 +930,6 @@ export default {
     "automated": "Aistriúchán uathoibrithe",
     "automatedPageTranslations": "Úsáideann an leathanach seo aistriúcháin uathghinte ón mBéarla.",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "loginToTranslate": "{login} chun an mhír seo a fheiceáil i dteangacha eile",
-    "other": "teangacha eile",
-    "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
-    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
-    "translateMetadata": "Aistrigh meiteashonraí na míre seo.",
     "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newFeatureNotification": {

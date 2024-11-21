@@ -930,11 +930,6 @@ export default {
     "automated": "Automatizovaný preklad",
     "automatedPageTranslations": "Táto stránka používa automaticky generované preklady z angličtiny.",
     "enrichment": "Obohatenie o partnerské projekty",
-    "loginToTranslate": "{login}, aby sa táto objekt zobrazila v iných jazykoch",
-    "other": "iné jazyky",
-    "stopTranslating": "Zastaviť preklad tejto objekt do jazyka {0}.",
-    "translateLanguage": "Chceli by ste túto objekt vidieť v položke {0}?",
-    "translateMetadata": "Preložte metadáta tejto objekt.",
     "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
   "newFeatureNotification": {

@@ -930,11 +930,6 @@ export default {
     "automated": "Automatiserad översättning",
     "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
-    "loginToTranslate": "{login} för att se detta objekt på andra språk",
-    "other": "andra språk",
-    "stopTranslating": "Sluta översätta det här objektet till {0}.",
-    "translateLanguage": "Vill du se det här objektet i {0} ?",
-    "translateMetadata": "Översätt metadata för detta objekt.",
     "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
   "newFeatureNotification": {

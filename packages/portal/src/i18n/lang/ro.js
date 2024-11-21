@@ -930,11 +930,6 @@ export default {
     "automated": "Traducere automată",
     "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
-    "other": "alte limbi",
-    "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
-    "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
-    "translateMetadata": "Traduceți metadatele acestui resursă culturalăl.",
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
   },
   "newFeatureNotification": {

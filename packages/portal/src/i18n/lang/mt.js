@@ -930,11 +930,6 @@ export default {
     "automated": "Traduzzjoni awtomatizzata",
     "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
-    "other": "lingwi oħra",
-    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
-    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
-    "translateMetadata": "Ittraduċi l-metadejta ta' dan l-oġġett.",
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newFeatureNotification": {
