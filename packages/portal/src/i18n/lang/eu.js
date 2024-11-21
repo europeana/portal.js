@@ -937,7 +937,10 @@ export default {
     "automated": "Itzulpen automatizatua",
     "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
-    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+    "stopViewingThisItemIn": "Utzi elementu hau {0} n ikusteari",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago.",
+    "viewingThisItemIn": "Ikusi elementu hau {0}",
+    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean"
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",

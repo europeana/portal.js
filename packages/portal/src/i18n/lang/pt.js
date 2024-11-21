@@ -930,7 +930,10 @@ export default {
     "automated": "Tradução automatizada",
     "automatedPageTranslations": "Esta página usa traduções geradas automaticamente do inglês.",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
+    "stopViewingThisItemIn": "Pare de visualizar este item em {0}",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde.",
+    "viewingThisItemIn": "Visualizando este item em {0}",
+    "viewItemInAnotherLanguage": "Veja este item em outro idioma"
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",

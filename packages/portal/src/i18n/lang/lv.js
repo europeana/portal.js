@@ -930,7 +930,10 @@ export default {
     "automated": "Automātiskā tulkošana",
     "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
+    "stopViewingThisItemIn": "Pārtrauciet skatīt šo digitālo objektu {0}",
+    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+    "viewingThisItemIn": "Šī digitālā objekta skatīšana {0}",
+    "viewItemInAnotherLanguage": "Skatīt šo digitālo objektu citā valodā"
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",

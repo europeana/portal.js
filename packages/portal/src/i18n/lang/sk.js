@@ -930,7 +930,10 @@ export default {
     "automated": "Automatizovaný preklad",
     "automatedPageTranslations": "Táto stránka používa automaticky generované preklady z angličtiny.",
     "enrichment": "Obohatenie o partnerské projekty",
-    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
+    "stopViewingThisItemIn": "Zastaviť zobrazovanie tohto objektu v {0}",
+    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím.",
+    "viewingThisItemIn": "Zobrazenie tohto objektu v jazyku {0}",
+    "viewItemInAnotherLanguage": "Zobraziť tento objekt v inom jazyku"
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",

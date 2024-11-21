@@ -932,7 +932,10 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
+    "stopViewingThisItemIn": "Lõpeta selle üksuse vaatamine rakenduses {0}",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti.",
+    "viewingThisItemIn": "Selle üksuse vaatate {0}",
+    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles"
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",

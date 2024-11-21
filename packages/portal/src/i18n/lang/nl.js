@@ -932,7 +932,10 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
-    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+    "stopViewingThisItemIn": "Stop met het bekijken van dit object in {0}",
+    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+    "viewingThisItemIn": "Dit object bekijken in {0}",
+    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal"
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",

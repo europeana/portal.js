@@ -930,7 +930,10 @@ export default {
     "automated": "Automatinis vertimas",
     "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
-    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+    "stopViewingThisItemIn": "Nustoti peržiūrėti šį skaitmeninį objektą {0}",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau.",
+    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}",
+    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba"
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",

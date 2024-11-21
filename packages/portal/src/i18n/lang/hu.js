@@ -931,7 +931,10 @@ export default {
     "automated": "Automatizált fordítás",
     "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
+    "stopViewingThisItemIn": "Hagyja abba ennek a tárgynak a megtekintését {0} nyelven",
+    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később.",
+    "viewingThisItemIn": "Ezt a tárgyat a(z) {0} nyelven tekinti meg",
+    "viewItemInAnotherLanguage": "Tekintse meg ezt a tárgyat egy másik nyelven"
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",

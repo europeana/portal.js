@@ -930,7 +930,10 @@ export default {
     "automated": "Avtomatizirano prevajanje",
     "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
+    "stopViewingThisItemIn": "Prenehajte ogledovati to enoto v {0}",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje.",
+    "viewingThisItemIn": "Ogled te enote v {0}",
+    "viewItemInAnotherLanguage": "Ogled te enote v drugem jeziku"
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
