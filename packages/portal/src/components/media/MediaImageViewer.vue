@@ -2,7 +2,7 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
-    @keydown="handleKeyboardToggleKeydown"
+    v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
