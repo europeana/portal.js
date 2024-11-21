@@ -13,9 +13,11 @@ const presentation = ref(null);
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
-  return annotations.value.find((annotation) => {
-    return annotation.extent[0] <= coordinateToCompare[0] && annotation.extent[2] >= coordinateToCompare[0] &&
-    annotation.extent[1] <= coordinateToCompare[1] &&  annotation.extent[3] >= coordinateToCompare[1];
+  return annotations.value.find((anno) => {
+    return (anno.extent[0] <= coordinateToCompare[0]) &&
+      (anno.extent[2] >= coordinateToCompare[0]) &&
+      (anno.extent[1] <= coordinateToCompare[1]) &&
+      (anno.extent[3] >= coordinateToCompare[1]);
   });
 };
 

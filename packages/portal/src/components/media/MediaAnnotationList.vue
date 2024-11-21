@@ -109,7 +109,10 @@
       if (!this.active) {
         return;
       }
-      await Promise.all([this.fetchCanvasAnnotations(), (this.searching ? this.searchAnnotations(`"${this.query}"`) : null)]);
+      await Promise.all([
+        this.fetchCanvasAnnotations(),
+        this.searching ? this.searchAnnotations(`"${this.query}"`) : null
+      ]);
       this.setActiveAnnotationFromRouteQuery();
 
       this.$emit('fetched', this.annotations.length);
@@ -164,9 +167,9 @@
         await this.$nextTick();
 
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
-          const elementOffset = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
+          const elementIndex = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
           this.scrollElementToCentre(
-            this.$refs.annotationListItems[elementOffset],
+            this.$refs.annotationListItems[elementIndex],
             {
               behavior,
               container: document.querySelector(this.annotationScrollToContainerSelector)

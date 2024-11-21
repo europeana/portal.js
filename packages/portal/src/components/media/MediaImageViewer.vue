@@ -201,21 +201,17 @@
 
       handleMapClick(coordinate) {
         const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
-        if (clickedAnnotation?.id !== this.activeAnnotation?.id || this.$route.hash !== '#annotations') {
-          let options = {};
-          if (this.$route.hash !== '#annotations') {
-            options.hash = '#annotations';
-          }
-
-          // consider using 'replace' instead of 'push' to not include in history. Seems to cause errors somtimes.
+        if ((clickedAnnotation?.id !== this.activeAnnotation?.id) || (this.$route.hash !== '#annotations')) {
+          // TODO: consider using 'replace' instead of 'push' to not include in history,
+          //       but seems to cause errors sometimes.
           this.$router.push({
             ...this.$route,
+            hash: '#annotations',
             query: {
               ...this.$route.query,
               anno: clickedAnnotation?.id || undefined,
               page: this.pageForAnnotationTarget(clickedAnnotation?.target) || this.$route.query.page
-            },
-            ...options
+            }
           });
         }
       },
