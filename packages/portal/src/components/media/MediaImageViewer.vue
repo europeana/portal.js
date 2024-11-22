@@ -4,6 +4,20 @@
     class="h-100 w-100"
     v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
+    <b-toast
+      v-if="!fullImageRendered"
+      id="full-image-toast"
+      visible
+      static
+      solid
+      no-auto-hide
+      no-close-button
+      toast-class="full-image-toast brand-toast d-inline-block"
+      body-class="d-inline-flex align-items-center py-2"
+    >
+      <span class="icon-click mr-2" />
+      {{ $t('media.clickToLoadFull') }}
+    </b-toast>
     <b-container
       v-if="imageLoading"
       class="h-100 d-flex align-items-center justify-content-center"
@@ -448,3 +462,26 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  ::v-deep .brand-toast.full-image-toast {
+    background-color: $black;
+    border: 1px solid $white;
+  }
+
+  ::v-deep .b-toast {
+    position: absolute;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .icon-click {
+    font-size: $font-size-large;
+  }
+</style>

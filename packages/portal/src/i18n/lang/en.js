@@ -936,6 +936,7 @@ export default {
   "loading": "Loading",
   "loadingResults": "Loading results",
   "media": {
+    "clickToLoadFull": "Click to load the full size image.",
     "controls": {
       "exitFullscreen": "Exit full screen",
       "fullscreen": "Full screen",
