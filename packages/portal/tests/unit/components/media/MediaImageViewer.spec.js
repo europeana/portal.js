@@ -59,6 +59,19 @@ describe('components/media/MediaImageViewer', () => {
         expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
       });
 
+      describe('and keydown on a key that triggers a zoom or pan', () => {
+        it('renders the full image', async() => {
+          const wrapper = factory({ propsData: { url, thumbnail, width, height } });
+          expect(wrapper.vm.fullImageRendered).toBe(false);
+          const viewerWrapper = wrapper.find('#media-image-viewer');
+
+          viewerWrapper.element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.fullImageRendered).toBe(true);
+        });
+      });
+
       describe('when there is no thumbnail', () => {
         it('renders the full image', async() => {
           const wrapper = factory({ propsData: { url, width, height } });
