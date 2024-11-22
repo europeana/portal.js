@@ -80,7 +80,6 @@
             v-else-if="resource?.edm.forEdmIsShownAt"
             :url="resource.edm.preview.about"
             :item-id="itemId"
-            :annotation="activeAnnotation"
             :width="resource.edm.preview.ebucoreWidth"
             :height="resource.edm.preview.ebucoreHeight"
             :thumbnail="thumbnail"
@@ -187,7 +186,6 @@
 
     setup() {
       const {
-        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -199,7 +197,6 @@
       } = useItemMediaPresentation();
 
       return {
-        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
