@@ -930,12 +930,10 @@ export default {
     "automated": "Automatinis vertimas",
     "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
-    "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
-    "other": "kitos kalbos",
-    "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
-    "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
-    "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
-    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+    "stopViewingThisItemIn": "Nustoti peržiūrėti šį skaitmeninį objektą {0}",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau.",
+    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}",
+    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba"
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",

@@ -2,10 +2,10 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
+    v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
-      @renderFullImage="renderFullImage"
     />
     <slot />
   </div>
@@ -154,6 +154,12 @@
     },
 
     methods: {
+      handleKeyboardToggleKeydown(event) {
+        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
+          this.fullImageRendered || this.renderFullImage();
+        }
+      },
+
       initOlAnnotationLayer() {
         const layerCount = this.olMap.getLayers().getLength();
         if (layerCount === 0) {
@@ -323,8 +329,6 @@
         const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
         const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
         this.initMapWithFullImage(mapOptions);
-
-        this.fullImageRendered = true;
       },
 
       // IIIF Image API
@@ -369,6 +373,8 @@
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
+        } else if (this.activeAnnotation) {
+          this.renderFullImage();
         } else {
           this.renderThumbnail();
         }
@@ -376,6 +382,7 @@
 
       initMapWithFullImage(mapOptions) {
         this.initOlMap(mapOptions);
+        this.fullImageRendered = true;
         this.highlightAnnotation();
       },
 
