@@ -95,7 +95,7 @@ describe('components/media/MediaAnnotationList', () => {
 
         await wrapper.vm.fetch();
 
-        expect(searchAnnotationsSpy.calledWith('"something"')).toBe(true);
+        expect(searchAnnotationsSpy.calledWith('something')).toBe(true);
       });
     });
 
