@@ -1,10 +1,15 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 import useZoom from '@/composables/zoom.js';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+
+const fetchCanvasAnnotationsSpy = sinon.spy();
+const setActiveAnnotationSpy = sinon.spy();
+const routerReplaceSpy = sinon.spy();
 
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaImageViewer, {
   localVue,
@@ -17,13 +22,28 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
       }
     },
     $t: (key) => key,
+    $router: {
+      replace: routerReplaceSpy
+    },
     ...mocks
   }
 });
 
+const stubItemMediaPresentationComposable = (stubs = {}) => {
+  sinon.stub(itemMediaPresentation, 'default').returns({
+    annotationAtCoordinate: undefined,
+    activeAnnotation: undefined,
+    fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
+    pageForAnnotationTarget: () => 1,
+    setActiveAnnotation: setActiveAnnotationSpy,
+    ...stubs
+  });
+};
+
 describe('components/media/MediaImageViewer', () => {
   afterEach(() => {
     sinon.resetHistory();
+    sinon.restore();
   });
   afterAll(() => {
     sinon.restore();
@@ -175,7 +195,8 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at the full image size', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();
@@ -187,15 +208,17 @@ describe('components/media/MediaImageViewer', () => {
         });
       });
 
-      describe('when annotation has xywh co-ordinates', () => {
+      describe('when annotation has xywh co-ordinates/extent', () => {
         const annotation = {
           target: {
             id: `${url}#xywh=0,0,40,20`
-          }
+          },
+          extent: [0, 0, 40, 20]
         };
 
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();
@@ -208,6 +231,55 @@ describe('components/media/MediaImageViewer', () => {
       });
     });
 
+    describe('handleMapClick',  () => {
+      describe('when a location with an annotation is clicked', () => {
+        it('updates the "anno" param in the url via route push', async() => {
+          const annotation = {
+            id: url,
+            target: {
+              id: `${url}#xywh=0,0,40,20`
+            },
+            extent: [0, 0, 40, 20]
+          };
+          stubItemMediaPresentationComposable({ activeAnnotation: null, annotationAtCoordinate: () => annotation });
+          const expectedRouteArgs = {
+            query: {
+              anno: annotation.id,
+              page: 1
+            },
+            hash: '#annotations'
+          };
+          const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: undefined } } });
+          await new Promise(process.nextTick);
+          wrapper.vm.handleMapClick([10, 10]);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+        });
+      });
+
+      describe('when a location without annotation is clicked', () => {
+        it('removes the "anno" param in the url via route push', async() => {
+          const annotation = {
+            id: url,
+            target: {
+              id: `${url}#xywh=0,0,40,20`
+            },
+            extent: [0, 0, 40, 20]
+          };
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, annotationAtCoordinate: () => undefined });
+          const expectedRouteArgs = {
+            query: {
+              anno: undefined,
+              page: 1
+            },
+            hash: '#annotations'
+          };
+          const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: '#search' } } });
+          await new Promise(process.nextTick);
+          wrapper.vm.handleMapClick([200, 600]);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+        });
+      });
+    });
     describe('configureZoomLevels', () => {
       it('configures zoom levels via useZoom composable', async() => {
         const {

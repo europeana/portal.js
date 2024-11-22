@@ -46,6 +46,7 @@
       >
         <b-form-input
           v-model="page"
+          name="page"
           :aria-label="$t('pageNumber')"
           :lazy="true"
           :max="totalPages"
@@ -53,6 +54,8 @@
           :number="true"
           data-qa="pagination input"
           type="number"
+          @blur.native="handlePageInputChange"
+          @change.native="handlePageInputChange"
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
@@ -160,6 +163,13 @@
       progress: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Array of url params to exclude on pagination
+       */
+      excludeParams: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -199,22 +209,25 @@
     watch: {
       '$route.query.page'() {
         this.page = Number(this.$route?.query?.page) || 1;
-      },
-      page: 'changePaginationNav'
+      }
     },
 
     methods: {
-      changePaginationNav() {
-        if (this.page) {
-          this.$router.push(this.linkGen(this.page));
-        }
+      handlePageInputChange() {
+        this.page && this.$router.push(this.linkGen(this.page));
       },
 
-      linkGen(pageNo) {
+      linkGen(page) {
+        const query = { ...this.$route.query, page };
+
+        for (const excludeParam of this.excludeParams) {
+          delete query[excludeParam];
+        }
+
         return {
+          hash: this.$route.hash,
           path: this.$route.path,
-          query: { ...this.$route.query, page: pageNo },
-          hash: this.$route.hash
+          query
         };
       }
     }

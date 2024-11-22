@@ -24,7 +24,6 @@
           v-if="annotationList"
           data-qa="item media sidebar annotations"
           button-id="item-media-sidebar-annotations"
-          lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
         >
           <template #title>

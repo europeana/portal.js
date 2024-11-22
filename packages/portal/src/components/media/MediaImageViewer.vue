@@ -30,6 +30,7 @@
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
 
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
@@ -51,11 +52,6 @@
     },
 
     props: {
-      // TODO: all we need is the target, not the full object
-      annotation: {
-        type: Object,
-        default: null
-      },
       format: {
         type: String,
         default: null
@@ -94,8 +90,24 @@
         setMax: setMaxZoom,
         setMin: setMinZoom
       } = useZoom();
+      const {
+        activeAnnotation,
+        annotationAtCoordinate,
+        hasAnnotations,
+        pageForAnnotationTarget
+      } = useItemMediaPresentation();
 
-      return { currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return {
+        activeAnnotation,
+        annotationAtCoordinate,
+        currentZoom,
+        hasAnnotations,
+        pageForAnnotationTarget,
+        setCurrentZoom,
+        setDefaultZoom,
+        setMaxZoom,
+        setMinZoom
+      };
     },
 
     data() {
@@ -130,7 +142,7 @@
     },
 
     watch: {
-      annotation: {
+      activeAnnotation: {
         deep: true,
         handler: 'highlightAnnotation'
       },
@@ -162,15 +174,14 @@
       },
 
       constructAnnotationFeature() {
-        let annotation = this.annotation;
+        let annotation = this.activeAnnotation;
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
           annotation = new EuropeanaMediaAnnotation(annotation);
         }
 
-        // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
-        let [x, y, w, h] = this.olExtent;
+        const extent = annotation.extent || this.olExtent;
         // FIXME: this.url will always be for the image, not the canvas, which works
         //        with europeana's incorrect annotation modelling, but not with
         //        others' correct modelling
@@ -180,15 +191,6 @@
           return;
         }
 
-        const targetHash = new URL(targetId).hash;
-        const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
-        if (xywhSelector) {
-          [x, y, w, h] = xywhSelector
-            .split(',')
-            .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
-        }
-
-        const extent = [x, y, x + w, y + h];
         const poly = fromExtent(extent);
 
         // Vector Layer co-ordinates start bottom left, not top left, so transform
@@ -204,6 +206,21 @@
         // this.olMap.getView().fit(poly);
 
         return new Feature(poly);
+      },
+
+      handleMapClick(coordinate) {
+        const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
+        if ((clickedAnnotation?.id !== this.activeAnnotation?.id) || (this.$route.hash !== '#annotations')) {
+          this.$router.replace({
+            ...this.$route,
+            hash: '#annotations',
+            query: {
+              ...this.$route.query,
+              anno: clickedAnnotation?.id,
+              page: this.pageForAnnotationTarget(clickedAnnotation?.target) || this.$route.query.page
+            }
+          });
+        }
       },
 
       async highlightAnnotation() {
@@ -267,6 +284,11 @@
 
         this.olMap.getView().fit(extent, { size: imageMaxFitSize });
         this.configureZoomLevels();
+        if (this.hasAnnotations) {
+          this.olMap.on('click', (evt) => {
+            this.handleMapClick(evt.coordinate);
+          });
+        }
       },
 
       async renderThumbnail() {
@@ -352,7 +374,7 @@
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
-        } else if (this.annotation) {
+        } else if (this.activeAnnotation) {
           this.renderFullImage();
         } else {
           this.renderThumbnail();

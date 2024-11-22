@@ -11,6 +11,16 @@ const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
 
+const annotationAtCoordinate  = (coordinate, fullExtent) => {
+  const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
+  return annotations.value.find((anno) => {
+    return (anno.extent[0] <= coordinateToCompare[0]) &&
+      (anno.extent[2] >= coordinateToCompare[0]) &&
+      (anno.extent[1] <= coordinateToCompare[1]) &&
+      (anno.extent[3] >= coordinateToCompare[1]);
+  });
+};
+
 /**
  * Annotation page/list: either a URI as a string, or an object with id
  * property being the URI
@@ -119,7 +129,6 @@ const fetchCanvasAnnotations = async() => {
       anno.body = anno.body[0];
     }
   }
-
   annotations.value = annos;
 };
 
@@ -157,6 +166,7 @@ const setPage = (value) => {
 export default function useItemMediaPresentation() {
   return {
     annotations,
+    annotationAtCoordinate,
     annotationCollection,
     annotationSearchHits,
     annotationSearchHitSelectorFor,
