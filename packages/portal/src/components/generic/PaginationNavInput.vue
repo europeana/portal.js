@@ -46,6 +46,7 @@
       >
         <b-form-input
           v-model="page"
+          name="page"
           :aria-label="$t('pageNumber')"
           :lazy="true"
           :max="totalPages"
@@ -53,6 +54,8 @@
           :number="true"
           data-qa="pagination input"
           type="number"
+          @blur.native="handlePageInputChange"
+          @change.native="handlePageInputChange"
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
@@ -206,25 +209,19 @@
     watch: {
       '$route.query.page'() {
         this.page = Number(this.$route?.query?.page) || 1;
-      },
-      page: 'changePaginationNav'
+      }
     },
 
     methods: {
-      changePaginationNav() {
-        if (this.page) {
-          // TODO: why doesn't this exclude the params specified in the prop?
-          this.$router.push(this.linkGen(this.page, false));
-        }
+      handlePageInputChange() {
+        this.page && this.$router.push(this.linkGen(this.page));
       },
 
-      linkGen(page, exclude = true) {
+      linkGen(page) {
         const query = { ...this.$route.query, page };
 
-        if (exclude) {
-          for (const excludeParam of this.excludeParams) {
-            delete query[excludeParam];
-          }
+        for (const excludeParam of this.excludeParams) {
+          delete query[excludeParam];
         }
 
         return {

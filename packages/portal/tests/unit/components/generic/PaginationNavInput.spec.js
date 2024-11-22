@@ -142,6 +142,32 @@ describe('components/generic/PaginationNavInput', () => {
 
         expect(paginationInput.exists()).toBe(false);
       });
+
+      describe('change event', () => {
+        it('triggers a redirect to the new page', () => {
+          const wrapper = factory({
+            data: { page: 2 },
+            propsData: { totalResults: 240, perPage: 24 }
+          });
+
+          const paginationInput = wrapper.find('[data-qa="pagination input"]');
+          paginationInput.trigger('change.native');
+
+          expect(wrapper.vm.$router.push.called).toBe(true);
+        });
+
+        it('does nothing if page is blank', () => {
+          const wrapper = factory({
+            data: { page: '' },
+            propsData: { totalResults: 240, perPage: 24 }
+          });
+
+          const paginationInput = wrapper.find('[data-qa="pagination input"]');
+          paginationInput.trigger('change.native');
+
+          expect(wrapper.vm.$router.push.called).toBe(false);
+        });
+      });
     });
 
     describe('progress indicator', () => {
@@ -205,29 +231,6 @@ describe('components/generic/PaginationNavInput', () => {
   });
 
   describe('methods', () => {
-    describe('changePaginationNav()', () => {
-      it('triggers a redirect to the new page', () => {
-        const wrapper = factory({
-          propsData: { totalResults: 240, perPage: 24 }
-        });
-
-        wrapper.vm.changePaginationNav();
-
-        expect(wrapper.vm.$router.push.called).toBe(true);
-      });
-
-      it('does nothing if page is blank', () => {
-        const wrapper = factory({
-          propsData: { totalResults: 240, perPage: 24 },
-          data: { page: '' }
-        });
-
-        wrapper.vm.changePaginationNav();
-
-        expect(wrapper.vm.$router.push.called).toBe(false);
-      });
-    });
-
     describe('linkGen', () => {
       it('returns an object with the new pageNo', () => {
         const wrapper = factory({
