@@ -9,7 +9,7 @@ const localVue = createLocalVue();
 
 const fetchCanvasAnnotationsSpy = sinon.spy();
 const setActiveAnnotationSpy = sinon.spy();
-const routerPushSpy = sinon.spy();
+const routerReplaceSpy = sinon.spy();
 
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaImageViewer, {
   localVue,
@@ -23,7 +23,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
     },
     $t: (key) => key,
     $router: {
-      push: routerPushSpy
+      replace: routerReplaceSpy
     },
     ...mocks
   }
@@ -252,7 +252,7 @@ describe('components/media/MediaImageViewer', () => {
           const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: undefined } } });
           await new Promise(process.nextTick);
           wrapper.vm.handleMapClick([10, 10]);
-          expect(routerPushSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
         });
       });
 
@@ -276,7 +276,7 @@ describe('components/media/MediaImageViewer', () => {
           const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: '#search' } } });
           await new Promise(process.nextTick);
           wrapper.vm.handleMapClick([200, 600]);
-          expect(routerPushSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
         });
       });
     });

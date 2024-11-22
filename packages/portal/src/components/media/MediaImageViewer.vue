@@ -211,14 +211,12 @@
       handleMapClick(coordinate) {
         const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
         if ((clickedAnnotation?.id !== this.activeAnnotation?.id) || (this.$route.hash !== '#annotations')) {
-          // TODO: consider using 'replace' instead of 'push' to not include in history,
-          //       but seems to cause errors sometimes.
-          this.$router.push({
+          this.$router.replace({
             ...this.$route,
             hash: '#annotations',
             query: {
               ...this.$route.query,
-              anno: clickedAnnotation?.id || undefined,
+              anno: clickedAnnotation?.id,
               page: this.pageForAnnotationTarget(clickedAnnotation?.target) || this.$route.query.page
             }
           });
