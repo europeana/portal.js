@@ -932,12 +932,10 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
-    "loginToTranslate": "{login} om dit object in andere talen te zien",
-    "other": "andere talen",
-    "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
-    "translateLanguage": "Wilt u dit item in {0} zien?",
-    "translateMetadata": "Vertaal de metadata van dit object.",
-    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+    "stopViewingThisItemIn": "Stop met het bekijken van dit object in {0}",
+    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+    "viewingThisItemIn": "Dit object bekijken in {0}",
+    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal"
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
