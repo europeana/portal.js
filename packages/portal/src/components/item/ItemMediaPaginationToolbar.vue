@@ -10,6 +10,7 @@
       :page-input="false"
       :button-icon-class="'icon-arrow-outline'"
       :progress="true"
+      :exclude-params="['anno']"
       class="pagination ml-auto"
     />
     <span class="divider" />
@@ -37,7 +38,7 @@
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {
-    name: 'ItemMediaPaginationWidget',
+    name: 'ItemMediaPaginationToolbar',
 
     components: {
       PaginationNavInput

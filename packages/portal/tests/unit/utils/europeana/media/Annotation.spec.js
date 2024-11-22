@@ -49,6 +49,23 @@ describe('@/utils/europeana/media/Annotation', () => {
         expect(annotation.body.id).toBe(responseData.body.id);
         expect(annotation.target.id).toBe(responseData.target.id);
       });
+
+      it('parses and calculates the extent from the xywh on the target hash', () => {
+        const responseData = {
+          body: {
+            id: 'http://data.example.org/annotation/1'
+          },
+          target: {
+            id: 'http://data.example.org/canvas/1#xywh=20,20,1000,20'
+          }
+        };
+
+        const annotation = new EuropeanaMediaAnnotation();
+
+        annotation.parse(responseData);
+
+        expect(annotation.extent).toStrictEqual([20, 20, 1020, 40]);
+      });
     });
 
     describe('targetFor', () => {
