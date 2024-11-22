@@ -135,9 +135,11 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
-      // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
-        !this.searching && this.$fetch();
+        this.searching ? this.fetchCanvasAnnotations() : this.$fetch();
+      },
+      '$route.hash'() {
+        this.scrollActiveAnnotationToCentre('instant');
       },
       '$route.query.anno'() {
         this.setActiveAnnotationFromRouteQuery();

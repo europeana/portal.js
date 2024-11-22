@@ -93,12 +93,21 @@
       const {
         activeAnnotation,
         annotationAtCoordinate,
-        fetchCanvasAnnotations,
         hasAnnotations,
         pageForAnnotationTarget
       } = useItemMediaPresentation();
 
-      return { activeAnnotation, annotationAtCoordinate, fetchCanvasAnnotations, hasAnnotations, pageForAnnotationTarget, currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return {
+        activeAnnotation,
+        annotationAtCoordinate,
+        currentZoom,
+        hasAnnotations,
+        pageForAnnotationTarget,
+        setCurrentZoom,
+        setDefaultZoom,
+        setMaxZoom,
+        setMinZoom
+      };
     },
 
     data() {
@@ -136,12 +145,6 @@
       activeAnnotation: {
         deep: true,
         handler: 'highlightAnnotation'
-      },
-      async '$route.query.page'() {
-        await this.fetchCanvasAnnotations();
-        if (this.activeAnnotation) {
-          this.highlightAnnotation();
-        }
       },
       url: '$fetch',
       currentZoom: 'setZoom'
