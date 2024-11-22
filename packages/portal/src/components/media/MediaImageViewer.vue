@@ -39,6 +39,8 @@
   import View from 'ol/View.js';
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
+  import Style from 'ol/style/Style.js';
+  import Stroke from 'ol/style/Stroke.js';
 
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useZoom from '@/composables/zoom.js';
@@ -124,6 +126,7 @@
 
     data() {
       return {
+        activeAnnotationFeature: null,
         fullImageRendered: false,
         imageLoading: null,
         info: null,
@@ -186,8 +189,8 @@
         }
       },
 
-      constructAnnotationFeature() {
-        let annotation = this.activeAnnotation;
+      constructAnnotationFeature(anno) {
+        let annotation = anno;
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
@@ -236,7 +239,13 @@
         }
       },
 
-      async highlightAnnotation() {
+      handlePointerMove(pixel) {
+        const coordinate = this.olMap.getCoordinateFromPixel(pixel);
+        const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
+        this.highlightAnnotation(anno, true);
+      },
+
+      async highlightAnnotation(anno = this.activeAnnotation, onhover = false) {
         if (!this.fullImageRendered) {
           await this.renderFullImage();
         }
@@ -248,10 +257,25 @@
         // remove any existing features, i.e. previously highlighted annotations
         layer.getSource().clear();
 
-        const feature = this.constructAnnotationFeature();
+        this.activeAnnotationFeature = this.constructAnnotationFeature(this.activeAnnotation);
 
-        if (feature) {
-          layer.getSource().addFeature(feature);
+        if (this.activeAnnotationFeature) {
+          layer.getSource().addFeature(this.activeAnnotationFeature);
+        }
+
+        if (onhover) {
+          const hoveredFeature = this.constructAnnotationFeature(anno);
+          hoveredFeature.setStyle(
+            new Style({
+              stroke: new Stroke({
+                color: '#4d4d4d'
+              })
+            })
+          );
+
+          if (hoveredFeature) {
+            layer.getSource().addFeature(hoveredFeature);
+          }
         }
       },
 
@@ -300,6 +324,9 @@
         if (this.hasAnnotations) {
           this.olMap.on('click', (evt) => {
             this.handleMapClick(evt.coordinate);
+          });
+          this.olMap.on('pointermove', (evt) => {
+            this.fullImageRendered && this.handlePointerMove(evt.pixel);
           });
         }
       },
