@@ -24,17 +24,12 @@
 <script>
   // NOTE: each of the imported OpenLayers modules needs to be added to
   //       build.transpile in nuxt.config.js
-  import IIIFSource from 'ol/source/IIIF.js';
-  import IIIFInfo from 'ol/format/IIIFInfo.js';
   import { fromExtent } from 'ol/geom/Polygon.js';
   import Feature from 'ol/Feature.js';
   import VectorLayer from 'ol/layer/Vector.js';
   import VectorSource from 'ol/source/Vector.js';
-  import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
-  import ImageLayer from 'ol/layer/Image.js';
   import Projection from 'ol/proj/Projection.js';
-  import ImageStatic from 'ol/source/ImageStatic.js';
   import { getCenter } from 'ol/extent.js';
   import View from 'ol/View.js';
   import { easeOut } from 'ol/easing.js';
@@ -348,50 +343,68 @@
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
       initOlImageLayerIIIF() {
-        const sourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
+        return Promise.all([
+          import('ol/format/IIIFInfo.js'),
+          import('ol/source/IIIF.js'),
+          import('ol/layer/Tile.js')
+        ]).then((imports) => {
+          const IIIFInfo = imports[0].default;
+          const IIIFSource = imports[1].default;
+          const TileLayer = imports[2].default;
 
-        const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
+          const sourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
 
-        sourceOptions.extent = extent;
+          const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
 
-        const source = new IIIFSource(sourceOptions);
-        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
-        source.on('imageloadstart', () => this.imageLoading = true);
-        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
-        source.on('imageloadend', () => this.imageLoading = false);
-        source.on('tileloadstart', () => this.imageLoading = true);
-        source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
-        source.on('tileloadend', () => this.imageLoading = false);
-        const layer = new TileLayer({ source });
-        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
+          sourceOptions.extent = extent;
 
-        return { extent, layer, source };
+          const source = new IIIFSource(sourceOptions);
+          source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
+          source.on('imageloadstart', () => this.imageLoading = true);
+          source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
+          source.on('imageloadend', () => this.imageLoading = false);
+          source.on('tileloadstart', () => this.imageLoading = true);
+          source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
+          source.on('tileloadend', () => this.imageLoading = false);
+          const layer = new TileLayer({ source });
+          layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
+
+          return { extent, layer, source };
+        });
       },
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
       async initOlImageLayerStatic(url, width, height) {
-        const extent = [0, 0, width, height];
+        return Promise.all([
+          import('ol/source/ImageStatic.js'),
+          import('ol/layer/Image.js')
+        ]).then((imports) => {
+          const ImageStatic = imports[0].default;
+          const ImageLayer = imports[1].default;
 
-        const source = new ImageStatic({
-          url,
-          imageExtent: extent
+          const extent = [0, 0, width, height];
+
+          const source = new ImageStatic({
+            url,
+            imageExtent: extent
+          });
+          source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
+          source.on('imageloadstart', () => this.imageLoading = true);
+          source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
+          source.on('imageloadend', () => this.imageLoading = false);
+          const layer = new ImageLayer({ source });
+          layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
+
+          return { extent, layer, source };
         });
-        source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
-        source.on('imageloadstart', () => this.imageLoading = true);
-        source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
-        source.on('imageloadend', () => this.imageLoading = false);
-        const layer = new ImageLayer({ source });
-        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
-
-        return { extent, layer, source };
       },
 
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
 
         if (this.source === 'IIIF') {
-          const mapOptions = this.initOlImageLayerIIIF();
+          const mapOptions = await this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
         } else if (this.activeAnnotation) {
           this.renderFullImage();
