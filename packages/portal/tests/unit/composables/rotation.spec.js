@@ -41,8 +41,9 @@ describe('useRotation', () => {
 
     describe('rotateLess', () => {
       it('reduces rotation by quarter circle', () => {
-        const { rotation, rotateLess } = useRotation();
+        const { reset, rotation, rotateLess } = useRotation();
 
+        reset();
         rotateLess();
 
         expect(rotation.value).toBe(0 - (Math.PI / 2));
@@ -51,8 +52,9 @@ describe('useRotation', () => {
 
     describe('rotateMore', () => {
       it('increases rotation by quarter circle', () => {
-        const { rotation, rotateMore } = useRotation();
+        const { reset, rotation, rotateMore } = useRotation();
 
+        reset();
         rotateMore();
 
         expect(rotation.value).toBe(0 + (Math.PI / 2));
