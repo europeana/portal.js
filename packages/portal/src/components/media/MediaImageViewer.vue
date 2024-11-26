@@ -126,7 +126,6 @@
 
     data() {
       return {
-        activeAnnotationFeature: null,
         fullImageRendered: false,
         imageLoading: null,
         info: null,
@@ -160,7 +159,9 @@
     watch: {
       activeAnnotation: {
         deep: true,
-        handler: 'highlightAnnotation'
+        handler() {
+          this.highlightAnnotation();
+        }
       },
       url: '$fetch',
       currentZoom: 'setZoom'
@@ -176,16 +177,6 @@
       handleKeyboardToggleKeydown(event) {
         if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
           this.fullImageRendered || this.renderFullImage();
-        }
-      },
-
-      initOlAnnotationLayer() {
-        const layerCount = this.olMap.getLayers().getLength();
-        if (layerCount === 0) {
-          throw new MediaImageViewerError('No image layer to annotate');
-        }
-        if (layerCount === 1) {
-          this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
         }
       },
 
@@ -242,40 +233,26 @@
       handlePointerMove(pixel) {
         const coordinate = this.olMap.getCoordinateFromPixel(pixel);
         const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
-        this.highlightAnnotation(anno, true);
+        this.highlightAnnotation(anno, 'hover');
       },
 
-      async highlightAnnotation(anno = this.activeAnnotation, onhover = false) {
+      async highlightAnnotation(anno = this.activeAnnotation, layerId = 'active') {
         if (!this.fullImageRendered) {
           await this.renderFullImage();
         }
 
-        this.initOlAnnotationLayer();
-
-        const layer = this.olMap.getLayers().item(1);
+        const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
+        if (!layer) {
+          return;
+        }
 
         // remove any existing features, i.e. previously highlighted annotations
         layer.getSource().clear();
 
-        this.activeAnnotationFeature = this.constructAnnotationFeature(this.activeAnnotation);
+        const feature = this.constructAnnotationFeature(anno);
 
-        if (this.activeAnnotationFeature) {
-          layer.getSource().addFeature(this.activeAnnotationFeature);
-        }
-
-        if (onhover) {
-          const hoveredFeature = this.constructAnnotationFeature(anno);
-          hoveredFeature.setStyle(
-            new Style({
-              stroke: new Stroke({
-                color: '#4d4d4d'
-              })
-            })
-          );
-
-          if (hoveredFeature) {
-            layer.getSource().addFeature(hoveredFeature);
-          }
+        if (feature) {
+          layer.getSource().addFeature(feature);
         }
       },
 
@@ -288,7 +265,69 @@
         this.$emit('error', error);
       },
 
-      initOlMap({ extent, layer, source } = {}) {
+      initOlAnnotationLayers() {
+        const layerCount = this.olMap.getLayers().getLength();
+        if (layerCount === 0) {
+          throw new MediaImageViewerError('No image layer to annotate');
+        }
+        if (layerCount === 1) {
+          // layer for annotations from search
+          // TODO: style
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'search' },
+            source: new VectorSource()
+          }));
+
+          // layer for hovered annotation
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'hover' },
+            source: new VectorSource(),
+            style: new Style({
+              stroke: new Stroke({
+                color: '#4d4d4d'
+              })
+            })
+          }));
+
+          // layer for active annotation
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'active' },
+            source: new VectorSource()
+          }));
+        }
+      },
+
+      initOl({ extent, layer, source } = {}) {
+        this.olExtent = extent;
+        this.initOlMap();
+        this.initOlView({ extent, layer, source });
+        this.hasAnnotations && this.initOlAnnotationLayers();
+      },
+
+      initOlMap() {
+        if (this.olMap) {
+          return;
+        }
+
+        this.olMap = new Map({
+          controls: [],
+          interactions: defaults({ mouseWheelZoom: false }),
+          target: 'media-image-viewer',
+          keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
+        });
+        this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
+        if (this.hasAnnotations) {
+          this.olMap.on('click', (evt) => {
+            this.handleMapClick(evt.coordinate);
+          });
+          // TODO: this fires many times... debounce it?
+          this.olMap.on('pointermove', (evt) => {
+            this.fullImageRendered && this.handlePointerMove(evt.pixel);
+          });
+        }
+      },
+
+      initOlView({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
         const view = new View({
@@ -299,25 +338,6 @@
           resolutions: source.getTileGrid?.()?.getResolutions()
         });
         view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
-
-        if (!this.olMap) {
-          this.olMap = new Map({
-            controls: [],
-            interactions: defaults({ mouseWheelZoom: false }),
-            target: 'media-image-viewer',
-            keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
-          });
-          this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
-          if (this.hasAnnotations) {
-            this.olMap.on('click', (evt) => {
-              this.handleMapClick(evt.coordinate);
-            });
-            this.olMap.on('pointermove', (evt) => {
-              this.fullImageRendered && this.handlePointerMove(evt.pixel);
-            });
-          }
-        }
-        this.olExtent = extent;
 
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
@@ -344,7 +364,7 @@
 
         mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
 
-        this.initOlMap(mapOptions);
+        this.initOl(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
 
         this.olMap.on('click', this.renderFullImage);
@@ -428,7 +448,7 @@
       },
 
       initMapWithFullImage(mapOptions) {
-        this.initOlMap(mapOptions);
+        this.initOl(mapOptions);
         this.fullImageRendered = true;
         this.highlightAnnotation();
       },

@@ -173,18 +173,23 @@ describe('components/media/MediaImageViewer', () => {
           expect(wrapper.vm.fullImageRendered).toBe(true);
         });
       });
-      it('initialises a vector layer for annotations', async() => {
+
+      it('initialises multiple vector layers for annotations', async() => {
         const annotation = {
           target: {
             id: url
           }
         };
-        const wrapper = factory({ propsData: { url, annotation, width, height } });
+        stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
+        const wrapper = factory({ propsData: { url, width, height } });
 
         await new Promise(process.nextTick);
         wrapper.vm.highlightAnnotation();
 
-        expect(wrapper.vm.olMap.getLayers().getLength()).toBe(2);
+        expect(wrapper.vm.olMap.getLayers().getLength()).toBe(4);
+        expect(wrapper.vm.olMap.getLayers().item(1).get('id')).toBe('search');
+        expect(wrapper.vm.olMap.getLayers().item(2).get('id')).toBe('hover');
+        expect(wrapper.vm.olMap.getLayers().item(3).get('id')).toBe('active');
       });
 
       describe('when annotation has no xywh co-ordinates', () => {
@@ -195,12 +200,12 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at the full image size', async() => {
-          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
           const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();
-          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+          const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
             0, 400, 0, 0, 100, 0, 100, 400, 0, 400
@@ -217,12 +222,12 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {
-          stubItemMediaPresentationComposable({ activeAnnotation: annotation });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
           const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotation();
-          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+          const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
             0, 400, 0, 380, 40, 380, 40, 400, 0, 400
