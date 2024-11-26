@@ -308,6 +308,14 @@
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
           this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
+          if (this.hasAnnotations) {
+            this.olMap.on('click', (evt) => {
+              this.handleMapClick(evt.coordinate);
+            });
+            this.olMap.on('pointermove', (evt) => {
+              this.fullImageRendered && this.handlePointerMove(evt.pixel);
+            });
+          }
         }
         this.olExtent = extent;
 
@@ -321,14 +329,6 @@
 
         this.olMap.getView().fit(extent, { size: imageMaxFitSize });
         this.configureZoomLevels();
-        if (this.hasAnnotations) {
-          this.olMap.on('click', (evt) => {
-            this.handleMapClick(evt.coordinate);
-          });
-          this.olMap.on('pointermove', (evt) => {
-            this.fullImageRendered && this.handlePointerMove(evt.pixel);
-          });
-        }
       },
 
       async renderThumbnail() {
