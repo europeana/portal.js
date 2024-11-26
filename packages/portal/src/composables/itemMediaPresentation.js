@@ -10,6 +10,7 @@ const annotationSearchResults = ref([]);
 const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
+const hoveredAnnotation = ref(null);
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
@@ -159,6 +160,10 @@ const setActiveAnnotation = (active) => {
   activeAnnotation.value = active;
 };
 
+const setHoveredAnnotation = (hovered) => {
+  hoveredAnnotation.value = hovered;
+};
+
 const setPage = (value) => {
   page.value = Number(value) || 1;
 };
@@ -181,6 +186,7 @@ export default function useItemMediaPresentation() {
     fetchPresentation,
     hasAnnotations,
     hasSearchService,
+    hoveredAnnotation,
     page,
     pageForAnnotationTarget,
     resource,
@@ -190,6 +196,7 @@ export default function useItemMediaPresentation() {
     searchAnnotations,
     searchServiceUri,
     setActiveAnnotation,
+    setHoveredAnnotation,
     setPage,
     setPresentationFromWebResources
   };

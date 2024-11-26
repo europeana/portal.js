@@ -109,6 +109,7 @@
         annotationAtCoordinate,
         annotationSearchResults,
         hasAnnotations,
+        setHoveredAnnotation,
         pageForAnnotationTarget
       } = useItemMediaPresentation();
 
@@ -121,6 +122,7 @@
         pageForAnnotationTarget,
         setCurrentZoom,
         setDefaultZoom,
+        setHoveredAnnotation,
         setMaxZoom,
         setMinZoom
       };
@@ -242,6 +244,7 @@
         const coordinate = this.olMap.getCoordinateFromPixel(pixel);
         const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
         this.highlightAnnotations(anno, 'hover');
+        this.setHoveredAnnotation(anno);
       },
 
       async highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
