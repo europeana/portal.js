@@ -163,12 +163,12 @@ describe('components/media/MediaImageViewer', () => {
   });
 
   describe('methods', () => {
-    describe('highlightAnnotation', () => {
+    describe('highlightAnnotations', () => {
       describe('when the full image is not yet rendered', () => {
         it('renders the full image', async() => {
           const wrapper = factory({ propsData: { url, width, height } });
 
-          await wrapper.vm.highlightAnnotation();
+          await wrapper.vm.highlightAnnotations();
 
           expect(wrapper.vm.fullImageRendered).toBe(true);
         });
@@ -184,7 +184,7 @@ describe('components/media/MediaImageViewer', () => {
         const wrapper = factory({ propsData: { url, width, height } });
 
         await new Promise(process.nextTick);
-        wrapper.vm.highlightAnnotation();
+        wrapper.vm.highlightAnnotations();
 
         expect(wrapper.vm.olMap.getLayers().getLength()).toBe(4);
         expect(wrapper.vm.olMap.getLayers().item(1).get('id')).toBe('search');
@@ -204,7 +204,7 @@ describe('components/media/MediaImageViewer', () => {
           const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
-          wrapper.vm.highlightAnnotation();
+          wrapper.vm.highlightAnnotations();
           const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
@@ -226,7 +226,7 @@ describe('components/media/MediaImageViewer', () => {
           const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
-          wrapper.vm.highlightAnnotation();
+          wrapper.vm.highlightAnnotations();
           const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([

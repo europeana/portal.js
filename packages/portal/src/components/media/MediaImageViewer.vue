@@ -107,6 +107,7 @@
       const {
         activeAnnotation,
         annotationAtCoordinate,
+        annotationSearchResults,
         hasAnnotations,
         pageForAnnotationTarget
       } = useItemMediaPresentation();
@@ -114,6 +115,7 @@
       return {
         activeAnnotation,
         annotationAtCoordinate,
+        annotationSearchResults,
         currentZoom,
         hasAnnotations,
         pageForAnnotationTarget,
@@ -160,7 +162,13 @@
       activeAnnotation: {
         deep: true,
         handler() {
-          this.highlightAnnotation();
+          this.highlightAnnotations();
+        }
+      },
+      annotationSearchResults: {
+        deep: true,
+        handler() {
+          this.highlightAnnotations(this.annotationSearchResults, 'search');
         }
       },
       url: '$fetch',
@@ -233,10 +241,10 @@
       handlePointerMove(pixel) {
         const coordinate = this.olMap.getCoordinateFromPixel(pixel);
         const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
-        this.highlightAnnotation(anno, 'hover');
+        this.highlightAnnotations(anno, 'hover');
       },
 
-      async highlightAnnotation(anno = this.activeAnnotation, layerId = 'active') {
+      async highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
         if (!this.fullImageRendered) {
           await this.renderFullImage();
         }
@@ -249,10 +257,12 @@
         // remove any existing features, i.e. previously highlighted annotations
         layer.getSource().clear();
 
-        const feature = this.constructAnnotationFeature(anno);
+        for (const anno of [].concat(annos)) {
+          const feature = this.constructAnnotationFeature(anno);
 
-        if (feature) {
-          layer.getSource().addFeature(feature);
+          if (feature) {
+            layer.getSource().addFeature(feature);
+          }
         }
       },
 
@@ -267,15 +277,21 @@
 
       initOlAnnotationLayers() {
         const layerCount = this.olMap.getLayers().getLength();
+
         if (layerCount === 0) {
           throw new MediaImageViewerError('No image layer to annotate');
         }
+
         if (layerCount === 1) {
           // layer for annotations from search
-          // TODO: style
           this.olMap.addLayer(new VectorLayer({
             properties: { id: 'search' },
-            source: new VectorSource()
+            source: new VectorSource(),
+            style: new Style({
+              stroke: new Stroke({
+                color: '#ffcb56'
+              })
+            })
           }));
 
           // layer for hovered annotation
@@ -294,6 +310,11 @@
             properties: { id: 'active' },
             source: new VectorSource()
           }));
+
+          this.$nextTick(() => {
+            this.highlightAnnotations();
+            this.highlightAnnotations(this.annotationSearchResults, 'search');
+          });
         }
       },
 
@@ -301,7 +322,9 @@
         this.olExtent = extent;
         this.initOlMap();
         this.initOlView({ extent, layer, source });
-        this.hasAnnotations && this.initOlAnnotationLayers();
+        if (this.hasAnnotations) {
+          this.initOlAnnotationLayers();
+        }
       },
 
       initOlMap() {
@@ -440,7 +463,7 @@
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
-        } else if (this.activeAnnotation) {
+        } else if (this.activeAnnotation || ((this.annotationSearchResults || []).length > 0)) {
           this.renderFullImage();
         } else {
           this.renderThumbnail();
@@ -450,7 +473,6 @@
       initMapWithFullImage(mapOptions) {
         this.initOl(mapOptions);
         this.fullImageRendered = true;
-        this.highlightAnnotation();
       },
 
       setZoom() {
