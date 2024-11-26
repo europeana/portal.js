@@ -4,18 +4,28 @@
     class="viewer-controls position-absolute d-inline-flex align-items-center justify-content-center mx-auto"
   >
     <b-button
+      v-b-tooltip.top="$t('media.controls.rotateLeft')"
+      :aria-label="$t('media.controls.rotateLeft')"
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
       @click="rotateLess"
+      @mouseleave="hideTooltips"
     >
-      ↪️
+      <span
+        class="icon icon-rotate-left"
+      />
     </b-button>
     <b-button
+      v-b-tooltip.top="$t('media.controls.rotateRight')"
+      :aria-label="$t('media.controls.rotateRight')"
       variant="light-flat"
       class="button-icon-only btn-light-flat mr-2"
       @click="rotateMore"
+      @mouseleave="hideTooltips"
     >
-      ↩️
+      <span
+        class="icon icon-rotate-right"
+      />
     </b-button>
     <span class="divider" />
     <b-button
@@ -23,7 +33,7 @@
       :disabled="atMaxZoom"
       :aria-label="$t('media.controls.zoomIn')"
       variant="light-flat"
-      class="button-icon-only btn-light-flat mr-2"
+      class="button-icon-only btn-light-flat ml-3 mr-2"
       @click="zoomIn"
       @mouseleave="hideTooltips"
     >
