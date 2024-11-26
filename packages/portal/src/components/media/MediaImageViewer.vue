@@ -41,6 +41,7 @@
   import { defaults } from 'ol/interaction/defaults';
 
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import useRotation from '@/composables/rotation.js';
   import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
@@ -96,6 +97,9 @@
 
     setup() {
       const {
+        rotation
+      } = useRotation();
+      const {
         current: currentZoom,
         setCurrent: setCurrentZoom,
         setDefault: setDefaultZoom,
@@ -115,6 +119,7 @@
         currentZoom,
         hasAnnotations,
         pageForAnnotationTarget,
+        rotation,
         setCurrentZoom,
         setDefaultZoom,
         setMaxZoom,
@@ -159,8 +164,9 @@
         deep: true,
         handler: 'highlightAnnotation'
       },
-      url: '$fetch',
-      currentZoom: 'setZoom'
+      currentZoom: 'setZoom',
+      rotation: 'setRotation',
+      url: '$fetch'
     },
 
     mounted() {
@@ -272,7 +278,8 @@
           constrainOnlyCenter: true,
           maxZoom: 8,
           projection,
-          resolutions: source.getTileGrid?.()?.getResolutions()
+          resolutions: source.getTileGrid?.()?.getResolutions(),
+          rotation: this.rotation
         });
         view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
 
@@ -404,6 +411,10 @@
         this.initOlMap(mapOptions);
         this.fullImageRendered = true;
         this.highlightAnnotation();
+      },
+
+      setRotation() {
+        this.olMap.getView()?.setRotation(this.rotation);
       },
 
       setZoom() {

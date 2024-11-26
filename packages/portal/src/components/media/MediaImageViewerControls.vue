@@ -4,6 +4,21 @@
     class="viewer-controls position-absolute d-inline-flex align-items-center justify-content-center mx-auto"
   >
     <b-button
+      variant="light-flat"
+      class="button-icon-only btn-light-flat mr-2"
+      @click="rotateLess"
+    >
+      ↪️
+    </b-button>
+    <b-button
+      variant="light-flat"
+      class="button-icon-only btn-light-flat mr-2"
+      @click="rotateMore"
+    >
+      ↩️
+    </b-button>
+    <span class="divider" />
+    <b-button
       v-b-tooltip.top="$t('media.controls.zoomIn')"
       :disabled="atMaxZoom"
       :aria-label="$t('media.controls.zoomIn')"
@@ -61,6 +76,7 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
+  import useRotation from '@/composables/rotation.js';
   import useZoom from '@/composables/zoom.js';
 
   export default {
@@ -77,6 +93,10 @@
 
     setup() {
       const {
+        rotateLess,
+        rotateMore
+      } = useRotation();
+      const {
         atMin: atMinZoom,
         atMax: atMaxZoom,
         atDefault: atDefaultZoom,
@@ -85,7 +105,7 @@
         zoomOut
       } = useZoom();
 
-      return { atMinZoom, atMaxZoom, atDefaultZoom, resetZoom, zoomIn, zoomOut };
+      return { atMinZoom, atMaxZoom, atDefaultZoom, resetZoom, rotateLess, rotateMore, zoomIn, zoomOut };
     }
   };
 </script>
