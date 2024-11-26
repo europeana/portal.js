@@ -42,6 +42,11 @@
             v-if="$fetchState.error"
             :provider-url="providerUrl"
           />
+          <img
+            v-else-if="thumbnail"
+            :src="thumbnail"
+            alt=""
+          />
           <MediaImageViewer
             v-else-if="imageTypeResource"
             :url="resource.id"
