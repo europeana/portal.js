@@ -10,6 +10,7 @@
     <b-toast
       v-if="!fullImageRendered"
       id="full-image-toast"
+      ref="fullImageToast"
       visible
       solid
       no-auto-hide
@@ -17,6 +18,7 @@
       toast-class="full-image-toast brand-toast d-inline-block mt-3"
       body-class="p-0"
       toaster="b-toaster-media-viewer"
+      @shown="removeTabindex"
     >
       <b-button
         class="full-image-toast-button d-inline-flex align-items-center py-2 px-3"
@@ -467,6 +469,10 @@
             this.setCurrentZoom(view.getZoom());
           }
         });
+      },
+
+      removeTabindex() {
+        this.$refs.fullImageToast.$refs.toast.removeAttribute('tabindex');
       }
     }
   };
