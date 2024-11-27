@@ -4,20 +4,20 @@
     class="h-100 w-100"
     v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
-    <b-toaster
-      name="b-toaster-media-viewer"
+    <MediaImageViewerKeyboardToggle
+      id="media-image-viewer-keyboard-toggle"
     />
     <b-toast
       v-if="!fullImageRendered"
       id="full-image-toast"
       ref="fullImageToast"
       visible
+      static
       solid
       no-auto-hide
       no-close-button
       toast-class="full-image-toast brand-toast d-inline-block mt-3"
       body-class="p-0"
-      toaster="b-toaster-media-viewer"
       @shown="removeTabindex"
     >
       <b-button
@@ -39,9 +39,6 @@
         size="lg"
       />
     </b-container>
-    <MediaImageViewerKeyboardToggle
-      id="media-image-viewer-keyboard-toggle"
-    />
     <slot />
   </div>
 </template>
@@ -505,16 +502,13 @@
     color: $white;
   }
 
-  ::v-deep .b-toaster-media-viewer {
+  ::v-deep .b-toast {
     position: absolute;
     bottom: 4rem;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 1;
     text-align: center;
-  }
-
-  ::v-deep .b-toast {
     margin: 0 auto;
   }
 

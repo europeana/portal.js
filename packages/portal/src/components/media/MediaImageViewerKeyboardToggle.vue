@@ -16,13 +16,12 @@
     <b-toast
       id="media-image-viewer-toast"
       ref="keyboardToast"
+      static
       solid
       no-auto-hide
       no-close-button
       append-toast
       toast-class="brand-toast mt-3"
-      toaster="b-toaster-media-viewer"
-      @shown="focusToast"
     >
       <b-button
         class="close-toast p-2 ml-2 text-white float-right"
@@ -43,9 +42,6 @@
     name: 'MediaImageViewerKeyboardToggle',
 
     methods: {
-      focusToast() {
-        this.$refs.keyboardToast.$refs.toast.focus();
-      },
       hideToast() {
         this.$bvToast.hide('media-image-viewer-toast');
         this.$refs.keyboardToggle.focus();
@@ -73,5 +69,11 @@
 
   .b-toast {
     max-width: 300px;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
   }
 </style>
