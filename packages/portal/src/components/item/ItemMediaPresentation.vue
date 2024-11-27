@@ -272,11 +272,11 @@
       },
 
       thumbnail() {
-        return this.resource.edm.thumbnails?.(this.$nuxt.context)?.large;
+        return this.resource?.edm.thumbnails?.(this.$nuxt.context)?.large;
       },
 
       imageTypeResource() {
-        return this.resource.edm.isHTMLImage;
+        return this.resource?.edm.isHTMLImage;
       },
 
       addPaginationToolbarMaxWidth() {
