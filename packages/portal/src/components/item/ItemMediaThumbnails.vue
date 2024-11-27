@@ -89,10 +89,6 @@
       };
     },
 
-    created() {
-      this.initResourcesToRender();
-    },
-
     computed: {
       firstRenderedResourceIndex() {
         return this.resources?.findIndex(resource => resource === this.resourcesToRender[0]);
@@ -128,6 +124,10 @@
       }
     },
 
+    created() {
+      this.initResourcesToRender();
+    },
+
     mounted() {
       if (this.page > 1) {
         this.$nextTick(() => {
@@ -154,7 +154,7 @@
       },
 
       initResourcesToRender() {
-        if (!!this.resources) {
+        if (this.resources) {
           this.resourcesToRender = this.page <= perPage ? this.resources.slice(0, perPage) :
             this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length));
         } else {
