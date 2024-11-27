@@ -152,13 +152,13 @@ describe('components/item/ItemPreviewCardGroup', () => {
     describe('routeQuery', () => {
       it('includes adv search fulltext terms from route', () => {
         const query = 'hamburger';
-        const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
+        const qa = ['fulltext:(theater)', 'fulltext:"den haag"', 'NOT fulltext:(direktor)', 'when:1901'];
         const mocks = { $route: { query: { qa, query } } };
         const wrapper = factory({ propsData: { items: results }, mocks });
 
         const routeQuery = wrapper.vm.routeQuery;
 
-        expect(routeQuery).toEqual({ fulltext: 'theater zeitung' });
+        expect(routeQuery).toEqual({ fulltext: 'theater "den haag"' });
       });
     });
   });

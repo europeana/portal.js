@@ -95,12 +95,12 @@ describe('components/media/MediaAnnotationList', () => {
 
         await wrapper.vm.fetch();
 
-        expect(searchAnnotationsSpy.calledWith('"something"')).toBe(true);
+        expect(searchAnnotationsSpy.calledWith('something')).toBe(true);
       });
     });
 
     describe('when there is an annotation in the route query', () => {
-      const $route = { query: { anno: 'anno1' } };
+      const $route = { query: { anno: 'anno2' } };
 
       it('calls setActiveAnnotation on itemMediaPresentation composable', async() => {
         stubItemMediaPresentationComposable();
@@ -108,7 +108,7 @@ describe('components/media/MediaAnnotationList', () => {
 
         await wrapper.vm.fetch();
 
-        expect(setActiveAnnotationSpy.calledWith(annotations[0])).toBe(true);
+        expect(setActiveAnnotationSpy.calledWith(annotations[1])).toBe(true);
       });
 
       it('instant-scrolls to the annotation via scrollTo composable', async() => {

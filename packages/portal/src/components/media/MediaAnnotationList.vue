@@ -109,9 +109,10 @@
       if (!this.active) {
         return;
       }
-
-      await (this.searching ? this.searchAnnotations(`"${this.query}"`) : this.fetchCanvasAnnotations());
-
+      await Promise.all([
+        this.fetchCanvasAnnotations(),
+        this.searching ? this.searchAnnotations(this.query) : null
+      ]);
       this.setActiveAnnotationFromRouteQuery();
 
       this.$emit('fetched', this.annotations.length);
@@ -134,12 +135,11 @@
           this.scrollActiveAnnotationToCentre();
         }
       },
-      // TODO: should this watcher go into useItemMediaPresentation?
       annotationUri() {
-        !this.searching && this.$fetch();
+        this.searching ? this.fetchCanvasAnnotations() : this.$fetch();
       },
       '$route.hash'() {
-        this.scrollActiveAnnotationToCentre();
+        this.scrollActiveAnnotationToCentre('instant');
       },
       '$route.query.anno'() {
         this.setActiveAnnotationFromRouteQuery();
@@ -156,21 +156,22 @@
           ...this.$route,
           query: {
             ...this.$route.query,
-            anno: anno.id,
-            page: this.pageForAnnotationTarget(anno.target)
+            anno: anno?.id,
+            page: this.pageForAnnotationTarget(anno?.target) || this.$route.query.page
           }
         };
       },
 
       async scrollActiveAnnotationToCentre(behavior = 'smooth') {
-        if (!this.active) {
+        if (!this.active || !this.activeAnnotation) {
           return;
         }
         await this.$nextTick();
 
         if (this.activeAnnotation && this.annotationScrollToContainerSelector && this.$refs.annotationListItems) {
+          const elementIndex = this.annotationList.findIndex((listItem) => listItem.id === this.activeAnnotation.id);
           this.scrollElementToCentre(
-            this.$refs.annotationListItems[this.annotationList.indexOf(this.activeAnnotation)],
+            this.$refs.annotationListItems[elementIndex],
             {
               behavior,
               container: document.querySelector(this.annotationScrollToContainerSelector)
@@ -180,10 +181,17 @@
       },
 
       setActiveAnnotationFromRouteQuery() {
-        if (this.$route.query.anno) {
-          this.setActiveAnnotation(this.annotationList.find((anno) => anno.id === this.$route.query.anno) || null);
-          process.client && this.scrollActiveAnnotationToCentre('instant');
+        if (!this.$route.query.anno) {
+          this.setActiveAnnotation(null);
+          return;
         }
+        if (this.$route.query.anno !== this.activeAnnotation?.id) {
+          const activeAnnotation = this.annotations.find((anno) => anno.id === this.$route.query.anno) || this.annotationSearchResults.find((anno) => anno.id === this.$route.query.anno);
+          this.setActiveAnnotation(activeAnnotation || null);
+        }
+        this.$nextTick(() => {
+          process.client && this.scrollActiveAnnotationToCentre('instant');
+        });
       }
     }
   };

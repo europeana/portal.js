@@ -984,12 +984,10 @@ export default {
     "automated": "Automated translation",
     "automatedPageTranslations": "This page uses auto-generated translations from English.",
     "enrichment": "Enrichment by partner projects",
-    "loginToTranslate": "{login} to see this item in other languages",
-    "other": "other languages",
-    "stopTranslating": "Stop translating this item to {0}.",
-    "translateLanguage": "Would you like to see this item in {0}?",
-    "translateMetadata": "Translate the metadata of this item.",
-    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
+    "stopViewingThisItemIn": "Stop viewing this item in {0}",
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later.",
+    "viewingThisItemIn": "Viewing this item in {0}",
+    "viewItemInAnotherLanguage": "View this item in another language"
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",

@@ -2,10 +2,20 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
+    v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
+    <b-container
+      v-if="imageLoading"
+      class="h-100 d-flex align-items-center justify-content-center"
+      data-qa="loading spinner container"
+    >
+      <LoadingSpinner
+        class="text-white"
+        size="lg"
+      />
+    </b-container>
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
-      @renderFullImage="renderFullImage"
     />
     <slot />
   </div>
@@ -30,10 +40,12 @@
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
 
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
 
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
   export class MediaImageViewerError extends Error {
@@ -47,15 +59,11 @@
     name: 'MediaImageViewer',
 
     components: {
+      LoadingSpinner,
       MediaImageViewerKeyboardToggle
     },
 
     props: {
-      // TODO: all we need is the target, not the full object
-      annotation: {
-        type: Object,
-        default: null
-      },
       format: {
         type: String,
         default: null
@@ -94,12 +102,30 @@
         setMax: setMaxZoom,
         setMin: setMinZoom
       } = useZoom();
+      const {
+        activeAnnotation,
+        annotationAtCoordinate,
+        hasAnnotations,
+        pageForAnnotationTarget
+      } = useItemMediaPresentation();
 
-      return { currentZoom, setCurrentZoom, setDefaultZoom, setMaxZoom, setMinZoom };
+      return {
+        activeAnnotation,
+        annotationAtCoordinate,
+        currentZoom,
+        hasAnnotations,
+        pageForAnnotationTarget,
+        setCurrentZoom,
+        setDefaultZoom,
+        setMaxZoom,
+        setMinZoom
+      };
     },
 
     data() {
       return {
+        fullImageRendered: false,
+        imageLoading: null,
         info: null,
         olExtent: null,
         olMap: null,
@@ -129,7 +155,7 @@
     },
 
     watch: {
-      annotation: {
+      activeAnnotation: {
         deep: true,
         handler: 'highlightAnnotation'
       },
@@ -144,6 +170,12 @@
     },
 
     methods: {
+      handleKeyboardToggleKeydown(event) {
+        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
+          this.fullImageRendered || this.renderFullImage();
+        }
+      },
+
       initOlAnnotationLayer() {
         const layerCount = this.olMap.getLayers().getLength();
         if (layerCount === 0) {
@@ -155,15 +187,14 @@
       },
 
       constructAnnotationFeature() {
-        let annotation = this.annotation;
+        let annotation = this.activeAnnotation;
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
           annotation = new EuropeanaMediaAnnotation(annotation);
         }
 
-        // TODO: move to computed property `annotationXywh`? or onto EuropeanaMediaAnnotation class?
-        let [x, y, w, h] = this.olExtent;
+        const extent = annotation.extent || this.olExtent;
         // FIXME: this.url will always be for the image, not the canvas, which works
         //        with europeana's incorrect annotation modelling, but not with
         //        others' correct modelling
@@ -173,15 +204,6 @@
           return;
         }
 
-        const targetHash = new URL(targetId).hash;
-        const xywhSelector = annotation.getHashParam(targetHash, 'xywh');
-        if (xywhSelector) {
-          [x, y, w, h] = xywhSelector
-            .split(',')
-            .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
-        }
-
-        const extent = [x, y, x + w, y + h];
         const poly = fromExtent(extent);
 
         // Vector Layer co-ordinates start bottom left, not top left, so transform
@@ -199,7 +221,26 @@
         return new Feature(poly);
       },
 
-      highlightAnnotation() {
+      handleMapClick(coordinate) {
+        const clickedAnnotation = this.annotationAtCoordinate(coordinate, this.olExtent);
+        if ((clickedAnnotation?.id !== this.activeAnnotation?.id) || (this.$route.hash !== '#annotations')) {
+          this.$router.replace({
+            ...this.$route,
+            hash: '#annotations',
+            query: {
+              ...this.$route.query,
+              anno: clickedAnnotation?.id,
+              page: this.pageForAnnotationTarget(clickedAnnotation?.target) || this.$route.query.page
+            }
+          });
+        }
+      },
+
+      async highlightAnnotation() {
+        if (!this.fullImageRendered) {
+          await this.renderFullImage();
+        }
+
         this.initOlAnnotationLayer();
 
         const layer = this.olMap.getLayers().item(1);
@@ -243,6 +284,11 @@
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
           this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
+          if (this.hasAnnotations) {
+            this.olMap.on('click', (evt) => {
+              this.handleMapClick(evt.coordinate);
+            });
+          }
         }
         this.olExtent = extent;
 
@@ -273,9 +319,10 @@
 
         this.initOlMap(mapOptions);
         this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-        // TODO: add other interactions: anno click, full-text search
+
         this.olMap.on('click', this.renderFullImage);
         this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
+        this.fullImageRendered = false;
       },
 
       renderFullImageOnFirstZoomIn(event) {
@@ -309,8 +356,12 @@
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
+        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
+        source.on('imageloadend', () => this.imageLoading = false);
+        source.on('tileloadstart', () => this.imageLoading = true);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
+        source.on('tileloadend', () => this.imageLoading = false);
         const layer = new TileLayer({ source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
@@ -327,7 +378,9 @@
           imageExtent: extent
         });
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
+        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
+        source.on('imageloadend', () => this.imageLoading = false);
         const layer = new ImageLayer({ source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
@@ -340,6 +393,8 @@
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initMapWithFullImage(mapOptions);
+        } else if (this.activeAnnotation) {
+          this.renderFullImage();
         } else {
           this.renderThumbnail();
         }
@@ -347,6 +402,7 @@
 
       initMapWithFullImage(mapOptions) {
         this.initOlMap(mapOptions);
+        this.fullImageRendered = true;
         this.highlightAnnotation();
       },
 

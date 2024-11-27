@@ -15,6 +15,17 @@ export default class EuropeanaMediaAnnotation extends Base {
       parsed.body = Array.isArray(parsed.body) ? parsed.body.map((bod) => TextualBody.parse(bod)) : TextualBody.parse(parsed.body);
     }
 
+    if (parsed.target) {
+      const targetHash = new URL(parsed.target?.id || parsed.target).hash;
+      const xywhSelector = this.getHashParam(targetHash, 'xywh');
+      if (xywhSelector) {
+        const extent = xywhSelector
+          .split(',')
+          .map((xywh) => xywh.length === 0 ? undefined : Number(xywh));
+        parsed.extent = [extent[0], extent[1], extent[0] + extent[2], extent[1] + extent[3]];
+      }
+    }
+
     return parsed;
   }
 

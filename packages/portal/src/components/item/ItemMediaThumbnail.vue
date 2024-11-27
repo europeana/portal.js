@@ -54,7 +54,7 @@
       link() {
         return {
           path: this.$route.path,
-          query: { ...this.$route.query, page: this.page },
+          query: { ...this.$route.query, page: this.page, anno: undefined },
           hash: this.$route.hash
         };
       },

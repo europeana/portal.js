@@ -932,12 +932,10 @@ export default {
     "automated": "Automatiseret oversættelse",
     "automatedPageTranslations": "Denne side bruger autogenererede oversættelser fra engelsk.",
     "enrichment": "Berigelse ved partnerprojekter",
-    "loginToTranslate": "{login} for at se denne genstand på andre sprog.",
-    "other": "andre sprog",
-    "stopTranslating": "Stop med at oversætte dette element til {0}.",
-    "translateLanguage": "Vil du gerne se dette element i {0} ?",
-    "translateMetadata": "Oversæt metadataene for dette genstand.",
-    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
+    "stopViewingThisItemIn": "Stop med at se denne genstand i {0}",
+    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere.",
+    "viewingThisItemIn": "Visning af denne genstand i {0}",
+    "viewItemInAnotherLanguage": "Se denne genstand på et andet sprog"
   },
   "newFeatureNotification": {
     "dismiss": "Luk",

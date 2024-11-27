@@ -932,12 +932,10 @@ export default {
     "automated": "Automatisoitu käännös",
     "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
-    "other": "muut kielet",
-    "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
-    "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
-    "translateMetadata": "Käännä tämän aineisto metatiedot.",
-    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
+    "stopViewingThisItemIn": "Lopeta tämän aineiston tarkastelu {0}",
+    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin.",
+    "viewingThisItemIn": "Tarkastelet tätä aineistoa {0}-kielellä",
+    "viewItemInAnotherLanguage": "Tarkastele tätä aineistoa toisella kielellä"
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",

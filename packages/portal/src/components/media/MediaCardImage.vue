@@ -158,15 +158,15 @@
       height: auto;
 
       @media (max-height: $bp-medium) {
-        max-height: $swiper-height;
+        max-height: $media-viewer-height;
       }
 
       @media (min-height: $bp-medium) {
-        max-height: $swiper-height-max;
+        max-height: $media-viewer-height-max;
       }
 
       @media (max-width: $bp-medium) {
-        max-height: $swiper-height-medium;
+        max-height: $media-viewer-height-medium;
       }
     }
   }
