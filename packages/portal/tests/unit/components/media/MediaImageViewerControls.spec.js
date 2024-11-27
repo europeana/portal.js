@@ -40,6 +40,22 @@ describe('components/media/MediaImageViewerControls', () => {
       expect(viewerWrapper.isVisible()).toBe(true);
     });
 
+    it('has a rotate left button', () => {
+      const wrapper = factory();
+
+      const rotateLeftButton = wrapper.find('.icon-rotate-left');
+
+      expect(rotateLeftButton.isVisible()).toBe(true);
+    });
+
+    it('has a rotate right button', () => {
+      const wrapper = factory();
+
+      const rotateRightButton = wrapper.find('.icon-rotate-right');
+
+      expect(rotateRightButton.isVisible()).toBe(true);
+    });
+
     it('has a fullscreen button', () => {
       const wrapper = factory();
 
