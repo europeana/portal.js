@@ -942,6 +942,8 @@ export default {
       "fullscreen": "Full screen",
       "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
       "resetZoom": "Reset zoom",
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },

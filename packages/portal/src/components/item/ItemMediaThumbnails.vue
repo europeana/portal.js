@@ -84,8 +84,7 @@
 
     data() {
       return {
-        resourcesToRender: !!this.resources && (this.page <= perPage ? this.resources.slice(0, perPage) :
-          this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length))),
+        resourcesToRender: null,
         skeletonObserver: null
       };
     },
@@ -115,7 +114,18 @@
     watch: {
       page() {
         this.updateThumbnailScroll();
+      },
+
+      resources: {
+        deep: true,
+        handler() {
+          this.initResourcesToRender();
+        }
       }
+    },
+
+    created() {
+      this.initResourcesToRender();
     },
 
     mounted() {
@@ -141,6 +151,15 @@
     methods: {
       handleWindowResize() {
         this.updateThumbnailScroll();
+      },
+
+      initResourcesToRender() {
+        if (this.resources) {
+          this.resourcesToRender = this.page <= perPage ? this.resources.slice(0, perPage) :
+            this.resources.slice(Math.max(this.page - perPage, 0), Math.min(this.page + perPage, this.resources.length));
+        } else {
+          this.resourcesToRender = null;
+        }
       },
 
       updateThumbnailScroll(behavior = 'smooth') {

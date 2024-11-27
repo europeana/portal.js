@@ -310,6 +310,21 @@ Example:
           <td><span class="icon icon-reset" /></td>
         </tr>
         <tr>
+          <td>Rotate left</td>
+          <td><code>icon-rotate-left</code></td>
+          <td><span class="icon icon-rotate-left" /></td>
+        </tr>
+        <tr>
+          <td>Rotate right</td>
+          <td><code>icon-rotate-right</code></td>
+          <td><span class="icon icon-rotate-right" /></td>
+        </tr>
+        <tr>
+          <td>Zoom out</td>
+          <td><code>icon-zoom-out</code></td>
+          <td><span class="icon icon-zoom-out" /></td>
+        </tr>
+        <tr>
           <td>School</td>
           <td><code>icon-school</code></td>
           <td><span class="icon icon-school" /></td>

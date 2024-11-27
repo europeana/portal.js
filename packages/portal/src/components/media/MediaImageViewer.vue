@@ -66,6 +66,7 @@
   import { defaults } from 'ol/interaction/defaults';
 
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import useRotation from '@/composables/rotation.js';
   import useZoom from '@/composables/zoom.js';
   import EuropeanaMediaAnnotation from '@/utils/europeana/media/Annotation.js';
   import EuropeanaMediaService from '@/utils/europeana/media/Service.js';
@@ -121,6 +122,10 @@
 
     setup() {
       const {
+        reset: resetRotation,
+        rotation
+      } = useRotation();
+      const {
         current: currentZoom,
         setCurrent: setCurrentZoom,
         setDefault: setDefaultZoom,
@@ -140,6 +145,8 @@
         currentZoom,
         hasAnnotations,
         pageForAnnotationTarget,
+        resetRotation,
+        rotation,
         setCurrentZoom,
         setDefaultZoom,
         setMaxZoom,
@@ -184,8 +191,9 @@
         deep: true,
         handler: 'highlightAnnotation'
       },
-      url: '$fetch',
-      currentZoom: 'setZoom'
+      currentZoom: 'setZoom',
+      rotation: 'setRotation',
+      url: '$fetch'
     },
 
     mounted() {
@@ -292,12 +300,14 @@
       initOlMap({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
+        this.resetRotation();
         const view = new View({
           center: getCenter(extent),
           constrainOnlyCenter: true,
           maxZoom: 8,
           projection,
-          resolutions: source.getTileGrid?.()?.getResolutions()
+          resolutions: source.getTileGrid?.()?.getResolutions(),
+          rotation: this.rotation
         });
         view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
 
@@ -309,6 +319,11 @@
             keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
           });
           this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
+          if (this.hasAnnotations) {
+            this.olMap.on('click', (evt) => {
+              this.handleMapClick(evt.coordinate);
+            });
+          }
         }
         this.olExtent = extent;
 
@@ -322,11 +337,6 @@
 
         this.olMap.getView().fit(extent, { size: imageMaxFitSize });
         this.configureZoomLevels();
-        if (this.hasAnnotations) {
-          this.olMap.on('click', (evt) => {
-            this.handleMapClick(evt.coordinate);
-          });
-        }
       },
 
       async renderThumbnail() {
@@ -429,6 +439,10 @@
         this.initOlMap(mapOptions);
         this.fullImageRendered = true;
         this.highlightAnnotation();
+      },
+
+      setRotation() {
+        this.olMap.getView()?.setRotation(this.rotation);
       },
 
       setZoom() {
