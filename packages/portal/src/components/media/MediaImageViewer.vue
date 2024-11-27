@@ -97,6 +97,7 @@
 
     setup() {
       const {
+        reset: resetRotation,
         rotation
       } = useRotation();
       const {
@@ -119,6 +120,7 @@
         currentZoom,
         hasAnnotations,
         pageForAnnotationTarget,
+        resetRotation,
         rotation,
         setCurrentZoom,
         setDefaultZoom,
@@ -273,6 +275,7 @@
       initOlMap({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
+        this.resetRotation();
         const view = new View({
           center: getCenter(extent),
           constrainOnlyCenter: true,
