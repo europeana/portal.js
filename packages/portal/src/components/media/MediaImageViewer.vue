@@ -64,6 +64,7 @@
     },
 
     props: {
+      // FIXME: this isn't used; rm
       format: {
         type: String,
         default: null
@@ -78,10 +79,6 @@
       },
       service: {
         type: EuropeanaMediaService,
-        default: null
-      },
-      thumbnail: {
-        type: String,
         default: null
       },
       url: {
@@ -170,9 +167,10 @@
     },
 
     methods: {
+      // FIXME: restore functionality; move up to IMP component?
       handleKeyboardToggleKeydown(event) {
         if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
-          this.fullImageRendered || this.renderFullImage();
+          this.fullImageRendered || null; // this.renderFullImage();
         }
       },
 
@@ -236,11 +234,7 @@
         }
       },
 
-      async highlightAnnotation() {
-        if (!this.fullImageRendered) {
-          await this.renderFullImage();
-        }
-
+      highlightAnnotation() {
         this.initOlAnnotationLayer();
 
         const layer = this.olMap.getLayers().item(1);
@@ -304,47 +298,6 @@
         this.configureZoomLevels();
       },
 
-      async renderThumbnail() {
-        if (!this.thumbnail) {
-          this.renderFullImage();
-          return;
-        }
-
-        let mapOptions;
-
-        const thumbWidth = 400;
-        const thumbHeight = (this.height / this.width) * thumbWidth;
-
-        mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
-
-        this.initOlMap(mapOptions);
-        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-
-        this.olMap.on('click', this.renderFullImage);
-        this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
-        this.fullImageRendered = false;
-      },
-
-      renderFullImageOnFirstZoomIn(event) {
-        // check if zoom in, not out
-        if (event.oldValue < 1) {
-          this.renderFullImage();
-        }
-      },
-
-      async renderFullImage() {
-        if (this.olMap) {
-          this.olMap.un('click', this.renderFullImage);
-          this.olMap.getView().un('change:resolution', this.renderFullImageOnFirstZoomIn);
-          this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
-        }
-
-        // TODO: should we always be using the media proxy for static images?
-        const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-        const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
-        this.initMapWithFullImage(mapOptions);
-      },
-
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
       initOlImageLayerIIIF() {
@@ -392,17 +345,14 @@
 
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
-          this.initMapWithFullImage(mapOptions);
-        } else if (this.activeAnnotation) {
-          this.renderFullImage();
+          this.initOlMap(mapOptions);
         } else {
-          this.renderThumbnail();
+          // TODO: should we always be using the media proxy for static images?
+          const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
+          const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
+          this.initOlMap(mapOptions);
         }
-      },
 
-      initMapWithFullImage(mapOptions) {
-        this.initOlMap(mapOptions);
-        this.fullImageRendered = true;
         this.highlightAnnotation();
       },
 

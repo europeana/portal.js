@@ -73,35 +73,11 @@ export default class WebResource extends Base {
   }
 
   get hasTextMediaType() {
-    return this.mediaType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || (this.mediaType === MEDIA_TYPE_APPLICATION_PDF);
+    return this.mediaType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || this.isPDF;
   }
 
   get mediaType() {
     return this.ebucoreHasMimeType;
-  }
-
-  // TODO: refactor as a getter, not requiring passing Nuxt context,
-  //       or move out into Nuxt mixin?
-  // TODO: use IIIF Image service if present
-  thumbnails(context) {
-    const uri = this.preview?.about || this.about;
-
-    const smallWidth = 200;
-    const largeWidth = 400;
-
-    if (this.svcsHasService) {
-      // TODO: assess impact of this outside of new ItemMediaPresentation component
-      const serviceId = this.svcsHasService.id || this.svcsHasService.about || this.svcsHasService;
-      return {
-        large: `${serviceId}/full/${largeWidth},/0/default.jpg`,
-        small: `${serviceId}/full/${smallWidth},/0/default.jpg`
-      };
-    } else {
-      return {
-        small: context.$apis.thumbnail.media(uri, { size: smallWidth }),
-        large: context.$apis.thumbnail.media(uri, { size: largeWidth })
-      };
-    }
   }
 
   get codecName() {
@@ -140,6 +116,10 @@ export default class WebResource extends Base {
 
   get isOEmbed() {
     return oEmbeddable(this.id);
+  }
+
+  get isPDF() {
+    return this.mediaType === MEDIA_TYPE_APPLICATION_PDF;
   }
 
   get isPlayableMedia() {

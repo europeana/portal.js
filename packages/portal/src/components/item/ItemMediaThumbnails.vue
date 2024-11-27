@@ -35,7 +35,7 @@
             :offset="firstRenderedResourceIndex + index"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
-            :resource="resource"
+            :resource="resource.edm"
             :edm-type="edmType"
             :lazy="true"
           />
