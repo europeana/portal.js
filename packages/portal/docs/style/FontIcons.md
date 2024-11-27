@@ -100,6 +100,11 @@ Example:
           <td><span class="icon icon-clear" /></td>
         </tr>
         <tr>
+          <td>Click</td>
+          <td><code>icon-click</code></td>
+          <td><span class="icon icon-click" /></td>
+        </tr>
+        <tr>
           <td>Collections</td>
           <td><code>icon-collections</code></td>
           <td><span class="icon icon-collections" /></td>
