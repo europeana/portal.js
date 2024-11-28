@@ -240,11 +240,21 @@
         }
       },
 
-      handlePointerMove(pixel) {
-        const coordinate = this.olMap.getCoordinateFromPixel(pixel);
-        const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
-        this.highlightAnnotations(anno, 'hover');
-        this.setHoveredAnnotation(anno);
+      handlePointerMove(evt) {
+        if (!this.fullImageRendered) {
+          return;
+        }
+
+        this.olMap.un('pointermove', this.handlePointerMove);
+
+        setTimeout(() => {
+          const pixel = evt.pixel;
+          const coordinate = this.olMap.getCoordinateFromPixel(pixel);
+          const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
+          this.highlightAnnotations(anno, 'hover');
+          this.setHoveredAnnotation(anno);
+          this.olMap.on('pointermove', this.handlePointerMove);
+        }, 50);
       },
 
       async highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
@@ -252,6 +262,7 @@
           await this.renderFullImage();
         }
 
+        // TODO(perf): stop doing this and memoise them somwhere?
         const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
         if (!layer) {
           return;
@@ -347,9 +358,7 @@
             this.handleMapClick(evt.coordinate);
           });
           // TODO: this fires many times... debounce it?
-          this.olMap.on('pointermove', (evt) => {
-            this.fullImageRendered && this.handlePointerMove(evt.pixel);
-          });
+          this.olMap.on('pointermove', this.handlePointerMove);
         }
       },
 
