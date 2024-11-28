@@ -70,7 +70,7 @@
             class="media-viewer-content"
           />
           <template
-            v-else-if="resource?.edm"
+            v-else-if="displayThumbnail"
           >
             <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
             <MediaCardImage
@@ -82,6 +82,7 @@
               @click.native="() => thumbnailInteractedWith = true"
             />
             <b-toast
+              v-if="viewableImageResource"
               id="full-image-toast"
               ref="fullImageToast"
               visible
