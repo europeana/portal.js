@@ -99,6 +99,32 @@ export default class WebResource extends Base {
     }
   }
 
+  get imageMegaPixels() {
+    if (!this.hasImageMediaType) {
+      return undefined;
+    }
+    if (!this.ebucoreWidth || !this.ebucoreHeight) {
+      return undefined;
+    }
+    return (this.ebucoreWidth * this.ebucoreHeight) / 1000000;
+  }
+
+  get imageSize() {
+    const mp = this.imageMegaPixels;
+
+    if (mp > 4) {
+      return 'extra_large';
+    } else if (mp > 1) {
+      return 'large';
+    } else if (mp > 0.5) {
+      return 'medium';
+    } else if (mp > 0) {
+      return 'small';
+    } else {
+      return undefined;
+    }
+  }
+
   get isHTMLVideo() {
     return this.mediaType && (
       HTML_VIDEO_MEDIA_TYPES.includes(this.mediaType) ||

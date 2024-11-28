@@ -69,15 +69,40 @@
             :url="resource.id"
             class="media-viewer-content"
           />
-          <MediaCardImage
+          <template
             v-else-if="resource?.edm"
-            :media="resource.edm"
-            :lazy="false"
-            :edm-type="edmType"
-            :linkable="false"
-            thumbnail-size="large"
-            @click.native="() => thumbnailInteractedWith = true"
-          />
+          >
+            <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
+            <MediaCardImage
+              :media="resource.edm"
+              :lazy="false"
+              :edm-type="edmType"
+              :linkable="false"
+              thumbnail-size="large"
+              @click.native="() => thumbnailInteractedWith = true"
+            />
+            <b-toast
+              id="full-image-toast"
+              ref="fullImageToast"
+              visible
+              static
+              solid
+              no-auto-hide
+              no-close-button
+              toast-class="full-image-toast brand-toast d-inline-block mt-3"
+              body-class="p-0"
+              @shown="removeTabindex"
+            >
+              <b-button
+                class="full-image-toast-button d-inline-flex align-items-center py-2 px-3"
+                variant="light-flat"
+                @click="() => thumbnailInteractedWith = true"
+              >
+                <span class="icon-click mr-2" />
+                {{ $t('media.loadFull') }}
+              </b-button>
+            </b-toast>
+          </template>
         </template>
       </div>
       <div
@@ -237,11 +262,13 @@
 
     computed: {
       displayThumbnail() {
-        return !((
-          (this.viewableImageResource && (this.service || this.thumbnailInteractedWith)) ||
-          this.resource?.edm?.isPlayableMedia ||
-          this.resource?.edm?.isOEmbed
-        ));
+        if (this.viewableImageResource) {
+          return !this.service && (this.resource.edm.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
+        } else {
+          return !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          );
+        }
       },
 
       hasManifest() {
@@ -280,12 +307,6 @@
       }
     },
 
-    mounted() {
-      console.log('IMP resource', this.resource);
-      console.log('IMP resource.edm', this.resource?.edm);
-      console.log('IMP resource.edm.preview', this.resource?.edm?.preview);
-    },
-
     methods: {
       handleImageError(error) {
         this.$fetchState.error = error;
@@ -306,7 +327,12 @@
         this.$apm?.captureError(errorData);
       },
 
+      removeTabindex() {
+        this.$refs.fullImageToast.$refs.toast.removeAttribute('tabindex');
+      },
+
       selectResource() {
+        this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource);
       },
 
@@ -463,5 +489,30 @@
     .html-embed {
       flex-grow: 1;
     }
+  }
+
+  ::v-deep .brand-toast.full-image-toast {
+    background-color: $black;
+    border: 1px solid $white;
+  }
+
+  .full-image-toast-button {
+    background-color: $black;
+    color: $white;
+  }
+
+  ::v-deep .b-toast {
+    position: absolute;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .icon-click {
+    font-size: $font-size-large;
+    line-height: 1;
   }
 </style>
