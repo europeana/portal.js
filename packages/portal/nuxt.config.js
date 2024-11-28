@@ -509,6 +509,7 @@ export default {
       'ol/style/Style.js',
       'ol/style/RegularShape.js',
       'ol/View.js',
+      'pdfjs-dist',
       'ssr-window',
       'swiper',
       'vue-router-query'
