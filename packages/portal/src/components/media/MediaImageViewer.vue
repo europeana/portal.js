@@ -4,6 +4,31 @@
     class="h-100 w-100"
     v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
+    <MediaImageViewerKeyboardToggle
+      id="media-image-viewer-keyboard-toggle"
+    />
+    <b-toast
+      v-if="!fullImageRendered"
+      id="full-image-toast"
+      ref="fullImageToast"
+      visible
+      static
+      solid
+      no-auto-hide
+      no-close-button
+      toast-class="full-image-toast brand-toast d-inline-block mt-3"
+      body-class="p-0"
+      @shown="removeTabindex"
+    >
+      <b-button
+        class="full-image-toast-button d-inline-flex align-items-center py-2 px-3"
+        variant="light-flat"
+        @click="renderFullImage"
+      >
+        <span class="icon-click mr-2" />
+        {{ $t('media.loadFull') }}
+      </b-button>
+    </b-toast>
     <b-container
       v-if="imageLoading"
       class="h-100 d-flex align-items-center justify-content-center"
@@ -14,9 +39,6 @@
         size="lg"
       />
     </b-container>
-    <MediaImageViewerKeyboardToggle
-      id="media-image-viewer-keyboard-toggle"
-    />
     <slot />
   </div>
 </template>
@@ -458,7 +480,40 @@
             this.setCurrentZoom(view.getZoom());
           }
         });
+      },
+
+      removeTabindex() {
+        this.$refs.fullImageToast.$refs.toast.removeAttribute('tabindex');
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  ::v-deep .brand-toast.full-image-toast {
+    background-color: $black;
+    border: 1px solid $white;
+  }
+
+  .full-image-toast-button {
+    background-color: $black;
+    color: $white;
+  }
+
+  ::v-deep .b-toast {
+    position: absolute;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .icon-click {
+    font-size: $font-size-large;
+    line-height: 1;
+  }
+</style>

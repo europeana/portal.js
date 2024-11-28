@@ -69,6 +69,10 @@
   content: '\e903';
 }
 
+.icon-click::before {
+  content: '\e96a';
+}
+
 .icon-collections::before {
   content: '\e91d';
 }
@@ -237,6 +241,14 @@
   content: '\e964';
 }
 
+.icon-rotate-left:before {
+  content: '\e969';
+}
+
+.icon-rotate-right:before {
+  content: '\e968';
+}
+
 .icon-school::before {
   content: '\e952';
 }
@@ -331,12 +343,4 @@
 
 .icon-zoom-out:before {
   content: '\e967';
-}
-
-.icon-rotate-left:before {
-  content: '\e969';
-}
-
-.icon-rotate-right:before {
-  content: '\e968';
 }

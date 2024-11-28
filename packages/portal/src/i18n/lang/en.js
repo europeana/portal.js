@@ -946,6 +946,11 @@ export default {
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },
+    "loadFull": "Load the full size image.",
+    "pages": {
+      "hide": "Hide pages",
+      "show": "Show pages"
+    },
     "sidebar": {
       "annotations": "Annotations",
       "annotationsCount": "1 Annotation |{count} Annotations",
@@ -955,10 +960,6 @@ export default {
       "search": "Search",
       "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
-    },
-    "pages": {
-      "hide": "Hide pages",
-      "show": "Show pages"
     }
   },
   "messages": {
