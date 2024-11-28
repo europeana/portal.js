@@ -66,7 +66,6 @@
     },
 
     mounted() {
-      console.log(this.$i18n.locale);
       this.player = videojs(this.$refs.avPlayer, {
         ...this.options,
         sources: [

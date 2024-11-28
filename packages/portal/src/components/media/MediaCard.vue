@@ -52,7 +52,6 @@
     components: {
       MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
-      MediaAudioVisualPlayer: () => import('./MediaAudioVisualPlayer'),
       MediaVideoPlayer: () => import('./MediaVideoPlayer'),
       MediaAudioPlayer: () => import('./MediaAudioPlayer')
     },
