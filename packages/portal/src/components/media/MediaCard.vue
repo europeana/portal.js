@@ -7,12 +7,19 @@
     :lazy="lazy"
     :offset="offset"
   />
-  <MediaAudioVisualPlayer
+  <div
     v-else-if="isSinglePlayableMedia"
-    :item-id="europeanaIdentifier"
-    :url="media.about"
-    :format="media.ebucoreHasMimeType"
-  />
+    ref="player"
+    class="media-player-wrapper col-lg-10 col-12"
+  >
+    <iframe
+      data-qa="media player"
+      allowfullscreen="true"
+      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      class="media-player"
+      :title="$t('record.mediaPlayer')"
+    />
+  </div>
   <MediaVideoPlayer
     v-else-if="media.isHTMLVideo"
     :europeana-identifier="europeanaIdentifier"
@@ -45,7 +52,6 @@
     components: {
       MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
-      MediaAudioVisualPlayer: () => import('./MediaAudioVisualPlayer'),
       MediaVideoPlayer: () => import('./MediaVideoPlayer'),
       MediaAudioPlayer: () => import('./MediaAudioPlayer')
     },
@@ -77,3 +83,26 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .media-player-wrapper {
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    min-width: 19rem;
+
+    iframe {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>

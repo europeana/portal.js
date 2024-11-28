@@ -70,6 +70,7 @@
             :format="resource.format"
             :item-id="itemId"
             class="media-viewer-content"
+            :poster="thumbnail"
           />
           <EmbedOEmbed
             v-else-if="resource?.edm.isOEmbed"
