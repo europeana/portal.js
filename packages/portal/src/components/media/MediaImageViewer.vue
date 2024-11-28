@@ -26,7 +26,7 @@
         @click="renderFullImage"
       >
         <span class="icon-click mr-2" />
-        {{ $t('media.clickToLoadFull') }}
+        {{ $t('media.loadFull') }}
       </b-button>
     </b-toast>
     <b-container
