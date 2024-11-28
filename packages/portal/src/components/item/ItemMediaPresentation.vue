@@ -78,8 +78,9 @@
               :media="resource?.edm"
               :lazy="false"
               :edm-type="edmType"
-              :linkable="false"
+              linkable
               thumbnail-size="large"
+              :europeana-identifier="itemId"
               @click.native="() => thumbnailInteractedWith = true"
             />
             <b-button
