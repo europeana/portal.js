@@ -151,9 +151,14 @@ const pageForAnnotationTarget = (annoTarget) => {
 };
 
 const searchAnnotations = async(query) => {
-  const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
-  annotationSearchResults.value = list.items;
-  annotationSearchHits.value = list.hits || [];
+  if (query === null) {
+    annotationSearchResults.value = [];
+    annotationSearchHits.value = [];
+  } else {
+    const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
+    annotationSearchResults.value = list.items;
+    annotationSearchHits.value = list.hits || [];
+  }
 };
 
 const setActiveAnnotation = (active) => {

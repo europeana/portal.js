@@ -39,6 +39,7 @@
 </template>
 
 <script>
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import MediaAnnotationList from './MediaAnnotationList.vue';
 
   export default {
@@ -53,6 +54,16 @@
         type: Boolean,
         default: true
       }
+    },
+
+    setup() {
+      const {
+        searchAnnotations
+      } = useItemMediaPresentation();
+
+      return {
+        searchAnnotations
+      };
     },
 
     data() {
@@ -72,8 +83,10 @@
       handleSubmitForm() {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, fulltext: this.query } });
       },
+
       clearQuery() {
         this.query = null;
+        this.searchAnnotations(null);
         this.handleSubmitForm();
         this.$nextTick(() => {
           this.$refs.searchinput.$el.focus();
