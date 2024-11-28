@@ -48,7 +48,6 @@
             :item-id="itemId"
             :width="resource.width"
             :height="resource.height"
-            :format="resource.format"
             :service="resource.service"
             @error="handleImageError"
           >
