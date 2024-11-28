@@ -100,6 +100,11 @@ Example:
           <td><span class="icon icon-clear" /></td>
         </tr>
         <tr>
+          <td>Click</td>
+          <td><code>icon-click</code></td>
+          <td><span class="icon icon-click" /></td>
+        </tr>
+        <tr>
           <td>Collections</td>
           <td><code>icon-collections</code></td>
           <td><span class="icon icon-collections" /></td>
@@ -308,6 +313,21 @@ Example:
           <td>Reset</td>
           <td><code>icon-reset</code></td>
           <td><span class="icon icon-reset" /></td>
+        </tr>
+        <tr>
+          <td>Rotate left</td>
+          <td><code>icon-rotate-left</code></td>
+          <td><span class="icon icon-rotate-left" /></td>
+        </tr>
+        <tr>
+          <td>Rotate right</td>
+          <td><code>icon-rotate-right</code></td>
+          <td><span class="icon icon-rotate-right" /></td>
+        </tr>
+        <tr>
+          <td>Zoom out</td>
+          <td><code>icon-zoom-out</code></td>
+          <td><span class="icon icon-zoom-out" /></td>
         </tr>
         <tr>
           <td>School</td>
