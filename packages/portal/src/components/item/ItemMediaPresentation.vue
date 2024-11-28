@@ -74,7 +74,7 @@
           >
             <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
             <MediaCardImage
-              :media="resource.edm"
+              :media="resource?.edm"
               :lazy="false"
               :edm-type="edmType"
               :linkable="false"
@@ -264,7 +264,7 @@
     computed: {
       displayThumbnail() {
         if (this.viewableImageResource) {
-          return !this.service && (this.resource.edm.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
+          return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
           return !(
             this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed

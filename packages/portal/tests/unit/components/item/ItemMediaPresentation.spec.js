@@ -103,7 +103,9 @@ describe('components/item/ItemMediaPresentation', () => {
             about: 'https://example.org/image.jpg',
             ebucoreHasMimeType: 'image/jpeg',
             ebucoreHeight: 576,
-            ebucoreWidth: 720
+            ebucoreWidth: 720,
+            imageSize: 'medium',
+            isHTMLImage: true
           }
         ];
         const propsData = { itemId, webResources };
@@ -157,7 +159,9 @@ describe('components/item/ItemMediaPresentation', () => {
             about: 'https://example.org/image.jpg',
             ebucoreHasMimeType: 'image/jpeg',
             ebucoreHeight: 576,
-            ebucoreWidth: 720
+            ebucoreWidth: 720,
+            imageSize: 'medium',
+            isHTMLImage: true
           }
         ];
         const propsData = { itemId, webResources };

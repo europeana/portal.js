@@ -50,7 +50,6 @@ describe('components/media/MediaImageViewer', () => {
   });
 
   const url = 'https://example.org/image.jpeg';
-  const thumbnail = 'https://example.org/thumbnail.jpeg';
   const width = 100;
   const height = 400;
 
@@ -66,43 +65,15 @@ describe('components/media/MediaImageViewer', () => {
 
   describe('fetch', () => {
     describe('without an image service', () => {
-      it('renders the thumbnail with thumbnail sizes as static image', async() => {
-        const wrapper = factory({ propsData: { url, thumbnail, width, height } });
+      it('renders the static image', async() => {
+        const wrapper = factory({ propsData: { url, width, height } });
         sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
 
         process.client = true;
         await wrapper.vm.fetch();
         await wrapper.vm.$nextTick();
 
-        // TODO: we should be testing the resultant html, but it's blank here
-        expect(wrapper.vm.source).toBe('ImageStatic');
-        expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
-      });
-
-      describe('and keydown on a key that triggers a zoom or pan', () => {
-        it('renders the full image', async() => {
-          const wrapper = factory({ propsData: { url, thumbnail, width, height } });
-          expect(wrapper.vm.fullImageRendered).toBe(false);
-          const viewerWrapper = wrapper.find('#media-image-viewer');
-
-          viewerWrapper.element.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.fullImageRendered).toBe(true);
-        });
-      });
-
-      describe('when there is no thumbnail', () => {
-        it('renders the full image', async() => {
-          const wrapper = factory({ propsData: { url, width, height } });
-          sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
-
-          process.client = true;
-          await wrapper.vm.fetch();
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
-        });
+        expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
       });
     });
 
@@ -164,15 +135,6 @@ describe('components/media/MediaImageViewer', () => {
 
   describe('methods', () => {
     describe('highlightAnnotation', () => {
-      describe('when the full image is not yet rendered', () => {
-        it('renders the full image', async() => {
-          const wrapper = factory({ propsData: { url, width, height } });
-
-          await wrapper.vm.highlightAnnotation();
-
-          expect(wrapper.vm.fullImageRendered).toBe(true);
-        });
-      });
       it('initialises a vector layer for annotations', async() => {
         const annotation = {
           target: {
