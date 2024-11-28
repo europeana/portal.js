@@ -73,6 +73,7 @@
           >
             <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
             <MediaCardImage
+              :offset="page - 1"
               data-qa="item media thumbnail"
               :media="resource?.edm"
               :lazy="false"
@@ -496,5 +497,10 @@
   .icon-click {
     font-size: $font-size-large;
     line-height: 1;
+  }
+
+  ::v-deep .default-thumbnail {
+    height: 290px;
+    width: 290px;
   }
 </style>
