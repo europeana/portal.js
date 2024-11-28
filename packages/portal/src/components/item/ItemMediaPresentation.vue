@@ -73,6 +73,7 @@
           >
             <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
             <MediaCardImage
+              data-qa="item media thumbnail"
               :media="resource?.edm"
               :lazy="false"
               :edm-type="edmType"
@@ -82,6 +83,7 @@
             />
             <b-button
               v-if="viewableImageResource"
+              data-qa="item media load button"
               class="full-image-button d-inline-flex align-items-center py-2 px-3"
               variant="light-flat"
               @click="() => thumbnailInteractedWith = true"
