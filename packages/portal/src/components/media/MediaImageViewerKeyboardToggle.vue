@@ -74,6 +74,6 @@
     left: 0;
     right: 0;
     z-index: 1;
-    text-align: center;
+    margin: 0 auto;
   }
 </style>
