@@ -197,6 +197,7 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -208,6 +209,7 @@
       } = useItemMediaPresentation();
 
       return {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -263,7 +265,9 @@
 
     computed: {
       displayThumbnail() {
-        if (this.viewableImageResource) {
+        if (this.activeAnnotation) {
+          return false;
+        } else if (this.viewableImageResource) {
           return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
           return !(
