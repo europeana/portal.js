@@ -46,7 +46,20 @@
 
     data() {
       return {
-        options: {},
+        options: {
+          controlBar: {
+            children: [
+              'progressControl',
+              'playToggle',
+              'remainingTimeDisplay',
+              'muteToggle',
+              'volumeControl',
+              'subtitlesButton',
+              'subsCapsButton',
+              'fullcreenToggle'
+            ]
+          }
+        },
         player: null
       };
     },
