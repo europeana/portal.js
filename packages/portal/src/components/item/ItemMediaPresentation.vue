@@ -80,28 +80,15 @@
               thumbnail-size="large"
               @click.native="() => thumbnailInteractedWith = true"
             />
-            <b-toast
+            <b-button
               v-if="viewableImageResource"
-              id="full-image-toast"
-              ref="fullImageToast"
-              visible
-              static
-              solid
-              no-auto-hide
-              no-close-button
-              toast-class="full-image-toast brand-toast d-inline-block mt-3"
-              body-class="p-0"
-              @shown="removeTabindex"
+              class="full-image-button d-inline-flex align-items-center py-2 px-3"
+              variant="light-flat"
+              @click="() => thumbnailInteractedWith = true"
             >
-              <b-button
-                class="full-image-toast-button d-inline-flex align-items-center py-2 px-3"
-                variant="light-flat"
-                @click="() => thumbnailInteractedWith = true"
-              >
-                <span class="icon-click mr-2" />
-                {{ $t('media.loadFull') }}
-              </b-button>
-            </b-toast>
+              <span class="icon-click mr-2" />
+              {{ $t('media.loadFull') }}
+            </b-button>
           </template>
         </template>
       </div>
@@ -331,10 +318,6 @@
         this.$apm?.captureError(errorData);
       },
 
-      removeTabindex() {
-        this.$refs.fullImageToast.$refs.toast.removeAttribute('tabindex');
-      },
-
       selectResource() {
         this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource);
@@ -495,24 +478,17 @@
     }
   }
 
-  ::v-deep .brand-toast.full-image-toast {
-    background-color: $black;
-    border: 1px solid $white;
-  }
-
-  .full-image-toast-button {
+  .full-image-button {
     background-color: $black;
     color: $white;
-  }
-
-  ::v-deep .b-toast {
+    border: 1px solid $white;
     position: absolute;
-    bottom: 4rem;
+    bottom: 1rem;
     left: 0;
     right: 0;
-    z-index: 1;
-    text-align: center;
     margin: 0 auto;
+    width: fit-content;
+    z-index: 1;
   }
 
   .icon-click {
