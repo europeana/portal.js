@@ -78,7 +78,7 @@
               :media="resource?.edm"
               :lazy="false"
               :edm-type="edmType"
-              linkable
+              :linkable="!viewableImageResource"
               thumbnail-size="large"
               :europeana-identifier="itemId"
               @click.native="() => thumbnailInteractedWith = true"
