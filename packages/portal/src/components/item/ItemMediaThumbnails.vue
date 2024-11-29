@@ -27,12 +27,12 @@
         <!-- Unique key for each resource to prevent prepended resources reusing existing elements and causing jumpiness -->
         <li
           v-for="(resource, index) in resourcesToRender"
-          :key="resource.id"
+          :key="pageNumber(index)"
           :aria-setsize="resources.length"
-          :aria-posinset="firstRenderedResourceIndex + index + 1"
+          :aria-posinset="pageNumber(index)"
         >
           <ItemMediaThumbnail
-            :offset="firstRenderedResourceIndex + index"
+            :offset="pageNumber(index) - 1"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
             :resource="resource"
@@ -218,8 +218,8 @@
       calculateSkeletonHeight(skeletonResources) {
         const skeletonHeight = skeletonResources.reduce((accumulatedHeight, resource) => {
           let imageHeight;
-          if (resource.ebucoreHeight && resource.ebucoreWidth) {
-            imageHeight = (resource.ebucoreHeight / resource.ebucoreWidth) * 176; // CSS width 11rem
+          if (resource.height && resource.width) {
+            imageHeight = (resource.height / resource.width) * 176; // CSS width 11rem
           } else {
             imageHeight = 80; // CSS min-height 5rem
           }
@@ -233,8 +233,8 @@
       calculateSkeletonWidth(skeletonResources) {
         const skeletonWidth = skeletonResources.reduce((accumulatedWidth, resource) => {
           let imageWidth;
-          if (resource.ebucoreHeight && resource.ebucoreWidth) {
-            imageWidth = (resource.ebucoreWidth / resource.ebucoreHeight) * 124; // CSS height 7.75rem
+          if (resource.height && resource.width) {
+            imageWidth = (resource.width / resource.height) * 124; // CSS height 7.75rem
           } else {
             imageWidth = 48; // CSS min-width 3rem
           }
@@ -243,6 +243,10 @@
         }, 0);
 
         return `${Math.round(skeletonWidth)}px`;
+      },
+
+      pageNumber(index) {
+        return this.firstRenderedResourceIndex + index + 1;
       }
     }
   };
