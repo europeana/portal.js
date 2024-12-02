@@ -941,8 +941,15 @@ export default {
       "fullscreen": "Full screen",
       "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
       "resetZoom": "Reset zoom",
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
+    },
+    "loadFull": "Load the full size image.",
+    "pages": {
+      "hide": "Hide pages",
+      "show": "Show pages"
     },
     "sidebar": {
       "annotations": "Annotations",
@@ -953,10 +960,6 @@ export default {
       "search": "Search",
       "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
-    },
-    "pages": {
-      "hide": "Hide pages",
-      "show": "Show pages"
     }
   },
   "messages": {
