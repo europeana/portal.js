@@ -394,7 +394,9 @@
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
-        this.ogImage = new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)?.thumbnails(this.$nuxt.context)?.large;
+        this.ogImage = this.$apis.thumbnail.forWebResource(
+          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+        ).large;
 
         // don't store the web resources when using iiif as the manifest will be used
         if (!this.iiifPresentationManifest) {

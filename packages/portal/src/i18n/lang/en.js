@@ -946,7 +946,7 @@ export default {
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },
-    "loadFull": "Load the full size image.",
+    "loadFull": "Extra large image: load full-size.",
     "pages": {
       "hide": "Hide pages",
       "show": "Show pages"

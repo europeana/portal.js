@@ -20,9 +20,11 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
       captureError: sinon.spy()
     },
     $route: { query: {} },
+    $t: (key) => key,
     ...mocks
   },
   stubs: [
+    'EmbedOEmbed',
     'IIIFErrorMessage',
     'ItemMediaPaginationToolbar',
     'ItemMediaSidebarToggle',
@@ -103,7 +105,9 @@ describe('components/item/ItemMediaPresentation', () => {
             about: 'https://example.org/image.jpg',
             ebucoreHasMimeType: 'image/jpeg',
             ebucoreHeight: 576,
-            ebucoreWidth: 720
+            ebucoreWidth: 720,
+            imageSize: 'medium',
+            isHTMLImage: true
           }
         ];
         const propsData = { itemId, webResources };
@@ -115,6 +119,122 @@ describe('components/item/ItemMediaPresentation', () => {
           const viewerControls = wrapper.find('mediaImageviewercontrols-stub');
 
           expect(viewerControls.isVisible()).toBe(true);
+        });
+      });
+    });
+
+    describe('thumbnail', () => {
+      describe('when the resource is an oembed', () => {
+        const webResources = [
+          {
+            about: 'https://example.org/embed',
+            isOEmbed: true
+          }
+        ];
+        const propsData = { webResources };
+
+        it('is not displayed', async() => {
+          const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
+
+          const thumbnail = wrapper.find('[data-qa="item media thumbnail"]');
+
+          expect(thumbnail.exists()).toBe(false);
+        });
+      });
+
+      describe('when the resource is playable A/V', () => {
+        const webResources = [
+          {
+            about: 'https://example.org/video.mp4',
+            isPlayableMedia: true
+          }
+        ];
+        const propsData = { webResources };
+
+        it('is not displayed', async() => {
+          const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
+
+          const thumbnail = wrapper.find('[data-qa="item media thumbnail"]');
+
+          expect(thumbnail.exists()).toBe(false);
+        });
+      });
+
+      describe('when the resource is a PDF', () => {
+        const webResources = [
+          {
+            about: 'https://example.org/media.pdf',
+            isPDF: true
+          }
+        ];
+        const propsData = { webResources };
+
+        it('is displayed', async() => {
+          const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
+
+          const thumbnail = wrapper.find('[data-qa="item media thumbnail"]');
+
+          expect(thumbnail.isVisible()).toBe(true);
+        });
+      });
+
+      describe('when the resource is an image', () => {
+        describe('but is not extra large size', () => {
+          const webResources = [
+            {
+              about: 'https://example.org/image.jpg',
+              ebucoreHasMimeType: 'image/jpeg',
+              ebucoreHeight: 1000,
+              ebucoreWidth: 1000,
+              imageSize: 'large',
+              isHTMLImage: true
+            }
+          ];
+          const propsData = { webResources };
+
+          it('is not displayed', async() => {
+            const wrapper = factory({ propsData });
+            await wrapper.vm.fetch();
+
+            const thumbnail = wrapper.find('[data-qa="item media thumbnail"]');
+
+            expect(thumbnail.exists()).toBe(false);
+          });
+        });
+
+        describe('and is extra large size', () => {
+          const webResources = [
+            {
+              about: 'https://example.org/image.jpg',
+              ebucoreHasMimeType: 'image/jpeg',
+              ebucoreHeight: 2000,
+              ebucoreWidth: 3000,
+              imageSize: 'extra_large',
+              isHTMLImage: true
+            }
+          ];
+          const propsData = { webResources };
+
+          it('is displayed', async() => {
+            const wrapper = factory({ propsData });
+            await wrapper.vm.fetch();
+
+            const thumbnail = wrapper.find('[data-qa="item media thumbnail"]');
+
+            expect(thumbnail.isVisible()).toBe(true);
+          });
+
+          it('also displays the load button', async() => {
+            const wrapper = factory({ propsData });
+            await wrapper.vm.fetch();
+
+            const thumbnailNotification = wrapper.find('[data-qa="item media load button"]');
+
+            expect(thumbnailNotification.isVisible()).toBe(true);
+          });
         });
       });
     });
@@ -157,13 +277,16 @@ describe('components/item/ItemMediaPresentation', () => {
             about: 'https://example.org/image.jpg',
             ebucoreHasMimeType: 'image/jpeg',
             ebucoreHeight: 576,
-            ebucoreWidth: 720
+            ebucoreWidth: 720,
+            imageSize: 'medium',
+            isHTMLImage: true
           }
         ];
         const propsData = { itemId, webResources };
 
         it('displays the error message component', async() => {
           const wrapper = factory({ propsData });
+          await wrapper.vm.fetch();
           const imageViewer = wrapper.find('mediaimageviewer-stub');
           const imageError = new Error('Image failed to load');
           imageViewer.vm.$emit('error', imageError);

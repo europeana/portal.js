@@ -182,21 +182,18 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       record: {
         get: sinon.stub().resolves(apiResponse()),
         search: sinon.spy()
+      },
+      thumbnail: {
+        forWebResource: () => ({
+          large: 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0',
+          small: 'https://api.europeana.eu/thumbnail/v3/200/476e256434ddaadd580d4f15500fbed0'
+        })
       }
     },
     $fetchState: {},
     $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
-    },
-    $nuxt: {
-      context: {
-        $apis: {
-          thumbnail: {
-            media: () => 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0'
-          }
-        }
-      }
     },
     $error: sinon.spy(),
     $session: { isActive: false },
