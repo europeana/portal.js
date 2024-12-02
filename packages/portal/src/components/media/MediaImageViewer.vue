@@ -136,6 +136,7 @@
         annotationAtCoordinate,
         annotationSearchResults,
         hasAnnotations,
+        hoveredAnnotation,
         setHoveredAnnotation,
         pageForAnnotationTarget
       } = useItemMediaPresentation();
@@ -146,6 +147,7 @@
         annotationSearchResults,
         currentZoom,
         hasAnnotations,
+        hoveredAnnotation,
         pageForAnnotationTarget,
         resetRotation,
         rotation,
@@ -270,19 +272,20 @@
         }
       },
 
-      handlePointerMove(evt) {
+      handlePointerMove(event) {
         if (!this.fullImageRendered) {
           return;
         }
 
         this.olMap.un('pointermove', this.handlePointerMove);
 
-        setTimeout(() => {
-          const pixel = evt.pixel;
-          const coordinate = this.olMap.getCoordinateFromPixel(pixel);
-          const anno = this.annotationAtCoordinate(coordinate, this.olExtent);
+        const anno = this.annotationAtCoordinate(this.olMap.getCoordinateFromPixel(event.pixel), this.olExtent);
+        if (!this.hoveredAnnotation || (anno?.id !== this.hoveredAnnotation?.id)) {
           this.highlightAnnotations(anno, 'hover');
           this.setHoveredAnnotation(anno);
+        }
+
+        setTimeout(() => {
           this.olMap.on('pointermove', this.handlePointerMove);
         }, 50);
       },
@@ -292,13 +295,14 @@
           await this.renderFullImage();
         }
 
-        // TODO(perf): stop doing this and memoise them somwhere?
         const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
         if (!layer) {
           return;
         }
 
         // remove any existing features, i.e. previously highlighted annotations
+        // TODO: be more selective here, i.e. don't remove then re-highlight the
+        //       same anno e.g.
         layer.getSource().clear();
 
         for (const anno of [].concat(annos)) {
@@ -384,8 +388,8 @@
         });
         this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
         if (this.hasAnnotations) {
-          this.olMap.on('click', (evt) => {
-            this.handleMapClick(evt.coordinate);
+          this.olMap.on('click', (event) => {
+            this.handleMapClick(event.coordinate);
           });
           // TODO: this fires many times... debounce it?
           this.olMap.on('pointermove', this.handlePointerMove);
@@ -476,7 +480,7 @@
         source.on('tileloadstart', () => this.imageLoading = true);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         source.on('tileloadend', () => this.imageLoading = false);
-        const layer = new TileLayer({ source });
+        const layer = new TileLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
         return { extent, layer, source };
@@ -495,7 +499,7 @@
         source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
-        const layer = new ImageLayer({ source });
+        const layer = new ImageLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
         return { extent, layer, source };
