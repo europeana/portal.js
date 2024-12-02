@@ -50,7 +50,7 @@
     z-index: 3;
 
     @media (min-width: $bp-large) {
-      width: 315px;
+      width: 19rem;
       transition: background-color $standard-transition;
 
       &.closed {

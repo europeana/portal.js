@@ -77,10 +77,11 @@
 
     @media (min-width: $bp-large) {
       position: absolute;
-      right: 0;
+      right: 1rem;
       bottom: 0;
       z-index: 3;
-      width: 13rem;
+      width: 12rem;
+      padding: 0.875rem 0 0.875rem 1rem;
       transition: background-color $standard-transition;
 
       &.closed {

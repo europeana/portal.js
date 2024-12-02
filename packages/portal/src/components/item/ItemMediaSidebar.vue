@@ -197,7 +197,7 @@
   @import '@europeana/style/scss/transitions';
 
   .media-viewer-sidebar {
-    width: 300px;
+    width: 19rem;
     position: absolute;
     top: 0;
     left: 0;
