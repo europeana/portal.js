@@ -79,7 +79,7 @@
         default: null
       },
       url: {
-        type: String,
+        type: [String, URL],
         required: true
       },
       width: {

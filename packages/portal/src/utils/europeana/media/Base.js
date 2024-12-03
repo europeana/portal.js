@@ -26,6 +26,17 @@ function normalize(thing) {
   }
 }
 
+function idAsUrl(id) {
+  if (typeof id === 'string') {
+    try {
+      return new URL(id);
+    } catch(e) {
+      // let return handle it
+    }
+  }
+  return id;
+}
+
 export default class EuropeanaMediaBase {
   static $axios;
 
@@ -88,10 +99,10 @@ export default class EuropeanaMediaBase {
 
   constructor(idOrData) {
     if (typeof idOrData === 'string') {
-      this.id = idOrData;
+      this.set('id', idOrData);
     } else if (idOrData && (typeof idOrData === 'object')) {
       for (const key in idOrData) {
-        this[key] = idOrData[key];
+        this.set(key, idOrData[key]);
       }
     }
   }
@@ -105,7 +116,18 @@ export default class EuropeanaMediaBase {
   }
 
   postParseData(data) {
+    if (data.id) {
+      data.id = idAsUrl(data.id);
+    }
     return this.constructor.omitIsUndefined(data);
+  }
+
+  set(key, value) {
+    if (key === 'id') {
+      this.id = idAsUrl(value);
+    } else {
+      this[key] = value;
+    }
   }
 
   parse(data) {
@@ -113,7 +135,7 @@ export default class EuropeanaMediaBase {
 
     // preserve original id, e.g. w/ hash which may not be included in a fetched
     // representation
-    if (this.id && (data.id !== this.id)) {
+    if (this.id) {
       data.id = this.id;
     }
 
@@ -121,7 +143,7 @@ export default class EuropeanaMediaBase {
     data = this.postParseData(data);
 
     for (const key in data) {
-      this[key] = data[key];
+      this.set(key, data[key]);
     }
 
     return this;

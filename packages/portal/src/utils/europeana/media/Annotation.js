@@ -8,7 +8,7 @@ export default class EuropeanaMediaAnnotation extends Base {
     const parsed = {
       id: data.id, // TODO: bloats size of data; how to alleviate?
       body: data.body || data.resource,
-      target: data.target || data.on
+      target: Base.parse(data.target || data.on)
     };
 
     if (parsed.body) {
@@ -32,7 +32,8 @@ export default class EuropeanaMediaAnnotation extends Base {
   targetFor(id) {
     return [].concat(this.target).filter((target) => {
       const targetId = target?.id || target;
-      return targetId === id || targetId.startsWith(`${id}#`);
+      console.log('targetFor', id, targetId)
+      return targetId.toString() === id.toString();
     });
   }
 

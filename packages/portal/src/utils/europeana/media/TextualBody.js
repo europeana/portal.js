@@ -11,11 +11,9 @@ export default class EuropeanaMediaTextualBody extends Base {
     };
 
     if (parsed.id) {
-      const url = new URL(parsed.id);
-
       // TODO: will value always be full at this point, or may it already be sliced?
-      if (url.hash && parsed.value) {
-        const charSelector = this.getHashParam(url.hash, 'char');
+      if (parsed.id.hash && parsed.value) {
+        const charSelector = this.getHashParam(parsed.id.hash, 'char');
         if (charSelector) {
           const [position, range] = charSelector.split(',');
           parsed.value = parsed.value.slice(position, range);

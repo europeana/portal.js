@@ -27,7 +27,7 @@
         <!-- Unique key for each resource to prevent prepended resources reusing existing elements and causing jumpiness -->
         <li
           v-for="(resource, index) in resourcesToRender"
-          :key="resource.id"
+          :key="resource.id.toString()"
           :aria-setsize="resources.length"
           :aria-posinset="firstRenderedResourceIndex + index + 1"
         >
