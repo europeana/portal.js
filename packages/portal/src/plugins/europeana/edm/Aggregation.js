@@ -66,7 +66,8 @@ export default class Aggregation extends Base {
     for (const wr of (this.webResources || [])) {
       wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
       if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
-        wr.preview = edmObjectWebResource;
+        // set the wr preview to a copy of edmObjectWebResource to prevent circular reference
+        wr.preview = { ...edmObjectWebResource };
       }
     }
   }
