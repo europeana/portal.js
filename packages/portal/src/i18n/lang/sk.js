@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Celá obrazovka",
       "keyboardNavigation": "Použite klávesy +, - a šípky na priblíženie a oddialenie a pohyb okolo obrázka.",
       "resetZoom": "Obnoviť priblíženie",
+      "rotateLeft": "Otočiť doľava",
+      "rotateRight": "Otočiť doprava",
       "zoomIn": "Priblížiť",
       "zoomOut": "Oddialiť"
     },
+    "loadFull": "Extra veľký obrázok: načítajte v plnej veľkosti.",
     "pages": {
       "hide": "Skryť stránky",
       "show": "Zobraziť stránky"

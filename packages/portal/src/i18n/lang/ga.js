@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Scáileán iomlán",
       "keyboardNavigation": "Bain úsáid as na heochracha +, - agus saigheada chun súmáil agus pánáil timpeall na híomhá.",
       "resetZoom": "Athshocraigh súmáil",
+      "rotateLeft": "Rothlaigh ar chlé",
+      "rotateRight": "Rothlaigh ar dheis",
       "zoomIn": "Súmáil isteach",
       "zoomOut": "Súmáil amach"
     },
+    "loadFull": "Íomhá mhór bhreise: ualach lánmhéid.",
     "pages": {
       "hide": "Folaigh leathanaigh",
       "show": "Taispeáin leathanaigh"

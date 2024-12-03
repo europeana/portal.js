@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Vollbild",
       "keyboardNavigation": "Verwenden Sie die +, - und Pfeiltasten, um das Bild zu zoomen und zu verschieben.",
       "resetZoom": "Zoom zurücksetzen",
+      "rotateLeft": "Nach links drehen",
+      "rotateRight": "Nach rechts drehen",
       "zoomIn": "Vergrößern",
       "zoomOut": "Verkleinern"
     },
+    "loadFull": "Extra großes Bild: in voller Größe laden.",
     "pages": {
       "hide": "Seiten ausblenden",
       "show": "Seiten anzeigen"

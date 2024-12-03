@@ -888,9 +888,12 @@ export default {
       "fullscreen": "Teljes képernyő",
       "keyboardNavigation": "Használja a +, - és nyílbillentyűket a kép nagyításához és pásztázásához.",
       "resetZoom": "Zoom visszaállítása",
+      "rotateLeft": "Forgatás balra",
+      "rotateRight": "Forgatás jobbra",
       "zoomIn": "Nagyítás",
       "zoomOut": "Kicsinyítés"
     },
+    "loadFull": "Extra nagy kép: töltse be teljes méretben.",
     "pages": {
       "hide": "Oldalak elrejtése",
       "show": "Oldalak megjelenítése"

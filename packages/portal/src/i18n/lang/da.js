@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Fuld skærm",
       "keyboardNavigation": "Brug +, - og piletasterne til at zoome og panorere rundt i billedet.",
       "resetZoom": "Nulstil zoom",
+      "rotateLeft": "Roter til venstre",
+      "rotateRight": "Roter til højre",
       "zoomIn": "Zoom ind",
       "zoomOut": "Zoom ud"
     },
+    "loadFull": "Ekstra stort billede: indlæs i fuld størrelse.",
     "pages": {
       "hide": "Skjul sider",
       "show": "Vis sider"

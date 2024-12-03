@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Plein écran",
       "keyboardNavigation": "Utilisez les touches +, - et les flèches pour effectuer un zoom et un panoramique sur l'image.",
       "resetZoom": "Réinitialiser le zoom",
+      "rotateLeft": "Pivoter vers la gauche",
+      "rotateRight": "Pivoter à droite",
       "zoomIn": "Zoom avant",
       "zoomOut": "Zoom arrière"
     },
+    "loadFull": "Image extra large : charger en taille réelle.",
     "pages": {
       "hide": "Masquer les pages",
       "show": "Afficher les pages"

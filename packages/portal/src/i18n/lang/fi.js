@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Koko näyttö",
       "keyboardNavigation": "Käytä +, - ja nuolinäppäimiä kuvan zoomaamiseen ja panorointiin.",
       "resetZoom": "Nollaa zoomaus",
+      "rotateLeft": "Kierrä vasemmalle",
+      "rotateRight": "Kierrä oikealle",
       "zoomIn": "Lähennä",
       "zoomOut": "Loitonna"
     },
+    "loadFull": "Erittäin suuri kuva: lataa täysikokoinen.",
     "pages": {
       "hide": "Piilota sivut",
       "show": "Näytä sivut"

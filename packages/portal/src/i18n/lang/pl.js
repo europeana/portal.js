@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Pełny ekran",
       "keyboardNavigation": "Użyj klawiszy +, - oraz strzałek, aby powiększać, zmniejszać i przesuwać obraz.",
       "resetZoom": "Zresetuj powiększenie",
+      "rotateLeft": "Obróć w lewo",
+      "rotateRight": "Obróć w prawo",
       "zoomIn": "Powiększ",
       "zoomOut": "Pomniejsz"
     },
+    "loadFull": "Bardzo duży obraz: załaduj w pełnym rozmiarze.",
     "pages": {
       "hide": "Ukryj strony",
       "show": "Pokaż strony"

@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Helskärm",
       "keyboardNavigation": "Använd +, - och piltangenterna för att zooma och panorera runt bilden.",
       "resetZoom": "Återställ zoom",
+      "rotateLeft": "Rotera åt vänster",
+      "rotateRight": "Rotera åt höger",
       "zoomIn": "Zooma in",
       "zoomOut": "Zooma ut"
     },
+    "loadFull": "Extra stor bild: ladda i full storlek.",
     "pages": {
       "hide": "Dölj sidor",
       "show": "Visa sidor"

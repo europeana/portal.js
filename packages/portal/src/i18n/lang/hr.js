@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Cijeli ekran",
       "keyboardNavigation": "Koristite +, - i tipke sa strelicama za zumiranje i pomicanje slike.",
       "resetZoom": "Resetiraj zumiranje",
+      "rotateLeft": "Zakrenite ulijevo",
+      "rotateRight": "Zakrenite udesno",
       "zoomIn": "Povećaj",
       "zoomOut": "Umanji"
     },
+    "loadFull": "Ekstra velika slika: učitajte u punoj veličini.",
     "pages": {
       "hide": "Sakrij stranice",
       "show": "Prikaži stranice"
