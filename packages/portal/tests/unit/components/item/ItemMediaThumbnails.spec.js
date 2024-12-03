@@ -191,10 +191,10 @@ describe('components/item/ItemMediaThumbnail', () => {
 
   describe('methods', () => {
     describe('calculateSkeletonHeight', () => {
-      it('calculates height based on ebucoreHeight and margin', () => {
+      it('calculates height based on resource height and margin', () => {
         const resources = [
-          { ebucoreHeight: 100, ebucoreWidth: 176 },
-          { ebucoreHeight: 200, ebucoreWidth: 176 }
+          { height: 100, width: 176 },
+          { height: 200, width: 176 }
         ];
         const wrapper = factory();
 
@@ -212,7 +212,7 @@ describe('components/item/ItemMediaThumbnail', () => {
 
       it('limits height at CSS max-height 480px', () => {
         const resources = [
-          { ebucoreHeight: 1000, ebucoreWidth: 176 }
+          { height: 1000, width: 176 }
         ];
         const wrapper = factory();
 
@@ -222,9 +222,9 @@ describe('components/item/ItemMediaThumbnail', () => {
     });
 
     describe('calculateSkeletonWidth', () => {
-      it('calculates width based on ebucoreWidth and CSS height', () => {
+      it('calculates width based on resource width and CSS height', () => {
         const resources = [
-          { ebucoreHeight: 124, ebucoreWidth: 124 }
+          { height: 124, width: 124 }
         ];
         const wrapper = factory();
 
@@ -242,7 +242,7 @@ describe('components/item/ItemMediaThumbnail', () => {
 
       it('limits width to 200px', () => {
         const resources = [
-          { ebucoreHeight: 124, ebucoreWidth: 2480 }
+          { height: 124, width: 2480 }
         ];
         const wrapper = factory();
 
