@@ -53,7 +53,8 @@ export default class EuropeanaMediaPresentation extends Base {
     return (manifest.sequences || []).map((sequence) => sequence.canvases.map((canvas) => ({
       id: canvas.id,
       annotations: canvas.otherContent,
-      resource: Resource.parse(canvas.images[0].resource)
+      resource: Resource.parse(canvas.images[0].resource),
+      rights: canvas.license
     }))).flat();
   }
 
@@ -61,7 +62,9 @@ export default class EuropeanaMediaPresentation extends Base {
     return (manifest.items || []).map((canvas) => ({
       id: canvas.id,
       annotations: canvas.annotations,
-      resource: Resource.parse(canvas.items[0].items[0].body)
+      resource: Resource.parse(canvas.items[0].items[0].body),
+      // TODO: rights should be a string, not an object, but it's not in our own iiif service...
+      rights: canvas.rights?.id || canvas.rights
     }));
   }
 }

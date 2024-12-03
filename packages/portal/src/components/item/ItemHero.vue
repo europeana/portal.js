@@ -76,6 +76,7 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
+  import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
@@ -140,6 +141,15 @@
         default: null
       }
     },
+    setup() {
+      const {
+        canvas
+      } = useItemMediaPresentation();
+
+      return {
+        canvas
+      };
+    },
     data() {
       return {
         selectedMedia: this.media?.[0] || {}
@@ -159,10 +169,13 @@
       rightsStatement() {
         if (this.selectedMedia?.webResourceEdmRights) {
           return this.selectedMedia?.webResourceEdmRights.def[0];
-        } else if (this.edmRights !== '') {
+        } else if (this.selecedMedia?.rights) {
+          return this.selecedMedia?.rights;
+        } else if (this.canvas?.rights) {
+          return this.canvas?.rights;
+        } else {
           return this.edmRights;
         }
-        return '';
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
