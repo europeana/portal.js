@@ -14,8 +14,9 @@ const hoveredAnnotation = ref(null);
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
-  return annotations.value.find((anno) => {
-    return (anno.extent[0] <= coordinateToCompare[0]) &&
+  return [activeAnnotation.value, hoveredAnnotation.value].concat(annotations.value).find((anno) => {
+    return anno &&
+      (anno.extent[0] <= coordinateToCompare[0]) &&
       (anno.extent[2] >= coordinateToCompare[0]) &&
       (anno.extent[1] <= coordinateToCompare[1]) &&
       (anno.extent[3] >= coordinateToCompare[1]);
