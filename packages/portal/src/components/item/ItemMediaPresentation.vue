@@ -43,14 +43,12 @@
             :provider-url="providerUrl"
           />
           <MediaImageViewer
-            v-else-if="imageTypeResource"
+            v-else-if="viewableImageResource && !displayThumbnail"
             :url="resource.id"
             :item-id="itemId"
             :width="resource.width"
             :height="resource.height"
-            :format="resource.format"
             :service="resource.service"
-            :thumbnail="thumbnail"
             @error="handleImageError"
           >
             <MediaImageViewerControls
@@ -58,42 +56,44 @@
               @toggleFullscreen="toggleFullscreen"
             />
           </MediaImageViewer>
-          <MediaPDFViewer
-            v-else-if="resource?.format === 'application/pdf'"
-            :url="resource.id"
-            :item-id="itemId"
-            class="media-viewer-content"
-          />
           <MediaAudioVisualPlayer
-            v-else-if="resource?.edm.isPlayableMedia"
+            v-else-if="resource?.edm?.isPlayableMedia"
             :url="resource.id"
             :format="resource.format"
             :item-id="itemId"
             class="media-viewer-content"
           />
           <EmbedOEmbed
-            v-else-if="resource?.edm.isOEmbed"
+            v-else-if="resource?.edm?.isOEmbed"
             :url="resource.id"
             class="media-viewer-content"
           />
-          <MediaImageViewer
-            v-else-if="resource?.edm.forEdmIsShownAt"
-            :url="resource.edm.preview.about"
-            :item-id="itemId"
-            :width="resource.edm.preview.ebucoreWidth"
-            :height="resource.edm.preview.ebucoreHeight"
-            :thumbnail="thumbnail"
-          />
-          <code
-            v-else
-            class="media-viewer-content h-50 w-100 p-5"
+          <template
+            v-else-if="displayThumbnail"
           >
-            <pre
-              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
-            ><!--
-            -->{{ JSON.stringify(resource?.edm, null, 2) }}
-            </pre>
-          </code>
+            <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
+            <MediaCardImage
+              :offset="page - 1"
+              data-qa="item media thumbnail"
+              :media="resource?.edm"
+              :lazy="false"
+              :edm-type="edmType"
+              :linkable="!viewableImageResource"
+              thumbnail-size="large"
+              :europeana-identifier="itemId"
+              @click.native="() => thumbnailInteractedWith = true"
+            />
+            <b-button
+              v-if="viewableImageResource"
+              data-qa="item media load button"
+              class="full-image-button d-inline-flex align-items-center py-2 px-3"
+              variant="light-flat"
+              @click="() => thumbnailInteractedWith = true"
+            >
+              <span class="icon-click mr-2" />
+              {{ $t('media.loadFull') }}
+            </b-button>
+          </template>
         </template>
       </div>
       <div
@@ -131,6 +131,7 @@
 
 <script>
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
+  import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
   export class ItemMediaPresentationError extends Error {
@@ -152,9 +153,9 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
-      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
-      MediaPDFViewer: () => import('../media/MediaPDFViewer.vue')
+      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
     props: {
@@ -186,6 +187,7 @@
 
     setup() {
       const {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -197,6 +199,7 @@
       } = useItemMediaPresentation();
 
       return {
+        activeAnnotation,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -212,7 +215,8 @@
       return {
         fullscreen: false,
         showPages: true,
-        showSidebar: !!this.$route.hash
+        showSidebar: !!this.$route.hash,
+        thumbnailInteractedWith: false
       };
     },
 
@@ -250,6 +254,18 @@
     },
 
     computed: {
+      displayThumbnail() {
+        if (this.hasAnnotations) {
+          return false;
+        } else if (this.viewableImageResource) {
+          return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
+        } else {
+          return !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          );
+        }
+      },
+
       hasManifest() {
         return !!this.uri;
       },
@@ -262,20 +278,16 @@
         return this.resourceCount >= 2;
       },
 
-      thumbnail() {
-        return this.resource.edm.thumbnails?.(this.$nuxt.context)?.large;
-      },
-
-      imageTypeResource() {
-        return this.resource?.format?.startsWith('image/');
+      viewableImageResource() {
+        return this.resource?.edm?.isHTMLImage;
       },
 
       addPaginationToolbarMaxWidth() {
-        return !this.imageTypeResource && this.multiplePages;
+        return !this.viewableImageResource && this.multiplePages;
       },
 
       addSidebarToggleMaxWidth() {
-        return !this.imageTypeResource && this.sidebarHasContent;
+        return !this.viewableImageResource && this.sidebarHasContent;
       }
     },
 
@@ -311,6 +323,7 @@
       },
 
       selectResource() {
+        this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource);
       },
 
@@ -467,5 +480,28 @@
     .html-embed {
       flex-grow: 1;
     }
+  }
+
+  .full-image-button {
+    background-color: $black;
+    color: $white;
+    border: 1px solid $white;
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    z-index: 1;
+  }
+
+  .icon-click {
+    font-size: $font-size-large;
+    line-height: 1;
+  }
+
+  ::v-deep .default-thumbnail {
+    height: 290px;
+    width: 290px;
   }
 </style>

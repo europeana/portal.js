@@ -2,33 +2,10 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
-    v-on="fullImageRendered ? {} : { keydown: handleKeyboardToggleKeydown }"
   >
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
     />
-    <b-toast
-      v-if="!fullImageRendered"
-      id="full-image-toast"
-      ref="fullImageToast"
-      visible
-      static
-      solid
-      no-auto-hide
-      no-close-button
-      toast-class="full-image-toast brand-toast d-inline-block mt-3"
-      body-class="p-0"
-      @shown="removeTabindex"
-    >
-      <b-button
-        class="full-image-toast-button d-inline-flex align-items-center py-2 px-3"
-        variant="light-flat"
-        @click="renderFullImage"
-      >
-        <span class="icon-click mr-2" />
-        {{ $t('media.loadFull') }}
-      </b-button>
-    </b-toast>
     <b-container
       v-if="imageLoading"
       class="h-100 d-flex align-items-center justify-content-center"
@@ -89,10 +66,6 @@
     },
 
     props: {
-      format: {
-        type: String,
-        default: null
-      },
       height: {
         type: Number,
         default: null
@@ -103,10 +76,6 @@
       },
       service: {
         type: EuropeanaMediaService,
-        default: null
-      },
-      thumbnail: {
-        type: String,
         default: null
       },
       url: {
@@ -161,7 +130,6 @@
 
     data() {
       return {
-        fullImageRendered: false,
         imageLoading: null,
         info: null,
         olExtent: null,
@@ -216,9 +184,13 @@
     },
 
     methods: {
-      handleKeyboardToggleKeydown(event) {
-        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
-          this.fullImageRendered || this.renderFullImage();
+      initOlAnnotationLayer() {
+        const layerCount = this.olMap.getLayers().getLength();
+        if (layerCount === 0) {
+          throw new MediaImageViewerError('No image layer to annotate');
+        }
+        if (layerCount === 1) {
+          this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
         }
       },
 
@@ -273,10 +245,6 @@
       },
 
       handlePointerMove(event) {
-        if (!this.fullImageRendered) {
-          return;
-        }
-
         this.olMap.un('pointermove', this.handlePointerMove);
 
         const anno = this.annotationAtCoordinate(this.olMap.getCoordinateFromPixel(event.pixel), this.olExtent);
@@ -290,11 +258,7 @@
         }, 50);
       },
 
-      async highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
-        if (!this.fullImageRendered) {
-          await this.renderFullImage();
-        }
-
+      highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
         const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
         if (!layer) {
           return;
@@ -391,7 +355,6 @@
           this.olMap.on('click', (event) => {
             this.handleMapClick(event.coordinate);
           });
-          // TODO: this fires many times... debounce it?
           this.olMap.on('pointermove', this.handlePointerMove);
         }
       },
@@ -422,47 +385,6 @@
         this.configureZoomLevels();
       },
 
-      async renderThumbnail() {
-        if (!this.thumbnail) {
-          this.renderFullImage();
-          return;
-        }
-
-        let mapOptions;
-
-        const thumbWidth = 400;
-        const thumbHeight = (this.height / this.width) * thumbWidth;
-
-        mapOptions = await this.initOlImageLayerStatic(this.thumbnail, thumbWidth, thumbHeight);
-
-        this.initOl(mapOptions);
-        this.olMap.getInteractions().forEach((interaction) => interaction.setActive(false));
-
-        this.olMap.on('click', this.renderFullImage);
-        this.olMap.getView().on('change:resolution', this.renderFullImageOnFirstZoomIn);
-        this.fullImageRendered = false;
-      },
-
-      renderFullImageOnFirstZoomIn(event) {
-        // check if zoom in, not out
-        if (event.oldValue < 1) {
-          this.renderFullImage();
-        }
-      },
-
-      async renderFullImage() {
-        if (this.olMap) {
-          this.olMap.un('click', this.renderFullImage);
-          this.olMap.getView().un('change:resolution', this.renderFullImageOnFirstZoomIn);
-          this.olMap.getInteractions().forEach((interaction) => interaction.setActive(true));
-        }
-
-        // TODO: should we always be using the media proxy for static images?
-        const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-        const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
-        this.initMapWithFullImage(mapOptions);
-      },
-
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
       initOlImageLayerIIIF() {
@@ -488,7 +410,7 @@
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      async initOlImageLayerStatic(url, width, height) {
+      initOlImageLayerStatic(url, width, height) {
         const extent = [0, 0, width, height];
 
         const source = new ImageStatic({
@@ -510,17 +432,13 @@
 
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
-          this.initMapWithFullImage(mapOptions);
-        } else if (this.activeAnnotation || ((this.annotationSearchResults || []).length > 0)) {
-          this.renderFullImage();
+          this.initOl(mapOptions);
         } else {
-          this.renderThumbnail();
+          // TODO: should we always be using the media proxy for static images?
+          const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
+          const mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
+          this.initOl(mapOptions);
         }
-      },
-
-      initMapWithFullImage(mapOptions) {
-        this.initOl(mapOptions);
-        this.fullImageRendered = true;
       },
 
       setRotation() {
@@ -565,40 +483,7 @@
             this.setCurrentZoom(view.getZoom());
           }
         });
-      },
-
-      removeTabindex() {
-        this.$refs.fullImageToast.$refs.toast.removeAttribute('tabindex');
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  ::v-deep .brand-toast.full-image-toast {
-    background-color: $black;
-    border: 1px solid $white;
-  }
-
-  .full-image-toast-button {
-    background-color: $black;
-    color: $white;
-  }
-
-  ::v-deep .b-toast {
-    position: absolute;
-    bottom: 4rem;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  .icon-click {
-    font-size: $font-size-large;
-    line-height: 1;
-  }
-</style>
