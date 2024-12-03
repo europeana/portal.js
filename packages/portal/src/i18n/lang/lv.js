@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Pilnekrāna",
       "keyboardNavigation": "Izmantojiet +, - un bulttaustiņus, lai tuvinātu un panoramētu attēlu.",
       "resetZoom": "Atiestatīt tālummaiņu",
+      "rotateLeft": "Pagriezt pa kreisi",
+      "rotateRight": "Pagriezt pa labi",
       "zoomIn": "Pietuvināt",
       "zoomOut": "Attālināt"
     },
+    "loadFull": "Īpaši liels attēls: ielādējiet pilnu izmēru.",
     "pages": {
       "hide": "Slēpt lapas",
       "show": "Rādīt lapas"

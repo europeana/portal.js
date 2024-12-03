@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Skrin sħiħ",
       "keyboardNavigation": "Uża l-buttuni +, - u vleġeġ biex tkabbar u tiċċaqlaq madwar l-immaġni.",
       "resetZoom": "Irrisettja ż-żum",
+      "rotateLeft": "Dawwar lejn ix-xellug",
+      "rotateRight": "Dawwar lejn il-lemin",
       "zoomIn": "Iżżumja 'l ġewwa",
       "zoomOut": "Iżżumja 'l barra"
     },
+    "loadFull": "Immaġni extra kbira: għabbi d-daqs sħiħ.",
     "pages": {
       "hide": "Aħbi l-paġni",
       "show": "Uri l-paġni"

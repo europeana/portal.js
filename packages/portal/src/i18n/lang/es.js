@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Pantalla completa",
       "keyboardNavigation": "Utiliza las teclas +, - y las flechas para hacer zoom y desplazarte por la imagen.",
       "resetZoom": "Restablecer zoom",
+      "rotateLeft": "Girar a la izquierda",
+      "rotateRight": "Girar a la derecha",
       "zoomIn": "Acercar",
       "zoomOut": "Alejar"
     },
+    "loadFull": "Imagen extra grande: cargar en tamaño completo.",
     "pages": {
       "hide": "Ocultar páginas",
       "show": "Mostrar páginas"

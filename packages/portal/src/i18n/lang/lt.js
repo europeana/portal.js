@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Visas ekranas",
       "keyboardNavigation": "Naudokite +, - ir rodyklių klavišus, kad priartintumėte ir atitolintumėte, taip pat judėtumėte aplink vaizdą.",
       "resetZoom": "Iš naujo nustatyti mastelį",
+      "rotateLeft": "Pasukti į kairę",
+      "rotateRight": "Pasukti į dešinę",
       "zoomIn": "Priartinti",
       "zoomOut": "Nutolinti"
     },
+    "loadFull": "Ypač didelis vaizdas: įkelti viso dydžio.",
     "pages": {
       "hide": "Slėpti puslapius",
       "show": "Rodyti puslapius"

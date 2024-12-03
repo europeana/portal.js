@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Ecran complet",
       "keyboardNavigation": "Folosește tastele +, - și săgețile pentru a mări și a deplasa imaginea.",
       "resetZoom": "Resetați zoomul",
+      "rotateLeft": "Rotiți la stânga",
+      "rotateRight": "Rotiți la dreapta",
       "zoomIn": "Mărește",
       "zoomOut": "Micșorează"
     },
+    "loadFull": "Imagine foarte mare: încărcați la dimensiune completă.",
     "pages": {
       "hide": "Ascunde paginile",
       "show": "Afișați paginile"

@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Täisekraan",
       "keyboardNavigation": "Kasutage +, - ja nooleklahve pildi suurendamiseks ja liigutamiseks.",
       "resetZoom": "Lähtestage suum",
+      "rotateLeft": "Pöörake vasakule",
+      "rotateRight": "Pöörake paremale",
       "zoomIn": "Suumi sisse",
       "zoomOut": "Suumi välja"
     },
+    "loadFull": "Eriti suur pilt: laadige täissuuruses.",
     "pages": {
       "hide": "Peida leheküljed",
       "show": "Kuva leheküljed"

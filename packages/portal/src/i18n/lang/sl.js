@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Celoten zaslon",
       "keyboardNavigation": "Uporabite tipke +, - in puščice za povečavo in premikanje po sliki.",
       "resetZoom": "Ponastavi povečavo",
+      "rotateLeft": "Zavrtite v levo",
+      "rotateRight": "Zavrtite v desno",
       "zoomIn": "Povečaj",
       "zoomOut": "Pomanjšaj"
     },
+    "loadFull": "Zelo velika slika: naloži v polni velikosti.",
     "pages": {
       "hide": "Skrij strani",
       "show": "Prikaži strani"

@@ -894,9 +894,12 @@ export default {
       "fullscreen": "Pantaila osoa",
       "keyboardNavigation": "Erabili +, - eta gezi-teklak irudia handitzeko eta mugitzeko.",
       "resetZoom": "Berrezarri zooma",
+      "rotateLeft": "Biratu ezkerrera",
+      "rotateRight": "Biratu eskuinera",
       "zoomIn": "Handitu",
       "zoomOut": "Urrundu"
     },
+    "loadFull": "Aparteko irudi handia: tamaina osoan kargatzea.",
     "pages": {
       "hide": "Ezkutatu orriak",
       "show": "Erakutsi orrialdeak"

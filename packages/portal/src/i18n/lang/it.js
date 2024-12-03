@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Schermo intero",
       "keyboardNavigation": "Utilizzare i tasti +, - e freccia per ingrandire e spostare l'immagine.",
       "resetZoom": "Reimposta zoom",
+      "rotateLeft": "Ruota a sinistra",
+      "rotateRight": "Ruota a destra",
       "zoomIn": "Ingrandisci",
       "zoomOut": "Rimpicciolisci"
     },
+    "loadFull": "Immagine extra grande: carica a grandezza naturale.",
     "pages": {
       "hide": "Nascondi pagine",
       "show": "Mostra pagine"

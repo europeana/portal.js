@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Tela cheia",
       "keyboardNavigation": "Use as teclas +, - e seta para ampliar e deslocar a imagem.",
       "resetZoom": "Redefinir zoom",
+      "rotateLeft": "Girar para a esquerda",
+      "rotateRight": "Girar para a direita",
       "zoomIn": "Ampliar",
       "zoomOut": "Reduzir o zoom"
     },
+    "loadFull": "Imagem extra grande: carregar em tamanho real.",
     "pages": {
       "hide": "Ocultar páginas",
       "show": "Mostrar páginas"

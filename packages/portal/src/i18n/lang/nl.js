@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Volledig scherm",
       "keyboardNavigation": "Gebruik de +, - en pijltjestoetsen om de afbeelding in en uit te zoomen en te verplaatsen.",
       "resetZoom": "Zoom resetten",
+      "rotateLeft": "Draai naar links",
+      "rotateRight": "Draai naar rechts",
       "zoomIn": "Inzoomen",
       "zoomOut": "Uitzoomen"
     },
+    "loadFull": "Extra grote afbeelding: volledige grootte laden.",
     "pages": {
       "hide": "Verberg pagina's",
       "show": "Pagina's weergeven"
