@@ -486,7 +486,7 @@
   }
 
   .media-viewer-wrapper:fullscreen,
-  .media-viewer-wrapper.fullscreen {
+  .media-viewer-wrapper.fullscreen-mock {
     max-height: 100%;
     .media-viewer-inner-wrapper {
       max-height: 100%;
