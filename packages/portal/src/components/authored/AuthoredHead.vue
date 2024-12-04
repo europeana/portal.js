@@ -3,7 +3,7 @@
     <b-row class="justify-content-center">
       <b-col
         cols="12"
-        class="col-lg-8 pt-large mb-3 mb-lg-4"
+        class="col-lg-8 mb-3 mb-lg-4"
       >
         <article>
           <div class="title">

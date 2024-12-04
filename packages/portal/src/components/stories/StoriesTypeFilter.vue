@@ -94,7 +94,7 @@
 
 ::v-deep .dropdown-item {
   font-weight: 600;
-  color: $mediumgrey;
+  color: $darkgrey;
 
   &:hover {
     background-color: transparent;

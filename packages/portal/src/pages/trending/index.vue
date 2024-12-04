@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page white-page trending-page xxl-page"
+    class="page trending-page xxl-page"
   >
     <b-container>
       <ContentHeader
@@ -44,6 +44,6 @@
   @import '@europeana/style/scss/variables';
 
   .trending-page {
-    padding: 3rem 0 7rem;
+    padding-bottom: 7rem;
   }
 </style>

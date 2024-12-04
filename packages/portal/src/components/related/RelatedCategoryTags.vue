@@ -114,7 +114,7 @@
   @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
-    color: $mediumgrey;
+    color: $darkgrey;
     display: inline-block;
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);
