@@ -361,26 +361,76 @@ describe('components/item/ItemMediaPresentation', () => {
       };
 
       describe('when in fullscreen mode already', () => {
-        it('calls the document exitFullscreen method', () => {
-          const wrapper = factory({ data });
-          wrapper.setData({ fullscreen: true });
-          document.exitFullscreen = sinon.spy();
-          wrapper.vm.toggleFullscreen();
+        describe('and there is a fullscreen element', () => {
+          it('calls the document exitFullscreen method', () => {
+            const wrapper = factory({ data });
 
-          expect(document.exitFullscreen.calledOnce).toBe(true);
-          expect(wrapper.vm.fullscreen).toEqual(false);
+            wrapper.setData({ fullscreen: true });
+            document.fullscreenElement = wrapper.vm.$refs.mediaViewerWrapper;
+            document.exitFullscreen = sinon.spy();
+            wrapper.vm.toggleFullscreen();
+
+            expect(document.exitFullscreen.calledOnce).toBe(true);
+            expect(wrapper.vm.fullscreen).toEqual(false);
+          });
+        });
+        describe('and not using the fullscreen API', () => {
+          it('resets the fullscreen styles', () => {
+            const wrapper = factory({ data });
+
+            wrapper.setData({ fullscreen: true, mockFullscreenClass: true });
+            document.body.classList.remove = sinon.spy();
+            wrapper.vm.toggleFullscreen();
+
+            expect(document.body.classList.remove.calledWith('overflow-hidden')).toBe(true);
+            expect(wrapper.vm.mockFullscreenClass).toEqual(false);
+            expect(wrapper.vm.fullscreen).toEqual(false);
+          });
         });
       });
 
       describe('when not in fullscreen mode', () => {
-        it('makes the viewerWrapper fullscreen', () => {
-          const wrapper = factory({ data });
+        describe('when browser fullscreen is supported and enabled', () => {
+          it('makes the viewerWrapper fullscreen and starts listening for changes', () => {
+            const wrapper = factory({ data });
 
-          wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen = sinon.spy();
-          wrapper.vm.toggleFullscreen();
+            wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen = true;
+            document.fullscreenEnabled = true;
+            document.addEventListener = sinon.spy();
+            wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen = sinon.spy();
+            wrapper.vm.toggleFullscreen();
 
-          expect(wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen.calledOnce).toBe(true);
-          expect(wrapper.vm.fullscreen).toEqual(true);
+            expect(wrapper.vm.$refs.mediaViewerWrapper.requestFullscreen.calledOnce).toBe(true);
+            expect(document.addEventListener.calledWith('fullscreenchange', wrapper.vm.handleFullscreenChange)).toBe(true);
+            expect(wrapper.vm.fullscreen).toEqual(true);
+          });
+        });
+        describe('when browser fullscreen is not supported or disabled', () => {
+          it('adds styles to mock fullscreen', () => {
+            const wrapper = factory({ data });
+
+            document.body.classList.add = sinon.spy();
+            wrapper.vm.toggleFullscreen();
+
+            expect(document.body.classList.add.calledWith('overflow-hidden')).toBe(true);
+            expect(wrapper.vm.mockFullscreenClass).toEqual(true);
+            expect(wrapper.vm.fullscreen).toEqual(true);
+          });
+        });
+      });
+    });
+
+    describe('handleFullscreenChange', () => {
+      describe('when there is no fullscreen element on (after) change', () => {
+        it('calls exitfullscreen and stops listening for changes', () => {
+          const wrapper = factory({ fullscreen: true });
+
+          document.fullscreenElement = null;
+          wrapper.vm.exitFullscreen = sinon.spy();
+          wrapper.vm.handleFullscreenChange();
+
+          expect(wrapper.vm.exitFullscreen.calledOnce).toBe(true);
+          expect(wrapper.vm.fullscreen).toEqual(false);
         });
       });
     });
