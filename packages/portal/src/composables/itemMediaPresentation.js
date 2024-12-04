@@ -10,11 +10,13 @@ const annotationSearchResults = ref([]);
 const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
+const hoveredAnnotation = ref(null);
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
-  return annotations.value.find((anno) => {
-    return (anno.extent[0] <= coordinateToCompare[0]) &&
+  return [activeAnnotation.value, hoveredAnnotation.value].concat(annotations.value).find((anno) => {
+    return anno &&
+      (anno.extent[0] <= coordinateToCompare[0]) &&
       (anno.extent[2] >= coordinateToCompare[0]) &&
       (anno.extent[1] <= coordinateToCompare[1]) &&
       (anno.extent[3] >= coordinateToCompare[1]);
@@ -150,13 +152,22 @@ const pageForAnnotationTarget = (annoTarget) => {
 };
 
 const searchAnnotations = async(query) => {
-  const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
-  annotationSearchResults.value = list.items;
-  annotationSearchHits.value = list.hits || [];
+  if (query === null) {
+    annotationSearchResults.value = [];
+    annotationSearchHits.value = [];
+  } else {
+    const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
+    annotationSearchResults.value = list.items;
+    annotationSearchHits.value = list.hits || [];
+  }
 };
 
 const setActiveAnnotation = (active) => {
   activeAnnotation.value = active;
+};
+
+const setHoveredAnnotation = (hovered) => {
+  hoveredAnnotation.value = hovered;
 };
 
 const setPage = (value) => {
@@ -181,6 +192,7 @@ export default function useItemMediaPresentation() {
     fetchPresentation,
     hasAnnotations,
     hasSearchService,
+    hoveredAnnotation,
     page,
     pageForAnnotationTarget,
     resource,
@@ -190,6 +202,7 @@ export default function useItemMediaPresentation() {
     searchAnnotations,
     searchServiceUri,
     setActiveAnnotation,
+    setHoveredAnnotation,
     setPage,
     setPresentationFromWebResources
   };

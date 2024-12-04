@@ -38,6 +38,8 @@
   import View from 'ol/View.js';
   import { easeOut } from 'ol/easing.js';
   import { defaults } from 'ol/interaction/defaults';
+  import Style from 'ol/style/Style.js';
+  import Stroke from 'ol/style/Stroke.js';
 
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import useRotation from '@/composables/rotation.js';
@@ -101,20 +103,26 @@
       const {
         activeAnnotation,
         annotationAtCoordinate,
+        annotationSearchResults,
         hasAnnotations,
+        hoveredAnnotation,
+        setHoveredAnnotation,
         pageForAnnotationTarget
       } = useItemMediaPresentation();
 
       return {
         activeAnnotation,
         annotationAtCoordinate,
+        annotationSearchResults,
         currentZoom,
         hasAnnotations,
+        hoveredAnnotation,
         pageForAnnotationTarget,
         resetRotation,
         rotation,
         setCurrentZoom,
         setDefaultZoom,
+        setHoveredAnnotation,
         setMaxZoom,
         setMinZoom
       };
@@ -154,7 +162,15 @@
     watch: {
       activeAnnotation: {
         deep: true,
-        handler: 'highlightAnnotation'
+        handler() {
+          this.highlightAnnotations();
+        }
+      },
+      annotationSearchResults: {
+        deep: true,
+        handler() {
+          this.highlightAnnotations(this.annotationSearchResults, 'search');
+        }
       },
       currentZoom: 'setZoom',
       rotation: 'setRotation',
@@ -178,8 +194,8 @@
         }
       },
 
-      constructAnnotationFeature() {
-        let annotation = this.activeAnnotation;
+      constructAnnotationFeature(anno) {
+        let annotation = anno;
         if (!annotation) {
           return null;
         } else if (!(annotation instanceof EuropeanaMediaAnnotation)) {
@@ -228,18 +244,37 @@
         }
       },
 
-      highlightAnnotation() {
-        this.initOlAnnotationLayer();
+      handlePointerMove(event) {
+        this.olMap.un('pointermove', this.handlePointerMove);
 
-        const layer = this.olMap.getLayers().item(1);
+        const anno = this.annotationAtCoordinate(this.olMap.getCoordinateFromPixel(event.pixel), this.olExtent);
+        if (!this.hoveredAnnotation || (anno?.id !== this.hoveredAnnotation?.id)) {
+          this.highlightAnnotations(anno, 'hover');
+          this.setHoveredAnnotation(anno);
+        }
+
+        setTimeout(() => {
+          this.olMap.on('pointermove', this.handlePointerMove);
+        }, 50);
+      },
+
+      highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
+        const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
+        if (!layer) {
+          return;
+        }
 
         // remove any existing features, i.e. previously highlighted annotations
+        // TODO: be more selective here, i.e. don't remove then re-highlight the
+        //       same anno e.g.
         layer.getSource().clear();
 
-        const feature = this.constructAnnotationFeature();
+        for (const anno of [].concat(annos)) {
+          const feature = this.constructAnnotationFeature(anno);
 
-        if (feature) {
-          layer.getSource().addFeature(feature);
+          if (feature) {
+            layer.getSource().addFeature(feature);
+          }
         }
       },
 
@@ -252,7 +287,79 @@
         this.$emit('error', error);
       },
 
-      initOlMap({ extent, layer, source } = {}) {
+      initOlAnnotationLayers() {
+        const layerCount = this.olMap.getLayers().getLength();
+
+        if (layerCount === 0) {
+          throw new MediaImageViewerError('No image layer to annotate');
+        }
+
+        if (layerCount === 1) {
+          // layer for annotations from search
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'search' },
+            source: new VectorSource(),
+            style: new Style({
+              stroke: new Stroke({
+                color: '#ffcb56'
+              })
+            })
+          }));
+
+          // layer for hovered annotation
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'hover' },
+            source: new VectorSource(),
+            style: new Style({
+              stroke: new Stroke({
+                color: '#4d4d4d'
+              })
+            })
+          }));
+
+          // layer for active annotation
+          this.olMap.addLayer(new VectorLayer({
+            properties: { id: 'active' },
+            source: new VectorSource()
+          }));
+
+          this.$nextTick(() => {
+            this.highlightAnnotations();
+            this.highlightAnnotations(this.annotationSearchResults, 'search');
+          });
+        }
+      },
+
+      initOl({ extent, layer, source } = {}) {
+        this.olExtent = extent;
+        this.initOlMap();
+        this.initOlView({ extent, layer, source });
+        if (this.hasAnnotations) {
+          this.initOlAnnotationLayers();
+        }
+      },
+
+      initOlMap() {
+        if (this.olMap) {
+          return;
+        }
+
+        this.olMap = new Map({
+          controls: [],
+          interactions: defaults({ mouseWheelZoom: false }),
+          target: 'media-image-viewer',
+          keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
+        });
+        this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
+        if (this.hasAnnotations) {
+          this.olMap.on('click', (event) => {
+            this.handleMapClick(event.coordinate);
+          });
+          this.olMap.on('pointermove', this.handlePointerMove);
+        }
+      },
+
+      initOlView({ extent, layer, source } = {}) {
         const projection = new Projection({ units: 'pixels', extent });
 
         this.resetRotation();
@@ -265,22 +372,6 @@
           rotation: this.rotation
         });
         view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
-
-        if (!this.olMap) {
-          this.olMap = new Map({
-            controls: [],
-            interactions: defaults({ mouseWheelZoom: false }),
-            target: 'media-image-viewer',
-            keyboardEventTarget: 'media-image-viewer-keyboard-toggle'
-          });
-          this.olMap.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Map error'));
-          if (this.hasAnnotations) {
-            this.olMap.on('click', (evt) => {
-              this.handleMapClick(evt.coordinate);
-            });
-          }
-        }
-        this.olExtent = extent;
 
         this.olMap.setLayers([layer]);
         this.olMap.setView(view);
@@ -311,7 +402,7 @@
         source.on('tileloadstart', () => this.imageLoading = true);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         source.on('tileloadend', () => this.imageLoading = false);
-        const layer = new TileLayer({ source });
+        const layer = new TileLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
         return { extent, layer, source };
@@ -319,7 +410,7 @@
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      async initOlImageLayerStatic(url, width, height) {
+      initOlImageLayerStatic(url, width, height) {
         const extent = [0, 0, width, height];
 
         const source = new ImageStatic({
@@ -330,7 +421,7 @@
         source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
-        const layer = new ImageLayer({ source });
+        const layer = new ImageLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
         return { extent, layer, source };
@@ -341,15 +432,13 @@
 
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
-          this.initOlMap(mapOptions);
+          this.initOl(mapOptions);
         } else {
           // TODO: should we always be using the media proxy for static images?
           const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-          const mapOptions = await this.initOlImageLayerStatic(url, this.width, this.height);
-          this.initOlMap(mapOptions);
+          const mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
+          this.initOl(mapOptions);
         }
-
-        this.highlightAnnotation();
       },
 
       setRotation() {

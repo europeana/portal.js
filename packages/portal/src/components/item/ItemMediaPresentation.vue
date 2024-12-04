@@ -255,7 +255,7 @@
 
     computed: {
       displayThumbnail() {
-        if (this.activeAnnotation) {
+        if (this.hasAnnotations) {
           return false;
         } else if (this.viewableImageResource) {
           return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;

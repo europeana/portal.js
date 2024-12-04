@@ -20,7 +20,7 @@
         ref="annotationListItems"
         :lang="anno.body.language"
         class="list-group-item list-group-item-action"
-        :class="{ active: anno.id === activeAnnotation?.id }"
+        :class="{ active: anno.id === activeAnnotation?.id, hover: anno.id === hoveredAnnotation?.id }"
         data-qa="annotation list item"
       >
         <!--
@@ -84,6 +84,7 @@
         annotationSearchResults,
         annotationUri,
         fetchCanvasAnnotations,
+        hoveredAnnotation,
         pageForAnnotationTarget,
         searchAnnotations,
         setActiveAnnotation
@@ -97,6 +98,7 @@
         annotationSearchResults,
         annotationUri,
         fetchCanvasAnnotations,
+        hoveredAnnotation,
         pageForAnnotationTarget,
         scrollElementToCentre,
         searchAnnotations,
@@ -214,6 +216,10 @@
 
       &:hover {
         background-color: transparent;
+      }
+
+      &.hover {
+        border: 1px solid $mediumgrey;
       }
 
       &.active {
