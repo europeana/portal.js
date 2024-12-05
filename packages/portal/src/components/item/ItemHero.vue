@@ -89,6 +89,7 @@
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
+      ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
