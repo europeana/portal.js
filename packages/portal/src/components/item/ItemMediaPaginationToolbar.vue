@@ -82,7 +82,6 @@
       bottom: 0;
       z-index: 3;
       width: 13rem;
-      padding: 0.875rem 1rem;
       transition: background-color $standard-transition;
 
       &.closed {
