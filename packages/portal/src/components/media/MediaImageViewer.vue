@@ -301,7 +301,7 @@
             source: new VectorSource(),
             style: new Style({
               stroke: new Stroke({
-                color: '#d4b1fd',
+                color: '#c697fc',
                 width: 2
               })
             })
