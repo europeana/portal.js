@@ -76,12 +76,13 @@
     padding: 0.875rem 1rem;
 
     @media (min-width: $bp-large) {
+      background-color: $white;
       position: absolute;
-      right: 1rem;
+      right: 0;
       bottom: 0;
       z-index: 3;
-      width: 12rem;
-      padding: 0.875rem 0 0.875rem 1rem;
+      width: 13rem;
+      padding: 0.875rem 1rem;
       transition: background-color $standard-transition;
 
       &.closed {

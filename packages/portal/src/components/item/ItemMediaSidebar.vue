@@ -197,13 +197,17 @@
   @import '@europeana/style/scss/transitions';
 
   .media-viewer-sidebar {
-    width: 19rem;
+    width: 300px;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 2;
     background-color: $white;
+
+    @media (min-width: $bp-large) {
+      bottom: 3.25rem;
+    }
 
     .tabs {
       background-color: $white;
