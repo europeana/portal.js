@@ -159,6 +159,14 @@
       }
     },
 
+    computed: {
+      showSpinner() {
+        // only show the loading spinner for static images as it really messes
+        // with loading tiles when panning/zooming/etc
+        return this.imageLoading && (this.source === 'ImageStatic');
+      }
+    },
+
     watch: {
       activeAnnotation: {
         deep: true,
@@ -180,14 +188,6 @@
     mounted() {
       if (!this.$fetchState.pending) {
         this.renderImage();
-      }
-    },
-
-    computed: {
-      showSpinner() {
-        // only show the loading spinner for static images as it really messes
-        // with loading tiles when panning/zooming/etc
-        return this.imageLoading && (this.source === 'ImageStatic');
       }
     },
 
