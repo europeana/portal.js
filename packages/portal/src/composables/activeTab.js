@@ -12,6 +12,7 @@ export default function useActiveTab(tabHashes) {
   const setActiveTabIndexFromRouteHash = () => {
     if (tabHashes.includes(route?.hash)) {
       activeTabIndex.value = tabHashes.indexOf(route.hash);
+      activeTabHistory.value.push(activeTabHash.value);
     }
   };
 
@@ -19,12 +20,19 @@ export default function useActiveTab(tabHashes) {
     return tabHashes[activeTabIndex.value];
   });
 
-  watch(activeTabIndex, () => {
-    if (activeTabIndex.value !== -1) {
-      activeTabHistory.value.push(activeTabHash.value);
-      router.push({ ...route, hash: activeTabHash.value });
-    }
-  });
+  let unwatchTabIndex = () => {};
+
+  const watchTabIndex = () => {
+    // unwatch 1st to prevent duplicate watchers
+    unwatchTabIndex();
+
+    unwatchTabIndex = watch(activeTabIndex, () => {
+      if (activeTabIndex.value !== -1) {
+        activeTabHistory.value.push(activeTabHash.value);
+        router.replace({ ...route, hash: activeTabHash.value });
+      }
+    });
+  };
 
   if (route) {
     watch(route, () => {
@@ -39,6 +47,8 @@ export default function useActiveTab(tabHashes) {
   return {
     activeTabHash,
     activeTabHistory,
-    activeTabIndex
+    activeTabIndex,
+    watchTabIndex,
+    unwatchTabIndex
   };
 }

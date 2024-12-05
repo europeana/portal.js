@@ -5,12 +5,12 @@ import { reactive } from 'vue';
 
 import useActiveTab from '@/composables/activeTab.js';
 
-const routerPushSpy = sinon.spy();
+const routerReplaceSpy = sinon.spy();
 
 const route = reactive({ hash: '#links' });
 sinon.stub(vueRouter, 'useRoute').returns(route);
 sinon.stub(vueRouter, 'useRouter').returns({
-  push: routerPushSpy
+  replace: routerReplaceSpy
 });
 
 const tabHashes = ['#annotations', '#search', '#links'];
@@ -23,9 +23,9 @@ const component = {
     </div>
   `,
   setup() {
-    const { activeTabHash, activeTabIndex } = useActiveTab(tabHashes);
+    const { activeTabHash, activeTabIndex, watchTabIndex } = useActiveTab(tabHashes);
 
-    return { activeTabHash, activeTabIndex };
+    return { activeTabHash, activeTabIndex, watchTabIndex };
   }
 };
 
@@ -65,15 +65,6 @@ describe('useActiveTab', () => {
       expect(input.element.value).toBe('2');
     });
 
-    it('is watched for changes to update route', async() => {
-      const wrapper = factory();
-
-      wrapper.find('#activeTabIndex').setValue(1);
-      await wrapper.vm.$nextTick();
-
-      expect(routerPushSpy.calledWith({ hash: '#search' })).toBe(true);
-    });
-
     it('is updated on route changes', async() => {
       const wrapper = factory();
 
@@ -82,6 +73,18 @@ describe('useActiveTab', () => {
 
       const input = wrapper.find('#activeTabIndex');
       expect(input.element.value).toBe('0');
+    });
+  });
+
+  describe('watchTabIndex', () => {
+    it('starts watching for changes to replace hash in route', async() => {
+      const wrapper = factory();
+      wrapper.vm.watchTabIndex();
+
+      wrapper.find('#activeTabIndex').setValue(1);
+      await wrapper.vm.$nextTick();
+
+      expect(routerReplaceSpy.calledWith({ hash: '#search' })).toBe(true);
     });
   });
 });
