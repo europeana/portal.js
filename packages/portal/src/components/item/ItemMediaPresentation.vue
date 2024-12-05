@@ -261,7 +261,7 @@
         if (this.hasAnnotations) {
           return false;
         } else if (this.viewableImageResource) {
-          return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
+          return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
           return !(
             this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
