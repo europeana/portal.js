@@ -3,6 +3,8 @@
     <div
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"
+      :class="{ 'fullscreen-mock': mockFullscreenClass }"
+      @keydown.escape="exitFullscreen"
     >
       <div
         class="media-viewer-inner-wrapper w-100 overflow-auto"
@@ -214,6 +216,7 @@
     data() {
       return {
         fullscreen: false,
+        mockFullscreenClass: false,
         showPages: true,
         showSidebar: !!this.$route.hash,
         thumbnailInteractedWith: false
@@ -328,18 +331,45 @@
       },
 
       toggleFullscreen() {
-        // Check for fullscreen support first?
         if (this.fullscreen) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document['webKitExitFullscreen']) {
-            document['webKitExitFullscreen']();
-          }
+          this.exitFullscreen();
         } else {
-          this.$refs.mediaViewerWrapper.requestFullscreen();
+          this.enterFullscreen();
+        }
+      },
+
+      exitFullscreen() {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+        if (this.mockFullscreenClass) {
+          this.mockFullscreenClass = false;
+          document.body.classList.remove('overflow-hidden');
         }
 
-        this.fullscreen = !this.fullscreen;
+        this.fullscreen = false;
+      },
+
+      async enterFullscreen() {
+        const isFullScreenSupportedAndEnabled = this.$refs.mediaViewerWrapper.requestFullscreen && document.fullscreenEnabled;
+        if (isFullScreenSupportedAndEnabled) {
+          this.$refs.mediaViewerWrapper.requestFullscreen();
+          document.addEventListener('fullscreenchange', this.handleFullscreenChange);
+        } else {
+          this.mockFullscreenClass = true;
+          document.body.classList.add('overflow-hidden'); // prevent scrolling the body behind the fixed fullscreen media viewer
+        }
+
+        this.fullscreen = true;
+      },
+
+      // Listen to fullscreenchange event to catch Escape on browser full-screen and reset state
+      handleFullscreenChange() {
+        // document.fullscreenElement is already reset when this is called, so check the negative condition
+        if (!document.fullscreenElement) {
+          this.exitFullscreen();
+          document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
+        }
       },
 
       togglePages() {
@@ -455,7 +485,8 @@
     }
   }
 
-  .media-viewer-wrapper:fullscreen {
+  .media-viewer-wrapper:fullscreen,
+  .media-viewer-wrapper.fullscreen-mock {
     max-height: 100%;
     .media-viewer-inner-wrapper {
       max-height: 100%;
@@ -465,6 +496,16 @@
     ::v-deep .media-viewer-toolbar-pagination {
       display: none !important;
     }
+  }
+
+  .media-viewer-wrapper.fullscreen-mock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 1051; // Feedback widget z-index + 1
   }
 
   ::v-deep .divider {
