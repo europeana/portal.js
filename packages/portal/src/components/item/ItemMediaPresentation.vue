@@ -26,12 +26,12 @@
         <template v-else>
           <template v-if="sidebarHasContent">
             <ItemMediaSidebar
-              v-show="showSidebar"
               ref="sidebar"
               tabindex="0"
               :annotation-list="hasAnnotations"
               :annotation-search="hasAnnotations && hasSearchService"
               :manifest-uri="uri"
+              :show="showSidebar"
               @keydown.escape.native="showSidebar = false"
             />
             <ItemMediaSidebarToggle
