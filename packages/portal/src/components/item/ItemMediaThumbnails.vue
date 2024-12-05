@@ -272,7 +272,7 @@
       z-index: 1;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: 1rem;
+      padding: 1rem 1rem 0;
       width: 13rem;
     }
 

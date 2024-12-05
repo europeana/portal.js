@@ -218,7 +218,7 @@
     }
 
     ::v-deep .tab-content {
-      padding: 1rem 0 4rem 0;
+      padding: 1rem 0;
       overflow: auto;
 
       h2 {
