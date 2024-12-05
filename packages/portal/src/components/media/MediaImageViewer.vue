@@ -7,7 +7,7 @@
       id="media-image-viewer-keyboard-toggle"
     />
     <b-container
-      v-if="imageLoading"
+      v-if="showSpinner"
       class="h-100 d-flex align-items-center justify-content-center"
       data-qa="loading spinner container"
     >
@@ -180,6 +180,14 @@
     mounted() {
       if (!this.$fetchState.pending) {
         this.renderImage();
+      }
+    },
+
+    computed: {
+      showSpinner() {
+        // only show the loading spinner for static images as it really messes
+        // with loading tiles when panning/zooming/etc
+        return this.imageLoading && (this.source === 'ImageStatic');
       }
     },
 
