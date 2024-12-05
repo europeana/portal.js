@@ -76,6 +76,7 @@
     padding: 0.875rem 1rem;
 
     @media (min-width: $bp-large) {
+      background-color: $white;
       position: absolute;
       right: 0;
       bottom: 0;

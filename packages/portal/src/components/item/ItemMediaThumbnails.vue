@@ -267,6 +267,19 @@
     overflow-x: auto;
     scrollbar-width: thin;
 
+    @media (min-width: $bp-large) {
+      margin-top: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 3.25rem;
+      z-index: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 1rem 1rem 0;
+      width: 13rem;
+    }
+
     .thumbnail-skeleton-before {
       width: var(--skeletonwidthbefore);
 
@@ -288,20 +301,6 @@
     li {
       list-style-type: none;
       flex-shrink: 0;
-    }
-
-    @media (min-width: $bp-large) {
-      margin-top: 0;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      overflow-x: hidden;
-      overflow-y: auto;
-      padding: 1rem 1rem 3.25rem;
-      width: 13rem;
-      height: 100%;
     }
   }
 </style>
