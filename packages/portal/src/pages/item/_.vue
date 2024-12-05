@@ -398,11 +398,6 @@
           new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
         ).large;
 
-        // don't store the web resources when using iiif as the manifest will be used
-        if (!this.iiifPresentationManifest) {
-          this.media = item.providerAggregation.displayableWebResources;
-        }
-
         const preconnects = [
           this.iiifPresentationManifest,
           item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
@@ -411,13 +406,33 @@
           try {
             this.headLinkPreconnect.push((new URL(preconnect)).origin);
           } catch {
-            // URL parsing error
+            // URL parsing error; just won't be pre-connected
           }
         }
 
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
+
+        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+          // don't keep WR-level rights statement if same as item-level
+          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
+            delete wr.webResourceEdmRights;
+          }
+
+          // don't store the full web resources when using iiif as the manifest will be used,
+          // but WR-level rights statements still needed by ItemHero and not consistently
+          // obtainable from manifests coming from different sources
+          if (this.iiifPresentationManifest) {
+            for (const key in wr) {
+              if (!['about', 'webResourceEdmRights'].includes(key)) {
+                delete wr[key];
+              }
+            }
+          }
+
+          return wr;
+        });
 
         process.client && this.trackCustomDimensions();
       },
