@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Skrin sħiħ",
       "keyboardNavigation": "Uża l-buttuni +, - u vleġeġ biex tkabbar u tiċċaqlaq madwar l-immaġni.",
       "resetZoom": "Irrisettja ż-żum",
+      "rotateLeft": "Dawwar lejn ix-xellug",
+      "rotateRight": "Dawwar lejn il-lemin",
       "zoomIn": "Iżżumja 'l ġewwa",
       "zoomOut": "Iżżumja 'l barra"
     },
+    "loadFull": "Immaġni extra kbira: għabbi d-daqs sħiħ.",
     "pages": {
       "hide": "Aħbi l-paġni",
       "show": "Uri l-paġni"
@@ -930,12 +933,10 @@ export default {
     "automated": "Traduzzjoni awtomatizzata",
     "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
-    "other": "lingwi oħra",
-    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
-    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
-    "translateMetadata": "Ittraduċi l-metadejta ta' dan l-oġġett.",
-    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
+    "stopViewingThisItemIn": "Waqqaf milli tara dan l-oġġett f'{0}",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard.",
+    "viewingThisItemIn": "Ara dan l-oġġett fi {0}",
+    "viewItemInAnotherLanguage": "Ara dan l-oġġett f’lingwa oħra"
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",

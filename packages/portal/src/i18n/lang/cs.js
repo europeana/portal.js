@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Celá obrazovka",
       "keyboardNavigation": "Použijte klávesy +, - a šipky pro přiblížení a posun po obrázku.",
       "resetZoom": "Obnovit přiblížení",
+      "rotateLeft": "Otočit doleva",
+      "rotateRight": "Otočit doprava",
       "zoomIn": "Přiblížit",
       "zoomOut": "Oddálit"
     },
+    "loadFull": "Extra velký obrázek: načíst v plné velikosti.",
     "pages": {
       "hide": "Skrýt stránky",
       "show": "Zobrazit stránky"
@@ -932,12 +935,10 @@ export default {
     "automated": "Automatizovaný překlad",
     "automatedPageTranslations": "Tato stránka používá automaticky generované překlady z angličtiny.",
     "enrichment": "Obohacení partnerskými projekty",
-    "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
-    "other": "jiné jazyky",
-    "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
-    "translateLanguage": "Chcete tuto položku vidět v {0}?",
-    "translateMetadata": "Přeložte metadata této položka.",
-    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
+    "stopViewingThisItemIn": "Přestaňte prohlížet tuto položku v {0}",
+    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později.",
+    "viewingThisItemIn": "Prohlížíte tuto položku v {0}",
+    "viewItemInAnotherLanguage": "Zobrazit tuto položku v jiném jazyce"
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",

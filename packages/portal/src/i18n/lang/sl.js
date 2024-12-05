@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Celoten zaslon",
       "keyboardNavigation": "Uporabite tipke +, - in puščice za povečavo in premikanje po sliki.",
       "resetZoom": "Ponastavi povečavo",
+      "rotateLeft": "Zavrtite v levo",
+      "rotateRight": "Zavrtite v desno",
       "zoomIn": "Povečaj",
       "zoomOut": "Pomanjšaj"
     },
+    "loadFull": "Zelo velika slika: naloži v polni velikosti.",
     "pages": {
       "hide": "Skrij strani",
       "show": "Prikaži strani"
@@ -930,12 +933,10 @@ export default {
     "automated": "Avtomatizirano prevajanje",
     "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
-    "other": "drugi jeziki",
-    "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
-    "translateLanguage": "Želite ta enota videti v {0}?",
-    "translateMetadata": "Prevedite metapodatke tega enota.",
-    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
+    "stopViewingThisItemIn": "Prenehajte ogledovati to enoto v {0}",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje.",
+    "viewingThisItemIn": "Ogled te enote v {0}",
+    "viewItemInAnotherLanguage": "Ogled te enote v drugem jeziku"
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",

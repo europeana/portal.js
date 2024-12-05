@@ -3,6 +3,8 @@
     <div
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"
+      :class="{ 'fullscreen-mock': mockFullscreenClass }"
+      @keydown.escape="exitFullscreen"
     >
       <div
         class="media-viewer-inner-wrapper w-100 overflow-auto"
@@ -43,15 +45,12 @@
             :provider-url="providerUrl"
           />
           <MediaImageViewer
-            v-else-if="imageTypeResource"
+            v-else-if="viewableImageResource && !displayThumbnail"
             :url="resource.id"
             :item-id="itemId"
             :width="resource.width"
             :height="resource.height"
-            :format="resource.format"
             :service="resource.service"
-            :annotation="activeAnnotation"
-            :thumbnail="thumbnail"
             @error="handleImageError"
           >
             <MediaImageViewerControls
@@ -59,43 +58,44 @@
               @toggleFullscreen="toggleFullscreen"
             />
           </MediaImageViewer>
-          <MediaPDFViewer
-            v-else-if="resource?.format === 'application/pdf'"
-            :url="resource.id"
-            :item-id="itemId"
-            class="media-viewer-content"
-          />
           <MediaAudioVisualPlayer
-            v-else-if="resource?.edm.isPlayableMedia"
+            v-else-if="resource?.edm?.isPlayableMedia"
             :url="resource.id"
             :format="resource.format"
             :item-id="itemId"
             class="media-viewer-content"
           />
           <EmbedOEmbed
-            v-else-if="resource?.edm.isOEmbed"
+            v-else-if="resource?.edm?.isOEmbed"
             :url="resource.id"
             class="media-viewer-content"
           />
-          <MediaImageViewer
-            v-else-if="resource?.edm.forEdmIsShownAt"
-            :url="resource.edm.preview.about"
-            :item-id="itemId"
-            :annotation="activeAnnotation"
-            :width="resource.edm.preview.ebucoreWidth"
-            :height="resource.edm.preview.ebucoreHeight"
-            :thumbnail="thumbnail"
-          />
-          <code
-            v-else
-            class="media-viewer-content h-50 w-100 p-5"
+          <template
+            v-else-if="displayThumbnail"
           >
-            <pre
-              :style="{ color: 'white', 'overflow-wrap': 'break-word' }"
-            ><!--
-            -->{{ JSON.stringify(resource?.edm, null, 2) }}
-            </pre>
-          </code>
+            <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
+            <MediaCardImage
+              :offset="page - 1"
+              data-qa="item media thumbnail"
+              :media="resource?.edm"
+              :lazy="false"
+              :edm-type="edmType"
+              :linkable="!viewableImageResource"
+              thumbnail-size="large"
+              :europeana-identifier="itemId"
+              @click.native="() => thumbnailInteractedWith = true"
+            />
+            <b-button
+              v-if="viewableImageResource"
+              data-qa="item media load button"
+              class="full-image-button d-inline-flex align-items-center py-2 px-3"
+              variant="light-flat"
+              @click="() => thumbnailInteractedWith = true"
+            >
+              <span class="icon-click mr-2" />
+              {{ $t('media.loadFull') }}
+            </b-button>
+          </template>
         </template>
       </div>
       <div
@@ -133,6 +133,7 @@
 
 <script>
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
+  import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
   export class ItemMediaPresentationError extends Error {
@@ -154,9 +155,9 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
-      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue'),
-      MediaPDFViewer: () => import('../media/MediaPDFViewer.vue')
+      MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
     props: {
@@ -215,8 +216,10 @@
     data() {
       return {
         fullscreen: false,
+        mockFullscreenClass: false,
         showPages: true,
-        showSidebar: !!this.$route.hash
+        showSidebar: !!this.$route.hash,
+        thumbnailInteractedWith: false
       };
     },
 
@@ -254,6 +257,18 @@
     },
 
     computed: {
+      displayThumbnail() {
+        if (this.hasAnnotations) {
+          return false;
+        } else if (this.viewableImageResource) {
+          return !this.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
+        } else {
+          return !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          );
+        }
+      },
+
       hasManifest() {
         return !!this.uri;
       },
@@ -266,20 +281,16 @@
         return this.resourceCount >= 2;
       },
 
-      thumbnail() {
-        return this.resource.edm.thumbnails?.(this.$nuxt.context)?.large;
-      },
-
-      imageTypeResource() {
-        return this.resource?.format?.startsWith('image/');
+      viewableImageResource() {
+        return this.resource?.edm?.isHTMLImage;
       },
 
       addPaginationToolbarMaxWidth() {
-        return !this.imageTypeResource && this.multiplePages;
+        return !this.viewableImageResource && this.multiplePages;
       },
 
       addSidebarToggleMaxWidth() {
-        return !this.imageTypeResource && this.sidebarHasContent;
+        return !this.viewableImageResource && this.sidebarHasContent;
       }
     },
 
@@ -315,22 +326,50 @@
       },
 
       selectResource() {
-        this.$emit('select', this.resource);
+        this.thumbnailInteractedWith = false;
+        this.$emit('select', this.resource.edm);
       },
 
       toggleFullscreen() {
-        // Check for fullscreen support first?
         if (this.fullscreen) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document['webKitExitFullscreen']) {
-            document['webKitExitFullscreen']();
-          }
+          this.exitFullscreen();
         } else {
-          this.$refs.mediaViewerWrapper.requestFullscreen();
+          this.enterFullscreen();
+        }
+      },
+
+      exitFullscreen() {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+        if (this.mockFullscreenClass) {
+          this.mockFullscreenClass = false;
+          document.body.classList.remove('overflow-hidden');
         }
 
-        this.fullscreen = !this.fullscreen;
+        this.fullscreen = false;
+      },
+
+      async enterFullscreen() {
+        const isFullScreenSupportedAndEnabled = this.$refs.mediaViewerWrapper.requestFullscreen && document.fullscreenEnabled;
+        if (isFullScreenSupportedAndEnabled) {
+          this.$refs.mediaViewerWrapper.requestFullscreen();
+          document.addEventListener('fullscreenchange', this.handleFullscreenChange);
+        } else {
+          this.mockFullscreenClass = true;
+          document.body.classList.add('overflow-hidden'); // prevent scrolling the body behind the fixed fullscreen media viewer
+        }
+
+        this.fullscreen = true;
+      },
+
+      // Listen to fullscreenchange event to catch Escape on browser full-screen and reset state
+      handleFullscreenChange() {
+        // document.fullscreenElement is already reset when this is called, so check the negative condition
+        if (!document.fullscreenElement) {
+          this.exitFullscreen();
+          document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
+        }
       },
 
       togglePages() {
@@ -362,40 +401,20 @@
 
   .media-viewer-wrapper {
     position: relative;
-    @include swiper-height(0px);
+    @include media-viewer-height;
 
     @media (max-width: ($bp-large - 1px)) {
       max-height: none;
       height: auto
     }
-
-    // prevent feedback button overlapping thumbnails toggle laptop screens
-    @media (min-width: $bp-large) and (max-height: 845px) {
-      height: calc($swiper-height - 2rem);
-    }
-
-    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
-      max-height: 50vh;
-      height: 50vh;
-    }
   }
 
   .media-viewer-inner-wrapper {
     background-color: $black;
-    @include swiper-height(0px);
+    @include media-viewer-height;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
-    }
-
-    // prevent feedback button overlapping thumbnails toggle laptop screens
-    @media (min-width: $bp-large) and (max-height: 845px) {
-      height: calc($swiper-height - 2rem);
-    }
-
-    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
-      max-height: 50vh;
-      height: 50vh;
     }
 
     &.error {
@@ -466,7 +485,8 @@
     }
   }
 
-  .media-viewer-wrapper:fullscreen {
+  .media-viewer-wrapper:fullscreen,
+  .media-viewer-wrapper.fullscreen-mock {
     max-height: 100%;
     .media-viewer-inner-wrapper {
       max-height: 100%;
@@ -478,9 +498,51 @@
     }
   }
 
+  .media-viewer-wrapper.fullscreen-mock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 1051; // Feedback widget z-index + 1
+  }
+
   ::v-deep .divider {
     border: 1px solid $middlegrey;
     height: 1rem;
     box-sizing: content-box;
+  }
+
+  ::v-deep .responsive-embed-wrapper {
+    display: flex;
+    align-items: center;
+
+    .html-embed {
+      flex-grow: 1;
+    }
+  }
+
+  .full-image-button {
+    background-color: $black;
+    color: $white;
+    border: 1px solid $white;
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    z-index: 1;
+  }
+
+  .icon-click {
+    font-size: $font-size-large;
+    line-height: 1;
+  }
+
+  ::v-deep .default-thumbnail {
+    height: 290px;
+    width: 290px;
   }
 </style>

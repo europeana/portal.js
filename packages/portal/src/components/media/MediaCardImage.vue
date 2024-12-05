@@ -55,6 +55,10 @@
 
 <script>
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import {
+    LARGE_WIDTH as LARGE_THUMBNAIL_WIDTH,
+    SMALL_WIDTH as SMALL_THUMBNAIL_WIDTH
+  } from '@/plugins/europeana/thumbnail.js';
 
   export default {
     name: 'MediaCardImage',
@@ -107,7 +111,16 @@
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        return this.media.thumbnails(this.$nuxt.context);
+        if (this.media.svcsHasService) {
+          // TODO: assess impact of this outside of new ItemMediaPresentation component
+          const serviceId = this.media.svcsHasService.id || this.media.svcsHasService.about || this.media.svcsHasService;
+          return {
+            large: `${serviceId}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
+            small: `${serviceId}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
+          };
+        } else {
+          return this.$apis.thumbnail.forWebResource(this.media);
+        }
       },
       thumbnailSrc() {
         return this.thumbnails[this.thumbnailSize];
@@ -116,7 +129,7 @@
         if (!this.media.ebucoreWidth) {
           return null;
         }
-        const thumbnailMaxSize = this.thumbnailSize === 'large' ? 400 : 200;
+        const thumbnailMaxSize = this.thumbnailSize === 'large' ? LARGE_THUMBNAIL_WIDTH : SMALL_THUMBNAIL_WIDTH;
         if (this.media.ebucoreWidth < thumbnailMaxSize) {
           return this.media.ebucoreWidth;
         }
@@ -158,15 +171,15 @@
       height: auto;
 
       @media (max-height: $bp-medium) {
-        max-height: $swiper-height;
+        max-height: $media-viewer-height;
       }
 
       @media (min-height: $bp-medium) {
-        max-height: $swiper-height-max;
+        max-height: $media-viewer-height-max;
       }
 
       @media (max-width: $bp-medium) {
-        max-height: $swiper-height-medium;
+        max-height: $media-viewer-height-medium;
       }
     }
   }

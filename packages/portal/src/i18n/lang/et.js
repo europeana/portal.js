@@ -889,9 +889,12 @@ export default {
       "fullscreen": "Täisekraan",
       "keyboardNavigation": "Kasutage +, - ja nooleklahve pildi suurendamiseks ja liigutamiseks.",
       "resetZoom": "Lähtestage suum",
+      "rotateLeft": "Pöörake vasakule",
+      "rotateRight": "Pöörake paremale",
       "zoomIn": "Suumi sisse",
       "zoomOut": "Suumi välja"
     },
+    "loadFull": "Eriti suur pilt: laadige täissuuruses.",
     "pages": {
       "hide": "Peida leheküljed",
       "show": "Kuva leheküljed"
@@ -932,12 +935,10 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
-    "other": "muud keeled",
-    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
-    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
-    "translateMetadata": "Tõlgi selle üksuse metaandmed.",
-    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
+    "stopViewingThisItemIn": "Lõpeta selle üksuse vaatamine rakenduses {0}",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti.",
+    "viewingThisItemIn": "Selle üksuse vaatate {0}",
+    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles"
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",

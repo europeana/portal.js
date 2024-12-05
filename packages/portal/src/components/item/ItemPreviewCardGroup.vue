@@ -228,7 +228,7 @@
         if (this.$route.query?.qa) {
           const fulltext = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa)
             .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-            .map((rule) => rule.term)
+            .map((rule) => (rule.modifier === 'exact') ? `"${rule.term}"` : rule.term)
             .join(' ');
           return { fulltext };
         } else {

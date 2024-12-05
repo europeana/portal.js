@@ -14,17 +14,14 @@ const factory = () => shallowMount(MediaCardImage, {
     europeanaIdentifier: '/123/abcdef'
   },
   mocks: {
-    $nuxt: {
-      context: {
-        $apis: {
-          thumbnail: {
-            media: () => 'https://api.europeana.eu/thumbnail/v3/400/83ef43b6ede8c8b98c7b90b64b717234'
-          }
-        }
-      }
-    },
     $t: (key) => key,
     $apis: {
+      thumbnail: {
+        forWebResource: () => ({
+          large: 'https://api.europeana.eu/thumbnail/v3/400/83ef43b6ede8c8b98c7b90b64b717234',
+          small: 'https://api.europeana.eu/thumbnail/v3/200/83ef43b6ede8c8b98c7b90b64b717234'
+        })
+      },
       record: {
         mediaProxyUrl: () => 'proxied'
       }

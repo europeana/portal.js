@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Tela cheia",
       "keyboardNavigation": "Use as teclas +, - e seta para ampliar e deslocar a imagem.",
       "resetZoom": "Redefinir zoom",
+      "rotateLeft": "Girar para a esquerda",
+      "rotateRight": "Girar para a direita",
       "zoomIn": "Ampliar",
       "zoomOut": "Reduzir o zoom"
     },
+    "loadFull": "Imagem extra grande: carregar em tamanho real.",
     "pages": {
       "hide": "Ocultar páginas",
       "show": "Mostrar páginas"
@@ -930,12 +933,10 @@ export default {
     "automated": "Tradução automatizada",
     "automatedPageTranslations": "Esta página usa traduções geradas automaticamente do inglês.",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "loginToTranslate": "{login} para ver este item em outros idiomas",
-    "other": "outras línguas",
-    "stopTranslating": "Pare de traduzir este item para {0}.",
-    "translateLanguage": "Gostaria de ver este item em {0} ?",
-    "translateMetadata": "Traduza os metadados deste item.",
-    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
+    "stopViewingThisItemIn": "Pare de visualizar este item em {0}",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde.",
+    "viewingThisItemIn": "Visualizando este item em {0}",
+    "viewItemInAnotherLanguage": "Veja este item em outro idioma"
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",

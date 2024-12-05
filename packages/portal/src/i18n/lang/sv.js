@@ -887,9 +887,12 @@ export default {
       "fullscreen": "Helskärm",
       "keyboardNavigation": "Använd +, - och piltangenterna för att zooma och panorera runt bilden.",
       "resetZoom": "Återställ zoom",
+      "rotateLeft": "Rotera åt vänster",
+      "rotateRight": "Rotera åt höger",
       "zoomIn": "Zooma in",
       "zoomOut": "Zooma ut"
     },
+    "loadFull": "Extra stor bild: ladda i full storlek.",
     "pages": {
       "hide": "Dölj sidor",
       "show": "Visa sidor"
@@ -930,12 +933,10 @@ export default {
     "automated": "Automatiserad översättning",
     "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
-    "loginToTranslate": "{login} för att se detta objekt på andra språk",
-    "other": "andra språk",
-    "stopTranslating": "Sluta översätta det här objektet till {0}.",
-    "translateLanguage": "Vill du se det här objektet i {0} ?",
-    "translateMetadata": "Översätt metadata för detta objekt.",
-    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
+    "stopViewingThisItemIn": "Sluta visa detta objekt i {0}",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare.",
+    "viewingThisItemIn": "Visar detta objekt i {0}",
+    "viewItemInAnotherLanguage": "Visa detta objekt på ett annat språk"
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",

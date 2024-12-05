@@ -1,10 +1,15 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import MediaImageViewer from '@/components/media/MediaImageViewer';
+import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 import useZoom from '@/composables/zoom.js';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+
+const fetchCanvasAnnotationsSpy = sinon.spy();
+const setActiveAnnotationSpy = sinon.spy();
+const routerReplaceSpy = sinon.spy();
 
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaImageViewer, {
   localVue,
@@ -17,20 +22,34 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(MediaI
       }
     },
     $t: (key) => key,
+    $router: {
+      replace: routerReplaceSpy
+    },
     ...mocks
   }
 });
 
+const stubItemMediaPresentationComposable = (stubs = {}) => {
+  sinon.stub(itemMediaPresentation, 'default').returns({
+    annotationAtCoordinate: undefined,
+    activeAnnotation: undefined,
+    fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
+    pageForAnnotationTarget: () => 1,
+    setActiveAnnotation: setActiveAnnotationSpy,
+    ...stubs
+  });
+};
+
 describe('components/media/MediaImageViewer', () => {
   afterEach(() => {
     sinon.resetHistory();
+    sinon.restore();
   });
   afterAll(() => {
     sinon.restore();
   });
 
   const url = 'https://example.org/image.jpeg';
-  const thumbnail = 'https://example.org/thumbnail.jpeg';
   const width = 100;
   const height = 400;
 
@@ -46,30 +65,15 @@ describe('components/media/MediaImageViewer', () => {
 
   describe('fetch', () => {
     describe('without an image service', () => {
-      it('renders the thumbnail with thumbnail sizes as static image', async() => {
-        const wrapper = factory({ propsData: { url, thumbnail, width, height } });
+      it('renders the static image', async() => {
+        const wrapper = factory({ propsData: { url, width, height } });
         sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
 
         process.client = true;
         await wrapper.vm.fetch();
         await wrapper.vm.$nextTick();
 
-        // TODO: we should be testing the resultant html, but it's blank here
-        expect(wrapper.vm.source).toBe('ImageStatic');
-        expect(wrapper.vm.initOlImageLayerStatic.calledWith(thumbnail, 400, 1600)).toBe(true);
-      });
-
-      describe('when there is no thumbnail', () => {
-        it('renders the full image', async() => {
-          const wrapper = factory({ propsData: { url, width, height } });
-          sinon.spy(wrapper.vm, 'initOlImageLayerStatic');
-
-          process.client = true;
-          await wrapper.vm.fetch();
-          await wrapper.vm.$nextTick();
-
-          expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
-        });
+        expect(wrapper.vm.initOlImageLayerStatic.calledWith(`mediaProxyUrl ${url}`, width, height)).toBe(true);
       });
     });
 
@@ -130,19 +134,23 @@ describe('components/media/MediaImageViewer', () => {
   });
 
   describe('methods', () => {
-    describe('highlightAnnotation', () => {
-      it('initialises a vector layer for annotations', async() => {
+    describe('highlightAnnotations', () => {
+      it('initialises multiple vector layers for annotations', async() => {
         const annotation = {
           target: {
             id: url
           }
         };
-        const wrapper = factory({ propsData: { url, annotation, width, height } });
+        stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
+        const wrapper = factory({ propsData: { url, width, height } });
 
         await new Promise(process.nextTick);
-        wrapper.vm.highlightAnnotation();
+        wrapper.vm.highlightAnnotations();
 
-        expect(wrapper.vm.olMap.getLayers().getLength()).toBe(2);
+        expect(wrapper.vm.olMap.getLayers().getLength()).toBe(4);
+        expect(wrapper.vm.olMap.getLayers().item(1).get('id')).toBe('search');
+        expect(wrapper.vm.olMap.getLayers().item(2).get('id')).toBe('hover');
+        expect(wrapper.vm.olMap.getLayers().item(3).get('id')).toBe('active');
       });
 
       describe('when annotation has no xywh co-ordinates', () => {
@@ -153,11 +161,12 @@ describe('components/media/MediaImageViewer', () => {
         };
 
         it('adds a feature for the annotation at the full image size', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
-          wrapper.vm.highlightAnnotation();
-          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+          wrapper.vm.highlightAnnotations();
+          const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
             0, 400, 0, 0, 100, 0, 100, 400, 0, 400
@@ -165,19 +174,21 @@ describe('components/media/MediaImageViewer', () => {
         });
       });
 
-      describe('when annotation has xywh co-ordinates', () => {
+      describe('when annotation has xywh co-ordinates/extent', () => {
         const annotation = {
           target: {
             id: `${url}#xywh=0,0,40,20`
-          }
+          },
+          extent: [0, 0, 40, 20]
         };
 
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {
-          const wrapper = factory({ propsData: { url, annotation, width, height } });
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
+          const wrapper = factory({ propsData: { url, width, height } });
 
           await new Promise(process.nextTick);
-          wrapper.vm.highlightAnnotation();
-          const source = wrapper.vm.olMap.getLayers().item(1).getSource();
+          wrapper.vm.highlightAnnotations();
+          const source = wrapper.vm.olMap.getLayers().pop().getSource();
 
           expect(source.getFeatures()[0].getGeometry().flatCoordinates).toEqual([
             0, 400, 0, 380, 40, 380, 40, 400, 0, 400
@@ -186,6 +197,55 @@ describe('components/media/MediaImageViewer', () => {
       });
     });
 
+    describe('handleMapClick',  () => {
+      describe('when a location with an annotation is clicked', () => {
+        it('updates the "anno" param in the url via route push', async() => {
+          const annotation = {
+            id: url,
+            target: {
+              id: `${url}#xywh=0,0,40,20`
+            },
+            extent: [0, 0, 40, 20]
+          };
+          stubItemMediaPresentationComposable({ activeAnnotation: null, annotationAtCoordinate: () => annotation });
+          const expectedRouteArgs = {
+            query: {
+              anno: annotation.id,
+              page: 1
+            },
+            hash: '#annotations'
+          };
+          const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: undefined } } });
+          await new Promise(process.nextTick);
+          wrapper.vm.handleMapClick([10, 10]);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+        });
+      });
+
+      describe('when a location without annotation is clicked', () => {
+        it('removes the "anno" param in the url via route push', async() => {
+          const annotation = {
+            id: url,
+            target: {
+              id: `${url}#xywh=0,0,40,20`
+            },
+            extent: [0, 0, 40, 20]
+          };
+          stubItemMediaPresentationComposable({ activeAnnotation: annotation, annotationAtCoordinate: () => undefined });
+          const expectedRouteArgs = {
+            query: {
+              anno: undefined,
+              page: 1
+            },
+            hash: '#annotations'
+          };
+          const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: '#search' } } });
+          await new Promise(process.nextTick);
+          wrapper.vm.handleMapClick([200, 600]);
+          expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
+        });
+      });
+    });
     describe('configureZoomLevels', () => {
       it('configures zoom levels via useZoom composable', async() => {
         const {

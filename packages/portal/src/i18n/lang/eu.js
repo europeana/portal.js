@@ -894,9 +894,12 @@ export default {
       "fullscreen": "Pantaila osoa",
       "keyboardNavigation": "Erabili +, - eta gezi-teklak irudia handitzeko eta mugitzeko.",
       "resetZoom": "Berrezarri zooma",
+      "rotateLeft": "Biratu ezkerrera",
+      "rotateRight": "Biratu eskuinera",
       "zoomIn": "Handitu",
       "zoomOut": "Urrundu"
     },
+    "loadFull": "Aparteko irudi handia: tamaina osoan kargatzea.",
     "pages": {
       "hide": "Ezkutatu orriak",
       "show": "Erakutsi orrialdeak"
@@ -937,12 +940,10 @@ export default {
     "automated": "Itzulpen automatizatua",
     "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
-    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
-    "other": "beste hizkuntza batzuk",
-    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
-    "translateLanguage": "{0} -n ikusi nahi duzu?",
-    "translateMetadata": "Itzuli elementu honen metadatuak.",
-    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+    "stopViewingThisItemIn": "Utzi elementu hau {0} n ikusteari",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago.",
+    "viewingThisItemIn": "Ikusi elementu hau {0}",
+    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean"
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",

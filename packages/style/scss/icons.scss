@@ -69,6 +69,10 @@
   content: '\e903';
 }
 
+.icon-click::before {
+  content: '\e96a';
+}
+
 .icon-collections::before {
   content: '\e91d';
 }
@@ -235,6 +239,14 @@
 
 .icon-reset:before {
   content: '\e964';
+}
+
+.icon-rotate-left:before {
+  content: '\e969';
+}
+
+.icon-rotate-right:before {
+  content: '\e968';
 }
 
 .icon-school::before {

@@ -15,11 +15,13 @@
     </b-button>
     <b-toast
       id="media-image-viewer-toast"
+      ref="keyboardToast"
       static
       solid
       no-auto-hide
       no-close-button
-      toast-class="brand-toast"
+      append-toast
+      toast-class="brand-toast mt-3"
     >
       <b-button
         class="close-toast p-2 ml-2 text-white float-right"
@@ -46,13 +48,6 @@
       },
       showToast() {
         this.$bvToast.show('media-image-viewer-toast');
-        this.$refs.keyboardtoggle.addEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
-      },
-      renderFullMediaOnKeyboardInteraction(event) {
-        if (['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft', '-', '+'].includes(event.key)) {
-          this.$emit('renderFullImage');
-          this.$refs.keyboardtoggle.removeEventListener('keydown', this.renderFullMediaOnKeyboardInteraction);
-        }
       }
     }
   };
@@ -73,12 +68,12 @@
   }
 
   .b-toast {
+    max-width: 300px;
     position: absolute;
-    bottom: 4rem;
+    top: 1rem;
     left: 0;
     right: 0;
-    margin: auto;
-    z-index: 2;
-    max-width: 300px;
+    z-index: 1;
+    margin: 0 auto;
   }
 </style>
