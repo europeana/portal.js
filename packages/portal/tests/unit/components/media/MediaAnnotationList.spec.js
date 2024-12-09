@@ -69,7 +69,7 @@ describe('components/media/MediaAnnotationList', () => {
       stubItemMediaPresentationComposable({ activeAnnotation: { id: 'anno2' } });
       const wrapper = factory();
 
-      const listItems = wrapper.findAll('[data-qa="annotation list item"');
+      const listItems = wrapper.findAll('li');
 
       expect(listItems.at(1).classes('active')).toBe(true);
     });

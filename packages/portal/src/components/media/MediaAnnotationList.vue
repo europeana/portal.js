@@ -21,7 +21,6 @@
         :lang="anno.body.language"
         class="list-group-item list-group-item-action"
         :class="{ active: anno.id === activeAnnotation?.id, hover: anno.id === hoveredAnnotation?.id }"
-        data-qa="annotation list item"
       >
         <!--
           use replace, not push, so that the back button will leave the page,
