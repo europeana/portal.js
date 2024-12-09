@@ -26,6 +26,7 @@ const pages = {
   'item page with a responsive embedded video': `${url}/en/item/2021007/_SLS_1226`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
+  'item page with mixed media': `${url}/en/item/142/UEDIN_214`,
   'item page without isShownBy or hasView': `${url}/en/item/2051923/data_euscreenXL_102336`,
   'item page': `${url}/en/item/09102/_GNM_693983`,
   'search page': `${url}/en/search`,

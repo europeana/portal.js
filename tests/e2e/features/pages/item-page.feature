@@ -16,11 +16,6 @@ Feature: item page
     And I am on an accessible page
     And I should have a Europeana branded page title
 
-  Scenario: Multiple items displayed in swiper
-
-    When I open `/en/item/142/UEDIN_214`
-    Then I see a `awesome swiper`
-
   Scenario: Action bar
 
     When I open an `item page`
@@ -73,14 +68,22 @@ Feature: item page
     When I open the `"The pride of Glencoe, song" item page`
     Then I see the `media player`
 
+  Scenario: Mixed media presentation
+
+    When I open an `item page with mixed media`
+    Then I see the `item media presentation`
+    And I am on an accessible page
+
   Scenario: IIIF Image viewer
     When I open an `item page with a IIIF Image`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: IIIF Presentation viewer
     When I open an `item page with a IIIF Presentation`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: Copying embed code

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    data-qa="item media presentation"
+  >
     <div
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"

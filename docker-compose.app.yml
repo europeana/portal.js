@@ -6,14 +6,11 @@ services:
     build:
       context: .
       dockerfile: ./packages/portal/Dockerfile
-      args:
-        BUILD_MEDIA_PRESENTATION_PLUGIN: ${BUILD_MEDIA_PRESENTATION_PLUGIN}
     depends_on:
       - postgres
       - redis
     env_file: packages/portal/.env
     environment:
-      BUILD_MEDIA_PRESENTATION_PLUGIN: ${BUILD_MEDIA_PRESENTATION_PLUGIN}
       POSTGRES_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres-password}@postgres/europeana_www
       PORTAL_BASE_URL: http://localhost:8080
       REDIS_URL: redis://redis
