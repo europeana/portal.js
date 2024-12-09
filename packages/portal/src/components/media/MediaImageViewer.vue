@@ -7,7 +7,7 @@
       id="media-image-viewer-keyboard-toggle"
     />
     <b-container
-      v-if="imageLoading"
+      v-if="showSpinner"
       class="h-100 d-flex align-items-center justify-content-center"
       data-qa="loading spinner container"
     >
@@ -159,6 +159,14 @@
       }
     },
 
+    computed: {
+      showSpinner() {
+        // only show the loading spinner for static images as it really messes
+        // with loading tiles when panning/zooming/etc
+        return this.imageLoading && (this.source === 'ImageStatic');
+      }
+    },
+
     watch: {
       activeAnnotation: {
         deep: true,
@@ -301,7 +309,8 @@
             source: new VectorSource(),
             style: new Style({
               stroke: new Stroke({
-                color: '#ffcb56'
+                color: '#c697fc',
+                width: 2
               })
             })
           }));

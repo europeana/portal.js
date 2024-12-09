@@ -205,6 +205,10 @@
     z-index: 2;
     background-color: $white;
 
+    @media (min-width: $bp-large) {
+      bottom: 3.25rem;
+    }
+
     .tabs {
       background-color: $white;
     }
@@ -214,7 +218,7 @@
     }
 
     ::v-deep .tab-content {
-      padding: 1rem 0 4rem 0;
+      padding: 1rem 0;
       overflow: auto;
 
       h2 {

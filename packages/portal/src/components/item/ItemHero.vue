@@ -143,7 +143,7 @@
     },
     data() {
       return {
-        selectedMedia: this.media?.[0] || {}
+        selectedMedia: {}
       };
     },
     computed: {
@@ -178,6 +178,9 @@
         return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
+    created() {
+      this.selectMedia(this.media?.[0]);
+    },
     methods: {
       // Ensure we only proxy web resource media, preventing proxying of
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
@@ -186,7 +189,12 @@
         return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(resource) {
-        this.selectedMedia = resource;
+        this.selectedMedia = {
+          // media prop may contain some metadata not available from iiif-derived
+          // resource emitted from ItemMediaPresentation, e.g. rights statement
+          ...this.media.find((wr) => wr.about === resource.about),
+          ...resource
+        };
       }
     }
   };
