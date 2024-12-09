@@ -118,7 +118,7 @@ const fetchAnnotations = async(uri, { params = {} } = {}) => {
 const fetchCanvasAnnotations = async() => {
   const list = await fetchAnnotations(annotationUri.value);
 
-  const annos = annotationTargetId.value ? list.annotationsForTarget(annotationTargetId.value) : list.items;
+  let annos = annotationTargetId.value ? list.annotationsForTarget(annotationTargetId.value) : list.items;
 
   // NOTE: this may result in duplicate network requests for the same body resource
   //       if there are multiple external annotations with the same resource URL,
@@ -131,6 +131,10 @@ const fetchCanvasAnnotations = async() => {
       anno.body = anno.body[0];
     }
   }
+
+  // rm empty annotations
+  annos = annos.filter((anno) => anno.body.value);
+
   annotations.value = annos;
 };
 
