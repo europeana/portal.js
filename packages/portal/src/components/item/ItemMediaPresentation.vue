@@ -10,7 +10,8 @@
         class="media-viewer-inner-wrapper w-100 overflow-auto"
         :class="{
           'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
-          'sidebar-toggle-max-width': addSidebarToggleMaxWidth
+          'sidebar-toggle-max-width': addSidebarToggleMaxWidth,
+          'fullscreen-include-sidebar': fullscreen && sidebarHasContent
         }"
       >
         <b-container
@@ -114,12 +115,13 @@
           v-if="multiplePages"
           :show-pages="showPages"
           :total-results="resourceCount"
+          :class="fullscreen ? 'd-none' : 'd-inline-flex'"
           @togglePages="togglePages"
         />
       </div>
       <ItemMediaThumbnails
         v-if="multiplePages"
-        v-show="showPages"
+        v-show="showPages && !fullscreen"
         id="item-media-thumbnails"
         ref="itemPages"
         tabindex="0"
@@ -485,19 +487,22 @@
     }
   }
 
-  .media-viewer-wrapper:fullscreen,
-  .media-viewer-wrapper.fullscreen-mock {
+  .media-viewer-wrapper:fullscreen {
     max-height: 100%;
+
     .media-viewer-inner-wrapper {
       max-height: 100%;
       height: 100%;
-    }
-    ::v-deep #item-media-thumbnails,
-    ::v-deep .media-viewer-toolbar-pagination {
-      display: none !important;
+
+      &.fullscreen-include-sidebar {
+        @media (max-width: ($bp-large - 1px)) {
+          height: calc(100% - 3.5rem);
+        }
+      }
     }
   }
 
+  // Defining this together with .media-viewer-wrapper:fullscreen does not compile well in older Chrome and iOS browsers
   .media-viewer-wrapper.fullscreen-mock {
     position: fixed;
     top: 0;
@@ -505,7 +510,19 @@
     right: 0;
     bottom: 0;
     height: 100%;
+    max-height: 100%;
     z-index: 1051; // Feedback widget z-index + 1
+
+    .media-viewer-inner-wrapper {
+      max-height: 100%;
+      height: 100%;
+
+      &.fullscreen-include-sidebar {
+        @media (max-width: ($bp-large - 1px)) {
+          height: calc(100% - 3.5rem);
+        }
+      }
+    }
   }
 
   ::v-deep .divider {
