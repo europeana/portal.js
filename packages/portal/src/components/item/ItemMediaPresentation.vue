@@ -487,8 +487,7 @@
     }
   }
 
-  .media-viewer-wrapper:fullscreen,
-  .media-viewer-wrapper.fullscreen-mock {
+  .media-viewer-wrapper:fullscreen {
     max-height: 100%;
 
     .media-viewer-inner-wrapper {
@@ -503,6 +502,7 @@
     }
   }
 
+  // Defining this together with .media-viewer-wrapper:fullscreen does not compile well in older Chrome and iOS browsers
   .media-viewer-wrapper.fullscreen-mock {
     position: fixed;
     top: 0;
@@ -510,17 +510,17 @@
     right: 0;
     bottom: 0;
     height: 100%;
-    z-index: 1051; // Feedback widget z-index + 1
-  }
-
-  // Fix for older Chrome (v70 and iOS)
-  .media-viewer-wrapper.fullscreen-mock .media-viewer-inner-wrapper {
     max-height: 100%;
-    height: 100%;
+    z-index: 1051; // Feedback widget z-index + 1
 
-    &.fullscreen-include-sidebar {
-      @media (max-width: ($bp-large - 1px)) {
-        height: calc(100% - 3.5rem);
+    .media-viewer-inner-wrapper {
+      max-height: 100%;
+      height: 100%;
+
+      &.fullscreen-include-sidebar {
+        @media (max-width: ($bp-large - 1px)) {
+          height: calc(100% - 3.5rem);
+        }
       }
     }
   }
