@@ -114,12 +114,13 @@
           v-if="multiplePages"
           :show-pages="showPages"
           :total-results="resourceCount"
+          :class="fullscreen ? 'd-none' : 'd-inline-flex'"
           @togglePages="togglePages"
         />
       </div>
       <ItemMediaThumbnails
         v-if="multiplePages"
-        v-show="showPages"
+        v-show="showPages && !fullscreen"
         id="item-media-thumbnails"
         ref="itemPages"
         tabindex="0"
@@ -488,13 +489,10 @@
   .media-viewer-wrapper:fullscreen,
   .media-viewer-wrapper.fullscreen-mock {
     max-height: 100%;
+
     .media-viewer-inner-wrapper {
       max-height: 100%;
       height: 100%;
-    }
-    ::v-deep #item-media-thumbnails,
-    ::v-deep .media-viewer-toolbar-pagination {
-      display: none !important;
     }
   }
 
@@ -506,6 +504,12 @@
     bottom: 0;
     height: 100%;
     z-index: 1051; // Feedback widget z-index + 1
+  }
+
+  // Fix for older Chrome (v70 and iOS)
+  .media-viewer-wrapper.fullscreen-mock .media-viewer-inner-wrapper {
+    max-height: 100%;
+    height: 100%;
   }
 
   ::v-deep .divider {

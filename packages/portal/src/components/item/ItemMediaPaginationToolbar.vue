@@ -1,6 +1,6 @@
 <template>
   <div
-    class="media-viewer-toolbar-pagination d-inline-flex align-items-center"
+    class="media-viewer-toolbar-pagination align-items-center"
     :class="{ closed: !showPages }"
   >
     <PaginationNavInput
