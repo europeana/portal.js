@@ -218,7 +218,7 @@
         fullscreen: false,
         mockFullscreenClass: false,
         showPages: true,
-        showSidebar: !!this.$route.hash,
+        showSidebar: false,
         thumbnailInteractedWith: false
       };
     },
@@ -246,9 +246,10 @@
 
       this.selectResource();
 
-      if (this.hasAnnotations && window?.innerWidth >= 768) {
-        this.showSidebar = true;
-      }
+      this.showSidebar = (
+        (this.hasAnnotations && (window?.innerWidth >= 768)) &&
+        (!this.$route.hash || ['#annotations', '#search', '#links'].includes(this.$route.hash))
+      ) || ['#annotations', '#search', '#links'].includes(this.$route.hash);
 
       if (error) {
         this.handleError(error, 'IIIFManifestError');

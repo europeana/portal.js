@@ -195,6 +195,7 @@
           this.watchTabIndex();
         } else {
           this.unwatchTabIndex();
+          this.$router.replace({ ...this.$route, hash: undefined });
         }
       }
     },
