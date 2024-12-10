@@ -10,7 +10,8 @@
         class="media-viewer-inner-wrapper w-100 overflow-auto"
         :class="{
           'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
-          'sidebar-toggle-max-width': addSidebarToggleMaxWidth
+          'sidebar-toggle-max-width': addSidebarToggleMaxWidth,
+          'fullscreen-include-sidebar': fullscreen && sidebarHasContent
         }"
       >
         <b-container
@@ -493,6 +494,12 @@
     .media-viewer-inner-wrapper {
       max-height: 100%;
       height: 100%;
+
+      &.fullscreen-include-sidebar {
+        @media (max-width: ($bp-large - 1px)) {
+          height: calc(100% - 3.5rem);
+        }
+      }
     }
   }
 
@@ -510,6 +517,12 @@
   .media-viewer-wrapper.fullscreen-mock .media-viewer-inner-wrapper {
     max-height: 100%;
     height: 100%;
+
+    &.fullscreen-include-sidebar {
+        @media (max-width: ($bp-large - 1px)) {
+          height: calc(100% - 3.5rem);
+        }
+      }
   }
 
   ::v-deep .divider {
