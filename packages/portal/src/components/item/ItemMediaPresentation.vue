@@ -519,10 +519,10 @@
     height: 100%;
 
     &.fullscreen-include-sidebar {
-        @media (max-width: ($bp-large - 1px)) {
-          height: calc(100% - 3.5rem);
-        }
+      @media (max-width: ($bp-large - 1px)) {
+        height: calc(100% - 3.5rem);
       }
+    }
   }
 
   ::v-deep .divider {
