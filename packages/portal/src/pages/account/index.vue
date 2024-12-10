@@ -110,12 +110,14 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <ItemPreviewCardGroup
-                        v-if="likesId && likedItems.length !== 0"
-                        :items="likedItems"
-                        :view="view"
-                        class="pb-5"
-                      />
+                      <b-col cols="12">
+                        <ItemPreviewCardGroup
+                          v-if="likesId && likedItems.length !== 0"
+                          :items="likedItems"
+                          :view="view"
+                          class="pb-5"
+                        />
+                      </b-col>
                     </b-row>
                   </template>
                   <div
