@@ -26,7 +26,17 @@ export default function useActiveTab(tabHashes) {
     // unwatch 1st to prevent duplicate watchers
     unwatchTabIndex();
 
+    if (activeTabIndex.value !== -1) {
+      activeTabHistory.value.push(activeTabHash.value);
+      if (activeTabHash.value !== route.hash) {
+        router.replace({ ...route, hash: activeTabHash.value });
+      }
+    }
+
     unwatchTabIndex = watch(activeTabIndex, () => {
+      if (route.hash && !tabHashes.includes(route.hash)) {
+        return;
+      }
       if (activeTabIndex.value !== -1) {
         activeTabHistory.value.push(activeTabHash.value);
         router.replace({ ...route, hash: activeTabHash.value });
@@ -48,7 +58,7 @@ export default function useActiveTab(tabHashes) {
     activeTabHash,
     activeTabHistory,
     activeTabIndex,
-    watchTabIndex,
-    unwatchTabIndex
+    unwatchTabIndex,
+    watchTabIndex
   };
 }
