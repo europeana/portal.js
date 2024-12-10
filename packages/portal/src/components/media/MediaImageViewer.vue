@@ -31,6 +31,7 @@
   import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
+  import ImageWrapper from 'ol/Image.js';
   import ImageLayer from 'ol/layer/Image.js';
   import Projection from 'ol/proj/Projection.js';
   import ImageStatic from 'ol/source/ImageStatic.js';
@@ -49,6 +50,55 @@
 
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
+
+  import { CREATE_IMAGE_BITMAP, IMAGE_DECODE } from 'ol/has.js';
+  ImageWrapper.load = function() {
+    if (this.state == ImageState.IDLE) {
+      if (this.loader) {
+        this.state = ImageState.LOADING;
+        this.changed();
+        const resolution = this.getResolution();
+        const requestResolution = Array.isArray(resolution)
+          ? resolution[0]
+          : resolution;
+        toPromise(() =>
+          this.loader(
+            this.getExtent(),
+            requestResolution,
+            this.getPixelRatio(),
+          ),
+        )
+          .then((image) => {
+            if ('image' in image) {
+              this.image_ = image.image;
+            }
+            if ('extent' in image) {
+              this.extent = image.extent;
+            }
+            if ('resolution' in image) {
+              this.resolution = image.resolution;
+            }
+            if ('pixelRatio' in image) {
+              this.pixelRatio_ = image.pixelRatio;
+            }
+            if (
+              image instanceof HTMLImageElement ||
+              (CREATE_IMAGE_BITMAP && (image instanceof ImageBitmap)) ||
+              image instanceof HTMLCanvasElement ||
+              image instanceof HTMLVideoElement
+            ) {
+              this.image_ = image;
+            }
+            this.state = ImageState.LOADED;
+          })
+          .catch((error) => {
+            this.state = ImageState.ERROR;
+            console.error(error); // eslint-disable-line no-console
+          })
+          .finally(() => this.changed());
+      }
+    }
+  }
 
   export class MediaImageViewerError extends Error {
     constructor(message) {
