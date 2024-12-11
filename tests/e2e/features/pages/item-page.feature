@@ -2,7 +2,7 @@ Feature: item page
 
   Scenario: View any existing item page
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see the `item page`
     And I see the `main metadata section`
     And I see a `metadata field`
@@ -18,7 +18,7 @@ Feature: item page
 
   Scenario: Action bar
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `action bar`
     And I see a `rights statement`
     And I see a `share button`
@@ -28,7 +28,7 @@ Feature: item page
 
   Scenario: Share Modal
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     And I see a `share button`
     And I click a `share button`
     Then I see a `share modal`
@@ -116,7 +116,7 @@ Feature: item page
     Then there is no `location tab`
 
   Scenario: Seeing an item language selector
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `item language selector`
     Then I see a `item language selector toggle text suggestion`
 

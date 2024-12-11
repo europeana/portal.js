@@ -8,7 +8,7 @@ Feature: Page Footer
     When I open the `search page`
     Then I see the `footer`
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see the `footer`
 
     When I open an `entity page`
