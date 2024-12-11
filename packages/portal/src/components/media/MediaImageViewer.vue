@@ -31,7 +31,6 @@
   import VectorSource from 'ol/source/Vector.js';
   import TileLayer from 'ol/layer/Tile.js';
   import Map from 'ol/Map.js';
-  import ImageWrapper from 'ol/Image.js';
   import ImageLayer from 'ol/layer/Image.js';
   import Projection from 'ol/proj/Projection.js';
   import ImageStatic from 'ol/source/ImageStatic.js';
@@ -51,8 +50,13 @@
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaImageViewerKeyboardToggle from './MediaImageViewerKeyboardToggle.vue';
 
+  import ImageWrapper from 'ol/Image.js';
+  import ImageState from 'ol/ImageState.js';
+  import {toPromise} from 'ol/functions.js';
   import { CREATE_IMAGE_BITMAP, IMAGE_DECODE } from 'ol/has.js';
-  ImageWrapper.load = function() {
+  // console.log('ImageWrapper.prototype.load', ImageWrapper.prototype.load)
+  ImageWrapper.prototype.load = function() {
+    console.log('monkeypatched ImageWrapper.prototype.load')
     if (this.state == ImageState.IDLE) {
       if (this.loader) {
         this.state = ImageState.LOADING;
