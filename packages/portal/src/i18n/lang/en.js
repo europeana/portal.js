@@ -1056,7 +1056,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF viewer",
     "actions": {
       "pin": "Pin item to available Entities"
     },
