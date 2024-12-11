@@ -2,8 +2,8 @@ Feature: pages
 
   Scenario: Take a snapshot of an item page
 
-    When I open a `item page with IIIF annotations`
-    Then I see the `item page with IIIF annotations`
+    When I open an `item page with IIIF annotations`
+    Then I see the `item page`
     And I make a snapshot of the `item page with IIIF annotations`
 
   Scenario: Take a snapshot of a gallery page
