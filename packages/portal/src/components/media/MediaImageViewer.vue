@@ -267,7 +267,7 @@
       },
 
       highlightAnnotations(annos = this.activeAnnotation, layerId = 'active') {
-        const layer = this.olMap.getLayers().getArray().find((layer) => layer.get('id') === layerId);
+        const layer = this.olMap?.getLayers()?.getArray()?.find((layer) => layer.get('id') === layerId);
         if (!layer) {
           return;
         }
