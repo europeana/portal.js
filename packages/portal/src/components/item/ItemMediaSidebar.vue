@@ -3,6 +3,7 @@
     name="fade"
   >
     <div
+      v-show="show"
       class="media-viewer-sidebar"
       data-qa="item media sidebar"
     >
@@ -158,6 +159,10 @@
       query: {
         type: String,
         default: null
+      },
+      show: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -173,8 +178,8 @@
         tabHashes.push('#links');
       }
 
-      const { activeTabHash, activeTabHistory, activeTabIndex } = useActiveTab(tabHashes);
-      return { activeTabHash, activeTabHistory, activeTabIndex };
+      const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
+      return { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex };
     },
 
     data() {
@@ -182,6 +187,23 @@
         sidebarId: 'item-media-sidebar',
         annotationsCount: null
       };
+    },
+
+    watch: {
+      show(val) {
+        if (val) {
+          this.watchTabIndex();
+        } else {
+          this.unwatchTabIndex();
+          this.$router.replace({ ...this.$route, hash: undefined });
+        }
+      }
+    },
+
+    mounted() {
+      if (this.show) {
+        this.watchTabIndex();
+      }
     },
 
     methods: {
