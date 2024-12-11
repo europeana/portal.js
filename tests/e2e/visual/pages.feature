@@ -4,6 +4,7 @@ Feature: pages
 
     When I open an `item page with IIIF annotations`
     Then I see the `item page`
+    And I wait 5 seconds
     And I make a snapshot of the `item page with IIIF annotations`
 
   Scenario: Take a snapshot of a gallery page
