@@ -34,6 +34,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     $router: {
       replace: routerReplaceSpy
     },
+    $t: (key) => key,
     ...mocks
   },
   localVue,
@@ -43,6 +44,8 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
 const stubItemMediaPresentationComposable = (stubs = {}) => {
   sinon.stub(itemMediaPresentation, 'default').returns({
     annotations,
+    annotationSearchHitSelectorFor: () => ({ exact: 'exact', prefix: 'prefix', suffix: 'suffix' }),
+    annotationSearchResults: annotations,
     fetchCanvasAnnotations: fetchCanvasAnnotationsSpy,
     pageForAnnotationTarget: () => 1,
     searchAnnotations: searchAnnotationsSpy,
@@ -55,6 +58,16 @@ describe('components/media/MediaAnnotationList', () => {
   afterEach(sinon.restore);
 
   describe('template', () => {
+    it('shows "no results" message if no annotations when searching', () => {
+      const propsData = { query: 'euro' };
+      stubItemMediaPresentationComposable({ annotationSearchResults: [] });
+      const wrapper = factory({ propsData });
+
+      const text = wrapper.text();
+
+      expect(text).toBe('noResults');
+    });
+
     it('renders annotations', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();

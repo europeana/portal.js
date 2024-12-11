@@ -10,6 +10,12 @@
         </b-col>
       </b-row>
     </b-container>
+    <p
+      v-else-if="query && (annotationList?.length || 0) === 0"
+      class="px-3"
+    >
+      {{ $t('noResults') }}
+    </p>
     <ol
       v-else
       class="media-viewer-annotation-list list-group"
