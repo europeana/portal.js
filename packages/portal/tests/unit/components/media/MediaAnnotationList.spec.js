@@ -28,6 +28,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     annotationScrollToContainerSelector: '#list-container'
   },
   mocks: {
+    $i18n: { n: (num) => num },
     $route: {
       query: {}
     },

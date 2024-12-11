@@ -10,14 +10,8 @@
         </b-col>
       </b-row>
     </b-container>
-    <p
-      v-else-if="query && (annotationList?.length || 0) === 0"
-      class="px-3"
-    >
-      {{ $t('noResults') }}
-    </p>
     <ol
-      v-else
+      v-else-if="annotationList.length"
       class="media-viewer-annotation-list list-group"
     >
       <li
@@ -52,6 +46,16 @@
         </NuxtLink>
       </li>
     </ol>
+    <div
+      role="status"
+      :class="{ 'visually-hidden': !noResults || $fetchState.pending }"
+    >
+      <p
+        class="px-3"
+      >
+        {{ noResults ? $t('noResults') : $t('searchHasLoaded', [totalResultsLocalised]) }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -132,6 +136,14 @@
 
       searching() {
         return !!this.query;
+      },
+
+      noResults() {
+        return this.query && (this.annotationList?.length || 0) === 0;
+      },
+
+      totalResultsLocalised() {
+        return this.$i18n.n(this.annotationList.length);
       }
     },
 
