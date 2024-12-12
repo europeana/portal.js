@@ -120,7 +120,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-align: left;
       line-height: 1.5;
     }

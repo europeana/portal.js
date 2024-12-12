@@ -1,14 +1,24 @@
 @import 'mixins';
 
 body {
-  background-color: $bodygrey;
+  background-color: $white;
   color: $textcolor;
   font-family: $font-family-sans-serif;
   font-size: 16px;
   line-height: 1.5;
+}
 
-  &.white {
-    background-color: $white;
+.page {
+  padding-top: 2rem;
+
+  @media (min-width: $bp-small) {
+    padding-top: 3rem;
+  }
+
+  &.xxl-page {
+    @media (min-width: $bp-4k) {
+      padding-top: 6rem;
+    }
   }
 }
 
@@ -240,7 +250,7 @@ figcaption {
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -330,10 +340,10 @@ input[type='checkbox']:focus + label {
 }
 
 main#default {
-  margin-top: 70px;
+  margin-top: 3.5rem; // leave space for the fixed positioned header
 
   @media (min-width: $bp-4k) {
-    margin-top: calc(1.5 * 70px);
+    margin-top: calc(1.5 * 3.5rem);
   }
 }
 
@@ -391,13 +401,4 @@ main#default {
       }
     }
   }
-}
-
-.white-page {
-  background: $white;
-  margin-top: -3rem;
-  position: relative;
-
-  @include min-page-height;
-  @include white-cutout;
 }

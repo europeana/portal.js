@@ -120,6 +120,8 @@
 </script>
 
 <style lang="scss" scoped>
+@import '@europeana/style/scss/variables';
+
 h1 {
   font-size: 1.875rem;
   font-weight: 300;
@@ -133,5 +135,10 @@ h1 {
 
 .page-container {
   max-width: none;
+  padding-top: 0.875rem;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 1.5rem;
+  }
 }
 </style>
