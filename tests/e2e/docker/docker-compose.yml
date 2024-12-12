@@ -1,4 +1,3 @@
-version: "3"
 services:
   nginx:
     image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}
@@ -16,7 +15,8 @@ services:
       context: ../../..
       dockerfile: ./packages/portal/Dockerfile
     depends_on:
-      - cache
+      - redis
+      - postgres
     expose:
       - "8080"
     env_file: ./app/.env
@@ -34,90 +34,127 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - NUXT_LOADING_THROTTLE=0
       - PORTAL_BASE_URL=https://nginx
-      - REDIS_URL=redis://cache
-  cache:
+      - REDIS_URL=redis://redis
+      - POSTGRES_URL=postgres://postgres:postgres-password@postgres/europeana_www
+  redis:
     image: redis
-  chrome-en:
-    image: selenium/standalone-chrome:88.0
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres-password
+    volumes:
+      - ../../../docker/compose/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ../../../docker/compose/postgres/model:/var/lib/postgresql/model
+  selenium:
+    image: selenium/standalone-chrome:131.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
       interval: 5s
       timeout: 2s
-    environment:
-      - DBUS_SESSION_BUS_ADDRESS=/dev/null
-      - LANG=en_GB.UTF-8
-      - LANGUAGE=en_GB.UTF-8
-    volumes:
-      - /dev/shm:/dev/shm
-  chrome-ja:
-    image: selenium/standalone-chrome:88.0
-    healthcheck:
-      test: curl -fs http://localhost:4444 || exit 1
-      interval: 5s
-      timeout: 2s
-    environment:
-      - DBUS_SESSION_BUS_ADDRESS=/dev/null
-      - LANG=ja_JP.UTF-8
-      - LANGUAGE=ja_JP.UTF-8
-    volumes:
-      - /dev/shm:/dev/shm
-  chrome-nl:
-    image: selenium/standalone-chrome:88.0
-    healthcheck:
-      test: curl -fs http://localhost:4444 || exit 1
-      interval: 5s
-      timeout: 2s
-    environment:
-      - DBUS_SESSION_BUS_ADDRESS=/dev/null
-      - LANG=nl_NL.UTF-8
-      - LANGUAGE=nl_NL.UTF-8
-    volumes:
-      - /dev/shm:/dev/shm
-  nightwatch-features:
-    image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
+    # environment:
+    #   - DBUS_SESSION_BUS_ADDRESS=/dev/null
+    #   - LANG=en_GB.UTF-8
+    #   - LANGUAGE=en_GB.UTF-8
+    ports:
+      - "7900:7900"
+  nightwatch3:
+    image: europeana/portal.js-nightwatch3:${NIGHTWATCH_IMAGE_VERSION:-latest}
     build:
-      context: ./nightwatch
+      context: ./nightwatch3
     depends_on:
       nginx:
         condition: service_started
       app:
         condition: service_started
-      chrome-en:
+      selenium:
         condition: service_healthy
-      chrome-ja:
-        condition: service_healthy
-      chrome-nl:
-        condition: service_healthy
-    volumes:
-      - /dev/shm:/dev/shm
-      - ../features:/app/tests/e2e/features
-      - ../../../tmp:/app/screenshots
-    env_file: ./nightwatch/.env
-    environment:
-      - WEBDRIVER_EN_HOST=chrome-en
-      - WEBDRIVER_JA_HOST=chrome-ja
-      - WEBDRIVER_NL_HOST=chrome-nl
-      - APP_URL=https://nginx
-  nightwatch-visual:
-    image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
-    build:
-      context: ./nightwatch
-    entrypoint: npm run percy
-    command: "tests/**/*.feature"
-    depends_on:
-      nginx:
-        condition: service_started
-      app:
-        condition: service_started
-      chrome-en:
-        condition: service_healthy
-    env_file: ./nightwatch-visual/.env
-    volumes:
-      - /dev/shm:/dev/shm
-      - ../visual:/app/tests/e2e/visual
-      - ../../../tmp:/app/screenshots
-    environment:
-      - WEBDRIVER_EN_HOST=chrome-en
-      - APP_URL=https://nginx
+    # volumes:
+    #   - /dev/shm:/dev/shm
+    #   - ../features:/app/tests/e2e/features
+    #   - ../../../tmp:/app/screenshots
+    # env_file: ./nightwatch/.env
+    # environment:
+    #   - WEBDRIVER_EN_HOST=chrome-en
+    #   - WEBDRIVER_JA_HOST=chrome-ja
+    #   - WEBDRIVER_NL_HOST=chrome-nl
+    #   - APP_URL=https://nginx
+  # chrome-en:
+  #   image: selenium/standalone-chrome:97.0
+  #   healthcheck:
+  #     test: curl -fs http://localhost:4444 || exit 1
+  #     interval: 5s
+  #     timeout: 2s
+  #   environment:
+  #     - DBUS_SESSION_BUS_ADDRESS=/dev/null
+  #     - LANG=en_GB.UTF-8
+  #     - LANGUAGE=en_GB.UTF-8
+  #   ports:
+  #     - "7900:7900"
+  # chrome-ja:
+  #   image: selenium/standalone-chrome:97.0
+  #   healthcheck:
+  #     test: curl -fs http://localhost:4444 || exit 1
+  #     interval: 5s
+  #     timeout: 2s
+  #   environment:
+  #     - DBUS_SESSION_BUS_ADDRESS=/dev/null
+  #     - LANG=ja_JP.UTF-8
+  #     - LANGUAGE=ja_JP.UTF-8
+  # chrome-nl:
+  #   image: selenium/standalone-chrome:97.0
+  #   healthcheck:
+  #     test: curl -fs http://localhost:4444 || exit 1
+  #     interval: 5s
+  #     timeout: 2s
+  #   environment:
+  #     - DBUS_SESSION_BUS_ADDRESS=/dev/null
+  #     - LANG=nl_NL.UTF-8
+  #     - LANGUAGE=nl_NL.UTF-8
+  # nightwatch-features:
+  #   image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
+  #   build:
+  #     context: ./nightwatch
+  #   depends_on:
+  #     nginx:
+  #       condition: service_started
+  #     app:
+  #       condition: service_started
+  #     chrome-en:
+  #       condition: service_healthy
+  #     chrome-ja:
+  #       condition: service_healthy
+  #     chrome-nl:
+  #       condition: service_healthy
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - ../features:/app/tests/e2e/features
+  #     - ../../../tmp:/app/screenshots
+  #   env_file: ./nightwatch/.env
+  #   environment:
+  #     - WEBDRIVER_EN_HOST=chrome-en
+  #     - WEBDRIVER_JA_HOST=chrome-ja
+  #     - WEBDRIVER_NL_HOST=chrome-nl
+  #     - APP_URL=https://nginx
+  # nightwatch-visual:
+  #   image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
+  #   build:
+  #     context: ./nightwatch
+  #   entrypoint: npm run percy
+  #   command: "tests/**/*.feature"
+  #   depends_on:
+  #     nginx:
+  #       condition: service_started
+  #     app:
+  #       condition: service_started
+  #     chrome-en:
+  #       condition: service_healthy
+  #   env_file: ./nightwatch-visual/.env
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #     - ../visual:/app/tests/e2e/visual
+  #     - ../../../tmp:/app/screenshots
+  #   environment:
+  #     - WEBDRIVER_EN_HOST=chrome-en
+  #     - APP_URL=https://nginx
 volumes:
   nginx-proxy-cache-apis: {}

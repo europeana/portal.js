@@ -1,0 +1,19 @@
+{
+  "name": "nightwatch3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx nightwatch --format @cucumber/pretty-formatter"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.1.0",
+    "nightwatch": "^3.9.0"
+  },
+  "dependencies": {
+    "@cucumber/pretty-formatter": "^1.0.1"
+  }
+}
