@@ -15,7 +15,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMount(MediaAnnotatio
   },
   propsData,
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $route: {
       query: { fulltext }
     },
@@ -25,7 +25,7 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMount(MediaAnnotatio
     ...mocks
   },
   localVue,
-  stubs: ['b-form', 'b-form-group', 'b-form-input', 'MediaAnnotationList']
+  stubs: ['b-button', 'b-form', 'b-form-group', 'b-form-input', 'MediaAnnotationList']
 });
 
 describe('components/media/MediaAnnotationSearch', () => {
