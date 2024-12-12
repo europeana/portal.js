@@ -46,16 +46,6 @@
         </NuxtLink>
       </li>
     </ol>
-    <div
-      role="status"
-      :class="{ 'visually-hidden': !noResults || $fetchState.pending }"
-    >
-      <p
-        class="px-3"
-      >
-        {{ noResults ? $t('noResults') : $t('searchHasLoaded', [totalResultsLocalised]) }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -126,7 +116,8 @@
       ]);
       this.setActiveAnnotationFromRouteQuery();
 
-      this.$emit('fetched', this.annotations.length);
+      const annotationsCount = this.searching ? this.annotationSearchResults.length : this.annotations.length;
+      this.$emit('fetched', annotationsCount);
     },
 
     computed: {
@@ -136,14 +127,6 @@
 
       searching() {
         return !!this.query;
-      },
-
-      noResults() {
-        return this.query && (this.annotationList?.length || 0) === 0;
-      },
-
-      totalResultsLocalised() {
-        return this.$i18n.n(this.annotationList.length);
       }
     },
 

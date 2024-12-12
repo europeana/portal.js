@@ -34,6 +34,13 @@
       v-if="annoQuery"
       :active="active"
       :query="annoQuery"
+      @fetched="handleAnnotationsFetched"
+    />
+    <output
+      ref="output"
+      form="media-annotation-search-form"
+      class="px-3"
+      :class="{ 'visually-hidden': !noResults }"
     />
   </div>
 </template>
@@ -68,9 +75,16 @@
 
     data() {
       return {
+        annotationsCount: null,
         annoQuery: this.$route.query.fulltext || null,
         query: this.$route.query.fulltext || null
       };
+    },
+
+    computed: {
+      noResults() {
+        return this.annoQuery && (this.annotationsCount || 0) === 0;
+      }
     },
 
     watch: {
@@ -82,6 +96,7 @@
     methods: {
       handleSubmitForm() {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, fulltext: this.query } });
+        this.$refs.output.value = '';
       },
 
       clearQuery() {
@@ -91,6 +106,11 @@
         this.$nextTick(() => {
           this.$refs.searchinput.$el.focus();
         });
+      },
+
+      handleAnnotationsFetched(annotationsLength) {
+        this.annotationsCount = annotationsLength;
+        this.$refs.output.value = this.noResults ? this.$t('noResults') : this.$t('searchHasLoaded', [this.$n(this.annotationsCount)]);
       }
     }
   };
