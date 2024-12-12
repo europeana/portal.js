@@ -2,6 +2,7 @@
   <div
     id="media-image-viewer"
     class="h-100 w-100"
+    data-qa="media image viewer"
   >
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
@@ -402,6 +403,7 @@
         const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
 
         sourceOptions.extent = extent;
+        sourceOptions.crossOrigin = 'anonymous';
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
