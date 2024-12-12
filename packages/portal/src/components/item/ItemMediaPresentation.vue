@@ -44,7 +44,7 @@
             />
           </template>
           <IIIFErrorMessage
-            v-if="$fetchState.error"
+            v-if="$fetchState.error || mediaError"
             :provider-url="providerUrl"
           />
           <MediaImageViewer
@@ -220,6 +220,7 @@
     data() {
       return {
         fullscreen: false,
+        mediaError: null,
         mockFullscreenClass: false,
         showPages: true,
         showSidebar: false,
@@ -301,6 +302,7 @@
 
     watch: {
       '$route.query.page'() {
+        this.mediaError = null;
         this.setPage(this.$route.query.page);
       },
 
@@ -312,7 +314,7 @@
 
     methods: {
       handleImageError(error) {
-        this.$fetchState.error = error;
+        this.mediaError = error;
         this.handleError(error);
       },
 
