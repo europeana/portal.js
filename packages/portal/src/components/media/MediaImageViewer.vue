@@ -403,6 +403,7 @@
         const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
 
         sourceOptions.extent = extent;
+        sourceOptions.crossOrigin = 'anonymous';
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
