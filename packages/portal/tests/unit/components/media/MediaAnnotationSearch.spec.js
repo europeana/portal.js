@@ -58,6 +58,17 @@ describe('components/media/MediaAnnotationSearch', () => {
       expect(list.attributes('query')).toBe(fulltext);
     });
 
+    it('shows "no results" message if no annotations when searching', () => {
+      const propsData = { annoQuery: 'euro' };
+      const wrapper = factory({ propsData });
+
+      wrapper.vm.handleAnnotationsFetched(0);
+
+      const text = wrapper.text();
+
+      expect(text).toBe('noResults');
+    });
+
     // FIXME: submit.prevent trigger isn't working here (but does when rendered)
     // it('updates the route when the form is submitted', async() => {
     //   const wrapper = factory({ data: { query } });

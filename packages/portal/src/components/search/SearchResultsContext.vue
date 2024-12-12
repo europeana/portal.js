@@ -73,13 +73,12 @@
       variant="light-flat"
       data-qa="results more tooltip"
     />
-    <div
+    <output
       class="visually-hidden"
-      role="status"
       data-qa="results status message"
     >
       {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-    </div>
+    </output>
   </div>
 </template>
 
