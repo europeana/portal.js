@@ -2,6 +2,7 @@
   <iframe
     :src="src"
     class="w-100 h-100"
+    title="PDF"
   />
 </template>
 
