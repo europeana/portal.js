@@ -38,7 +38,7 @@
             class="px-3"
             data-qa="item media sidebar annotations title"
           >
-            {{ $tc('media.sidebar.annotationsCount', annotationsCount) }}
+            {{ $tc('media.sidebar.annotationsCount', $n(annotationsCount)) }}
           </h2>
           <MediaAnnotationList
             v-if="activeTabHistory.includes('#annotations')"
