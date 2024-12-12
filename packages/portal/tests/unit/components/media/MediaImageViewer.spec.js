@@ -143,6 +143,7 @@ describe('components/media/MediaImageViewer', () => {
         };
         stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
         const wrapper = factory({ propsData: { url, width, height } });
+        await wrapper.vm.fetch();
 
         await new Promise(process.nextTick);
         wrapper.vm.highlightAnnotations();
@@ -163,6 +164,7 @@ describe('components/media/MediaImageViewer', () => {
         it('adds a feature for the annotation at the full image size', async() => {
           stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
           const wrapper = factory({ propsData: { url, width, height } });
+          await wrapper.vm.fetch();
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotations();
@@ -185,6 +187,7 @@ describe('components/media/MediaImageViewer', () => {
         it('adds a feature for the annotation at its xywh co-ordinates', async() => {
           stubItemMediaPresentationComposable({ activeAnnotation: annotation, hasAnnotations: true });
           const wrapper = factory({ propsData: { url, width, height } });
+          await wrapper.vm.fetch();
 
           await new Promise(process.nextTick);
           wrapper.vm.highlightAnnotations();
@@ -240,8 +243,11 @@ describe('components/media/MediaImageViewer', () => {
             hash: '#annotations'
           };
           const wrapper = factory({ propsData: { url, width, height }, mocks: { $route: { query: {}, hash: '#search' } } });
+          await wrapper.vm.fetch();
+
           await new Promise(process.nextTick);
           wrapper.vm.handleMapClick([200, 600]);
+
           expect(routerReplaceSpy.calledWith(sinon.match(expectedRouteArgs))).toBe(true);
         });
       });
@@ -254,6 +260,7 @@ describe('components/media/MediaImageViewer', () => {
           min: minZoom
         } = useZoom();
         const wrapper = factory({ propsData: { url, width, height } });
+        await wrapper.vm.fetch();
 
         await new Promise(process.nextTick);
         wrapper.vm.configureZoomLevels();
@@ -271,6 +278,7 @@ describe('components/media/MediaImageViewer', () => {
           setCurrent: setCurrentZoom
         } = useZoom();
         const wrapper = factory({ propsData: { url, width, height } });
+        await wrapper.vm.fetch();
 
         await new Promise(process.nextTick);
         wrapper.vm.olMap.getView = sinon.stub().returns({

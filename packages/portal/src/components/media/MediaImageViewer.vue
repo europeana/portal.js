@@ -151,7 +151,6 @@
         }
 
         if (process.client) {
-          // FIXME: this is called twice, also in mounted
           this.renderImage();
         }
       } catch (error) {
@@ -184,12 +183,6 @@
       currentZoom: 'setZoom',
       rotation: 'setRotation',
       url: '$fetch'
-    },
-
-    mounted() {
-      if (!this.$fetchState.pending) {
-        this.renderImage();
-      }
     },
 
     methods: {
