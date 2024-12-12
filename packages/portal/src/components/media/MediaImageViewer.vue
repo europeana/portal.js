@@ -186,16 +186,6 @@
     },
 
     methods: {
-      initOlAnnotationLayer() {
-        const layerCount = this.olMap.getLayers().getLength();
-        if (layerCount === 0) {
-          throw new MediaImageViewerError('No image layer to annotate');
-        }
-        if (layerCount === 1) {
-          this.olMap.addLayer(new VectorLayer({ source: new VectorSource() }));
-        }
-      },
-
       constructAnnotationFeature(anno) {
         let annotation = anno;
         if (!annotation) {
