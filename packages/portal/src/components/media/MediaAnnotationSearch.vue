@@ -37,11 +37,12 @@
       @fetched="handleAnnotationsFetched"
     />
     <output
-      ref="output"
       form="media-annotation-search-form"
       class="px-3"
       :class="{ 'visually-hidden': !noResults }"
-    />
+    >
+      {{ noResults ? $t('noResults') : $t('searchHasLoaded', [$n(annotationsCount)]) }}
+    </output>
   </div>
 </template>
 
@@ -96,7 +97,6 @@
     methods: {
       handleSubmitForm() {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, fulltext: this.query } });
-        this.$refs.output.value = '';
       },
 
       clearQuery() {
@@ -110,7 +110,6 @@
 
       handleAnnotationsFetched(annotationsLength) {
         this.annotationsCount = annotationsLength;
-        this.$refs.output.value = this.noResults ? this.$t('noResults') : this.$t('searchHasLoaded', [this.$n(this.annotationsCount)]);
       }
     }
   };
