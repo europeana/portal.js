@@ -8,7 +8,7 @@
       id="media-image-viewer-keyboard-toggle"
     />
     <b-container
-      v-if="showSpinner"
+      v-if="imageLoading"
       class="h-100 d-flex align-items-center justify-content-center"
       data-qa="loading spinner container"
     >
@@ -143,7 +143,12 @@
     },
 
     async fetch() {
+      this.imageLoading = true;
       try {
+        // clear any old OL layers e.g. from previous page, so tiles and anno
+        // highlight vectors don't hang around while the new one loads
+        this.olMap?.setLayers([]);
+
         if (this.service?.id) {
           const infoResponse = await this.service.fetchInfo();
           this.info = infoResponse.data;
@@ -156,14 +161,6 @@
       } catch (error) {
         this.$emit('error', error);
         throw error;
-      }
-    },
-
-    computed: {
-      showSpinner() {
-        // only show the loading spinner for static images as it really messes
-        // with loading tiles when panning/zooming/etc
-        return this.imageLoading && (this.source === 'ImageStatic');
       }
     },
 
@@ -390,10 +387,8 @@
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
-        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
-        source.on('tileloadstart', () => this.imageLoading = true);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         source.on('tileloadend', () => this.imageLoading = false);
         const layer = new TileLayer({ properties: { id: 'image' }, source });
@@ -415,7 +410,6 @@
           imageExtent: extent
         });
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
-        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
         const layer = new ImageLayer({ properties: { id: 'image' }, source });
