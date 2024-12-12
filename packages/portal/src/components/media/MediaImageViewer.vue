@@ -387,18 +387,8 @@
 
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
-        source.on('imageloadstart', () => {
-          if (this.imageLoading === null) {
-            this.imageLoading = true;
-          }
-        });
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
-        source.on('tileloadstart', () => {
-          if (this.imageLoading === null) {
-            this.imageLoading = true;
-          }
-        });
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         source.on('tileloadend', () => this.imageLoading = false);
         const layer = new TileLayer({ properties: { id: 'image' }, source });
@@ -420,7 +410,6 @@
           imageExtent: extent
         });
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
-        source.on('imageloadstart', () => this.imageLoading = true);
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
         const layer = new ImageLayer({ properties: { id: 'image' }, source });
