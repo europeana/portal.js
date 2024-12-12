@@ -15,6 +15,7 @@
       @keydown.esc="handleEsc"
     >
       <b-form
+        id="stories-tags-search-form"
         class="search-form"
         :class="{ 'show': showDropdown }"
         inline
