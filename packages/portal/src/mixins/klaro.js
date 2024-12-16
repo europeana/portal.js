@@ -50,6 +50,7 @@ export default {
       cookieConsentRequired: false,
       klaro: null,
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
+      klaroManager: null,
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
       klaroServices: null,
@@ -104,12 +105,12 @@ export default {
   methods: {
     renderKlaro() {
       if (this.klaro) {
-        const manager = this.klaro.getManager(this.klaroConfig);
+        this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
-        this.cookieConsentRequired = !manager.confirmed;
+        this.cookieConsentRequired = !this.klaroManager.confirmed;
 
         this.klaro.render(this.klaroConfig, true);
-        manager.watch({ update: this.watchKlaroManagerUpdate });
+        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
 
         setTimeout(() => {
           this.setToastBottomOffset();
