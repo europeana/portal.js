@@ -8,6 +8,7 @@ export default class EuropeanaMediaAnnotation extends Base {
     const parsed = {
       id: data.id, // TODO: bloats size of data; how to alleviate?
       body: data.body || data.resource,
+      motivation: data.motivation,
       target: data.target || data.on
     };
 
