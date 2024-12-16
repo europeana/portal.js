@@ -76,7 +76,7 @@ const searchTextGranularity = computed(() => {
   const granularities = uniq(
     canvases.value?.map((canvas) => canvas.annotations?.[0]?.textGranularity)
       .filter(Boolean)
-      .flat()
+      .flat() || []
   );
   return granularities.includes('line') ? 'line' : granularities[0];
 });
