@@ -39,8 +39,22 @@
       size="xl"
       hide-footer
       hide-header-close
+      :title="$t('klaro.main.consentModal.title')"
       @hide="onModalHide"
     >
+      <i18n
+        path="klaro.main.consentModal.description"
+        tag="p"
+      >
+        <template #privacyPolicy>
+          <SmartLink
+            destination="/rights/privacy-policy"
+          >
+            {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
+          -->
+          </SmartLink>
+        </template>
+      </i18n>
       <ul>
         <li
           v-for="(service, index) in klaroConfig.services"
@@ -89,6 +103,10 @@
 
   export default {
     name: 'PageCookieConsent',
+
+    components: {
+      SmartLink: () => import('@/components/generic/SmartLink')
+    },
 
     mixins: [klaroMixin],
 
