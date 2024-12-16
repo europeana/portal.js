@@ -16,13 +16,13 @@
         {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
       <StoriesTypeFilter />
-      <div
+      <output
+        form="stories-tags-search-form"
         class="visually-hidden"
-        role="status"
         data-qa="results status message"
       >
         {{ $t('storiesPage.storiesHaveLoaded', [total]) }}
-      </div>
+      </output>
     </div>
     <b-container
       v-if="$fetchState.pending"

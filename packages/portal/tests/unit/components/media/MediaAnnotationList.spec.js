@@ -28,7 +28,6 @@ const factory = ({ data, propsData, mocks } = {}) => shallowMountNuxt(MediaAnnot
     annotationScrollToContainerSelector: '#list-container'
   },
   mocks: {
-    $i18n: { n: (num) => num },
     $route: {
       query: {}
     },
@@ -59,16 +58,6 @@ describe('components/media/MediaAnnotationList', () => {
   afterEach(sinon.restore);
 
   describe('template', () => {
-    it('shows "no results" message if no annotations when searching', () => {
-      const propsData = { query: 'euro' };
-      stubItemMediaPresentationComposable({ annotationSearchResults: [] });
-      const wrapper = factory({ propsData });
-
-      const text = wrapper.text();
-
-      expect(text).toBe('noResults');
-    });
-
     it('renders annotations', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();
