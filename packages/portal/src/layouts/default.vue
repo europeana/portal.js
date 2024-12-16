@@ -46,9 +46,8 @@
       <DebugApiRequests />
     </client-only>
     <b-toaster
-      name="b-toaster-bottom-left-dynamic"
-      class="b-toaster-bottom-left-dynamic"
-      :style="{'--bottom': toastBottomOffset }"
+      name="b-toaster-bottom-left"
+      class="b-toaster-bottom-left"
     />
     <ErrorModal />
     <client-only>

@@ -82,7 +82,7 @@
       solid
       toast-class="brand-toast-white"
       append-toast
-      toaster="b-toaster-bottom-left-dynamic"
+      toaster="b-toaster-bottom-left"
     >
       <i18n
         path="set.publication.toastMessage"

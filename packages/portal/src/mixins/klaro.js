@@ -53,8 +53,7 @@ export default {
       klaroManager: null,
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null,
-      toastBottomOffset: '20px'
+      klaroServices: null
     };
   },
 
@@ -111,16 +110,7 @@ export default {
 
         this.klaro.render(this.klaroConfig, true);
         this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
-
-        setTimeout(() => {
-          this.setToastBottomOffset();
-        }, 100);
       }
-    },
-
-    setToastBottomOffset() {
-      const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
-      this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
     },
 
     watchKlaroManagerUpdate(manager, eventType, data) {
@@ -135,10 +125,6 @@ export default {
       }
 
       eventName && this.trackKlaroClickEvent(eventName);
-
-      setTimeout(() => {
-        this.setToastBottomOffset();
-      }, 10);
     },
 
     trackKlaroClickEvent(eventName) {

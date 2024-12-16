@@ -9,7 +9,7 @@
       toast-class="brand-toast-white cookie-notice"
       visible
       append-toast
-      toaster="b-toaster-bottom-left-dynamic"
+      toaster="b-toaster-bottom-left"
     >
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
       <div class="d-flex justify-content-between align-items-center">
