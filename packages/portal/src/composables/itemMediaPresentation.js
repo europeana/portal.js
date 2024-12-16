@@ -76,7 +76,7 @@ const searchTextGranularity = computed(() => {
   const granularities = uniq(
     canvases.value?.map((canvas) => canvas.annotations?.[0]?.textGranularity)
       .filter(Boolean)
-      .flat() || []
+      .flat()// || []
   );
   return granularities.includes('line') ? 'line' : granularities[0];
 });
@@ -172,7 +172,10 @@ const searchAnnotations = async(query) => {
     annotationSearchResults.value = [];
     annotationSearchHits.value = [];
   } else {
-    const list = await fetchAnnotations(searchServiceUri.value, { params: { query, textGranularity: searchTextGranularity.value } });
+    const list = await fetchAnnotations(
+      searchServiceUri.value,
+      { params: { query, textGranularity: searchTextGranularity.value } }
+    );
     annotationSearchResults.value = list.items;
     annotationSearchHits.value = list.hits || [];
   }
@@ -203,6 +206,7 @@ export default function useItemMediaPresentation() {
     annotationTextGranularity,
     activeAnnotation,
     canvas,
+    canvases,
     fetchAnnotations,
     fetchCanvasAnnotations,
     fetchPresentation,
@@ -217,6 +221,7 @@ export default function useItemMediaPresentation() {
     presentation,
     searchAnnotations,
     searchServiceUri,
+    searchTextGranularity,
     setActiveAnnotation,
     setHoveredAnnotation,
     setPage,

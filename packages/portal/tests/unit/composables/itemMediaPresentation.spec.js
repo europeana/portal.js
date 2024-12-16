@@ -28,6 +28,27 @@ const listResponseData = {
     }
   }]
 };
+const searchPath = '/presentation/123/abc/search';
+const searchUri = `${origin}${searchPath}`;
+const searchResponseData = {
+  id: searchUri,
+  type: 'AnnotationPage',
+  items: [
+    {
+      id: 'https://iiif.example.org/annotation/123/abc',
+      type: 'Annotation',
+      motivation: 'transcribing'
+    }
+  ],
+  hits: [
+    {
+      type: 'Hit',
+      annotations: [
+        'https://iiif.example.org/annotation/123/abc'
+      ]
+    }
+  ]
+};
 const manifestPath = '/presentation/123/abc/manifest';
 const manifestUri = `${origin}${manifestPath}`;
 const manifestResponseData = {
@@ -37,7 +58,7 @@ const manifestResponseData = {
   service: [
     {
       '@context': 'http://iiif.io/api/search/1/context.json',
-      id: 'https://iiif.example.org/presentation/123/abc/search',
+      id: searchUri,
       profile: 'http://iiif.io/api/search/1/search'
     }
   ],
@@ -80,7 +101,10 @@ const presentationValue = new EuropeanaMediaPresentation({
       ],
       resource: {}
     }
-  ]
+  ],
+  search: {
+    id: searchUri
+  }
 });
 
 describe('useItemMediaPresentation', () => {
@@ -190,6 +214,91 @@ describe('useItemMediaPresentation', () => {
             }
           }
         ]
+      });
+    });
+  });
+
+  describe('searchTextGranularity', () => {
+    it('picks "line" granularity from canvas annotations if available', () => {
+      const { searchTextGranularity, presentation } = useItemMediaPresentation();
+      presentation.value = new EuropeanaMediaPresentation({
+        canvases: [
+          { annotations: [{ textGranularity: ['page'] }] },
+          { annotations: [{ textGranularity: ['block', 'line'] }] }
+        ]
+      });
+
+      const granularity = searchTextGranularity.value;
+
+      expect(granularity).toBe('line');
+    });
+
+    it('picks first granularity from canvas annotations if "line" not available', () => {
+      const { searchTextGranularity, presentation } = useItemMediaPresentation();
+      presentation.value = new EuropeanaMediaPresentation({
+        canvases: [
+          { annotations: [{ textGranularity: ['page'] }] },
+          { annotations: [{ textGranularity: ['block'] }] }
+        ]
+      });
+
+      const granularity = searchTextGranularity.value;
+
+      expect(granularity).toBe('page');
+    });
+
+    it('is undefined if no canvas annotation granularities', () => {
+      const { searchTextGranularity, presentation } = useItemMediaPresentation();
+      presentation.value = new EuropeanaMediaPresentation({
+        canvases: [
+          { annotations: [{}] },
+          { annotations: [{}] }
+        ]
+      });
+
+      const granularity = searchTextGranularity.value;
+
+      expect(granularity).toBeUndefined();
+    });
+  });
+
+  describe('searchAnnotations', () => {
+    const textGranularity = 'line';
+
+    describe('when there is a query', () => {
+      const query = 'dublin';
+
+      beforeEach(() => {
+        nock(origin).get(searchPath).query({ query, textGranularity }).reply(200, searchResponseData);
+      });
+
+      it('runs search for query and text granularity', async() => {
+        const { presentation, searchAnnotations } = useItemMediaPresentation();
+        presentation.value = new EuropeanaMediaPresentation({
+          canvases: [
+            { annotations: [{ textGranularity: [textGranularity] }] }
+          ],
+          search: { id: searchUri }
+        });
+
+        await searchAnnotations(query);
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('stores results and hits', async() => {
+        const { annotationSearchHits, annotationSearchResults, presentation, searchAnnotations } = useItemMediaPresentation();
+        presentation.value = new EuropeanaMediaPresentation({
+          canvases: [
+            { annotations: [{ textGranularity: [textGranularity] }] }
+          ],
+          search: { id: searchUri }
+        });
+
+        await searchAnnotations(query);
+
+        expect(annotationSearchHits.value).toEqual(searchResponseData.hits);
+        expect(annotationSearchResults.value[0].id).toBe(searchResponseData.items[0].id);
       });
     });
   });
