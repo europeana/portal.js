@@ -262,6 +262,8 @@
       }
     },
 
+    fetchOnServer: false,
+
     computed: {
       displayThumbnail() {
         if (this.hasAnnotations) {
