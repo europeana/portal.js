@@ -1,5 +1,6 @@
 <template>
   <span
+    v-show="!timeout"
     role="status"
     data-qa="loading spinner"
   >
@@ -19,6 +20,10 @@
     name: 'LoadingSpinner',
 
     props: {
+      delay: {
+        type: Number,
+        default: 0
+      },
       statusMessage: {
         type: String,
         default: null
@@ -30,6 +35,20 @@
       size: {
         type: String,
         default: 'sm'
+      }
+    },
+
+    data() {
+      return {
+        timeout: null
+      };
+    },
+
+    mounted() {
+      if (this.delay > 0) {
+        this.timeout = setTimeout(function() {
+          this.timeout = null;
+        }.bind(this), this.delay);
       }
     }
   };
