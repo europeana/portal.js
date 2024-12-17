@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-      klaroAllServices: portalServices.concat(thirdPartyServices)
+      klaroAllServices: this.$features.embeddedMediaNotification ? portalServices.concat(thirdPartyServices) : portalServices
     };
   }
 };

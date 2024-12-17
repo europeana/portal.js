@@ -20,11 +20,14 @@
     </main>
     <DS4CHPageFooter />
     <client-only>
-      <PageCookieConsent
-        v-if="cookieConsentRequired"
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
         :klaro-manager="klaroManager"
         :klaro-config="klaroConfig"
         :cookie-consent-required="cookieConsentRequired"
+      />
+      <PageCookieConsent
+        v-else-if="cookieConsentRequired"
       />
     </client-only>
   </div>
@@ -46,7 +49,8 @@
       ClientOnly,
       DS4CHPageHeader,
       DS4CHPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent')
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
     mixins: [

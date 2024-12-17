@@ -51,11 +51,14 @@
     />
     <ErrorModal />
     <client-only>
-      <PageCookieConsent
-        v-if="cookieConsentRequired"
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
         :klaro-manager="klaroManager"
         :klaro-config="klaroConfig"
         :cookie-consent-required="cookieConsentRequired"
+      />
+      <PageCookieConsent
+        v-else-if="cookieConsentRequired"
       />
     </client-only>
   </div>
@@ -79,6 +82,7 @@
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('../components/page/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),

@@ -19,11 +19,14 @@
     </main>
     <LandingPageFooter />
     <client-only>
-      <PageCookieConsent
-        v-if="cookieConsentRequired"
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
         :klaro-manager="klaroManager"
         :klaro-config="klaroConfig"
         :cookie-consent-required="cookieConsentRequired"
+      />
+      <PageCookieConsent
+        v-else-if="cookieConsentRequired"
       />
     </client-only>
   </div>
@@ -42,7 +45,8 @@
     components: {
       LandingPageHeader,
       LandingPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent')
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
     mixins: [
