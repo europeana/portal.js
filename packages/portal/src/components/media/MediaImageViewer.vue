@@ -138,21 +138,16 @@
         /**
          * @values IIIF,ImageStatic
          */
-        source: 'ImageStatic'
+        source: this.service?.id ? 'IIIF' : 'ImageStatic'
       };
     },
 
     async fetch() {
       this.imageLoading = true;
       try {
-        // clear any old OL layers e.g. from previous page, so tiles and anno
-        // highlight vectors don't hang around while the new one loads
-        this.olMap?.setLayers([]);
-
-        if (this.service?.id) {
+        if (this.source === 'IIIF') {
           const infoResponse = await this.service.fetchInfo();
           this.info = infoResponse.data;
-          this.source = 'IIIF';
         }
 
         if (process.client) {
@@ -162,6 +157,10 @@
         this.$emit('error', error);
         throw error;
       }
+    },
+
+    mounted() {
+      this.initOl();
     },
 
     watch: {
@@ -179,7 +178,15 @@
       },
       currentZoom: 'setZoom',
       rotation: 'setRotation',
-      url: '$fetch'
+      url() {
+        // clear any old OL layer content e.g. from previous page, so tiles and
+        // anno highlight vectors don't hang around while the new one loads
+        this.olMap?.getLayers()?.item(0)?.setSource(null);
+        this.olMap?.getLayers()?.item(1)?.getSource()?.clear();
+        this.olMap?.getLayers()?.item(2)?.getSource()?.clear();
+        this.olMap?.getLayers()?.item(3)?.getSource()?.clear();
+        this.$fetch();
+      }
     },
 
     methods: {
@@ -320,10 +327,9 @@
         }
       },
 
-      initOl({ extent, layer, source } = {}) {
-        this.olExtent = extent;
+      initOl() {
         this.initOlMap();
-        this.initOlView({ extent, layer, source });
+        this.initOlImageLayer();
         if (this.hasAnnotations) {
           this.initOlAnnotationLayers();
         }
@@ -349,7 +355,15 @@
         }
       },
 
-      initOlView({ extent, layer, source } = {}) {
+      initOlImageLayer() {
+        const layer = this.source === 'IIIF' ? this.initOlImageLayerIIIF() : this.initOlImageLayerStatic();
+        this.olMap.setLayers([layer]);
+      },
+
+      initOlView({ extent, source } = {}) {
+        this.olExtent = extent;
+        this.olMap.getLayers().item(0).setSource(source);
+
         const projection = new Projection({ units: 'pixels', extent });
 
         this.resetRotation();
@@ -363,7 +377,6 @@
         });
         view.on('error', (olError) => this.handleOlError(olError, 'OpenLayers View error'));
 
-        this.olMap.setLayers([layer]);
         this.olMap.setView(view);
 
         const mapSize = this.olMap.getSize();
@@ -377,7 +390,7 @@
 
       // IIIF Image API
       // https://openlayers.org/en/latest/examples/iiif.html
-      initOlImageLayerIIIF() {
+      initOlImageSourceIIIF() {
         const sourceOptions = new IIIFInfo(this.info).getTileSourceOptions();
 
         const extent = [0, 0, sourceOptions.size[0], sourceOptions.size[1]];
@@ -391,15 +404,19 @@
         source.on('imageloadend', () => this.imageLoading = false);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
         source.on('tileloadend', () => this.imageLoading = false);
-        const layer = new TileLayer({ properties: { id: 'image' }, source });
-        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
-        return { extent, layer, source };
+        return { extent, source };
+      },
+
+      initOlImageLayerIIIF() {
+        const layer = new TileLayer({ properties: { id: 'image' } });
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
+        return layer;
       },
 
       // Static image
       // https://openlayers.org/en/latest/examples/static-image.html
-      initOlImageLayerStatic(url, width, height) {
+      initOlImageSourceStatic(url, width, height) {
         const extent = [0, 0, width, height];
 
         // Workaround OL bug for browsers that do not support ImageBitmap
@@ -412,24 +429,29 @@
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
         source.on('imageloadend', () => this.imageLoading = false);
-        const layer = new ImageLayer({ properties: { id: 'image' }, source });
-        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
-        return { extent, layer, source };
+        return { extent, source };
+      },
+
+      initOlImageLayerStatic() {
+        const layer = new ImageLayer({ properties: { id: 'image' } });
+        layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
+        return layer;
       },
 
       async renderImage() {
         await (this.$nextTick()); // without this static images won't render, some race condition
 
+        let viewOptions;
         if (this.source === 'IIIF') {
-          const mapOptions = this.initOlImageLayerIIIF();
-          this.initOl(mapOptions);
+          viewOptions = this.initOlImageSourceIIIF();
         } else {
           // TODO: should we always be using the media proxy for static images?
           const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-          const mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
-          this.initOl(mapOptions);
+          viewOptions = this.initOlImageLayerStatic(url, this.width, this.height);
         }
+
+        this.initOlView(viewOptions);
       },
 
       setRotation() {
