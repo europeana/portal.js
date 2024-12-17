@@ -67,7 +67,7 @@
             :value="true"
             :unchecked-value="false"
             :disabled="purpose.required"
-            :checked="purpose.required ? true : false"
+            :checked="purpose.services.every(service => checkedServices.includes(service))"
             @change="(value) => updateConsentPerPurpose(purpose, value)"
           >
             {{ $t(`klaro.main.purposes.${purpose.name}.title`) }}
@@ -94,7 +94,7 @@
                 :value="true"
                 :unchecked-value="false"
                 :disabled="subPurpose.required"
-                :checked="subPurpose.required ? true : false"
+                :checked="subPurpose.services.every(service => checkedServices.includes(service))"
                 @change="(value) => updateConsentPerPurpose(subPurpose, value)"
               >
                 {{ $t(`klaro.subPurposes.${subPurpose.name}.title`) }}
@@ -126,7 +126,7 @@
                         :value="true"
                         :unchecked-value="false"
                         :disabled="service.required"
-                        :checked="service.required ? true : false"
+                        :checked="checkedServices.includes(service)"
                         @change="(value) => updateConsentPerService(service, value)"
                       >
                         {{ $t(`klaro.services.${service.name}.title`) }}
@@ -149,7 +149,7 @@
                     :value="true"
                     :unchecked-value="false"
                     :disabled="service.required"
-                    :checked="service.required ? true : false"
+                    :checked="checkedServices.includes(service)"
                     @change="(value) => updateConsentPerService(service, value)"
                   >
                     {{ $t(`klaro.services.${service.name}.title`) }}
@@ -172,7 +172,7 @@
                 :value="true"
                 :unchecked-value="false"
                 :disabled="service.required"
-                :checked="service.required ? true : false"
+                :checked="checkedServices.includes(service)"
                 @change="(value) => updateConsentPerService(service, value)"
               >
                 {{ $t(`klaro.services.${service.name}.title`) }}
@@ -234,7 +234,8 @@
       return {
         modalId: 'cookie-modal',
         toastId: 'cookie-notice-toast',
-        show: ['thirdPartyContent']
+        show: ['thirdPartyContent'],
+        checkedServices: []
       };
     },
 
@@ -283,10 +284,20 @@
       }
     },
 
+    mounted() {
+      this.checkedServices = this.klaroConfig.services.filter(s => s.required === true);
+    },
+
     methods: {
       updateConsentPerService(service, value) {
         if (service && !service.required) {
           this.klaroManager.updateConsent(service.name, value);
+
+          if (value) {
+            !this.checkedServices.includes(service) && this.checkedServices.push(service);
+          } else {
+            this.checkedServices = this.checkedServices.filter(s => s !== service);
+          }
         }
       },
 
