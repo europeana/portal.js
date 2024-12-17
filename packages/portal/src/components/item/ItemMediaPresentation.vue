@@ -26,7 +26,7 @@
             size="lg"
           />
         </b-container>
-        <template v-else>
+        <client-only v-else>
           <template v-if="sidebarHasContent">
             <ItemMediaSidebar
               ref="sidebar"
@@ -99,7 +99,7 @@
               {{ $t('media.loadFull') }}
             </b-button>
           </template>
-        </template>
+        </client-only>
       </div>
       <div
         v-if="sidebarHasContent || multiplePages"
@@ -192,8 +192,15 @@
     },
 
     setup() {
+      // skip setup on server-side as fetch is client-side only so presentation
+      // will never be populated server-side, to reduce memory footprint
+      if (process.server) {
+        return;
+      }
+
       const {
         activeAnnotation,
+        clear: clearMediaPresentationState,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -206,6 +213,7 @@
 
       return {
         activeAnnotation,
+        clearMediaPresentationState,
         fetchPresentation,
         hasAnnotations,
         hasSearchService,
@@ -263,6 +271,10 @@
     },
 
     fetchOnServer: false,
+
+    destroyed() {
+      this.clearMediaPresentationState();
+    },
 
     computed: {
       displayThumbnail() {
