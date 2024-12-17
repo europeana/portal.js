@@ -272,10 +272,6 @@
 
     fetchOnServer: false,
 
-    destroyed() {
-      this.clearMediaPresentationState();
-    },
-
     computed: {
       displayThumbnail() {
         if (this.hasAnnotations) {
@@ -324,6 +320,10 @@
         deep: true,
         handler: 'selectResource'
       }
+    },
+
+    destroyed() {
+      this.clearMediaPresentationState();
     },
 
     methods: {

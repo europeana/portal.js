@@ -357,4 +357,15 @@ describe('useItemMediaPresentation', () => {
       });
     });
   });
+
+  describe('clear', () => {
+    it('resets presentation value to null', () => {
+      const { clear, presentation } = useItemMediaPresentation();
+      presentation.value = presentationValue;
+
+      clear();
+
+      expect(presentation.value).toBeNull();
+    });
+  });
 });
