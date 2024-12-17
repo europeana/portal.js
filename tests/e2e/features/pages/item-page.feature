@@ -65,11 +65,10 @@ Feature: item page
     Then I see `similar items`
 
   Scenario: Media player for audio
-    When I open the `"The pride of Glencoe, song" item page`
+    When I open an `item page with audio media`
     Then I see the `media player`
 
   Scenario: Mixed media presentation
-
     When I open an `item page with mixed media`
     Then I see the `item media presentation`
     And I am on an accessible page
