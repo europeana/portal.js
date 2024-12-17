@@ -1,19 +1,22 @@
 <template>
   <div class="item-hero">
-    <!--
-      TODO: render the media presentation container here, both SSR and CSR,
-            to reduce UI jumpiness
-    -->
-    <client-only>
-      <ItemMediaPresentation
-        :uri="iiifPresentationManifest"
-        :item-id="identifier"
-        :provider-url="providerUrl"
-        :web-resources="media"
-        :edm-type="edmType"
-        @select="selectMedia"
-      />
-    </client-only>
+    <div
+      class="media-viewer-wrapper overflow-hidden"
+    >
+      <!--
+        NOTE: rendering this server-side increases node memory usage significantly
+      -->
+      <client-only>
+        <ItemMediaPresentation
+          :uri="iiifPresentationManifest"
+          :item-id="identifier"
+          :provider-url="providerUrl"
+          :web-resources="media"
+          :edm-type="edmType"
+          @select="selectMedia"
+        />
+      </client-only>
+    </div>
     <b-container>
       <b-row>
         <b-col
@@ -202,6 +205,7 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .item-hero {
     padding-bottom: 1.625rem;
@@ -232,6 +236,17 @@
         &:hover:not(.active) {
           color: $mediumgrey;
         }
+      }
+    }
+
+    .media-viewer-wrapper {
+      position: relative;
+      background-color: $black;
+      @include media-viewer-height;
+
+      @media (max-width: ($bp-large - 1px)) {
+        max-height: none;
+        height: auto
       }
     }
 

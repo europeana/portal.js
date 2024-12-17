@@ -1,137 +1,133 @@
 <template>
   <div
+    ref="mediaViewerWrapper"
     data-qa="item media presentation"
+    :class="{ 'fullscreen-mock': mockFullscreenClass }"
+    @keydown.escape="exitFullscreen"
   >
     <div
-      ref="mediaViewerWrapper"
-      class="media-viewer-wrapper overflow-hidden"
-      :class="{ 'fullscreen-mock': mockFullscreenClass }"
-      @keydown.escape="exitFullscreen"
+      class="media-viewer-inner-wrapper w-100 overflow-auto"
+      :class="{
+        'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
+        'sidebar-toggle-max-width': addSidebarToggleMaxWidth,
+        'fullscreen-include-sidebar': fullscreen && sidebarHasContent
+      }"
     >
-      <div
-        class="media-viewer-inner-wrapper w-100 overflow-auto"
-        :class="{
-          'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
-          'sidebar-toggle-max-width': addSidebarToggleMaxWidth,
-          'fullscreen-include-sidebar': fullscreen && sidebarHasContent
-        }"
+      <b-container
+        v-if="$fetchState.pending"
+        class="h-100 d-flex align-items-center justify-content-center"
+        data-qa="loading spinner container"
       >
-        <b-container
-          v-if="$fetchState.pending"
-          class="h-100 d-flex align-items-center justify-content-center"
-          data-qa="loading spinner container"
-        >
-          <LoadingSpinner
-            class="text-white"
-            size="lg"
+        <LoadingSpinner
+          class="text-white"
+          size="lg"
+        />
+      </b-container>
+      <template v-else>
+        <template v-if="sidebarHasContent">
+          <ItemMediaSidebar
+            ref="sidebar"
+            tabindex="0"
+            :annotation-list="hasAnnotations"
+            :annotation-search="hasAnnotations && hasSearchService"
+            :manifest-uri="uri"
+            :show="showSidebar"
+            @keydown.escape.native="showSidebar = false"
           />
-        </b-container>
-        <template v-else>
-          <template v-if="sidebarHasContent">
-            <ItemMediaSidebar
-              ref="sidebar"
-              tabindex="0"
-              :annotation-list="hasAnnotations"
-              :annotation-search="hasAnnotations && hasSearchService"
-              :manifest-uri="uri"
-              :show="showSidebar"
-              @keydown.escape.native="showSidebar = false"
-            />
-            <ItemMediaSidebarToggle
-              :show-sidebar="showSidebar"
-              class="d-none d-lg-block"
-              @toggleSidebar="toggleSidebar"
-            />
-          </template>
-          <IIIFErrorMessage
-            v-if="$fetchState.error || mediaError"
-            :provider-url="providerUrl"
+          <ItemMediaSidebarToggle
+            :show-sidebar="showSidebar"
+            class="d-none d-lg-block"
+            @toggleSidebar="toggleSidebar"
           />
-          <MediaImageViewer
-            v-else-if="viewableImageResource && !displayThumbnail"
-            :url="resource.id"
-            :item-id="itemId"
-            :width="resource.width"
-            :height="resource.height"
-            :service="resource.service"
-            @error="handleImageError"
-          >
-            <MediaImageViewerControls
-              :fullscreen="fullscreen"
-              @toggleFullscreen="toggleFullscreen"
-            />
-          </MediaImageViewer>
-          <MediaAudioVisualPlayer
-            v-else-if="resource?.edm?.isPlayableMedia"
-            :url="resource.id"
-            :format="resource.format"
-            :item-id="itemId"
-            class="media-viewer-content"
-          />
-          <EmbedOEmbed
-            v-else-if="resource?.edm?.isOEmbed"
-            :url="resource.id"
-            class="media-viewer-content"
-          />
-          <template
-            v-else-if="displayThumbnail"
-          >
-            <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
-            <MediaCardImage
-              :offset="page - 1"
-              data-qa="item media thumbnail"
-              :media="resource?.edm"
-              :lazy="false"
-              :edm-type="edmType"
-              :linkable="!viewableImageResource"
-              thumbnail-size="large"
-              :europeana-identifier="itemId"
-              @click.native="() => thumbnailInteractedWith = true"
-            />
-            <b-button
-              v-if="viewableImageResource"
-              data-qa="item media load button"
-              class="full-image-button d-inline-flex align-items-center py-2 px-3"
-              variant="light-flat"
-              @click="() => thumbnailInteractedWith = true"
-            >
-              <span class="icon-click mr-2" />
-              {{ $t('media.loadFull') }}
-            </b-button>
-          </template>
         </template>
-      </div>
-      <div
-        v-if="sidebarHasContent || multiplePages"
-        class="sidebar-toggle-pagination-toolbar"
-        :class="{ closed: !showPages || !multiplePages}"
-      >
-        <!-- Sidebar toggle for mobile and tablet screens -->
-        <ItemMediaSidebarToggle
-          v-if="sidebarHasContent"
-          :show-sidebar="showSidebar"
-          class="d-inline-flex d-lg-none"
-          @toggleSidebar="toggleSidebar"
+        <IIIFErrorMessage
+          v-if="$fetchState.error || mediaError"
+          :provider-url="providerUrl"
         />
-        <ItemMediaPaginationToolbar
-          v-if="multiplePages"
-          :show-pages="showPages"
-          :total-results="resourceCount"
-          :class="fullscreen ? 'd-none' : 'd-inline-flex'"
-          @togglePages="togglePages"
+        <MediaImageViewer
+          v-else-if="viewableImageResource && !displayThumbnail"
+          :url="resource.id"
+          :item-id="itemId"
+          :width="resource.width"
+          :height="resource.height"
+          :service="resource.service"
+          @error="handleImageError"
+        >
+          <MediaImageViewerControls
+            :fullscreen="fullscreen"
+            @toggleFullscreen="toggleFullscreen"
+          />
+        </MediaImageViewer>
+        <MediaAudioVisualPlayer
+          v-else-if="resource?.edm?.isPlayableMedia"
+          :url="resource.id"
+          :format="resource.format"
+          :item-id="itemId"
+          class="media-viewer-content"
         />
-      </div>
-      <ItemMediaThumbnails
+        <EmbedOEmbed
+          v-else-if="resource?.edm?.isOEmbed"
+          :url="resource.id"
+          class="media-viewer-content"
+        />
+        <template
+          v-else-if="displayThumbnail"
+        >
+          <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
+          <MediaCardImage
+            :offset="page - 1"
+            data-qa="item media thumbnail"
+            :media="resource?.edm"
+            :lazy="false"
+            :edm-type="edmType"
+            :linkable="!viewableImageResource"
+            thumbnail-size="large"
+            :europeana-identifier="itemId"
+            @click.native="() => thumbnailInteractedWith = true"
+          />
+          <b-button
+            v-if="viewableImageResource"
+            data-qa="item media load button"
+            class="full-image-button d-inline-flex align-items-center py-2 px-3"
+            variant="light-flat"
+            @click="() => thumbnailInteractedWith = true"
+          >
+            <span class="icon-click mr-2" />
+            {{ $t('media.loadFull') }}
+          </b-button>
+        </template>
+      </template>
+    </div>
+    <div
+      v-if="sidebarHasContent || multiplePages"
+      class="sidebar-toggle-pagination-toolbar"
+      :class="{ closed: !showPages || !multiplePages}"
+    >
+      <!-- Sidebar toggle for mobile and tablet screens -->
+      <ItemMediaSidebarToggle
+        v-if="sidebarHasContent"
+        :show-sidebar="showSidebar"
+        class="d-inline-flex d-lg-none"
+        @toggleSidebar="toggleSidebar"
+      />
+      <ItemMediaPaginationToolbar
         v-if="multiplePages"
-        v-show="showPages && !fullscreen"
-        id="item-media-thumbnails"
-        ref="itemPages"
-        tabindex="0"
-        :edm-type="edmType"
-        data-qa="item media thumbnails"
-        @keydown.escape.native="showPages = false"
+        :show-pages="showPages"
+        :total-results="resourceCount"
+        :class="fullscreen ? 'd-none' : 'd-inline-flex'"
+        @togglePages="togglePages"
       />
     </div>
+    <ItemMediaThumbnails
+      v-if="multiplePages"
+      v-show="showPages && !fullscreen"
+      id="item-media-thumbnails"
+      ref="itemPages"
+      tabindex="0"
+      :edm-type="edmType"
+      data-qa="item media thumbnails"
+      @keydown.escape.native="showPages = false"
+    />
   </div>
 </template>
 
@@ -406,16 +402,6 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
 
-  .media-viewer-wrapper {
-    position: relative;
-    @include media-viewer-height;
-
-    @media (max-width: ($bp-large - 1px)) {
-      max-height: none;
-      height: auto
-    }
-  }
-
   .media-viewer-inner-wrapper {
     background-color: $black;
     @include media-viewer-height;
@@ -492,7 +478,7 @@
     }
   }
 
-  .media-viewer-wrapper:fullscreen {
+  [data-qa="item media presentation"]:fullscreen {
     max-height: 100%;
 
     .media-viewer-inner-wrapper {
@@ -507,8 +493,8 @@
     }
   }
 
-  // Defining this together with .media-viewer-wrapper:fullscreen does not compile well in older Chrome and iOS browsers
-  .media-viewer-wrapper.fullscreen-mock {
+  // Defining this together with [data-qa="item media presentation"]:fullscreen does not compile well in older Chrome and iOS browsers
+  [data-qa="item media presentation"].fullscreen-mock {
     position: fixed;
     top: 0;
     left: 0;
