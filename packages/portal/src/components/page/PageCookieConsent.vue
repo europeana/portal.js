@@ -57,20 +57,128 @@
       </i18n>
       <ul>
         <li
-          v-for="(service, index) in klaroConfig.services"
+          v-for="(purpose, index) in groupedPurposes"
           :key="index"
         >
+          <!-- TODO: Refactor checkbox into new component -->
           <b-form-checkbox
-            :name="service.name"
+            :name="purpose.name"
             switch
             :value="true"
             :unchecked-value="false"
-            :disabled="service.required"
-            :checked="service.required ? true : false"
-            @change="(value) => onChange(service, value)"
+            :disabled="purpose.required"
+            :checked="purpose.required ? true : false"
+            @change="(value) => updateConsentPerPurpose(purpose, value)"
           >
-            {{ service.name }}
+            {{ $t(`klaro.main.purposes.${purpose.name}.title`) }}
           </b-form-checkbox>
+          <p>{{ $t(`klaro.main.purposes.${purpose.name}.description`) }}</p>
+          <b-button
+            class="btn-link"
+            variant="link"
+            @click="toggleDisplay(purpose.name)"
+          >
+            {{ $tc('klaro.main.consentModal.servicesCount', purpose.services.length, { count: $n(purpose.services.length)}) }}
+          </b-button>
+          <ul
+            v-if="purpose.subPurposes"
+            v-show="show.includes(purpose.name)"
+          >
+            <li
+              v-for="(subPurpose, subPurposeIndex) in purpose.subPurposes"
+              :key="subPurposeIndex"
+            >
+              <b-form-checkbox
+                :name="subPurpose.name"
+                switch
+                :value="true"
+                :unchecked-value="false"
+                :disabled="subPurpose.required"
+                :checked="subPurpose.required ? true : false"
+                @change="(value) => updateConsentPerPurpose(subPurpose, value)"
+              >
+                {{ $t(`klaro.subPurposes.${subPurpose.name}.title`) }}
+              </b-form-checkbox>
+              <b-button
+                class="btn-link"
+                variant="link"
+                @click="toggleDisplay(subPurpose.name)"
+              >
+                {{ $tc('klaro.main.consentModal.servicesCount', subPurpose.services.length, { count: $n(subPurpose.services.length)}) }}
+              </b-button>
+              <ul
+                v-if="subPurpose.subGroups"
+                v-show="show.includes(subPurpose.name)"
+              >
+                <li
+                  v-for="(group, groupIndex) in subPurpose.subGroups"
+                  :key="groupIndex"
+                >
+                  <span>{{ $t(`klaro.subGroups.${group.name}`) }}</span>
+                  <ul>
+                    <li
+                      v-for="(service, serviceIndex) in group.services"
+                      :key="serviceIndex"
+                    >
+                      <b-form-checkbox
+                        :name="service.name"
+                        switch
+                        :value="true"
+                        :unchecked-value="false"
+                        :disabled="service.required"
+                        :checked="service.required ? true : false"
+                        @change="(value) => updateConsentPerService(service, value)"
+                      >
+                        {{ $t(`klaro.services.${service.name}.title`) }}
+                      </b-form-checkbox>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <ul
+                v-else
+                v-show="show.includes(subPurpose.name)"
+              >
+                <li
+                  v-for="(service, serviceIndex) in subPurpose.services"
+                  :key="serviceIndex"
+                >
+                  <b-form-checkbox
+                    :name="service.name"
+                    switch
+                    :value="true"
+                    :unchecked-value="false"
+                    :disabled="service.required"
+                    :checked="service.required ? true : false"
+                    @change="(value) => updateConsentPerService(service, value)"
+                  >
+                    {{ $t(`klaro.services.${service.name}.title`) }}
+                  </b-form-checkbox>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul
+            v-else
+            v-show="show.includes(purpose.name)"
+          >
+            <li
+              v-for="(service, serviceIndex) in purpose.services"
+              :key="serviceIndex"
+            >
+              <b-form-checkbox
+                :name="service.name"
+                switch
+                :value="true"
+                :unchecked-value="false"
+                :disabled="service.required"
+                :checked="service.required ? true : false"
+                @change="(value) => updateConsentPerService(service, value)"
+              >
+                {{ $t(`klaro.services.${service.name}.title`) }}
+              </b-form-checkbox>
+            </li>
+          </ul>
         </li>
       </ul>
       <div class="d-flex justify-content-between align-items-center">
@@ -99,8 +207,6 @@
 </template>
 
 <script>
-  import klaroMixin from '@/mixins/klaro.js';
-
   export default {
     name: 'PageCookieConsent',
 
@@ -108,26 +214,92 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [klaroMixin],
+    // Do not use the klaro mixin in this component as it will cause side effects for the mixin is already imported in the layout
+    props: {
+      klaroManager: {
+        type: Object,
+        default: null
+      },
+      klaroConfig: {
+        type: Object,
+        default: null
+      },
+      cookieConsentRequired: {
+        type: Boolean,
+        default: true
+      }
+    },
 
     data() {
       return {
         modalId: 'cookie-modal',
-        toastId: 'cookie-notice-toast'
+        toastId: 'cookie-notice-toast',
+        show: ['thirdPartyContent']
       };
     },
 
+    computed: {
+      essentialServices() {
+        return this.klaroConfig.services.filter(s => s.purposes.includes('essential'));
+      },
+      usageServices() {
+        return this.klaroConfig.services.filter(s => s.purposes.includes('usage'));
+      },
+      thirdPartyContentServices() {
+        return this.klaroConfig.services.filter(s => s.purposes.includes('thirdPartyContent'));
+      },
+
+      groupedPurposes() {
+        return [ // to create layout
+          this.essentialServices.length && {
+            name: 'essential',
+            required: true,
+            services: this.essentialServices
+          },
+          this.usageServices.length && {
+            name: 'usage',
+            services: this.usageServices
+          },
+          this.thirdPartyContentServices.length &&
+            {
+              name: 'thirdPartyContent',
+              services: this.thirdPartyContentServices,
+              subPurposes: [
+                {
+                  name: 'socialMedia',
+                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'socialMedia')
+                },
+                {
+                  name: 'mediaViewing',
+                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing'),
+                  subGroups: [{
+                    name: '2D',
+                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === '2D')
+                  }]
+                }
+              ]
+            }
+        ].filter(Boolean);
+      }
+    },
+
     methods: {
-      onChange(service, value) {
-        if (!service.required) {
+      updateConsentPerService(service, value) {
+        if (service && !service.required) {
           this.klaroManager.updateConsent(service.name, value);
         }
       },
 
       onModalHide() {
+        // TODO: is this needed as component is rendered by this condition
         if (this.cookieConsentRequired) {
           this.$bvToast.show(this.toastId);
         }
+      },
+
+      // TODO: fix display, store in local state?
+      updateConsentPerPurpose(purpose, value) {
+        purpose.services.forEach(service => this.updateConsentPerService(service, value));
       },
 
       openCookieModal() {
@@ -141,7 +313,6 @@
         }
 
         this.klaroManager.saveAndApplyConsents(eventType);
-        this.cookieConsentRequired = !this.klaroManager.confirmed;
 
         this.$bvModal.hide(this.modalId);
       },
@@ -156,6 +327,14 @@
 
       declineAndHide() {
         this.executeButtonClicked(true, false, 'decline');
+      },
+
+      toggleDisplay(name) {
+        if (this.show.includes(name)) {
+          this.show = this.show.filter(purpose => purpose !== name);
+        } else {
+          this.show.push(name);
+        }
       }
     }
   };

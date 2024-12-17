@@ -835,7 +835,10 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "alwaysRequired": "Always required",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
+        "privacyPolicy": "Privacy policy",
+        "servicesCount": "{count} service | {count} services",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -848,6 +851,10 @@ export default {
         "essential": {
           "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
           "title": "Essential services for security and customization"
+        },
+        "thirdPartyContent": {
+          "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",
+          "title": "Third-party content"
         },
         "usage": {
           "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
@@ -866,9 +873,30 @@ export default {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
       },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
       "debugSettings": {
         "description": "Helps debugging API requests",
         "title": "Debug toggle"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "facebook": {
+        "title": "Facebook"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "gettyImages": {
+        "title": "Getty Images"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
       },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
@@ -878,21 +906,71 @@ export default {
         "description": "Remembers your preferred interface language for future access.",
         "title": "Language code"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
       "jira-servicedesk": {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
+      },
+      "mailchimp": {
+        "title": "Mailchimp"
       },
       "matomo": {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
         "title": "Search result, galleries and likes view (list/grid/mosaic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sokINettbiblioteket": {
+        "title": "Søk i Nettbiblioteket"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "x": {
+        "title": "X"
+      }
+    },
+    "subGroups": {
+      "2D": "2D media"
+    },
+    "subPurposes": {
+      "mediaViewing": {
+        "title": "Media viewing services"
+      },
+      "other": {
+        "title": "Other embedding services"
+      },
+      "socialMedia": {
+        "title": "Social media embedding services"
       }
     }
   },

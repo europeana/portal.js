@@ -1,50 +1,9 @@
 export const version = '0.7.18';
-
-const klaroAllServices = [
-  {
-    cookies: ['auth.strategy'],
-    name: 'auth-strategy',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['debugSettings'],
-    name: 'debugSettings',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-    cookies: [/^_hj/],
-    name: 'hotjar',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['i18n_locale_code'],
-    name: 'i18n',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: [/^_pk_/, 'mtm_cookie_consent'],
-    name: 'matomo',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['new_feature_notification'],
-    name: 'newFeatureNotification',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['searchResultsView'],
-    name: 'searchResultsView',
-    purposes: ['essential'],
-    required: true
-  }
-];
+import cookiesMixin from '@/mixins/cookies.js';
 
 export default {
+  mixins: [cookiesMixin],
+
   data() {
     return {
       cookieConsentRequired: false,
@@ -74,7 +33,7 @@ export default {
 
   computed: {
     klaroConfig() {
-      const services = klaroAllServices
+      const services = this.klaroAllServices
         .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
         .map((service) => ({
           ...service,
@@ -123,6 +82,8 @@ export default {
           save: 'Accept selected'
         }[data.type];
       }
+
+      this.cookieConsentRequired = !this.klaroManager.confirmed;
 
       eventName && this.trackKlaroClickEvent(eventName);
     },

@@ -22,6 +22,9 @@
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
+        :klaro-manager="klaroManager"
+        :klaro-config="klaroConfig"
+        :cookie-consent-required="cookieConsentRequired"
       />
     </client-only>
   </div>
