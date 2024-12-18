@@ -60,18 +60,12 @@
           v-for="(purpose, index) in groupedPurposes"
           :key="index"
         >
-          <!-- TODO: Refactor checkbox into new component -->
-          <b-form-checkbox
-            :name="purpose.name"
-            switch
-            :value="true"
-            :unchecked-value="false"
-            :disabled="purpose.required"
+          <PageCookiesCheckbox
+            :service-or-purpose="purpose"
+            type="purpose"
             :checked="purpose.services.every(service => checkedServices.includes(service))"
-            @change="(value) => updateConsentPerPurpose(purpose, value)"
-          >
-            {{ $t(`klaro.main.purposes.${purpose.name}.title`) }}
-          </b-form-checkbox>
+            @updateConsent="updateConsentPerPurpose"
+          />
           <p>{{ $t(`klaro.main.purposes.${purpose.name}.description`) }}</p>
           <b-button
             class="btn-link"
@@ -88,17 +82,12 @@
               v-for="(subPurpose, subPurposeIndex) in purpose.subPurposes"
               :key="subPurposeIndex"
             >
-              <b-form-checkbox
-                :name="subPurpose.name"
-                switch
-                :value="true"
-                :unchecked-value="false"
-                :disabled="subPurpose.required"
+              <PageCookiesCheckbox
+                :service-or-purpose="subPurpose"
+                type="subPurpose"
                 :checked="subPurpose.services.every(service => checkedServices.includes(service))"
-                @change="(value) => updateConsentPerPurpose(subPurpose, value)"
-              >
-                {{ $t(`klaro.subPurposes.${subPurpose.name}.title`) }}
-              </b-form-checkbox>
+                @updateConsent="updateConsentPerPurpose"
+              />
               <b-button
                 class="btn-link"
                 variant="link"
@@ -120,17 +109,11 @@
                       v-for="(service, serviceIndex) in group.services"
                       :key="serviceIndex"
                     >
-                      <b-form-checkbox
-                        :name="service.name"
-                        switch
-                        :value="true"
-                        :unchecked-value="false"
-                        :disabled="service.required"
+                      <PageCookiesCheckbox
+                        :service-or-purpose="service"
                         :checked="checkedServices.includes(service)"
-                        @change="(value) => updateConsentPerService(service, value)"
-                      >
-                        {{ $t(`klaro.services.${service.name}.title`) }}
-                      </b-form-checkbox>
+                        @updateConsent="updateConsentPerService"
+                      />
                     </li>
                   </ul>
                 </li>
@@ -143,17 +126,11 @@
                   v-for="(service, serviceIndex) in subPurpose.services"
                   :key="serviceIndex"
                 >
-                  <b-form-checkbox
-                    :name="service.name"
-                    switch
-                    :value="true"
-                    :unchecked-value="false"
-                    :disabled="service.required"
+                  <PageCookiesCheckbox
+                    :service-or-purpose="service"
                     :checked="checkedServices.includes(service)"
-                    @change="(value) => updateConsentPerService(service, value)"
-                  >
-                    {{ $t(`klaro.services.${service.name}.title`) }}
-                  </b-form-checkbox>
+                    @updateConsent="updateConsentPerService"
+                  />
                 </li>
               </ul>
             </li>
@@ -166,17 +143,11 @@
               v-for="(service, serviceIndex) in purpose.services"
               :key="serviceIndex"
             >
-              <b-form-checkbox
-                :name="service.name"
-                switch
-                :value="true"
-                :unchecked-value="false"
-                :disabled="service.required"
+              <PageCookiesCheckbox
+                :service-or-purpose="service"
                 :checked="checkedServices.includes(service)"
-                @change="(value) => updateConsentPerService(service, value)"
-              >
-                {{ $t(`klaro.services.${service.name}.title`) }}
-              </b-form-checkbox>
+                @updateConsent="updateConsentPerService"
+              />
             </li>
           </ul>
         </li>
@@ -207,10 +178,13 @@
 </template>
 
 <script>
+  import PageCookiesCheckbox from './PageCookiesCheckbox.vue';
+
   export default {
-    name: 'PageCookieConsent',
+    name: 'PageCookiesWidget',
 
     components: {
+      PageCookiesCheckbox,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -308,7 +282,6 @@
         }
       },
 
-      // TODO: fix display, store in local state?
       updateConsentPerPurpose(purpose, value) {
         purpose.services.forEach(service => this.updateConsentPerService(service, value));
       },
