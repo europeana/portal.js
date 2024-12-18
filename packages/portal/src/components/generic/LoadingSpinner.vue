@@ -1,16 +1,21 @@
 <template>
-  <span
-    role="status"
-    data-qa="loading spinner"
-  >
-    <span class="visually-hidden">
-      {{ statusMessage || $t('loading') }}
-    </span>
+  <!-- outer span needed to permit parent component to set its own v-show
+       without overwriting the local one -->
+  <span>
     <span
-      class="spinner-border"
-      :class="`spinner-border-${size}`"
-      aria-hidden="true"
-    />
+      v-show="visible"
+      role="status"
+      data-qa="loading spinner"
+    >
+      <span class="visually-hidden">
+        {{ statusMessage || $t('loading') }}
+      </span>
+      <span
+        class="spinner-border"
+        :class="`spinner-border-${size}`"
+        aria-hidden="true"
+      />
+    </span>
   </span>
 </template>
 
@@ -19,6 +24,13 @@
     name: 'LoadingSpinner',
 
     props: {
+      /**
+       * Delay to wait before showing the spinner, in ms
+       */
+      delay: {
+        type: Number,
+        default: 500
+      },
       statusMessage: {
         type: String,
         default: null
@@ -30,6 +42,26 @@
       size: {
         type: String,
         default: 'sm'
+      }
+    },
+
+    data() {
+      return {
+        timeout: null,
+        visible: this.delay === 0
+      };
+    },
+
+    beforeDestroy() {
+      this.timeout = null;
+    },
+
+    mounted() {
+      if (this.delay > 0) {
+        this.timeout = setTimeout(() => {
+          this.timeout = null;
+          this.visible = true;
+        }, this.delay);
       }
     }
   };
