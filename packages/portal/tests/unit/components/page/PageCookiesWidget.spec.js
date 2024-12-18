@@ -66,7 +66,7 @@ describe('components/page/PageCookiesWidget', () => {
       wrapper.vm.$bvModal.show = sinon.spy();
       wrapper.vm.$bvToast.hide = sinon.spy();
 
-      wrapper.find('b-toast-stub .btn-link').trigger('click');
+      wrapper.find('[data-qa="learn more button"]').trigger('click');
 
       expect(wrapper.vm.$bvModal.show.calledWith(wrapper.vm.modalId)).toBe(true);
       expect(wrapper.vm.$bvToast.hide.calledWith(wrapper.vm.toastId)).toBe(true);

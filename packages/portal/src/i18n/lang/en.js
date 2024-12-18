@@ -835,7 +835,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "alwaysRequired": "Always required",
+        "alwaysRequired": "(Always required)",
         "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
         "privacyPolicy": "Privacy policy",
         "servicesCount": "{count} service | {count} services",
@@ -850,7 +850,7 @@ export default {
       "purposes": {
         "essential": {
           "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
-          "title": "Essential services for security and customization"
+          "title": "Essential services for security and customisation"
         },
         "thirdPartyContent": {
           "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",

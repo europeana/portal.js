@@ -14,7 +14,8 @@
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
       <div class="d-flex justify-content-between align-items-center">
         <b-button
-          class="btn-link"
+          data-qa="learn more button"
+          class="p-0"
           variant="link"
           @click="openCookieModal"
         >
@@ -39,6 +40,7 @@
     </b-toast>
     <b-modal
       :id="modalId"
+      modal-class="cookie-modal"
       size="xl"
       hide-footer
       hide-header-close
@@ -67,16 +69,20 @@
             :service-or-purpose="purpose"
             type="purpose"
             :checked="purpose.services.every(service => checkedServices.includes(service))"
+            :class="{ 'active': purpose.services.some(service => checkedServices.includes(service))}"
             @updateConsent="updateConsentPerPurpose"
           />
-          <p>{{ $t(`klaro.main.purposes.${purpose.name}.description`) }}</p>
+          <p class="mb-0">
+            {{ $t(`klaro.main.purposes.${purpose.name}.description`) }}
+          </p>
           <b-button
             data-qa="toggle display button"
-            class="btn-link"
+            :class="{ 'show': show.includes(purpose.name) }"
             variant="link"
             @click="toggleDisplay(purpose.name)"
           >
             {{ $tc('klaro.main.consentModal.servicesCount', purpose.services.length, { count: $n(purpose.services.length)}) }}
+            <span class="icon-chevron ml-1" />
           </b-button>
           <ul
             v-if="purpose.subPurposes"
@@ -90,15 +96,19 @@
                 :service-or-purpose="subPurpose"
                 type="subPurpose"
                 :checked="subPurpose.services.every(service => checkedServices.includes(service))"
+                :class="{ 'active': subPurpose.services.some(service => checkedServices.includes(service))}"
                 @updateConsent="updateConsentPerPurpose"
               />
-              <p>{{ $t(`klaro.subPurposes.${subPurpose.name}.description`) }}</p>
+              <p class="mb-0">
+                {{ $t(`klaro.subPurposes.${subPurpose.name}.description`) }}
+              </p>
               <b-button
-                class="btn-link"
+                :class="{ 'show': show.includes(subPurpose.name) }"
                 variant="link"
                 @click="toggleDisplay(subPurpose.name)"
               >
                 {{ $tc('klaro.main.consentModal.servicesCount', subPurpose.services.length, { count: $n(subPurpose.services.length)}) }}
+                <span class="icon-chevron ml-1" />
               </b-button>
               <ul
                 v-if="subPurpose.subGroups"
@@ -108,8 +118,8 @@
                   v-for="(group, groupIndex) in subPurpose.subGroups"
                   :key="groupIndex"
                 >
-                  <span>{{ $t(`klaro.subGroups.${group.name}`) }}</span>
-                  <ul>
+                  <span class="font-weight-bold text-uppercase">{{ $t(`klaro.subGroups.${group.name}`) }}</span>
+                  <ul class="pl-0">
                     <li
                       v-for="(service, serviceIndex) in group.services"
                       :key="serviceIndex"
@@ -329,11 +339,50 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
   .cookie-notice {
     max-width: 400px;
     width: 400px;
+
+    .btn-link {
+      font-size: $font-size-small;
+    }
+  }
+
+  .cookie-modal {
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      ul {
+        padding-left: 2rem;
+        margin-bottom: 0.5rem;
+        color: $mediumgrey;
+      }
+    }
+
+    .btn-link {
+      margin-bottom: 1rem;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      .icon-chevron {
+        display: inline-block;
+        font-size: 0.425rem;
+      }
+
+      &.show {
+        margin-bottom: 0.25rem;
+
+        .icon-chevron {
+          transform: rotateX(180deg);
+        }
+      }
+    }
   }
 </style>
