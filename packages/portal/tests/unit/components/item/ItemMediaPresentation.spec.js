@@ -68,7 +68,7 @@ describe('components/item/ItemMediaPresentation', () => {
       stubItemMediaPresentationComposable();
       const wrapper = factory();
 
-      const viewerWrapper = wrapper.find('.media-viewer-wrapper');
+      const viewerWrapper = wrapper.find('.media-viewer-inner-wrapper');
 
       expect(viewerWrapper.isVisible()).toBe(true);
     });
