@@ -46,9 +46,9 @@
 
     mounted() {
       if (this.delay > 0) {
-        this.timeout = setTimeout(function() {
+        this.timeout = setTimeout(() => {
           this.timeout = null;
-        }.bind(this), this.delay);
+        }, this.delay);
       }
     }
   };
