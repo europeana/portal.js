@@ -13,13 +13,15 @@
     >
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
       <div class="d-flex justify-content-between align-items-center">
-        <a
-          href="#"
+        <b-button
+          class="btn-link"
+          variant="link"
           @click="openCookieModal"
         >
           {{ $t('klaro.main.consentNotice.learnMore') }}
-        </a>
+        </b-button>
         <b-button
+          data-qa="decline button"
           variant="outline-primary"
           class="ml-auto mr-2"
           @click="declineAndHide"
@@ -27,6 +29,7 @@
           {{ $t('klaro.main.decline') }}
         </b-button>
         <b-button
+          data-qa="accept all button"
           variant="success"
           @click="acceptAndHide"
         >
@@ -68,6 +71,7 @@
           />
           <p>{{ $t(`klaro.main.purposes.${purpose.name}.description`) }}</p>
           <b-button
+            data-qa="toggle display button"
             class="btn-link"
             variant="link"
             @click="toggleDisplay(purpose.name)"
@@ -161,6 +165,7 @@
           {{ $t('klaro.main.decline') }}
         </b-button>
         <b-button
+          data-qa="accept selected button"
           variant="outline-primary"
           class="ml-auto mr-2"
           @click="saveAndHide"
@@ -179,7 +184,7 @@
 </template>
 
 <script>
-  import PageCookiesCheckbox from './PageCookiesCheckbox.vue';
+  import PageCookiesCheckbox from './PageCookiesCheckbox';
 
   export default {
     name: 'PageCookiesWidget',
@@ -216,27 +221,27 @@
 
     computed: {
       essentialServices() {
-        return this.klaroConfig.services.filter(s => s.purposes.includes('essential'));
+        return this.klaroConfig?.services?.filter(s => s.purposes.includes('essential'));
       },
       usageServices() {
-        return this.klaroConfig.services.filter(s => s.purposes.includes('usage'));
+        return this.klaroConfig?.services?.filter(s => s.purposes.includes('usage'));
       },
       thirdPartyContentServices() {
-        return this.klaroConfig.services.filter(s => s.purposes.includes('thirdPartyContent'));
+        return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
       },
 
       groupedPurposes() {
         return [ // to create layout
-          this.essentialServices.length && {
+          this.essentialServices?.length && {
             name: 'essential',
             required: true,
             services: this.essentialServices
           },
-          this.usageServices.length && {
+          this.usageServices?.length && {
             name: 'usage',
             services: this.usageServices
           },
-          this.thirdPartyContentServices.length &&
+          this.thirdPartyContentServices?.length &&
             {
               name: 'thirdPartyContent',
               services: this.thirdPartyContentServices,
@@ -260,7 +265,7 @@
     },
 
     mounted() {
-      this.checkedServices = this.klaroConfig.services.filter(s => s.required === true);
+      this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true);
     },
 
     methods: {
@@ -276,12 +281,6 @@
         }
       },
 
-      onModalHide() {
-        if (this.cookieConsentRequired) {
-          this.$bvToast.show(this.toastId);
-        }
-      },
-
       updateConsentPerPurpose(purpose, value) {
         purpose.services.forEach(service => this.updateConsentPerService(service, value));
       },
@@ -289,6 +288,12 @@
       openCookieModal() {
         this.$bvModal.show(this.modalId);
         this.$bvToast.hide(this.toastId);
+      },
+
+      onModalHide() {
+        if (this.cookieConsentRequired) {
+          this.$bvToast.show(this.toastId);
+        }
       },
 
       executeButtonClicked(setChangedAll, changedAllValue, eventType) {

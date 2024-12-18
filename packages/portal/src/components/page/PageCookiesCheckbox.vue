@@ -19,7 +19,7 @@
     props: {
       serviceOrPurpose: {
         type: Object,
-        default: null
+        default: () => {}
       },
       type: {
         type: String,
