@@ -61,6 +61,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       set: () => {}
     },
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
+    $features: {},
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
