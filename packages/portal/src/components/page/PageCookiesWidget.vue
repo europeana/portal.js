@@ -167,8 +167,9 @@
           </ul>
         </li>
       </ul>
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
         <b-button
+          class="mt-2"
           variant="outline-primary"
           @click="declineAndHide"
         >
@@ -177,12 +178,13 @@
         <b-button
           data-qa="accept selected button"
           variant="outline-primary"
-          class="ml-auto mr-2"
+          class="mt-2 ml-auto mr-2"
           @click="saveAndHide"
         >
           {{ $t('klaro.main.acceptSelected') }}
         </b-button>
         <b-button
+          class="mt-2"
           variant="success"
           @click="acceptAndHide"
         >
@@ -355,6 +357,11 @@
     ul {
       list-style: none;
       padding-left: 0;
+
+      p,
+      .btn {
+        padding-left: 2rem;
+      }
 
       ul {
         padding-left: 2rem;
