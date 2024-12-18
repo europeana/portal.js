@@ -1,6 +1,6 @@
 <template>
   <span
-    v-show="!timeout"
+    v-show="visible"
     role="status"
     data-qa="loading spinner"
   >
@@ -20,6 +20,9 @@
     name: 'LoadingSpinner',
 
     props: {
+      /**
+       * Delay to wait before showing the spinner, in ms
+       */
       delay: {
         type: Number,
         default: 0
@@ -40,14 +43,20 @@
 
     data() {
       return {
-        timeout: null
+        timeout: null,
+        visible: this.delay === 0
       };
+    },
+
+    beforeDestroy() {
+      this.timeout = null;
     },
 
     mounted() {
       if (this.delay > 0) {
         this.timeout = setTimeout(() => {
           this.timeout = null;
+          this.visible = true;
         }, this.delay);
       }
     }
