@@ -964,12 +964,15 @@ export default {
     },
     "subPurposes": {
       "mediaViewing": {
+        "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
         "title": "Media viewing services"
       },
       "other": {
+        "description": "These services load content such as code, games, maps and storytelling widgets.",
         "title": "Other embedding services"
       },
       "socialMedia": {
+        "description": "These services load content from social media platforms.",
         "title": "Social media embedding services"
       }
     }

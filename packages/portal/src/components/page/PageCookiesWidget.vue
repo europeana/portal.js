@@ -88,6 +88,7 @@
                 :checked="subPurpose.services.every(service => checkedServices.includes(service))"
                 @updateConsent="updateConsentPerPurpose"
               />
+              <p>{{ $t(`klaro.subPurposes.${subPurpose.name}.description`) }}</p>
               <b-button
                 class="btn-link"
                 variant="link"
@@ -276,7 +277,6 @@
       },
 
       onModalHide() {
-        // TODO: is this needed as component is rendered by this condition
         if (this.cookieConsentRequired) {
           this.$bvToast.show(this.toastId);
         }
