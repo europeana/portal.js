@@ -15,7 +15,6 @@
       <LoadingSpinner
         class="text-white"
         size="lg"
-        :delay="500"
       />
     </b-container>
     <slot />

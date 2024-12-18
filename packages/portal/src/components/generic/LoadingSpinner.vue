@@ -1,17 +1,21 @@
 <template>
-  <span
-    v-show="visible"
-    role="status"
-    data-qa="loading spinner"
-  >
-    <span class="visually-hidden">
-      {{ statusMessage || $t('loading') }}
-    </span>
+  <!-- outer span needed to permit parent component to set its own v-show
+       without overwriting the local one -->
+  <span>
     <span
-      class="spinner-border"
-      :class="`spinner-border-${size}`"
-      aria-hidden="true"
-    />
+      v-show="visible"
+      role="status"
+      data-qa="loading spinner"
+    >
+      <span class="visually-hidden">
+        {{ statusMessage || $t('loading') }}
+      </span>
+      <span
+        class="spinner-border"
+        :class="`spinner-border-${size}`"
+        aria-hidden="true"
+      />
+    </span>
   </span>
 </template>
 
@@ -25,7 +29,7 @@
        */
       delay: {
         type: Number,
-        default: 0
+        default: 500
       },
       statusMessage: {
         type: String,
