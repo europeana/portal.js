@@ -5,7 +5,10 @@
     <div
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"
-      :class="{ 'fullscreen-mock': mockFullscreenClass }"
+      :class="{
+        'bg-white': multiplePages,
+        'fullscreen-mock': mockFullscreenClass
+      }"
       @keydown.escape="exitFullscreen"
     >
       <client-only>
@@ -424,17 +427,19 @@
 
   .media-viewer-wrapper {
     position: relative;
-    background-color: $black;
+    background-color: $black; // replaced by white when multipages for mobile display transition
     @include media-viewer-height;
 
     @media (max-width: ($bp-large - 1px)) {
       max-height: none;
-      height: auto
+      height: auto;
+      min-height: $media-viewer-height-medium;
     }
   }
 
   .media-viewer-inner-wrapper {
     @include media-viewer-height;
+    background-color: $black;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
