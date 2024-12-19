@@ -12,6 +12,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $t: key => key,
     $route: {},
+    $features: {},
     ...options.mocks
   },
   stubs: ['nuxt']
