@@ -15,6 +15,7 @@
       <LoadingSpinner
         class="text-white"
         size="lg"
+        :delay="0"
       />
     </b-container>
     <slot />
@@ -132,6 +133,7 @@
     data() {
       return {
         imageLoading: null,
+        imageLoadingTimeout: null,
         info: null,
         olExtent: null,
         olMap: null,
@@ -143,7 +145,11 @@
     },
 
     async fetch() {
-      this.imageLoading = true;
+      // TODO: this should be part of the delay handling in LoadingSpinner.vue,
+      //       but that entails moving the b-container into there too, and
+      //       updating all dependent components
+      this.imageLoadingTimeout = setTimeout(() => this.imageLoading = true, 1000);
+
       try {
         // clear any old OL layers e.g. from previous page, so tiles and anno
         // highlight vectors don't hang around while the new one loads
@@ -267,6 +273,11 @@
         }
       },
 
+      handleImageLoaded() {
+        clearTimeout(this.imageLoadingTimeout);
+        this.imageLoading = false;
+      },
+
       handleOlError(olError, message) {
         const error = new MediaImageViewerError(message);
         error.type = olError.type;
@@ -388,9 +399,9 @@
         const source = new IIIFSource(sourceOptions);
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source error'));
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source imageloaderror'));
-        source.on('imageloadend', () => this.imageLoading = false);
+        source.on('imageloadend', this.handleImageLoaded);
         source.on('tileloaderror', (olError) => this.handleOlError(olError, 'OpenLayers IIIF Source tileloaderror'));
-        source.on('tileloadend', () => this.imageLoading = false);
+        source.on('tileloadend', this.handleImageLoaded);
         const layer = new TileLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Tile Layer error'));
 
@@ -411,7 +422,7 @@
         });
         source.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Static Source error'));
         source.on('imageloaderror', (olError) => this.handleOlError(olError, 'OpenLayers Static Source imageloaderror'));
-        source.on('imageloadend', () => this.imageLoading = false);
+        source.on('imageloadend', this.handleImageLoaded);
         const layer = new ImageLayer({ properties: { id: 'image' }, source });
         layer.on('error', (olError) => this.handleOlError(olError, 'OpenLayers Image Layer error'));
 
@@ -419,12 +430,11 @@
       },
 
       async renderImage() {
-        await (this.$nextTick()); // without this static images won't render, some race condition
-
         if (this.source === 'IIIF') {
           const mapOptions = this.initOlImageLayerIIIF();
           this.initOl(mapOptions);
         } else {
+          await (this.$nextTick()); // without this static images won't render, some race condition
           // TODO: should we always be using the media proxy for static images?
           const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
           const mapOptions = this.initOlImageLayerStatic(url, this.width, this.height);
