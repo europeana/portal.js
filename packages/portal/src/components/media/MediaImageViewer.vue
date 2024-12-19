@@ -1,7 +1,7 @@
 <template>
   <div
     id="media-image-viewer"
-    class="h-100 w-100"
+    class="position-relative h-100 w-100"
     data-qa="media image viewer"
   >
     <MediaImageViewerKeyboardToggle
@@ -9,7 +9,7 @@
     />
     <LoadingSpinner
       v-if="imageLoading"
-      class="text-white h-100 d-flex align-items-center justify-content-center"
+      class="loading-spinner position-absolute text-white h-100 d-flex align-items-center justify-content-center"
       size="lg"
     />
     <slot />
@@ -473,3 +473,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .loading-spinner {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+</style>
