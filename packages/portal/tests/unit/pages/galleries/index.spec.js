@@ -124,7 +124,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       loggedIn: false
     },
     asyncData: () => true
-  }
+  },
+  stubs: ['LoadingSpinner']
 });
 
 describe('Gallery index page', () => {
@@ -143,7 +144,7 @@ describe('Gallery index page', () => {
   describe('while loading', () => {
     const wrapper = factory({ fetchState: { pending: true } });
     it('shows a loading spinner', async() => {
-      const loadingSpinner = wrapper.find('[data-qa="loading spinner"]');
+      const loadingSpinner = wrapper.find('loadingspinner-stub');
 
       expect(loadingSpinner.isVisible()).toBe(true);
     });
