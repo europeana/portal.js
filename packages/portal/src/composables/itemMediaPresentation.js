@@ -13,6 +13,16 @@ const page = ref(1);
 const presentation = ref(null);
 const hoveredAnnotation = ref(null);
 
+const clear = () => {
+  annotations.value = [];
+  annotationSearchHits.value = [];
+  annotationSearchResults.value = null;
+  activeAnnotation.value = null;
+  page.value = 1;
+  presentation.value = null;
+  hoveredAnnotation.value = null;
+};
+
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
   return [activeAnnotation.value, hoveredAnnotation.value].concat(annotations.value).find((anno) => {
@@ -207,6 +217,7 @@ export default function useItemMediaPresentation() {
     activeAnnotation,
     canvas,
     canvases,
+    clear,
     fetchAnnotations,
     fetchCanvasAnnotations,
     fetchPresentation,
