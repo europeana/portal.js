@@ -9,7 +9,7 @@
       @keydown.escape="exitFullscreen"
     >
       <div
-        class="media-viewer-inner-wrapper w-100 overflow-auto"
+        class="media-viewer-inner-wrapper w-100"
         :class="{
           'pagination-toolbar-max-width': addPaginationToolbarMaxWidth,
           'sidebar-toggle-max-width': addSidebarToggleMaxWidth,
