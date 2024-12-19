@@ -3,17 +3,10 @@
     data-qa="story page"
     class="text-page white-page "
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      class="pt-5"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="pt-5 flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"

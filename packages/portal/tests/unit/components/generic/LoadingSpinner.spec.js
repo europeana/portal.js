@@ -16,8 +16,10 @@ describe('components/generic/LoadingSpinner', () => {
     jest.useRealTimers();
   });
 
-  it('uses the fallback message when none has been passed', () => {
+  it('uses the fallback message when none has been passed', async() => {
     const wrapper = factory();
+    jest.runAllTimers();
+    await wrapper.vm.$nextTick();
 
     const spinner =  wrapper.find('[data-qa="loading spinner"]');
 
@@ -25,21 +27,20 @@ describe('components/generic/LoadingSpinner', () => {
   });
 
   describe('delay', () => {
-    it('prevents the spinner showing immediately', async() => {
-      const wrapper = factory({ propsData: { delay: 500 } });
+    it('prevents the spinner rendering immediately', async() => {
+      const wrapper = factory();
 
       const spinner = wrapper.find('[data-qa="loading spinner"]');
-      await wrapper.vm.$nextTick();
 
-      expect(spinner.isVisible()).toBe(false);
+      expect(spinner.exists()).toBe(false);
     });
 
     it('shows the spinner after delay has elapsed', async() => {
-      const wrapper = factory({ propsData: { delay: 500 } });
-
-      const spinner = wrapper.find('[data-qa="loading spinner"]');
+      const wrapper = factory();
       jest.runAllTimers();
       await wrapper.vm.$nextTick();
+
+      const spinner = wrapper.find('[data-qa="loading spinner"]');
 
       expect(spinner.isVisible()).toBe(true);
     });
