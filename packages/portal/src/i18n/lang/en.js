@@ -869,22 +869,73 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
       },
+      "behance": {
+        "title": "Behance"
+      },
       "bookWidgets": {
         "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "carto": {
+        "title": "Carto"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helps debugging API requests",
         "title": "Debug toggle"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
       "ecorpus": {
         "title": "Ecorpus"
       },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "exhibit": {
+        "title": "Exhibit"
+      },
       "facebook": {
         "title": "Facebook"
+      },
+      "freesound": {
+        "title": "Freesound"
       },
       "gallica": {
         "title": "Gallica"
@@ -892,15 +943,30 @@ export default {
       "gettyImages": {
         "title": "Getty Images"
       },
+      "gfycat": {
+        "title": "gfycat"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
       "googleDocs": {
         "title": "Google Docs"
       },
       "googleDrive": {
         "title": "Google Drive"
       },
+      "googleMaps": {
+        "title": "Google Maps"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Remembers your preferred interface language for future access.",
@@ -915,9 +981,18 @@ export default {
       "internetCulturale": {
         "title": "Internet Culturale"
       },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
+      },
+      "knightLabCdn": {
+        "title": "Knight Lab CDN"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "mailchimp": {
         "title": "Mailchimp"
@@ -926,6 +1001,12 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
       "nakala": {
         "title": "Nakala"
       },
@@ -933,11 +1014,20 @@ export default {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
       },
+      "onlineComputerLibraryCenter": {
+        "title": "Online Computer Library Center"
+      },
       "openbeelden": {
         "title": "Openbeelden"
       },
+      "phonobase": {
+        "title": "Phonobase"
+      },
       "pinterest": {
         "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
@@ -946,21 +1036,61 @@ export default {
       "serveiDeGestioDocumentalArxius": {
         "title": "Servei de Gestió Documental, Arxius"
       },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
       "sokINettbiblioteket": {
         "title": "Søk i Nettbiblioteket"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
       },
       "theCyprusInstitute": {
         "title": "The Cyprus Institute"
       },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
       "wheeldecide": {
         "title": "Wheeldecide"
       },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
       "x": {
         "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     },
     "subGroups": {
-      "2D": "2D media"
+      "2D": "2D media",
+      "3D": "3D media",
+      "audio": "audio",
+      "multimedia": "multimedia",
+      "video": "video"
     },
     "subPurposes": {
       "mediaViewing": {

@@ -75,6 +75,66 @@ const twoDServices = [
   { name: 'theCyprusInstitute' }
 ].map(service => ({ ...service, subGroup: '2D' }));
 
-const mediaViewingServices = twoDServices.map(service => ({ ...service, subPurpose: 'mediaViewing' }));
+const threeDServices = [
+  { name: 'arctur3DViewer' },
+  { name: 'eureka3D' },
+  { name: 'gotlandPictureStones' },
+  { name: 'sketchfab' },
+  { name: 'spatial' },
+  { name: 'weave' }
+].map(service => ({ ...service, subGroup: '3D' }));
 
-const thirdPartyServices = socialMediaServices.concat(mediaViewingServices).map(service => ({ ...service, purposes: ['thirdPartyContent'] }));
+const audioServices = [
+  { name: 'britishLibrarySounds' },
+  { name: 'buzzsprout' },
+  { name: 'freesound' },
+  { name: 'phonobase' },
+  { name: 'soundArchivesOfTheCNRS' },
+  { name: 'soundCloud' }
+].map(service => ({ ...service, subGroup: 'audio' }));
+
+const multimediaServices = [
+  { name: 'archiveOrg' },
+  { name: 'digitalRepositoryOfIreland' }
+].map(service => ({ ...service, subGroup: 'multimedia' }));
+
+const videoServices = [
+  { name: 'deutschesFilmportal' },
+  { name: 'eclap' },
+  { name: 'europeanParliamentMultimediaService' },
+  { name: 'euscreen' },
+  { name: 'myminifactory' },
+  { name: 'tibAvPortal' },
+  { name: 'vimeo' },
+  { name: 'youTube' }
+].map(service => ({ ...service, subGroup: 'video' }));
+
+const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)
+  .map(service => ({ ...service, subPurpose: 'mediaViewing' }));
+
+const otherEmbeddingServices = [
+  { name: 'albinLarsson' },
+  { name: 'behance' },
+  { name: 'carto' },
+  { name: 'codepen' },
+  { name: 'datawrapper' },
+  { name: 'exhibit' },
+  { name: 'gfycat' },
+  { name: 'giphy' },
+  { name: 'googleMaps' },
+  { name: 'humap' },
+  { name: 'jigsawplanet' },
+  { name: 'knightLabCdn' },
+  { name: 'kystreise' },
+  { name: 'myAdventCalendar' },
+  { name: 'onlineComputerLibraryCenter' },
+  { name: 'prezi' },
+  { name: 'slidebean' },
+  { name: 'universityOfCaliforniaSanDiego' },
+  { name: 'wikidata' },
+  { name: 'woobox' }
+
+].map(service => ({ ...service, subPurpose: 'other' }));
+
+const thirdPartyServices = socialMediaServices.concat(mediaViewingServices, otherEmbeddingServices)
+  .map(service => ({ ...service, purposes: ['thirdPartyContent'] }));

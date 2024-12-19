@@ -268,7 +268,23 @@
                   subGroups: [{
                     name: '2D',
                     services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === '2D')
+                  }, {
+                    name: '3D',
+                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === '3D')
+                  }, {
+                    name: 'audio',
+                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'audio')
+                  }, {
+                    name: 'multimedia',
+                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'multimedia')
+                  }, {
+                    name: 'video',
+                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'video')
                   }]
+                },
+                {
+                  name: 'other',
+                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'other')
                 }
               ]
             }
