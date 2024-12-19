@@ -62,8 +62,7 @@
             class="col-lg-10"
           >
             <ItemDataProvider
-              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
-              :data-provider-entity="dataProviderEntity"
+              :data-provider="metadata.edmDataProvider.def[0]"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
               :user-generated-content="metadata.edmUgc === 'true'"
@@ -177,7 +176,6 @@
         allMediaUris: [],
         annotations: [],
         cardGridClass: null,
-        dataProviderEntity: null,
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -297,7 +295,7 @@
         return this.canonicalUrl({ fullPath: true, locale: false });
       },
       relatedEntityUris() {
-        return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
+        return this.europeanaEntityUris.slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -598,37 +596,10 @@
       },
 
       async fetchEntities() {
-        if (this.dataProviderEntityUri) {
-          // Fetch related entities and the dataProvider entity.
-          // If the entities can't be fetched, use existing data from the record for the dataProvider section
-          try {
-            let entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri]);
-            entities = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
-            this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
-            this.dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
-          } catch {
-            // don't fall over
-          } finally {
-            if (!this.dataProviderEntity) {
-              const dataProviderPrefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
-              if (dataProviderPrefLabel) {
-                const prefLabel = { ...dataProviderPrefLabel };
-                for (const key in prefLabel) {
-                  if (Array.isArray(prefLabel[key])) {
-                    prefLabel[key] = prefLabel[key][0];
-                  }
-                }
-                this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
-              }
-            }
-          }
-        } else if (this.relatedEntityUris.length > 0) {
-          this.dataProviderEntity = null;
-
+        if (this.relatedEntityUris.length > 0) {
           const entities = await this.$apis.entity.find(this.relatedEntityUris);
           this.relatedCollections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         } else {
-          this.dataProviderEntity = null;
           this.relatedCollections = [];
         }
       }

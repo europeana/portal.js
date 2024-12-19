@@ -5,15 +5,18 @@ import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 export default {
   methods: {
     collectionLinkGen(collection) {
-      const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
+      const id = collection.id || collection.about;
+      const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
       if (!uriMatch) {
         return null;
       }
 
+      const prefLabelEn = [].concat(collection.prefLabel.en)[0];
+
       return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
-          pathMatch: getLabelledSlug(collection.id, collection.prefLabel.en)
+          pathMatch: getLabelledSlug(id, prefLabelEn)
         }
       };
     },
