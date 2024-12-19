@@ -448,7 +448,7 @@
         } else {
           // TODO: should we always be using the media proxy for static images?
           const url = this.$apis.record.mediaProxyUrl(this.url, this.itemId, { disposition: 'inline' });
-          viewOptions = this.initOlImageLayerStatic(url, this.width, this.height);
+          viewOptions = this.initOlImageSourceStatic(url, this.width, this.height);
         }
 
         this.initOlView(viewOptions);
