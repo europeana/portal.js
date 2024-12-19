@@ -1,14 +1,8 @@
 <template>
-  <b-container
+  <LoadingSpinner
     v-if="$fetchState.pending"
-    data-qa="loading spinner container"
-  >
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
+    class="flex-md-row py-4 text-center"
+  />
   <b-container
     v-else-if="$fetchState.error"
     data-qa="alert message container"

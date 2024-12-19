@@ -52,16 +52,11 @@
               <b-col
                 cols="12"
               >
-                <b-row
+                <LoadingSpinner
                   v-show="$fetchState.pending"
                   class="flex-md-row py-4 text-center"
-                >
-                  <b-col cols="12">
-                    <LoadingSpinner
-                      :status-message="$t('loadingResults')"
-                    />
-                  </b-col>
-                </b-row>
+                  :status-message="$t('loadingResults')"
+                />
                 <template
                   v-if="!$fetchState.pending"
                 >

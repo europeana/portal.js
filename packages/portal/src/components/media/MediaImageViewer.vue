@@ -7,16 +7,11 @@
     <MediaImageViewerKeyboardToggle
       id="media-image-viewer-keyboard-toggle"
     />
-    <b-container
+    <LoadingSpinner
       v-if="imageLoading"
-      class="h-100 d-flex align-items-center justify-content-center"
-      data-qa="loading spinner container"
-    >
-      <LoadingSpinner
-        class="text-white"
-        size="lg"
-      />
-    </b-container>
+      class="text-white h-100 d-flex align-items-center justify-content-center"
+      size="lg"
+    />
     <slot />
   </div>
 </template>

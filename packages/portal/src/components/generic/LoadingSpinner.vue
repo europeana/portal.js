@@ -1,9 +1,9 @@
 <template>
-  <!-- outer span needed to permit parent component to set its own v-show
-       without overwriting the local one -->
-  <span>
+  <component
+    :is="tag"
+    v-if="visible"
+  >
     <span
-      v-show="visible"
       role="status"
       data-qa="loading spinner"
     >
@@ -16,7 +16,7 @@
         aria-hidden="true"
       />
     </span>
-  </span>
+  </component>
 </template>
 
 <script>
@@ -24,6 +24,10 @@
     name: 'LoadingSpinner',
 
     props: {
+      tag: {
+        type: String,
+        default: 'div'
+      },
       /**
        * Delay to wait before showing the spinner, in ms
        */

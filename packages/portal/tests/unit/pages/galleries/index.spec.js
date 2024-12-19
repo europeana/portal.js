@@ -143,7 +143,7 @@ describe('Gallery index page', () => {
   describe('while loading', () => {
     const wrapper = factory({ fetchState: { pending: true } });
     it('shows a loading spinner', async() => {
-      const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+      const loadingSpinner = wrapper.find('[data-qa="loading spinner"]');
 
       expect(loadingSpinner.isVisible()).toBe(true);
     });

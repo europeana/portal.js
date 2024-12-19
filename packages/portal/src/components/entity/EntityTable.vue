@@ -39,7 +39,9 @@
     >
       <template #table-busy>
         <div class="text-center my-2">
-          <LoadingSpinner />
+          <LoadingSpinner
+            tag="span"
+          />
           {{ $t('loading') }}
         </div>
       </template>

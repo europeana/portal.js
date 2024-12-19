@@ -155,7 +155,7 @@ describe('GalleryPage (Set)', () => {
       it('shows a loading spinner', async() => {
         const wrapper = factory({ fetchState: { pending: true } });
 
-        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+        const loadingSpinner = wrapper.find('[data-qa="loading spinner"]');
 
         expect(loadingSpinner.exists()).toBe(true);
       });

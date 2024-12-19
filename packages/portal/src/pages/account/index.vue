@@ -75,12 +75,10 @@
             </b-row>
           </b-container>
           <client-only>
-            <div
+            <LoadingSpinner
               v-if="$fetchState.pending"
               class="text-center pb-4"
-            >
-              <LoadingSpinner />
-            </div>
+            />
             <AlertMessage
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"

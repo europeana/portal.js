@@ -13,6 +13,7 @@
     {{ $t('actions.download') }}
     <LoadingSpinner
       v-show="validating"
+      tag="span"
       class="ml-2"
     />
   </b-button>
