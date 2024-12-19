@@ -24,10 +24,9 @@
         {{ $t('storiesPage.storiesHaveLoaded', [total]) }}
       </output>
     </div>
-    <!-- FIXME: styling isn't quite right -->
     <LoadingSpinner
       v-if="$fetchState.pending"
-      class="position-absolute flex-md-row py-4 text-center"
+      class="container position-absolute flex-md-row py-4 text-center"
     />
     <transition
       v-else
