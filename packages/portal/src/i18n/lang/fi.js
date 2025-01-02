@@ -1012,7 +1012,6 @@ export default {
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
-    "IIIFViewer": "IIIF-katsoja",
     "location": "Sijainti",
     "locationOnMap": "Sijainti kartalla",
     "mediaPlayer": "Mediasoitin",
