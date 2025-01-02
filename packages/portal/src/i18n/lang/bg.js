@@ -1017,7 +1017,6 @@ export default {
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
     "hideAll": "Скриване на цялата информация",
-    "IIIFViewer": "IIIF зрител",
     "location": "Местоположение",
     "locationOnMap": "Местоположение на картата",
     "mediaPlayer": "Медиен плейър",
