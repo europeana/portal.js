@@ -46,14 +46,19 @@
       <DebugApiRequests />
     </client-only>
     <b-toaster
-      name="b-toaster-bottom-left-dynamic"
-      class="b-toaster-bottom-left-dynamic"
-      :style="{'--bottom': toastBottomOffset }"
+      name="b-toaster-bottom-left"
+      class="b-toaster-bottom-left"
     />
     <ErrorModal />
     <client-only>
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
+        :klaro-manager="klaroManager"
+        :klaro-config="klaroConfig"
+        :cookie-consent-required="cookieConsentRequired"
+      />
       <PageCookieConsent
-        v-if="cookieConsentRequired"
+        v-else-if="cookieConsentRequired"
       />
     </client-only>
   </div>
@@ -77,6 +82,7 @@
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('../components/page/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
