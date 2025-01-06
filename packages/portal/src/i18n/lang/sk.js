@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
     "editProfile": "Upraviť profil",
-    "likes": "Označenia Páči sa mi",
+    "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
@@ -47,18 +47,19 @@ export default {
     "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
-    "explore": "Preskúmať",
     "filter": "Filter",
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
-    "like": "Označenie Páči sa mi",
+    "like": "Páči sa mi",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
+    "nextPage": "Ďalšia strana",
     "pin": "Kolík",
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
+    "previousPage": "Predchádzajúca strana",
     "publish": "Publikovať",
     "readMore": "Čítaj viac",
     "reject": "Odmietnuť",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
+    "unlike": "Nepáči sa mi",
     "viewAt": "Zobraziť na adrese {link}",
-    "viewDocument": "Zobraziť dokument"
+    "viewDocument": "Zobraziť dokument",
+    "vote": "Hlasujte"
   },
   "attribution": {
     "country": "Krajina:",
@@ -237,6 +240,10 @@ export default {
       "description": "Môže to byť z nasledujúcich dôvodov: táto objekt neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste objekt znova nájsť.",
       "metaTitle": "Objekt sa nenašla",
       "title": "Ó nie! {newline} Túto objekt sa nám nepodarilo nájsť."
+    },
+    "noFeatureIdeas": {
+      "description": "Vráťte sa sem čoskoro!",
+      "title": "Momentálne nemáte žiadne nápady na nové funkcie."
     },
     "pageNotFound": {
       "metaTitle": "Stránka nenájdená",
@@ -720,7 +727,6 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
-      "provide": "Staňte sa správcovská inštitúcia",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "supportingTechnicalPartners": "Podpora technických partnerov",
@@ -745,9 +751,10 @@ export default {
       "about": "O nás",
       "collections": "Kolekcie",
       "europeanaClassroom": "Pre učiteľov",
+      "featureIdeas": "Nápady na funkcie",
       "help": "Pomoc",
       "home": "Domov",
-      "shareYourData": "Zdieľajte svoje dáta",
+      "shareYourCollections": "Zdieľajte svoje zbierky",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Najnovšie príbehy",
     "storiesCTA": "Zobraziť všetky príbehy",
     "subHeadline": "Hľadaj, sťahuj a zdieľaj umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
-    "themesCTA": "Zobraziť všetky kategórie",
     "themesTitle": "Preskúmajte podľa kategórie",
     "title": "Objavuj {digital} európske kultúrne dedičstvo",
     "titleDigital": "digitalizované"
@@ -843,8 +849,8 @@ export default {
         "title": "Oznámenie o novej funkcii"
       },
       "searchResultsView": {
-        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "description": "Pamätá si, či chcete vidieť výsledky vyhľadávania, galérie a vaše hodnotenia, ktoré sa vám páčia, v zobrazení zoznamu, mriežky alebo mozaiky.",
+        "title": "Zobrazenie výsledkov vyhľadávania, galérií a hodnotení Páči sa mi (zoznam/mriežka/mozaika)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
   },
+  "likes": {
+    "count": "{count} Páči sa mi | {count} páči sa mi"
+  },
   "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ukončiť celú obrazovku",
+      "fullscreen": "Celá obrazovka",
+      "keyboardNavigation": "Použite klávesy +, - a šípky na priblíženie a oddialenie a pohyb okolo obrázka.",
+      "resetZoom": "Obnoviť priblíženie",
+      "rotateLeft": "Otočiť doľava",
+      "rotateRight": "Otočiť doprava",
+      "zoomIn": "Priblížiť",
+      "zoomOut": "Oddialiť"
+    },
+    "loadFull": "Extra veľký obrázok: načítajte v plnej veľkosti.",
+    "pages": {
+      "hide": "Skryť stránky",
+      "show": "Zobraziť stránky"
+    },
+    "sidebar": {
+      "annotations": "Anotácie",
+      "annotationsCount": "1 Anotácia | {count} Anotácie",
+      "hide": "Skryť bočný panel",
+      "IIIFManifest": "Manifest IIIF",
+      "links": "Odkazy",
+      "search": "Hľadať",
+      "searchPlaceholder": "Zadajte podmienky",
+      "show": "Zobraziť bočný panel"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
@@ -897,17 +933,17 @@ export default {
     "automated": "Automatizovaný preklad",
     "automatedPageTranslations": "Táto stránka používa automaticky generované preklady z angličtiny.",
     "enrichment": "Obohatenie o partnerské projekty",
-    "loginToTranslate": "{login}, aby sa táto objekt zobrazila v iných jazykoch",
-    "other": "iné jazyky",
-    "stopTranslating": "Zastaviť preklad tejto objekt do jazyka {0}.",
-    "translateLanguage": "Chceli by ste túto objekt vidieť v položke {0}?",
-    "translateMetadata": "Preložte metadáta tejto objekt.",
-    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
+    "stopViewingThisItemIn": "Zastaviť zobrazovanie tohto objektu v {0}",
+    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím.",
+    "viewingThisItemIn": "Zobrazenie tohto objektu v jazyku {0}",
+    "viewItemInAnotherLanguage": "Zobraziť tento objekt v inom jazyku"
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
     "readMore": "Ukáž mi",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
+    }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
-    "IIIFViewer": "Divák IIIF",
     "location": "Poloha",
     "locationOnMap": "Poloha na mape",
     "mediaPlayer": "Prehrávač médií",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "neobsahuje",
         "exact": "obsahuje frázu"
       },
+      "newRule": "nové pravidlo rozšíreného vyhľadávania",
       "placeholder": {
         "field": "Vyberte pole",
         "modifier": "Vyberte modifikátor",
@@ -1127,7 +1163,7 @@ export default {
       "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
-        "title": "100 označení Páči sa mi"
+        "title": "100 páči sa mi"
       },
       "updated": "Objekt bola pridaná do galérie.",
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
@@ -1169,7 +1205,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "liked": "Obľúbené",
+    "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
   },
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímok {page}"
+    "a11y": {
+      "firstSlide": "Toto je prvá snímka",
+      "lastSlide": "Toto je posledná snímka",
+      "nextSlide": "Ďalšia snímka",
+      "paginationBullet": "Snímka {page}",
+      "paginationBulletGroupedSlides": "Skupina snímok {page}",
+      "previousSlide": "Predchádzajúca snímka",
+      "slideLabel": "Snímka {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

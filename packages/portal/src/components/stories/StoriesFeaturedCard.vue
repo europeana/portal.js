@@ -68,7 +68,6 @@
 @import '@europeana/style/scss/variables';
 
 .featured-story-card {
-  overflow: hidden;
   min-height: 10rem;
 
   @at-root .xxl-page .card-deck-4-cols & {
@@ -96,12 +95,14 @@
   }
 
   ::v-deep .card-img {
+    border-radius: $border-radius-small $border-radius-small 0 0;
+
     @media (min-width: $bp-medium) {
       flex: 0 0 50%;
       order: 1;
       max-height: none;
       position: relative;
-      border-radius: 0;
+      border-radius: 0 $border-radius-small $border-radius-small 0;
 
       img {
         height: 100%;
@@ -113,16 +114,22 @@
         transition: transform 400ms linear;
       }
     }
+
+    @media (min-width: $bp-4k) {
+      border-radius: 0 $border-radius-large $border-radius-large 0;
+    }
   }
 
   ::v-deep .card-body {
     flex: 0 0 50%;
     padding: 2.625rem 1rem;
     background-color: $blue;
+    border-radius: 0  0 $border-radius-small $border-radius-small;
 
     @media (min-width: $bp-medium) {
       order: 0;
       padding: 2.875rem 2rem;
+      border-radius: $border-radius-small 0 0 $border-radius-small;
     }
 
     @media (min-width: $bp-large) {
@@ -131,6 +138,7 @@
 
     @media (min-width: $bp-4k) {
       padding: 8.75rem 6.5rem;
+      border-radius: $border-radius-large 0 0 $border-radius-large;
     }
 
     .card-title-texts-wrapper {

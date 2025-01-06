@@ -7,7 +7,7 @@
       {{ $t('homePage.discoverEditorial') }}
     </h2>
     <b-card-group
-      class="card-deck-4-cols justify-content-center"
+      class="card-deck-4-cols"
       deck
     >
       <!-- TODO: use/add image alt description -->

@@ -4,16 +4,10 @@
     class="page white-page"
     :class="$fetchState.error && 'pt-0'"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -23,13 +17,6 @@
     <template
       v-else
     >
-      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
-      <ItemLanguageSelector
-        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
-        :from-translation-error="fromTranslationError"
-        :translation-language="translationLanguage"
-        @hidden="() => showItemLanguageSelector = false"
-      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -45,16 +32,7 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
-        >
-          <template slot="item-language-selector">
-            <ItemLanguageSelector
-              v-if="translatedItemsEnabled && showItemLanguageSelector"
-              :from-translation-error="fromTranslationError"
-              :translation-language="translationLanguage"
-              @hidden="() => showItemLanguageSelector = false"
-            />
-          </template>
-        </ItemHero>
+        />
       </b-container>
       <b-container
         class="footer-margin"
@@ -95,6 +73,11 @@
               :metadata="fieldsAndKeywords"
               :location="locationData"
               :metadata-language="metadataLanguage"
+            />
+            <ItemLanguageSelector
+              v-if="translatedItemsEnabled"
+              :from-translation-error="fromTranslationError"
+              :translation-language="translationLanguage"
             />
           </b-col>
         </b-row>
@@ -192,13 +175,14 @@
         entities: [],
         error: null,
         fromTranslationError: null,
+        headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
         isShownAt: null,
         media: [],
         metadata: {},
+        ogImage: null,
         relatedCollections: [],
-        showItemLanguageSelector: true,
         type: null,
         useProxy: true
       };
@@ -213,6 +197,14 @@
       }
     },
 
+    head() {
+      return {
+        link: this.headLinkPreconnect.map((href) => ({ rel: 'preconnect', href })),
+        title: this.headTitle,
+        meta: this.headMeta
+      };
+    },
+
     computed: {
       webResources() {
         return this.media.map((webResource) => new WebResource(webResource, this.identifier));
@@ -222,7 +214,7 @@
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
+          ogImage: this.ogImage
         };
       },
       keywords() {
@@ -385,14 +377,56 @@
 
         const item = new Item(edm);
 
+        // TODO: ideally, wouldn't store these as can be a large list if many WRs,
+        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       could we deduce that from whether iiif is in use or not, and if
+        //       so, whether a europeana manifest?
+        //       - not iiif: proxy
+        //       - iiif, europeana: proxy
+        //       - iiif, institution: don't proxy
         this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
-        this.media = item.providerAggregation.displayableWebResources;
+
+        this.ogImage = this.$apis.thumbnail.forWebResource(
+          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+        ).large;
+
+        const preconnects = [
+          this.iiifPresentationManifest,
+          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+        ].filter(Boolean);
+        for (const preconnect of preconnects) {
+          try {
+            this.headLinkPreconnect.push((new URL(preconnect)).origin);
+          } catch {
+            // URL parsing error; just won't be pre-connected
+          }
+        }
 
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
+
+        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+          // don't keep WR-level rights statement if same as item-level
+          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
+            delete wr.webResourceEdmRights;
+          }
+
+          // don't store the full web resources when using iiif as the manifest will be used,
+          // but WR-level rights statements still needed by ItemHero and not consistently
+          // obtainable from manifests coming from different sources
+          if (this.iiifPresentationManifest) {
+            for (const key in wr) {
+              if (!['about', 'webResourceEdmRights'].includes(key)) {
+                delete wr[key];
+              }
+            }
+          }
+
+          return wr;
+        });
 
         process.client && this.trackCustomDimensions();
       },

@@ -47,7 +47,6 @@ export default {
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
-    "explore": "Naršyti",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
@@ -56,9 +55,11 @@ export default {
     "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
+    "nextPage": "Kitas puslapis",
     "pin": "Kaištis",
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
+    "previousPage": "Ankstesnis puslapis",
     "publish": "Publikuoti",
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
+    "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
-    "viewDocument": "Peržiūrėti dokumentą"
+    "viewDocument": "Peržiūrėti dokumentą",
+    "vote": "Balsuoti"
   },
   "attribution": {
     "country": "Šalis:",
@@ -237,6 +240,10 @@ export default {
       "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
       "metaTitle": "Skaitmeninis objektas nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio skaitmeninis objektas."
+    },
+    "noFeatureIdeas": {
+      "description": "Netrukus vėl patikrinkite!",
+      "title": "Šiuo metu nėra naujų funkcijų idėjų."
     },
     "pageNotFound": {
       "metaTitle": "Puslapis nerastas",
@@ -720,7 +727,6 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite teikėjas",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "supportingTechnicalPartners": "Techninių partnerių palaikymas",
@@ -745,9 +751,10 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
+      "featureIdeas": "Funkcijų idėjos",
       "help": "Pagalba",
       "home": "Pradžia",
-      "shareYourData": "Dalinkitės savo duomenimis",
+      "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Naujausios istorijos",
     "storiesCTA": "Žiūrėti visas istorijas",
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
-    "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
     "title": "Atraskite {digital} Europos kultūros paveldą",
     "titleDigital": "skaitmenintą"
@@ -843,8 +849,8 @@ export default {
         "title": "Pranešimas apie naują funkciją"
       },
       "searchResultsView": {
-        "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
+        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
+  "likes": {
+    "count": "{count} patinka | {count} patinka"
+  },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Išeiti iš viso ekrano režimo",
+      "fullscreen": "Visas ekranas",
+      "keyboardNavigation": "Naudokite +, - ir rodyklių klavišus, kad priartintumėte ir atitolintumėte, taip pat judėtumėte aplink vaizdą.",
+      "resetZoom": "Iš naujo nustatyti mastelį",
+      "rotateLeft": "Pasukti į kairę",
+      "rotateRight": "Pasukti į dešinę",
+      "zoomIn": "Priartinti",
+      "zoomOut": "Nutolinti"
+    },
+    "loadFull": "Ypač didelis vaizdas: įkelti viso dydžio.",
+    "pages": {
+      "hide": "Slėpti puslapius",
+      "show": "Rodyti puslapius"
+    },
+    "sidebar": {
+      "annotations": "Anotacijos",
+      "annotationsCount": "1 Anotacija |{count} Anotacijos",
+      "hide": "Slėpti šoninę juostą",
+      "IIIFManifest": "IIIF manifestas",
+      "links": "Nuorodos",
+      "search": "Paieška",
+      "searchPlaceholder": "Įveskite terminus",
+      "show": "Rodyti šoninę juostą"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -897,17 +933,17 @@ export default {
     "automated": "Automatinis vertimas",
     "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
-    "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
-    "other": "kitos kalbos",
-    "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
-    "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
-    "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
-    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+    "stopViewingThisItemIn": "Nustoti peržiūrėti šį skaitmeninį objektą {0}",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau.",
+    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}",
+    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba"
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
+    }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
-    "IIIFViewer": "IIIF žiūrovas",
     "location": "Vieta",
     "locationOnMap": "Vieta žemėlapyje",
     "mediaPlayer": "Medijos leistuvas",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "sudėtyje nėra",
         "exact": "yra frazė"
       },
+      "newRule": "nauja išplėstinės paieškos taisyklė",
       "placeholder": {
         "field": "Pasirinkite lauką",
         "modifier": "Pasirinkite modifikatorių",
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {
-    "paginationBulletLabel": "Skaidrių grupė {page}"
+    "a11y": {
+      "firstSlide": "Tai pirmoji skaidrė",
+      "lastSlide": "Tai paskutinė skaidrė",
+      "nextSlide": "Kita skaidrė",
+      "paginationBullet": "Skaidrė {page}",
+      "paginationBulletGroupedSlides": "Skaidrių grupė {page}",
+      "previousSlide": "Ankstesnė skaidrė",
+      "slideLabel": "Skaidrė {slide} iš {totalSlides}"
+    }
   },
   "themes": {
     "description": "Naršyti pagal temą",

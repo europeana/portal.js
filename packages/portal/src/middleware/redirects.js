@@ -2,7 +2,8 @@ const redirects = {
   '/blog': '/stories?type=story',
   '/blog/*': '/stories/*',
   '/exhibitions': '/stories?type=exhibition',
-  '/professionals': '/share-your-data'
+  '/professionals': '/share-your-collections',
+  '/share-your-data': '/share-your-collections'
 };
 
 export default ({ redirect, route }) => {

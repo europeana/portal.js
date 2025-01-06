@@ -9,6 +9,10 @@
   content: '\e957';
 }
 
+.icon-3d-bold::before {
+  content: '\e935';
+}
+
 .icon-accept::before {
   content: '\e938';
 }
@@ -29,8 +33,16 @@
   content: '\e923';
 }
 
+.icon-annotations:before {
+  content: '\e94e';
+}
+
 .icon-arrow-down::before {
   content: '\e93b';
+}
+
+.icon-arrow-outline::before {
+  content: '\e95e';
 }
 
 .icon-automated::before {
@@ -57,6 +69,10 @@
   content: '\e903';
 }
 
+.icon-click::before {
+  content: '\e96a';
+}
+
 .icon-collections::before {
   content: '\e91d';
 }
@@ -81,6 +97,10 @@
   content: '\e901';
 }
 
+.icon-feature-ideas::before {
+  content: '\e931';
+}
+
 .icon-ic-feedback::before {
   content: '\e933';
 }
@@ -91,6 +111,14 @@
 
 .icon-filter::before {
   content: '\e948';
+}
+
+.icon-fullscreen:before {
+  content: '\e95f';
+}
+
+.icon-fullscreen-exit:before {
+  content: '\e960';
 }
 
 .icon-globe::before {
@@ -117,6 +145,10 @@
   content: '\e955';
 }
 
+.icon-image-bold::before {
+  content: '\e93e';
+}
+
 .icon-info::before {
   content: '\e91f';
 }
@@ -133,6 +165,10 @@
   content: '\e95a';
 }
 
+.icon-kebab:before {
+  content: '\e961';
+}
+
 .icon-language::before {
   content: '\e905';
 }
@@ -141,8 +177,8 @@
   content: '\e94b';
 }
 
-.icon-link::before {
-  content: '\e94e';
+.icon-link:before {
+  content: '\e962';
 }
 
 .icon-linkedin::before {
@@ -173,6 +209,10 @@
   content: '\e93f';
 }
 
+.icon-pages:before {
+  content: '\e963';
+}
+
 .icon-pinterest::before {
   content: '\e908';
 }
@@ -197,12 +237,28 @@
   content: '\e91c';
 }
 
+.icon-reset:before {
+  content: '\e964';
+}
+
+.icon-rotate-left:before {
+  content: '\e969';
+}
+
+.icon-rotate-right:before {
+  content: '\e968';
+}
+
 .icon-school::before {
   content: '\e952';
 }
 
 .icon-search::before {
   content: '\e92b';
+}
+
+.icon-search-in-text:before {
+  content: '\e965';
 }
 
 .icon-settings::before {
@@ -215,6 +271,10 @@
 
 .icon-sound::before {
   content: '\e956';
+}
+
+.icon-sound-bold::before {
+  content: '\e958';
 }
 
 .icon-stories::before {
@@ -233,6 +293,18 @@
   content: '\e954';
 }
 
+.icon-text-bold::before {
+  content: '\e95c';
+}
+
+.icon-thumbsup::before {
+  content: '\e921';
+}
+
+.icon-thumbsup-outlined::before {
+  content: '\e92c';
+}
+
 .icon-transcribe::before {
   content: '\e916';
 }
@@ -245,18 +317,30 @@
   content: '\e93c';
 }
 
+.icon-unavailable::before {
+  content: '\e953';
+}
+
 .icon-video::before {
   content: '\e947';
+}
+
+.icon-video-bold::before {
+  content: '\e95d';
 }
 
 .icon-ic-view::before {
   content: '\e902';
 }
 
-.icon-unavailable::before {
-  content: '\e953';
-}
-
 .icon-x::before {
   content: '\e906';
+}
+
+.icon-zoom-in:before {
+  content: '\e966';
+}
+
+.icon-zoom-out:before {
+  content: '\e967';
 }

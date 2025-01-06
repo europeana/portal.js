@@ -16,25 +16,18 @@
         {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
       <StoriesTypeFilter />
-      <div
+      <output
+        form="stories-tags-search-form"
         class="visually-hidden"
-        role="status"
         data-qa="results status message"
       >
         {{ $t('storiesPage.storiesHaveLoaded', [total]) }}
-      </div>
+      </output>
     </div>
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="stories loading spinner container"
-      class="position-absolute"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="container position-absolute flex-md-row py-4 text-center"
+    />
     <transition
       v-else
       appear
@@ -93,6 +86,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesTypeFilter from '@/components/stories/StoriesTypeFilter';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   const CTA_BANNER = 'cta-banner';
 
@@ -119,6 +113,11 @@
         type: Object,
         default: () => {}
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -189,7 +188,7 @@
     watch: {
       async page() {
         await this.$fetch();
-        this.$scrollTo?.('#header');
+        this.scrollToSelector('#header');
       },
       selectedTags: '$fetch',
       selectedType: '$fetch'

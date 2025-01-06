@@ -13,6 +13,7 @@
     {{ $t('actions.download') }}
     <LoadingSpinner
       v-show="validating"
+      tag="span"
       class="ml-2"
     />
   </b-button>
@@ -61,10 +62,11 @@
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
+        let target = null;
         if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseURL)) {
-          return '_blank';
+          target = '_blank';
         }
-        return '_self';
+        return target;
       }
     },
     watch: {

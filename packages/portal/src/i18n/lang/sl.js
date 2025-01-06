@@ -47,7 +47,6 @@ export default {
     "depublish": "Depubliš",
     "download": "Prenos",
     "edit": "Uredi",
-    "explore": "Raziščite",
     "filter": "Filter",
     "goHome": "Pojdite na domačo stran",
     "hide": "Skrij",
@@ -56,9 +55,11 @@ export default {
     "login": "Vpis",
     "move": "Premakni se",
     "next": "Naslednji",
+    "nextPage": "Naslednja stran",
     "pin": "Pin",
     "preview": "Predogled",
     "previous": "Prejšnji",
+    "previousPage": "Prejšnja stran",
     "publish": "Objavi",
     "readMore": "Preberi več",
     "reject": "Zavrne",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
+    "unlike": "Odstrani všeček",
     "viewAt": "Ogled na {link}",
-    "viewDocument": "Ogled dokumenta"
+    "viewDocument": "Ogled dokumenta",
+    "vote": "Glasuj"
   },
   "attribution": {
     "country": "Država:",
@@ -237,6 +240,10 @@ export default {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
+    },
+    "noFeatureIdeas": {
+      "description": "Preverite spet kmalu!",
+      "title": "Trenutno ni idej za nove funkcije."
     },
     "pageNotFound": {
       "metaTitle": "Stran ni najdena",
@@ -720,7 +727,6 @@ export default {
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
-      "provide": "Postanite ponudnik podatkov",
       "seeApiRequests": "Oglejte si zahteve za API-je Europeane",
       "subscribe": "Naročite se na naše novice",
       "supportingTechnicalPartners": "Podpora tehničnim partnerjem",
@@ -745,9 +751,10 @@ export default {
       "about": "O nas",
       "collections": "Zbirke",
       "europeanaClassroom": "Za učitelje",
+      "featureIdeas": "Ideje za funkcije",
       "help": "Pomoč",
       "home": "Domov",
-      "shareYourData": "Delite vaše podatke",
+      "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Najnovejše zgodbe",
     "storiesCTA": "Oglejte si vse zgodbe",
     "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
-    "themesCTA": "Oglejte si vse teme",
     "themesTitle": "Raziščite po temi",
     "title": "Odkrijte evropsko {digital} kulturno dediščino",
     "titleDigital": "digitalno"
@@ -843,8 +849,8 @@ export default {
         "title": "Obvestilo o novi funkciji"
       },
       "searchResultsView": {
-        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "description": "Zapomni si, ali si raje ogledate rezultate iskanja, galerije in vaše všečke v obliki seznama, mreže ali mozaičnega pogleda.",
+        "title": "Rezultat iskanja, galerije in pogled všečkov (seznam/mreža/mozaik)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
   },
+  "likes": {
+    "count": "{count} všečkov | {count} všečkov"
+  },
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Izhod iz celotnega zaslona",
+      "fullscreen": "Celoten zaslon",
+      "keyboardNavigation": "Uporabite tipke +, - in puščice za povečavo in premikanje po sliki.",
+      "resetZoom": "Ponastavi povečavo",
+      "rotateLeft": "Zavrtite v levo",
+      "rotateRight": "Zavrtite v desno",
+      "zoomIn": "Povečaj",
+      "zoomOut": "Pomanjšaj"
+    },
+    "loadFull": "Zelo velika slika: naloži v polni velikosti.",
+    "pages": {
+      "hide": "Skrij strani",
+      "show": "Prikaži strani"
+    },
+    "sidebar": {
+      "annotations": "Opombe",
+      "annotationsCount": "1 Opomba | {count} opomb",
+      "hide": "Skrij stransko vrstico",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Povezave",
+      "search": "Išči",
+      "searchPlaceholder": "Vnesite pogoje",
+      "show": "Pokaži stransko vrstico"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
@@ -897,17 +933,17 @@ export default {
     "automated": "Avtomatizirano prevajanje",
     "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
-    "other": "drugi jeziki",
-    "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
-    "translateLanguage": "Želite ta enota videti v {0}?",
-    "translateMetadata": "Prevedite metapodatke tega enota.",
-    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
+    "stopViewingThisItemIn": "Prenehajte ogledovati to enoto v {0}",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje.",
+    "viewingThisItemIn": "Ogled te enote v {0}",
+    "viewItemInAnotherLanguage": "Ogled te enote v drugem jeziku"
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
+    }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
-    "IIIFViewer": "Pregledovalnik IIIF",
     "location": "Lokacija",
     "locationOnMap": "Lokacija na zemljevidu",
     "mediaPlayer": "Medijski predvajalnik",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "ne vsebuje",
         "exact": "vsebuje frazo"
       },
+      "newRule": "novo pravilo naprednega iskanja",
       "placeholder": {
         "field": "Izberite polje",
         "modifier": "Izberite modifikator",
@@ -1169,7 +1205,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
-    "liked": "Všeč",
+    "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
   },
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina diapozitivov {page}"
+    "a11y": {
+      "firstSlide": "To je prvi diapozitiv",
+      "lastSlide": "To je zadnji diapozitiv",
+      "nextSlide": "Naslednji diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Skupina diapozitivov {page}",
+      "previousSlide": "Prejšnji diapozitiv",
+      "slideLabel": "Diapozitiv {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Brskajte po temi",

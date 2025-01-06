@@ -1,24 +1,11 @@
 <template>
   <div class="item-hero">
-    <div
-      v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper d-flex flex-column"
-    >
-      <slot name="item-language-selector" />
-      <IIIFPresentation
-        :uri="iiifPresentationManifest"
-        :search-query="fulltextSearchQuery"
-        :aria-label="$t('actions.viewDocument')"
-        :item-id="identifier"
-        :provider-url="providerUrl"
-        @select="selectMedia"
-      />
-    </div>
-    <ItemMediaSwiper
-      v-else
-      :europeana-identifier="identifier"
+    <ItemMediaPresentation
+      :uri="iiifPresentationManifest"
+      :item-id="identifier"
+      :provider-url="providerUrl"
+      :web-resources="media"
       :edm-type="edmType"
-      :displayable-media="media"
       @select="selectMedia"
     />
     <b-container>
@@ -35,12 +22,6 @@
               class="mr-auto"
               data-qa="provider name"
             />
-          </div>
-          <div
-            v-if="!iiifPresentationManifest && (media.length !== 1)"
-            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
-          >
-            <div class="swiper-pagination mx-lg-4" />
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
@@ -70,7 +51,7 @@
         </b-col>
       </b-row>
       <ShareSocialModal
-        :media-url="selectedMedia.about"
+        :media-url="selectedMedia?.about"
       >
         <ItemEmbedCode
           :identifier="identifier"
@@ -82,7 +63,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
@@ -90,7 +70,6 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
-  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
@@ -100,16 +79,15 @@
       ClientOnly,
       DownloadWidget,
       ItemEmbedCode,
-      ItemMediaSwiper,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
+      ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
-      advancedSearchMixin,
       rightsStatementMixin
     ],
 
@@ -159,51 +137,27 @@
     },
     data() {
       return {
-        selectedMediaItem: null,
-        selectedCanvas: null
+        selectedMedia: {}
       };
     },
     computed: {
+      downloadEnabled() {
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
+      },
       downloadUrl() {
-        const url = (this.selectedCanvas || this.selectedMedia).about;
+        const url = this.selectedMedia?.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
-        if (this.selectedMedia.webResourceEdmRights) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
+        if (this.selectedMedia?.webResourceEdmRights) {
+          return this.selectedMedia?.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;
         }
         return '';
-      },
-      fulltextSearchQuery() {
-        let query = [];
-
-        if (this.$nuxt.context.from) {
-          if (this.$nuxt.context.from.query.qa) {
-            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
-            query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-              .map((rule) => rule.term);
-          }
-        }
-
-        return query.join(' ');
-      },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedCanvas = null;
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -218,15 +172,8 @@
         return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
-    mounted() {
-      window.addEventListener('message', msg => {
-        if (msg.origin !== window.location.origin) {
-          return;
-        }
-        if (msg.data.event === 'updateDownloadLink') {
-          this.selectedCanvas = { about: msg.data.id };
-        }
-      });
+    created() {
+      this.selectMedia(this.media?.[0]);
     },
     methods: {
       // Ensure we only proxy web resource media, preventing proxying of
@@ -235,8 +182,13 @@
       downloadViaProxy(url) {
         return this.allMediaUris.some(uri => uri === url);
       },
-      selectMedia(about) {
-        this.selectedMedia = about;
+      selectMedia(resource) {
+        this.selectedMedia = {
+          // media prop may contain some metadata not available from iiif-derived
+          // resource emitted from ItemMediaPresentation, e.g. rights statement
+          ...this.media.find((wr) => wr.about === resource.about),
+          ...resource
+        };
       }
     }
   };
@@ -244,24 +196,12 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
 
   .item-hero {
     padding-bottom: 1.625rem;
 
     .media-bar {
       margin-top: 2.5rem;
-    }
-
-    .swiper-pagination {
-      display: inline-flex;
-      position: relative;
-
-      &.swiper-pagination-fraction {
-        left: auto;
-        width: auto;
-        bottom: auto;
-      }
     }
 
     .user-buttons {
@@ -297,15 +237,6 @@
         button {
           text-align: center;
           justify-content: center;
-        }
-
-        .pagination-wrapper {
-          order: 1;
-          margin-bottom: 1.125rem;
-
-          .swiper-pagination {
-            margin: auto;
-          }
         }
 
         .rights-wrapper {

@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
-    "explore": "Izpētīt",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
@@ -56,9 +55,11 @@ export default {
     "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
+    "nextPage": "Nākamā lapa",
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
+    "previousPage": "Iepriekšējā lapa",
     "publish": "Publicēt",
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
-    "viewDocument": "Skatīt dokumentu"
+    "viewDocument": "Skatīt dokumentu",
+    "vote": "Balsojums"
   },
   "attribution": {
     "country": "Valsts",
@@ -237,6 +240,10 @@ export default {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
+    },
+    "noFeatureIdeas": {
+      "description": "Drīzumā pārbaudiet vēlreiz!",
+      "title": "Pašlaik nav jaunu funkciju ideju."
     },
     "pageNotFound": {
       "metaTitle": "Lapa nav atrasta",
@@ -720,7 +727,6 @@ export default {
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
-      "provide": "Kļūsti piegādājošā iestāde",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
@@ -745,9 +751,10 @@ export default {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Pedagogiem",
+      "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "shareYourData": "Kopīgot savus datus",
+      "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Jaunākie stāsti",
     "storiesCTA": "Skatīt visus stāstus",
     "subHeadline": "Meklējiet, saglabājiet un dalieties ar mākslu, grāmatām, filmām un mūziku no tūkstošiem kultūras iestāžu krājumiem",
-    "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
@@ -843,8 +849,8 @@ export default {
         "title": "Jaunas funkcijas paziņojums"
       },
       "searchResultsView": {
-        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
+        "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
   },
+  "likes": {
+    "count": "{count} patīk | {count} Patīk"
+  },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Iziet pilnekrāna režīmā",
+      "fullscreen": "Pilnekrāna",
+      "keyboardNavigation": "Izmantojiet +, - un bulttaustiņus, lai tuvinātu un panoramētu attēlu.",
+      "resetZoom": "Atiestatīt tālummaiņu",
+      "rotateLeft": "Pagriezt pa kreisi",
+      "rotateRight": "Pagriezt pa labi",
+      "zoomIn": "Pietuvināt",
+      "zoomOut": "Attālināt"
+    },
+    "loadFull": "Īpaši liels attēls: ielādējiet pilnu izmēru.",
+    "pages": {
+      "hide": "Slēpt lapas",
+      "show": "Rādīt lapas"
+    },
+    "sidebar": {
+      "annotations": "Anotācijas",
+      "annotationsCount": "1 Anotācija | {count} Anotācijas",
+      "hide": "Paslēpt sānjoslu",
+      "IIIFManifest": "IIIF manifests",
+      "links": "Saites",
+      "search": "Meklēt",
+      "searchPlaceholder": "Ievadiet terminus",
+      "show": "Rādīt sānjoslu"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
@@ -897,17 +933,17 @@ export default {
     "automated": "Automātiskā tulkošana",
     "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
-    "other": "citas valodas",
-    "stopTranslating": "Pārtrauciet šī digitālais objekts tulkošanu uz {0}.",
-    "translateLanguage": "Vai jūs vēlētos redzēt šo digitālais objekts {0}?",
-    "translateMetadata": "Tulkot šī digitālais objekts metadatus.",
-    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
+    "stopViewingThisItemIn": "Pārtrauciet skatīt šo digitālo objektu {0}",
+    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+    "viewingThisItemIn": "Šī digitālā objekta skatīšana {0}",
+    "viewItemInAnotherLanguage": "Skatīt šo digitālo objektu citā valodā"
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
+    }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
-    "IIIFViewer": "IIIF skatītājs",
     "location": "Atrašanās vieta",
     "locationOnMap": "Atrašanās vieta kartē",
     "mediaPlayer": "Multivides atskaņotājs",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "nesatur",
         "exact": "satur frāzi"
       },
+      "newRule": "jauns izvērstās meklēšanas noteikums",
       "placeholder": {
         "field": "Izvēlieties lauku",
         "modifier": "Izvēlieties modifikatoru",
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidu grupa {page}"
+    "a11y": {
+      "firstSlide": "Šis ir pirmais slaids",
+      "lastSlide": "Šis ir pēdējais slaids",
+      "nextSlide": "Nākamais slaids",
+      "paginationBullet": "Slaids {page}",
+      "paginationBulletGroupedSlides": "Slaidu grupa {page}",
+      "previousSlide": "Iepriekšējais slaids",
+      "slideLabel": "Slaids {slide} no {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

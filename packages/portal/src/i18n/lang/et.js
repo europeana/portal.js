@@ -47,7 +47,6 @@ export default {
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
-    "explore": "Uurige",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
@@ -56,9 +55,11 @@ export default {
     "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
+    "nextPage": "Järgmine lehekülg",
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
+    "previousPage": "Eelmine lehekülg",
     "publish": "Avalda",
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
-    "viewDocument": "Vaadake dokumenti"
+    "viewDocument": "Vaadake dokumenti",
+    "vote": "Hääletage"
   },
   "attribution": {
     "country": "Riik:",
@@ -238,6 +241,10 @@ export default {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "noFeatureIdeas": {
+      "description": "Kontrollige varsti uuesti!",
+      "title": "Hetkel uusi funktsiooni ideid pole."
     },
     "pageNotFound": {
       "metaTitle": "lehte ei leitud",
@@ -721,7 +728,6 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
-      "provide": "Hakka pakkuvaks asutuseks",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
       "supportingTechnicalPartners": "Tehniliste partnerite toetamine",
@@ -746,9 +752,10 @@ export default {
       "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
+      "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "shareYourData": "Jaga oma andmeid",
+      "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Viimased lood",
     "storiesCTA": "Vaata kõiki lugusid",
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
-    "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
     "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
     "titleDigital": "digitaalsel"
@@ -844,8 +850,8 @@ export default {
         "title": "Uus funktsiooniteatis"
       },
       "searchResultsView": {
-        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
       }
     }
   },
@@ -872,8 +878,38 @@ export default {
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
   },
+  "likes": {
+    "count": "{count} meeldib | {count} meeldimist"
+  },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Välju täisekraanist",
+      "fullscreen": "Täisekraan",
+      "keyboardNavigation": "Kasutage +, - ja nooleklahve pildi suurendamiseks ja liigutamiseks.",
+      "resetZoom": "Lähtestage suum",
+      "rotateLeft": "Pöörake vasakule",
+      "rotateRight": "Pöörake paremale",
+      "zoomIn": "Suumi sisse",
+      "zoomOut": "Suumi välja"
+    },
+    "loadFull": "Eriti suur pilt: laadige täissuuruses.",
+    "pages": {
+      "hide": "Peida leheküljed",
+      "show": "Kuva leheküljed"
+    },
+    "sidebar": {
+      "annotations": "Märkused",
+      "annotationsCount": "1 märkus |{count} märkused",
+      "hide": "Peida külgriba",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Lingid",
+      "search": "Otsing",
+      "searchPlaceholder": "Sisestage tingimused",
+      "show": "Kuva külgriba"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
@@ -899,17 +935,17 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
-    "other": "muud keeled",
-    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
-    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
-    "translateMetadata": "Tõlgi selle üksuse metaandmed.",
-    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
+    "stopViewingThisItemIn": "Lõpeta selle üksuse vaatamine rakenduses {0}",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti.",
+    "viewingThisItemIn": "Selle üksuse vaatate {0}",
+    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles"
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -976,7 +1012,6 @@ export default {
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
-    "IIIFViewer": "IIIF vaataja",
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
@@ -1036,6 +1071,7 @@ export default {
         "doesNotContain": "ei sisalda",
         "exact": "sisaldab fraasi"
       },
+      "newRule": "uus täpsema otsingu reegel",
       "placeholder": {
         "field": "Valige väli",
         "modifier": "Valige modifikaator",
@@ -1187,7 +1223,15 @@ export default {
     "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidirühm {page}"
+    "a11y": {
+      "firstSlide": "See on esimene slaid",
+      "lastSlide": "See on viimane slaid",
+      "nextSlide": "Järgmine slaid",
+      "paginationBullet": "Slaid {page}",
+      "paginationBulletGroupedSlides": "Slaidirühm {page}",
+      "previousSlide": "Eelmine slaid",
+      "slideLabel": "Slaid {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

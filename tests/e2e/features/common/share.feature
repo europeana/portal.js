@@ -23,7 +23,7 @@ Feature: Sharing
 
   Scenario: Sharing an item
 
-    When  I open an `item page`
+    When  I open an `item page with IIIF annotations`
     And  I click the `share button`
     Then I see a `share facebook button`
     And I see a `share x button`

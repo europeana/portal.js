@@ -2,26 +2,29 @@
   <div
     class="d-flex align-items-center flex-wrap flex-lg-nowrap"
   >
-    <b-input-group
+    <b-form-group
       data-qa="search query builder rule"
-      class="query-rule"
+      class="query-rule mb-0"
     >
-      <b-form-group
+      <template
         v-for="control in ruleControls"
-        :key="`${id}-${control}`"
-        class="query-rule-form-group mr-lg-2"
       >
-        <component
-          :is="control === 'term' ? 'label' : 'span'"
-          :id="`${id}-${control}-label`"
-          class="query-rule-field-label d-inline-flex align-items-center"
-          :for="`${id}-${control}`"
+        <div
+          :key="`${id}-${control}`"
+          class="query-rule-form-control mr-lg-2 mb-3"
         >
-          <span
-            class="align-self-center"
+          <component
+            :is="control === 'term' ? 'label' : 'span'"
+            :id="`${id}-${control}-label`"
+            class="query-rule-field-label d-inline-flex align-items-center"
+            :for="`${id}-${control}`"
           >
-            {{ $t(`search.advanced.input.${control}`) }}
-          </span>
+            <span
+              class="align-self-center"
+            >
+              {{ $t(`search.advanced.input.${control}`) }}
+            </span>
+          </component>
           <template v-if="tooltips">
             <b-button
               :id="`${id}-${control}-tooltip-btn`"
@@ -37,8 +40,6 @@
               placement="bottom"
             />
           </template>
-        </component>
-        <div>
           <SearchQueryBuilderRuleTermInput
             v-if="control === 'term'"
             :id="`${id}-${control}`"
@@ -58,15 +59,16 @@
             :state="validation[control]?.state"
             @change="handleChange"
           />
+
+          <b-form-invalid-feedback
+            v-show="!validation[control]?.state"
+            :state="validation[control]?.state"
+          >
+            {{ validation[control]?.text }}
+          </b-form-invalid-feedback>
         </div>
-        <b-form-invalid-feedback
-          v-show="!validation[control]?.state"
-          :state="validation[control]?.state"
-        >
-          {{ validation[control]?.text }}
-        </b-form-invalid-feedback>
-      </b-form-group>
-    </b-input-group>
+      </template>
+    </b-form-group>
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
@@ -75,6 +77,10 @@
     >
       <span class="icon-clear pr-2" />
       {{ $t('actions.clear') }}
+      <span
+        v-if="ruleValuesString"
+        class="visually-hidden"
+      >{{ ruleValuesString }}</span>
     </b-button>
   </div>
 </template>
@@ -180,6 +186,13 @@
       ruleControls() {
         return Object.keys(this.rule);
       },
+      ruleValuesString() {
+        const fieldLabel = this.rule.field ? this.advancedSearchFieldLabel(this.rule.field) : '';
+        const modifierLabel = this.rule.modifier ? this.$t(`search.advanced.modifiers.${this.rule.modifier}`) : '';
+        const term = this.rule.term || '';
+
+        return [fieldLabel, modifierLabel, term].join(' ').trim();
+      },
       suggestEntityTypeForTerm() {
         return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
       }
@@ -225,18 +238,25 @@
   @import '@europeana/style/scss/variables';
 
   .query-rule {
+    width: 100%;
     max-width: $max-text-column-width;
-
-    @media (min-width: $bp-large) {
-      flex-wrap: nowrap;
-    }
 
     @media (min-width: $bp-wqhd) {
       max-width: 50%;
     }
+
+    ::v-deep > div {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+
+      @media (min-width: $bp-large) {
+        flex-wrap: nowrap;
+      }
+    }
   }
 
-  .query-rule-form-group {
+  .query-rule-form-control {
     flex-basis: 100%;
 
     @media (min-width: $bp-large) {

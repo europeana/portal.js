@@ -47,7 +47,6 @@ export default {
     "depublish": "Despublicar",
     "download": "Descargar",
     "edit": "Editar",
-    "explore": "Explorar",
     "filter": "Filtrar",
     "goHome": "Ir a la página de inicio",
     "hide": "Ocultar",
@@ -56,9 +55,11 @@ export default {
     "login": "Iniciar sesión",
     "move": "Mover",
     "next": "próximo",
+    "nextPage": "Página siguiente",
     "pin": "Alfiler",
     "preview": "Vista previa",
     "previous": "Anterior",
+    "previousPage": "Página anterior",
     "publish": "Publicar",
     "readMore": "Leer más",
     "reject": "Rechazar",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Enviado para publicación",
     "transcribe": "Transcribir",
     "transcribeNow": "Transcribir ahora",
+    "unlike": "Ya no me gusta",
     "viewAt": "Ver en {link}",
-    "viewDocument": "Ver documento"
+    "viewDocument": "Ver documento",
+    "vote": "Votar"
   },
   "attribution": {
     "country": "País:",
@@ -237,6 +240,10 @@ export default {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
       "metaTitle": "Item no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este Ítem."
+    },
+    "noFeatureIdeas": {
+      "description": "¡Vuelva pronto!",
+      "title": "No hay ideas sobre nuevas funciones por el momento."
     },
     "pageNotFound": {
       "metaTitle": "Página no encontrada",
@@ -720,7 +727,6 @@ export default {
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
-      "provide": "Conviértete en proveedor de datos",
       "seeApiRequests": "Ver solicitudes a las API de Europeana",
       "subscribe": "Suscríbete a nuestro boletín",
       "supportingTechnicalPartners": "Apoyando a socios técnicos",
@@ -745,9 +751,10 @@ export default {
       "about": "Sobre nosotros",
       "collections": "Colecciones",
       "europeanaClassroom": "Para docentes/profesores",
+      "featureIdeas": "Ideas destacadas",
       "help": "Ayuda",
       "home": "Inicio",
-      "shareYourData": "Comparte tus datos",
+      "shareYourCollections": "Comparte tus colecciones",
       "stories": "Historias"
     },
     "quickSearch": "Búsqueda rápida",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Últimas historias",
     "storiesCTA": "Ver todas las historias",
     "subHeadline": "Busca, guarda y comparte arte, libros, películas y música de miles de instituciones culturales.",
-    "themesCTA": "Ver todos los materias",
     "themesTitle": "Explorar por materia",
     "title": "Descubre el patrimonio cultural {digital} europeo",
     "titleDigital": "digital"
@@ -843,8 +849,8 @@ export default {
         "title": "Notificación de nuevas funciones"
       },
       "searchResultsView": {
-        "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "description": "Recuerda si prefieres ver los resultados de búsqueda, las galerías y tus me gusta en una vista de lista, cuadrícula o mosaico.",
+        "title": "Vista de resultados de búsqueda, galerías y Me gusta (lista/cuadrícula/mosaico)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
   },
+  "likes": {
+    "count": "{count} me gusta | {count} me gusta"
+  },
   "loading": "Cargando",
   "loadingResults": "Cargando resultados",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Salir de pantalla completa",
+      "fullscreen": "Pantalla completa",
+      "keyboardNavigation": "Utiliza las teclas +, - y las flechas para hacer zoom y desplazarte por la imagen.",
+      "resetZoom": "Restablecer zoom",
+      "rotateLeft": "Girar a la izquierda",
+      "rotateRight": "Girar a la derecha",
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar"
+    },
+    "loadFull": "Imagen extra grande: cargar en tamaño completo.",
+    "pages": {
+      "hide": "Ocultar páginas",
+      "show": "Mostrar páginas"
+    },
+    "sidebar": {
+      "annotations": "Anotaciones",
+      "annotationsCount": "1 Anotación | {count} Anotaciones",
+      "hide": "Ocultar barra lateral",
+      "IIIFManifest": "Manifiesto IIIF",
+      "links": "Enlaces",
+      "search": "Buscar",
+      "searchPlaceholder": "Introducir términos",
+      "show": "Mostrar barra lateral"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiado en el portapapeles",
     "externalContentError": "El contenido externo no se ha podido cargar",
@@ -897,17 +933,17 @@ export default {
     "automated": "Traducción automática",
     "automatedPageTranslations": "Esta página utiliza traducciones del inglés generadas automáticamente.",
     "enrichment": "Enriquecimiento por parte de proyectos asociados",
-    "loginToTranslate": "{login} para ver este Ítem en otros idiomas",
-    "other": "otros idiomas",
-    "stopTranslating": "Dejar de traducir este Ítem a {0}.",
-    "translateLanguage": "¿Le gustaría ver este Ítem en {0} ?",
-    "translateMetadata": "Traduce los metadatos de este item.",
-    "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
+    "stopViewingThisItemIn": "Deja de ver este item en {0}",
+    "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde.",
+    "viewingThisItemIn": "Viendo este item en {0}",
+    "viewItemInAnotherLanguage": "Ver este item en otro idioma"
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
     "readMore": "Muéstrame",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explora los próximos cambios que estamos planificando y vota por los que te gustaría que se priorizaran. Tus comentarios nos ayudan a centrarnos en lo que más te importa."
+    }
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
-    "IIIFViewer": "Visor IIIF",
     "location": "Ubicación",
     "locationOnMap": "Ubicación en el mapa",
     "mediaPlayer": "Reproductor multimedia",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "no contiene",
         "exact": "contiene la frase"
       },
+      "newRule": "nueva regla de búsqueda avanzada",
       "placeholder": {
         "field": "Seleccione un campo",
         "modifier": "Seleccione un modificador",
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} historias encontradas"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupo de diapositivas {page}"
+    "a11y": {
+      "firstSlide": "Esta es la primera diapositiva",
+      "lastSlide": "Esta es la última diapositiva",
+      "nextSlide": "Diapositiva siguiente",
+      "paginationBullet": "Diapositiva {page}",
+      "paginationBulletGroupedSlides": "Grupo de diapositivas {page}",
+      "previousSlide": "Diapositiva anterior",
+      "slideLabel": "Diapositiva {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Navegar por materias",

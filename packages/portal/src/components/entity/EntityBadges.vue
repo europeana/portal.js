@@ -118,6 +118,12 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .badges-wrapper {
+    a {
+      max-width: 100%;
+    }
+  }
+
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;

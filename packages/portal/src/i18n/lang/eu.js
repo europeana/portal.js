@@ -47,7 +47,6 @@ export default {
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
-    "explore": "Esploratu",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
@@ -56,9 +55,11 @@ export default {
     "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
+    "nextPage": "Hurrengo orrialdea",
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
+    "previousPage": "Aurreko orrialdea",
     "publish": "Argitaratu",
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
-    "viewDocument": "Dokumentua ikusi"
+    "viewDocument": "Dokumentua ikusi",
+    "vote": "Bozkatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -243,6 +246,10 @@ export default {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "noFeatureIdeas": {
+      "description": "Begiratu berriro laster!",
+      "title": "Ez dago ideia berririk une honetan."
     },
     "pageNotFound": {
       "metaTitle": "Ez da orria aurkitu",
@@ -726,7 +733,6 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
-      "provide": "Bihurtu erakunde hornitzaile bat",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
@@ -751,9 +757,10 @@ export default {
       "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
+      "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
-      "shareYourData": "Zure datuak partekatu",
+      "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -770,7 +777,6 @@ export default {
     "discoverEditorial": "Azken istorioak",
     "storiesCTA": "Ikusi istorio guztiak",
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
-    "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
     "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
@@ -849,8 +855,8 @@ export default {
         "title": "Ezaugarri berrien jakinarazpena"
       },
       "searchResultsView": {
-        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
       }
     }
   },
@@ -877,8 +883,38 @@ export default {
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
   },
+  "likes": {
+    "count": "{count} gustoko | {count} gustokoak"
+  },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Irten pantaila osotik",
+      "fullscreen": "Pantaila osoa",
+      "keyboardNavigation": "Erabili +, - eta gezi-teklak irudia handitzeko eta mugitzeko.",
+      "resetZoom": "Berrezarri zooma",
+      "rotateLeft": "Biratu ezkerrera",
+      "rotateRight": "Biratu eskuinera",
+      "zoomIn": "Handitu",
+      "zoomOut": "Urrundu"
+    },
+    "loadFull": "Aparteko irudi handia: tamaina osoan kargatzea.",
+    "pages": {
+      "hide": "Ezkutatu orriak",
+      "show": "Erakutsi orrialdeak"
+    },
+    "sidebar": {
+      "annotations": "Oharpenak",
+      "annotationsCount": "1 Oharpena |{count} Oharpenak",
+      "hide": "Ezkutatu alboko barra",
+      "IIIFManifest": "IIIF Manifestua",
+      "links": "Loturak",
+      "search": "Bilatu",
+      "searchPlaceholder": "Sartu terminoak",
+      "show": "Erakutsi alboko barra"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
@@ -904,17 +940,17 @@ export default {
     "automated": "Itzulpen automatizatua",
     "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
-    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
-    "other": "beste hizkuntza batzuk",
-    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
-    "translateLanguage": "{0} -n ikusi nahi duzu?",
-    "translateMetadata": "Itzuli elementu honen metadatuak.",
-    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+    "stopViewingThisItemIn": "Utzi elementu hau {0} n ikusteari",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago.",
+    "viewingThisItemIn": "Ikusi elementu hau {0}",
+    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean"
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -981,7 +1017,6 @@ export default {
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
-    "IIIFViewer": "IIIF ikuslea",
     "location": "Kokapena",
     "locationOnMap": "Kokapena mapan",
     "mediaPlayer": "Multimedia erreproduzitzailea",
@@ -1041,6 +1076,7 @@ export default {
         "doesNotContain": "ez dauka",
         "exact": "esaldia dauka"
       },
+      "newRule": "bilaketa aurreratu-arau berria",
       "placeholder": {
         "field": "Hautatu eremu bat",
         "modifier": "Hautatu modifikatzaile bat",
@@ -1192,7 +1228,15 @@ export default {
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
-    "paginationBulletLabel": "Diapositiva taldea {page}"
+    "a11y": {
+      "firstSlide": "Hau da lehen diapositiba",
+      "lastSlide": "Hau da azken diapositiba",
+      "nextSlide": "Hurrengo diapositiba",
+      "paginationBullet": "Diapositiba {page}",
+      "paginationBulletGroupedSlides": "Diapositiva taldea {page}",
+      "previousSlide": "Aurreko diapositiba",
+      "slideLabel": "Diapositiba {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",

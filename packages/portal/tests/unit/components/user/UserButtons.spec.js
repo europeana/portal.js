@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import UserButtons from '@/components/user/UserButtons';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -60,19 +59,6 @@ describe('components/user/UserButtons', () => {
       const button = wrapper.find('[data-qa="item move button"]');
 
       expect(button.exists()).toBe(true);
-    });
-
-    describe('when mouse leaves the button', () => {
-      it('hides all tooltips', () => {
-        const wrapper = factory({ propsData: { showMove: true } });
-        const rootEmit = sinon.spy(wrapper.vm.$root, '$emit');
-
-        const button = wrapper.find('[data-qa="item move button"]');
-
-        button.trigger('mouseleave');
-
-        expect(rootEmit.calledWith('bv::hide::tooltip')).toBe(true);
-      });
     });
   });
 

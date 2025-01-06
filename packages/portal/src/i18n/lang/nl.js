@@ -47,18 +47,19 @@ export default {
     "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
-    "explore": "Ontdekken",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
+    "nextPage": "Volgende pagina",
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
+    "previousPage": "Vorige pagina",
     "publish": "Publiceren",
     "readMore": "Lees verder",
     "reject": "Afwijzen",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
-    "viewDocument": "Document weergeven"
+    "viewDocument": "Document weergeven",
+    "vote": "Stemmen"
   },
   "attribution": {
     "country": "Land:",
@@ -238,6 +241,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "noFeatureIdeas": {
+      "description": "Kom snel weer terug!",
+      "title": "Op dit moment geen ideeën voor nieuwe functies."
     },
     "pageNotFound": {
       "metaTitle": "Pagina niet gevonden",
@@ -721,7 +728,6 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
-      "provide": "Word een deelnemende erfgoedorganisatie",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "supportingTechnicalPartners": "Ondersteunende technische partners",
@@ -746,9 +752,10 @@ export default {
       "about": "Over ons",
       "collections": "Collecties",
       "europeanaClassroom": "Voor leraren",
+      "featureIdeas": "Ideeën voor functies",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw data",
+      "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -765,7 +772,6 @@ export default {
     "discoverEditorial": "Laatste verhalen",
     "storiesCTA": "Bekijk alle verhalen",
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
-    "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
     "title": "Ontdek het {digital} culturele erfgoed van Europa",
     "titleDigital": "digitale"
@@ -844,8 +850,8 @@ export default {
         "title": "Melding van nieuwe functie"
       },
       "searchResultsView": {
-        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
       }
     }
   },
@@ -872,8 +878,38 @@ export default {
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Volledig scherm afsluiten",
+      "fullscreen": "Volledig scherm",
+      "keyboardNavigation": "Gebruik de +, - en pijltjestoetsen om de afbeelding in en uit te zoomen en te verplaatsen.",
+      "resetZoom": "Zoom resetten",
+      "rotateLeft": "Draai naar links",
+      "rotateRight": "Draai naar rechts",
+      "zoomIn": "Inzoomen",
+      "zoomOut": "Uitzoomen"
+    },
+    "loadFull": "Extra grote afbeelding: volledige grootte laden.",
+    "pages": {
+      "hide": "Verberg pagina's",
+      "show": "Pagina's weergeven"
+    },
+    "sidebar": {
+      "annotations": "Annotaties",
+      "annotationsCount": "1 Annotatie | {count} Annotaties",
+      "hide": "Verberg zijbalk",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Zoeken",
+      "searchPlaceholder": "Voer termen in",
+      "show": "Zijbalk weergeven"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
@@ -899,17 +935,17 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
-    "loginToTranslate": "{login} om dit object in andere talen te zien",
-    "other": "andere talen",
-    "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
-    "translateLanguage": "Wilt u dit item in {0} zien?",
-    "translateMetadata": "Vertaal de metadata van dit object.",
-    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+    "stopViewingThisItemIn": "Stop met het bekijken van dit object in {0}",
+    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+    "viewingThisItemIn": "Dit object bekijken in {0}",
+    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal"
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -976,7 +1012,6 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
-    "IIIFViewer": "IIIF-viewer",
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
@@ -1036,6 +1071,7 @@ export default {
         "doesNotContain": "bevat geen",
         "exact": "bevat de zin"
       },
+      "newRule": "nieuwe geavanceerde zoekregel",
       "placeholder": {
         "field": "Selecteer een veld",
         "modifier": "Selecteer een modificator",
@@ -1187,7 +1223,15 @@ export default {
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide groep {page}"
+    "a11y": {
+      "firstSlide": "Dit is de eerste slide",
+      "lastSlide": "Dit is de laatste slide",
+      "nextSlide": "Volgende slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide groep {page}",
+      "previousSlide": "Vorige slide",
+      "slideLabel": "Slide {slide} van {totalSlides}"
+    }
   },
   "themes": {
     "description": "Blader op thema",

@@ -39,7 +39,7 @@
     data() {
       return {
         storyTypes: [
-          { name: this.$t('stories.filter.viewAll'), query: undefined },
+          { name: this.$t('stories.filter.viewAll') },
           { name: this.$t('stories.filter.stories'), query: 'story' },
           { name: this.$t('stories.filter.exhibitions'), query: 'exhibition' }
         ]
@@ -62,7 +62,14 @@
       },
 
       routeForType(type) {
-        return { ...this.$route, query: { ...this.$route.query, page: undefined, type: type.query } };
+        const newQuery = { ...this.$route.query };
+        delete newQuery.page;
+        if (type.query) {
+          newQuery.type = type.query;
+        } else {
+          delete newQuery.type;
+        }
+        return { ...this.$route, query: newQuery };
       }
     }
   };

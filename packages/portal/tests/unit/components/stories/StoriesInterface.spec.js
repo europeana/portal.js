@@ -140,7 +140,7 @@ const contentfulQueryStub = () => {
   return stub;
 };
 
-const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
+const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
   localVue,
   data() {
     return data;
@@ -159,8 +159,6 @@ const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {
         page: '1'
       }
     },
-    $scrollTo: sinon.stub(),
-    $fetchState,
     $t: (key) => key,
     $tc: (key) => key,
     ...mocks
@@ -171,7 +169,7 @@ const factory = ({ data = {}, propsData = {}, $fetchState = {}, mocks = {} } = {
 describe('components/stories/StoriesInterface', () => {
   describe('while the fetch state is pending', () => {
     it('show a loading spinner', async() => {
-      const wrapper = factory({ $fetchState: { pending: true } });
+      const wrapper = factory({ mocks: { $fetchState: { pending: true } } });
 
       const spinner = wrapper.find('loadingspinner-stub');
 
@@ -181,7 +179,7 @@ describe('components/stories/StoriesInterface', () => {
 
   describe('when the fetch state is complete', () => {
     it('show a loading spinner', async() => {
-      const wrapper = factory({ $fetchState: { pending: false } });
+      const wrapper = factory({ mocks: { $fetchState: { pending: false } } });
 
       const spinner = wrapper.find('loadingspinner-stub');
 
@@ -496,10 +494,11 @@ describe('components/stories/StoriesInterface', () => {
   describe('when paginating', () => {
     it('scrolls to the top of the page', async() => {
       const wrapper = factory();
+      wrapper.vm.scrollToSelector = sinon.spy();
 
       await wrapper.vm.watch.page.call(wrapper.vm, { page: 2 });
 
-      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
     });
   });
 });

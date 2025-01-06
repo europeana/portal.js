@@ -31,10 +31,12 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $fetchState: options.fetchState || {},
     localePath: (path) => path,
     $route: {
-      hash: options.hash || ''
+      hash: options.hash || '',
+      query: {}
     },
     $store: {
       dispatch: storeDispatch,
+      getters: {},
       state: {
         auth: { loggedIn: true,
           user: {

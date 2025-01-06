@@ -47,7 +47,6 @@ export default {
     "depublish": "Despublicar",
     "download": "Descarregar",
     "edit": "Editar",
-    "explore": "Explorar",
     "filter": "Filtro",
     "goHome": "Vá para a página inicial",
     "hide": "Esconder",
@@ -56,9 +55,11 @@ export default {
     "login": "Inicie sessão",
     "move": "Jogada",
     "next": "Próximo",
+    "nextPage": "Próxima página",
     "pin": "Alfinete",
     "preview": "Visualizar",
     "previous": "Anterior",
+    "previousPage": "Página anterior",
     "publish": "Publicar",
     "readMore": "Ler mais",
     "reject": "Rejeitar",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Enviado para publicação",
     "transcribe": "Transcrever",
     "transcribeNow": "Transcreva agora",
+    "unlike": "Não gosto",
     "viewAt": "Ver em {link}",
-    "viewDocument": "Ver documento"
+    "viewDocument": "Ver documento",
+    "vote": "Voto"
   },
   "attribution": {
     "country": "País:",
@@ -237,6 +240,10 @@ export default {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
       "title": "Oh não! {newline} Não foi possível encontrar este item."
+    },
+    "noFeatureIdeas": {
+      "description": "Volte em breve!",
+      "title": "Nenhuma nova ideia de recurso no momento."
     },
     "pageNotFound": {
       "metaTitle": "Página não encontrada",
@@ -720,7 +727,6 @@ export default {
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
-      "provide": "Torne-se uma instituição fornecedora",
       "seeApiRequests": "Ver pedidos às APIs da Europeana",
       "subscribe": "Subscreva na nossa newsletter",
       "supportingTechnicalPartners": "Apoiando parceiros técnicos",
@@ -745,9 +751,10 @@ export default {
       "about": "Acerca",
       "collections": "Coleções",
       "europeanaClassroom": "Para professores",
+      "featureIdeas": "Ideias de recursos",
       "help": "Ajuda",
       "home": "Início",
-      "shareYourData": "Partilhe os seus dados",
+      "shareYourCollections": "Partilhe as suas coleções",
       "stories": "Histórias"
     },
     "quickSearch": "Pesquisa rápida",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Últimas histórias",
     "storiesCTA": "Veja todas as histórias",
     "subHeadline": "Pesquisa, guarda e partilha arte, livros, filmes e música provenientes de milhares de instituições culturais",
-    "themesCTA": "Ver todos os temas",
     "themesTitle": "Explorar por tema",
     "title": "À descoberta do património cultural {digital} da Europa",
     "titleDigital": "digital"
@@ -843,8 +849,8 @@ export default {
         "title": "Notificação de novas funcionalidades"
       },
       "searchResultsView": {
-        "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "description": "Lembra-se se prefere ver os resultados da pesquisa, as galerias e os seus gostos numa vista de lista, grelha ou mosaico.",
+        "title": "Resultado da pesquisa, galerias e visualização de gostos (lista/grelha/mosaico)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Ir para o conteúdo da página"
   },
+  "likes": {
+    "count": "{count} gosto {count} gostos"
+  },
   "loading": "A carregar",
   "loadingResults": "A carregar resultados",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Sair do ecrã inteiro",
+      "fullscreen": "Tela cheia",
+      "keyboardNavigation": "Use as teclas +, - e seta para ampliar e deslocar a imagem.",
+      "resetZoom": "Redefinir zoom",
+      "rotateLeft": "Girar para a esquerda",
+      "rotateRight": "Girar para a direita",
+      "zoomIn": "Ampliar",
+      "zoomOut": "Reduzir o zoom"
+    },
+    "loadFull": "Imagem extra grande: carregar em tamanho real.",
+    "pages": {
+      "hide": "Ocultar páginas",
+      "show": "Mostrar páginas"
+    },
+    "sidebar": {
+      "annotations": "Anotações",
+      "annotationsCount": "1 Anotação | {count} Anotações",
+      "hide": "Ocultar barra lateral",
+      "IIIFManifest": "Manifesto IIIF",
+      "links": "Links",
+      "search": "Procurar",
+      "searchPlaceholder": "Insira os termos",
+      "show": "Mostrar barra lateral"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiado para a prancheta",
     "externalContentError": "Falha ao carregar o conteúdo externo",
@@ -897,17 +933,17 @@ export default {
     "automated": "Tradução automatizada",
     "automatedPageTranslations": "Esta página usa traduções geradas automaticamente do inglês.",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "loginToTranslate": "{login} para ver este item em outros idiomas",
-    "other": "outras línguas",
-    "stopTranslating": "Pare de traduzir este item para {0}.",
-    "translateLanguage": "Gostaria de ver este item em {0} ?",
-    "translateMetadata": "Traduza os metadados deste item.",
-    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
+    "stopViewingThisItemIn": "Pare de visualizar este item em {0}",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde.",
+    "viewingThisItemIn": "Visualizando este item em {0}",
+    "viewItemInAnotherLanguage": "Veja este item em outro idioma"
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
     "readMore": "Mostre-me",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Explore as próximas mudanças que estamos planeando e vote nas que você gostaria de ver priorizadas. Sua opinião nos ajuda a focar no que é mais importante para você."
+    }
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
-    "IIIFViewer": "Visualizador IIIF",
     "location": "Localização",
     "locationOnMap": "Localização no mapa",
     "mediaPlayer": "Reprodutor de mídia",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "não contém",
         "exact": "contém a frase"
       },
+      "newRule": "nova regra de pesquisa avançada",
       "placeholder": {
         "field": "Selecione um campo",
         "modifier": "Selecione um modificador",
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} histórias encontradas"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupo de slides {page}"
+    "a11y": {
+      "firstSlide": "Este é o primeiro slide",
+      "lastSlide": "Este é o último slide",
+      "nextSlide": "Próximo slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Grupo de slides {page}",
+      "previousSlide": "Slide anterior",
+      "slideLabel": "Slide {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Navegar por tema",

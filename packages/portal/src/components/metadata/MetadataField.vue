@@ -179,7 +179,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
 
   .metadata-row {

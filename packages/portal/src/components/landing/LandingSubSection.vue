@@ -40,7 +40,6 @@
         />
         <LandingInfoCardGroup
           v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
-          :class="LandingInfoCardGroupClass"
           :title="section.name"
           title-tag="h3"
           :text="section.text"
@@ -105,13 +104,6 @@
         type: String,
         default: 'pro'
       }
-    },
-
-    // TODO: Remove once replaced with LandingIllustrationGroup
-    data() {
-      return {
-        LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
-      };
     }
   };
 </script>
@@ -173,7 +165,7 @@
   }
 
   // TODO: Remove once replaced with LandingIllustrationGroup
-  //style overrides for providing institutions section Share your data
+  //style overrides for providing institutions section Share your collections
   ::v-deep .logo {
     &.container {
       padding: 0;

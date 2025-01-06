@@ -47,7 +47,6 @@ export default {
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
     "edit": "Editja",
-    "explore": "Esplora",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
@@ -56,9 +55,11 @@ export default {
     "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
+    "nextPage": "Il-paġna li jmiss",
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Preċedenti",
+    "previousPage": "Il-paġna ta' qabel",
     "publish": "Ippubblika",
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
+    "unlike": "Tneħħi l-like",
     "viewAt": "Ara fuq {link}",
-    "viewDocument": "Ara d-dokument"
+    "viewDocument": "Ara d-dokument",
+    "vote": "Ivvota"
   },
   "attribution": {
     "country": "Pajjiż:",
@@ -237,6 +240,10 @@ export default {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    },
+    "noFeatureIdeas": {
+      "description": "Iċċekkja lura dalwaqt!",
+      "title": "Ebda ideat ta' karatteristiċi ġodda bħalissa."
     },
     "pageNotFound": {
       "metaTitle": "Paġna mhux misjuba",
@@ -720,7 +727,6 @@ export default {
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
-      "provide": "Issir istituzzjoni fornitriċi",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
@@ -745,9 +751,10 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għall-għalliema",
+      "featureIdeas": "Ideat tal-karatteristiċi",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "shareYourData": "Aqsam id-data tiegħek",
+      "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "L-aħħar stejjer",
     "storiesCTA": "Ara l-istejjer kollha",
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
-    "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
     "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
     "titleDigital": "diġitali"
@@ -843,8 +849,8 @@ export default {
         "title": "Notifika ta' karatteristika ġdida"
       },
       "searchResultsView": {
-        "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
+        "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Oħroġ mill-iskrin sħiħ",
+      "fullscreen": "Skrin sħiħ",
+      "keyboardNavigation": "Uża l-buttuni +, - u vleġeġ biex tkabbar u tiċċaqlaq madwar l-immaġni.",
+      "resetZoom": "Irrisettja ż-żum",
+      "rotateLeft": "Dawwar lejn ix-xellug",
+      "rotateRight": "Dawwar lejn il-lemin",
+      "zoomIn": "Iżżumja 'l ġewwa",
+      "zoomOut": "Iżżumja 'l barra"
+    },
+    "loadFull": "Immaġni extra kbira: għabbi d-daqs sħiħ.",
+    "pages": {
+      "hide": "Aħbi l-paġni",
+      "show": "Uri l-paġni"
+    },
+    "sidebar": {
+      "annotations": "Annotazzjonijiet",
+      "annotationsCount": "1 Annotazzjoni | {count} Annotazzjonijiet",
+      "hide": "Aħbi l-istrixxa tal-ġenb",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Fittex",
+      "searchPlaceholder": "Daħħal it-termini",
+      "show": "Uri l-istrixxa tal-ġenb"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
@@ -897,17 +933,17 @@ export default {
     "automated": "Traduzzjoni awtomatizzata",
     "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
-    "other": "lingwi oħra",
-    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
-    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
-    "translateMetadata": "Ittraduċi l-metadejta ta' dan l-oġġett.",
-    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
+    "stopViewingThisItemIn": "Waqqaf milli tara dan l-oġġett f'{0}",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard.",
+    "viewingThisItemIn": "Ara dan l-oġġett fi {0}",
+    "viewItemInAnotherLanguage": "Ara dan l-oġġett f’lingwa oħra"
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Esplora l-bidliet li ġejjin li qed nippjanaw u ivvota għal dawk li tixtieq tara prijoritizzati. Il-kontribut tiegħek jgħinna niffukaw fuq dak li jgħodd l-aktar għalik."
+    }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
-    "IIIFViewer": "Telespettatur IIIF",
     "location": "Post",
     "locationOnMap": "Post fuq il-mappa",
     "mediaPlayer": "Plejer tal-midja",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "ma fihx",
         "exact": "fih il-frażi"
       },
+      "newRule": "regola ġdida ta’ tfittxija avvanzata",
       "placeholder": {
         "field": "Agħżel qasam",
         "modifier": "Agħżel modifikatur",
@@ -1127,7 +1163,7 @@ export default {
       "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
-        "title": "100 like"
+        "title": "100 likes"
       },
       "updated": "L-oġġett ġie miżjud mal-gallerija.",
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupp ta' slides {page}"
+    "a11y": {
+      "firstSlide": "Din hija l-ewwel slide",
+      "lastSlide": "Din hija l-aħħar slide",
+      "nextSlide": "Slide li jmiss",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Grupp ta' slides {page}",
+      "previousSlide": "Slide preċedenti",
+      "slideLabel": "Slide {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

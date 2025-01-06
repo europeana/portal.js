@@ -19,12 +19,19 @@ const apiResponse = () => ({
             { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } }
           ]
         },
+        edmIsShownBy: 'http://example.org/image.jpeg',
         edmProvider: {
           def: [
             { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Provider'] } }
           ]
         },
-        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
+        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] },
+        webResources: [
+          {
+            about: 'http://example.org/image.jpeg',
+            ebucoreHasMimeType: 'image/jpeg'
+          }
+        ]
       }
     ],
     europeanaAggregation: {
@@ -175,21 +182,18 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       record: {
         get: sinon.stub().resolves(apiResponse()),
         search: sinon.spy()
+      },
+      thumbnail: {
+        forWebResource: () => ({
+          large: 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0',
+          small: 'https://api.europeana.eu/thumbnail/v3/200/476e256434ddaadd580d4f15500fbed0'
+        })
       }
     },
     $fetchState: {},
     $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
-    },
-    $nuxt: {
-      context: {
-        $apis: {
-          thumbnail: {
-            media: () => 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0'
-          }
-        }
-      }
     },
     $error: sinon.spy(),
     $session: { isActive: false },
@@ -315,6 +319,16 @@ describe('pages/item/_.vue', () => {
         });
       });
 
+      describe('`ogImage`', () => {
+        it('uses first media large thumbnail for og:image', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
+        });
+      });
+
       describe('`metadata`', () => {
         it('stores europeanaCollectionName with link to search', async() => {
           const wrapper = factory();
@@ -434,6 +448,32 @@ describe('pages/item/_.vue', () => {
           });
         });
       });
+
+      describe('preconnect links', () => {
+        it('includes first displayable web resource origin', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('http://example.org')).toBe(true);
+        });
+
+        it('includes IIIF Presentation manifest origin', async() => {
+          const wrapper = factory();
+          const response = apiResponse();
+          const manifest = 'https://iiif.example.org/presentation/123/abc/manifest';
+          response.object.aggregations[0].webResources[0].dctermsIsReferencedBy = manifest;
+          response.object.aggregations[0].webResources.push({
+            about: manifest,
+            rdfType: 'http://iiif.io/api/presentation/3#Manifest'
+          });
+          wrapper.vm.$apis.record.get.resolves(response);
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
+        });
+      });
     });
 
     describe('on errors', () => {
@@ -471,6 +511,15 @@ describe('pages/item/_.vue', () => {
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
+    });
+  });
+
+  describe('head', () => {
+    it('includes preconnect links', () => {
+      const origin = 'https://example.org';
+      const wrapper = factory({ data: { headLinkPreconnect: [origin] } });
+
+      expect(wrapper.vm.head().link).toContainEqual({ rel: 'preconnect', href: origin });
     });
   });
 
@@ -771,21 +820,6 @@ describe('pages/item/_.vue', () => {
 
   describe('computed', () => {
     describe('pageMeta', () => {
-      it('uses first media large thumbnail for og:image', async() => {
-        const mediaUrl = 'http://example.org/image.jpeg';
-        const wrapper = factory({
-          data: {
-            media: [
-              { about: mediaUrl }
-            ]
-          }
-        });
-
-        const pageMeta = wrapper.vm.pageMeta;
-
-        expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
-      });
-
       it('uses the title in current language', async() => {
         const wrapper = factory();
 

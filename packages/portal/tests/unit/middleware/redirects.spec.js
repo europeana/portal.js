@@ -6,12 +6,12 @@ describe('middleware/redirects', () => {
   afterEach(sinon.resetHistory);
   const redirect = sinon.spy();
 
-  it('redirects /professionals to /share-your-data', () => {
+  it('redirects /professionals to /share-your-collections', () => {
     const route = { path: '/fr/professionals' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/fr/share-your-data')).toBe(true);
+    expect(redirect.calledWith('/fr/share-your-collections')).toBe(true);
   });
 
   it('redirects /blog to /stories', () => {

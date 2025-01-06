@@ -43,7 +43,6 @@ const redisConfig = () => {
 const postgresConfig = () => {
   // see https://node-postgres.com/apis/pool
   const postgresOptions = {
-    enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
     connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
     idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
@@ -300,13 +299,12 @@ export default {
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
+    '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto.client',
-    '~/plugins/features',
-    `~/plugins/iiif/presentation/${process.env.IIIF_PRESENTATION_PLUGIN || 'mirador'}`
+    '~/plugins/features'
   ],
 
   buildModules: [
@@ -472,13 +470,44 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    // same with some of our custom packages
+    // Pure ESM needs to be transpiled to be used by Vue2
     transpile: [
-      'dom7',
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
+      'axios-cache-interceptor',
+      'color-parse',
+      'color-rgba',
+      'color-space',
+      'dom7',
+      'ol/Collection.js',
+      'ol/color.js',
+      'ol/control/Attribution.js',
+      'ol/control/Control.js',
+      'ol/extent.js',
+      'ol/events.js',
+      'ol/format/IIIFInfo.js',
+      'ol/geom/LineString.js',
+      'ol/interaction/DragBox.js',
+      'ol/layer/Image.js',
+      'ol/layer/Layer.js',
+      'ol/layer/Tile.js',
+      'ol/Map.js',
+      'ol/proj.js',
+      'ol/proj/epsg3857.js',
+      'ol/render/canvas/ZIndexContext.js',
+      'ol/render/Feature.js',
+      'ol/reproj/DataTile.js',
+      'ol/reproj/Tile.js',
+      'ol/source/IIIF.js',
+      'ol/source/ImageStatic.js',
+      'ol/source/Source.js',
+      'ol/source/static.js',
+      'ol/source/Vector.js',
+      'ol/structs/LRUCache.js',
+      'ol/style/Style.js',
+      'ol/style/RegularShape.js',
+      'ol/View.js',
       'ssr-window',
       'swiper',
       'vue-router-query'

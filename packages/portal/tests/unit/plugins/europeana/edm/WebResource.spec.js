@@ -49,6 +49,119 @@ describe('plugins/europeana/edm/WebResource', () => {
       });
     });
 
+    describe('.imageMegaPixels', () => {
+      describe('when resource is not an image', () => {
+        const ebucoreHasMimeType = 'video/mp4';
+
+        it('is undefined', () => {
+          const wr = new WebResource({ ebucoreHasMimeType });
+
+          expect(wr.imageMegaPixels).toBeUndefined();
+        });
+      });
+
+      describe('when resource is an image', () => {
+        const ebucoreHasMimeType = 'image/jpeg';
+
+        describe('but is missing height/width metadata', () => {
+          it('is undefined', () => {
+            const wr = new WebResource({ ebucoreHasMimeType });
+
+            expect(wr.imageMegaPixels).toBeUndefined();
+          });
+        });
+
+        describe('and has height/width metadata', () => {
+          const ebucoreHeight = 1000;
+          const ebucoreWidth = 1200;
+
+          it('converts height/width to megapixels', () => {
+            const wr = new WebResource({ ebucoreHasMimeType, ebucoreHeight, ebucoreWidth });
+
+            expect(wr.imageMegaPixels).toBe(1.2);
+          });
+        });
+      });
+    });
+
+    describe('.imageSize', () => {
+      describe('when resource is not an image', () => {
+        const ebucoreHasMimeType = 'video/mp4';
+
+        it('is undefined', () => {
+          const wr = new WebResource({ ebucoreHasMimeType });
+
+          expect(wr.imageSize).toBeUndefined();
+        });
+      });
+
+      describe('when resource is an image', () => {
+        const ebucoreHasMimeType = 'image/jpeg';
+
+        describe('but is missing height/width metadata', () => {
+          it('is undefined', () => {
+            const wr = new WebResource({ ebucoreHasMimeType });
+
+            expect(wr.imageSize).toBeUndefined();
+          });
+        });
+
+        describe('and has height/width metadata', () => {
+          describe('of > 4 megapixels', () => {
+            const ebucoreHeight = 2500;
+            const ebucoreWidth = 2500;
+            it('is "extra_large"', () => {
+              const wr = new WebResource({ ebucoreHasMimeType, ebucoreHeight, ebucoreWidth });
+
+              expect(wr.imageSize).toBe('extra_large');
+            });
+          });
+
+          describe('of 1-4 megapixels', () => {
+            const ebucoreHeight = 1000;
+            const ebucoreWidth = 1200;
+            it('is "large"', () => {
+              const wr = new WebResource({ ebucoreHasMimeType, ebucoreHeight, ebucoreWidth });
+
+              expect(wr.imageSize).toBe('large');
+            });
+          });
+
+          describe('of 0.5-1 megapixels', () => {
+            const ebucoreHeight = 800;
+            const ebucoreWidth = 1200;
+            it('is "medium"', () => {
+              const wr = new WebResource({ ebucoreHasMimeType, ebucoreHeight, ebucoreWidth });
+
+              expect(wr.imageSize).toBe('medium');
+            });
+          });
+
+          describe('of < 0.5 megapixels', () => {
+            const ebucoreHeight = 200;
+            const ebucoreWidth = 300;
+            it('is "small"', () => {
+              const wr = new WebResource({ ebucoreHasMimeType, ebucoreHeight, ebucoreWidth });
+
+              expect(wr.imageSize).toBe('small');
+            });
+          });
+        });
+      });
+    });
+
+    describe('.isHTMLImage', () => {
+      const mediaTypes = ['image/bmp', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        it(`is true if ebucoreHasMimeType is for HTML image type ${ebucoreHasMimeType}`, () => {
+          const wr = new WebResource({ ebucoreHasMimeType });
+
+          expect(wr.isHTMLImage).toBe(true);
+        });
+      }
+    });
+
     describe('.isHTMLVideo', () => {
       const mediaTypes = ['video/ogg', 'video/webm', 'video/mp4'];
 
@@ -72,6 +185,15 @@ describe('plugins/europeana/edm/WebResource', () => {
           expect(wr.isHTMLAudio).toBe(true);
         });
       }
+    });
+
+    describe('.isPDF', () => {
+      const ebucoreHasMimeType = 'application/pdf';
+      it(`is true if ebucoreHasMimeType is for PDF type ${ebucoreHasMimeType}`, () => {
+        const wr = new WebResource({ ebucoreHasMimeType });
+
+        expect(wr.isPDF).toBe(true);
+      });
     });
 
     describe('.isPlayableMedia', () => {

@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Még nem kedveltél meg egyetlen tárgyat sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és Galériák",
+    "profile": "Kedvelések és Galériák",
     "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
@@ -47,7 +47,6 @@ export default {
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
     "edit": "Szerkesztés",
-    "explore": "Felfedez",
     "filter": "Szűrő",
     "goHome": "Ugrás a kezdőlapra",
     "hide": "Elrejt",
@@ -56,9 +55,11 @@ export default {
     "login": "Bejelentkezés",
     "move": "Mozgás",
     "next": "Következő",
+    "nextPage": "Következő oldal",
     "pin": "Pin",
     "preview": "Előnézet",
     "previous": "Előző",
+    "previousPage": "Előző oldal",
     "publish": "Közzététel",
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
     "transcribeNow": "Átírás most",
+    "unlike": "Nem kedvelem",
     "viewAt": "Megtekintés a következő helyen: {link}",
-    "viewDocument": "Dokumentum megtekintése"
+    "viewDocument": "Dokumentum megtekintése",
+    "vote": "Szavazás"
   },
   "attribution": {
     "country": "Ország:",
@@ -237,6 +240,10 @@ export default {
       "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni.",
       "metaTitle": "Az tárgyat nem található",
       "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgyat."
+    },
+    "noFeatureIdeas": {
+      "description": "Nézz vissza hamarosan!",
+      "title": "Jelenleg nincs új funkcióötlet."
     },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
@@ -720,7 +727,6 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
-      "provide": "Legyen szolgáltató intézmény",
       "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "supportingTechnicalPartners": "Technikai partnerek támogatása",
@@ -745,9 +751,10 @@ export default {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanároknak",
+      "featureIdeas": "Funkcióötletek",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "shareYourData": "Ossza meg az adatait",
+      "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Legújabb történetek",
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
-    "themesCTA": "Minden téma megtekintése",
     "themesTitle": "Tematika szerint fedezze fel",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
@@ -843,8 +849,8 @@ export default {
         "title": "Új funkció értesítése"
       },
       "searchResultsView": {
-        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
+        "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
       }
     }
   },
@@ -871,8 +877,38 @@ export default {
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
   },
+  "likes": {
+    "count": "{count} kedvelés | {count} kedvelések"
+  },
   "loading": "Betöltés",
   "loadingResults": "Eredmények betöltése",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Kilépés a teljes képernyőről",
+      "fullscreen": "Teljes képernyő",
+      "keyboardNavigation": "Használja a +, - és nyílbillentyűket a kép nagyításához és pásztázásához.",
+      "resetZoom": "Zoom visszaállítása",
+      "rotateLeft": "Forgatás balra",
+      "rotateRight": "Forgatás jobbra",
+      "zoomIn": "Nagyítás",
+      "zoomOut": "Kicsinyítés"
+    },
+    "loadFull": "Extra nagy kép: töltse be teljes méretben.",
+    "pages": {
+      "hide": "Oldalak elrejtése",
+      "show": "Oldalak megjelenítése"
+    },
+    "sidebar": {
+      "annotations": "Megjegyzések",
+      "annotationsCount": "1 Megjegyzések |{count} Megjegyzések",
+      "hide": "Oldalsáv elrejtése",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linkek",
+      "search": "Keresés",
+      "searchPlaceholder": "Adja meg a kifejezéseket",
+      "show": "Oldalsáv megjelenítése"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
@@ -898,17 +934,17 @@ export default {
     "automated": "Automatizált fordítás",
     "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
-    "other": "egyéb nyelvek",
-    "stopTranslating": "Állítsa le ennek az tárgynak a fordítását {0}-ra.",
-    "translateLanguage": "Szeretné megtekinteni ezt az tárgyat itt: {0}?",
-    "translateMetadata": "Fordítsa le ennek az tárgynak a metaadatait.",
-    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
+    "stopViewingThisItemIn": "Hagyja abba ennek a tárgynak a megtekintését {0} nyelven",
+    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később.",
+    "viewingThisItemIn": "Ezt a tárgyat a(z) {0} nyelven tekinti meg",
+    "viewItemInAnotherLanguage": "Tekintse meg ezt a tárgyat egy másik nyelven"
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Fedezze fel az általunk tervezett közelgő változtatásokat, és szavazzon azokra, amelyeket prioritásként szeretne látni. Hozzászólása segít abban, hogy arra összpontosíthassunk, ami a legfontosabb az Ön számára."
+    }
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -975,7 +1011,6 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
-    "IIIFViewer": "IIIF néző",
     "location": "hely",
     "locationOnMap": "Elhelyezkedés a térképen",
     "mediaPlayer": "Médialejátszó",
@@ -1035,6 +1070,7 @@ export default {
         "doesNotContain": "nem tartalmaz",
         "exact": "tartalmazza a kifejezést"
       },
+      "newRule": "új speciális keresési szabály",
       "placeholder": {
         "field": "Válasszon egy mezőt",
         "modifier": "Válasszon egy módosítót",
@@ -1104,7 +1140,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt az tárgyat a tetszésnyilvánítás közül.",
+      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
@@ -1170,7 +1206,7 @@ export default {
     "search": "Keresés"
   },
   "statuses": {
-    "liked": "Tetszett",
+    "liked": "Kedvelt",
     "pinned": "Odatűzött",
     "required": "Szükséges"
   },
@@ -1186,7 +1222,15 @@ export default {
     "storiesHaveLoaded": "{0} történet található"
   },
   "swiper": {
-    "paginationBulletLabel": "Diacsoport {page}"
+    "a11y": {
+      "firstSlide": "Ez az első dia",
+      "lastSlide": "Ez az utolsó dia",
+      "nextSlide": "Következő dia",
+      "paginationBullet": "Dia {page}",
+      "paginationBulletGroupedSlides": "Diacsoport {page}",
+      "previousSlide": "Előző dia",
+      "slideLabel": "Dia: {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "description": "Böngésszen téma szerint",

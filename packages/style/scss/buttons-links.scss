@@ -134,6 +134,18 @@
     }
   }
 
+  .show > &.dropdown-toggle {
+    color: $mediumgrey;
+    background-color: $white;
+    border-color: $blue;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
   &.like-button {
 
     &.active,
@@ -143,11 +155,12 @@
   }
 
   .icon-link {
-    font-size: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1rem;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        font-size: 0.75rem;
+        font-size: calc(1.5 * 1.25rem);
       }
     }
   }
@@ -314,6 +327,7 @@
     height: 1.5rem;
     width: 1.5rem;
     font-size: 1.1rem;
+    padding: 0; // Chrome 82 fix
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -321,6 +335,11 @@
         width: calc(1.5 * 1.5rem);
         font-size: calc(1.5 * 1.1rem);
       }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
     }
   }
 
@@ -336,7 +355,9 @@
   .icon-pin-outlined,
   .icon-add-circle-outlined,
   .icon-heart,
-  .icon-heart-outlined {
+  .icon-heart-outlined,
+  .icon-ic-move-xy,
+  .icon-remove-circle-outlined {
     font-size: $font-size-base;
   }
 
@@ -454,18 +475,6 @@
       background: $white;
       border-color: $white;
     }
-  }
-}
-
-.btn-outline-overlay {
-  border: 1px solid $white;
-  color: $white;
-  transition: $standard-transition;
-
-  &:hover {
-    color: $white;
-    background-color: rgba(255 255 255 / 20%);
-    transition: $standard-transition;
   }
 }
 

@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
-    "explore": "Explore",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
@@ -56,9 +55,11 @@ export default {
     "login": "Log in",
     "move": "Move",
     "next": "Next",
+    "nextPage": "Next page",
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Previous",
+    "previousPage": "Previous page",
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
@@ -76,7 +77,8 @@ export default {
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "vote": "Vote"
   },
   "attribution": {
     "country": "Country:",
@@ -257,6 +259,10 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "noFeatureIdeas": {
+      "title": "No new feature ideas at the moment.",
+      "description": "Check back again soon!"
     },
     "pageNotFound": {
       "metaTitle": "Page not found",
@@ -763,7 +769,6 @@ export default {
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a providing institution",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -788,9 +793,10 @@ export default {
       "about": "About",
       "collections": "Collections",
       "europeanaClassroom": "For teachers",
+      "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Share your data",
+      "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -807,7 +813,6 @@ export default {
     "discoverEditorial": "Latest stories",
     "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
     "title": "Discover Europe’s {digital} cultural heritage",
     "titleDigital": "digital"
@@ -886,8 +891,8 @@ export default {
         "title": "New feature notification"
       },
       "searchResultsView": {
-        "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
+        "title": "Search result, galleries and likes view (list/grid/mosaic)"
       }
     }
   },
@@ -925,8 +930,38 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Loading",
   "loadingResults": "Loading results",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Exit full screen",
+      "fullscreen": "Full screen",
+      "keyboardNavigation": "Use the +, - and arrow keys to zoom and pan around the image.",
+      "resetZoom": "Reset zoom",
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "loadFull": "Extra large image: load full-size.",
+    "pages": {
+      "hide": "Hide pages",
+      "show": "Show pages"
+    },
+    "sidebar": {
+      "annotations": "Annotations",
+      "annotationsCount": "1 Annotation |{count} Annotations",
+      "hide": "Hide sidebar",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Search",
+      "searchPlaceholder": "Enter terms",
+      "show": "Show sidebar"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
@@ -952,17 +987,17 @@ export default {
     "automated": "Automated translation",
     "automatedPageTranslations": "This page uses auto-generated translations from English.",
     "enrichment": "Enrichment by partner projects",
-    "loginToTranslate": "{login} to see this item in other languages",
-    "other": "other languages",
-    "stopTranslating": "Stop translating this item to {0}.",
-    "translateLanguage": "Would you like to see this item in {0}?",
-    "translateMetadata": "Translate the metadata of this item.",
-    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
+    "stopViewingThisItemIn": "Stop viewing this item in {0}",
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later.",
+    "viewingThisItemIn": "Viewing this item in {0}",
+    "viewItemInAnotherLanguage": "View this item in another language"
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
     "readMore": "Show me",
-    "text": {}
+    "text": {
+      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1021,7 +1056,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF viewer",
     "actions": {
       "pin": "Pin item to available Entities"
     },
@@ -1089,6 +1123,7 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
+      "newRule": "new advanced search rule",
       "placeholder": {
         "field": "Select a field",
         "modifier": "Select a modifier",
@@ -1240,7 +1275,15 @@ export default {
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide group {page}"
+    "a11y": {
+      "firstSlide": "This is the first slide",
+      "lastSlide": "This is the last slide",
+      "nextSlide": "Next slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide group {page}",
+      "previousSlide": "Previous slide",
+      "slideLabel": "Slide {slide} of {totalSlides}"
+    }
   },
   "themes": {
     "themes": "Themes",

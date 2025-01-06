@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterade samlingar",
     "editProfile": "Redigera profil",
-    "likes": "Likes",
+    "likes": "Gilla-markeringar",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
     "linkLoginJoin": "Logga in / Gå med",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har inte gillat några objekt ännu"
     },
     "privateCollections": "Privata gallerier",
-    "profile": "Mina likes & gallerier",
+    "profile": "Mina gilla-markeringar & gallerier",
     "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
@@ -47,7 +47,6 @@ export default {
     "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
-    "explore": "Utforska",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
@@ -56,9 +55,11 @@ export default {
     "login": "Logga in",
     "move": "Flytta",
     "next": "Nästa",
+    "nextPage": "Nästa sida",
     "pin": "Stift",
     "preview": "Förhandsvisning",
     "previous": "Föregående",
+    "previousPage": "Föregående sida",
     "publish": "Publicera",
     "readMore": "Läs mer",
     "reject": "Avvisa",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
+    "unlike": "Ogilla",
     "viewAt": "Visa på {link}",
-    "viewDocument": "Visa dokument"
+    "viewDocument": "Visa dokument",
+    "vote": "Rösta"
   },
   "attribution": {
     "country": "Land:",
@@ -237,6 +240,10 @@ export default {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "noFeatureIdeas": {
+      "description": "Kom tillbaka snart igen!",
+      "title": "Inga nya funktionsidéer för tillfället."
     },
     "pageNotFound": {
       "metaTitle": "Sidan har inte hittats",
@@ -720,7 +727,6 @@ export default {
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
-      "provide": "Bli en tillhandahållande institution",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "supportingTechnicalPartners": "Stödja tekniska partners",
@@ -745,9 +751,10 @@ export default {
       "about": "Om",
       "collections": "Samlingar",
       "europeanaClassroom": "För lärare",
+      "featureIdeas": "Idéer för funktioner",
       "help": "Hjälp",
       "home": "Hem",
-      "shareYourData": "Dela dina data",
+      "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -764,7 +771,6 @@ export default {
     "discoverEditorial": "Senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
-    "themesCTA": "Se alla teman",
     "themesTitle": "Utforska efter tema",
     "title": "Upptäck Europas {digital} kulturarv",
     "titleDigital": "digitala"
@@ -843,8 +849,8 @@ export default {
         "title": "Ny funktionsavisering"
       },
       "searchResultsView": {
-        "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "description": "Kommer ihåg om du föredrar att se sökresultat, gallerier och dina gilla-markeringar i en lista, rutnät eller mosaikvy.",
+        "title": "Sökresultat, gallerier och gilla markeringar (lista/rutnät/mosaik)"
       }
     }
   },
@@ -870,8 +876,38 @@ export default {
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
   },
+  "likes": {
+    "count": "{count} gillar | {count} Gilla-markeringar"
+  },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Avsluta helskärm",
+      "fullscreen": "Helskärm",
+      "keyboardNavigation": "Använd +, - och piltangenterna för att zooma och panorera runt bilden.",
+      "resetZoom": "Återställ zoom",
+      "rotateLeft": "Rotera åt vänster",
+      "rotateRight": "Rotera åt höger",
+      "zoomIn": "Zooma in",
+      "zoomOut": "Zooma ut"
+    },
+    "loadFull": "Extra stor bild: ladda i full storlek.",
+    "pages": {
+      "hide": "Dölj sidor",
+      "show": "Visa sidor"
+    },
+    "sidebar": {
+      "annotations": "Anteckningar",
+      "annotationsCount": "1 Anteckning | {count} Anteckningar",
+      "hide": "Dölj sidofältet",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Länkar",
+      "search": "Sök",
+      "searchPlaceholder": "Ange villkor",
+      "show": "Visa sidofältet"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
@@ -897,17 +933,17 @@ export default {
     "automated": "Automatiserad översättning",
     "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
-    "loginToTranslate": "{login} för att se detta objekt på andra språk",
-    "other": "andra språk",
-    "stopTranslating": "Sluta översätta det här objektet till {0}.",
-    "translateLanguage": "Vill du se det här objektet i {0} ?",
-    "translateMetadata": "Översätt metadata för detta objekt.",
-    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
+    "stopViewingThisItemIn": "Sluta visa detta objekt i {0}",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare.",
+    "viewingThisItemIn": "Visar detta objekt i {0}",
+    "viewItemInAnotherLanguage": "Visa detta objekt på ett annat språk"
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
     "readMore": "Visa mig",
-    "text": "{\"one\":\"\",\"other\":\"\"}"
+    "text": {
+      "featureIdeas": "Utforska de kommande förändringarna vi planerar och rösta på de du vill se prioriterade. Din input hjälper oss att fokusera på det som är viktigast för dig."
+    }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -974,7 +1010,6 @@ export default {
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
-    "IIIFViewer": "IIIF-tittare",
     "location": "Plats",
     "locationOnMap": "Plats på kartan",
     "mediaPlayer": "Mediaspelare",
@@ -1034,6 +1069,7 @@ export default {
         "doesNotContain": "innehåller inte",
         "exact": "innehåller frasen"
       },
+      "newRule": "ny regel för avancerad sökning",
       "placeholder": {
         "field": "Välj ett fält",
         "modifier": "Välj en modifierare",
@@ -1127,7 +1163,7 @@ export default {
       "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
-        "title": "100 likes"
+        "title": "100 gilla-markeringar"
       },
       "updated": "Objektet lades till i galleriet.",
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
@@ -1185,7 +1221,15 @@ export default {
     "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {
-    "paginationBulletLabel": "Bildgrupp {page}"
+    "a11y": {
+      "firstSlide": "Detta är den första bilden",
+      "lastSlide": "Detta är den sista bilden",
+      "nextSlide": "Nästa bild",
+      "paginationBullet": "Bild {page}",
+      "paginationBulletGroupedSlides": "Bildgrupp {page}",
+      "previousSlide": "Föregående bild",
+      "slideLabel": "Bild {slide} av {totalSlides}"
+    }
   },
   "themes": {
     "description": "Bläddra efter tema",

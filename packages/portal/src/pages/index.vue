@@ -1,15 +1,9 @@
 <template>
   <div :class="$fetchState.error && 'white-page'">
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -24,6 +18,7 @@
         :headline="page.headline || page.name"
         :text="page.text"
         :cta="page.relatedLink"
+        :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
       />
