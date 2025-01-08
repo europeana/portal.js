@@ -270,6 +270,11 @@ Example:
           <td><span class="icon icon-ic-move-xy" /></td>
         </tr>
         <tr>
+          <td>Multimedia</td>
+          <td><code>icon-multimedia</code></td>
+          <td><span class="icon icon-multimedia" /></td>
+        </tr>
+        <tr>
           <td>Original</td>
           <td><code>icon-original</code></td>
           <td><span class="icon icon-original" /></td>
