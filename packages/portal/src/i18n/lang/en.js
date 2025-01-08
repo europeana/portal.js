@@ -946,6 +946,14 @@ export default {
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
     },
+    "embedNotification": {
+      "ifNotAll": "If you don’t want to load all embedded media, you can {0} instead.",
+      "loadAllEmbeddedContent": "Load all embedded content",
+      "loadOnlyThis": "load only this media",
+      "message": "Please be aware that this page contains media content embedded from {provider}. Viewing this media is subject to their terms and privacy statements. Please refer to their privacy statements for more information on how your data is used.",
+      "ofThirdPartyServices": "{0} of third-party content services.",
+      "viewFullList": "View the full list"
+    },
     "loadFull": "Extra large image: load full-size.",
     "pages": {
       "hide": "Hide pages",
