@@ -1,6 +1,6 @@
 {
   "name": "@europeana/vue-router-query",
-  "version": "1.150.0",
+  "version": "2.0.0",
   "description": "Vue Router query",
   "license": "EUPL-1.2",
   "type": "module",
