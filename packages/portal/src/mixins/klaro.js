@@ -37,6 +37,7 @@ export default {
         .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
         .map((service) => ({
           ...service,
+          // TODO: remove translation data, we can access translations directly in the custom modal
           translations: {
             [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`)
           }

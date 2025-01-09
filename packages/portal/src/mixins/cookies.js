@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-      klaroAllServices: this.$features.embeddedMediaNotification ? portalServices.concat(thirdPartyServices) : portalServices
+      klaroAllServices: this.$features.embeddedMediaNotification ? [...portalServices, ...thirdPartyServices] : portalServices
     };
   }
 };
@@ -59,7 +59,7 @@ const socialMediaServices = [
   { name: 'pinterest' },
   { name: 'wheeldecide' },
   { name: 'x' }
-].map(service => ({ ...service, subPurpose: 'socialMedia' }));
+].map(service => ({ ...service, purposes: ['socialMedia'] }));
 
 const twoDServices = [
   { name: 'bookWidgets' },
@@ -73,7 +73,7 @@ const twoDServices = [
   { name: 'serveiDeGestioDocumentalArxius' },
   { name: 'sokINettbiblioteket' },
   { name: 'theCyprusInstitute' }
-].map(service => ({ ...service, subGroup: '2D' }));
+].map(service => ({ ...service, purposes: ['2D'] }));
 
 const threeDServices = [
   { name: 'arctur3DViewer' },
@@ -82,7 +82,7 @@ const threeDServices = [
   { name: 'sketchfab' },
   { name: 'spatial' },
   { name: 'weave' }
-].map(service => ({ ...service, subGroup: '3D' }));
+].map(service => ({ ...service, purposes: ['3D'] }));
 
 const audioServices = [
   { name: 'britishLibrarySounds' },
@@ -91,12 +91,12 @@ const audioServices = [
   { name: 'phonobase' },
   { name: 'soundArchivesOfTheCNRS' },
   { name: 'soundCloud' }
-].map(service => ({ ...service, subGroup: 'audio' }));
+].map(service => ({ ...service, purposes: ['audio'] }));
 
 const multimediaServices = [
   { name: 'archiveOrg' },
   { name: 'digitalRepositoryOfIreland' }
-].map(service => ({ ...service, subGroup: 'multimedia' }));
+].map(service => ({ ...service, purposes: ['multimedia'] }));
 
 const videoServices = [
   { name: 'deutschesFilmportal' },
@@ -107,10 +107,10 @@ const videoServices = [
   { name: 'tibAvPortal' },
   { name: 'vimeo' },
   { name: 'youTube' }
-].map(service => ({ ...service, subGroup: 'video' }));
+].map(service => ({ ...service, purposes: ['video'] }));
 
 const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)
-  .map(service => ({ ...service, subPurpose: 'mediaViewing' }));
+  .map(service => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
 
 const otherEmbeddingServices = [
   { name: 'albinLarsson' },
@@ -133,8 +133,7 @@ const otherEmbeddingServices = [
   { name: 'universityOfCaliforniaSanDiego' },
   { name: 'wikidata' },
   { name: 'woobox' }
+].map(service => ({ ...service, purposes: ['other'] }));
 
-].map(service => ({ ...service, subPurpose: 'other' }));
-
-const thirdPartyServices = socialMediaServices.concat(mediaViewingServices, otherEmbeddingServices)
-  .map(service => ({ ...service, purposes: ['thirdPartyContent'] }));
+const thirdPartyServices = [...socialMediaServices, ...mediaViewingServices, ...otherEmbeddingServices]
+  .map(service => ({ ...service, purposes: ['thirdPartyContent', ...service.purposes] }));
