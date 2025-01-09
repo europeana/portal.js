@@ -835,7 +835,11 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
+        "alwaysRequired": "(Always required)",
         "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
+        "privacyPolicy": "Privacy policy",
+        "servicesCount": "{count} service | {count} services",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -847,7 +851,11 @@ export default {
       "purposes": {
         "essential": {
           "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
-          "title": "Essential services for security and customization"
+          "title": "Essential services for security and customisation"
+        },
+        "thirdPartyContent": {
+          "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",
+          "title": "Third-party content"
         },
         "usage": {
           "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
@@ -862,37 +870,241 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "carto": {
+        "title": "Carto"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helps debugging API requests",
         "title": "Debug toggle"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "exhibit": {
+        "title": "Exhibit"
+      },
+      "facebook": {
+        "title": "Facebook"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "gettyImages": {
+        "title": "Getty Images"
+      },
+      "gfycat": {
+        "title": "gfycat"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "googleMaps": {
+        "title": "Google Maps"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Remembers your preferred interface language for future access.",
         "title": "Language code"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
+      },
+      "knightLabCdn": {
+        "title": "Knight Lab CDN"
+      },
+      "kystreise": {
+        "title": "Kystreise"
+      },
+      "mailchimp": {
+        "title": "Mailchimp"
       },
       "matomo": {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
       },
+      "onlineComputerLibraryCenter": {
+        "title": "Online Computer Library Center"
+      },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
         "title": "Search result, galleries and likes view (list/grid/mosaic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "sokINettbiblioteket": {
+        "title": "Søk i Nettbiblioteket"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
+      }
+    },
+    "subGroups": {
+      "2D": "2D media",
+      "3D": "3D media",
+      "audio": "audio",
+      "multimedia": "multimedia",
+      "video": "video"
+    },
+    "subPurposes": {
+      "mediaViewing": {
+        "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
+        "title": "Media viewing services"
+      },
+      "other": {
+        "description": "These services load content such as code, games, maps and storytelling widgets.",
+        "title": "Other embedding services"
+      },
+      "socialMedia": {
+        "description": "These services load content from social media platforms.",
+        "title": "Social media embedding services"
       }
     }
   },
