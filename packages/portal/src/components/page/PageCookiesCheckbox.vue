@@ -8,7 +8,7 @@
       :disabled="serviceData.required"
       :checked="checked"
       :indeterminate="indeterminate"
-      :class="{ 'secondary': !serviceData.services, 'active': checked }"
+      :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
       @change="(value) => updateConsent(serviceData, value)"
     >
       <label class="label">
@@ -29,7 +29,7 @@
       @click="toggleDisplay(serviceData.name)"
     >
       <!-- TODO: calculate complete service count, including sub-services -->
-      {{ $tc('klaro.main.consentModal.servicesCount', serviceData.services.length, { count: $n(serviceData.services.length)}) }}
+      {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
       <span class="icon-chevron ml-1" />
     </b-button>
     <ul
@@ -99,6 +99,9 @@
           return this.serviceData.services.some(service => this.checkedServices.includes(service.name));
         }
         return false;
+      },
+      servicesCount() {
+        return this.klaroManager.config.services?.filter(s => s.purposes.includes(this.serviceData.name)).length;
       }
     },
 

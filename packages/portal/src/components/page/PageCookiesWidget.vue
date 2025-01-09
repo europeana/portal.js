@@ -125,10 +125,6 @@
         type: Object,
         default: null
       },
-      klaroConfig: {
-        type: Object,
-        default: null
-      },
       cookieConsentRequired: {
         type: Boolean,
         default: true
@@ -202,6 +198,9 @@
               ]
             }
         ].filter(Boolean);
+      },
+      klaroConfig() {
+        return this.klaroManager.config;
       }
     },
 
