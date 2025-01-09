@@ -1011,7 +1011,6 @@ export default {
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
-    "IIIFViewer": "Πρόγραμμα προβολής IIIF",
     "location": "Τοποθεσία",
     "locationOnMap": "Τοποθεσία στο χάρτη",
     "mediaPlayer": "Πρόγραμμα αναπαραγωγής πολυμέσων",

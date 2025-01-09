@@ -772,7 +772,7 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesTitle": "Erkunden Sie nach Themenbereiche",
+    "themesTitle": "Erkunden Sie nach Themenbereich",
     "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
   },
@@ -1012,7 +1012,6 @@ export default {
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
-    "IIIFViewer": "IIIF-Viewer",
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",

@@ -836,7 +836,8 @@ export default {
       "acceptSelected": "Accept selected",
       "consentModal": {
         "alwaysRequired": "(Always required)",
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
         "privacyPolicy": "Privacy policy",
         "servicesCount": "{count} service | {count} services",
         "title": "Services we would like to use."

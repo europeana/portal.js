@@ -1,4 +1,5 @@
 import { computed, ref } from 'vue';
+import uniq from 'lodash/uniq';
 
 import EuropeanaMediaAnnotationList from '@/utils/europeana/media/AnnotationList.js';
 import EuropeanaMediaPresentation from '@/utils/europeana/media/Presentation.js';
@@ -11,6 +12,16 @@ const activeAnnotation = ref(null);
 const page = ref(1);
 const presentation = ref(null);
 const hoveredAnnotation = ref(null);
+
+const clear = () => {
+  annotations.value = [];
+  annotationSearchHits.value = [];
+  annotationSearchResults.value = null;
+  activeAnnotation.value = null;
+  page.value = 1;
+  presentation.value = null;
+  hoveredAnnotation.value = null;
+};
 
 const annotationAtCoordinate  = (coordinate, fullExtent) => {
   const coordinateToCompare = [coordinate[0], fullExtent[3] - coordinate[1]];
@@ -71,6 +82,15 @@ const hasSearchService = computed(() => {
   return !!searchServiceUri.value;
 });
 
+const searchTextGranularity = computed(() => {
+  const granularities = uniq(
+    canvases.value?.map((canvas) => canvas.annotations?.[0]?.textGranularity)
+      .filter(Boolean)
+      .flat()// || []
+  );
+  return granularities.includes('line') ? 'line' : granularities[0];
+});
+
 const resource = computed(() => {
   return canvas.value?.resource;
 });
@@ -105,11 +125,13 @@ const fetchAnnotations = async(uri, { params = {} } = {}) => {
   }
 
   // TODO: make into a new computed?
-  let textGranularity;
-  if (Array.isArray(annotationTextGranularity.value)) {
-    textGranularity = annotationTextGranularity.value.includes('line') ? 'line' : annotationTextGranularity.value[0];
-  } else {
-    textGranularity = annotationTextGranularity.value;
+  let textGranularity = params.textGranularity;
+  if (!textGranularity) {
+    if (Array.isArray(annotationTextGranularity.value)) {
+      textGranularity = annotationTextGranularity.value.includes('line') ? 'line' : annotationTextGranularity.value[0];
+    } else {
+      textGranularity = annotationTextGranularity.value;
+    }
   }
 
   return await EuropeanaMediaAnnotationList.from(uri, { params: { textGranularity, ...params } });
@@ -160,7 +182,10 @@ const searchAnnotations = async(query) => {
     annotationSearchResults.value = [];
     annotationSearchHits.value = [];
   } else {
-    const list = await fetchAnnotations(searchServiceUri.value, { params: { query } });
+    const list = await fetchAnnotations(
+      searchServiceUri.value,
+      { params: { query, textGranularity: searchTextGranularity.value } }
+    );
     annotationSearchResults.value = list.items;
     annotationSearchHits.value = list.hits || [];
   }
@@ -191,6 +216,8 @@ export default function useItemMediaPresentation() {
     annotationTextGranularity,
     activeAnnotation,
     canvas,
+    canvases,
+    clear,
     fetchAnnotations,
     fetchCanvasAnnotations,
     fetchPresentation,
@@ -205,6 +232,7 @@ export default function useItemMediaPresentation() {
     presentation,
     searchAnnotations,
     searchServiceUri,
+    searchTextGranularity,
     setActiveAnnotation,
     setHoveredAnnotation,
     setPage,

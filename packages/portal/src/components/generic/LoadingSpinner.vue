@@ -1,17 +1,22 @@
 <template>
-  <span
-    role="status"
-    data-qa="loading spinner"
+  <component
+    :is="tag"
+    v-if="visible"
   >
-    <span class="visually-hidden">
-      {{ statusMessage || $t('loading') }}
-    </span>
     <span
-      class="spinner-border"
-      :class="`spinner-border-${size}`"
-      aria-hidden="true"
-    />
-  </span>
+      role="status"
+      data-qa="loading spinner"
+    >
+      <span class="visually-hidden">
+        {{ statusMessage || $t('loading') }}
+      </span>
+      <span
+        class="spinner-border"
+        :class="`spinner-border-${size}`"
+        aria-hidden="true"
+      />
+    </span>
+  </component>
 </template>
 
 <script>
@@ -19,6 +24,17 @@
     name: 'LoadingSpinner',
 
     props: {
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      /**
+       * Delay to wait before showing the spinner, in ms
+       */
+      delay: {
+        type: Number,
+        default: 500
+      },
       statusMessage: {
         type: String,
         default: null
@@ -30,6 +46,26 @@
       size: {
         type: String,
         default: 'sm'
+      }
+    },
+
+    data() {
+      return {
+        timeout: null,
+        visible: this.delay === 0
+      };
+    },
+
+    beforeDestroy() {
+      this.timeout = null;
+    },
+
+    mounted() {
+      if (this.delay > 0) {
+        this.timeout = setTimeout(() => {
+          this.timeout = null;
+          this.visible = true;
+        }, this.delay);
       }
     }
   };

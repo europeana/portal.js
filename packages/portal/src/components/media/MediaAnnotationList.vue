@@ -1,15 +1,9 @@
 <template>
   <div>
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ol
       v-else-if="annotationList.length"
       class="media-viewer-annotation-list list-group"
@@ -46,16 +40,6 @@
         </NuxtLink>
       </li>
     </ol>
-    <div
-      role="status"
-      :class="{ 'visually-hidden': !noResults || $fetchState.pending }"
-    >
-      <p
-        class="px-3"
-      >
-        {{ noResults ? $t('noResults') : $t('searchHasLoaded', [totalResultsLocalised]) }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -126,7 +110,8 @@
       ]);
       this.setActiveAnnotationFromRouteQuery();
 
-      this.$emit('fetched', this.annotations.length);
+      const annotationsCount = this.searching ? this.annotationSearchResults.length : this.annotations.length;
+      this.$emit('fetched', annotationsCount);
     },
 
     computed: {
@@ -136,14 +121,6 @@
 
       searching() {
         return !!this.query;
-      },
-
-      noResults() {
-        return this.query && (this.annotationList?.length || 0) === 0;
-      },
-
-      totalResultsLocalised() {
-        return this.$i18n.n(this.annotationList.length);
       }
     },
 

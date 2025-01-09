@@ -49,7 +49,7 @@
       @hide="onModalHide"
     >
       <i18n
-        path="klaro.main.consentModal.description"
+        path="klaro.main.consentModal.text"
         tag="p"
       >
         <template #privacyPolicy>
