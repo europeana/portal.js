@@ -1,9 +1,7 @@
 export const version = '0.7.18';
-import cookiesMixin from '@/mixins/cookies.js';
+import cookies from '@/utils/cookies.js';
 
 export default {
-  mixins: [cookiesMixin],
-
   data() {
     return {
       cookieConsentRequired: false,
@@ -32,6 +30,10 @@ export default {
   },
 
   computed: {
+    klaroAllServices() {
+      return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
+    },
+
     klaroConfig() {
       const services = this.klaroAllServices
         .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))

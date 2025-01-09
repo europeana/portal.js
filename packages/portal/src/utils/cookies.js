@@ -1,11 +1,3 @@
-export default {
-  data() {
-    return {
-      klaroAllServices: this.$features.embeddedMediaNotification ? portalServices.concat(thirdPartyServices) : portalServices
-    };
-  }
-};
-
 const portalServices = [
   {
     cookies: ['auth.strategy'],
@@ -138,3 +130,5 @@ const otherEmbeddingServices = [
 
 const thirdPartyServices = socialMediaServices.concat(mediaViewingServices, otherEmbeddingServices)
   .map(service => ({ ...service, purposes: ['thirdPartyContent'] }));
+
+export default portalServices.concat(thirdPartyServices);

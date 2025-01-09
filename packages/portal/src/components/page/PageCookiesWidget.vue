@@ -11,7 +11,7 @@
       append-toast
       toaster="b-toaster-bottom-left"
     >
-      <p>{{ $t('klaro.main.consentNotice.description') }}</p>
+      <p>{{ $t('klaro.main.consentNotice.text') }}</p>
       <div class="d-flex justify-content-between align-items-center">
         <b-button
           data-qa="learn more button"
@@ -69,7 +69,7 @@
             :service-or-purpose="purpose"
             type="purpose"
             :checked="purpose.services.every(service => checkedServices.includes(service))"
-            :class="{ 'active': purpose.services.some(service => checkedServices.includes(service))}"
+            :class="{ 'active': purpose.services.some(service => checkedServices.includes(service)) }"
             @updateConsent="updateConsentPerPurpose"
           />
           <p class="mb-0">
@@ -81,7 +81,7 @@
             variant="link"
             @click="toggleDisplay(purpose.name)"
           >
-            {{ $tc('klaro.main.consentModal.servicesCount', purpose.services.length, { count: $n(purpose.services.length)}) }}
+            {{ $tc('klaro.main.consentModal.servicesCount', purpose.services.length, { count: $n(purpose.services.length) }) }}
             <span class="icon-chevron ml-1" />
           </b-button>
           <ul
@@ -107,7 +107,7 @@
                 variant="link"
                 @click="toggleDisplay(subPurpose.name)"
               >
-                {{ $tc('klaro.main.consentModal.servicesCount', subPurpose.services.length, { count: $n(subPurpose.services.length)}) }}
+                {{ $tc('klaro.main.consentModal.servicesCount', subPurpose.services.length, { count: $n(subPurpose.services.length) }) }}
                 <span class="icon-chevron ml-1" />
               </b-button>
               <ul
