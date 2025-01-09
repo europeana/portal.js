@@ -70,7 +70,7 @@
             <EmbedGateway
               v-else-if="resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :thumbnail="$apis.thumbnail.forWebResource(resource?.edm).large"
+              :media="resource?.edm"
             >
               <EmbedOEmbed
                 :url="resource.id"
