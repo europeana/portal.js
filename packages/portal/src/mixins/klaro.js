@@ -1,48 +1,5 @@
 export const version = '0.7.18';
-
-const klaroAllServices = [
-  {
-    cookies: ['auth.strategy'],
-    name: 'auth-strategy',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['debugSettings'],
-    name: 'debugSettings',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-    cookies: [/^_hj/],
-    name: 'hotjar',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['i18n_locale_code'],
-    name: 'i18n',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: [/^_pk_/, 'mtm_cookie_consent'],
-    name: 'matomo',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['new_feature_notification'],
-    name: 'newFeatureNotification',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['searchResultsView'],
-    name: 'searchResultsView',
-    purposes: ['essential'],
-    required: true
-  }
-];
+import cookies from '@/utils/cookies.js';
 
 export default {
   data() {
@@ -50,10 +7,10 @@ export default {
       cookieConsentRequired: false,
       klaro: null,
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
+      klaroManager: null,
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null,
-      toastBottomOffset: '20px'
+      klaroServices: null
     };
   },
 
@@ -73,8 +30,12 @@ export default {
   },
 
   computed: {
+    klaroAllServices() {
+      return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
+    },
+
     klaroConfig() {
-      const services = klaroAllServices
+      const services = this.klaroAllServices
         .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
         .map((service) => ({
           ...service,
@@ -104,22 +65,13 @@ export default {
   methods: {
     renderKlaro() {
       if (this.klaro) {
-        const manager = this.klaro.getManager(this.klaroConfig);
+        this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
-        this.cookieConsentRequired = !manager.confirmed;
+        this.cookieConsentRequired = !this.klaroManager.confirmed;
 
         this.klaro.render(this.klaroConfig, true);
-        manager.watch({ update: this.watchKlaroManagerUpdate });
-
-        setTimeout(() => {
-          this.setToastBottomOffset();
-        }, 100);
+        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
-    },
-
-    setToastBottomOffset() {
-      const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
-      this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
     },
 
     watchKlaroManagerUpdate(manager, eventType, data) {
@@ -133,11 +85,9 @@ export default {
         }[data.type];
       }
 
-      eventName && this.trackKlaroClickEvent(eventName);
+      this.cookieConsentRequired = !this.klaroManager.confirmed;
 
-      setTimeout(() => {
-        this.setToastBottomOffset();
-      }, 10);
+      eventName && this.trackKlaroClickEvent(eventName);
     },
 
     trackKlaroClickEvent(eventName) {
