@@ -11,7 +11,7 @@
       append-toast
       toaster="b-toaster-bottom-left"
     >
-      <p>{{ $t('klaro.main.consentNotice.text') }}</p>
+      <p>{{ $t('klaro.main.consentNotice.description') }}</p>
       <div class="d-flex justify-content-between align-items-center">
         <b-button
           data-qa="learn more button"
@@ -48,7 +48,7 @@
       @hide="onModalHide"
     >
       <i18n
-        path="klaro.main.consentModal.description"
+        path="klaro.main.consentModal.text"
         tag="p"
       >
         <template #privacyPolicy>
