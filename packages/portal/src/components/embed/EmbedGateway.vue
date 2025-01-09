@@ -134,44 +134,43 @@
   }
 
   .thumbnail-background {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &:after {
+      content: '';
+      background-color: rgba(0, 0, 0, 0.70);
+      position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
+    }
 
-      &:after {
-        content: '';
-        background-color: rgba(0, 0, 0, 0.70);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
+    ::v-deep img {
+      height: 100%;
+      object-fit: cover;
+    }
 
-      ::v-deep img {
-        height: 100%;
-        object-fit: cover;
-      }
+    ::v-deep .default-thumbnail {
+      background-color: $white !important;
+      height: 100%;
+      width: 100%;
+      border-radius: 0;
 
-      ::v-deep .default-thumbnail {
-        background-color: $white !important;
-        height: 100%;
-        width: 100%;
-        border-radius: 0;
+      [class^='icon-'],
+      [class*=' icon-'] {
+        opacity: 1;
 
-        [class^='icon-'],
-        [class*=' icon-'] {
-          opacity: 1;
-
-          &:before {
-            content: '\e96b';
-            font-family: 'icomoon';
-            font-size: 15rem;
-            color: $middlegrey;
-          }
+        &:before {
+          content: '\e96b';
+          font-size: 15rem;
+          color: $middlegrey;
         }
       }
+    }
   }
 
 </style>
