@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-toast
+      v-if="renderToast"
       :id="toastId"
       is-status
       no-auto-hide
@@ -44,11 +45,13 @@
       size="xl"
       hide-footer
       hide-header-close
-      :title="$t('klaro.main.consentModal.title')"
+      :title="$t(modalTitlePath)"
       @hide="onModalHide"
+      @show="setCheckedServices"
     >
       <i18n
-        path="klaro.main.consentModal.text"
+        v-if="modalDescriptionPath"
+        :path="modalDescriptionPath"
         tag="p"
       >
         <template #privacyPolicy>
@@ -219,12 +222,31 @@
       cookieConsentRequired: {
         type: Boolean,
         default: true
+      },
+      modalId: {
+        type: String,
+        default: 'cookie-modal'
+      },
+      modalTitlePath: {
+        type: String,
+        default: 'klaro.main.consentModal.title'
+      },
+      modalDescriptionPath: {
+        type: String,
+        default: 'klaro.main.consentModal.text'
+      },
+      renderToast: {
+        type: Boolean,
+        default: true
+      },
+      hidePurposes: {
+        type: Array,
+        default: () => []
       }
     },
 
     data() {
       return {
-        modalId: 'cookie-modal',
         toastId: 'cookie-notice-toast',
         show: ['thirdPartyContent'],
         checkedServices: []
@@ -288,12 +310,13 @@
                 }
               ]
             }
-        ].filter(Boolean);
+        ].filter(Boolean)
+          .filter(purpose => !this.hidePurposes.includes(purpose.name));
       }
     },
 
     mounted() {
-      this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true);
+      this.setCheckedServices();
     },
 
     methods: {
@@ -321,6 +344,7 @@
       onModalHide() {
         if (this.cookieConsentRequired) {
           this.$bvToast.show(this.toastId);
+          this.klaroManager.changeAll(false);
         }
       },
 
@@ -330,6 +354,7 @@
         }
 
         this.klaroManager.saveAndApplyConsents(eventType);
+        this.setCheckedServices();
 
         this.$bvModal.hide(this.modalId);
       },
@@ -339,7 +364,13 @@
       },
 
       acceptAndHide() {
-        this.executeButtonClicked(true, true, 'accept');
+        // Workaround to only accept the visible services (embed-cookie-modal)
+        if (this.hidePurposes.length) {
+          this.groupedPurposes.forEach(purpose => purpose.services.forEach(service => this.updateConsentPerService(service, true)));
+          this.executeButtonClicked(false, false, 'save');
+        } else {
+          this.executeButtonClicked(true, true, 'accept');
+        }
       },
 
       declineAndHide() {
@@ -352,6 +383,11 @@
         } else {
           this.show.push(name);
         }
+      },
+
+      setCheckedServices() {
+        const consents = this.klaroManager.loadConsents();
+        this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true || consents[s.name] === true);
       }
     }
   };

@@ -10,7 +10,8 @@ export default {
       klaroManager: null,
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null
+      klaroServices: null,
+      hidePurposes: []
     };
   },
 
@@ -87,6 +88,7 @@ export default {
 
       this.cookieConsentRequired = !this.klaroManager.confirmed;
 
+      // TODO: track clicks in embed cookie modal separately?
       eventName && this.trackKlaroClickEvent(eventName);
     },
 
