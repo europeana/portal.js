@@ -63,11 +63,11 @@
       </i18n>
       <ul>
         <li
-          v-for="(service, index) in groupedServices"
+          v-for="(section, index) in groupedSections"
           :key="index"
         >
-          <PageCookiesCheckbox
-            :service-data="service"
+          <PageCookiesSection
+            :service-data="section"
           />
         </li>
       </ul>
@@ -100,14 +100,14 @@
 </template>
 
 <script>
-  import PageCookiesCheckbox from './PageCookiesCheckbox';
+  import PageCookiesSection from './PageCookiesSection';
   import { ref } from 'vue';
 
   export default {
     name: 'PageCookiesWidget',
 
     components: {
-      PageCookiesCheckbox,
+      PageCookiesSection,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -151,7 +151,7 @@
         return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
       },
 
-      groupedServices() {
+      groupedSections() {
         return [ // to create layout
           this.essentialServices?.length && {
             name: 'essential',
