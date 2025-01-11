@@ -213,11 +213,11 @@
     props: {
       klaroManager: {
         type: Object,
-        default: null
+        required: true
       },
       klaroConfig: {
         type: Object,
-        default: null
+        required: true
       },
       cookieConsentRequired: {
         type: Boolean,

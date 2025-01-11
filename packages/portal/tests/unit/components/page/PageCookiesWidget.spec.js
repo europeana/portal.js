@@ -6,7 +6,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => shallowMount(PageCookiesWidget, {
+const factory = (propsData = { klaroConfig, klaroManager }) => shallowMount(PageCookiesWidget, {
   localVue,
   propsData,
   mocks: {
@@ -20,6 +20,7 @@ const factory = (propsData) => shallowMount(PageCookiesWidget, {
 
 const klaroManager = {
   changeAll: sinon.spy(),
+  loadConsents: sinon.stub().returns({ 'auth-strategy': true }),
   saveAndApplyConsents: sinon.spy(),
   updateConsent: sinon.spy()
 };
@@ -52,7 +53,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('when there are services defined in the Klaro config', () => {
     it('groups them by purpose, subpurpose and subgroup', () => {
-      const wrapper = factory({ klaroConfig });
+      const wrapper = factory();
 
       expect(wrapper.vm.groupedPurposes[0].name).toEqual('essential');
       expect(wrapper.vm.groupedPurposes[1].name).toEqual('usage');
@@ -75,7 +76,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('clicking the decline button', () => {
     it('updates and saves the values to the klaro manager', () => {
-      const wrapper = factory({ klaroConfig, klaroManager });
+      const wrapper = factory();
 
       wrapper.find('[data-qa="decline button"]').trigger('click');
 
@@ -86,7 +87,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('clicking the accept all button', () => {
     it('updates and saves the values to the klaro manager', () => {
-      const wrapper = factory({ klaroConfig, klaroManager });
+      const wrapper = factory();
 
       wrapper.find('[data-qa="accept all button"]').trigger('click');
 
@@ -97,7 +98,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('clicking the accept selected button', () => {
     it('updates and saves the values to the klaro manager and hides the modal', () => {
-      const wrapper = factory({ klaroConfig, klaroManager });
+      const wrapper = factory();
       wrapper.vm.$bvModal.hide = sinon.spy();
 
       wrapper.find('[data-qa="accept selected button"]').trigger('click');
@@ -109,7 +110,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('clicking the services display button', () => {
     it('toggles the show state', () => {
-      const wrapper = factory({ klaroConfig });
+      const wrapper = factory();
 
       wrapper.find('[data-qa="toggle display button"]').trigger('click');
 
@@ -136,7 +137,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('on mounted', () => {
     it('adds the required services to checked services', () => {
-      const wrapper = factory({ klaroConfig });
+      const wrapper = factory();
 
       expect(wrapper.vm.checkedServices).toEqual([allTypesOfServices[0]]);
     });
@@ -146,7 +147,7 @@ describe('components/page/PageCookiesWidget', () => {
     describe('updateConsentPerService', () => {
       describe('when the service is falsy or required', () => {
         it('does not updates the consent in the Klaro manager and in local state in checkedServices', () => {
-          const wrapper = factory({ klaroConfig, klaroManager });
+          const wrapper = factory();
 
           const requiredService = allTypesOfServices[0];
           wrapper.vm.updateConsentPerService(requiredService, true);
@@ -161,7 +162,7 @@ describe('components/page/PageCookiesWidget', () => {
       });
       describe('when the service is truthy and not required', () => {
         it('updates the consent in the Klaro manager and in local state in checkedServices', () => {
-          const wrapper = factory({ klaroConfig, klaroManager });
+          const wrapper = factory();
 
           const service = allTypesOfServices[1];
           wrapper.vm.updateConsentPerService(service, true);
@@ -179,7 +180,7 @@ describe('components/page/PageCookiesWidget', () => {
 
     describe('updateConsentPerPurpose', () => {
       it('updates the consent for each purpose\'s service', () => {
-        const wrapper = factory({ klaroConfig, klaroManager });
+        const wrapper = factory();
 
         const purpose = wrapper.vm.groupedPurposes[1];
         wrapper.vm.updateConsentPerPurpose(purpose, true);
