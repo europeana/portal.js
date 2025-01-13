@@ -52,10 +52,9 @@
     <ErrorModal />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
+        v-if="$features.embeddedMediaNotification"
         :klaro-manager="klaroManager"
         :klaro-config="klaroConfig"
-        :cookie-consent-required="cookieConsentRequired"
       />
       <PageCookieConsent
         v-else-if="cookieConsentRequired"
@@ -125,7 +124,7 @@
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
           ...i18nHead.link
         ],
-        script: [
+        script: this.$features.embeddedMediaNotification ? [] : [
           this.klaroHeadScript
         ],
         meta: [
