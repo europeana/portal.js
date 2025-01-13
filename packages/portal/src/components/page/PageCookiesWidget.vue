@@ -289,7 +289,9 @@
 
     methods: {
       updateConsent(serviceName, value) {
-        this.storedServices ||= {};
+        if (!this.storedServices) {
+          this.storedServices = {};
+        }
         this.storedServices[serviceName] = value;
         // TODO: 15 day expiry
         this.$cookies.set('services', this.storedServices);
