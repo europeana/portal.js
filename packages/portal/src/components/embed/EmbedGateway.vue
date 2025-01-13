@@ -145,7 +145,12 @@
       },
 
       consentAllEmbeddedContent() {
-        this.klaroManager.changeAll(true);
+        if (this.cookieConsentRequired) {
+          this.klaroManager.changeAll(true);
+        } else {
+          const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
+          allThirdPartyContentServices.forEach(service => this.klaroManager.updateConsent(service.name, true));
+        }
 
         this.openModalOrSaveConsents();
       },
