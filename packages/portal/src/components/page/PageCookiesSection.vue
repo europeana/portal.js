@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-form-checkbox
+      :id="`consentcheckbox-${serviceData.name}`"
       :name="serviceData.name"
       switch
       :value="true"
@@ -11,7 +12,10 @@
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
       @change="(value) => updateConsent(serviceData, value)"
     >
-      <label class="label">
+      <label
+        :for="`consentcheckbox-${serviceData.name}`"
+        class="label"
+      >
         {{ label }}
         <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
       </label>
