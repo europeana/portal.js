@@ -1,3 +1,4 @@
+// TODO: Filter and reuse list for oembed/providers.js as schemes are duplicate
 const portalServices = [
   {
     cookies: ['auth.strategy'],
@@ -58,7 +59,11 @@ const twoDServices = [
   { name: 'ecorpus' },
   { name: 'gallica' },
   { name: 'gettyImages' },
-  { name: 'institutNationalDeLAudiovisuel' },
+  { name: 'institutNationalDeLAudiovisuel',
+    schemes: [
+      'http://www.ina.fr/video/*',
+      'http://www.ina.fr/*/video/*'
+    ] },
   { name: 'internetCulturale' },
   { name: 'nakala' },
   { name: 'openbeelden' },
@@ -69,11 +74,22 @@ const twoDServices = [
 
 const threeDServices = [
   { name: 'arctur3DViewer' },
-  { name: 'eureka3D' },
+  { name: 'eureka3D',
+    schemes: [
+      'https://eureka3d.vm.fedcloud.eu/3d/*'
+    ] },
   { name: 'gotlandPictureStones' },
-  { name: 'sketchfab' },
+  { name: 'sketchfab',
+    schemes: [
+      'https://sketchfab.com/3d-models/*',
+      'https://sketchfab.com/models/*',
+      'https://sketchfab.com/show/*'
+    ] },
   { name: 'spatial' },
-  { name: 'weave' }
+  { name: 'weave',
+    schemes: [
+      'https://weave-3dviewer.com/asset/*'
+    ] }
 ].map(service => ({ ...service, subGroup: '3D' }));
 
 const audioServices = [
@@ -81,8 +97,12 @@ const audioServices = [
   { name: 'buzzsprout' },
   { name: 'freesound' },
   { name: 'phonobase' },
-  { name: 'soundArchivesOfTheCNRS' },
-  { name: 'soundCloud' }
+  { name: 'soundArchivesOfTheCNRS',
+    schemes: [
+      'http://archives.crem-cnrs.fr/archives/items/*/'
+    ] },
+  { name: 'soundCloud',
+    schemes: ['http://soundcloud.com/*', 'https://soundcloud.com/*'] }
 ].map(service => ({ ...service, subGroup: 'audio' }));
 
 const multimediaServices = [
@@ -94,11 +114,40 @@ const videoServices = [
   { name: 'deutschesFilmportal' },
   { name: 'eclap' },
   { name: 'europeanParliamentMultimediaService' },
-  { name: 'euscreen' },
+  { name: 'euscreen',
+    schemes: [
+      'http://www.euscreen.eu/item.html*',
+      'https://www.euscreen.eu/item.html*'
+    ] },
   { name: 'myminifactory' },
   { name: 'tibAvPortal' },
-  { name: 'vimeo' },
-  { name: 'youTube' }
+  { name: 'tv3',
+    schemes: [
+      'http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/'
+    ] },
+  { name: 'vimeo',
+    schemes: [
+      'https://vimeo.com/*',
+      'https://vimeo.com/album/*/video/*',
+      'https://vimeo.com/channels/*/*',
+      'https://vimeo.com/groups/*/videos/*',
+      'https://vimeo.com/ondemand/*/*',
+      'https://player.vimeo.com/video/*',
+      'http://vimeo.com/*',
+      'http://vimeo.com/album/*/video/*',
+      'http://vimeo.com/channels/*/*',
+      'http://vimeo.com/groups/*/videos/*',
+      'http://vimeo.com/ondemand/*/*',
+      'http://player.vimeo.com/video/*'
+    ] },
+  { name: 'youTube',
+    schemes: [
+      'https://youtube.com/watch*',
+      'https://youtube.com/v/*',
+      'https://www.youtube.com/watch*',
+      'https://www.youtube.com/v/*',
+      'https://youtu.be/*'
+    ] }
 ].map(service => ({ ...service, subGroup: 'video' }));
 
 const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)

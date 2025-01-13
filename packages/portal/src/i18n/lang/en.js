@@ -1061,6 +1061,10 @@ export default {
       "tibAvPortal": {
         "title": "TIB AV-Portal"
       },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "unknownProvider": "unknown provider",
       "universityOfCaliforniaSanDiego": {
         "title": "University of California, San Diego"
       },

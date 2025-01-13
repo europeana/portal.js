@@ -71,6 +71,7 @@
               v-else-if="resource?.edm?.isOEmbed"
               class="media-viewer-content"
               :media="resource?.edm"
+              :url="resource.id"
             >
               <EmbedOEmbed
                 :url="resource.id"

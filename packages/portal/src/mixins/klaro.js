@@ -84,6 +84,9 @@ export default {
           decline: 'Decline',
           save: 'Accept selected'
         }[data.type];
+
+        // TODO: handle this in EmbedGateway?
+        this.checkConsentAndOpenEmbed?.();
       }
 
       this.cookieConsentRequired = !this.klaroManager.confirmed;

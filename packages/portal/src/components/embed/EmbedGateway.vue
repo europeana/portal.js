@@ -1,6 +1,5 @@
 <template>
   <div class="h-100">
-    <!-- TODO: show media when consent is given -->
     <slot
       v-if="opened"
       class="embed-gateway-opened"
@@ -25,9 +24,8 @@
           lg="10"
           class="notification-content mx-auto position-relative"
         >
-          <!-- TODO: find and add actual provider name -->
           <p class="message">
-            {{ $t('media.embedNotification.message', { provider: 'PROVIDER NAME' }) }}
+            {{ $t('media.embedNotification.message', { provider: providerName }) }}
           </p>
           <b-button
             variant="light"
@@ -76,6 +74,7 @@
 
 <script>
   import klaroMixin from '@/mixins/klaro.js';
+  import serviceForUrl from '@/utils/getServiceForUrl';
 
   export default {
     name: 'EmbedGateway',
@@ -91,6 +90,10 @@
       media: {
         type: Object,
         default: null
+      },
+      url: {
+        type: String,
+        default: null
       }
     },
 
@@ -100,9 +103,26 @@
         hidePurposes: ['essential', 'usage'],
         opened: false,
         renderCookieModal: false,
-        // TODO: find and store actual provider
-        provider: 'facebook'
+        provider: null,
+        providerName: this.$t('klaro.services.unknownProvider')
       };
+    },
+
+    watch: {
+      // klaroManager is not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      }
+    },
+
+    mounted() {
+      this.provider = serviceForUrl(this.url);
+
+      if (this.provider) {
+        this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
+      }
     },
 
     methods: {
@@ -115,6 +135,15 @@
         }
       },
 
+      checkConsentAndOpenEmbed() {
+        const consents = this.klaroManager?.loadConsents();
+        const providerHasConsent = !!consents?.[this.provider?.name];
+
+        if (providerHasConsent) {
+          this.opened = true;
+        }
+      },
+
       consentAllEmbeddedContent() {
         const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
         allThirdPartyContentServices.forEach(service => this.klaroManager.updateConsent(service.name, true));
@@ -123,7 +152,7 @@
       },
 
       consentThisProvider() {
-        this.klaroManager.updateConsent(this.provider, true);
+        this.klaroManager.updateConsent(this.provider.name, true);
 
         this.openModalOrSaveConsents();
       },
