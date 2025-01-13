@@ -145,8 +145,7 @@
       },
 
       consentAllEmbeddedContent() {
-        const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
-        allThirdPartyContentServices.forEach(service => this.klaroManager.updateConsent(service.name, true));
+        this.klaroManager.changeAll(true);
 
         this.openModalOrSaveConsents();
       },
