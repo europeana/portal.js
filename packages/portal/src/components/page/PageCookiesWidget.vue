@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: don't display if already stored -->
   <div>
     <b-toast
       :id="toastId"
@@ -197,6 +198,7 @@
 
 <script>
   import PageCookiesCheckbox from './PageCookiesCheckbox';
+  import services from '@/utils/cookies.js';
 
   export default {
     name: 'PageCookiesWidget',
@@ -206,40 +208,25 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    // Do not use the klaro mixin in this component as it will cause side effects for the mixin is already imported in the layout
-    props: {
-      klaroManager: {
-        type: Object,
-        default: null
-      },
-      klaroConfig: {
-        type: Object,
-        default: null
-      },
-      cookieConsentRequired: {
-        type: Boolean,
-        default: true
-      }
-    },
-
     data() {
       return {
         modalId: 'cookie-modal',
         toastId: 'cookie-notice-toast',
         show: ['thirdPartyContent'],
-        checkedServices: []
+        checkedServices: [],
+        storedServices: this.$cookies.get('services')
       };
     },
 
     computed: {
       essentialServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('essential'));
+        return services.filter(s => s.purposes.includes('essential'));
       },
       usageServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('usage'));
+        return services.filter(s => s.purposes.includes('usage'));
       },
       thirdPartyContentServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
+        return services.filter(s => s.purposes.includes('thirdPartyContent'));
       },
 
       groupedPurposes() {
@@ -292,14 +279,27 @@
       }
     },
 
-    mounted() {
-      this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true);
+    created() {
+      this.checkedServices = services.filter(s => s.required === true);
+      if (this.storedServices) {
+        const enabledServiceNames = Object.keys(this.storedServices).filter((serviceName) => this.storedServices[serviceName]);
+        this.checkedServices = this.checkedServices.concat(services.filter((s) => enabledServiceNames.includes(s.name)));
+      }
     },
 
     methods: {
+      updateConsent(serviceName, value) {
+        if (!this.storedServices) {
+          this.storedServices = {};
+        }
+        this.storedServices[serviceName] = value;
+        // TODO: 15 day expiry
+        this.$cookies.set('services', this.storedServices);
+      },
+
       updateConsentPerService(service, value) {
         if (service && !service.required) {
-          this.klaroManager.updateConsent(service.name, value);
+          this.updateConsent(service.name, value);
 
           if (value) {
             !this.checkedServices.includes(service) && this.checkedServices.push(service);
@@ -324,12 +324,18 @@
         }
       },
 
-      executeButtonClicked(setChangedAll, changedAllValue, eventType) {
-        if (setChangedAll) {
-          this.klaroManager.changeAll(changedAllValue);
+      changeAll(value) {
+        for (const service of services) {
+          this.updateConsentPerService(service, value);
         }
+      },
 
-        this.klaroManager.saveAndApplyConsents(eventType);
+      executeButtonClicked(setChangedAll, changedAllValue, eventType) {
+        // TODO: replicate functionality of klaro mixin's
+        //       klaroServiceConsentCallback and trackKlaroClickEvent
+        if (setChangedAll) {
+          this.changeAll(changedAllValue);
+        }
 
         this.$bvModal.hide(this.modalId);
       },
