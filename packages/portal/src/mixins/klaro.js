@@ -4,14 +4,12 @@ import cookies from '@/utils/cookies.js';
 export default {
   data() {
     return {
-      cookieConsentRequired: false,
       klaro: null,
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
       klaroManager: null,
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null,
-      hidePurposes: []
+      klaroServices: null
     };
   },
 
@@ -31,6 +29,10 @@ export default {
   },
 
   computed: {
+    cookieConsentRequired()  {
+      return this.klaroManager && !this.klaroManager.confirmed;
+    },
+
     klaroAllServices() {
       return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
     },
@@ -68,10 +70,8 @@ export default {
       if (this.klaro) {
         this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
-        this.cookieConsentRequired = !this.klaroManager.confirmed;
-
         this.klaro.render(this.klaroConfig, true);
-        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
+        !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },
 
@@ -84,14 +84,8 @@ export default {
           decline: 'Decline',
           save: 'Accept selected'
         }[data.type];
-
-        // TODO: handle this in EmbedGateway?
-        this.checkConsentAndOpenEmbed?.();
       }
 
-      this.cookieConsentRequired = !this.klaroManager.confirmed;
-
-      // TODO: track clicks in embed cookie modal separately?
       eventName && this.trackKlaroClickEvent(eventName);
     },
 

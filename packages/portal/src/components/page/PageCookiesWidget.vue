@@ -357,6 +357,27 @@
         this.setCheckedServices();
 
         this.$bvModal.hide(this.modalId);
+        this.$emit('consentsApplied');
+
+        this.trackButtonClicked(eventType);
+      },
+
+      trackButtonClicked(eventType) {
+        let context = 'main cookie widget';
+
+        const eventName = {
+          accept: 'Okay/Accept all',
+          decline: 'Decline',
+          save: 'Accept selected'
+        }[eventType];
+
+        if (eventName && this.modalId === 'embed-cookie-modal') {
+          context = 'third party content modal';
+        }
+
+        this.$matomo?.trackEvent(context, 'Save cookie preferences', eventName);
+        // keep tracking the event like this to align with past reports
+        this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
       },
 
       saveAndHide() {

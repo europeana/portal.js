@@ -54,6 +54,7 @@
             modal-title-path="klaro.main.purposes.thirdPartyContent.title"
             :modal-description-path="null"
             :hide-purposes="hidePurposes"
+            @consentsApplied="checkConsentAndOpenEmbed"
           />
           <i18n
             path="media.embedNotification.ifNotAll"
@@ -112,6 +113,11 @@
       // klaroManager is not available in mounted so watch it to be ready instead
       klaroManager(newVal) {
         if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      },
+      cookieConsentRequired(newVal) {
+        if (!newVal) {
           this.checkConsentAndOpenEmbed();
         }
       }
