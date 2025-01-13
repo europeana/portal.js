@@ -102,7 +102,8 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
-        opened: false,
+        // TODO: set to false on feature toggle clean up
+        opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
         provider: null,
         providerName: this.$t('klaro.services.unknownProvider')
