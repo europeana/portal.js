@@ -10,7 +10,7 @@
     >
       <b-row class="h-100">
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="thumbnail-background mx-auto h-100 position-absolute"
         >
           <MediaCardImage
@@ -22,8 +22,9 @@
           />
         </b-col>
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
+          :style="iframeHeight ? { height: iframeHeight} : null"
         >
           <p class="message">
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
@@ -110,6 +111,7 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
+        iframeHeight: null,
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
@@ -142,6 +144,7 @@
         const iframeOrScript = template.getElementsByTagName('iframe')[0] || template.getElementsByTagName('script')[0];
 
         if (iframeOrScript) {
+          this.iframeHeight = iframeOrScript.height;
           this.providerUrl = iframeOrScript.src;
         } else {
           // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
