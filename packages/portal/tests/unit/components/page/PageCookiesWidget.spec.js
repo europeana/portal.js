@@ -6,11 +6,18 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = { klaroConfig, klaroManager }) => shallowMount(PageCookiesWidget, {
+const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
   localVue,
-  propsData,
+  propsData: {
+    klaroConfig,
+    klaroManager,
+    ...propsData
+  },
   mocks: {
     localePath: () => {},
+    $matomo: {
+      trackEvent: sinon.spy()
+    },
     $n: (num) => num,
     $t: (key) => key,
     $tc: (key) => key
@@ -43,6 +50,8 @@ const allTypesOfServices = [
 const klaroConfig = { services: allTypesOfServices };
 
 describe('components/page/PageCookiesWidget', () => {
+  afterEach(sinon.resetHistory);
+
   it('renders a toast as cookie notice', () => {
     const wrapper = factory();
 
@@ -75,29 +84,33 @@ describe('components/page/PageCookiesWidget', () => {
   });
 
   describe('clicking the decline button', () => {
-    it('updates and saves the values to the klaro manager', () => {
+    it('updates and saves the values to the klaro manager and tracks the event in Matomo', () => {
       const wrapper = factory();
 
       wrapper.find('[data-qa="decline button"]').trigger('click');
 
       expect(klaroManager.changeAll.calledWith(false)).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('decline')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('main cookie widget', 'Save cookie preferences', 'Decline')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', 'Decline')).toBe(true);
     });
   });
 
   describe('clicking the accept all button', () => {
-    it('updates and saves the values to the klaro manager', () => {
+    it('updates and saves the values to the klaro manager and tracks the event in Matomo', () => {
       const wrapper = factory();
 
       wrapper.find('[data-qa="accept all button"]').trigger('click');
 
       expect(klaroManager.changeAll.calledWith(true)).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('accept')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('main cookie widget', 'Save cookie preferences', 'Okay/Accept all')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', 'Okay/Accept all')).toBe(true);
     });
   });
 
   describe('clicking the accept selected button', () => {
-    it('updates and saves the values to the klaro manager and hides the modal', () => {
+    it('updates and saves the values to the klaro manager, hides the modal and tracks the event in Matomo', () => {
       const wrapper = factory();
       wrapper.vm.$bvModal.hide = sinon.spy();
 
@@ -105,6 +118,8 @@ describe('components/page/PageCookiesWidget', () => {
 
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
       expect(wrapper.vm.$bvModal.hide.calledWith(wrapper.vm.modalId)).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('main cookie widget', 'Save cookie preferences', 'Accept selected')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', 'Accept selected')).toBe(true);
     });
   });
 
@@ -131,6 +146,37 @@ describe('components/page/PageCookiesWidget', () => {
         wrapper.vm.onModalHide();
 
         expect(wrapper.vm.$bvToast.show.calledWith(wrapper.vm.toastId)).toBe(true);
+      });
+    });
+  });
+
+  describe('when rendered as the embed cookie modal', () => {
+    const embedCookieModalProps = {
+      renderToast: false,
+      modalId: 'embed-cookie-modal',
+      hidePurposes: ['essential', 'usage']
+    };
+
+    it('renders the modal and not a toast', () => {
+      const wrapper = factory(embedCookieModalProps);
+
+      const cookieNoticeToast = wrapper.find('b-toast-stub');
+      const embedCookieModal = wrapper.find('b-modal-stub');
+
+      expect(cookieNoticeToast.exists()).toBe(false);
+      expect(embedCookieModal.isVisible()).toBe(true);
+    });
+
+    describe('clicking the accept all button', () => {
+      it('updates and saves the values to the klaro manager and tracks the event in Matomo', () => {
+        const wrapper = factory(embedCookieModalProps);
+
+        wrapper.find('[data-qa="accept all button"]').trigger('click');
+
+        expect(klaroManager.changeAll.called).toBe(false);
+        expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('third party content modal', 'Save cookie preferences', 'Okay/Accept all')).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', 'Okay/Accept all')).toBe(true);
       });
     });
   });

@@ -28,6 +28,7 @@
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
           </p>
           <b-button
+            data-qa="load all button"
             variant="light"
             class="mb-2"
             @click="consentAllEmbeddedContent"
@@ -39,6 +40,7 @@
             tag="p"
           >
             <b-button
+              data-qa="view full list button"
               variant="link"
               @click="openCookieModal"
             >
@@ -61,6 +63,7 @@
             tag="p"
           >
             <b-button
+              data-qa="load only this provider button"
               variant="link"
               @click="consentThisProvider"
             >
@@ -156,7 +159,7 @@
           this.klaroManager.changeAll(true);
         } else {
           const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
-          allThirdPartyContentServices.forEach(service => this.klaroManager.updateConsent(service.name, true));
+          allThirdPartyContentServices?.forEach(service => this.klaroManager?.updateConsent(service.name, true));
         }
 
         this.openModalOrSaveConsents();
@@ -172,7 +175,7 @@
         if (this.cookieConsentRequired) {
           this.$bvModal.show('cookie-modal');
         } else {
-          this.klaroManager.saveAndApplyConsents('save');
+          this.klaroManager?.saveAndApplyConsents('save');
         }
       }
     }

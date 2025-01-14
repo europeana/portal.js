@@ -189,6 +189,7 @@
         <b-button
           class="mt-2"
           variant="success"
+          data-qa="accept all button"
           @click="acceptAndHide"
         >
           {{ $t('klaro.main.acceptAll') }}
@@ -348,7 +349,7 @@
         }
       },
 
-      executeButtonClicked(setChangedAll, changedAllValue, eventType) {
+      executeButtonClicked(setChangedAll, changedAllValue, eventType, trackAsDifferentEventType) {
         if (setChangedAll) {
           this.klaroManager.changeAll(changedAllValue);
         }
@@ -359,7 +360,7 @@
         this.$bvModal.hide(this.modalId);
         this.$emit('consentsApplied');
 
-        this.trackButtonClicked(eventType);
+        this.trackButtonClicked(trackAsDifferentEventType || eventType);
       },
 
       trackButtonClicked(eventType) {
@@ -388,7 +389,7 @@
         // Workaround to only accept the visible services (embed-cookie-modal)
         if (this.hidePurposes.length) {
           this.groupedPurposes.forEach(purpose => purpose.services.forEach(service => this.updateConsentPerService(service, true)));
-          this.executeButtonClicked(false, false, 'save');
+          this.executeButtonClicked(false, false, 'save', 'accept');
         } else {
           this.executeButtonClicked(true, true, 'accept');
         }
