@@ -14,6 +14,7 @@
           class="thumbnail-background mx-auto h-100 position-absolute"
         >
           <MediaCardImage
+            v-if="media"
             :media="media"
             :lazy="false"
             :linkable="false"
@@ -91,6 +92,10 @@
     mixins: [klaroMixin],
 
     props: {
+      embedCode: {
+        type: String,
+        default: null
+      },
       media: {
         type: Object,
         default: null
@@ -109,7 +114,8 @@
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
         provider: null,
-        providerName: this.$t('klaro.services.unknownProvider')
+        providerName: this.$t('klaro.services.unknownProvider'),
+        providerUrl: null
       };
     },
 
@@ -128,7 +134,25 @@
     },
 
     mounted() {
-      this.provider = serviceForUrl(this.url);
+      this.providerUrl = this.url;
+
+      if (this.embedCode) {
+        const template = document.createElement('div');
+        template.innerHTML = this.embedCode;
+        const iframeOrScript = template.getElementsByTagName('iframe')[0] || template.getElementsByTagName('script')[0];
+
+        if (iframeOrScript) {
+          this.providerUrl = iframeOrScript.src;
+        } else {
+          // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
+          this.opened = true;
+        }
+        template.remove();
+      }
+
+      if (this.providerUrl) {
+        this.provider = serviceForUrl(this.providerUrl);
+      }
 
       if (this.provider) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);

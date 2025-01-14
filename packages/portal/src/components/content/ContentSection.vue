@@ -14,12 +14,18 @@
     :section-type="section.genre"
     :more-button="section.moreButton"
   />
-  <EmbedHTML
+
+  <EmbedGateway
     v-else-if="contentfulEntryHasContentType(section, 'Embed')"
-    :html="section.embed"
-    :title="section.title"
-    class="mb-5"
-  />
+    class="media-viewer-content"
+    :embed-code="section.embed"
+  >
+    <EmbedHTML
+      :html="section.embed"
+      :title="section.title"
+      class="mb-5"
+    />
+  </EmbedGateway>
   <ImageComparisonSlider
     v-else-if="contentfulEntryHasContentType(section, 'ImageComparison')"
     :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
@@ -80,6 +86,7 @@
       ContentCardSection: () => import('./ContentCardSection'),
       ContentPrimaryCallToAction: () => import('./ContentPrimaryCallToAction'),
       ContentRichText: () => import('./ContentRichText'),
+      EmbedGateway: () => import('@/components/embed/EmbedGateway'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
       ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer'),
