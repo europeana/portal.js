@@ -1,4 +1,4 @@
-import { oEmbeddable } from '@europeana/oembed';
+import { oEmbeddable } from '@/utils/services/oembed.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 import Base from './Base.js';
 

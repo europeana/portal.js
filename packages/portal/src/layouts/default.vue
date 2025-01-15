@@ -54,7 +54,6 @@
       <PageCookiesWidget
         v-if="$features.embeddedMediaNotification && cookieConsentRequired"
         :klaro-manager="klaroManager"
-        :klaro-config="klaroConfig"
         :cookie-consent-required="cookieConsentRequired"
       />
       <PageCookieConsent

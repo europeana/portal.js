@@ -1088,6 +1088,10 @@ export default {
       "tibAvPortal": {
         "title": "TIB AV-Portal"
       },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "unknownProvider": "unknown provider",
       "universityOfCaliforniaSanDiego": {
         "title": "University of California, San Diego"
       },
@@ -1163,6 +1167,14 @@ export default {
       "rotateRight": "Rotate right",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
+    },
+    "embedNotification": {
+      "ifNotAll": "If you don’t want to load all embedded media, you can {0}.",
+      "loadAllEmbeddedContent": "Load all embedded content",
+      "loadOnlyThis": "load media from this provider only",
+      "message": "Please be aware that this page contains media content embedded from {provider}. Viewing this media is subject to their terms and privacy statements. Please refer to their privacy statements for more information on how your data is used.",
+      "ofThirdPartyServices": "{0} of third-party content services.",
+      "viewFullList": "View the full list"
     },
     "loadFull": "Extra large image: load full-size.",
     "pages": {
