@@ -1,5 +1,5 @@
 export const version = '0.7.18';
-import cookies from '@/utils/cookies.js';
+import services from '@/utils/services/services.js';
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
     },
 
     klaroAllServices() {
-      return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
+      return this.$features.embeddedMediaNotification ? services : services.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
     },
 
     klaroConfig() {

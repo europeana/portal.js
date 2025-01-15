@@ -1,5 +1,5 @@
 import escapeRegExp from 'lodash/escapeRegExp.js';
-import services from './cookies';
+import services from './services.js';
 
 const servicesWithSchemes = services.filter(service => service.schemes);
 

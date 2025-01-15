@@ -203,6 +203,7 @@
   import PageCookiesCheckbox from './PageCookiesCheckbox';
 
   export default {
+    // TODO: rename as this is more generally about services than solely cookies
     name: 'PageCookiesWidget',
 
     components: {
@@ -240,6 +241,7 @@
         type: Boolean,
         default: true
       },
+      // TODO: invert this to a whitelist, named `showPurposes`
       hidePurposes: {
         type: Array,
         default: () => []
