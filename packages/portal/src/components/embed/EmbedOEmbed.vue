@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import oEmbed from '@europeana/oembed';
+  import oEmbed from '@/utils/services/oembed.js';
   import AlertMessage from '../generic/AlertMessage';
   import EmbedHTML from './EmbedHTML';
 

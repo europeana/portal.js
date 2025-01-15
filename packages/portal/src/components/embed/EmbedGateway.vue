@@ -80,7 +80,7 @@
 
 <script>
   import klaroMixin from '@/mixins/klaro.js';
-  import serviceForUrl from '@/utils/getServiceForUrl';
+  import serviceForUrl from '@/utils/services/index.js';
 
   export default {
     name: 'EmbedGateway',
@@ -203,6 +203,7 @@
           this.$bvModal.show('cookie-modal');
         } else {
           this.klaroManager?.saveAndApplyConsents('save');
+          this.checkConsentAndOpenEmbed();
         }
       }
     }

@@ -1,5 +1,5 @@
 export const version = '0.7.18';
-import cookies from '@/utils/cookies.js';
+import services from '@/utils/services/services.js';
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
     },
 
     klaroAllServices() {
-      return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
+      return this.$features.embeddedMediaNotification ? services : services.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
     },
 
     klaroConfig() {
@@ -94,11 +94,22 @@ export default {
     },
 
     klaroServiceConsentCallback(consent, service) {
-      if (service.name === 'hotjar' && consent) {
-        this.initHotjar?.();
+      if (service.name === 'matomo') {
+        if (consent) {
+          this.$matomo?.rememberCookieConsentGiven();
+        } else {
+          this.$matomo?.forgetCookieConsentGiven();
+        }
       }
-      if (service.name === 'matomo' && consent) {
-        this.$matomo?.rememberCookieConsentGiven();
+
+      if (service.name === 'hotjar') {
+        if (consent) {
+          this.initHotjar?.();
+        } else if (window.hj) {
+          // hotjar tracking code offers no method to disable/unload it, so
+          // reload the page to get rid of it
+          window.location.reload();
+        }
       }
     }
   }
