@@ -93,7 +93,7 @@ const threeDServices = [
     schemes: [
       'https://weave-3dviewer.com/asset/*'
     ] }
-].map(service => ({ ...service, purposes: '3D' }));
+].map(service => ({ ...service, purposes: ['3D'] }));
 
 const audioServices = [
   { name: 'britishLibrarySounds' },
@@ -108,7 +108,7 @@ const audioServices = [
   { name: 'soundCloud',
     oembed: 'https://soundcloud.com/oembed',
     schemes: ['http://soundcloud.com/*', 'https://soundcloud.com/*'] }
-].map(service => ({ ...service, purposes: 'audio' }));
+].map(service => ({ ...service, purposes: ['audio'] }));
 
 const multimediaServices = [
   { name: 'archiveOrg' },
@@ -157,7 +157,7 @@ const videoServices = [
       'https://www.youtube.com/v/*',
       'https://youtu.be/*'
     ] }
-].map(service => ({ ...service, purposes: 'video' }));
+].map(service => ({ ...service, purposes: ['video'] }));
 
 const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)
   .map(service => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
