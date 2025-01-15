@@ -1,7 +1,7 @@
 import escapeRegExp from 'lodash/escapeRegExp.js';
 import services from './services.js';
 
-const servicesWithSchemes = services.filter(service => service.schemes);
+const servicesWithSchemes = services.filter((service) => service.schemes);
 
 for (const service of servicesWithSchemes) {
   service.schemeRegExps = service.schemes.map((scheme) => {

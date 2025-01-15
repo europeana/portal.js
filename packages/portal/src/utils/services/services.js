@@ -1,4 +1,3 @@
-// TODO: Filter and reuse list for oembed/providers.js as schemes are duplicate
 const portalServices = [
   {
     cookies: ['auth.strategy'],
@@ -60,6 +59,7 @@ const twoDServices = [
   { name: 'gallica' },
   { name: 'gettyImages' },
   { name: 'institutNationalDeLAudiovisuel',
+    oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://www.ina.fr/video/*',
       'http://www.ina.fr/*/video/*'
@@ -75,11 +75,13 @@ const twoDServices = [
 const threeDServices = [
   { name: 'arctur3DViewer' },
   { name: 'eureka3D',
+    oembed: 'https://eureka3d.vm.fedcloud.eu/oembed',
     schemes: [
       'https://eureka3d.vm.fedcloud.eu/3d/*'
     ] },
   { name: 'gotlandPictureStones' },
   { name: 'sketchfab',
+    oembed: 'https://sketchfab.com/oembed',
     schemes: [
       'https://sketchfab.com/3d-models/*',
       'https://sketchfab.com/models/*',
@@ -87,6 +89,7 @@ const threeDServices = [
     ] },
   { name: 'spatial' },
   { name: 'weave',
+    oembed: 'https://weave-3dviewer.com/api/core/v1/oembed',
     schemes: [
       'https://weave-3dviewer.com/asset/*'
     ] }
@@ -98,10 +101,12 @@ const audioServices = [
   { name: 'freesound' },
   { name: 'phonobase' },
   { name: 'soundArchivesOfTheCNRS',
+    oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://archives.crem-cnrs.fr/archives/items/*/'
     ] },
   { name: 'soundCloud',
+    oembed: 'https://soundcloud.com/oembed',
     schemes: ['http://soundcloud.com/*', 'https://soundcloud.com/*'] }
 ].map(service => ({ ...service, subGroup: 'audio' }));
 
@@ -115,6 +120,7 @@ const videoServices = [
   { name: 'eclap' },
   { name: 'europeanParliamentMultimediaService' },
   { name: 'euscreen',
+    oembed: 'https://oembed.euscreen.eu/services/oembed',
     schemes: [
       'http://www.euscreen.eu/item.html*',
       'https://www.euscreen.eu/item.html*'
@@ -122,10 +128,12 @@ const videoServices = [
   { name: 'myminifactory' },
   { name: 'tibAvPortal' },
   { name: 'tv3',
+    oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/'
     ] },
   { name: 'vimeo',
+    oembed: 'https://vimeo.com/api/oembed.json',
     schemes: [
       'https://vimeo.com/*',
       'https://vimeo.com/album/*/video/*',
@@ -141,6 +149,7 @@ const videoServices = [
       'http://player.vimeo.com/video/*'
     ] },
   { name: 'youTube',
+    oembed: 'https://www.youtube.com/oembed',
     schemes: [
       'https://youtube.com/watch*',
       'https://youtube.com/v/*',
