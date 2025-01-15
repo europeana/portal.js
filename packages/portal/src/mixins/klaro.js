@@ -95,11 +95,22 @@ export default {
     },
 
     klaroServiceConsentCallback(consent, service) {
-      if (service.name === 'hotjar' && consent) {
-        this.initHotjar?.();
+      if (service.name === 'matomo') {
+        if (consent) {
+          this.$matomo?.rememberCookieConsentGiven();
+        } else {
+          this.$matomo?.forgetCookieConsentGiven();
+        }
       }
-      if (service.name === 'matomo' && consent) {
-        this.$matomo?.rememberCookieConsentGiven();
+
+      if (service.name === 'hotjar') {
+        if (consent) {
+          this.initHotjar?.();
+        } else if (window.hj) {
+          // hotjar tracking code offers no method to disable/unload it, so
+          // reload the page to get rid of it
+          window.location.reload();
+        }
       }
     }
   }
