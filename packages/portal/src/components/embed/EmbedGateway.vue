@@ -176,6 +176,7 @@
           this.$bvModal.show('cookie-modal');
         } else {
           this.klaroManager?.saveAndApplyConsents('save');
+          this.checkConsentAndOpenEmbed();
         }
       }
     }

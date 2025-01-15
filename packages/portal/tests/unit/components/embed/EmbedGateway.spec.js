@@ -58,6 +58,8 @@ describe('components/embed/EmbedGateway', () => {
 
       expect(notification.exists()).toBe(false);
       expect(embed.isVisible()).toBe(true);
+
+      delete servicesWithConsent.youTube;
     });
   });
 
@@ -78,14 +80,17 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load all embedded content button', () => {
-    it('updates, saves and applies consents', () => {
+    it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
+      servicesWithConsent.youTube = true;
 
       wrapper.find('[data-qa="load all button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
+      expect(wrapper.vm.opened).toBe(true);
+      delete servicesWithConsent.youTube;
     });
   });
 
@@ -102,14 +107,17 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load only this provider button', () => {
-    it('updates, saves and applies consents', () => {
+    it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
+      servicesWithConsent.youTube = true;
 
       wrapper.find('[data-qa="load only this provider button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
+      expect(wrapper.vm.opened).toBe(true);
+      delete servicesWithConsent.youTube;
     });
   });
 });
