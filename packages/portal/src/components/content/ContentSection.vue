@@ -17,7 +17,7 @@
 
   <EmbedGateway
     v-else-if="contentfulEntryHasContentType(section, 'Embed')"
-    class="media-viewer-content"
+    class="media-viewer-content mb-5"
     :embed-code="section.embed"
   >
     <EmbedHTML

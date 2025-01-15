@@ -24,7 +24,7 @@
         <b-col
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
-          :style="iframeHeight ? { height: iframeHeight} : null"
+          :style="iframeHeight ? { height: `${iframeHeight}px`, overflow: 'auto' } : null"
         >
           <p class="message">
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
