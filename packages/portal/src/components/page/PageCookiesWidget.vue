@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-toast
+      v-if="renderToast"
       :id="toastId"
       is-status
       no-auto-hide
@@ -44,11 +45,13 @@
       size="xl"
       hide-footer
       hide-header-close
-      :title="$t('klaro.main.consentModal.title')"
+      :title="$t(modalTitlePath)"
       @hide="onModalHide"
+      @show="setCheckedServices"
     >
       <i18n
-        path="klaro.main.consentModal.text"
+        v-if="modalDescriptionPath"
+        :path="modalDescriptionPath"
         tag="p"
       >
         <template #privacyPolicy>
@@ -186,6 +189,7 @@
         <b-button
           class="mt-2"
           variant="success"
+          data-qa="accept all button"
           @click="acceptAndHide"
         >
           {{ $t('klaro.main.acceptAll') }}
@@ -199,6 +203,7 @@
   import PageCookiesCheckbox from './PageCookiesCheckbox';
 
   export default {
+    // TODO: rename as this is more generally about services than solely cookies
     name: 'PageCookiesWidget',
 
     components: {
@@ -210,21 +215,41 @@
     props: {
       klaroManager: {
         type: Object,
-        default: null
+        required: true
       },
       klaroConfig: {
         type: Object,
-        default: null
+        required: true
       },
       cookieConsentRequired: {
         type: Boolean,
         default: true
+      },
+      modalId: {
+        type: String,
+        default: 'cookie-modal'
+      },
+      modalTitlePath: {
+        type: String,
+        default: 'klaro.main.consentModal.title'
+      },
+      modalDescriptionPath: {
+        type: String,
+        default: 'klaro.main.consentModal.text'
+      },
+      renderToast: {
+        type: Boolean,
+        default: true
+      },
+      // TODO: invert this to a whitelist, named `showPurposes`
+      hidePurposes: {
+        type: Array,
+        default: () => []
       }
     },
 
     data() {
       return {
-        modalId: 'cookie-modal',
         toastId: 'cookie-notice-toast',
         show: ['thirdPartyContent'],
         checkedServices: []
@@ -288,12 +313,13 @@
                 }
               ]
             }
-        ].filter(Boolean);
+        ].filter(Boolean)
+          .filter(purpose => !this.hidePurposes.includes(purpose.name));
       }
     },
 
     mounted() {
-      this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true);
+      this.setCheckedServices();
     },
 
     methods: {
@@ -321,17 +347,40 @@
       onModalHide() {
         if (this.cookieConsentRequired) {
           this.$bvToast.show(this.toastId);
+          this.klaroManager.changeAll(false);
         }
       },
 
-      executeButtonClicked(setChangedAll, changedAllValue, eventType) {
+      executeButtonClicked(setChangedAll, changedAllValue, eventType, trackAsDifferentEventType) {
         if (setChangedAll) {
           this.klaroManager.changeAll(changedAllValue);
         }
 
         this.klaroManager.saveAndApplyConsents(eventType);
+        this.setCheckedServices();
 
         this.$bvModal.hide(this.modalId);
+        this.$emit('consentsApplied');
+
+        this.trackButtonClicked(trackAsDifferentEventType || eventType);
+      },
+
+      trackButtonClicked(eventType) {
+        let context = 'main cookie widget';
+
+        const eventName = {
+          accept: 'Okay/Accept all',
+          decline: 'Decline',
+          save: 'Accept selected'
+        }[eventType];
+
+        if (eventName && this.modalId === 'embed-cookie-modal') {
+          context = 'third party content modal';
+        }
+
+        this.$matomo?.trackEvent(context, 'Save cookie preferences', eventName);
+        // keep tracking the event like this to align with past reports
+        this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
       },
 
       saveAndHide() {
@@ -339,7 +388,13 @@
       },
 
       acceptAndHide() {
-        this.executeButtonClicked(true, true, 'accept');
+        // Workaround to only accept the visible services (embed-cookie-modal)
+        if (this.hidePurposes.length) {
+          this.groupedPurposes.forEach(purpose => purpose.services.forEach(service => this.updateConsentPerService(service, true)));
+          this.executeButtonClicked(false, false, 'save', 'accept');
+        } else {
+          this.executeButtonClicked(true, true, 'accept');
+        }
       },
 
       declineAndHide() {
@@ -352,6 +407,11 @@
         } else {
           this.show.push(name);
         }
+      },
+
+      setCheckedServices() {
+        const consents = this.klaroManager.loadConsents();
+        this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true || consents[s.name] === true);
       }
     }
   };

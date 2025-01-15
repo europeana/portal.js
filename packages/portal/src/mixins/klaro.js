@@ -1,10 +1,9 @@
 export const version = '0.7.18';
-import cookies from '@/utils/cookies.js';
+import services from '@/utils/services/services.js';
 
 export default {
   data() {
     return {
-      cookieConsentRequired: false,
       klaro: null,
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
       klaroManager: null,
@@ -30,8 +29,12 @@ export default {
   },
 
   computed: {
+    cookieConsentRequired()  {
+      return this.klaroManager && !this.klaroManager.confirmed;
+    },
+
     klaroAllServices() {
-      return this.$features.embeddedMediaNotification ? cookies : cookies.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
+      return this.$features.embeddedMediaNotification ? services : services.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
     },
 
     klaroConfig() {
@@ -67,10 +70,8 @@ export default {
       if (this.klaro) {
         this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
-        this.cookieConsentRequired = !this.klaroManager.confirmed;
-
         this.klaro.render(this.klaroConfig, true);
-        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
+        !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },
 
@@ -84,8 +85,6 @@ export default {
           save: 'Accept selected'
         }[data.type];
       }
-
-      this.cookieConsentRequired = !this.klaroManager.confirmed;
 
       eventName && this.trackKlaroClickEvent(eventName);
     },

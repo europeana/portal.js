@@ -1,12 +1,9 @@
-// Always use HTTP adapter to prevent XHR weirdness during testing
-import axios from 'axios';
-import httpAdapter from 'axios/lib/adapters/http';
-axios.defaults.adapter = httpAdapter;
-
 import nock from 'nock';
 
-import oEmbed, { oEmbeddable } from '@/index.js';
-import registeredProviders from '@/providers.js';
+import oEmbed, { oEmbeddable } from '@/utils/services/oembed.js';
+import services from '@/utils/services/services.js';
+
+const oembedServices = services.filter((s) => s.oembed);
 
 describe('oEmbed()', () => {
   beforeAll(() => {
@@ -16,9 +13,9 @@ describe('oEmbed()', () => {
     nock.cleanAll();
   });
 
-  for (const provider of registeredProviders) {
+  for (const provider of oembedServices) {
     describe(`when provider is "${provider.name}"`, () => {
-      const endpointUrl = new URL(provider.endpoint);
+      const endpointUrl = new URL(provider.oembed);
 
       for (const scheme of provider.schemes) {
         describe(`when scheme is ${scheme}`, () => {
@@ -54,7 +51,7 @@ describe('oEmbed()', () => {
 });
 
 describe('oEmbeddable()', () => {
-  for (const provider of registeredProviders) {
+  for (const provider of oembedServices) {
     describe(`when provider is "${provider.name}"`, () => {
       for (const scheme of provider.schemes) {
         it(`is \`true\` for scheme "${scheme}"`, () => {

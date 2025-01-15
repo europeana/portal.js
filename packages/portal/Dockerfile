@@ -13,7 +13,6 @@ RUN mkdir -p packages/portal
 COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/i18n ./packages/i18n
-COPY packages/oembed ./packages/oembed
 COPY packages/style ./packages/style
 COPY packages/vue-router-query ./packages/vue-router-query
 COPY packages/vue-session ./packages/vue-session
