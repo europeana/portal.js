@@ -3,12 +3,7 @@
   needed.
 -->
 <template>
-  <div>
-    <script
-      :src="klaroHeadScript.src"
-      :defer="klaroHeadScript.defer"
-    /></script>
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -19,7 +14,14 @@
 
     mixins: [
       klaroMixin
-    ]
+    ],
+
+    props: {
+      klaroServices: {
+        type: Array,
+        default: null
+      }
+    }
   };
 </script>
 

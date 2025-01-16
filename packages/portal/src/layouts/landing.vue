@@ -21,9 +21,11 @@
     <client-only>
       <PageCookiesWidget
         v-if="$features.embeddedMediaNotification"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
       <PageCookieConsent
         v-else
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -48,13 +50,6 @@
     mixins: [
       canonicalUrlMixin
     ],
-
-    data() {
-      return {
-        // FIXME: restore service override for this layout
-        // klaroServices: ['auth-strategy', 'i18n', 'matomo']
-      };
-    },
 
     head() {
       return {

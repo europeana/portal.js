@@ -2,14 +2,19 @@ export const version = '0.7.18';
 import services from '@/utils/services/services.js';
 
 export default {
+  props: {
+    // context-specific whitelist of services to declare in klaro, e.g.
+    // `:klaro-services="['auth-strategy', 'i18n']"`
+    klaroServices: {
+      type: Array,
+      default: null
+    }
+  },
+
   data() {
     return {
       klaro: null,
-      klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
-      klaroManager: null,
-      // context-specific whitelist of services to declare in klaro, e.g.
-      // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null
+      klaroManager: null
     };
   },
 
@@ -18,14 +23,23 @@ export default {
   },
 
   mounted() {
-    if (!this.klaro) {
-      this.klaro = window.klaro;
-    }
+    const script = document.createElement('script');
+    script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
+    script.setAttribute('defer', true);
 
-    // If Matomo plugin is installed, wait for Matomo to load, but still render
-    // Klaro if it fails to.
-    const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-    renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+    script.addEventListener('load', function() {
+      if (!this.klaro) {
+        this.klaro = window.klaro;
+      }
+
+      // If Matomo plugin is installed, wait for Matomo to load, but still render
+      // Klaro if it fails to.
+      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
+
+      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+    }.bind(this));
+
+    document.head.appendChild(script);
   },
 
   computed: {
@@ -66,12 +80,18 @@ export default {
   },
 
   methods: {
+    onKlaroScriptLoad() {
+      // may be overriden by components including the mixin
+    },
+
     renderKlaro() {
       if (this.klaro) {
         this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
         this.klaro.render(this.klaroConfig, true);
         !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
+
+        this.onKlaroScriptLoad();
       }
     },
 
