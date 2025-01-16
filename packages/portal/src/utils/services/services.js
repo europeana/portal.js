@@ -1,5 +1,21 @@
 const portalServices = [
   {
+    name: 'europeanaEmbed',
+    schemes: [
+      'https://embed.europeana.eu/*'
+    ],
+    purposes: [],
+    required: true
+  },
+  {
+    name: 'zohoForms',
+    schemes: [
+      'https://forms.zohopublic.eu/*'
+    ],
+    purposes: [],
+    required: true
+  },
+  {
     cookies: ['auth.strategy'],
     name: 'auth-strategy',
     purposes: ['essential'],
