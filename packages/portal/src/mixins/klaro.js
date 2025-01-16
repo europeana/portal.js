@@ -27,17 +27,7 @@ export default {
     script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
     script.setAttribute('defer', true);
 
-    script.addEventListener('load', () => {
-      if (!this.klaro) {
-        this.klaro = window.klaro;
-      }
-
-      // If Matomo plugin is installed, wait for Matomo to load, but still render
-      // Klaro if it fails to.
-      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-
-      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
-    });
+    script.addEventListener('load', this.onKlaroScriptLoad);
 
     document.head.appendChild(script);
   },
@@ -81,6 +71,18 @@ export default {
 
   methods: {
     onKlaroScriptLoad() {
+      if (!this.klaro) {
+        this.klaro = window.klaro;
+      }
+
+      // If Matomo plugin is installed, wait for Matomo to load, but still render
+      // Klaro if it fails to.
+      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
+
+      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+    },
+
+    onKlaroRendered() {
       // may be overriden by components including the mixin
     },
 
@@ -91,7 +93,7 @@ export default {
         this.klaro.render(this.klaroConfig, true);
         !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
 
-        this.onKlaroScriptLoad();
+        this.onKlaroRendered();
       }
     },
 

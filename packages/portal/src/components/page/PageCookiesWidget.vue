@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    v-if="cookieConsentRequired"
+  >
     <b-toast
       v-if="renderToast"
       :id="toastId"
@@ -315,7 +317,7 @@
     },
 
     methods: {
-      onKlaroScriptLoad() {
+      onKlaroRendered() {
         this.setCheckedServices();
       },
 

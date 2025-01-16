@@ -6,24 +6,35 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
-  localVue,
-  propsData: {
-    klaroConfig,
-    klaroManager,
-    ...propsData
-  },
-  mocks: {
-    localePath: () => {},
-    $matomo: {
-      trackEvent: sinon.spy()
+const factory = (propsData = {}) => {
+  const wrapper = shallowMount(PageCookiesWidget, {
+    localVue,
+    propsData: {
+      ...propsData
     },
-    $n: (num) => num,
-    $t: (key) => key,
-    $tc: (key) => key
-  },
-  stubs: ['i18n']
-});
+    data: () => {
+      return {
+        klaroManager
+      };
+    },
+    mocks: {
+      localePath: () => {},
+      $features: { embeddedMediaNotification: true },
+      $i18n: { locale: 'en ' },
+      $matomo: {
+        trackEvent: sinon.spy()
+      },
+      $n: (num) => num,
+      $t: (key) => key,
+      $tc: (key) => key
+    },
+    stubs: ['i18n']
+  });
+
+  wrapper.vm.onKlaroRendered();
+
+  return wrapper;
+};
 
 const klaroManager = {
   changeAll: sinon.spy(),
@@ -31,23 +42,6 @@ const klaroManager = {
   saveAndApplyConsents: sinon.spy(),
   updateConsent: sinon.spy()
 };
-
-const allTypesOfServices = [
-  { name: 'auth-strategy',
-    purposes: ['essential'],
-    required: true },
-  { name: 'matomo',
-    purposes: ['usage'] },
-  { name: 'facebook',
-    purposes: ['thirdPartyContent'],
-    subPurpose: 'socialMedia' },
-  { name: 'bookWidgets',
-    purposes: ['thirdPartyContent'],
-    subPurpose: 'mediaViewing',
-    subGroup: '2D' }
-];
-
-const klaroConfig = { services: allTypesOfServices };
 
 describe('components/page/PageCookiesWidget', () => {
   afterEach(sinon.resetHistory);
@@ -139,7 +133,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('when the modal is hidden', () => {
     describe('and cookie consent is still required', () => {
-      it('opens the cookie notie toast', () => {
+      it('opens the cookie notice toast', () => {
         const wrapper = factory();
         wrapper.vm.$bvToast.show = sinon.spy();
 
@@ -185,7 +179,9 @@ describe('components/page/PageCookiesWidget', () => {
     it('adds the required services to checked services', () => {
       const wrapper = factory();
 
-      expect(wrapper.vm.checkedServices).toEqual([allTypesOfServices[0]]);
+      const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
+
+      expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
     });
   });
 
@@ -195,7 +191,8 @@ describe('components/page/PageCookiesWidget', () => {
         it('does not updates the consent in the Klaro manager and in local state in checkedServices', () => {
           const wrapper = factory();
 
-          const requiredService = allTypesOfServices[0];
+          const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
+
           wrapper.vm.updateConsentPerService(requiredService, true);
 
           expect(klaroManager.updateConsent.called).toBe(false);
@@ -210,7 +207,7 @@ describe('components/page/PageCookiesWidget', () => {
         it('updates the consent in the Klaro manager and in local state in checkedServices', () => {
           const wrapper = factory();
 
-          const service = allTypesOfServices[1];
+          const service = wrapper.vm.klaroConfig.services.find((s) => !s.required);
           wrapper.vm.updateConsentPerService(service, true);
 
           expect(klaroManager.updateConsent.calledWith(service.name, true)).toBe(true);

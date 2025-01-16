@@ -8,29 +8,35 @@ const component = {
   mixins: [mixin]
 };
 
-const factory = ({ data = {}, mocks = {} } = {}) => shallowMount(component, {
-  localVue: createLocalVue(),
-  data() {
-    return {
-      ...data
-    };
-  },
-  mocks: {
-    $i18n: {
-      locale: 'en'
+const factory = ({ data = {}, mocks = {} } = {}) => {
+  const wrapper = shallowMount(component, {
+    localVue: createLocalVue(),
+    data() {
+      return {
+        ...data
+      };
     },
-    initHotjar: sinon.spy(),
-    $matomo: {
-      forgetCookieConsentGiven: sinon.spy(),
-      rememberCookieConsentGiven: sinon.spy(),
-      trackEvent: () => {}
-    },
-    $route: { params: {} },
-    $t: (key) => key,
-    $features: {},
-    ...mocks
-  }
-});
+    mocks: {
+      $i18n: {
+        locale: 'en'
+      },
+      initHotjar: sinon.spy(),
+      $matomo: {
+        forgetCookieConsentGiven: sinon.spy(),
+        rememberCookieConsentGiven: sinon.spy(),
+        trackEvent: () => {}
+      },
+      $route: { params: {} },
+      $t: (key) => key,
+      $features: {},
+      ...mocks
+    }
+  });
+
+  wrapper.vm.onKlaroScriptLoad();
+
+  return wrapper;
+};
 
 const klaroManagerStub = {
   watch: sinon.spy()
