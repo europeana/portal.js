@@ -57,7 +57,10 @@ const socialMediaServices = [
       '//www.instagram.com/embed.js'
     ] },
   { name: 'mailchimp' },
-  { name: 'pinterest' },
+  { name: 'pinterest',
+    schemes: [
+      '//assets.pinterest.com/js/pinit.js'
+    ] },
   { name: 'wheeldecide',
     schemes: [
       'https://wheeldecide.com/*'
@@ -99,8 +102,7 @@ const twoDServices = [
     schemes: [
       'https://sgdap.girona.cat/*'
     ] },
-  { name: 'sokINettbiblioteket' },
-  { name: 'theCyprusInstitute' }
+  { name: 'sokINettbiblioteket' }
 ].map(service => ({ ...service, subGroup: '2D' }));
 
 const threeDServices = [
@@ -108,12 +110,23 @@ const threeDServices = [
     schemes: [
       'https://3dviewer.arctur.si/*'
     ] },
+  { name: 'theCyprusInstitute',
+    schemes: [
+      'https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*'
+    ] },
   { name: 'eureka3D',
     oembed: 'https://eureka3d.vm.fedcloud.eu/oembed',
     schemes: [
       'https://eureka3d.vm.fedcloud.eu/3d/*'
     ] },
-  { name: 'gotlandPictureStones' },
+  { name: 'gotlandPictureStones',
+    schemes: [
+      'https://gotlandicpicturestones.se/*'
+    ] },
+  { name: 'kompakkt',
+    schemes: [
+      'https://kompakkt.de/viewer/*'
+    ] },
   { name: 'myminifactory',
     schemes: [
       'https://www.myminifactory.com/object/*'
@@ -125,7 +138,10 @@ const threeDServices = [
       'https://sketchfab.com/models/*',
       'https://sketchfab.com/show/*'
     ] },
-  { name: 'spatial' },
+  { name: 'spatial',
+    schemes: [
+      'https://www.spatial.io/embed/*'
+    ] },
   { name: 'weave',
     oembed: 'https://weave-3dviewer.com/api/core/v1/oembed',
     schemes: [
@@ -239,7 +255,10 @@ const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, 
 const otherEmbeddingServices = [
   { name: 'albinLarsson',
     schemes: ['https://byabbe.se/*'] },
-  { name: 'behance' },
+  { name: 'behance',
+    schemes: [
+      'https://www.behance.net/embed/*'
+    ] },
   { name: 'carto' },
   { name: 'codepen',
     schemes: [
@@ -283,7 +302,10 @@ const otherEmbeddingServices = [
     schemes: [
       'http://slidebean.com/embed/*'
     ] },
-  { name: 'universityOfCaliforniaSanDiego' },
+  { name: 'universityOfCaliforniaSanDiego',
+    schemes: [
+      'https://pointcloud.ucsd.edu/*'
+    ] },
   { name: 'wikidata',
     schemes: [
       'https://query.wikidata.org/*'
