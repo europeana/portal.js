@@ -20,6 +20,10 @@
             :linkable="false"
             thumbnail-size="large"
           />
+          <div
+            v-else
+            class="icon-multimedia h-100 d-flex align-items-center justify-content-center"
+          />
         </b-col>
         <b-col
           :lg="url ? '10' : null"
@@ -288,8 +292,25 @@
 
         &:before {
           content: '\e96b';
-          font-size: 15rem;
+          font-size: 8rem;
           color: $middlegrey;
+
+          @media (min-width: $bp-medium) {
+          font-size: 15rem;
+        }
+        }
+      }
+    }
+
+    .icon-multimedia {
+      background-color: $white;
+
+      &:before {
+        font-size: 8rem;
+        color: $middlegrey;
+
+        @media (min-width: $bp-medium) {
+          font-size: 15rem;
         }
       }
     }
