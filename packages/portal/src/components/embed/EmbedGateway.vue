@@ -49,13 +49,12 @@
           </i18n>
           <PageCookiesWidget
             v-if="renderCookieModal"
-            :klaro-manager="klaroManager"
-            :klaro-config="klaroConfig"
             :render-toast="false"
             :modal-id="cookieModalId"
             modal-title-path="klaro.main.purposes.thirdPartyContent.title"
             :modal-description-path="null"
             :hide-purposes="hidePurposes"
+            :only-show-if-consent-required="false"
             @consentsApplied="checkConsentAndOpenEmbed"
           />
           <i18n
@@ -114,12 +113,6 @@
     },
 
     watch: {
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
       cookieConsentRequired(newVal) {
         if (!newVal) {
           this.checkConsentAndOpenEmbed();
@@ -136,6 +129,10 @@
     },
 
     methods: {
+      onKlaroRendered() {
+        this.checkConsentAndOpenEmbed();
+      },
+
       openCookieModal() {
         if (this.cookieConsentRequired) {
           this.$bvModal.show('cookie-modal');

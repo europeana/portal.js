@@ -23,13 +23,17 @@ export default {
   },
 
   mounted() {
-    const script = document.createElement('script');
-    script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
-    script.setAttribute('defer', true);
+    if (window.klaro) {
+      this.onKlaroScriptLoad();
+    } else {
+      const script = document.createElement('script');
+      script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
+      script.setAttribute('defer', true);
 
-    script.addEventListener('load', this.onKlaroScriptLoad);
+      script.addEventListener('load', this.onKlaroScriptLoad);
 
-    document.head.appendChild(script);
+      document.head.appendChild(script);
+    }
   },
 
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="cookieConsentRequired"
+    v-if="!onlyShowIfConsentRequired || cookieConsentRequired"
   >
     <b-toast
       v-if="renderToast"
@@ -243,6 +243,10 @@
       klaroServices: {
         type: Array,
         default: null
+      },
+      onlyShowIfConsentRequired: {
+        type: Boolean,
+        default: true
       }
     },
 
