@@ -1,0 +1,14 @@
+{
+  "name": "@europeana/vue-service-manager",
+  "version": "2.0.0",
+  "description": "Vue Service Manager",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "vue": "^2.7.10"
+  }
+}

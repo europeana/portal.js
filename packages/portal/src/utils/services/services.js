@@ -1,3 +1,5 @@
+// TODO: rm when klaro has gone
+
 const portalServices = [
   {
     cookies: ['auth.strategy'],
