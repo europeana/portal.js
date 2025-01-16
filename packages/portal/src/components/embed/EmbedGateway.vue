@@ -117,6 +117,12 @@
         if (!newVal) {
           this.checkConsentAndOpenEmbed();
         }
+      },
+      // klaroManager is not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
       }
     },
 
@@ -129,10 +135,6 @@
     },
 
     methods: {
-      onKlaroRendered() {
-        this.checkConsentAndOpenEmbed();
-      },
-
       openCookieModal() {
         if (this.cookieConsentRequired) {
           this.$bvModal.show('cookie-modal');

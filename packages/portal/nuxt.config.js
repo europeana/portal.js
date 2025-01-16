@@ -141,6 +141,7 @@ export default {
       siteId: process.env.MATOMO_SITE_ID,
       loadWait: {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+        name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
     },

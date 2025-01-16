@@ -320,11 +320,20 @@
       }
     },
 
-    methods: {
-      onKlaroRendered() {
-        this.setCheckedServices();
-      },
+    watch: {
+      // klaroManager is likely not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.setCheckedServices();
+        }
+      }
+    },
 
+    mounted() {
+      this.klaroManager && this.setCheckedServices();
+    },
+
+    methods: {
       updateConsentPerService(service, value) {
         if (service && !service.required) {
           this.klaroManager.updateConsent(service.name, value);

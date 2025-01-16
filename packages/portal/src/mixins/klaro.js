@@ -1,5 +1,6 @@
 export const version = '0.7.18';
 import services from '@/utils/services/services.js';
+import waitFor from '@/utils/waitFor.js';
 
 export default {
   props: {
@@ -23,17 +24,28 @@ export default {
   },
 
   mounted() {
-    if (window.klaro) {
-      this.onKlaroScriptLoad();
-    } else {
-      const script = document.createElement('script');
-      script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
-      script.setAttribute('defer', true);
+    waitFor(() => window.klaro, { name: 'Klaro' })
+      .then(() => {
+        if (!this.klaro) {
+          this.klaro = window.klaro;
+        }
 
-      script.addEventListener('load', this.onKlaroScriptLoad);
+        // If Matomo plugin is installed, wait for Matomo to load, but still render
+        // Klaro if it fails to.
+        waitFor(() => this.$matomo, this.$config.matomo.loadWait)
+          .catch(() => {})
+          .finally(this.renderKlaro);
+      });
+  },
 
-      document.head.appendChild(script);
-    }
+  head() {
+    return {
+      script: [
+        {
+          src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`
+        }
+      ]
+    };
   },
 
   computed: {
@@ -74,30 +86,12 @@ export default {
   },
 
   methods: {
-    onKlaroScriptLoad() {
-      if (!this.klaro) {
-        this.klaro = window.klaro;
-      }
-
-      // If Matomo plugin is installed, wait for Matomo to load, but still render
-      // Klaro if it fails to.
-      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-
-      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
-    },
-
-    onKlaroRendered() {
-      // may be overriden by components including the mixin
-    },
-
     renderKlaro() {
       if (this.klaro) {
         this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
         this.klaro.render(this.klaroConfig, true);
         !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
-
-        this.onKlaroRendered();
       }
     },
 

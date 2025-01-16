@@ -6,35 +6,29 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = {}) => {
-  const wrapper = shallowMount(PageCookiesWidget, {
-    localVue,
-    propsData: {
-      ...propsData
+const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
+  localVue,
+  propsData: {
+    ...propsData
+  },
+  data: () => {
+    return {
+      klaroManager
+    };
+  },
+  mocks: {
+    localePath: () => {},
+    $features: { embeddedMediaNotification: true },
+    $i18n: { locale: 'en ' },
+    $matomo: {
+      trackEvent: sinon.spy()
     },
-    data: () => {
-      return {
-        klaroManager
-      };
-    },
-    mocks: {
-      localePath: () => {},
-      $features: { embeddedMediaNotification: true },
-      $i18n: { locale: 'en ' },
-      $matomo: {
-        trackEvent: sinon.spy()
-      },
-      $n: (num) => num,
-      $t: (key) => key,
-      $tc: (key) => key
-    },
-    stubs: ['i18n']
-  });
-
-  wrapper.vm.onKlaroRendered();
-
-  return wrapper;
-};
+    $n: (num) => num,
+    $t: (key) => key,
+    $tc: (key) => key
+  },
+  stubs: ['i18n']
+});
 
 const klaroManager = {
   changeAll: sinon.spy(),
