@@ -318,7 +318,7 @@
       onKlaroScriptLoad() {
         this.setCheckedServices();
       },
-      
+
       updateConsentPerService(service, value) {
         if (service && !service.required) {
           this.klaroManager.updateConsent(service.name, value);

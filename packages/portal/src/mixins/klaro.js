@@ -27,7 +27,7 @@ export default {
     script.setAttribute('src', `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`);
     script.setAttribute('defer', true);
 
-    script.addEventListener('load', function() {
+    script.addEventListener('load', () => {
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
@@ -37,7 +37,7 @@ export default {
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
 
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
-    }.bind(this));
+    });
 
     document.head.appendChild(script);
   },
