@@ -56,7 +56,7 @@
 
     data() {
       return {
-        klaroServices: ['auth-strategy', 'i18n', 'matomo']
+        klaroServices: ['auth-strategy', 'i18n', 'matomo', 'codepen']
       };
     },
 

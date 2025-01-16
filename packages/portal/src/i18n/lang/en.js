@@ -992,6 +992,9 @@ export default {
       "knightLabCdn": {
         "title": "Knight Lab CDN"
       },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
       "kystreise": {
         "title": "Kystreise"
       },

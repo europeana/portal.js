@@ -283,11 +283,11 @@
               name: 'thirdPartyContent',
               services: this.thirdPartyContentServices,
               subPurposes: [
-                {
+                this.thirdPartyContentServices.filter(service => service.subPurpose === 'socialMedia')?.length && {
                   name: 'socialMedia',
                   services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'socialMedia')
                 },
-                {
+                this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing')?.length && {
                   name: 'mediaViewing',
                   services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing'),
                   subGroups: [{
@@ -307,11 +307,11 @@
                     services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'video')
                   }]
                 },
-                {
+                this.thirdPartyContentServices.filter(service => service.subPurpose === 'other')?.length && {
                   name: 'other',
                   services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'other')
                 }
-              ]
+              ].filter(Boolean)
             }
         ].filter(Boolean)
           .filter(purpose => !this.hidePurposes.includes(purpose.name));
