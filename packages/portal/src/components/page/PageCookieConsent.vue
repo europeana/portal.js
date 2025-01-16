@@ -1,14 +1,25 @@
 <!--
-  This is a dummy component for Klaro which serves only to load the CSS when
+  This is a dummy component for Klaro which serves only to load the JS & CSS when
   needed.
 -->
 <template>
-  <div />
+  <div>
+    <script
+      :src="klaroHeadScript.src"
+      :defer="klaroHeadScript.defer"
+    /></script>
+  </div>
 </template>
 
 <script>
+  import klaroMixin from '@/mixins/klaro.js';
+
   export default {
-    name: 'PageCookieConsent'
+    name: 'PageCookieConsent',
+
+    mixins: [
+      klaroMixin
+    ]
   };
 </script>
 
