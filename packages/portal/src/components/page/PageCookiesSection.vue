@@ -224,13 +224,10 @@
       }
     }
 
-    &.secondary .custom-control-label {
-      color: $mediumgrey !important;
-      font-weight: 400;
-
-      &:before,
-      &:after {
-        border-color: $mediumgrey;
+    &.secondary {
+      .custom-control-label {
+        color: $mediumgrey !important;
+        font-weight: 400;
       }
     }
 
@@ -239,6 +236,13 @@
         & ~ .custom-control-label {
           color: $black;
         }
+      }
+    }
+
+    &.secondary .custom-control-input:not(:checked) ~ .custom-control-label {
+      &:before,
+      &:after {
+        border-color: $mediumgrey;
       }
     }
 
