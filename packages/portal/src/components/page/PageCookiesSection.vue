@@ -1,6 +1,15 @@
 <template>
   <div>
+    <label
+      v-if="serviceData.services && depth > COLLAPSIBLE_DEPTH_LIMIT"
+      :for="`consentcheckbox-${serviceData.name}`"
+      class="label"
+    >
+      {{ label }}
+      <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
+    </label>
     <b-form-checkbox
+      v-else
       :id="`consentcheckbox-${serviceData.name}`"
       :name="serviceData.name"
       switch
@@ -26,32 +35,36 @@
         {{ description }}
       </div>
     </b-form-checkbox>
-    <b-button
+    <template
       v-if="serviceData.services"
-      :class="{ 'show': show.includes(serviceData.name) }"
-      variant="link"
-      @click="toggleDisplay(serviceData.name)"
     >
-      {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
-      <span class="icon-chevron ml-1" />
-    </b-button>
-    <ul
-      v-if="serviceData.services"
-      v-show="show.includes(serviceData.name)"
-    >
-      <li
-        v-for="(subService, subServiceIndex) in serviceData.services"
-        :key="subServiceIndex"
+      <b-button
+        v-if="depth <= COLLAPSIBLE_DEPTH_LIMIT"
+        :class="{ 'show': show.includes(serviceData.name) }"
+        variant="link"
+        @click="toggleDisplay(serviceData.name)"
       >
-        <PageCookiesSection
-          :checked-services="checkedServices"
-          :service-data="subService"
-          :show="show"
-          @toggle="toggleDisplay"
-          @update="updateServiceConsent"
-        />
-      </li>
-    </ul>
+        {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
+        <span class="icon-chevron ml-1" />
+      </b-button>
+      <ul
+        v-show="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
+      >
+        <li
+          v-for="(subService, subServiceIndex) in serviceData.services"
+          :key="subServiceIndex"
+        >
+          <PageCookiesSection
+            :checked-services="checkedServices"
+            :depth="depth + 1"
+            :service-data="subService"
+            :show="show"
+            @toggle="toggleDisplay"
+            @update="updateServiceConsent"
+          />
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -64,6 +77,10 @@
         type: Array,
         default: () => []
       },
+      depth: {
+        type: Number,
+        default: 1
+      },
       serviceData: {
         type: Object,
         default: () => {}
@@ -72,6 +89,12 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        COLLAPSIBLE_DEPTH_LIMIT: 2
+      };
     },
 
     computed: {
