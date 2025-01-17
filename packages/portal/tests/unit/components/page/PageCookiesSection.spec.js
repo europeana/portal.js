@@ -50,9 +50,10 @@ describe('components/page/PageCookiesSection', () => {
     it('renders a checkbox with corresponding label and description', () => {
       const wrapper = factory({ serviceData: structuredServiceData });
       const checkbox = wrapper.find('b-form-checkbox-stub');
+      const description = wrapper.find(`#${checkbox.attributes('aria-describedby')}`);
 
       expect(checkbox.text()).toContain('klaro.main.purposes.thirdPartyContent.title');
-      expect(checkbox.text()).toContain('klaro.main.purposes.thirdPartyContent.description');
+      expect(description.isVisible()).toBe(true);
     });
   });
 
@@ -60,9 +61,10 @@ describe('components/page/PageCookiesSection', () => {
     it('renders a checkbox with corresponding label', () => {
       const wrapper = factory({ serviceData: bookWidgetServiceData });
       const checkbox = wrapper.find('b-form-checkbox-stub');
+      const description = wrapper.find(`#${checkbox.attributes('aria-describedby')}`);
 
       expect(checkbox.text()).toContain('klaro.services.bookWidgets.title');
-      expect(checkbox.text()).toContain('klaro.services.bookWidgets.description');
+      expect(description.isVisible()).toBe(true);
     });
   });
 

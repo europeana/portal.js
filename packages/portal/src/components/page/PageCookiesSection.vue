@@ -19,7 +19,7 @@
       :checked="checked"
       :indeterminate="indeterminate"
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
-      :aria-describedby="`consentcheckbox-description-${serviceData.name}`"
+      :aria-describedby="description && `consentcheckbox-description-${serviceData.name}`"
       @change="(value) => updateConsent(serviceData, value)"
     >
       {{ label }}
