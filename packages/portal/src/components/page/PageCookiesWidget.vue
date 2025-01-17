@@ -1,139 +1,140 @@
 <template>
-  <div>
-    <b-toast
-      v-if="renderToast"
-      :id="toastId"
-      is-status
-      no-auto-hide
-      no-close-button
-      solid
-      toast-class="brand-toast-white cookie-notice"
-      visible
-      append-toast
-      toaster="b-toaster-bottom-left"
+  <div
+    v-if="!onlyShowIfConsentRequired || cookieConsentRequired"
+  >
+    <LoadingSpinner
+      v-if="klaroLoading"
+    />
+    <template
+      v-else
     >
-      <p>{{ $t('klaro.main.consentNotice.description') }}</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <b-button
-          data-qa="learn more button"
-          class="p-0"
-          variant="link"
-          @click="openCookieModal"
-        >
-          {{ $t('klaro.main.consentNotice.learnMore') }}
-        </b-button>
-        <b-button
-          data-qa="decline button"
-          variant="outline-primary"
-          class="ml-auto mr-2"
-          @click="declineAndHide"
-        >
-          {{ $t('klaro.main.decline') }}
-        </b-button>
-        <b-button
-          data-qa="accept all button"
-          variant="success"
-          @click="acceptAndHide"
-        >
-          {{ $t('klaro.main.ok') }}
-        </b-button>
-      </div>
-    </b-toast>
-    <!-- TODO Move modal into own component -->
-    <b-modal
-      :id="modalId"
-      modal-class="cookie-modal"
-      size="xl"
-      hide-footer
-      hide-header-close
-      :title="$t(modalTitlePath)"
-      @hide="onModalHide"
-      @show="setCheckedServices"
-    >
-      <i18n
-        v-if="modalDescriptionPath"
-        :path="modalDescriptionPath"
-        tag="p"
+      <b-toast
+        v-if="renderToast"
+        :id="toastId"
+        is-status
+        no-auto-hide
+        no-close-button
+        solid
+        toast-class="brand-toast-white cookie-notice"
+        visible
+        append-toast
+        toaster="b-toaster-bottom-left"
       >
-        <template #privacyPolicy>
-          <SmartLink
-            destination="/rights/privacy-policy"
+        <p>{{ $t('klaro.main.consentNotice.description') }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <b-button
+            data-qa="learn more button"
+            class="p-0"
+            variant="link"
+            @click="openCookieModal"
           >
-            {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
-          -->
-          </SmartLink>
-        </template>
-      </i18n>
-      <ul>
-        <li
-          v-for="(section, index) in groupedSections"
-          :key="index"
+            {{ $t('klaro.main.consentNotice.learnMore') }}
+          </b-button>
+          <b-button
+            data-qa="decline button"
+            variant="outline-primary"
+            class="ml-auto mr-2"
+            @click="declineAndHide"
+          >
+            {{ $t('klaro.main.decline') }}
+          </b-button>
+          <b-button
+            data-qa="accept all button"
+            variant="success"
+            @click="acceptAndHide"
+          >
+            {{ $t('klaro.main.ok') }}
+          </b-button>
+        </div>
+      </b-toast>
+      <!-- TODO Move modal into own component -->
+      <b-modal
+        :id="modalId"
+        modal-class="cookie-modal"
+        size="xl"
+        hide-footer
+        hide-header-close
+        :title="$t(modalTitlePath)"
+        @hide="onModalHide"
+      >
+        <i18n
+          v-if="modalDescriptionPath"
+          :path="modalDescriptionPath"
+          tag="p"
         >
-          <PageCookiesSection
-            :service-data="section"
-          />
-        </li>
-      </ul>
-      <div class="d-flex flex-wrap justify-content-between align-items-center">
-        <b-button
-          class="mt-2"
-          variant="outline-primary"
-          @click="declineAndHide"
-        >
-          {{ $t('klaro.main.decline') }}
-        </b-button>
-        <b-button
-          data-qa="accept selected button"
-          variant="outline-primary"
-          class="mt-2 ml-auto mr-2"
-          @click="saveAndHide"
-        >
-          {{ $t('klaro.main.acceptSelected') }}
-        </b-button>
-        <b-button
-          class="mt-2"
-          variant="success"
-          data-qa="accept all button"
-          @click="acceptAndHide"
-        >
-          {{ $t('klaro.main.acceptAll') }}
-        </b-button>
-      </div>
-    </b-modal>
+          <template #privacyPolicy>
+            <SmartLink
+              destination="/rights/privacy-policy"
+            >
+              {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
+            -->
+            </SmartLink>
+          </template>
+        </i18n>
+        <ul>
+          <li
+            v-for="(section, index) in groupedSections"
+            :key="index"
+          >
+            <PageCookiesSection
+              :checked-services="checkedServices"
+              :service-data="section"
+              :show="show"
+              @toggle="toggleDisplay"
+              @update="updateConsent"
+            />
+          </li>
+        </ul>
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+          <b-button
+            class="mt-2"
+            variant="outline-primary"
+            @click="declineAndHide"
+          >
+            {{ $t('klaro.main.decline') }}
+          </b-button>
+          <b-button
+            data-qa="accept selected button"
+            variant="outline-primary"
+            class="mt-2 ml-auto mr-2"
+            @click="saveAndHide"
+          >
+            {{ $t('klaro.main.acceptSelected') }}
+          </b-button>
+          <b-button
+            class="mt-2"
+            variant="success"
+            data-qa="accept all button"
+            @click="acceptAndHide"
+          >
+            {{ $t('klaro.main.acceptAll') }}
+          </b-button>
+        </div>
+      </b-modal>
+    </template>
   </div>
 </template>
 
 <script>
-  import PageCookiesSection from './PageCookiesSection';
-  import { ref } from 'vue';
+  import LoadingSpinner from '../generic/LoadingSpinner.vue';
+  import PageCookiesSection from './PageCookiesSection.vue';
+  import klaroMixin from '@/mixins/klaro.js';
 
   export default {
     // TODO: rename as this is more generally about services than solely cookies
     name: 'PageCookiesWidget',
 
     components: {
+      LoadingSpinner,
       PageCookiesSection,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    provide() {
-      return {
-        show: this.show,
-        checkedServices: this.checkedServices,
-        klaroManager: this.klaroManager
-      };
-    },
+    mixins: [
+      klaroMixin
+    ],
 
-    // Do not use the klaro mixin in this component as it will cause side effects for the mixin is already imported in the layout
     props: {
-      klaroManager: {
-        type: Object,
-        required: true
-      },
-      cookieConsentRequired: {
-        type: Boolean,
-        default: true
-      },
       modalId: {
         type: String,
         default: 'cookie-modal'
@@ -154,14 +155,22 @@
       hidePurposes: {
         type: Array,
         default: () => []
+      },
+      klaroServices: {
+        type: Array,
+        default: null
+      },
+      onlyShowIfConsentRequired: {
+        type: Boolean,
+        default: true
       }
     },
 
     data() {
       return {
         toastId: 'cookie-notice-toast',
-        show: ref(['thirdPartyContent']),
-        checkedServices: ref([])
+        show: ['thirdPartyContent'],
+        checkedServices: []
       };
     },
 
@@ -224,14 +233,20 @@
             }
         ].filter(Boolean)
           .filter(purpose => !this.hidePurposes.includes(purpose.name));
-      },
-      klaroConfig() {
-        return this.klaroManager.config;
+      }
+    },
+
+    watch: {
+      // klaroManager is likely not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.setCheckedServices();
+        }
       }
     },
 
     mounted() {
-      this.setCheckedServices();
+      this.klaroManager && this.setCheckedServices();
     },
 
     methods: {
@@ -305,8 +320,18 @@
         }
       },
 
+      updateConsent(service, value) {
+        this.klaroManager.updateConsent(service.name, value);
+        if (value) {
+          this.checkedServices.push(service.name);
+        } else {
+          this.checkedServices = this.checkedServices.filter((name) => name !== service.name);
+        }
+      },
+
       setCheckedServices() {
         const consents = this.klaroManager.loadConsents();
+
         this.checkedServices = this.klaroConfig?.services
           ?.filter(s => s.required === true || consents[s.name] === true)
           .map(s => s.name);

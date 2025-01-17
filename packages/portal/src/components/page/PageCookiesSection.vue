@@ -44,7 +44,11 @@
         :key="subServiceIndex"
       >
         <PageCookiesSection
+          :checked-services="checkedServices"
           :service-data="subService"
+          :show="show"
+          @toggle="toggleDisplay"
+          @update="updateServiceConsent"
         />
       </li>
     </ul>
@@ -52,23 +56,22 @@
 </template>
 
 <script>
-  import { inject } from 'vue';
-
   export default {
     name: 'PageCookiesSection',
 
     props: {
+      checkedServices: {
+        type: Array,
+        default: () => []
+      },
       serviceData: {
         type: Object,
         default: () => {}
+      },
+      show: {
+        type: Array,
+        default: () => []
       }
-    },
-
-    setup() {
-      const show = inject('show');
-      const checkedServices = inject('checkedServices');
-      const klaroManager = inject('klaroManager');
-      return { show, checkedServices, klaroManager };
     },
 
     computed: {
@@ -97,29 +100,26 @@
         }
         return this.checkedServices.includes(this.serviceData.name);
       },
+      flattenedServiceNames() {
+        const childServices = (service) => {
+          return service.services ? service.services.map(childServices).flat() : service;
+        };
+        return childServices(this.serviceData).map((service) => service.name);
+      },
       indeterminate() {
         if (this.serviceData.services && !this.checked) {
-          const servicesToCheck = this.klaroManager.config.services?.filter(s => s.purposes.includes(this.serviceData.name));
-          return servicesToCheck.some(service => this.checkedServices.some(checked => checked === service.name));
+          return this.checkedServices.some((checked) => this.flattenedServiceNames.includes(checked));
         }
         return false;
       },
       servicesCount() {
-        return this.klaroManager.config.services?.filter(s => s.purposes.includes(this.serviceData.name)).length;
+        return this.flattenedServiceNames.length;
       }
     },
 
     methods: {
       updateServiceConsent(service, value) {
-        if (service && !service.required) {
-          this.klaroManager.updateConsent(service.name, value);
-
-          if (value) {
-            !this.checkedServices.includes(service.name) && this.checkedServices.push(service.name);
-          } else {
-            this.checkedServices.splice(this.checkedServices.indexOf(service.name), 1);
-          }
-        }
+        this.$emit('update', service, value);
       },
 
       updateConsent(serviceData, value) {
@@ -132,11 +132,7 @@
       },
 
       toggleDisplay(name) {
-        if (this.show.includes(name)) {
-          this.show.splice(this.show.indexOf(name), 1);
-        } else {
-          this.show.push(name);
-        }
+        this.$emit('toggle', name);
       }
     }
   };

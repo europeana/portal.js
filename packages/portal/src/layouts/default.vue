@@ -52,12 +52,10 @@
     <ErrorModal />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
-        :klaro-manager="klaroManager"
-        :cookie-consent-required="cookieConsentRequired"
+        v-if="$features.embeddedMediaNotification"
       />
       <PageCookieConsent
-        v-else-if="cookieConsentRequired"
+        v-else
       />
     </client-only>
   </div>
@@ -70,7 +68,6 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
   import hotjarMixin from '@/mixins/hotjar.js';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -92,7 +89,6 @@
     mixins: [
       canonicalUrlMixin,
       hotjarMixin,
-      klaroMixin,
       makeToastMixin
     ],
 
@@ -123,9 +119,6 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
           ...i18nHead.link
-        ],
-        script: [
-          this.klaroHeadScript
         ],
         meta: [
           ...i18nHead.meta,

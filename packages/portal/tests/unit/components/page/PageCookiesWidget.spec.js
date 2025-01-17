@@ -9,11 +9,17 @@ localVue.use(BootstrapVue);
 const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
   localVue,
   propsData: {
-    klaroManager,
     ...propsData
+  },
+  data: () => {
+    return {
+      klaroManager
+    };
   },
   mocks: {
     localePath: () => {},
+    $features: { embeddedMediaNotification: true },
+    $i18n: { locale: 'en ' },
     $matomo: {
       trackEvent: sinon.spy()
     },
@@ -130,7 +136,7 @@ describe('components/page/PageCookiesWidget', () => {
 
   describe('when the modal is hidden', () => {
     describe('and cookie consent is still required', () => {
-      it('opens the cookie notie toast', () => {
+      it('opens the cookie notice toast', () => {
         const wrapper = factory();
         wrapper.vm.$bvToast.show = sinon.spy();
 
@@ -176,7 +182,57 @@ describe('components/page/PageCookiesWidget', () => {
     it('adds the required services to checked services', () => {
       const wrapper = factory();
 
-      expect(wrapper.vm.checkedServices).toEqual([allServices[0].name]);
+      const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
+
+      expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
+    });
+  });
+
+  describe('methods', () => {
+    describe('updateConsentPerService', () => {
+      describe('when the service is falsy or required', () => {
+        it('does not updates the consent in the Klaro manager and in local state in checkedServices', () => {
+          const wrapper = factory();
+
+          const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
+
+          wrapper.vm.updateConsentPerService(requiredService, true);
+
+          expect(klaroManager.updateConsent.called).toBe(false);
+          expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
+
+          wrapper.vm.updateConsentPerService(null, true);
+
+          expect(klaroManager.updateConsent.called).toBe(false);
+        });
+      });
+      describe('when the service is truthy and not required', () => {
+        it('updates the consent in the Klaro manager and in local state in checkedServices', () => {
+          const wrapper = factory();
+
+          const service = wrapper.vm.klaroConfig.services.find((s) => !s.required);
+          wrapper.vm.updateConsentPerService(service, true);
+
+          expect(klaroManager.updateConsent.calledWith(service.name, true)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(service)).toBe(true);
+
+          wrapper.vm.updateConsentPerService(service, false);
+
+          expect(klaroManager.updateConsent.calledWith(service.name, false)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(service)).toBe(false);
+        });
+      });
+    });
+
+    describe('updateConsentPerPurpose', () => {
+      it('updates the consent for each purpose\'s service', () => {
+        const wrapper = factory();
+
+        const purpose = wrapper.vm.groupedPurposes[1];
+        wrapper.vm.updateConsentPerPurpose(purpose, true);
+
+        expect(klaroManager.updateConsent.called).toBe(true);
+      });
     });
   });
 });
