@@ -142,6 +142,8 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
 
+  import waitFor from '@/utils/waitFor.js';
+
   export default {
     name: 'ItemPage',
     components: {
@@ -335,11 +337,7 @@
 
     methods: {
       trackCustomDimensions() {
-        if (!this.$waitForMatomo) {
-          return;
-        }
-
-        this.$waitForMatomo()
+        waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
           .catch(() => {});
       },

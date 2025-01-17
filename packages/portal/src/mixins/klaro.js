@@ -1,15 +1,21 @@
 export const version = '0.7.18';
 import services from '@/utils/services/services.js';
+import waitFor from '@/utils/waitFor.js';
 
 export default {
+  props: {
+    // context-specific whitelist of services to declare in klaro, e.g.
+    // `:klaro-services="['auth-strategy', 'i18n']"`
+    klaroServices: {
+      type: Array,
+      default: null
+    }
+  },
+
   data() {
     return {
       klaro: null,
-      klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
-      klaroManager: null,
-      // context-specific whitelist of services to declare in klaro, e.g.
-      // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null
+      klaroManager: null
     };
   },
 
@@ -18,14 +24,28 @@ export default {
   },
 
   mounted() {
-    if (!this.klaro) {
-      this.klaro = window.klaro;
-    }
+    waitFor(() => window.klaro, { name: 'Klaro' })
+      .then(() => {
+        if (!this.klaro) {
+          this.klaro = window.klaro;
+        }
 
-    // If Matomo plugin is installed, wait for Matomo to load, but still render
-    // Klaro if it fails to.
-    const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-    renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+        // If Matomo plugin is installed, wait for Matomo to load, but still render
+        // Klaro if it fails to.
+        waitFor(() => this.$matomo, this.$config.matomo.loadWait)
+          .catch(() => {})
+          .finally(this.renderKlaro);
+      });
+  },
+
+  head() {
+    return {
+      script: [
+        {
+          src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`
+        }
+      ]
+    };
   },
 
   computed: {

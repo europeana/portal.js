@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    v-if="!onlyShowIfConsentRequired || cookieConsentRequired"
+  >
     <b-toast
       v-if="renderToast"
       :id="toastId"
@@ -201,6 +203,7 @@
 
 <script>
   import PageCookiesCheckbox from './PageCookiesCheckbox';
+  import klaroMixin from '@/mixins/klaro.js';
 
   export default {
     // TODO: rename as this is more generally about services than solely cookies
@@ -211,20 +214,11 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    // Do not use the klaro mixin in this component as it will cause side effects for the mixin is already imported in the layout
+    mixins: [
+      klaroMixin
+    ],
+
     props: {
-      klaroManager: {
-        type: Object,
-        required: true
-      },
-      klaroConfig: {
-        type: Object,
-        required: true
-      },
-      cookieConsentRequired: {
-        type: Boolean,
-        default: true
-      },
       modalId: {
         type: String,
         default: 'cookie-modal'
@@ -245,6 +239,14 @@
       hidePurposes: {
         type: Array,
         default: () => []
+      },
+      klaroServices: {
+        type: Array,
+        default: null
+      },
+      onlyShowIfConsentRequired: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -318,8 +320,17 @@
       }
     },
 
+    watch: {
+      // klaroManager is likely not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.setCheckedServices();
+        }
+      }
+    },
+
     mounted() {
-      this.setCheckedServices();
+      this.klaroManager && this.setCheckedServices();
     },
 
     methods: {
