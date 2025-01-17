@@ -165,7 +165,8 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     $config: {
       app: {
         baseUrl: 'https://www.example.org'
-      }
+      },
+      matomo: {}
     },
     $features: { translatedItems: true },
     $t: (key) => key,
@@ -609,14 +610,6 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.trackCustomDimensions();
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
-      });
-
-      it('bails if NO Matomo plugin is installed', async() => {
-        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
-
-        await wrapper.vm.trackCustomDimensions();
-
-        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
     });
 

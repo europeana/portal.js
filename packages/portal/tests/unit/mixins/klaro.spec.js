@@ -16,6 +16,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMount(component, {
     };
   },
   mocks: {
+    $config: {
+      matomo: { loadWait: { delay: 0, retries: 1 } }
+    },
     $i18n: {
       locale: 'en'
     },
@@ -41,6 +44,12 @@ const klaroMock = {
 };
 
 describe('mixins/klaro', () => {
+  beforeAll(() => {
+    window.klaro = klaroMock;
+  });
+  afterAll(() => {
+    delete window.klaro;
+  });
   afterEach(sinon.resetHistory);
 
   describe('mounted', () => {
@@ -54,38 +63,10 @@ describe('mixins/klaro', () => {
     });
   });
 
-  describe('when Matomo plugin is installed', () => {
-    it('waits for Matomo to be ready first', () => {
-      const $waitForMatomo = sinon.stub().resolves();
-
-      factory({ mocks: { $waitForMatomo } });
-
-      expect($waitForMatomo.called).toBe(true);
-    });
-
-    it('renders Klaro if Matomo becomes ready', async() => {
-      const $waitForMatomo = sinon.stub().resolves();
-
-      factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-      await new Promise(process.nextTick);
-
-      expect(klaroMock.render.called).toBe(true);
-    });
-
-    it('renders Klaro if Matomo does not become ready', async() => {
-      const $waitForMatomo = sinon.stub().rejects();
-
-      factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-      await new Promise(process.nextTick);
-
-      expect(klaroMock.render.called).toBe(true);
-    });
-  });
-
   describe('renderKlaro', () => {
     it('renders Klaro', async() => {
       const wrapper = factory();
-      await wrapper.setData({ klaro: klaroMock });
+      await new Promise(process.nextTick);
 
       await wrapper.vm.renderKlaro();
 
@@ -94,7 +75,7 @@ describe('mixins/klaro', () => {
 
     it('registers Klaro manager update watcher', async() => {
       const wrapper = factory();
-      await wrapper.setData({ klaro: klaroMock });
+      await new Promise(process.nextTick);
 
       await wrapper.vm.renderKlaro();
 

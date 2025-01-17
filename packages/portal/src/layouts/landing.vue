@@ -20,13 +20,12 @@
     <LandingPageFooter />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification && cookieConsentRequired"
-        :klaro-manager="klaroManager"
-        :klaro-config="klaroConfig"
-        :cookie-consent-required="cookieConsentRequired"
+        v-if="$features.embeddedMediaNotification"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
       <PageCookieConsent
-        v-else-if="cookieConsentRequired"
+        v-else
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -36,7 +35,6 @@
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -50,15 +48,8 @@
     },
 
     mixins: [
-      canonicalUrlMixin,
-      klaroMixin
+      canonicalUrlMixin
     ],
-
-    data() {
-      return {
-        klaroServices: ['auth-strategy', 'i18n', 'matomo']
-      };
-    },
 
     head() {
       return {
@@ -71,9 +62,6 @@
         ],
         meta: [
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
-        ],
-        script: [
-          this.klaroHeadScript
         ]
       };
     }

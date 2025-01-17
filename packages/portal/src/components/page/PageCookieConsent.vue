@@ -1,5 +1,5 @@
 <!--
-  This is a dummy component for Klaro which serves only to load the CSS when
+  This is a dummy component for Klaro which serves only to load the JS & CSS when
   needed.
 -->
 <template>
@@ -7,8 +7,21 @@
 </template>
 
 <script>
+  import klaroMixin from '@/mixins/klaro.js';
+
   export default {
-    name: 'PageCookieConsent'
+    name: 'PageCookieConsent',
+
+    mixins: [
+      klaroMixin
+    ],
+
+    props: {
+      klaroServices: {
+        type: Array,
+        default: null
+      }
+    }
   };
 </script>
 
