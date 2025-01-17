@@ -96,9 +96,15 @@
       },
       checked() {
         if (this.serviceData.services) {
-          return this.serviceData.services.every(service => this.checkedServices.includes(service.name));
+          return this.allChildServicesChecked;
         }
         return this.checkedServices.includes(this.serviceData.name);
+      },
+      indeterminate() {
+        if (this.serviceData.services) {
+          return !this.allChildServicesChecked && !this.noChildServicesChecked;
+        }
+        return false;
       },
       flattenedServiceNames() {
         const childServices = (service) => {
@@ -106,11 +112,11 @@
         };
         return childServices(this.serviceData).map((service) => service.name);
       },
-      indeterminate() {
-        if (this.serviceData.services && !this.checked) {
-          return this.checkedServices.some((checked) => this.flattenedServiceNames.includes(checked));
-        }
-        return false;
+      allChildServicesChecked() {
+        return this.flattenedServiceNames.every((service) => this.checkedServices.includes(service));
+      },
+      noChildServicesChecked() {
+        return !this.flattenedServiceNames.some((service) => this.checkedServices.includes(service));
       },
       servicesCount() {
         return this.flattenedServiceNames.length;
