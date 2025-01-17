@@ -22,7 +22,6 @@ export default {
   data() {
     return {
       klaro: null,
-      klaroLoading: false,
       klaroManager: null
     };
   },
@@ -32,7 +31,6 @@ export default {
   },
 
   created() {
-    this.klaroLoading = true;
     waitFor(() => window.klaro, { name: 'Klaro' })
       .then(() => {
         if (!klaro.value) {
@@ -43,7 +41,6 @@ export default {
         }
 
         this.renderKlaro();
-        this.klaroLoading = false;
       });
   },
 

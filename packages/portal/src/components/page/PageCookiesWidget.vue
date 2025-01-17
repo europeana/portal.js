@@ -2,121 +2,113 @@
   <div
     v-if="!onlyShowIfConsentRequired || cookieConsentRequired"
   >
-    <LoadingSpinner
-      v-if="klaroLoading"
-    />
-    <template
-      v-else
+    <b-toast
+      v-if="renderToast"
+      :id="toastId"
+      is-status
+      no-auto-hide
+      no-close-button
+      solid
+      toast-class="brand-toast-white cookie-notice"
+      visible
+      append-toast
+      toaster="b-toaster-bottom-left"
     >
-      <b-toast
-        v-if="renderToast"
-        :id="toastId"
-        is-status
-        no-auto-hide
-        no-close-button
-        solid
-        toast-class="brand-toast-white cookie-notice"
-        visible
-        append-toast
-        toaster="b-toaster-bottom-left"
-      >
-        <p>{{ $t('klaro.main.consentNotice.description') }}</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <b-button
-            data-qa="learn more button"
-            class="p-0"
-            variant="link"
-            @click="openCookieModal"
-          >
-            {{ $t('klaro.main.consentNotice.learnMore') }}
-          </b-button>
-          <b-button
-            data-qa="decline button"
-            variant="outline-primary"
-            class="ml-auto mr-2"
-            @click="declineAndHide"
-          >
-            {{ $t('klaro.main.decline') }}
-          </b-button>
-          <b-button
-            data-qa="accept all button"
-            variant="success"
-            @click="acceptAndHide"
-          >
-            {{ $t('klaro.main.ok') }}
-          </b-button>
-        </div>
-      </b-toast>
-      <!-- TODO Move modal into own component -->
-      <b-modal
-        :id="modalId"
-        modal-class="cookie-modal"
-        size="xl"
-        hide-footer
-        hide-header-close
-        :title="$t(modalTitlePath)"
-        @hide="onModalHide"
-      >
-        <i18n
-          v-if="modalDescriptionPath"
-          :path="modalDescriptionPath"
-          tag="p"
+      <p>{{ $t('klaro.main.consentNotice.description') }}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <b-button
+          data-qa="learn more button"
+          class="p-0"
+          variant="link"
+          @click="openCookieModal"
         >
-          <template #privacyPolicy>
-            <SmartLink
-              destination="/rights/privacy-policy"
-            >
-              {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
-            -->
-            </SmartLink>
-          </template>
-        </i18n>
-        <ul>
-          <li
-            v-for="(section, index) in groupedSections"
-            :key="index"
+          {{ $t('klaro.main.consentNotice.learnMore') }}
+        </b-button>
+        <b-button
+          data-qa="decline button"
+          variant="outline-primary"
+          class="ml-auto mr-2"
+          @click="declineAndHide"
+        >
+          {{ $t('klaro.main.decline') }}
+        </b-button>
+        <b-button
+          data-qa="accept all button"
+          variant="success"
+          @click="acceptAndHide"
+        >
+          {{ $t('klaro.main.ok') }}
+        </b-button>
+      </div>
+    </b-toast>
+    <!-- TODO Move modal into own component -->
+    <b-modal
+      :id="modalId"
+      modal-class="cookie-modal"
+      size="xl"
+      hide-footer
+      hide-header-close
+      :title="$t(modalTitlePath)"
+      @hide="onModalHide"
+    >
+      <i18n
+        v-if="modalDescriptionPath"
+        :path="modalDescriptionPath"
+        tag="p"
+      >
+        <template #privacyPolicy>
+          <SmartLink
+            destination="/rights/privacy-policy"
           >
-            <PageCookiesSection
-              :checked-services="checkedServices"
-              :service-data="section"
-              :show="show"
-              @toggle="toggleDisplay"
-              @update="updateConsent"
-            />
-          </li>
-        </ul>
-        <div class="d-flex flex-wrap justify-content-between align-items-center">
-          <b-button
-            class="mt-2"
-            variant="outline-primary"
-            @click="declineAndHide"
-          >
-            {{ $t('klaro.main.decline') }}
-          </b-button>
-          <b-button
-            data-qa="accept selected button"
-            variant="outline-primary"
-            class="mt-2 ml-auto mr-2"
-            @click="saveAndHide"
-          >
-            {{ $t('klaro.main.acceptSelected') }}
-          </b-button>
-          <b-button
-            class="mt-2"
-            variant="success"
-            data-qa="accept all button"
-            @click="acceptAndHide"
-          >
-            {{ $t('klaro.main.acceptAll') }}
-          </b-button>
-        </div>
-      </b-modal>
-    </template>
+            {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
+          -->
+          </SmartLink>
+        </template>
+      </i18n>
+      <ul>
+        <li
+          v-for="(section, index) in groupedSections"
+          :key="index"
+        >
+          <PageCookiesSection
+            :checked-services="checkedServices"
+            :service-data="section"
+            :show="show"
+            @toggle="toggleDisplay"
+            @update="updateConsent"
+          />
+        </li>
+      </ul>
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
+        <b-button
+          class="mt-2"
+          variant="outline-primary"
+          @click="declineAndHide"
+        >
+          {{ $t('klaro.main.decline') }}
+        </b-button>
+        <b-button
+          data-qa="accept selected button"
+          variant="outline-primary"
+          class="mt-2 ml-auto mr-2"
+          @click="saveAndHide"
+        >
+          {{ $t('klaro.main.acceptSelected') }}
+        </b-button>
+        <b-button
+          class="mt-2"
+          variant="success"
+          data-qa="accept all button"
+          @click="acceptAndHide"
+        >
+          {{ $t('klaro.main.acceptAll') }}
+        </b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
-  import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import PageCookiesSection from './PageCookiesSection.vue';
   import klaroMixin from '@/mixins/klaro.js';
 
@@ -125,7 +117,6 @@
     name: 'PageCookiesWidget',
 
     components: {
-      LoadingSpinner,
       PageCookiesSection,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
