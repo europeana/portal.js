@@ -59,7 +59,6 @@ const portalServices = [
 ];
 
 const socialMediaServices = [
-  { name: 'facebook' },
   { name: 'googleDocs',
     schemes: [
       'https://docs.google.com/presentation/*'
@@ -72,7 +71,6 @@ const socialMediaServices = [
     schemes: [
       '//www.instagram.com/embed.js'
     ] },
-  { name: 'mailchimp' },
   { name: 'pinterest',
     schemes: [
       '//assets.pinterest.com/js/pinit.js'
@@ -100,7 +98,6 @@ const twoDServices = [
     schemes: [
       'https://gallica.bnf.fr/*'
     ] },
-  { name: 'gettyImages' },
   { name: 'institutNationalDeLAudiovisuel',
     oembed: 'https://oembed.europeana.eu/',
     schemes: [
@@ -117,8 +114,7 @@ const twoDServices = [
   { name: 'serveiDeGestioDocumentalArxius',
     schemes: [
       'https://sgdap.girona.cat/*'
-    ] },
-  { name: 'sokINettbiblioteket' }
+    ] }
 ].map(service => ({ ...service, subGroup: '2D' }));
 
 const threeDServices = [
@@ -275,7 +271,6 @@ const otherEmbeddingServices = [
     schemes: [
       'https://www.behance.net/embed/*'
     ] },
-  { name: 'carto' },
   { name: 'codepen',
     schemes: [
       'https://codepen.io/*/embed/*'
@@ -284,23 +279,19 @@ const otherEmbeddingServices = [
     schemes: [
       'http://datawrapper.dwcdn.net/*'
     ] },
-  { name: 'exhibit' },
-  { name: 'gfycat',
-    schemes: [
-      'https://gfycat.com/ifr/*'
-    ] },
   { name: 'giphy',
     schemes: [
       'http://giphy.com/embed/*',
       'https://giphy.com/embed/*'
     ] },
-  { name: 'googleMaps' },
-  { name: 'humap' },
+  { name: 'humap',
+    schemes: [
+      'https://*.humap.site/*'
+    ] },
   { name: 'jigsawplanet',
     schemes: [
       'https://www.jigsawplanet.com/?rc=play&pid=*'
     ] },
-  { name: 'knightLabCdn' },
   { name: 'kystreise',
     schemes: [
       'https://rs.kystreise.no/filestore/*'
@@ -309,7 +300,6 @@ const otherEmbeddingServices = [
     schemes: [
       'https://calendar.myadvent.net/?id=*'
     ] },
-  { name: 'onlineComputerLibraryCenter' },
   { name: 'prezi',
     schemes: [
       'https://prezi.com/embed/*'
@@ -326,7 +316,10 @@ const otherEmbeddingServices = [
     schemes: [
       'https://query.wikidata.org/*'
     ] },
-  { name: 'woobox' }
+  { name: 'woobox',
+    schemes: [
+      'https://woobox.com/js/plugins/woo.js'
+    ] }
 
 ].map(service => ({ ...service, subPurpose: 'other' }));
 
