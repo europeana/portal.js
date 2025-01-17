@@ -30,34 +30,11 @@ const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
   stubs: ['i18n']
 });
 
-const allServices = [
-  {
-    name: 'auth-strategy',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    name: 'matomo',
-    purposes: ['usage']
-  },
-  {
-    name: 'facebook',
-    purposes: ['thirdPartyContent', 'socialMedia']
-  },
-  {
-    name: 'bookWidgets',
-    purposes: ['thirdPartyContent', 'mediaViewing', '2D']
-  }
-];
-
-const klaroConfig = { services: allServices };
-
 const klaroManager = {
   changeAll: sinon.spy(),
   loadConsents: sinon.stub().returns({ 'auth-strategy': true }),
   saveAndApplyConsents: sinon.spy(),
-  updateConsent: sinon.spy(),
-  config: klaroConfig
+  updateConsent: sinon.spy()
 };
 
 describe('components/page/PageCookiesWidget', () => {
@@ -184,26 +161,22 @@ describe('components/page/PageCookiesWidget', () => {
 
       const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 
-      expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
+      expect(wrapper.vm.checkedServices.includes(requiredService.name)).toBe(true);
     });
   });
 
   describe('methods', () => {
-    describe('updateConsentPerService', () => {
-      describe('when the service is falsy or required', () => {
-        it('does not updates the consent in the Klaro manager and in local state in checkedServices', () => {
+    describe('updateConsent', () => {
+      describe('when the service is required', () => {
+        it('updates the consent in the Klaro manager and in local state in checkedServices', () => {
           const wrapper = factory();
 
           const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 
-          wrapper.vm.updateConsentPerService(requiredService, true);
+          wrapper.vm.updateConsent(requiredService, true);
 
-          expect(klaroManager.updateConsent.called).toBe(false);
-          expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
-
-          wrapper.vm.updateConsentPerService(null, true);
-
-          expect(klaroManager.updateConsent.called).toBe(false);
+          expect(klaroManager.updateConsent.calledWith(requiredService.name, true)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(requiredService.name)).toBe(true);
         });
       });
       describe('when the service is truthy and not required', () => {
@@ -211,15 +184,15 @@ describe('components/page/PageCookiesWidget', () => {
           const wrapper = factory();
 
           const service = wrapper.vm.klaroConfig.services.find((s) => !s.required);
-          wrapper.vm.updateConsentPerService(service, true);
+          wrapper.vm.updateConsent(service, true);
 
           expect(klaroManager.updateConsent.calledWith(service.name, true)).toBe(true);
-          expect(wrapper.vm.checkedServices.includes(service)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(service.name)).toBe(true);
 
-          wrapper.vm.updateConsentPerService(service, false);
+          wrapper.vm.updateConsent(service, false);
 
           expect(klaroManager.updateConsent.calledWith(service.name, false)).toBe(true);
-          expect(wrapper.vm.checkedServices.includes(service)).toBe(false);
+          expect(wrapper.vm.checkedServices.includes(service.name)).toBe(false);
         });
       });
     });
@@ -228,8 +201,8 @@ describe('components/page/PageCookiesWidget', () => {
       it('updates the consent for each purpose\'s service', () => {
         const wrapper = factory();
 
-        const purpose = wrapper.vm.groupedPurposes[1];
-        wrapper.vm.updateConsentPerPurpose(purpose, true);
+        const purpose = wrapper.vm.groupedSections[1];
+        wrapper.vm.updateConsent(purpose, true);
 
         expect(klaroManager.updateConsent.called).toBe(true);
       });

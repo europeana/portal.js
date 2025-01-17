@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import * as hotjar from '@/utils/hotjar.js';
 import sinon from 'sinon';
 
 import mixin from '@/mixins/klaro';
@@ -42,6 +43,7 @@ const klaroMock = {
   getManager: sinon.stub().returns(klaroManagerStub),
   render: sinon.spy()
 };
+const initHotjarSpy = sinon.stub(hotjar, 'default');
 
 describe('mixins/klaro', () => {
   beforeAll(() => {
@@ -159,7 +161,7 @@ describe('mixins/klaro', () => {
 
           wrapper.vm.klaroServiceConsentCallback(consent, service);
 
-          expect(wrapper.vm.initHotjar.called).toBe(true);
+          expect(initHotjarSpy.called).toBe(true);
         });
       });
 

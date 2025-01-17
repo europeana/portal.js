@@ -50,6 +50,7 @@
       hide-header-close
       :title="$t(modalTitlePath)"
       @hide="onModalHide"
+      @show="setCheckedServices"
     >
       <i18n
         v-if="modalDescriptionPath"
@@ -147,10 +148,6 @@
         type: Array,
         default: () => []
       },
-      klaroServices: {
-        type: Array,
-        default: null
-      },
       onlyShowIfConsentRequired: {
         type: Boolean,
         default: true
@@ -224,6 +221,13 @@
             }
         ].filter(Boolean)
           .filter(purpose => !this.hidePurposes.includes(purpose.name));
+      },
+
+      flattenedServiceNames() {
+        const childServices = (service) => {
+          return service.services ? service.services.map(childServices).flat() : service;
+        };
+        return childServices(this.groupedSections).map((service) => service.name);
       }
     },
 
@@ -292,7 +296,7 @@
       acceptAndHide() {
         // Workaround to only accept the visible services (embed-cookie-modal)
         if (this.hidePurposes.length) {
-          this.groupedPurposes.forEach(purpose => purpose.services.forEach(service => this.updateConsentPerService(service, true)));
+          this.flattenedServiceNames.forEach((serviceName) => this.updateConsent(serviceName, true));
           this.executeButtonClicked(false, false, 'save', 'accept');
         } else {
           this.executeButtonClicked(true, true, 'accept');
@@ -311,12 +315,13 @@
         }
       },
 
-      updateConsent(service, value) {
-        this.klaroManager.updateConsent(service.name, value);
+      updateConsent(serviceOrName, value) {
+        const serviceName = serviceOrName.name || serviceOrName;
+        this.klaroManager.updateConsent(serviceName, value);
         if (value) {
-          this.checkedServices.push(service.name);
+          this.checkedServices.push(serviceName);
         } else {
-          this.checkedServices = this.checkedServices.filter((name) => name !== service.name);
+          this.checkedServices = this.checkedServices.filter((name) => name !== serviceName);
         }
       },
 
