@@ -352,39 +352,6 @@
     ul {
       list-style: none;
       padding-left: 0;
-
-      p,
-      .btn {
-        padding-left: 2rem;
-      }
-
-      ul {
-        padding-left: 2rem;
-        margin-bottom: 0.5rem;
-        color: $mediumgrey;
-      }
-    }
-
-    .btn-link {
-      margin-bottom: 1rem;
-
-      &:hover,
-      &:focus {
-        text-decoration: none;
-      }
-
-      .icon-chevron {
-        display: inline-block;
-        font-size: 0.425rem;
-      }
-
-      &.show {
-        margin-bottom: 0.25rem;
-
-        .icon-chevron {
-          transform: rotateX(180deg);
-        }
-      }
     }
   }
 </style>

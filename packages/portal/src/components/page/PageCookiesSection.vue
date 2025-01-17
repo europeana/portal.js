@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="consent-checkbox-section">
     <label
       v-if="serviceData.services && depth > COLLAPSIBLE_DEPTH_LIMIT"
       :for="`consentcheckbox-${serviceData.name}`"
-      class="label"
+      class="label mb-0 font-weight-bold text-uppercase"
     >
       {{ label }}
       <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
@@ -19,22 +19,19 @@
       :checked="checked"
       :indeterminate="indeterminate"
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
+      :aria-describedby="`consentcheckbox-description-${serviceData.name}`"
       @change="(value) => updateConsent(serviceData, value)"
     >
-      <label
-        :for="`consentcheckbox-${serviceData.name}`"
-        class="label"
-      >
-        {{ label }}
-        <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
-      </label>
-      <div
-        v-if="description"
-        class="description"
-      >
-        {{ description }}
-      </div>
+      {{ label }}
+      <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
     </b-form-checkbox>
+    <p
+      v-if="description"
+      :id="`consentcheckbox-description-${serviceData.name}`"
+      class="description mb-0"
+    >
+      {{ description }}
+    </p>
     <template
       v-if="serviceData.services"
     >
@@ -49,6 +46,7 @@
       </b-button>
       <ul
         v-show="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
+        :class="{'pl-0': depth > COLLAPSIBLE_DEPTH_LIMIT}"
       >
         <li
           v-for="(subService, subServiceIndex) in serviceData.services"
@@ -170,26 +168,70 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  ul {
-    list-style: none;
-  }
+  .consent-checkbox-section {
+    p,
+    .btn {
+      padding-left: 2rem;
+    }
 
-  .label {
-    color: $black;
-    font-weight: 600;
-    font-size: $font-size-small;
+    ul {
+      padding-left: 2rem;
+      margin-bottom: 0.5rem;
+      list-style: none;
+    }
 
-    span {
-      color: $mediumgrey-light;
-      text-transform: lowercase;
+    .label {
+      color: $mediumgrey;
+    }
+
+    .btn-link {
+      margin-bottom: 1rem;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      .icon-chevron {
+        display: inline-block;
+        font-size: 0.425rem;
+      }
+
+      &.show {
+        margin-bottom: 0.25rem;
+
+        .icon-chevron {
+          transform: rotateX(180deg);
+        }
+      }
     }
   }
 
   ::v-deep.custom-switch {
 
+    .custom-control-label {
+      font-size: $font-size-small;
+      font-weight: 600;
+
+      &:before,
+      &:after {
+        border-color: $black;
+      }
+
+      span {
+        color: $mediumgrey-light;
+        text-transform: lowercase;
+      }
+    }
+
     &.secondary .custom-control-label {
       color: $mediumgrey !important;
       font-weight: 400;
+
+      &:before,
+      &:after {
+        border-color: $mediumgrey;
+      }
     }
 
     .custom-control-input {
@@ -206,8 +248,5 @@
         border-color: $blue;
       }
     }
-  }
-  .description {
-    margin-bottom: 0.5rem;
   }
 </style>
