@@ -1,6 +1,7 @@
 export const version = '0.7.18';
 import services from '@/utils/services/services.js';
 import waitFor from '@/utils/waitFor.js';
+import initHotjar from '@/utils/hotjar.js';
 
 import { ref } from 'vue';
 
@@ -148,7 +149,7 @@ export default {
 
       if (service.name === 'hotjar') {
         if (consent) {
-          this.initHotjar?.();
+          initHotjar(this.$config?.hotjar?.id, this.$config?.hotjar?.sv);
         } else if (window.hj) {
           // hotjar tracking code offers no method to disable/unload it, so
           // reload the page to get rid of it

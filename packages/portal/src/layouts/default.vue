@@ -67,7 +67,6 @@
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
-  import hotjarMixin from '@/mixins/hotjar.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -88,7 +87,6 @@
 
     mixins: [
       canonicalUrlMixin,
-      hotjarMixin,
       makeToastMixin
     ],
 
@@ -96,8 +94,6 @@
       return {
         enableAnnouncer: true,
         featureNotification: activeFeatureNotification(this.$nuxt?.context),
-        hotjarId: this.$config?.hotjar?.id,
-        hotjarSv: this.$config?.hotjar?.sv,
         linkGroups: {},
         notificationBanner: this.$config?.app?.notificationBanner
       };
