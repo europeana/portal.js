@@ -295,8 +295,8 @@
           color: $middlegrey;
 
           @media (min-width: $bp-medium) {
-          font-size: 15rem;
-        }
+            font-size: 15rem;
+          }
         }
       }
     }
