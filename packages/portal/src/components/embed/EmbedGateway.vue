@@ -6,7 +6,11 @@
     />
     <b-container
       v-else
-      class="notification-overlay h-100"
+      class="notification-overlay mw-100"
+      :style="{
+        height: iframeDimension.height && `${iframeDimension.height}px`,
+        width: iframeDimension.width && `${iframeDimension.width}px`,
+      }"
     >
       <b-row class="h-100">
         <b-col
@@ -28,7 +32,6 @@
         <b-col
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
-          :style="iframeHeight ? { height: `${iframeHeight}px`, overflow: 'auto' } : null"
         >
           <p class="message">
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
@@ -114,7 +117,7 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
-        iframeHeight: null,
+        iframeDimension: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
@@ -147,7 +150,8 @@
         const iframeOrScript = template.getElementsByTagName('iframe')[0] || template.getElementsByTagName('script')[0];
 
         if (iframeOrScript) {
-          this.iframeHeight = iframeOrScript.height;
+          this.iframeDimension.height = iframeOrScript.height;
+          this.iframeDimension.width = iframeOrScript.width;
           this.providerUrl = iframeOrScript.src;
         } else {
           // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
@@ -252,6 +256,7 @@
 
   .notification-content {
     padding: 1rem calc(15px + 1rem);
+    overflow: auto;
 
     @media (min-width: $bp-small) {
       padding: 2rem calc(15px + 2rem);
@@ -314,5 +319,4 @@
       }
     }
   }
-
 </style>
