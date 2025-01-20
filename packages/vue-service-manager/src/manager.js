@@ -3,7 +3,7 @@ import { ref } from 'vue';
 export default class ServiceManager {
   selections = ref({});
 
-  initialize({ callback, services } = {}) {
+  constructor({ callback, services } = {}) {
     this.services = services;
     this.callback = callback;
   }
