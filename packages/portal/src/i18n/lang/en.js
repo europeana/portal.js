@@ -924,7 +924,7 @@ export default {
         "title": "European parliament multimedia service"
       },
       "euscreen": {
-        "title": "Euscreen"
+        "title": "EUscreen"
       },
       "freesound": {
         "title": "Freesound"
