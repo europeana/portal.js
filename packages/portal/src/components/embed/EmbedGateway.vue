@@ -146,8 +146,8 @@
       if (this.embedCode) {
         const template = document.createElement('div');
         template.innerHTML = this.embedCode;
-        const iframe = template.getElementsByTagName('iframe')[0];
-        const script = template.getElementsByTagName('script')[0];
+        const iframe = template.querySelector('iframe');
+        const script = template.querySelector('script');
 
         if (iframe) {
           this.iframeDimensions.height = iframe.height;
