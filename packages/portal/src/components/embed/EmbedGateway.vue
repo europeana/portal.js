@@ -8,8 +8,8 @@
       v-else
       class="notification-overlay mw-100"
       :style="{
-        height: iframeDimension.height && `${iframeDimension.height}px`,
-        width: iframeDimension.width && `${iframeDimension.width}px`,
+        height: iframeDimensions.height && `${iframeDimensions.height}px`,
+        width: iframeDimensions.width && `${iframeDimensions.width}px`,
       }"
     >
       <b-row class="h-100">
@@ -116,7 +116,7 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
-        iframeDimension: {},
+        iframeDimensions: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
@@ -146,12 +146,15 @@
       if (this.embedCode) {
         const template = document.createElement('div');
         template.innerHTML = this.embedCode;
-        const iframeOrScript = template.getElementsByTagName('iframe')[0] || template.getElementsByTagName('script')[0];
+        const iframe = template.getElementsByTagName('iframe')[0];
+        const script = template.getElementsByTagName('script')[0];
 
-        if (iframeOrScript) {
-          this.iframeDimension.height = iframeOrScript.height;
-          this.iframeDimension.width = iframeOrScript.width;
-          this.providerUrl = iframeOrScript.src;
+        if (iframe) {
+          this.iframeDimensions.height = iframe.height;
+          this.iframeDimensions.width = iframe.width;
+          this.providerUrl = iframe.src;
+        } else if (script) {
+          this.providerUrl = script.src;
         } else {
           // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
           this.opened = true;

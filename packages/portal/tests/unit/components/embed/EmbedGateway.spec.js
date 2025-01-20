@@ -17,11 +17,9 @@ const klaroManager = {
   confirmed: true
 };
 
-const factory = () => shallowMount(EmbedGateway, {
+const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
   localVue,
-  propsData: {
-    url
-  },
+  propsData,
   mocks: {
 
     $t: (key) => key,
@@ -74,6 +72,40 @@ describe('components/embed/EmbedGateway', () => {
         const wrapper = factory();
 
         expect(wrapper.vm.providerName).toEqual('klaro.services.youTube.title');
+      });
+    });
+
+    describe('when an embed code is passed', () => {
+      describe('which contains an iframe', () => {
+        it('sets the provider url to it\'s src and the width and height', () => {
+          const iframeEmbedCode = '<div class="sketchfab-embed-wrapper"><iframe title="title" src="https://sketchfab.com/models/1234/embed" width="500" height="400"></iframe></div>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+
+          expect(wrapper.vm.iframeDimensions.height).toEqual('400');
+          expect(wrapper.vm.iframeDimensions.width).toEqual('500');
+          expect(wrapper.vm.providerUrl).toEqual('https://sketchfab.com/models/1234/embed');
+        });
+      });
+
+      describe('which contains a script', () => {
+        it('sets the provider url to it\'s src', () => {
+          const iframeEmbedCode = '<script async src="//www.instagram.com/embed.js"></script>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+
+          expect(wrapper.vm.providerUrl).toEqual('http://www.instagram.com/embed.js');
+        });
+      });
+
+      describe('which does not contains a script or iframe', () => {
+        it('opens the gate', () => {
+          const iframeEmbedCode = '<audio src="https://www.example.eu/audio.mp3"></audio>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+
+          expect(wrapper.vm.opened).toBe(true);
+        });
       });
     });
   });
