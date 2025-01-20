@@ -2,7 +2,7 @@ import ServiceManager from './manager.js';
 
 const instanceProperty = '$serviceManager';
 
-const VueServiceManager = {
+const VueServiceManagerPlugin = {
   install(Vue, options = {}) {
     if (!Object.prototype.hasOwnProperty.call(Vue.prototype, instanceProperty)) {
       const manager = new ServiceManager(options);
@@ -18,4 +18,4 @@ const VueServiceManager = {
   }
 };
 
-export default VueServiceManager;
+export default VueServiceManagerPlugin;
