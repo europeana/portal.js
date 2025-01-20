@@ -6,7 +6,8 @@
     />
     <b-container
       v-else
-      class="notification-overlay mw-100"
+      class="notification-overlay"
+      :class="{'h-100': url, 'mw-100': embedCode}"
       :style="{
         height: iframeDimensions.height && `${iframeDimensions.height}px`,
         width: iframeDimensions.width && `${iframeDimensions.width}px`,
