@@ -190,6 +190,17 @@ h3.facet-label,
     }
   }
 
+  &:has(.custom-control-input:disabled, .custom-control-input[disabled]) {
+    .custom-control-label {
+      &::before {
+        cursor: not-allowed;
+      }
+      &::after {
+        cursor: not-allowed;
+      }
+    }
+  }
+
   .custom-control-input {
     &:checked ~ .custom-control-label {
       &::before {

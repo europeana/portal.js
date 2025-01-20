@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import * as hotjar from '@/utils/hotjar.js';
 import sinon from 'sinon';
 
 import mixin from '@/mixins/klaro';
@@ -16,6 +17,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMount(component, {
     };
   },
   mocks: {
+    $config: {
+      matomo: { loadWait: { delay: 0, retries: 1 } }
+    },
     $i18n: {
       locale: 'en'
     },
@@ -39,8 +43,17 @@ const klaroMock = {
   getManager: sinon.stub().returns(klaroManagerStub),
   render: sinon.spy()
 };
+let initHotjarStub;
 
 describe('mixins/klaro', () => {
+  beforeAll(() => {
+    window.klaro = klaroMock;
+    initHotjarStub = sinon.stub(hotjar, 'default');
+  });
+  afterAll(() => {
+    delete window.klaro;
+    sinon.reset();
+  });
   afterEach(sinon.resetHistory);
 
   describe('mounted', () => {
@@ -54,38 +67,10 @@ describe('mixins/klaro', () => {
     });
   });
 
-  describe('when Matomo plugin is installed', () => {
-    it('waits for Matomo to be ready first', () => {
-      const $waitForMatomo = sinon.stub().resolves();
-
-      factory({ mocks: { $waitForMatomo } });
-
-      expect($waitForMatomo.called).toBe(true);
-    });
-
-    it('renders Klaro if Matomo becomes ready', async() => {
-      const $waitForMatomo = sinon.stub().resolves();
-
-      factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-      await new Promise(process.nextTick);
-
-      expect(klaroMock.render.called).toBe(true);
-    });
-
-    it('renders Klaro if Matomo does not become ready', async() => {
-      const $waitForMatomo = sinon.stub().rejects();
-
-      factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-      await new Promise(process.nextTick);
-
-      expect(klaroMock.render.called).toBe(true);
-    });
-  });
-
   describe('renderKlaro', () => {
     it('renders Klaro', async() => {
       const wrapper = factory();
-      await wrapper.setData({ klaro: klaroMock });
+      await new Promise(process.nextTick);
 
       await wrapper.vm.renderKlaro();
 
@@ -94,7 +79,7 @@ describe('mixins/klaro', () => {
 
     it('registers Klaro manager update watcher', async() => {
       const wrapper = factory();
-      await wrapper.setData({ klaro: klaroMock });
+      await new Promise(process.nextTick);
 
       await wrapper.vm.renderKlaro();
 
@@ -130,12 +115,12 @@ describe('mixins/klaro', () => {
   });
 
   describe('trackKlaroClickEvent', () => {
-    it('tracks Klaro clicks with Matomo', () => {
+    it('tracks Klaro clicks with Matomo', async() => {
       const wrapper = factory({ data: { klaro: klaroMock } });
       wrapper.vm.$matomo.trackEvent = sinon.spy();
 
       const eventName = 'Saved';
-      wrapper.vm.trackKlaroClickEvent(eventName);
+      await wrapper.vm.trackKlaroClickEvent(eventName);
 
       expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
     });
@@ -147,10 +132,10 @@ describe('mixins/klaro', () => {
 
       describe('and consent is true', () => {
         const consent = true;
-        it('instructs matomo to remember cookie consent given', () => {
+        it('instructs matomo to remember cookie consent given', async() => {
           const wrapper = factory();
 
-          wrapper.vm.klaroServiceConsentCallback(consent, service);
+          await wrapper.vm.klaroServiceConsentCallback(consent, service);
 
           expect(wrapper.vm.$matomo.rememberCookieConsentGiven.called).toBe(true);
         });
@@ -158,10 +143,10 @@ describe('mixins/klaro', () => {
 
       describe('and consent is false', () => {
         const consent = false;
-        it('instructs matomo to forget cookie consent given', () => {
+        it('instructs matomo to forget cookie consent given', async() => {
           const wrapper = factory();
 
-          wrapper.vm.klaroServiceConsentCallback(consent, service);
+          await wrapper.vm.klaroServiceConsentCallback(consent, service);
 
           expect(wrapper.vm.$matomo.forgetCookieConsentGiven.called).toBe(true);
         });
@@ -178,7 +163,7 @@ describe('mixins/klaro', () => {
 
           wrapper.vm.klaroServiceConsentCallback(consent, service);
 
-          expect(wrapper.vm.initHotjar.called).toBe(true);
+          expect(initHotjarStub.called).toBe(true);
         });
       });
 
