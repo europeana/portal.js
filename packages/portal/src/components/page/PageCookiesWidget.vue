@@ -371,7 +371,6 @@
         this.setCheckedServices();
 
         this.$bvModal.hide(this.modalId);
-        this.$emit('consentsApplied');
 
         this.trackButtonClicked(trackAsDifferentEventType || eventType);
       },

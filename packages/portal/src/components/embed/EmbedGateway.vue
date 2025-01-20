@@ -64,7 +64,6 @@
             :modal-description-path="null"
             :hide-purposes="hidePurposes"
             :only-show-if-consent-required="false"
-            @consentsApplied="checkConsentAndOpenEmbed"
           />
           <i18n
             path="media.embedNotification.ifNotAll"

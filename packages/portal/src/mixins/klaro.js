@@ -91,7 +91,7 @@ export default {
         this.klaroManager = this.klaro.getManager(this.klaroConfig);
 
         this.klaro.render(this.klaroConfig, true);
-        !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
+        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },
 
@@ -106,7 +106,12 @@ export default {
         }[data.type];
       }
 
-      eventName && this.trackKlaroClickEvent(eventName);
+      if (this.$features.embeddedMediaNotification) {
+        eventName && this.checkConsentAndOpenEmbed?.();
+      } else {
+        // TODO: remove on feature toggle clean up
+        eventName && this.trackKlaroClickEvent(eventName);
+      }
     },
 
     trackKlaroClickEvent(eventName) {
