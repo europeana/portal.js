@@ -860,6 +860,33 @@ export default {
         "usage": {
           "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
           "title": "Services to capture website usage and feedback"
+        },
+        "2D": {
+          "title": "2D media"
+        },
+        "3D": {
+          "title": "3D media"
+        },
+        "audio": {
+          "title": "Audio"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "video": {
+          "title": "Video"
+        },
+        "mediaViewing": {
+          "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
+          "title": "Media viewing services"
+        },
+        "other": {
+          "description": "These services load content such as code, games, maps and storytelling widgets.",
+          "title": "Other embedding services"
+        },
+        "socialMedia": {
+          "description": "These services load content from social media platforms.",
+          "title": "Social media embedding services"
         }
       },
       "service": {
@@ -1088,27 +1115,6 @@ export default {
       },
       "youTube": {
         "title": "YouTube"
-      }
-    },
-    "subGroups": {
-      "2D": "2D media",
-      "3D": "3D media",
-      "audio": "audio",
-      "multimedia": "multimedia",
-      "video": "video"
-    },
-    "subPurposes": {
-      "mediaViewing": {
-        "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
-        "title": "Media viewing services"
-      },
-      "other": {
-        "description": "These services load content such as code, games, maps and storytelling widgets.",
-        "title": "Other embedding services"
-      },
-      "socialMedia": {
-        "description": "These services load content from social media platforms.",
-        "title": "Social media embedding services"
       }
     }
   },

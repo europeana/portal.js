@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import * as hotjar from '@/utils/hotjar.js';
 import sinon from 'sinon';
 
 import mixin from '@/mixins/klaro';
@@ -42,13 +43,16 @@ const klaroMock = {
   getManager: sinon.stub().returns(klaroManagerStub),
   render: sinon.spy()
 };
+let initHotjarStub;
 
 describe('mixins/klaro', () => {
   beforeAll(() => {
     window.klaro = klaroMock;
+    initHotjarStub = sinon.stub(hotjar, 'default');
   });
   afterAll(() => {
     delete window.klaro;
+    sinon.reset();
   });
   afterEach(sinon.resetHistory);
 
@@ -111,12 +115,12 @@ describe('mixins/klaro', () => {
   });
 
   describe('trackKlaroClickEvent', () => {
-    it('tracks Klaro clicks with Matomo', () => {
+    it('tracks Klaro clicks with Matomo', async() => {
       const wrapper = factory({ data: { klaro: klaroMock } });
       wrapper.vm.$matomo.trackEvent = sinon.spy();
 
       const eventName = 'Saved';
-      wrapper.vm.trackKlaroClickEvent(eventName);
+      await wrapper.vm.trackKlaroClickEvent(eventName);
 
       expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
     });
@@ -128,10 +132,10 @@ describe('mixins/klaro', () => {
 
       describe('and consent is true', () => {
         const consent = true;
-        it('instructs matomo to remember cookie consent given', () => {
+        it('instructs matomo to remember cookie consent given', async() => {
           const wrapper = factory();
 
-          wrapper.vm.klaroServiceConsentCallback(consent, service);
+          await wrapper.vm.klaroServiceConsentCallback(consent, service);
 
           expect(wrapper.vm.$matomo.rememberCookieConsentGiven.called).toBe(true);
         });
@@ -139,10 +143,10 @@ describe('mixins/klaro', () => {
 
       describe('and consent is false', () => {
         const consent = false;
-        it('instructs matomo to forget cookie consent given', () => {
+        it('instructs matomo to forget cookie consent given', async() => {
           const wrapper = factory();
 
-          wrapper.vm.klaroServiceConsentCallback(consent, service);
+          await wrapper.vm.klaroServiceConsentCallback(consent, service);
 
           expect(wrapper.vm.$matomo.forgetCookieConsentGiven.called).toBe(true);
         });
@@ -159,7 +163,7 @@ describe('mixins/klaro', () => {
 
           wrapper.vm.klaroServiceConsentCallback(consent, service);
 
-          expect(wrapper.vm.initHotjar.called).toBe(true);
+          expect(initHotjarStub.called).toBe(true);
         });
       });
 

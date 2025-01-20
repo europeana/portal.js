@@ -49,12 +49,12 @@ describe('components/page/PageCookiesWidget', () => {
   });
 
   describe('when there are services defined in the Klaro config', () => {
-    it('groups them by purpose, subpurpose and subgroup', () => {
+    it('groups them into sections', () => {
       const wrapper = factory();
 
-      expect(wrapper.vm.groupedPurposes[0].name).toEqual('essential');
-      expect(wrapper.vm.groupedPurposes[1].name).toEqual('usage');
-      expect(wrapper.vm.groupedPurposes[2].name).toEqual('thirdPartyContent');
+      expect(wrapper.vm.groupedSections[0].name).toEqual('essential');
+      expect(wrapper.vm.groupedSections[1].name).toEqual('usage');
+      expect(wrapper.vm.groupedSections[2].name).toEqual('thirdPartyContent');
     });
   });
 
@@ -111,20 +111,6 @@ describe('components/page/PageCookiesWidget', () => {
     });
   });
 
-  describe('clicking the services display button', () => {
-    it('toggles the show state', () => {
-      const wrapper = factory();
-
-      wrapper.find('[data-qa="toggle display button"]').trigger('click');
-
-      expect(wrapper.vm.show).toEqual(['thirdPartyContent', 'essential']);
-
-      wrapper.find('[data-qa="toggle display button"]').trigger('click');
-
-      expect(wrapper.vm.show).toEqual(['thirdPartyContent']);
-    });
-  });
-
   describe('when the modal is hidden', () => {
     describe('and cookie consent is still required', () => {
       it('opens the cookie notice toast', () => {
@@ -175,26 +161,22 @@ describe('components/page/PageCookiesWidget', () => {
 
       const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 
-      expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
+      expect(wrapper.vm.checkedServices.includes(requiredService.name)).toBe(true);
     });
   });
 
   describe('methods', () => {
-    describe('updateConsentPerService', () => {
-      describe('when the service is falsy or required', () => {
-        it('does not updates the consent in the Klaro manager and in local state in checkedServices', () => {
+    describe('updateConsent', () => {
+      describe('when the service is required', () => {
+        it('updates the consent in the Klaro manager and in local state in checkedServices', () => {
           const wrapper = factory();
 
           const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 
-          wrapper.vm.updateConsentPerService(requiredService, true);
+          wrapper.vm.updateConsent(requiredService, true);
 
-          expect(klaroManager.updateConsent.called).toBe(false);
-          expect(wrapper.vm.checkedServices.includes(requiredService)).toBe(true);
-
-          wrapper.vm.updateConsentPerService(null, true);
-
-          expect(klaroManager.updateConsent.called).toBe(false);
+          expect(klaroManager.updateConsent.calledWith(requiredService.name, true)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(requiredService.name)).toBe(true);
         });
       });
       describe('when the service is truthy and not required', () => {
@@ -202,15 +184,15 @@ describe('components/page/PageCookiesWidget', () => {
           const wrapper = factory();
 
           const service = wrapper.vm.klaroConfig.services.find((s) => !s.required);
-          wrapper.vm.updateConsentPerService(service, true);
+          wrapper.vm.updateConsent(service, true);
 
           expect(klaroManager.updateConsent.calledWith(service.name, true)).toBe(true);
-          expect(wrapper.vm.checkedServices.includes(service)).toBe(true);
+          expect(wrapper.vm.checkedServices.includes(service.name)).toBe(true);
 
-          wrapper.vm.updateConsentPerService(service, false);
+          wrapper.vm.updateConsent(service, false);
 
           expect(klaroManager.updateConsent.calledWith(service.name, false)).toBe(true);
-          expect(wrapper.vm.checkedServices.includes(service)).toBe(false);
+          expect(wrapper.vm.checkedServices.includes(service.name)).toBe(false);
         });
       });
     });
@@ -219,8 +201,8 @@ describe('components/page/PageCookiesWidget', () => {
       it('updates the consent for each purpose\'s service', () => {
         const wrapper = factory();
 
-        const purpose = wrapper.vm.groupedPurposes[1];
-        wrapper.vm.updateConsentPerPurpose(purpose, true);
+        const purpose = wrapper.vm.groupedSections[1];
+        wrapper.vm.updateConsent(purpose, true);
 
         expect(klaroManager.updateConsent.called).toBe(true);
       });
