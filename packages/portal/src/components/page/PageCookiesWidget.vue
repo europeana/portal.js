@@ -41,6 +41,7 @@
         </b-button>
       </div>
     </b-toast>
+    <!-- TODO Move modal into own component -->
     <b-modal
       :id="modalId"
       modal-class="cookie-modal"
@@ -67,109 +68,16 @@
       </i18n>
       <ul>
         <li
-          v-for="(purpose, index) in groupedPurposes"
+          v-for="(section, index) in groupedSections"
           :key="index"
         >
-          <PageCookiesCheckbox
-            :service-or-purpose="purpose"
-            type="purpose"
-            :checked="purpose.services.every(service => checkedServices.includes(service))"
-            :class="{ 'active': purpose.services.some(service => checkedServices.includes(service)) }"
-            @updateConsent="updateConsentPerPurpose"
+          <PageCookiesSection
+            :checked-services="checkedServices"
+            :service-data="section"
+            :show="show"
+            @toggle="toggleDisplay"
+            @update="updateConsent"
           />
-          <p class="mb-0">
-            {{ $t(`klaro.main.purposes.${purpose.name}.description`) }}
-          </p>
-          <b-button
-            data-qa="toggle display button"
-            :class="{ 'show': show.includes(purpose.name) }"
-            variant="link"
-            @click="toggleDisplay(purpose.name)"
-          >
-            {{ $tc('klaro.main.consentModal.servicesCount', purpose.services.length, { count: $n(purpose.services.length) }) }}
-            <span class="icon-chevron ml-1" />
-          </b-button>
-          <ul
-            v-if="purpose.subPurposes"
-            v-show="show.includes(purpose.name)"
-          >
-            <li
-              v-for="(subPurpose, subPurposeIndex) in purpose.subPurposes"
-              :key="subPurposeIndex"
-            >
-              <PageCookiesCheckbox
-                :service-or-purpose="subPurpose"
-                type="subPurpose"
-                :checked="subPurpose.services.every(service => checkedServices.includes(service))"
-                :class="{ 'active': subPurpose.services.some(service => checkedServices.includes(service))}"
-                @updateConsent="updateConsentPerPurpose"
-              />
-              <p class="mb-0">
-                {{ $t(`klaro.subPurposes.${subPurpose.name}.description`) }}
-              </p>
-              <b-button
-                :class="{ 'show': show.includes(subPurpose.name) }"
-                variant="link"
-                @click="toggleDisplay(subPurpose.name)"
-              >
-                {{ $tc('klaro.main.consentModal.servicesCount', subPurpose.services.length, { count: $n(subPurpose.services.length) }) }}
-                <span class="icon-chevron ml-1" />
-              </b-button>
-              <ul
-                v-if="subPurpose.subGroups"
-                v-show="show.includes(subPurpose.name)"
-              >
-                <li
-                  v-for="(group, groupIndex) in subPurpose.subGroups"
-                  :key="groupIndex"
-                >
-                  <span class="font-weight-bold text-uppercase">{{ $t(`klaro.subGroups.${group.name}`) }}</span>
-                  <ul class="pl-0">
-                    <li
-                      v-for="(service, serviceIndex) in group.services"
-                      :key="serviceIndex"
-                    >
-                      <PageCookiesCheckbox
-                        :service-or-purpose="service"
-                        :checked="checkedServices.includes(service)"
-                        @updateConsent="updateConsentPerService"
-                      />
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <ul
-                v-else
-                v-show="show.includes(subPurpose.name)"
-              >
-                <li
-                  v-for="(service, serviceIndex) in subPurpose.services"
-                  :key="serviceIndex"
-                >
-                  <PageCookiesCheckbox
-                    :service-or-purpose="service"
-                    :checked="checkedServices.includes(service)"
-                    @updateConsent="updateConsentPerService"
-                  />
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <ul
-            v-else
-            v-show="show.includes(purpose.name)"
-          >
-            <li
-              v-for="(service, serviceIndex) in purpose.services"
-              :key="serviceIndex"
-            >
-              <PageCookiesCheckbox
-                :service-or-purpose="service"
-                :checked="checkedServices.includes(service)"
-                @updateConsent="updateConsentPerService"
-              />
-            </li>
-          </ul>
         </li>
       </ul>
       <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -202,7 +110,7 @@
 </template>
 
 <script>
-  import PageCookiesCheckbox from './PageCookiesCheckbox';
+  import PageCookiesSection from './PageCookiesSection.vue';
   import klaroMixin from '@/mixins/klaro.js';
 
   export default {
@@ -210,7 +118,7 @@
     name: 'PageCookiesWidget',
 
     components: {
-      PageCookiesCheckbox,
+      PageCookiesSection,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -240,10 +148,6 @@
         type: Array,
         default: () => []
       },
-      klaroServices: {
-        type: Array,
-        default: null
-      },
       onlyShowIfConsentRequired: {
         type: Boolean,
         default: true
@@ -269,7 +173,7 @@
         return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
       },
 
-      groupedPurposes() {
+      groupedSections() {
         return [ // to create layout
           this.essentialServices?.length && {
             name: 'essential',
@@ -283,40 +187,47 @@
           this.thirdPartyContentServices?.length &&
             {
               name: 'thirdPartyContent',
-              services: this.thirdPartyContentServices,
-              subPurposes: [
-                this.thirdPartyContentServices.filter(service => service.subPurpose === 'socialMedia')?.length && {
+              services: [
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))?.length && {
                   name: 'socialMedia',
-                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'socialMedia')
+                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))
                 },
-                this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing')?.length && {
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('mediaViewing'))?.length && {
                   name: 'mediaViewing',
-                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing'),
-                  subGroups: [{
-                    name: '2D',
-                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === '2D')
-                  }, {
-                    name: '3D',
-                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === '3D')
-                  }, {
-                    name: 'audio',
-                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'audio')
-                  }, {
-                    name: 'multimedia',
-                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'multimedia')
-                  }, {
-                    name: 'video',
-                    services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'mediaViewing' && service.subGroup === 'video')
-                  }]
+                  services: [
+                    {
+                      name: '2D',
+                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('2D'))
+                    }, {
+                      name: '3D',
+                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('3D'))
+                    }, {
+                      name: 'audio',
+                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('audio'))
+                    }, {
+                      name: 'multimedia',
+                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('multimedia'))
+                    }, {
+                      name: 'video',
+                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('video'))
+                    }
+                  ]
                 },
-                this.thirdPartyContentServices.filter(service => service.subPurpose === 'other')?.length && {
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))?.length && {
                   name: 'other',
-                  services: this.thirdPartyContentServices.filter(service => service.subPurpose === 'other')
+                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))
                 }
               ].filter(Boolean)
             }
         ].filter(Boolean)
           .filter(purpose => !this.hidePurposes.includes(purpose.name));
+      },
+
+      flattenedServiceNames() {
+        const childServices = (service) => {
+          return service.services ? service.services.map(childServices).flat() : service;
+        };
+        return childServices(this.groupedSections).map((service) => service.name);
       }
     },
 
@@ -334,22 +245,6 @@
     },
 
     methods: {
-      updateConsentPerService(service, value) {
-        if (service && !service.required) {
-          this.klaroManager.updateConsent(service.name, value);
-
-          if (value) {
-            !this.checkedServices.includes(service) && this.checkedServices.push(service);
-          } else {
-            this.checkedServices = this.checkedServices.filter(s => s !== service);
-          }
-        }
-      },
-
-      updateConsentPerPurpose(purpose, value) {
-        purpose.services.forEach(service => this.updateConsentPerService(service, value));
-      },
-
       openCookieModal() {
         this.$bvModal.show(this.modalId);
         this.$bvToast.hide(this.toastId);
@@ -400,7 +295,7 @@
       acceptAndHide() {
         // Workaround to only accept the visible services (embed-cookie-modal)
         if (this.hidePurposes.length) {
-          this.groupedPurposes.forEach(purpose => purpose.services.forEach(service => this.updateConsentPerService(service, true)));
+          this.flattenedServiceNames.forEach((serviceName) => this.updateConsent(serviceName, true));
           this.executeButtonClicked(false, false, 'save', 'accept');
         } else {
           this.executeButtonClicked(true, true, 'accept');
@@ -419,9 +314,22 @@
         }
       },
 
+      updateConsent(serviceOrName, value) {
+        const serviceName = serviceOrName.name || serviceOrName;
+        this.klaroManager.updateConsent(serviceName, value);
+        if (value) {
+          this.checkedServices.push(serviceName);
+        } else {
+          this.checkedServices = this.checkedServices.filter((name) => name !== serviceName);
+        }
+      },
+
       setCheckedServices() {
         const consents = this.klaroManager.loadConsents();
-        this.checkedServices = this.klaroConfig?.services?.filter(s => s.required === true || consents[s.name] === true);
+
+        this.checkedServices = this.klaroConfig?.services
+          ?.filter(s => s.required === true || consents[s.name] === true)
+          .map(s => s.name);
       }
     }
   };
@@ -443,39 +351,6 @@
     ul {
       list-style: none;
       padding-left: 0;
-
-      p,
-      .btn {
-        padding-left: 2rem;
-      }
-
-      ul {
-        padding-left: 2rem;
-        margin-bottom: 0.5rem;
-        color: $mediumgrey;
-      }
-    }
-
-    .btn-link {
-      margin-bottom: 1rem;
-
-      &:hover,
-      &:focus {
-        text-decoration: none;
-      }
-
-      .icon-chevron {
-        display: inline-block;
-        font-size: 0.425rem;
-      }
-
-      &.show {
-        margin-bottom: 0.25rem;
-
-        .icon-chevron {
-          transform: rotateX(180deg);
-        }
-      }
     }
   }
 </style>
