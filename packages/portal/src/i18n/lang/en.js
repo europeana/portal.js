@@ -935,6 +935,9 @@ export default {
       "deutschesFilmportal": {
         "title": "Deutsches Filmportal"
       },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
       "digitalRepositoryOfIreland": {
         "title": "Digital Repository of Ireland"
       },

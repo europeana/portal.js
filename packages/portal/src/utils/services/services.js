@@ -8,9 +8,10 @@ const portalServices = [
     required: true
   },
   {
-    name: 'zohoForms',
+    name: 'zoho',
     schemes: [
-      'https://forms.zohopublic.eu/*'
+      'https://forms.zohopublic.eu/*',
+      'https://fdti-zcmp.maillist-manage.eu/*'
     ],
     purposes: [],
     required: true
@@ -171,6 +172,11 @@ const audioServices = [
     schemes: [
       'https://www.buzzsprout.com/*'
     ] },
+  { name: 'deutscheWelle',
+    schemes: [
+      'https://www.dw.com/*',
+      'https://radiodownloaddw-a.akamaihd.net/*'
+    ] },
   { name: 'freesound',
     schemes: [
       'https://freesound.org/embed/sound/iframe/*'
@@ -257,6 +263,7 @@ const videoServices = [
       'https://www.youtube.com/watch*',
       'https://www.youtube.com/v/*',
       'https://www.youtube.com/embed/*',
+      'https://youtube.com/embed/*',
       'https://youtu.be/*'
     ] }
 ].map(service => ({ ...service, purposes: ['video'] }));
@@ -298,6 +305,7 @@ const otherEmbeddingServices = [
     ] },
   { name: 'myAdventCalendar',
     schemes: [
+      'https://app.myadvent.net/calendar?id=*',
       'https://calendar.myadvent.net/?id=*'
     ] },
   { name: 'prezi',
