@@ -1,5 +1,8 @@
 <template>
-  <div class="h-100">
+  <div
+    v-if="!$fetchState.pending"
+    class="h-100"
+  >
     <slot
       v-if="opened"
       class="embed-gateway-opened"
@@ -127,28 +130,15 @@
       };
     },
 
-    watch: {
-      cookieConsentRequired(newVal) {
-        if (!newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      }
-    },
-
-    mounted() {
+    fetch() {
       this.providerUrl = this.url;
 
       if (this.embedCode) {
-        const template = document.createElement('div');
-        template.innerHTML = this.embedCode;
-        const iframe = template.querySelector('iframe');
-        const script = template.querySelector('script');
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.embedCode, 'text/html');
+
+        const iframe = doc.querySelector('iframe');
+        const script = doc.querySelector('script');
 
         if (iframe) {
           this.iframeDimensions.height = iframe.height;
@@ -160,7 +150,6 @@
           // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
           this.opened = true;
         }
-        template.remove();
       }
 
       if (this.providerUrl) {
@@ -169,6 +158,22 @@
 
       if (this.provider) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
+      }
+    },
+
+    fetchOnServer: false,
+
+    watch: {
+      cookieConsentRequired(newVal) {
+        if (!newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      },
+      // klaroManager is not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
       }
     },
 
