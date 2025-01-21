@@ -10,7 +10,7 @@
     <b-container
       v-else-if="provider"
       class="notification-overlay"
-      :class="{'h-100': url, 'mw-100': embedCode}"
+      :class="{ 'h-100': url, 'mw-100': embedCode }"
       :style="{
         height: iframeDimensions.height && `${iframeDimensions.height}px`,
         width: iframeDimensions.width && `${iframeDimensions.width}px`,
@@ -84,20 +84,24 @@
         </b-col>
       </b-row>
     </b-container>
-    <div
-      v-else
-      class="unsupported-content-notification"
-    >
-      <p class="mb-0">
-        {{ $t('embedNotification.messageUnkownService') }}
-      </p>
-      <SmartLink
-        v-if="linkToContent"
-        :destination="linkToContent"
-      >
-        {{ $t('embedNotification.viewThisExternalLink') }}
-      </SmartLink>
-    </div>
+    <b-container v-else>
+      <b-row>
+        <b-col
+          :lg="url ? '10' : null"
+          class="unsupported-content-notification mx-auto"
+        >
+          <p class="mb-0">
+            {{ $t('embedNotification.messageUnkownService') }}
+          </p>
+          <SmartLink
+            v-if="linkToContent"
+            :destination="linkToContent"
+          >
+            {{ $t('embedNotification.viewThisExternalLink') }}
+          </SmartLink>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
