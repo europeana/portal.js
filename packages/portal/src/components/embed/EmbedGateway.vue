@@ -362,7 +362,7 @@
 
     @media (min-width: $bp-medium) {
       padding: 1.75rem 2rem;
-        }
+    }
 
     a {
       color: $white;
