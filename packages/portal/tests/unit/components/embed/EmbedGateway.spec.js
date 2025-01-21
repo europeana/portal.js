@@ -35,8 +35,11 @@ const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
 
 describe('components/embed/EmbedGateway', () => {
   describe('when not opened', () => {
-    it('renders a notification overlay', () => {
+    it('renders a notification overlay', async() => {
       const wrapper = factory();
+
+      await wrapper.vm.fetch();
+      await wrapper.vm.$nextTick();
 
       const notification =  wrapper.find('.notification-overlay');
 
@@ -49,8 +52,8 @@ describe('components/embed/EmbedGateway', () => {
       servicesWithConsent.youTube = true;
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      await wrapper.vm.fetch();
 
+      await wrapper.vm.fetch();
       await wrapper.vm.$nextTick();
 
       const notification =  wrapper.find('.notification-overlay');
@@ -118,25 +121,29 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load all embedded content button', () => {
-    it('updates, saves and applies consents and opens the embed', () => {
+    it('updates, saves and applies consents and opens the embed', async() => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      servicesWithConsent.youTube = true;
-      wrapper.vm.fetch();
+      sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
+
+      await wrapper.vm.fetch();
+      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="load all button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
-      expect(wrapper.vm.opened).toBe(true);
-      delete servicesWithConsent.youTube;
+      expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
     });
   });
 
   describe('when clicking the view full list button', () => {
-    it('opens the third-party-content modal', () => {
+    it('opens the third-party-content modal', async() => {
       const wrapper = factory();
       sinon.spy(wrapper.vm.$bvModal, 'show');
+
+      await wrapper.vm.fetch();
+      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
@@ -146,18 +153,31 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load only this provider button', () => {
-    it('updates, saves and applies consents and opens the embed', () => {
+    it('updates, saves and applies consents and opens the embed', async() => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      servicesWithConsent.youTube = true;
-      wrapper.vm.fetch();
+      sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
+
+      await wrapper.vm.fetch();
+      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="load only this provider button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
-      expect(wrapper.vm.opened).toBe(true);
-      delete servicesWithConsent.youTube;
+      expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
+    });
+  });
+
+  describe('when provider URL is not supported', () => {
+    it('does not load the embed and renders a notification to inform the user', async() => {
+      const iframeUnknownEmbedCode = '<iframe title="title" src="https://unknown-embed-provider.eu/1234/embed" width="500" height="400"></iframe>';
+      const wrapper = factory({ embedCode: iframeUnknownEmbedCode });
+
+      const notification =  wrapper.find('.unsupported-content-notification');
+
+      expect(notification.isVisible()).toBe(true);
+      expect(wrapper.vm.opened).toBe(false);
     });
   });
 });

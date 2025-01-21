@@ -8,7 +8,7 @@
       class="embed-gateway-opened"
     />
     <b-container
-      v-else
+      v-else-if="provider"
       class="notification-overlay"
       :class="{'h-100': url, 'mw-100': embedCode}"
       :style="{
@@ -38,7 +38,7 @@
           class="notification-content mx-auto position-relative"
         >
           <p class="message">
-            {{ $t('media.embedNotification.message', { provider: providerName }) }}
+            {{ $t('embedNotification.message', { provider: providerName }) }}
           </p>
           <b-button
             data-qa="load all button"
@@ -46,10 +46,10 @@
             class="mb-2"
             @click="consentAllEmbeddedContent"
           >
-            {{ $t('media.embedNotification.loadAllEmbeddedContent') }}
+            {{ $t('embedNotification.loadAllEmbeddedContent') }}
           </b-button>
           <i18n
-            path="media.embedNotification.ofThirdPartyServices"
+            path="embedNotification.ofThirdPartyServices"
             tag="p"
           >
             <b-button
@@ -57,7 +57,7 @@
               variant="link"
               @click="openCookieModal"
             >
-              {{ $t('media.embedNotification.viewFullList') }}
+              {{ $t('embedNotification.viewFullList') }}
             </b-button>
           </i18n>
           <PageCookiesWidget
@@ -70,7 +70,7 @@
             :only-show-if-consent-required="false"
           />
           <i18n
-            path="media.embedNotification.ifNotAll"
+            path="embedNotification.ifNotAll"
             tag="p"
           >
             <b-button
@@ -78,12 +78,26 @@
               variant="link"
               @click="consentThisProvider"
             >
-              {{ $t('media.embedNotification.loadOnlyThis') }}
+              {{ $t('embedNotification.loadOnlyThis') }}
             </b-button>
           </i18n>
         </b-col>
       </b-row>
     </b-container>
+    <div
+      v-else
+      class="unsupported-content-notification"
+    >
+      <p class="mb-0">
+        {{ $t('embedNotification.messageUnkownService') }}
+      </p>
+      <SmartLink
+        v-if="linkToContent"
+        :destination="linkToContent"
+      >
+        {{ $t('embedNotification.viewThisExternalLink') }}
+      </SmartLink>
+    </div>
   </div>
 </template>
 
@@ -96,7 +110,8 @@
 
     components: {
       MediaCardImage: () => import('@/components/media/MediaCardImage.vue'),
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [klaroMixin],
@@ -121,6 +136,7 @@
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
         iframeDimensions: {},
+        linkToContent: null,
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
@@ -132,12 +148,13 @@
 
     fetch() {
       this.providerUrl = this.url;
+      let iframe; // define here so it's in scope to define linkToContent when needed
 
       if (this.embedCode) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(this.embedCode, 'text/html');
 
-        const iframe = doc.querySelector('iframe');
+        iframe = doc.querySelector('iframe');
         const script = doc.querySelector('script');
 
         if (iframe) {
@@ -158,6 +175,8 @@
 
       if (this.provider) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
+      } else {
+        this.linkToContent = this.url || iframe?.src;
       }
     },
 
@@ -324,6 +343,28 @@
         @media (min-width: $bp-medium) {
           font-size: 15rem;
         }
+      }
+    }
+  }
+
+  .unsupported-content-notification {
+    background: $black;
+    border-radius: 0.25rem;
+    color: $white;
+    font-size: $font-size-small;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+
+    @media (min-width: $bp-medium) {
+      padding: 1.75rem 2rem;
+        }
+
+    a {
+      color: $white;
+
+      ::v-deep .icon-external-link {
+        vertical-align: baseline;
       }
     }
   }
