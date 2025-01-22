@@ -134,6 +134,7 @@
       this.providerUrl = this.url;
 
       if (this.embedCode) {
+        // TODO: come up with a way to do this that is server-side compatible too
         const parser = new DOMParser();
         const doc = parser.parseFromString(this.embedCode, 'text/html');
 
