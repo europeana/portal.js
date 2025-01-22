@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="!$fetchState.pending"
     class="h-100"
   >
     <slot
@@ -10,13 +9,12 @@
     <b-container
       v-else-if="provider"
       class="notification-overlay"
-      :class="{ 'h-100': url, 'mw-100': embedCode }"
-      :style="{
-        height: iframeDimensions.height && `${iframeDimensions.height}px`,
-        width: iframeDimensions.width && `${iframeDimensions.width}px`,
-      }"
+      :class="{'h-100': url, 'mw-100': embedCode}"
     >
-      <b-row class="h-100">
+      <b-row
+        class="position-relative"
+        :class="{ 'h-100': url}"
+      >
         <b-col
           :lg="url ? '10' : null"
           class="thumbnail-background mx-auto h-100 position-absolute"
@@ -36,6 +34,10 @@
         <b-col
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
+          :style="{
+            'min-height': !!iframeDimensions.height && iframeDimensions.height,
+            width: !!iframeDimensions.width && iframeDimensions.width,
+          }"
         >
           <p class="message">
             {{ $t('embedNotification.message', { provider: providerName }) }}
@@ -150,7 +152,21 @@
       };
     },
 
-    fetch() {
+    watch: {
+      cookieConsentRequired(newVal) {
+        if (!newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      },
+      // klaroManager is not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      }
+    },
+
+    created() {
       this.providerUrl = this.url;
       let iframe; // define here so it's in scope to define linkToContent when needed
 
@@ -162,8 +178,8 @@
         const script = doc.querySelector('script');
 
         if (iframe) {
-          this.iframeDimensions.height = iframe.height;
-          this.iframeDimensions.width = iframe.width;
+          this.iframeDimensions.height = isNaN(iframe.height) ? iframe.height : `${iframe.height}px`;
+          this.iframeDimensions.width = isNaN(iframe.width) ? iframe.width : `${iframe.width}px`;
           this.providerUrl = iframe.src;
         } else if (script) {
           this.providerUrl = script.src;
@@ -177,26 +193,10 @@
         this.provider = serviceForUrl(this.providerUrl);
       }
 
-      if (this.provider) {
+      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       } else {
         this.linkToContent = this.url || iframe?.src;
-      }
-    },
-
-    fetchOnServer: false,
-
-    watch: {
-      cookieConsentRequired(newVal) {
-        if (!newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
       }
     },
 

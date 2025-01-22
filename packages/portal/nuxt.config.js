@@ -305,7 +305,8 @@ export default {
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/features'
+    '~/plugins/features',
+    '~/plugins/jsdom-domparser.server'
   ],
 
   buildModules: [

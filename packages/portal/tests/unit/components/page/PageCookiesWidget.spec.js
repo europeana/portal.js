@@ -25,7 +25,8 @@ const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
     },
     $n: (num) => num,
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    $te: () => true
   },
   stubs: ['i18n']
 });
