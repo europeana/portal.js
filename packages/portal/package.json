@@ -43,6 +43,7 @@
     "http-errors": "^2.0.0",
     "i18n-iso-countries": "^7.11.0",
     "isbot": "^3.7.0",
+    "jsdom": "^26.0.0",
     "lodash": "^4.17.21",
     "marked": "^4.0.10",
     "md5": "^2.3.0",

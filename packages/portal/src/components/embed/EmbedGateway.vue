@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="!$fetchState.pending"
     class="h-100"
   >
     <slot
@@ -130,7 +129,7 @@
       };
     },
 
-    fetch() {
+    created() {
       this.providerUrl = this.url;
 
       if (this.embedCode) {
@@ -160,8 +159,6 @@
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       }
     },
-
-    fetchOnServer: false,
 
     watch: {
       cookieConsentRequired(newVal) {
