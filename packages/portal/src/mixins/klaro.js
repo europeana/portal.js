@@ -30,7 +30,7 @@ export default {
     '$i18n.locale': 'renderKlaro'
   },
 
-  created() {
+  mounted() {
     waitFor(() => window.klaro, { name: 'Klaro' })
       .then(() => {
         if (!klaro.value) {
