@@ -1,6 +1,6 @@
 const definitions = [
   {
-    purpose: 'essential',
+    name: 'essential',
     services: [
       {
         cookies: ['auth.strategy'],
@@ -30,26 +30,26 @@ const definitions = [
     ]
   },
   {
-    purpose: 'usage',
+    name: 'usage',
     services: [
       {
       // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
         cookies: [/^_hj/],
         name: 'hotjar',
-        purposes: ['usage']
+        names: ['usage']
       },
       {
         cookies: [/^_pk_/, 'mtm_cookie_consent'],
         name: 'matomo',
-        purposes: ['usage']
+        names: ['usage']
       }
     ]
   },
   {
-    purpose: 'thirdPartyContent',
+    name: 'thirdPartyContent',
     services: [
       {
-        purpose: 'socialMedia',
+        name: 'socialMedia',
         services: [
           { name: 'facebook' },
           { name: 'googleDocs' },
@@ -62,10 +62,10 @@ const definitions = [
         ]
       },
       {
-        purpose: 'mediaViewing',
+        name: 'mediaViewing',
         services: [
           {
-            purpose: '2D',
+            name: '2D',
             services: [
               { name: 'bookWidgets' },
               { name: 'ecorpus' },
@@ -86,7 +86,7 @@ const definitions = [
             ]
           },
           {
-            purpose: '3D',
+            name: '3D',
             services: [
               { name: 'arctur3DViewer' },
               { name: 'eureka3D',
@@ -111,7 +111,7 @@ const definitions = [
             ]
           },
           {
-            purpose: 'audio',
+            name: 'audio',
             services: [
               { name: 'britishLibrarySounds' },
               { name: 'buzzsprout' },
@@ -128,14 +128,14 @@ const definitions = [
             ]
           },
           {
-            purpose: 'multimedia',
+            name: 'multimedia',
             services: [
               { name: 'archiveOrg' },
               { name: 'digitalRepositoryOfIreland' }
             ]
           },
           {
-            purpose: 'video',
+            name: 'video',
             services: [
               { name: 'deutschesFilmportal' },
               { name: 'eclap' },
@@ -183,7 +183,7 @@ const definitions = [
         ]
       },
       {
-        purpose: 'other',
+        name: 'other',
         services: [
           { name: 'albinLarsson' },
           { name: 'behance' },

@@ -1,89 +1,108 @@
 import { ref } from 'vue';
 
+// TODO: detect when a service exists for which no selection has been made, e.g.
+//       when new services have been added since selections were saved
 export default class ServiceManager {
   selections = ref({});
+  #serviceMap = {};
 
   constructor({ callback, services } = {}) {
     this.services = services;
     this.callback = callback;
+
+    this.forEachService((service) => {
+      this.#serviceMap[service.name] = service;
+    });
+    console.log('this.#serviceMap', this.#serviceMap)
   }
 
-  serviceIsSelected(service) {
-    return this.selections.value[service.name];
+  forEachService(callback, targetServices = this.services) {
+    for (const service of targetServices) {
+      if (service.services) {
+        this.forEachService(callback, service.services);
+      }
+      callback(service);
+    }
   }
 
-  serviceHasSelection(service) {
-    return Object.keys(this.selections.value).includes(service.name);
+  serviceIsEnabled(name) {
+    return this.selections.value[name];
+  }
+
+  serviceHasSelection(name) {
+    return Object.keys(this.selections.value).includes(name);
   }
 
   get selectionsAreStored() {
-    return !!localStorage.serviceSelections;
+    return !!localStorage.serviceManager;
+  }
+
+  // TODO: make computed
+  get enabledServices() {
+    return Object.keys(this.selections.value).filter((name) => this.selections.value[name]);
   }
 
   loadSelections() {
     if (this.selectionsAreStored) {
-      this.selections.value = JSON.parse(localStorage.serviceSelections);
+      this.selections.value = JSON.parse(localStorage.serviceManager);
     }
   }
 
-  storeSelections() {
-    localStorage.serviceSelections = JSON.stringify(this.selections.value);
+  saveSelections() {
+    localStorage.serviceManager = JSON.stringify(this.selections.value);
   }
 
-  initSelections(targetServices = this.services) {
-    for (const service of targetServices) {
-      if (service.services) {
-        this.initSelections(service.services);
-      } else if (service.name) {
-        if (service.required) {
-          // force required services to be selected, all the time
-          this.selectService(service);
-        } else {
-          // not-required services favour the existing selection, otherwise default
-          // to deselected
-          if (!this.serviceHasSelection(service)) {
-            this.deselectService(service);
-          }
+  initSelections() {
+    this.forEachService((service) => {
+      if (service.required) {
+        // force required services to be enableed, all the time
+        this.enableService(service.name);
+      } else {
+        // not-required services favour the existing selection, otherwise default
+        // to disableed
+        if (!this.serviceHasSelection(service.name)) {
+          this.disableService(service.name);
         }
       }
+    });
+  }
+
+  getService(name) {
+    return this.#serviceMap[name];
+  }
+
+  disableService(name) {
+    // console.log('disableService', name)
+    this.selections.value[name] = !!this.getService(name).required;
+    // this.callback?.(service, this.selections.value[service.name]);
+  }
+
+  enableService(name) {
+    this.selections.value[name] = true;
+    // this.callback?.(service, this.selections.value[service.name]);
+  }
+
+  updateService(name, enabled) {
+    enabled ? this.enableService(name) : this.disableService(name);
+  }
+
+  enableAllServices({ save = false } = {}) {
+    this.forEachService((service) => {
+      this.enableService(service.name);
+    });
+
+    if (save) {
+      this.saveSelections();
     }
   }
 
-  deselectService(service) {
-    this.selections.value[service.name] = !!service.required;
-    this.callback?.(service, this.selections.value[service.name]);
-  }
+  disableAllServices({ save = false } = {}) {
+    this.forEachService((service) => {
+      this.disableService(service.name);
+    });
 
-  selectService(service) {
-    this.selections.value[service.name] = true;
-    this.callback?.(service, this.selections.value[service.name]);
-  }
-
-  selectAllServices(targetServices = this.services, { store = false } = {}) {
-    for (const service of targetServices) {
-      if (service.services) {
-        this.selectAllServices(service.services);
-      } else if (service.name) {
-        this.selectService(service);
-      }
-    }
-
-    if (store) {
-      this.storeSelections();
-    }
-  }
-
-  deselectAllServices(targetServices = this.services, { store = false } = {}) {
-    for (const service of targetServices) {
-      if (service.services) {
-        this.deselectAllServices(service.services);
-      } else if (service.name) {
-        this.deselectService(service);
-      }
-    }
-
-    if (store) {
-      this.storeSelections();
+    if (save) {
+      this.saveSelections();
     }
   }
 }

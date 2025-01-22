@@ -76,7 +76,6 @@
 </template>
 
 <script>
-  import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
 
   export default {
@@ -86,8 +85,6 @@
       MediaCardImage: () => import('@/components/media/MediaCardImage.vue'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
-
-    mixins: [klaroMixin],
 
     props: {
       media: {
@@ -113,18 +110,15 @@
     },
 
     watch: {
-      cookieConsentRequired(newVal) {
-        if (!newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
+      '$serviceManager.selections.value': {
+        deep: true,
+        handler() {
+          console.log('watch $serviceManager.selections', this.$serviceManager.selections.value)
           this.checkConsentAndOpenEmbed();
         }
       }
     },
+
 
     mounted() {
       this.provider = serviceForUrl(this.url);
@@ -132,51 +126,50 @@
       if (this.provider) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       }
+
+      this.checkConsentAndOpenEmbed();
     },
 
     methods: {
       openCookieModal() {
-        if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
-        } else {
+        if (this.$serviceManager.selectionsAreStored) {
           this.renderCookieModal = true;
           this.$bvModal.show(this.cookieModalId);
+        } else {
+          this.$bvModal.show('cookie-modal');
         }
       },
 
       checkConsentAndOpenEmbed() {
-        const consents = this.klaroManager?.loadConsents();
-        const providerHasConsent = !!consents?.[this.provider?.name];
-
-        if (providerHasConsent) {
-          this.opened = true;
-        }
+        console.log('checkConsentAndOpenEmbed', this.$serviceManager.serviceIsEnabled(this.provider?.name))
+        this.opened = this.$serviceManager.serviceIsEnabled(this.provider?.name);
       },
 
       consentAllEmbeddedContent() {
-        if (this.cookieConsentRequired) {
-          this.klaroManager.changeAll(true);
+        if (this.$serviceManager.selectionsAreStored) {
+          this.$serviceManager.forEachService(
+            (service) => this.$serviceManager.enableService(service.name),
+            this.$serviceManager.getService('thirdPartyContent')
+          );
         } else {
-          const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
-          allThirdPartyContentServices?.forEach(service => this.klaroManager?.updateConsent(service.name, true));
+          this.$serviceManager.enableAllServices();
         }
 
         this.openModalOrSaveConsents();
       },
 
       consentThisProvider() {
-        this.klaroManager.updateConsent(this.provider.name, true);
+        this.$serviceManager.enableService(this.provider.name);
 
         this.openModalOrSaveConsents();
       },
 
       openModalOrSaveConsents() {
-        if (this.cookieConsentRequired) {
+        // if (!this.$serviceManager.selectionsAreStored) {
           this.$bvModal.show('cookie-modal');
-        } else {
-          this.klaroManager?.saveAndApplyConsents('save');
-          this.checkConsentAndOpenEmbed();
-        }
+        // } else {
+          // this.$serviceManager.saveSelections();
+        // }
       }
     }
   };
