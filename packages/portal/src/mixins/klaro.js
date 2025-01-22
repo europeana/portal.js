@@ -70,7 +70,7 @@ export default {
           ...service,
           // TODO: remove translation data, we can access translations directly in the custom modal
           translations: {
-            [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`)
+            ...this.$te(`klaro.services.${service.name}`) && { [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`) }
           }
         }));
 

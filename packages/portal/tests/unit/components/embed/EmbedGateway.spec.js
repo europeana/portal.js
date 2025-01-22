@@ -23,6 +23,7 @@ const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
   propsData,
   mocks: {
     $t: (key) => key,
+    $te: () => true,
     $features: { embeddedMediaNotification: true },
     $fetchState: { pending: false },
     $i18n: {

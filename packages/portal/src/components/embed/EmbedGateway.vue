@@ -156,7 +156,7 @@
         this.provider = serviceForUrl(this.providerUrl);
       }
 
-      if (this.provider) {
+      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       }
     },
