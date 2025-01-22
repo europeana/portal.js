@@ -23,6 +23,7 @@ const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
   propsData,
   mocks: {
     $t: (key) => key,
+    $te: () => true,
     $features: { embeddedMediaNotification: true },
     $fetchState: { pending: false },
     $i18n: {
@@ -52,6 +53,7 @@ describe('components/embed/EmbedGateway', () => {
       servicesWithConsent.youTube = true;
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
+      await wrapper.vm.fetch();
 
       await wrapper.vm.fetch();
       await wrapper.vm.$nextTick();
@@ -90,8 +92,8 @@ describe('components/embed/EmbedGateway', () => {
           const wrapper = factory({ embedCode: iframeEmbedCode });
           wrapper.vm.fetch();
 
-          expect(wrapper.vm.iframeDimensions.height).toEqual('400');
-          expect(wrapper.vm.iframeDimensions.width).toEqual('500');
+          expect(wrapper.vm.iframeDimensions.height).toEqual('400px');
+          expect(wrapper.vm.iframeDimensions.width).toEqual('500px');
           expect(wrapper.vm.providerUrl).toEqual('https://sketchfab.com/models/1234/embed');
         });
       });
