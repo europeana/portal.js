@@ -61,7 +61,6 @@
           :key="subServiceIndex"
         >
           <PageCookiesSection
-            ref="nestedCheckboxes"
             :checked-services="checkedServices"
             :depth="depth + 1"
             :service-data="subService"
