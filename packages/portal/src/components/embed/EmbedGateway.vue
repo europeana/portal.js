@@ -10,12 +10,11 @@
       v-else
       class="notification-overlay"
       :class="{'h-100': url, 'mw-100': embedCode}"
-      :style="{
-        height: iframeDimensions.height && `${iframeDimensions.height}px`,
-        width: iframeDimensions.width && `${iframeDimensions.width}px`,
-      }"
     >
-      <b-row class="h-100">
+      <b-row
+        class="position-relative"
+        :class="{ 'h-100': url}"
+      >
         <b-col
           :lg="url ? '10' : null"
           class="thumbnail-background mx-auto h-100 position-absolute"
@@ -35,6 +34,10 @@
         <b-col
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
+          :style="{
+            'min-height': !!iframeDimensions.height && iframeDimensions.height,
+            width: !!iframeDimensions.width && iframeDimensions.width,
+          }"
         >
           <p class="message">
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
@@ -154,8 +157,8 @@
         const script = doc.querySelector('script');
 
         if (iframe) {
-          this.iframeDimensions.height = iframe.height;
-          this.iframeDimensions.width = iframe.width;
+          this.iframeDimensions.height = isNaN(iframe.height) ? iframe.height : `${iframe.height}px`;
+          this.iframeDimensions.width = isNaN(iframe.width) ? iframe.width : `${iframe.width}px`;
           this.providerUrl = iframe.src;
         } else if (script) {
           this.providerUrl = script.src;
