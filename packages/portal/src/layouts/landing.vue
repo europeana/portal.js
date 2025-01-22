@@ -21,7 +21,7 @@
     <client-only>
       <PageCookiesWidget
         v-if="$features.embeddedMediaNotification"
-        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo', 'codepen']"
       />
       <PageCookieConsent
         v-else

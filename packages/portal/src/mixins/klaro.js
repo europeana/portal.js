@@ -30,7 +30,7 @@ export default {
     '$i18n.locale': 'renderKlaro'
   },
 
-  created() {
+  mounted() {
     waitFor(() => window.klaro, { name: 'Klaro' })
       .then(() => {
         if (!klaro.value) {
@@ -70,7 +70,7 @@ export default {
           ...service,
           // TODO: remove translation data, we can access translations directly in the custom modal
           translations: {
-            [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`)
+            ...this.$te(`klaro.services.${service.name}`) && { [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`) }
           }
         }));
 
@@ -103,7 +103,7 @@ export default {
         }
 
         this.klaro.render(this.klaroConfig, true);
-        !this.$features.embeddedMediaNotification && this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
+        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },
 
@@ -118,7 +118,12 @@ export default {
         }[data.type];
       }
 
-      eventName && this.trackKlaroClickEvent(eventName);
+      if (this.$features.embeddedMediaNotification) {
+        eventName && this.checkConsentAndOpenEmbed?.();
+      } else {
+        // TODO: remove on feature toggle clean up
+        eventName && this.trackKlaroClickEvent(eventName);
+      }
     },
 
     // If Matomo plugin is installed, wait for Matomo to load, and run callback

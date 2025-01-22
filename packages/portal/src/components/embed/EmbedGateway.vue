@@ -1,28 +1,43 @@
 <template>
-  <div class="h-100">
+  <div
+    class="h-100"
+  >
     <slot
       v-if="opened"
       class="embed-gateway-opened"
     />
     <b-container
       v-else
-      class="notification-overlay h-100"
+      class="notification-overlay"
+      :class="{'h-100': url, 'mw-100': embedCode}"
     >
-      <b-row class="h-100">
+      <b-row
+        class="position-relative"
+        :class="{ 'h-100': url}"
+      >
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="thumbnail-background mx-auto h-100 position-absolute"
         >
           <MediaCardImage
+            v-if="media"
             :media="media"
             :lazy="false"
             :linkable="false"
             thumbnail-size="large"
           />
+          <div
+            v-else
+            class="icon-multimedia h-100 d-flex align-items-center justify-content-center"
+          />
         </b-col>
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
+          :style="{
+            'min-height': !!iframeDimensions.height && iframeDimensions.height,
+            width: !!iframeDimensions.width && iframeDimensions.width,
+          }"
         >
           <p class="message">
             {{ $t('media.embedNotification.message', { provider: providerName }) }}
@@ -55,7 +70,6 @@
             :modal-description-path="null"
             :hide-purposes="hidePurposes"
             :only-show-if-consent-required="false"
-            @consentsApplied="checkConsentAndOpenEmbed"
           />
           <i18n
             path="media.embedNotification.ifNotAll"
@@ -90,6 +104,10 @@
     mixins: [klaroMixin],
 
     props: {
+      embedCode: {
+        type: String,
+        default: null
+      },
       media: {
         type: Object,
         default: null
@@ -104,11 +122,13 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
+        iframeDimensions: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
         provider: null,
-        providerName: this.$t('klaro.services.unknownProvider')
+        providerName: this.$t('klaro.services.unknownProvider'),
+        providerUrl: null
       };
     },
 
@@ -126,10 +146,33 @@
       }
     },
 
-    mounted() {
-      this.provider = serviceForUrl(this.url);
+    created() {
+      this.providerUrl = this.url;
 
-      if (this.provider) {
+      if (this.embedCode) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.embedCode, 'text/html');
+
+        const iframe = doc.querySelector('iframe');
+        const script = doc.querySelector('script');
+
+        if (iframe) {
+          this.iframeDimensions.height = isNaN(iframe.height) ? iframe.height : `${iframe.height}px`;
+          this.iframeDimensions.width = isNaN(iframe.width) ? iframe.width : `${iframe.width}px`;
+          this.providerUrl = iframe.src;
+        } else if (script) {
+          this.providerUrl = script.src;
+        } else {
+          // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
+          this.opened = true;
+        }
+      }
+
+      if (this.providerUrl) {
+        this.provider = serviceForUrl(this.providerUrl);
+      }
+
+      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       }
     },
@@ -221,6 +264,7 @@
 
   .notification-content {
     padding: 1rem calc(15px + 1rem);
+    overflow: auto;
 
     @media (min-width: $bp-small) {
       padding: 2rem calc(15px + 2rem);
@@ -260,11 +304,27 @@
 
         &:before {
           content: '\e96b';
-          font-size: 15rem;
+          font-size: 8rem;
           color: $middlegrey;
+
+          @media (min-width: $bp-medium) {
+            font-size: 15rem;
+          }
+        }
+      }
+    }
+
+    .icon-multimedia {
+      background-color: $white;
+
+      &:before {
+        font-size: 8rem;
+        color: $middlegrey;
+
+        @media (min-width: $bp-medium) {
+          font-size: 15rem;
         }
       }
     }
   }
-
 </style>

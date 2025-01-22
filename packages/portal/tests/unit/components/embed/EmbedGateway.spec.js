@@ -1,4 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -17,15 +18,14 @@ const klaroManager = {
   confirmed: true
 };
 
-const factory = () => shallowMount(EmbedGateway, {
+const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
   localVue,
-  propsData: {
-    url
-  },
+  propsData,
   mocks: {
-
     $t: (key) => key,
+    $te: () => true,
     $features: { embeddedMediaNotification: true },
+    $fetchState: { pending: false },
     $i18n: {
       locale: 'en'
     }
@@ -50,6 +50,7 @@ describe('components/embed/EmbedGateway', () => {
       servicesWithConsent.youTube = true;
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
+      await wrapper.vm.fetch();
 
       await wrapper.vm.$nextTick();
 
@@ -58,14 +59,14 @@ describe('components/embed/EmbedGateway', () => {
 
       expect(notification.exists()).toBe(false);
       expect(embed.isVisible()).toBe(true);
-
       delete servicesWithConsent.youTube;
     });
   });
 
-  describe('on mounted', () => {
+  describe('on fetch', () => {
     it('looks up the service for the embed URL', () => {
       const wrapper = factory();
+      wrapper.vm.fetch();
 
       expect(wrapper.vm.provider.name).toEqual('youTube');
     });
@@ -73,8 +74,46 @@ describe('components/embed/EmbedGateway', () => {
     describe('when a provider is found in the whitelist', () => {
       it('updates the provider name translation string', () => {
         const wrapper = factory();
+        wrapper.vm.fetch();
 
         expect(wrapper.vm.providerName).toEqual('klaro.services.youTube.title');
+      });
+    });
+
+    describe('when an embed code is passed', () => {
+      describe('which contains an iframe', () => {
+        it('sets the provider url to it\'s src and the width and height', () => {
+          const iframeEmbedCode = '<div class="sketchfab-embed-wrapper"><iframe title="title" src="https://sketchfab.com/models/1234/embed" width="500" height="400"></iframe></div>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+          wrapper.vm.fetch();
+
+          expect(wrapper.vm.iframeDimensions.height).toEqual('400px');
+          expect(wrapper.vm.iframeDimensions.width).toEqual('500px');
+          expect(wrapper.vm.providerUrl).toEqual('https://sketchfab.com/models/1234/embed');
+        });
+      });
+
+      describe('which contains a script', () => {
+        it('sets the provider url to it\'s src', () => {
+          const iframeEmbedCode = '<script async src="//www.instagram.com/embed.js"></script>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+          wrapper.vm.fetch();
+
+          expect(wrapper.vm.providerUrl).toEqual('//www.instagram.com/embed.js');
+        });
+      });
+
+      describe('which does not contains a script or iframe', () => {
+        it('opens the gate', () => {
+          const iframeEmbedCode = '<audio src="https://www.example.eu/audio.mp3"></audio>';
+
+          const wrapper = factory({ embedCode: iframeEmbedCode });
+          wrapper.vm.fetch();
+
+          expect(wrapper.vm.opened).toBe(true);
+        });
       });
     });
   });
@@ -84,6 +123,7 @@ describe('components/embed/EmbedGateway', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
       servicesWithConsent.youTube = true;
+      wrapper.vm.fetch();
 
       wrapper.find('[data-qa="load all button"').trigger('click');
 
@@ -111,6 +151,7 @@ describe('components/embed/EmbedGateway', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
       servicesWithConsent.youTube = true;
+      wrapper.vm.fetch();
 
       wrapper.find('[data-qa="load only this provider button"').trigger('click');
 

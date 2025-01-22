@@ -31,6 +31,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMount(component, {
     },
     $route: { params: {} },
     $t: (key) => key,
+    $te: () => true,
     $features: {},
     ...mocks
   }

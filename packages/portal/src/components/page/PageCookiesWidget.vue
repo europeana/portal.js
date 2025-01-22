@@ -188,11 +188,11 @@
             {
               name: 'thirdPartyContent',
               services: [
-                {
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))?.length && {
                   name: 'socialMedia',
                   services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))
                 },
-                {
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('mediaViewing'))?.length && {
                   name: 'mediaViewing',
                   services: [
                     {
@@ -213,11 +213,11 @@
                     }
                   ]
                 },
-                {
+                this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))?.length && {
                   name: 'other',
                   services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))
                 }
-              ]
+              ].filter(Boolean)
             }
         ].filter(Boolean)
           .filter(purpose => !this.hidePurposes.includes(purpose.name));
@@ -266,7 +266,6 @@
         this.setCheckedServices();
 
         this.$bvModal.hide(this.modalId);
-        this.$emit('consentsApplied');
 
         this.trackButtonClicked(trackAsDifferentEventType || eventType);
       },

@@ -922,9 +922,6 @@ export default {
       "buzzsprout": {
         "title": "Buzzsprout"
       },
-      "carto": {
-        "title": "Carto"
-      },
       "codepen": {
         "title": "Codepen"
       },
@@ -937,6 +934,9 @@ export default {
       },
       "deutschesFilmportal": {
         "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
       },
       "digitalRepositoryOfIreland": {
         "title": "Digital Repository of Ireland"
@@ -954,25 +954,13 @@ export default {
         "title": "European parliament multimedia service"
       },
       "euscreen": {
-        "title": "Euscreen"
-      },
-      "exhibit": {
-        "title": "Exhibit"
-      },
-      "facebook": {
-        "title": "Facebook"
+        "title": "EUscreen"
       },
       "freesound": {
         "title": "Freesound"
       },
       "gallica": {
         "title": "Gallica"
-      },
-      "gettyImages": {
-        "title": "Getty Images"
-      },
-      "gfycat": {
-        "title": "gfycat"
       },
       "giphy": {
         "title": "Giphy"
@@ -982,9 +970,6 @@ export default {
       },
       "googleDrive": {
         "title": "Google Drive"
-      },
-      "googleMaps": {
-        "title": "Google Maps"
       },
       "gotlandPictureStones": {
         "title": "Gotland Picture Stones"
@@ -1016,14 +1001,11 @@ export default {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
       },
-      "knightLabCdn": {
-        "title": "Knight Lab CDN"
+      "kompakkt": {
+        "title": "Kompakkt"
       },
       "kystreise": {
         "title": "Kystreise"
-      },
-      "mailchimp": {
-        "title": "Mailchimp"
       },
       "matomo": {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
@@ -1041,9 +1023,6 @@ export default {
       "newFeatureNotification": {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
-      },
-      "onlineComputerLibraryCenter": {
-        "title": "Online Computer Library Center"
       },
       "openbeelden": {
         "title": "Openbeelden"
@@ -1072,9 +1051,6 @@ export default {
       },
       "spatial": {
         "title": "Spatial"
-      },
-      "sokINettbiblioteket": {
-        "title": "Søk i Nettbiblioteket"
       },
       "soundArchivesOfTheCNRS": {
         "title": "Sound archives of the CNRS"
