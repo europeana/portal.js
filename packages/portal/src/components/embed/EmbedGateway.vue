@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="!$fetchState.pending"
     class="h-100"
   >
     <slot
@@ -130,11 +129,24 @@
       };
     },
 
-    fetch() {
+    watch: {
+      cookieConsentRequired(newVal) {
+        if (!newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      },
+      // klaroManager is not available in mounted so watch it to be ready instead
+      klaroManager(newVal) {
+        if (newVal) {
+          this.checkConsentAndOpenEmbed();
+        }
+      }
+    },
+
+    created() {
       this.providerUrl = this.url;
 
       if (this.embedCode) {
-        // TODO: come up with a way to do this that is server-side compatible too
         const parser = new DOMParser();
         const doc = parser.parseFromString(this.embedCode, 'text/html');
 
@@ -157,24 +169,8 @@
         this.provider = serviceForUrl(this.providerUrl);
       }
 
-      if (this.provider) {
+      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
-      }
-    },
-
-    fetchOnServer: false,
-
-    watch: {
-      cookieConsentRequired(newVal) {
-        if (!newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
       }
     },
 
