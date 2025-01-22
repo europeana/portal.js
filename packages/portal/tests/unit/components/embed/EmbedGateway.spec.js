@@ -1,5 +1,4 @@
-import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -18,14 +17,13 @@ const klaroManager = {
   confirmed: true
 };
 
-const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
+const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
   localVue,
   propsData,
   mocks: {
     $t: (key) => key,
     $te: () => true,
     $features: { embeddedMediaNotification: true },
-    $fetchState: { pending: false },
     $i18n: {
       locale: 'en'
     }
@@ -36,11 +34,8 @@ const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
 
 describe('components/embed/EmbedGateway', () => {
   describe('when not opened', () => {
-    it('renders a notification overlay', async() => {
+    it('renders a notification overlay', () => {
       const wrapper = factory();
-
-      await wrapper.vm.fetch();
-      await wrapper.vm.$nextTick();
 
       const notification =  wrapper.find('.notification-overlay');
 
@@ -53,9 +48,7 @@ describe('components/embed/EmbedGateway', () => {
       servicesWithConsent.youTube = true;
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      await wrapper.vm.fetch();
 
-      await wrapper.vm.fetch();
       await wrapper.vm.$nextTick();
 
       const notification =  wrapper.find('.notification-overlay');
@@ -67,10 +60,9 @@ describe('components/embed/EmbedGateway', () => {
     });
   });
 
-  describe('on fetch', () => {
+  describe('on created', () => {
     it('looks up the service for the embed URL', () => {
       const wrapper = factory();
-      wrapper.vm.fetch();
 
       expect(wrapper.vm.provider.name).toEqual('youTube');
     });
@@ -78,7 +70,6 @@ describe('components/embed/EmbedGateway', () => {
     describe('when a provider is found in the whitelist', () => {
       it('updates the provider name translation string', () => {
         const wrapper = factory();
-        wrapper.vm.fetch();
 
         expect(wrapper.vm.providerName).toEqual('klaro.services.youTube.title');
       });
@@ -90,7 +81,6 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<div class="sketchfab-embed-wrapper"><iframe title="title" src="https://sketchfab.com/models/1234/embed" width="500" height="400"></iframe></div>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.iframeDimensions.height).toEqual('400px');
           expect(wrapper.vm.iframeDimensions.width).toEqual('500px');
@@ -103,7 +93,6 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<script async src="//www.instagram.com/embed.js"></script>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.providerUrl).toEqual('//www.instagram.com/embed.js');
         });
@@ -114,7 +103,6 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<audio src="https://www.example.eu/audio.mp3"></audio>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.opened).toBe(true);
         });
@@ -123,13 +111,10 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load all embedded content button', () => {
-    it('updates, saves and applies consents and opens the embed', async() => {
+    it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
       sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
-
-      await wrapper.vm.fetch();
-      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="load all button"').trigger('click');
 
@@ -140,12 +125,9 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the view full list button', () => {
-    it('opens the third-party-content modal', async() => {
+    it('opens the third-party-content modal', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm.$bvModal, 'show');
-
-      await wrapper.vm.fetch();
-      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
@@ -155,13 +137,10 @@ describe('components/embed/EmbedGateway', () => {
   });
 
   describe('when clicking the load only this provider button', () => {
-    it('updates, saves and applies consents and opens the embed', async() => {
+    it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
       sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
-
-      await wrapper.vm.fetch();
-      await wrapper.vm.$nextTick();
 
       wrapper.find('[data-qa="load only this provider button"').trigger('click');
 
