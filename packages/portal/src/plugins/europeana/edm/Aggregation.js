@@ -27,7 +27,7 @@ import WebResource from './WebResource.js';
  */
 const sortByIsNextInSequence = (source) => {
   // Make a copy to work on
-  const items = [].concat(source);
+  const items = [].concat(source).filter(Boolean);
 
   const itemUris = items.map((item) => item.about);
 

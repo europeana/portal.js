@@ -46,7 +46,7 @@ export default class EuropeanaApi {
         }
       }
       // Too much information to pass around, dispose of it
-      delete error.response;
+      // delete error.response;
       delete error.config;
       delete error.request;
       delete error.toJSON;

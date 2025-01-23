@@ -2,6 +2,9 @@
   <div
     data-qa="item media presentation"
   >
+    <div v-if="isTombstone">
+      TOMBSTONE
+    </div>
     <div
       ref="mediaViewerWrapper"
       class="media-viewer-wrapper overflow-hidden"
@@ -307,6 +310,10 @@
 
       addSidebarToggleMaxWidth() {
         return !this.viewableImageResource && this.sidebarHasContent;
+      },
+
+      isTombstone() {
+        return this.webResources?.length === 1 && this.webResources[0].source === 'TOMBSTONE';
       }
     },
 
@@ -348,7 +355,7 @@
 
       selectResource() {
         this.thumbnailInteractedWith = false;
-        this.$emit('select', this.resource.edm);
+        this.$emit('select', this.resource?.edm);
       },
 
       toggleFullscreen() {

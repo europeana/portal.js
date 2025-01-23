@@ -207,7 +207,11 @@
 
     computed: {
       webResources() {
-        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+        if (this.media.length === 0) {
+          return [{ about: this.metadata.edmObject, source: 'TOMBSTONE' }];
+        } else {
+          return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+        }
       },
       pageMeta() {
         return {
@@ -356,6 +360,7 @@
         }
 
         let data;
+
         try {
           data = await this.$apis.record.get(this.identifier, params);
         } catch (error) {
@@ -363,6 +368,8 @@
           if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
             this.fromTranslationError = true;
             data = await this.$apis.record.get(this.identifier);
+          } else if (errorResponse?.status === 410) {
+            data = errorResponse.data;
           } else {
             return this.$error(error, { scope: 'item' });
           }
@@ -525,7 +532,7 @@
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
+        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription', 'edmObject']));
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },

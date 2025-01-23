@@ -4,6 +4,7 @@ const HTTP_CODES = {
   401: 'Unauthorised',
   403: 'Unauthorised',
   404: 'NotFound',
+  410: 'Gone',
   423: 'Locked'
 };
 
