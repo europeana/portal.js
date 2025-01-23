@@ -1,5 +1,4 @@
-import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -18,14 +17,13 @@ const klaroManager = {
   confirmed: true
 };
 
-const factory = (propsData = { url }) => shallowMountNuxt(EmbedGateway, {
+const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
   localVue,
   propsData,
   mocks: {
     $t: (key) => key,
     $te: () => true,
     $features: { embeddedMediaNotification: true },
-    $fetchState: { pending: false },
     $i18n: {
       locale: 'en'
     }
@@ -50,7 +48,6 @@ describe('components/embed/EmbedGateway', () => {
       servicesWithConsent.youTube = true;
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      await wrapper.vm.fetch();
 
       await wrapper.vm.$nextTick();
 
@@ -63,10 +60,9 @@ describe('components/embed/EmbedGateway', () => {
     });
   });
 
-  describe('on fetch', () => {
+  describe('on created', () => {
     it('looks up the service for the embed URL', () => {
       const wrapper = factory();
-      wrapper.vm.fetch();
 
       expect(wrapper.vm.provider.name).toEqual('youTube');
     });
@@ -74,7 +70,6 @@ describe('components/embed/EmbedGateway', () => {
     describe('when a provider is found in the whitelist', () => {
       it('updates the provider name translation string', () => {
         const wrapper = factory();
-        wrapper.vm.fetch();
 
         expect(wrapper.vm.providerName).toEqual('klaro.services.youTube.title');
       });
@@ -86,10 +81,9 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<div class="sketchfab-embed-wrapper"><iframe title="title" src="https://sketchfab.com/models/1234/embed" width="500" height="400"></iframe></div>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
-          expect(wrapper.vm.iframeDimensions.height).toEqual('400px');
-          expect(wrapper.vm.iframeDimensions.width).toEqual('500px');
+          expect(wrapper.vm.iframe.height).toEqual('400px');
+          expect(wrapper.vm.iframe.width).toEqual('500px');
           expect(wrapper.vm.providerUrl).toEqual('https://sketchfab.com/models/1234/embed');
         });
       });
@@ -99,7 +93,6 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<script async src="//www.instagram.com/embed.js"></script>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.providerUrl).toEqual('//www.instagram.com/embed.js');
         });
@@ -110,7 +103,6 @@ describe('components/embed/EmbedGateway', () => {
           const iframeEmbedCode = '<audio src="https://www.example.eu/audio.mp3"></audio>';
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.opened).toBe(true);
         });
@@ -122,15 +114,13 @@ describe('components/embed/EmbedGateway', () => {
     it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      servicesWithConsent.youTube = true;
-      wrapper.vm.fetch();
+      sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
 
       wrapper.find('[data-qa="load all button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
-      expect(wrapper.vm.opened).toBe(true);
-      delete servicesWithConsent.youTube;
+      expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
     });
   });
 
@@ -150,15 +140,25 @@ describe('components/embed/EmbedGateway', () => {
     it('updates, saves and applies consents and opens the embed', () => {
       const wrapper = factory();
       wrapper.vm.klaroManager = klaroManager;
-      servicesWithConsent.youTube = true;
-      wrapper.vm.fetch();
+      sinon.spy(wrapper.vm, 'checkConsentAndOpenEmbed');
 
       wrapper.find('[data-qa="load only this provider button"').trigger('click');
 
       expect(klaroManager.updateConsent.called).toBe(true);
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
-      expect(wrapper.vm.opened).toBe(true);
-      delete servicesWithConsent.youTube;
+      expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
+    });
+  });
+
+  describe('when provider URL is not supported', () => {
+    it('does not load the embed and renders a notification to inform the user', async() => {
+      const iframeUnknownEmbedCode = '<iframe title="title" src="https://unknown-embed-provider.eu/1234/embed" width="500" height="400"></iframe>';
+      const wrapper = factory({ embedCode: iframeUnknownEmbedCode });
+
+      const notification =  wrapper.find('.unsupported-content-notification');
+
+      expect(notification.isVisible()).toBe(true);
+      expect(wrapper.vm.opened).toBe(false);
     });
   });
 });

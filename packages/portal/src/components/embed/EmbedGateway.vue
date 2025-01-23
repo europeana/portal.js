@@ -7,7 +7,7 @@
       class="embed-gateway-opened"
     />
     <b-container
-      v-else
+      v-else-if="provider"
       class="notification-overlay"
       :class="{'h-100': url, 'mw-100': embedCode}"
     >
@@ -35,12 +35,12 @@
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
           :style="{
-            'min-height': !!iframeDimensions.height && iframeDimensions.height,
-            width: !!iframeDimensions.width && iframeDimensions.width,
+            'min-height': !!iframe.height && iframe.height,
+            width: !!iframe.width && iframe.width,
           }"
         >
           <p class="message">
-            {{ $t('media.embedNotification.message', { provider: providerName }) }}
+            {{ $t('embedNotification.message', { provider: providerName }) }}
           </p>
           <b-button
             data-qa="load all button"
@@ -48,10 +48,10 @@
             class="mb-2"
             @click="consentAllEmbeddedContent"
           >
-            {{ $t('media.embedNotification.loadAllEmbeddedContent') }}
+            {{ $t('embedNotification.loadAllEmbeddedContent') }}
           </b-button>
           <i18n
-            path="media.embedNotification.ofThirdPartyServices"
+            path="embedNotification.ofThirdPartyServices"
             tag="p"
           >
             <b-button
@@ -59,7 +59,7 @@
               variant="link"
               @click="openCookieModal"
             >
-              {{ $t('media.embedNotification.viewFullList') }}
+              {{ $t('embedNotification.viewFullList') }}
             </b-button>
           </i18n>
           <PageCookiesWidget
@@ -72,7 +72,7 @@
             :only-show-if-consent-required="false"
           />
           <i18n
-            path="media.embedNotification.ifNotAll"
+            path="embedNotification.ifNotAll"
             tag="p"
           >
             <b-button
@@ -80,9 +80,27 @@
               variant="link"
               @click="consentThisProvider"
             >
-              {{ $t('media.embedNotification.loadOnlyThis') }}
+              {{ $t('embedNotification.loadOnlyThis') }}
             </b-button>
           </i18n>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container v-else>
+      <b-row>
+        <b-col
+          :lg="url ? '10' : null"
+          class="unsupported-content-notification mx-auto"
+        >
+          <p class="mb-0">
+            {{ $t('embedNotification.messageUnkownService') }}
+          </p>
+          <SmartLink
+            v-if="linkToContent"
+            :destination="linkToContent"
+          >
+            {{ $t('embedNotification.viewThisExternalLink') }}
+          </SmartLink>
         </b-col>
       </b-row>
     </b-container>
@@ -98,7 +116,8 @@
 
     components: {
       MediaCardImage: () => import('@/components/media/MediaCardImage.vue'),
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [klaroMixin],
@@ -122,14 +141,34 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
-        iframeDimensions: {},
+        iframe: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
-        provider: null,
-        providerName: this.$t('klaro.services.unknownProvider'),
-        providerUrl: null
+        script: {}
       };
+    },
+
+    computed: {
+      linkToContent() {
+        return this.url || this.iframe?.src;
+      },
+
+      provider() {
+        return this.providerUrl ? serviceForUrl(this.providerUrl) : null;
+      },
+
+      providerName() {
+        if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
+          return this.$t(`klaro.services.${this.provider.name}.title`);
+        } else {
+          return this.$t('klaro.services.unknownProvider');
+        }
+      },
+
+      providerUrl() {
+        return this.iframe.src || this.script.src || this.url;
+      }
     },
 
     watch: {
@@ -147,9 +186,15 @@
     },
 
     created() {
-      this.providerUrl = this.url;
+      this.parseEmbedCode();
+    },
 
-      if (this.embedCode) {
+    methods: {
+      parseEmbedCode() {
+        if (!this.embedCode) {
+          return;
+        }
+
         const parser = new DOMParser();
         const doc = parser.parseFromString(this.embedCode, 'text/html');
 
@@ -157,27 +202,20 @@
         const script = doc.querySelector('script');
 
         if (iframe) {
-          this.iframeDimensions.height = isNaN(iframe.height) ? iframe.height : `${iframe.height}px`;
-          this.iframeDimensions.width = isNaN(iframe.width) ? iframe.width : `${iframe.width}px`;
-          this.providerUrl = iframe.src;
+          this.iframe = {
+            height: isNaN(iframe.height) ? iframe.height : `${iframe.height}px`,
+            width: isNaN(iframe.width) ? iframe.width : `${iframe.width}px`,
+            src: iframe.src
+          };
         } else if (script) {
-          this.providerUrl = script.src;
-        } else {
-          // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
-          this.opened = true;
+          this.script = { src: script.src };
         }
-      }
 
-      if (this.providerUrl) {
-        this.provider = serviceForUrl(this.providerUrl);
-      }
+        // open the gate when there is no iframe/script embed, but other code
+        // rendered such as audio, video or plain HTML
+        this.opened = !this.iframe.src && !this.script.src;
+      },
 
-      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
-        this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
-      }
-    },
-
-    methods: {
       openCookieModal() {
         if (this.cookieConsentRequired) {
           this.$bvModal.show('cookie-modal');
@@ -324,6 +362,28 @@
         @media (min-width: $bp-medium) {
           font-size: 15rem;
         }
+      }
+    }
+  }
+
+  .unsupported-content-notification {
+    background: $black;
+    border-radius: 0.25rem;
+    color: $white;
+    font-size: $font-size-small;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+
+    @media (min-width: $bp-medium) {
+      padding: 1.75rem 2rem;
+    }
+
+    a {
+      color: $white;
+
+      ::v-deep .icon-external-link {
+        vertical-align: baseline;
       }
     }
   }
