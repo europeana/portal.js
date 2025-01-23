@@ -387,7 +387,7 @@
   }
 
   .unsupported-content-notification {
-    background: $black;
+    background-color: rgba(0, 0, 0, 0.70);
     border-radius: 0.25rem;
     color: $white;
     font-size: $font-size-small;
