@@ -301,6 +301,7 @@
   }
 
   .notification-content {
+    background-color: rgba(0, 0, 0, 0.70);
     padding: 1rem calc(15px + 1rem);
     overflow: auto;
 
@@ -314,16 +315,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-
-    &:after {
-      content: '';
-      background-color: rgba(0, 0, 0, 0.70);
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
 
     ::v-deep img {
       height: 100%;
