@@ -35,8 +35,8 @@
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
           :style="{
-            'min-height': !!iframeDimensions.height && iframeDimensions.height,
-            width: !!iframeDimensions.width && iframeDimensions.width,
+            'min-height': !!iframe.height && iframe.height,
+            width: !!iframe.width && iframe.width,
           }"
         >
           <p class="message">
@@ -141,15 +141,34 @@
       return {
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
-        iframeDimensions: {},
-        linkToContent: null,
+        iframe: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
-        provider: null,
-        providerName: this.$t('klaro.services.unknownProvider'),
-        providerUrl: null
+        script: {}
       };
+    },
+
+    computed: {
+      linkToContent() {
+        return this.url || this.iframe?.src;
+      },
+
+      provider() {
+        return this.providerUrl ? serviceForUrl(this.providerUrl) : null;
+      },
+
+      providerName() {
+        if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
+          return this.$t(`klaro.services.${this.provider.name}.title`);
+        } else {
+          return this.$t('klaro.services.unknownProvider');
+        }
+      },
+
+      providerUrl() {
+        return this.iframe.src || this.script.src || this.url;
+      }
     },
 
     watch: {
@@ -167,40 +186,36 @@
     },
 
     created() {
-      this.providerUrl = this.url;
-      let iframe; // define here so it's in scope to define linkToContent when needed
-
-      if (this.embedCode) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(this.embedCode, 'text/html');
-
-        iframe = doc.querySelector('iframe');
-        const script = doc.querySelector('script');
-
-        if (iframe) {
-          this.iframeDimensions.height = isNaN(iframe.height) ? iframe.height : `${iframe.height}px`;
-          this.iframeDimensions.width = isNaN(iframe.width) ? iframe.width : `${iframe.width}px`;
-          this.providerUrl = iframe.src;
-        } else if (script) {
-          this.providerUrl = script.src;
-        } else {
-          // open the gate when there is no actual embed, but other code rendered such as audio, video or plain HTML
-          this.opened = true;
-        }
-      }
-
-      if (this.providerUrl) {
-        this.provider = serviceForUrl(this.providerUrl);
-      }
-
-      if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
-        this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
-      } else {
-        this.linkToContent = this.url || iframe?.src;
-      }
+      this.parseEmbedCode();
     },
 
     methods: {
+      parseEmbedCode() {
+        if (!this.embedCode) {
+          return;
+        }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.embedCode, 'text/html');
+
+        const iframe = doc.querySelector('iframe');
+        const script = doc.querySelector('script');
+
+        if (iframe) {
+          this.iframe = {
+            height: isNaN(iframe.height) ? iframe.height : `${iframe.height}px`,
+            width: isNaN(iframe.width) ? iframe.width : `${iframe.width}px`,
+            src: iframe.src
+          };
+        } else if (script) {
+          this.script = { src: script.src };
+        }
+
+        // open the gate when there is no iframe/script embed, but other code
+        // rendered such as audio, video or plain HTML
+        this.opened = !this.iframe.src && !this.script.src;
+      },
+
       openCookieModal() {
         if (this.cookieConsentRequired) {
           this.$bvModal.show('cookie-modal');

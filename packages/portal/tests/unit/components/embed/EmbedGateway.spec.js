@@ -82,8 +82,8 @@ describe('components/embed/EmbedGateway', () => {
 
           const wrapper = factory({ embedCode: iframeEmbedCode });
 
-          expect(wrapper.vm.iframeDimensions.height).toEqual('400px');
-          expect(wrapper.vm.iframeDimensions.width).toEqual('500px');
+          expect(wrapper.vm.iframe.height).toEqual('400px');
+          expect(wrapper.vm.iframe.width).toEqual('500px');
           expect(wrapper.vm.providerUrl).toEqual('https://sketchfab.com/models/1234/embed');
         });
       });
