@@ -5,15 +5,11 @@ const instanceProperty = '$serviceManager';
 const VueServiceManagerPlugin = {
   install(Vue, options = {}) {
     if (!Object.prototype.hasOwnProperty.call(Vue.prototype, instanceProperty)) {
-      const manager = new ServiceManager(options);
+      const manager = Vue.observable(new ServiceManager(options));
       manager.loadSelections();
       manager.initSelections();
 
-      Object.defineProperty(Vue.prototype, instanceProperty, {
-        get() {
-          return manager;
-        }
-      });
+      Vue.prototype.$serviceManager = manager;
     }
   }
 };

@@ -149,6 +149,16 @@
       }
     },
 
+    watch: {
+      '$serviceManager': {
+        deep: true,
+        handler() {
+          console.log('watch $serviceManager.selections', this.$serviceManager.selections)
+          this.checkConsentAndOpenEmbed();
+        }
+      }
+    },
+
     data() {
       return {
         toastId: 'cookie-notice-toast',

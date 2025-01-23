@@ -1,9 +1,7 @@
-import { ref } from 'vue';
-
 // TODO: detect when a service exists for which no selection has been made, e.g.
 //       when new services have been added since selections were saved
 export default class ServiceManager {
-  selections = ref({});
+  selections = {};
   #serviceMap = {};
 
   constructor({ callback, services } = {}) {
@@ -26,11 +24,11 @@ export default class ServiceManager {
   }
 
   serviceIsEnabled(name) {
-    return this.selections.value[name];
+    return this.selections[name];
   }
 
   serviceHasSelection(name) {
-    return Object.keys(this.selections.value).includes(name);
+    return Object.keys(this.selections).includes(name);
   }
 
   get selectionsAreStored() {
@@ -39,17 +37,17 @@ export default class ServiceManager {
 
   // TODO: make computed
   get enabledServices() {
-    return Object.keys(this.selections.value).filter((name) => this.selections.value[name]);
+    return Object.keys(this.selections).filter((name) => this.selections[name]);
   }
 
   loadSelections() {
     if (this.selectionsAreStored) {
-      this.selections.value = JSON.parse(localStorage.serviceManager);
+      this.selections = JSON.parse(localStorage.serviceManager);
     }
   }
 
   saveSelections() {
-    localStorage.serviceManager = JSON.stringify(this.selections.value);
+    localStorage.serviceManager = JSON.stringify(this.selections);
   }
 
   initSelections() {
@@ -73,13 +71,13 @@ export default class ServiceManager {
 
   disableService(name) {
     // console.log('disableService', name)
-    this.selections.value[name] = !!this.getService(name).required;
-    // this.callback?.(service, this.selections.value[service.name]);
+    this.selections[name] = !!this.getService(name).required;
+    // this.callback?.(service, this.selections[service.name]);
   }
 
   enableService(name) {
-    this.selections.value[name] = true;
-    // this.callback?.(service, this.selections.value[service.name]);
+    this.selections[name] = true;
+    // this.callback?.(service, this.selections[service.name]);
   }
 
   updateService(name, enabled) {

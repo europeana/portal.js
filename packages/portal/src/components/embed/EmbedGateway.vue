@@ -110,15 +110,14 @@
     },
 
     watch: {
-      '$serviceManager.selections.value': {
+      '$serviceManager': {
         deep: true,
         handler() {
-          console.log('watch $serviceManager.selections', this.$serviceManager.selections.value)
+          console.log('watch $serviceManager.selections', this.$serviceManager.selections)
           this.checkConsentAndOpenEmbed();
         }
       }
     },
-
 
     mounted() {
       this.provider = serviceForUrl(this.url);
