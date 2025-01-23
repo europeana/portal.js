@@ -24,7 +24,7 @@
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
       :aria-describedby="description && `consentcheckbox-description-${serviceData.name}`"
       :aria-checked="indeterminate && 'mixed'"
-      :aria-controls="ariaControls"
+      :aria-controls="nestedCheckboxIds"
       @change="(value) => updateConsent(serviceData, value)"
     >
       {{ label }}
@@ -42,17 +42,17 @@
     >
       <b-button
         v-if="depth <= COLLAPSIBLE_DEPTH_LIMIT"
-        :class="{ 'show': show.includes(serviceData.name) }"
+        :class="{ 'show': showNestedServices }"
         variant="link"
         :aria-controls="`consentcheckbox-subservices-${serviceData.name}`"
-        :aria-expanded="show.includes(serviceData.name)"
+        :aria-expanded="showNestedServices ? 'true' : 'false'"
         @click="toggleDisplay(serviceData.name)"
       >
         {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
         <span class="icon-chevron ml-1" />
       </b-button>
       <ul
-        v-show="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
+        v-show="depth > COLLAPSIBLE_DEPTH_LIMIT || showNestedServices"
         :id="`consentcheckbox-subservices-${serviceData.name}`"
         :class="{'pl-0': depth > COLLAPSIBLE_DEPTH_LIMIT}"
       >
@@ -150,7 +150,10 @@
       servicesCount() {
         return this.flattenedServiceNames.length;
       },
-      ariaControls() {
+      showNestedServices() {
+        return this.show.includes(this.serviceData.name);
+      },
+      nestedCheckboxIds() {
         const getCheckboxIdsForService = (service, depth) => {
           const checkBoxIds = [];
 
