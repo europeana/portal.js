@@ -111,6 +111,7 @@
 <script>
   import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
     name: 'EmbedGateway',
@@ -136,6 +137,11 @@
         type: String,
         default: null
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -219,7 +225,7 @@
 
       openCookieModal() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.renderCookieModal = true;
         }
@@ -253,11 +259,25 @@
 
       openModalOrSaveConsents() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.klaroManager?.saveAndApplyConsents('save');
           this.checkConsentAndOpenEmbed();
         }
+      },
+
+      async openMainCookieModalAndScrollToThirdPartyContent() {
+        this.$bvModal.show('cookie-modal');
+        await this.$nextTick();
+
+        // Wait for b-modal to be ready
+        setTimeout(() => {
+          this.scrollToSelector('#consentcheckbox-thirdPartyContent', {
+            behavior: 'smooth',
+            container: document.querySelector('#cookie-modal'),
+            offsetTop: document.querySelector('#consentcheckbox-thirdPartyContent')?.getBoundingClientRect().top
+          });
+        }, 400);
       }
     }
   };

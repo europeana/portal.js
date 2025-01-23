@@ -122,16 +122,49 @@ describe('components/embed/EmbedGateway', () => {
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
       expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
     });
+
+    describe('and cookie consent for the website is still required', () => {
+      it('opens the cookie modal and scrolls to the third party content section', async() => {
+        jest.useFakeTimers();
+        const wrapper = factory();
+        wrapper.vm.klaroManager = { ...klaroManager, confirmed: false };
+        sinon.spy(wrapper.vm.$bvModal, 'show');
+        wrapper.vm.scrollToSelector = sinon.spy();
+
+        wrapper.find('[data-qa="load all button"').trigger('click');
+        await wrapper.vm.$nextTick();
+        jest.advanceTimersByTime(400);
+
+        expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
+        expect(wrapper.vm.scrollToSelector.called).toBe(true);
+      });
+    });
   });
 
   describe('when clicking the view full list button', () => {
     it('opens the third-party-content modal', () => {
       const wrapper = factory();
-      sinon.spy(wrapper.vm.$bvModal, 'show');
 
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
       expect(wrapper.vm.renderCookieModal).toEqual(true);
+    });
+
+    describe('and cookie consent for the website is still required', () => {
+      it('opens the cookie modal and scrolls to the third party content section', async() => {
+        jest.useFakeTimers();
+        const wrapper = factory();
+        wrapper.vm.klaroManager = { ...klaroManager, confirmed: false };
+        sinon.spy(wrapper.vm.$bvModal, 'show');
+        wrapper.vm.scrollToSelector = sinon.spy();
+
+        wrapper.find('[data-qa="view full list button"').trigger('click');
+        await wrapper.vm.$nextTick();
+        jest.advanceTimersByTime(400);
+
+        expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
+        expect(wrapper.vm.scrollToSelector.called).toBe(true);
+      });
     });
   });
 
