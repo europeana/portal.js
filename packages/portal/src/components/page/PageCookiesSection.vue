@@ -154,25 +154,9 @@
         return this.show.includes(this.serviceData.name);
       },
       nestedCheckboxIds() {
-        const getCheckboxIdsForService = (service, depth) => {
-          const checkBoxIds = [];
-
-          if (this.renderServiceAsCheckbox(service, depth)) {
-            checkBoxIds.push(`consentcheckbox-${service.name}`);
-          }
-
-          if (service.services) {
-            service.services.forEach(nestedService => {
-              checkBoxIds.push(...getCheckboxIdsForService(nestedService, depth + 1));
-            });
-          }
-
-          return checkBoxIds;
-        };
-
         if (this.serviceData.services) {
           return this.serviceData.services.reduce((checkBoxIds, service) => {
-            checkBoxIds.push(...getCheckboxIdsForService(service, this.depth + 1));
+            checkBoxIds.push(...this.getCheckboxIdsForService(service, this.depth + 1));
             return checkBoxIds;
           }, []).join(' ');
         } else {
@@ -201,6 +185,22 @@
 
       renderServiceAsCheckbox(service = this.serviceData, depth = this.depth) {
         return service.services ? depth <= this.COLLAPSIBLE_DEPTH_LIMIT : true;
+      },
+
+      getCheckboxIdsForService(service, depth) {
+        const checkBoxIds = [];
+
+        if (this.renderServiceAsCheckbox(service, depth)) {
+          checkBoxIds.push(`consentcheckbox-${service.name}`);
+        }
+
+        if (service.services) {
+          service.services.forEach(nestedService => {
+            checkBoxIds.push(...this.getCheckboxIdsForService(nestedService, depth + 1));
+          });
+        }
+
+        return checkBoxIds;
       }
     }
   };
