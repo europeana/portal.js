@@ -40,6 +40,7 @@ const klaroManager = {
 
 describe('components/page/PageCookiesWidget', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   it('renders a toast as cookie notice', () => {
     const wrapper = factory();
@@ -157,8 +158,9 @@ describe('components/page/PageCookiesWidget', () => {
   });
 
   describe('on mounted', () => {
-    it('adds the required services to checked services', () => {
+    it('adds the required services to checked services', async() => {
       const wrapper = factory();
+      await wrapper.vm.$nextTick();
 
       const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 

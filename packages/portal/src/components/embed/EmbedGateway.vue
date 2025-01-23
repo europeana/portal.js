@@ -70,6 +70,7 @@
             :modal-description-path="null"
             :hide-purposes="hidePurposes"
             :only-show-if-consent-required="false"
+            :show-modal="true"
           />
           <i18n
             path="embedNotification.ifNotAll"
@@ -221,7 +222,6 @@
           this.$bvModal.show('cookie-modal');
         } else {
           this.renderCookieModal = true;
-          this.$bvModal.show(this.cookieModalId);
         }
       },
 
