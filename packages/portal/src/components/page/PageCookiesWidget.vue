@@ -49,6 +49,8 @@
       hide-footer
       hide-header-close
       :title="$t(modalTitlePath)"
+      title-tag="h2"
+      header-tag="div"
       @hide="onModalHide"
       @show="setCheckedServices"
     >
