@@ -230,7 +230,13 @@
 
       flattenedServiceNames() {
         const childServices = (service) => {
-          return service.services ? service.services.map(childServices).flat() : service;
+          if (Array.isArray(service)) {
+            return service.map(childServices).flat();
+          } else if (service.services) {
+            return childServices(service.services);
+          } else {
+            return [service];
+          }
         };
         return childServices(this.groupedSections).map((service) => service.name);
       }

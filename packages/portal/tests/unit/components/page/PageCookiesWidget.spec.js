@@ -211,4 +211,78 @@ describe('components/page/PageCookiesWidget', () => {
       });
     });
   });
+
+  describe('computed', () => {
+    describe('flattenedServiceNames', () => {
+      it('gets service names of deeply nested services in a flat array', () => {
+        const wrapper = factory();
+
+        const flattenedServiceNames = wrapper.vm.flattenedServiceNames;
+
+        expect(flattenedServiceNames).toEqual([
+          'auth-strategy',
+          'debugSettings',
+          'i18n',
+          'newFeatureNotification',
+          'searchResultsView',
+          'hotjar',
+          'matomo',
+          'googleDocs',
+          'googleDrive',
+          'instagram',
+          'pinterest',
+          'wheeldecide',
+          'x',
+          'bookWidgets',
+          'ecorpus',
+          'gallica',
+          'institutNationalDeLAudiovisuel',
+          'internetCulturale',
+          'nakala',
+          'openbeelden',
+          'serveiDeGestioDocumentalArxius',
+          'arctur3DViewer',
+          'theCyprusInstitute',
+          'eureka3D',
+          'gotlandPictureStones',
+          'kompakkt',
+          'myminifactory',
+          'sketchfab',
+          'spatial',
+          'weave',
+          'britishLibrarySounds',
+          'buzzsprout',
+          'deutscheWelle',
+          'freesound',
+          'phonobase',
+          'soundArchivesOfTheCNRS',
+          'soundCloud',
+          'archiveOrg',
+          'digitalRepositoryOfIreland',
+          'deutschesFilmportal',
+          'eclap',
+          'europeanParliamentMultimediaService',
+          'euscreen',
+          'tibAvPortal',
+          'tv3',
+          'vimeo',
+          'youTube',
+          'albinLarsson',
+          'behance',
+          'codepen',
+          'datawrapper',
+          'giphy',
+          'humap',
+          'jigsawplanet',
+          'kystreise',
+          'myAdventCalendar',
+          'prezi',
+          'slidebean',
+          'universityOfCaliforniaSanDiego',
+          'wikidata',
+          'woobox'
+        ]);
+      });
+    });
+  });
 });
