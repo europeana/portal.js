@@ -78,6 +78,14 @@ describe('components/page/PageCookiesSection', () => {
     });
   });
 
+  describe('nestedCheckboxIds', () => {
+    it('returns all the ids in a space separated string for services rendered as checkbox', () => {
+      const wrapper = factory({ serviceData: structuredServiceData });
+
+      expect(wrapper.vm.nestedCheckboxIds).toEqual('consentcheckbox-mediaViewing consentcheckbox-bookWidgets');
+    });
+  });
+
   describe('updateConsent', () => {
     describe('when called for a specific service', () => {
       it('emits the update event for all contained services', () => {
