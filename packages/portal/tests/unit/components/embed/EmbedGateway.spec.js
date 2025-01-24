@@ -19,7 +19,6 @@ const klaroManager = {
 
 const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
   localVue,
-  attachTo: document.body,
   propsData,
   mocks: {
     $t: (key) => key,
