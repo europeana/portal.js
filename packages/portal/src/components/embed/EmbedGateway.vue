@@ -266,18 +266,28 @@
         }
       },
 
-      async openMainCookieModalAndScrollToThirdPartyContent() {
+      openMainCookieModalAndScrollToThirdPartyContent() {
+        // Listen to modal shown event and then to modal transitionend before attempting to scroll
+        this.$root.$once('bv::modal::shown', (event, modalId) => this.listenToModalTransitionendAndScrollToSection(event, modalId));
         this.$bvModal.show('cookie-modal');
+      },
+
+      async listenToModalTransitionendAndScrollToSection(event, modalId) {
         await this.$nextTick();
 
-        // Wait for b-modal to be ready
-        setTimeout(() => {
-          this.scrollToSelector('#consentcheckbox-thirdPartyContent', {
-            behavior: 'smooth',
-            container: document.querySelector('#cookie-modal'),
-            offsetTop: document.querySelector('#consentcheckbox-thirdPartyContent')?.getBoundingClientRect().top
-          });
-        }, 400);
+        if (modalId === 'cookie-modal') {
+          const modalContainer = event.target;
+          const sectionId = '#consentcheckbox-section-thirdPartyContent';
+
+          modalContainer.addEventListener('transitionend', () => this.scrollToSection(modalContainer, sectionId), { once: true });
+        }
+      },
+
+      scrollToSection(modalContainer, sectionId) {
+        this.scrollToSelector(sectionId, {
+          behavior: 'smooth',
+          container: modalContainer
+        });
       }
     }
   };

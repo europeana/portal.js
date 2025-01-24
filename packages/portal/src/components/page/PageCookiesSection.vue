@@ -1,5 +1,8 @@
 <template>
-  <div class="consent-checkbox-section">
+  <div
+    :id="`consentcheckbox-section-${serviceData.name}`"
+    class="consent-checkbox-section"
+  >
     <label
       v-if="serviceData.services && depth > COLLAPSIBLE_DEPTH_LIMIT"
       :for="`consentcheckbox-${serviceData.name}`"
