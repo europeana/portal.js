@@ -106,12 +106,10 @@ const twoDServices = [
       'http://www.ina.fr/*/video/*',
       'https://player.ina.fr/player/embed/*'
     ] },
-  { name: 'internetCulturale' },
   { name: 'nakala',
     schemes: [
       'https://api.nakala.fr/data'
     ] },
-  { name: 'openbeelden' },
   { name: 'serveiDeGestioDocumentalArxius',
     schemes: [
       'https://sgdap.girona.cat/*'
@@ -181,7 +179,6 @@ const audioServices = [
     schemes: [
       'https://freesound.org/embed/sound/iframe/*'
     ] },
-  { name: 'phonobase' },
   { name: 'soundArchivesOfTheCNRS',
     oembed: 'https://oembed.europeana.eu/',
     schemes: [
