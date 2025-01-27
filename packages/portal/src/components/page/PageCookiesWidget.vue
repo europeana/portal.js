@@ -114,6 +114,7 @@
 <script>
   import PageCookiesSection from './PageCookiesSection.vue';
   import klaroMixin from '@/mixins/klaro.js';
+  import waitFor from '@/utils/waitFor.js';
 
   export default {
     // TODO: rename as this is more generally about services than solely cookies
@@ -144,6 +145,10 @@
       renderToast: {
         type: Boolean,
         default: true
+      },
+      showModal: {
+        type: Boolean,
+        default: false
       },
       // TODO: invert this to a whitelist, named `showPurposes`
       hidePurposes: {
@@ -227,7 +232,13 @@
 
       flattenedServiceNames() {
         const childServices = (service) => {
-          return service.services ? service.services.map(childServices).flat() : service;
+          if (Array.isArray(service)) {
+            return service.map(childServices).flat();
+          } else if (service.services) {
+            return childServices(service.services);
+          } else {
+            return [service];
+          }
         };
         return childServices(this.groupedSections).map((service) => service.name);
       }
@@ -243,7 +254,13 @@
     },
 
     mounted() {
-      this.klaroManager && this.setCheckedServices();
+      waitFor(() => this.klaroManager)
+        .then(() => {
+          this.setCheckedServices();
+          if (this.showModal) {
+            this.openCookieModal();
+          }
+        });
     },
 
     methods: {

@@ -102,7 +102,9 @@ export default {
           this.klaroManager = klaroManager;
         }
 
-        !this.$features.embeddedMediaNotification && this.klaro.render(this.klaroConfig, true);
+        if (!this.$features.embeddedMediaNotification) {
+          this.klaro.render(this.klaroConfig, true);
+        }
         this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },

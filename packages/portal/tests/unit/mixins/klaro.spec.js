@@ -59,12 +59,21 @@ describe('mixins/klaro', () => {
 
   describe('mounted', () => {
     it('renders klaro', async() => {
-      sinon.spy(mixin.methods, 'renderKlaro');
-
       factory();
+
       await new Promise(process.nextTick);
 
-      expect(mixin.methods.renderKlaro.called).toBe(true);
+      expect(klaroMock.render.called).toBe(true);
+    });
+
+    describe('when the media embed notification is enabled', () => {
+      it('does not render klaro', async() => {
+        factory({ mocks: { $features: { embeddedMediaNotification: true } } });
+
+        await new Promise(process.nextTick);
+
+        expect(klaroMock.render.called).toBe(false);
+      });
     });
   });
 

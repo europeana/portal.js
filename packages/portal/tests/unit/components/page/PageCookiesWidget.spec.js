@@ -40,6 +40,7 @@ const klaroManager = {
 
 describe('components/page/PageCookiesWidget', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   it('renders a toast as cookie notice', () => {
     const wrapper = factory();
@@ -157,8 +158,9 @@ describe('components/page/PageCookiesWidget', () => {
   });
 
   describe('on mounted', () => {
-    it('adds the required services to checked services', () => {
+    it('adds the required services to checked services', async() => {
       const wrapper = factory();
+      await wrapper.vm.$nextTick();
 
       const requiredService = wrapper.vm.klaroConfig.services.find((s) => s.required);
 
@@ -206,6 +208,80 @@ describe('components/page/PageCookiesWidget', () => {
         wrapper.vm.updateConsent(purpose, true);
 
         expect(klaroManager.updateConsent.called).toBe(true);
+      });
+    });
+  });
+
+  describe('computed', () => {
+    describe('flattenedServiceNames', () => {
+      it('gets service names of deeply nested services in a flat array', () => {
+        const wrapper = factory();
+
+        const flattenedServiceNames = wrapper.vm.flattenedServiceNames;
+
+        expect(flattenedServiceNames).toEqual([
+          'auth-strategy',
+          'debugSettings',
+          'i18n',
+          'newFeatureNotification',
+          'searchResultsView',
+          'hotjar',
+          'matomo',
+          'googleDocs',
+          'googleDrive',
+          'instagram',
+          'pinterest',
+          'wheeldecide',
+          'x',
+          'bookWidgets',
+          'ecorpus',
+          'gallica',
+          'institutNationalDeLAudiovisuel',
+          'internetCulturale',
+          'nakala',
+          'openbeelden',
+          'serveiDeGestioDocumentalArxius',
+          'arctur3DViewer',
+          'theCyprusInstitute',
+          'eureka3D',
+          'gotlandPictureStones',
+          'kompakkt',
+          'myminifactory',
+          'sketchfab',
+          'spatial',
+          'weave',
+          'britishLibrarySounds',
+          'buzzsprout',
+          'deutscheWelle',
+          'freesound',
+          'phonobase',
+          'soundArchivesOfTheCNRS',
+          'soundCloud',
+          'archiveOrg',
+          'digitalRepositoryOfIreland',
+          'deutschesFilmportal',
+          'eclap',
+          'europeanParliamentMultimediaService',
+          'euscreen',
+          'tibAvPortal',
+          'tv3',
+          'vimeo',
+          'youTube',
+          'albinLarsson',
+          'behance',
+          'codepen',
+          'datawrapper',
+          'giphy',
+          'humap',
+          'jigsawplanet',
+          'kystreise',
+          'myAdventCalendar',
+          'prezi',
+          'slidebean',
+          'universityOfCaliforniaSanDiego',
+          'wikidata',
+          'woobox'
+        ]);
       });
     });
   });
