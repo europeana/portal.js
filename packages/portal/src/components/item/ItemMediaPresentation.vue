@@ -559,11 +559,21 @@
   }
 
   ::v-deep .responsive-embed-wrapper {
+    @include media-viewer-height;
     display: flex;
     align-items: center;
 
     .html-embed {
       flex-grow: 1;
+    }
+  }
+
+  ::v-deep .sketchfab-embed-wrapper {
+    width: 100%;
+
+    iframe {
+      width: 100%;
+      @include media-viewer-height;
     }
   }
 

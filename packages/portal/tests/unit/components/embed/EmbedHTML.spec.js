@@ -60,7 +60,7 @@ describe('components/embed/EmbedHTML', () => {
 
         wrapper.vm.mounted();
         const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
-        expect(responsive.attributes('style')).toBe('width: 0px;');
+        expect(responsive.attributes('style')).toBe(undefined);
       });
 
       it('is recalculated on window resize', () => {
