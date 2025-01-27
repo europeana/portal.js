@@ -4,7 +4,7 @@
     v-if="responsive && height && width"
     ref="responsiveWrapper"
     class="responsive-embed-wrapper"
-    :style="`width:${widthWrapper}px`"
+    :style="widthWrapper ? `width:${widthWrapper}px` : null"
     data-qa="responsive embed wrapper"
   >
     <div
@@ -109,13 +109,11 @@
 
       iframe {
         width: 100%;
-        @include media-viewer-height;
       }
     }
   }
 
   .responsive-embed-wrapper {
-    @include media-viewer-height;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;

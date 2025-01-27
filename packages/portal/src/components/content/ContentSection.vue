@@ -17,6 +17,7 @@
 
   <EmbedGateway
     v-else-if="contentfulEntryHasContentType(section, 'Embed')"
+    v-slot="{ height, width, responsive }"
     class="media-viewer-content mb-5"
     :embed-code="section.embed"
   >
@@ -24,6 +25,9 @@
       :html="section.embed"
       :title="section.title"
       class="mb-5"
+      :height="height"
+      :width="width"
+      :responsive="responsive"
     />
   </EmbedGateway>
   <ImageComparisonSlider

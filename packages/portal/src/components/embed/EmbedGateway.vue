@@ -5,6 +5,9 @@
     <slot
       v-if="opened"
       class="embed-gateway-opened"
+      :height="iframe.heightInPx ? iframe.heightInPx : undefined"
+      :width="iframe.widthInPx ? iframe.widthInPx : undefined"
+      :responsive="responsiveEmbed"
     />
     <b-container
       v-else-if="provider"
@@ -14,6 +17,9 @@
       <b-row
         class="position-relative"
         :class="{ 'h-100': url}"
+        :style="{
+          'aspect-ratio': iframeAspectRatio
+        }"
       >
         <b-col
           :lg="url ? '10' : null"
@@ -34,10 +40,10 @@
         <b-col
           :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
-          :style="{
-            'min-height': !!iframe.height && iframe.height,
-            width: !!iframe.width && iframe.width,
-          }"
+          :style="!responsiveEmbed ? {
+            'min-height': iframe.height ? iframe.height : null,
+            width: iframe.width ? iframe.width : null,
+          } : null"
         >
           <p class="message">
             {{ $t('embedNotification.message', { provider: providerName }) }}
@@ -111,6 +117,9 @@
 <script>
   import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
+  import useScrollTo from '@/composables/scrollTo.js';
+
+  const RESPONSIVE_PROVIDERS = ['googleDrive', 'instagram', 'wheeldecide', 'x', 'bookWidgets', 'ecorpus', 'institutNationalDeLAudiovisuel', 'nakala', 'arctur3DViewer', 'eureka3D', 'sketchfab', 'freesound', 'soundCloud', 'europeanParliamentMultimediaService', 'vimeo', 'youTube', 'behance', 'codepen', 'datawrapper', 'jigsawplanet', 'myAdventCalendar', 'prezi', 'slidebean', 'wikidata'];
 
   export default {
     name: 'EmbedGateway',
@@ -136,6 +145,11 @@
         type: String,
         default: null
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -169,6 +183,22 @@
 
       providerUrl() {
         return this.iframe.src || this.script.src || this.url;
+      },
+
+      responsiveProvider() {
+        return RESPONSIVE_PROVIDERS.includes(this.provider?.name);
+      },
+
+      responsiveEmbed() {
+        return this.responsiveProvider && Boolean(this.iframe.widthInPx && this.iframe.heightInPx);
+      },
+
+      iframeAspectRatio() {
+        if (this.responsiveEmbed) {
+          return `${this.iframe.widthInPx}/${this.iframe.heightInPx}`;
+        } else {
+          return null;
+        }
       }
     },
 
@@ -204,8 +234,7 @@
 
         if (iframe) {
           this.iframe = {
-            height: isNaN(iframe.height) ? iframe.height : `${iframe.height}px`,
-            width: isNaN(iframe.width) ? iframe.width : `${iframe.width}px`,
+            ...this.getIframeDimension(iframe),
             src: iframe.src
           };
         } else if (script) {
@@ -217,9 +246,34 @@
         this.opened = !this.iframe.src && !this.script.src;
       },
 
+      getIframeDimension(iframe) {
+        const dimensions = {};
+
+        const parseDimension = (dimension, key) => {
+          if (!dimension) {
+            return;
+          }
+
+          if (isNaN(dimension)) {
+            dimensions[key] = dimension;
+            if (dimension.endsWith('px')) {
+              dimensions[`${key}InPx`] = dimension.replace('px', '');
+            }
+          } else {
+            dimensions[key] = `${dimension}px`;
+            dimensions[`${key}InPx`] = dimension;
+          }
+        };
+
+        parseDimension(iframe.height || iframe.style?.height || iframe.style?.['min-height'], 'height');
+        parseDimension(iframe.width || iframe.style?.width, 'width');
+
+        return dimensions;
+      },
+
       openCookieModal() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.renderCookieModal = true;
         }
@@ -253,11 +307,35 @@
 
       openModalOrSaveConsents() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.klaroManager?.saveAndApplyConsents('save');
           this.checkConsentAndOpenEmbed();
         }
+      },
+
+      openMainCookieModalAndScrollToThirdPartyContent() {
+        // Listen to modal shown event and then to modal transitionend before attempting to scroll
+        this.$root.$once('bv::modal::shown', (event, modalId) => this.listenToModalTransitionendAndScrollToSection(event, modalId));
+        this.$bvModal.show('cookie-modal');
+      },
+
+      async listenToModalTransitionendAndScrollToSection(event, modalId) {
+        await this.$nextTick();
+
+        if (modalId === 'cookie-modal') {
+          const modalContainer = event.target;
+          const sectionId = '#consentcheckbox-section-thirdPartyContent';
+
+          modalContainer.addEventListener('transitionend', () => this.scrollToSection(modalContainer, sectionId), { once: true });
+        }
+      },
+
+      scrollToSection(modalContainer, sectionId) {
+        this.scrollToSelector(sectionId, {
+          behavior: 'smooth',
+          container: modalContainer
+        });
       }
     }
   };
@@ -367,7 +445,7 @@
   }
 
   .unsupported-content-notification {
-    background: $black;
+    background-color: rgba(0, 0, 0, 0.70);
     border-radius: 0.25rem;
     color: $white;
     font-size: $font-size-small;
