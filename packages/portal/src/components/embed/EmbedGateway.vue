@@ -222,6 +222,7 @@
           this.$bvModal.show('cookie-modal');
         } else {
           this.renderCookieModal = true;
+          this.$bvModal.show(this.cookieModalId);
         }
       },
 
