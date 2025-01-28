@@ -33,6 +33,10 @@ const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
 });
 
 describe('components/embed/EmbedGateway', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
   describe('when not opened', () => {
     it('renders a notification overlay', () => {
       const wrapper = factory();
@@ -122,17 +126,68 @@ describe('components/embed/EmbedGateway', () => {
       expect(klaroManager.saveAndApplyConsents.calledWith('save')).toBe(true);
       expect(wrapper.vm.checkConsentAndOpenEmbed.called).toBe(true);
     });
+
+    describe('and cookie consent for the website is still required', () => {
+      it('opens the cookie modal and scrolls to the third party content section', async() => {
+        const wrapper = factory();
+        wrapper.vm.klaroManager = { ...klaroManager, confirmed: false };
+        sinon.spy(wrapper.vm.$bvModal, 'show');
+        sinon.spy(wrapper.vm, 'listenToModalTransitionendAndScrollToSection');
+        sinon.spy(wrapper.vm, 'scrollToSection');
+        const eventlistenerStub = sinon.stub().yields();
+        const modalEvent = { target: { addEventListener: eventlistenerStub } };
+        $rootOnceStub = sinon.stub(wrapper.vm.$root, '$once').yields(modalEvent, 'cookie-modal');
+
+        wrapper.find('[data-qa="load all button"').trigger('click');
+
+        expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
+        expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
+
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
+        expect(eventlistenerStub.called).toBe(true);
+        expect(eventlistenerStub.calledWith('transitionend', sinon.match.func, { once: true })).toBe(true);
+        expect(wrapper.vm.scrollToSection.calledWith(modalEvent.target, '#consentcheckbox-section-thirdPartyContent')).toBe(true);
+      });
+    });
   });
 
   describe('when clicking the view full list button', () => {
     it('opens the third-party-content modal', () => {
       const wrapper = factory();
+
       sinon.spy(wrapper.vm.$bvModal, 'show');
 
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
       expect(wrapper.vm.renderCookieModal).toEqual(true);
       expect(wrapper.vm.$bvModal.show.calledWith('embed-cookie-modal')).toBe(true);
+    });
+
+    describe('and cookie consent for the website is still required', () => {
+      it('opens the cookie modal and scrolls to the third party content section', async() => {
+        const wrapper = factory();
+        wrapper.vm.klaroManager = { ...klaroManager, confirmed: false };
+        sinon.spy(wrapper.vm.$bvModal, 'show');
+        sinon.spy(wrapper.vm, 'listenToModalTransitionendAndScrollToSection');
+        sinon.spy(wrapper.vm, 'scrollToSection');
+        const eventlistenerStub = sinon.stub().yields();
+        const modalEvent = { target: { addEventListener: eventlistenerStub } };
+        $rootOnceStub = sinon.stub(wrapper.vm.$root, '$once').yields(modalEvent, 'cookie-modal');
+
+        wrapper.find('[data-qa="view full list button"').trigger('click');
+
+        expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
+        expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
+
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
+        expect(eventlistenerStub.called).toBe(true);
+        expect(eventlistenerStub.calledWith('transitionend', sinon.match.func, { once: true })).toBe(true);
+        expect(wrapper.vm.scrollToSection.calledWith(modalEvent.target, '#consentcheckbox-section-thirdPartyContent')).toBe(true);
+      });
     });
   });
 
