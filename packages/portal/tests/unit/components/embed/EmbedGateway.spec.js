@@ -157,6 +157,8 @@ describe('components/embed/EmbedGateway', () => {
     it('opens the third-party-content modal', () => {
       const wrapper = factory();
 
+      sinon.spy(wrapper.vm.$bvModal, 'show');
+
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
       expect(wrapper.vm.renderCookieModal).toEqual(true);
