@@ -228,6 +228,7 @@
           this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.renderCookieModal = true;
+          this.$bvModal.show(this.cookieModalId);
         }
       },
 
