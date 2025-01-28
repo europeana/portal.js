@@ -132,6 +132,7 @@ describe('components/embed/EmbedGateway', () => {
       wrapper.find('[data-qa="view full list button"').trigger('click');
 
       expect(wrapper.vm.renderCookieModal).toEqual(true);
+      expect(wrapper.vm.$bvModal.show.calledWith('embed-cookie-modal')).toBe(true);
     });
   });
 
