@@ -191,6 +191,16 @@ export default {
     "broughtBy": "Adus vouă de"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
+  "embedNotification": {
+    "ifNotAll": "Dacă nu doriți să încărcați tot conținutul încorporat, puteți {0}.",
+    "loadAllEmbeddedContent": "Încărcați tot conținutul încorporat",
+    "loadOnlyThis": "încărcați media numai de la acest furnizor",
+    "message": "Vă rugăm să rețineți că această pagină conține conținut media încorporat de la {provider}. Vizualizarea acestui conținut media este supusă termenilor și declarațiilor de confidențialitate ale acestora. Vă rugăm să consultați declarațiile lor de confidențialitate pentru mai multe informații despre modul în care sunt utilizate datele dumneavoastră.",
+    "messageUnkownService": "Din păcate, acest conținut nu poate fi afișat.",
+    "ofThirdPartyServices": "{0} de servicii de conținut terțe.",
+    "viewFullList": "Vezi lista completă",
+    "viewThisExternalLink": "Vizualizați acest conținut printr-un link extern"
+  },
   "entity": {
     "actions": {
       "cancel": "Anulează",
@@ -793,7 +803,11 @@ export default {
       "acceptAll": "Accepta toate",
       "acceptSelected": "Acceptați selectat",
       "consentModal": {
+        "alwaysRequired": "(Întotdeauna necesar)",
         "description": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-policy'> politica noastră de confidențialitate </a>.",
+        "privacyPolicy": "Politica de confidențialitate",
+        "servicesCount": "{count} serviciu | {count} servicii",
+        "text": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți {privacyPolicy}.",
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
@@ -803,13 +817,44 @@ export default {
       "decline": "Refuz",
       "ok": "Bine",
       "purposes": {
+        "2D": {
+          "title": "Media 2D"
+        },
+        "3D": {
+          "title": "Media 3D"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Aceste servicii sunt esențiale pentru buna funcționare a acestui site web. Acestea includ vizualizarea rezultatelor căutării și preferințele de limbă, păstrează starea conectată și vă păstrează vizita în siguranță. Nu le puteți dezactiva, deoarece site-ul nu ar funcționa corect altfel.",
           "title": "Servicii esențiale pentru securitate și personalizare"
         },
+        "mediaViewing": {
+          "description": "Aceste servicii încarcă imagini (2D), elemente 3D, audio și video pentru vizualizare.",
+          "title": "Servicii de vizionare media"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Aceste servicii încarcă conținut precum cod, jocuri, hărți și widget-uri de povestit.",
+          "title": "Alte servicii de încorporare"
+        },
+        "socialMedia": {
+          "description": "Aceste servicii încarcă conținut de pe platformele social media.",
+          "title": "Servicii de integrare în social media"
+        },
+        "thirdPartyContent": {
+          "description": "Aceste servicii încarcă conținut găzduit de terți. Utilizarea acestuia este supusă termenilor, condițiilor și declarației de confidențialitate ale acestor terți.",
+          "title": "Conținut de la terțe părți"
+        },
         "usage": {
           "description": "Aceste servicii colectează informații pentru a ne ajuta să înțelegem mai bine modul în care site-ul web este folosit și unde sunt punctele de durere, permițându-ne să facem alegeri în cunoștință de cauză pentru a vă îmbunătăți experiența.",
           "title": "Servicii pentru a capta utilizarea site-ului web și feedback-ul"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -820,37 +865,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
         "title": "Comutare depanare"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Reține limba de interfață preferată pentru acces viitor.",
         "title": "Codul limbii"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
         "title": "Birou de service Jira"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
         "title": "Notificare pentru funcții noi"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
         "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "furnizor necunoscut",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
