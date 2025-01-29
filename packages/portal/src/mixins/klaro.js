@@ -79,7 +79,7 @@ export default {
           [this.$i18n.locale]: this.$t('klaro.main')
         }
       };
-    }
+    };
 
     this.klaroConfig = klaroConfig();
   },

@@ -88,6 +88,27 @@
       }
     },
 
+    computed: {
+      checked() {
+        if (this.serviceData.services) {
+          return this.allChildServicesChecked;
+        }
+        return this.checkedServices.includes(this.serviceData.name);
+      },
+      indeterminate() {
+        if (this.serviceData.services) {
+          return !this.allChildServicesChecked && !this.noChildServicesChecked;
+        }
+        return false;
+      },
+      allChildServicesChecked() {
+        return this.flattenedServiceNames.every((service) => this.checkedServices.includes(service));
+      },
+      noChildServicesChecked() {
+        return !this.flattenedServiceNames.some((service) => this.checkedServices.includes(service));
+      }
+    },
+
     created() {
       const label = () => {
         if (this.serviceData.services) {
@@ -120,27 +141,6 @@
       this.description = description();
       this.flattenedServiceNames = flattenedServiceNames();
       this.servicesCount = this.flattenedServiceNames.length;
-    },
-
-    computed: {
-      checked() {
-        if (this.serviceData.services) {
-          return this.allChildServicesChecked;
-        }
-        return this.checkedServices.includes(this.serviceData.name);
-      },
-      indeterminate() {
-        if (this.serviceData.services) {
-          return !this.allChildServicesChecked && !this.noChildServicesChecked;
-        }
-        return false;
-      },
-      allChildServicesChecked() {
-        return this.flattenedServiceNames.every((service) => this.checkedServices.includes(service));
-      },
-      noChildServicesChecked() {
-        return !this.flattenedServiceNames.some((service) => this.checkedServices.includes(service));
-      }
     },
 
     methods: {
