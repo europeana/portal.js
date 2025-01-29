@@ -5,7 +5,6 @@
   >
     <legend
       v-if="!renderServiceAsCheckbox()"
-      :for="`consentcheckbox-${serviceData.name}`"
       class="legend mb-0 font-weight-bold text-uppercase"
     >
       {{ label }}
@@ -24,7 +23,6 @@
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
       :aria-describedby="description && `consentcheckbox-description-${serviceData.name}`"
       :aria-checked="indeterminate && 'mixed'"
-      :aria-controls="nestedCheckboxIds"
       @change="(value) => updateConsent(serviceData, value)"
     >
       {{ label }}
@@ -150,16 +148,6 @@
       },
       showNestedServices() {
         return this.show.includes(this.serviceData.name);
-      },
-      nestedCheckboxIds() {
-        if (this.serviceData.services) {
-          return this.serviceData.services.reduce((checkBoxIds, service) => {
-            checkBoxIds.push(...this.getCheckboxIdsForService(service, this.depth + 1));
-            return checkBoxIds;
-          }, []).join(' ');
-        } else {
-          return null;
-        }
       }
     },
 
@@ -183,22 +171,6 @@
 
       renderServiceAsCheckbox(service = this.serviceData, depth = this.depth) {
         return service.services ? depth <= this.COLLAPSIBLE_DEPTH_LIMIT : true;
-      },
-
-      getCheckboxIdsForService(service, depth) {
-        const checkBoxIds = [];
-
-        if (this.renderServiceAsCheckbox(service, depth)) {
-          checkBoxIds.push(`consentcheckbox-${service.name}`);
-        }
-
-        if (service.services) {
-          service.services.forEach(nestedService => {
-            checkBoxIds.push(...this.getCheckboxIdsForService(nestedService, depth + 1));
-          });
-        }
-
-        return checkBoxIds;
       }
     }
   };
