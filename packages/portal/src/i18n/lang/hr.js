@@ -192,6 +192,16 @@ export default {
     "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "embedNotification": {
+    "ifNotAll": "Ako ne želite učitati sve ugrađene medije, možete {0}.",
+    "loadAllEmbeddedContent": "Učitaj sav ugrađeni sadržaj",
+    "loadOnlyThis": "učitajte medije samo od ovog davatelja usluga",
+    "message": "Imajte na umu da ova stranica sadrži medijski sadržaj ugrađen od {provider}. Gledanje ovog medija podliježe njihovim uvjetima i izjavama o privatnosti. Više informacija o tome kako se vaši podaci koriste potražite u njihovim izjavama o privatnosti.",
+    "messageUnkownService": "Nažalost, ovaj sadržaj nije moguće prikazati.",
+    "ofThirdPartyServices": "{0} usluga sadržaja trećih strana.",
+    "viewFullList": "Pogledajte cijeli popis",
+    "viewThisExternalLink": "Pogledajte ovaj sadržaj putem vanjske poveznice"
+  },
   "entity": {
     "actions": {
       "cancel": "Otkazati",
@@ -794,7 +804,11 @@ export default {
       "acceptAll": "Prihvatiti sve",
       "acceptSelected": "Prihvati odabrano",
       "consentModal": {
+        "alwaysRequired": "(Uvijek obavezno)",
         "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte naša <a href='/rights/privacy-policy'> pravila o privatnosti </a> .",
+        "privacyPolicy": "Politika privatnosti",
+        "servicesCount": "{count} usluga | {count} usluga",
+        "text": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Da biste saznali više, pročitajte naša {privacyPolicy}.",
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
@@ -804,13 +818,44 @@ export default {
       "decline": "Odbijam",
       "ok": "u redu",
       "purposes": {
+        "2D": {
+          "title": "2D mediji"
+        },
+        "3D": {
+          "title": "3D mediji"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Te su usluge ključne za pravilno funkcioniranje ove web stranice. Uključuju prikaz rezultata pretraživanja i jezične postavke, čuvaju prijavljeno stanje i osiguravaju siguran posjet. Ne možete ih onemogućiti jer web mjesto inače ne bi radilo ispravno.",
           "title": "Osnovne usluge za sigurnost i prilagodbu"
         },
+        "mediaViewing": {
+          "description": "Ove usluge učitavaju slike (2D), 3D, audio i video stavke za gledanje.",
+          "title": "Usluge pregledavanja medija"
+        },
+        "multimedia": {
+          "title": "Multimedija"
+        },
+        "other": {
+          "description": "Ove usluge učitavaju sadržaj kao što su kod, igre, karte i widgeti za pripovijedanje.",
+          "title": "Ostale usluge ugrađivanja"
+        },
+        "socialMedia": {
+          "description": "Ove usluge učitavaju sadržaj s platformi društvenih medija.",
+          "title": "Usluge ugrađivanja društvenih medija"
+        },
+        "thirdPartyContent": {
+          "description": "Ove usluge učitavaju sadržaj koji hostiraju treće strane. Njegova uporaba podliježe uvjetima, odredbama i izjavi o privatnosti trećih strana.",
+          "title": "Sadržaj treće strane"
+        },
         "usage": {
           "description": "Te usluge prikupljaju informacije kako bi nam pomogle da bolje razumijemo kako se web stranica koristi i gdje su bolne točke, osnažujući nas da donosimo informirane odluke kako bismo poboljšali vaše iskustvo.",
           "title": "Usluge za bilježenje upotrebe web mjesta i povratnih informacija"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -821,37 +866,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
         "title": "Prebacivanje pogrešaka"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
         "title": "Kod jezika"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
         "title": "Jira servisni stol"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Prikazuje obavijest kada nove značajke postanu dostupne.",
         "title": "Obavijest o novoj značajki"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
         "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nepoznati pružatelj usluga",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
