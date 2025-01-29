@@ -44,17 +44,19 @@
         v-if="depth <= COLLAPSIBLE_DEPTH_LIMIT"
         :class="{ 'show': showNestedServices }"
         variant="link"
-        :aria-controls="`consentcheckbox-subservices-${serviceData.name}`"
+        :aria-controls="`consentcheckbox-subsection-${serviceData.name}`"
         :aria-expanded="showNestedServices ? 'true' : 'false'"
         @click="toggleDisplay(serviceData.name)"
       >
         {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
         <span class="icon-chevron ml-1" />
       </b-button>
-      <template v-if="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)">
+      <div
+        v-if="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
+        :id="`consentcheckbox-subsection-${serviceData.name}`"
+      >
         <PageCookiesSection
           v-for="(subService, subServiceIndex) in serviceData.services"
-          :id="`consentcheckbox-subservices-${serviceData.name}`"
           :key="subServiceIndex"
           class="nested-section"
           :class="{'pl-0': depth > COLLAPSIBLE_DEPTH_LIMIT}"
@@ -65,7 +67,7 @@
           @toggle="toggleDisplay"
           @update="updateServiceConsent"
         />
-      </template>
+      </div>
     </template>
   </component>
 </template>
