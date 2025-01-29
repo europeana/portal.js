@@ -56,7 +56,7 @@
           name: this.$t('footer.navigation.MoreInfoLabel'),
           links: [
             { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
-            { url: 'https://www.europeana.eu/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+            { url: 'https://www.europeana.eu/rights/privacy-', text: this.$t('footer.navigation.privacy') },
             { url: 'https://www.europeana.eu/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
             { url: 'https://www.europeana.eu/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
           ]

@@ -28,7 +28,7 @@
             { url: 'https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417/Europeana+API+FAQ', text: this.$t('footer.navigation.faq') },
             { url: 'mailto:api@europeana.eu', text: this.$t('landing.apis.footer.navigation.contactUs') },
             { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
-            { url: 'https://www.europeana.eu/rights/privacy-policy', text: this.$t('footer.navigation.privacy') }
+            { url: 'https://www.europeana.eu/rights/privacy-statement', text: this.$t('footer.navigation.privacy') }
           ]
         }
       };

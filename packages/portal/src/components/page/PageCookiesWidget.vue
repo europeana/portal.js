@@ -59,7 +59,7 @@
       >
         <template #privacyPolicy>
           <SmartLink
-            destination="/rights/privacy-policy"
+            destination="/rights/privacy-statement"
           >
             {{ $t('klaro.main.consentModal.privacyPolicy') }}<!-- This comment removes white space
           -->

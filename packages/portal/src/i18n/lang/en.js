@@ -153,23 +153,6 @@ export default {
   },
   "colourSwatch": "Colour swatch",
   "contentYouMightLike": "Content you might like",
-  "contentfulManual": {
-    "footerNavigation": {
-      "MoreInfoLabel": "More Info",
-      "about": "About Europeana",
-      "forDevelopers": "For developers",
-      "help": "Help",
-      "meetUs": "Meet the team",
-      "provide": "Become a data provider",
-      "subscribe": "Subscribe to our Newsletter",
-      "terms": "Terms of Use and Privacy Policy"
-    },
-    "headerNavigation": {
-      "Collections": "Collections",
-      "explore": "Explore",
-      "teachers": "Teachers"
-    }
-  },
   "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
@@ -778,7 +761,7 @@ export default {
       "cookies": "Cookies",
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
-      "privacy": "Privacy policy",
+      "privacy": "Privacy statement",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -846,7 +829,7 @@ export default {
       "acceptSelected": "Accept selected",
       "consentModal": {
         "alwaysRequired": "(Always required)",
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-statement'>privacy statement</a>.",
         "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
         "privacyPolicy": "Privacy policy",
         "servicesCount": "{count} service | {count} services",

@@ -3,6 +3,7 @@ const redirects = {
   '/blog/*': '/stories/*',
   '/exhibitions': '/stories?type=exhibition',
   '/professionals': '/share-your-collections',
+  '/rights/privacy-policy': '/rights/privacy-statement',
   '/share-your-data': '/share-your-collections'
 };
 
