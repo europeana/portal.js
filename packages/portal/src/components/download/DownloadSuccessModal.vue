@@ -1,41 +1,46 @@
 <template>
   <b-modal
     id="download-success-modal"
+    title-tag="h2"
     :title="$t('modal.download.modalTitle')"
     hide-header-close
     hide-footer
     data-qa="download success modal"
     @hidden="snippetCopied = false"
   >
-    <b-form
+    <p>
+      {{ $t('modal.download.modalIntro') }}
+    </p>
+    <div
+      class="position-relative mb-2"
       data-qa="attribution snippet"
     >
-      <p>
-        {{ $t('modal.download.modalIntro') }}
-      </p>
-      <b-form-textarea
-        id="attributionSnippet"
-        ref="attributionSnippet"
-        readonly
-        class="snippet"
-        rows="1"
-        max-rows="10"
-        :value="attributionSnippet"
+      <b-button
+        class="copy-button"
         @click="copySnippet"
         @keydown.enter="copySnippet"
-      />
-      <p
-        :class="{active: snippetCopied}"
-        class="copy-to-clipboard-success"
       >
-        <span class="icon-check_circle d-inline-flex pr-1" />
-        {{ $t('messages.copyToClipboardSuccess') }}
-      </p>
-      <p class="help">
-        <span class="icon-info-outline" />
-        {{ $t('modal.download.clickToCopy') }}
-      </p>
-    </b-form>
+        {{ $t('modal.download.copyAttribution') }}
+      </b-button>
+      <cite
+        id="attributionSnippet"
+        ref="attributionSnippet"
+        class="snippet"
+      >
+        {{ attributionSnippet }}
+      </cite>
+    </div>
+    <p
+      :class="{active: snippetCopied}"
+      class="copy-to-clipboard-success"
+    >
+      <span class="icon-check_circle d-inline-flex pr-1" />
+      {{ $t('messages.copyToClipboardSuccess') }}
+    </p>
+    <p class="help">
+      <span class="icon-info-outline" />
+      {{ $t('modal.download.clickToCopy') }}
+    </p>
     <b-button
       variant="outline-primary"
       data-qa="attribution snippet close"
@@ -142,7 +147,6 @@
 
     methods: {
       async copySnippet() {
-        this.$refs.attributionSnippet.select();
         try {
           await navigator.clipboard.writeText(this.attributionSnippet);
         } catch {
@@ -183,13 +187,22 @@
       background: $whitegrey;
       border-radius: 6px;
       padding: 0.75rem;
-      margin-bottom: 0.5rem;
       word-wrap: break-word;
-      cursor: pointer;
-      height: 7rem;
       font-size: $font-size-small;
-      border: 0;
       overflow-y: auto !important;
+      display: inline-block;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      border: 0;
     }
 
     .copy-to-clipboard-success {

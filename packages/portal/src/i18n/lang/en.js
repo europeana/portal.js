@@ -1178,6 +1178,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Click on the attribution to copy it",
+      "copyAttribution": "Copy attribution",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
     },

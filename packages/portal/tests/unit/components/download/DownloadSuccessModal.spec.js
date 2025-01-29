@@ -34,21 +34,13 @@ describe('components/download/DownloadSuccessModal', () => {
       const wrapper = factory(propsData);
 
       const snippet =  wrapper.find('[data-qa="attribution snippet"]');
-      expect(snippet.find('b-form-textarea-stub').exists()).toBe(true);
-      expect(snippet.find('b-form-textarea-stub').attributes('value')).toContain(attributionSnippet);
+      expect(snippet.find('cite').exists()).toBe(true);
+      expect(snippet.find('cite').text()).toContain(attributionSnippet);
     });
   });
 
   describe('methods', () => {
     describe('copySnippet', () => {
-      it('selects the attribution snippet', () => {
-        const wrapper = factory(propsData);
-
-        wrapper.vm.copySnippet();
-
-        expect(wrapper.vm.$refs.attributionSnippet.select.called).toBe(true);
-      });
-
       it('writes the attribution snippet to the navigator clipboard', () => {
         const wrapper = factory(propsData);
 
