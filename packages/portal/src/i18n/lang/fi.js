@@ -192,6 +192,16 @@ export default {
     "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "embedNotification": {
+    "ifNotAll": "Jos et halua ladata kaikkea upotettua mediaa, voit {0}.",
+    "loadAllEmbeddedContent": "Lataa kaikki upotettu sisältö",
+    "loadOnlyThis": "lataa mediaa vain tältä palveluntarjoajalta",
+    "message": "Huomaa, että tämä sivu sisältää mediasisältöä, joka on upotettu osoitteesta {provider}. Tämän median katsominen on niiden ehtojen ja tietosuojaselosteiden alaista. Lisätietoja tietojesi käytöstä saat heidän tietosuojaselosteistaan.",
+    "messageUnkownService": "Valitettavasti tätä sisältöä ei voida näyttää.",
+    "ofThirdPartyServices": "{0} kolmansien osapuolten sisältöpalvelut.",
+    "viewFullList": "Näytä koko luettelo",
+    "viewThisExternalLink": "Katso tämä sisältö ulkoisen linkin kautta"
+  },
   "entity": {
     "actions": {
       "cancel": "Peruuta",
@@ -794,7 +804,11 @@ export default {
       "acceptAll": "Hyväksy kaikki",
       "acceptSelected": "Hyväksy valittu",
       "consentModal": {
+        "alwaysRequired": "(Pakollinen aina)",
         "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla <a href='/rights/privacy-policy'> tietosuojakäytäntömme </a> .",
+        "privacyPolicy": "Tietosuojakäytäntö",
+        "servicesCount": "{count} palvelu | {count} palvelua",
+        "text": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla {privacyPolicy}.",
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
@@ -804,13 +818,44 @@ export default {
       "decline": "kieltäydyn",
       "ok": "Okei",
       "purposes": {
+        "2D": {
+          "title": "2D-media"
+        },
+        "3D": {
+          "title": "3D media"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Nämä palvelut ovat välttämättömiä tämän verkkosivuston moitteettoman toiminnan kannalta. Ne sisältävät hakutulosnäkymän ja kieliasetukset, säilyttävät kirjautuneen tilan ja pitävät vierailusi turvassa. Et voi poistaa niitä käytöstä, koska verkkosivusto ei toimisi muuten oikein.",
           "title": "Olennaiset turvallisuus- ja mukautuspalvelut"
         },
+        "mediaViewing": {
+          "description": "Nämä palvelut lataavat kuvia (2D) , 3D-, ääni- ja videokohteita katselua varten.",
+          "title": "Median katselupalvelut"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Nämä palvelut lataavat sisältöä, kuten koodia, pelejä, karttoja ja tarinankerronnan widgettejä.",
+          "title": "Muut sulauttamispalvelut"
+        },
+        "socialMedia": {
+          "description": "Nämä palvelut lataavat sisältöä sosiaalisen median alustoilta.",
+          "title": "Sosiaalisen median upotuspalvelut"
+        },
+        "thirdPartyContent": {
+          "description": "Nämä palvelut lataavat kolmansien osapuolten isännöimää sisältöä. Sen käyttöä koskevat näiden kolmansien osapuolten ehdot ja tietosuojalausunto.",
+          "title": "Kolmannen osapuolen sisältö"
+        },
         "usage": {
           "description": "Nämä palvelut keräävät tietoja, jotka auttavat meitä ymmärtämään paremmin, miten verkkosivustoa käytetään ja missä kipupisteet ovat, mikä antaa meille mahdollisuuden tehdä tietoon perustuvia valintoja kokemuksesi parantamiseksi.",
           "title": "Palvelut verkkosivuston käytön ja palautteen keräämiseen"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -821,37 +866,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",
         "title": "Debug-kytkin"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Muistaa valitsemasi käyttöliittymäkielen tulevaa käyttöä varten.",
         "title": "Kielikoodi"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivoi palaute-widgetin, jolloin voit ottaa meihin yhteyttä.",
         "title": "Jiran palvelupiste"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Näyttää ilmoituksen, kun uusia ominaisuuksia tulee saataville.",
         "title": "Uuden ominaisuuden ilmoitus"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
         "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "tuntematon palveluntarjoaja",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },

@@ -191,6 +191,16 @@ export default {
     "broughtBy": "Jums atnesa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "embedNotification": {
+    "ifNotAll": "Ja nevēlaties ielādēt visus iegultos multivides failus, varat {0}.",
+    "loadAllEmbeddedContent": "Ielādēt visu iegulto saturu",
+    "loadOnlyThis": "ielādēt multivides tikai no šī pakalpojumu sniedzēja",
+    "message": "Lūdzu, ņemiet vērā, ka šajā lapā ir ievietots multivides saturs no {provider}. Uz šo multivides materiālu skatīšanos attiecas to noteikumi un paziņojumi par konfidencialitāti. Lai iegūtu vairāk informācijas par to, kā tiek izmantoti jūsu dati, lūdzu, skatiet šo uzņēmumu privātuma paziņojumus.",
+    "messageUnkownService": "Diemžēl šo saturu nevar parādīt.",
+    "ofThirdPartyServices": "{0} trešo pušu satura pakalpojumiem.",
+    "viewFullList": "Skatīt pilnu sarakstu",
+    "viewThisExternalLink": "Skatiet šo saturu, izmantojot ārējo saiti"
+  },
   "entity": {
     "actions": {
       "cancel": "Atcelt",
@@ -793,7 +803,11 @@ export default {
       "acceptAll": "Pieņemt visus",
       "acceptSelected": "Pieņemt atlasīto",
       "consentModal": {
+        "alwaysRequired": "(Vienmēr nepieciešams)",
         "description": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-policy'> konfidencialitātes politiku </a>.",
+        "privacyPolicy": "Privātuma politika",
+        "servicesCount": "{count} pakalpojums | {count} pakalpojumi",
+        "text": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu {privacyPolicy}.",
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
@@ -803,13 +817,44 @@ export default {
       "decline": "Es noraidu",
       "ok": "Labi",
       "purposes": {
+        "2D": {
+          "title": "2D multivides"
+        },
+        "3D": {
+          "title": "3D multivides"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Šie pakalpojumi ir būtiski, lai pareizi darbotos šī vietne. Tajos ietilpst meklēšanas rezultātu skats un valodas preferences, tiek saglabāts pieteicies stāvoklis un jūsu apmeklējums ir drošs. Jūs nevarat tos atspējot, jo vietne citādi nedarbotos pareizi.",
           "title": "Būtiski pakalpojumi drošībai un pielāgošanai"
         },
+        "mediaViewing": {
+          "description": "Šie pakalpojumi ielādē attēlus (2D), 3D, audio un video vienumus skatīšanai.",
+          "title": "Multivides skatīšanās pakalpojumi"
+        },
+        "multimedia": {
+          "title": "Multivide"
+        },
+        "other": {
+          "description": "Šie pakalpojumi ielādē saturu, piemēram, kodu, spēles, kartes un stāstu veidošanas logrīkus.",
+          "title": "Citi iestrādes pakalpojumi"
+        },
+        "socialMedia": {
+          "description": "Šie pakalpojumi ielādē saturu no sociālo mediju platformām.",
+          "title": "Sociālo plašsaziņas līdzekļu iestrādes pakalpojumi"
+        },
+        "thirdPartyContent": {
+          "description": "Šie pakalpojumi ielādē saturu, ko mitina trešās puses. Uz tās izmantošanu attiecas šie trešo pušu noteikumi, nosacījumi un paziņojums par konfidencialitāti.",
+          "title": "Trešo pušu saturs"
+        },
         "usage": {
           "description": "Šie pakalpojumi apkopo informāciju, lai palīdzētu mums labāk saprast, kā vietne tiek izmantota un kur atrodas sāpju punkti, dodot mums iespēju izdarīt apzinātu izvēli, lai uzlabotu jūsu pieredzi.",
           "title": "Pakalpojumi vietņu izmantošanas un atsauksmju iegūšanai"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -820,37 +865,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",
         "title": "Atkļūdošanas pārslēgšana"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivizē aptaujas logrīku, dodot jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Atceras jūsu vēlamo saskarnes valodu, lai nodrošinātu piekļuvi nākotnē.",
         "title": "Valodas kods"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivizē atsauksmju logrīku, sniedzot iespēju sazināties ar mums.",
         "title": "Jira servisa dienests"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Rāda paziņojumu, kad kļūst pieejamas jaunas funkcijas.",
         "title": "Jaunas funkcijas paziņojums"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
         "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nezināms pakalpojumu sniedzējs",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
