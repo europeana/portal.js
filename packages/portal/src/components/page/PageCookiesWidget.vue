@@ -66,20 +66,15 @@
           </SmartLink>
         </template>
       </i18n>
-      <ul>
-        <li
-          v-for="(section, index) in groupedSections"
-          :key="index"
-        >
-          <PageCookiesSection
-            :checked-services="checkedServices"
-            :service-data="section"
-            :show="show"
-            @toggle="toggleDisplay"
-            @update="updateConsent"
-          />
-        </li>
-      </ul>
+      <PageCookiesSection
+        v-for="(section, index) in groupedSections"
+        :key="index"
+        :checked-services="checkedServices"
+        :service-data="section"
+        :show="show"
+        @toggle="toggleDisplay"
+        @update="updateConsent"
+      />
       <div class="d-flex flex-wrap justify-content-between align-items-center">
         <b-button
           class="mt-2"

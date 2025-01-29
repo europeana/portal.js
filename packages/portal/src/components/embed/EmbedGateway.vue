@@ -111,6 +111,7 @@
 <script>
   import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
     name: 'EmbedGateway',
@@ -136,6 +137,11 @@
         type: String,
         default: null
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -219,9 +225,10 @@
 
       openCookieModal() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.renderCookieModal = true;
+          this.$bvModal.show(this.cookieModalId);
         }
       },
 
@@ -253,11 +260,33 @@
 
       openModalOrSaveConsents() {
         if (this.cookieConsentRequired) {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         } else {
           this.klaroManager?.saveAndApplyConsents('save');
           this.checkConsentAndOpenEmbed();
         }
+      },
+
+      openMainCookieModalAndScrollToThirdPartyContent() {
+        // Listen to modal shown event and then to modal transitionend before attempting to scroll
+        this.$root.$once('bv::modal::shown', (event, modalId) => this.listenToModalTransitionendAndScrollToSection(event, modalId));
+        this.$bvModal.show('cookie-modal');
+      },
+
+      async listenToModalTransitionendAndScrollToSection(event, modalId) {
+        if (modalId === 'cookie-modal') {
+          const modalContainer = event.target;
+          const sectionId = '#consentcheckbox-section-thirdPartyContent';
+
+          modalContainer.addEventListener('transitionend', () => this.scrollToSection(modalContainer, sectionId), { once: true });
+        }
+      },
+
+      scrollToSection(modalContainer, sectionId) {
+        this.scrollToSelector(sectionId, {
+          behavior: 'smooth',
+          container: modalContainer
+        });
       }
     }
   };
@@ -367,7 +396,7 @@
   }
 
   .unsupported-content-notification {
-    background: $black;
+    background-color: rgba(0, 0, 0, 0.70);
     border-radius: 0.25rem;
     color: $white;
     font-size: $font-size-small;

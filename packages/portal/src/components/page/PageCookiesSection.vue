@@ -1,5 +1,8 @@
 <template>
-  <div class="consent-checkbox-section">
+  <div
+    :id="`consentcheckbox-section-${serviceData.name}`"
+    class="consent-checkbox-section"
+  >
     <label
       v-if="serviceData.services && depth > COLLAPSIBLE_DEPTH_LIMIT"
       :for="`consentcheckbox-${serviceData.name}`"
@@ -44,24 +47,20 @@
         {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
         <span class="icon-chevron ml-1" />
       </b-button>
-      <ul
-        v-show="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
-        :class="{'pl-0': depth > COLLAPSIBLE_DEPTH_LIMIT}"
-      >
-        <li
+      <template v-if="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)">
+        <PageCookiesSection
           v-for="(subService, subServiceIndex) in serviceData.services"
           :key="subServiceIndex"
-        >
-          <PageCookiesSection
-            :checked-services="checkedServices"
-            :depth="depth + 1"
-            :service-data="subService"
-            :show="show"
-            @toggle="toggleDisplay"
-            @update="updateServiceConsent"
-          />
-        </li>
-      </ul>
+          class="nested-section"
+          :class="{'pl-0': depth > COLLAPSIBLE_DEPTH_LIMIT}"
+          :checked-services="checkedServices"
+          :depth="depth + 1"
+          :service-data="subService"
+          :show="show"
+          @toggle="toggleDisplay"
+          @update="updateServiceConsent"
+        />
+      </template>
     </template>
   </div>
 </template>
@@ -174,10 +173,12 @@
       padding-left: 2rem;
     }
 
-    ul {
+    .nested-section {
       padding-left: 2rem;
-      margin-bottom: 0.5rem;
-      list-style: none;
+
+      &:last-child {
+        margin-bottom: 0.5rem;
+      }
     }
 
     .label {
