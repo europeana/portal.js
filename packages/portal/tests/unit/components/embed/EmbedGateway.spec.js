@@ -143,8 +143,6 @@ describe('components/embed/EmbedGateway', () => {
         expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
         expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
 
-        await wrapper.vm.$nextTick();
-
         expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
         expect(eventlistenerStub.called).toBe(true);
         expect(eventlistenerStub.calledWith('transitionend', sinon.match.func, { once: true })).toBe(true);
@@ -180,8 +178,6 @@ describe('components/embed/EmbedGateway', () => {
 
         expect(wrapper.vm.$bvModal.show.calledWith('cookie-modal')).toBe(true);
         expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
-
-        await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
         expect(eventlistenerStub.called).toBe(true);

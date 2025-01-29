@@ -274,8 +274,6 @@
       },
 
       async listenToModalTransitionendAndScrollToSection(event, modalId) {
-        await this.$nextTick();
-
         if (modalId === 'cookie-modal') {
           const modalContainer = event.target;
           const sectionId = '#consentcheckbox-section-thirdPartyContent';
