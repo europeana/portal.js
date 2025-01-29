@@ -1,12 +1,12 @@
 export const version = '0.7.18';
-import services from '@/utils/services/services.js';
+import serviceDefinitions from '@/utils/services/services.js';
 import waitFor from '@/utils/waitFor.js';
 import initHotjar from '@/utils/hotjar.js';
 
 import { ref } from 'vue';
 
 // shared global instances across multiple components
-let klaro = ref(null);
+let klaro;
 let klaroManager = ref(null);
 
 export default {
@@ -21,7 +21,6 @@ export default {
 
   data() {
     return {
-      klaro: null,
       klaroManager: null
     };
   },
@@ -33,11 +32,8 @@ export default {
   mounted() {
     waitFor(() => window.klaro, { name: 'Klaro' })
       .then(() => {
-        if (!klaro.value) {
-          klaro.value = window.klaro;
-        }
-        if (!this.klaro) {
-          this.klaro = klaro;
+        if (!klaro) {
+          klaro = window.klaro;
         }
 
         this.renderKlaro();
@@ -54,17 +50,11 @@ export default {
     };
   },
 
-  computed: {
-    cookieConsentRequired() {
-      return this.klaroManager && !this.klaroManager.confirmed;
-    },
+  created() {
+    const klaroConfig = () => {
+      const klaroAllServices = this.$features.embeddedMediaNotification ? serviceDefinitions : serviceDefinitions.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
 
-    klaroAllServices() {
-      return this.$features.embeddedMediaNotification ? services : services.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
-    },
-
-    klaroConfig() {
-      const services = this.klaroAllServices
+      const services = klaroAllServices
         .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
         .map((service) => ({
           ...service,
@@ -90,20 +80,28 @@ export default {
         }
       };
     }
+
+    this.klaroConfig = klaroConfig();
+  },
+
+  computed: {
+    cookieConsentRequired() {
+      return this.klaroManager && !this.klaroManager.confirmed;
+    }
   },
 
   methods: {
     renderKlaro() {
-      if (this.klaro) {
+      if (klaro) {
         if (!klaroManager.value) {
-          klaroManager.value = this.klaro.getManager(this.klaroConfig);
+          klaroManager.value = klaro.getManager(this.klaroConfig);
         }
         if (!this.klaroManager) {
           this.klaroManager = klaroManager;
         }
 
         if (!this.$features.embeddedMediaNotification) {
-          this.klaro.render(this.klaroConfig, true);
+          klaro.render(this.klaroConfig, true);
         }
         this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }

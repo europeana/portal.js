@@ -89,21 +89,15 @@
       }
     },
 
-    data() {
-      return {
-        COLLAPSIBLE_DEPTH_LIMIT: 2
-      };
-    },
-
-    computed: {
-      label() {
+    created() {
+      const label = () => {
         if (this.serviceData.services) {
           return this.$t(`klaro.main.purposes.${this.serviceData.name}.title`);
         } else {
           return this.$t(`klaro.services.${this.serviceData.name}.title`);
         }
-      },
-      description() {
+      };
+      const description = () => {
         let key;
         if (this.serviceData.services) {
           key = `klaro.main.purposes.${this.serviceData.name}.description`;
@@ -114,7 +108,22 @@
           return this.$t(key);
         }
         return undefined;
-      },
+      };
+      const flattenedServiceNames = () => {
+        const childServices = (service) => {
+          return service.services ? service.services.map(childServices).flat() : [service];
+        };
+        return childServices(this.serviceData).map((service) => service.name);
+      };
+
+      this.COLLAPSIBLE_DEPTH_LIMIT = 2;
+      this.label = label();
+      this.description = description();
+      this.flattenedServiceNames = flattenedServiceNames();
+      this.servicesCount = this.flattenedServiceNames.length;
+    },
+
+    computed: {
       checked() {
         if (this.serviceData.services) {
           return this.allChildServicesChecked;
@@ -127,20 +136,11 @@
         }
         return false;
       },
-      flattenedServiceNames() {
-        const childServices = (service) => {
-          return service.services ? service.services.map(childServices).flat() : service;
-        };
-        return childServices(this.serviceData).map((service) => service.name);
-      },
       allChildServicesChecked() {
         return this.flattenedServiceNames.every((service) => this.checkedServices.includes(service));
       },
       noChildServicesChecked() {
         return !this.flattenedServiceNames.some((service) => this.checkedServices.includes(service));
-      },
-      servicesCount() {
-        return this.flattenedServiceNames.length;
       }
     },
 

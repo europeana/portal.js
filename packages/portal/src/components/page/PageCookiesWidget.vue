@@ -161,94 +161,76 @@
 
     data() {
       return {
-        toastId: 'cookie-notice-toast',
         show: ['thirdPartyContent'],
         checkedServices: []
       };
     },
 
-    computed: {
-      essentialServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('essential'));
-      },
-      usageServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('usage'));
-      },
-      thirdPartyContentServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
-      },
+    created() {
+      const essentialServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('essential'));
+      const usageServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('usage'));
+      const thirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
 
-      groupedSections() {
-        return [ // to create layout
-          this.essentialServices?.length && {
-            name: 'essential',
-            required: true,
-            services: this.essentialServices
-          },
-          this.usageServices?.length && {
-            name: 'usage',
-            services: this.usageServices
-          },
-          this.thirdPartyContentServices?.length &&
-            {
-              name: 'thirdPartyContent',
-              services: [
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))?.length && {
-                  name: 'socialMedia',
-                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))
-                },
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('mediaViewing'))?.length && {
-                  name: 'mediaViewing',
-                  services: [
-                    {
-                      name: '2D',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('2D'))
-                    }, {
-                      name: '3D',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('3D'))
-                    }, {
-                      name: 'audio',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('audio'))
-                    }, {
-                      name: 'multimedia',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('multimedia'))
-                    }, {
-                      name: 'video',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('video'))
-                    }
-                  ]
-                },
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))?.length && {
-                  name: 'other',
-                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))
-                }
-              ].filter(Boolean)
-            }
-        ].filter(Boolean)
-          .filter(purpose => !this.hidePurposes.includes(purpose.name));
-      },
-
-      flattenedServiceNames() {
-        const childServices = (service) => {
-          if (Array.isArray(service)) {
-            return service.map(childServices).flat();
-          } else if (service.services) {
-            return childServices(service.services);
-          } else {
-            return [service];
-          }
-        };
-        return childServices(this.groupedSections).map((service) => service.name);
-      }
-    },
-
-    watch: {
-      // klaroManager is likely not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.setCheckedServices();
+      const childServices = (service) => {
+        if (Array.isArray(service)) {
+          return service.map(childServices).flat();
+        } else if (service.services) {
+          return childServices(service.services);
+        } else {
+          return [service];
         }
-      }
+      };
+
+      // to create layout
+      this.groupedSections = [
+        essentialServices?.length && {
+          name: 'essential',
+          required: true,
+          services: essentialServices
+        },
+        usageServices?.length && {
+          name: 'usage',
+          services: usageServices
+        },
+        thirdPartyContentServices?.length &&
+          {
+            name: 'thirdPartyContent',
+            services: [
+              thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))?.length && {
+                name: 'socialMedia',
+                services: thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))
+              },
+              thirdPartyContentServices.filter(service => service.purposes?.includes('mediaViewing'))?.length && {
+                name: 'mediaViewing',
+                services: [
+                  {
+                    name: '2D',
+                    services: thirdPartyContentServices.filter(service => service.purposes?.includes('2D'))
+                  }, {
+                    name: '3D',
+                    services: thirdPartyContentServices.filter(service => service.purposes?.includes('3D'))
+                  }, {
+                    name: 'audio',
+                    services: thirdPartyContentServices.filter(service => service.purposes?.includes('audio'))
+                  }, {
+                    name: 'multimedia',
+                    services: thirdPartyContentServices.filter(service => service.purposes?.includes('multimedia'))
+                  }, {
+                    name: 'video',
+                    services: thirdPartyContentServices.filter(service => service.purposes?.includes('video'))
+                  }
+                ]
+              },
+              thirdPartyContentServices.filter(service => service.purposes?.includes('other'))?.length && {
+                name: 'other',
+                services: thirdPartyContentServices.filter(service => service.purposes?.includes('other'))
+              }
+            ].filter(Boolean)
+          }
+      ].filter(Boolean)
+        .filter(purpose => !this.hidePurposes.includes(purpose.name));
+      this.flattenedServiceNames = childServices(this.groupedSections).map((service) => service.name);
+      this.toastId = 'cookie-notice-toast';
     },
 
     mounted() {
