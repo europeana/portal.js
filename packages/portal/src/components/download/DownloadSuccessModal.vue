@@ -24,7 +24,6 @@
       </b-button>
       <cite
         id="attributionSnippet"
-        ref="attributionSnippet"
         class="snippet"
       >
         {{ attributionSnippet }}

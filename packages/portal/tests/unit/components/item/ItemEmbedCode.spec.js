@@ -2,7 +2,6 @@ import { createLocalVue } from '@vue/test-utils';
 import { mountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import nock from 'nock';
-import sinon from 'sinon';
 import ItemEmbedCode from '@/components/item/ItemEmbedCode.vue';
 
 const OEMBED_BASE_URL = 'https://oembed.europeana.eu';
@@ -55,26 +54,24 @@ describe('components/item/ItemEmbedCode', () => {
   });
 
   describe('when response includes "html" property', () => {
-    document.execCommand = sinon.spy();
-
     const wrapper = factory();
     wrapper.setData({
       embedHtml: html
     });
 
     it('is shown in a textarea', () => {
-      expect(wrapper.find('#share-embed').element.value).toBe(html);
+      expect(wrapper.find('#share-embed').text()).toEqual(html);
     });
 
     describe('when textarea is clicked', () => {
       it('copies the embed code to the clipboard', async() => {
-        await wrapper.find('#share-embed').trigger('click');
+        await wrapper.find('[data-qa="share embed button"]').trigger('click');
 
         expect(global.navigator.clipboard.writeText.calledWith(html)).toBe(true);
       });
 
       it('shows a notification message', async() => {
-        await wrapper.find('#share-embed').trigger('click');
+        await wrapper.find('[data-qa="share embed button"]').trigger('click');
 
         expect(wrapper.find('[data-qa="share embed copied notice"]').isVisible()).toBe(true);
       });
