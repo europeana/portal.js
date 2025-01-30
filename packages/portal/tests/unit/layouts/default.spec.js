@@ -66,12 +66,13 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     ...options.mocks
   },
   stubs: {
-    VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
-    nuxt: true,
-    PageHeader: true,
-    PageFooter: true,
+    FeedbackWidget: true,
     NewFeatureNotification: true,
-    FeedbackWidget: true
+    NotificationBanner: true,
+    nuxt: true,
+    PageFooter: true,
+    PageHeader: true,
+    VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' }
   }
 });
 
@@ -83,20 +84,48 @@ describe('layouts/default.vue', () => {
     });
   });
 
+  describe('notification banner', () => {
+    describe('when no banner is configured', () => {
+      it('is not rendered', () => {
+        const wrapper = factory({ mocks: { $config: { app: { notificationBanner: undefined } } } });
+
+        const banner = wrapper.find('[data-qa="notification banner"]');
+
+        expect(banner.exists()).toBe(false);
+      });
+    });
+
+    describe('when a banner is configured', () => {
+      it('is rendered', () => {
+        const wrapper = factory({ mocks: { $config: { app: { notificationBanner: 'hello' } } } });
+
+        const banner = wrapper.find('[data-qa="notification banner"]');
+
+        expect(banner.isVisible()).toBe(true);
+      });
+    });
+  });
+
   describe('NewFeatureNotification', () => {
     describe('when no feature notification is active', () => {
       it('is not rendered', () => {
-        const wrapper = factory({ data: { featureNotification: null } });
+        const wrapper = factory({ mocks: { $config: { app: { featureNotification: undefined } } } });
+
         const notification = wrapper.find('[data-qa="new feature notification"]');
+
         expect(notification.exists()).toBe(false);
       });
     });
+
     describe('when a feature notification is active', () => {
       it('is rendered', () => {
-        const wrapper = factory({ data: { featureNotification: { name: 'filters' } } });
+        // TODO: this is brittle and requires updating whenever available notifications
+        //       changes; mock it
+        const wrapper = factory({ mocks: { $config: { app: { featureNotification: { name: 'featureIdeas' } } } } });
 
         const notification = wrapper.find('[data-qa="new feature notification"]');
-        expect(notification.exists()).toBe(true);
+
+        expect(notification.isVisible()).toBe(true);
       });
     });
   });

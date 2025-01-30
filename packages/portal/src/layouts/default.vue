@@ -29,6 +29,7 @@
       >
         <NotificationBanner
           :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+          data-qa="notification banner"
         />
       </client-only>
       <nuxt
@@ -92,10 +93,7 @@
 
     data() {
       return {
-        enableAnnouncer: true,
-        featureNotification: activeFeatureNotification(this.$nuxt?.context),
-        linkGroups: {},
-        notificationBanner: this.$config?.app?.notificationBanner
+        enableAnnouncer: true
       };
     },
 
@@ -137,6 +135,11 @@
           }
         });
       }
+    },
+
+    created() {
+      this.featureNotification = activeFeatureNotification({ $config: this.$config, i18n: this.$i18n });
+      this.notificationBanner = this.$config?.app?.notificationBanner;
     },
 
     mounted() {
