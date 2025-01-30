@@ -41,18 +41,31 @@
     name: 'ItemSnippetCopyButton',
 
     props: {
+      /**
+       * HTML tag used to wrap the text snippet
+       * @default: <span />
+       */
       tag: {
         type: String,
         default: 'span'
       },
+      /**
+       * Text to be copied AKA text snippet
+       */
       text: {
         type: String,
         default: null
       },
+      /**
+       * Text for the hidden button (for assistive tech users)
+       */
       buttonText: {
         type: String,
         default: null
       },
+      /**
+       * Text to help the user interact with the snippet
+       */
       helpText: {
         type: String,
         default: null
@@ -103,9 +116,10 @@
     word-wrap: break-word;
     font-size: $font-size-small;
     overflow-y: auto;
-    display: inline-block;
+    display: block;
     margin: 0;
     max-height: 6.5em;
+    width: 100%;
     max-width: 100%;
 
   }
@@ -137,3 +151,31 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <ItemSnippetCopyButton
+    text="Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text."
+    button-text="Copy the text snippet"
+  />
+  ```
+
+  With help text
+  ```jsx
+  <ItemSnippetCopyButton
+    text="Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text."
+    button-text="Copy the text snippet"
+    help-text="Click on the text to copy it"
+  />
+  ```
+
+  With help text and 'code' tag
+  ```jsx
+  <ItemSnippetCopyButton
+    tag="code"
+    text="<p>Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text.</p>"
+    button-text="Copy the text snippet"
+    help-text="Click on the code to copy it"
+  />
+  ```
+</docs>
