@@ -11,6 +11,7 @@
       </b-button>
       <component
         :is="tag"
+        data-qa="item snippet copy button"
         class="snippet"
         @click="copySnippet"
       >
@@ -20,6 +21,7 @@
     <output
       :class="snippetCopied ? 'd-inline-flex' : 'visually-hidden'"
       class="copy-to-clipboard-success align-items-center mb-1"
+      data-qa="item snippet copied message"
     >
       <span class="icon-check-circle d-inline-block mr-1" />
       {{ $t('messages.copyToClipboardSuccess') }}
