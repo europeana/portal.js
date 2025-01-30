@@ -6,9 +6,11 @@
     hide-footer
     data-qa="share modal"
     title-tag="h2"
+    header-tag="div"
+    @show="$emit('show')"
   >
     <p>{{ $t('shareWhere') }}</p>
-    <div class="icon-wrapper pt-1">
+    <div class="icon-wrapper pt-1 mb-4">
       <ShareSocialButton
         :media-url="mediaUrl"
         :share-to="shareTo"
@@ -17,7 +19,6 @@
     <slot />
     <b-button
       variant="outline-primary"
-      class="mt-4"
       @click="$bvModal.hide('share-modal')"
     >
       {{ $t('actions.close') }}

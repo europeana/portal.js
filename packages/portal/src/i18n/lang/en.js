@@ -1178,7 +1178,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Click on the attribution to copy it",
-      "copyAttribution": "Copy attribution",
+      "copyAttribution": "Copy item attribution",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
     },
@@ -1266,10 +1266,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copy embed code",
       "pin": "Pin item to available Entities"
     },
     "allMetaData": "All metadata",
-    "copyEmbedLabel": "Embed code (Click to copy)",
+    "clickToCopyEmbedCode": "Click on the embed code to copy it",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",

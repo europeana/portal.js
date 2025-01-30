@@ -3,6 +3,7 @@
     id="download-success-modal"
     title-tag="h2"
     :title="$t('modal.download.modalTitle')"
+    header-tag="div"
     hide-header-close
     hide-footer
     data-qa="download success modal"
@@ -11,35 +12,12 @@
     <p>
       {{ $t('modal.download.modalIntro') }}
     </p>
-    <div
-      class="position-relative mb-2"
-      data-qa="attribution snippet"
-    >
-      <b-button
-        class="copy-button"
-        @click="copySnippet"
-        @keydown.enter="copySnippet"
-      >
-        {{ $t('modal.download.copyAttribution') }}
-      </b-button>
-      <cite
-        id="attributionSnippet"
-        class="snippet"
-      >
-        {{ attributionSnippet }}
-      </cite>
-    </div>
-    <p
-      :class="{active: snippetCopied}"
-      class="copy-to-clipboard-success"
-    >
-      <span class="icon-check_circle d-inline-flex pr-1" />
-      {{ $t('messages.copyToClipboardSuccess') }}
-    </p>
-    <p class="help">
-      <span class="icon-info-outline" />
-      {{ $t('modal.download.clickToCopy') }}
-    </p>
+    <ItemSnippetCopyButton
+      tag="cite"
+      :text="attributionSnippet"
+      :button-text="$t('modal.download.copyAttribution')"
+      :help-text="$t('modal.download.clickToCopy')"
+    />
     <b-button
       variant="outline-primary"
       data-qa="attribution snippet close"
@@ -52,9 +30,14 @@
 
 <script>
   import stringify from '@/mixins/stringify';
+  import ItemSnippetCopyButton from '@/components/item/ItemSnippetCopyButton';
 
   export default {
     name: 'DownloadSuccessModal',
+
+    components: {
+      ItemSnippetCopyButton
+    },
 
     mixins: [
       stringify
@@ -93,7 +76,6 @@
 
     data() {
       return {
-        snippetCopied: false,
         providerString: this.stringify(this.provider),
         creatorString: this.stringify(this.creator),
         yearString: this.stringify(this.year)
@@ -142,17 +124,6 @@
 
         return providerCountry;
       }
-    },
-
-    methods: {
-      async copySnippet() {
-        try {
-          await navigator.clipboard.writeText(this.attributionSnippet);
-        } catch {
-          // don't worry
-        }
-        this.snippetCopied = true;
-      }
     }
   };
 </script>
@@ -179,52 +150,6 @@
 
       p:first-child {
         margin-bottom: 0.75rem;
-      }
-    }
-
-    .snippet {
-      background: $whitegrey;
-      border-radius: 6px;
-      padding: 0.75rem;
-      word-wrap: break-word;
-      font-size: $font-size-small;
-      overflow-y: auto !important;
-      display: inline-block;
-      margin: 0;
-      max-width: 100%;
-    }
-
-    .copy-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      border: 0;
-    }
-
-    .copy-to-clipboard-success {
-      display: none;
-      vertical-align: middle;
-      font-size: $font-size-small;
-
-      &.active {
-        display: inline-flex;
-        align-items: center;
-      }
-    }
-
-    .help {
-      font-size: $font-size-extrasmall;
-      color: $mediumgrey;
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.25rem;
-
-      span {
-        display: inline-block;
-        margin-right: 0.5rem;
       }
     }
   }

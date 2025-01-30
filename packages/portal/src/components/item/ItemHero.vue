@@ -52,9 +52,13 @@
       </b-row>
       <ShareSocialModal
         :media-url="selectedMedia?.about"
+        @show="fetchEmbedCode"
       >
-        <ItemEmbedCode
-          :identifier="identifier"
+        <ItemSnippetCopyButton
+          tag="code"
+          :text="embedCode"
+          :button-text="$t('record.actions.copyEmbedCode')"
+          :help-text="$t('record.clickToCopyEmbedCode')"
         />
       </ShareSocialModal>
     </b-container>
@@ -65,12 +69,13 @@
   import ClientOnly from 'vue-client-only';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ItemEmbedCode from './ItemEmbedCode';
+  import ItemSnippetCopyButton from './ItemSnippetCopyButton';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-
   import rightsStatementMixin from '@/mixins/rightsStatement';
+  import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
@@ -78,7 +83,7 @@
     components: {
       ClientOnly,
       DownloadWidget,
-      ItemEmbedCode,
+      ItemSnippetCopyButton,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
@@ -137,7 +142,8 @@
     },
     data() {
       return {
-        selectedMedia: {}
+        selectedMedia: {},
+        embedCode: null
       };
     },
     computed: {
@@ -189,6 +195,18 @@
           ...this.media.find((wr) => wr.about === resource.about),
           ...resource
         };
+      },
+      async fetchEmbedCode() {
+        if (this.embedCode) {
+          return;
+        }
+        // TODO: this should be read from Nuxt runtime config
+        const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
+                                                 `${EUROPEANA_DATA_URL}/item${this.identifier}`);
+
+        if (response.data.html) {
+          this.embedCode = response.data.html;
+        }
       }
     }
   };
