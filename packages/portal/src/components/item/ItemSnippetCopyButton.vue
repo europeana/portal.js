@@ -1,18 +1,18 @@
 <template>
   <div>
     <div
-      class="position-relative"
+      class="snippet-wrapper position-relative mb-1"
     >
       <b-button
-        class="copy-button"
+        class="copy-button visually-hidden"
         @click="copySnippet"
-        @keydown.enter="copySnippet"
       >
         {{ buttonText }}
       </b-button>
       <component
         :is="tag"
         class="snippet"
+        @click="copySnippet"
       >
         {{ text }}
       </component>
@@ -76,19 +76,33 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .snippet-wrapper {
+    border-radius: 6px;
+    display: flex;
+    border: 1px solid transparent;
+    transition: border $standard-transition;
+
+    &:hover {
+      overflow: hidden;
+      border: 1px solid $blue;
+      transition: border $standard-transition;
+    }
+  }
+
   .snippet {
+    cursor: pointer;
     color: $mediumgrey;
     background: $whitegrey;
     border-radius: 6px;
     padding: 0.75rem;
     word-wrap: break-word;
     font-size: $font-size-small;
-    overflow-y: auto !important;
+    overflow-y: auto;
     display: inline-block;
     margin: 0;
+    max-height: 6.5em;
     max-width: 100%;
-    box-shadow: inset 0 0 0 1px transparent;
-    transition: box-shadow $standard-transition;
+
   }
 
   code.snippet {
@@ -96,16 +110,11 @@
   }
 
   .copy-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
 
-    &:hover + .snippet {
-      box-shadow: inset 0 0 0 1px $blue;
-      transition: box-shadow $standard-transition;
+    &:focus {
+      + .snippet {
+        outline: auto;
+      }
     }
   }
 
