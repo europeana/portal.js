@@ -18,7 +18,7 @@
       </component>
     </div>
     <output
-      :class="snippetCopied ? 'd-inline-flex' : 'd-none'"
+      :class="snippetCopied ? 'd-inline-flex' : 'visually-hidden'"
       class="copy-to-clipboard-success align-items-center mb-1"
     >
       <span class="icon-check-circle d-inline-block mr-1" />
@@ -87,8 +87,8 @@
     display: inline-block;
     margin: 0;
     max-width: 100%;
-    outline: 1px solid transparent;
-    transition: outline $standard-transition;
+    box-shadow: inset 0 0 0 1px transparent;
+    transition: box-shadow $standard-transition;
   }
 
   code.snippet {
@@ -104,8 +104,8 @@
     opacity: 0;
 
     &:hover + .snippet {
-      outline: 1px solid $blue;
-      transition: outline $standard-transition;
+      box-shadow: inset 0 0 0 1px $blue;
+      transition: box-shadow $standard-transition;
     }
   }
 
