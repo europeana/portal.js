@@ -53,9 +53,8 @@
             :modal-id="cookieModalId"
             modal-title-path="klaro.main.purposes.thirdPartyContent.title"
             :modal-description-path="null"
-            :hide-purposes="hidePurposes"
             :only-show-if-consent-required="false"
-            @consentsApplied="checkConsentAndOpenEmbed"
+            :pick="['thirdPartyContent']"
           />
           <i18n
             path="media.embedNotification.ifNotAll"
@@ -77,6 +76,7 @@
 
 <script>
   import serviceForUrl from '@/utils/services/index.js';
+  import useServiceManager from '@/composables/serviceManager.js';
 
   export default {
     name: 'EmbedGateway',
@@ -97,10 +97,33 @@
       }
     },
 
+    setup() {
+      const {
+        apply,
+        selectAll,
+        enable,
+        enabled,
+        select,
+        allServiceSelectionsStored,
+        initSelections,
+        isEnabled
+      } = useServiceManager({ pick: ['thirdPartyContent'] });
+
+      return {
+        apply,
+        selectAll,
+        select,
+        allServiceSelectionsStored,
+        enable,
+        enabled,
+        initSelections,
+        isEnabled
+      };
+    },
+
     data() {
       return {
         cookieModalId: 'embed-cookie-modal',
-        hidePurposes: ['essential', 'usage'],
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
@@ -110,11 +133,10 @@
     },
 
     watch: {
-      '$serviceManager': {
+      enabled: {
         deep: true,
         handler() {
-          console.log('watch $serviceManager.selections', this.$serviceManager.selections)
-          this.checkConsentAndOpenEmbed();
+          this.openIfEnabled();
         }
       }
     },
@@ -126,12 +148,13 @@
         this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
       }
 
-      this.checkConsentAndOpenEmbed();
+      this.openIfEnabled();
     },
 
     methods: {
       openCookieModal() {
-        if (this.$serviceManager.selectionsAreStored) {
+        this.select(this.provider.name);
+        if (this.allServiceSelectionsStored) {
           this.renderCookieModal = true;
           this.$bvModal.show(this.cookieModalId);
         } else {
@@ -139,36 +162,18 @@
         }
       },
 
-      checkConsentAndOpenEmbed() {
-        console.log('checkConsentAndOpenEmbed', this.$serviceManager.serviceIsEnabled(this.provider?.name))
-        this.opened = this.$serviceManager.serviceIsEnabled(this.provider?.name);
+      openIfEnabled() {
+        this.opened = this.isEnabled(this.provider?.name);
       },
 
       consentAllEmbeddedContent() {
-        if (this.$serviceManager.selectionsAreStored) {
-          this.$serviceManager.forEachService(
-            (service) => this.$serviceManager.enableService(service.name),
-            this.$serviceManager.getService('thirdPartyContent')
-          );
-        } else {
-          this.$serviceManager.enableAllServices();
-        }
-
-        this.openModalOrSaveConsents();
+        this.selectAll();
+        this.apply();
       },
 
       consentThisProvider() {
-        this.$serviceManager.enableService(this.provider.name);
-
-        this.openModalOrSaveConsents();
-      },
-
-      openModalOrSaveConsents() {
-        // if (!this.$serviceManager.selectionsAreStored) {
-          this.$bvModal.show('cookie-modal');
-        // } else {
-          // this.$serviceManager.saveSelections();
-        // }
+        this.select(this.provider.name);
+        this.apply();
       }
     }
   };

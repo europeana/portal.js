@@ -1,6 +1,7 @@
 const definitions = [
   {
     name: 'essential',
+    required: true,
     services: [
       {
         cookies: ['auth.strategy'],

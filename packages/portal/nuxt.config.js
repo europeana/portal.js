@@ -299,7 +299,7 @@ export default {
   plugins: [
     '~/plugins/features',
     '~/plugins/vue-router-query',
-    '~/plugins/vue-service-manager.client',
+    '~/plugins/service-manager.client',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
     '~/plugins/axios-cache-interceptor.client',

@@ -41,7 +41,7 @@
         variant="link"
         @click="toggleDisplay(serviceData.name)"
       >
-        {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
+        {{ $tc('klaro.main.consentModal.servicesCount', count, { count: $n(count)}) }}
         <span class="icon-chevron ml-1" />
       </b-button>
       <ul
@@ -53,12 +53,10 @@
           :key="subServiceIndex"
         >
           <PageCookiesSection
-            :checked-services="checkedServices"
             :depth="depth + 1"
             :service-data="subService"
             :show="show"
             @toggle="toggleDisplay"
-            @update="updateServiceConsent"
           />
         </li>
       </ul>
@@ -70,11 +68,9 @@
   export default {
     name: 'PageCookiesSection',
 
+    inject: ['statuses', 'updateStatus'],
+
     props: {
-      checkedServices: {
-        type: Array,
-        default: () => []
-      },
       depth: {
         type: Number,
         default: 1
@@ -116,46 +112,24 @@
         return undefined;
       },
       checked() {
-        if (this.serviceData.services) {
-          return this.allChildServicesChecked;
-        }
-        return this.checkedServices.includes(this.serviceData.name);
+        return this.statuses[this.serviceData.name].checked;
       },
       indeterminate() {
-        if (this.serviceData.services) {
-          return !this.allChildServicesChecked && !this.noChildServicesChecked;
-        }
-        return false;
+        return this.statuses[this.serviceData.name].indeterminate;
       },
-      flattenedServiceNames() {
-        const childServices = (service) => {
-          return service.services ? service.services.map(childServices).flat() : service;
-        };
-        return childServices(this.serviceData).map((service) => service.name);
-      },
-      allChildServicesChecked() {
-        return this.flattenedServiceNames.every((service) => this.checkedServices.includes(service));
-      },
-      noChildServicesChecked() {
-        return !this.flattenedServiceNames.some((service) => this.checkedServices.includes(service));
-      },
-      servicesCount() {
-        return this.flattenedServiceNames.length;
+      count() {
+        return this.statuses[this.serviceData.name].count;
       }
     },
 
     methods: {
-      updateServiceConsent(service, value) {
-        this.$emit('update', service, value);
-      },
-
       updateConsent(serviceData, value) {
         if (serviceData.services) {
-          serviceData.services.forEach(service => {
-            this.updateConsent(service, value);
+          serviceData.services.forEach((service) => {
+            this.updateStatus(service.name, value);
           });
         }
-        this.updateServiceConsent(serviceData, value);
+        this.updateStatus(serviceData.name, value);
       },
 
       toggleDisplay(name) {

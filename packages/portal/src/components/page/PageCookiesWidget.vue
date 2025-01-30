@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!onlyShowIfConsentRequired || !$serviceManager.selectionsAreStored"
+    v-if="!onlyShowIfConsentRequired || !allServiceSelectionsStored"
   >
     <b-toast
       v-if="renderToast"
@@ -50,7 +50,6 @@
       hide-header-close
       :title="$t(modalTitlePath)"
       @hide="onModalHide"
-      @show="setCheckedServices"
     >
       <i18n
         v-if="modalDescriptionPath"
@@ -68,15 +67,13 @@
       </i18n>
       <ul>
         <li
-          v-for="(section, index) in servicesToShow"
+          v-for="(section, index) in services"
           :key="index"
         >
           <PageCookiesSection
-            :checked-services="checkedServices"
             :service-data="section"
             :show="show"
             @toggle="toggleDisplay"
-            @update="updateService"
           />
         </li>
       </ul>
@@ -111,6 +108,8 @@
 
 <script>
   import PageCookiesSection from './PageCookiesSection.vue';
+  import useServiceManager from '@/composables/serviceManager.js';
+  import { computed } from 'vue';
 
   export default {
     // TODO: rename as this is more generally about services than solely cookies
@@ -119,6 +118,13 @@
     components: {
       PageCookiesSection,
       SmartLink: () => import('@/components/generic/SmartLink')
+    },
+
+    provide() {
+      return {
+        statuses: computed(() => this.statuses),
+        updateStatus: this.updateStatus
+      };
     },
 
     props: {
@@ -134,14 +140,13 @@
         type: String,
         default: 'klaro.main.consentModal.text'
       },
+      pick: {
+        type: Array,
+        default: null
+      },
       renderToast: {
         type: Boolean,
         default: true
-      },
-      // TODO: invert this to a whitelist, named `showPurposes`
-      hidePurposes: {
-        type: Array,
-        default: () => []
       },
       onlyShowIfConsentRequired: {
         type: Boolean,
@@ -149,65 +154,110 @@
       }
     },
 
-    watch: {
-      '$serviceManager': {
-        deep: true,
-        handler() {
-          console.log('watch $serviceManager.selections', this.$serviceManager.selections)
-          this.checkConsentAndOpenEmbed();
-        }
-      }
+    setup(props) {
+      const {
+        apply,
+        children,
+        deselect,
+        enabled,
+        forEach,
+        resetSelections,
+        select,
+        selected,
+        allServiceSelectionsStored,
+        isSelected,
+        services
+      } = useServiceManager({ pick: props.pick });
+
+      return {
+        apply,
+        children,
+        deselect,
+        enabled,
+        forEach,
+        resetSelections,
+        select,
+        selected,
+        allServiceSelectionsStored,
+        isSelected,
+        services
+      };
     },
 
     data() {
       return {
         toastId: 'cookie-notice-toast',
         show: ['thirdPartyContent'],
-        checkedServices: []
+        statuses: {}
       };
     },
 
-    computed: {
-      // TODO: refactor to have the purposes to show/hide configurable by deployment env var instead
-      servicesToShow() {
-        return this.$serviceManager.services.filter((purpose) => !this.hidePurposes.includes(purpose.name));
+    watch: {
+      enabled: {
+        deep: true,
+        handler() {
+          this.initStatuses();
+        }
       },
-
-      flattenedServiceNames() {
-        const childServices = (service) => {
-          return service.services ? service.services.map(childServices).flat() : service;
-        };
-        return childServices(this.servicesToShow).map((service) => service.name).filter(Boolean);
+      selected: {
+        deep: true,
+        handler() {
+          this.initStatuses();
+        }
       }
     },
 
-    mounted() {
-      console.log('service manager', this.$serviceManager)
-      console.log('this.$serviceManager.selectionsAreStored', this.$serviceManager.selectionsAreStored)
-      this.setCheckedServices();
+    created() {
+      this.initStatuses();
     },
 
     methods: {
+      updateStatus(serviceName, checked) {
+        this.statuses[serviceName].checked = checked;
+        if (checked) {
+          this.select(serviceName);
+        } else {
+          this.deselect(serviceName);
+        }
+      },
+
+      // TODO: could/should this be computed?
+      initStatuses() {
+        this.forEach((service) => {
+          if (service.services) {
+            const children = this.children(service);
+            const every = children.every(this.isSelected);
+            const some = children.some(this.isSelected);
+            this.statuses[service.name] = {
+              checked: every,
+              count: children.length,
+              indeterminate: some && !every
+            };
+          } else {
+            this.statuses[service.name] = {
+              checked: this.isSelected(service),
+              indeterminate: false
+            };
+          }
+        }, { services: this.services });
+      },
+
       openCookieModal() {
         this.$bvModal.show(this.modalId);
         this.$bvToast.hide(this.toastId);
       },
 
       onModalHide() {
-        if (!this.$serviceManager.selectionsAreStored) {
+        this.resetSelections();
+        if (!this.allServiceSelectionsStored) {
           this.$bvToast.show(this.toastId);
-          // TODO: replace this functionality
-          // this.klaroManager.changeAll(false);
         }
       },
 
       executeButtonClicked(eventType) {
-        console.log('executeButtonClicked', eventType)
-        this.$serviceManager.saveSelections();
-        this.setCheckedServices();
+        this.apply();
 
         this.$bvModal.hide(this.modalId);
-        this.$emit('consentsApplied');
 
         this.trackButtonClicked(eventType);
       },
@@ -232,23 +282,20 @@
       },
 
       saveAndHide() {
-        this.$serviceManager.saveSelections();
         this.executeButtonClicked('save');
       },
 
       acceptAndHide() {
-        // Workaround to only accept the visible services (embed-cookie-modal)
-        if (this.hidePurposes.length) {
-          this.flattenedServiceNames.forEach((serviceName) => this.enableService(serviceName));
-          this.executeButtonClicked('accept');
-        } else {
-          this.$serviceManager.enableAllServices();
-          this.executeButtonClicked('accept');
+        for (const serviceName in this.statuses) {
+          this.updateStatus(serviceName, true);
         }
+        this.executeButtonClicked('accept');
       },
 
       declineAndHide() {
-        this.$serviceManager.disableAllServices();
+        for (const serviceName in this.statuses) {
+          this.updateStatus(serviceName, false);
+        }
         this.executeButtonClicked('decline');
       },
 
@@ -258,18 +305,6 @@
         } else {
           this.show.push(name);
         }
-      },
-
-      updateService(serviceOrName, value) {
-        const serviceName = serviceOrName.name || serviceOrName;
-        this.$serviceManager.updateService(serviceName, value);
-        this.setCheckedServices();
-      },
-
-      setCheckedServices() {
-        console.log('setCheckedServices', this.$serviceManager.enabledServices)
-        this.checkedServices = this.$serviceManager.enabledServices;
-        console.log('$serviceManager.selections', this.$serviceManager.selections)
       }
     }
   };

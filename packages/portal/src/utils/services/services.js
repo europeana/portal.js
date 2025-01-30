@@ -1,6 +1,4 @@
-// TODO: rm when klaro has gone
-
-const portalServices = [
+const services = [
   {
     cookies: ['auth.strategy'],
     name: 'auth-strategy',
@@ -41,99 +39,85 @@ const portalServices = [
     name: 'searchResultsView',
     purposes: ['essential'],
     required: true
-  }
-];
-
-const socialMediaServices = [
-  { name: 'facebook' },
-  { name: 'googleDocs' },
-  { name: 'googleDrive' },
-  { name: 'instagram' },
-  { name: 'mailchimp' },
-  { name: 'pinterest' },
-  { name: 'wheeldecide' },
-  { name: 'x' }
-].map(service => ({ ...service, purposes: ['socialMedia'] }));
-
-const twoDServices = [
-  { name: 'bookWidgets' },
-  { name: 'ecorpus' },
-  { name: 'gallica' },
-  { name: 'gettyImages' },
+  },
+  { name: 'facebook', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'googleDocs', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'googleDrive', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'instagram', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'mailchimp', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'pinterest', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'wheeldecide', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'x', purposes: ['thirdPartyContent', 'socialMedia'] },
+  { name: 'bookWidgets', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'ecorpus', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'gallica', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'gettyImages', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
   { name: 'institutNationalDeLAudiovisuel',
     oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://www.ina.fr/video/*',
       'http://www.ina.fr/*/video/*'
-    ] },
-  { name: 'internetCulturale' },
-  { name: 'nakala' },
-  { name: 'openbeelden' },
-  { name: 'serveiDeGestioDocumentalArxius' },
-  { name: 'sokINettbiblioteket' },
-  { name: 'theCyprusInstitute' }
-].map(service => ({ ...service, purposes: ['2D'] }));
-
-const threeDServices = [
-  { name: 'arctur3DViewer' },
+    ],
+    purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'internetCulturale', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'nakala', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'openbeelden', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'serveiDeGestioDocumentalArxius', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'sokINettbiblioteket', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'theCyprusInstitute', purposes: ['thirdPartyContent', 'mediaViewing', '2D'] },
+  { name: 'arctur3DViewer', purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
   { name: 'eureka3D',
     oembed: 'https://eureka3d.vm.fedcloud.eu/oembed',
     schemes: [
       'https://eureka3d.vm.fedcloud.eu/3d/*'
-    ] },
-  { name: 'gotlandPictureStones' },
+    ], purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
+  { name: 'gotlandPictureStones', purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
   { name: 'sketchfab',
     oembed: 'https://sketchfab.com/oembed',
     schemes: [
       'https://sketchfab.com/3d-models/*',
       'https://sketchfab.com/models/*',
       'https://sketchfab.com/show/*'
-    ] },
-  { name: 'spatial' },
+    ], purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
+  { name: 'spatial', purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
   { name: 'weave',
     oembed: 'https://weave-3dviewer.com/api/core/v1/oembed',
     schemes: [
       'https://weave-3dviewer.com/asset/*'
-    ] }
-].map(service => ({ ...service, purposes: ['3D'] }));
-
-const audioServices = [
-  { name: 'britishLibrarySounds' },
-  { name: 'buzzsprout' },
-  { name: 'freesound' },
-  { name: 'phonobase' },
+    ], purposes: ['thirdPartyContent', 'mediaViewing', '3D'] },
+  { name: 'britishLibrarySounds', purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
+  { name: 'buzzsprout', purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
+  { name: 'freesound', purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
+  { name: 'phonobase', purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
   { name: 'soundArchivesOfTheCNRS',
     oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://archives.crem-cnrs.fr/archives/items/*/'
-    ] },
+    ],
+    purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
   { name: 'soundCloud',
     oembed: 'https://soundcloud.com/oembed',
-    schemes: ['http://soundcloud.com/*', 'https://soundcloud.com/*'] }
-].map(service => ({ ...service, purposes: ['audio'] }));
-
-const multimediaServices = [
-  { name: 'archiveOrg' },
-  { name: 'digitalRepositoryOfIreland' }
-].map(service => ({ ...service, purposes: ['multimedia'] }));
-
-const videoServices = [
-  { name: 'deutschesFilmportal' },
-  { name: 'eclap' },
-  { name: 'europeanParliamentMultimediaService' },
+    schemes: ['http://soundcloud.com/*', 'https://soundcloud.com/*'],
+    purposes: ['thirdPartyContent', 'mediaViewing', 'audio'] },
+  { name: 'archiveOrg', purposes: ['thirdPartyContent', 'mediaViewing', 'multimedia'] },
+  { name: 'digitalRepositoryOfIreland', purposes: ['thirdPartyContent', 'mediaViewing', 'multimedia'] },
+  { name: 'deutschesFilmportal', purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
+  { name: 'eclap', purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
+  { name: 'europeanParliamentMultimediaService', purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
   { name: 'euscreen',
     oembed: 'https://oembed.euscreen.eu/services/oembed',
     schemes: [
       'http://www.euscreen.eu/item.html*',
       'https://www.euscreen.eu/item.html*'
-    ] },
-  { name: 'myminifactory' },
-  { name: 'tibAvPortal' },
+    ], purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
+  { name: 'myminifactory', purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
+  { name: 'tibAvPortal', purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
   { name: 'tv3',
     oembed: 'https://oembed.europeana.eu/',
     schemes: [
       'http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/'
-    ] },
+    ],
+    purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
   { name: 'vimeo',
     oembed: 'https://vimeo.com/api/oembed.json',
     schemes: [
@@ -149,7 +133,8 @@ const videoServices = [
       'http://vimeo.com/groups/*/videos/*',
       'http://vimeo.com/ondemand/*/*',
       'http://player.vimeo.com/video/*'
-    ] },
+    ],
+    purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
   { name: 'youTube',
     oembed: 'https://www.youtube.com/oembed',
     schemes: [
@@ -158,36 +143,28 @@ const videoServices = [
       'https://www.youtube.com/watch*',
       'https://www.youtube.com/v/*',
       'https://youtu.be/*'
-    ] }
-].map(service => ({ ...service, purposes: ['video'] }));
+    ],
+    purposes: ['thirdPartyContent', 'mediaViewing', 'video'] },
+  { name: 'albinLarsson', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'behance', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'carto', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'codepen', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'datawrapper', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'exhibit', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'gfycat', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'giphy', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'googleMaps', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'humap', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'jigsawplanet', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'knightLabCdn', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'kystreise', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'myAdventCalendar', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'onlineComputerLibraryCenter', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'prezi', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'slidebean', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'universityOfCaliforniaSanDiego', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'wikidata', purposes: ['thirdPartyContent', 'other'] },
+  { name: 'woobox', purposes: ['thirdPartyContent', 'other'] }
+];
 
-const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)
-  .map(service => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
-
-const otherEmbeddingServices = [
-  { name: 'albinLarsson' },
-  { name: 'behance' },
-  { name: 'carto' },
-  { name: 'codepen' },
-  { name: 'datawrapper' },
-  { name: 'exhibit' },
-  { name: 'gfycat' },
-  { name: 'giphy' },
-  { name: 'googleMaps' },
-  { name: 'humap' },
-  { name: 'jigsawplanet' },
-  { name: 'knightLabCdn' },
-  { name: 'kystreise' },
-  { name: 'myAdventCalendar' },
-  { name: 'onlineComputerLibraryCenter' },
-  { name: 'prezi' },
-  { name: 'slidebean' },
-  { name: 'universityOfCaliforniaSanDiego' },
-  { name: 'wikidata' },
-  { name: 'woobox' }
-].map(service => ({ ...service, purposes: ['other'] }));
-
-const thirdPartyServices = [...socialMediaServices, ...mediaViewingServices, ...otherEmbeddingServices]
-  .map(service => ({ ...service, purposes: ['thirdPartyContent', ...service.purposes] }));
-
-export default portalServices.concat(thirdPartyServices);
+export default services;
