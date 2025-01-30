@@ -16,7 +16,7 @@ const forEach = (callback, { services = definitions.value } = {}) => {
   }
 };
 
-const withServiceName = (serviceOrName, callback) => callback(serviceOrName.name || serviceOrName);
+const withServiceName = (serviceOrName, callback) => callback(serviceOrName?.name || serviceOrName);
 
 const definitionMap = computed(() => {
   let map = {};

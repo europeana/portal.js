@@ -197,6 +197,16 @@ export default {
     "homeLinkAlt": "Ondare kulturalaren egoitzarako Europako datu-espazio komuna"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
+  "embedNotification": {
+    "ifNotAll": "Ez baduzu txertatutako euskarri guztiak kargatu nahi, {0} dezakezu.",
+    "loadAllEmbeddedContent": "Kargatu kapsulatutako eduki guztia",
+    "loadOnlyThis": "kargatu multimedia hornitzaile honetatik soilik",
+    "message": "Kontuan izan orrialde honek {provider} -en txertatutako multimedia-edukia duela. Komunikabide hau ikustea haien baldintzen eta pribatutasun-adierazpenen menpe dago. Mesedez, ikusi haien pribatutasun-adierazpenak zure datuak nola erabiltzen diren jakiteko.",
+    "messageUnkownService": "Zoritxarrez, ezin da eduki hau erakutsi.",
+    "ofThirdPartyServices": "{0} hirugarrenen eduki-zerbitzuena.",
+    "viewFullList": "Ikusi zerrenda osoa",
+    "viewThisExternalLink": "Ikusi eduki hau kanpoko esteka baten bidez"
+  },
   "entity": {
     "actions": {
       "cancel": "Utzi",
@@ -799,7 +809,11 @@ export default {
       "acceptAll": "Onartu guztiak",
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
+        "alwaysRequired": "(Beti beharrezkoa)",
         "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-policy'> pribatutasun-politika </a> .",
+        "privacyPolicy": "Pribatutasun politika",
+        "servicesCount": "{count} zerbitzua | {count} zerbitzu",
+        "text": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure {privacyPolicy}.",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
@@ -809,13 +823,44 @@ export default {
       "decline": "Gaitzetsi egiten dut",
       "ok": "ados",
       "purposes": {
+        "2D": {
+          "title": "2D euskarria"
+        },
+        "3D": {
+          "title": "3D euskarriak"
+        },
+        "audio": {
+          "title": "Audioa"
+        },
         "essential": {
           "description": "Zerbitzu hauek funtsezkoak dira webgune honen funtzionamendu egokia izateko. Bilaketaren emaitzen ikuspegia eta hizkuntza hobespenak biltzen dituzte, saioa hasita gordetzen dute eta zure bisita seguru mantentzen dute. Ezin dituzu desgaitu, bestela webguneak ez lukeelako ondo funtzionatuko.",
           "title": "Segurtasunerako eta pertsonalizaziorako ezinbesteko zerbitzuak"
         },
+        "mediaViewing": {
+          "description": "Zerbitzu hauek irudiak (2D), 3D, audio eta bideo elementuak kargatzen dituzte ikusteko.",
+          "title": "Bitartekoak bistaratzeko zerbitzuak"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Zerbitzu hauek edukia kargatzen dute, hala nola kodea, jokoak, mapak eta istorioak kontatzeko widgetak.",
+          "title": "Kapsulatzeko beste zerbitzu batzuk"
+        },
+        "socialMedia": {
+          "description": "Zerbitzu hauek sare sozialetako plataformetako edukia kargatzen dute.",
+          "title": "Sare sozialak txertatzeko zerbitzuak"
+        },
+        "thirdPartyContent": {
+          "description": "Zerbitzu hauek hirugarrenek ostatatutako edukia kargatzen dute. Bere erabilera hirugarrenen baldintza, baldintza eta pribatutasun-adierazpenen menpe dago.",
+          "title": "Hirugarrenen edukia"
+        },
         "usage": {
           "description": "Zerbitzu hauek informazioa biltzen dute webgunea nola erabiltzen den eta non dauden arazo puntuak hobeto ulertzen laguntzeko, zure esperientzia hobetzeko aukera informatuak egiteko aukera ematen digute.",
           "title": "Webgunearen erabilera eta iritziak jasotzeko zerbitzuak"
+        },
+        "video": {
+          "title": "Bideoa"
         }
       },
       "service": {
@@ -826,37 +871,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
         "title": "Hizkuntza kodea"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
         "title": "Jira zerbitzuko mahaia"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
         "title": "Ezaugarri berrien jakinarazpena"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
         "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "hornitzaile ezezaguna",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },

@@ -28,11 +28,16 @@
     <b-container
       class="embed-container text-center"
     >
-      <EmbedHTML
+      <EmbedGateway
         v-if="embed"
-        :title="title"
-        :html="embed.embed"
-      />
+        class="media-viewer-content"
+        :embed-code="embed.embed"
+      >
+        <EmbedHTML
+          :title="title"
+          :html="embed.embed"
+        />
+      </EmbedGateway>
       <SmartLink
         v-if="link?.url"
         :destination="link.url"
@@ -53,6 +58,7 @@
     name: 'LandingEmbed',
 
     components: {
+      EmbedGateway: () => import('@/components/embed/EmbedGateway'),
       EmbedHTML,
       SmartLink: () => import('@/components/generic/SmartLink')
     },

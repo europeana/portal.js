@@ -1,31 +1,46 @@
 <template>
-  <div class="h-100">
+  <div
+    class="h-100"
+  >
     <slot
       v-if="opened"
       class="embed-gateway-opened"
     />
     <b-container
-      v-else
-      class="notification-overlay h-100"
+      v-else-if="provider"
+      class="notification-overlay"
+      :class="{'h-100': url, 'mw-100': embedCode}"
     >
-      <b-row class="h-100">
+      <b-row
+        class="position-relative"
+        :class="{ 'h-100': url}"
+      >
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="thumbnail-background mx-auto h-100 position-absolute"
         >
           <MediaCardImage
+            v-if="media"
             :media="media"
             :lazy="false"
             :linkable="false"
             thumbnail-size="large"
           />
+          <div
+            v-else
+            class="icon-multimedia h-100 d-flex align-items-center justify-content-center"
+          />
         </b-col>
         <b-col
-          lg="10"
+          :lg="url ? '10' : null"
           class="notification-content mx-auto position-relative"
+          :style="{
+            'min-height': !!iframe.height && iframe.height,
+            width: !!iframe.width && iframe.width,
+          }"
         >
           <p class="message">
-            {{ $t('media.embedNotification.message', { provider: providerName }) }}
+            {{ $t('embedNotification.message', { provider: providerName }) }}
           </p>
           <b-button
             data-qa="load all button"
@@ -33,10 +48,10 @@
             class="mb-2"
             @click="consentAllEmbeddedContent"
           >
-            {{ $t('media.embedNotification.loadAllEmbeddedContent') }}
+            {{ $t('embedNotification.loadAllEmbeddedContent') }}
           </b-button>
           <i18n
-            path="media.embedNotification.ofThirdPartyServices"
+            path="embedNotification.ofThirdPartyServices"
             tag="p"
           >
             <b-button
@@ -44,7 +59,7 @@
               variant="link"
               @click="openCookieModal"
             >
-              {{ $t('media.embedNotification.viewFullList') }}
+              {{ $t('embedNotification.viewFullList') }}
             </b-button>
           </i18n>
           <PageCookiesWidget
@@ -55,9 +70,10 @@
             :modal-description-path="null"
             :only-show-if-consent-required="false"
             :pick="['thirdPartyContent']"
+            :show-modal="true"
           />
           <i18n
-            path="media.embedNotification.ifNotAll"
+            path="embedNotification.ifNotAll"
             tag="p"
           >
             <b-button
@@ -65,9 +81,27 @@
               variant="link"
               @click="consentThisProvider"
             >
-              {{ $t('media.embedNotification.loadOnlyThis') }}
+              {{ $t('embedNotification.loadOnlyThis') }}
             </b-button>
           </i18n>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container v-else>
+      <b-row>
+        <b-col
+          :lg="url ? '10' : null"
+          class="unsupported-content-notification mx-auto"
+        >
+          <p class="mb-0">
+            {{ $t('embedNotification.messageUnkownService') }}
+          </p>
+          <SmartLink
+            v-if="linkToContent"
+            :destination="linkToContent"
+          >
+            {{ $t('embedNotification.viewThisExternalLink') }}
+          </SmartLink>
         </b-col>
       </b-row>
     </b-container>
@@ -77,16 +111,22 @@
 <script>
   import serviceForUrl from '@/utils/services/index.js';
   import useServiceManager from '@/composables/serviceManager.js';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
     name: 'EmbedGateway',
 
     components: {
       MediaCardImage: () => import('@/components/media/MediaCardImage.vue'),
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     props: {
+      embedCode: {
+        type: String,
+        default: null
+      },
       media: {
         type: Object,
         default: null
@@ -98,38 +138,62 @@
     },
 
     setup() {
+      const { scrollToSelector } = useScrollTo();
       const {
+        allServiceSelectionsStored,
         apply,
-        selectAll,
         enable,
         enabled,
-        select,
-        allServiceSelectionsStored,
         initSelections,
-        isEnabled
+        isEnabled,
+        select,
+        selectAll
       } = useServiceManager({ pick: ['thirdPartyContent'] });
 
       return {
-        apply,
-        selectAll,
-        select,
         allServiceSelectionsStored,
+        apply,
         enable,
         enabled,
         initSelections,
-        isEnabled
+        isEnabled,
+        scrollToSelector,
+        select,
+        selectAll
       };
     },
 
     data() {
       return {
         cookieModalId: 'embed-cookie-modal',
+        iframe: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
         renderCookieModal: false,
-        provider: null,
-        providerName: this.$t('klaro.services.unknownProvider')
+        script: {}
       };
+    },
+
+    computed: {
+      linkToContent() {
+        return this.url || this.iframe?.src;
+      },
+
+      provider() {
+        return this.providerUrl ? serviceForUrl(this.providerUrl) : null;
+      },
+
+      providerName() {
+        if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
+          return this.$t(`klaro.services.${this.provider.name}.title`);
+        } else {
+          return this.$t('klaro.services.unknownProvider');
+        }
+      },
+
+      providerUrl() {
+        return this.iframe.src || this.script.src || this.url;
+      }
     },
 
     watch: {
@@ -141,24 +205,48 @@
       }
     },
 
+    created() {
+      this.parseEmbedCode();
+    },
+
     mounted() {
-      this.provider = serviceForUrl(this.url);
-
-      if (this.provider) {
-        this.providerName = this.$t(`klaro.services.${this.provider.name}.title`);
-      }
-
       this.openIfEnabled();
     },
 
     methods: {
+      parseEmbedCode() {
+        if (!this.embedCode) {
+          return;
+        }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.embedCode, 'text/html');
+
+        const iframe = doc.querySelector('iframe');
+        const script = doc.querySelector('script');
+
+        if (iframe) {
+          this.iframe = {
+            height: isNaN(iframe.height) ? iframe.height : `${iframe.height}px`,
+            width: isNaN(iframe.width) ? iframe.width : `${iframe.width}px`,
+            src: iframe.src
+          };
+        } else if (script) {
+          this.script = { src: script.src };
+        }
+
+        // open the gate when there is no iframe/script embed, but other code
+        // rendered such as audio, video or plain HTML
+        this.opened = !this.iframe.src && !this.script.src;
+      },
+
       openCookieModal() {
         this.select(this.provider.name);
         if (this.allServiceSelectionsStored) {
           this.renderCookieModal = true;
           this.$bvModal.show(this.cookieModalId);
         } else {
-          this.$bvModal.show('cookie-modal');
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         }
       },
 
@@ -174,6 +262,28 @@
       consentThisProvider() {
         this.select(this.provider.name);
         this.apply();
+      },
+
+      openMainCookieModalAndScrollToThirdPartyContent() {
+        // Listen to modal shown event and then to modal transitionend before attempting to scroll
+        this.$root.$once('bv::modal::shown', (event, modalId) => this.listenToModalTransitionendAndScrollToSection(event, modalId));
+        this.$bvModal.show('cookie-modal');
+      },
+
+      listenToModalTransitionendAndScrollToSection(event, modalId) {
+        if (modalId === 'cookie-modal') {
+          const modalContainer = event.target;
+          const sectionId = '#consentcheckbox-section-thirdPartyContent';
+
+          modalContainer.addEventListener('transitionend', () => this.scrollToSection(modalContainer, sectionId), { once: true });
+        }
+      },
+
+      scrollToSection(modalContainer, sectionId) {
+        this.scrollToSelector(sectionId, {
+          behavior: 'smooth',
+          container: modalContainer
+        });
       }
     }
   };
@@ -218,6 +328,7 @@
 
   .notification-content {
     padding: 1rem calc(15px + 1rem);
+    overflow: auto;
 
     @media (min-width: $bp-small) {
       padding: 2rem calc(15px + 2rem);
@@ -257,11 +368,49 @@
 
         &:before {
           content: '\e96b';
-          font-size: 15rem;
+          font-size: 8rem;
           color: $middlegrey;
+
+          @media (min-width: $bp-medium) {
+            font-size: 15rem;
+          }
+        }
+      }
+    }
+
+    .icon-multimedia {
+      background-color: $white;
+
+      &:before {
+        font-size: 8rem;
+        color: $middlegrey;
+
+        @media (min-width: $bp-medium) {
+          font-size: 15rem;
         }
       }
     }
   }
 
+  .unsupported-content-notification {
+    background-color: rgba(0, 0, 0, 0.70);
+    border-radius: 0.25rem;
+    color: $white;
+    font-size: $font-size-small;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+
+    @media (min-width: $bp-medium) {
+      padding: 1.75rem 2rem;
+    }
+
+    a {
+      color: $white;
+
+      ::v-deep .icon-external-link {
+        vertical-align: baseline;
+      }
+    }
+  }
 </style>

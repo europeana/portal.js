@@ -65,18 +65,13 @@
           </SmartLink>
         </template>
       </i18n>
-      <ul>
-        <li
-          v-for="(section, index) in services"
-          :key="index"
-        >
-          <PageCookiesSection
-            :service-data="section"
-            :show="show"
-            @toggle="toggleDisplay"
-          />
-        </li>
-      </ul>
+      <PageCookiesSection
+        v-for="(section, index) in services"
+        :key="index"
+        :service-data="section"
+        :show="show"
+        @toggle="toggleDisplay"
+      />
       <div class="d-flex flex-wrap justify-content-between align-items-center">
         <b-button
           class="mt-2"

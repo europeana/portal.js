@@ -306,7 +306,8 @@ export default {
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
-    '~/plugins/vue-masonry.client'
+    '~/plugins/vue-masonry.client',
+    '~/plugins/jsdom-domparser.server'
   ],
 
   buildModules: [

@@ -210,6 +210,16 @@ export default {
     }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
+  "embedNotification": {
+    "ifNotAll": "If you don’t want to load all embedded media, you can {0}.",
+    "loadAllEmbeddedContent": "Load all embedded content",
+    "loadOnlyThis": "load media from this provider only",
+    "message": "Please be aware that this page contains media content embedded from {provider}. Viewing this media is subject to their terms and privacy statements. Please refer to their privacy statements for more information on how your data is used.",
+    "messageUnkownService": "Unfortunately this content cannot be shown.",
+    "ofThirdPartyServices": "{0} of third-party content services.",
+    "viewFullList": "View the full list",
+    "viewThisExternalLink": "View this content via an external link"
+  },
   "entity": {
     "actions": {
       "cancel": "Cancel",
@@ -922,9 +932,6 @@ export default {
       "buzzsprout": {
         "title": "Buzzsprout"
       },
-      "carto": {
-        "title": "Carto"
-      },
       "codepen": {
         "title": "Codepen"
       },
@@ -937,6 +944,9 @@ export default {
       },
       "deutschesFilmportal": {
         "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
       },
       "digitalRepositoryOfIreland": {
         "title": "Digital Repository of Ireland"
@@ -954,25 +964,13 @@ export default {
         "title": "European parliament multimedia service"
       },
       "euscreen": {
-        "title": "Euscreen"
-      },
-      "exhibit": {
-        "title": "Exhibit"
-      },
-      "facebook": {
-        "title": "Facebook"
+        "title": "EUscreen"
       },
       "freesound": {
         "title": "Freesound"
       },
       "gallica": {
         "title": "Gallica"
-      },
-      "gettyImages": {
-        "title": "Getty Images"
-      },
-      "gfycat": {
-        "title": "gfycat"
       },
       "giphy": {
         "title": "Giphy"
@@ -982,9 +980,6 @@ export default {
       },
       "googleDrive": {
         "title": "Google Drive"
-      },
-      "googleMaps": {
-        "title": "Google Maps"
       },
       "gotlandPictureStones": {
         "title": "Gotland Picture Stones"
@@ -1016,14 +1011,11 @@ export default {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
       },
-      "knightLabCdn": {
-        "title": "Knight Lab CDN"
+      "kompakkt": {
+        "title": "Kompakkt"
       },
       "kystreise": {
         "title": "Kystreise"
-      },
-      "mailchimp": {
-        "title": "Mailchimp"
       },
       "matomo": {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
@@ -1041,9 +1033,6 @@ export default {
       "newFeatureNotification": {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
-      },
-      "onlineComputerLibraryCenter": {
-        "title": "Online Computer Library Center"
       },
       "openbeelden": {
         "title": "Openbeelden"
@@ -1072,9 +1061,6 @@ export default {
       },
       "spatial": {
         "title": "Spatial"
-      },
-      "sokINettbiblioteket": {
-        "title": "Søk i Nettbiblioteket"
       },
       "soundArchivesOfTheCNRS": {
         "title": "Sound archives of the CNRS"
@@ -1167,14 +1153,6 @@ export default {
       "rotateRight": "Rotate right",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out"
-    },
-    "embedNotification": {
-      "ifNotAll": "If you don’t want to load all embedded media, you can {0}.",
-      "loadAllEmbeddedContent": "Load all embedded content",
-      "loadOnlyThis": "load media from this provider only",
-      "message": "Please be aware that this page contains media content embedded from {provider}. Viewing this media is subject to their terms and privacy statements. Please refer to their privacy statements for more information on how your data is used.",
-      "ofThirdPartyServices": "{0} of third-party content services.",
-      "viewFullList": "View the full list"
     },
     "loadFull": "Extra large image: load full-size.",
     "pages": {
