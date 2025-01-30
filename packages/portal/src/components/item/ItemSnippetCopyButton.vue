@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="text">
     <div
       class="snippet-wrapper position-relative mb-1"
     >
@@ -24,7 +24,10 @@
       <span class="icon-check-circle d-inline-block mr-1" />
       {{ $t('messages.copyToClipboardSuccess') }}
     </output>
-    <p class="help d-flex align-items-center">
+    <p
+      v-if="helpText"
+      class="help d-flex align-items-center"
+    >
       <span class="icon-info-outline d-inline-block mr-1" />
       {{ helpText }}
     </p>

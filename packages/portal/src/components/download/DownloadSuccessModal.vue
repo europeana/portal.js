@@ -7,7 +7,6 @@
     hide-header-close
     hide-footer
     data-qa="download success modal"
-    @hidden="snippetCopied = false"
   >
     <p>
       {{ $t('modal.download.modalIntro') }}
