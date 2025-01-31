@@ -127,7 +127,7 @@ const fixtures = {
         }
       },
       target: {
-        selector: { refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+        selector: { hasPredicate: 'dc:title', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
       }
     }
   ],
@@ -592,7 +592,7 @@ describe('pages/item/_.vue', () => {
 
         factory({ mocks: { $fetchState } });
 
-        expect(termsToHighlight.value).toEqual(['offensive']);
+        expect(termsToHighlight('dcTitle').value).toEqual(['offensive']);
       });
 
       it('fetches entities', () => {

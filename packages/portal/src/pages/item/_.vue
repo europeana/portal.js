@@ -595,7 +595,7 @@
           qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         });
-        this.parseDeBiasAnnotations(annotations);
+        this.parseDeBiasAnnotations(annotations, { lang: this.$i18n.locale });
         this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
       },
 

@@ -9,29 +9,35 @@ const termsToHighlight = (field) => {
 
 const definitionOfTerm = (term) => definitions.value[term];
 
-const findTargetForField = (targets, field) => {
-  return targets.find((target) => target?.selector.hasPredicate === field);
+const findAnnotationTarget = (targets, options = {}) => {
+  const { field, lang } = options;
+
+  return targets.find((target) => {
+    const fieldMatch = (!field || (target?.selector.hasPredicate === field));
+    const langMatch = (!lang || (target?.selector.refinedBy.exact['@language'] === lang));
+    return fieldMatch && langMatch;
+  });
 };
 
-const parseAnnotation = (anno) => {
+const parseAnnotation = (anno, options = {}) => {
+  const { lang } = options;
   const targets = [].concat(anno.target);
 
-  const target = findTargetForField(targets, 'dcTitle') ||
-      findTargetForField(targets, 'dcDescription') ||
-      findTargetForField(targets, 'dcSubject') ||
+  const target = findAnnotationTarget(targets, { field: 'dc:title', lang }) ||
+      findAnnotationTarget(targets, { field: 'dc:description', lang }) ||
+      findAnnotationTarget(targets, { field: 'dc:subject', lang }) ||
       // TODO: this won't necessarily be the first displayed; make order
       //       configurable by consumer?
-      targets[0];
+      findAnnotationTarget(targets, { lang });
 
   const term = target?.selector.refinedBy.exact['@value'];
-  const lang = target?.selector.refinedBy.exact['@language'];
   const field = target?.selector.hasPredicate;
   const definition = anno.body?.definition?.[lang];
 
   return { definition, field, term };
 };
 
-const parseAnnotations = (annotations) => {
+const parseAnnotations = (annotations, options = {}) => {
   terms.value = {};
   definitions.value = {};
 
@@ -39,7 +45,7 @@ const parseAnnotations = (annotations) => {
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
 
   for (const anno of debiasAnnotations) {
-    const { term, field, definition } = parseAnnotation(anno);
+    const { field, definition, term } = parseAnnotation(anno, options);
 
     if (term && field && definition) {
       terms.value[field] ||= [];
@@ -49,8 +55,8 @@ const parseAnnotations = (annotations) => {
   }
 };
 
-export default function useDeBias(annotations) {
-  annotations && parseAnnotations(annotations);
+export default function useDeBias(options = {}) {
+  options.annotations && parseAnnotations(options.annotations, { lang: options.lang });
 
   return {
     definitionOfTerm,

@@ -19,7 +19,7 @@ const annotations = [
       }
     },
     target: {
-      selector: { hasPredicate: 'dcTitle', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+      selector: { hasPredicate: 'dc:title', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
     }
   },
   {
@@ -32,8 +32,8 @@ const annotations = [
       }
     },
     target: [
-      { selector: { hasPredicate: 'dcTitle', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } },
-      { selector: { hasPredicate: 'dcDescription', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } }
+      { selector: { hasPredicate: 'dc:title', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } },
+      { selector: { hasPredicate: 'dc:description', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } }
     ]
   },
   {
@@ -46,7 +46,20 @@ const annotations = [
       }
     },
     target: {
-      selector: { hasPredicate: 'dcDescription', refinedBy: { exact: { '@language': 'en', '@value': 'contentious' } } }
+      selector: { hasPredicate: 'dc:description', refinedBy: { exact: { '@language': 'en', '@value': 'contentious' } } }
+    }
+  },
+  {
+    id: 'http://example.org/annotation/highlighting/2',
+    motivation: 'highlighting',
+    body: {
+      id: 'http://example.org/vocabulary/debias/1',
+      definition: {
+        de: 'nein'
+      }
+    },
+    target: {
+      selector: { hasPredicate: 'dc:description', refinedBy: { exact: { '@language': 'de', '@value': 'nein' } } }
     }
   }
 ];
@@ -56,17 +69,17 @@ describe('useDeBias', () => {
     it('extracts terms to highlight from DeBias annotations', () => {
       const { parseAnnotations, terms } = useDeBias();
 
-      parseAnnotations(annotations);
+      parseAnnotations(annotations, { lang: 'en' });
 
       expect(terms.value).toEqual(
-        { dcDescription: ['contentious'], dcTitle: ['offensive', 'harmful'] }
+        { 'dc:description': ['contentious'], 'dc:title': ['offensive', 'harmful'] }
       );
     });
   });
 
   describe('definitionOfTerm', () => {
     it('gets the term definition', () => {
-      const { definitionOfTerm } = useDeBias(annotations);
+      const { definitionOfTerm } = useDeBias({ annotations, lang: 'en' });
 
       const definition = definitionOfTerm('offensive');
 
@@ -76,10 +89,10 @@ describe('useDeBias', () => {
 
   describe('termsToHighlight', () => {
     it('gets field-specific terms to highlight, avoiding duplicates', () => {
-      const { termsToHighlight } = useDeBias(annotations);
+      const { termsToHighlight } = useDeBias({ annotations, lang: 'en' });
 
-      const titleTerms = termsToHighlight('dcTitle');
-      const descriptionTerms = termsToHighlight('dcDescription');
+      const titleTerms = termsToHighlight('dc:title');
+      const descriptionTerms = termsToHighlight('dc:description');
 
       expect(titleTerms).toEqual(['offensive', 'harmful']);
       expect(descriptionTerms).toEqual(['contentious']);
