@@ -21,7 +21,7 @@ describe('components/item/ItemDebiasTerm', () => {
     const wrapper = factory();
 
     expect(wrapper.find('dfn').text()).toEqual(propsData.term);
-    expect(wrapper.find('b-button-stub').text()).toEqual('icon needs SR text');
+    expect(wrapper.find('b-button-stub').text()).toEqual('record.explanationby');
     expect(wrapper.find('#tooltip-container').exists()).toBe(true);
   });
 });
