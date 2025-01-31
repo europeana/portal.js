@@ -3,28 +3,17 @@
     <header
       v-if="titles.length > 0"
     >
-      <template
+      <component
+        :is="(index === 0) ? 'h1' : 'p'"
         v-for="(heading, index) in titles"
+        :key="index"
+        :lang="langAttribute(heading.code)"
+        class="mb-0"
+        :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        <h1
-          v-if="index === 0"
-          :key="index"
-          :lang="langAttribute(heading.code)"
-          class="mb-0"
-        >
-          {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
-        </h1>
-        <p
-          v-else
-          :key="index"
-          :lang="langAttribute(heading.code)"
-          class="font-weight-bold mt-3 mb-0"
-        >
-          {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
-        </p>
-      </template>
+        {{ heading.value }}
+        <MetadataOriginLabel :translation-source="heading.translationSource" />
+      </component>
     </header>
     <div
       v-if="description"
@@ -37,24 +26,14 @@
       >
         <!-- eslint-disable vue/no-v-html -->
         <p
-          v-if="index === 0"
+          v-if="index === 0 || showAll"
           :lang="langAttribute(description.code)"
           class="description-text-paragraph"
           v-html="convertNewLine(showAll ? value : truncatedDescription)"
         />
-        <p
-          v-else-if="showAll"
-          :lang="langAttribute(description.code)"
-          class="description-text-paragraph"
-          v-html="convertNewLine(value)"
-        />
         <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
-          v-if="index === 0"
-          :translation-source="description.translationSource"
-        />
-        <MetadataOriginLabel
-          v-else-if="translatedItemsEnabled && showAll"
+          v-if="index === 0 || (translatedItemsEnabled && showAll)"
           :translation-source="description.translationSource"
         />
         <hr
