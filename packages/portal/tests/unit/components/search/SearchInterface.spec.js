@@ -549,6 +549,41 @@ describe('components/search/SearchInterface', () => {
 
           expect(wrapper.vm.apiParams).toEqual(expected);
         });
+
+        describe('and a query override', () => {
+          it('is promoted into query, moving the query override to qf', () => {
+            const queryOverride = 'skos_concept:"http://data.europeana.eu/concept/001"';
+            const $route = {
+              query: {
+                qa: [
+                  'fulltext:europe',
+                  'NOT fulltext:united'
+                ]
+              }
+            };
+            const expected = {
+              page: 1,
+              profile: 'minimal,hits',
+              query: 'fulltext:europe AND NOT fulltext:united',
+              qf: [queryOverride, 'contentTier:(1 OR 2 OR 3 OR 4)'],
+              rows: 24
+            };
+
+            const wrapper = factory({
+              propsData: {
+                overrideParams: {
+                  query: queryOverride
+                }
+              },
+              mocks: {
+                $route
+              }
+            });
+            wrapper.vm.deriveApiParams();
+
+            expect(wrapper.vm.apiParams).toEqual(expected);
+          });
+        });
       });
     });
 
