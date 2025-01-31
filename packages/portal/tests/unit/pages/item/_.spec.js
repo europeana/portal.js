@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
+import useDeBias from '@/composables/deBias.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -115,6 +116,21 @@ const record = {
 };
 
 const fixtures = {
+  annotationSearchResponse: [
+    {
+      id: 'http://example.org/annotation/highlighting/2',
+      motivation: 'highlighting',
+      body: {
+        id: 'http://example.org/vocabulary/debias/1',
+        definition: {
+          en: 'May cause offense'
+        }
+      },
+      target: {
+        selector: { refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+      }
+    }
+  ],
   auth: {
     loggedIn: { $auth: { loggedIn: true } },
     notLoggedIn: { $auth: { loggedIn: false } }
@@ -175,7 +191,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     },
     $apis: {
       annotation: {
-        search: sinon.spy()
+        search: sinon.stub().resolves(fixtures.annotationSearchResponse)
       },
       entity: {
         find: entityFindStub
@@ -569,6 +585,14 @@ describe('pages/item/_.vue', () => {
           qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         })).toBe(true);
+      });
+
+      it('parses DeBias annotations via composable', () => {
+        const { termsToHighlight } = useDeBias();
+
+        const wrapper = factory({ mocks: { $fetchState } });
+
+        expect(termsToHighlight.value).toEqual(['offensive']);
       });
 
       it('fetches entities', () => {
