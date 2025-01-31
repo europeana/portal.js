@@ -2,6 +2,7 @@ const redirects = {
   '/blog': '/stories?type=story',
   '/blog/*': '/stories/*',
   '/exhibitions': '/stories?type=exhibition',
+  '/privacy-policy-newsletter': '/privacy-statement-newsletter',
   '/professionals': '/share-your-collections',
   '/rights/privacy-policy': '/rights/privacy-statement',
   '/share-your-data': '/share-your-collections'
