@@ -584,7 +584,7 @@
       async fetchAnnotations() {
         this.annotations = await this.$apis.annotation.search({
           query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(linkForContributing OR tagging)',
+          qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         });
       },
