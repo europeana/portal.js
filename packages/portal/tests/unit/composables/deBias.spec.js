@@ -19,7 +19,7 @@ const annotations = [
       }
     },
     target: {
-      selector: { refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+      selector: { hasPredicate: 'dcTitle', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
     }
   },
   {
@@ -32,26 +32,35 @@ const annotations = [
       }
     },
     target: [
-      { selector: { refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } },
-      { selector: { refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } }
+      { selector: { hasPredicate: 'dcTitle', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } },
+      { selector: { hasPredicate: 'dcDescription', refinedBy: { exact: { '@language': 'en', '@value': 'harmful' } } } }
     ]
+  },
+  {
+    id: 'http://example.org/annotation/highlighting/2',
+    motivation: 'highlighting',
+    body: {
+      id: 'http://example.org/vocabulary/debias/1',
+      definition: {
+        en: 'May cause contentiousness'
+      }
+    },
+    target: {
+      selector: { hasPredicate: 'dcDescription', refinedBy: { exact: { '@language': 'en', '@value': 'contentious' } } }
+    }
   }
 ];
 
 describe('useDeBias', () => {
-  it('extracts terms to highlight from DeBias annotations', () => {
-    const { termsToHighlight } = useDeBias(annotations);
+  describe('parseAnnotations', () => {
+    it('extracts terms to highlight from DeBias annotations', () => {
+      const { parseAnnotations, terms } = useDeBias();
 
-    expect(termsToHighlight.value).toEqual(['offensive', 'harmful']);
-  });
+      parseAnnotations(annotations);
 
-  describe('highlight', () => {
-    it('removes highlighted term from those to highlight', () => {
-      const { highlight, termsToHighlight } = useDeBias(annotations);
-
-      highlight('offensive');
-
-      expect(termsToHighlight.value).toEqual(['harmful']);
+      expect(terms.value).toEqual(
+        { dcDescription: ['contentious'], dcTitle: ['offensive', 'harmful'] }
+      );
     });
   });
 
@@ -62,6 +71,18 @@ describe('useDeBias', () => {
       const definition = definitionOfTerm('offensive');
 
       expect(definition).toBe('May cause offense');
+    });
+  });
+
+  describe('termsToHighlight', () => {
+    it('gets field-specific terms to highlight, avoiding duplicates', () => {
+      const { termsToHighlight } = useDeBias(annotations);
+
+      const titleTerms = termsToHighlight('dcTitle');
+      const descriptionTerms = termsToHighlight('dcDescription');
+
+      expect(titleTerms).toEqual(['offensive', 'harmful']);
+      expect(descriptionTerms).toEqual(['contentious']);
     });
   });
 });

@@ -1,36 +1,49 @@
-import { computed, ref } from 'vue';
+import { readonly, ref } from 'vue';
 
-const terms = ref([]);
-const definitions = {};
-const highlighted = ref([]);
+const terms = ref({});
+const definitions = ref({});
 
-const highlight = ((term) => {
-  if (!highlighted.value.includes(term)) {
-    highlighted.value.push(term);
-  }
-});
-
-const termsToHighlight = computed(() => {
-  return terms.value.filter((term) => !highlighted.value.includes(term));
-});
+const termsToHighlight = (field) => {
+  return terms.value[field];
+};
 
 const definitionOfTerm = (term) => definitions.value[term];
 
+const findTargetForField = (targets, field) => {
+  return targets.find((target) => target?.selector.hasPredicate === field);
+};
+
+const parseAnnotation = (anno) => {
+  const targets = [].concat(anno.target);
+
+  const target = findTargetForField(targets, 'dcTitle') ||
+      findTargetForField(targets, 'dcDescription') ||
+      findTargetForField(targets, 'dcSubject') ||
+      // TODO: this won't necessarily be the first displayed; make order
+      //       configurable by consumer?
+      targets[0];
+
+  const term = target?.selector.refinedBy.exact['@value'];
+  const lang = target?.selector.refinedBy.exact['@language'];
+  const field = target?.selector.hasPredicate;
+  const definition = anno.body?.definition?.[lang];
+
+  return { definition, field, term };
+};
+
 const parseAnnotations = (annotations) => {
-  terms.value = [];
+  terms.value = {};
   definitions.value = {};
-  highlighted.value = [];
 
   const debiasAnnotations = (annotations || [])
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
 
   for (const anno of debiasAnnotations) {
-    const target = [].concat(anno.target)[0];
-    const term = target?.selector.refinedBy.exact['@value'];
-    const lang = target?.selector.refinedBy.exact['@language'];
-    const definition = anno.body?.definition?.[lang];
-    if (term && definition) {
-      terms.value.push(term);
+    const { term, field, definition } = parseAnnotation(anno);
+
+    if (term && field && definition) {
+      terms.value[field] ||= [];
+      terms.value[field].push(term);
       definitions.value[term] = definition;
     }
   }
@@ -41,8 +54,8 @@ export default function useDeBias(annotations) {
 
   return {
     definitionOfTerm,
-    highlight,
     parseAnnotations,
-    termsToHighlight
+    termsToHighlight,
+    terms: readonly(terms)
   };
 }
