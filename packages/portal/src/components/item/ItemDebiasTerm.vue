@@ -1,7 +1,15 @@
 <template>
   <span id="debias widget">
-    <dfn>{{ term }}</dfn>
-    <b-button>icon needs SR text</b-button>
+    <dfn>{{ term }}</dfn><!-- This comment removes white space
+    --><b-button
+      variant="light-flat"
+      class="p-0"
+    >
+      <span class="icon-debias" />
+      <span class="visually-hidden">
+        {{ $t('record.explanationby', [$t('record.debias')]) }}
+      </span>
+    </b-button>
     <span id="tooltip-container" />
     <b-tooltip
       target="debias widget"
@@ -10,13 +18,17 @@
       {{ definition }}
       <i18n
         path="record.explanationby"
-        tag="span"
+        tag="cite"
+        class="d-block text-right mx-0 mt-3"
       >
         <SmartLink
           :destination="linkToDebiasProjectPage"
           hide-external-icon
         >
-          {{ $t('record.debias') }}
+          <span class="icon-debias-logo ml-1" />
+          <span class="visually-hidden">
+            {{ $t('record.debias') }}
+          </span>
         </SmartLink>
       </i18n>
     </b-tooltip>
@@ -51,6 +63,38 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  dfn {
+    border-bottom: 2px dotted $mediumgrey-light;
+    font-style: normal;
+  }
+
+  .btn-light-flat {
+    line-height: 1;
+    color: $mediumgrey-light;
+
+    .icon-debias {
+      font-size: $font-size-xl;
+      line-height: 1rem;
+    }
+  }
+
+  ::v-deep .tooltip.b-tooltip .tooltip-inner {
+    max-width: 380px;
+    text-align: left;
+
+    @media (min-width: $bp-medium) {
+      padding: 1rem;
+    }
+  }
+
+  .icon-debias-logo {
+    font-size: $font-size-medium;
+  }
+</style>
 
 <docs lang="md">
   ```jsx
