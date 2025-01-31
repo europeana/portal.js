@@ -178,17 +178,12 @@
           const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
           overrideParams.qf = [entityQuery];
 
-          if (!this.$route.query.query && !this.fulltextQas?.length) {
+          if (!this.$route.query.query) {
             overrideParams.query = entityQuery; // Triggering best bets.
           }
         }
 
         return overrideParams;
-      },
-      fulltextQas() {
-        const qaAsArray = this.$route.query.qa ? [].concat(this.$route.query.qa) : null;
-
-        return qaAsArray?.filter?.((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
       },
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);
@@ -310,10 +305,6 @@
       }
     },
 
-    mounted() {
-      console.log(this.$route);
-      console.log(this.fulltextQas);
-    },
     methods: {
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;

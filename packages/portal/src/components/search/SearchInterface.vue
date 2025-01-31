@@ -412,6 +412,12 @@
 
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
+            // override query overrides already here to prevent full-text search breaking
+            if (this.overrideParams.query) {
+              params.query = this.overrideParams.query;
+              delete this.overrideParams.query;
+            }
+
             // If there are any advanced search full-text rules, then
             // these are promoted to the primary query, and any other query
             // (from the simple search bar) is demoted to a qf, fielded to
