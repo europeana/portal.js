@@ -21,6 +21,7 @@ const pages = {
   'gallery foyer page': `${url}/en/galleries`,
   'home page': `${url}/en`,
   'Newspapers theme search page': `${url}/en/search?qf=collection%3Anewspaper`,
+  'newspaper entity page': `${url}/en/collections/topic/18-newspaper`,
   'immersive story page': `${url}/en/stories/melitta-bentz-the-woman-who-invented-the-coffee-filter`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
