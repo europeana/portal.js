@@ -590,7 +590,7 @@ describe('pages/item/_.vue', () => {
       it('parses DeBias annotations via composable', () => {
         const { termsToHighlight } = useDeBias();
 
-        const wrapper = factory({ mocks: { $fetchState } });
+        factory({ mocks: { $fetchState } });
 
         expect(termsToHighlight.value).toEqual(['offensive']);
       });

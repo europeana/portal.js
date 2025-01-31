@@ -169,6 +169,12 @@
       logEventMixin
     ],
 
+    setup() {
+      const { parseAnnotations: parseDeBiasAnnotations } = useDeBias();
+
+      return { parseDeBiasAnnotations };
+    },
+
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
@@ -190,12 +196,6 @@
         type: null,
         useProxy: true
       };
-    },
-
-    setup() {
-      const { parseAnnotations: parseDeBiasAnnotations } = useDeBias();
-
-      return { parseDeBiasAnnotations };
     },
 
     async fetch() {
