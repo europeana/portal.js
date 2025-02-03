@@ -1,17 +1,16 @@
-<!-- <TextQuoteSelector
-  :text="text"
-  :selector="termsToHighlight(field)"
->
-  <template v-slot:default="{ text }">
-    <ItemDebiasTerm
-      :definition="definitionOfTerm(text)"
-      :term="text"
-    />
-  </template>
-</TextQuoteSelector>
- -->
 <template>
-  <span>
+  <TextQuoteSelector
+    :text="text"
+    :selector="termsToHighlight(field)"
+  >
+    <template v-slot:default="{ text }">
+      <ItemDebiasTerm
+        :definition="definitionOfTerm(text)"
+        :term="text"
+      />
+    </template>
+  </TextQuoteSelector>
+  <!-- <span>
     {{ text }}
     <ItemDebiasTerm
       v-for="(selector, index) in termsToHighlight(field)"
@@ -19,20 +18,20 @@
       :definition="definitionOfTerm(selector.exact['@value'])"
       :term="selector.exact['@value']"
     />
-  </span>
+  </span> -->
 </template>
 
 <script>
   import ItemDebiasTerm from './ItemDebiasTerm';
-  // import TextQuoteSelector from '../text/TextQuoteSelector';
+  import TextQuoteSelector from '../text/TextQuoteSelector';
   import useDeBias from '@/composables/deBias.js';
 
   export default {
     name: 'ItemDebiasField',
 
     components: {
-      ItemDebiasTerm
-      // TextQuoteSelector
+      ItemDebiasTerm,
+      TextQuoteSelector
     },
 
     props: {
