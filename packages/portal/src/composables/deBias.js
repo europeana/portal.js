@@ -30,7 +30,7 @@ const parseAnnotation = (anno, options = {}) => {
       //       configurable by consumer?
       findAnnotationTarget(targets, { lang });
 
-  const definition = anno.body?.definition?.[lang];
+  const definition = [].concat(anno.body?.definition?.[lang])[0];
   const field = target?.selector.hasPredicate;
   const selector = target?.selector.refinedBy;
 

@@ -15,7 +15,7 @@ const annotations = [
     body: {
       id: 'http://example.org/vocabulary/debias/1',
       definition: {
-        en: 'May cause offense'
+        en: ['May cause offense']
       }
     },
     target: {
@@ -28,7 +28,7 @@ const annotations = [
     body: {
       id: 'http://example.org/vocabulary/debias/2',
       definition: {
-        en: 'May cause harm'
+        en: ['May cause harm']
       }
     },
     target: [
@@ -42,7 +42,7 @@ const annotations = [
     body: {
       id: 'http://example.org/vocabulary/debias/1',
       definition: {
-        en: 'May cause contentiousness'
+        en: ['May cause contentiousness']
       }
     },
     target: {
@@ -55,7 +55,7 @@ const annotations = [
     body: {
       id: 'http://example.org/vocabulary/debias/1',
       definition: {
-        de: 'nein'
+        de: ['nein']
       }
     },
     target: {
