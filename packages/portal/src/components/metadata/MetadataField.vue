@@ -55,11 +55,10 @@
           >
             {{ value }}
           </SmartLink>
-          <template
-            v-else
-          >
-            {{ value }}
-          </template>
+          <ItemDebiasField
+            :name="name"
+            :text="value"
+          />
         </li>
       </template>
     </ul>
@@ -68,6 +67,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
+  import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
@@ -78,6 +78,7 @@
     name: 'MetadataField',
 
     components: {
+      ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
       SmartLink

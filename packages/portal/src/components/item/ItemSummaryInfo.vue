@@ -11,7 +11,10 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        {{ heading.value }}
+        <ItemDebiasField
+          name="dc:title"
+          :text="heading.value"
+        />
         <MetadataOriginLabel :translation-source="heading.translationSource" />
       </component>
     </header>
@@ -25,6 +28,7 @@
         class="description-text"
       >
         <!-- eslint-disable vue/no-v-html -->
+        <!-- TODO: De-Bias, but retaining new line conversion... -->
         <p
           v-if="index === 0 || showAll"
           :lang="langAttribute(description.code)"
@@ -55,6 +59,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import ItemDebiasField from './ItemDebiasField';
   import langAttributeMixin from '@/mixins/langAttribute';
   import truncateMixin from '@/mixins/truncate';
 
@@ -62,6 +67,7 @@
     name: 'ItemSummaryInfo',
 
     components: {
+      ItemDebiasField,
       MetadataOriginLabel
     },
 
@@ -80,12 +86,14 @@
         default: () => []
       }
     },
+
     data() {
       return {
         limitCharacters: 400,
         showAll: false
       };
     },
+
     computed: {
       expandableDescription() {
         return this.description?.values &&
@@ -101,6 +109,7 @@
         return this.$features.translatedItems;
       }
     },
+
     methods: {
       /**
        * Convert new lines to <br/>
