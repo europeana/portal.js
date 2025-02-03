@@ -592,7 +592,7 @@ describe('pages/item/_.vue', () => {
 
         factory({ mocks: { $fetchState } });
 
-        expect(termsToHighlight('dcTitle').value).toEqual(['offensive']);
+        expect(termsToHighlight('dc:title')).toEqual(['offensive']);
       });
 
       it('fetches entities', () => {
