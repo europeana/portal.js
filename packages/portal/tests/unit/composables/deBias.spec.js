@@ -72,7 +72,15 @@ describe('useDeBias', () => {
       parseAnnotations(annotations, { lang: 'en' });
 
       expect(terms.value).toEqual(
-        { 'dc:description': ['contentious'], 'dc:title': ['offensive', 'harmful'] }
+        {
+          'dc:description': [
+            { exact: { '@language': 'en', '@value': 'contentious' } }
+          ],
+          'dc:title': [
+            { exact: { '@language': 'en', '@value': 'offensive' } },
+            { exact: { '@language': 'en', '@value': 'harmful' } }
+          ]
+        }
       );
     });
   });
@@ -94,8 +102,13 @@ describe('useDeBias', () => {
       const titleTerms = termsToHighlight('dc:title');
       const descriptionTerms = termsToHighlight('dc:description');
 
-      expect(titleTerms).toEqual(['offensive', 'harmful']);
-      expect(descriptionTerms).toEqual(['contentious']);
+      expect(titleTerms).toEqual([
+        { exact: { '@language': 'en', '@value': 'offensive' } },
+        { exact: { '@language': 'en', '@value': 'harmful' } }
+      ]);
+      expect(descriptionTerms).toEqual([
+        { exact: { '@language': 'en', '@value': 'contentious' } }
+      ]);
     });
   });
 });

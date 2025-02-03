@@ -4,7 +4,7 @@ const terms = ref({});
 const definitions = ref({});
 
 const termsToHighlight = (field) => {
-  return terms.value[field];
+  return field ? terms.value[field] : terms.value;
 };
 
 const definitionOfTerm = (term) => definitions.value[term];
@@ -30,11 +30,11 @@ const parseAnnotation = (anno, options = {}) => {
       //       configurable by consumer?
       findAnnotationTarget(targets, { lang });
 
-  const term = target?.selector.refinedBy.exact['@value'];
-  const field = target?.selector.hasPredicate;
   const definition = anno.body?.definition?.[lang];
+  const field = target?.selector.hasPredicate;
+  const selector = target?.selector.refinedBy;
 
-  return { definition, field, term };
+  return { definition, field, selector };
 };
 
 const parseAnnotations = (annotations, options = {}) => {
@@ -45,12 +45,12 @@ const parseAnnotations = (annotations, options = {}) => {
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
 
   for (const anno of debiasAnnotations) {
-    const { field, definition, term } = parseAnnotation(anno, options);
+    const { definition, field, selector } = parseAnnotation(anno, options);
 
-    if (term && field && definition) {
+    if (definition && field && selector) {
       terms.value[field] ||= [];
-      terms.value[field].push(term);
-      definitions.value[term] = definition;
+      terms.value[field].push(selector);
+      definitions.value[selector.exact['@value']] = definition;
     }
   }
 };
