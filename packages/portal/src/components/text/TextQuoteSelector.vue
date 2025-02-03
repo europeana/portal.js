@@ -3,24 +3,23 @@
     :is="tag"
     class="text-quote-selector"
   >
-    <span
+    <template
       v-for="(chunk, index) in chunks"
-      :key="index"
     >
       <slot
         v-if="chunk.selected"
         :text="chunk.text"
       >
-        <strong>{{ chunk.text }}</strong>
+        <strong :key="index">{{ chunk.text }}</strong>
       </slot>
       <slot
         v-else
         name="other"
         :text="chunk.text"
       >
-        {{ chunk.text }}
+        <span :key="index">{{ chunk.text }}</span>
       </slot>
-    </span>
+    </template>
   </component>
 </template>
 
@@ -95,7 +94,7 @@
         return {
           ...selector,
           // index of the start of the exact match
-          index: this.text.indexOf(fulltext) + (selector.prefix?.length || 0)
+          index: this.text.indexOf(fulltext) + prefix.length
         };
       },
 
