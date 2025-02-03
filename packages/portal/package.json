@@ -61,6 +61,7 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
     "@europeana/style": "^2.0.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
