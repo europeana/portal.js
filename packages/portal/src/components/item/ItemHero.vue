@@ -54,7 +54,7 @@
         :media-url="selectedMedia?.about"
         @show="fetchEmbedCode"
       >
-        <ItemSnippetCopyButton
+        <ShareSnippet
           tag="code"
           :text="embedCode"
           :button-text="$t('record.actions.copyEmbedCode')"
@@ -69,7 +69,7 @@
   import ClientOnly from 'vue-client-only';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ItemSnippetCopyButton from './ItemSnippetCopyButton';
+  import ShareSnippet from '@/components/share/ShareSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
@@ -83,7 +83,7 @@
     components: {
       ClientOnly,
       DownloadWidget,
-      ItemSnippetCopyButton,
+      ShareSnippet,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,

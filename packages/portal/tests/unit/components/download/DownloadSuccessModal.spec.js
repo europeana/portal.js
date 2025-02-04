@@ -10,7 +10,7 @@ const factory = (propsData) => {
     mocks: {
       $t: () => {}
     },
-    stubs: ['ItemSnippetCopyButton', 'b-button', 'b-modal']
+    stubs: ['ShareSnippet', 'b-button', 'b-modal']
   });
 
   return wrapper;
@@ -31,7 +31,7 @@ describe('components/download/DownloadSuccessModal', () => {
     it('shows a formatted attribution snippet', () => {
       const wrapper = factory(propsData);
 
-      const snippet =  wrapper.find('itemsnippetcopybutton-stub');
+      const snippet =  wrapper.find('sharesnippet-stub');
       expect(snippet.exists()).toBe(true);
       expect(snippet.attributes('text')).toEqual(attributionSnippet);
     });

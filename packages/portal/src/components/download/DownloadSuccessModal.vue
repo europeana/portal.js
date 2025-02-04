@@ -11,7 +11,7 @@
     <p>
       {{ $t('modal.download.modalIntro') }}
     </p>
-    <ItemSnippetCopyButton
+    <ShareSnippet
       tag="cite"
       :text="attributionSnippet"
       :button-text="$t('modal.download.copyAttribution')"
@@ -29,13 +29,13 @@
 
 <script>
   import stringify from '@/mixins/stringify';
-  import ItemSnippetCopyButton from '@/components/item/ItemSnippetCopyButton';
+  import ShareSnippet from '@/components/share/ShareSnippet';
 
   export default {
     name: 'DownloadSuccessModal',
 
     components: {
-      ItemSnippetCopyButton
+      ShareSnippet
     },
 
     mixins: [

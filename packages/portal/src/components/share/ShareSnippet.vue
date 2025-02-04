@@ -38,7 +38,7 @@
 
 <script>
   export default {
-    name: 'ItemSnippetCopyButton',
+    name: 'ShareSnippet',
 
     props: {
       /**
@@ -154,7 +154,7 @@
 
 <docs lang="md">
   ```jsx
-  <ItemSnippetCopyButton
+  <ShareSnippet
     text="Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text."
     button-text="Copy the text snippet"
   />
@@ -162,7 +162,7 @@
 
   With help text
   ```jsx
-  <ItemSnippetCopyButton
+  <ShareSnippet
     text="Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text."
     button-text="Copy the text snippet"
     help-text="Click on the text to copy it"
@@ -171,7 +171,7 @@
 
   With help text and 'code' tag
   ```jsx
-  <ItemSnippetCopyButton
+  <ShareSnippet
     tag="code"
     text="<p>Example text snippet that can be copied. This element has max height and will overflow with a scrollbar on about 3 lines of text.</p>"
     button-text="Copy the text snippet"

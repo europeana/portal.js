@@ -1,15 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-// import { mountNuxt } from '../../utils';
-// import BootstrapVue from 'bootstrap-vue';
-// import nock from 'nock';
-import ItemSnippetCopyButton from '@/components/item/ItemSnippetCopyButton.vue';
+import ShareSnippet from '@/components/share/ShareSnippet.vue';
 
 const localVue = createLocalVue();
-// localVue.use(BootstrapVue);
 
 const text = 'example text';
 
-const factory = (propsData = { text }) => shallowMount(ItemSnippetCopyButton, {
+const factory = (propsData = { text }) => shallowMount(ShareSnippet, {
   localVue,
   propsData,
   mocks: {
@@ -18,7 +14,7 @@ const factory = (propsData = { text }) => shallowMount(ItemSnippetCopyButton, {
   stubs: ['b-button']
 });
 
-describe('components/item/ItemSnippetCopyButton', () => {
+describe('components/share/ShareSnippet', () => {
   describe('when there is text to copy', () => {
     it('is shown as text snippet', () => {
       const wrapper = factory();
