@@ -1,5 +1,8 @@
 <template>
-  <span :id="id">
+  <span
+    :id="id"
+    class="d-inline-flex"
+  >
     <dfn>
       <slot>{{ term }}</slot>
     </dfn><!-- This comment removes white space

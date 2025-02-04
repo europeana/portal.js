@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    class="text-quote-selector"
+    class="text-quote-selector d-inline-flex flex-wrap"
   >
     <template
       v-for="(chunk, index) in chunks"
