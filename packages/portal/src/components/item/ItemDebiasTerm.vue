@@ -19,6 +19,7 @@
     <b-tooltip
       :target="id"
       :container="tooltipId"
+      :boundary="'viewport'"
     >
       {{ definition }}
       <i18n
@@ -96,8 +97,12 @@
   }
 
   ::v-deep .tooltip.b-tooltip .tooltip-inner {
-    max-width: 380px;
+    max-width: 250px;
     text-align: left;
+
+    @media (min-width: $bp-small) {
+      max-width: 380px;
+    }
 
     @media (min-width: $bp-medium) {
       padding: 1rem;
