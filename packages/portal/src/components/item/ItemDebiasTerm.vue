@@ -2,13 +2,16 @@
   <span
     :id="id"
     class="d-inline-flex"
+    @mouseleave="hideTooltips"
   >
     <dfn>
       <slot>{{ term }}</slot>
     </dfn><!-- This comment removes white space
     --><b-button
+      ref="debiasButton"
       variant="light-flat"
       class="p-0"
+      @focusout="hideTooltips"
     >
       <span class="icon-debias" />
       <span class="visually-hidden">
@@ -20,6 +23,8 @@
       :target="id"
       :container="tooltipId"
       :boundary="'viewport'"
+      :triggers="'hover focus click'"
+      @show="$refs.debiasButton.focus()"
     >
       {{ definition }}
       <i18n
@@ -43,6 +48,7 @@
 
 <script>
   import SmartLink from '@/components/generic/SmartLink';
+  import hideTooltips from '@/mixins/hideTooltips';
 
   export default {
     name: 'ItemDebiasTerm',
@@ -50,6 +56,8 @@
     components: {
       SmartLink
     },
+
+    mixins: [hideTooltips],
 
     props: {
       id: {
