@@ -44,7 +44,7 @@
        */
       tag: {
         type: String,
-        default: 'p'
+        default: 'span'
       },
 
       /**
@@ -128,7 +128,7 @@
           const suffix = selector.suffix || '';
           const fulltext = `${prefix}${exact}${suffix}`;
 
-          index = this.text.indexOf(fulltext)
+          index = this.text.indexOf(fulltext);
           if (index > -1) {
             // index of the start of the exact match
             index = index + prefix.length;

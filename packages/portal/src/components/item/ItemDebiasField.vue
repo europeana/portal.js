@@ -36,6 +36,8 @@
       TextQuoteSelector
     },
 
+    inject: ['deBias'],
+
     props: {
       name: {
         type: String,
@@ -44,15 +46,13 @@
 
       tag: {
         type: String,
-        default: 'p'
+        default: 'span'
       },
 
       text: {
         type: String,
         required: true
       }
-    },
-
-    inject: ['deBias']
+    }
   };
 </script>

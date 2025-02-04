@@ -35,6 +35,7 @@
           class="description-text-paragraph"
           name="dcDescription"
           :text="(showAll ? value : truncatedDescription)"
+          tag="p"
         >
           <!-- eslint-disable vue/no-v-html -->
           <template #default="{ text }">

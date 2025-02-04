@@ -91,6 +91,7 @@
 
   dfn {
     border-bottom: 2px dotted $mediumgrey-light;
+    margin-bottom: -2px;
     font-style: normal;
   }
 
