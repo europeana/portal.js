@@ -62,14 +62,18 @@
       };
     },
 
-    created() {
-      this.initChunks();
-    },
-
     watch: {
       selector() {
         this.initChunks();
+      },
+
+      text() {
+        this.initChunks();
       }
+    },
+
+    created() {
+      this.initChunks();
     },
 
     methods: {

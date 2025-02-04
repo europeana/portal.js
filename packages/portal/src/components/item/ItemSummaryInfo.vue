@@ -28,15 +28,20 @@
         :key="index"
         class="description-text"
       >
-        <!-- eslint-disable vue/no-v-html -->
-        <!-- TODO: De-Bias, but retaining new line conversion... -->
-        <p
+        <!-- TODO: make use conditional -->
+        <ItemDebiasField
           v-if="index === 0 || showAll"
           :lang="langAttribute(description.code)"
           class="description-text-paragraph"
-          v-html="convertNewLine(showAll ? value : truncatedDescription)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
+          name="dcDescription"
+          :text="(showAll ? value : truncatedDescription)"
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          <template #default="{ text }">
+            <span v-html="convertNewLine(text)" />
+          </template>
+          <!-- eslint-enable vue/no-v-html -->
+        </ItemDebiasField>
         <MetadataOriginLabel
           v-if="index === 0 || (translatedItemsEnabled && showAll)"
           :translation-source="description.translationSource"

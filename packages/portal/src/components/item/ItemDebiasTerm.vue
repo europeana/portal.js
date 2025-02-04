@@ -1,6 +1,8 @@
 <template>
   <span :id="id">
-    <dfn>{{ term }}</dfn><!-- This comment removes white space
+    <dfn>
+      <slot>{{ term }}</slot>
+    </dfn><!-- This comment removes white space
     --><b-button
       variant="light-flat"
       class="p-0"

@@ -4,13 +4,22 @@
     :tag="tag"
     :text="text"
   >
-    <template #default="{ index, text: term }">
+    <template #default="{ index, text: termText }">
       <ItemDebiasTerm
         :id="`item-debias-term-${name}-${index}`"
-        :definition="definitions[term]"
-        :term="term"
+        :definition="definitions[termText]"
+        :term="termText"
         :tooltip-id="`item-debias-term-tooltip-${name}-${index}`"
-      />
+      >
+        <slot :text="termText">
+          {{ termText }}
+        </slot>
+      </ItemDebiasTerm>
+    </template>
+    <template #other="{ text: otherText }">
+      <slot :text="otherText">
+        {{ otherText }}
+      </slot>
     </template>
   </TextQuoteSelector>
 </template>
