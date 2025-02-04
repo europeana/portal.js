@@ -1271,6 +1271,8 @@ export default {
     },
     "allMetaData": "All metadata",
     "clickToCopyEmbedCode": "Click on the embed code to copy it",
+    "debias": "De-bias",
+    "explanationby": "Explanation provided by {0}",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",

@@ -130,6 +130,8 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
 
+  import useDeBias from '@/composables/deBias.js';
+
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
     forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
@@ -166,6 +168,12 @@
       redirectToMixin,
       logEventMixin
     ],
+
+    setup() {
+      const { parseAnnotations: parseDeBiasAnnotations } = useDeBias();
+
+      return { parseDeBiasAnnotations };
+    },
 
     data() {
       return {
@@ -582,11 +590,13 @@
       },
 
       async fetchAnnotations() {
-        this.annotations = await this.$apis.annotation.search({
+        const annotations = await this.$apis.annotation.search({
           query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(linkForContributing OR tagging)',
+          qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         });
+        this.parseDeBiasAnnotations(annotations, { lang: this.$i18n.locale });
+        this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
       },
 
       async fetchEntities() {

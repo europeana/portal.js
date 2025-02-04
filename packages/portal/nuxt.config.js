@@ -448,6 +448,12 @@ export default {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        '@babel/plugin-transform-logical-assignment-operators'
+      ]
+    },
+
     // Do not enable extractCSS as it is unreliable.
     // See: https://github.com/nuxt/nuxt.js/issues/4219
     extractCSS: false,
