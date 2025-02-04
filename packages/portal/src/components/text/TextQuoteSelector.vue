@@ -56,12 +56,27 @@
       }
     },
 
+    data() {
+      return {
+        chunks: { selected: false, text: this.text }
+      };
+    },
+
+    watch: {
+      selector() {
+        console.log('TQS watch selector', this.selector);
+        this.initChunks();
+      }
+    },
+
     created() {
-      this.chunks = this.chunksOfText();
+      console.log('TQS created selector', this.selector);
+      this.initChunks();
+      console.log('chunks', this.chunks);
     },
 
     methods: {
-      chunksOfText() {
+      initChunks() {
         const chunks = [];
         let startIndex = 0;
 
@@ -84,7 +99,7 @@
           text: textToEnd
         });
 
-        return chunks.filter((chunk) => chunk.text.length > 0);
+        this.chunks = chunks.filter((chunk) => chunk.text.length > 0);
       },
 
       selectorsWithIndexes() {

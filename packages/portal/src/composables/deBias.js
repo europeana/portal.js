@@ -45,10 +45,12 @@ const parseAnnotation = (anno, options = {}) => {
   const field = target?.selector.hasPredicate;
   const selector = target?.selector.refinedBy;
 
+  console.log('parseAnnotation', { anno, lang, target, definition, field, selector });
+
   return {
     definition,
     field,
-    selector: { exact: selector.exact['@value'], prefix: selector.prefix, suffix: selector.suffix }
+    selector: { exact: selector?.exact?.['@value'], prefix: selector?.prefix, suffix: selector?.suffix }
   };
 };
 
