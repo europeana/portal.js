@@ -1,5 +1,5 @@
 <template>
-  <span id="debias widget">
+  <span :id="id">
     <dfn>{{ term }}</dfn><!-- This comment removes white space
     --><b-button
       variant="light-flat"
@@ -10,10 +10,10 @@
         {{ $t('record.explanationby', [$t('record.debias')]) }}
       </span>
     </b-button>
-    <span id="tooltip-container" />
+    <span :id="tooltipId" />
     <b-tooltip
-      target="debias widget"
-      container="tooltip-container"
+      :target="id"
+      :container="tooltipId"
     >
       {{ definition }}
       <i18n
@@ -46,6 +46,14 @@
     },
 
     props: {
+      id: {
+        type: String,
+        default: 'item-debias-term'
+      },
+      tooltipId: {
+        type: String,
+        default: 'item-debias-term-tooltip'
+      },
       term: {
         type: String,
         default: null

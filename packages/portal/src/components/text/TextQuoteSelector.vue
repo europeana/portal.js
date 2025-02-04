@@ -8,6 +8,7 @@
     >
       <slot
         v-if="chunk.selected"
+        :index="index"
         :text="chunk.text"
       >
         <strong :key="index">{{ chunk.text }}</strong>
@@ -15,6 +16,7 @@
       <slot
         v-else
         name="other"
+        :index="index"
         :text="chunk.text"
       >
         <span :key="index">{{ chunk.text }}</span>
