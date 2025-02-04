@@ -11,7 +11,7 @@
   >
     <p>{{ $t('shareWhere') }}</p>
     <div class="icon-wrapper pt-1 mb-4">
-      <ShareSocialButton
+      <ShareSocialButtons
         :media-url="mediaUrl"
         :share-to="shareTo"
       />
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-  import ShareSocialButton from './ShareSocialButton';
+  import ShareSocialButtons from './ShareSocialButtons';
 
   export default {
     name: 'ShareSocialModal',
 
     components: {
-      ShareSocialButton
+      ShareSocialButtons
     },
 
     props: {
