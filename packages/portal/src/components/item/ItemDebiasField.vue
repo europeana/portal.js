@@ -1,13 +1,13 @@
 <template>
   <TextQuoteSelector
-    :selector="terms[name]"
+    :selector="deBias.terms[name]"
     :tag="tag"
     :text="text"
   >
     <template #default="{ index, text: termText }">
       <ItemDebiasTerm
         :id="`item-debias-term-${name}-${index}`"
-        :definition="definitions[termText]"
+        :definition="deBias.definitions[termText]"
         :term="termText"
         :tooltip-id="`item-debias-term-tooltip-${name}-${index}`"
       >
@@ -27,7 +27,6 @@
 <script>
   import ItemDebiasTerm from './ItemDebiasTerm';
   import TextQuoteSelector from '../text/TextQuoteSelector';
-  import useDeBias from '@/composables/deBias.js';
 
   export default {
     name: 'ItemDebiasField',
@@ -54,10 +53,6 @@
       }
     },
 
-    setup() {
-      const { definitions, terms } = useDeBias();
-
-      return { definitions, terms };
-    }
+    inject: ['deBias']
   };
 </script>

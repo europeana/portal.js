@@ -78,7 +78,6 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
-  import useDeBias from '@/composables/deBias.js';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
@@ -140,11 +139,7 @@
       }
     },
 
-    setup() {
-      const { terms: deBiasTerms } = useDeBias();
-
-      return { deBiasTerms };
-    },
+    inject: ['deBias'],
 
     computed: {
       displayValues() {
@@ -156,9 +151,8 @@
         return display;
       },
 
-      // TODO: make this a prop so that the parent can provide it?
       isDeBiased() {
-        return !!this.deBiasTerms[this.name];
+        return !!this.deBias.terms[this.name];
       },
 
       limitDisplayValues() {

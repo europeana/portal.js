@@ -119,6 +119,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
@@ -170,9 +171,9 @@
     ],
 
     setup() {
-      const { parseAnnotations: parseDeBiasAnnotations } = useDeBias();
+      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
 
-      return { parseDeBiasAnnotations };
+      return { deBiasDefinitions, deBiasTerms, parseDeBiasAnnotations };
     },
 
     data() {
@@ -182,6 +183,7 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
+        deBias: { definitions: [], terms: [] },
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -203,7 +205,10 @@
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
-        await this.fetchMetadata();
+        await Promise.all([
+          this.fetchMetadata(),
+          this.fetchAnnotations()
+        ]);
       }
     },
 
@@ -334,8 +339,13 @@
       }
     },
 
+    provide() {
+      return {
+        deBias: computed(() => this.deBias)
+      };
+    },
+
     mounted() {
-      this.fetchAnnotations();
       this.fetchEntities();
       this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
@@ -596,6 +606,11 @@
           profile: 'dereference'
         });
         this.parseDeBiasAnnotations(annotations, { lang: this.$i18n.locale });
+        this.deBias = {
+          definitions: this.deBiasDefinitions,
+          terms: this.deBiasTerms
+        };
+
         this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
       },
 
