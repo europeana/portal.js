@@ -53,8 +53,7 @@ const parseAnnotation = (anno, options = {}) => {
 };
 
 const parseAnnotations = (annos, options = {}) => {
-  // clear the annotations without replacing the array object
-  annotations.value.length = 0;
+  annotations.value = [];
 
   const debiasAnnotations = (annos || [])
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
