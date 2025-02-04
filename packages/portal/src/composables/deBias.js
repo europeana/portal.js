@@ -1,13 +1,25 @@
 import { readonly, ref } from 'vue';
 
-const terms = ref({});
-const definitions = ref({});
+const terms = ref([]);
+const definitions = ref([]);
 
-const termsToHighlight = (field) => {
-  return field ? terms.value[field] : terms.value;
+// converts e.g. dcTitle to dc:title
+const namespaceFieldName = (name) => {
+  if (!name.includes(':')) {
+    const match = name.match(/[A-Z]/);
+    if (match?.index) {
+      return name.slice(0, match.index) + ':' + match[0].toLocaleLowerCase() + name.slice(match.index + 1);
+    }
+  }
+  return name;
 };
 
-const definitionOfTerm = (term) => definitions.value[term];
+const termsToHighlight = (name) => {
+  const field = namespaceFieldName(name);
+  return terms.value.filter((term) => term.field === field).map((term) => term.selector);
+};
+
+const definitionOfTerm = (term) => definitions.value.find((def) => def.term === term)?.definition;
 
 const findAnnotationTarget = (targets, options = {}) => {
   const { field, lang } = options;
@@ -38,8 +50,8 @@ const parseAnnotation = (anno, options = {}) => {
 };
 
 const parseAnnotations = (annotations, options = {}) => {
-  terms.value = {};
-  definitions.value = {};
+  terms.value = [];
+  definitions.value = [];
 
   const debiasAnnotations = (annotations || [])
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
@@ -48,9 +60,8 @@ const parseAnnotations = (annotations, options = {}) => {
     const { definition, field, selector } = parseAnnotation(anno, options);
 
     if (definition && field && selector) {
-      terms.value[field] ||= [];
-      terms.value[field].push(selector);
-      definitions.value[selector.exact['@value']] = definition;
+      terms.value.push({ field, selector });
+      definitions.value.push({ definition, term: selector.exact['@value'] });
     }
   }
 };
@@ -60,6 +71,7 @@ export default function useDeBias(options = {}) {
 
   return {
     definitionOfTerm,
+    definitions: readonly(definitions),
     parseAnnotations,
     termsToHighlight,
     terms: readonly(terms)

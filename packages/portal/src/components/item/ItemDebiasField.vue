@@ -1,19 +1,22 @@
 <template>
   <TextQuoteSelector
+    :selector="termsToHighlight(name)"
+    :tag="tag"
     :text="text"
-    :selector="termsToHighlight(field)"
   >
-    <template v-slot:default="{ text }">
+    <template #default="{ index, text: term }">
       <ItemDebiasTerm
-        :definition="definitionOfTerm(text)"
-        :term="text"
+        :definition="definitionOfTerm(term)"
+        :id="`item-debias-term-${name}-${index}`"
+        :term="term"
+        :tooltip-id="`item-debias-term-tooltip-${name}-${index}`"
       />
     </template>
   </TextQuoteSelector>
   <!-- <span>
     {{ text }}
     <ItemDebiasTerm
-      v-for="(selector, index) in termsToHighlight(field)"
+      v-for="(selector, index) in termsToHighlight(name)"
       :key="index"
       :definition="definitionOfTerm(selector.exact['@value'])"
       :term="selector.exact['@value']"
@@ -40,6 +43,11 @@
         required: true
       },
 
+      tag: {
+        type: String,
+        default: 'p'
+      },
+
       text: {
         type: String,
         required: true
@@ -50,23 +58,6 @@
       const { definitionOfTerm, termsToHighlight } = useDeBias();
 
       return { definitionOfTerm, termsToHighlight };
-    },
-
-    created() {
-      this.field = this.namespaceFieldName();
-    },
-
-    methods: {
-      // converts e.g. dcTitle to dc:title
-      namespaceFieldName() {
-        if (!this.name.includes(':')) {
-          const match = this.name.match(/[A-Z]/);
-          if (match?.index) {
-            return this.name.slice(0, match.index) + ':' + match[0].toLocaleLowerCase() + this.name.slice(match.index + 1);
-          }
-        }
-        return this.name;
-      }
     }
   };
 </script>
