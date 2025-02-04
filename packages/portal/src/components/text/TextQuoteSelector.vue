@@ -62,17 +62,14 @@
       };
     },
 
-    watch: {
-      selector() {
-        console.log('TQS watch selector', this.selector);
-        this.initChunks();
-      }
+    created() {
+      this.initChunks();
     },
 
-    created() {
-      console.log('TQS created selector', this.selector);
-      this.initChunks();
-      console.log('chunks', this.chunks);
+    watch: {
+      selector() {
+        this.initChunks();
+      }
     },
 
     methods: {
@@ -112,16 +109,26 @@
       },
 
       selectorWithIndex(selector) {
-        const prefix = selector.prefix || '';
-        const exact = selector.exact;
-        const suffix = selector.suffix || '';
-        const fulltext = `${prefix}${exact}${suffix}`;
+        let index = null;
+        // if no prefix, only match at start
+        if (!selector.prefix && !this.text.startsWith(selector.exact)) {
+          index = -1;
+        }
+        // if no suffix, only match at end
+        if (!selector.suffix && !this.text.endsWith(selector.exact)) {
+          index = -1;
+        }
+        if (index === null) {
+          const prefix = selector.prefix || '';
+          const exact = selector.exact;
+          const suffix = selector.suffix || '';
+          const fulltext = `${prefix}${exact}${suffix}`;
 
-        return {
-          ...selector,
           // index of the start of the exact match
-          index: this.text.indexOf(fulltext) + prefix.length
-        };
+          index = this.text.indexOf(fulltext) + prefix.length;
+        }
+
+        return { ...selector, index };
       }
     }
   };
