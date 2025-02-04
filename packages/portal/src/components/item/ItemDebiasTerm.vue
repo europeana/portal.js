@@ -3,6 +3,7 @@
     :id="id"
     class="d-inline-flex"
     @mouseleave="hideTooltips"
+    @click="$refs.debiasButton.focus()"
   >
     <dfn>
       <slot>{{ term }}</slot>
@@ -11,7 +12,7 @@
       ref="debiasButton"
       variant="light-flat"
       class="p-0"
-      @focusout="hideTooltips"
+      @blur="hideTooltips"
     >
       <span class="icon-debias" />
       <span class="visually-hidden">
@@ -24,7 +25,6 @@
       :container="tooltipId"
       :boundary="'viewport'"
       :triggers="'hover focus click'"
-      @show="$refs.debiasButton.focus()"
     >
       {{ definition }}
       <i18n
