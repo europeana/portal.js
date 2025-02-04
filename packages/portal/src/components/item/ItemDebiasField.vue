@@ -1,27 +1,18 @@
 <template>
   <TextQuoteSelector
-    :selector="termsToHighlight(name)"
+    :selector="terms[name]"
     :tag="tag"
     :text="text"
   >
     <template #default="{ index, text: term }">
       <ItemDebiasTerm
-        :definition="definitionOfTerm(term)"
         :id="`item-debias-term-${name}-${index}`"
+        :definition="definitions[term]"
         :term="term"
         :tooltip-id="`item-debias-term-tooltip-${name}-${index}`"
       />
     </template>
   </TextQuoteSelector>
-  <!-- <span>
-    {{ text }}
-    <ItemDebiasTerm
-      v-for="(selector, index) in termsToHighlight(name)"
-      :key="index"
-      :definition="definitionOfTerm(selector.exact['@value'])"
-      :term="selector.exact['@value']"
-    />
-  </span> -->
 </template>
 
 <script>
@@ -55,9 +46,9 @@
     },
 
     setup() {
-      const { definitionOfTerm, termsToHighlight } = useDeBias();
+      const { definitions, terms } = useDeBias();
 
-      return { definitionOfTerm, termsToHighlight };
+      return { definitions, terms };
     }
   };
 </script>

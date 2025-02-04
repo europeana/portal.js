@@ -203,7 +203,7 @@
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
-        await Promise.all([this.fetchMetadata(), this.fetchAnnotations()]);
+        await this.fetchMetadata();
       }
     },
 
@@ -335,6 +335,7 @@
     },
 
     mounted() {
+      this.fetchAnnotations();
       this.fetchEntities();
       this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {

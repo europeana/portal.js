@@ -11,8 +11,9 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
+        <!-- TODO: make use conditional -->
         <ItemDebiasField
-          name="dc:title"
+          name="dcTitle"
           :text="heading.value"
         />
         <MetadataOriginLabel :translation-source="heading.translationSource" />

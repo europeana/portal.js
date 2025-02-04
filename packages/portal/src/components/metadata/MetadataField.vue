@@ -43,6 +43,16 @@
             />
           </li>
         </template>
+        <ItemDebiasField
+          v-else-if="isDeBiased"
+          :key="index"
+          :data-value="value"
+          :name="name"
+          :text="value"
+          :lang="langAttribute(langMappedValues.code)"
+          tag="li"
+          data-qa="de-bias term"
+        />
         <li
           v-else
           :key="index"
@@ -55,10 +65,11 @@
           >
             {{ value }}
           </SmartLink>
-          <ItemDebiasField
-            :name="name"
-            :text="value"
-          />
+          <template
+            v-else
+          >
+            {{ value }}
+          </template>
         </li>
       </template>
     </ul>
@@ -67,6 +78,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
+  import useDeBias from '@/composables/deBias.js';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
@@ -128,6 +140,12 @@
       }
     },
 
+    setup() {
+      const { terms: deBiasTerms } = useDeBias();
+
+      return { deBiasTerms };
+    },
+
     computed: {
       displayValues() {
         const display = { ...this.langMappedValues };
@@ -136,6 +154,11 @@
           display.values = display.values.slice(0, this.limit).concat('…');
         }
         return display;
+      },
+
+      // TODO: make this a prop so that the parent can provide it?
+      isDeBiased() {
+        return !!this.deBiasTerms[this.name];
       },
 
       limitDisplayValues() {

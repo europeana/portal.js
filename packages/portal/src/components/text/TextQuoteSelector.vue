@@ -73,9 +73,9 @@
           });
           chunks.push({
             selected: true,
-            text: selector.exact['@value']
+            text: selector.exact
           });
-          startIndex = selector.index + selector.exact['@value'].length;
+          startIndex = selector.index + selector.exact.length;
         }
 
         const textToEnd = this.text.slice(startIndex);
@@ -87,9 +87,18 @@
         return chunks.filter((chunk) => chunk.text.length > 0);
       },
 
+      selectorsWithIndexes() {
+        return []
+          .concat(this.selector)
+          .filter((selector) => selector?.exact)
+          .map(this.selectorWithIndex)
+          .filter((selector) => selector.index > -1)
+          .sort((a, b) => a.index - b.index);
+      },
+
       selectorWithIndex(selector) {
         const prefix = selector.prefix || '';
-        const exact = selector.exact['@value'];
+        const exact = selector.exact;
         const suffix = selector.suffix || '';
         const fulltext = `${prefix}${exact}${suffix}`;
 
@@ -98,15 +107,6 @@
           // index of the start of the exact match
           index: this.text.indexOf(fulltext) + prefix.length
         };
-      },
-
-      selectorsWithIndexes() {
-        return []
-          .concat(this.selector)
-          .filter((selector) => selector?.exact?.['@value'])
-          .map(this.selectorWithIndex)
-          .filter((selector) => selector.index > -1)
-          .sort((a, b) => a.index - b.index);
       }
     }
   };
@@ -125,7 +125,7 @@
     <TextQuoteSelector
       :selector="{
         prefix: 'a sentence ',
-        exact: { '@value': 'with' },
+        exact: 'with',
         suffix: ' one word'
       }"
       text="This is a sentence with one word to select"
@@ -138,16 +138,16 @@
       :selector="[
         {
           prefix: 'is a ',
-          exact: { '@value': 'sentence' },
+          exact: 'sentence',
           suffix: ' with'
         },
         {
-          exact: { '@value': 'This' },
+          exact: 'This',
           suffix: ' is a'
         },
         {
           prefix: 'words to ',
-          exact: { '@value': 'select' }
+          exact: 'select'
         }
       ]"
       text="This is a sentence with multiple words to select"
@@ -161,12 +161,12 @@
       :selector="[
         {
           prefix: 'The ',
-          exact: { '@value': 'default' },
+          exact: 'default',
           suffix: ' slot is'
         },
         {
           prefix: 'and the ',
-          exact: { '@value': 'other' },
+          exact: 'other',
           suffix: ' slot for'
         }
       ]"
