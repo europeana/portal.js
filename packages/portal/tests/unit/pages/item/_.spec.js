@@ -295,6 +295,27 @@ describe('pages/item/_.vue', () => {
       });
     });
 
+    it('fetches annotations', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apis.annotation.search.calledWith({
+        query: 'target_record_id:"/123/abc"',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+        profile: 'dereference'
+      })).toBe(true);
+    });
+
+    it('parses DeBias annotations via composable', async() => {
+      const { terms } = useDeBias();
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(terms.value.dcTitle).toEqual([{ exact: 'offensive' }]);
+    });
+
     describe('when the requested item identifier is different from the identifier in the response', () => {
       it('redirects to the response identifier item page', async() => {
         const wrapper = factory({ data: { identifier: '/old/id' } });
@@ -576,24 +597,6 @@ describe('pages/item/_.vue', () => {
 
     describe('client side fetching', () => {
       const $fetchState = { pending: false };
-
-      it('fetches annotations', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
-
-        expect(wrapper.vm.$apis.annotation.search.calledWith({
-          query: 'target_record_id:"/123/abc"',
-          qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
-          profile: 'dereference'
-        })).toBe(true);
-      });
-
-      it('parses DeBias annotations via composable', () => {
-        const { termsToHighlight } = useDeBias();
-
-        factory({ mocks: { $fetchState } });
-
-        expect(termsToHighlight('dc:title')).toEqual(['offensive']);
-      });
 
       it('fetches entities', () => {
         const wrapper = factory({

@@ -119,6 +119,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
@@ -129,6 +130,7 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
+  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription'].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
 
@@ -169,10 +171,19 @@
       logEventMixin
     ],
 
-    setup() {
-      const { parseAnnotations: parseDeBiasAnnotations } = useDeBias();
+    provide() {
+      return {
+        // provide the deBias terms and definitions instead of using the composable
+        // in descendent components because the latter approach would not hydrate
+        // the shared state of those refs after SSR, but provide/inject does
+        deBias: computed(() => this.deBias)
+      };
+    },
 
-      return { parseDeBiasAnnotations };
+    setup() {
+      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+
+      return { deBiasDefinitions, deBiasTerms, parseDeBiasAnnotations };
     },
 
     data() {
@@ -182,6 +193,7 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
+        deBias: { definitions: [], terms: [] },
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -203,7 +215,10 @@
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
-        await this.fetchMetadata();
+        await Promise.all([
+          this.fetchMetadata(),
+          this.fetchAnnotations()
+        ]);
       }
     },
 
@@ -336,7 +351,6 @@
 
     mounted() {
       this.fetchEntities();
-      this.fetchAnnotations();
       this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
@@ -531,7 +545,7 @@
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
+        }, ALL_METADATA_FIELDS);
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },
@@ -595,7 +609,12 @@
           qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         });
-        this.parseDeBiasAnnotations(annotations, { lang: this.$i18n.locale });
+        this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
+        this.deBias = {
+          definitions: this.deBiasDefinitions,
+          terms: this.deBiasTerms
+        };
+
         this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
       },
 

@@ -11,7 +11,16 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        {{ heading.value }}
+        <ItemDebiasField
+          v-if="!!deBias.terms.dcTitle || !!deBias.terms.dctermsAlternative"
+          :name="['dcTitle', 'dctermsAlternative']"
+          :text="heading.value"
+        />
+        <template
+          v-else
+        >
+          {{ heading.value }}
+        </template>
         <MetadataOriginLabel :translation-source="heading.translationSource" />
       </component>
     </header>
@@ -24,14 +33,30 @@
         :key="index"
         class="description-text"
       >
-        <!-- eslint-disable vue/no-v-html -->
-        <p
+        <template
           v-if="index === 0 || showAll"
-          :lang="langAttribute(description.code)"
-          class="description-text-paragraph"
-          v-html="convertNewLine(showAll ? value : truncatedDescription)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          <ItemDebiasField
+            v-if="!!deBias.terms.dcDescription"
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            name="dcDescription"
+            :text="(showAll ? value : truncatedDescription)"
+            tag="p"
+          >
+            <template #default="{ text }">
+              <span v-html="convertNewLine(text)" />
+            </template>
+          </ItemDebiasField>
+          <p
+            v-else
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            v-html="convertNewLine(showAll ? value : truncatedDescription)"
+          />
+          <!-- eslint-enable vue/no-v-html -->
+        </template>
         <MetadataOriginLabel
           v-if="index === 0 || (translatedItemsEnabled && showAll)"
           :translation-source="description.translationSource"
@@ -55,6 +80,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import ItemDebiasField from './ItemDebiasField';
   import langAttributeMixin from '@/mixins/langAttribute';
   import truncateMixin from '@/mixins/truncate';
 
@@ -62,6 +88,7 @@
     name: 'ItemSummaryInfo',
 
     components: {
+      ItemDebiasField,
       MetadataOriginLabel
     },
 
@@ -69,6 +96,8 @@
       langAttributeMixin,
       truncateMixin
     ],
+
+    inject: ['deBias'],
 
     props: {
       description: {
@@ -80,12 +109,14 @@
         default: () => []
       }
     },
+
     data() {
       return {
         limitCharacters: 400,
         showAll: false
       };
     },
+
     computed: {
       expandableDescription() {
         return this.description?.values &&
@@ -101,6 +132,7 @@
         return this.$features.translatedItems;
       }
     },
+
     methods: {
       /**
        * Convert new lines to <br/>

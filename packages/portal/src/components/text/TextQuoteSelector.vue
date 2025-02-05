@@ -8,6 +8,7 @@
     >
       <slot
         v-if="chunk.selected"
+        :index="index"
         :text="chunk.text"
       >
         <strong :key="index">{{ chunk.text }}</strong>
@@ -15,6 +16,7 @@
       <slot
         v-else
         name="other"
+        :index="index"
         :text="chunk.text"
       >
         <span :key="index">{{ chunk.text }}</span>
@@ -42,7 +44,7 @@
        */
       tag: {
         type: String,
-        default: 'p'
+        default: 'span'
       },
 
       /**
@@ -54,12 +56,28 @@
       }
     },
 
+    data() {
+      return {
+        chunks: { selected: false, text: this.text }
+      };
+    },
+
+    watch: {
+      selector() {
+        this.initChunks();
+      },
+
+      text() {
+        this.initChunks();
+      }
+    },
+
     created() {
-      this.chunks = this.chunksOfText();
+      this.initChunks();
     },
 
     methods: {
-      chunksOfText() {
+      initChunks() {
         const chunks = [];
         let startIndex = 0;
 
@@ -71,9 +89,9 @@
           });
           chunks.push({
             selected: true,
-            text: selector.exact['@value']
+            text: selector.exact
           });
-          startIndex = selector.index + selector.exact['@value'].length;
+          startIndex = selector.index + selector.exact.length;
         }
 
         const textToEnd = this.text.slice(startIndex);
@@ -82,29 +100,42 @@
           text: textToEnd
         });
 
-        return chunks.filter((chunk) => chunk.text.length > 0);
-      },
-
-      selectorWithIndex(selector) {
-        const prefix = selector.prefix || '';
-        const exact = selector.exact['@value'];
-        const suffix = selector.suffix || '';
-        const fulltext = `${prefix}${exact}${suffix}`;
-
-        return {
-          ...selector,
-          // index of the start of the exact match
-          index: this.text.indexOf(fulltext) + prefix.length
-        };
+        this.chunks = chunks.filter((chunk) => chunk.text.length > 0);
       },
 
       selectorsWithIndexes() {
         return []
           .concat(this.selector)
-          .filter((selector) => selector?.exact?.['@value'])
+          .filter((selector) => selector?.exact)
           .map(this.selectorWithIndex)
           .filter((selector) => selector.index > -1)
           .sort((a, b) => a.index - b.index);
+      },
+
+      selectorWithIndex(selector) {
+        let index = null;
+        // if no prefix, only match at start
+        if (!selector.prefix && !this.text.startsWith(selector.exact)) {
+          index = -1;
+        }
+        // if no suffix, only match at end
+        if (!selector.suffix && !this.text.endsWith(selector.exact)) {
+          index = -1;
+        }
+        if (index === null) {
+          const prefix = selector.prefix || '';
+          const exact = selector.exact;
+          const suffix = selector.suffix || '';
+          const fulltext = `${prefix}${exact}${suffix}`;
+
+          index = this.text.indexOf(fulltext);
+          if (index > -1) {
+            // index of the start of the exact match
+            index = index + prefix.length;
+          }
+        }
+
+        return { ...selector, index };
       }
     }
   };
@@ -123,7 +154,7 @@
     <TextQuoteSelector
       :selector="{
         prefix: 'a sentence ',
-        exact: { '@value': 'with' },
+        exact: 'with',
         suffix: ' one word'
       }"
       text="This is a sentence with one word to select"
@@ -136,16 +167,16 @@
       :selector="[
         {
           prefix: 'is a ',
-          exact: { '@value': 'sentence' },
+          exact: 'sentence',
           suffix: ' with'
         },
         {
-          exact: { '@value': 'This' },
+          exact: 'This',
           suffix: ' is a'
         },
         {
           prefix: 'words to ',
-          exact: { '@value': 'select' }
+          exact: 'select'
         }
       ]"
       text="This is a sentence with multiple words to select"
@@ -159,12 +190,12 @@
       :selector="[
         {
           prefix: 'The ',
-          exact: { '@value': 'default' },
+          exact: 'default',
           suffix: ' slot is'
         },
         {
           prefix: 'and the ',
-          exact: { '@value': 'other' },
+          exact: 'other',
           suffix: ' slot for'
         }
       ]"

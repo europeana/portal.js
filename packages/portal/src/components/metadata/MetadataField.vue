@@ -43,6 +43,16 @@
             />
           </li>
         </template>
+        <ItemDebiasField
+          v-else-if="isDeBiased"
+          :key="index"
+          :data-value="value"
+          :name="name"
+          :text="value"
+          :lang="langAttribute(langMappedValues.code)"
+          tag="li"
+          data-qa="de-bias term"
+        />
         <li
           v-else
           :key="index"
@@ -68,6 +78,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
+  import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
@@ -78,6 +89,7 @@
     name: 'MetadataField',
 
     components: {
+      ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
       SmartLink
@@ -87,6 +99,8 @@
       itemPrefLanguageMixin,
       langAttributeMixin
     ],
+
+    inject: ['deBias'],
 
     props: {
       name: {
@@ -135,6 +149,10 @@
           display.values = display.values.slice(0, this.limit).concat('…');
         }
         return display;
+      },
+
+      isDeBiased() {
+        return !!this.deBias.terms[this.name];
       },
 
       limitDisplayValues() {

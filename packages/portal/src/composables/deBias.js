@@ -1,56 +1,81 @@
-import { readonly, ref } from 'vue';
+import { computed, readonly, ref } from 'vue';
+import camelCase from 'lodash/camelCase.js';
 
-const terms = ref({});
-const definitions = ref({});
+const annotations = ref([]);
 
-const termsToHighlight = (field) => {
-  return terms.value[field];
-};
+const terms = computed(() => {
+  return annotations.value.reduce((memo, term) => {
+    memo[term.field] ||= [];
+    memo[term.field].push(term.selector);
+    return memo;
+  }, {});
+});
 
-const definitionOfTerm = (term) => definitions.value[term];
+const definitions = computed(() => {
+  return annotations.value.reduce((memo, term) => {
+    memo[term.selector.exact] = term.definition;
+    return memo;
+  }, {});
+});
 
 const findAnnotationTarget = (targets, options = {}) => {
   const { field, lang } = options;
 
   return targets.find((target) => {
-    const fieldMatch = (!field || (target?.selector.hasPredicate === field));
+    // because Record API v2 uses field names like dcTitle, not dc:title
+    const fieldMatch = (!field || (camelCase(target?.selector.hasPredicate) === field));
     const langMatch = (!lang || (target?.selector.refinedBy.exact['@language'] === lang));
     return fieldMatch && langMatch;
   });
 };
 
 const parseAnnotation = (anno, options = {}) => {
-  const { lang } = options;
+  const { fields, lang } = options;
   const targets = [].concat(anno.target);
 
-  const target = findAnnotationTarget(targets, { field: 'dc:title', lang }) ||
-      findAnnotationTarget(targets, { field: 'dc:description', lang }) ||
-      findAnnotationTarget(targets, { field: 'dc:subject', lang }) ||
-      // TODO: this won't necessarily be the first displayed; make order
-      //       configurable by consumer?
-      findAnnotationTarget(targets, { lang });
+  let target;
+  // pick the first in the order matching the fields option
+  for (const field of (fields || [])) {
+    target = findAnnotationTarget(targets, { field, lang });
+    if (target) {
+      break;
+    }
+  }
 
-  const term = target?.selector.refinedBy.exact['@value'];
-  const field = target?.selector.hasPredicate;
-  const definition = anno.body?.definition?.[lang];
+  if (!target) {
+    // no fields specified, or nothing found; just pick one
+    target = findAnnotationTarget(targets, { lang });
+  }
 
-  return { definition, field, term };
+  const definition = [].concat(anno.body?.definition?.[lang])[0];
+  const field = camelCase(target?.selector.hasPredicate);
+  const refinedBy = target?.selector.refinedBy;
+  const selector = { exact: refinedBy?.exact?.['@value'] };
+  if (refinedBy?.prefix) {
+    selector.prefix = refinedBy.prefix;
+  }
+  if (refinedBy?.suffix) {
+    selector.suffix = refinedBy.suffix;
+  }
+
+  return {
+    definition,
+    field,
+    selector
+  };
 };
 
-const parseAnnotations = (annotations, options = {}) => {
-  terms.value = {};
-  definitions.value = {};
+const parseAnnotations = (annos, options = {}) => {
+  annotations.value = [];
 
-  const debiasAnnotations = (annotations || [])
+  const debiasAnnotations = (annos || [])
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
 
   for (const anno of debiasAnnotations) {
-    const { field, definition, term } = parseAnnotation(anno, options);
+    const { definition, field, selector } = parseAnnotation(anno, options);
 
-    if (term && field && definition) {
-      terms.value[field] ||= [];
-      terms.value[field].push(term);
-      definitions.value[term] = definition;
+    if (definition && field && selector) {
+      annotations.value.push({ definition, field, selector });
     }
   }
 };
@@ -59,9 +84,9 @@ export default function useDeBias(options = {}) {
   options.annotations && parseAnnotations(options.annotations, { lang: options.lang });
 
   return {
-    definitionOfTerm,
+    annotations: readonly(annotations),
+    definitions,
     parseAnnotations,
-    termsToHighlight,
-    terms: readonly(terms)
+    terms
   };
 }
