@@ -43,12 +43,19 @@ const parseAnnotation = (anno, options = {}) => {
 
   const definition = [].concat(anno.body?.definition?.[lang])[0];
   const field = target?.selector.hasPredicate;
-  const selector = target?.selector.refinedBy;
+  const refinedBy = target?.selector.refinedBy;
+  const selector = { exact: refinedBy?.exact?.['@value'] };
+  if (refinedBy?.prefix) {
+    selector.prefix = refinedBy.prefix;
+  }
+  if (refinedBy?.suffix) {
+    selector.suffix = refinedBy.suffix;
+  }
 
   return {
     definition,
     field,
-    selector: { exact: selector?.exact?.['@value'], prefix: selector?.prefix, suffix: selector?.suffix }
+    selector
   };
 };
 
