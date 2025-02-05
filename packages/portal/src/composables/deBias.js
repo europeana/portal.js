@@ -5,10 +5,8 @@ const annotations = ref([]);
 
 const terms = computed(() => {
   return annotations.value.reduce((memo, term) => {
-    // because Record API v2 uses field names like dcTitle, not dc:title
-    const camelCaseField = camelCase(term.field);
-    memo[camelCaseField] ||= [];
-    memo[camelCaseField].push(term.selector);
+    memo[term.field] ||= [];
+    memo[term.field].push(term.selector);
     return memo;
   }, {});
 });
@@ -24,7 +22,8 @@ const findAnnotationTarget = (targets, options = {}) => {
   const { field, lang } = options;
 
   return targets.find((target) => {
-    const fieldMatch = (!field || (target?.selector.hasPredicate === field));
+    // because Record API v2 uses field names like dcTitle, not dc:title
+    const fieldMatch = (!field || (camelCase(target?.selector.hasPredicate) === field));
     const langMatch = (!lang || (target?.selector.refinedBy.exact['@language'] === lang));
     return fieldMatch && langMatch;
   });
@@ -49,7 +48,7 @@ const parseAnnotation = (anno, options = {}) => {
   }
 
   const definition = [].concat(anno.body?.definition?.[lang])[0];
-  const field = target?.selector.hasPredicate;
+  const field = camelCase(target?.selector.hasPredicate);
   const refinedBy = target?.selector.refinedBy;
   const selector = { exact: refinedBy?.exact?.['@value'] };
   if (refinedBy?.prefix) {
