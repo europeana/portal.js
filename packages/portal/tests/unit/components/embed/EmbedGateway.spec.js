@@ -135,7 +135,8 @@ describe('components/embed/EmbedGateway', () => {
         sinon.spy(wrapper.vm, 'listenToModalTransitionendAndScrollToSection');
         sinon.spy(wrapper.vm, 'scrollToSection');
         const eventlistenerStub = sinon.stub().yields();
-        const modalEvent = { target: { addEventListener: eventlistenerStub } };
+        const modalEvent = { target: { addEventListener: eventlistenerStub,
+          focus: sinon.spy() } };
         $rootOnceStub = sinon.stub(wrapper.vm.$root, '$once').yields(modalEvent, 'cookie-modal');
 
         wrapper.find('[data-qa="load all button"').trigger('click');
@@ -144,6 +145,7 @@ describe('components/embed/EmbedGateway', () => {
         expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
 
         expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
+        expect(modalEvent.target.focus.called).toBe(true);
         expect(eventlistenerStub.called).toBe(true);
         expect(eventlistenerStub.calledWith('transitionend', sinon.match.func, { once: true })).toBe(true);
         expect(wrapper.vm.scrollToSection.calledWith(modalEvent.target, '#consentcheckbox-section-thirdPartyContent')).toBe(true);
@@ -171,7 +173,8 @@ describe('components/embed/EmbedGateway', () => {
         sinon.spy(wrapper.vm, 'listenToModalTransitionendAndScrollToSection');
         sinon.spy(wrapper.vm, 'scrollToSection');
         const eventlistenerStub = sinon.stub().yields();
-        const modalEvent = { target: { addEventListener: eventlistenerStub } };
+        const modalEvent = { target: { addEventListener: eventlistenerStub,
+          focus: sinon.spy() } };
         $rootOnceStub = sinon.stub(wrapper.vm.$root, '$once').yields(modalEvent, 'cookie-modal');
 
         wrapper.find('[data-qa="view full list button"').trigger('click');
@@ -180,6 +183,7 @@ describe('components/embed/EmbedGateway', () => {
         expect($rootOnceStub.calledWith('bv::modal::shown')).toBe(true);
 
         expect(wrapper.vm.listenToModalTransitionendAndScrollToSection.calledWith(modalEvent, 'cookie-modal')).toBe(true);
+        expect(modalEvent.target.focus.called).toBe(true);
         expect(eventlistenerStub.called).toBe(true);
         expect(eventlistenerStub.calledWith('transitionend', sinon.match.func, { once: true })).toBe(true);
         expect(wrapper.vm.scrollToSection.calledWith(modalEvent.target, '#consentcheckbox-section-thirdPartyContent')).toBe(true);

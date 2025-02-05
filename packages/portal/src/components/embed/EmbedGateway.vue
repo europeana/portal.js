@@ -278,6 +278,8 @@
           const modalContainer = event.target;
           const sectionId = '#consentcheckbox-section-thirdPartyContent';
 
+          // This overrides the BV modal component setting focus which might happen asynchronously and mess with the scroll effect
+          modalContainer.focus();
           modalContainer.addEventListener('transitionend', () => this.scrollToSection(modalContainer, sectionId), { once: true });
         }
       },
