@@ -31,15 +31,22 @@ const findAnnotationTarget = (targets, options = {}) => {
 };
 
 const parseAnnotation = (anno, options = {}) => {
-  const { lang } = options;
+  const { fields, lang } = options;
   const targets = [].concat(anno.target);
 
-  const target = findAnnotationTarget(targets, { field: 'dc:title', lang }) ||
-      findAnnotationTarget(targets, { field: 'dc:description', lang }) ||
-      findAnnotationTarget(targets, { field: 'dc:subject', lang }) ||
-      // TODO: this won't necessarily be the first displayed; make order
-      //       configurable by consumer?
-      findAnnotationTarget(targets, { lang });
+  let target;
+  // pick the first in the order matching the fields option
+  for (const field of (fields || [])) {
+    target = findAnnotationTarget(targets, { field, lang });
+    if (target) {
+      break;
+    }
+  }
+
+  if (!target) {
+    // no fields specified, or nothing found; just pick one
+    target = findAnnotationTarget(targets, { lang });
+  }
 
   const definition = [].concat(anno.body?.definition?.[lang])[0];
   const field = target?.selector.hasPredicate;

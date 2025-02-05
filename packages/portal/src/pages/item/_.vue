@@ -130,6 +130,7 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
+  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription'].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
 
@@ -544,7 +545,7 @@
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
+        }, ALL_METADATA_FIELDS);
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },
@@ -608,7 +609,7 @@
           qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
           profile: 'dereference'
         });
-        this.parseDeBiasAnnotations(annotations, { lang: this.$i18n.locale });
+        this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
         this.deBias = {
           definitions: this.deBiasDefinitions,
           terms: this.deBiasTerms
