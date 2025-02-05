@@ -13,9 +13,15 @@
       >
         <!-- TODO: make use conditional -->
         <ItemDebiasField
+          v-if="!!deBias.terms.dcTitle"
           name="dcTitle"
           :text="heading.value"
         />
+        <template
+          v-else
+        >
+          {{ heading.value }}
+        </template>
         <MetadataOriginLabel :translation-source="heading.translationSource" />
       </component>
     </header>
@@ -28,21 +34,30 @@
         :key="index"
         class="description-text"
       >
-        <!-- TODO: make use conditional -->
-        <ItemDebiasField
+        <template
           v-if="index === 0 || showAll"
-          :lang="langAttribute(description.code)"
-          class="description-text-paragraph"
-          name="dcDescription"
-          :text="(showAll ? value : truncatedDescription)"
-          tag="p"
         >
           <!-- eslint-disable vue/no-v-html -->
-          <template #default="{ text }">
-            <span v-html="convertNewLine(text)" />
-          </template>
+          <ItemDebiasField
+            v-if="!!deBias.terms.dcDescription"
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            name="dcDescription"
+            :text="(showAll ? value : truncatedDescription)"
+            tag="p"
+          >
+            <template #default="{ text }">
+              <span v-html="convertNewLine(text)" />
+            </template>
+          </ItemDebiasField>
+          <p
+            v-else
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            v-html="convertNewLine(showAll ? value : truncatedDescription)"
+          />
           <!-- eslint-enable vue/no-v-html -->
-        </ItemDebiasField>
+        </template>
         <MetadataOriginLabel
           v-if="index === 0 || (translatedItemsEnabled && showAll)"
           :translation-source="description.translationSource"
@@ -82,6 +97,8 @@
       langAttributeMixin,
       truncateMixin
     ],
+
+    inject: ['deBias'],
 
     props: {
       description: {
