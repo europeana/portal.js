@@ -177,9 +177,7 @@
         if (this.entity) {
           const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
           overrideParams.qf = [entityQuery];
-          if (!this.$route.query.query) {
-            overrideParams.query = entityQuery; // Triggering best bets.
-          }
+          overrideParams.query = entityQuery; // Triggering best bets.
         }
 
         return overrideParams;
