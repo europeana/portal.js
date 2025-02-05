@@ -18,7 +18,6 @@ const factory = (propsData = {}) => shallowMount(PageCookiesWidget, {
   },
   mocks: {
     localePath: () => {},
-    $features: { embeddedMediaNotification: true },
     $i18n: { locale: 'en ' },
     $matomo: {
       trackEvent: sinon.spy()

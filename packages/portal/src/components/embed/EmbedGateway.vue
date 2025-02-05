@@ -149,8 +149,7 @@
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
         iframe: {},
-        // TODO: set to false on feature toggle clean up
-        opened: !this.$features.embeddedMediaNotification,
+        opened: false,
         renderCookieModal: false,
         script: {}
       };

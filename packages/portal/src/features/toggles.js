@@ -1,7 +1,6 @@
 export default [
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
-  { name: 'embeddedMediaNotification' },
   { name: 'eventLogging' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'mockTrendingItems' },
