@@ -100,6 +100,8 @@
       langAttributeMixin
     ],
 
+    inject: ['deBias'],
+
     props: {
       name: {
         type: String,
@@ -138,8 +140,6 @@
         default: false
       }
     },
-
-    inject: ['deBias'],
 
     computed: {
       displayValues() {

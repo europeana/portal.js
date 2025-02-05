@@ -12,6 +12,12 @@ const factory = () => shallowMount(MetadataField, {
     $config: { app: { internalLinkDomain: null } },
     $features: { translatedItems: false },
     $i18n
+  },
+  provide: {
+    deBias: {
+      definitions: {},
+      terms: {}
+    }
   }
 });
 
