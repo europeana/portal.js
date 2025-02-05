@@ -11,7 +11,6 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        <!-- TODO: make use conditional -->
         <ItemDebiasField
           v-if="!!deBias.terms.dcTitle || !!deBias.terms.dctermsAlternative"
           :name="['dcTitle', 'dctermsAlternative']"
