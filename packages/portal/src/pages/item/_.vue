@@ -170,6 +170,12 @@
       logEventMixin
     ],
 
+    provide() {
+      return {
+        deBias: computed(() => this.deBias)
+      };
+    },
+
     setup() {
       const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
 
@@ -337,12 +343,6 @@
       'relatedEntityUris'() {
         this.fetchEntities();
       }
-    },
-
-    provide() {
-      return {
-        deBias: computed(() => this.deBias)
-      };
     },
 
     mounted() {
