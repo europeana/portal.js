@@ -22,6 +22,6 @@ describe('components/item/ItemDebiasTerm', () => {
 
     expect(wrapper.find('dfn').text()).toEqual(propsData.term);
     expect(wrapper.find('b-button-stub').text()).toEqual('record.explanationby');
-    expect(wrapper.find('#tooltip-container').exists()).toBe(true);
+    expect(wrapper.find('#item-debias-term-tooltip').exists()).toBe(true);
   });
 });

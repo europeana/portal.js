@@ -12,14 +12,14 @@ const factory = ({ propsData = {}, scopedSlots = {} } = {}) => shallowMount(Text
 });
 
 describe('@/components/text/TextQuoteSelector.vue', () => {
-  it('renders a p element by default', () => {
+  it('renders a span element by default', () => {
     const propsData = {
       text: 'This is a sentence'
     };
 
     const wrapper = factory({ propsData });
 
-    expect(wrapper.element.tagName).toBe('P');
+    expect(wrapper.element.tagName).toBe('SPAN');
   });
 
   it('overrides the root element with the `tag` prop', () => {
