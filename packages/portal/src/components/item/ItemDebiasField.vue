@@ -39,16 +39,25 @@
     inject: ['deBias'],
 
     props: {
+      /**
+       * Name of the metadata field, e.g. dcTitle, dcSubject
+       */
       name: {
         type: String,
         required: true
       },
 
+      /**
+       * HTML tag to use
+       */
       tag: {
         type: String,
         default: 'span'
       },
 
+      /**
+       * Text for this metadata field value
+       */
       text: {
         type: String,
         required: true

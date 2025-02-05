@@ -1,27 +1,40 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import sinon from 'sinon';
 
 import ItemDebiasField from '@/components/item/ItemDebiasField.vue';
-import * as deBiasComposable from  '@/composables/deBias.js';
 
 const localVue = createLocalVue();
 
 const factory = ({ propsData } = {}) => shallowMount(ItemDebiasField, {
   localVue,
   propsData,
-  stubs: ['ItemDebiasTerm']
+  provide: {
+    deBias: {
+      definitions: {
+        offense: 'May cause offense'
+      },
+      terms: {
+        dcTitle: { exact: 'offense' }
+      }
+    }
+  },
+  stubs: {
+    TextQuoteSelector: {
+      template: `
+        <span>
+          <slot index="0" name="other" text="Field with something that may cause ">
+            Field with something that may cause
+          </slot>
+          <slot index="1" text="offense">offense</slot>
+          <slot index="2" name="other" text=" in it">
+             in it
+          </slot>
+        </span>
+      `
+    }
+  }
 });
 
 describe('@/components/item/ItemDebiasField', () => {
-  beforeAll(() => {
-    sinon.stub(deBiasComposable, 'default').returns({
-      definitionOfTerm: sinon.stub().withArgs('offense').returns('May cause offense'),
-      termsToHighlight: sinon.stub().withArgs('dc:title').returns([{ exact: { '@language': 'en', '@value': 'offense' } }])
-    });
-  });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.reset);
-
   it('displays de-biased terms in the text for a field', () => {
     const propsData = { name: 'dc:title', text: 'Field with something that may cause offense in it' };
     const wrapper = factory({ propsData });
