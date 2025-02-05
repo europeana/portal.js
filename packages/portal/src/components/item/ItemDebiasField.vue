@@ -1,6 +1,6 @@
 <template>
   <TextQuoteSelector
-    :selector="deBias.terms[name]"
+    :selector="selectors"
     :tag="tag"
     :text="text"
   >
@@ -40,10 +40,10 @@
 
     props: {
       /**
-       * Name of the metadata field, e.g. dcTitle, dcSubject
+       * Name of the metadata field(s), e.g. dcTitle, dcSubject
        */
       name: {
-        type: String,
+        type: [String, Array],
         required: true
       },
 
@@ -61,6 +61,12 @@
       text: {
         type: String,
         required: true
+      }
+    },
+
+    computed: {
+      selectors() {
+        return [].concat(this.name).map((name) => this.deBias.terms[name]).flat();
       }
     }
   };

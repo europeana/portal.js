@@ -13,8 +13,8 @@
       >
         <!-- TODO: make use conditional -->
         <ItemDebiasField
-          v-if="!!deBias.terms.dcTitle"
-          name="dcTitle"
+          v-if="!!deBias.terms.dcTitle || !!deBias.terms.dctermsAlternative"
+          :name="['dcTitle', 'dctermsAlternative']"
           :text="heading.value"
         />
         <template
