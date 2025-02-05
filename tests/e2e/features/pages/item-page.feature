@@ -88,8 +88,8 @@ Feature: item page
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
-    And  I click the `share embed textarea`
-    Then I see a `share embed copied notice`
+    And  I click the `item snippet copy button`
+    Then I see a `item snippet copied message`
 
   Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`

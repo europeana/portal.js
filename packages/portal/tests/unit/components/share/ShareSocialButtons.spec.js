@@ -2,12 +2,12 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
-import ShareSocialButton from '@/components/share/ShareSocialButton.vue';
+import ShareSocialButtons from '@/components/share/ShareSocialButtons.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(ShareSocialButton, {
+const factory = () => shallowMount(ShareSocialButtons, {
   localVue,
   attachTo: document.body,
   stubs: ['b-button'],
@@ -34,7 +34,7 @@ const factory = () => shallowMount(ShareSocialButton, {
   }
 });
 
-describe('components/share/ShareSocialButton', () => {
+describe('components/share/ShareSocialButtons', () => {
   describe('when there are social share buttons', () => {
     it('one button has a facebook share url', () => {
       const wrapper = factory();
