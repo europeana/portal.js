@@ -36,7 +36,7 @@ async function warmupBrowser() {
   // Optionally take a screenshot of the warmup page
   process.env.NIGHTWATCH_SCREENSHOTS && await client.saveScreenshot('./screenshots/warmup.png');
 
-  await client.waitForElementVisible('#eu-klaro .cookie-notice');
+  await client.waitForElementVisible('#cookie-notice-toast');
 }
 
 // Before running cucumber make sure the test server and webdriver are running.
