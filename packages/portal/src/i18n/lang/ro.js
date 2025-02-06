@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Specimen de culoare",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Despre colecțiile Europeana",
-      "forDevelopers": "Pentru dezvoltatori",
-      "help": "Help",
-      "meetUs": "Faceți cunoștință cu echipa",
-      "MoreInfoLabel": "Mai multe informații",
-      "provide": "Deveni un furnizor de date",
-      "subscribe": "Abonează-te la buletinul nostru de știri",
-      "terms": "Termeni de utilizare și Politica de confidențialitate"
-    },
-    "headerNavigation": {
-      "Collections": "Colecții",
-      "explore": "Explorează",
-      "teachers": "Profesori"
-    }
-  },
   "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Întrebări frecvente (FAQ)",
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
-      "privacy": "Politica de Confidențialitate",
+      "privacy": "Declarație de confidențialitate",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
-    "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
+    "debias": "De-bias",
+    "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",

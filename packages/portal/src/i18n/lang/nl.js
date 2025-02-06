@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Kleurstaal",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Over Europeana",
-      "forDevelopers": "Voor ontwikkelaars",
-      "help": "Help",
-      "meetUs": "Ontmoet het team",
-      "MoreInfoLabel": "Meer informatie",
-      "provide": "Word een gegevensprovider",
-      "subscribe": "Aanmelden voor onze nieuwsbrief",
-      "terms": "Gebruiksvoorwaarden en privacybeleid"
-    },
-    "headerNavigation": {
-      "Collections": "Collecties",
-      "explore": "Verkennen",
-      "teachers": "Leraren"
-    }
-  },
   "contentYouMightLike": "Content die u misschien interessant vindt",
   "curatedAutomatically": "Automatisch beheerd door Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Veelgestelde vragen (FAQ)",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
-      "privacy": "Privacybeleid",
+      "privacy": "Privacyverklaring",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "supportingTechnicalPartners": "Ondersteunende technische partners",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
         "alwaysRequired": "(Altijd verplicht)",
-        "description": "Hier kunt u de diensten zien en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons <a href='/rights/privacy-policy'>privacybeleid</a>.",
+        "description": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie onze <a href='/rights/privacy-statement'> privacyverklaring </a>.",
         "privacyPolicy": "Privacybeleid",
         "servicesCount": "{count} dienst | {count} diensten",
         "text": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Pin item aan beschikbare entiteiten"
     },
     "allMetaData": "Alle metadata",
-    "copyEmbedLabel": "Embed code (klik om te kopiëren)",
+    "debias": "De-bias",
+    "explanationby": "Uitleg gegeven door {0}",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",

@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Swatch tal-kuluri",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Dwar Europeana",
-      "forDevelopers": "Għall-iżviluppaturi",
-      "help": "Għajnuna",
-      "meetUs": "Iltaqa' mat-tim",
-      "MoreInfoLabel": "Aktar Tagħrif",
-      "provide": "Sir fornitur tad-dejta",
-      "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tal-Użu u Politika ta' Privatezza"
-    },
-    "headerNavigation": {
-      "Collections": "Kollezzjonijiet",
-      "explore": "Esplora",
-      "teachers": "Għalliema"
-    }
-  },
   "contentYouMightLike": "Kontenut li jista' jinteressak",
   "curatedAutomatically": "Amministrat awtomatikament minn Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Mistoqsijiet Frekwenti (FAQ)",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
-      "privacy": "Politika tar-privatezza",
+      "privacy": "Dikjarazzjoni tal-privatezza",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Aċċetta magħżula",
       "consentModal": {
         "alwaysRequired": "(Dejjem meħtieġ)",
-        "description": "Hawnhekk tista' tara u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Biex titgħallem aktar jekk jogħġbok aqra l- <a href='/rights/privacy-policy'> politika ta' privatezza tagħna </a>.",
+        "description": "Hawnhekk tista' tara u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Biex titgħallem aktar, jekk jogħġbok aqra d-<a href='/rights/privacy-statement'>dikjarazzjoni tal-privatezza</a>.",
         "privacyPolicy": "Politika ta' privatezza",
         "servicesCount": "{count} servizz | {count} servizzi",
         "text": "Hawnhekk tista' tara u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Biex titgħallem aktar jekk jogħġbok aqra {privacyPolicy} tagħna.",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Pin oġġett lill-Entitajiet disponibbli"
     },
     "allMetaData": "Il-metadata kollha",
-    "copyEmbedLabel": "Inkorpora il-code (Ikklikkja biex tikkopja)",
+    "debias": "De-bias",
+    "explanationby": "Spjegazzjoni pprovduta minn {0}",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",

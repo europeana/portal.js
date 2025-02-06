@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Próbka koloru",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O Europeana",
-      "forDevelopers": "Dla deweloperów",
-      "help": "Pomoc",
-      "meetUs": "Poznaj zespół",
-      "MoreInfoLabel": "Więcej informacji",
-      "provide": "Zostań dostawcą danych",
-      "subscribe": "Zapisz się do naszego newslettera",
-      "terms": "Regulamin i Polityka prywatności"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcje",
-      "explore": "Odkryj",
-      "teachers": "Nauczyciele"
-    }
-  },
   "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "curatedAutomatically": "Wyselekcjonowane automatycznie przez Europeana",
   "dateFilter": {
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Przypinanie elementu do dostępnych encji"
     },
     "allMetaData": "Wszystkie metadane",
-    "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
+    "debias": "De-bias",
+    "explanationby": "Wyjaśnienie dostarczone przez {0}",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",

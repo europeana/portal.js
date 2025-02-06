@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Farebná vzorkovník",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O Europeana",
-      "forDevelopers": "Pre vývojárov",
-      "help": "Pomoc",
-      "meetUs": "Spoznajte členov tímu",
-      "MoreInfoLabel": "Ďalšie informácie",
-      "provide": "Staňte sa poskytovateľom údajov",
-      "subscribe": "Prihlásiť sa na odber newslettra",
-      "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcie",
-      "explore": "Objavujte",
-      "teachers": "Učitelia"
-    }
-  },
   "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "curatedAutomatically": "Spravované automaticky spol. Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Často kladené otázky (FAQ)",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
-      "privacy": "Zásady ochrany osobných údajov",
+      "privacy": "Vyhlásenie o ochrane osobných údajov",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "supportingTechnicalPartners": "Podpora technických partnerov",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Pripnúť objekt k dostupným entitám"
     },
     "allMetaData": "Všetky metadáta",
-    "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
+    "debias": "De-bias",
+    "explanationby": "Vysvetlenie poskytol {0}",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",

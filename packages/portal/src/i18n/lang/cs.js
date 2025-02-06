@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Vzorník barev",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O stránkách Europeana",
-      "forDevelopers": "Pro vývojáře",
-      "help": "Pomoc",
-      "meetUs": "O nás",
-      "MoreInfoLabel": "Více informací",
-      "provide": "Stát se partnerem dat",
-      "subscribe": "Přihlaste se k odběru našeho newsletteru",
-      "terms": "Podmínky používání a zásady ochrany osobních údajů"
-    },
-    "headerNavigation": {
-      "Collections": "Sbírky",
-      "explore": "Prozkoumat",
-      "teachers": "Učitelé"
-    }
-  },
   "contentYouMightLike": "Obsah, který by se vám mohl líbit",
   "curatedAutomatically": "Kurátorem je automaticky Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Často kladené dotazy (FAQ)",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
-      "privacy": "Zásady ochrany osobních údajů",
+      "privacy": "Prohlášení o ochraně osobních údajů",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "supportingTechnicalPartners": "Podpora technických partnerů",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Přijmout vybrané",
       "consentModal": {
         "alwaysRequired": "(Vždy povinné)",
-        "description": "Zde můžete vidět a přizpůsobit služby, které bychom chtěli na tomto webu používat. Chcete-li se dozvědět více, přečtěte si prosím naše zásady ochrany osobních údajů <a href='/rights/privacy-policy'> privacy policy.</a>",
+        "description": "Zde si můžete prohlédnout a přizpůsobit služby, které chceme na těchto webových stránkách používat. Chcete-li se dozvědět více, přečtěte si prosím naše <a href='/rights/privacy-statement'>prohlášení o ochraně osobních údajů</a>.",
         "privacyPolicy": "Zásady ochrany osobních údajů",
         "servicesCount": "{count} služba | {count} služeb",
         "text": "Zde si můžete prohlédnout a přizpůsobit služby, které bychom chtěli na tomto webu používat. Chcete-li se dozvědět více, přečtěte si naše {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Připnout položku k dostupným entitám"
     },
     "allMetaData": "Všechna metadata",
-    "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
+    "debias": "De-bias",
+    "explanationby": "Vysvětlení poskytl {0}",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",

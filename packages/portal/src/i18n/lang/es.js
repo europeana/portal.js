@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Muestra de color",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Sobre de Europeana",
-      "forDevelopers": "Para desarrolladores",
-      "help": "Ayuda",
-      "meetUs": "Nuestro equipo",
-      "MoreInfoLabel": "Más información",
-      "provide": "Conviértete en proveedor de datos",
-      "subscribe": "Suscríbete a nuestro boletín",
-      "terms": "Condiciones de uso y Política de privacidad"
-    },
-    "headerNavigation": {
-      "Collections": "Colecciones",
-      "explore": "Explorar",
-      "teachers": "Profesores"
-    }
-  },
   "contentYouMightLike": "Contenido que quizá te guste",
   "curatedAutomatically": "Comisariados automáticamente por Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Preguntas frecuentes (FAQ)",
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
-      "privacy": "Política de privacidad",
+      "privacy": "Declaración de privacidad",
       "seeApiRequests": "Ver solicitudes a las API de Europeana",
       "subscribe": "Suscríbete a nuestro boletín",
       "supportingTechnicalPartners": "Apoyando a socios técnicos",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Anclar Ítem a entidades disponibles"
     },
     "allMetaData": "Todos los metadatos",
-    "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
+    "debias": "De-bias",
+    "explanationby": "Explicación proporcionada por {0}",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",

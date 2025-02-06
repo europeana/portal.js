@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Barvni vzorec",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O zbirkah Europeana",
-      "forDevelopers": "Za razvijalce",
-      "help": "Pomoč",
-      "meetUs": "Spoznajte ekipo",
-      "MoreInfoLabel": "Več informacij",
-      "provide": "Postanite ponudnik podatkov",
-      "subscribe": "Prijavite se na naša obvestila",
-      "terms": "Pogoji uporabe in Pravilnik o zasebnosti"
-    },
-    "headerNavigation": {
-      "Collections": "Zbirke",
-      "explore": "Razišči",
-      "teachers": "Učitelji"
-    }
-  },
   "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "curatedAutomatically": "Samodejno je kurirala Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Pogosto zastavljena vprašanja (FAQ)",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
-      "privacy": "Pravilnik o zasebnosti",
+      "privacy": "Izjava o zasebnosti",
       "seeApiRequests": "Oglejte si zahteve za API-je Europeane",
       "subscribe": "Naročite se na naše novice",
       "supportingTechnicalPartners": "Podpora tehničnim partnerjem",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Pripnite enota na razpoložljive entitete"
     },
     "allMetaData": "Vsi metapodatki",
-    "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
+    "debias": "De-bias",
+    "explanationby": "Pojasnilo je podal {0}.",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",

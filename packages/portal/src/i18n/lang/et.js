@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Värvivalik",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Infot Europeana kohta",
-      "forDevelopers": "Arendajatele",
-      "help": "Abimaterjal",
-      "meetUs": "Tutvu meeskonnaga",
-      "MoreInfoLabel": "Rohkem infot",
-      "provide": "Hakka andmepakkujaks",
-      "subscribe": "Telli meie uudiskiri",
-      "terms": "Kasutustingimused ja privaatsuspoliitika"
-    },
-    "headerNavigation": {
-      "Collections": "Kollektsioonid",
-      "explore": "Uurige",
-      "teachers": "Õpetajad"
-    }
-  },
   "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "curatedAutomatically": "Kuraator on automaatselt Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Korduma kippuvad küsimused  (FAQ)",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
-      "privacy": "Privaatsuspoliitika",
+      "privacy": "Privaatsusavaldus",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
       "supportingTechnicalPartners": "Tehniliste partnerite toetamine",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
         "alwaysRequired": "(Alati nõutav)",
-        "description": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie <a href='/rights/privacy-policy'> privaatsuspoliitikat </a> .",
+        "description": "Siin saate näha ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege palun meie <a href='/rights/privacy-statement'>privaatsusavaldust</a>.",
         "privacyPolicy": "Privaatsuspoliitika",
         "servicesCount": "{count} teenus | {count} teenust",
         "text": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
     "allMetaData": "Kogu metateave",
-    "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
+    "debias": "De-bias",
+    "explanationby": "Selgituse esitas {0}",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",

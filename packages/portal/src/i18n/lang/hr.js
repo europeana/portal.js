@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Uzorak u boji",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O zbirkama Europeana",
-      "forDevelopers": "Za programere",
-      "help": "Pomoć",
-      "meetUs": "Upoznajte tim",
-      "MoreInfoLabel": "Više informacija",
-      "provide": "Postanite davatelj podataka",
-      "subscribe": "Pretplatite se na naš bilten",
-      "terms": "Uvjeti korištenja i pravila o privatnosti"
-    },
-    "headerNavigation": {
-      "Collections": "Zbirke",
-      "explore": "Istraži",
-      "teachers": "Nastavnici"
-    }
-  },
   "contentYouMightLike": "Sadržaj koji bi vam se mogao svidjeti",
   "curatedAutomatically": "Automatski kustos Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Često postavljana pitanja (FAQ)",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
-      "privacy": "Pravila o privatnosti",
+      "privacy": "Izjava o privatnosti",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Prihvati odabrano",
       "consentModal": {
         "alwaysRequired": "(Uvijek obavezno)",
-        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte naša <a href='/rights/privacy-policy'> pravila o privatnosti </a> .",
+        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte našu <a href='/rights/privacy-statement'> izjavu o privatnosti </a>.",
         "privacyPolicy": "Politika privatnosti",
         "servicesCount": "{count} usluga | {count} usluga",
         "text": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Da biste saznali više, pročitajte naša {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
-    "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
+    "debias": "De-bias",
+    "explanationby": "Objašnjenje pružio {0}",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
