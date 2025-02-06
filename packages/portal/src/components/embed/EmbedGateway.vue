@@ -68,8 +68,8 @@
             :modal-id="cookieModalId"
             modal-title-path="klaro.main.purposes.thirdPartyContent.title"
             :modal-description-path="null"
-            :hide-purposes="hidePurposes"
             :only-show-if-consent-required="false"
+            :pick="['thirdPartyContent']"
             :show-modal="true"
           />
           <i18n
@@ -109,8 +109,8 @@
 </template>
 
 <script>
-  import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
+  import useServiceManager from '@/composables/serviceManager.js';
   import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
@@ -121,8 +121,6 @@
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [klaroMixin],
 
     props: {
       embedCode: {
@@ -141,13 +139,33 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const {
+        allServiceSelectionsStored,
+        apply,
+        enable,
+        enabled,
+        initSelections,
+        isEnabled,
+        select,
+        selectAll
+      } = useServiceManager({ pick: ['thirdPartyContent'] });
+
+      return {
+        allServiceSelectionsStored,
+        apply,
+        enable,
+        enabled,
+        initSelections,
+        isEnabled,
+        scrollToSelector,
+        select,
+        selectAll
+      };
     },
 
     data() {
       return {
         cookieModalId: 'embed-cookie-modal',
-        hidePurposes: ['essential', 'usage'],
         iframe: {},
         // TODO: set to false on feature toggle clean up
         opened: !this.$features.embeddedMediaNotification,
@@ -179,21 +197,20 @@
     },
 
     watch: {
-      cookieConsentRequired(newVal) {
-        if (!newVal) {
-          this.checkConsentAndOpenEmbed();
-        }
-      },
-      // klaroManager is not available in mounted so watch it to be ready instead
-      klaroManager(newVal) {
-        if (newVal) {
-          this.checkConsentAndOpenEmbed();
+      enabled: {
+        deep: true,
+        handler() {
+          this.openIfEnabled();
         }
       }
     },
 
     created() {
       this.parseEmbedCode();
+    },
+
+    mounted() {
+      this.openIfEnabled();
     },
 
     methods: {
@@ -224,47 +241,27 @@
       },
 
       openCookieModal() {
-        if (this.cookieConsentRequired) {
-          this.openMainCookieModalAndScrollToThirdPartyContent();
-        } else {
+        this.select(this.provider.name);
+        if (this.allServiceSelectionsStored) {
           this.renderCookieModal = true;
           this.$bvModal.show(this.cookieModalId);
+        } else {
+          this.openMainCookieModalAndScrollToThirdPartyContent();
         }
       },
 
-      checkConsentAndOpenEmbed() {
-        const consents = this.klaroManager?.loadConsents();
-        const providerHasConsent = !!consents?.[this.provider?.name];
-
-        if (providerHasConsent) {
-          this.opened = true;
-        }
+      openIfEnabled() {
+        this.opened = this.isEnabled(this.provider?.name);
       },
 
       consentAllEmbeddedContent() {
-        if (this.cookieConsentRequired) {
-          this.klaroManager.changeAll(true);
-        } else {
-          const allThirdPartyContentServices = this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
-          allThirdPartyContentServices?.forEach(service => this.klaroManager?.updateConsent(service.name, true));
-        }
-
-        this.openModalOrSaveConsents();
+        this.selectAll();
+        this.apply();
       },
 
       consentThisProvider() {
-        this.klaroManager.updateConsent(this.provider.name, true);
-
-        this.openModalOrSaveConsents();
-      },
-
-      openModalOrSaveConsents() {
-        if (this.cookieConsentRequired) {
-          this.openMainCookieModalAndScrollToThirdPartyContent();
-        } else {
-          this.klaroManager?.saveAndApplyConsents('save');
-          this.checkConsentAndOpenEmbed();
-        }
+        this.select(this.provider.name);
+        this.apply();
       },
 
       openMainCookieModalAndScrollToThirdPartyContent() {
@@ -273,7 +270,7 @@
         this.$bvModal.show('cookie-modal');
       },
 
-      async listenToModalTransitionendAndScrollToSection(event, modalId) {
+      listenToModalTransitionendAndScrollToSection(event, modalId) {
         if (modalId === 'cookie-modal') {
           const modalContainer = event.target;
           const sectionId = '#consentcheckbox-section-thirdPartyContent';

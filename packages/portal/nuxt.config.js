@@ -297,7 +297,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/features',
     '~/plugins/vue-router-query',
+    '~/plugins/service-manager.client',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
     '~/plugins/axios-cache-interceptor.client',
@@ -305,7 +307,6 @@ export default {
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/features',
     '~/plugins/jsdom-domparser.server'
   ],
 
