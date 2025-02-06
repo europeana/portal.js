@@ -82,7 +82,7 @@
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
   import ItemDebiasField from './ItemDebiasField';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { truncate } from '@europeana/utils';
+  import truncate from '@/utils/text/truncate.js';
 
   export default {
     name: 'ItemSummaryInfo',

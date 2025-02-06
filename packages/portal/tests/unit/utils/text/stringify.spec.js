@@ -1,6 +1,6 @@
-import stringify from '@/text/stringify.js';
+import stringify from '@/utils/text/stringify.js';
 
-describe('@europeana/utils/text/stringify.js', () => {
+describe('@/utils/text/stringify.js', () => {
   describe('stringify', () => {
     describe('when field is not a literal', () => {
       it('returns a literal value', () => {

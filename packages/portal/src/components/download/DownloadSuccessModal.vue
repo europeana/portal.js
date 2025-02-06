@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { stringify } from '@europeana/utils';
+  import stringify from '@/utils/text/stringify.js';
   import ShareSnippet from '@/components/share/ShareSnippet';
 
   export default {
