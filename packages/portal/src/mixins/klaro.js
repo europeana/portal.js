@@ -60,16 +60,6 @@ export default {
     },
 
     klaroConfig() {
-      const klaroServices = services
-        .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
-        .map((service) => ({
-          ...service,
-          // TODO: remove translation data, we can access translations directly in the custom modal
-          translations: {
-            ...this.$te(`klaro.services.${service.name}`) && { [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`) }
-          }
-        }));
-
       return {
         acceptAll: true,
         callback: this.klaroServiceConsentCallback,
@@ -78,12 +68,9 @@ export default {
         htmlTexts: true,
         lang: this.$i18n.locale,
         mustConsent: false,
-        services: klaroServices,
+        services: services.filter((service) => !this.klaroServices || this.klaroServices.includes(service.name)),
         storageMethod: 'cookie',
-        testing: false,
-        translations: {
-          [this.$i18n.locale]: this.$t('klaro.main')
-        }
+        testing: false
       };
     }
   },
