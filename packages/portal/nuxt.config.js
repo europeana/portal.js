@@ -13,7 +13,8 @@ import versions from './pkg-versions.js';
 import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled } from './src/features/index.js';
+import { featureNotificationExpiration } from './src/features/notifications.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -42,7 +43,6 @@ const redisConfig = () => {
 const postgresConfig = () => {
   // see https://node-postgres.com/apis/pool
   const postgresOptions = {
-    enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
     connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
     idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
@@ -70,8 +70,11 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      featureNotification: {
+        expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
+        name: process.env.APP_FEATURE_NOTIFICATION
+      },
       feedback: {
         cors: {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
@@ -138,6 +141,7 @@ export default {
       siteId: process.env.MATOMO_SITE_ID,
       loadWait: {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+        name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
     },
@@ -296,12 +300,13 @@ export default {
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
+    '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto.client',
-    '~/plugins/features'
+    '~/plugins/features',
+    '~/plugins/jsdom-domparser.server'
   ],
 
   buildModules: [
@@ -443,6 +448,12 @@ export default {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        '@babel/plugin-transform-logical-assignment-operators'
+      ]
+    },
+
     // Do not enable extractCSS as it is unreliable.
     // See: https://github.com/nuxt/nuxt.js/issues/4219
     extractCSS: false,
@@ -467,13 +478,44 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    // same with some of our custom packages
+    // Pure ESM needs to be transpiled to be used by Vue2
     transpile: [
-      'dom7',
       '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
+      'axios-cache-interceptor',
+      'color-parse',
+      'color-rgba',
+      'color-space',
+      'dom7',
+      'ol/Collection.js',
+      'ol/color.js',
+      'ol/control/Attribution.js',
+      'ol/control/Control.js',
+      'ol/extent.js',
+      'ol/events.js',
+      'ol/format/IIIFInfo.js',
+      'ol/geom/LineString.js',
+      'ol/interaction/DragBox.js',
+      'ol/layer/Image.js',
+      'ol/layer/Layer.js',
+      'ol/layer/Tile.js',
+      'ol/Map.js',
+      'ol/proj.js',
+      'ol/proj/epsg3857.js',
+      'ol/render/canvas/ZIndexContext.js',
+      'ol/render/Feature.js',
+      'ol/reproj/DataTile.js',
+      'ol/reproj/Tile.js',
+      'ol/source/IIIF.js',
+      'ol/source/ImageStatic.js',
+      'ol/source/Source.js',
+      'ol/source/static.js',
+      'ol/source/Vector.js',
+      'ol/structs/LRUCache.js',
+      'ol/style/Style.js',
+      'ol/style/RegularShape.js',
+      'ol/View.js',
       'ssr-window',
       'swiper',
       'vue-router-query'

@@ -31,64 +31,53 @@
           :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
         />
       </client-only>
-      <b-breadcrumb
-        v-if="breadcrumbs"
-        :items="breadcrumbs"
-        class="mb-5"
-      />
       <nuxt
         id="main"
       />
     </main>
-    <client-only
-      v-if="newFeatureNotificationEnabled"
-    >
+    <client-only>
       <NewFeatureNotification
-        :feature="featureNotification.name"
+        v-if="featureNotification"
+        :name="featureNotification.name"
         :url="featureNotification.url"
         data-qa="new feature notification"
-      >
-        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
-      </NewFeatureNotification>
-    </client-only>
-    <client-only>
+      />
       <PageFooter />
       <DebugApiRequests />
     </client-only>
     <b-toaster
-      name="b-toaster-bottom-left-dynamic"
-      class="b-toaster-bottom-left-dynamic"
-      :style="{'--bottom': toastBottomOffset }"
+      name="b-toaster-bottom-left"
+      class="b-toaster-bottom-left"
     />
     <ErrorModal />
     <client-only>
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification"
+      />
       <PageCookieConsent
-        v-if="cookieConsentRequired"
+        v-else
       />
     </client-only>
   </div>
 </template>
 
 <script>
-  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
-  import hotjarMixin from '@/mixins/hotjar.js';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
-  import featureNotifications from '@/features/notifications';
+  import { activeFeatureNotification } from '@/features/notifications';
 
   export default {
     name: 'DefaultLayout',
 
     components: {
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
-      BBreadcrumb,
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('../components/page/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
@@ -98,19 +87,13 @@
 
     mixins: [
       canonicalUrlMixin,
-      hotjarMixin,
-      klaroMixin,
       makeToastMixin
     ],
 
     data() {
       return {
-        dateNow: Date.now(),
         enableAnnouncer: true,
-        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
-        featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
-        hotjarId: this.$config?.hotjar?.id,
-        hotjarSv: this.$config?.hotjar?.sv,
+        featureNotification: activeFeatureNotification(this.$nuxt?.context),
         linkGroups: {},
         notificationBanner: this.$config?.app?.notificationBanner
       };
@@ -126,13 +109,12 @@
         },
         link: [
           { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
+          { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
           ...i18nHead.link
-        ],
-        script: [
-          this.klaroHeadScript
         ],
         meta: [
           ...i18nHead.meta,
@@ -141,18 +123,6 @@
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
         ]
       };
-    },
-
-    computed: {
-      breadcrumbs() {
-        return this.$store.state.breadcrumb.data;
-      },
-
-      newFeatureNotificationEnabled() {
-        return !!this.featureNotification &&
-          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
-          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
-      }
     },
 
     watch: {

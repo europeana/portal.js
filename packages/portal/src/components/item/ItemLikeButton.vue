@@ -7,7 +7,7 @@
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
-      :aria-label="$t('actions.like')"
+      :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
       :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import hideTooltips from '@/mixins/hideTooltips';
   import keycloak from '@/mixins/keycloak';
   import logEventMixin from '@/mixins/logEvent';
   import makeToastMixin from '@/mixins/makeToast';
@@ -35,6 +36,7 @@
     name: 'ItemLikeButton',
 
     mixins: [
+      hideTooltips,
       keycloak,
       logEventMixin,
       makeToastMixin
@@ -98,7 +100,7 @@
         } else {
           this.keycloakLogin();
         }
-        this.$root.$emit('bv::hide::tooltip');
+        this.hideTooltips();
       },
       async like() {
         if (this.likesId === null) {

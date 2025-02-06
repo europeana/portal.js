@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kurirane zbirke",
     "editProfile": "Uredi profil",
-    "likes": "Sviđanja",
+    "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
@@ -17,10 +17,10 @@ export default {
         "public": "Još niste stvorili javne galerije",
         "published": "Još niste objavili galerije"
       },
-      "noLikedItems": "Niste još ni za jednu predmeti označili da vam se sviđa"
+      "noLikedItems": "Niste još ni za jedan predmet lajkali"
     },
     "privateCollections": "Privatne galerije",
-    "profile": "Moja sviđanja i galerije",
+    "profile": "Moji lajkovi i galerije",
     "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
@@ -47,18 +47,19 @@ export default {
     "depublish": "Depublish",
     "download": "Preuzmi",
     "edit": "Uredi",
-    "explore": "Istražiti",
     "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
     "learnMore": "Uči više",
-    "like": "Sviđanje",
+    "like": "Lajk",
     "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
+    "nextPage": "Sljedeća stranica",
     "pin": "Klin",
     "preview": "Pregled",
     "previous": "Prethodni",
+    "previousPage": "Prethodna stranica",
     "publish": "Objaviti",
     "readMore": "Pročitaj više",
     "reject": "Odbiti",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Predano za objavu",
     "transcribe": "Prepisati",
     "transcribeNow": "Prepišite sada",
+    "unlike": "Ukloni lajk",
     "viewAt": "Pogledajte na {link}",
-    "viewDocument": "Pogledajte dokument"
+    "viewDocument": "Pogledajte dokument",
+    "vote": "Glasaj"
   },
   "attribution": {
     "country": "Država:",
@@ -96,12 +99,7 @@ export default {
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
-    "topic": "Sadržaj",
-    "trending": "Trendovski predmeti"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Post na blogu | Postovi na blogu"
+    "topic": "Sadržaj"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Uzorak u boji",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O zbirkama Europeana",
-      "forDevelopers": "Za programere",
-      "help": "Pomoć",
-      "meetUs": "Upoznajte tim",
-      "MoreInfoLabel": "Više informacija",
-      "provide": "Postanite davatelj podataka",
-      "subscribe": "Pretplatite se na naš bilten",
-      "terms": "Uvjeti korištenja i pravila o privatnosti"
-    },
-    "headerNavigation": {
-      "Collections": "Zbirke",
-      "explore": "Istraži",
-      "teachers": "Nastavnici"
-    }
-  },
   "contentYouMightLike": "Sadržaj koji bi vam se mogao svidjeti",
   "curatedAutomatically": "Automatski kustos Europeana",
   "dateFilter": {
@@ -194,6 +175,16 @@ export default {
     "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "embedNotification": {
+    "ifNotAll": "Ako ne želite učitati sve ugrađene medije, možete {0}.",
+    "loadAllEmbeddedContent": "Učitaj sav ugrađeni sadržaj",
+    "loadOnlyThis": "učitajte medije samo od ovog davatelja usluga",
+    "message": "Imajte na umu da ova stranica sadrži medijski sadržaj ugrađen od {provider}. Gledanje ovog medija podliježe njihovim uvjetima i izjavama o privatnosti. Više informacija o tome kako se vaši podaci koriste potražite u njihovim izjavama o privatnosti.",
+    "messageUnkownService": "Nažalost, ovaj sadržaj nije moguće prikazati.",
+    "ofThirdPartyServices": "{0} usluga sadržaja trećih strana.",
+    "viewFullList": "Pogledajte cijeli popis",
+    "viewThisExternalLink": "Pogledajte ovaj sadržaj putem vanjske poveznice"
+  },
   "entity": {
     "actions": {
       "cancel": "Otkazati",
@@ -244,6 +235,10 @@ export default {
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
     },
+    "noFeatureIdeas": {
+      "description": "Provjerite uskoro!",
+      "title": "Trenutačno nema ideja za nove značajke."
+    },
     "pageNotFound": {
       "metaTitle": "Stranica nije pronađena",
       "title": "Stranica koju tražite ne postoji."
@@ -262,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izložba: {title}",
     "chapters": "Poglavlja",
     "credits": "Krediti",
     "currentChapter": "Trenutno poglavlje",
@@ -724,10 +720,10 @@ export default {
       "faq": "Često postavljana pitanja (FAQ)",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
-      "privacy": "Pravila o privatnosti",
-      "provide": "Postanite pružanje institucija",
+      "privacy": "Izjava o privatnosti",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
+      "supportingTechnicalPartners": "Podrška tehničkim partnerima",
       "terms": "Uvjeti i pravila"
     },
     "ourMission": "Naša misija",
@@ -749,9 +745,10 @@ export default {
       "about": "O nama",
       "collections": "Zbirke",
       "europeanaClassroom": "Za nastavnike",
+      "featureIdeas": "Ideje za značajke",
       "help": "Pomoć",
       "home": "Početna",
-      "shareYourData": "Podijelite svoje podatke",
+      "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -768,7 +765,6 @@ export default {
     "discoverEditorial": "Najnovije priče",
     "storiesCTA": "Pogledajte sve priče",
     "subHeadline": "Pretražite, spremite i podijelite, umjetnine, knjige, filmove i muziku iz mnogobrojnih kulturnih ustanova",
-    "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
     "title": "Otkrijte europsku {digital} kulturnu baštinu",
     "titleDigital": "digitalnu"
@@ -781,14 +777,21 @@ export default {
     "itemOf": "{max} od {count} predmeti",
     "recent": "Nedavne predmeti",
     "recommended": "Preporučeni predmeti",
-    "youMightLike": "Predmeti koje vam se mogu sviđati"
+    "trending": {
+      "headline": "Istražite današnje popularne predmete"
+    },
+    "youMightLike": "Predmeti koje vam se mogu lajkati"
   },
   "klaro": {
     "main": {
       "acceptAll": "Prihvatiti sve",
       "acceptSelected": "Prihvati odabrano",
       "consentModal": {
-        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte naša <a href='/rights/privacy-policy'> pravila o privatnosti </a> .",
+        "alwaysRequired": "(Uvijek obavezno)",
+        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte našu <a href='/rights/privacy-statement'> izjavu o privatnosti </a>.",
+        "privacyPolicy": "Politika privatnosti",
+        "servicesCount": "{count} usluga | {count} usluga",
+        "text": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Da biste saznali više, pročitajte naša {privacyPolicy}.",
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
@@ -798,13 +801,44 @@ export default {
       "decline": "Odbijam",
       "ok": "u redu",
       "purposes": {
+        "2D": {
+          "title": "2D mediji"
+        },
+        "3D": {
+          "title": "3D mediji"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Te su usluge ključne za pravilno funkcioniranje ove web stranice. Uključuju prikaz rezultata pretraživanja i jezične postavke, čuvaju prijavljeno stanje i osiguravaju siguran posjet. Ne možete ih onemogućiti jer web mjesto inače ne bi radilo ispravno.",
           "title": "Osnovne usluge za sigurnost i prilagodbu"
         },
+        "mediaViewing": {
+          "description": "Ove usluge učitavaju slike (2D), 3D, audio i video stavke za gledanje.",
+          "title": "Usluge pregledavanja medija"
+        },
+        "multimedia": {
+          "title": "Multimedija"
+        },
+        "other": {
+          "description": "Ove usluge učitavaju sadržaj kao što su kod, igre, karte i widgeti za pripovijedanje.",
+          "title": "Ostale usluge ugrađivanja"
+        },
+        "socialMedia": {
+          "description": "Ove usluge učitavaju sadržaj s platformi društvenih medija.",
+          "title": "Usluge ugrađivanja društvenih medija"
+        },
+        "thirdPartyContent": {
+          "description": "Ove usluge učitavaju sadržaj koji hostiraju treće strane. Njegova uporaba podliježe uvjetima, odredbama i izjavi o privatnosti trećih strana.",
+          "title": "Sadržaj treće strane"
+        },
         "usage": {
           "description": "Te usluge prikupljaju informacije kako bi nam pomogle da bolje razumijemo kako se web stranica koristi i gdje su bolne točke, osnažujući nas da donosimo informirane odluke kako bismo poboljšali vaše iskustvo.",
           "title": "Usluge za bilježenje upotrebe web mjesta i povratnih informacija"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
         "title": "Prebacivanje pogrešaka"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
         "title": "Kod jezika"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
         "title": "Jira servisni stol"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Prikazuje obavijest kada nove značajke postanu dostupne.",
         "title": "Obavijest o novoj značajki"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
+        "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nepoznati pružatelj usluga",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1069,38 @@ export default {
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
+  "likes": {
+    "count": "{count} lajk | {count} lajkova"
+  },
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Izađi iz punog zaslona",
+      "fullscreen": "Cijeli ekran",
+      "keyboardNavigation": "Koristite +, - i tipke sa strelicama za zumiranje i pomicanje slike.",
+      "resetZoom": "Resetiraj zumiranje",
+      "rotateLeft": "Zakrenite ulijevo",
+      "rotateRight": "Zakrenite udesno",
+      "zoomIn": "Povećaj",
+      "zoomOut": "Umanji"
+    },
+    "loadFull": "Ekstra velika slika: učitajte u punoj veličini.",
+    "pages": {
+      "hide": "Sakrij stranice",
+      "show": "Prikaži stranice"
+    },
+    "sidebar": {
+      "annotations": "Bilješke",
+      "annotationsCount": "1 bilješka |{count} bilješki",
+      "hide": "Sakrij bočnu traku",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linkovi",
+      "search": "Traži",
+      "searchPlaceholder": "Unesite pojmove",
+      "show": "Prikaži bočnu traku"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano u međuspremnik",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
@@ -882,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
+      "copyAttribution": "Kopiraj atribut stavke.",
       "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
       "modalTitle": "Reci hvala"
     },
@@ -899,18 +1127,16 @@ export default {
     "automated": "Automatizirani prijevod",
     "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
-    "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
-    "other": "drugi jezici",
-    "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
-    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
-    "translateMetadata": "Prevedite metapodatke ove predmet.",
-    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
+    "stopViewingThisItemIn": "Prestanite pregledavati ovaj predmet na {0}",
+    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije.",
+    "viewingThisItemIn": "Pregledavate ovaj predmet na {0}",
+    "viewItemInAnotherLanguage": "Pogledajte ovaj predmet na drugom jeziku"
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
     "text": {
-      "trendingItems": "Otkrijte koji predmeti privlače pažnju ljudi i stječu popularnost u stvarnom vremenu. Iskoristite priliku da ostanete ispred krivulje - pogledajte što ljudi trenutno najviše gledaju, sviđaju im se, pripremaju i ponovno koriste."
+      "featureIdeas": "Istražite nadolazeće promjene koje planiramo i glasajte za one za koje biste željeli da imaju prioritet. Vaš nam doprinos pomaže da se usredotočimo na ono što vam je najvažnije."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -971,14 +1197,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiraj ugrađeni kod",
       "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
-    "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
+    "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
+    "debias": "De-bias",
+    "explanationby": "Objašnjenje pružio {0}",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
-    "IIIFViewer": "IIIF preglednik",
     "location": "Mjesto",
     "locationOnMap": "Lokacija na karti",
     "mediaPlayer": "Media player",
@@ -1038,6 +1266,7 @@ export default {
         "doesNotContain": "ne sadrži",
         "exact": "sadrži frazu"
       },
+      "newRule": "novo pravilo naprednog pretraživanja",
       "placeholder": {
         "field": "Odaberite polje",
         "modifier": "Odaberite modifikator",
@@ -1107,7 +1336,7 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovu predmet iz svojih lajkova.",
+      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
@@ -1126,12 +1355,12 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše oznake sviđanja.",
+      "itemLiked": "Predmet je spremljen u vaše lajkove.",
       "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših oznaka sviđanja.",
+      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
-        "title": "100 sviđanja"
+        "title": "100 lajkova"
       },
       "updated": "Predmet je dodan u galeriju.",
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
@@ -1173,18 +1402,31 @@ export default {
     "search": "traži"
   },
   "statuses": {
-    "liked": "Volio",
+    "liked": "Lajkano",
     "pinned": "Prikvačeno",
     "required": "Potreban"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "izložbe",
+      "stories": "Priče",
+      "viewAll": "Pogledaj sve"
+    },
     "stories": "Priča | Priče"
   },
   "storiesPage": {
     "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdova {page}"
+    "a11y": {
+      "firstSlide": "Ovo je prvi slajd",
+      "lastSlide": "Ovo je zadnji slajd",
+      "nextSlide": "Sljedeći slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdova {page}",
+      "previousSlide": "Prethodni slajd",
+      "slideLabel": "Slajd {slide} od {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pregledajte po temi",

@@ -2,7 +2,7 @@ Feature: item page
 
   Scenario: View any existing item page
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see the `item page`
     And I see the `main metadata section`
     And I see a `metadata field`
@@ -16,14 +16,9 @@ Feature: item page
     And I am on an accessible page
     And I should have a Europeana branded page title
 
-  Scenario: Multiple items displayed in swiper
-
-    When I open `/en/item/142/UEDIN_214`
-    Then I see a `awesome swiper`
-
   Scenario: Action bar
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `action bar`
     And I see a `rights statement`
     And I see a `share button`
@@ -33,7 +28,7 @@ Feature: item page
 
   Scenario: Share Modal
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     And I see a `share button`
     And I click a `share button`
     Then I see a `share modal`
@@ -70,24 +65,31 @@ Feature: item page
     Then I see `similar items`
 
   Scenario: Media player for audio
-    When I open the `"The pride of Glencoe, song" item page`
+    When I open an `item page with audio media`
     Then I see the `media player`
+
+  Scenario: Mixed media presentation
+    When I open an `item page with mixed media`
+    Then I see the `item media presentation`
+    And I am on an accessible page
 
   Scenario: IIIF Image viewer
     When I open an `item page with a IIIF Image`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: IIIF Presentation viewer
     When I open an `item page with a IIIF Presentation`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
-    And  I click the `share embed textarea`
-    Then I see a `share embed copied notice`
+    And  I click the `item snippet copy button`
+    Then I see a `item snippet copied message`
 
   Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`
@@ -113,9 +115,9 @@ Feature: item page
     Then there is no `location tab`
 
   Scenario: Seeing an item language selector
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `item language selector`
-    Then I see a `translate item login suggestion`
+    Then I see a `item language selector toggle text suggestion`
 
   @resized-browser
   Scenario: HTML embedded media

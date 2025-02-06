@@ -8,14 +8,11 @@
     :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -179,18 +176,18 @@
         default: null
       },
       /**
-       * Width of the image
+       * Hash to include in router link to item
        */
-      imageWidth: {
-        type: Number,
-        default: null
+      routeHash: {
+        type: String,
+        default: undefined
       },
       /**
-       * Height of the image
+       * Query to include in router link to item
        */
-      imageHeight: {
-        type: Number,
-        default: null
+      routeQuery: {
+        type: [Object, String],
+        default: undefined
       }
     },
 
@@ -231,7 +228,12 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+        return {
+          hash: this.routeHash,
+          name: 'item-all',
+          params: { pathMatch: this.identifier.slice(1) },
+          query: this.routeQuery
+        };
       },
 
       imageUrl() {

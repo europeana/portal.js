@@ -4,16 +4,10 @@
     class="page white-page"
     :class="$fetchState.error && 'pt-0'"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -23,13 +17,6 @@
     <template
       v-else
     >
-      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
-      <ItemLanguageSelector
-        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
-        :from-translation-error="fromTranslationError"
-        :translation-language="translationLanguage"
-        @hidden="() => showItemLanguageSelector = false"
-      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -45,16 +32,7 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
-        >
-          <template slot="item-language-selector">
-            <ItemLanguageSelector
-              v-if="translatedItemsEnabled && showItemLanguageSelector"
-              :from-translation-error="fromTranslationError"
-              :translation-language="translationLanguage"
-              @hidden="() => showItemLanguageSelector = false"
-            />
-          </template>
-        </ItemHero>
+        />
       </b-container>
       <b-container
         class="footer-margin"
@@ -96,6 +74,11 @@
               :location="locationData"
               :metadata-language="metadataLanguage"
             />
+            <ItemLanguageSelector
+              v-if="translatedItemsEnabled"
+              :from-translation-error="fromTranslationError"
+              :translation-language="translationLanguage"
+            />
           </b-col>
         </b-row>
         <client-only
@@ -136,6 +119,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
@@ -146,6 +130,9 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
+  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription'].concat(METADATA_FIELDS);
+
+  import useDeBias from '@/composables/deBias.js';
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
@@ -158,6 +145,8 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
+
+  import waitFor from '@/utils/waitFor.js';
 
   export default {
     name: 'ItemPage',
@@ -181,6 +170,21 @@
       logEventMixin
     ],
 
+    provide() {
+      return {
+        // provide the deBias terms and definitions instead of using the composable
+        // in descendent components because the latter approach would not hydrate
+        // the shared state of those refs after SSR, but provide/inject does
+        deBias: computed(() => this.deBias)
+      };
+    },
+
+    setup() {
+      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+
+      return { deBiasDefinitions, deBiasTerms, parseDeBiasAnnotations };
+    },
+
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
@@ -188,16 +192,18 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
+        deBias: { definitions: [], terms: [] },
         entities: [],
         error: null,
         fromTranslationError: null,
+        headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
         isShownAt: null,
         media: [],
         metadata: {},
+        ogImage: null,
         relatedCollections: [],
-        showItemLanguageSelector: true,
         type: null,
         useProxy: true
       };
@@ -208,8 +214,19 @@
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
-        await this.fetchMetadata();
+        await Promise.all([
+          this.fetchMetadata(),
+          this.fetchAnnotations()
+        ]);
       }
+    },
+
+    head() {
+      return {
+        link: this.headLinkPreconnect.map((href) => ({ rel: 'preconnect', href })),
+        title: this.headTitle,
+        meta: this.headMeta
+      };
     },
 
     computed: {
@@ -221,7 +238,7 @@
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
+          ogImage: this.ogImage
         };
       },
       keywords() {
@@ -333,7 +350,6 @@
 
     mounted() {
       this.fetchEntities();
-      this.fetchAnnotations();
       this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
@@ -342,11 +358,7 @@
 
     methods: {
       trackCustomDimensions() {
-        if (!this.$waitForMatomo) {
-          return;
-        }
-
-        this.$waitForMatomo()
+        waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
           .catch(() => {});
       },
@@ -384,14 +396,56 @@
 
         const item = new Item(edm);
 
+        // TODO: ideally, wouldn't store these as can be a large list if many WRs,
+        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       could we deduce that from whether iiif is in use or not, and if
+        //       so, whether a europeana manifest?
+        //       - not iiif: proxy
+        //       - iiif, europeana: proxy
+        //       - iiif, institution: don't proxy
         this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
-        this.media = item.providerAggregation.displayableWebResources;
+
+        this.ogImage = this.$apis.thumbnail.forWebResource(
+          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+        ).large;
+
+        const preconnects = [
+          this.iiifPresentationManifest,
+          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+        ].filter(Boolean);
+        for (const preconnect of preconnects) {
+          try {
+            this.headLinkPreconnect.push((new URL(preconnect)).origin);
+          } catch {
+            // URL parsing error; just won't be pre-connected
+          }
+        }
 
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
+
+        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+          // don't keep WR-level rights statement if same as item-level
+          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
+            delete wr.webResourceEdmRights;
+          }
+
+          // don't store the full web resources when using iiif as the manifest will be used,
+          // but WR-level rights statements still needed by ItemHero and not consistently
+          // obtainable from manifests coming from different sources
+          if (this.iiifPresentationManifest) {
+            for (const key in wr) {
+              if (!['about', 'webResourceEdmRights'].includes(key)) {
+                delete wr[key];
+              }
+            }
+          }
+
+          return wr;
+        });
 
         process.client && this.trackCustomDimensions();
       },
@@ -490,7 +544,7 @@
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription']));
+        }, ALL_METADATA_FIELDS);
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },
@@ -549,11 +603,23 @@
       },
 
       async fetchAnnotations() {
-        this.annotations = await this.$apis.annotation.search({
-          query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(linkForContributing OR tagging)',
-          profile: 'dereference'
-        });
+        try {
+          const annotations = await this.$apis.annotation.search({
+            query: `target_record_id:"${this.identifier}"`,
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            profile: 'dereference'
+          });
+          this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
+          this.deBias = {
+            definitions: this.deBiasDefinitions,
+            terms: this.deBiasTerms
+          };
+
+          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+        } catch {
+          // don't let an Annotation API error bring the whole page down
+          this.annotations = [];
+        }
       },
 
       async fetchEntities() {

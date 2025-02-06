@@ -1,7 +1,6 @@
 import galleryPublicationServiceDesk from '@/server-middleware/api/jira-service-desk/galleries';
 
 import nock from 'nock';
-nock.disableNetConnect();
 import sinon from 'sinon';
 
 const options = {
@@ -35,11 +34,12 @@ describe('server-middleware/api/jira-service-desk/galleries', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
+  afterEach(() => {
+    sinon.resetHistory();
+    nock.cleanAll();
+  });
   afterAll(() => {
     nock.enableNetConnect();
-  });
-  afterEach(() => {
-    nock.cleanAll();
   });
 
   describe('middleware', () => {

@@ -58,6 +58,7 @@
         <b-link
           class="more-link"
           :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          :target="null"
           @click.prevent="keycloakLogin"
         >
           {{ $t('actions.login') }}
@@ -72,13 +73,12 @@
       variant="light-flat"
       data-qa="results more tooltip"
     />
-    <div
+    <output
       class="visually-hidden"
-      role="status"
       data-qa="results status message"
     >
       {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-    </div>
+    </output>
   </div>
 </template>
 

@@ -10,7 +10,6 @@ export default {
   ],
   projects: [
     '<rootDir>/packages/i18n',
-    '<rootDir>/packages/oembed',
     '<rootDir>/packages/portal',
     '<rootDir>/packages/utils',
     '<rootDir>/packages/vue-router-query',

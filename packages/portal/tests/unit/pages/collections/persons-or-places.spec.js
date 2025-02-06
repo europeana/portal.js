@@ -84,11 +84,12 @@ describe('pages/collections/persons-or-places', () => {
 
     it('scrolls to the page header element', async() => {
       const wrapper = factory();
-      wrapper.vm.$scrollTo = sinon.spy();
+      process.client = true;
+      wrapper.vm.scrollToSelector = sinon.spy();
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
     });
   });
 

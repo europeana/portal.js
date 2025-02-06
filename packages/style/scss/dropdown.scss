@@ -2,13 +2,34 @@
   .btn-light {
     background: $white;
     color: $mediumgrey;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
     text-decoration: none;
+
+    &:hover,
+    &:focus,
+    :not(:disabled):not(.disabled):active {
+      background-color: $white;
+      box-shadow: none;
+    }
+  }
+
+  &.show {
+    .btn-light.dropdown-toggle {
+      background-color: $white;
+      color: $mediumgrey;
+    }
   }
 
   .dropdown-item {
     text-decoration: none;
+
+    &:hover {
+      background-color: $bodygrey;
+    }
+
+    &:active,
+    &.active {
+      background-color: $blue;
+    }
   }
 
   .dropdown-header {

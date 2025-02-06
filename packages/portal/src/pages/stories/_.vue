@@ -3,16 +3,10 @@
     data-qa="story page"
     class="text-page white-page "
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="pt-5 flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -37,6 +31,7 @@
         :body="post.hasPartCollection"
         :identifier="post.identifier"
         :hero-image="heroImage"
+        :media-url="pageMetaOgImage"
         :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
         :tags="post.categoriesCollection && post.categoriesCollection.items"
         :themes="post.genre"
@@ -100,9 +95,10 @@
       pageMeta() {
         return {
           title: this.post.name,
-          description: this.post.headline || this.post.description,
+          subtitle: this.post.headline,
+          description: this.post.description,
           ogType: 'article',
-          ogImage: this.post.primaryImageOfPage?.image?.url,
+          ogImage: this.post.primaryImageOfPage?.image,
           ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
         };
       },

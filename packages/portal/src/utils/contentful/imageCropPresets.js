@@ -9,3 +9,11 @@ export const FULL_VIEWPORT_PRESETS = {
   '4k': { w: 3020, h: 1440, fit: 'fill' },
   '4k+': { w: 3840, h: 2160, fit: 'fill' }
 };
+
+export const FULL_VIEWPORT_PRESETS_FOCUS_FACE = Object.keys(FULL_VIEWPORT_PRESETS).reduce((memo, key) => {
+  memo[key] = {
+    ...FULL_VIEWPORT_PRESETS[key],
+    f: 'face'
+  };
+  return memo;
+}, {});

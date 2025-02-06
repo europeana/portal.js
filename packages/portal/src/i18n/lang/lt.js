@@ -47,7 +47,6 @@ export default {
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
-    "explore": "Naršyti",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
@@ -56,9 +55,11 @@ export default {
     "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
+    "nextPage": "Kitas puslapis",
     "pin": "Kaištis",
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
+    "previousPage": "Ankstesnis puslapis",
     "publish": "Publikuoti",
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
+    "unlike": "Nepatinka",
     "viewAt": "Peržiūrėkite {link}",
-    "viewDocument": "Peržiūrėti dokumentą"
+    "viewDocument": "Peržiūrėti dokumentą",
+    "vote": "Balsuoti"
   },
   "attribution": {
     "country": "Šalis:",
@@ -96,12 +99,7 @@ export default {
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
-    "topic": "Potemė",
-    "trending": "Populiarūs skaitmeniniai objektai"
-  },
-  "blog": {
-    "blog": "Tinklaraštis",
-    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai"
+    "topic": "Potemė"
   },
   "cardLabels": {
     "organisation": "Organizacija",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Spalvų pavyzdys",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Apie „Europeana“ kolekcijas",
-      "forDevelopers": "Programuotojams",
-      "help": "Pagalba",
-      "meetUs": "Susipažinkite su komanda",
-      "MoreInfoLabel": "Daugiau informacijos",
-      "provide": "Tapkite duomenų teikėju",
-      "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Naudojimo sąlygos ir privatumo politika"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcijos",
-      "explore": "Tyrinėkite",
-      "teachers": "Mokytojams"
-    }
-  },
   "contentYouMightLike": "Turinys, kuris jums gali patikti",
   "curatedAutomatically": "Automatiškai kuruoja „Europeana“.",
   "dateFilter": {
@@ -193,6 +174,16 @@ export default {
     "broughtBy": "Jums atnešė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "embedNotification": {
+    "ifNotAll": "Jei nenorite įkelti visos įterptosios medijos, galite {0}.",
+    "loadAllEmbeddedContent": "Įkelti visą įterptąjį turinį",
+    "loadOnlyThis": "įkelti mediją tik iš šio teikėjo",
+    "message": "Atkreipkite dėmesį, kad šiame puslapyje yra žiniasklaidos turinio, įterpto iš {provider}. Šios medijos peržiūrai taikomos jų sąlygos ir privatumo pareiškimai. Daugiau informacijos apie tai, kaip naudojami jūsų duomenys, rasite jų privatumo pareiškimuose.",
+    "messageUnkownService": "Deja, šio turinio rodyti negalima.",
+    "ofThirdPartyServices": "{0} trečiųjų šalių turinio paslaugas.",
+    "viewFullList": "Peržiūrėti visą sąrašą",
+    "viewThisExternalLink": "Peržiūrėti šį turinį per išorinę nuorodą"
+  },
   "entity": {
     "actions": {
       "cancel": "Atšaukti",
@@ -243,6 +234,10 @@ export default {
       "metaTitle": "Skaitmeninis objektas nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio skaitmeninis objektas."
     },
+    "noFeatureIdeas": {
+      "description": "Netrukus vėl patikrinkite!",
+      "title": "Šiuo metu nėra naujų funkcijų idėjų."
+    },
     "pageNotFound": {
       "metaTitle": "Puslapis nerastas",
       "title": "Puslapis, kurio ieškote, neegzistuoja."
@@ -261,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Paroda: {title}",
     "chapters": "Skyriai",
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
@@ -723,10 +719,10 @@ export default {
       "faq": "Dažnai užduodami klausimai (FAQ)",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
-      "privacy": "Privatumo politika",
-      "provide": "Tapkite teikėjas",
+      "privacy": "Privatumo pareiškimas",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
+      "supportingTechnicalPartners": "Techninių partnerių palaikymas",
       "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",
@@ -748,9 +744,10 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
+      "featureIdeas": "Funkcijų idėjos",
       "help": "Pagalba",
       "home": "Pradžia",
-      "shareYourData": "Dalinkitės savo duomenimis",
+      "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -767,7 +764,6 @@ export default {
     "discoverEditorial": "Naujausios istorijos",
     "storiesCTA": "Žiūrėti visas istorijas",
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
-    "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
     "title": "Atraskite {digital} Europos kultūros paveldą",
     "titleDigital": "skaitmenintą"
@@ -780,6 +776,9 @@ export default {
     "itemOf": "{max} iš {count} skaitmeniniai objektai",
     "recent": "Naujausi skaitmeniniai objektai",
     "recommended": "Rekomenduojami skaitmeniniai objektai",
+    "trending": {
+      "headline": "Atraskite šiandienos populiariausius skaitmeninius objektus"
+    },
     "youMightLike": "Skaitmeniniai objektai, kurios jums gali patikti"
   },
   "klaro": {
@@ -787,7 +786,11 @@ export default {
       "acceptAll": "Priimti visus",
       "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
-        "description": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-policy'> privatumo politiką </a>.",
+        "alwaysRequired": "(Visada būtina)",
+        "description": "Čia galite peržiūrėti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-statement'>privatumo pareiškimą</a>.",
+        "privacyPolicy": "Privatumo politika",
+        "servicesCount": "{count} paslauga | {count} paslaugos",
+        "text": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų {privacyPolicy}.",
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
@@ -797,13 +800,44 @@ export default {
       "decline": "Aš atsisakau",
       "ok": "Gerai",
       "purposes": {
+        "2D": {
+          "title": "2D medija"
+        },
+        "3D": {
+          "title": "3D medija"
+        },
+        "audio": {
+          "title": "Garso"
+        },
         "essential": {
           "description": "Šios paslaugos yra būtinos tinkamam šios svetainės veikimui. Jie apima paieškos rezultatų rodinį ir kalbos nuostatas, išsaugo prisijungusį būseną ir saugo jūsų apsilankymą. Negalite jų išjungti, nes svetainė kitaip neveiktų tinkamai.",
           "title": "Esminės saugos ir tinkinimo paslaugos"
         },
+        "mediaViewing": {
+          "description": "Šios paslaugos įkelia vaizdus (2D) , 3D, garso ir vaizdo elementus, kad juos būtų galima peržiūrėti.",
+          "title": "Žiniasklaidos peržiūros paslaugos"
+        },
+        "multimedia": {
+          "title": "Multimedija"
+        },
+        "other": {
+          "description": "Šios paslaugos įkelia turinį, pavyzdžiui, kodą, žaidimus, žemėlapius ir pasakojimo valdiklius.",
+          "title": "Kitos įterpimo paslaugos"
+        },
+        "socialMedia": {
+          "description": "Šios paslaugos įkelia turinį iš socialinės žiniasklaidos platformų.",
+          "title": "Socialinės žiniasklaidos įterpimo paslaugos"
+        },
+        "thirdPartyContent": {
+          "description": "Šios paslaugos įkelia trečiųjų šalių priglobtą turinį. Jos naudojimui taikomos šių trečiųjų šalių sąlygos ir privatumo pareiškimas.",
+          "title": "Trečiųjų šalių turinys"
+        },
         "usage": {
           "description": "Šios tarnybos renka informaciją, kad galėtume geriau suprasti, kaip svetainė naudojama ir kur yra skausmo taškai, suteikdami mums galimybę rinktis pagrįstai, kad pagerintume jūsų patirtį.",
           "title": "Paslaugos, skirtos svetainės naudojimui ir atsiliepimams fiksuoti"
+        },
+        "video": {
+          "title": "Vaizdo įrašas"
         }
       },
       "service": {
@@ -814,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Padeda derinti API užklausas",
         "title": "Derinti perjungti"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Suaktyvina apklausos valdiklį, suteikdamas galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Prisimena jūsų pageidaujamą sąsajos kalbą, kad galėtumėte ją pasiekti ateityje.",
         "title": "Kalbos kodas"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Suaktyvina atsiliepimų valdiklį, suteikiantį galimybę susisiekti su mumis.",
         "title": "Jiros aptarnavimo stalas"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
         "title": "Pranešimas apie naują funkciją"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
+        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nežinomas teikėjas",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -870,8 +1067,38 @@ export default {
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
+  "likes": {
+    "count": "{count} patinka | {count} patinka"
+  },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Išeiti iš viso ekrano režimo",
+      "fullscreen": "Visas ekranas",
+      "keyboardNavigation": "Naudokite +, - ir rodyklių klavišus, kad priartintumėte ir atitolintumėte, taip pat judėtumėte aplink vaizdą.",
+      "resetZoom": "Iš naujo nustatyti mastelį",
+      "rotateLeft": "Pasukti į kairę",
+      "rotateRight": "Pasukti į dešinę",
+      "zoomIn": "Priartinti",
+      "zoomOut": "Nutolinti"
+    },
+    "loadFull": "Ypač didelis vaizdas: įkelti viso dydžio.",
+    "pages": {
+      "hide": "Slėpti puslapius",
+      "show": "Rodyti puslapius"
+    },
+    "sidebar": {
+      "annotations": "Anotacijos",
+      "annotationsCount": "1 Anotacija |{count} Anotacijos",
+      "hide": "Slėpti šoninę juostą",
+      "IIIFManifest": "IIIF manifestas",
+      "links": "Nuorodos",
+      "search": "Paieška",
+      "searchPlaceholder": "Įveskite terminus",
+      "show": "Rodyti šoninę juostą"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -880,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
+      "copyAttribution": "Kopijuoti skaitmeninio objekto priskyrimą.",
       "modalIntro": "Jei šį skaitmeninį objektą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
       "modalTitle": "Pasakykite ačiū"
     },
@@ -897,18 +1125,16 @@ export default {
     "automated": "Automatinis vertimas",
     "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
-    "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
-    "other": "kitos kalbos",
-    "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
-    "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
-    "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
-    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+    "stopViewingThisItemIn": "Nustoti peržiūrėti šį skaitmeninį objektą {0}",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau.",
+    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}",
+    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba"
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
     "text": {
-      "trendingItems": "Sužinokite, kurie skaitmeniniai objektai žmonių dėmesį ir tampa populiarūs realiuoju laiku. Pasinaudokite galimybe būti priekyje – pažiūrėkite, ką žmonės šiuo metu dažniausiai žiūri, mėgsta, kuruoja ir pakartotinai naudoja."
+      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -969,14 +1195,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Nukopijuokite įterpimo kodą",
       "pin": "Prisekite šį skaitmeninį objektą prie galimų objektų."
     },
     "allMetaData": "Visi metaduomenys",
-    "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
+    "clickToCopyEmbedCode": "Spustelėkite įterpimo kodą, kad jį nukopijuotumėte",
+    "debias": "De-bias",
+    "explanationby": "Paaiškinimą pateikė {0}",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
-    "IIIFViewer": "IIIF žiūrovas",
     "location": "Vieta",
     "locationOnMap": "Vieta žemėlapyje",
     "mediaPlayer": "Medijos leistuvas",
@@ -1036,6 +1264,7 @@ export default {
         "doesNotContain": "sudėtyje nėra",
         "exact": "yra frazė"
       },
+      "newRule": "nauja išplėstinės paieškos taisyklė",
       "placeholder": {
         "field": "Pasirinkite lauką",
         "modifier": "Pasirinkite modifikatorių",
@@ -1176,13 +1405,26 @@ export default {
     "required": "Reikalingas"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Parodos",
+      "stories": "Istorijos",
+      "viewAll": "Peržiūrėti visus"
+    },
     "stories": "Istorija | Istorijos"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {
-    "paginationBulletLabel": "Skaidrių grupė {page}"
+    "a11y": {
+      "firstSlide": "Tai pirmoji skaidrė",
+      "lastSlide": "Tai paskutinė skaidrė",
+      "nextSlide": "Kita skaidrė",
+      "paginationBullet": "Skaidrė {page}",
+      "paginationBulletGroupedSlides": "Skaidrių grupė {page}",
+      "previousSlide": "Ankstesnė skaidrė",
+      "slideLabel": "Skaidrė {slide} iš {totalSlides}"
+    }
   },
   "themes": {
     "description": "Naršyti pagal temą",

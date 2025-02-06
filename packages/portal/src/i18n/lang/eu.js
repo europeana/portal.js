@@ -47,7 +47,6 @@ export default {
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
-    "explore": "Esploratu",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
@@ -56,9 +55,11 @@ export default {
     "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
+    "nextPage": "Hurrengo orrialdea",
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
+    "previousPage": "Aurreko orrialdea",
     "publish": "Argitaratu",
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
+    "unlike": "Ez gustatu",
     "viewAt": "Ikusi hemen {link}",
-    "viewDocument": "Dokumentua ikusi"
+    "viewDocument": "Dokumentua ikusi",
+    "vote": "Bozkatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -96,12 +99,7 @@ export default {
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak",
-    "trending": "Joerako elementuak"
-  },
-  "blog": {
-    "blog": "Bloga",
-    "posts": "Blogeko mezua | Blogeko argitalpenak"
+    "topic": "Gaiak"
   },
   "cardLabels": {
     "organisation": "Antolaketa",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Kolore swatch",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Europeana bildumei buruz",
-      "forDevelopers": "Garatzaileentzat",
-      "help": "Laguntza",
-      "meetUs": "Taldea ezagutu",
-      "MoreInfoLabel": "Informazio gehiago",
-      "provide": "Datu hornitzaile bihurtu",
-      "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Erabilera baldintzak eta pribatutasun politika"
-    },
-    "headerNavigation": {
-      "Collections": "Bildumak",
-      "explore": "Arakatu",
-      "teachers": "Irakasleak"
-    }
-  },
   "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
@@ -199,6 +180,16 @@ export default {
     "homeLinkAlt": "Ondare kulturalaren egoitzarako Europako datu-espazio komuna"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
+  "embedNotification": {
+    "ifNotAll": "Ez baduzu txertatutako euskarri guztiak kargatu nahi, {0} dezakezu.",
+    "loadAllEmbeddedContent": "Kargatu kapsulatutako eduki guztia",
+    "loadOnlyThis": "kargatu multimedia hornitzaile honetatik soilik",
+    "message": "Kontuan izan orrialde honek {provider} -en txertatutako multimedia-edukia duela. Komunikabide hau ikustea haien baldintzen eta pribatutasun-adierazpenen menpe dago. Mesedez, ikusi haien pribatutasun-adierazpenak zure datuak nola erabiltzen diren jakiteko.",
+    "messageUnkownService": "Zoritxarrez, ezin da eduki hau erakutsi.",
+    "ofThirdPartyServices": "{0} hirugarrenen eduki-zerbitzuena.",
+    "viewFullList": "Ikusi zerrenda osoa",
+    "viewThisExternalLink": "Ikusi eduki hau kanpoko esteka baten bidez"
+  },
   "entity": {
     "actions": {
       "cancel": "Utzi",
@@ -249,6 +240,10 @@ export default {
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
     },
+    "noFeatureIdeas": {
+      "description": "Begiratu berriro laster!",
+      "title": "Ez dago ideia berririk une honetan."
+    },
     "pageNotFound": {
       "metaTitle": "Ez da orria aurkitu",
       "title": "Bilatzen ari zaren orria ez da existitzen."
@@ -267,6 +262,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Erakusketa: {title}",
     "chapters": "Kapituluak",
     "credits": "Kredituak",
     "currentChapter": "Oraingo kapitulua",
@@ -729,10 +725,10 @@ export default {
       "faq": "Maiz Egindako Galderak (FAQ)",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
-      "privacy": "Pribatutasun politika",
-      "provide": "Bihurtu erakunde hornitzaile bat",
+      "privacy": "Pribatutasun-adierazpena",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
+      "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
       "terms": "Baldintzak eta politikak"
     },
     "ourMission": "Gure eginkizuna",
@@ -754,9 +750,10 @@ export default {
       "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
+      "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
-      "shareYourData": "Zure datuak partekatu",
+      "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -773,7 +770,6 @@ export default {
     "discoverEditorial": "Azken istorioak",
     "storiesCTA": "Ikusi istorio guztiak",
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
-    "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
     "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
@@ -786,6 +782,9 @@ export default {
     "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
+    "trending": {
+      "headline": "Arakatu gaurko elementu ezagunak"
+    },
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "klaro": {
@@ -793,7 +792,11 @@ export default {
       "acceptAll": "Onartu guztiak",
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
-        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-policy'> pribatutasun-politika </a> .",
+        "alwaysRequired": "(Beti beharrezkoa)",
+        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-statement'> pribatutasun-adierazpena </a>.",
+        "privacyPolicy": "Pribatutasun politika",
+        "servicesCount": "{count} zerbitzua | {count} zerbitzu",
+        "text": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure {privacyPolicy}.",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
@@ -803,13 +806,44 @@ export default {
       "decline": "Gaitzetsi egiten dut",
       "ok": "ados",
       "purposes": {
+        "2D": {
+          "title": "2D euskarria"
+        },
+        "3D": {
+          "title": "3D euskarriak"
+        },
+        "audio": {
+          "title": "Audioa"
+        },
         "essential": {
           "description": "Zerbitzu hauek funtsezkoak dira webgune honen funtzionamendu egokia izateko. Bilaketaren emaitzen ikuspegia eta hizkuntza hobespenak biltzen dituzte, saioa hasita gordetzen dute eta zure bisita seguru mantentzen dute. Ezin dituzu desgaitu, bestela webguneak ez lukeelako ondo funtzionatuko.",
           "title": "Segurtasunerako eta pertsonalizaziorako ezinbesteko zerbitzuak"
         },
+        "mediaViewing": {
+          "description": "Zerbitzu hauek irudiak (2D), 3D, audio eta bideo elementuak kargatzen dituzte ikusteko.",
+          "title": "Bitartekoak bistaratzeko zerbitzuak"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Zerbitzu hauek edukia kargatzen dute, hala nola kodea, jokoak, mapak eta istorioak kontatzeko widgetak.",
+          "title": "Kapsulatzeko beste zerbitzu batzuk"
+        },
+        "socialMedia": {
+          "description": "Zerbitzu hauek sare sozialetako plataformetako edukia kargatzen dute.",
+          "title": "Sare sozialak txertatzeko zerbitzuak"
+        },
+        "thirdPartyContent": {
+          "description": "Zerbitzu hauek hirugarrenek ostatatutako edukia kargatzen dute. Bere erabilera hirugarrenen baldintza, baldintza eta pribatutasun-adierazpenen menpe dago.",
+          "title": "Hirugarrenen edukia"
+        },
         "usage": {
           "description": "Zerbitzu hauek informazioa biltzen dute webgunea nola erabiltzen den eta non dauden arazo puntuak hobeto ulertzen laguntzeko, zure esperientzia hobetzeko aukera informatuak egiteko aukera ematen digute.",
           "title": "Webgunearen erabilera eta iritziak jasotzeko zerbitzuak"
+        },
+        "video": {
+          "title": "Bideoa"
         }
       },
       "service": {
@@ -820,37 +854,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
         "title": "Hizkuntza kodea"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
         "title": "Jira zerbitzuko mahaia"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
         "title": "Ezaugarri berrien jakinarazpena"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "hornitzaile ezezaguna",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -877,8 +1074,38 @@ export default {
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
   },
+  "likes": {
+    "count": "{count} gustoko | {count} gustokoak"
+  },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Irten pantaila osotik",
+      "fullscreen": "Pantaila osoa",
+      "keyboardNavigation": "Erabili +, - eta gezi-teklak irudia handitzeko eta mugitzeko.",
+      "resetZoom": "Berrezarri zooma",
+      "rotateLeft": "Biratu ezkerrera",
+      "rotateRight": "Biratu eskuinera",
+      "zoomIn": "Handitu",
+      "zoomOut": "Urrundu"
+    },
+    "loadFull": "Aparteko irudi handia: tamaina osoan kargatzea.",
+    "pages": {
+      "hide": "Ezkutatu orriak",
+      "show": "Erakutsi orrialdeak"
+    },
+    "sidebar": {
+      "annotations": "Oharpenak",
+      "annotationsCount": "1 Oharpena |{count} Oharpenak",
+      "hide": "Ezkutatu alboko barra",
+      "IIIFManifest": "IIIF Manifestua",
+      "links": "Loturak",
+      "search": "Bilatu",
+      "searchPlaceholder": "Sartu terminoak",
+      "show": "Erakutsi alboko barra"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
@@ -887,6 +1114,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Egin klik atribuzioan kopiatzeko",
+      "copyAttribution": "Kopiatu elementuaren atribuzioa",
       "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
       "modalTitle": "Eskerrik asko"
     },
@@ -904,18 +1132,16 @@ export default {
     "automated": "Itzulpen automatizatua",
     "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
-    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
-    "other": "beste hizkuntza batzuk",
-    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
-    "translateLanguage": "{0} -n ikusi nahi duzu?",
-    "translateMetadata": "Itzuli elementu honen metadatuak.",
-    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+    "stopViewingThisItemIn": "Utzi elementu hau {0} n ikusteari",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago.",
+    "viewingThisItemIn": "Ikusi elementu hau {0}",
+    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean"
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
     "text": {
-      "trendingItems": "Ezagutu zein elementuk erakartzen duten jendearen arreta eta lortu ospea denbora errealean. Aprobetxatu kurbaren aurretik egoteko aukera. Ikusi jendeak zer ikusten duen, gustatzen, kudeatzen eta berrerabiltzen duena une honetan."
+      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -976,14 +1202,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiatu kapsulatutako kodea",
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
     "allMetaData": "Metadatu guztiak",
-    "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
+    "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
+    "debias": "De-bias",
+    "explanationby": "{0} -k emandako azalpena",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
-    "IIIFViewer": "IIIF ikuslea",
     "location": "Kokapena",
     "locationOnMap": "Kokapena mapan",
     "mediaPlayer": "Multimedia erreproduzitzailea",
@@ -1043,6 +1271,7 @@ export default {
         "doesNotContain": "ez dauka",
         "exact": "esaldia dauka"
       },
+      "newRule": "bilaketa aurreratu-arau berria",
       "placeholder": {
         "field": "Hautatu eremu bat",
         "modifier": "Hautatu modifikatzaile bat",
@@ -1183,13 +1412,26 @@ export default {
     "required": "Beharrezkoa"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Erakusketak",
+      "stories": "Istorioak",
+      "viewAll": "Ikusi denak"
+    },
     "stories": "Istorio | Istorioak"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
-    "paginationBulletLabel": "Diapositiva taldea {page}"
+    "a11y": {
+      "firstSlide": "Hau da lehen diapositiba",
+      "lastSlide": "Hau da azken diapositiba",
+      "nextSlide": "Hurrengo diapositiba",
+      "paginationBullet": "Diapositiba {page}",
+      "paginationBulletGroupedSlides": "Diapositiva taldea {page}",
+      "previousSlide": "Aurreko diapositiba",
+      "slideLabel": "Diapositiba {slide} {totalSlides}"
+    }
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",
