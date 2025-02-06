@@ -787,7 +787,7 @@ export default {
       "acceptSelected": "Acceptera valt",
       "consentModal": {
         "alwaysRequired": "(Krävs alltid)",
-        "description": "Här kan du se och anpassa de tjänster som vi vill använda på denna webbplats. För att lära dig mer läs vår <a href='/rights/privacy-policy'> sekretesspolicy </a>.",
+        "description": "Här kan du se och anpassa de tjänster som vi vill använda på den här webbplatsen. För att få mer information, vänligen läs vår <a href='/rights/privacy-statement'>integritetspolicy</a>.",
         "privacyPolicy": "Integritetspolicy",
         "servicesCount": "{count} tjänst | {count} tjänster",
         "text": "Här kan du se och anpassa de tjänster som vi vill använda på denna webbplats. Läs vår {privacyPolicy} om du vill veta mer.",
@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicka på attributionen för att kopiera den",
+      "copyAttribution": "Kopiera objektets attribution.",
       "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
       "modalTitle": "Säg tack"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiera inbäddningskod",
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
     "allMetaData": "Alla metadata",
+    "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
     "debias": "De-bias",
     "explanationby": "Förklaring tillhandahållen av {0}",
     "extendedInformation": "Utökad information",

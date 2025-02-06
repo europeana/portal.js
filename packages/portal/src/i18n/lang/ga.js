@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Cliceáil ar an sannadh chun é a chóipeáil",
+      "copyAttribution": "Cóipeáil sannadh an mhíre.",
       "modalIntro": "Má úsáideann tú an t-earra seo ar an ngréasán nó in áit eile, ná déan dearmad an sannadh seo a leanas a thaispeáint in aice leis:",
       "modalTitle": "Abair go raibh maith agat"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Cóipeáil an cód leabaithe.",
       "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
     },
     "allMetaData": "Gach meiteashonraí",
+    "clickToCopyEmbedCode": "Cliceáil ar an gcód leabaithe chun é a chóipeáil.",
     "debias": "De-bias",
     "explanationby": "Míniú curtha ar fáil ag {0}.",
     "extendedInformation": "Faisnéis leathnaithe",

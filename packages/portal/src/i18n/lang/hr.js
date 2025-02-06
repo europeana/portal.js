@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
+      "copyAttribution": "Kopiraj atribut stavke.",
       "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
       "modalTitle": "Reci hvala"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiraj ugrađeni kod",
       "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
+    "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
     "debias": "De-bias",
     "explanationby": "Objašnjenje pružio {0}",
     "extendedInformation": "Proširene informacije",

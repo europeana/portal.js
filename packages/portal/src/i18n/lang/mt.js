@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Ikklikkja fuq l-attribuzzjoni biex tikkopjaha",
+      "copyAttribution": "Ikkopja l-attribuzzjoni tal-oġġett",
       "modalIntro": "Jekk tuża dan l-oġġett fuq il-web jew x'imkien ieħor, tinsiex turi l-attribuzzjoni li ġejja ħdejha:",
       "modalTitle": "Għid grazzi"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Ikkopja l-kodiċi ta' daħħal.",
       "pin": "Pin oġġett lill-Entitajiet disponibbli"
     },
     "allMetaData": "Il-metadata kollha",
+    "clickToCopyEmbedCode": "Ikklikkja fuq il-kodiċi embed biex tikkopjah",
     "debias": "De-bias",
     "explanationby": "Spjegazzjoni pprovduta minn {0}",
     "extendedInformation": "Informazzjoni estiża",

@@ -787,7 +787,7 @@ export default {
       "acceptSelected": "Aceptar seleccionado",
       "consentModal": {
         "alwaysRequired": "(Siempre requerido)",
-        "description": "Aquí puede ver y personalizar los servicios que nos gustaría utilizar en este sitio web. Para obtener más información, lea nuestra <a href='/rights/privacy-policy'> política de privacidad </a>.",
+        "description": "Aquí puede ver y personalizar los servicios que nos gustaría utilizar en este sitio web. Para obtener más información, lea nuestra <a href='/rights/privacy-statement'>declaración de privacidad</a>.",
         "privacyPolicy": "Política de privacidad",
         "servicesCount": "{count} servicio | {count} servicios",
         "text": "Aquí puede ver y personalizar los servicios que nos gustaría utilizar en este sitio web. Para obtener más información, lea nuestra {privacyPolicy}.",
@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Haga clic en la atribución para copiarla",
+      "copyAttribution": "Copiar la atribución del item.",
       "modalIntro": "Si usa este Ítem en la web o en otro lugar, no olvide mostrar la siguiente atribución junto a él:",
       "modalTitle": "Di gracias"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copiar código de inserción.",
       "pin": "Anclar Ítem a entidades disponibles"
     },
     "allMetaData": "Todos los metadatos",
+    "clickToCopyEmbedCode": "Haga clic en el código de inserción para copiarlo",
     "debias": "De-bias",
     "explanationby": "Explicación proporcionada por {0}",
     "extendedInformation": "Información ampliada",

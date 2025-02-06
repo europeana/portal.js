@@ -787,7 +787,7 @@ export default {
       "acceptSelected": "Prijať vybrané",
       "consentModal": {
         "alwaysRequired": "(Vždy povinné)",
-        "description": "Tu si môžete pozrieť a prispôsobiť služby, ktoré by sme chceli používať na tejto webovej stránke. Ak sa chcete dozvedieť viac, prečítajte si naše <a href='/rights/privacy-policy'> zásady ochrany osobných údajov </a>.",
+        "description": "Tu si môžete zobraziť a prispôsobiť služby, ktoré chceme na tejto webovej lokalite používať. Ak sa chcete dozvedieť viac, prečítajte si naše <a href='/rights/privacy-statement'>vyhlásenie o ochrane osobných údajov</a>.",
         "privacyPolicy": "Zásady ochrany osobných údajov",
         "servicesCount": "{count} služba | {count} služieb",
         "text": "Tu si môžete pozrieť a prispôsobiť služby, ktoré by sme chceli používať na tejto webovej stránke. Ak sa chcete dozvedieť viac, prečítajte si naše {privacyPolicy}.",
@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknutím na atribút ho skopírujete",
+      "copyAttribution": "Skopírovať atribúciu objektu.",
       "modalIntro": "Ak používate túto objekt na webe alebo kdekoľvek inde, nezabudnite vedľa nej zobraziť nasledujúce priradenie:",
       "modalTitle": "Povedz ďakujem"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Skopírujte kód na vloženie",
       "pin": "Pripnúť objekt k dostupným entitám"
     },
     "allMetaData": "Všetky metadáta",
+    "clickToCopyEmbedCode": "Kliknutím na vložený kód ho skopírujete",
     "debias": "De-bias",
     "explanationby": "Vysvetlenie poskytol {0}",
     "extendedInformation": "Rozšírené informácie",

@@ -85,7 +85,7 @@ export default {
     "creator": "Ustvarjalec:",
     "date": "Datum:",
     "institution": "Ustanova:",
-    "show": "Prikaži pripis",
+    "show": "Prikaži atribucijo.",
     "title": "Naslov:"
   },
   "authored": {
@@ -787,7 +787,7 @@ export default {
       "acceptSelected": "Sprejmi izbrano",
       "consentModal": {
         "alwaysRequired": "(Vedno obvezno)",
-        "description": "Tukaj si lahko ogledate in prilagodite storitve, ki jih želimo uporabljati na tem spletnem mestu. Če želite izvedeti več, preberite naš <a href='/rights/privacy-policy'> pravilnik o zasebnosti </a>.",
+        "description": "Tukaj lahko vidite in prilagodite storitve, ki jih želimo uporabljati na tem spletnem mestu. Če želite izvedeti več, preberite našo <a href='/rights/privacy-statement'>izjavo o zasebnosti</a>.",
         "privacyPolicy": "Politika zasebnosti",
         "servicesCount": "{count} storitev | {count} storitev",
         "text": "Tukaj si lahko ogledate in prilagodite storitve, ki jih želimo uporabljati na tem spletnem mestu. Če želite izvedeti več, preberite naš {privacyPolicy}.",
@@ -1106,7 +1106,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Kliknite na pripis, da ga kopirate",
+      "clickToCopy": "Kliknite na atribucijo, da jo kopirate.",
+      "copyAttribution": "Kopiraj atribucijo enote.",
       "modalIntro": "Če uporabljate to enota na spletu ali drugje, ne pozabite prikazati naslednje atribucije zraven",
       "modalTitle": "Reci hvala"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiraj kodo za vdelavo",
       "pin": "Pripnite enota na razpoložljive entitete"
     },
     "allMetaData": "Vsi metapodatki",
+    "clickToCopyEmbedCode": "Kliknite na kodo za vgradnjo, da jo kopirate",
     "debias": "De-bias",
     "explanationby": "Pojasnilo je podal {0}.",
     "extendedInformation": "Razširjene informacije",

@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
+      "copyAttribution": "Kopier genstandens tilskrivning.",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiér indlejringskoden",
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
+    "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
     "debias": "De-bias",
     "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",

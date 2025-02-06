@@ -787,7 +787,7 @@ export default {
       "acceptSelected": "Acceptați selectat",
       "consentModal": {
         "alwaysRequired": "(Întotdeauna necesar)",
-        "description": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-policy'> politica noastră de confidențialitate </a>.",
+        "description": "Aici puteți vedea și personaliza serviciile pe care dorim să le folosim pe acest site web. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-statement'>declarația de confidențialitate</a>.",
         "privacyPolicy": "Politica de confidențialitate",
         "servicesCount": "{count} serviciu | {count} servicii",
         "text": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți {privacyPolicy}.",
@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
+      "copyAttribution": "Copiază atribuirea resursei culturale.",
       "modalIntro": "Dacă folosiți acest resursă culturală pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copiați codul de încorporare",
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
+    "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
     "debias": "De-bias",
     "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",

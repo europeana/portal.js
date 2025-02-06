@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
+      "copyAttribution": "Kopioi aineiston attribuutio.",
       "modalIntro": "Jos käytät tätä aineisto verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopioi upotuskoodi",
       "pin": "Kiinnitä aineisto käytettävissä oleviin Entiteetteihin"
     },
     "allMetaData": "Kaikki metatiedot",
+    "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
     "debias": "De-bias",
     "explanationby": "Selityksen on antanut {0}",
     "extendedInformation": "Tarkemmat tiedot",

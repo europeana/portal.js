@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
+      "copyAttribution": "Zuschreibung des Objekts kopieren.",
       "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Namensnennung daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Einbettungscode kopieren",
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
     "allMetaData": "Alle Metadaten",
+    "clickToCopyEmbedCode": "Klicken Sie auf den Einbettungscode, um ihn zu kopieren",
     "debias": "De-bias",
     "explanationby": "Erklärung bereitgestellt von {0}.",
     "extendedInformation": "Erweiterte Informationen",

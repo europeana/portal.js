@@ -1108,6 +1108,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kattintson az attribútumra a másoláshoz",
+      "copyAttribution": "Másolja a tárgy hozzárendelését.",
       "modalIntro": "Ha ezt az tárgyat használja az interneten vagy máshol, ne feledje megjeleníteni mellé a következő attribútumot:",
       "modalTitle": "Mondj köszönetet"
     },
@@ -1195,9 +1196,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Beágyazási kód másolása",
       "pin": "Az tárgy rögzítése a rendelkezésre álló entitásokhoz."
     },
     "allMetaData": "Minden metaadat",
+    "clickToCopyEmbedCode": "Kattintson a beágyazási kódra a másoláshoz",
     "debias": "De-bias",
     "explanationby": "Magyarázatot {0} biztosította.",
     "extendedInformation": "Kiterjesztett információk",
