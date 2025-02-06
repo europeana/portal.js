@@ -39,7 +39,7 @@
           <b-input-group
             role="combobox"
             :aria-owns="showSearchOptions ? searchFormOptionsId : null"
-            :aria-expanded="showSearchOptions"
+            :aria-expanded="showSearchOptions ? 'true' : 'false'"
             class="auto-suggest"
           >
             <b-form-input

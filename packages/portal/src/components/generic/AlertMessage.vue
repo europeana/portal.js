@@ -18,7 +18,7 @@
     },
     props: {
       error: {
-        type: [String, Object],
+        type: [String, Object, Error],
         default: ''
       }
     }

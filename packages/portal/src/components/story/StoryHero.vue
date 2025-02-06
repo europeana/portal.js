@@ -10,7 +10,7 @@
         :src="heroImage.image.url"
         :content-type="heroImage.image.contentType"
         :attribution="heroImage"
-        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
+        :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_FOCUS_FACE"
         :picture-source-media-resolutions="[1, 2, 3]"
         :lazy="false"
         width="auto"
@@ -53,7 +53,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryHero',
@@ -88,7 +88,7 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS,
+        FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         heroImageAltText: this.heroImage.image?.description || ''
       };
     },
@@ -137,10 +137,8 @@
   }
 
   .hero-content {
-    position: relative; // Prevents blending with the background
     padding-top: 5rem;
     margin-top: auto;
-    z-index: 2;
   }
 
   .hero-content-container {
@@ -193,19 +191,6 @@
     right: 0;
     bottom: 0;
     position: absolute;
-    z-index: 1;
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, #000, #000);
-      mix-blend-mode: saturation;
-      position: absolute;
-      z-index: 1;
-    }
 
     &::after {
       content: '';
@@ -215,7 +200,6 @@
       bottom: 0;
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
       position: absolute;
-      z-index: 1;
     }
 
     ::v-deep figure {
@@ -224,7 +208,9 @@
       width: 100%;
 
       img {
-        height: 100%
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
       }
     }
   }

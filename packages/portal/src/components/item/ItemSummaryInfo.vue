@@ -3,28 +3,26 @@
     <header
       v-if="titles.length > 0"
     >
-      <template
+      <component
+        :is="(index === 0) ? 'h1' : 'p'"
         v-for="(heading, index) in titles"
+        :key="index"
+        :lang="langAttribute(heading.code)"
+        class="mb-0"
+        :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        <h1
-          v-if="index === 0"
-          :key="index"
-          :lang="langAttribute(heading.code)"
-          class="mb-0"
-        >
-          {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
-        </h1>
-        <p
+        <ItemDebiasField
+          v-if="!!deBias.terms.dcTitle || !!deBias.terms.dctermsAlternative"
+          :name="['dcTitle', 'dctermsAlternative']"
+          :text="heading.value"
+        />
+        <template
           v-else
-          :key="index"
-          :lang="langAttribute(heading.code)"
-          class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
-          <MetadataOriginLabel :translation-source="heading.translationSource" />
-        </p>
-      </template>
+        </template>
+        <MetadataOriginLabel :translation-source="heading.translationSource" />
+      </component>
     </header>
     <div
       v-if="description"
@@ -35,26 +33,32 @@
         :key="index"
         class="description-text"
       >
-        <!-- eslint-disable vue/no-v-html -->
-        <p
-          v-if="index === 0"
-          :lang="langAttribute(description.code)"
-          class="description-text-paragraph"
-          v-html="convertNewLine(showAll ? value : truncatedDescription)"
-        />
-        <p
-          v-else-if="showAll"
-          :lang="langAttribute(description.code)"
-          class="description-text-paragraph"
-          v-html="convertNewLine(value)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
+        <template
+          v-if="index === 0 || showAll"
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          <ItemDebiasField
+            v-if="!!deBias.terms.dcDescription"
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            name="dcDescription"
+            :text="(showAll ? value : truncatedDescription)"
+            tag="p"
+          >
+            <template #default="{ text }">
+              <span v-html="convertNewLine(text)" />
+            </template>
+          </ItemDebiasField>
+          <p
+            v-else
+            :lang="langAttribute(description.code)"
+            class="description-text-paragraph"
+            v-html="convertNewLine(showAll ? value : truncatedDescription)"
+          />
+          <!-- eslint-enable vue/no-v-html -->
+        </template>
         <MetadataOriginLabel
-          v-if="index === 0"
-          :translation-source="description.translationSource"
-        />
-        <MetadataOriginLabel
-          v-else-if="translatedItemsEnabled && showAll"
+          v-if="index === 0 || (translatedItemsEnabled && showAll)"
           :translation-source="description.translationSource"
         />
         <hr
@@ -76,6 +80,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import ItemDebiasField from './ItemDebiasField';
   import langAttributeMixin from '@/mixins/langAttribute';
   import truncateMixin from '@/mixins/truncate';
 
@@ -83,6 +88,7 @@
     name: 'ItemSummaryInfo',
 
     components: {
+      ItemDebiasField,
       MetadataOriginLabel
     },
 
@@ -90,6 +96,8 @@
       langAttributeMixin,
       truncateMixin
     ],
+
+    inject: ['deBias'],
 
     props: {
       description: {
@@ -101,12 +109,14 @@
         default: () => []
       }
     },
+
     data() {
       return {
         limitCharacters: 400,
         showAll: false
       };
     },
+
     computed: {
       expandableDescription() {
         return this.description?.values &&
@@ -122,6 +132,7 @@
         return this.$features.translatedItems;
       }
     },
+
     methods: {
       /**
        * Convert new lines to <br/>

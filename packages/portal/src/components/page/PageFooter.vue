@@ -66,7 +66,7 @@
             v-if="enableLangSelector"
             sm="6"
             lg="3"
-            class="right-col pb-4  order-sm-2 order-lg-3"
+            class="right-col pb-4 order-sm-2 order-lg-3"
           >
             <h3 class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
@@ -74,6 +74,19 @@
             <LangSelector
               class="mt-1"
               data-qa="language selector"
+            />
+          </b-col>
+          <b-col
+            v-if="supportingTechnicalPartners"
+            sm="6"
+            lg="3"
+            class="pb-4 order-sm-4 order-lg-6"
+          >
+            <LinkGroup
+              :title="supportingTechnicalPartners.name"
+              :links="supportingTechnicalPartners.links"
+              variant="supporting-tech-partners"
+              data-qa="supporting technical partners"
             />
           </b-col>
         </b-row>
@@ -132,7 +145,7 @@
             links: [
               { url: '/help', text: this.$t('footer.navigation.help') },
               { url: '/rights', text: this.$t('footer.navigation.terms') },
-              { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+              { url: '/rights/privacy-statement', text: this.$t('footer.navigation.privacy') },
               { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
               { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
               { url: '/faq', text: this.$t('footer.navigation.faq') }
@@ -148,7 +161,6 @@
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
               { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
-              { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
               { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
             ]
           };
@@ -189,7 +201,14 @@
             icon: 'icon-linkedin',
             hideExternalIcon: true
           }
-        ]
+        ],
+        supportingTechnicalPartners: {
+          name: this.$t('footer.navigation.supportingTechnicalPartners'),
+          links: [
+            { url: 'https://www.contentful.com', text: 'Powered by Contentful', image: require('@europeana/style/img/supporting-technical-partners/Contentful-logo.svg'), hideExternalIcon: true },
+            { url: 'https://lokalise.com/', text: 'Lokalise', image: require('@europeana/style/img/supporting-technical-partners/Lokalise-logo.svg'), hideExternalIcon: true }
+          ]
+        }
       };
     }
   };

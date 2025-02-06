@@ -47,7 +47,6 @@ export default {
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
-    "explore": "Uurige",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
@@ -56,9 +55,11 @@ export default {
     "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
+    "nextPage": "Järgmine lehekülg",
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
+    "previousPage": "Eelmine lehekülg",
     "publish": "Avalda",
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
+    "unlike": "Ei meeldi",
     "viewAt": "Kuva saidil {link}",
-    "viewDocument": "Vaadake dokumenti"
+    "viewDocument": "Vaadake dokumenti",
+    "vote": "Hääletage"
   },
   "attribution": {
     "country": "Riik:",
@@ -96,12 +99,7 @@ export default {
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
-    "topic": "Teemad",
-    "trending": "Trendivad  üksused"
-  },
-  "blog": {
-    "blog": "Blogi",
-    "posts": "Blogi postitus | Blogi postitused"
+    "topic": "Teemad"
   },
   "cardLabels": {
     "organisation": "Organisatsioon",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Värvivalik",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Infot Europeana kohta",
-      "forDevelopers": "Arendajatele",
-      "help": "Abimaterjal",
-      "meetUs": "Tutvu meeskonnaga",
-      "MoreInfoLabel": "Rohkem infot",
-      "provide": "Hakka andmepakkujaks",
-      "subscribe": "Telli meie uudiskiri",
-      "terms": "Kasutustingimused ja privaatsuspoliitika"
-    },
-    "headerNavigation": {
-      "Collections": "Kollektsioonid",
-      "explore": "Uurige",
-      "teachers": "Õpetajad"
-    }
-  },
   "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "curatedAutomatically": "Kuraator on automaatselt Europeana",
   "dateFilter": {
@@ -194,6 +175,16 @@ export default {
     "homeLinkAlt": "Ühine Euroopa andmeruum kultuuripärandi jaoks"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "embedNotification": {
+    "ifNotAll": "Kui te ei soovi kõiki manustatud meediume laadida, saate {0}.",
+    "loadAllEmbeddedContent": "Laadi kõik manustatud sisu",
+    "loadOnlyThis": "laadige meedia ainult sellelt teenusepakkujalt",
+    "message": "Pange tähele, et see lehekülg sisaldab meediasisu, mis on sisseehitatud aadressilt {provider}. Selle meedia vaatamise suhtes kehtivad nende tingimused ja privaatsusavaldused. Lisateavet teie andmete kasutamise kohta leiate nende privaatsusavaldustest.",
+    "messageUnkownService": "Kahjuks ei saa seda sisu näidata.",
+    "ofThirdPartyServices": "{0} kolmanda osapoole sisuteenused.",
+    "viewFullList": "Vaata täielikku nimekirja",
+    "viewThisExternalLink": "Vaadake seda sisu välise lingi kaudu"
+  },
   "entity": {
     "actions": {
       "cancel": "Tühista",
@@ -244,6 +235,10 @@ export default {
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
     },
+    "noFeatureIdeas": {
+      "description": "Kontrollige varsti uuesti!",
+      "title": "Hetkel uusi funktsiooni ideid pole."
+    },
     "pageNotFound": {
       "metaTitle": "lehte ei leitud",
       "title": "Lehte, mida otsite, pole olemas."
@@ -262,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näitus: {title}",
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
@@ -724,10 +720,10 @@ export default {
       "faq": "Korduma kippuvad küsimused  (FAQ)",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
-      "privacy": "Privaatsuspoliitika",
-      "provide": "Hakka pakkuvaks asutuseks",
+      "privacy": "Privaatsusavaldus",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
+      "supportingTechnicalPartners": "Tehniliste partnerite toetamine",
       "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",
@@ -749,9 +745,10 @@ export default {
       "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
+      "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "shareYourData": "Jaga oma andmeid",
+      "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -768,7 +765,6 @@ export default {
     "discoverEditorial": "Viimased lood",
     "storiesCTA": "Vaata kõiki lugusid",
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
-    "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
     "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
     "titleDigital": "digitaalsel"
@@ -781,6 +777,9 @@ export default {
     "itemOf": "{max} / {count} üksused",
     "recent": "Hiljutised üksused",
     "recommended": "Soovitatavad üksused",
+    "trending": {
+      "headline": "Avastage tänased populaarsed üksused"
+    },
     "youMightLike": "Üksused, mis võivad teile meeldida"
   },
   "klaro": {
@@ -788,7 +787,11 @@ export default {
       "acceptAll": "Võtke kõik vastu",
       "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
-        "description": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie <a href='/rights/privacy-policy'> privaatsuspoliitikat </a> .",
+        "alwaysRequired": "(Alati nõutav)",
+        "description": "Siin saate näha ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege palun meie <a href='/rights/privacy-statement'>privaatsusavaldust</a>.",
+        "privacyPolicy": "Privaatsuspoliitika",
+        "servicesCount": "{count} teenus | {count} teenust",
+        "text": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie {privacyPolicy}.",
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
@@ -798,13 +801,44 @@ export default {
       "decline": "ma keeldun",
       "ok": "Okei",
       "purposes": {
+        "2D": {
+          "title": "2D meedia"
+        },
+        "3D": {
+          "title": "3D meedia"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Need teenused on selle veebisaidi korrektseks toimimiseks hädavajalikud. Need sisaldavad otsingutulemite vaadet ja keele-eelistusi, säilitavad sisselogitud oleku ja hoiavad teie külastuse turvalisena. Te ei saa neid keelata, kuna veebisait ei töötaks muidu õigesti.",
           "title": "Olulised teenused turvalisuse ja kohandamise jaoks"
         },
+        "mediaViewing": {
+          "description": "Need teenused laadivad vaatamiseks pilte (2D) , 3D-, heli- ja videoelemente.",
+          "title": "Meedia vaatamise teenused"
+        },
+        "multimedia": {
+          "title": "Multimeedia"
+        },
+        "other": {
+          "description": "Need teenused laadivad sellist sisu nagu kood, mängud, kaardid ja lugude jutustamise vidinad.",
+          "title": "Muud sisseehitamise teenused"
+        },
+        "socialMedia": {
+          "description": "Need teenused laadivad sisu sotsiaalmeedia platvormidelt.",
+          "title": "Sotsiaalmeedia sisseehitamise teenused"
+        },
+        "thirdPartyContent": {
+          "description": "Need teenused laadivad sisu, mida hostivad kolmandad osapooled. Selle kasutamisele kehtivad nende kolmandate osapoolte tingimused ja privaatsusavaldus.",
+          "title": "Kolmanda osapoole sisu"
+        },
         "usage": {
           "description": "Need teenused koguvad teavet, mis aitab meil paremini mõista, kuidas veebilehte kasutatakse ja kus on valupunktid, mis võimaldab meil teha teadlikke valikuid, et parandada teie kasutuskogemust.",
           "title": "Teenused veebisaidi kasutamise ja tagasiside kogumiseks"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Aitab siluda API taotlusi",
         "title": "Debugimise lüliti"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktiveerib uuringu vidina, andes teile võimaluse vastata meie külastajate rahulolu uuringutele.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Jätab teie eelistatud liidese keele edaspidiseks kasutamiseks meelde.",
         "title": "Keelekood"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiveerib tagasiside vidina, andes teile võimaluse meiega ühendust võtta.",
         "title": "Jira teeninduslaud"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Kuvab teate, kui uued funktsioonid muutuvad kättesaadavaks.",
         "title": "Uus funktsiooniteatis"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "tundmatu pakkuja",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1069,38 @@ export default {
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
   },
+  "likes": {
+    "count": "{count} meeldib | {count} meeldimist"
+  },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Välju täisekraanist",
+      "fullscreen": "Täisekraan",
+      "keyboardNavigation": "Kasutage +, - ja nooleklahve pildi suurendamiseks ja liigutamiseks.",
+      "resetZoom": "Lähtestage suum",
+      "rotateLeft": "Pöörake vasakule",
+      "rotateRight": "Pöörake paremale",
+      "zoomIn": "Suumi sisse",
+      "zoomOut": "Suumi välja"
+    },
+    "loadFull": "Eriti suur pilt: laadige täissuuruses.",
+    "pages": {
+      "hide": "Peida leheküljed",
+      "show": "Kuva leheküljed"
+    },
+    "sidebar": {
+      "annotations": "Märkused",
+      "annotationsCount": "1 märkus |{count} märkused",
+      "hide": "Peida külgriba",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Lingid",
+      "search": "Otsing",
+      "searchPlaceholder": "Sisestage tingimused",
+      "show": "Kuva külgriba"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
@@ -882,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kopeerimiseks klõpsa atribuuti",
+      "copyAttribution": "Kopeeri üksuse omistamine.",
       "modalIntro": "Kui kasutate seda objekti veebis või mujal, ärge unustage selle kõrval avaldada järgmist atribuuti:",
       "modalTitle": "Ütle aitäh"
     },
@@ -899,18 +1127,16 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
-    "other": "muud keeled",
-    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
-    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
-    "translateMetadata": "Tõlgi selle üksuse metaandmed.",
-    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
+    "stopViewingThisItemIn": "Lõpeta selle üksuse vaatamine rakenduses {0}",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti.",
+    "viewingThisItemIn": "Selle üksuse vaatate {0}",
+    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles"
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
     "text": {
-      "trendingItems": "Avastage, millised predmeti köidavad inimeste tähelepanu ja saavutavad populaarsuse reaalajas. Kasutage võimalust olla trendide ees - vaadake, mida inimesed praegu kõige rohkem vaatavad, meeldivad, kureerivad ja uuesti kasutavad."
+      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -971,14 +1197,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopeeri manustamiskood",
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
     "allMetaData": "Kogu metateave",
-    "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
+    "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
+    "debias": "De-bias",
+    "explanationby": "Selgituse esitas {0}",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
-    "IIIFViewer": "IIIF vaataja",
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
@@ -1038,6 +1266,7 @@ export default {
         "doesNotContain": "ei sisalda",
         "exact": "sisaldab fraasi"
       },
+      "newRule": "uus täpsema otsingu reegel",
       "placeholder": {
         "field": "Valige väli",
         "modifier": "Valige modifikaator",
@@ -1178,13 +1407,26 @@ export default {
     "required": "Nõutud"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näitused",
+      "stories": "Lood",
+      "viewAll": "Vaata kõiki"
+    },
     "stories": "Lugu | Lood"
   },
   "storiesPage": {
     "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidirühm {page}"
+    "a11y": {
+      "firstSlide": "See on esimene slaid",
+      "lastSlide": "See on viimane slaid",
+      "nextSlide": "Järgmine slaid",
+      "paginationBullet": "Slaid {page}",
+      "paginationBulletGroupedSlides": "Slaidirühm {page}",
+      "previousSlide": "Eelmine slaid",
+      "slideLabel": "Slaid {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

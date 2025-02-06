@@ -6,32 +6,36 @@ describe('middleware/redirects', () => {
   afterEach(sinon.resetHistory);
   const redirect = sinon.spy();
 
-  it('redirects /professionals to /share-your-data', () => {
+  it('redirects /professionals to /share-your-collections', () => {
     const route = { path: '/fr/professionals' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/fr/share-your-data')).toBe(true);
+    expect(redirect.calledWith('/fr/share-your-collections')).toBe(true);
   });
 
-  describe('when redirectBlogsToStories feature is enabled', () => {
-    const $features = { redirectBlogsToStories: true };
+  it('redirects /blog to /stories', () => {
+    const route = { path: '/de/blog' };
 
-    it('redirects /blog to /stories', () => {
-      const route = { path: '/de/blog' };
+    middleware({ route, redirect });
 
-      middleware({ route, redirect, $features });
+    expect(redirect.calledWith('/de/stories?type=story')).toBe(true);
+  });
 
-      expect(redirect.calledWith('/de/stories')).toBe(true);
-    });
+  it('redirects /blog/* to /stories/*', () => {
+    const route = { path: '/nl/blog/nice' };
 
-    it('redirects /blog/* to /stories/*', () => {
-      const route = { path: '/nl/blog/nice' };
+    middleware({ route, redirect });
 
-      middleware({ route, redirect, $features });
+    expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
+  });
 
-      expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
-    });
+  it('redirects /exhibitions to /stories?type=exhibition', () => {
+    const route = { path: '/es/exhibitions' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith('/es/stories?type=exhibition')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {

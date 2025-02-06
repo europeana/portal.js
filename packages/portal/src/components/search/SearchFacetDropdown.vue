@@ -134,7 +134,9 @@
               v-if="$fetchState.pending"
               class="text-center"
             >
-              <LoadingSpinner />
+              <LoadingSpinner
+                tag="span"
+              />
             </b-dropdown-text>
             <b-dropdown-text v-else-if="fetched && availableSortedDisplayableOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}

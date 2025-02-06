@@ -1,15 +1,9 @@
 <template>
   <div :class="$fetchState.error && 'white-page'">
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -24,6 +18,7 @@
         :headline="page.headline || page.name"
         :text="page.text"
         :cta="page.relatedLink"
+        :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
       />
@@ -35,7 +30,7 @@
         :name="page.name"
         :headline="page.headline"
         :has-part-collection="page.hasPartCollection"
-        :image-url="socialMediaImageUrl"
+        :image-url="pageMetaOgImage"
       />
       <StaticPage
         v-else-if="staticPage"
@@ -87,7 +82,7 @@
         landingPage: false,
         page: {},
         socialMediaImageAlt: null,
-        socialMediaImageUrl: null,
+        socialMediaImage: null,
         staticPage: false
       };
     },
@@ -120,12 +115,8 @@
 
       // use social media image if set in Contentful,
       // landing pages use primaryImageOfPage as a fallback, otherwise null
-      const socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
-      this.socialMediaImageAlt = socialMediaImage?.description || '';
-      this.socialMediaImageUrl = this.$contentful.assets.optimisedSrc(
-        socialMediaImage,
-        { w: 800, h: 800 }
-      );
+      this.socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
+      this.socialMediaImageAlt = this.socialMediaImage?.description || '';
 
       if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;
@@ -140,7 +131,7 @@
           title: this.page.name,
           description: this.page.description,
           ogType: this.homePage ? 'website' : 'article',
-          ogImage: this.socialMediaImageUrl,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImageAlt
         };
       }

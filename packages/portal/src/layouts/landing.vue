@@ -19,8 +19,13 @@
     </main>
     <LandingPageFooter />
     <client-only>
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo', 'codepen']"
+      />
       <PageCookieConsent
-        v-if="cookieConsentRequired"
+        v-else
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -30,7 +35,6 @@
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -39,32 +43,25 @@
     components: {
       LandingPageHeader,
       LandingPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent')
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
     mixins: [
-      canonicalUrlMixin,
-      klaroMixin
+      canonicalUrlMixin
     ],
-
-    data() {
-      return {
-        klaroServices: ['auth-strategy', 'i18n', 'matomo']
-      };
-    },
 
     head() {
       return {
         link: [
           { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
+          { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
-        ],
-        script: [
-          this.klaroHeadScript
         ]
       };
     }

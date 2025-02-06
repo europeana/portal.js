@@ -12,7 +12,7 @@
           :src="slide.image?.image?.url"
           :content-type="slide.image?.image?.contentType"
           :attribution="slide.image"
-          :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
+          :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_FOCUS_FACE"
           :picture-source-media-resolutions="[1, 2, 3]"
           :lazy="true"
           width="auto"
@@ -71,7 +71,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryImageTextSlideScroller',
@@ -91,7 +91,7 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS,
+        FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         quotationIconSrc: require('@europeana/style/img/icons/quotationmark.svg')
       };
     },

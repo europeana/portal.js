@@ -145,14 +145,14 @@ describe('components/download/DownloadButton', () => {
 
     describe('target', () => {
       describe('when URL is via media proxy', () => {
-        it('defaults to "_self"', () => {
+        it('is null', () => {
           const propsData = {
             identifier: '/123/abc',
             url: 'https://proxy.europeana.eu/123/abc'
           };
           const wrapper = factory({ propsData });
 
-          expect(wrapper.vm.target).toBe('_self');
+          expect(wrapper.vm.target).toBeNull();
         });
       });
 

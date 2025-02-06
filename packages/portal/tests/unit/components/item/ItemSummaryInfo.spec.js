@@ -33,6 +33,12 @@ const factory = (propsData, translated = false) => mount(ItemSummaryInfo, {
     $features: {
       translatedItems: translated
     }
+  },
+  provide: {
+    deBias: {
+      definitions: {},
+      terms: {}
+    }
   }
 });
 

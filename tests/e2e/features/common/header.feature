@@ -10,7 +10,7 @@ Feature: Page Header
     Then I see the `logo` in the `header`
     And I see the `show search button` in the `header`
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see the `logo` in the `header`
     And I see the `show search button` in the `header`
 
@@ -20,7 +20,7 @@ Feature: Page Header
 
   Scenario: Using the logo to get back to the homepage
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     And I click on the `logo` in the `header`
     Then I should be on the `home page`
 
@@ -43,7 +43,7 @@ Feature: Page Header
     And I click on the `hamburger button` in the `header`
     Then I see a link to "/en" in the `sidebar navigation`
     And I see a link to "/en/collections" in the `sidebar navigation`
-    And I see a link to "/en/share-your-data" in the `sidebar navigation`
+    And I see a link to "/en/share-your-collections" in the `sidebar navigation`
     And I see a link to "/en/europeana-classroom" in the `sidebar navigation`
     And I see a link to "/en/about-us" in the `sidebar navigation`
     And I see a link to "/en/help" in the `sidebar navigation`

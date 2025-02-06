@@ -18,15 +18,15 @@ const factory = ({ mocks = {} } = {}) => shallowMount(component, {
 describe('mixins/landingPage', () => {
   describe('data', () => {
     describe('landingPageId', () => {
-      describe('when route slug is "share-your-data"', () => {
-        const $route = { params: { pathMatch: 'share-your-data' } };
+      describe('when route slug is "share-your-collections"', () => {
+        const $route = { params: { pathMatch: 'share-your-collections' } };
 
-        it('is "share-your-data"', () => {
+        it('is "share-your-collections"', () => {
           const wrapper = factory({ mocks: { $route } });
 
           const landingPageId = wrapper.vm.landingPageId;
 
-          expect(landingPageId).toBe('share-your-data');
+          expect(landingPageId).toBe('share-your-collections');
         });
       });
 

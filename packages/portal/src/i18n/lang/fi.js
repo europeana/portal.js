@@ -47,7 +47,6 @@ export default {
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
-    "explore": "Tutustu",
     "filter": "Suodattaa",
     "goHome": "Siirry kotisivulle",
     "hide": "Piilota",
@@ -56,9 +55,11 @@ export default {
     "login": "Kirjaudu sisään",
     "move": "Liikkua",
     "next": "Seuraava",
+    "nextPage": "Seuraava sivu",
     "pin": "Pin",
     "preview": "Esikatselu",
     "previous": "Edellinen",
+    "previousPage": "Edellinen sivu",
     "publish": "Julkaista",
     "readMore": "Lue lisää",
     "reject": "Hylätä",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
+    "unlike": "Älä tykkää",
     "viewAt": "Näytä osoitteessa {link}",
-    "viewDocument": "Näytä asiakirja"
+    "viewDocument": "Näytä asiakirja",
+    "vote": "Äänestää"
   },
   "attribution": {
     "country": "Maa:",
@@ -96,12 +99,7 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet",
-    "trending": "Trendaavat aineistot"
-  },
-  "blog": {
-    "blog": "Blogi",
-    "posts": "Blogiviesti | Blogikirjoituksia"
+    "topic": "Aiheet"
   },
   "cardLabels": {
     "organisation": "Organisaatio",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Värimalli",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Tietoja Europeana",
-      "forDevelopers": "Kehittäjille",
-      "help": "Apua",
-      "meetUs": "Tutustu tiimiin",
-      "MoreInfoLabel": "Lisätietoja",
-      "provide": "Ryhdy tietojentarjoajaksi",
-      "subscribe": "Tilaa uutiskirjeemme",
-      "terms": "Käyttöehdot ja tietosuojakäytäntö"
-    },
-    "headerNavigation": {
-      "Collections": "Kokoelmat",
-      "explore": "tutustu",
-      "teachers": "Opettajat"
-    }
-  },
   "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "curatedAutomatically": "Europeanan automaattisesti kuratoima",
   "dateFilter": {
@@ -194,6 +175,16 @@ export default {
     "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "embedNotification": {
+    "ifNotAll": "Jos et halua ladata kaikkea upotettua mediaa, voit {0}.",
+    "loadAllEmbeddedContent": "Lataa kaikki upotettu sisältö",
+    "loadOnlyThis": "lataa mediaa vain tältä palveluntarjoajalta",
+    "message": "Huomaa, että tämä sivu sisältää mediasisältöä, joka on upotettu osoitteesta {provider}. Tämän median katsominen on niiden ehtojen ja tietosuojaselosteiden alaista. Lisätietoja tietojesi käytöstä saat heidän tietosuojaselosteistaan.",
+    "messageUnkownService": "Valitettavasti tätä sisältöä ei voida näyttää.",
+    "ofThirdPartyServices": "{0} kolmansien osapuolten sisältöpalvelut.",
+    "viewFullList": "Näytä koko luettelo",
+    "viewThisExternalLink": "Katso tämä sisältö ulkoisen linkin kautta"
+  },
   "entity": {
     "actions": {
       "cancel": "Peruuta",
@@ -244,6 +235,10 @@ export default {
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
     },
+    "noFeatureIdeas": {
+      "description": "Tarkista pian uudelleen!",
+      "title": "Ei uusia ominaisuus ideoita tällä hetkellä."
+    },
     "pageNotFound": {
       "metaTitle": "Sivua ei löydy",
       "title": "Etsimääsi sivua ei ole olemassa."
@@ -262,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Näyttely: {title}",
     "chapters": "Luvut",
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
@@ -724,10 +720,10 @@ export default {
       "faq": "Usein kysytyt kysymykset (FAQ)",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
-      "privacy": "Tietosuojakäytäntö",
-      "provide": "Ryhdy aineiston tarjoaja",
+      "privacy": "Tietosuojaseloste",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
+      "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
       "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
@@ -749,9 +745,10 @@ export default {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajille",
+      "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
-      "shareYourData": "Jaa tietosi",
+      "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
@@ -768,7 +765,6 @@ export default {
     "discoverEditorial": "Uusimmat tarinat",
     "storiesCTA": "Katso kaikki tarinat",
     "subHeadline": "Hae, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansilta kulttuuriorganisaatioilta",
-    "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
     "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
     "titleDigital": "digitaaliseen"
@@ -781,6 +777,9 @@ export default {
     "itemOf": "{max} / {count} aineistot",
     "recent": "Viimeisimmät aineistot",
     "recommended": "Suositellut aineistot",
+    "trending": {
+      "headline": "Tutustu tämän päivän suosittuihin aineistoihin"
+    },
     "youMightLike": "Saattaisit tykätä näistä aineistot"
   },
   "klaro": {
@@ -788,7 +787,11 @@ export default {
       "acceptAll": "Hyväksy kaikki",
       "acceptSelected": "Hyväksy valittu",
       "consentModal": {
-        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla <a href='/rights/privacy-policy'> tietosuojakäytäntömme </a> .",
+        "alwaysRequired": "(Pakollinen aina)",
+        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Jos haluat lisätietoja, lue <a href='/rights/privacy-statement'>tietosuojaseloste</a>.",
+        "privacyPolicy": "Tietosuojakäytäntö",
+        "servicesCount": "{count} palvelu | {count} palvelua",
+        "text": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla {privacyPolicy}.",
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
@@ -798,13 +801,44 @@ export default {
       "decline": "kieltäydyn",
       "ok": "Okei",
       "purposes": {
+        "2D": {
+          "title": "2D-media"
+        },
+        "3D": {
+          "title": "3D media"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Nämä palvelut ovat välttämättömiä tämän verkkosivuston moitteettoman toiminnan kannalta. Ne sisältävät hakutulosnäkymän ja kieliasetukset, säilyttävät kirjautuneen tilan ja pitävät vierailusi turvassa. Et voi poistaa niitä käytöstä, koska verkkosivusto ei toimisi muuten oikein.",
           "title": "Olennaiset turvallisuus- ja mukautuspalvelut"
         },
+        "mediaViewing": {
+          "description": "Nämä palvelut lataavat kuvia (2D) , 3D-, ääni- ja videokohteita katselua varten.",
+          "title": "Median katselupalvelut"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Nämä palvelut lataavat sisältöä, kuten koodia, pelejä, karttoja ja tarinankerronnan widgettejä.",
+          "title": "Muut sulauttamispalvelut"
+        },
+        "socialMedia": {
+          "description": "Nämä palvelut lataavat sisältöä sosiaalisen median alustoilta.",
+          "title": "Sosiaalisen median upotuspalvelut"
+        },
+        "thirdPartyContent": {
+          "description": "Nämä palvelut lataavat kolmansien osapuolten isännöimää sisältöä. Sen käyttöä koskevat näiden kolmansien osapuolten ehdot ja tietosuojalausunto.",
+          "title": "Kolmannen osapuolen sisältö"
+        },
         "usage": {
           "description": "Nämä palvelut keräävät tietoja, jotka auttavat meitä ymmärtämään paremmin, miten verkkosivustoa käytetään ja missä kipupisteet ovat, mikä antaa meille mahdollisuuden tehdä tietoon perustuvia valintoja kokemuksesi parantamiseksi.",
           "title": "Palvelut verkkosivuston käytön ja palautteen keräämiseen"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",
         "title": "Debug-kytkin"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Muistaa valitsemasi käyttöliittymäkielen tulevaa käyttöä varten.",
         "title": "Kielikoodi"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivoi palaute-widgetin, jolloin voit ottaa meihin yhteyttä.",
         "title": "Jiran palvelupiste"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Näyttää ilmoituksen, kun uusia ominaisuuksia tulee saataville.",
         "title": "Uuden ominaisuuden ilmoitus"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
+        "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "tuntematon palveluntarjoaja",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1069,38 @@ export default {
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
   },
+  "likes": {
+    "count": "{count} tykkää | {count} tykkää"
+  },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Poistu koko näytöstä",
+      "fullscreen": "Koko näyttö",
+      "keyboardNavigation": "Käytä +, - ja nuolinäppäimiä kuvan zoomaamiseen ja panorointiin.",
+      "resetZoom": "Nollaa zoomaus",
+      "rotateLeft": "Kierrä vasemmalle",
+      "rotateRight": "Kierrä oikealle",
+      "zoomIn": "Lähennä",
+      "zoomOut": "Loitonna"
+    },
+    "loadFull": "Erittäin suuri kuva: lataa täysikokoinen.",
+    "pages": {
+      "hide": "Piilota sivut",
+      "show": "Näytä sivut"
+    },
+    "sidebar": {
+      "annotations": "Huomautukset",
+      "annotationsCount": "1 Huomautus |{count} Huomautukset",
+      "hide": "Piilota sivupalkki",
+      "IIIFManifest": "IIIF manifesti",
+      "links": "Linkit",
+      "search": "Hae",
+      "searchPlaceholder": "Syötä ehdot",
+      "show": "Näytä sivupalkki"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
@@ -882,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
+      "copyAttribution": "Kopioi aineiston attribuutio.",
       "modalIntro": "Jos käytät tätä aineisto verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
     },
@@ -899,18 +1127,16 @@ export default {
     "automated": "Automatisoitu käännös",
     "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
-    "other": "muut kielet",
-    "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
-    "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
-    "translateMetadata": "Käännä tämän aineisto metatiedot.",
-    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
+    "stopViewingThisItemIn": "Lopeta tämän aineiston tarkastelu {0}",
+    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin.",
+    "viewingThisItemIn": "Tarkastelet tätä aineistoa {0}-kielellä",
+    "viewItemInAnotherLanguage": "Tarkastele tätä aineistoa toisella kielellä"
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
     "text": {
-      "trendingItems": "Selvitä, mitkä aineistot kiinnittävät ihmisten huomion ja saavat suosiota reaaliajassa. Hyödynnä tilaisuus pysyä kehityksen kärjessä – katso, mitä ihmiset näkevät, pitävät, kuratoivat ja käyttävät uudelleen eniten juuri nyt."
+      "featureIdeas": "Tutustu suunnittelemiimme tuleviin muutoksiin ja äänestä niitä, jotka haluaisit nähdä etusijalla. Palautteesi auttaa meitä keskittymään siihen, mikä on sinulle tärkeintä."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -971,14 +1197,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopioi upotuskoodi",
       "pin": "Kiinnitä aineisto käytettävissä oleviin Entiteetteihin"
     },
     "allMetaData": "Kaikki metatiedot",
-    "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
+    "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
+    "debias": "De-bias",
+    "explanationby": "Selityksen on antanut {0}",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
-    "IIIFViewer": "IIIF-katsoja",
     "location": "Sijainti",
     "locationOnMap": "Sijainti kartalla",
     "mediaPlayer": "Mediasoitin",
@@ -1038,6 +1266,7 @@ export default {
         "doesNotContain": "ei sisällä",
         "exact": "sisältää lauseen"
       },
+      "newRule": "uusi tarkennetun haun sääntö",
       "placeholder": {
         "field": "Valitse kenttä",
         "modifier": "Valitse muokkaaja",
@@ -1178,13 +1407,26 @@ export default {
     "required": "Pakollinen"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Näyttelyt",
+      "stories": "Tarinat",
+      "viewAll": "Näytä kaikki"
+    },
     "stories": "Tarina | Tarinoita"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {
-    "paginationBulletLabel": "Dia-ryhmä {page}"
+    "a11y": {
+      "firstSlide": "Tämä on ensimmäinen dia",
+      "lastSlide": "Tämä on viimeinen dia",
+      "nextSlide": "Seuraava dia",
+      "paginationBullet": "Dia {page}",
+      "paginationBulletGroupedSlides": "Dia-ryhmä {page}",
+      "previousSlide": "Edellinen dia",
+      "slideLabel": "Dia {slide} / {totalSlides}"
+    }
   },
   "themes": {
     "description": "Selaa teemoittain",

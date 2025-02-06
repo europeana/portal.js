@@ -2,16 +2,10 @@
   <div
     :class="$fetchState.error && 'white-page'"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -149,13 +143,17 @@
         data-qa="user set"
       >
         <b-row>
-          <b-col>
+          <b-col class="d-flex align-items-center mb-3">
             <h2
-              class="related-heading text-uppercase"
+              class="related-heading text-uppercase mb-0"
               data-qa="item count"
             >
               {{ displayItemCount }}
             </h2>
+            <SearchViewToggles
+              v-model="view"
+              class="ml-auto"
+            />
           </b-col>
         </b-row>
         <b-row>
@@ -167,6 +165,7 @@
                     :items="set.items"
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
                     :user-editable-items="userCanEditSet"
+                    :view="view"
                     @endItemDrag="reorderItems"
                   />
                 </b-col>
@@ -194,9 +193,11 @@
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
@@ -208,6 +209,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
+      SearchViewToggles,
       ShareButton,
       ShareSocialModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -218,6 +220,7 @@
     },
     mixins: [
       entityBestItemsSetMixin,
+      itemPreviewCardGroupViewMixin,
       langAttributeMixin,
       redirectToMixin,
       pageMetaMixin
@@ -437,5 +440,9 @@
     .text {
       font-weight: 600;
     }
+  }
+
+  ::v-deep .card-group-list.card-columns {
+    column-count: 1;
   }
 </style>

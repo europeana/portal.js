@@ -12,7 +12,6 @@
       v-else
       :title="title"
       :subtitle="subtitle"
-      :description="description"
       :hero="heroImage"
       :context-label="$tc('stories.stories', 1)"
       data-qa="authored head"
@@ -28,8 +27,9 @@
             class="col-lg-8"
           >
             <p
-              v-if="showDescriptionInArticle"
+              v-if="description"
               class="lead"
+              :class="{ 'color-black': enableStoryHero }"
               data-qa="article description"
             >
               {{ description }}
@@ -62,7 +62,7 @@
             </div>
             <div class="my-4 d-flex align-items-center">
               <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="heroImage ? heroImage.image.url : null" />
+              <ShareSocialModal :media-url="mediaUrl" />
               <ViewCount />
             </div>
           </b-col>
@@ -201,6 +201,11 @@
         default: null
       },
 
+      mediaUrl: {
+        type: String,
+        default: null
+      },
+
       authors: {
         type: Array,
         default: () => []
@@ -225,10 +230,8 @@
     data() {
       return {
         browseAndScrollifySections: this.splitSections(),
-        // only show the description in the article when there is a description and the hero is enabled or AuthorHead is enabled and there is a subtitle.
-        showDescriptionInArticle: this.description && (this.enableStoryHero || this.subtitle),
-        // only show the hero when the hero image is larger than 800px and the title is less than 80 characters and the subtitle is less than 140 characters.
-        enableStoryHero: this.heroImage?.image?.width >= 800 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
+        // only show the hero when the hero image is larger than 1000px and the title is less than 80 characters and the subtitle is less than 140 characters.
+        enableStoryHero: this.heroImage?.image?.width >= 1000 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
       };
     },
 
@@ -260,8 +263,10 @@
   }
 
   .text-page p.lead {
-    font-size: $font-size-medium;
-    color: $black;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+
+    &.color-black {
+      color: $black;
+    }
   }
 </style>

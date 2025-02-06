@@ -59,11 +59,13 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $route: {
       params: {
         pathMatch: (options.set?.id || '111') + '-my-set'
-      }
+      },
+      query: {}
     },
     $store: {
       commit: storeCommit,
       dispatch: storeDispatch,
+      getters: {},
       state: {
         set: { active: options.set || null }
       }
@@ -82,7 +84,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     }
   },
-  stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
+  stubs: ['LoadingSpinner', 'SetRecommendations', 'SetPublicationRequestWidget']
 });
 
 describe('GalleryPage (Set)', () => {
@@ -153,7 +155,7 @@ describe('GalleryPage (Set)', () => {
       it('shows a loading spinner', async() => {
         const wrapper = factory({ fetchState: { pending: true } });
 
-        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+        const loadingSpinner = wrapper.find('loadingspinner-stub');
 
         expect(loadingSpinner.exists()).toBe(true);
       });

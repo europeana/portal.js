@@ -3,6 +3,9 @@
     data-qa="exhibition chapter"
     class="text-page white-page "
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+    />
     <ContentWarningModal
       v-if="exhibitionContentWarning"
       :title="exhibitionContentWarning.name"
@@ -39,7 +42,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <ShareSocialModal :media-url="optimisedImageUrl" />
+            <ShareSocialModal :media-url="pageMetaOgImage" />
             <div class="authored-section">
               <ContentSection
                 v-for="(section, index) in (page?.hasPartCollection?.items || [])"
@@ -111,6 +114,7 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import ContentSection from '@/components/content/ContentSection';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -123,6 +127,7 @@
     name: 'ExhibitionChapterPage',
 
     components: {
+      BBreadcrumb,
       ContentSection,
       ClientOnly,
       ShareButton,
@@ -139,11 +144,7 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.exhibition,
         locale: app.i18n.localeProperties.iso,
@@ -166,25 +167,6 @@
             return {};
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: exhibition.name,
-              to: app.localePath({
-                name: 'exhibitions-exhibition',
-                params: {
-                  exhibition: exhibition.identifier
-                }
-              })
-            },
-            {
-              text: chapter.name,
-              active: true
-            }
-          ]);
           return {
             chapters: exhibition.hasPartCollection.items,
             credits: exhibition.credits,
@@ -202,12 +184,29 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          {
+            text: this.$t('exhibitions.breadcrumbPrefix', { title: this.exhibitionTitle }),
+            to: this.localePath({
+              name: 'exhibitions-exhibition',
+              params: {
+                exhibition: this.exhibitionIdentifier
+              }
+            })
+          },
+          {
+            text: this.page.name,
+            active: true
+          }
+        ];
+      },
       pageMeta() {
         return {
           title: this.page.name,
           description: this.page.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -226,12 +225,6 @@
       },
       heroImage() {
         return this.hero?.image || null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

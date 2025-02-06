@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
+import useDeBias from '@/composables/deBias.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -19,12 +20,19 @@ const apiResponse = () => ({
             { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } }
           ]
         },
+        edmIsShownBy: 'http://example.org/image.jpeg',
         edmProvider: {
           def: [
             { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Provider'] } }
           ]
         },
-        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
+        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] },
+        webResources: [
+          {
+            about: 'http://example.org/image.jpeg',
+            ebucoreHasMimeType: 'image/jpeg'
+          }
+        ]
       }
     ],
     europeanaAggregation: {
@@ -108,6 +116,21 @@ const record = {
 };
 
 const fixtures = {
+  annotationSearchResponse: [
+    {
+      id: 'http://example.org/annotation/highlighting/2',
+      motivation: 'highlighting',
+      body: {
+        id: 'http://example.org/vocabulary/debias/1',
+        definition: {
+          en: 'May cause offense'
+        }
+      },
+      target: {
+        selector: { hasPredicate: 'dc:title', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+      }
+    }
+  ],
   auth: {
     loggedIn: { $auth: { loggedIn: true } },
     notLoggedIn: { $auth: { loggedIn: false } }
@@ -158,7 +181,8 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     $config: {
       app: {
         baseUrl: 'https://www.example.org'
-      }
+      },
+      matomo: {}
     },
     $features: { translatedItems: true },
     $t: (key) => key,
@@ -167,7 +191,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     },
     $apis: {
       annotation: {
-        search: sinon.spy()
+        search: sinon.stub().resolves(fixtures.annotationSearchResponse)
       },
       entity: {
         find: entityFindStub
@@ -175,21 +199,18 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       record: {
         get: sinon.stub().resolves(apiResponse()),
         search: sinon.spy()
+      },
+      thumbnail: {
+        forWebResource: () => ({
+          large: 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0',
+          small: 'https://api.europeana.eu/thumbnail/v3/200/476e256434ddaadd580d4f15500fbed0'
+        })
       }
     },
     $fetchState: {},
     $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
-    },
-    $nuxt: {
-      context: {
-        $apis: {
-          thumbnail: {
-            media: () => 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0'
-          }
-        }
-      }
     },
     $error: sinon.spy(),
     $session: { isActive: false },
@@ -274,6 +295,27 @@ describe('pages/item/_.vue', () => {
       });
     });
 
+    it('fetches annotations', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apis.annotation.search.calledWith({
+        query: 'target_record_id:"/123/abc"',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+        profile: 'dereference'
+      })).toBe(true);
+    });
+
+    it('parses DeBias annotations via composable', async() => {
+      const { terms } = useDeBias();
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(terms.value.dcTitle).toEqual([{ exact: 'offensive' }]);
+    });
+
     describe('when the requested item identifier is different from the identifier in the response', () => {
       it('redirects to the response identifier item page', async() => {
         const wrapper = factory({ data: { identifier: '/old/id' } });
@@ -312,6 +354,16 @@ describe('pages/item/_.vue', () => {
           expect(wrapper.vm.entities.every((entity) => entity.about)).toBe(true);
           expect(wrapper.vm.entities.every((entity) => entity.prefLabel)).toBe(true);
           expect(wrapper.vm.entities.some((entity) => entity.note)).toBe(false);
+        });
+      });
+
+      describe('`ogImage`', () => {
+        it('uses first media large thumbnail for og:image', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
         });
       });
 
@@ -434,6 +486,32 @@ describe('pages/item/_.vue', () => {
           });
         });
       });
+
+      describe('preconnect links', () => {
+        it('includes first displayable web resource origin', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('http://example.org')).toBe(true);
+        });
+
+        it('includes IIIF Presentation manifest origin', async() => {
+          const wrapper = factory();
+          const response = apiResponse();
+          const manifest = 'https://iiif.example.org/presentation/123/abc/manifest';
+          response.object.aggregations[0].webResources[0].dctermsIsReferencedBy = manifest;
+          response.object.aggregations[0].webResources.push({
+            about: manifest,
+            rdfType: 'http://iiif.io/api/presentation/3#Manifest'
+          });
+          wrapper.vm.$apis.record.get.resolves(response);
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
+        });
+      });
     });
 
     describe('on errors', () => {
@@ -474,6 +552,15 @@ describe('pages/item/_.vue', () => {
     });
   });
 
+  describe('head', () => {
+    it('includes preconnect links', () => {
+      const origin = 'https://example.org';
+      const wrapper = factory({ data: { headLinkPreconnect: [origin] } });
+
+      expect(wrapper.vm.head().link).toContainEqual({ rel: 'preconnect', href: origin });
+    });
+  });
+
   describe('mounted', () => {
     describe('when fetch is still pending', () => {
       const $fetchState = { pending: true };
@@ -510,16 +597,6 @@ describe('pages/item/_.vue', () => {
 
     describe('client side fetching', () => {
       const $fetchState = { pending: false };
-
-      it('fetches annotations', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
-
-        expect(wrapper.vm.$apis.annotation.search.calledWith({
-          query: 'target_record_id:"/123/abc"',
-          qf: 'motivation:(linkForContributing OR tagging)',
-          profile: 'dereference'
-        })).toBe(true);
-      });
 
       it('fetches entities', () => {
         const wrapper = factory({
@@ -560,14 +637,6 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.trackCustomDimensions();
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
-      });
-
-      it('bails if NO Matomo plugin is installed', async() => {
-        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
-
-        await wrapper.vm.trackCustomDimensions();
-
-        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
     });
 
@@ -771,21 +840,6 @@ describe('pages/item/_.vue', () => {
 
   describe('computed', () => {
     describe('pageMeta', () => {
-      it('uses first media large thumbnail for og:image', async() => {
-        const mediaUrl = 'http://example.org/image.jpeg';
-        const wrapper = factory({
-          data: {
-            media: [
-              { about: mediaUrl }
-            ]
-          }
-        });
-
-        const pageMeta = wrapper.vm.pageMeta;
-
-        expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
-      });
-
       it('uses the title in current language', async() => {
         const wrapper = factory();
 

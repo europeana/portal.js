@@ -18,7 +18,7 @@ const baseProps = {
     license: 'https://creativecommons.org/licenses/by-sa/1.0/',
     image: {
       url: 'https://example.org',
-      width: 830,
+      width: 1030,
       height: 470
     }
   },
@@ -79,10 +79,10 @@ describe('components/story/StoryPost', () => {
     });
   });
 
-  describe('when the hero image is smaller than 800px width', () => {
+  describe('when the hero image is smaller than 1000px width', () => {
     it('does not render the story hero, but the authored head', () => {
       const smallHeroImageProps = { ...storyHeroProps };
-      smallHeroImageProps.heroImage.image.width = 799;
+      smallHeroImageProps.heroImage.image.width = 999;
 
       const wrapper = factory(smallHeroImageProps);
 

@@ -3,6 +3,9 @@
     data-qa="exhibition page"
     class="text-page white-page "
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+    />
     <ContentWarningModal
       v-if="contentWarning"
       :title="contentWarning.name"
@@ -34,7 +37,7 @@
             </time>
             <div class="mb-4 d-flex align-items-center">
               <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="heroImage && heroImage.url" />
+              <ShareSocialModal :media-url="pageMetaOgImage" />
               <ViewCount />
             </div>
             <!-- eslint-disable vue/no-v-html -->
@@ -107,6 +110,7 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -121,6 +125,7 @@
     name: 'ExhibitionPage',
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      BBreadcrumb,
       ClientOnly,
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
@@ -137,11 +142,7 @@
       logEventMixin,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    asyncData({ params, query, error, app, store, redirect }) {
+    asyncData({ params, query, error, app, redirect }) {
       if (params.exhibition === undefined) {
         redirect(app.localePath({ name: 'exhibitions' }));
       }
@@ -160,16 +161,6 @@
             return null;
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: data.exhibitionPageCollection.items[0].name,
-              active: true
-            }
-          ]);
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
@@ -178,12 +169,17 @@
     },
 
     computed: {
+      breadcrumbs() {
+        return [
+          { text: this.$t('exhibitions.breadcrumbPrefix', { title: this.name }) }
+        ];
+      },
       pageMeta() {
         return {
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -198,12 +194,6 @@
       },
       mainContent() {
         return this.text ? marked.parse(this.text) : null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
     },
 

@@ -1,14 +1,20 @@
 <template>
-  <div class="stacked-cards-wrapper">
+  <!-- swiperComponentClasses should be set outside the swiper component to not interfer with Swiper.js class handling -->
+  <div
+    class="stacked-cards-wrapper"
+    :class="swiperComponentClasses"
+  >
     <h2
       v-if="title"
-      class="heading text-center my-3 mx-1"
+      class="heading text-center mt-3 mb-0 mx-1"
     >
       {{ title }}
     </h2>
     <div
       v-show="swiperReady"
+      ref="swiper"
       class="swiper swiper-container"
+      data-qa="swiper"
     >
       <div
         class="swiper-wrapper"
@@ -18,40 +24,42 @@
           :key="i"
           :index="i"
           class="swiper-slide text-center"
+          :class="{
+            [`swiper-slide-active-offset-${swiper && Math.abs(swiper.activeIndex - i)}`]: !!swiper,
+            'swiper-slide-active': swiper && swiper.activeIndex === i
+          }"
+          @click="handleSlideClick(i)"
         >
-          <img
-            :data-src="imageSrc(slide.image)"
-            :data-srcset="imageSrcset(slide.image)"
-            :data-sizes="imageSizes"
+          <ImageOptimised
+            :src="slide.image.url"
+            :contentful-image-crop-presets="SRCSET_PRESETS"
+            :sizes="imageSizes"
+            :width="slide.image.width"
+            :height="slide.image.height"
             :alt="slide.image && slide.image.description || ''"
-            class="image-overlay position-absolute swiper-lazy"
-          >
+            class="image-overlay position-absolute"
+            :lazy="false"
+          />
           <div
             class="card-body h-100 d-flex flex-column align-items-center position-relative"
           >
-            <h3>
-              <span>
-                {{ slide.title }}
-              </span>
-            </h3>
+            <b-button
+              ref="slideLink"
+              variant="primary"
+              :to="slide.url"
+              class="slide-link mb-3"
+              :data-qa="`slide link ${i}`"
+              @focus="swiper.slideTo(i)"
+            >
+              {{ slide.title }}
+            </b-button>
             <div
-              class="my-4"
+              class="slide-description mb-3"
             >
               <p class="mb-0">
                 {{ slide.description }}
               </p>
             </div>
-            <span class="line pb-4" />
-            <b-button
-              ref="slideLink"
-              variant="outline-overlay"
-              :to="slide.url"
-              class="slide-link swiper-no-swiping"
-              :data-qa="`slide link ${i}`"
-              @focus="swiper.slideTo(i)"
-            >
-              {{ $t('actions.explore') }}
-            </b-button>
           </div>
         </div>
       </div>
@@ -67,21 +75,16 @@
 </template>
 
 <script>
+  import ImageOptimised from '@/components/image/ImageOptimised';
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
-
-  const SRCSET_PRESETS = {
-    small: { w: 245, h: 440, fit: 'fill' },
-    medium: { w: 260, h: 420, fit: 'fill' },
-    large: { w: 280, h: 400, fit: 'fill' },
-    xl: { w: 300, h: 400, fit: 'fill' },
-    xxl: { w: 320, h: 370, fit: 'fill' },
-    '4k': { w: 355, h: 345, fit: 'fill' },
-    '4k+': { w: 480, h: 470, fit: 'fill' }
-  };
+  import { A11y, EffectCoverflow, Keyboard } from 'swiper/modules';
 
   export default {
     name: 'StackedCardsSwiper',
+
+    components: {
+      ImageOptimised
+    },
 
     mixins: [swiperMixin],
 
@@ -106,24 +109,32 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard, Lazy],
+          modules: [A11y, EffectCoverflow, Keyboard],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
-          slideToClickedSlide: true,
-          preloadImages: false,
-          lazy: {
-            loadPrevNextAmount: 10
-          },
+          initialSlide: Math.floor(this.slides.length / 2),
           breakpoints: {
             0: {
               spaceBetween: -150
             },
             576: {
-              spaceBetween: -100
+              spaceBetween: -140
+            },
+            768: {
+              spaceBetween: -125
             },
             992: {
-              spaceBetween: 0
+              spaceBetween: -107
+            },
+            1200: {
+              spaceBetween: -122
+            },
+            1400: {
+              spaceBetween: -147
+            },
+            1526: {
+              spaceBetween: -95
             }
           },
           coverflowEffect: {
@@ -135,9 +146,16 @@
             scale: 1
           },
           on: {
-            activeIndexChange: this.setFocusOnActiveSlideLink
+            activeIndexChange: this.setFocusOnActiveSlideLink,
+            touchStart: (swiper, event) => {
+              this.setSwiperComponentClasses(event);
+            },
+            touchEnd: (swiper, event) => {
+              this.setSwiperComponentClasses(event);
+            }
           }
         },
+        swiperComponentClasses: 'show-initial-swiper-slide-content',
         imageSizes: [
           '(max-width: 575px) 245px', // bp-small
           '(max-width: 767px) 260px', // bp-medium
@@ -146,30 +164,48 @@
           '(max-width: 1399px) 320px', // bp-xxl
           '(max-width: 3019px) 355px', // bp-4k
           '480px'
-        ].join(',')
+        ].join(','),
+        SRCSET_PRESETS: {
+          small: { w: 245, h: 440, fit: 'fill' },
+          medium: { w: 260, h: 420, fit: 'fill' },
+          large: { w: 280, h: 400, fit: 'fill' },
+          xl: { w: 300, h: 400, fit: 'fill' },
+          xxl: { w: 320, h: 370, fit: 'fill' },
+          '4k': { w: 355, h: 345, fit: 'fill' },
+          '4k+': { w: 480, h: 470, fit: 'fill' }
+        }
       };
     },
 
     mounted() {
-      const middleCardIndex = Math.floor(this.slides.length / 2);
-      this.swiper.slideTo(middleCardIndex);
+      // Swiper.js keyPress event does not handle shift + tab keydown event, so we need to manually handle it
+      this.$refs.swiper.addEventListener('keyup', this.setSwiperComponentClasses);
+      this.$refs.swiper.addEventListener('keydown', this.setSwiperComponentClasses);
+    },
+
+    beforeDestroy() {
+      this.$refs.swiper.removeEventListener('keyup', this.setSwiperComponentClasses);
+      this.$refs.swiper.removeEventListener('keydown', this.setSwiperComponentClasses);
     },
 
     methods: {
       setFocusOnActiveSlideLink() {
-        this.$refs.slideLink[this.swiper.activeIndex].focus();
+        this.swiper && this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
-      imageSrc(image) {
-        if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
-          return this.$contentful.assets.optimisedSrc(image, { w: 245, h: 440, fit: 'fill' });
-        } else if (image?.url) {
-          return image.url;
-        } else {
-          return null;
+      setSwiperComponentClasses(event) {
+        // 9 = TAB, 37 = Arrow Left, 39 = Arrow Right
+        const keyboardNavigationKeyCodes = [9, 37, 39];
+        const activeKeyboardNavigation = keyboardNavigationKeyCodes.includes(event.keyCode);
+
+        if (['pointerup', 'touchend'].includes(event.type) || (activeKeyboardNavigation && event.type === 'keyup')) {
+          this.swiperComponentClasses = 'show-swiper-slide-content';
+        } else if (['pointerdown', 'touchstart'].includes(event.type) || (activeKeyboardNavigation && event.type === 'keydown')) {
+          this.swiperComponentClasses = '';
         }
       },
-      imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+      // Swiper parameter slideToClickedSlide does not handle clicks on touch devices as expected (links to url instead of slide transition). This method is a workaround.
+      handleSlideClick(index) {
+        this.swiper.slideTo(index);
       }
     }
   };
@@ -178,6 +214,9 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/swiper';
+
+  $slide-height: 385px;
+  $slide-height-4k: 500px;
 
   .stacked-cards-wrapper {
     font-size: 1rem;
@@ -203,40 +242,75 @@
 
   .slide-link {
     margin: auto 0 0;
-    padding: 0.375em 0.75em;
+    padding: 0 0.5rem;
+    font-size: $font-size-medium;
+    font-weight: 500;
+    pointer-events: none;
 
     @media (min-width: $bp-4k) {
-      font-size: 1.5rem;
-      padding: calc(1.5 * 0.375em) calc(1.5 * 0.75em);
+      font-size: $font-size-medium-4k;
+      padding: 0 0.75rem;
+    }
+
+    &:hover {
+      background-color: $blue;
+      cursor: grab;
     }
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(255 255 255 / 50%);
+      box-shadow: none;
+    }
+  }
+
+  .swiper-slide-active .slide-link {
+    pointer-events: auto;
+
+    &:hover {
+      background-color: $innovationblue-dark;
+      cursor: pointer;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
     }
   }
 
   .swiper-container {
+    height: calc($slide-height + (2 * 2.25rem));
     width: 100%;
     padding: 0;
-    margin-top: 2.25rem;
+    margin-top: 1.5rem;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * 2.25rem);
-      margin-bottom: calc(1.5 * 2.25rem);
+      height: calc($slide-height-4k + (3 * 2.25rem));
     }
+  }
+
+  .swiper-wrapper {
+    // Firefox fix where left outer slides become unclickable due to wrapper overflow and Firefox handling transform and z-index combination differently
+    height: 0;
+    width: 0;
+    overflow: visible;
   }
 
   .swiper-slide {
     width: 245px;
+    height: $slide-height;
     max-width: $max-card-width;
-    height: auto;
-    overflow: hidden;
-
-    @media (min-width: $bp-small) {
-      width: 260px;
-    }
+    overflow: visible;
+    border-radius: $border-radius-small;
+    opacity: 0;
+    pointer-events: none;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
 
     @media (min-width: $bp-medium) {
       width: 280px;
@@ -256,6 +330,101 @@
 
     @media (min-width: $bp-4k) {
       width: 480px;
+      height: $slide-height-4k;
+      margin-top: calc(1.5 * 2.25rem);
+      margin-bottom: calc(1.5 * 2.25rem);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0;
+      background-image: linear-gradient(to top, rgb(0, 0, 0) 2%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0) 75%);
+      border-radius: $border-radius-small;
+      transform: scale(1);
+      transition: opacity 900ms ease-out, transform 400ms ease-out;
+    }
+
+    &.swiper-slide-active-offset-0,
+    &.swiper-slide-active-offset-1 {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 461px) {
+      &.swiper-slide-active-offset-2 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 532px) {
+      &.swiper-slide-active-offset-3 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      &.swiper-slide-active-offset-4 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-extralarge) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-xxl) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    @media (min-width: 1666px) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: $bp-xxxl) {
+      &.swiper-slide-active-offset-5,
+      &.swiper-slide-active-offset-6 {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    @media (min-width: 1905px) {
+      &.swiper-slide-active-offset-5 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 2024px) {
+      &.swiper-slide-active-offset-6 {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 2126px) {
+      &.swiper-slide-active-offset-7 {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
 
     h3 {
@@ -270,32 +439,69 @@
     }
 
     .card-body {
-      background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
       padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
+      padding-bottom: 0;
+      transition: background-image 400ms ease-out;
+      z-index: 2;
 
       @media (min-width: $bp-4k) {
         padding-top: calc(1.5 * 1.5rem);
-        padding-bottom: calc(1.5 * 1.5rem);
       }
     }
 
-    .line {
-      width: 40%;
-      border-top: 1px solid $white;
-      margin: auto;
+    .slide-description {
+      opacity: 0;
+      max-height: 0;
+      transition: max-height 400ms ease-out, opacity 500ms ease-out;
     }
 
     .image-overlay {
-      min-height: 100%;
-      min-width: 100%;
-      width: auto;
-      max-width: none;
+      height: 100%;
+      width: 100%;
       left: -50%;
       right: -50%;
       margin: 0 auto;
+      transform: scale(1);
+      transition: transform 400ms ease-out;
+
+      ::v-deep img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: $border-radius-small;
+      }
     }
+  }
+
+  @mixin showSwiperSlideContent {
+    .image-overlay {
+      transform: scale(1.05);
+      transition: transform 400ms ease-out;
+    }
+
+    &:before {
+      opacity: 1;
+      transform: scale(1.05);
+      transition: opacity 400ms ease-out, transform 400ms ease-out;
+    }
+
+    .slide-description {
+      opacity: 1;
+      max-height: 100%;
+      transition: max-height 1000ms ease-out, opacity 600ms ease-out;
+    }
+  }
+
+  .show-initial-swiper-slide-content .swiper-slide-active {
+    @media (hover: none) {
+      @include showSwiperSlideContent;
+    }
+  }
+
+  .show-swiper-slide-content .swiper-slide-active,
+  .show-initial-swiper-slide-content .swiper-slide-active:hover {
+    @include showSwiperSlideContent;
   }
 </style>
 
