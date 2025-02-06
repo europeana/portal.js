@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Kolore swatch",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Europeana bildumei buruz",
-      "forDevelopers": "Garatzaileentzat",
-      "help": "Laguntza",
-      "meetUs": "Taldea ezagutu",
-      "MoreInfoLabel": "Informazio gehiago",
-      "provide": "Datu hornitzaile bihurtu",
-      "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Erabilera baldintzak eta pribatutasun politika"
-    },
-    "headerNavigation": {
-      "Collections": "Bildumak",
-      "explore": "Arakatu",
-      "teachers": "Irakasleak"
-    }
-  },
   "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
@@ -742,7 +725,7 @@ export default {
       "faq": "Maiz Egindako Galderak (FAQ)",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
-      "privacy": "Pribatutasun politika",
+      "privacy": "Pribatutasun-adierazpena",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
@@ -810,7 +793,7 @@ export default {
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
         "alwaysRequired": "(Beti beharrezkoa)",
-        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-policy'> pribatutasun-politika </a> .",
+        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-statement'> pribatutasun-adierazpena </a>.",
         "privacyPolicy": "Pribatutasun politika",
         "servicesCount": "{count} zerbitzua | {count} zerbitzu",
         "text": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure {privacyPolicy}.",
@@ -1221,7 +1204,8 @@ export default {
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
     "allMetaData": "Metadatu guztiak",
-    "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
+    "debias": "De-bias",
+    "explanationby": "{0} -k emandako azalpena",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",

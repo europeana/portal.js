@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Farbmuster",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Über Europeana",
-      "forDevelopers": "Für Entwickler",
-      "help": "Hilfe",
-      "meetUs": "Lernen Sie das Team kennen",
-      "MoreInfoLabel": "Mehr Infos",
-      "provide": "Werden Sie Datenanbieter",
-      "subscribe": "Abonnieren Sie unseren Newsletter",
-      "terms": "Nutzungsbedingungen und Datenschutzerklärung"
-    },
-    "headerNavigation": {
-      "Collections": "Sammlungen",
-      "explore": "Erkunden",
-      "teachers": "Lehrerinnen und Lehrerinnen"
-    }
-  },
   "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "curatedAutomatically": "Automatisch von Europeana kuratiert",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Häufig gestellte Fragen (FAQ)",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
-      "privacy": "Datenschutz-Bestimmungen",
+      "privacy": "Datenschutzerklärung",
       "seeApiRequests": "Siehe Anfragen an Europeana APIs",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "supportingTechnicalPartners": "Unterstützung technischer Partner",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Ausgewählte akzeptieren",
       "consentModal": {
         "alwaysRequired": "(Immer erforderlich)",
-        "description": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website nutzen möchten. Um mehr zu erfahren, lesen Sie bitte unsere <a href='/rights/privacy-policy'> Datenschutzrichtlinie </a>.",
+        "description": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website nutzen möchten. Um mehr zu erfahren, lesen Sie bitte unsere <a href='/rights/privacy-statement'>datenschutzerklärung</a>.",
         "privacyPolicy": "Datenschutzrichtlinie",
         "servicesCount": "{count} Dienst | {count} Dienste",
         "text": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website verwenden möchten. Weitere Informationen finden Sie in unserer {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
     "allMetaData": "Alle Metadaten",
-    "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
+    "debias": "De-bias",
+    "explanationby": "Erklärung bereitgestellt von {0}.",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",

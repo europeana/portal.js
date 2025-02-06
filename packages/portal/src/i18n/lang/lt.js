@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Spalvų pavyzdys",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Apie „Europeana“ kolekcijas",
-      "forDevelopers": "Programuotojams",
-      "help": "Pagalba",
-      "meetUs": "Susipažinkite su komanda",
-      "MoreInfoLabel": "Daugiau informacijos",
-      "provide": "Tapkite duomenų teikėju",
-      "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Naudojimo sąlygos ir privatumo politika"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcijos",
-      "explore": "Tyrinėkite",
-      "teachers": "Mokytojams"
-    }
-  },
   "contentYouMightLike": "Turinys, kuris jums gali patikti",
   "curatedAutomatically": "Automatiškai kuruoja „Europeana“.",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Dažnai užduodami klausimai (FAQ)",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
-      "privacy": "Privatumo politika",
+      "privacy": "Privatumo pareiškimas",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "supportingTechnicalPartners": "Techninių partnerių palaikymas",
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
         "alwaysRequired": "(Visada būtina)",
-        "description": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-policy'> privatumo politiką </a>.",
+        "description": "Čia galite peržiūrėti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-statement'>privatumo pareiškimą</a>.",
         "privacyPolicy": "Privatumo politika",
         "servicesCount": "{count} paslauga | {count} paslaugos",
         "text": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų {privacyPolicy}.",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Prisekite šį skaitmeninį objektą prie galimų objektų."
     },
     "allMetaData": "Visi metaduomenys",
-    "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
+    "debias": "De-bias",
+    "explanationby": "Paaiškinimą pateikė {0}",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",

@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Farveprøve",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Om Europeana",
-      "forDevelopers": "Til udviklere",
-      "help": "Hjælp",
-      "meetUs": "Mød holdet",
-      "MoreInfoLabel": "Flere oplysninger",
-      "provide": "Bliv dataleverandør",
-      "subscribe": "Abonner på vores nyhedsbrev",
-      "terms": "Vilkår for brug og Fortrolighedspolitik"
-    },
-    "headerNavigation": {
-      "Collections": "Samlinger",
-      "explore": "Udforsk",
-      "teachers": "Lærere"
-    }
-  },
   "contentYouMightLike": "Indhold, du måske vil synes om",
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Ofte stillede spørgsmål (FAQ)",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
-      "privacy": "Fortrolighedspolitik",
+      "privacy": "Fortrolighedserklæring",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
       "supportingTechnicalPartners": "Support til tekniske partnere",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Accepter valgt",
       "consentModal": {
         "alwaysRequired": "(Altid påkrævet)",
-        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. For at lære mere, læs venligst vores <a href='/rights/privacy-policy'> privatlivspolitik </a>.",
+        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Hvis du vil vide mere, kan du læse vores <a href='/rights/privacy-statement'>fortrolighedserklæring</a>.",
         "privacyPolicy": "Privatlivspolitik",
         "servicesCount": "{count} tjeneste | {count} tjenester",
         "text": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. Læs vores {privacyPolicy} for at få flere oplysninger.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
-    "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
+    "debias": "De-bias",
+    "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",

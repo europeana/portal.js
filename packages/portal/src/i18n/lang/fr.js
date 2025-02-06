@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Échantillon de couleur",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "À propos des collections Europeana",
-      "forDevelopers": "Pour les développeurs",
-      "help": "Aide",
-      "meetUs": "Rencontrez l'équipe",
-      "MoreInfoLabel": "Plus d'informations",
-      "provide": "Devenez un fournisseur de données",
-      "subscribe": "Abonnez-vous à notre newsletter",
-      "terms": "Conditions d'utilisation et politique de confidentialité"
-    },
-    "headerNavigation": {
-      "Collections": "Collections",
-      "explore": "Explorez",
-      "teachers": "Enseignants"
-    }
-  },
   "contentYouMightLike": "Contenu susceptible de vous plaire",
   "curatedAutomatically": "Organisé automatiquement par Europeana",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Foire aux questions (FAQ)",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
-      "privacy": "Politique de confidentialité",
+      "privacy": "Déclaration de confidentialité",
       "seeApiRequests": "Voir les requêtes vers les API Europeana",
       "subscribe": "Abonnez-vous à notre newsletter",
       "supportingTechnicalPartners": "Soutenir les partenaires techniques",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Accepter sélectionné",
       "consentModal": {
         "alwaysRequired": "(Toujours requis)",
-        "description": "Ici, vous pouvez voir et personnaliser les services que nous aimerions utiliser sur ce site Web. Pour en savoir plus, veuillez lire notre <a href='/rights/privacy-policy'> politique de confidentialité </a>.",
+        "description": "Ici, vous pouvez voir et personnaliser les services que nous aimerions utiliser sur ce site web. Pour en savoir plus, lisez notre <a href='/rights/privacy-statement'>déclaration de confidentialité</a>.",
         "privacyPolicy": "Politique de confidentialité",
         "servicesCount": "{count} service | {count} services",
         "text": "Ici, vous pouvez voir et personnaliser les services que nous aimerions utiliser sur ce site Web. Pour en savoir plus, veuillez lire notre {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Épingler l'item aux entités disponibles"
     },
     "allMetaData": "Toutes les métadonnées",
-    "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
+    "debias": "De-bias",
+    "explanationby": "Explication fournie par {0}",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",

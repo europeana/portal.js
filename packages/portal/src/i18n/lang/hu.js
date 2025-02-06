@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Színminta",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Az Europeana",
-      "forDevelopers": "Fejlesztőknek",
-      "help": "Súgó",
-      "meetUs": "Találkozzon a csapattal",
-      "MoreInfoLabel": "További információ",
-      "provide": "Legyen adatszolgáltató",
-      "subscribe": "Iratkozzon fel hírlevelünkre",
-      "terms": "Felhasználási feltételek és adatvédelmi irányelv"
-    },
-    "headerNavigation": {
-      "Collections": "Gyűjtemények",
-      "explore": "felfedez",
-      "teachers": "Tanárok"
-    }
-  },
   "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "curatedAutomatically": "Az Europeana által automatikusan felügyelt",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Gyakran Ismételt Kérdések (FAQ)",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
-      "privacy": "Adatvédelmi irányelvek",
+      "privacy": "Adatvédelmi nyilatkozat",
       "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "supportingTechnicalPartners": "Technikai partnerek támogatása",
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Kiválasztott elfogadása",
       "consentModal": {
         "alwaysRequired": "(Mindig kötelező)",
-        "description": "Itt láthatja és testreszabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. További információért kérjük, olvassa el <a href='/rights/privacy-policy'> adatvédelmi szabályzatunkat </a>.",
+        "description": "Itt láthatja és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Ha többet szeretne megtudni, kérjük, olvassa el a <a href='/rights/privacy-statement'>adatvédelmi nyilatkozatot</a>.",
         "privacyPolicy": "Adatvédelmi szabályzat",
         "servicesCount": "{count} szolgáltatás | {count} szolgáltatás",
         "text": "Itt megtekintheti és testreszabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. További információért kérjük, olvassa el {privacyPolicy}.",
@@ -1215,7 +1198,8 @@ export default {
       "pin": "Az tárgy rögzítése a rendelkezésre álló entitásokhoz."
     },
     "allMetaData": "Minden metaadat",
-    "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
+    "debias": "De-bias",
+    "explanationby": "Magyarázatot {0} biztosította.",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",

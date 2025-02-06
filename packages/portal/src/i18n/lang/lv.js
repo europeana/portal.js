@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Krāsu paraugs",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Par Europeana",
-      "forDevelopers": "Izstrādātājiem",
-      "help": "Palīdzība",
-      "meetUs": "Mūsu komanda",
-      "MoreInfoLabel": "Papildinformācija",
-      "provide": "Kļūsti par datu nodrošinātāju",
-      "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Lietošanas noteikumi un Privātuma politika"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcijos",
-      "explore": "Jaunumi",
-      "teachers": "Skolotājiem"
-    }
-  },
   "contentYouMightLike": "Iespējams, Tev patiks šis saturs",
   "curatedAutomatically": "Automātiski glabāts Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Bieži uzdotie jautājumi (FAQ)",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
-      "privacy": "Privātuma politika",
+      "privacy": "Konfidencialitātes paziņojums",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Pieņemt atlasīto",
       "consentModal": {
         "alwaysRequired": "(Vienmēr nepieciešams)",
-        "description": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-policy'> konfidencialitātes politiku </a>.",
+        "description": "Šeit varat apskatīt un pielāgot pakalpojumus, kurus vēlamies izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-statement'>konfidencialitātes paziņojumu</a>.",
         "privacyPolicy": "Privātuma politika",
         "servicesCount": "{count} pakalpojums | {count} pakalpojumi",
         "text": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu {privacyPolicy}.",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Piespraudiet digitālais objekts pieejamajām entītijām"
     },
     "allMetaData": "Visi metadati",
-    "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
+    "debias": "De-bias",
+    "explanationby": "Skaidrojumu sniedz {0}.",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",

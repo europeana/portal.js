@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Färgprov",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Om Europeana",
-      "forDevelopers": "För utvecklare",
-      "help": "Hjälp",
-      "meetUs": "Möt teamet",
-      "MoreInfoLabel": "Mer info",
-      "provide": "Bli en dataleverantör",
-      "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "terms": "Användarvillkor och integritetspolicy"
-    },
-    "headerNavigation": {
-      "Collections": "Samlingar",
-      "explore": "Utforska",
-      "teachers": "Lärare"
-    }
-  },
   "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
     "allMetaData": "Alla metadata",
-    "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
+    "debias": "De-bias",
+    "explanationby": "Förklaring tillhandahållen av {0}",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",

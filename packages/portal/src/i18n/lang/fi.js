@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Värimalli",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Tietoja Europeana",
-      "forDevelopers": "Kehittäjille",
-      "help": "Apua",
-      "meetUs": "Tutustu tiimiin",
-      "MoreInfoLabel": "Lisätietoja",
-      "provide": "Ryhdy tietojentarjoajaksi",
-      "subscribe": "Tilaa uutiskirjeemme",
-      "terms": "Käyttöehdot ja tietosuojakäytäntö"
-    },
-    "headerNavigation": {
-      "Collections": "Kokoelmat",
-      "explore": "tutustu",
-      "teachers": "Opettajat"
-    }
-  },
   "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "curatedAutomatically": "Europeanan automaattisesti kuratoima",
   "dateFilter": {
@@ -737,7 +720,7 @@ export default {
       "faq": "Usein kysytyt kysymykset (FAQ)",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
-      "privacy": "Tietosuojakäytäntö",
+      "privacy": "Tietosuojaseloste",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
       "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
@@ -805,7 +788,7 @@ export default {
       "acceptSelected": "Hyväksy valittu",
       "consentModal": {
         "alwaysRequired": "(Pakollinen aina)",
-        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla <a href='/rights/privacy-policy'> tietosuojakäytäntömme </a> .",
+        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Jos haluat lisätietoja, lue <a href='/rights/privacy-statement'>tietosuojaseloste</a>.",
         "privacyPolicy": "Tietosuojakäytäntö",
         "servicesCount": "{count} palvelu | {count} palvelua",
         "text": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla {privacyPolicy}.",
@@ -1216,7 +1199,8 @@ export default {
       "pin": "Kiinnitä aineisto käytettävissä oleviin Entiteetteihin"
     },
     "allMetaData": "Kaikki metatiedot",
-    "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
+    "debias": "De-bias",
+    "explanationby": "Selityksen on antanut {0}",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",

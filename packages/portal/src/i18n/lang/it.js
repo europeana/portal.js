@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Campione di colore",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Informazioni su Europeana",
-      "forDevelopers": "Per gli sviluppatori",
-      "help": "Aiuto",
-      "meetUs": "La nostra squadra",
-      "MoreInfoLabel": "Maggiori informazioni",
-      "provide": "Diventa un fornitore di dati",
-      "subscribe": "Iscriviti alla newsletter",
-      "terms": "Termini del servizio e Informativa sulla privacy"
-    },
-    "headerNavigation": {
-      "Collections": "Collezioni",
-      "explore": "Esplora",
-      "teachers": "Insegnanti"
-    }
-  },
   "contentYouMightLike": "Contenuto che potrebbe piacerti",
   "curatedAutomatically": "Curato automaticamente da Europeana",
   "dateFilter": {
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Accetta selezionato",
       "consentModal": {
         "alwaysRequired": "(Sempre obbligatorio)",
-        "description": "Qui puoi vedere e personalizzare i servizi che vorremmo utilizzare su questo sito web. Per ulteriori informazioni, leggi la nostra <a href='/rights/privacy-policy'> informativa sulla privacy </a>.",
+        "description": "Qui puoi vedere e personalizzare i servizi che vorremmo utilizzare su questo sito web. Per saperne di più, leggi la nostra <a href='/rights/privacy-statement'> informativa sulla privacy </a>.",
         "privacyPolicy": "Politica sulla riservatezza",
         "servicesCount": "{count} servizio | {count} servizi",
         "text": "Qui puoi vedere e personalizzare i servizi che vorremmo utilizzare su questo sito web. Per saperne di più, leggi la nostra {privacyPolicy}.",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "Aggiungi l'elemento alle entità disponibili"
     },
     "allMetaData": "Tutti i metadati",
-    "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
+    "debias": "De-bias",
+    "explanationby": "Spiegazione fornita da {0}",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",

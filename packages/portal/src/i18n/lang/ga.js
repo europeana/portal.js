@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Swatch dath",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Maidir le Europeana",
-      "forDevelopers": "Faoi chomhair forbróirí",
-      "help": "Cabhair",
-      "meetUs": "Cuir aithne ar an bhfoireann",
-      "MoreInfoLabel": "Tuilleadh eolais",
-      "provide": "Bí I do sholátharí sonraí",
-      "subscribe": "Liostáil lenár Nuachtlitir",
-      "terms": "Téarmaí úsáide agus Beartas príobháideachta"
-    },
-    "headerNavigation": {
-      "Collections": "Bailiúcháin",
-      "explore": "Taiscéal",
-      "teachers": "Múinteoirí"
-    }
-  },
   "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "curatedAutomatically": "Coimeádaithe go huathoibríoch ag Europeana",
   "dateFilter": {
@@ -736,7 +719,7 @@ export default {
       "faq": "Ceisteanna Coitianta (FAQ)",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
-      "privacy": "Beartas Príobháideachais",
+      "privacy": "Ráiteas príobháideachta",
       "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "supportingTechnicalPartners": "Tacú le comhpháirtithe teicniúla",
@@ -804,7 +787,7 @@ export default {
       "acceptSelected": "Glac leis roghnaithe",
       "consentModal": {
         "alwaysRequired": "(riachtanach i gcónaí)",
-        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuillidh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháide achais </a> .",
+        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuillidh a fhoghlaim léigh ár <a href='/rights/privacy-statement'> ráiteas príobháideachais </a>.",
         "privacyPolicy": "Beartas príobháideachta",
         "servicesCount": "Seirbhís {count} | {count} seirbhís",
         "text": "Anseo is féidir leat na seirbhísí a fheiceáil agus a shaincheapadh ar mhaith linn a úsáid ar an suíomh gréasáin seo. Chun tuillidh a fhoghlaim, léigh ár {privacyPolicy}.",
@@ -1214,7 +1197,8 @@ export default {
       "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
     },
     "allMetaData": "Gach meiteashonraí",
-    "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
+    "debias": "De-bias",
+    "explanationby": "Míniú curtha ar fáil ag {0}.",
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
