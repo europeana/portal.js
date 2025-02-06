@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
+      "copyAttribution": "Kopēt digitālā objekta attiecinājumu",
       "modalIntro": "Ja izmantojat šo digitālais objekts tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
       "modalTitle": "Sakiet paldies"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopēt iegulšanas kodu.",
       "pin": "Piespraudiet digitālais objekts pieejamajām entītijām"
     },
     "allMetaData": "Visi metadati",
+    "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
     "debias": "De-bias",
     "explanationby": "Skaidrojumu sniedz {0}.",
     "extendedInformation": "Paplašināta informācija",

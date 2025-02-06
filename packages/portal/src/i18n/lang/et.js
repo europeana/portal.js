@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kopeerimiseks klõpsa atribuuti",
+      "copyAttribution": "Kopeeri üksuse omistamine.",
       "modalIntro": "Kui kasutate seda objekti veebis või mujal, ärge unustage selle kõrval avaldada järgmist atribuuti:",
       "modalTitle": "Ütle aitäh"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopeeri manustamiskood",
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
     "allMetaData": "Kogu metateave",
+    "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
     "debias": "De-bias",
     "explanationby": "Selgituse esitas {0}",
     "extendedInformation": "Täiendav teave",

@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknutím na atribut jej zkopírujete",
+      "copyAttribution": "Zkopírovat atribut položky.",
       "modalIntro": "Pokud používáte tuto položku na webu nebo jinde, nezapomeňte vedle ní zobrazit následující uvedení zdroje:",
       "modalTitle": "Řekni díky."
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Zkopírujte kód pro vložení",
       "pin": "Připnout položku k dostupným entitám"
     },
     "allMetaData": "Všechna metadata",
+    "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
     "debias": "De-bias",
     "explanationby": "Vysvětlení poskytl {0}",
     "extendedInformation": "Bližší informace",

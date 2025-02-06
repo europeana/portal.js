@@ -1114,6 +1114,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Egin klik atribuzioan kopiatzeko",
+      "copyAttribution": "Kopiatu elementuaren atribuzioa",
       "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
       "modalTitle": "Eskerrik asko"
     },
@@ -1201,9 +1202,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiatu kapsulatutako kodea",
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
     "allMetaData": "Metadatu guztiak",
+    "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
     "debias": "De-bias",
     "explanationby": "{0} -k emandako azalpena",
     "extendedInformation": "Informazio zabaldua",

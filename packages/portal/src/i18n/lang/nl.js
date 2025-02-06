@@ -1109,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
+      "copyAttribution": "Kopieer de toeschrijving van het object.",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
     },
@@ -1196,9 +1197,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopieer insluitcode",
       "pin": "Pin item aan beschikbare entiteiten"
     },
     "allMetaData": "Alle metadata",
+    "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
     "debias": "De-bias",
     "explanationby": "Uitleg gegeven door {0}",
     "extendedInformation": "Uitgebreide informatie",

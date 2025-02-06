@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
+      "copyAttribution": "Kopijuoti skaitmeninio objekto priskyrimą.",
       "modalIntro": "Jei šį skaitmeninį objektą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
       "modalTitle": "Pasakykite ačiū"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Nukopijuokite įterpimo kodą",
       "pin": "Prisekite šį skaitmeninį objektą prie galimų objektų."
     },
     "allMetaData": "Visi metaduomenys",
+    "clickToCopyEmbedCode": "Spustelėkite įterpimo kodą, kad jį nukopijuotumėte",
     "debias": "De-bias",
     "explanationby": "Paaiškinimą pateikė {0}",
     "extendedInformation": "Išplėstinė informacija",

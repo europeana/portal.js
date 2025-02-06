@@ -1107,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Clicca sull'attribuzione per copiarla",
+      "copyAttribution": "Copia l’attribuzione degli oggetti.",
       "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di utilizzare la seguente attribuzione accanto a esso:",
       "modalTitle": "Di' grazie"
     },
@@ -1194,9 +1195,11 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copia il codice incorporato.",
       "pin": "Aggiungi l'elemento alle entità disponibili"
     },
     "allMetaData": "Tutti i metadati",
+    "clickToCopyEmbedCode": "Fai clic sul codice incorporato per copiarlo.",
     "debias": "De-bias",
     "explanationby": "Spiegazione fornita da {0}",
     "extendedInformation": "Informazioni estese",
