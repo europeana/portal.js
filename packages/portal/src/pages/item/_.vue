@@ -604,18 +604,23 @@
       },
 
       async fetchAnnotations() {
-        const annotations = await this.$apis.annotation.search({
-          query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
-          profile: 'dereference'
-        });
-        this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
-        this.deBias = {
-          definitions: this.deBiasDefinitions,
-          terms: this.deBiasTerms
-        };
+        try {
+          const annotations = await this.$apis.annotation.search({
+            query: `target_record_id:"${this.identifier}"`,
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            profile: 'dereference'
+          });
+          this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
+          this.deBias = {
+            definitions: this.deBiasDefinitions,
+            terms: this.deBiasTerms
+          };
 
-        this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+        } catch {
+          // don't let an Annotation API error bring the whole page down
+          this.annotations = [];
+        }
       },
 
       async fetchEntities() {
