@@ -1,9 +1,10 @@
 export default [
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
+  { name: 'embeddedMediaNotification' },
   { name: 'eventLogging' },
   { name: 'jiraServiceDeskFeedbackForm' },
-  { name: 'redirectBlogsToStories' },
+  { name: 'mockTrendingItems' },
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },

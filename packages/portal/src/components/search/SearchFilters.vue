@@ -63,7 +63,7 @@
             data-qa="additional filters toggle"
             :class="{ 'open': showAdditionalFilters }"
             aria-controls="additional-filters"
-            :aria-expanded="showAdditionalFilters"
+            :aria-expanded="showAdditionalFilters ? 'true' : 'false'"
             @click="showAdditionalFilters = !showAdditionalFilters"
           >
             {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? $t('actions.hide') : $t('actions.show') }) }}

@@ -22,9 +22,6 @@ const factory = ({
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
-      },
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
     $error: sinon.spy(),
@@ -61,7 +58,7 @@ describe('IndexPage', () => {
       });
 
       describe('when landing page configured to act as home page', () => {
-        const slug = 'share-your-data';
+        const slug = 'share-your-collections';
         const $config = { app: { homeLandingPageSlug: slug } };
 
         it('fetches the content from Contentful', async() => {
@@ -81,8 +78,8 @@ describe('IndexPage', () => {
     });
 
     describe('landing pages', () => {
-      const slug = 'share-your-data';
-      const page = { name: 'Share your data' };
+      const slug = 'share-your-collections';
+      const page = { name: 'Share your collections' };
       const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
       const $route = { params: { pathMatch: slug }, query: {} };
 
@@ -194,17 +191,18 @@ describe('IndexPage', () => {
     };
 
     it('uses the social media image for og:image', async() => {
+      const image = {
+        url: socialMediaImageUrl,
+        contentType: 'image/jpeg',
+        description: 'Social media image description'
+      };
       const contentfulQueryResponse = {
         data: {
           data: {
             staticPageCollection: {
               items: [
                 {
-                  image: {
-                    url: socialMediaImageUrl,
-                    contentType: 'image/jpeg',
-                    description: 'Social media image description'
-                  }
+                  image
                 }
               ]
             }
@@ -216,10 +214,14 @@ describe('IndexPage', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(`${socialMediaImageUrl}?optimised`);
+      expect(pageMeta.ogImage).toBe(image);
     });
 
     describe('when no social media image but a primary image of page', () => {
+      const image = {
+        url: primaryImageUrl,
+        contentType: 'image/jpeg'
+      };
       const contentfulQueryResponse = {
         data: {
           data: {
@@ -227,10 +229,7 @@ describe('IndexPage', () => {
               items: [
                 {
                   primaryImageOfPage: {
-                    image: {
-                      url: primaryImageUrl,
-                      contentType: 'image/jpeg'
-                    }
+                    image
                   }
                 }
               ]
@@ -244,7 +243,7 @@ describe('IndexPage', () => {
 
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.ogImage).toBe(`${primaryImageUrl}?optimised`);
+        expect(pageMeta.ogImage).toBe(image);
       });
     });
 

@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 
 const factory = (propsData = {}) => {
   return mount(SearchViewToggles, {
+    attachTo: document.body,
     localVue,
     propsData,
     mocks: {

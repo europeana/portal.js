@@ -1,6 +1,7 @@
 <template>
   <b-toast
-    id="new-feature-toast"
+    v-if="enabled"
+    :id="toastId"
     auto-hide-delay="60000"
     is-status
     no-close-button
@@ -8,14 +9,15 @@
     toast-class="brand-toast-white"
     visible
     append-toast
-    toaster="b-toaster-bottom-left-dynamic"
+    toaster="b-toaster-bottom-left"
   >
-    <slot />
+    <p>{{ $t(`newFeatureNotification.text.${name}`) }}</p>
     <div class="d-flex justify-content-between align-items-start">
       <b-button
         class="mr-2"
         variant="outline-primary"
-        @click="hideToast"
+        data-qa="new feature dismiss"
+        @click="handleClickDismiss"
       >
         {{ $t('newFeatureNotification.dismiss') }}
       </b-button>
@@ -25,7 +27,7 @@
         :href="url"
         target="blank"
         data-qa="new feature read more"
-        @click="trackEvent('click read more')"
+        @click="handleClickReadMore"
       >
         {{ $t('newFeatureNotification.readMore') }}
       </b-button>
@@ -38,32 +40,61 @@
     name: 'NewFeatureNotification',
 
     props: {
-      url: {
+      name: {
         type: String,
-        default: null
+        required: true
       },
-      feature: {
+
+      url: {
         type: String,
         default: null
       }
     },
 
+    data() {
+      return {
+        cookieName: 'new_feature_notification',
+        matomoEvent: 'New_feature_notification',
+        toastId: 'new-feature-toast'
+      };
+    },
+
+    computed: {
+      enabled() {
+        return this.$cookies.get(this.cookieName) !== this.name;
+      }
+    },
+
     created() {
+      if (!this.enabled) {
+        return;
+      }
+
       this.trackEvent('show');
-      this.$cookies.set('new_feature_notification', this.feature, {
+
+      this.$cookies.set(this.cookieName, this.name, {
         maxAge: 2678400
       });
     },
 
     methods: {
-      hideToast() {
-        this.$bvToast.hide('new-feature-toast');
+      handleClickDismiss() {
+        this.hideToast();
         this.trackEvent('dismissed');
+      },
+
+      handleClickReadMore() {
+        this.hideToast();
+        this.trackEvent('click read more');
+      },
+
+      hideToast() {
+        this.$bvToast.hide(this.toastId);
       },
 
       trackEvent(msg) {
         if (this.$matomo) {
-          this.$matomo.trackEvent('New_feature_notification', msg, this.feature);
+          this.$matomo.trackEvent(this.matomoEvent, msg, this.name);
         }
       }
     }

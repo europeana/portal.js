@@ -142,7 +142,8 @@
             memo[key] = {
               ...this.contentfulImageCropPresets[key],
               w: this.contentfulImageCropPresets[key].w * resolution,
-              h: this.contentfulImageCropPresets[key].h * resolution
+              h: this.contentfulImageCropPresets[key].h * resolution,
+              q: this.quality
             };
             return memo;
           }, {});

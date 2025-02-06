@@ -48,6 +48,7 @@
           v-b-toggle.menu
           :to="item.to"
           :href="item.href"
+          :target="null"
           :data-qa="item.dataQa"
           class="nav-link"
         >
@@ -68,6 +69,7 @@
         data-qa="log in button"
         class="nav-link"
         :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        :target="null"
         @click.prevent="keycloakLogin"
       >
         <span :class="renderIcon('/account/login')" />
@@ -112,14 +114,15 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: '/share-your-data', text: this.$t('header.navigation.shareYourData') }
+          { url: '/share-your-collections', text: this.$t('header.navigation.shareYourCollections') }
         ];
       },
       sidebarNavigation() {
         return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
+          { url: '/help', text: this.$t('header.navigation.help') },
+          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
         ];
       },
       links() {
@@ -146,6 +149,7 @@
         case ('/account/login'):
         case ('/account/logout'):
         case ('/account/settings'):
+        case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
         case ('/'):
@@ -157,7 +161,7 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('/share-your-data'):
+        case ('/share-your-collections'):
           className = 'icon-institution';
           break;
         default:

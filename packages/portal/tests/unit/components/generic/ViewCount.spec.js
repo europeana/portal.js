@@ -44,7 +44,7 @@ describe('components/generic/ViewCount', () => {
     nock.cleanAll();
   });
   describe('when passed a URL', () => {
-    const url = 'https://www.europeana.eu/blog/example';
+    const url = 'https://www.europeana.eu/story/example';
 
     beforeEach(() => {
       nock(baseUrl)

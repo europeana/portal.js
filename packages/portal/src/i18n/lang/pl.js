@@ -47,7 +47,6 @@ export default {
     "depublish": "Depublikuj",
     "download": "Ściągnij",
     "edit": "Edytuj",
-    "explore": "Badać",
     "filter": "Filtr",
     "goHome": "Przejdź do strony głównej",
     "hide": "Ukryj",
@@ -56,9 +55,11 @@ export default {
     "login": "Zaloguj się",
     "move": "Przesuń",
     "next": "Następny",
+    "nextPage": "Następna strona",
     "pin": "Szpilka",
     "preview": "Podgląd",
     "previous": "Poprzedni",
+    "previousPage": "Poprzednia strona",
     "publish": "Publikować",
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
@@ -74,8 +75,10 @@ export default {
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
+    "unlike": "Nie lubię",
     "viewAt": "Zobacz w {link}",
-    "viewDocument": "Zobacz dokument"
+    "viewDocument": "Zobacz dokument",
+    "vote": "Głosować"
   },
   "attribution": {
     "country": "Kraj:",
@@ -96,12 +99,7 @@ export default {
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
-    "topic": "Tematy",
-    "trending": "Popularne obiekty cyfrowe"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Wpis na blogu | Posty na blogu"
+    "topic": "Tematy"
   },
   "cardLabels": {
     "organisation": "Organizacja",
@@ -154,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Próbka koloru",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O Europeana",
-      "forDevelopers": "Dla deweloperów",
-      "help": "Pomoc",
-      "meetUs": "Poznaj zespół",
-      "MoreInfoLabel": "Więcej informacji",
-      "provide": "Zostań dostawcą danych",
-      "subscribe": "Zapisz się do naszego newslettera",
-      "terms": "Regulamin i Polityka prywatności"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcje",
-      "explore": "Odkryj",
-      "teachers": "Nauczyciele"
-    }
-  },
   "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "curatedAutomatically": "Wyselekcjonowane automatycznie przez Europeana",
   "dateFilter": {
@@ -193,6 +174,16 @@ export default {
     "broughtBy": "Dostarczone przez"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "embedNotification": {
+    "ifNotAll": "Jeśli nie chcesz ładować wszystkich osadzonych multimediów, możesz {0}.",
+    "loadAllEmbeddedContent": "Załaduj całą osadzoną zawartość",
+    "loadOnlyThis": "załaduj media tylko od tego dostawcy",
+    "message": "Należy pamiętać, że ta strona zawiera treści multimedialne osadzone na stronie {provider}. Przeglądanie tych mediów podlega ich warunkom i oświadczeniom o ochronie prywatności. Więcej informacji na temat sposobu wykorzystywania danych użytkownika można znaleźć w ich oświadczeniach o ochronie prywatności.",
+    "messageUnkownService": "Niestety, tej treści nie można wyświetlić.",
+    "ofThirdPartyServices": "{0} usług treści stron trzecich.",
+    "viewFullList": "Zobacz pełną listę",
+    "viewThisExternalLink": "Wyświetl tę zawartość za pośrednictwem łącza zewnętrznego"
+  },
   "entity": {
     "actions": {
       "cancel": "Anuluj",
@@ -243,6 +234,10 @@ export default {
       "metaTitle": "Nie znaleziono przedmiotu",
       "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
     },
+    "noFeatureIdeas": {
+      "description": "Sprawdź ponownie wkrótce!",
+      "title": "W tej chwili nie ma pomysłów na nowe funkcje."
+    },
     "pageNotFound": {
       "metaTitle": "Nie znaleziono strony",
       "title": "Strona, której szukasz nie istnieje."
@@ -261,6 +256,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Wystawa: {title}",
     "chapters": "Rozdziały",
     "credits": "Twórcy",
     "currentChapter": "Aktualny rozdział",
@@ -724,9 +720,9 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
-      "provide": "Zostań dostawca danych",
       "seeApiRequests": "Zobacz żądania do Europeana APIs",
       "subscribe": "Zapisz się do naszego newslettera",
+      "supportingTechnicalPartners": "Wspieranie partnerów technicznych",
       "terms": "Warunki i zasady"
     },
     "ourMission": "Nasza misja",
@@ -748,9 +744,10 @@ export default {
       "about": "O Europeana",
       "collections": "Kolekcje",
       "europeanaClassroom": "Dla nauczycieli",
+      "featureIdeas": "Pomysły na funkcje",
       "help": "Pomoc",
       "home": "Strona główna",
-      "shareYourData": "Udostępnij swoje dane",
+      "shareYourCollections": "Udostępnij swoje kolekcje",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -767,7 +764,6 @@ export default {
     "discoverEditorial": "Najnowsze historie",
     "storiesCTA": "Zobacz wszystkie historie",
     "subHeadline": "Wyszukaj, zapisz i udostępnij dzieła sztuki, książki, filmy oraz muzykę pochodzącą z tysięcy instytucji dziedzictwa kulturowego",
-    "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
     "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
     "titleDigital": "cyfrowe"
@@ -780,6 +776,9 @@ export default {
     "itemOf": "{max} z {count} obiekty cyfrowe",
     "recent": "Ostatnie obiekty cyfrowe",
     "recommended": "Polecane obiekty cyfrowe",
+    "trending": {
+      "headline": "Odkryj dzisiejsze popularne obiekty cyfrowe"
+    },
     "youMightLike": "Obiekty cyfrowe, które mogą Ci się spodobać"
   },
   "klaro": {
@@ -787,7 +786,11 @@ export default {
       "acceptAll": "Akceptuj wszystkie",
       "acceptSelected": "Zaakceptuj wybrane",
       "consentModal": {
-        "description": "Tutaj możesz zobaczyć i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Aby dowiedzieć się więcej, przeczytaj naszą <a href='/rights/privacy-policy'> politykę prywatności </a>.",
+        "alwaysRequired": "(Zawsze wymagane)",
+        "description": "Tutaj możesz zobaczyć i dostosować usługi, z których chcemy korzystać na tej stronie. Aby dowiedzieć się więcej, przeczytaj naszą <a href='/rights/privacy-statement'>politykę prywatności</a>.",
+        "privacyPolicy": "Polityka prywatności",
+        "servicesCount": "{count} usługa | {count} usług",
+        "text": "Tutaj możesz zobaczyć i dostosować usługi, z których chcielibyśmy korzystać na tej stronie internetowej. Aby dowiedzieć się więcej, przeczytaj naszą {privacyPolicy}.",
         "title": "Usługi, z których chcielibyśmy skorzystać."
       },
       "consentNotice": {
@@ -797,13 +800,44 @@ export default {
       "decline": "Odmawiam",
       "ok": "Dobra",
       "purposes": {
+        "2D": {
+          "title": "Media 2D"
+        },
+        "3D": {
+          "title": "Media 3D"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Usługi te są niezbędne do prawidłowego funkcjonowania tej witryny. Obejmują one widok wyników wyszukiwania i preferencje językowe, zachowują stan zalogowania i zapewniają bezpieczeństwo Twojej wizyty. Nie możesz ich wyłączyć, ponieważ w przeciwnym razie strona nie działałaby poprawnie.",
           "title": "Niezbędne usługi w zakresie bezpieczeństwa i dostosowywania"
         },
+        "mediaViewing": {
+          "description": "Usługi te ładują obrazy (2D), elementy 3D, audio i wideo do przeglądania.",
+          "title": "Usługi przeglądania multimediów"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Usługi te ładują treści takie jak kod, gry, mapy i widżety narracyjne.",
+          "title": "Inne usługi osadzania"
+        },
+        "socialMedia": {
+          "description": "Usługi te ładują treści z platform mediów społecznościowych.",
+          "title": "Usługi osadzania w mediach społecznościowych"
+        },
+        "thirdPartyContent": {
+          "description": "Usługi te ładują treści hostowane przez strony trzecie. Korzystanie z nich podlega zasadom, warunkom i oświadczeniom o ochronie prywatności tych stron trzecich.",
+          "title": "Zawartość stron trzecich"
+        },
         "usage": {
           "description": "Usługi te zbierają informacje, aby pomóc nam lepiej zrozumieć, w jaki sposób strona internetowa jest używana i gdzie są punkty bólu, umożliwiając nam dokonywanie świadomych wyborów w celu poprawy doświadczenia użytkownika.",
           "title": "Usługi do przechwytywania wykorzystania witryny i informacji zwrotnych"
+        },
+        "video": {
+          "title": "Wideo"
         }
       },
       "service": {
@@ -814,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
         "title": "Strategia Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomaga w debugowaniu żądań API",
         "title": "Przełącznik debugowania"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktywuje widget ankiety dający możliwość odpowiadania na nasze ankiety satysfakcji odwiedzających.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Zapamiętuje preferowany język interfejsu do przyszłego dostępu.",
         "title": "Kod języka"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktywuje widget opinii, dając Ci możliwość skontaktowania się z nami.",
         "title": "Jira service desk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Wyświetla powiadomienie, gdy nowe funkcje stają się dostępne.",
         "title": "Powiadomienie o nowej funkcji"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "description": "Zapamiętuje, czy wolisz wyświetlać wyniki wyszukiwania, galerie i Twoje polubienia w formie listy, siatki czy mozaiki.",
+        "title": "Wyniki wyszukiwania, galerie i widok polubień (lista/siatka/mozaika)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nieznany dostawca",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -870,8 +1067,38 @@ export default {
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
   },
+  "likes": {
+    "count": "{count} polubień | {count} polubień"
+  },
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Wyjdź z pełnego ekranu",
+      "fullscreen": "Pełny ekran",
+      "keyboardNavigation": "Użyj klawiszy +, - oraz strzałek, aby powiększać, zmniejszać i przesuwać obraz.",
+      "resetZoom": "Zresetuj powiększenie",
+      "rotateLeft": "Obróć w lewo",
+      "rotateRight": "Obróć w prawo",
+      "zoomIn": "Powiększ",
+      "zoomOut": "Pomniejsz"
+    },
+    "loadFull": "Bardzo duży obraz: załaduj w pełnym rozmiarze.",
+    "pages": {
+      "hide": "Ukryj strony",
+      "show": "Pokaż strony"
+    },
+    "sidebar": {
+      "annotations": "Adnotacje",
+      "annotationsCount": "1 Adnotacja | {count} Adnotacje",
+      "hide": "Ukryj pasek boczny",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linki",
+      "search": "Szukaj",
+      "searchPlaceholder": "Wprowadź terminy",
+      "show": "Pokaż pasek boczny"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
@@ -880,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknij atrybucję, aby ją skopiować.",
+      "copyAttribution": "Skopiuj atrybucję obiektu cyfrowego.",
       "modalIntro": "Jeśli używasz tego obiektu cyfrowego w sieci lub gdzie indziej, nie zapomnij wyświetlić obok niego następującej atrybucji:",
       "modalTitle": "Powiedz dziękuję"
     },
@@ -897,18 +1125,16 @@ export default {
     "automated": "Tłumaczenie zautomatyzowane",
     "automatedPageTranslations": "Na tej stronie zastosowano automatycznie wygenerowane tłumaczenia z języka angielskiego.",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
-    "loginToTranslate": "{login} aby zobaczyć ten obiekt cyfrowy w innych językach",
-    "other": "inne języki",
-    "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
-    "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
-    "translateMetadata": "Przetłumacz metadane tego obiekt cyfrowy.",
-    "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
+    "stopViewingThisItemIn": "Przestań oglądać ten obiekt cyfrowy w {0}",
+    "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później.",
+    "viewingThisItemIn": "Wyświetlanie tego obiektu cyfrowego w języku {0}",
+    "viewItemInAnotherLanguage": "Wyświetl ten obiekt cyfrowy w innym języku"
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
     "text": {
-      "trendingItems": "Dowiedz się, które obiekty cyfrowe przyciągają uwagę ludzi i stają się popularne w czasie rzeczywistym. Skorzystaj z okazji, aby być o krok do przodu-zobacz, co ludzie teraz najbardziej oglądają, lubią, kurują i ponownie wykorzystują."
+      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -969,14 +1195,16 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Skopiuj kod osadzenia.",
       "pin": "Przypinanie elementu do dostępnych encji"
     },
     "allMetaData": "Wszystkie metadane",
-    "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
+    "clickToCopyEmbedCode": "Kliknij kod osadzania, aby go skopiować",
+    "debias": "De-bias",
+    "explanationby": "Wyjaśnienie dostarczone przez {0}",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
-    "IIIFViewer": "Przeglądarka IIIF",
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimediów",
@@ -1036,6 +1264,7 @@ export default {
         "doesNotContain": "nie zawiera",
         "exact": "zawiera frazę"
       },
+      "newRule": "nowa zaawansowana zasada wyszukiwania",
       "placeholder": {
         "field": "Wybierz pole",
         "modifier": "Wybierz modyfikator",
@@ -1176,13 +1405,26 @@ export default {
     "required": "Wymagane"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Wystawy",
+      "stories": "Historie",
+      "viewAll": "Zobacz wszystkie"
+    },
     "stories": "Historia | Historie"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {
-    "paginationBulletLabel": "Grupa slajdów {page}"
+    "a11y": {
+      "firstSlide": "To jest pierwszy slajd",
+      "lastSlide": "To jest ostatni slajd",
+      "nextSlide": "Następny slajd",
+      "paginationBullet": "Slajd {page}",
+      "paginationBulletGroupedSlides": "Grupa slajdów {page}",
+      "previousSlide": "Poprzedni slajd",
+      "slideLabel": "Slajd {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Przeglądaj według motywu",

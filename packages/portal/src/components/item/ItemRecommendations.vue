@@ -24,6 +24,7 @@
         v-if="!$auth.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
+        :target="null"
         @click="keycloakLogin"
       >
         {{ $t('related.items.loginForMore') }}

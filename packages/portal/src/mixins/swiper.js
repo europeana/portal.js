@@ -7,15 +7,18 @@ export default {
     return {
       swiper: null,
       swiperDefaultOptions: {
+        a11y: { enabled: true,
+          firstSlideMessage: this.$t('swiper.a11y.firstSlide'),
+          lastSlideMessage: this.$t('swiper.a11y.lastSlide'),
+          nextSlideMessage: this.$t('swiper.a11y.nextSlide'),
+          paginationBulletMessage: this.$t('swiper.a11y.paginationBullet', { page: '{{index}}' }),
+          prevSlideMessage: this.$t('swiper.a11y.previousSlide'),
+          slideLabelMessage: this.$t('swiper.a11y.slideLabel', { slide: '{{index}}', totalSlides: '{{slidesLength}}' }) },
         keyboard: {
           enabled: true,
           pageUpDown: false
         },
-        lazy: {
-          enabled: true,
-          checkInView: true,
-          loadPrevNext: true
-        },
+        lazy: true,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
@@ -26,8 +29,7 @@ export default {
         pagination: {
           clickable: true,
           el: '.swiper-pagination',
-          type: 'bullets',
-          renderBullet: (index, className) => `<button aria-label="${this.$t('swiper.paginationBulletLabel', { page: index + 1 })}" class="${className}"></button>`
+          type: 'bullets'
         },
         slidesPerView: 'auto'
       },

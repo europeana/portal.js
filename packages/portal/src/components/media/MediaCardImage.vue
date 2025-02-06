@@ -1,12 +1,12 @@
 <template>
+  <!-- TODO: are we only ever using large thumbnails here? why? stop storing small? -->
   <div
-    class="image-container h-100"
+    class="media-card-image"
   >
     <b-link
-      v-if="imageLink && thumbnails.large && !media.forEdmIsShownAt"
+      v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
-      data-qa="media link"
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
@@ -21,7 +21,6 @@
         :height="thumbnailHeight"
         class="w-auto"
         alt=""
-        data-qa="media preview image"
         @error="imageNotFound"
         @error.native="imageNotFound"
       />
@@ -31,7 +30,7 @@
         ({{ $t('newWindow') }})
       </span>
     </b-link>
-    <div
+    <template
       v-else-if="thumbnails.large"
     >
       <MediaDefaultThumbnail
@@ -47,16 +46,19 @@
         :height="thumbnailHeight"
         alt=""
         class="mw-100"
-        data-qa="media preview image"
         @error="imageNotFound"
         @error.native="imageNotFound"
       />
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/edm/WebResource';
+  import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import {
+    LARGE_WIDTH as LARGE_THUMBNAIL_WIDTH,
+    SMALL_WIDTH as SMALL_THUMBNAIL_WIDTH
+  } from '@/plugins/europeana/thumbnail.js';
 
   export default {
     name: 'MediaCardImage',
@@ -67,6 +69,8 @@
 
     props: {
       media: {
+        // TODO: refactor to only receive EuropeanaMediaResource, once legacy
+        //       media presentation is gone
         type: WebResource,
         default: null
       },
@@ -85,6 +89,14 @@
       offset: {
         type: Number,
         default: null
+      },
+      thumbnailSize: {
+        type: String,
+        default: 'large'
+      },
+      linkable: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -99,19 +111,29 @@
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        return this.media.thumbnails(this.$nuxt.context);
+        if (this.media.svcsHasService) {
+          // TODO: assess impact of this outside of new ItemMediaPresentation component
+          const serviceId = this.media.svcsHasService.id || this.media.svcsHasService.about || this.media.svcsHasService;
+          return {
+            large: `${serviceId}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
+            small: `${serviceId}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
+          };
+        } else {
+          return this.$apis.thumbnail.forWebResource(this.media);
+        }
       },
       thumbnailSrc() {
-        return this.thumbnails.large;
+        return this.thumbnails[this.thumbnailSize];
       },
       thumbnailWidth() {
         if (!this.media.ebucoreWidth) {
           return null;
         }
-        if (this.media.ebucoreWidth < 400) {
+        const thumbnailMaxSize = this.thumbnailSize === 'large' ? LARGE_THUMBNAIL_WIDTH : SMALL_THUMBNAIL_WIDTH;
+        if (this.media.ebucoreWidth < thumbnailMaxSize) {
           return this.media.ebucoreWidth;
         }
-        return 400;
+        return thumbnailMaxSize;
       },
       thumbnailHeight() {
         if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
@@ -132,36 +154,33 @@
   };
 </script>
 
-<style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
 
-.image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .media-card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 
-  @media (max-height: $bp-small) {
-    align-items: flex-start;
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      height: auto;
+
+      @media (max-height: $bp-medium) {
+        max-height: $media-viewer-height;
+      }
+
+      @media (min-height: $bp-medium) {
+        max-height: $media-viewer-height-max;
+      }
+
+      @media (max-width: $bp-medium) {
+        max-height: $media-viewer-height-medium;
+      }
+    }
   }
-
-  a {
-    text-decoration: none;
-  }
-}
-
-img {
-  height: auto;
-
-  @media (max-height: $bp-medium) {
-    max-height: calc($swiper-height - $swiper-top-padding);
-  }
-
-  @media (min-height: $bp-medium) {
-    max-height: calc($swiper-height-max - $swiper-top-padding);
-  }
-
-  @media (max-width: $bp-medium) {
-    max-height: calc($swiper-height-medium - $swiper-top-padding);
-  }
-}
 </style>

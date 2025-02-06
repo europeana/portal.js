@@ -1,4 +1,5 @@
 Colours are also defined on the [Colours page on Figma](https://www.figma.com/file/TQHeWavFSkWCWGMntlthcJ/Component-Library?type=design&node-id=2331-6895&mode=design&t=Itwqh68olLjRr6ON-0)
+
 ```jsx
 <template>
   <b-table
@@ -51,9 +52,10 @@ Colours are also defined on the [Colours page on Figma](https://www.figma.com/fi
           { name: 'innovationblue', hex: '#0a72cc' },
           { name: 'innovationblue-dark', hex: '#0963b3' },
           { name: 'darkblue', hex: '#085395' },
+          { name: 'lightpurple', hex: '#c697fc'}
+          { name: 'lightpurple-light', hex: '#d4b1fd'}
           { name: 'red', hex: '#e02020' },
           { name: 'yellowgrey', hex: '#d9d4ca' },
-          { name: 'yellowhighlight', hex: '#ffcb56' },
           { name: 'yellow', hex: '#ffae00' },
           { name: 'lightgreen', hex: '#71c07b' },
           { name: 'green', hex: '#1d872b' },

@@ -62,8 +62,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
     $t: (key) => key,
     localePath: (args) => {
       return args.params ? `${args.params.type}/${args.params.pathMatch}` : args;
-    },
-    $fetchState: {}
+    }
   },
   stubs: ['b-container']
 });
@@ -110,16 +109,13 @@ describe('components/home/HomePage', () => {
       });
 
       describe('og:image', () => {
-        const expected = 'https://images.ctfassets.net/image.jpeg?optimised';
-
         it('uses CTF social media image', async() => {
           const wrapper = factory();
-          // await wrapper.setData({ socialMediaImage: image });
           await wrapper.vm.fetch();
 
           const pageMeta = wrapper.vm.pageMeta;
 
-          expect(pageMeta.ogImage).toBe(expected);
+          expect(pageMeta.ogImage).toBe(image);
         });
       });
     });

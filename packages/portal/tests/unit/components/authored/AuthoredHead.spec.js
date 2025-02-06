@@ -23,7 +23,7 @@ const factory = (propsData = {}) => mount(AuthoredHead, {
 
 const details = {
   title: 'This is a page',
-  contextLabel: 'Blog post'
+  contextLabel: 'Story post'
 };
 
 describe('components/authored/AuthoredHead', () => {
