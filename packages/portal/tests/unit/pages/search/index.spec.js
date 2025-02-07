@@ -21,7 +21,7 @@ const setShowSearchBar = sinon.spy();
 const store = new Vuex.Store({
   state: {
     search: {
-      overrideParams: {
+      defaultParams: {
         query: {}
       },
       showSidebarToggle: false

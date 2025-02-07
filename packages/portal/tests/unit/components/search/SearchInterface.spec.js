@@ -511,7 +511,7 @@ describe('components/search/SearchInterface', () => {
             $route
           },
           propsData: {
-            overrideParams: {
+            defaultParams: {
               qf: [overrideQf]
             }
           }

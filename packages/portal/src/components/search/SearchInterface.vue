@@ -215,7 +215,7 @@
         type: Boolean,
         default: false
       },
-      overrideParams: {
+      defaultParams: {
         type: Object,
         default: () => ({})
       }
@@ -413,7 +413,7 @@
           rows: this.perPage
         }, isUndefined);
 
-        const params = merge(this.overrideParams, localParams);
+        const params = merge(this.defaultParams, localParams);
 
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {

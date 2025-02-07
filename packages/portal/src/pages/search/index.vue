@@ -5,7 +5,7 @@
   >
     <SearchInterface
       id="search-interface"
-      :override-params="searchOverrides"
+      :default-params="searchOverrides"
     >
       <template
         v-if="!!searchQuery"
