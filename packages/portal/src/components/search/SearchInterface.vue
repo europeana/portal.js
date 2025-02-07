@@ -163,6 +163,7 @@
   import isEqual from 'lodash/isEqual.js';
   import isUndefined from 'lodash/isUndefined.js';
   import omitBy from 'lodash/omitBy.js';
+  import uniq from 'lodash/uniq.js';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
@@ -434,6 +435,7 @@
         }
 
         params.qf = addContentTierFilter(params.qf);
+        params.qf = uniq(params.qf);
 
         this.apiParams = params;
       },
