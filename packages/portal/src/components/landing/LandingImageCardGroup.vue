@@ -13,7 +13,7 @@
           <div
             v-if="text"
             class="mb-3"
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdown(text)"
           />
         <!-- eslint-enable vue/no-v-html -->
         </b-col>
@@ -35,15 +35,13 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingImageCardGroup',
     components: {
       LandingImageCard: () => import('@/components/landing/LandingImageCard')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -82,6 +80,10 @@
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         }
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>

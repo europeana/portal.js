@@ -32,7 +32,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
-        v-html="parseMarkdownHtml(card.text)"
+        v-html="parseMarkdown(card.text)"
       />
       <!-- eslint-enable vue/no-v-html -->
       <SmartLink
@@ -55,7 +55,7 @@
 <script>
   import { ref } from 'vue';
   import useRefParity from '@/composables/refParity.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -97,14 +97,11 @@
 
   export default {
     name: 'LandingImageCard',
+
     components: {
       ImageWithAttribution: () => import('@/components/image/ImageWithAttribution'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [
-      parseMarkdownHtmlMixin
-    ],
 
     props: {
       /**
@@ -145,6 +142,10 @@
         sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
         srcSetPresets: this.variant === 'ds4ch' ? SRCSET_PRESETS_DS4CH : SRCSET_PRESETS
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
   </script>

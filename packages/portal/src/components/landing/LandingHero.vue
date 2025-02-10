@@ -7,7 +7,7 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <div
-            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
+            v-html="parseMarkdown(`# ${headline}\n${text}`)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -21,7 +21,7 @@
           <div
             v-if="ctaHelpText"
             class="btn-cta-helptext form-text text-muted mt-3"
-            v-html="parseMarkdownHtml(ctaHelpText)"
+            v-html="parseMarkdown(ctaHelpText)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </header>
@@ -47,7 +47,7 @@
 <script>
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import SmartLink from '@/components/generic/SmartLink';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingHero',
@@ -56,8 +56,6 @@
       ImageWithAttribution,
       SmartLink
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -120,6 +118,10 @@
       isSVG() {
         return this.heroImage?.image?.contentType === 'image/svg+xml';
       }
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>
