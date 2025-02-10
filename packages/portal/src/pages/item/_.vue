@@ -140,7 +140,7 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
-  import stringify from '@/mixins/stringify';
+  import stringify from '@/utils/text/stringify.js';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -164,7 +164,6 @@
     },
 
     mixins: [
-      stringify,
       canonicalUrlMixin,
       pageMetaMixin,
       redirectToMixin,
@@ -324,8 +323,8 @@
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
-          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
+          dimension2: stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
+          dimension3: stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       },
