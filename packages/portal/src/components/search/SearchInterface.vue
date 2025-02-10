@@ -160,7 +160,10 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import merge from 'deepmerge';
-  import isEqual from 'lodash/isEqual';
+  import isEqual from 'lodash/isEqual.js';
+  import isUndefined from 'lodash/isUndefined.js';
+  import omitBy from 'lodash/omitBy.js';
+  import uniq from 'lodash/uniq.js';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
@@ -212,7 +215,7 @@
         type: Boolean,
         default: false
       },
-      overrideParams: {
+      defaultParams: {
         type: Object,
         default: () => ({})
       }
@@ -399,16 +402,18 @@
       //       `onClickItem`
       // TODO: reduce cognitive complexity
       deriveApiParams() {
-        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
-          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
-            memo[field] = this[field];
-          }
-          return memo;
-        }, {});
+        const localParams = omitBy({
+          boost: this.boost,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          sort: this.sort,
+          page: this.page,
+          profile: 'minimal',
+          rows: this.perPage
+        }, isUndefined);
 
-        params.page = this.page;
-        params.profile = 'minimal';
-        params.rows = this.perPage;
+        const params = merge(this.defaultParams, localParams);
 
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
@@ -430,8 +435,9 @@
         }
 
         params.qf = addContentTierFilter(params.qf);
+        params.qf = uniq(params.qf);
 
-        this.apiParams = merge(params, this.overrideParams);
+        this.apiParams = params;
       },
 
       // NOTE: do not use computed properties here as they may change when the
