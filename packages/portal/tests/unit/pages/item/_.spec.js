@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import createHttpError from 'http-errors';
 
 import page from '@/pages/item/_';
 import useDeBias from '@/composables/deBias.js';
@@ -522,6 +523,17 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$error.called).toBe(true);
+      });
+
+      describe('when error is 410 Gone (tombstone)', () => {
+        it('(temporarily) calls $error as with 404 Not Found', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.get = sinon.stub().throws(() => createHttpError(410));
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$error.calledWith(sinon.match.has('statusCode', 404))).toBe(true);
+        });
       });
     });
 

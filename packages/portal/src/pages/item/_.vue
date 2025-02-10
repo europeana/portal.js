@@ -382,6 +382,10 @@
           if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
             this.fromTranslationError = true;
             data = await this.$apis.record.get(this.identifier);
+          } else if (error.statusCode === 410) {
+            // TODO: temporary workaround to handle tombstone records like 404s
+            //       til tombstone page implemented
+            return this.$error({ ...error, statusCode: 404, message: 'Not Found' }, { scope: 'item' });
           } else {
             return this.$error(error, { scope: 'item' });
           }
