@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, cardClasses, parityClasses]"
+    :class="[variant, cardClasses, `image-card-${parity}`]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -53,7 +53,8 @@
 </template>
 
 <script>
-  import parityMixin from '@/mixins/parity.js';
+  import { ref } from 'vue';
+  import useRefParity from '@/composables/refParity.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
@@ -102,7 +103,6 @@
     },
 
     mixins: [
-      parityMixin,
       parseMarkdownHtmlMixin
     ],
 
@@ -131,6 +131,12 @@
       }
     },
 
+    setup() {
+      const imagecard = ref(null);
+      const { parity } = useRefParity('image-card', imagecard);
+      return { parity, imagecard };
+    },
+
     data() {
       return {
         cardClasses: this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '',
@@ -139,10 +145,6 @@
         sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
         srcSetPresets: this.variant === 'ds4ch' ? SRCSET_PRESETS_DS4CH : SRCSET_PRESETS
       };
-    },
-
-    mounted() {
-      this.$nextTick(() => this.markParity('image-card', 'imagecard'));
     }
   };
   </script>

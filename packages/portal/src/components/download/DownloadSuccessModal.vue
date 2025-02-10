@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import stringify from '@/mixins/stringify';
+  import stringify from '@/utils/text/stringify.js';
   import ShareSnippet from '@/components/share/ShareSnippet';
 
   export default {
@@ -37,10 +37,6 @@
     components: {
       ShareSnippet
     },
-
-    mixins: [
-      stringify
-    ],
 
     props: {
       title: {
@@ -75,9 +71,9 @@
 
     data() {
       return {
-        providerString: this.stringify(this.provider),
-        creatorString: this.stringify(this.creator),
-        yearString: this.stringify(this.year)
+        providerString: stringify(this.provider),
+        creatorString: stringify(this.creator),
+        yearString: stringify(this.year)
       };
     },
 
