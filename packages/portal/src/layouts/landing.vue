@@ -32,9 +32,10 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import createCanonicalUrl from '@/utils/url/canonicalUrl.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -47,9 +48,17 @@
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
-    mixins: [
-      canonicalUrlMixin
-    ],
+    provide() {
+      return {
+        canonicalUrl: computed(() => this.canonicalUrl)
+      };
+    },
+
+    data() {
+      return {
+        canonicalUrl: {}
+      };
+    },
 
     head() {
       return {
@@ -61,9 +70,23 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl.withOnlyQuery }
         ]
       };
+    },
+
+    watch: {
+      '$i18n.locale'() {
+        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
+      },
+
+      $route() {
+        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
+      }
+    },
+
+    created() {
+      this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
     }
   };
 </script>

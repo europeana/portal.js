@@ -119,7 +119,6 @@
   import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
   import logEventMixin from '@/mixins/logEvent';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'ExhibitionPage',
@@ -137,10 +136,12 @@
       ViewCount
     },
     mixins: [
-      canonicalUrlMixin,
       exhibitionChapters,
       logEventMixin,
       pageMetaMixin
+    ],
+    inject: [
+      'canonicalUrl'
     ],
     asyncData({ params, query, error, app, redirect }) {
       if (params.exhibition === undefined) {
@@ -198,7 +199,7 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
+      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
     }
   };
 </script>

@@ -15,13 +15,11 @@
 <script>
   import axios from 'axios';
 
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
-
   export default {
     name: 'ViewCount',
 
-    mixins: [
-      canonicalUrlMixin
+    inject: [
+      'canonicalUrl'
     ],
 
     props: {
@@ -42,7 +40,7 @@
         return;
       }
 
-      const url = this.url || this.canonicalUrl({ fullPath: true, locale: false });
+      const url = this.url || this.canonicalUrl.withOnlyQuery;
 
       const viewsResponse = await axios({
         baseURL: this.$config.app.baseUrl,

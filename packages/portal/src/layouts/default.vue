@@ -62,10 +62,11 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import createCanonicalUrl from '@/utils/url/canonicalUrl.js';
   import makeToastMixin from '@/mixins/makeToast';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
@@ -86,12 +87,18 @@
     },
 
     mixins: [
-      canonicalUrlMixin,
       makeToastMixin
     ],
 
+    provide() {
+      return {
+        canonicalUrl: computed(() => this.canonicalUrl)
+      };
+    },
+
     data() {
       return {
+        canonicalUrl: {},
         enableAnnouncer: true,
         featureNotification: activeFeatureNotification(this.$nuxt?.context),
         linkGroups: {},
@@ -113,20 +120,26 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl.withOnlyQuery },
           ...i18nHead.link
         ],
         meta: [
           ...i18nHead.meta,
           { hid: 'description', name: 'description', content: this.$config.app.siteName },
           { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl.withBothLocaleAndQuery }
         ]
       };
     },
 
     watch: {
+      '$i18n.locale'() {
+        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
+      },
+
       $route(to, from) {
+        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
+
         this.$nextTick(() => {
           if (to.path === from.path) {
             this.enableAnnouncer = false;
@@ -137,6 +150,10 @@
           }
         });
       }
+    },
+
+    created() {
+      this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
     },
 
     mounted() {
