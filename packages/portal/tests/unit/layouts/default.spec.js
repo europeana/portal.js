@@ -44,9 +44,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
-    $exp: {
-      $variantIndexes: [0]
-    },
     $route: {
       query: {},
       fullPath: '/fr',

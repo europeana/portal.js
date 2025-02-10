@@ -22,7 +22,6 @@
 <script>
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import logEventMixin from '@/mixins/logEvent';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
@@ -32,9 +31,9 @@
       LoadingSpinner
     },
     mixins: [
-      canonicalUrlMixin,
       logEventMixin
     ],
+    inject: ['canonicalUrl'],
     props: {
       url: {
         type: String,
@@ -136,7 +135,7 @@
         if (!this.disabled) {
           this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`);
           if (this.$matomo) {
-            this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
+            this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
             if (!this.clicked) {
               this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
               this.clicked = true;

@@ -23,13 +23,11 @@
 </template>
 
 <script>
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
-
   export default {
     name: 'ShareSocialButtons',
 
-    mixins: [
-      canonicalUrlMixin
+    inject: [
+      'canonicalUrl'
     ],
 
     props: {
@@ -45,7 +43,7 @@
 
     computed: {
       shareUrl() {
-        return this.canonicalUrl({ fullPath: true, locale: false });
+        return this.canonicalUrl.withOnlyQuery;
       },
       networks() {
         return [

@@ -32,11 +32,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $config: {
-      app: {
-        baseUrl: 'https://www.europeana.eu'
-      }
-    },
     $contentful: {
       query: contentfulQuery
     },
@@ -56,6 +51,9 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
       path: '/en/stories/once-upon-a-time',
       query: {}
     }
+  },
+  provide: {
+    canonicalUrl: {}
   }
 });
 

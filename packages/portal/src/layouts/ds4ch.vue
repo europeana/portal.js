@@ -33,11 +33,12 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
 
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -51,9 +52,17 @@
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
-    mixins: [
-      canonicalUrlMixin
-    ],
+    provide() {
+      return {
+        canonicalUrl: computed(() => this.canonicalUrl)
+      };
+    },
+
+    data() {
+      return {
+        canonicalUrl: {}
+      };
+    },
 
     head() {
       return {
@@ -65,9 +74,13 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl.withBothLocaleAndQuery }
         ]
       };
+    },
+
+    created() {
+      this.canonicalUrl = createCanonicalUrlFromVue(this);
     }
   };
 </script>

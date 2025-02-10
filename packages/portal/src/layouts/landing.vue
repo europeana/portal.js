@@ -32,9 +32,10 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -47,9 +48,17 @@
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
-    mixins: [
-      canonicalUrlMixin
-    ],
+    provide() {
+      return {
+        canonicalUrl: computed(() => this.canonicalUrl)
+      };
+    },
+
+    data() {
+      return {
+        canonicalUrl: {}
+      };
+    },
 
     head() {
       return {
@@ -61,9 +70,13 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl.withOnlyQuery }
         ]
       };
+    },
+
+    created() {
+      this.canonicalUrl = createCanonicalUrlFromVue(this);
     }
   };
 </script>

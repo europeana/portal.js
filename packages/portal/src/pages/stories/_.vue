@@ -45,7 +45,6 @@
   import StoryPost from '@/components/story/StoryPost';
   import logEventMixin from '@/mixins/logEvent';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'StoriesPage',
@@ -58,9 +57,12 @@
     },
 
     mixins: [
-      canonicalUrlMixin,
       pageMetaMixin,
       logEventMixin
+    ],
+
+    inject: [
+      'canonicalUrl'
     ],
 
     data() {
@@ -108,7 +110,7 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
+      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
     }
   };
 </script>

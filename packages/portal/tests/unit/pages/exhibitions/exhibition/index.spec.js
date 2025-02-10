@@ -28,6 +28,9 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   mixins: [
     exhibitionChapters
   ],
+  provide: {
+    canonicalUrl: {}
+  },
   data() {
     return {
       identifier: 'exhibition',
@@ -70,18 +73,8 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     $store: {
       commit: sinon.spy()
     },
-    $route: {
-      fullPath: 'https://www.europeana.eu/en/exhibitions/exhibition',
-      path: '/en/exhibitions/exhibition'
-    },
-    $i18n: {
-      locale: 'en'
-    },
-    $config: {
-      app: {
-        baseUrl: 'https://www.europeana.eu'
-      }
-    }
+    $route: {},
+    $i18n: {}
   }
 });
 

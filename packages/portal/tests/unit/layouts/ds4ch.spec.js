@@ -10,8 +10,10 @@ localVue.use(BootstrapVue);
 const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
   mocks: {
+    $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
+    $i18n: { locale: 'en' },
     $t: key => key,
-    $route: {},
+    $route: { path: '/ds4ch', fullPath: '/ds4ch' },
     $features: {},
     ...options.mocks
   },

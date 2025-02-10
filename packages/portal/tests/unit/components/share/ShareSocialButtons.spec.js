@@ -15,22 +15,13 @@ const factory = () => shallowMount(ShareSocialButtons, {
     mediaUrl: '/img/portrait.jpg'
   },
   mocks: {
-    $config: {
-      app: {
-        baseUrl: 'https://www.example.org'
-      }
-    },
-    $i18n: {
-      locale: 'fr'
-    },
-    $route: {
-      fullPath: '/page',
-      path: '/page'
-    },
     $matomo: {
       trackEvent: sinon.spy()
     },
     $t: () => {}
+  },
+  provide: {
+    canonicalUrl: { withOnlyQuery: 'https://www.example.org/page' }
   }
 });
 
