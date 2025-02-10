@@ -33,7 +33,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes both locale and query for home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.home };
 
-        const withBothLocaleAndQuery = createCanonicalUrl(args).withBothLocaleAndQuery;
+        const withBothLocaleAndQuery = createCanonicalUrl(args).withBothLocaleAndQuery.value;
 
         expect(withBothLocaleAndQuery).toBe('https://www.example.org/en?query=art');
       });
@@ -41,7 +41,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes both locale and query for non-home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.item };
 
-        const withBothLocaleAndQuery = createCanonicalUrl(args).withBothLocaleAndQuery;
+        const withBothLocaleAndQuery = createCanonicalUrl(args).withBothLocaleAndQuery.value;
 
         expect(withBothLocaleAndQuery).toBe('https://www.example.org/en/item/123/abc?query=art');
       });
@@ -51,7 +51,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes only query for home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.home };
 
-        const withOnlyQuery = createCanonicalUrl(args).withOnlyQuery;
+        const withOnlyQuery = createCanonicalUrl(args).withOnlyQuery.value;
 
         expect(withOnlyQuery).toBe('https://www.example.org/?query=art');
       });
@@ -59,7 +59,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes only query for non-home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.item };
 
-        const withOnlyQuery = createCanonicalUrl(args).withOnlyQuery;
+        const withOnlyQuery = createCanonicalUrl(args).withOnlyQuery.value;
 
         expect(withOnlyQuery).toBe('https://www.example.org/item/123/abc?query=art');
       });
@@ -69,7 +69,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes only locale for home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.home };
 
-        const withOnlyLocale = createCanonicalUrl(args).withOnlyLocale;
+        const withOnlyLocale = createCanonicalUrl(args).withOnlyLocale.value;
 
         expect(withOnlyLocale).toBe('https://www.example.org/en');
       });
@@ -77,7 +77,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes only locale for non-home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.item };
 
-        const withOnlyLocale = createCanonicalUrl(args).withOnlyLocale;
+        const withOnlyLocale = createCanonicalUrl(args).withOnlyLocale.value;
 
         expect(withOnlyLocale).toBe('https://www.example.org/en/item/123/abc');
       });
@@ -87,7 +87,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes neither locale nor query for home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.home };
 
-        const withNeitherLocaleNorQuery = createCanonicalUrl(args).withNeitherLocaleNorQuery;
+        const withNeitherLocaleNorQuery = createCanonicalUrl(args).withNeitherLocaleNorQuery.value;
 
         expect(withNeitherLocaleNorQuery).toBe('https://www.example.org/');
       });
@@ -95,7 +95,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
       it('includes neither locale nor query for non-home page', () => {
         const args = { baseUrl: fixtures.baseUrl, i18n: fixtures.i18n, route: fixtures.routes.item };
 
-        const withNeitherLocaleNorQuery = createCanonicalUrl(args).withNeitherLocaleNorQuery;
+        const withNeitherLocaleNorQuery = createCanonicalUrl(args).withNeitherLocaleNorQuery.value;
 
         expect(withNeitherLocaleNorQuery).toBe('https://www.example.org/item/123/abc');
       });

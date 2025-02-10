@@ -1,23 +1,43 @@
+import { ref, watch } from 'vue';
+import { toRef } from '@vueuse/core';
+
 // This would ideally be a composable, but couldn't get that working wrt
 // provision of baseUrl, i18n and route from Options API setup function where
 // there is no vue/nuxt context available, and lack of v3 helpers like useContext
 export default function createCanonicalUrl({ baseUrl, i18n, route } = {}) {
+  const baseUrlRef = toRef(baseUrl);
+  const i18nRef = toRef(i18n);
+  const routeRef = toRef(route);
+
   const removeLocaleFromPath = (path) => {
-    if (route.path === `/${i18n.locale}`) {
-      return path.replace(i18n.locale, '');
-    } else if (path.startsWith(`/${i18n.locale}/`)) {
+    if (routeRef.value.path === `/${i18nRef.value.locale}`) {
+      return path.replace(i18nRef.value.locale, '');
+    } else if (path.startsWith(`/${i18nRef.value.locale}/`)) {
       return path.slice(3);
     }
     return path;
   };
 
-  const withBothLocaleAndQuery = `${baseUrl}${route.fullPath}`;
+  watch(i18nRef, () => setUrls());
+  watch(routeRef, () => setUrls());
+  watch(baseUrlRef, () => setUrls());
 
-  const withOnlyQuery = `${baseUrl}${removeLocaleFromPath(route.fullPath)}`;
+  const withBothLocaleAndQuery = ref(null);
+  const withOnlyQuery = ref(null);
+  const withOnlyLocale = ref(null);
+  const withNeitherLocaleNorQuery = ref(null);
 
-  const withOnlyLocale = `${baseUrl}${route.path}`;
+  const setUrls = () => {
+    withBothLocaleAndQuery.value = `${baseUrlRef.value}${routeRef.value.fullPath}`;
 
-  const withNeitherLocaleNorQuery = `${baseUrl}${removeLocaleFromPath(route.path)}`;
+    withOnlyQuery.value = `${baseUrlRef.value}${removeLocaleFromPath(routeRef.value.fullPath)}`;
+
+    withOnlyLocale.value = `${baseUrlRef.value}${routeRef.value.path}`;
+
+    withNeitherLocaleNorQuery.value = `${baseUrlRef.value}${removeLocaleFromPath(routeRef.value.path)}`;
+  };
+
+  setUrls();
 
   return {
     withBothLocaleAndQuery,

@@ -79,18 +79,12 @@
       };
     },
 
-    watch: {
-      '$i18n.locale'() {
-        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
-      },
-
-      $route() {
-        this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
-      }
-    },
-
     created() {
-      this.canonicalUrl = createCanonicalUrl({ baseUrl: this.$config.app.baseUrl, i18n: this.$i18n, route: this.$route });
+      this.canonicalUrl = createCanonicalUrl({
+        baseUrl: this.$config.app.baseUrl,
+        i18n: computed(() => this.$i18n),
+        route: computed(() => this.$route)
+      });
     }
   };
 </script>

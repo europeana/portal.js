@@ -465,6 +465,13 @@ export default {
         loader: 'file-loader'
       });
 
+      // Handle .mjs files, e.g. for @vueuse/core
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds
