@@ -21,7 +21,7 @@ const setShowSearchBar = sinon.spy();
 const store = new Vuex.Store({
   state: {
     search: {
-      overrideParams: {
+      defaultParams: {
         query: {}
       },
       showSidebarToggle: false
@@ -53,8 +53,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $features: {},
     $route: {
       query: {
-        query: options.query,
-        sort: options.sort
+        query: options.query
       }
     },
     $fetchState: {},
@@ -117,16 +116,6 @@ describe('pages/item/_.vue', () => {
     describe('when there is an active query', () => {
       it('does NOT include random sorting', () => {
         const wrapper = factory({ query: 'something' });
-
-        const searchOverrides = wrapper.vm.searchOverrides;
-
-        expect(searchOverrides.sort).toBe(undefined);
-      });
-    });
-
-    describe('when there is a custom sort provided', () => {
-      it('does NOT include random sorting', async() => {
-        const wrapper = factory({ sort: 'score desc' });
 
         const searchOverrides = wrapper.vm.searchOverrides;
 

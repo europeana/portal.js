@@ -1,8 +1,8 @@
 <template>
   <div
-    :ref="refName"
+    ref="landingContentCardGroup"
     class="landing-content-card-group"
-    :class="[variant, parityClasses]"
+    :class="[variant, `landing-content-card-group-${parity}`]"
     data-qa="landing content card group"
   >
     <b-container>
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-  import parityMixin from '@/mixins/parity.js';
+  import { ref } from 'vue';
+  import useRefParity from '@/composables/refParity.js';
   import ContentCardSection from '../content/ContentCardSection';
 
   export default {
@@ -24,8 +25,6 @@
     components: {
       ContentCardSection
     },
-
-    mixins: [parityMixin],
 
     props: {
       /**
@@ -52,16 +51,20 @@
       }
     },
 
-    data() {
-      return {
-        refName: 'landingContentCardGroup'
-      };
+    setup(props) {
+      const landingContentCardGroup = ref(null);
+      if (props.variant === 'ds4ch') {
+        const { parity } = useRefParity('landing-content-card-group', landingContentCardGroup);
+        return { parity, landingContentCardGroup };
+      } else {
+        return { parity: null, landingContentCardGroup };
+      }
     },
 
-    mounted() {
-      if (this.variant === 'ds4ch') {
-        this.$nextTick(() => this.markParity('landing-content-card-group', this.refName));
-      }
+    data() {
+      return {
+        refName: ''
+      };
     }
   };
 </script>

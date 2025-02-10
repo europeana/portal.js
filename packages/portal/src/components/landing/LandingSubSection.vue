@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
   import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
@@ -71,8 +71,6 @@
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
-
-    mixins: [contentfulMixin],
 
     props: {
       /**
@@ -107,6 +105,7 @@
     },
 
     methods: {
+      contentfulEntryHasContentType,
       parseMarkdown
     }
   };

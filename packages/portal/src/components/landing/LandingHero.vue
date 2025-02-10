@@ -21,7 +21,7 @@
           <div
             v-if="ctaHelpText"
             class="btn-cta-helptext form-text text-muted mt-3"
-            v-html="parseMarkdownHtml(ctaHelpText)"
+            v-html="parseMarkdown(ctaHelpText)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </header>
