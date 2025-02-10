@@ -21,8 +21,8 @@ export default function createCanonicalUrl({ baseUrl, i18n, route } = {}) {
 
   return {
     withBothLocaleAndQuery,
-    withOnlyQuery,
+    withNeitherLocaleNorQuery,
     withOnlyLocale,
-    withNeitherLocaleNorQuery
+    withOnlyQuery
   };
 }
