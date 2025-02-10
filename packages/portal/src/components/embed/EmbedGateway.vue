@@ -10,6 +10,7 @@
       v-else-if="provider"
       class="notification-overlay"
       :class="{'h-100': url, 'mw-100': embedCode}"
+      data-qa="embed gateway"
     >
       <b-row
         class="position-relative"
