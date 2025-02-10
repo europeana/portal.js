@@ -20,12 +20,7 @@
     <LandingPageFooter />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification"
         :klaro-services="['auth-strategy', 'i18n', 'matomo', 'codepen']"
-      />
-      <PageCookieConsent
-        v-else
-        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -43,7 +38,6 @@
     components: {
       LandingPageHeader,
       LandingPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 

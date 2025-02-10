@@ -10,6 +10,7 @@
       v-else-if="provider"
       class="notification-overlay"
       :class="{'h-100': url, 'mw-100': embedCode}"
+      data-qa="embed gateway"
     >
       <b-row
         class="position-relative"
@@ -149,8 +150,7 @@
         cookieModalId: 'embed-cookie-modal',
         hidePurposes: ['essential', 'usage'],
         iframe: {},
-        // TODO: set to false on feature toggle clean up
-        opened: !this.$features.embeddedMediaNotification,
+        opened: false,
         renderCookieModal: false,
         script: {}
       };

@@ -160,16 +160,15 @@ module.exports = {
     await client.url(pageUrl(pageName));
   },
   async acceptKlaroCookies() {
-    // #eu-klaro div remains in DOM after accepting. .cook-notice disappears
-    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
-    await client.click('#eu-klaro .cm-btn-success');
-    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
+    await client.expect.element('#cookie-notice-toast').to.be.visible;
+    await client.click('#cookie-notice-toast .btn-success');
+    await client.expect.element('#cookie-notice-toast').to.not.be.present;
   },
   async seeKlaroBanner() {
-    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
+    await client.expect.element('#cookie-notice-toast').to.be.visible;
   },
   async notSeeKlaroBanner() {
-    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
+    await client.expect.element('#cookie-notice-toast').to.not.be.present;
   },
   async seeKeycloakLoginForm() {
     await client.expect.element('.kcform').to.be.visible;

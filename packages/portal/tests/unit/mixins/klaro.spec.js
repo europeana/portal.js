@@ -4,8 +4,12 @@ import sinon from 'sinon';
 
 import mixin from '@/mixins/klaro';
 
+const checkConsentAndOpenEmbedStub = sinon.stub();
 const component = {
   template: '<div/>',
+  methods: {
+    checkConsentAndOpenEmbed: checkConsentAndOpenEmbedStub
+  },
   mixins: [mixin]
 };
 
@@ -58,35 +62,16 @@ describe('mixins/klaro', () => {
   afterEach(sinon.resetHistory);
 
   describe('mounted', () => {
-    it('renders klaro', async() => {
+    it('does not render klaro', async() => {
       factory();
 
       await new Promise(process.nextTick);
 
-      expect(klaroMock.render.called).toBe(true);
-    });
-
-    describe('when the media embed notification is enabled', () => {
-      it('does not render klaro', async() => {
-        factory({ mocks: { $features: { embeddedMediaNotification: true } } });
-
-        await new Promise(process.nextTick);
-
-        expect(klaroMock.render.called).toBe(false);
-      });
+      expect(klaroMock.render.called).toBe(false);
     });
   });
 
   describe('renderKlaro', () => {
-    it('renders Klaro', async() => {
-      const wrapper = factory();
-      await new Promise(process.nextTick);
-
-      await wrapper.vm.renderKlaro();
-
-      expect(klaroMock.render.called).toBe(true);
-    });
-
     it('registers Klaro manager update watcher', async() => {
       const wrapper = factory();
       await new Promise(process.nextTick);
@@ -99,7 +84,6 @@ describe('mixins/klaro', () => {
 
   describe('watchKlaroManagerUpdate', () => {
     const wrapper = factory({ data: { klaro: klaroMock } });
-    wrapper.vm.trackKlaroClickEvent = sinon.spy();
     const manager = null;
 
     describe('with event type "saveConsents"', () => {
@@ -113,26 +97,13 @@ describe('mixins/klaro', () => {
       for (const dataType in clickEvents) {
         describe(`and data type "${dataType}"`, () => {
           const data = { type: dataType };
-          const eventName = clickEvents[dataType];
-          it(`tracks Klaro click event with name "${eventName}"`, () => {
+          it('calls checkConsentAndOpenEmbed', () => {
             wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
 
-            expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName)).toBe(true);
+            expect(checkConsentAndOpenEmbedStub.called).toBe(true);
           });
         });
       }
-    });
-  });
-
-  describe('trackKlaroClickEvent', () => {
-    it('tracks Klaro clicks with Matomo', async() => {
-      const wrapper = factory({ data: { klaro: klaroMock } });
-      wrapper.vm.$matomo.trackEvent = sinon.spy();
-
-      const eventName = 'Saved';
-      await wrapper.vm.trackKlaroClickEvent(eventName);
-
-      expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
     });
   });
 

@@ -119,8 +119,13 @@ Feature: item page
     Then I see an `item language selector`
     Then I see a `item language selector toggle text suggestion`
 
+  @klaro-notice-not-dismissed
   @resized-browser
   Scenario: HTML embedded media
     When I open an `item page with a responsive embedded video`
+    Then I see an `embed gateway`
+    And I see the Klaro banner
+    And I accept all Klaro cookies
+    And I see a `responsive embed wrapper`
     And I resize the window to 1200 by 500
     Then The iframe does not overflow `responsive embed wrapper`

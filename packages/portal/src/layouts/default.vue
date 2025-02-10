@@ -51,12 +51,7 @@
     />
     <ErrorModal />
     <client-only>
-      <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification"
-      />
-      <PageCookieConsent
-        v-else
-      />
+      <PageCookiesWidget />
     </client-only>
   </div>
 </template>
@@ -76,7 +71,6 @@
     components: {
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
       ClientOnly,
-      PageCookieConsent: () => import('../components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('../components/page/PageFooter'),

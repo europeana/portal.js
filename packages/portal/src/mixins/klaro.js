@@ -59,21 +59,7 @@ export default {
       return this.klaroManager && !this.klaroManager.confirmed;
     },
 
-    klaroAllServices() {
-      return this.$features.embeddedMediaNotification ? services : services.filter((cookie) => !cookie.purposes.includes('thirdPartyContent'));
-    },
-
     klaroConfig() {
-      const services = this.klaroAllServices
-        .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
-        .map((service) => ({
-          ...service,
-          // TODO: remove translation data, we can access translations directly in the custom modal
-          translations: {
-            ...this.$te(`klaro.services.${service.name}`) && { [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`) }
-          }
-        }));
-
       return {
         acceptAll: true,
         callback: this.klaroServiceConsentCallback,
@@ -82,12 +68,9 @@ export default {
         htmlTexts: true,
         lang: this.$i18n.locale,
         mustConsent: false,
-        services,
+        services: services.filter((service) => !this.klaroServices || this.klaroServices.includes(service.name)),
         storageMethod: 'cookie',
-        testing: false,
-        translations: {
-          [this.$i18n.locale]: this.$t('klaro.main')
-        }
+        testing: false
       };
     }
   },
@@ -102,9 +85,6 @@ export default {
           this.klaroManager = klaroManager;
         }
 
-        if (!this.$features.embeddedMediaNotification) {
-          this.klaro.render(this.klaroConfig, true);
-        }
         this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
     },
@@ -120,12 +100,7 @@ export default {
         }[data.type];
       }
 
-      if (this.$features.embeddedMediaNotification) {
-        eventName && this.checkConsentAndOpenEmbed?.();
-      } else {
-        // TODO: remove on feature toggle clean up
-        eventName && this.trackKlaroClickEvent(eventName);
-      }
+      eventName && this.checkConsentAndOpenEmbed?.();
     },
 
     // If Matomo plugin is installed, wait for Matomo to load, and run callback
@@ -134,10 +109,6 @@ export default {
       waitFor(() => this.$matomo, this.$config.matomo.loadWait)
         .then(callback)
         .catch(() => {});
-    },
-
-    trackKlaroClickEvent(eventName) {
-      this.waitForMatomo(() => this.$matomo?.trackEvent('Klaro', 'Clicked', eventName));
     },
 
     klaroServiceConsentCallback(consent, service) {
