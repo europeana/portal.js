@@ -27,7 +27,7 @@ describe('@/utils/url/canonicalUrl.js', () => {
         'withNeitherLocaleNorQuery',
         'withOnlyLocale',
         'withOnlyQuery'
-      ])
+      ]);
     });
     describe('withBothLocaleAndQuery', () => {
       it('includes both locale and query for home page', () => {

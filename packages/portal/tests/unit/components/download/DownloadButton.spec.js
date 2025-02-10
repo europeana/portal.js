@@ -7,6 +7,8 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
+
 const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
   const wrapper = shallowMount(DownloadButton, {
     localVue,
@@ -15,22 +17,15 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     mocks: {
       $apis: { mediaProxy: { baseURL: 'https://proxy.europeana.eu' } },
       $apm: { captureError: sinon.spy() },
-      $config: {
-        app: {
-          baseUrl: 'https://www.europeana.eu'
-        }
-      },
       $features: {},
-      $i18n: {
-        locale: 'de'
-      },
-      $route: {
-        fullPath: '/de/item/123/abc?query=tree',
-        path: '/de/item/123/abc'
-      },
       $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
       $t: (key) => key,
       ...mocks
+    },
+    provide: {
+      canonicalUrl: {
+        withNeitherLocaleNorQuery: canonicalUrl
+      }
     }
   });
   wrapper.vm.$refs.downloadButton.$el = { click: sinon.spy() };
@@ -342,8 +337,6 @@ describe('components/download/DownloadButton', () => {
     });
 
     describe('trackDownload', () => {
-      const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
-
       describe('the first download', () => {
         it('tracks both the file and custom download event', async() => {
           const wrapper = factory({ propsData });
