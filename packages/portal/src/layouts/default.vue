@@ -66,7 +66,7 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
-  import createCanonicalUrl from '@/utils/url/canonicalUrl.js';
+  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
   import makeToastMixin from '@/mixins/makeToast';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
@@ -147,11 +147,7 @@
     },
 
     created() {
-      this.canonicalUrl = createCanonicalUrl({
-        baseUrl: this.$config.app.baseUrl,
-        i18n: computed(() => this.$i18n),
-        route: computed(() => this.$route)
-      });
+      this.canonicalUrl = createCanonicalUrlFromVue(this);
     },
 
     mounted() {

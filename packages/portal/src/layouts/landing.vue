@@ -35,7 +35,7 @@
   import { computed } from 'vue';
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
-  import createCanonicalUrl from '@/utils/url/canonicalUrl.js';
+  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -76,11 +76,7 @@
     },
 
     created() {
-      this.canonicalUrl = createCanonicalUrl({
-        baseUrl: this.$config.app.baseUrl,
-        i18n: computed(() => this.$i18n),
-        route: computed(() => this.$route)
-      });
+      this.canonicalUrl = createCanonicalUrlFromVue(this);
     }
   };
 </script>

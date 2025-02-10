@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { toRef } from '@vueuse/core';
 
 // This would ideally be a composable, but couldn't get that working wrt
@@ -45,4 +45,12 @@ export default function createCanonicalUrl({ baseUrl, i18n, route } = {}) {
     withOnlyLocale,
     withOnlyQuery
   };
+}
+
+export function createCanonicalUrlFromVue(vue) {
+  return createCanonicalUrl({
+    baseUrl: vue.$config.app.baseUrl,
+    i18n: computed(() => vue.$i18n),
+    route: computed(() => vue.$route)
+  });
 }

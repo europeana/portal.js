@@ -38,7 +38,7 @@
 
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
-  import createCanonicalUrl from '@/utils/url/canonicalUrl.js';
+  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -80,11 +80,7 @@
     },
 
     created() {
-      this.canonicalUrl = createCanonicalUrl({
-        baseUrl: this.$config.app.baseUrl,
-        i18n: computed(() => this.$i18n),
-        route: computed(() => this.$route)
-      });
+      this.canonicalUrl = createCanonicalUrlFromVue(this);
     }
   };
 </script>
