@@ -1,19 +1,33 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { ref } from 'vue';
+import { createLocalVue, mount } from '@vue/test-utils';
 
-import mixin from '@/mixins/parity';
+import useRefParity from '@/composables/refParity.js';
 
-const component = {
+const consumerComponent = {
   template: `
-    <div>
-      <span id="target1" class="target" :class="parityClasses" ref="target1" />
-      <span id="target2" class="target" :class="parityClasses" ref="target2" />
-      <span id="target3" class="target" :class="parityClasses" ref="target3" />
-    </div>
+    <span class="target" :class="\`target-\${parity}\`" ref="target" />
   `,
-  mixins: [mixin]
+  setup() {
+    const target = ref(null);
+    const { parity } = useRefParity('target', target);
+    return { parity, target };
+  }
 };
 
-const factory = () => shallowMount(component, {
+const parentComponent = {
+  template: `
+    <div>
+      <consumerComponent id="target1" />
+      <consumerComponent id="target2" />
+      <consumerComponent id="target3" />
+    </div>
+  `,
+  components: {
+    consumerComponent
+  }
+};
+
+const factory = () => mount(parentComponent, {
   attachTo: document.body,
   localVue: createLocalVue()
 });
@@ -24,9 +38,6 @@ describe('mixins/parity', () => {
       it('adds parity classes to indicate odd/even', async() => {
         const wrapper = factory();
 
-        wrapper.vm.markParity('target', 'target1');
-        wrapper.vm.markParity('target', 'target2');
-        wrapper.vm.markParity('target', 'target3');
         await new Promise(process.nextTick);
 
         expect(wrapper.find('#target1').classes().includes('target-odd')).toBe(true);
