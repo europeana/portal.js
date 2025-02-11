@@ -54,6 +54,8 @@ const sortByIsNextInSequence = (source) => {
 };
 
 export default class Aggregation extends Base {
+  #displayableWebResources;
+
   static propertyClasses = {
     webResources: WebResource
   };
@@ -76,19 +78,22 @@ export default class Aggregation extends Base {
     return (this.webResources || []).filter((wr) => wr.isIIIFPresentationManifest);
   }
 
-  // TODO: memoise
   get displayableWebResources() {
-    const uris = [].concat(this.hasView || []);
+    if (!this.#displayableWebResources) {
+      const uris = [].concat(this.hasView || []);
 
-    if (this.edmIsShownBy) {
-      uris.unshift(this.edmIsShownBy);
-    } else if (this.edmIsShownAt) {
-      uris.unshift(this.edmIsShownAt);
+      if (this.edmIsShownBy) {
+        uris.unshift(this.edmIsShownBy);
+      } else if (this.edmIsShownAt) {
+        uris.unshift(this.edmIsShownAt);
+      }
+
+      const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+
+      // Sort by isNextInSequence property if present
+      this.#displayableWebResources = sortByIsNextInSequence(wrs);
     }
 
-    const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
-
-    // Sort by isNextInSequence property if present
-    return sortByIsNextInSequence(wrs);
+    return this.#displayableWebResources;
   }
 }
