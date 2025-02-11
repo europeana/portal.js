@@ -47,15 +47,5 @@ describe('layouts/landing.vue', () => {
         expect(iconLink.type).toEqual('image/x-icon');
       });
     });
-
-    describe('meta', () => {
-      it('includes og:url with canonical URL', () => {
-        const wrapper = factory();
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('https://www.example.org/landing');
-      });
-    });
   });
 });

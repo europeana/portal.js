@@ -31,9 +31,11 @@
           :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
         />
       </client-only>
-      <nuxt
-        id="main"
-      />
+      <ProvideCanonicalUrl>
+        <nuxt
+          id="main"
+        />
+      </ProvideCanonicalUrl>
     </main>
     <client-only>
       <NewFeatureNotification
@@ -62,11 +64,10 @@
 </template>
 
 <script>
-  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
-  import PageHeader from '../components/page/PageHeader';
-  import ErrorModal from '../components/error/ErrorModal';
-  import { createCanonicalUrlFromVue } from '@/utils/url/canonicalUrl.js';
+  import PageHeader from '@/components/page/PageHeader';
+  import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
+  import ErrorModal from '@/components/error/ErrorModal';
   import makeToastMixin from '@/mixins/makeToast';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
@@ -75,13 +76,14 @@
     name: 'DefaultLayout',
 
     components: {
-      DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
+      DebugApiRequests: () => import('@/components/debug/DebugApiRequests'),
       ClientOnly,
-      PageCookieConsent: () => import('../components/page/PageCookieConsent'),
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
-      PageFooter: () => import('../components/page/PageFooter'),
-      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
+      PageFooter: () => import('@/components/page/PageFooter'),
+      ProvideCanonicalUrl,
+      NewFeatureNotification: () => import('@/components/generic/NewFeatureNotification'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ErrorModal
     },
@@ -90,15 +92,8 @@
       makeToastMixin
     ],
 
-    provide() {
-      return {
-        canonicalUrl: computed(() => this.canonicalUrl)
-      };
-    },
-
     data() {
       return {
-        canonicalUrl: {},
         enableAnnouncer: true,
         featureNotification: activeFeatureNotification(this.$nuxt?.context),
         linkGroups: {},
@@ -120,14 +115,12 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl.withOnlyQuery },
           ...i18nHead.link
         ],
         meta: [
           ...i18nHead.meta,
           { hid: 'description', name: 'description', content: this.$config.app.siteName },
-          { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl.withBothLocaleAndQuery }
+          { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName }
         ]
       };
     },
@@ -144,10 +137,6 @@
           }
         });
       }
-    },
-
-    created() {
-      this.canonicalUrl = createCanonicalUrlFromVue(this);
     },
 
     mounted() {
