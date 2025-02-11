@@ -354,7 +354,7 @@
 
       selectResource() {
         this.thumbnailInteractedWith = false;
-        this.$emit('select', this.resource.edm);
+        this.$emit('select', this.resource?.edm);
       },
 
       toggleFullscreen() {

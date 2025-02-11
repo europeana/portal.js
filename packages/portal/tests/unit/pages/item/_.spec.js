@@ -272,13 +272,9 @@ describe('pages/item/_.vue', () => {
         });
 
         describe('but the API responds with a translation quota error', () => {
-          const error = new Error('Translation quota error');
-          error.response = {
-            data: {
-              code: '502-TS'
-            },
-            status: 502
-          };
+          const error = createHttpError(502, 'Translation quota error', {
+            response: { data: { code: '502-TS' } }
+          });
 
           it('refetches the record without translation', async() => {
             const wrapper = factory({ mocks });
@@ -525,14 +521,47 @@ describe('pages/item/_.vue', () => {
         expect(wrapper.vm.$error.called).toBe(true);
       });
 
-      describe('when error is 410 Gone (tombstone)', () => {
-        it('(temporarily) calls $error as with 404 Not Found', async() => {
-          const wrapper = factory();
-          wrapper.vm.$apis.record.get = sinon.stub().throws(() => createHttpError(410));
+      describe('when error is 410 Gone', () => {
+        const goneErr = createHttpError(410, 'Gone', {
+          response: {
+            data: {
+              object: {
+                about: '/123/abc',
+                europeanaAggregation: {
+                  changeLog: [
+                    { type: 'Delete' }
+                  ]
+                }
+              }
+            }
+          }
+        });
 
-          await wrapper.vm.fetch();
+        describe('when tombstone page is disabled (by default)', () => {
+          it('calls $error as with 404 Not Found', async() => {
+            const wrapper = factory();
+            wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
 
-          expect(wrapper.vm.$error.calledWith(sinon.match.has('statusCode', 404))).toBe(true);
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$error.calledWith(sinon.match.has('statusCode', 404), { scope: 'item' })).toBe(true);
+            expect(wrapper.vm.isDeleted).toBe(false);
+          });
+        });
+
+        describe('when tombstone page is enabled (by feature toggle)', () => {
+          const $features = { tombstonePage: true };
+
+          it('uses the error response data to populate the page', async() => {
+            const wrapper = factory({ mocks: { $features } });
+            wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
+
+            await wrapper.vm.fetch();
+
+            expect(redirectSpy.called).toBe(false);
+            expect(wrapper.vm.$error.called).toBe(false);
+            expect(wrapper.vm.isDeleted).toBe(true);
+          });
         });
       });
     });
