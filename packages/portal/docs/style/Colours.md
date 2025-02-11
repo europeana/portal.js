@@ -36,7 +36,7 @@ Colours are also defined on the [Colours page on Figma](https://www.figma.com/fi
           { name: 'whitegrey', hex: '#e0e0e0' },
           { name: 'middlegrey', hex: '#d8d8d8' },
           { name: 'paper', hex: '#d9d4ca' },
-          { name: 'lightgrey', hex: '#a6a6a6' },
+          { name: 'mediumgrey', hex: '#a6a6a6' },
           { name: 'grey', hex: '#777' },
           { name: 'darkgrey-light', hex: '#767676' },
           { name: 'darkgrey', hex: '#4d4d4d' },
