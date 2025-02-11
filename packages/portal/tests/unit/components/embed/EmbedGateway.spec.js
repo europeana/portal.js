@@ -23,7 +23,6 @@ const factory = (propsData = { url }) => shallowMount(EmbedGateway, {
   mocks: {
     $t: (key) => key,
     $te: () => true,
-    $features: { embeddedMediaNotification: true },
     $i18n: {
       locale: 'en'
     }

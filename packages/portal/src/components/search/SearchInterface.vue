@@ -1,7 +1,7 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="white-page pt-5 page-container side-filters-enabled"
+    class="search-page-container side-filters-enabled"
     :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
@@ -573,6 +573,15 @@
 @import '@europeana/style/scss/variables';
 @import '@europeana/style/scss/transitions';
 
+.search-page-container {
+  max-width: none;
+  padding-top: 0.875rem;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 1.5rem;
+  }
+}
+
 .col-results {
   min-width: 0;
 
@@ -617,6 +626,7 @@
     content: '-';
   }
 }
+
 .search-bar-open {
   padding-top: 6.5rem !important;
 

@@ -19,6 +19,9 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, 
     identifier: '/001/abc',
     ...propsData
   },
+  provide: {
+    itemIsDeleted: false
+  },
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },

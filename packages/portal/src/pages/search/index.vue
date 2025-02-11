@@ -120,6 +120,8 @@
 </script>
 
 <style lang="scss" scoped>
+@import '@europeana/style/scss/variables';
+
 h1 {
   font-size: 1.875rem;
   font-weight: 300;
@@ -129,9 +131,5 @@ h1 {
   span {
     font-weight: 600;
   }
-}
-
-.page-container {
-  max-width: none;
 }
 </style>

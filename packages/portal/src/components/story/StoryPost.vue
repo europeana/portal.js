@@ -15,6 +15,7 @@
       :hero="heroImage"
       :context-label="$tc('stories.stories', 1)"
       data-qa="authored head"
+      class="page"
     />
     <article
       class="story-article-container position-relative bg-white"

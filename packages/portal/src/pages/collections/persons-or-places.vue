@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="page">
     <ContentHeader
       :title="pageMeta.title"
     />

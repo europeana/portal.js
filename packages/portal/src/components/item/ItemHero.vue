@@ -23,7 +23,10 @@
               data-qa="provider name"
             />
           </div>
-          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+          <div
+            v-if="!itemIsDeleted"
+            class="d-flex justify-content-md-center align-items-center button-wrapper"
+          >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
                 v-if="showTranscribathonLink"
@@ -96,6 +99,8 @@
       rightsStatementMixin
     ],
 
+    inject: ['itemIsDeleted'],
+
     props: {
       allMediaUris: {
         type: Array,
@@ -115,8 +120,7 @@
       },
       media: {
         type: Array,
-        default: () => [],
-        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
+        default: () => []
       },
       attributionFields: {
         type: Object,

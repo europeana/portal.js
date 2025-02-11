@@ -1,8 +1,6 @@
 <template>
   <div
     data-qa="item page"
-    class="page white-page"
-    :class="$fetchState.error && 'pt-0'"
   >
     <LoadingSpinner
       v-if="$fetchState.pending"
@@ -19,7 +17,7 @@
     >
       <b-container
         fluid
-        class="bg-white mb-3 px-0"
+        class="mb-3 px-0"
       >
         <ItemHero
           :all-media-uris="allMediaUris"
@@ -130,7 +128,9 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
-  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription'].concat(METADATA_FIELDS);
+  const ALL_METADATA_FIELDS = [
+    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmObject'
+  ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
 
@@ -175,7 +175,8 @@
         // provide the deBias terms and definitions instead of using the composable
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
-        deBias: computed(() => this.deBias)
+        deBias: computed(() => this.deBias),
+        itemIsDeleted: computed(() => this.$features.tombstonePage && this.isDeleted)
       };
     },
 
@@ -199,6 +200,7 @@
         headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
+        isDeleted: false,
         isShownAt: null,
         media: [],
         metadata: {},
@@ -231,7 +233,11 @@
 
     computed: {
       webResources() {
-        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+        if (this.isDeleted) {
+          return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
+        } else {
+          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+        }
       },
       pageMeta() {
         return {
@@ -375,17 +381,24 @@
         }
 
         let data;
+
         try {
           data = await this.$apis.record.get(this.identifier, params);
         } catch (error) {
           const errorResponse = error.response;
-          if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
+
+          if (error.statusCode === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
             this.fromTranslationError = true;
+            // TODO: what if this request fails...
             data = await this.$apis.record.get(this.identifier);
           } else if (error.statusCode === 410) {
-            // TODO: temporary workaround to handle tombstone records like 404s
-            //       til tombstone page implemented
-            return this.$error({ ...error, statusCode: 404, message: 'Not Found' }, { scope: 'item' });
+            if (this.$features.tombstonePage) {
+              data = errorResponse.data;
+            } else {
+              // TODO: temporary workaround to handle tombstone records like 404s
+              //       til tombstone page implemented
+              return this.$error({ ...error, statusCode: 404, message: 'Not Found' }, { scope: 'item' });
+            }
           } else {
             return this.$error(error, { scope: 'item' });
           }
@@ -399,6 +412,7 @@
         this.type = edm.type;
 
         const item = new Item(edm);
+        this.isDeleted = item.isDeleted;
 
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
         //       but relied on by ItemHero to know whether to proxy download urls or not.
@@ -666,12 +680,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .page {
-    padding-top: 2rem
-  }
-
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
