@@ -240,7 +240,7 @@
           //       is that desireable?
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
-          return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
         }
       },
       pageMeta() {
