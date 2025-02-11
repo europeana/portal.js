@@ -200,12 +200,12 @@
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
         isShownAt: null,
-        media: [],
         metadata: {},
         ogImage: null,
         relatedCollections: [],
         type: null,
-        useProxy: true
+        useProxy: true,
+        webResources: []
       };
     },
 
@@ -230,9 +230,6 @@
     },
 
     computed: {
-      webResources() {
-        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
-      },
       pageMeta() {
         return {
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
@@ -431,7 +428,7 @@
 
         this.metadata = this.extractMetadata(edm);
 
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+        this.webResources = item.providerAggregation.displayableWebResources.map((wr) => {
           // don't keep WR-level rights statement if same as item-level
           if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
             delete wr.webResourceEdmRights;
@@ -448,7 +445,7 @@
             }
           }
 
-          return wr;
+          return new WebResource(wr, this.identifier);
         });
 
         process.client && this.trackCustomDimensions();
