@@ -74,6 +74,12 @@ export default class Item extends Base {
     return (this.services || []).find((service) => service.conformsToIIIFImageAPI);
   }
 
+  get isDeleted() {
+    const changeLog = this.europeanaAggregation.changeLog || [];
+    const lastChange = changeLog[changeLog.length - 1];
+    return lastChange?.type === 'Delete';
+  }
+
   dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy) {
     return this.services.some((service) => {
       return service.conformsToIIIFImageAPI && `${service.about}/info.json` === dctermsIsReferencedBy;

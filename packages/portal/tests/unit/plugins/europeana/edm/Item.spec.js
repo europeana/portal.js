@@ -75,4 +75,45 @@ describe('plugins/europeana/edm/Item', () => {
       expect(item.webResourceForIIIFPresentationManifest.about).toBe('https://example.org/edmIsShownBy.jpeg');
     });
   });
+
+  describe('isDeleted', () => {
+    it('is false if europeana aggregation has no changelog', () => {
+      const item = new Item({
+        europeanaAggregation: {}
+      });
+
+      const isDeleted = item.isDeleted;
+
+      expect(isDeleted).toBe(false);
+    });
+
+    it('is false if last europeana aggregation change is not of type "Delete"', () => {
+      const item = new Item({
+        europeanaAggregation: {
+          changeLog: [
+            { type: 'Delete' },
+            { type: 'Restore' }
+          ]
+        }
+      });
+
+      const isDeleted = item.isDeleted;
+
+      expect(isDeleted).toBe(false);
+    });
+
+    it('is true if last europeana aggregation change is of type "Delete"', () => {
+      const item = new Item({
+        europeanaAggregation: {
+          changeLog: [
+            { type: 'Delete' }
+          ]
+        }
+      });
+
+      const isDeleted = item.isDeleted;
+
+      expect(isDeleted).toBe(true);
+    });
+  });
 });
