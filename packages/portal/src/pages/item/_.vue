@@ -231,7 +231,7 @@
 
     computed: {
       webResources() {
-        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+        return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
       },
       pageMeta() {
         return {
