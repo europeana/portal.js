@@ -236,6 +236,8 @@
     computed: {
       webResources() {
         if (this.media.length === 0) {
+          // TODO: will this ever take effect for non-tombstone items? if so,
+          //       is that desireable?
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
           return this.media.map((webResource) => new WebResource(webResource, this.identifier));
