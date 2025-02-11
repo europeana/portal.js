@@ -11,7 +11,7 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        <template v-if="tombstone && index === 0">
+        <template v-if="itemIsDeleted && index === 0">
           🪦
         </template>
         <ItemDebiasField
@@ -99,7 +99,7 @@
       langAttributeMixin
     ],
 
-    inject: ['deBias', 'tombstone'],
+    inject: ['deBias', 'itemIsDeleted'],
 
     props: {
       description: {

@@ -178,7 +178,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        tombstone: computed(() => this.$features.tombstonePage && this.tombstone)
+        itemIsDeleted: computed(() => this.$features.tombstonePage && this.isDeleted)
       };
     },
 
@@ -202,12 +202,12 @@
         headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
+        isDeleted: false,
         isShownAt: null,
         media: [],
         metadata: {},
         ogImage: null,
         relatedCollections: [],
-        tombstone: false,
         type: null,
         useProxy: true
       };
@@ -235,9 +235,7 @@
 
     computed: {
       webResources() {
-        if (this.media.length === 0) {
-          // TODO: will this ever take effect for non-tombstone items? if so,
-          //       is that desireable?
+        if (this.isDeleted) {
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
           return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
@@ -385,7 +383,6 @@
         }
 
         let data;
-        this.tombstone = false;
 
         try {
           data = await this.$apis.record.get(this.identifier, params);
@@ -398,7 +395,6 @@
             // TODO: what if this request fails...
             data = await this.$apis.record.get(this.identifier);
           } else if (errorResponse?.status === 410) {
-            this.tombstone = true;
             if (this.$features.tombstonePage) {
               data = errorResponse.data;
             } else {
@@ -448,7 +444,7 @@
         }
 
         this.entities = this.extractEntities(edm);
-
+        this.isDeleted = item.isDeleted;
         this.metadata = this.extractMetadata(edm);
 
         this.media = item.providerAggregation.displayableWebResources.map((wr) => {
