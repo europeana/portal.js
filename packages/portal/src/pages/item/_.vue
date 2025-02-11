@@ -348,6 +348,7 @@
     watch: {
       '$route.query.lang'() {
         this.fetchMetadata();
+        this.fetchAnnotations();
       },
       'relatedEntityUris'() {
         this.fetchEntities();
@@ -627,7 +628,7 @@
             qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
             profile: 'dereference'
           });
-          this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
+          this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.metadataLanguage });
           this.deBias = {
             definitions: this.deBiasDefinitions,
             terms: this.deBiasTerms
