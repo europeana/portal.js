@@ -178,7 +178,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        tombstone: computed(() => this.tombstone)
+        tombstone: computed(() => this.$features.tombstonePage && this.tombstone)
       };
     },
 
