@@ -79,7 +79,7 @@
   @import '@europeana/style/scss/icon-font';
 
   .container-fluid {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     margin-top: -1rem;
     position: relative;
     z-index: 100;

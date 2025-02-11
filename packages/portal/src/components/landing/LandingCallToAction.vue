@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="[variant, { 'bg-bodygrey': defaultBackground }]"
+    :class="[variant, { 'bg-lightgrey': defaultBackground }]"
   >
     <div
       v-if="backgroundImage"
@@ -106,7 +106,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-cta {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     position: relative;
   }
 

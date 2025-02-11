@@ -302,7 +302,7 @@
     height: 48px;
     width: 48px;
     color: $black;
-    background: $bodygrey;
+    background: $lightgrey;
     border-radius: 50%;
     top: calc(50% - 2rem);
 
@@ -379,7 +379,7 @@
 
   .landing-illustration-group.pro {
     .swiper-slide {
-      background-color: $bodygrey; // Set a background color for mix-blend-mode to work properly
+      background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
     }
 
     .swiper-button-prev,

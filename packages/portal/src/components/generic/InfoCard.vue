@@ -90,7 +90,7 @@
     transition: box-shadow 0.25s;
 
     &.dark-card {
-      background: $bodygrey;
+      background: $lightgrey;
     }
 
     &.linked-card:hover {

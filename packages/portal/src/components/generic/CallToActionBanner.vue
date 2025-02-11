@@ -175,7 +175,7 @@
     }
 
     &.light {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
     }
 
     &.innovationblue {

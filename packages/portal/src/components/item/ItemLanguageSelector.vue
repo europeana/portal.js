@@ -198,7 +198,7 @@
     &:active,
     &.active {
       color: $darkgrey-light;
-      background-color: $bodygrey;
+      background-color: $lightgrey;
     }
 
     .icon-clear {

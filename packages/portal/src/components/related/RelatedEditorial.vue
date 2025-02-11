@@ -208,7 +208,7 @@
         }
 
         &:hover {
-          background: $bodygrey;
+          background: $lightgrey;
         }
 
         .card-wrapper {

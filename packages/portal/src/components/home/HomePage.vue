@@ -205,7 +205,7 @@
         content: '';
         display: inline-block;
         height: 2px;
-        background-color: $bodygrey;
+        background-color: $lightgrey;
         margin-bottom: 2.25rem;
         flex: 0 0 calc(100% - (2 * #{$grid-gutter}));
         width: 100%;
@@ -265,7 +265,7 @@
       content: '';
       display: inline-block;
       height: 2px;
-      background-color: $bodygrey;
+      background-color: $lightgrey;
       margin-top: 1.5rem;
       width: calc(100% + 3rem);
       max-width: calc(100vw - 30px);

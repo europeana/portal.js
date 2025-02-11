@@ -81,7 +81,7 @@
   }
 
   .white-page .primary-cta {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
     max-width: calc(100% + 100px);
 
     @media (min-width: $bp-large) {

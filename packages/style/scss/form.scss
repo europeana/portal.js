@@ -195,6 +195,7 @@ h3.facet-label,
       &::before {
         cursor: not-allowed;
       }
+
       &::after {
         cursor: not-allowed;
       }
@@ -235,7 +236,7 @@ h3.facet-label,
   padding-left: 2.5em;
   height: auto;
   border-radius: 0.5em;
-  border: 1px solid $bodygrey;
+  border: 1px solid $lightgrey;
   width: 100%;
 
   @media (min-width: $bp-4k) {

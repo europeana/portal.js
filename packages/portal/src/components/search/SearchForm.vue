@@ -489,7 +489,7 @@
 
     .auto-suggest-dropdown {
       transition: $standard-transition;
-      border-top: 1px solid $bodygrey;
+      border-top: 1px solid $lightgrey;
 
       @media (min-width: $bp-4k) {
         top: calc(1.5 * 3.45rem);

@@ -199,7 +199,7 @@
 }
 
 .badge-secondary {
-  background-color: $bodygrey;
+  background-color: $lightgrey;
   color: $greyblack;
 
   &[href] {
@@ -236,7 +236,7 @@
 
     &:hover,
     &:focus {
-      background-color: $bodygrey !important;
+      background-color: $lightgrey !important;
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
   }
@@ -285,7 +285,7 @@
   &:hover,
   &:focus {
     color: $darkgrey;
-    background: $bodygrey !important;
+    background: $lightgrey !important;
   }
 
   &.active {
