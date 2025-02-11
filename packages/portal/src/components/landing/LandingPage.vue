@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page landing-page white-page xxl-page"
+    class="landing-page xxl-page"
     :class="`${variant}-page`"
     data-qa="landing page"
   >
@@ -186,12 +186,7 @@
   @import '@europeana/style/scss/landing';
 
   .page {
-    margin-top: -1rem;
     border-bottom: 1px solid transparent; // fix for when any margin of the last component on the page causes grey bg to display
-
-    @media (min-width: $bp-4k) {
-      margin-top: -1.5rem;
-    }
 
     .scroll-margin-top {
       scroll-margin-top: 3.5rem;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home page white-page xxl-page"
+    class="home xxl-page"
     data-qa="home page"
   >
     <HomeHero
@@ -130,10 +130,13 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
 
-  .page {
-    margin-top: 0;
-    padding-bottom: 1px;
+  .home {
+    margin-top: -$page-header-height;
     text-align: center;
+
+    @media (min-width: $bp-4k) {
+      margin-top: -$page-header-height-4k;
+    }
 
     &.container {
       > div,

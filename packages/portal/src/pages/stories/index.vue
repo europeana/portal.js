@@ -1,5 +1,5 @@
 <template>
-  <div class="page white-page xxl-page">
+  <div class="page xxl-page">
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
@@ -110,13 +110,9 @@
 
 .page {
   padding-bottom: 1rem;
-  padding-top: 1rem;
-  margin-top: -1rem;
 
   @media (min-width: $bp-4k) {
     padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-    margin-top: -1.5rem;
   }
 }
 </style>

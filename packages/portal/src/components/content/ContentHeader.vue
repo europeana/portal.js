@@ -3,7 +3,7 @@
     <b-col
       cols="12"
       lg="9"
-      class="col lead mt-3"
+      class="col lead"
     >
       <div
         v-if="contextLabel"

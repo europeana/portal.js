@@ -93,7 +93,6 @@
   @import '@europeana/style/scss/responsive-background-image';
 
   .hero {
-    margin-top: -70px;
     margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
     padding: 25vh 1.5rem 1.5rem;
@@ -103,7 +102,6 @@
     overflow: hidden;
 
     @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * -70px);
       padding-bottom: calc(1.5 * 128px);
     }
 

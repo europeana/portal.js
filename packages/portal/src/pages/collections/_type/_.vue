@@ -2,7 +2,6 @@
   <div
     data-qa="entity page"
     class="entity-page xxl-page"
-    :class="$fetchState.error && 'white-page'"
   >
     <ErrorMessage
       v-if="$fetchState.error"
@@ -322,15 +321,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .entity-page {
-    &.top-header {
-      margin-top: -1rem;
-    }
-  }
-
-  .page-container {
-    max-width: none;
-  }
-</style>
