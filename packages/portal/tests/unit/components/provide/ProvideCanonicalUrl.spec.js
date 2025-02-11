@@ -131,7 +131,7 @@ describe('components/provide/ProvideCanonicalUrl', () => {
 
   describe('head', () => {
     describe('link', () => {
-      it('includes a link for hreflang="x-default", rel="alternate" with query, no locale', () => {
+      it('includes a link for [hreflang="x-default"][rel="alternate"] with query, no locale', () => {
         const mocks = { $route: fixtures.routes.home };
         const wrapper = factory({ mocks });
 
@@ -142,7 +142,7 @@ describe('components/provide/ProvideCanonicalUrl', () => {
     });
 
     describe('meta', () => {
-      it('includes meta for property="og-url" with both locale and query', () => {
+      it('includes meta for [property="og-url"] with both locale and query', () => {
         const mocks = { $route: fixtures.routes.home };
         const wrapper = factory({ mocks });
 
