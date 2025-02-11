@@ -383,14 +383,14 @@
   @import '@europeana/style/scss/masonry';
 
   .usergallery-description {
-    color: $mediumgrey;
+    color: $darkgrey;
   }
 
   .usergallery-metadata {
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1.125;
-    color: $mediumgrey;
+    color: $darkgrey;
 
     img.logo {
       height: 1.25rem;

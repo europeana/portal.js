@@ -151,7 +151,7 @@
   ::v-deep .stacked-cards-wrapper h2.heading {
     @extend %title-2;
 
-    color: $mediumgrey;
+    color: $darkgrey;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {

@@ -155,7 +155,7 @@
   }
 
   .text {
-    color: $mediumgrey;
+    color: $darkgrey;
     max-width: $max-text-column-width;
 
     @media (min-width: $bp-4k) {

@@ -109,7 +109,7 @@
 
   .snippet {
     cursor: pointer;
-    color: $mediumgrey;
+    color: $darkgrey;
     background: $whitegrey;
     border-radius: 6px;
     padding: 0.75rem;
@@ -143,7 +143,7 @@
 
   .help {
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     margin-bottom: 1.25rem;
 
     .icon-info-outline {

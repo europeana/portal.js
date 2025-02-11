@@ -151,7 +151,7 @@
 
   section {
     width: 100%;
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     max-width: 35rem;
 
     @media (orientation: portrait) {
@@ -173,7 +173,7 @@
     }
 
     .title {
-      color: $mediumgrey;
+      color: $darkgrey;
       font-weight: 700;
       font-size: 2rem;
 

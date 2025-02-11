@@ -190,7 +190,7 @@
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
 
     .btn-cta-helptext {
@@ -205,7 +205,7 @@
       }
 
       ::v-deep a {
-        color: $mediumgrey;
+        color: $darkgrey;
       }
     }
   }

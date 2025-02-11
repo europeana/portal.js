@@ -95,7 +95,7 @@
   .hero {
     margin-top: -70px;
     margin-bottom: 4.5rem;
-    background-color: $mediumgrey-light;
+    background-color: $darkgrey-light;
     padding: 25vh 1.5rem 1.5rem;
     min-height: 100vh;
     position: relative;

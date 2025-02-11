@@ -141,7 +141,7 @@
 
       &.disabled {
         opacity: 1;
-        color: $mediumgrey-light;
+        color: $darkgrey-light;
       }
 
       &:focus {
@@ -151,7 +151,7 @@
     }
 
     .divider {
-      border-color: $mediumgrey-light;
+      border-color: $darkgrey-light;
     }
   }
 </style>

@@ -201,7 +201,7 @@
 
       .card-text {
         @extend %title-5;
-        color: $mediumgrey;
+        color: $darkgrey;
         max-width: 145px;
 
         @media (min-width: $bp-small) {

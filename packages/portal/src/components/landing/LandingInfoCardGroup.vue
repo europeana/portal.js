@@ -138,7 +138,7 @@
   }
 
   .text {
-    color: $mediumgrey;
+    color: $darkgrey;
   }
 
   .cards-wrapper {

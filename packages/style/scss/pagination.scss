@@ -51,7 +51,7 @@
 
     &.disabled {
       .page-link {
-        color: $mediumgrey;
+        color: $darkgrey;
       }
     }
 
@@ -61,7 +61,7 @@
     }
 
     &.disabled .icon-arrow-outline {
-      color: $mediumgrey-light;
+      color: $darkgrey-light;
     }
 
     &:not(.disabled) .icon-arrow-outline {
@@ -112,7 +112,7 @@
   }
 
   .pagination-progress {
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     font-size: $font-size-small;
   }
 }

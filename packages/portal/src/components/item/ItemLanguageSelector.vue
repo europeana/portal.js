@@ -190,14 +190,14 @@
   }
 
   ::v-deep .stop-link {
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     display: flex;
     white-space: wrap;
     min-width: 15rem;
 
     &:active,
     &.active {
-      color: $mediumgrey-light;
+      color: $darkgrey-light;
       background-color: $bodygrey;
     }
 

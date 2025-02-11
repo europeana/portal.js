@@ -167,7 +167,7 @@
 
     .text {
       font-weight: 500;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       ::v-deep p:last-child {
         margin-bottom: 0;

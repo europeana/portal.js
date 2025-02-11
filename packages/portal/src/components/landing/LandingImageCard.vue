@@ -266,7 +266,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-align: left;
     }
   }

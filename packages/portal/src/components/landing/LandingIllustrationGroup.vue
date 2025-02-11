@@ -203,7 +203,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
   }
 

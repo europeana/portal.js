@@ -105,7 +105,7 @@
     }
 
     .description {
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @media (max-width: ($bp-small - 1px)) {
         font-size: $font-size-base;

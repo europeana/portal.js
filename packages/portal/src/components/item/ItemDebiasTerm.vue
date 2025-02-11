@@ -90,14 +90,14 @@
   @import '@europeana/style/scss/variables';
 
   dfn {
-    border-bottom: 2px dotted $mediumgrey-light;
+    border-bottom: 2px dotted $darkgrey-light;
     margin-bottom: -2px;
     font-style: normal;
   }
 
   .btn-light-flat {
     line-height: 1;
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
 
     .icon-debias {
       font-size: $font-size-xl;
