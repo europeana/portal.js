@@ -32,19 +32,22 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
   if (typeof errorOrStatusCode === 'object') {
     error = errorOrStatusCode;
     if (HTTP_CODES[error.statusCode]) {
-      const httpCode = HTTP_CODES[error.statusCode]; // || 'UnknownError';
+      const httpCode = HTTP_CODES[error.statusCode];
       error.code = `${scope}${httpCode}`;
     }
   }
+
+  // Too much information re HTTP requests/responses to pass around to components:
+  // dispose of it
+  delete error.config;
+  delete error.request;
+  delete error.response;
+  delete error.toJSON;
 
   return error;
 }
 
 function translateErrorWithCode(error, { tValues = {} }) {
-  // if (!this.$i18n.te(`errorMessage.${error.code}`)) {
-  //   error.code = 'genericUnknownError';
-  // }
-
   if (this.$i18n.te(`errorMessage.${error.code}`)) {
     const translations = this.$i18n.t(`errorMessage.${error.code}`);
     if (typeof translations === 'object') {

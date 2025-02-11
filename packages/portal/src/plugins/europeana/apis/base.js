@@ -45,11 +45,6 @@ export default class EuropeanaApi {
           error.message = error.response.data.error;
         }
       }
-      // Too much information to pass around, dispose of it
-      // delete error.response;
-      delete error.config;
-      delete error.request;
-      delete error.toJSON;
     }
 
     return error;
