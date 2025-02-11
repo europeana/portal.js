@@ -23,6 +23,9 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $t: (key) => key,
     ...mocks
   },
+  provide: {
+    itemIsDeleted: false
+  },
   stubs: [
     'client-only',
     'EmbedGateway',
