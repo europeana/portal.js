@@ -7,6 +7,7 @@ export default [
   { name: 'mockTrendingItems' },
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesViewCounts' },
+  { name: 'tombstonePage' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' }
 ];

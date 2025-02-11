@@ -52,6 +52,10 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
 
   // TODO: move to media-proxy.js
   mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
+    if (!mediaUrl) {
+      return undefined;
+    }
+
     params.recordApiUrl = this.baseURL;
 
     const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);

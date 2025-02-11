@@ -130,7 +130,9 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
-  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription', 'edmObject'].concat(METADATA_FIELDS);
+  const ALL_METADATA_FIELDS = [
+    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmObject'
+  ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
 
@@ -175,7 +177,8 @@
         // provide the deBias terms and definitions instead of using the composable
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
-        deBias: computed(() => this.deBias)
+        deBias: computed(() => this.deBias),
+        tombstone: computed(() => this.tombstone)
       };
     },
 
@@ -204,6 +207,7 @@
         metadata: {},
         ogImage: null,
         relatedCollections: [],
+        tombstone: false,
         type: null,
         useProxy: true
       };
@@ -232,7 +236,7 @@
     computed: {
       webResources() {
         if (this.media.length === 0) {
-          return [{ about: this.metadata.edmObject, source: 'TOMBSTONE' }];
+          return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
           return this.media.map((webResource) => new WebResource(webResource, this.identifier));
         }
@@ -379,16 +383,27 @@
         }
 
         let data;
+        this.tombstone = false;
 
         try {
           data = await this.$apis.record.get(this.identifier, params);
         } catch (error) {
           const errorResponse = error.response;
+          delete error.response; // don't pass this on to $error
+
           if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
             this.fromTranslationError = true;
+            // TODO: what if this request fails...
             data = await this.$apis.record.get(this.identifier);
           } else if (errorResponse?.status === 410) {
-            data = errorResponse.data;
+            this.tombstone = true;
+            if (this.$features.tombstonePage) {
+              data = errorResponse.data;
+            } else {
+              // TODO: temporary workaround to handle tombstone records like 404s
+              //       til tombstone page implemented
+              return this.$error({ ...error, statusCode: 404, message: 'Not Found' }, { scope: 'item' });
+            }
           } else {
             return this.$error(error, { scope: 'item' });
           }
