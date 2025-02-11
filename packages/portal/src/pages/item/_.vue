@@ -388,13 +388,12 @@
           data = await this.$apis.record.get(this.identifier, params);
         } catch (error) {
           const errorResponse = error.response;
-          delete error.response; // don't pass this on to $error
 
-          if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
+          if (error.statusCode === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
             this.fromTranslationError = true;
             // TODO: what if this request fails...
             data = await this.$apis.record.get(this.identifier);
-          } else if (errorResponse?.status === 410) {
+          } else if (error.statusCode === 410) {
             if (this.$features.tombstonePage) {
               data = errorResponse.data;
             } else {
@@ -415,6 +414,7 @@
         this.type = edm.type;
 
         const item = new Item(edm);
+        this.isDeleted = item.isDeleted;
 
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
         //       but relied on by ItemHero to know whether to proxy download urls or not.
@@ -444,7 +444,7 @@
         }
 
         this.entities = this.extractEntities(edm);
-        this.isDeleted = item.isDeleted;
+
         this.metadata = this.extractMetadata(edm);
 
         this.media = item.providerAggregation.displayableWebResources.map((wr) => {
