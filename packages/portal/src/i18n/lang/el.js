@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Δείγμα χρώματος",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Σχετικά Europeana",
-      "forDevelopers": "Για προγραμματιστές",
-      "help": "Βοήθεια",
-      "meetUs": "Γνωρίστε την ομάδα",
-      "MoreInfoLabel": "Περισσότερες πληροφορίες",
-      "provide": "Γίνετε πάροχος δεδομένων",
-      "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
-      "terms": "Όροι χρήσης και πολιτική απορρήτου"
-    },
-    "headerNavigation": {
-      "Collections": "Συλλογές",
-      "explore": "Εξερεύνηση",
-      "teachers": "Εκπαιδευτικοί"
-    }
-  },
   "contentYouMightLike": "Περιεχόμενο που μπορεί να σας αρέσει",
   "curatedAutomatically": "Αυτόματη επιμέλεια από την Europeana",
   "dateFilter": {
@@ -191,6 +174,16 @@ export default {
     "broughtBy": "Έφερε σε σας από"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
+  "embedNotification": {
+    "ifNotAll": "Αν δεν θέλετε να φορτώσετε όλα τα ενσωματωμένα πολυμέσα, μπορείτε να {0}.",
+    "loadAllEmbeddedContent": "Φόρτωση όλου του ενσωματωμένου περιεχομένου",
+    "loadOnlyThis": "φορτώστε μέσα μόνο από αυτόν τον πάροχο",
+    "message": "Λάβετε υπόψη ότι αυτή η σελίδα περιέχει περιεχόμενο πολυμέσων ενσωματωμένο από το {provider}. Η προβολή αυτών των μέσων υπόκειται στους όρους και τις δηλώσεις απορρήτου τους. Ανατρέξτε στις δηλώσεις απορρήτου τους για περισσότερες πληροφορίες σχετικά με τον τρόπο χρήσης των δεδομένων σας.",
+    "messageUnkownService": "Δυστυχώς αυτό το περιεχόμενο δεν μπορεί να προβληθεί.",
+    "ofThirdPartyServices": "{0} των υπηρεσιών περιεχομένου τρίτων.",
+    "viewFullList": "Δείτε την πλήρη λίστα",
+    "viewThisExternalLink": "Δείτε αυτό το περιεχόμενο μέσω εξωτερικού συνδέσμου"
+  },
   "entity": {
     "actions": {
       "cancel": "Ακύρωση",
@@ -726,7 +719,7 @@ export default {
       "faq": "Συχνές Ερωτήσεις (FAQ)",
       "help": "Βοήθεια",
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
-      "privacy": "Πολιτική απορρήτου",
+      "privacy": "Δήλωση απορρήτου",
       "seeApiRequests": "Δείτε αιτήματα προς Europeana API",
       "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
       "supportingTechnicalPartners": "Υποστηρίζοντας τεχνικούς συνεργάτες",
@@ -793,7 +786,11 @@ export default {
       "acceptAll": "Αποδοχή όλων",
       "acceptSelected": "Αποδοχή επιλεγμένων",
       "consentModal": {
-        "description": "Εδώ μπορείτε να δείτε και να προσαρμόσετε τις υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε σε αυτόν τον ιστότοπο. Για να μάθετε περισσότερα, διαβάστε την <a href='/rights/privacy-policy'> πολιτική απορρήτου μας </a>.",
+        "alwaysRequired": "(Απαιτείται πάντα)",
+        "description": "Εδώ μπορείτε να δείτε και να προσαρμόσετε τις υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε σε αυτόν τον ιστότοπο. Για να μάθετε περισσότερα διαβάστε το <a href='/rights/privacy-statement'>δήλωση απορρήτου</a>.",
+        "privacyPolicy": "Πολιτική απορρήτου",
+        "servicesCount": "{count} υπηρεσία | {count} υπηρεσίες",
+        "text": "Εδώ μπορείτε να δείτε και να προσαρμόσετε τις υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε σε αυτόν τον ιστότοπο. Για να μάθετε περισσότερα, διαβάστε {privacyPolicy} μας.",
         "title": "Υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε."
       },
       "consentNotice": {
@@ -803,13 +800,44 @@ export default {
       "decline": "ΑΡΝΟΥΜΑΙ",
       "ok": "ΕΝΤΑΞΕΙ",
       "purposes": {
+        "2D": {
+          "title": "2D μέσα"
+        },
+        "3D": {
+          "title": "3D μέσα"
+        },
+        "audio": {
+          "title": "Ήχος"
+        },
         "essential": {
           "description": "Αυτές οι υπηρεσίες είναι απαραίτητες για τη σωστή λειτουργία αυτού του ιστότοπου. Περιλαμβάνουν την προβολή αποτελεσμάτων αναζήτησης και τις προτιμήσεις γλώσσας, διατηρούν την κατάσταση σύνδεσης και διατηρούν την επίσκεψή σας ασφαλή. Δεν μπορείτε να τα απενεργοποιήσετε καθώς ο ιστότοπος δεν θα λειτουργούσε σωστά διαφορετικά.",
           "title": "Βασικές υπηρεσίες για ασφάλεια και προσαρμογή"
         },
+        "mediaViewing": {
+          "description": "Αυτές οι υπηρεσίες φορτώνουν στοιχεία εικόνας (2D), 3D, ήχου και βίντεο για προβολή.",
+          "title": "Υπηρεσίες προβολής μέσων ενημέρωσης"
+        },
+        "multimedia": {
+          "title": "Πολυμέσα"
+        },
+        "other": {
+          "description": "Αυτές οι υπηρεσίες φορτώνουν περιεχόμενο όπως κώδικα, παιχνίδια, χάρτες και γραφικά στοιχεία αφήγησης.",
+          "title": "Άλλες υπηρεσίες ενσωμάτωσης"
+        },
+        "socialMedia": {
+          "description": "Αυτές οι υπηρεσίες φορτώνουν περιεχόμενο από πλατφόρμες κοινωνικής δικτύωσης.",
+          "title": "Υπηρεσίες ενσωμάτωσης μέσων κοινωνικής δικτύωσης"
+        },
+        "thirdPartyContent": {
+          "description": "Αυτές οι υπηρεσίες φορτώνουν περιεχόμενο που φιλοξενείται από τρίτα μέρη. Η χρήση του υπόκειται στους όρους, τις προϋποθέσεις και τη δήλωση απορρήτου αυτών των τρίτων.",
+          "title": "Περιεχόμενο τρίτων"
+        },
         "usage": {
           "description": "Αυτές οι υπηρεσίες συλλέγουν τις πληροφορίες για να μας βοηθήσουν να κατανοήσουμε καλύτερα πώς χρησιμοποιείται ο ιστότοπος και πού βρίσκονται τα σημεία που προκαλούν προβλήματα, δίνοντάς μας τη δυνατότητα να κάνουμε τεκμηριωμένες επιλογές για να βελτιώσουμε την εμπειρία σας.",
           "title": "Υπηρεσίες για την καταγραφή της χρήσης του ιστότοπου και της ανατροφοδότησης"
+        },
+        "video": {
+          "title": "Βίντεο"
         }
       },
       "service": {
@@ -820,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Θυμάται τη στρατηγική εξουσιοδότησης που πρέπει να χρησιμοποιήσετε για να συνδεθείτε.",
         "title": "Στρατηγική Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Βοηθά στην αποσφαλμάτωση αιτημάτων API",
         "title": "Εναλλαγή εντοπισμού σφαλμάτων"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Θυμάται τη γλώσσα διασύνδεσης που προτιμάτε για μελλοντική πρόσβαση.",
         "title": "Κωδικός γλώσσας"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
         "title": "Γραφείο εξυπηρέτησης Jira"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Συλλέγει ανώνυμα στατιστικά στοιχεία σχετικά με τον τρόπο αλληλεπίδρασης των επισκεπτών με τον ιστότοπο.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Εμφανίζει μια ειδοποίηση όταν γίνονται διαθέσιμες νέες λειτουργίες.",
         "title": "Ειδοποίηση νέας λειτουργίας"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Θυμάται αν προτιμάτε να βλέπετε τα αποτελέσματα αναζήτησης, τις συλλογές και τις επισημάνσεις \"μου αρέσει\" σε προβολή λίστας, πλέγματος ή μωσαϊκού.",
         "title": "Αποτελέσματα αναζήτησης, γκαλερί και προβολή \"μου αρέσει\" (λίστα/πλέγμα/μωσαϊκό)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "άγνωστος πάροχος",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -917,6 +1108,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Κάντε κλικ στην αναφορά για να την αντιγράψετε",
+      "copyAttribution": "Αντιγραφή της αναφοράς του τεκμηρίου.",
       "modalIntro": "Εάν χρησιμοποιήσετε αυτό το τεκμήριο στο διαδίκτυο ή αλλού, μην ξεχάσετε να εμφανίσετε την παρακάτω αναφορά δίπλα του:",
       "modalTitle": "Πες ευχαριστώ"
     },
@@ -1004,10 +1196,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Αντιγραφή κώδικα ενσωμάτωσης",
       "pin": "Καρφιτσώστε το τεκμήριο σε διαθέσιμες Οντότητες."
     },
     "allMetaData": "Όλα τα μεταδεδομένα",
-    "copyEmbedLabel": "Ενσωμάτωση κώδικα (κάντε κλικ για αντιγραφή)",
+    "clickToCopyEmbedCode": "Κάντε κλικ στον κώδικα ενσωμάτωσης για να τον αντιγράψετε",
+    "debias": "De-bias",
+    "explanationby": "Επεξήγηση που παρέχεται από {0}",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",

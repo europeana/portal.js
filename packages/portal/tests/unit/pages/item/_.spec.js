@@ -2,8 +2,10 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import createHttpError from 'http-errors';
 
 import page from '@/pages/item/_';
+import useDeBias from '@/composables/deBias.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -115,6 +117,21 @@ const record = {
 };
 
 const fixtures = {
+  annotationSearchResponse: [
+    {
+      id: 'http://example.org/annotation/highlighting/2',
+      motivation: 'highlighting',
+      body: {
+        id: 'http://example.org/vocabulary/debias/1',
+        definition: {
+          en: 'May cause offense'
+        }
+      },
+      target: {
+        selector: { hasPredicate: 'dc:title', refinedBy: { exact: { '@language': 'en', '@value': 'offensive' } } }
+      }
+    }
+  ],
   auth: {
     loggedIn: { $auth: { loggedIn: true } },
     notLoggedIn: { $auth: { loggedIn: false } }
@@ -165,7 +182,8 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     $config: {
       app: {
         baseUrl: 'https://www.example.org'
-      }
+      },
+      matomo: {}
     },
     $features: { translatedItems: true },
     $t: (key) => key,
@@ -174,7 +192,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     },
     $apis: {
       annotation: {
-        search: sinon.spy()
+        search: sinon.stub().resolves(fixtures.annotationSearchResponse)
       },
       entity: {
         find: entityFindStub
@@ -276,6 +294,27 @@ describe('pages/item/_.vue', () => {
           });
         });
       });
+    });
+
+    it('fetches annotations', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apis.annotation.search.calledWith({
+        query: 'target_record_id:"/123/abc"',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+        profile: 'dereference'
+      })).toBe(true);
+    });
+
+    it('parses DeBias annotations via composable', async() => {
+      const { terms } = useDeBias();
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(terms.value.dcTitle).toEqual([{ exact: 'offensive' }]);
     });
 
     describe('when the requested item identifier is different from the identifier in the response', () => {
@@ -485,6 +524,17 @@ describe('pages/item/_.vue', () => {
 
         expect(wrapper.vm.$error.called).toBe(true);
       });
+
+      describe('when error is 410 Gone (tombstone)', () => {
+        it('(temporarily) calls $error as with 404 Not Found', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.get = sinon.stub().throws(() => createHttpError(410));
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$error.calledWith(sinon.match.has('statusCode', 404))).toBe(true);
+        });
+      });
     });
 
     describe('on client-side request', () => {
@@ -560,16 +610,6 @@ describe('pages/item/_.vue', () => {
     describe('client side fetching', () => {
       const $fetchState = { pending: false };
 
-      it('fetches annotations', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
-
-        expect(wrapper.vm.$apis.annotation.search.calledWith({
-          query: 'target_record_id:"/123/abc"',
-          qf: 'motivation:(linkForContributing OR tagging)',
-          profile: 'dereference'
-        })).toBe(true);
-      });
-
       it('fetches entities', () => {
         const wrapper = factory({
           data: {
@@ -609,14 +649,6 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.trackCustomDimensions();
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
-      });
-
-      it('bails if NO Matomo plugin is installed', async() => {
-        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
-
-        await wrapper.vm.trackCustomDimensions();
-
-        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
     });
 

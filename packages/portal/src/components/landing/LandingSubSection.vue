@@ -12,7 +12,7 @@
         <div
           v-if="text"
           class="text mx-auto mb-3"
-          v-html="parseMarkdownHtml(text)"
+          v-html="parseMarkdown(text)"
         />
         <!-- eslint-enable vue/no-v-html -->
       </div>
@@ -58,8 +58,8 @@
 </template>
 
 <script>
-  import contentfulMixin from '@/mixins/contentful.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingSubSection',
@@ -71,8 +71,6 @@
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
-
-    mixins: [contentfulMixin, parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -104,6 +102,11 @@
         type: String,
         default: 'pro'
       }
+    },
+
+    methods: {
+      contentfulEntryHasContentType,
+      parseMarkdown
     }
   };
 </script>

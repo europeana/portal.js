@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Farveprøve",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Om Europeana",
-      "forDevelopers": "Til udviklere",
-      "help": "Hjælp",
-      "meetUs": "Mød holdet",
-      "MoreInfoLabel": "Flere oplysninger",
-      "provide": "Bliv dataleverandør",
-      "subscribe": "Abonner på vores nyhedsbrev",
-      "terms": "Vilkår for brug og Fortrolighedspolitik"
-    },
-    "headerNavigation": {
-      "Collections": "Samlinger",
-      "explore": "Udforsk",
-      "teachers": "Lærere"
-    }
-  },
   "contentYouMightLike": "Indhold, du måske vil synes om",
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
@@ -192,6 +175,16 @@ export default {
     "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "embedNotification": {
+    "ifNotAll": "Hvis du ikke ønsker at indlæse alle indlejrede medier, kan du {0}.",
+    "loadAllEmbeddedContent": "Indlæs alt indlejret indhold",
+    "loadOnlyThis": "indlæs kun medier fra denne udbyder",
+    "message": "Vær opmærksom på, at denne side indeholder medieindhold indlejret fra {provider}. Visning af dette medie er underlagt deres vilkår og erklæringer om beskyttelse af personlige oplysninger. Se deres erklæringer om beskyttelse af personlige oplysninger for at få flere oplysninger om, hvordan dine data bruges.",
+    "messageUnkownService": "Desværre kan dette indhold ikke vises.",
+    "ofThirdPartyServices": "{0} af tredjeparts indholdstjenester.",
+    "viewFullList": "Se hele listen",
+    "viewThisExternalLink": "Se dette indhold via et eksternt link"
+  },
   "entity": {
     "actions": {
       "cancel": "Annuller",
@@ -727,7 +720,7 @@ export default {
       "faq": "Ofte stillede spørgsmål (FAQ)",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
-      "privacy": "Fortrolighedspolitik",
+      "privacy": "Fortrolighedserklæring",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
       "supportingTechnicalPartners": "Support til tekniske partnere",
@@ -794,7 +787,11 @@ export default {
       "acceptAll": "Accepter alle",
       "acceptSelected": "Accepter valgt",
       "consentModal": {
-        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. For at lære mere, læs venligst vores <a href='/rights/privacy-policy'> privatlivspolitik </a>.",
+        "alwaysRequired": "(Altid påkrævet)",
+        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Hvis du vil vide mere, kan du læse vores <a href='/rights/privacy-statement'>fortrolighedserklæring</a>.",
+        "privacyPolicy": "Privatlivspolitik",
+        "servicesCount": "{count} tjeneste | {count} tjenester",
+        "text": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. Læs vores {privacyPolicy} for at få flere oplysninger.",
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
@@ -804,13 +801,44 @@ export default {
       "decline": "Jeg afviser",
       "ok": "Okay",
       "purposes": {
+        "2D": {
+          "title": "2D-medier"
+        },
+        "3D": {
+          "title": "3D-medier"
+        },
+        "audio": {
+          "title": "Lyd"
+        },
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
           "title": "Væsentlige tjenester til sikkerhed og tilpasning"
         },
+        "mediaViewing": {
+          "description": "Disse tjenester indlæser billed- (2D), 3D-, lyd- og videoelementer til visning.",
+          "title": "Tjenester til visning af medier"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Disse tjenester indlæser indhold som f.eks. kode, spil, kort og historiefortællende widgets.",
+          "title": "Andre indlejringstjenester"
+        },
+        "socialMedia": {
+          "description": "Disse tjenester indlæser indhold fra sociale medieplatforme.",
+          "title": "Tjenester til indlejring i sociale medier"
+        },
+        "thirdPartyContent": {
+          "description": "Disse tjenester indlæser indhold, der hostes af tredjeparter. Brugen af dem er underlagt disse tredjeparters vilkår, betingelser og erklæring om beskyttelse af personlige oplysninger.",
+          "title": "Tredjepartsindhold"
+        },
         "usage": {
           "description": "Disse tjenester indsamler oplysningerne for at hjælpe os med bedre at forstå, hvordan hjemmesiden bliver brugt, og hvor smertepunkterne er, hvilket giver os mulighed for at træffe informerede valg for at forbedre din oplevelse.",
           "title": "Tjenester til at registrere brug og feedback på websitet"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -821,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktiverer en undersøgelses widget, der giver dig mulighed for at svare på vores undersøgelser om tilfredshed med besøgende.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Husker dit foretrukne grænsefladesprog for fremtidig adgang.",
         "title": "Sprogkode"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiverer feedback-widget'en, så du kan kontakte os.",
         "title": "Jira servicedesk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
         "title": "Meddelelse om ny funktion"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
         "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "ukendt udbyder",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -918,6 +1109,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
+      "copyAttribution": "Kopier genstandens tilskrivning.",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
     },
@@ -1005,10 +1197,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiér indlejringskoden",
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
-    "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
+    "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
+    "debias": "De-bias",
+    "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",

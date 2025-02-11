@@ -94,7 +94,7 @@
   import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
 
   export default {
     name: 'LandingPage',
@@ -113,7 +113,6 @@
     },
 
     mixins: [
-      contentfulMixin,
       landingPageMixin
     ],
 
@@ -161,6 +160,8 @@
     },
 
     methods: {
+      contentfulEntryHasContentType,
+
       getClasses(section) {
         const classes = [];
         if (section.profile?.background) {

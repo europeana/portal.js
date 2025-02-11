@@ -141,6 +141,7 @@ export default {
       siteId: process.env.MATOMO_SITE_ID,
       loadWait: {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+        name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
     },
@@ -304,7 +305,8 @@ export default {
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/features'
+    '~/plugins/features',
+    '~/plugins/jsdom-domparser.server'
   ],
 
   buildModules: [
@@ -446,6 +448,12 @@ export default {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        '@babel/plugin-transform-logical-assignment-operators'
+      ]
+    },
+
     // Do not enable extractCSS as it is unreliable.
     // See: https://github.com/nuxt/nuxt.js/issues/4219
     extractCSS: false,

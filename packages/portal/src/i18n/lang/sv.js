@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Färgprov",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Om Europeana",
-      "forDevelopers": "För utvecklare",
-      "help": "Hjälp",
-      "meetUs": "Möt teamet",
-      "MoreInfoLabel": "Mer info",
-      "provide": "Bli en dataleverantör",
-      "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "terms": "Användarvillkor och integritetspolicy"
-    },
-    "headerNavigation": {
-      "Collections": "Samlingar",
-      "explore": "Utforska",
-      "teachers": "Lärare"
-    }
-  },
   "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
@@ -191,6 +174,16 @@ export default {
     "broughtBy": "Tillhandahålls av"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "embedNotification": {
+    "ifNotAll": "Om du inte vill ladda all inbäddad media kan du {0}.",
+    "loadAllEmbeddedContent": "Ladda allt inbäddat innehåll",
+    "loadOnlyThis": "ladda media endast från denna leverantör",
+    "message": "Observera att denna sida innehåller medieinnehåll inbäddat från {provider}. Visning av dessa medier är föremål för deras villkor och sekretesspolicyer. Se deras sekretesspolicyer för mer information om hur dina uppgifter används.",
+    "messageUnkownService": "Tyvärr kan detta innehåll inte visas.",
+    "ofThirdPartyServices": "{0} av innehållstjänster från tredje part.",
+    "viewFullList": "Se hela listan",
+    "viewThisExternalLink": "Se detta innehåll via en extern länk"
+  },
   "entity": {
     "actions": {
       "cancel": "Avbryt",
@@ -793,7 +786,11 @@ export default {
       "acceptAll": "Acceptera alla",
       "acceptSelected": "Acceptera valt",
       "consentModal": {
-        "description": "Här kan du se och anpassa de tjänster som vi vill använda på denna webbplats. För att lära dig mer läs vår <a href='/rights/privacy-policy'> sekretesspolicy </a>.",
+        "alwaysRequired": "(Krävs alltid)",
+        "description": "Här kan du se och anpassa de tjänster som vi vill använda på den här webbplatsen. För att få mer information, vänligen läs vår <a href='/rights/privacy-statement'>integritetspolicy</a>.",
+        "privacyPolicy": "Integritetspolicy",
+        "servicesCount": "{count} tjänst | {count} tjänster",
+        "text": "Här kan du se och anpassa de tjänster som vi vill använda på denna webbplats. Läs vår {privacyPolicy} om du vill veta mer.",
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
@@ -803,13 +800,44 @@ export default {
       "decline": "jag avböjer",
       "ok": "Okej",
       "purposes": {
+        "2D": {
+          "title": "2D-media"
+        },
+        "3D": {
+          "title": "3D-media"
+        },
+        "audio": {
+          "title": "Ljud"
+        },
         "essential": {
           "description": "Dessa tjänster är nödvändiga för att denna webbplats ska fungera korrekt. De inkluderar sökresultatsvy och språkinställningar, bevarar det inloggade tillståndet och håller ditt besök säkert. Du kan inte inaktivera dem eftersom webbplatsen annars inte fungerar korrekt.",
           "title": "Viktiga tjänster för säkerhet och anpassning"
         },
+        "mediaViewing": {
+          "description": "Dessa tjänster laddar bild- (2D), 3D-, ljud- och videoobjekt för visning.",
+          "title": "Tjänster för visning av media"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Dessa tjänster laddar innehåll som kod, spel, kartor och storytelling-widgets.",
+          "title": "Andra tjänster för inbäddning"
+        },
+        "socialMedia": {
+          "description": "Dessa tjänster laddar innehåll från sociala medieplattformar.",
+          "title": "Tjänster för inbäddning i sociala medier"
+        },
+        "thirdPartyContent": {
+          "description": "Dessa tjänster laddar innehåll som tillhandahålls av tredje part. Dess användning är föremål för dessa tredje parts villkor och sekretesspolicy.",
+          "title": "Innehåll från tredje part"
+        },
         "usage": {
           "description": "Dessa tjänster samlar in informationen för att bättre förstå hur webbplatsen används och var smärtpunkterna är, vilket ger oss möjlighet att göra välgrundade val för att förbättra din upplevelse.",
           "title": "Tjänster för att samla in användandet av webbplatsen och återkoppling"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -820,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjälper till att felsöka API -begäranden",
         "title": "Felsökning växla"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktiverar en enkät widget som ger dig möjlighet att svara på våra undersökningar om besökarnas tillfredsställelse.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
         "title": "Språkkod"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
         "title": "Jira servicedesk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Visar ett meddelande när nya funktioner blir tillgängliga.",
         "title": "Ny funktionsavisering"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultat, gallerier och dina gilla-markeringar i en lista, rutnät eller mosaikvy.",
         "title": "Sökresultat, gallerier och gilla markeringar (lista/rutnät/mosaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "okänd leverantör",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -916,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicka på attributionen för att kopiera den",
+      "copyAttribution": "Kopiera objektets attribution.",
       "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
       "modalTitle": "Säg tack"
     },
@@ -1003,10 +1195,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiera inbäddningskod",
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
     "allMetaData": "Alla metadata",
-    "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
+    "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
+    "debias": "De-bias",
+    "explanationby": "Förklaring tillhandahållen av {0}",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",

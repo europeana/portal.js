@@ -20,8 +20,13 @@
     </main>
     <DS4CHPageFooter />
     <client-only>
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
+      />
       <PageCookieConsent
-        v-if="cookieConsentRequired"
+        v-else
+        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -33,7 +38,6 @@
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -43,19 +47,13 @@
       ClientOnly,
       DS4CHPageHeader,
       DS4CHPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent')
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
     },
 
     mixins: [
-      canonicalUrlMixin,
-      klaroMixin
+      canonicalUrlMixin
     ],
-
-    data() {
-      return {
-        klaroServices: ['auth-strategy', 'i18n', 'matomo']
-      };
-    },
 
     head() {
       return {
@@ -68,9 +66,6 @@
         ],
         meta: [
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
-        ],
-        script: [
-          this.klaroHeadScript
         ]
       };
     }

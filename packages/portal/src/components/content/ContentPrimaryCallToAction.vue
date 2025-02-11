@@ -9,7 +9,7 @@
     <!-- eslint-disable vue/no-v-html -->
     <div
       class="primary-cta-rich-text text-left"
-      v-html="parseMarkdownHtml(text)"
+      v-html="parseMarkdown(text)"
     />
     <!-- eslint-enable vue/no-v-html -->
     <SmartLink
@@ -26,7 +26,7 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'ContentPrimaryCallToAction',
@@ -34,8 +34,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       title: {
@@ -54,6 +52,10 @@
         type: String,
         default: 'btn-primary'
       }
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>

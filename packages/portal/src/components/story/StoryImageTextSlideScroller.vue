@@ -49,7 +49,7 @@
                   class="card-content"
                   :class="{ 'citation-text': slide.citation }"
                   data-qa="slide text"
-                  v-html="parseMarkdownHtml(slide.text)"
+                  v-html="parseMarkdown(slide.text)"
                 />
                 <cite
                   v-if="slide.citation"
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
 
@@ -79,8 +79,6 @@
     components: {
       ImageWithAttribution
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       section: {
@@ -105,6 +103,8 @@
     },
 
     methods: {
+      parseMarkdown,
+
       appearDisappearSlideImage() {
         this.$refs.slideCards.forEach((card, index) => {
           if (index > 0) {

@@ -153,23 +153,6 @@ export default {
   },
   "colourSwatch": "Colour swatch",
   "contentYouMightLike": "Content you might like",
-  "contentfulManual": {
-    "footerNavigation": {
-      "MoreInfoLabel": "More Info",
-      "about": "About Europeana",
-      "forDevelopers": "For developers",
-      "help": "Help",
-      "meetUs": "Meet the team",
-      "provide": "Become a data provider",
-      "subscribe": "Subscribe to our Newsletter",
-      "terms": "Terms of Use and Privacy Policy"
-    },
-    "headerNavigation": {
-      "Collections": "Collections",
-      "explore": "Explore",
-      "teachers": "Teachers"
-    }
-  },
   "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
@@ -210,6 +193,16 @@ export default {
     }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
+  "embedNotification": {
+    "ifNotAll": "If you don’t want to load all embedded media, you can {0}.",
+    "loadAllEmbeddedContent": "Load all embedded content",
+    "loadOnlyThis": "load media from this provider only",
+    "message": "Please be aware that this page contains media content embedded from {provider}. Viewing this media is subject to their terms and privacy statements. Please refer to their privacy statements for more information on how your data is used.",
+    "messageUnkownService": "Unfortunately this content cannot be shown.",
+    "ofThirdPartyServices": "{0} of third-party content services.",
+    "viewFullList": "View the full list",
+    "viewThisExternalLink": "View this content via an external link"
+  },
   "entity": {
     "actions": {
       "cancel": "Cancel",
@@ -768,7 +761,7 @@ export default {
       "cookies": "Cookies",
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
-      "privacy": "Privacy policy",
+      "privacy": "Privacy statement",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -835,7 +828,11 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "alwaysRequired": "(Always required)",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-statement'>privacy statement</a>.",
+        "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
+        "privacyPolicy": "Privacy policy",
+        "servicesCount": "{count} service | {count} services",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -847,11 +844,42 @@ export default {
       "purposes": {
         "essential": {
           "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
-          "title": "Essential services for security and customization"
+          "title": "Essential services for security and customisation"
+        },
+        "thirdPartyContent": {
+          "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",
+          "title": "Third-party content"
         },
         "usage": {
           "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
           "title": "Services to capture website usage and feedback"
+        },
+        "2D": {
+          "title": "2D media"
+        },
+        "3D": {
+          "title": "3D media"
+        },
+        "audio": {
+          "title": "Audio"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "video": {
+          "title": "Video"
+        },
+        "mediaViewing": {
+          "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
+          "title": "Media viewing services"
+        },
+        "other": {
+          "description": "These services load content such as code, games, maps and storytelling widgets.",
+          "title": "Other embedding services"
+        },
+        "socialMedia": {
+          "description": "These services load content from social media platforms.",
+          "title": "Social media embedding services"
         }
       },
       "service": {
@@ -862,37 +890,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helps debugging API requests",
         "title": "Debug toggle"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "EUscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Remembers your preferred interface language for future access.",
         "title": "Language code"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activates the feedback widget giving you the option to contact us.",
         "title": "Jira service desk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Shows a notification when new features become available.",
         "title": "New feature notification"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results, galleries and your likes in a list, grid or mosaic view.",
         "title": "Search result, galleries and likes view (list/grid/mosaic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "unknownProvider": "unknown provider",
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -970,6 +1161,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Click on the attribution to copy it",
+      "copyAttribution": "Copy item attribution",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
     },
@@ -1057,10 +1249,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copy embed code",
       "pin": "Pin item to available Entities"
     },
     "allMetaData": "All metadata",
-    "copyEmbedLabel": "Embed code (Click to copy)",
+    "clickToCopyEmbedCode": "Click on the embed code to copy it",
+    "debias": "De-bias",
+    "explanationby": "Explanation provided by {0}",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",

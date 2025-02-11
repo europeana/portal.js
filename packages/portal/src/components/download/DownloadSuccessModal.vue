@@ -1,41 +1,22 @@
 <template>
   <b-modal
     id="download-success-modal"
+    title-tag="h2"
     :title="$t('modal.download.modalTitle')"
+    header-tag="div"
     hide-header-close
     hide-footer
     data-qa="download success modal"
-    @hidden="snippetCopied = false"
   >
-    <b-form
-      data-qa="attribution snippet"
-    >
-      <p>
-        {{ $t('modal.download.modalIntro') }}
-      </p>
-      <b-form-textarea
-        id="attributionSnippet"
-        ref="attributionSnippet"
-        readonly
-        class="snippet"
-        rows="1"
-        max-rows="10"
-        :value="attributionSnippet"
-        @click="copySnippet"
-        @keydown.enter="copySnippet"
-      />
-      <p
-        :class="{active: snippetCopied}"
-        class="copy-to-clipboard-success"
-      >
-        <span class="icon-check_circle d-inline-flex pr-1" />
-        {{ $t('messages.copyToClipboardSuccess') }}
-      </p>
-      <p class="help">
-        <span class="icon-info-outline" />
-        {{ $t('modal.download.clickToCopy') }}
-      </p>
-    </b-form>
+    <p>
+      {{ $t('modal.download.modalIntro') }}
+    </p>
+    <ShareSnippet
+      tag="cite"
+      :text="attributionSnippet"
+      :button-text="$t('modal.download.copyAttribution')"
+      :help-text="$t('modal.download.clickToCopy')"
+    />
     <b-button
       variant="outline-primary"
       data-qa="attribution snippet close"
@@ -47,14 +28,15 @@
 </template>
 
 <script>
-  import stringify from '@/mixins/stringify';
+  import stringify from '@/utils/text/stringify.js';
+  import ShareSnippet from '@/components/share/ShareSnippet';
 
   export default {
     name: 'DownloadSuccessModal',
 
-    mixins: [
-      stringify
-    ],
+    components: {
+      ShareSnippet
+    },
 
     props: {
       title: {
@@ -89,10 +71,9 @@
 
     data() {
       return {
-        snippetCopied: false,
-        providerString: this.stringify(this.provider),
-        creatorString: this.stringify(this.creator),
-        yearString: this.stringify(this.year)
+        providerString: stringify(this.provider),
+        creatorString: stringify(this.creator),
+        yearString: stringify(this.year)
       };
     },
 
@@ -138,18 +119,6 @@
 
         return providerCountry;
       }
-    },
-
-    methods: {
-      async copySnippet() {
-        this.$refs.attributionSnippet.select();
-        try {
-          await navigator.clipboard.writeText(this.attributionSnippet);
-        } catch {
-          // don't worry
-        }
-        this.snippetCopied = true;
-      }
     }
   };
 </script>
@@ -176,43 +145,6 @@
 
       p:first-child {
         margin-bottom: 0.75rem;
-      }
-    }
-
-    .snippet {
-      background: $whitegrey;
-      border-radius: 6px;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      word-wrap: break-word;
-      cursor: pointer;
-      height: 7rem;
-      font-size: $font-size-small;
-      border: 0;
-      overflow-y: auto !important;
-    }
-
-    .copy-to-clipboard-success {
-      display: none;
-      vertical-align: middle;
-      font-size: $font-size-small;
-
-      &.active {
-        display: inline-flex;
-        align-items: center;
-      }
-    }
-
-    .help {
-      font-size: $font-size-extrasmall;
-      color: $mediumgrey;
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.25rem;
-
-      span {
-        display: inline-block;
-        margin-right: 0.5rem;
       }
     }
   }

@@ -498,10 +498,10 @@ describe('components/search/SearchInterface', () => {
           profile: 'minimal',
           query: 'calais',
           qf: [
+            'edm_agent:"http://data.europeana.eu/agent/200"',
             'TYPE:"IMAGE"',
             'proxy_dc_title:dog',
-            'contentTier:(1 OR 2 OR 3 OR 4)',
-            'edm_agent:"http://data.europeana.eu/agent/200"'
+            'contentTier:(1 OR 2 OR 3 OR 4)'
           ],
           rows: 24
         };
@@ -511,7 +511,7 @@ describe('components/search/SearchInterface', () => {
             $route
           },
           propsData: {
-            overrideParams: {
+            defaultParams: {
               qf: [overrideQf]
             }
           }

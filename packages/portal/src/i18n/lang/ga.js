@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Swatch dath",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Maidir le Europeana",
-      "forDevelopers": "Faoi chomhair forbróirí",
-      "help": "Cabhair",
-      "meetUs": "Cuir aithne ar an bhfoireann",
-      "MoreInfoLabel": "Tuilleadh eolais",
-      "provide": "Bí I do sholátharí sonraí",
-      "subscribe": "Liostáil lenár Nuachtlitir",
-      "terms": "Téarmaí úsáide agus Beartas príobháideachta"
-    },
-    "headerNavigation": {
-      "Collections": "Bailiúcháin",
-      "explore": "Taiscéal",
-      "teachers": "Múinteoirí"
-    }
-  },
   "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "curatedAutomatically": "Coimeádaithe go huathoibríoch ag Europeana",
   "dateFilter": {
@@ -191,6 +174,16 @@ export default {
     "broughtBy": "Arna thabhairt duit ag"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "embedNotification": {
+    "ifNotAll": "Mura bhfuil tú ag iarraidh gach meán leabaithe a luchtú, is féidir leat {0}.",
+    "loadAllEmbeddedContent": "Luchtaigh gach ábhar leabaithe",
+    "loadOnlyThis": "luchtú meáin ón soláthraí seo amháin",
+    "message": "Bí ar an eolas go bhfuil ábhar meán leabaithe ó {provider}. Tá breathnú ar na meáin seo faoi réir a dtéarmaí agus a ráitis phríobháideachais. Féach ar a ráitis phríobháideachais le haghaidh tuilleadh eolais ar an gcaoi a n-úsáidtear do shonraí.",
+    "messageUnkownService": "Ar an drochuair ní féidir an t-ábhar seo a thaispeáint.",
+    "ofThirdPartyServices": "{0} de sheirbhísí ábhair thríú páirtí.",
+    "viewFullList": "Féach ar an liosta iomlán",
+    "viewThisExternalLink": "Féach ar an ábhar seo trí nasc seachtrach"
+  },
   "entity": {
     "actions": {
       "cancel": "Cealaigh",
@@ -726,7 +719,7 @@ export default {
       "faq": "Ceisteanna Coitianta (FAQ)",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
-      "privacy": "Beartas Príobháideachais",
+      "privacy": "Ráiteas príobháideachta",
       "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "supportingTechnicalPartners": "Tacú le comhpháirtithe teicniúla",
@@ -793,7 +786,11 @@ export default {
       "acceptAll": "Glac le gach",
       "acceptSelected": "Glac leis roghnaithe",
       "consentModal": {
-        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuillidh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháide achais </a> .",
+        "alwaysRequired": "(riachtanach i gcónaí)",
+        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuillidh a fhoghlaim léigh ár <a href='/rights/privacy-statement'> ráiteas príobháideachais </a>.",
+        "privacyPolicy": "Beartas príobháideachta",
+        "servicesCount": "Seirbhís {count} | {count} seirbhís",
+        "text": "Anseo is féidir leat na seirbhísí a fheiceáil agus a shaincheapadh ar mhaith linn a úsáid ar an suíomh gréasáin seo. Chun tuillidh a fhoghlaim, léigh ár {privacyPolicy}.",
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
@@ -803,13 +800,44 @@ export default {
       "decline": "Meath mé",
       "ok": "ceart go leor",
       "purposes": {
+        "2D": {
+          "title": "Meáin 2D"
+        },
+        "3D": {
+          "title": "Meáin 3D"
+        },
+        "audio": {
+          "title": "Fuaim"
+        },
         "essential": {
           "description": "Tá na seirbhísí seo riachtanach chun go bhfeidhmeoidh an láithreán gréasáin seo i gceart. Cuimsíonn siad dearcadh torthaí cuardaigh agus roghanna teanga, caomhnaíonn siad an stát atá logáilte isteach agus coimeád do chuairt slán. Ní féidir leat iad a dhíchumasú mar ní oibreodh an suíomh Gréasáin i gceart a mhalairt.",
           "title": "Seirbhísí riachtanacha maidir le slándáil agus saincheaptha"
         },
+        "mediaViewing": {
+          "description": "Luchtaíonn na seirbhísí seo míreanna íomhá (2D), 3D, fuaime agus físe le breathnú orthu.",
+          "title": "Seirbhísí féachana meáin"
+        },
+        "multimedia": {
+          "title": "Ilmheáin"
+        },
+        "other": {
+          "description": "Lódálann na seirbhísí seo ábhar ar nós cód, cluichí, léarscáileanna agus giuirléidí scéalaíochta.",
+          "title": "Seirbhísí neadaithe eile"
+        },
+        "socialMedia": {
+          "description": "Luchtaíonn na seirbhísí seo ábhar ó ardáin na meán sóisialta.",
+          "title": "Seirbhísí um neadú na meán sóisialta"
+        },
+        "thirdPartyContent": {
+          "description": "Lódálann na seirbhísí seo inneachar arna óstáil ag tríú páirtithe. Tá a úsáid faoi réir théarmaí, choinníollacha agus ráitis phríobháideachais na dtríú páirtithe seo.",
+          "title": "Ábhar tríú páirtí"
+        },
         "usage": {
           "description": "Bailíonn na seirbhísí seo an fhaisnéis chun cabhrú linn tuiscint níos fearr a fháil ar an gcaoi a n-úsáidtear an suíomh Gréasáin agus cá bhfuil na pointí pian, ag cur ar ár gcumas roghanna eolasacha a dhéanamh chun d’eispéireas a fheabhsú.",
           "title": "Seirbhísí chun úsáid agus aiseolas láithreán gréasáin a ghabháil"
+        },
+        "video": {
+          "title": "Físeán"
         }
       },
       "service": {
@@ -820,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
         "title": "Straitéis Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Cuidíonn sé le hiarratais API a dhífhabhtú",
         "title": "Scoránaigh dífhabhtaithe"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Is cuimhin leat an teanga comhéadain is fearr leat le haghaidh rochtana sa todhchaí.",
         "title": "Cód teanga"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Gníomhaíonn sé an giuirléid aiseolais ag tabhairt an rogha duit teagmháil a dhéanamh linn.",
         "title": "Deasc seirbhíse Jira"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Taispeánann sé fógra nuair a bhíonn gnéithe nua ar fáil.",
         "title": "Fógra gné nua"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Cuimhnigh más fearr leat na torthaí cuardaigh, dánlanna agus do leithéidí a fheiceáil i liosta, greille nó mósáic amharc.",
         "title": "Toradh cuardaigh, gailearaithe agus radharc na rudaí is maith liom (liosta/greille/mósáic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "soláthraí anaithnid",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -916,6 +1107,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Cliceáil ar an sannadh chun é a chóipeáil",
+      "copyAttribution": "Cóipeáil sannadh an mhíre.",
       "modalIntro": "Má úsáideann tú an t-earra seo ar an ngréasán nó in áit eile, ná déan dearmad an sannadh seo a leanas a thaispeáint in aice leis:",
       "modalTitle": "Abair go raibh maith agat"
     },
@@ -1003,10 +1195,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Cóipeáil an cód leabaithe.",
       "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
     },
     "allMetaData": "Gach meiteashonraí",
-    "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
+    "clickToCopyEmbedCode": "Cliceáil ar an gcód leabaithe chun é a chóipeáil.",
+    "debias": "De-bias",
+    "explanationby": "Míniú curtha ar fáil ag {0}.",
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",

@@ -13,6 +13,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
     $t: key => key,
     $route: { fullPath: '/landing' },
+    $features: {},
     ...options.mocks
   },
   stubs: ['nuxt']

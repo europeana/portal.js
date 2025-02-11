@@ -24,6 +24,8 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     ...mocks
   },
   stubs: [
+    'client-only',
+    'EmbedGateway',
     'EmbedOEmbed',
     'IIIFErrorMessage',
     'ItemMediaPaginationToolbar',

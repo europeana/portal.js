@@ -70,11 +70,16 @@
               :item-id="itemId"
               class="media-viewer-content"
             />
-            <EmbedOEmbed
+            <EmbedGateway
               v-else-if="resource?.edm?.isOEmbed"
-              :url="resource.id"
               class="media-viewer-content"
-            />
+              :media="resource?.edm"
+              :url="resource.id"
+            >
+              <EmbedOEmbed
+                :url="resource.id"
+              />
+            </EmbedGateway>
             <template
               v-else-if="displayThumbnail"
             >
@@ -154,6 +159,7 @@
     name: 'ItemMediaPresentation',
 
     components: {
+      EmbedGateway: () => import('../embed/EmbedGateway.vue'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
       IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),

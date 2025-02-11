@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, cardClasses, parityClasses]"
+    :class="[variant, cardClasses, `image-card-${parity}`]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -32,7 +32,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
-        v-html="parseMarkdownHtml(card.text)"
+        v-html="parseMarkdown(card.text)"
       />
       <!-- eslint-enable vue/no-v-html -->
       <SmartLink
@@ -53,8 +53,9 @@
 </template>
 
 <script>
-  import parityMixin from '@/mixins/parity.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import { ref } from 'vue';
+  import useRefParity from '@/composables/refParity.js';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   const SRCSET_PRESETS = {
     small: { w: 512, h: 342, fit: 'fill' },
@@ -96,15 +97,11 @@
 
   export default {
     name: 'LandingImageCard',
+
     components: {
       ImageWithAttribution: () => import('@/components/image/ImageWithAttribution'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [
-      parityMixin,
-      parseMarkdownHtmlMixin
-    ],
 
     props: {
       /**
@@ -131,6 +128,12 @@
       }
     },
 
+    setup() {
+      const imagecard = ref(null);
+      const { parity } = useRefParity('image-card', imagecard);
+      return { parity, imagecard };
+    },
+
     data() {
       return {
         cardClasses: this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '',
@@ -141,8 +144,8 @@
       };
     },
 
-    mounted() {
-      this.$nextTick(() => this.markParity('image-card', 'imagecard'));
+    methods: {
+      parseMarkdown
     }
   };
   </script>

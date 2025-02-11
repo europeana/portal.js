@@ -152,23 +152,6 @@ export default {
     }
   },
   "colourSwatch": "Színminta",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Az Europeana",
-      "forDevelopers": "Fejlesztőknek",
-      "help": "Súgó",
-      "meetUs": "Találkozzon a csapattal",
-      "MoreInfoLabel": "További információ",
-      "provide": "Legyen adatszolgáltató",
-      "subscribe": "Iratkozzon fel hírlevelünkre",
-      "terms": "Felhasználási feltételek és adatvédelmi irányelv"
-    },
-    "headerNavigation": {
-      "Collections": "Gyűjtemények",
-      "explore": "felfedez",
-      "teachers": "Tanárok"
-    }
-  },
   "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "curatedAutomatically": "Az Europeana által automatikusan felügyelt",
   "dateFilter": {
@@ -191,6 +174,16 @@ export default {
     "broughtBy": "Hozta neked"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
+  "embedNotification": {
+    "ifNotAll": "Ha nem szeretné betölteni az összes beágyazott médiát, akkor {0}.",
+    "loadAllEmbeddedContent": "Minden beágyazott tartalom betöltése",
+    "loadOnlyThis": "csak ettől a szolgáltatótól töltsön be médiát",
+    "message": "Felhívjuk figyelmét, hogy ez az oldal a {provider} oldalról beágyazott médiatartalmat tartalmaz. A média megtekintése az ottani feltételek és adatvédelmi nyilatkozatok hatálya alá tartozik. Kérjük, olvassa el az adatvédelmi nyilatkozataikat az adatok felhasználásáról szóló további információkért.",
+    "messageUnkownService": "Sajnos ez a tartalom nem jeleníthető meg.",
+    "ofThirdPartyServices": "{0} harmadik féltől származó tartalomszolgáltatások.",
+    "viewFullList": "A teljes lista megtekintése",
+    "viewThisExternalLink": "Tekintse meg ezt a tartalmat egy külső linken keresztül"
+  },
   "entity": {
     "actions": {
       "cancel": "Mégse",
@@ -726,7 +719,7 @@ export default {
       "faq": "Gyakran Ismételt Kérdések (FAQ)",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
-      "privacy": "Adatvédelmi irányelvek",
+      "privacy": "Adatvédelmi nyilatkozat",
       "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "supportingTechnicalPartners": "Technikai partnerek támogatása",
@@ -793,7 +786,11 @@ export default {
       "acceptAll": "Elfogadni minden",
       "acceptSelected": "Kiválasztott elfogadása",
       "consentModal": {
-        "description": "Itt láthatja és testreszabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. További információért kérjük, olvassa el <a href='/rights/privacy-policy'> adatvédelmi szabályzatunkat </a>.",
+        "alwaysRequired": "(Mindig kötelező)",
+        "description": "Itt láthatja és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Ha többet szeretne megtudni, kérjük, olvassa el a <a href='/rights/privacy-statement'>adatvédelmi nyilatkozatot</a>.",
+        "privacyPolicy": "Adatvédelmi szabályzat",
+        "servicesCount": "{count} szolgáltatás | {count} szolgáltatás",
+        "text": "Itt megtekintheti és testreszabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. További információért kérjük, olvassa el {privacyPolicy}.",
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
@@ -803,13 +800,44 @@ export default {
       "decline": "Elutasítom",
       "ok": "oké",
       "purposes": {
+        "2D": {
+          "title": "2D média"
+        },
+        "3D": {
+          "title": "3D média"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Ezek a szolgáltatások elengedhetetlenek a weboldal megfelelő működéséhez. Tartalmazzák a keresési eredmények nézetét és a nyelvi beállításokat, megőrzik a bejelentkezett állapotot és biztonságban tartják látogatásukat. Nem tilthatja le őket, mivel a webhely egyébként nem működne megfelelően.",
           "title": "Alapvető szolgáltatások a biztonság és a testreszabás érdekében"
         },
+        "mediaViewing": {
+          "description": "Ezek a szolgáltatások kép (2D) , 3D, hang és videó elemeket töltenek be megtekintésre.",
+          "title": "Médianézési szolgáltatások"
+        },
+        "multimedia": {
+          "title": "Multimédia"
+        },
+        "other": {
+          "description": "Ezek a szolgáltatások olyan tartalmakat töltenek be, mint például kódok, játékok, térképek és mesélő widgetek.",
+          "title": "Egyéb beágyazási szolgáltatások"
+        },
+        "socialMedia": {
+          "description": "Ezek a szolgáltatások a közösségi médiaplatformokról töltenek be tartalmakat.",
+          "title": "Közösségi média beágyazási szolgáltatások"
+        },
+        "thirdPartyContent": {
+          "description": "Ezek a szolgáltatások harmadik felek által tárolt tartalmat töltenek be. Használatára ezen harmadik felek feltételei és adatvédelmi nyilatkozata vonatkozik.",
+          "title": "Harmadik féltől származó tartalom"
+        },
         "usage": {
           "description": "Ezek a szolgáltatások összegyűjtik az információkat, hogy jobban megértsük, hogyan használják fel a weboldalt és hol vannak a fájdalompontok, felhatalmazva bennünket arra, hogy megalapozott döntéseket hozzunk az Ön élményének javítása érdekében.",
           "title": "Szolgáltatások a weboldal használatának és visszajelzésének rögzítésére"
+        },
+        "video": {
+          "title": "Videó"
         }
       },
       "service": {
@@ -820,37 +848,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Segít az API -kérelmek hibakeresésében",
         "title": "Hibakeresés váltás"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
         "title": "Nyelvi kód"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
         "title": "Jira szolgáltató pult"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Értesítést jelenít meg, ha új funkciók válnak elérhetővé.",
         "title": "Új funkció értesítése"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
         "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
         "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "ismeretlen szolgáltató",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -917,6 +1108,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kattintson az attribútumra a másoláshoz",
+      "copyAttribution": "Másolja a tárgy hozzárendelését.",
       "modalIntro": "Ha ezt az tárgyat használja az interneten vagy máshol, ne feledje megjeleníteni mellé a következő attribútumot:",
       "modalTitle": "Mondj köszönetet"
     },
@@ -1004,10 +1196,13 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Beágyazási kód másolása",
       "pin": "Az tárgy rögzítése a rendelkezésre álló entitásokhoz."
     },
     "allMetaData": "Minden metaadat",
-    "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
+    "clickToCopyEmbedCode": "Kattintson a beágyazási kódra a másoláshoz",
+    "debias": "De-bias",
+    "explanationby": "Magyarázatot {0} biztosította.",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",

@@ -46,14 +46,16 @@
       <DebugApiRequests />
     </client-only>
     <b-toaster
-      name="b-toaster-bottom-left-dynamic"
-      class="b-toaster-bottom-left-dynamic"
-      :style="{'--bottom': toastBottomOffset }"
+      name="b-toaster-bottom-left"
+      class="b-toaster-bottom-left"
     />
     <ErrorModal />
     <client-only>
+      <PageCookiesWidget
+        v-if="$features.embeddedMediaNotification"
+      />
       <PageCookieConsent
-        v-if="cookieConsentRequired"
+        v-else
       />
     </client-only>
   </div>
@@ -65,8 +67,6 @@
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
-  import hotjarMixin from '@/mixins/hotjar.js';
-  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -77,6 +77,7 @@
       DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('../components/page/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
@@ -86,8 +87,6 @@
 
     mixins: [
       canonicalUrlMixin,
-      hotjarMixin,
-      klaroMixin,
       makeToastMixin
     ],
 
@@ -95,8 +94,6 @@
       return {
         enableAnnouncer: true,
         featureNotification: activeFeatureNotification(this.$nuxt?.context),
-        hotjarId: this.$config?.hotjar?.id,
-        hotjarSv: this.$config?.hotjar?.sv,
         linkGroups: {},
         notificationBanner: this.$config?.app?.notificationBanner
       };
@@ -118,9 +115,6 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
           ...i18nHead.link
-        ],
-        script: [
-          this.klaroHeadScript
         ],
         meta: [
           ...i18nHead.meta,

@@ -23,7 +23,7 @@ Feature: Page Footer
     And I see a link to "https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987" in the `footer`
     And I see a link to "/en/help" in the `footer`
     And I see a link to "/en/rights" in the `footer`
-    And I see a link to "/en/rights/privacy-policy" in the `footer`
+    And I see a link to "/en/rights/privacy-statement" in the `footer`
     And I see a link to "/en/rights/accessibility-policy" in the `footer`
     And I see a link to "/en/rights/cookies-policy" in the `footer`
     And I see a link to "/en/faq" in the `footer`

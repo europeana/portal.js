@@ -119,6 +119,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
@@ -129,6 +130,9 @@
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
+  const ALL_METADATA_FIELDS = ['dcTitle', 'dctermsAlternative', 'dcDescription', 'edmObject'].concat(METADATA_FIELDS);
+
+  import useDeBias from '@/composables/deBias.js';
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
@@ -136,11 +140,13 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
-  import stringify from '@/mixins/stringify';
+  import stringify from '@/utils/text/stringify.js';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
+
+  import waitFor from '@/utils/waitFor.js';
 
   export default {
     name: 'ItemPage',
@@ -158,12 +164,26 @@
     },
 
     mixins: [
-      stringify,
       canonicalUrlMixin,
       pageMetaMixin,
       redirectToMixin,
       logEventMixin
     ],
+
+    provide() {
+      return {
+        // provide the deBias terms and definitions instead of using the composable
+        // in descendent components because the latter approach would not hydrate
+        // the shared state of those refs after SSR, but provide/inject does
+        deBias: computed(() => this.deBias)
+      };
+    },
+
+    setup() {
+      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+
+      return { deBiasDefinitions, deBiasTerms, parseDeBiasAnnotations };
+    },
 
     data() {
       return {
@@ -172,6 +192,7 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
+        deBias: { definitions: [], terms: [] },
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -193,7 +214,10 @@
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
-        await this.fetchMetadata();
+        await Promise.all([
+          this.fetchMetadata(),
+          this.fetchAnnotations()
+        ]);
       }
     },
 
@@ -303,8 +327,8 @@
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
-          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
+          dimension2: stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
+          dimension3: stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       },
@@ -330,7 +354,6 @@
 
     mounted() {
       this.fetchEntities();
-      this.fetchAnnotations();
       this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
@@ -339,11 +362,7 @@
 
     methods: {
       trackCustomDimensions() {
-        if (!this.$waitForMatomo) {
-          return;
-        }
-
-        this.$waitForMatomo()
+        waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
           .catch(() => {});
       },
@@ -532,7 +551,7 @@
           europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
-        }, METADATA_FIELDS.concat(['dcTitle', 'dctermsAlternative', 'dcDescription', 'edmObject']));
+        }, ALL_METADATA_FIELDS);
 
         return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },
@@ -591,11 +610,23 @@
       },
 
       async fetchAnnotations() {
-        this.annotations = await this.$apis.annotation.search({
-          query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(linkForContributing OR tagging)',
-          profile: 'dereference'
-        });
+        try {
+          const annotations = await this.$apis.annotation.search({
+            query: `target_record_id:"${this.identifier}"`,
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            profile: 'dereference'
+          });
+          this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
+          this.deBias = {
+            definitions: this.deBiasDefinitions,
+            terms: this.deBiasTerms
+          };
+
+          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+        } catch {
+          // don't let an Annotation API error bring the whole page down
+          this.annotations = [];
+        }
       },
 
       async fetchEntities() {

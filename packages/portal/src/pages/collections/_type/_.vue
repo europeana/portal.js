@@ -17,7 +17,7 @@
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
-        :override-params="searchOverrides"
+        :default-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -172,17 +172,15 @@
         return this.$store.state.entity.entity;
       },
       searchOverrides() {
-        const overrideParams = {};
+        const defaultParams = {};
 
         if (this.entity) {
           const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
-          overrideParams.qf = [entityQuery];
-          if (!this.$route.query.query) {
-            overrideParams.query = entityQuery; // Triggering best bets.
-          }
+          defaultParams.qf = [entityQuery];
+          defaultParams.query = entityQuery; // Triggering best bets.
         }
 
-        return overrideParams;
+        return defaultParams;
       },
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);

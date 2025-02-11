@@ -4,6 +4,8 @@ import BootstrapVue from 'bootstrap-vue';
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 import ItemHero from '@/components/item/ItemHero.vue';
 import sinon from 'sinon';
+import nock from 'nock';
+
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
@@ -13,7 +15,10 @@ const storeIsPinnedGetter = sinon.stub();
 
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, {
   localVue,
-  propsData,
+  propsData: {
+    identifier: '/001/abc',
+    ...propsData
+  },
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },
@@ -52,7 +57,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, 
     },
     ...mocks
   },
-  stubs: ['ItemMediaPresentation']
+  stubs: ['ItemMediaPresentation', 'UserButtons']
 });
 
 const media = [
@@ -94,20 +99,20 @@ const media = [
     }
   })
 ];
-const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
+
 const entities = [{ about: 'http://data.europeana.eu/agent/123', prefLabel: { 'en': ['CARARE'] } }];
 
 describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
     describe('when a new item is selected', () => {
       it('updates the identifier', () => {
-        const wrapper = factory({ propsData: { media, identifier } });
+        const wrapper = factory({ propsData: { media } });
         wrapper.vm.selectMedia(media[1]);
         expect(wrapper.vm.selectedMedia.about).toBe(media[1].about);
       });
 
       it('updates the rights statement', () => {
-        const wrapper = factory({ propsData: { media, identifier } });
+        const wrapper = factory({ propsData: { media } });
         wrapper.vm.selectMedia(media[1]);
         expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
       });
@@ -117,19 +122,19 @@ describe('components/item/ItemHero', () => {
   describe('downloadEnabled', () => {
     describe('when the rightsstatement is in copyright', () => {
       it('is false', () => {
-        const wrapper = factory({ propsData: { media: [media[1]], identifier } });
+        const wrapper = factory({ propsData: { media: [media[1]] } });
         expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
     describe('when the selected media is the isShownAt, hence not downloadable', () => {
       it('is false', () => {
-        const wrapper = factory({ propsData: { media: [media[5]], identifier } });
+        const wrapper = factory({ propsData: { media: [media[5]] } });
         expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
     describe('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
       it('is true', () => {
-        const wrapper = factory({ propsData: { media: [media[0]], identifier } });
+        const wrapper = factory({ propsData: { media: [media[0]] } });
         expect(wrapper.vm.downloadEnabled).toBe(true);
       });
     });
@@ -160,7 +165,7 @@ describe('components/item/ItemHero', () => {
   });
 
   describe('downloadViaProxy', () => {
-    const propsData = { allMediaUris: ['http://www.example.org/canvas'], media: [media[0]], identifier };
+    const propsData = { allMediaUris: ['http://www.example.org/canvas'], media: [media[0]] };
     describe('when the url is in the list of allMediaUris', () => {
       it('returns true', () => {
         const wrapper = factory({ propsData });
@@ -178,7 +183,7 @@ describe('components/item/ItemHero', () => {
   describe('showTranscribathonLink', () => {
     describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
       it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, identifier, entities } });
+        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, entities } });
 
         expect(wrapper.vm.showTranscribathonLink).toBe(true);
       });
@@ -186,7 +191,7 @@ describe('components/item/ItemHero', () => {
 
     describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
       it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, identifier, entities } });
+        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, entities } });
 
         expect(wrapper.vm.showTranscribathonLink).toBe(false);
       });
@@ -206,7 +211,7 @@ describe('components/item/ItemHero', () => {
       };
 
       it('is `true`', () => {
-        const wrapper = factory({ propsData: { media, identifier, entities }, mocks });
+        const wrapper = factory({ propsData: { media, entities }, mocks });
 
         const showPins = wrapper.vm.showPins;
 
@@ -214,7 +219,7 @@ describe('components/item/ItemHero', () => {
       });
 
       it('is `false` if no entities', () => {
-        const wrapper = factory({ propsData: { media, identifier, entities: [] }, mocks });
+        const wrapper = factory({ propsData: { media, entities: [] }, mocks });
 
         const showPins = wrapper.vm.showPins;
 
@@ -224,12 +229,46 @@ describe('components/item/ItemHero', () => {
 
     describe('when the user is NOT an editor', () => {
       it('is `false`', () => {
-        const wrapper = factory({ propsData: { media, identifier, entities } });
+        const wrapper = factory({ propsData: { media, entities } });
 
         const showPins = wrapper.vm.showPins;
 
         expect(showPins).toBe(false);
       });
+    });
+  });
+
+  describe('fetchEmbedCode', () => {
+    const OEMBED_BASE_URL = 'https://oembed.europeana.eu';
+    const identifier = '/123/abc';
+    const html = '<iframe src=""></iframe>';
+    beforeEach(() => {
+      nock(OEMBED_BASE_URL)
+        .get('/')
+        .query(query => {
+          return query.url === 'http://data.europeana.eu/item/123/abc' && query.format === 'json';
+        })
+        .reply(200, { html });
+    });
+
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    it('sends an oEmbed request to the Europeana oEmbed provider', async() => {
+      const wrapper = factory({ propsData: { identifier }  });
+
+      await wrapper.vm.fetchEmbedCode();
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('stores html from response body on component embedCode property', async() => {
+      const wrapper = factory({ propsData: { identifier } });
+
+      await wrapper.vm.fetchEmbedCode();
+
+      expect(wrapper.vm.embedCode).toBe(html);
     });
   });
 });

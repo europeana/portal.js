@@ -77,6 +77,14 @@
   content: '\e91d';
 }
 
+.icon-debias::before {
+  content: '\e96d';
+}
+
+.icon-debias-logo::before {
+  content: '\e96c';
+}
+
 .icon-ic-download::before {
   content: '\e924';
 }
@@ -203,6 +211,10 @@
 
 .icon-ic-move-xy::before {
   content: '\e959';
+}
+
+.icon-multimedia::before {
+  content: '\e96b';
 }
 
 .icon-original::before {

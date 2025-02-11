@@ -3,6 +3,7 @@ Customised BootstrapVue tooltip component.
 Docs including more features: https://bootstrap-vue.org/docs/components/tooltip
 
 Used by:
+
 - [ContentCard (mosaic variant)](/#/Components/Content?id=contentcard)
 - [ItemAddButton](/#/Components/Item?id=itempreviewcard)
 - ItemLanguageSelector
@@ -16,7 +17,7 @@ Used by:
 - SearchSidebar
 - [SearchSwitchFilter](/#/Components/Search?id=searchswitchfilter)
 - SetPublicationRequestWidget
-- ShareSocialButton (Weave)
+- ShareSocialButtons (Weave)
 - UserButtons (item drag button)
 - UserSets (set count label or when zero sets)
 

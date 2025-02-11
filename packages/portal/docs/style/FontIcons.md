@@ -110,6 +110,16 @@ Example:
           <td><span class="icon icon-collections" /></td>
         </tr>
         <tr>
+          <td>De-bias</td>
+          <td><code>icon-debias</code></td>
+          <td><span class="icon icon-debias" /></td>
+        </tr>
+        <tr>
+          <td>De-bias logo</td>
+          <td><code>icon-debias-logo</code></td>
+          <td><span class="icon icon-debias-logo" /></td>
+        </tr>
+        <tr>
           <td>Download</td>
           <td><code>icon-ic-download</code></td>
           <td><span class="icon icon-ic-download" /></td>
@@ -268,6 +278,11 @@ Example:
           <td>Move xy</td>
           <td><code>icon-ic-move-xy</code></td>
           <td><span class="icon icon-ic-move-xy" /></td>
+        </tr>
+        <tr>
+          <td>Multimedia</td>
+          <td><code>icon-multimedia</code></td>
+          <td><span class="icon icon-multimedia" /></td>
         </tr>
         <tr>
           <td>Original</td>
