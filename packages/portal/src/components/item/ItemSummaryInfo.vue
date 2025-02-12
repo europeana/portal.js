@@ -11,9 +11,6 @@
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
-        <template v-if="itemIsDeleted && index === 0">
-          🪦
-        </template>
         <ItemDebiasField
           v-if="!!deBias.terms.dcTitle || !!deBias.terms.dctermsAlternative"
           :name="['dcTitle', 'dctermsAlternative']"
@@ -99,7 +96,7 @@
       langAttributeMixin
     ],
 
-    inject: ['deBias', 'itemIsDeleted'],
+    inject: ['deBias'],
 
     props: {
       description: {

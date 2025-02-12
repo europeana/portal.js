@@ -28,7 +28,7 @@
         v-if="!!notificationBanner"
       >
         <NotificationBanner
-          :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+          :text="$t(`notificationBanner.text.${notificationBanner}`)"
         />
       </client-only>
       <nuxt
@@ -147,7 +147,7 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .notification-banner.d-flex ~ .home {
-    margin-top: -9.2rem;
+  ::v-deep .notification-banner ~ #main .home {
+    margin-top: -8rem;
   }
 </style>

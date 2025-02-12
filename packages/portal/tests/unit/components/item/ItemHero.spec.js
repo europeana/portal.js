@@ -13,14 +13,15 @@ const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, {
+const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMount(ItemHero, {
   localVue,
   propsData: {
     identifier: '/001/abc',
     ...propsData
   },
   provide: {
-    itemIsDeleted: false
+    itemIsDeleted: false,
+    ...provide
   },
   mocks: {
     $t: (key) => key,
@@ -60,7 +61,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, 
     },
     ...mocks
   },
-  stubs: ['ItemMediaPresentation', 'UserButtons']
+  stubs: ['ItemMediaPresentation', 'NotificationBanner', 'UserButtons']
 });
 
 const media = [
@@ -272,6 +273,14 @@ describe('components/item/ItemHero', () => {
       await wrapper.vm.fetchEmbedCode();
 
       expect(wrapper.vm.embedCode).toBe(html);
+    });
+  });
+
+  describe('when item is depublished', () => {
+    it('shows a notification banner', () => {
+      const wrapper = factory({ provide: { itemIsDeleted: true } });
+
+      expect(wrapper.find('notificationbanner-stub').isVisible()).toBe(true);
     });
   });
 });
