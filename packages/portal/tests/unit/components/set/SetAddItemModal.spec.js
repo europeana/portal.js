@@ -6,7 +6,6 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const storeDispatch = sinon.stub().resolves({});
 const setApiModifyItemsStub = sinon.stub().resolves({});
 
 const sets = [
@@ -36,10 +35,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
         search: sinon.stub().resolves({ items: sets })
       }
     },
-    $auth: { user: { sub: 'user-id' } },
-    $store: {
-      dispatch: storeDispatch
-    }
+    $auth: { user: { sub: 'user-id' } }
   }
 });
 
@@ -88,7 +84,7 @@ describe('components/set/SetAddItemModal', () => {
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(storeDispatch.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' })).toBe(true);
+        expect(setApiModifyItemsStub.calledWith('delete', '001', '/000/aaa')).toBe(true);
         expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
       });
     });
