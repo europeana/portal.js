@@ -228,7 +228,7 @@
   }
 
   .heading {
-    color: $mediumgrey;
+    color: $darkgrey;
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {

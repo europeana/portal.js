@@ -318,7 +318,7 @@
     }
 
     .btn-light:not(:hover) {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
 
     .btn-link {

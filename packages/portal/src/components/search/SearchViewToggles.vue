@@ -88,7 +88,7 @@
     }
 
     .icon-view-toggle {
-      color: $mediumgrey;
+      color: $darkgrey;
       font-size: 1.5rem;
 
       @media (min-width: $bp-4k) {

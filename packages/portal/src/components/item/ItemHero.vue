@@ -247,7 +247,7 @@
         margin-right: 0.5rem;
 
         &:hover:not(.active) {
-          color: $mediumgrey;
+          color: $darkgrey;
         }
       }
     }

@@ -219,7 +219,7 @@
 
     &.bg-color-alternate,
     .image-card-container-wrapper &.bg-color-alternate {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
       margin-top: 0;
       margin-bottom: 0;
 
@@ -237,7 +237,7 @@
       }
 
       .text-wrapper {
-        background-color: $bodygrey;
+        background-color: $lightgrey;
       }
     }
 
@@ -266,7 +266,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-align: left;
     }
   }

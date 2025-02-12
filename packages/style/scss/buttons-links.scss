@@ -80,7 +80,7 @@
 .btn-secondary {
   text-transform: uppercase;
   background: $offwhite;
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
   border: 1px solid $offwhite;
   border-radius: 0.25rem;
@@ -103,7 +103,7 @@
   &:disabled {
     background: $offwhite;
     border: 1px solid $offwhite;
-    color: $mediumgrey;
+    color: $darkgrey;
     opacity: 0.7;
     box-shadow: none;
   }
@@ -111,7 +111,7 @@
   &:focus,
   &:active {
     background: $offwhite;
-    color: $mediumgrey;
+    color: $darkgrey;
     box-shadow: none;
     border: 1px solid $offwhite;
 
@@ -124,7 +124,7 @@
   &:not(:disabled):not(.disabled):active,
   &:not(:disabled):not(.disabled).active {
     background: $offwhite;
-    color: $mediumgrey;
+    color: $darkgrey;
     box-shadow: none;
     border: 1px solid $offwhite;
 
@@ -135,7 +135,7 @@
   }
 
   .show > &.dropdown-toggle {
-    color: $mediumgrey;
+    color: $darkgrey;
     background-color: $white;
     border-color: $blue;
     border-bottom-left-radius: 0;
@@ -233,7 +233,7 @@
 }
 
 .btn-outline-secondary {
-  border: 1px solid $mediumgrey;
+  border: 1px solid $darkgrey;
   color: $greyblack;
   transition: $standard-transition;
   font-weight: 600;
@@ -265,7 +265,7 @@
 .btn-light {
   background: $white;
   border: 0;
-  color: $mediumgrey-light;
+  color: $darkgrey-light;
   font-size: $font-size-small;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
@@ -288,7 +288,7 @@
   &:disabled,
   &.disabled {
     background: $white;
-    color: $mediumgrey-light;
+    color: $darkgrey-light;
     opacity: 0.7;
   }
 
@@ -411,7 +411,7 @@
 .btn-outline-light {
   border: 1px solid $paper;
   background: $white;
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
 
   @at-root .xxl-page & {
@@ -423,7 +423,7 @@
   &:hover {
     box-shadow: $boxshadow;
     background: $white;
-    color: $mediumgrey;
+    color: $darkgrey;
   }
 
   &.add-button,
@@ -465,7 +465,7 @@
 
     &.active,
     &:not(:disabled):not(.disabled).active {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
   }
 

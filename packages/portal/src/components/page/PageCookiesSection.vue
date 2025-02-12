@@ -194,7 +194,7 @@
     }
 
     .legend {
-      color: $mediumgrey;
+      color: $darkgrey;
       font-size: $font-size-small;
     }
 
@@ -233,14 +233,14 @@
       }
 
       span {
-        color: $mediumgrey-light;
+        color: $darkgrey-light;
         text-transform: lowercase;
       }
     }
 
     &.secondary {
       .custom-control-label {
-        color: $mediumgrey !important;
+        color: $darkgrey !important;
         font-weight: 400;
       }
     }
@@ -256,7 +256,7 @@
     &.secondary .custom-control-input:not(:checked) ~ .custom-control-label {
       &:before,
       &:after {
-        border-color: $mediumgrey;
+        border-color: $darkgrey;
       }
     }
 

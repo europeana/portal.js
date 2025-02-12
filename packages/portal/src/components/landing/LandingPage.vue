@@ -199,11 +199,11 @@
     &.pro-page {
       div:last-child {
         .bg-color-alternate,
-        .bg-bodygrey {
+        .bg-lightgrey {
           @include white-cutout;
 
           &:after {
-            border-top-color: $bodygrey;
+            border-top-color: $lightgrey;
             z-index: 1;
           }
         }

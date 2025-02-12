@@ -126,7 +126,7 @@
 
   .link-group-light {
     .group-title {
-      color: $bodygrey;
+      color: $lightgrey;
     }
 
     .link-group-list {
