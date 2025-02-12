@@ -537,31 +537,15 @@ describe('pages/item/_.vue', () => {
           }
         });
 
-        describe('when tombstone page is disabled (by default)', () => {
-          it('calls $error as with 404 Not Found', async() => {
-            const wrapper = factory();
-            wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
+        it('uses the error response data to populate the page', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
 
-            await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
 
-            expect(wrapper.vm.$error.calledWith(sinon.match.has('statusCode', 404), { scope: 'item' })).toBe(true);
-            expect(wrapper.vm.isDeleted).toBe(false);
-          });
-        });
-
-        describe('when tombstone page is enabled (by feature toggle)', () => {
-          const $features = { tombstonePage: true };
-
-          it('uses the error response data to populate the page', async() => {
-            const wrapper = factory({ mocks: { $features } });
-            wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
-
-            await wrapper.vm.fetch();
-
-            expect(redirectSpy.called).toBe(false);
-            expect(wrapper.vm.$error.called).toBe(false);
-            expect(wrapper.vm.isDeleted).toBe(true);
-          });
+          expect(redirectSpy.called).toBe(false);
+          expect(wrapper.vm.$error.called).toBe(false);
+          expect(wrapper.vm.isDeleted).toBe(true);
         });
       });
     });

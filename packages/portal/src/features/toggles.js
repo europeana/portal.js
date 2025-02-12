@@ -7,7 +7,6 @@ export default [
   { name: 'newSetApi' },
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesViewCounts' },
-  { name: 'tombstonePage' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' }
 ];
