@@ -11,10 +11,10 @@
           cols="12"
           class="py-3"
         >
-          <p class="mb-0">
+          <p class="d-flex flex-wrap align-items-center mb-0">
             <span
               v-if="iconClass"
-              class="icon"
+              class="icon align-self-start"
               :class="iconClass"
             />
             {{ text }}
@@ -99,12 +99,11 @@
 
     p {
       line-height: 1.375rem;
-      display: flex;
-      align-items: center;
 
       .icon {
         font-size: 1.25rem;
         margin-right: 0.75rem;
+        line-height: 1.5rem;
       }
     }
 

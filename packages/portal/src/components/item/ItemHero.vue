@@ -243,6 +243,10 @@
           margin-left: auto;
         }
       }
+
+      p {
+        flex-wrap: nowrap !important;
+      }
     }
 
     .media-bar {
