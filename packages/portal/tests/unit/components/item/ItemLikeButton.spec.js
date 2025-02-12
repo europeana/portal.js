@@ -7,20 +7,29 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
+const setId = 'setId';
 const storeDispatchSuccess = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeCommitSpy = sinon.spy();
+const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
 
 const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
   propsData: { identifier },
   mocks: {
+    $apis: {
+      set: {
+        createLikes: setApiCreateLikesStub
+      }
+    },
     $auth,
     $features: {},
     $matomo: {
       trackEvent: sinon.spy()
     },
     $store: {
+      commit: storeCommitSpy,
       state: {
         set: { ...{ liked: [] }, ...storeState }
       },
@@ -34,6 +43,9 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
 });
 
 describe('components/item/ItemLikeButton', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
+
   describe('template', () => {
     it('is visible', () => {
       const wrapper = factory();
@@ -87,13 +99,14 @@ describe('components/item/ItemLikeButton', () => {
         });
 
         describe('when pressed', () => {
-          it('dispatches to create likes set if needed', () => {
+          it('creates likes set via $apis.set, then commits ID to store', async() => {
             const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
+            await likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/createLikes')).toBe(true);
+            expect(setApiCreateLikesStub.calledWith()).toBe(true);
+            expect(storeCommitSpy.calledWith('set/setLikesId', setId)).toBe(true);
           });
 
           it('dispatches to add item to likes set', () => {
