@@ -142,7 +142,6 @@
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/utils/text/stringify.js';
   import logEventMixin from '@/mixins/logEvent';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
 
@@ -164,11 +163,12 @@
     },
 
     mixins: [
-      canonicalUrlMixin,
       pageMetaMixin,
       redirectToMixin,
       logEventMixin
     ],
+
+    inject: ['canonicalUrl'],
 
     provide() {
       return {
@@ -282,7 +282,7 @@
           year: langMapValueForLocale(this.metadata.year, this.metadataLanguage).values[0],
           provider: langMapValueForLocale(this.metadata.edmDataProvider, this.metadataLanguage).values[0],
           country: langMapValueForLocale(this.metadata.edmCountry, this.metadataLanguage).values[0],
-          url: this.shareUrl
+          url: this.canonicalUrl.withQuery
         };
       },
       titlesInCurrentLanguage() {
@@ -316,9 +316,6 @@
       },
       linkForContributingAnnotation() {
         return this.annotationsByMotivation('linkForContributing')[0]?.body;
-      },
-      shareUrl() {
-        return this.canonicalUrl({ fullPath: true, locale: false });
       },
       relatedEntityUris() {
         return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);

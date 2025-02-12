@@ -11,8 +11,9 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
   mocks: {
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
+    $i18n: { locale: 'en' },
     $t: key => key,
-    $route: { fullPath: '/landing' },
+    $route: { path: '/landing', fullPath: '/landing' },
     $features: {},
     ...options.mocks
   },
@@ -44,16 +45,6 @@ describe('layouts/landing.vue', () => {
         const iconLink = wrapper.vm.head().link.find(anylink => anylink.rel = 'icon');
 
         expect(iconLink.type).toEqual('image/x-icon');
-      });
-    });
-
-    describe('meta', () => {
-      it('includes og:url with canonical URL', () => {
-        const wrapper = factory();
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('https://www.example.org/landing');
       });
     });
   });

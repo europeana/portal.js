@@ -14,9 +14,11 @@
       id="landing-layout"
       role="main"
     >
-      <nuxt
-        id="main"
-      />
+      <ProvideCanonicalUrl>
+        <nuxt
+          id="main"
+        />
+      </ProvideCanonicalUrl>
     </main>
     <LandingPageFooter />
     <client-only>
@@ -30,7 +32,7 @@
 <script>
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import versions from '../../pkg-versions';
 
   export default {
@@ -39,12 +41,9 @@
     components: {
       LandingPageHeader,
       LandingPageFooter,
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      ProvideCanonicalUrl
     },
-
-    mixins: [
-      canonicalUrlMixin
-    ],
 
     head() {
       return {
@@ -54,9 +53,6 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
-        ],
-        meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
         ]
       };
     }

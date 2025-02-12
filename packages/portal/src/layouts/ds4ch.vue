@@ -14,9 +14,11 @@
       id="ds4ch"
       role="main"
     >
-      <nuxt
-        id="main"
-      />
+      <ProvideCanonicalUrl>
+        <nuxt
+          id="main"
+        />
+      </ProvideCanonicalUrl>
     </main>
     <DS4CHPageFooter />
     <client-only>
@@ -32,7 +34,7 @@
 
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import versions from '../../pkg-versions';
 
   export default {
@@ -42,12 +44,9 @@
       ClientOnly,
       DS4CHPageHeader,
       DS4CHPageFooter,
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget')
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      ProvideCanonicalUrl
     },
-
-    mixins: [
-      canonicalUrlMixin
-    ],
 
     head() {
       return {
@@ -57,9 +56,6 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
-        ],
-        meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
         ]
       };
     }

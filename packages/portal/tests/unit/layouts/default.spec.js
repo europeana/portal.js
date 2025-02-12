@@ -44,9 +44,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
-    $exp: {
-      $variantIndexes: [0]
-    },
     $route: {
       query: {},
       fullPath: '/fr',
@@ -128,14 +125,6 @@ describe('layouts/default.vue', () => {
         const wrapper = factory();
 
         expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
-      });
-
-      it('includes og:url with canonical URL', () => {
-        const wrapper = factory();
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('https://www.example.org/fr');
       });
 
       it('includes description "Europeana"', () => {

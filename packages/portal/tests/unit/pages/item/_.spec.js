@@ -180,9 +180,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     ...fixtures.auth.notLoggedIn,
     ...fixtures.route.standard,
     $config: {
-      app: {
-        baseUrl: 'https://www.example.org'
-      },
+      app: {},
       matomo: {}
     },
     $features: { translatedItems: true },
@@ -216,6 +214,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     $error: sinon.spy(),
     $session: { isActive: false },
     ...mocks
+  },
+  provide: {
+    canonicalUrl: {}
   }
 });
 
