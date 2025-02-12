@@ -1,5 +1,12 @@
 <template>
-  <div class="item-hero">
+  <div class="item-hero position-relative">
+    <NotificationBanner
+      v-if="itemIsDeleted"
+      class="position-absolute border-bottom-0"
+      icon-class="icon-info"
+      :text="$t('record.itemDepublished')"
+      :ignorable="false"
+    />
     <ItemMediaPresentation
       :uri="iiifPresentationManifest"
       :item-id="identifier"
@@ -92,7 +99,8 @@
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
       ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
@@ -221,6 +229,20 @@
 
   .item-hero {
     padding-bottom: 1.625rem;
+
+    .notification-banner {
+      background-color: rgba(0, 0, 0, 0.70);
+      color: $white;
+
+      .col-12 {
+        @media (min-width: $bp-large) {
+          flex: 0 0 83.333333%;
+          max-width: 83.333333%;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+    }
 
     .media-bar {
       margin-top: 2.5rem;

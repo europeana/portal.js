@@ -96,7 +96,6 @@
     background-color: $bodygrey;
     position: relative;
     z-index: 100;
-    margin-bottom: 1rem;
 
     p {
       line-height: 1.375rem;

@@ -1259,6 +1259,7 @@ export default {
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
+    "itemDepublished": "This item has been depublished. You can try to access the original media from the providing institution’s website.",
     "location": "Location",
     "locationOnMap": "Location on map",
     "mediaPlayer": "Media player",
