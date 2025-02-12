@@ -92,7 +92,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .container-fluid {
+  .notification-banner {
     background-color: $lightgrey;
     position: relative;
     z-index: 100;
