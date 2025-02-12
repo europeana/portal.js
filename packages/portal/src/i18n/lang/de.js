@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
+    "itemDepublished": "Dieses Objekt wurde depubliziert. Sie können versuchen, auf das ursprüngliche Medium über die Website der anbietenden Einrichtung zuzugreifen.",
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",

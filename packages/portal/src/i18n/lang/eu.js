@@ -1212,6 +1212,7 @@ export default {
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
+    "itemDepublished": "Elementu hau kendu egin da. Jatorrizko euskarrietara sartzen saia zaitezke erakunde hornitzailearen webgunetik.",
     "location": "Kokapena",
     "locationOnMap": "Kokapena mapan",
     "mediaPlayer": "Multimedia erreproduzitzailea",

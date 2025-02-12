@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
+    "itemDepublished": "Šis digitālais objekts ir izņemts no publikācijas. Jūs varat mēģināt piekļūt oriģinālajam multivides materiālam no tīmekļa vietnes iestādes, kas to nodrošina.",
     "location": "Atrašanās vieta",
     "locationOnMap": "Atrašanās vieta kartē",
     "mediaPlayer": "Multivides atskaņotājs",

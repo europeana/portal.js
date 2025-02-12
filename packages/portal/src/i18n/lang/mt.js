@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
+    "itemDepublished": "Dan l-oġġett tneħħa mill-pubblikazzjoni. Tista' tipprova taċċessa l-midja oriġinali mill-websajt tal-istituzzjoni fornitrice.",
     "location": "Post",
     "locationOnMap": "Post fuq il-mappa",
     "mediaPlayer": "Plejer tal-midja",

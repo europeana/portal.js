@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
+    "itemDepublished": "Tento objekt bol odstránený z publikácie. Môžete sa pokúsiť získať prístup k pôvodnému médiu na webovej stránke poskytujúcej inštitúcie.",
     "location": "Poloha",
     "locationOnMap": "Poloha na mape",
     "mediaPlayer": "Prehrávač médií",

@@ -724,7 +724,7 @@ export default {
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",
-      "terms": "Uvjeti i pravila"
+      "terms": "Uvjeti i politike"
     },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
+    "itemDepublished": "Ovaj predmet je povučen iz objave. Možete pokušati pristupiti izvornom mediju na web-stranici ustanove koja ga pruža.",
     "location": "Mjesto",
     "locationOnMap": "Lokacija na karti",
     "mediaPlayer": "Media player",

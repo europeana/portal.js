@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
+    "itemDepublished": "Šis skaitmeninis objektas buvo pašalintas iš publikacijos. Galite pabandyti pasiekti originalią mediją teikiančios institucijos svetainėje.",
     "location": "Vieta",
     "locationOnMap": "Vieta žemėlapyje",
     "mediaPlayer": "Medijos leistuvas",

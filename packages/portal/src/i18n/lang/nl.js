@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
+    "itemDepublished": "Dit object is gedepubliceerd. U kunt proberen toegang te krijgen tot de originele media via de website van de verstrekkende instelling.",
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
