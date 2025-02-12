@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
+    "itemDepublished": "Tämä aineisto on poistettu julkaisusta. Voit yrittää käyttää alkuperäistä mediaa tarjoavan laitoksen verkkosivustolta.",
     "location": "Sijainti",
     "locationOnMap": "Sijainti kartalla",
     "mediaPlayer": "Mediasoitin",

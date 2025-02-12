@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "itemDepublished": "Ten obiekt cyfrowy został wycofany. Możesz spróbować uzyskać dostęp do oryginalnego medium na stronie internetowej instytucji udostępniającej.",
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimediów",

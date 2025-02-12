@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
+    "itemDepublished": "Questo oggetto è stato depubblicato. Puoi provare ad accedere al contenuto originale dal sito web dell’istituzione fornitrice.",
     "location": "Posizione",
     "locationOnMap": "Posizione sulla mappa",
     "mediaPlayer": "Lettore multimediale",

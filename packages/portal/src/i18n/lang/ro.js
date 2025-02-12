@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
+    "itemDepublished": "Această resursă culturală a fost depublicată. Puteți încerca să accesați conținutul original pe site-ul instituției furnizoare.",
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",

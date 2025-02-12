@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
+    "itemDepublished": "Tato položka byla zrušena. Můžete se pokusit získat přístup k původnímu médiu na webových stránkách poskytující instituce.",
     "location": "Umístění",
     "locationOnMap": "Umístění na mapě",
     "mediaPlayer": "Přehrávač médií",

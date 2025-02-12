@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
+    "itemDepublished": "Este ítem ha sido despublicado. Puede intentar acceder al medio original en el sitio web de la institución proveedora.",
     "location": "Ubicación",
     "locationOnMap": "Ubicación en el mapa",
     "mediaPlayer": "Reproductor multimedia",

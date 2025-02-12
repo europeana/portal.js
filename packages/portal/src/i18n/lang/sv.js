@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
+    "itemDepublished": "Detta objekt har avpublicerats. Du kan försöka få åtkomst till det ursprungliga mediet på den tillhandahållande institutionens webbplats.",
     "location": "Plats",
     "locationOnMap": "Plats på kartan",
     "mediaPlayer": "Mediaspelare",

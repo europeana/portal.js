@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
+    "itemDepublished": "Ta enota je bila odstranjena iz objave. Do izvirnega medija lahko poskusite dostopati na spletnem mestu institucije, ki ga zagotavlja.",
     "location": "Lokacija",
     "locationOnMap": "Lokacija na zemljevidu",
     "mediaPlayer": "Medijski predvajalnik",

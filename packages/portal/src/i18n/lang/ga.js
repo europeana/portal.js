@@ -1205,6 +1205,7 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
+    "itemDepublished": "Tá an mhír seo dífhoilsithe. Is féidir leat iarracht a dhéanamh rochtain a fháil ar na meáin bhunaidh ó shuíomh gréasáin na hinstitiúide soláthair.",
     "location": "Suíomh",
     "locationOnMap": "Suíomh ar an léarscáil",
     "mediaPlayer": "Seinnteoir meán",

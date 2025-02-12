@@ -1206,6 +1206,7 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
+    "itemDepublished": "Ez a tárgy már nincs közzétéve. Megpróbálhatja elérni az eredeti médiát a szolgáltató intézmény weboldalán.",
     "location": "hely",
     "locationOnMap": "Elhelyezkedés a térképen",
     "mediaPlayer": "Médialejátszó",

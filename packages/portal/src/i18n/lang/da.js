@@ -1207,6 +1207,7 @@ export default {
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
+    "itemDepublished": "Denne genstand er blevet depubliceret. Du kan prøve at få adgang til det originale medie fra den leverede institutions hjemmeside.",
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",
