@@ -176,7 +176,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        itemIsDeleted: computed(() => this.$features.tombstonePage && this.isDeleted)
+        itemIsDeleted: computed(() => this.isDeleted)
       };
     },
 
@@ -392,13 +392,7 @@
             // TODO: what if this request fails...
             data = await this.$apis.record.get(this.identifier);
           } else if (error.statusCode === 410) {
-            if (this.$features.tombstonePage) {
-              data = errorResponse.data;
-            } else {
-              // TODO: temporary workaround to handle tombstone records like 404s
-              //       til tombstone page implemented
-              return this.$error({ ...error, statusCode: 404, message: 'Not Found' }, { scope: 'item' });
-            }
+            data = errorResponse.data;
           } else {
             return this.$error(error, { scope: 'item' });
           }
