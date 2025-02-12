@@ -6,11 +6,18 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const setApiModifyItemsStub = sinon.stub().resolves({});
+
 const factory = (propsData) => shallowMount(ItemRemoveButton, {
   localVue,
   directives: { 'b-tooltip': () => {} },
   propsData,
   mocks: {
+    $apis: {
+      set: {
+        modifyItems: setApiModifyItemsStub
+      }
+    },
     $i18n: { locale: 'en' },
     $store: {
       state: {
@@ -39,10 +46,7 @@ describe('ItemRemoveButton', () => {
 
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
 
-    expect(wrapper.vm.$store.dispatch.calledWith('set/removeItem', {
-      setId: 'set-1',
-      itemId: 'item-1'
-    })).toBe(true);
+    expect(setApiModifyItemsStub.calledWith('delete', 'set-1', 'item-1')).toBe(true);
     expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
     expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
   });

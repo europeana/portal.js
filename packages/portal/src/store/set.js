@@ -76,9 +76,6 @@ export default {
         throw e;
       }
     },
-    async removeItem(ctx, { setId, itemId }) {
-      await this.$apis.set.modifyItems('delete', setId, itemId);
-    },
     async setLikes({ commit }) {
       const likesId = await this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null);
       commit('setLikesId', likesId);

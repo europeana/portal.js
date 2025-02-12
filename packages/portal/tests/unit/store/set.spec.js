@@ -187,17 +187,6 @@ describe('store/set', () => {
       });
     });
 
-    describe('removeItem()', () => {
-      it('removes from set via $apis.set', async() => {
-        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
-        const state = {};
-
-        await store.actions.removeItem({ dispatch, state }, { setId, itemId });
-
-        expect(store.actions.$apis.set.modifyItems.calledWith('delete', setId, itemId)).toBe(true);
-      });
-    });
-
     // TODO: rename to indicate setting of ID only?
     describe('setLikes()', () => {
       it('gets likes set via $apis.set, then commits ID with "setLikesId"', async() => {

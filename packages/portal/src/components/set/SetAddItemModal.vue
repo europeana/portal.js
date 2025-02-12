@@ -138,7 +138,7 @@
         const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
-            await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+            await this.$apis.set.modifyItems('delete', setId, this.itemId);
             this.added = this.added.filter(id => id !== setId);
             this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
