@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const storeDispatch = sinon.stub().resolves({});
+const setApiCreateStub = sinon.stub().resolves({});
 
 const i18n = new VueI18n({
   locale: 'en'
@@ -38,6 +39,11 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
   },
   i18n,
   mocks: {
+    $apis: {
+      set: {
+        create: setApiCreateStub
+      }
+    },
     $store: {
       dispatch: storeDispatch
     },
@@ -54,7 +60,7 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-description').setValue('Lots of things in here');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/createSet', {
+      expect(setApiCreateStub.calledWith({
         type: 'Collection',
         title: {
           en: 'My first public set'

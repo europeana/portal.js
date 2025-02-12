@@ -112,9 +112,6 @@ export default {
         throw error;
       }
     },
-    async createSet(ctx, body) {
-      await this.$apis.set.create(body);
-    },
     async update({ state, commit }, { id, body, params }) {
       const response = await this.$apis.set.update(id, body, params);
 
