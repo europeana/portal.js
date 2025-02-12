@@ -123,7 +123,7 @@
 
   .story-hero {
     margin-top: -$page-header-height;
-    background-color: $mediumgrey-light;
+    background-color: $darkgrey-light;
     min-height: 100vh;
     position: relative;
     overflow: hidden;

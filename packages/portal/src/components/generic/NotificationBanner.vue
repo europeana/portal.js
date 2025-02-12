@@ -92,8 +92,8 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .notification-banner {
-    background-color: $bodygrey;
+  .container-fluid {
+    background-color: $lightgrey;
     position: relative;
     z-index: 100;
 

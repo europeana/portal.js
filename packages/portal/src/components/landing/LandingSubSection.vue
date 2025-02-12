@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-sub-section"
-    :class="[variant, { 'bg-bodygrey': variant === 'pro' }]"
+    :class="[variant, { 'bg-lightgrey': variant === 'pro' }]"
   >
     <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
@@ -115,7 +115,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-sub-section {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
   }
 
   .landing-sub-section-container {
@@ -155,7 +155,7 @@
   }
 
   .text {
-    color: $mediumgrey;
+    color: $darkgrey;
     max-width: $max-text-column-width;
 
     @media (min-width: $bp-4k) {

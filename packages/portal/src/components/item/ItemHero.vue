@@ -128,7 +128,8 @@
       },
       media: {
         type: Array,
-        default: () => []
+        default: () => [],
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       },
       attributionFields: {
         type: Object,
@@ -268,7 +269,7 @@
         margin-right: 0.5rem;
 
         &:hover:not(.active) {
-          color: $mediumgrey;
+          color: $darkgrey;
         }
       }
     }
