@@ -263,17 +263,6 @@ describe('store/set', () => {
       });
     });
 
-    describe('createSet()', () => {
-      it('create the set via $apis.set', async() => {
-        store.actions.$apis.set.create = sinon.stub().resolves();
-        const body = {};
-
-        await store.actions.createSet({ dispatch }, body);
-
-        expect(store.actions.$apis.set.create.calledWith(body)).toBe(true);
-      });
-    });
-
     describe('update()', () => {
       it('updates the set via $apis.set', async() => {
         store.actions.$apis.set.update = sinon.stub().resolves({});

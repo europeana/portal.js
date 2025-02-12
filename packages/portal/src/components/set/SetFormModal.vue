@@ -242,7 +242,7 @@
         }
         this.submissionPending = true;
         const handler = this.isNew ?
-          this.$store.dispatch('set/createSet', this.setBody) :
+          this.$apis.set.create(this.setBody) :
           this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
 
         return handler
