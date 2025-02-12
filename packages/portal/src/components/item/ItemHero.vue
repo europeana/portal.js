@@ -120,7 +120,8 @@
       },
       media: {
         type: Array,
-        default: () => []
+        default: () => [],
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       },
       attributionFields: {
         type: Object,
