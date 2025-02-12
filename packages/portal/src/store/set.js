@@ -76,9 +76,6 @@ export default {
         throw e;
       }
     },
-    async addItem(ctx, { setId, itemId }) {
-      await this.$apis.set.modifyItems('add', setId, itemId);
-    },
     async removeItem(ctx, { setId, itemId }) {
       await this.$apis.set.modifyItems('delete', setId, itemId);
     },
