@@ -23,11 +23,6 @@
     <DS4CHPageFooter />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification"
-        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
-      />
-      <PageCookieConsent
-        v-else
         :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
@@ -49,7 +44,6 @@
       ClientOnly,
       DS4CHPageHeader,
       DS4CHPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       ProvideCanonicalUrl
     },

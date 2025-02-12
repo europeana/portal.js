@@ -140,7 +140,7 @@
       }
 
       h2 {
-        color: $mediumgrey;
+        color: $darkgrey;
         font-size: $font-size-large;
         font-weight: 700;
         margin-bottom: 0.5rem;
@@ -175,7 +175,7 @@
     }
 
     &.light {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
     }
 
     &.innovationblue {

@@ -1,5 +1,5 @@
 <template>
-  <div class="collections-page white-page">
+  <div class="collections-page page">
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
@@ -72,6 +72,6 @@
     @import '@europeana/style/scss/variables';
 
     .collections-page {
-      padding: 3rem 0 7rem;
+      padding-bottom: 7rem;
     }
   </style>

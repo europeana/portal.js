@@ -11,7 +11,7 @@
       <div
         v-if="text"
         class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
+        v-html="parseMarkdown(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
@@ -68,7 +68,7 @@
 
 <script>
   import ImageOptimised from '@/components/image/ImageOptimised';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import swiperMixin from '@/mixins/swiper';
   import { A11y, Grid, Keyboard, Navigation, Pagination } from 'swiper/modules';
 
@@ -80,7 +80,7 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin, swiperMixin],
+    mixins: [swiperMixin],
 
     props: {
       /**
@@ -168,6 +168,10 @@
           }
         }
       };
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>
@@ -199,7 +203,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
   }
 
@@ -298,7 +302,7 @@
     height: 48px;
     width: 48px;
     color: $black;
-    background: $bodygrey;
+    background: $lightgrey;
     border-radius: 50%;
     top: calc(50% - 2rem);
 
@@ -375,7 +379,7 @@
 
   .landing-illustration-group.pro {
     .swiper-slide {
-      background-color: $bodygrey; // Set a background color for mix-blend-mode to work properly
+      background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
     }
 
     .swiper-button-prev,

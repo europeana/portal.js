@@ -87,7 +87,7 @@
                 :media="resource?.edm"
                 :lazy="false"
                 :edm-type="edmType"
-                :linkable="!viewableImageResource"
+                :linkable="!itemIsDeleted && !viewableImageResource"
                 thumbnail-size="large"
                 :europeana-identifier="itemId"
                 @click.native="() => thumbnailInteractedWith = true"
@@ -169,6 +169,8 @@
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
+
+    inject: ['itemIsDeleted'],
 
     props: {
       uri: {
@@ -354,7 +356,7 @@
 
       selectResource() {
         this.thumbnailInteractedWith = false;
-        this.$emit('select', this.resource.edm);
+        this.$emit('select', this.resource?.edm);
       },
 
       toggleFullscreen() {

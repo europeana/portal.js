@@ -28,7 +28,7 @@
         v-if="!!notificationBanner"
       >
         <NotificationBanner
-          :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+          :text="$t(`notificationBanner.text.${notificationBanner}`)"
         />
       </client-only>
       <ProvideCanonicalUrl>
@@ -53,12 +53,7 @@
     />
     <ErrorModal />
     <client-only>
-      <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification"
-      />
-      <PageCookieConsent
-        v-else
-      />
+      <PageCookiesWidget />
     </client-only>
   </div>
 </template>
@@ -78,7 +73,6 @@
     components: {
       DebugApiRequests: () => import('@/components/debug/DebugApiRequests'),
       ClientOnly,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       PageHeader,
       PageFooter: () => import('@/components/page/PageFooter'),
@@ -153,7 +147,7 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .notification-banner.d-flex ~ .home {
-    margin-top: -9.2rem;
+  ::v-deep .notification-banner ~ #main .home {
+    margin-top: -8rem;
   }
 </style>

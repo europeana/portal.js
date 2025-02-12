@@ -3,7 +3,7 @@
     <b-col
       cols="12"
       lg="9"
-      class="col lead mt-3"
+      class="col lead"
     >
       <div
         v-if="contextLabel"
@@ -105,7 +105,7 @@
     }
 
     .description {
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @media (max-width: ($bp-small - 1px)) {
         font-size: $font-size-base;
@@ -114,14 +114,14 @@
   }
 
   .divider {
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid $lightgrey;
     margin-bottom: 1.25rem;
     flex-basis: 100%;
     margin-left: $grid-gutter;
     margin-right: $grid-gutter;
 
     @media (min-width: $bp-4k) {
-      border-bottom: 2px solid $bodygrey;
+      border-bottom: 2px solid $lightgrey;
       margin-bottom: calc(1.5 * 1.75rem);
     }
   }

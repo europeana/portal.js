@@ -96,7 +96,7 @@
         }
 
         .divider {
-          border-color: $mediumgrey-light;
+          border-color: $darkgrey-light;
         }
       }
     }

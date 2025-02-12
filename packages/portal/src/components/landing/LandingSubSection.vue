@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-sub-section"
-    :class="[variant, { 'bg-bodygrey': variant === 'pro' }]"
+    :class="[variant, { 'bg-lightgrey': variant === 'pro' }]"
   >
     <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
@@ -12,7 +12,7 @@
         <div
           v-if="text"
           class="text mx-auto mb-3"
-          v-html="parseMarkdownHtml(text)"
+          v-html="parseMarkdown(text)"
         />
         <!-- eslint-enable vue/no-v-html -->
       </div>
@@ -59,7 +59,7 @@
 
 <script>
   import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingSubSection',
@@ -71,8 +71,6 @@
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -107,7 +105,8 @@
     },
 
     methods: {
-      contentfulEntryHasContentType
+      contentfulEntryHasContentType,
+      parseMarkdown
     }
   };
 </script>
@@ -116,7 +115,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-sub-section {
-    background-color: $bodygrey;
+    background-color: $lightgrey;
   }
 
   .landing-sub-section-container {
@@ -156,7 +155,7 @@
   }
 
   .text {
-    color: $mediumgrey;
+    color: $darkgrey;
     max-width: $max-text-column-width;
 
     @media (min-width: $bp-4k) {

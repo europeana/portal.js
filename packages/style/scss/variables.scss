@@ -6,7 +6,7 @@ $white: #fff;
 $middlegrey: #d8d8d8;
 
 // Text colors
-$mediumgrey-light: #767676;
+$darkgrey-light: #767676;
 
 /* https://pro.europeana.eu/resources/europeana-brand/brand-guidelines */
 $grey: #777;
@@ -16,9 +16,9 @@ $lightbluemagenta: #e7e7e9;
 $smoke: #f5f5f5;
 $illustration-whitegrey: #efece8;
 $whitegrey: #e0e0e0;
-$lightgrey: #a6a6a6;
-$mediumgrey: #4d4d4d;
-$bodygrey: #ededed;
+$mediumgrey: #a6a6a6;
+$darkgrey: #4d4d4d;
+$lightgrey: #ededed;
 $black: #000;
 $greyblack: #1a1a1a;
 $innovationblue: #0a72cc;
@@ -33,7 +33,7 @@ $skyblue: #bcd8f1;
 $red: #e02020;
 $yellow: #ffae00;
 $yellowgrey: #d9d4ca;
-$green: #438542;
+$green: #368535;
 $lightgreen: #71c07b;
 $darkgreen: #197324;
 $lightpurple: #c697fc;
@@ -85,6 +85,8 @@ $min-card-width: 264px;
 $max-card-width: 480px;
 $max-text-column-width: 932px;
 $max-text-column-width-landing-4k: 1450px;
+$page-header-height: 3.5rem;
+$page-header-height-4k: calc(-1.5 * 3.5rem);
 
 %title-1 {
   font-family: $font-family-ubuntu;

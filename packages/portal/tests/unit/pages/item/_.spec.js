@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import createHttpError from 'http-errors';
 
 import page from '@/pages/item/_';
 import useDeBias from '@/composables/deBias.js';
@@ -272,13 +273,9 @@ describe('pages/item/_.vue', () => {
         });
 
         describe('but the API responds with a translation quota error', () => {
-          const error = new Error('Translation quota error');
-          error.response = {
-            data: {
-              code: '502-TS'
-            },
-            status: 502
-          };
+          const error = createHttpError(502, 'Translation quota error', {
+            response: { data: { code: '502-TS' } }
+          });
 
           it('refetches the record without translation', async() => {
             const wrapper = factory({ mocks });
@@ -523,6 +520,34 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$error.called).toBe(true);
+      });
+
+      describe('when error is 410 Gone', () => {
+        const goneErr = createHttpError(410, 'Gone', {
+          response: {
+            data: {
+              object: {
+                about: '/123/abc',
+                europeanaAggregation: {
+                  changeLog: [
+                    { type: 'Delete' }
+                  ]
+                }
+              }
+            }
+          }
+        });
+
+        it('uses the error response data to populate the page', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.get = sinon.stub().throws(() => goneErr);
+
+          await wrapper.vm.fetch();
+
+          expect(redirectSpy.called).toBe(false);
+          expect(wrapper.vm.$error.called).toBe(false);
+          expect(wrapper.vm.isDeleted).toBe(true);
+        });
       });
     });
 

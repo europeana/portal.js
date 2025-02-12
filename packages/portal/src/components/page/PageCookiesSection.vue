@@ -1,16 +1,15 @@
 <template>
-  <div
-    :id="`consentcheckbox-section-${serviceData.name}`"
+  <component
+    :is="renderServiceAsCheckbox() ? 'div' : 'fieldset'"
     class="consent-checkbox-section"
   >
-    <label
-      v-if="serviceData.services && depth > COLLAPSIBLE_DEPTH_LIMIT"
-      :for="`consentcheckbox-${serviceData.name}`"
-      class="label mb-0 font-weight-bold text-uppercase"
+    <legend
+      v-if="!renderServiceAsCheckbox()"
+      class="legend mb-0 font-weight-bold text-uppercase"
     >
       {{ label }}
       <span v-if="serviceData.required">{{ $t('klaro.main.consentModal.alwaysRequired') }}</span>
-    </label>
+    </legend>
     <b-form-checkbox
       v-else
       :id="`consentcheckbox-${serviceData.name}`"
@@ -23,6 +22,7 @@
       :indeterminate="indeterminate"
       :class="{ 'secondary': !serviceData.services, 'active': indeterminate }"
       :aria-describedby="description && `consentcheckbox-description-${serviceData.name}`"
+      :aria-checked="indeterminate && 'mixed'"
       @change="(value) => updateConsent(serviceData, value)"
     >
       {{ label }}
@@ -40,14 +40,19 @@
     >
       <b-button
         v-if="depth <= COLLAPSIBLE_DEPTH_LIMIT"
-        :class="{ 'show': show.includes(serviceData.name) }"
+        :class="{ 'show': showNestedServices }"
         variant="link"
+        :aria-controls="`consentcheckbox-subsection-${serviceData.name}`"
+        :aria-expanded="showNestedServices ? 'true' : 'false'"
         @click="toggleDisplay(serviceData.name)"
       >
         {{ $tc('klaro.main.consentModal.servicesCount', servicesCount, { count: $n(servicesCount)}) }}
         <span class="icon-chevron ml-1" />
       </b-button>
-      <template v-if="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)">
+      <div
+        v-if="depth > COLLAPSIBLE_DEPTH_LIMIT || show.includes(serviceData.name)"
+        :id="`consentcheckbox-subsection-${serviceData.name}`"
+      >
         <PageCookiesSection
           v-for="(subService, subServiceIndex) in serviceData.services"
           :key="subServiceIndex"
@@ -60,9 +65,9 @@
           @toggle="toggleDisplay"
           @update="updateServiceConsent"
         />
-      </template>
+      </div>
     </template>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -140,6 +145,9 @@
       },
       servicesCount() {
         return this.flattenedServiceNames.length;
+      },
+      showNestedServices() {
+        return this.show.includes(this.serviceData.name);
       }
     },
 
@@ -159,6 +167,10 @@
 
       toggleDisplay(name) {
         this.$emit('toggle', name);
+      },
+
+      renderServiceAsCheckbox(service = this.serviceData, depth = this.depth) {
+        return service.services ? depth <= this.COLLAPSIBLE_DEPTH_LIMIT : true;
       }
     }
   };
@@ -181,8 +193,9 @@
       }
     }
 
-    .label {
-      color: $mediumgrey;
+    .legend {
+      color: $darkgrey;
+      font-size: $font-size-small;
     }
 
     .btn-link {
@@ -220,14 +233,14 @@
       }
 
       span {
-        color: $mediumgrey-light;
+        color: $darkgrey-light;
         text-transform: lowercase;
       }
     }
 
     &.secondary {
       .custom-control-label {
-        color: $mediumgrey !important;
+        color: $darkgrey !important;
         font-weight: 400;
       }
     }
@@ -243,7 +256,7 @@
     &.secondary .custom-control-input:not(:checked) ~ .custom-control-label {
       &:before,
       &:after {
-        border-color: $mediumgrey;
+        border-color: $darkgrey;
       }
     }
 

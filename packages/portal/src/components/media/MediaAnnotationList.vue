@@ -213,7 +213,7 @@
       }
 
       &.hover {
-        border: 1px solid $mediumgrey;
+        border: 1px solid $darkgrey;
       }
 
       &.active {
@@ -222,7 +222,7 @@
       }
 
       a {
-        color: $mediumgrey;
+        color: $darkgrey;
         text-decoration: none;
         font-size: $font-size-small;
 

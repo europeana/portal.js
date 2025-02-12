@@ -115,7 +115,7 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import stripMarkdownMixin from '@/mixins/stripMarkdown';
+  import stripMarkdown from '@/utils/markdown/strip.js';
   import truncate from '@/utils/text/truncate.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -132,8 +132,7 @@
     },
 
     mixins: [
-      langAttributeMixin,
-      stripMarkdownMixin
+      langAttributeMixin
     ],
 
     props: {
@@ -416,7 +415,7 @@
           limited.push('…');
         }
         const joined = limited.join('; ');
-        const stripped = this.stripMarkdown(joined);
+        const stripped = stripMarkdown(joined);
         return truncate(stripped, 255);
       },
 

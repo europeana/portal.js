@@ -38,7 +38,7 @@
         class="text"
         :class="{ 'mb-3': card.link }"
         data-qa="landing info card text"
-        v-html="parseMarkdownHtml(card.text)"
+        v-html="parseMarkdown(card.text)"
       />
       <!-- eslint-enable vue/no-v-html -->
       <SmartLink
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'LandingInfoCard',
@@ -64,8 +64,6 @@
       ImageOptimised: () => import('@/components/image/ImageOptimised'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -82,6 +80,10 @@
         type: Boolean,
         default: false
       }
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>
@@ -165,7 +167,7 @@
 
     .text {
       font-weight: 500;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       ::v-deep p:last-child {
         margin-bottom: 0;

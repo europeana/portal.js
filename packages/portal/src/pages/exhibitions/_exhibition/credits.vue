@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition credits page"
-    class="text-page white-page"
+    class="page text-page"
   >
     <b-breadcrumb
       :items="breadcrumbs"
@@ -13,7 +13,7 @@
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8 pt-large mb-4"
+          class="col-lg-8 mb-4"
         >
           <div
             class="context-label"

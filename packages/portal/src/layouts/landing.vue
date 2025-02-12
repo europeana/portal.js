@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-layout">
+  <div>
     <a
       class="skip-main"
       href="#main"
@@ -11,6 +11,7 @@
       ref="pageHeader"
     />
     <main
+      id="landing-layout"
       role="main"
     >
       <ProvideCanonicalUrl>
@@ -22,12 +23,7 @@
     <LandingPageFooter />
     <client-only>
       <PageCookiesWidget
-        v-if="$features.embeddedMediaNotification"
         :klaro-services="['auth-strategy', 'i18n', 'matomo', 'codepen']"
-      />
-      <PageCookieConsent
-        v-else
-        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
       />
     </client-only>
   </div>
@@ -45,7 +41,6 @@
     components: {
       LandingPageHeader,
       LandingPageFooter,
-      PageCookieConsent: () => import('@/components/page/PageCookieConsent'),
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       ProvideCanonicalUrl
     },
@@ -63,15 +58,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  main {
-    margin-top: 70px;
-
-    @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * 70px);
-    }
-  }
-</style>

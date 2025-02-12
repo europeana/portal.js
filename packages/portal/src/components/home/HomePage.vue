@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home page white-page xxl-page"
+    class="home xxl-page"
     data-qa="home page"
   >
     <HomeHero
@@ -130,10 +130,13 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
 
-  .page {
-    margin-top: 0;
-    padding-bottom: 1px;
+  .home {
+    margin-top: -$page-header-height;
     text-align: center;
+
+    @media (min-width: $bp-4k) {
+      margin-top: -$page-header-height-4k;
+    }
 
     &.container {
       > div,
@@ -151,7 +154,7 @@
   ::v-deep .stacked-cards-wrapper h2.heading {
     @extend %title-2;
 
-    color: $mediumgrey;
+    color: $darkgrey;
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-4k) {
@@ -205,7 +208,7 @@
         content: '';
         display: inline-block;
         height: 2px;
-        background-color: $bodygrey;
+        background-color: $lightgrey;
         margin-bottom: 2.25rem;
         flex: 0 0 calc(100% - (2 * #{$grid-gutter}));
         width: 100%;
@@ -265,7 +268,7 @@
       content: '';
       display: inline-block;
       height: 2px;
-      background-color: $bodygrey;
+      background-color: $lightgrey;
       margin-top: 1.5rem;
       width: calc(100% + 3rem);
       max-width: calc(100vw - 30px);

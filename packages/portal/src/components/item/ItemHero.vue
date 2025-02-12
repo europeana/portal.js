@@ -1,5 +1,12 @@
 <template>
-  <div class="item-hero">
+  <div class="item-hero position-relative">
+    <NotificationBanner
+      v-if="itemIsDeleted"
+      class="position-absolute border-bottom-0"
+      icon-class="icon-info"
+      :text="$t('record.itemDepublished')"
+      :ignorable="false"
+    />
     <ItemMediaPresentation
       :uri="iiifPresentationManifest"
       :item-id="identifier"
@@ -23,7 +30,10 @@
               data-qa="provider name"
             />
           </div>
-          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+          <div
+            v-if="!itemIsDeleted"
+            class="d-flex justify-content-md-center align-items-center button-wrapper"
+          >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
                 v-if="showTranscribathonLink"
@@ -89,12 +99,15 @@
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
       ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
       rightsStatementMixin
     ],
+
+    inject: ['itemIsDeleted'],
 
     props: {
       allMediaUris: {
@@ -218,6 +231,24 @@
   .item-hero {
     padding-bottom: 1.625rem;
 
+    .notification-banner {
+      background-color: rgba(0, 0, 0, 0.70);
+      color: $white;
+
+      .col-12 {
+        @media (min-width: $bp-large) {
+          flex: 0 0 83.333333%;
+          max-width: 83.333333%;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+
+      p {
+        flex-wrap: nowrap !important;
+      }
+    }
+
     .media-bar {
       margin-top: 2.5rem;
     }
@@ -242,7 +273,7 @@
         margin-right: 0.5rem;
 
         &:hover:not(.active) {
-          color: $mediumgrey;
+          color: $darkgrey;
         }
       }
     }

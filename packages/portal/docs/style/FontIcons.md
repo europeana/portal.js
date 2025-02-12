@@ -245,6 +245,11 @@ Example:
           <td><span class="icon icon-license" /></td>
         </tr>
         <tr>
+          <td>Light bulb</td>
+          <td><code>icon-light-bulb</code></td>
+          <td><span class="icon icon-light-bulb" /></td>
+        </tr>
+        <tr>
           <td>Link</td>
           <td><code>icon-link</code></td>
           <td><span class="icon icon-link" /></td>
