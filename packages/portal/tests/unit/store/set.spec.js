@@ -222,17 +222,6 @@ describe('store/set', () => {
       });
     });
 
-    describe('createLikes()', () => {
-      it('creates likes set via $apis.set, then commits ID with "setLikesId"', async() => {
-        store.actions.$apis.set.createLikes = sinon.stub().resolves({ id: setId });
-
-        await store.actions.createLikes({ commit });
-
-        expect(store.actions.$apis.set.createLikes.calledWith()).toBe(true);
-        expect(commit.calledWith('setLikesId', setId)).toBe(true);
-      });
-    });
-
     describe('fetchLikes()', () => {
       describe('without likesId in state', () => {
         it('does not fetch likes via $apis.set', async() => {

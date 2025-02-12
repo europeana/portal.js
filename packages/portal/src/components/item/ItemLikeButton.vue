@@ -104,7 +104,8 @@
       },
       async like() {
         if (this.likesId === null) {
-          await this.$store.dispatch('set/createLikes');
+          const response = await this.$apis.set.createLikes();
+          this.$store.commit('set/setLikesId', response.id);
         }
 
         try {

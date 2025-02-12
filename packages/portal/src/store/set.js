@@ -86,10 +86,6 @@ export default {
       const likesId = await this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null);
       commit('setLikesId', likesId);
     },
-    async createLikes({ commit }) {
-      const response = await this.$apis.set.createLikes();
-      commit('setLikesId', response.id);
-    },
     refreshSet({ state, dispatch }) {
       if (state.active) {
         dispatch('fetchActive', state.active.id);
