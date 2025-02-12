@@ -187,17 +187,6 @@ describe('store/set', () => {
       });
     });
 
-    describe('addItem()', () => {
-      it('adds to set via $apis.set', async() => {
-        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
-        const state = {};
-
-        await store.actions.addItem({ dispatch, state }, { setId, itemId });
-
-        expect(store.actions.$apis.set.modifyItems.calledWith('add', setId, itemId)).toBe(true);
-      });
-    });
-
     describe('removeItem()', () => {
       it('removes from set via $apis.set', async() => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});

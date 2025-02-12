@@ -7,6 +7,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const storeDispatch = sinon.stub().resolves({});
+const setApiModifyItemsStub = sinon.stub().resolves({});
 
 const sets = [
   {
@@ -30,7 +31,10 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: { search: sinon.stub().resolves({ items: sets }) }
+      set: {
+        modifyItems: setApiModifyItemsStub,
+        search: sinon.stub().resolves({ items: sets })
+      }
     },
     $auth: { user: { sub: 'user-id' } },
     $store: {
@@ -72,7 +76,7 @@ describe('components/set/SetAddItemModal', () => {
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(storeDispatch.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' })).toBe(true);
+        expect(setApiModifyItemsStub.calledWith('add', '001', '/123/abc')).toBe(true);
         expect(makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
       });
 
