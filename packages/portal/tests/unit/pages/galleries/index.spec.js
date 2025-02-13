@@ -171,7 +171,7 @@ describe('Gallery index page', () => {
           query: 'visibility:published',
           qf: 'lang:fr',
           pageSize: 24,
-          page: 0,
+          page: 1,
           profile: 'standard'
         },
         { withMinimalItemPreviews: true }

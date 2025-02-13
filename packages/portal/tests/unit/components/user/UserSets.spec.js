@@ -46,7 +46,6 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $router: { push: sinon.spy() },
     localePath: () => 'localizedPath',
     $i18n: { locale: 'en' },
-    $features: {},
     $route: {
       path: '/en/account',
       hash: '#public-galleries',
@@ -84,7 +83,7 @@ describe('components/user/UserSets', () => {
           query: 'creator:user-id',
           profile: 'standard',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
         },
         { withMinimalItemPreviews: true }
@@ -101,7 +100,7 @@ describe('components/user/UserSets', () => {
           query: 'creator:user-id',
           profile: 'standard',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:Collection', 'visibility:public']
         },
         { withMinimalItemPreviews: true }
@@ -118,7 +117,7 @@ describe('components/user/UserSets', () => {
           query: 'contributor:user-id',
           profile: 'standard',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:EntityBestItemsSet']
         },
         { withMinimalItemPreviews: true }
@@ -135,7 +134,7 @@ describe('components/user/UserSets', () => {
           query: 'creator:user-id',
           profile: 'standard',
           pageSize: 20,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
         },
         { withMinimalItemPreviews: true }

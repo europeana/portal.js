@@ -114,7 +114,7 @@
           query: `creator:${creator}`,
           profile: 'standard',
           pageSize: 100,
-          page: 0,
+          page: 1,
           qf: [
             'type:Collection'
           ]

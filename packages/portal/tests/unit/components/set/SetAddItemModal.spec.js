@@ -102,7 +102,7 @@ describe('components/set/SetAddItemModal', () => {
           query: 'creator:user-id',
           profile: 'standard',
           pageSize: 100,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
         })).toBe(true);
       });
