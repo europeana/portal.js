@@ -48,6 +48,7 @@ export default {
 
     async findEntityBestItemsSet(entityId) {
       const searchResponse = await this.$apis.set.search({
+        profile: 'items',
         query: 'type:EntityBestItemsSet',
         qf: `subject:${entityId}`
       });
