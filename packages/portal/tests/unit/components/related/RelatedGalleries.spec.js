@@ -124,7 +124,7 @@ describe('components/related/RelatedGalleries', () => {
           query,
           qf: ['visibility:published', `lang:${wrapper.vm.$i18n.locale}`],
           pageSize: 3,
-          page: 0,
+          page: 1,
           profile: 'items.meta'
         })).toBe(true);
       });

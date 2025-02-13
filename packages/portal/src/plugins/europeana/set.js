@@ -23,7 +23,12 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    */
   async search(params, options = {}) {
     // TODO: rm when new version is in production
-    if (this.config.version !== 'new') {
+    if (this.config.version === '1.0') {
+      // account for early versions of the API paginating from 0, new version from 1
+      if (params.page) {
+        params.page = params.page - 1;
+      }
+      // account for early versions of the API response not including first set item preview/thumbnail
       if (params.profile === 'items.meta') {
         params.profile = 'standard';
         options = { withMinimalItemPreviews: true };
