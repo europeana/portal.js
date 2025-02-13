@@ -230,7 +230,6 @@
     },
     async fetch() {
       try {
-        this.$apis.set.assertAvailable();
         this.validateRoute();
         await this.$store.dispatch('set/fetchActive', this.setId);
         this.redirectToPrefPath(this.setId, this.set.title.en);

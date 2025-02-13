@@ -70,6 +70,7 @@ export default class EuropeanaApi {
   }
 
   request(config) {
+    this.assertAvailable();
     return this.axios({
       ...config,
       params: {

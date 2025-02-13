@@ -52,8 +52,6 @@
     },
     async fetch() {
       try {
-        this.$apis.set.assertAvailable();
-
         const searchParams = {
           query: 'visibility:published',
           qf: `lang:${this.$i18n.locale}`,
