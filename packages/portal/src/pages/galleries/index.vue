@@ -3,18 +3,11 @@
     v-if="$fetchState.pending"
     class="flex-md-row py-4 text-center"
   />
-  <b-container
+  <ErrorMessage
     v-else-if="$fetchState.error"
-    data-qa="alert message container"
-  >
-    <b-row class="flex-md-row py-4">
-      <b-col cols="12">
-        <AlertMessage
-          :error="$fetchState.error.message"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+    data-qa="error message container"
+    :error="$fetchState.error"
+  />
   <!-- TODO: Use SetCardGroup and clean up methods -->
   <ContentHubPage
     v-else
@@ -40,8 +33,8 @@
   export default {
     name: 'GalleriesIndexPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHubPage,
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
@@ -58,18 +51,22 @@
       };
     },
     async fetch() {
-      const searchParams = {
-        query: 'visibility:published',
-        qf: `lang:${this.$i18n.locale}`,
-        pageSize: PER_PAGE,
-        page: this.page - 1,
-        profile: 'standard'
-      };
+      try {
+        const searchParams = {
+          query: 'visibility:published',
+          qf: `lang:${this.$i18n.locale}`,
+          pageSize: PER_PAGE,
+          page: this.page - 1,
+          profile: 'standard'
+        };
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      this.galleries = setResponse.items && this.parseSets(setResponse.items);
-      this.total = setResponse.partOf.total;
-      this.perPage = PER_PAGE;
+        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.galleries = setResponse.items && this.parseSets(setResponse.items);
+        this.total = setResponse.partOf.total;
+        this.perPage = PER_PAGE;
+      } catch (error) {
+        this.$error(error, { scope: 'gallery' });
+      }
     },
     computed: {
       pageMeta() {
