@@ -7,6 +7,7 @@ export default class EuropeanaApiContextConfig {
     this.unavailable = this.unavailableFromContext(context);
     this.url = this.urlFromContext(context);
     this.urlRewrite = this.urlRewriteFromContext(context);
+    this.version = this.versionFromContext(context);
   }
 
   unavailableFromContext(context) {
@@ -29,6 +30,10 @@ export default class EuropeanaApiContextConfig {
     } else {
       return context.$config?.europeana?.apis?.[this.id]?.urlRewrite;
     }
+  }
+
+  versionFromContext(context) {
+    return context.$config?.europeana?.apis?.[this.id]?.version;
   }
 
   apiUrlFromRequestHeaders(headers) {

@@ -9,6 +9,7 @@ export default class EuropeanaApiEnvConfig {
     this.unavailable = this.unavailableFromEnv;
     this.url = this.urlFromEnv;
     this.urlRewrite = this.urlRewriteFromEnv;
+    this.version = this.versionFromEnv;
   }
 
   env(prop, { boolean = false, shared = false } = {}) {
@@ -42,13 +43,18 @@ export default class EuropeanaApiEnvConfig {
     return urlRewriteFromEnv;
   }
 
+  get versionFromEnv() {
+    return this.env('version', { shared: false });
+  }
+
   toJSON() {
     return JSON.stringify({
       key: this.key,
       id: this.id,
       scope: this.scope,
       url: this.url,
-      urlRewrite: this.urlRewrite
+      urlRewrite: this.urlRewrite,
+      version: this.version
     });
   }
 }

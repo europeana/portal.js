@@ -32,8 +32,6 @@ describe('EuropeanaApiEnvConfig', () => {
         });
 
         it('is otherwise undefined', () => {
-          const id = 'record';
-
           const config = new EuropeanaApiEnvConfig(id, scope);
 
           expect(config.url).toBeUndefined();
@@ -90,8 +88,6 @@ describe('EuropeanaApiEnvConfig', () => {
         });
 
         it('is otherwise undefined', () => {
-          const id = 'record';
-
           const config = new EuropeanaApiEnvConfig(id, scope);
 
           expect(config.key).toBeUndefined();
@@ -100,16 +96,38 @@ describe('EuropeanaApiEnvConfig', () => {
     }
   });
 
+  describe('version', () => {
+    for (const scope of scopes) {
+      describe(`when scope is ${scope}`, () => {
+        it('is set from env var EUROPEANA_${ID}_API_VERSION', () => {
+          const version = '2';
+          process.env.EUROPEANA_RECORD_API_VERSION = version;
+
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.version).toBe(version);
+        });
+
+        it('is otherwise undefined', () => {
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.version).toBeUndefined();
+        });
+      });
+    }
+  });
+
   describe('toJSON', () => {
-    it('includes key, id, scope & url', () => {
+    it('includes key, id, scope, url & version', () => {
       process.env.EUROPEANA_TEST_API_KEY = 'secret';
       process.env.EUROPEANA_TEST_API_URL = 'https://test.example.org/';
       process.env.EUROPEANA_TEST_API_URL_PRIVATE = 'https://priv.example.org/';
+      process.env.EUROPEANA_TEST_API_VERSION = '2';
       const config = new EuropeanaApiEnvConfig('test', 'private');
 
       const json = config.toJSON();
 
-      expect(json).toBe('{"key":"secret","id":"test","scope":"private","url":"https://test.example.org/","urlRewrite":"https://priv.example.org/"}');
+      expect(json).toBe('{"key":"secret","id":"test","scope":"private","url":"https://test.example.org/","urlRewrite":"https://priv.example.org/","version":"2"}');
     });
   });
 });
