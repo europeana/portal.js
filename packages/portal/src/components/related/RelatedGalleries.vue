@@ -68,10 +68,10 @@
           qf: ['visibility:published', `lang:${this.$i18n.locale}`],
           pageSize: 3,
           page: 0,
-          profile: 'standard'
+          profile: 'items.meta'
         };
 
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        const setResponse = await this.$apis.set.search(searchParams);
         this.relatedGalleries = setResponse.items ? this.parseSets(setResponse.items) : [];
 
         this.$emit('fetched', this.relatedGalleries);
@@ -88,7 +88,7 @@
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail)
           };
         });
       },

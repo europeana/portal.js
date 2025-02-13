@@ -125,8 +125,8 @@ describe('components/related/RelatedGalleries', () => {
           qf: ['visibility:published', `lang:${wrapper.vm.$i18n.locale}`],
           pageSize: 3,
           page: 0,
-          profile: 'standard'
-        }, { withMinimalItemPreviews: true })).toBe(true);
+          profile: 'items.meta'
+        })).toBe(true);
       });
 
       it('emits fetched event with response', async() => {

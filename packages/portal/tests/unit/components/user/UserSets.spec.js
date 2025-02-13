@@ -82,12 +82,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 0,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -99,12 +98,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 0,
           qf: ['type:Collection', 'visibility:public']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -116,12 +114,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'contributor:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 0,
           qf: ['type:EntityBestItemsSet']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -133,12 +130,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 20,
           page: 0,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 

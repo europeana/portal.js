@@ -63,10 +63,10 @@
         qf: `lang:${this.$i18n.locale}`,
         pageSize: PER_PAGE,
         page: this.page - 1,
-        profile: 'standard'
+        profile: 'items.meta'
       };
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const setResponse = await this.$apis.set.search(searchParams);
       this.galleries = setResponse.items && this.parseSets(setResponse.items);
       this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;
@@ -99,7 +99,7 @@
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail)
           };
         });
       },

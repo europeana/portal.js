@@ -172,9 +172,8 @@ describe('Gallery index page', () => {
           qf: 'lang:fr',
           pageSize: 24,
           page: 0,
-          profile: 'standard'
-        },
-        { withMinimalItemPreviews: true }
+          profile: 'items.meta'
+        }
       )).toBe(true);
       expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
     });

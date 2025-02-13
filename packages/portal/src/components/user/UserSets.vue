@@ -130,13 +130,13 @@
 
       const searchParams = {
         query: `${this.userField}:${this.userId}`,
-        profile: 'standard',
+        profile: 'items.meta',
         pageSize: this.perPage,
         page: this.page - 1,
         qf
       };
 
-      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const searchResponse = await this.$apis.set.search(searchParams);
       this.sets = searchResponse.items || [];
       this.total = searchResponse.partOf?.total || 0;
     },
@@ -173,7 +173,7 @@
         return { name: 'galleries-all', params: { pathMatch: this.setPathMatch(set) } };
       },
       creationPreviewUrl(set) {
-        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
+        return this.$apis.thumbnail.edmPreview(set.isShownBy?.thumbnail);
       },
       creationPreviewType(set) {
         return set.items?.[0]?.type;
