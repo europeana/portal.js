@@ -173,21 +173,38 @@ describe('@/plugins/europeana/set', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    it('decrements page param if API version is 1.0', async() => {
-      const searchParams = {
-        query: 'type:EntityBestItemsSet',
-        profile: 'minimal',
-        page: 1,
-        pageSize: 1
-      };
-      nock(EuropeanaSetApi.BASE_URL)
-        .get('/search')
-        .query({ wskey: 'apikey', ...searchParams, page: 0 })
-        .reply(200);
+    describe('if API version is 1.0', () => {
+      it('decrements page param', async() => {
+        const searchParams = {
+          query: 'type:EntityBestItemsSet',
+          profile: 'minimal',
+          page: 1,
+          pageSize: 1
+        };
+        nock(EuropeanaSetApi.BASE_URL)
+          .get('/search')
+          .query({ wskey: 'apikey', ...searchParams, page: 0 })
+          .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
+        await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
 
-      expect(nock.isDone()).toBe(true);
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('uses standard profile and adds withMinimalItemPreviews option when items.media profile is used', async() => {
+        const searchParams = {
+          query: '',
+          profile: 'items.meta'
+        };
+        nock(EuropeanaSetApi.BASE_URL)
+          .get('/search')
+          .query({ wskey: 'apikey', ...searchParams, profile: 'standard' })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
+
+        expect(nock.isDone()).toBe(true);
+      });
     });
 
     describe('options', () => {

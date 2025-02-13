@@ -14,11 +14,7 @@ const sets = [
     visibility: 'public',
     title: 'A new collection',
     description: 'A description',
-    items: [
-      {
-        edmPreview: ['http://www.example.org/image.jpg']
-      }
-    ],
+    isShownBy: { thumbnail: 'http://www.example.org/image.jpg' },
     total: 1
   },
   {
