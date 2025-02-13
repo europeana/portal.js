@@ -6,20 +6,26 @@ export default class EuropeanaApiEnvConfig {
     this.scope = scope;
 
     this.key = this.keyFromEnv;
+    this.unavailable = this.unavailableFromEnv;
     this.url = this.urlFromEnv;
     this.urlRewrite = this.urlRewriteFromEnv;
   }
 
-  env(prop, { shared = false } = {}) {
+  env(prop, { boolean = false, shared = false } = {}) {
     const apiSpecificInfix = shared ? '' : `_${snakeCase(this.id).toUpperCase()}`;
     const propInfix = snakeCase(prop).toUpperCase();
 
-    return process.env[`EUROPEANA${apiSpecificInfix}_API_${propInfix}`];
+    const val = process.env[`EUROPEANA${apiSpecificInfix}_API_${propInfix}`];
+    return boolean ? Boolean(val) : val;
   }
 
   get keyFromEnv() {
     return this.env('key', { shared: false }) ||
       this.env('key', { shared: true });
+  }
+
+  get unavailableFromEnv() {
+    return this.env('unavailable', { boolean: true, shared: false });
   }
 
   get urlFromEnv() {

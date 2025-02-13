@@ -20,6 +20,8 @@ import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
 } from './src/plugins/europeana-apis.js';
 
+console.log('apis config', europeanaApisRuntimeConfig({ scope: 'public' }))
+
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };

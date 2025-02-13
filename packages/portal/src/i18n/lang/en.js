@@ -773,7 +773,8 @@ export default {
   "galleries": {
     "description": "Explore our galleries",
     "galleries": "Gallery | Galleries",
-    "seeAllPublished": "See all published galleries"
+    "seeAllPublished": "See all published galleries",
+    "temporarilyUnavailable": "Galleries functionality is temporarily unavailable. Please try again later."
   },
   "header": {
     "clearQuery": "Clear Search Query",

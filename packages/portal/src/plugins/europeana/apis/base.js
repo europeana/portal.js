@@ -1,4 +1,5 @@
 import axios from 'axios';
+import createHttpError from 'http-errors';
 import qs from 'qs';
 
 import { keycloakResponseErrorHandler } from '../auth.js';
@@ -87,6 +88,12 @@ export default class EuropeanaApi {
       requestConfig.baseURL = this.config.urlRewrite;
     }
     return requestConfig;
+  }
+
+  assertAvailable() {
+    if (this.config.unavailable) {
+      throw new createHttpError(503);
+    }
   }
 
   get axiosInstanceOptions() {

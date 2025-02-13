@@ -1,20 +1,18 @@
 <template>
+  <!-- <NotificationBanner
+    v-if="!$features.europeanaSetApi"
+    :text="$t('galleries.temporarilyUnavailable')"
+  /> -->
   <LoadingSpinner
     v-if="$fetchState.pending"
     class="flex-md-row py-4 text-center"
   />
-  <b-container
+  <ErrorMessage
     v-else-if="$fetchState.error"
-    data-qa="alert message container"
-  >
-    <b-row class="flex-md-row py-4">
-      <b-col cols="12">
-        <AlertMessage
-          :error="$fetchState.error.message"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+    data-qa="error message container"
+    :error="$fetchState.error"
+    class="pt-5"
+  />
   <!-- TODO: Use SetCardGroup and clean up methods -->
   <ContentHubPage
     v-else
@@ -40,9 +38,10 @@
   export default {
     name: 'GalleriesIndexPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHubPage,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
     mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
@@ -58,18 +57,30 @@
       };
     },
     async fetch() {
-      const searchParams = {
-        query: 'visibility:published',
-        qf: `lang:${this.$i18n.locale}`,
-        pageSize: PER_PAGE,
-        page: this.page - 1,
-        profile: 'standard'
-      };
+      try {
+        console.log('set api config', this.$apis.set.config)
+        this.$apis.set.assertAvailable();
+        // if (!this.$features.europeanaSetApi) {
+        //   // TODO: set status code, but with better title than "Error"
+        //   // this.$error(503, { scope: 'page' });
+        //   return;
+        // }
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      this.galleries = setResponse.items && this.parseSets(setResponse.items);
-      this.total = setResponse.partOf.total;
-      this.perPage = PER_PAGE;
+        const searchParams = {
+          query: 'visibility:published',
+          qf: `lang:${this.$i18n.locale}`,
+          pageSize: PER_PAGE,
+          page: this.page - 1,
+          profile: 'standard'
+        };
+
+        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.galleries = setResponse.items && this.parseSets(setResponse.items);
+        this.total = setResponse.partOf.total;
+        this.perPage = PER_PAGE;
+      } catch (error) {
+        this.$error(error);
+      }
     },
     computed: {
       pageMeta() {

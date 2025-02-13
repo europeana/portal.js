@@ -4,8 +4,13 @@ export default class EuropeanaApiContextConfig {
   constructor(id, context = {}) {
     this.id = id;
     this.key = this.keyFromContext(context);
+    this.unavailable = this.unavailableFromContext(context);
     this.url = this.urlFromContext(context);
     this.urlRewrite = this.urlRewriteFromContext(context);
+  }
+
+  unavailableFromContext(context) {
+    return context.$config?.europeana?.apis?.[this.id]?.unavailable;
   }
 
   keyFromContext(context) {
