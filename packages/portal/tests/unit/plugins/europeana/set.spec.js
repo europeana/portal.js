@@ -6,6 +6,7 @@ import EuropeanaSetApi from '@/plugins/europeana/set';
 const setId = '1234';
 const itemId = '/123/abc';
 const $config = { europeana: { apis: { set: { key: 'apikey' } } } };
+const $configV1 = { europeana: { apis: { set: { key: 'apikey', version: '1.0' } } } };
 const likesResponse = {
   '@context': 'http://www.europeana.eu/schemas/context/collection.jsonld',
   id: 'http://data.europeana.eu/set/1234',
@@ -159,19 +160,34 @@ describe('@/plugins/europeana/set', () => {
       const searchParams = {
         query: 'type:EntityBestItemsSet',
         profile: 'minimal',
+        page: 1,
         pageSize: 1
       };
-
       nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
-        // TODO: Expect the params, this isn't matching the request though.
-        // .query({ params: { wskey: 'apikey', ...searchParams } })
-        .query(true)
-        .reply(200, 'response');
+        .query({ wskey: 'apikey', ...searchParams })
+        .reply(200);
 
-      const response = await (new EuropeanaSetApi({ $config })).search(searchParams);
+      await (new EuropeanaSetApi({ $config })).search(searchParams);
 
-      expect(response).toEqual('response');
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('decrements page param if API version is 1.0', async() => {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        profile: 'minimal',
+        page: 1,
+        pageSize: 1
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get('/search')
+        .query({ wskey: 'apikey', ...searchParams, page: 0 })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
+
+      expect(nock.isDone()).toBe(true);
     });
 
     describe('options', () => {
