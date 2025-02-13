@@ -22,6 +22,14 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
   async search(params, options = {}) {
+    // TODO: rm when new version is in production
+    if (this.config.version !== 'new') {
+      // account for early versions of the API paginating from 0, new version from 1
+      if (params.page) {
+        params.page = params.page - 1;
+      }
+    }
+
     const response = await this.request({
       method: 'get',
       url: '/search',
