@@ -106,20 +106,46 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
+  describe('create()', () => {
+    const body = { type: 'Collection', collectionType: 'Gallery', visibility: 'public' };
+    it('creates the set', async() => {
+      nock(EuropeanaSetApi.BASE_URL)
+        .post('/', body)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).create(body);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('removes collectionType data property if API version is 1.0', async() => {
+      const bodyV1 = { type: 'Collection', visibility: 'public' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .post('/', bodyV1)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).create(body);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
   describe('update()', () => {
+    const body = { type: 'Collection', collectionType: 'Gallery', visibility: 'public' };
     it('updates the set', async() => {
-      const body = { type: 'Collection', visibility: 'public' };
       nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
         .query(true)
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).update(setId, body);
+
       expect(nock.isDone()).toBe(true);
     });
 
     it('includes params if supplied', async() => {
-      const body = { type: 'Collection', visibility: 'public' };
       const params = { profile: 'standard' };
       nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
@@ -127,6 +153,19 @@ describe('@/plugins/europeana/set', () => {
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).update(setId, body, params);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('removes collectionType data property if API version is 1.0', async() => {
+      const bodyV1 = { type: 'Collection', visibility: 'public' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}`, bodyV1)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).update(setId, body);
+
       expect(nock.isDone()).toBe(true);
     });
   });
