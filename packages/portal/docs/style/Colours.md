@@ -52,8 +52,8 @@ Colours are also defined on the [Colours page on Figma](https://www.figma.com/fi
           { name: 'innovationblue', hex: '#0a72cc' },
           { name: 'innovationblue-dark', hex: '#0963b3' },
           { name: 'darkblue', hex: '#085395' },
-          { name: 'lightpurple', hex: '#c697fc'}
-          { name: 'lightpurple-light', hex: '#d4b1fd'}
+          { name: 'lightpurple', hex: '#c697fc'},
+          { name: 'lightpurple-light', hex: '#d4b1fd'},
           { name: 'red', hex: '#e02020' },
           { name: 'yellowgrey', hex: '#d9d4ca' },
           { name: 'yellow', hex: '#ffae00' },
