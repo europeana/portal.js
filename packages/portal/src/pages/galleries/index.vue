@@ -1,8 +1,4 @@
 <template>
-  <!-- <NotificationBanner
-    v-if="!$features.europeanaSetApi"
-    :text="$t('galleries.temporarilyUnavailable')"
-  /> -->
   <LoadingSpinner
     v-if="$fetchState.pending"
     class="flex-md-row py-4 text-center"
@@ -11,7 +7,6 @@
     v-else-if="$fetchState.error"
     data-qa="error message container"
     :error="$fetchState.error"
-    class="pt-5"
   />
   <!-- TODO: Use SetCardGroup and clean up methods -->
   <ContentHubPage
@@ -40,8 +35,7 @@
     components: {
       ContentHubPage,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      NotificationBanner: () => import('@/components/generic/NotificationBanner')
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
@@ -58,13 +52,7 @@
     },
     async fetch() {
       try {
-        console.log('set api config', this.$apis.set.config)
         this.$apis.set.assertAvailable();
-        // if (!this.$features.europeanaSetApi) {
-        //   // TODO: set status code, but with better title than "Error"
-        //   // this.$error(503, { scope: 'page' });
-        //   return;
-        // }
 
         const searchParams = {
           query: 'visibility:published',
@@ -79,7 +67,7 @@
         this.total = setResponse.partOf.total;
         this.perPage = PER_PAGE;
       } catch (error) {
-        this.$error(error);
+        this.$error(error, { scope: 'gallery' });
       }
     },
     computed: {

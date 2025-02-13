@@ -6,7 +6,7 @@ const HTTP_CODES = {
   404: 'NotFound',
   410: 'Gone',
   423: 'Locked',
-  503: 'Service Unavailable'
+  503: 'ServiceUnavailable'
 };
 
 const storeModule = {

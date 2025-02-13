@@ -236,6 +236,10 @@ export default {
       "description": "This gallery could not be found. It may have been deleted.",
       "title": "Gallery not found"
     },
+    "galleryServiceUnavailable": {
+      "description": "The galleries functionality is temporarily unavailable. Please try again later.",
+      "title": "Service Unavailable"
+    },
     "galleryUnauthorised": {
       "description": "This is not possible because private galleries are only visible to their creator. If you know the creator of the gallery, ask them to make the gallery public. Alternatively, report this issue using the feedback button.",
       "metaTitle": "Gallery unauthorised",

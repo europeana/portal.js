@@ -52,6 +52,7 @@ export default class EuropeanaApiEnvConfig {
       key: this.key,
       id: this.id,
       scope: this.scope,
+      unavailable: this.unavailable,
       url: this.url,
       urlRewrite: this.urlRewrite,
       version: this.version

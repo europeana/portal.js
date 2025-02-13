@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="$features.europeanaSetApi"
     class="user-buttons"
     data-qa="user buttons"
   >
