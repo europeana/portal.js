@@ -62,7 +62,6 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedGallerie
         edmPreview: (img) => img?.[0]
       }
     },
-    $features: { newSetApi: true },
     $i18n: { locale: 'en' },
     $route: {
       query: {}

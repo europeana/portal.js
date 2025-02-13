@@ -26,7 +26,6 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
   },
   data: () => ({ ...data }),
   mocks: {
-    $features: { newSetApi: true },
     $t: key => key,
     $tc: () => {},
     $i18n: {},

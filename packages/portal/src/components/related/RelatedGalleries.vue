@@ -67,7 +67,7 @@
           query: this.query,
           qf: ['visibility:published', `lang:${this.$i18n.locale}`],
           pageSize: 3,
-          page: this.$features.newSetApi ? 1 : 0,
+          page: 1,
           profile: 'standard'
         };
 

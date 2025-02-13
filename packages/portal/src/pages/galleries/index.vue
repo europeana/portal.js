@@ -62,7 +62,7 @@
         query: 'visibility:published',
         qf: `lang:${this.$i18n.locale}`,
         pageSize: PER_PAGE,
-        page: this.$features.newSetApi ? this.page : this.page - 1,
+        page: this.page,
         profile: 'standard'
       };
 

@@ -100,7 +100,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $features: { newSetApi: true },
     $apis: {
       thumbnail: { edmPreview: (img) => `thumbnail ${img}` },
       set: {

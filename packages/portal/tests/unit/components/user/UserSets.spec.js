@@ -46,7 +46,6 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $router: { push: sinon.spy() },
     localePath: () => 'localizedPath',
     $i18n: { locale: 'en' },
-    $features: { newSetApi: true },
     $route: {
       path: '/en/account',
       hash: '#public-galleries',
