@@ -28,6 +28,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.page) {
         params.page = params.page - 1;
       }
+      // check for items.description profile
+      if (params.profile === 'items.meta') {
+        params.profile = 'itemDescriptions';
+      }
     }
 
     const response = await this.request({

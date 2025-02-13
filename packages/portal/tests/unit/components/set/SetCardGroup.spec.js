@@ -71,7 +71,7 @@ describe('components/related/SetCardGroup', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.set.search.calledWith({ query: `set_id:${setId}`, qf: `lang:${wrapper.vm.$i18n.locale}`, profile: 'itemDescriptions' })).toBe(true);
+        expect(wrapper.vm.$apis.set.search.calledWith({ query: `set_id:${setId}`, qf: `lang:${wrapper.vm.$i18n.locale}`, profile: 'items.meta', page: 1 })).toBe(true);
       });
     });
   });

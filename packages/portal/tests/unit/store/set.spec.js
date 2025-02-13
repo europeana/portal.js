@@ -233,8 +233,9 @@ describe('store/set', () => {
         await store.actions.fetchActive({ commit }, setId);
 
         expect(store.actions.$apis.set.get.calledWith(setId, {
-          profile: 'itemDescriptions',
-          pageSize: 100
+          profile: 'items.meta',
+          pageSize: 100,
+          page: 1
         })).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
       });
