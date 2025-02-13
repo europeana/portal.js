@@ -28,6 +28,9 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.page) {
         params.page = params.page - 1;
       }
+      if (params.profile === 'items') {
+        params.profile = 'minimal';
+      }
     }
 
     const response = await this.request({
