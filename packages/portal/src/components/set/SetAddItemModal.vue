@@ -114,7 +114,7 @@
           query: `creator:${creator}`,
           profile: 'standard',
           pageSize: 100,
-          page: 0,
+          page: this.$features.newSetApi ? 1 : 0,
           qf: [
             'type:Collection'
           ]

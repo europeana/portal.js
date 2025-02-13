@@ -100,6 +100,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $features: { newSetApi: true },
     $apis: {
       thumbnail: { edmPreview: (img) => `thumbnail ${img}` },
       set: {
@@ -171,7 +172,7 @@ describe('Gallery index page', () => {
           query: 'visibility:published',
           qf: 'lang:fr',
           pageSize: 24,
-          page: 0,
+          page: 1,
           profile: 'standard'
         },
         { withMinimalItemPreviews: true }

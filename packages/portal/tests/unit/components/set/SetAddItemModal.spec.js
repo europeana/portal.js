@@ -26,6 +26,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
   },
   data: () => ({ ...data }),
   mocks: {
+    $features: { newSetApi: true },
     $t: key => key,
     $tc: () => {},
     $i18n: {},
@@ -102,7 +103,7 @@ describe('components/set/SetAddItemModal', () => {
           query: 'creator:user-id',
           profile: 'standard',
           pageSize: 100,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
         })).toBe(true);
       });
