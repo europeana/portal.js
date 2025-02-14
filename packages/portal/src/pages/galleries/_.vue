@@ -153,7 +153,7 @@
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
                     :user-editable-items="userCanEditSet"
                     :view="view"
-                    @endItemDrag="reorderItems"
+                    @endItemDrag="repositionItem"
                   />
                 </b-col>
               </b-row>
@@ -174,10 +174,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import {
-    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
-    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
-  } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
@@ -343,19 +339,10 @@
           this.$error(404, { scope: 'page' });
         }
       },
-      async reorderItems(items) {
+      async repositionItem({ itemId, position }) {
         try {
-          await this.$store.dispatch('set/update', {
-            id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
-            body: {
-              type: this.set.type,
-              title: this.set.title,
-              description: this.set.description,
-              visibility: this.set.visibility,
-              items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
-            },
-            params: { profile: 'standard' }
-          });
+          await this.$apis.set.repositionItem(this.setId, itemId, position);
+          await this.$store.dispatch('set/fetchActive', this.setId);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }

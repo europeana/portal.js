@@ -193,6 +193,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
+  // TODO: needs to handle v1.0 Set API
   insertItem(setId, itemId, position) {
     return this.request({
       method: 'put',
@@ -202,6 +203,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
+  // TODO: needs to handle v1.0 Set API
   deleteItem(setId, itemId) {
     return this.request({
       method: 'delete',

@@ -8,6 +8,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const setApiRepositionItemStub = sinon.stub().resolves({});
 const storeDispatch = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
 
@@ -71,6 +72,9 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     },
     $apis: {
+      set: {
+        repositionItem: setApiRepositionItemStub
+      },
       thumbnail: {
         edmPreview: () => ''
       }
@@ -277,40 +281,24 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('methods', () => {
-    describe('reorderItems', () => {
-      it('updates the set with new item order', async() => {
-        const wrapper = factory({
-          ...defaultOptions,
-          set: {
-            ...defaultOptions.set,
-            items: [
-              { id: '/123/abc' },
-              { id: '/123/def' }
-            ]
-          }
-        });
+    describe('repositionItem', () => {
+      const itemId = '/123/abc';
+      const position = 2;
 
-        await wrapper.vm.reorderItems([
-          { id: '/123/def' },
-          { id: '/123/abc' }
-        ]);
+      it('moves the item to the new position via Set API', async() => {
+        const wrapper = factory(defaultOptions);
 
-        expect(storeDispatch.calledWith('set/update', {
-          id: `http://data.europeana.eu/set/${defaultOptions.set.id}`,
-          body: {
-            type: defaultOptions.set.type,
-            title: defaultOptions.set.title,
-            description: defaultOptions.set.description,
-            visibility: defaultOptions.set.visibility,
-            items: [
-              'http://data.europeana.eu/item/123/def',
-              'http://data.europeana.eu/item/123/abc'
-            ]
-          },
-          params: {
-            profile: 'standard'
-          }
-        })).toBe(true);
+        await wrapper.vm.repositionItem({ itemId, position });
+
+        expect(setApiRepositionItemStub.calledWith(defaultOptions.set.id, itemId, position)).toBe(true);
+      });
+
+      it('re-fetches the active set via the store', async() => {
+        const wrapper = factory(defaultOptions);
+
+        await wrapper.vm.repositionItem({ itemId, position });
+
+        expect(storeDispatch.calledWith('set/fetchActive', defaultOptions.set.id)).toBe(true);
       });
     });
   });

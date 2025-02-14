@@ -260,8 +260,10 @@
     },
 
     methods: {
-      endItemDrag() {
-        this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
+      endItemDrag({ newIndex }) {
+        if (this.cards[newIndex].id) {
+          this.$emit('endItemDrag', { itemId: this.cards[newIndex].id, position: newIndex });
+        }
         this.redrawMasonry();
       },
       itemHitSelector(item) {
