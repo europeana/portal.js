@@ -62,6 +62,7 @@ describe('components/set/SetFormModal', () => {
 
       expect(setApiCreateStub.calledWith({
         type: 'Collection',
+        collectionType: 'Gallery',
         title: {
           en: 'My first public set'
         },
