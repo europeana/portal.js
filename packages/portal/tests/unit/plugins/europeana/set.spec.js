@@ -52,6 +52,52 @@ describe('@/plugins/europeana/set', () => {
       await (new EuropeanaSetApi({ $config })).get(setId);
       expect(nock.isDone()).toBe(true);
     });
+
+    it('removes the page & perPage params if API version is 1.0', async() => {
+      const getParams = {
+        page: 1,
+        perPage: 100
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'standard' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the items.meta param if API version is 1.0', async() => {
+      const getParams = {
+        profile: 'items.meta',
+        page: 1,
+        perPage: 100
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'itemDescriptions' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the meta param if API version is 1.0', async() => {
+      const getParams = {
+        profile: 'meta'
+
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'standard' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
   });
 
   describe('getLikes()', () => {
@@ -183,6 +229,23 @@ describe('@/plugins/europeana/set', () => {
       nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
         .query({ wskey: 'apikey', ...searchParams, page: 0 })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the items.meta param if API version is 1.0', async() => {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        profile: 'items.meta',
+        page: 1,
+        pageSize: 1
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get('/search')
+        .query({ wskey: 'apikey', ...searchParams, profile: 'itemDescriptions', page: 0 })
         .reply(200);
 
       await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);

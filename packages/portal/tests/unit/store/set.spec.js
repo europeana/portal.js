@@ -112,7 +112,22 @@ describe('store/set', () => {
     const recommendations = { items: ['/123/def', '/123/ghi'] };
     const newRecommendation = { items: ['/123/jkl'] };
     const updatedRecommendations = ['/123/def', '/123/jkl'];
-    const set = {
+    const $config = { key: 'apikey' };
+    const $configV1 = { key: 'apikey', version: '1.0' };
+    const setCombined = {
+      id: setId,
+      creator: {
+        id: userId
+      },
+      items: []
+    };
+    const setMetadata = {
+      id: setId,
+      creator: {
+        id: userId
+      }
+    };
+    const setItems = {
       id: setId,
       items: []
     };
@@ -120,7 +135,7 @@ describe('store/set', () => {
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$apis = { set: {}, recommendation: {}, record: {} };
+      store.actions.$apis = { set: { config: $config }, recommendation: {}, record: {} };
       store.actions.$auth = {};
       store.actions.app = { context: { res: {} } };
     });
@@ -203,7 +218,7 @@ describe('store/set', () => {
     describe('fetchLikes()', () => {
       describe('without likesId in state', () => {
         it('does not fetch likes via $apis.set', async() => {
-          store.actions.$apis.set.get = sinon.stub().resolves(set);
+          store.actions.$apis.set.get = sinon.stub();
           const state = {};
 
           await store.actions.fetchLikes({ state, commit });
@@ -214,30 +229,41 @@ describe('store/set', () => {
 
       describe('with likesId in state', () => {
         it('fetches likes via $apis.set, then commits the items with "setLikedItems"', async() => {
-          store.actions.$apis.set.get = sinon.stub().resolves(set);
+          store.actions.$apis.set.get = sinon.stub().resolves(setItems);
           const state = { likesId: setId };
 
           await store.actions.fetchLikes({ state, commit });
 
           expect(store.actions.$apis.set.get.calledWith(setId, sinon.match.any)).toBe(true);
-          expect(commit.calledWith('setLikedItems', set.items)).toBe(true);
+          expect(commit.calledWith('setLikedItems', setItems.items)).toBe(true);
         });
       });
     });
 
     describe('fetchActive()', () => {
-      it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
-        store.actions.$apis.set.get = sinon.stub().resolves(set);
+      it('fetches the active set metadata and items via Set APIs relevant profiles, then commits them with "setActive"', async() => {
+        const mockSetGet = (_setId, opts) => {
+          if (opts.profile === 'meta') {
+            return setMetadata;
+          } else if (opts.profile === 'items.meta') {
+            return setItems;
+          }
+        };
+        store.actions.$apis.set.get = sinon.stub().callsFake(mockSetGet);
         store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
 
         await store.actions.fetchActive({ commit }, setId);
+
+        expect(store.actions.$apis.set.get.calledWith(setId, {
+          profile: 'meta'
+        })).toBe(true);
 
         expect(store.actions.$apis.set.get.calledWith(setId, {
           profile: 'items.meta',
           pageSize: 100,
           page: 1
         })).toBe(true);
-        expect(commit.calledWith('setActive', set)).toBe(true);
+        expect(commit.calledWith('setActive', setCombined)).toBe(true);
       });
       describe('when API request doesn\'t return a set', () => {
         const apiError = new Error({ message: 'No set found' });
@@ -262,6 +288,29 @@ describe('store/set', () => {
           expect(store.actions.app.context.res.statusCode).toEqual(apiError.statusCode);
         });
       });
+      describe('when in backwards compatibility with v1.0 of the set API', () => {
+        it('fetches only the items as this will include metadata, then commits the response with "setActive"', async() => {
+          store.actions.$apis.set.config = $configV1;
+          store.actions.$apis.set.get = sinon.stub().resolves(setCombined);
+
+          store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
+
+          await store.actions.fetchActive({ commit }, setId);
+
+          expect(store.actions.$apis.set.get.calledWith(setId, {
+            profile: 'items.meta',
+            pageSize: 100,
+            page: 1
+          })).toBe(true);
+
+          // checking that the metadata is not retrieved again
+          expect(store.actions.$apis.set.get.calledWith(setId, {
+            profile: 'meta'
+          })).toBe(false);
+
+          expect(commit.calledWith('setActive', setCombined)).toBe(true);
+        });
+      });
     });
 
     describe('update()', () => {
@@ -279,7 +328,7 @@ describe('store/set', () => {
         describe('and items are in API response', () => {
           it('commits with "setActive", reordering items', async() => {
             const activeWas = {
-              ...set,
+              ...setCombined,
               items: [{ id: '1' }, { id: '2' }]
             };
             const activeUpdates = {
@@ -304,7 +353,7 @@ describe('store/set', () => {
         describe('and items are not API response', () => {
           it('commits with "setActive", preserving items', async() => {
             const activeWas = {
-              ...set,
+              ...setCombined,
               items: [{ id: '1' }, { id: '2' }]
             };
             const activeUpdates = {
@@ -340,11 +389,11 @@ describe('store/set', () => {
       describe('when set is active', () => {
         it('commits with "setActive", preserving what has not been updated', async() => {
           const activeWas = {
-            ...set
+            ...setCombined
           };
           const activeResponse = { id: setId, visibility: 'published' };
           const activeWillBe = {
-            ...set,
+            ...setCombined,
             id: setId,
             visibility: 'published'
           };
@@ -371,11 +420,11 @@ describe('store/set', () => {
       describe('when set is active', () => {
         it('commits with "setActive", preserving what has not been updated', async() => {
           const activeWas = {
-            ...set
+            ...setCombined
           };
           const activeResponse = { id: setId, visibility: 'public' };
           const activeWillBe = {
-            ...set,
+            ...setCombined,
             id: setId,
             visibility: 'public'
           };
@@ -414,7 +463,7 @@ describe('store/set', () => {
     describe('refreshSet()', () => {
       describe('when collection-modal hides', () => {
         it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
-          const state = { active: set };
+          const state = { active: setCombined };
 
           await store.actions.refreshSet({ state, dispatch });
 

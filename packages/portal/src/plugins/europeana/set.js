@@ -79,14 +79,35 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} id the set's id
    * @param {Object} params retrieval params
    * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
+   * @param {string} params.page the set's page for item retrieval
+   * @param {string} params.perPage the number of items per page of results
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   // TODO: pagination for sets with > 100 items
   async get(id, params = {}) {
     const defaults = {
-      profile: 'standard'
+      profile: 'meta'
     };
     const paramsWithDefaults = { ...defaults, ...params };
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      // get requests with pagination remove item metadata, use them without pagination
+      if (paramsWithDefaults.page) {
+        delete paramsWithDefaults.page;
+      }
+      if (paramsWithDefaults.perPage) {
+        delete paramsWithDefaults.perPage;
+      }
+      // check for items.description profile
+      if (paramsWithDefaults.profile === 'items.meta') {
+        paramsWithDefaults.profile = 'itemDescriptions';
+      }
+      // check for meta profile
+      if (paramsWithDefaults.profile === 'meta') {
+        paramsWithDefaults.profile = 'standard';
+      }
+    }
 
     return this.request({
       method: 'get',

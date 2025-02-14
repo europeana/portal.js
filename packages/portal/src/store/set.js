@@ -1,3 +1,6 @@
+// TODO: get rid of this merge dependency by separating requests for paginated items from the metadata
+import merge from 'deepmerge';
+
 export default {
   state: () => ({
     likesId: null,
@@ -101,12 +104,22 @@ export default {
     },
     async fetchActive({ commit }, setId) {
       try {
-        const set = await this.$apis.set.get(setId, {
+        let activeSet;
+        // TODO: When implementing actual pagination, split item retrieval out of "fetchActive"
+        const setItems = await this.$apis.set.get(setId, {
           pageSize: 100,
           profile: 'items.meta',
           page: 1
         });
-        commit('setActive', set);
+
+        if (this.$apis.set.config.version !== '1.0') {
+          const setMeta = await this.$apis.set.get(setId, {
+            profile: 'meta'
+          });
+          activeSet = merge(setMeta, setItems);
+        }
+
+        commit('setActive', activeSet || setItems); // Is this sensible for when the active set can't be found at all?
       } catch (error) {
         if (process.server && error.statusCode) {
           this.app.context.res.statusCode = error.statusCode;
