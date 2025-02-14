@@ -177,7 +177,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {Boolean} pin if true will indicate that the item is to be pinned
    * @return {Object} API response data
    */
-  async modifyItems(action, setId, itemId, pin) {
+  modifyItems(action, setId, itemId, pin) {
     const method = (action === 'add') ? 'put' : 'delete';
     const pinPos = pin ? '?position=pin' : '';
 
@@ -185,5 +185,27 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       method,
       url: `/${setIdFromUri(setId)}${itemId}${pinPos}`
     });
+  }
+
+  insertItem(setId, itemId, position) {
+    return this.request({
+      method: 'put',
+      url: `/${setIdFromUri(setId)}/items`,
+      data: [itemId],
+      params: { position }
+    });
+  }
+
+  deleteItem(setId, itemId) {
+    return this.request({
+      method: 'delete',
+      url: `/${setIdFromUri(setId)}/items`,
+      data: [itemId]
+    });
+  }
+
+  repositionItem(setId, itemId, position) {
+    return this.deleteItem(setId, itemId)
+      .then(() => this.insertItem(setId, itemId, position));
   }
 }
