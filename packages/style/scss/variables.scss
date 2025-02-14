@@ -86,7 +86,7 @@ $max-card-width: 480px;
 $max-text-column-width: 932px;
 $max-text-column-width-landing-4k: 1450px;
 $page-header-height: 3.5rem;
-$page-header-height-4k: calc(-1.5 * 3.5rem);
+$page-header-height-4k: calc(1.5 * 3.5rem);
 
 %title-1 {
   font-family: $font-family-ubuntu;
