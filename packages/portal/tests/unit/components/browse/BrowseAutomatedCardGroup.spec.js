@@ -245,7 +245,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
             pageSize: 4,
             profile: 'items.meta',
             qf: 'lang:en'
-          }
+          }, { withMinimalItemPreviews: true }
         )).toBe(true);
         expect(wrapper.vm.entries).toEqual(setResponse.items);
       });

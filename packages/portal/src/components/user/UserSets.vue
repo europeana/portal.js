@@ -136,7 +136,7 @@
         qf
       };
 
-      const searchResponse = await this.$apis.set.search(searchParams);
+      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
       this.sets = searchResponse.items || [];
       this.total = searchResponse.partOf?.total || 0;
     },

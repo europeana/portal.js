@@ -29,9 +29,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
         params.page = params.page - 1;
       }
       // account for early versions of the API response not including first set item preview/thumbnail
-      if (params.profile === 'items.meta') {
+      if (params.profile === 'items.meta' && options.withMinimalItemPreviews === true) {
         params.profile = 'standard';
-        options = { withMinimalItemPreviews: true };
       }
     }
 
@@ -41,8 +40,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       params
     });
 
-    // TODO: remove withMinimalItemPreviews option when set API version is set to new
-    if (options.withMinimalItemPreviews && response.items) {
+    // TODO: remove withMinimalItemPreviews option (also in component requests) when set API version is set to new
+    if (this.config.version === '1.0' && options.withMinimalItemPreviews && response.items) {
       const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
 
       const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
