@@ -191,7 +191,7 @@ describe('@/plugins/europeana/set', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('uses standard profile and adds withMinimalItemPreviews option when items.media profile is used', async() => {
+      it('uses standard profile and adds withMinimalItemPreviews option when items.meta profile is used', async() => {
         const searchParams = {
           query: '',
           profile: 'items.meta'
