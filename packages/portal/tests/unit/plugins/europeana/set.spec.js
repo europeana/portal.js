@@ -185,7 +185,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config })).create(body);
+      await (new EuropeanaSetApi({ $config: $configV1 })).create(body);
 
       expect(nock.isDone()).toBe(true);
     });
