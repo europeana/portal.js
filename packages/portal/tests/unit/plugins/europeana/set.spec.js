@@ -106,6 +106,17 @@ describe('@/plugins/europeana/set', () => {
       expect(nock.isDone()).toBe(true);
     });
 
+    it('includes pin param if pin arg is true', async() => {
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}/items`, [itemId])
+        .query({ position: 'pin', wskey: 'apikey' })
+        .reply(200, likesResponse);
+
+      await (new EuropeanaSetApi({ $config })).modifyItems('add', setId, itemId, true);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
     describe('v1.0 API compatibility', () => {
       it('adds item to set', async() => {
         nock(EuropeanaSetApi.BASE_URL)
@@ -125,6 +136,17 @@ describe('@/plugins/europeana/set', () => {
           .reply(200);
 
         await (new EuropeanaSetApi({ $config: $configV1 })).modifyItems('delete', setId, itemId);
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('includes pin param if pin arg is true', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemId}`)
+          .query({ position: 'pin', wskey: 'apikey' })
+          .reply(200, likesResponse);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).modifyItems('add', setId, itemId, true);
 
         expect(nock.isDone()).toBe(true);
       });
