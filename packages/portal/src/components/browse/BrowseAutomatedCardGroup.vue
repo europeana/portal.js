@@ -156,7 +156,7 @@
             __variant: null,
             name: set.title,
             identifier: set.id,
-            image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
+            image: this.$apis.thumbnail.edmPreview(set.isShownBy?.thumbnail, { size: 400 }),
             url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
             description: set.description
           }));
@@ -213,7 +213,7 @@
         const params = {
           query: 'visibility:published',
           pageSize: 4,
-          profile: 'standard',
+          profile: 'items.meta',
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
