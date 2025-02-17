@@ -628,10 +628,10 @@
 }
 
 .search-bar-open {
-  padding-top: 6.5rem !important;
+  padding-top: 4.275rem !important;
 
   @media (min-width: $bp-4k) {
-    padding-top: 8.457rem !important;
+    padding-top: 6.6rem !important;
   }
 }
 </style>
