@@ -114,7 +114,8 @@ const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
 const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
-const setApiModifyItemsStub = sinon.stub().resolves({});
+const setApiInsertItemStub = sinon.stub().resolves({});
+const setApiDeleteItemStub = sinon.stub().resolves({});
 
 const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
   localVue,
@@ -140,7 +141,8 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
         get: setApiGetStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
-        modifyItems: setApiModifyItemsStub
+        deleteItem: setApiDeleteItemStub,
+        insertItem: setApiInsertItemStub
       }
     },
     $error: (error) => {
@@ -321,7 +323,7 @@ describe('components/item/ItemPinModal', () => {
           await new Promise(process.nextTick);
 
           expect(setApiCreateStub.called).toBe(true);
-          expect(setApiModifyItemsStub.called).toBe(true);
+          expect(setApiInsertItemStub.called).toBe(true);
         });
       });
 
@@ -333,8 +335,8 @@ describe('components/item/ItemPinModal', () => {
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
 
-            expect(setApiModifyItemsStub.called).toBe(true);
             expect(setApiCreateStub.called).toBe(false);
+            expect(setApiInsertItemStub.called).toBe(true);
           });
         });
 
@@ -344,8 +346,8 @@ describe('components/item/ItemPinModal', () => {
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-            expect(setApiModifyItemsStub.called).toBe(true);
             expect(setApiCreateStub.called).toBe(false);
+            expect(setApiDeleteItemStub.called).toBe(true);
           });
         });
       });
@@ -518,7 +520,7 @@ describe('components/item/ItemPinModal', () => {
 
           await wrapper.vm.pin();
 
-          expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
+          expect(setApiInsertItemStub.calledWith('456', '/123/abc', true)).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual(['/123/abc']);
         });
       });
@@ -531,7 +533,7 @@ describe('components/item/ItemPinModal', () => {
 
           await wrapper.vm.unpin();
 
-          expect(setApiModifyItemsStub.calledWith('delete', '456', '/123/abc')).toBe(true);
+          expect(setApiDeleteItemStub.calledWith('456', '/123/abc')).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
         });
       });

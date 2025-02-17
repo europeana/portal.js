@@ -66,12 +66,12 @@ export default {
         this.$bvModal.show(`pinned-limit-modal-${itemId}`);
         return;
       }
-      await this.$apis.set.modifyItems('add', entityBestItemsSetId, itemId, true);
+      await this.$apis.set.pinItem(entityBestItemsSetId, itemId);
       this.makeToast(this.$t('entity.notifications.pinned', { entity: entityPrefLabel }));
     },
 
     async unpinItemFromEntityBestItemsSet(itemId, entityBestItemsSetId) {
-      await this.$apis.set.modifyItems('delete', entityBestItemsSetId, itemId);
+      await this.$apis.set.deleteItem(entityBestItemsSetId, itemId);
       this.makeToast(this.$t('entity.notifications.unpinned'));
     }
   }

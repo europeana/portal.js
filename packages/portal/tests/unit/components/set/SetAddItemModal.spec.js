@@ -6,7 +6,8 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const setApiModifyItemsStub = sinon.stub().resolves({});
+const setApiInsertItemStub = sinon.stub().resolves({});
+const setApiDeleteItemStub = sinon.stub().resolves({});
 
 const sets = [
   {
@@ -31,7 +32,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
     $i18n: {},
     $apis: {
       set: {
-        modifyItems: setApiModifyItemsStub,
+        deleteItem: setApiDeleteItemStub,
+        insertItem: setApiInsertItemStub,
         search: sinon.stub().resolves({ items: sets })
       }
     },
@@ -72,7 +74,7 @@ describe('components/set/SetAddItemModal', () => {
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(setApiModifyItemsStub.calledWith('add', '001', '/123/abc')).toBe(true);
+        expect(setApiInsertItemStub.calledWith('001', '/123/abc')).toBe(true);
         expect(makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
       });
 
@@ -84,7 +86,7 @@ describe('components/set/SetAddItemModal', () => {
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(setApiModifyItemsStub.calledWith('delete', '001', '/000/aaa')).toBe(true);
+        expect(setApiDeleteItemStub.calledWith('001', '/000/aaa')).toBe(true);
         expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
       });
     });
