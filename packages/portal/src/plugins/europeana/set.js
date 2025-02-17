@@ -184,12 +184,26 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   async modifyItems(action, setId, itemId, pin) {
+    let data = [itemId];
     const method = (action === 'add') ? 'put' : 'delete';
-    const pinPos = pin ? '?position=pin' : '';
+    const params = {};
+    let url = `/${setIdFromUri(setId)}/items`;
+
+    if (pin) {
+      params.position = 'pin';
+    }
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      url = `/${setIdFromUri(setId)}${itemId}`;
+      data = undefined;
+    }
 
     return this.request({
+      data,
       method,
-      url: `/${setIdFromUri(setId)}${itemId}${pinPos}`
+      params,
+      url
     });
   }
 }
