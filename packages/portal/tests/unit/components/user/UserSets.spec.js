@@ -14,11 +14,7 @@ const sets = [
     visibility: 'public',
     title: 'A new collection',
     description: 'A description',
-    items: [
-      {
-        edmPreview: ['http://www.example.org/image.jpg']
-      }
-    ],
+    isShownBy: { thumbnail: 'http://www.example.org/image.jpg' },
     total: 1
   },
   {
@@ -81,12 +77,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 1,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -98,12 +93,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 1,
           qf: ['type:Collection', 'visibility:public']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -115,12 +109,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'contributor:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
           page: 1,
           qf: ['type:EntityBestItemsSet']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -132,12 +125,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 20,
           page: 1,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 

@@ -28,6 +28,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.page) {
         params.page = params.page - 1;
       }
+      // account for early versions of the API response not including first set item preview/thumbnail
+      if (params.profile === 'items.meta' && options.withMinimalItemPreviews === true) {
+        params.profile = 'standard';
+      }
       if (params.profile === 'items') {
         params.profile = 'minimal';
       }
@@ -39,7 +43,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       params
     });
 
-    if (options.withMinimalItemPreviews && response.items) {
+    // TODO: remove withMinimalItemPreviews option (also in component requests) when set API version is set to new
+    if (this.config.version === '1.0' && options.withMinimalItemPreviews && response.items) {
       const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
 
       const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
@@ -53,6 +58,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
             const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
             return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
           });
+          set.isShownBy = { thumbnail: set.items[0].edmPreview };
         }
       }
     }
@@ -181,12 +187,26 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   async modifyItems(action, setId, itemId, pin) {
+    let data = [itemId];
     const method = (action === 'add') ? 'put' : 'delete';
-    const pinPos = pin ? '?position=pin' : '';
+    const params = {};
+    let url = `/${setIdFromUri(setId)}/items`;
+
+    if (pin) {
+      params.position = 'pin';
+    }
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      url = `/${setIdFromUri(setId)}${itemId}`;
+      data = undefined;
+    }
 
     return this.request({
+      data,
       method,
-      url: `/${setIdFromUri(setId)}${itemId}${pinPos}`
+      params,
+      url
     });
   }
 }
