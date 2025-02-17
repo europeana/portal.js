@@ -371,6 +371,20 @@ describe('@/plugins/europeana/set', () => {
 
       expect(nock.isDone()).toBe(true);
     });
+
+    describe('v1.0 API compatibility', () => {
+      it('inserts the item into the set at the given position', async() => {
+        const position = 7;
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemId}`)
+          .query({ position, wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).insertItem(setId, itemId, position);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
   });
 
   describe('deleteItem', () => {
@@ -384,11 +398,25 @@ describe('@/plugins/europeana/set', () => {
 
       expect(nock.isDone()).toBe(true);
     });
+
+    describe('v1.0 API compatibility', () => {
+      it('deletes the item from the set', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemId}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).deleteItem(setId, itemId);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
   });
 
   describe('repositionItem', () => {
+    const position = 7;
+
     it('deletes then reinserts the item at the new position', async() => {
-      const position = 7;
       nock(EuropeanaSetApi.BASE_URL)
         .delete(`/${setId}/items`, [itemId])
         .query({ wskey: apiKey })
@@ -401,6 +429,23 @@ describe('@/plugins/europeana/set', () => {
       await (new EuropeanaSetApi({ $config })).repositionItem(setId, itemId, position);
 
       expect(nock.isDone()).toBe(true);
+    });
+
+    describe('v1.0 API compatibility', () => {
+      it('deletes then reinserts the item at the new position', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemId}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemId}`)
+          .query({ position, wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).repositionItem(setId, itemId, position);
+
+        expect(nock.isDone()).toBe(true);
+      });
     });
   });
 });

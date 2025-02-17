@@ -207,22 +207,38 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
-  // TODO: needs to handle v1.0 Set API
   insertItem(setId, itemId, position) {
+    let data = [itemId];
+    let url = `/${setIdFromUri(setId)}/items`;
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      url = `/${setIdFromUri(setId)}${itemId}`;
+      data = undefined;
+    }
+
     return this.request({
       method: 'put',
-      url: `/${setIdFromUri(setId)}/items`,
-      data: [itemId],
+      url,
+      data,
       params: { position }
     });
   }
 
-  // TODO: needs to handle v1.0 Set API
   deleteItem(setId, itemId) {
+    let data = [itemId];
+    let url = `/${setIdFromUri(setId)}/items`;
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      url = `/${setIdFromUri(setId)}${itemId}`;
+      data = undefined;
+    }
+
     return this.request({
       method: 'delete',
-      url: `/${setIdFromUri(setId)}/items`,
-      data: [itemId]
+      url,
+      data
     });
   }
 
