@@ -306,7 +306,9 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/features',
-    '~/plugins/jsdom-domparser.server'
+    '~/plugins/jsdom-domparser.server',
+    '~/plugins/eventHooks',
+    '~/plugins/eventLog'
   ],
 
   buildModules: [

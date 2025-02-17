@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import { useEventHooks } from '@/composables/eventHooks.js';
   import hideTooltips from '@/mixins/hideTooltips';
   import keycloak from '@/mixins/keycloak';
   import logEventMixin from '@/mixins/logEvent';
@@ -66,6 +67,11 @@
       }
     },
 
+    setup() {
+      const { like: likeHook, unlike: unlikeHook } = useEventHooks();
+      return { likeHook, unlikeHook };
+    },
+
     data() {
       return {
         likeLimitModalId: `like-limit-modal-${this.identifier}`
@@ -103,6 +109,7 @@
         this.hideTooltips();
       },
       async like() {
+        this.likeHook.trigger();
         if (this.likesId === null) {
           const response = await this.$apis.set.createLikes();
           this.$store.commit('set/setLikesId', response.id);
@@ -123,6 +130,7 @@
         }
       },
       async unlike() {
+        this.unlikeHook.trigger();
         await this.$store.dispatch('set/unlike', this.identifier);
         this.makeToast(this.$t('set.notifications.itemUnliked'));
       }

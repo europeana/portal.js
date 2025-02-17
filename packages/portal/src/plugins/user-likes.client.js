@@ -1,4 +1,10 @@
+import { useEventHooks } from '@/composables/eventHooks.js';
+
 export default async({ $auth, store }) => {
+  const { like, unlike } = useEventHooks();
+  like.on(() => store.dispatch('set/fetchLikes'))
+  unlike.on(() => store.dispatch('set/fetchLikes'))
+  
   if ($auth?.loggedIn) {
     try {
       // TODO: assess whether there is a more efficient way to do this with fewer
