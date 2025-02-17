@@ -28,13 +28,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.page) {
         params.page = params.page - 1;
       }
-      // account for early versions of the API response not including first set item preview/thumbnail
-      if (params.profile === 'items.meta' && options.withMinimalItemPreviews === true) {
-        params.profile = 'standard';
-      }
-      // check for items.description profile
       if (params.profile === 'items.meta') {
-        params.profile = 'itemDescriptions';
+        // account for early versions of the API response not including first set item preview/thumbnail
+        if (options.withMinimalItemPreviews) {
+          params.profile = 'standard';
+        } else {
+          params.profile = 'itemDescriptions';
+        }
       }
     }
 
