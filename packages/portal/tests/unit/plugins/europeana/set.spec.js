@@ -266,6 +266,21 @@ describe('@/plugins/europeana/set', () => {
       });
     });
 
+    it('changes param profile=items to profile=minimal if API version is 1.0', async() => {
+      const searchParams = {
+        query: 'type:Collection',
+        profile: 'items'
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get('/search')
+        .query({ wskey: 'apikey', ...searchParams, profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
     describe('options', () => {
       describe('withMinimalItemPreviews', () => {
         const recordSearchResponse = {
