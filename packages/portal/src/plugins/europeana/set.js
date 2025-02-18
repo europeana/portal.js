@@ -36,6 +36,9 @@ export default class EuropeanaSetApi extends EuropeanaApi {
           params.profile = 'itemDescriptions';
         }
       }
+      if (params.profile === 'items') {
+        params.profile = 'minimal';
+      }
     }
 
     const response = await this.request({
@@ -142,6 +145,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   create(data) {
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      delete data.collectionType;
+    }
     return this.request({
       method: 'post',
       url: '/',
@@ -156,6 +163,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   update(id, data, params = {}) {
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      delete data.collectionType;
+    }
     return this.request({
       method: 'put',
       url: `/${setIdFromUri(id)}`,
@@ -209,12 +220,26 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   async modifyItems(action, setId, itemId, pin) {
+    let data = [itemId];
     const method = (action === 'add') ? 'put' : 'delete';
-    const pinPos = pin ? '?position=pin' : '';
+    const params = {};
+    let url = `/${setIdFromUri(setId)}/items`;
+
+    if (pin) {
+      params.position = 'pin';
+    }
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      url = `/${setIdFromUri(setId)}${itemId}`;
+      data = undefined;
+    }
 
     return this.request({
+      data,
       method,
-      url: `/${setIdFromUri(setId)}${itemId}${pinPos}`
+      params,
+      url
     });
   }
 }
