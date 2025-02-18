@@ -120,6 +120,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   create(data) {
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      delete data.collectionType;
+    }
     return this.request({
       method: 'post',
       url: '/',
@@ -134,6 +138,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   update(id, data, params = {}) {
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      delete data.collectionType;
+    }
     return this.request({
       method: 'put',
       url: `/${setIdFromUri(id)}`,
