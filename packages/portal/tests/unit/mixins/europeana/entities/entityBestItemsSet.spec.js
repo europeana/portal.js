@@ -123,6 +123,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
         await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
 
         expect(wrapper.vm.$apis.set.search.calledWith({
+          profile: 'items',
           query: 'type:EntityBestItemsSet',
           qf: `subject:${fixtures.entityId}`
         })).toBe(true);

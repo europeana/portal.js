@@ -182,8 +182,13 @@
           visibility: this.visibilityValue
         };
 
-        if (this.isNew && this.itemContext) {
-          setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
+        if (this.isNew) {
+          if (this.type === 'Collection') {
+            setBody.collectionType = 'Gallery';
+          }
+          if (this.itemContext) {
+            setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
+          }
         }
 
         return setBody;
