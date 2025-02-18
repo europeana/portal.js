@@ -190,7 +190,7 @@
 
         const searchParams = {
           query: 'type:EntityBestItemsSet',
-          profile: 'minimal',
+          profile: 'items',
           pageSize: 1
         };
         await Promise.all(this.entities.map(async(entity) => {

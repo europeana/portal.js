@@ -32,6 +32,9 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.profile === 'items.meta' && options.withMinimalItemPreviews === true) {
         params.profile = 'standard';
       }
+      if (params.profile === 'items') {
+        params.profile = 'minimal';
+      }
     }
 
     const response = await this.request({
