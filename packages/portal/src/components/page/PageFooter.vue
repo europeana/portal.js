@@ -161,7 +161,7 @@
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
               { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
-              { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
+              { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS ', text: this.$t('footer.navigation.subscribe') }
             ]
           };
         }
