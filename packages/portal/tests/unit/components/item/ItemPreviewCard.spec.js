@@ -19,10 +19,11 @@ const item = {
   type: 'IMAGE'
 };
 
-const factory = ({ mocks, propsData } = {}) => {
+const factory = ({ mocks, propsData, provide } = {}) => {
   return shallowMount(ItemPreviewCard, {
     localVue,
     propsData,
+    provide,
     mocks: {
       $apis: {
         thumbnail: {
@@ -48,20 +49,50 @@ const factory = ({ mocks, propsData } = {}) => {
         }
       },
       ...mocks
-    }
+    },
+    stubs: ['ItemSelectButton', 'RecommendationButtons', 'RightsStatement', 'UserButtons']
   });
 };
 
 describe('components/item/ItemPreviewCard', () => {
+  itSupportsItemSelectButton = (propsData) => {
+    describe('item select button', () => {
+      it('is rendered when provided showItemPreviewCardSelectButton is true', () => {
+        const wrapper = factory({
+          propsData,
+          provide: { showItemPreviewCardSelectButton: true }
+        });
+
+        const itemSelectButtonStub = wrapper.find('itemselectbutton-stub');
+
+        expect(itemSelectButtonStub.isVisible()).toBe(true);
+      });
+
+      it('is not rendered when provided showItemPreviewCardSelectButton is false (default)', () => {
+        const wrapper = factory({
+          propsData
+        });
+
+        const itemSelectButtonStub = wrapper.find('itemselectbutton-stub');
+
+        expect(itemSelectButtonStub.exists()).toBe(false);
+      });
+    });
+  };
+
   describe('default card', () => {
     it('renders a default content card without any recommendation buttons', () => {
       const wrapper = factory({ propsData: { item } });
 
       expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
     });
+
+    itSupportsItemSelectButton({ item });
   });
 
   describe('list card', () => {
+    const variant = 'list';
+
     describe('when hit-selector is present', () => {
       it('renders a list content card with hit-selector text', () => {
         const hitSelector = {
@@ -70,7 +101,7 @@ describe('components/item/ItemPreviewCard', () => {
           prefix: 'Prefix text ',
           suffix: 'suffix text.'
         };
-        const wrapper = factory({ propsData: { item, variant: 'list', hitSelector } });
+        const wrapper = factory({ propsData: { item, variant, hitSelector } });
 
         expect(wrapper.vm.texts).toEqual([]);
         expect(wrapper.vm.hitText).toEqual(hitSelector);
@@ -78,21 +109,23 @@ describe('components/item/ItemPreviewCard', () => {
     });
     describe('when no hit-selector is present, but there is a description', () => {
       it('renders a list content card with description text', () => {
-        const wrapper = factory({ propsData: { item, variant: 'list' } });
+        const wrapper = factory({ propsData: { item, variant } });
 
         expect(wrapper.vm.texts).toEqual([item.dcDescriptionLangAware]);
       });
     });
     it('renders a list content card with license label', () => {
-      const wrapper = factory({ propsData: { item, variant: 'list' } });
+      const wrapper = factory({ propsData: { item, variant } });
 
       expect(wrapper.vm.rights).toEqual(item.rights[0]);
     });
     it('renders a list content card with type label', () => {
-      const wrapper = factory({ propsData: { item, variant: 'list' } });
+      const wrapper = factory({ propsData: { item, variant } });
 
       expect(wrapper.vm.type).toEqual(item.type);
     });
+
+    itSupportsItemSelectButton({ item, variant });
   });
 
   describe('event listeners', () => {
