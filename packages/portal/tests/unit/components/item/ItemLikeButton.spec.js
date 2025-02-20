@@ -189,8 +189,4 @@ describe('components/item/ItemLikeButton', () => {
       });
     });
   });
-
-  describe('methods', () => {
-
-  });
 });
