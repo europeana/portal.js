@@ -100,6 +100,39 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
+  describe('getWithItems', () => {
+    it('gets the set metadata, and items, and combines them', async() => {
+      const items = ['item1', 'item2'];
+      const meta = { id: 'set1' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ profile: 'meta', wskey: 'apikey' })
+        .reply(200, meta);
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ page: 1, pageSize: 100, profile: 'items.meta', wskey: 'apikey' })
+        .reply(200, { items });
+
+      const response = await (new EuropeanaSetApi({ $config })).getWithItems(setId);
+
+      expect(nock.isDone()).toBe(true);
+      expect(response).toEqual({ id: 'set1', items });
+    });
+
+    describe('if API version is 1.0', () => {
+      it('gets the set with item descriptions', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .get(`/${setId}`)
+          .query({ profile: 'itemDescriptions', wskey: 'apikey' })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV1 })).getWithItems(setId);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+  });
+
   describe('getLikes()', () => {
     it('get the likes set ID', async() => {
       const searchResponse = {
@@ -381,6 +414,21 @@ describe('@/plugins/europeana/set', () => {
       await (new EuropeanaSetApi({ $config: $configV1 })).search(searchParams);
 
       expect(nock.isDone()).toBe(true);
+    });
+
+    describe('getItems', () => {
+      it('gets the items within a set', async() => {
+        const items = ['item1', 'item2'];
+        nock(EuropeanaSetApi.BASE_URL)
+          .get(`/${setId}`)
+          .query({ page: 1, pageSize: 100, profile: 'items.meta', wskey: 'apikey' })
+          .reply(200, { items });
+
+        const response = await (new EuropeanaSetApi({ $config })).getItems(setId);
+
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(items);
+      });
     });
 
     describe('options', () => {
