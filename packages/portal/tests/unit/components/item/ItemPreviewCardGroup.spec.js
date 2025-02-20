@@ -215,13 +215,14 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
 
     describe('endItemDrag', () => {
-      it('emits an @endItemDrag event with item cards', () => {
+      it('emits an @endItemDrag event with the item ID and new position', () => {
+        const position = 1;
         const wrapper = factory({ propsData: { items: results } });
         wrapper.vm.fetch();
 
-        wrapper.vm.endItemDrag();
+        wrapper.vm.endItemDrag({ newIndex: position });
 
-        expect(wrapper.emitted('endItemDrag')).toEqual([[results]]);
+        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[position].id, position }]]);
       });
     });
   });
