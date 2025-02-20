@@ -212,6 +212,11 @@
       redirectToMixin,
       pageMetaMixin
     ],
+    provide() {
+      return {
+        showItemPreviewCardSelectButton: this.$features.itemMultiSelect && this.userCanEditSet
+      };
+    },
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
@@ -261,7 +266,7 @@
         return `set-form-modal-${this.setId}`;
       },
       setCreatorId() {
-        return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
+        return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator?.id;
       },
       userIsOwner() {
         return this.$auth.loggedIn && this.$auth.user &&

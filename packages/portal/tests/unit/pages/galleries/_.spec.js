@@ -120,6 +120,45 @@ describe('GalleryPage (Set)', () => {
     });
   });
 
+  describe('provide', () => {
+    describe('showItemPreviewCardSelectButton', () => {
+      it('is false if itemMultiSelect feature not enabled', () => {
+        const wrapper = factory({
+          features: { itemMultiSelect: false },
+          set: testSet1,
+          user: testSetCreator
+        });
+
+        const showItemPreviewCardSelectButton = wrapper.vm.provide().showItemPreviewCardSelectButton;
+
+        expect(showItemPreviewCardSelectButton).toBe(false);
+      });
+
+      it('is false if user may not edit set', () => {
+        const wrapper = factory({
+          features: { itemMultiSelect: true },
+          set: testSet1
+        });
+
+        const showItemPreviewCardSelectButton = wrapper.vm.provide().showItemPreviewCardSelectButton;
+
+        expect(showItemPreviewCardSelectButton).toBe(false);
+      });
+
+      it('is true if itemMultiSelect feature enabled and user may edit set', () => {
+        const wrapper = factory({
+          features: { itemMultiSelect: true },
+          set: testSet1,
+          user: testSetCreator
+        });
+
+        const showItemPreviewCardSelectButton = wrapper.vm.provide().showItemPreviewCardSelectButton;
+
+        expect(showItemPreviewCardSelectButton).toBe(true);
+      });
+    });
+  });
+
   describe('computed properties', () => {
     describe('weaveUrl', () => {
       it('uses the setId', () => {
