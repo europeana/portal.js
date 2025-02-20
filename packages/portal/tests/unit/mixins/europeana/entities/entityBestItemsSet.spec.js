@@ -38,8 +38,9 @@ const factory = () => {
       $apis: {
         set: {
           create: sinon.stub().resolves({ id: fixtures.setId }),
+          deleteItem: sinon.spy(),
           get: sinon.stub().resolves({ items: [fixtures.setId] }),
-          modifyItems: sinon.spy(),
+          pinItem: sinon.spy(),
           search: sinon.stub().resolves({})
         }
       },
@@ -213,7 +214,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
           await wrapper.vm.pinItemToEntityBestItemsSet(fixtures.itemId, fixtures.setId, fixtures.englishPrefLabel);
 
-          expect(wrapper.vm.$apis.set.modifyItems.called).toBe(false);
+          expect(wrapper.vm.$apis.set.pinItem.called).toBe(false);
         });
       });
 
@@ -228,9 +229,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
           await wrapper.vm.pinItemToEntityBestItemsSet(fixtures.itemId, fixtures.setId, fixtures.englishPrefLabel);
 
-          expect(wrapper.vm.$apis.set.modifyItems.calledWith(
-            'add', fixtures.setId, fixtures.itemId, true
-          )).toBe(true);
+          expect(wrapper.vm.$apis.set.pinItem.calledWith(fixtures.setId, fixtures.itemId)).toBe(true);
         });
 
         it('makes toast with a notification', async() => {
@@ -252,8 +251,8 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
         await wrapper.vm.unpinItemFromEntityBestItemsSet(fixtures.itemId, fixtures.setId);
 
-        expect(wrapper.vm.$apis.set.modifyItems.calledWith(
-          'delete', fixtures.setId, fixtures.itemId
+        expect(wrapper.vm.$apis.set.deleteItem.calledWith(
+          fixtures.setId, fixtures.itemId
         )).toBe(true);
       });
 

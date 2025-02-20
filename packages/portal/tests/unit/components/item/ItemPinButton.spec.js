@@ -29,8 +29,13 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
         create: sinon.stub().resolves({}),
         get: sinon.stub().resolves({}),
         search: sinon.stub().resolves({}),
-        modifyItems: sinon.spy()
+        deleteItem: sinon.spy(),
+        pinItem: sinon.spy()
       }
+    },
+    $error: (error) => {
+      console.error(error);
+      throw error;
     },
     $i18n: { locale: 'de' },
     $router: { push: sinon.spy() },

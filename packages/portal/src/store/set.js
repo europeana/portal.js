@@ -57,7 +57,7 @@ export default {
           if (state.likedItems && state.likedItems.length >= 100) {
             return Promise.reject(new Error('100 likes'));
           } else {
-            return this.$apis.set.modifyItems('add', state.likesId, itemId)
+            return this.$apis.set.insertItem(state.likesId, itemId)
               .then(commit('like', itemId));
           }
         })
@@ -68,7 +68,7 @@ export default {
     },
     async unlike({ dispatch, commit, state }, itemId) {
       try {
-        await this.$apis.set.modifyItems('delete', state.likesId, itemId);
+        await this.$apis.set.deleteItem(state.likesId, itemId);
         commit('unlike', itemId);
         dispatch('fetchLikes');
       } catch (e) {
