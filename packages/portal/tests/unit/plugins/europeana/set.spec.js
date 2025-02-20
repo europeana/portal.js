@@ -124,7 +124,7 @@ describe('@/plugins/europeana/set', () => {
       it('gets the set with item descriptions', async() => {
         nock(EuropeanaSetApi.BASE_URL)
           .get(`/${setId}`)
-          .query({ profile: 'itemDescriptions', wskey: 'apikey' })
+          .query({ profile: 'itemDescriptions', wskey: 'apikey', pageSize: 100 })
           .reply(200);
 
         await (new EuropeanaSetApi({ $config: $configV1 })).getWithItems(setId);

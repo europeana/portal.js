@@ -129,7 +129,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     // TODO: rm when new version is in production
     if (this.config.version === '1.0') {
       return this.get(id, {
-        profile: 'itemDescriptions'
+        profile: 'itemDescriptions',
+        pageSize: 100
       });
     } else {
       return Promise.all([
