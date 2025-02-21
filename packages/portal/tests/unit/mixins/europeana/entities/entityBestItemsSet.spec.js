@@ -159,10 +159,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
         await wrapper.vm.fetchEntityBestItemsSetPinnedItems(fixtures.entityId);
 
-        expect(wrapper.vm.$apis.set.getWithItems.calledWith(fixtures.entityId, {
-          profile: 'standard',
-          pageSize: 100
-        })).toBe(true);
+        expect(wrapper.vm.$apis.set.getWithItems.calledWith(fixtures.entityId)).toBe(true);
       });
 
       it('stores pinned items if present', async() => {
