@@ -143,7 +143,7 @@ describe('@/plugins/europeana/set', () => {
       };
       nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
-        .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
+        .query({ profile: 'items', query: 'creator:auth-user-sub type:BookmarkFolder', wskey: 'apikey' })
         .reply(200, searchResponse);
 
       const response = await (new EuropeanaSetApi({ $config })).getLikes('auth-user-sub');
