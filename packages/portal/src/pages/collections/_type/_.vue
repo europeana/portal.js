@@ -307,7 +307,7 @@
       async setBestItems() {
         const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
         this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-        entityBestItemsSetId && this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
       },
       titleFallback(title) {
         return {

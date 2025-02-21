@@ -195,7 +195,6 @@
         // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
         return Promise.all(this.entities.map(async(entity) => {
           const setId = await this.findEntityBestItemSetId(entity.id);
-          console.log('entity setId', entity, setId)
           const set = await this.fetchEntityBestItemsSet(setId);
           this.sets[entity.id] = this.initSetForEntity(set);
         }));

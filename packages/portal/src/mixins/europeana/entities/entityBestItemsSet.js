@@ -30,8 +30,10 @@ export default {
     },
 
     async fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId) {
+      if (!entityBestItemsSetId) {
+        return;
+      }
       const entityBestItemsSet = await this.$apis.set.getWithItems(entityBestItemsSetId);
-
       this.storeEntityBestItemsSetPinnedItems(entityBestItemsSet);
     },
 

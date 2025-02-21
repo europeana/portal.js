@@ -93,7 +93,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   // TODO: pagination for sets with > 100 items
-  async get(id, params = {}) {
+  get(id, params = {}) {
     const defaults = {
       profile: 'meta'
     };
