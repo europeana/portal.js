@@ -23,7 +23,7 @@
     <DS4CHPageFooter />
     <client-only>
       <PageCookiesWidget
-        :klaro-services="['auth-strategy', 'i18n', 'matomo']"
+        :klaro-services="['auth-strategy', 'i18n', 'matomo', 'hotjar']"
       />
     </client-only>
   </div>
