@@ -253,7 +253,6 @@
 
           this.hide(this.isNew ? 'create' : 'update');
         } catch (e) {
-          console.error(e);
           this.$error(e, { scope: 'gallery' });
         } finally {
           this.submissionPending = false;
