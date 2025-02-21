@@ -61,6 +61,30 @@ describe('@/plugins/europeana/set', () => {
       };
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the meta param if API version is 1.0', async() => {
+      const getParams = { profile: 'meta' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the items param if API version is 1.0', async() => {
+      const getParams = { profile: 'items' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
         .query({ wskey: 'apikey', profile: 'standard' })
         .reply(200);
 
@@ -70,29 +94,10 @@ describe('@/plugins/europeana/set', () => {
     });
 
     it('substitutes the items.meta param if API version is 1.0', async() => {
-      const getParams = {
-        profile: 'items.meta',
-        page: 1,
-        perPage: 100
-      };
+      const getParams = { profile: 'items.meta' };
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
         .query({ wskey: 'apikey', profile: 'itemDescriptions' })
-        .reply(200);
-
-      await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);
-
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('substitutes the meta param if API version is 1.0', async() => {
-      const getParams = {
-        profile: 'meta'
-
-      };
-      nock(EuropeanaSetApi.BASE_URL)
-        .get(`/${setId}`)
-        .query({ wskey: 'apikey', profile: 'standard' })
         .reply(200);
 
       await (new EuropeanaSetApi({ $config: $configV1 })).get(setId, getParams);

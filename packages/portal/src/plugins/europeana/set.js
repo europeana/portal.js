@@ -108,13 +108,17 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (paramsWithDefaults.perPage) {
         delete paramsWithDefaults.perPage;
       }
-      // check for items.description profile
-      if (paramsWithDefaults.profile === 'items.meta') {
-        paramsWithDefaults.profile = 'itemDescriptions';
-      }
       // check for meta profile
       if (paramsWithDefaults.profile === 'meta') {
+        paramsWithDefaults.profile = 'minimal';
+      }
+      // check for items profile
+      if (paramsWithDefaults.profile === 'items') {
         paramsWithDefaults.profile = 'standard';
+      }
+      // check for items.meta profile
+      if (paramsWithDefaults.profile === 'items.meta') {
+        paramsWithDefaults.profile = 'itemDescriptions';
       }
     }
 
