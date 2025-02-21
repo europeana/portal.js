@@ -15,7 +15,7 @@ export const routeHooks = (router, apm, options = {}) => {
       canReuse: true
     });
     if (parsed.locale) {
-      transaction.addLabels('locale', parsed.locale);
+      transaction.addLabels({ locale: parsed.locale });
     }
     next();
   });
