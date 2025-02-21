@@ -92,7 +92,8 @@ export default {
 
       const likes = await this.$apis.set.get(state.likesId, {
         pageSize: 100,
-        profile: 'itemDescriptions'
+        profile: 'items.meta',
+        page: 1
       }).catch(() => {
         return {};
       });
@@ -100,10 +101,7 @@ export default {
     },
     async fetchActive({ commit }, setId) {
       try {
-        const set = await this.$apis.set.get(setId, {
-          pageSize: 100,
-          profile: 'itemDescriptions'
-        });
+        const set = await this.$apis.set.getWithItems(setId);
         commit('setActive', set);
       } catch (error) {
         if (process.server && error.statusCode) {

@@ -28,9 +28,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       if (params.page) {
         params.page = params.page - 1;
       }
-      // account for early versions of the API response not including first set item preview/thumbnail
-      if (params.profile === 'items.meta' && options.withMinimalItemPreviews === true) {
-        params.profile = 'standard';
+      if (params.profile === 'items.meta') {
+        // account for early versions of the API response not including first set item preview/thumbnail
+        if (options.withMinimalItemPreviews) {
+          params.profile = 'standard';
+        } else {
+          params.profile = 'itemDescriptions';
+        }
       }
       if (params.profile === 'items') {
         params.profile = 'minimal';
@@ -84,20 +88,59 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} id the set's id
    * @param {Object} params retrieval params
    * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
+   * @param {string} params.page the set's page for item retrieval
+   * @param {string} params.perPage the number of items per page of results
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   // TODO: pagination for sets with > 100 items
   async get(id, params = {}) {
     const defaults = {
-      profile: 'standard'
+      profile: 'meta'
     };
     const paramsWithDefaults = { ...defaults, ...params };
+
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      // get requests with pagination remove item metadata, use them without pagination
+      if (paramsWithDefaults.page) {
+        delete paramsWithDefaults.page;
+      }
+      if (paramsWithDefaults.perPage) {
+        delete paramsWithDefaults.perPage;
+      }
+      // check for items.description profile
+      if (paramsWithDefaults.profile === 'items.meta') {
+        paramsWithDefaults.profile = 'itemDescriptions';
+      }
+      // check for meta profile
+      if (paramsWithDefaults.profile === 'meta') {
+        paramsWithDefaults.profile = 'standard';
+      }
+    }
 
     return this.request({
       method: 'get',
       url: `/${setIdFromUri(id)}`,
       params: paramsWithDefaults
     });
+  }
+
+  getWithItems(id) {
+    // TODO: rm when new version is in production
+    if (this.config.version === '1.0') {
+      return this.get(id, {
+        profile: 'itemDescriptions',
+        pageSize: 100
+      });
+    } else {
+      return Promise.all([
+        this.get(id, { profile: 'meta' }),
+        this.getItems(id)
+      ]).then((responses) => ({
+        ...responses[0],
+        items: responses[1]
+      }));
+    }
   }
 
   /**
@@ -223,6 +266,14 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       url,
       data
     });
+  }
+
+  getItems(id) {
+    return this.get(id, {
+      page: 1,
+      pageSize: 100,
+      profile: 'items.meta'
+    }).then((response) => response?.items);
   }
 
   repositionItem(setId, itemId, position) {

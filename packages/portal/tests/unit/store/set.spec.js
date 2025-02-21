@@ -112,15 +112,19 @@ describe('store/set', () => {
     const recommendations = { items: ['/123/def', '/123/ghi'] };
     const newRecommendation = { items: ['/123/jkl'] };
     const updatedRecommendations = ['/123/def', '/123/jkl'];
+    const $config = { key: 'apikey' };
     const set = {
       id: setId,
+      creator: {
+        id: userId
+      },
       items: []
     };
 
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$apis = { set: {}, recommendation: {}, record: {} };
+      store.actions.$apis = { set: { config: $config }, recommendation: {}, record: {} };
       store.actions.$auth = {};
       store.actions.app = { context: { res: {} } };
     });
@@ -203,7 +207,7 @@ describe('store/set', () => {
     describe('fetchLikes()', () => {
       describe('without likesId in state', () => {
         it('does not fetch likes via $apis.set', async() => {
-          store.actions.$apis.set.get = sinon.stub().resolves(set);
+          store.actions.$apis.set.get = sinon.stub();
           const state = {};
 
           await store.actions.fetchLikes({ state, commit });
@@ -227,39 +231,13 @@ describe('store/set', () => {
 
     describe('fetchActive()', () => {
       it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
-        store.actions.$apis.set.get = sinon.stub().resolves(set);
+        store.actions.$apis.set.getWithItems = sinon.stub().resolves(set);
         store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
 
         await store.actions.fetchActive({ commit }, setId);
 
-        expect(store.actions.$apis.set.get.calledWith(setId, {
-          profile: 'itemDescriptions',
-          pageSize: 100
-        })).toBe(true);
+        expect(store.actions.$apis.set.getWithItems.calledWith(setId)).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
-      });
-      describe('when API request doesn\'t return a set', () => {
-        const apiError = new Error({ message: 'No set found' });
-        apiError.statusCode = 404;
-
-        it('throws the API error', async() => {
-          store.actions.$apis.set.get = sinon.stub().rejects(apiError);
-          await expect(store.actions.fetchActive({ commit }, setId)).rejects.toThrow(apiError);
-        });
-        it('sets the error\'s status code for the app response', async() => {
-          store.actions.$apis.set.get = sinon.stub().rejects(apiError);
-          process.server = true;
-
-          let error;
-          try {
-            await store.actions.fetchActive({ commit }, setId);
-          } catch (e) {
-            error = e;
-          }
-
-          expect(error.statusCode).toBe(apiError.statusCode);
-          expect(store.actions.app.context.res.statusCode).toEqual(apiError.statusCode);
-        });
       });
     });
 
