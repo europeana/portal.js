@@ -9,7 +9,8 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const storeDispatch = sinon.stub().resolves({});
-const setApiCreateStub = sinon.stub().resolves({});
+const setApiCreateStub = sinon.stub().resolves({ id: '123' });
+const setApiInsertItemStub = sinon.stub().resolves({});
 
 const i18n = new VueI18n({
   locale: 'en'
@@ -41,7 +42,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
   mocks: {
     $apis: {
       set: {
-        create: setApiCreateStub
+        create: setApiCreateStub,
+        insertItem: setApiInsertItemStub
       }
     },
     $store: {
@@ -52,6 +54,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
 });
 
 describe('components/set/SetFormModal', () => {
+  afterEach(sinon.resetHistory);
+
   describe('form submission', () => {
     it('creates new sets', async() => {
       const wrapper = factory();
@@ -93,6 +97,21 @@ describe('components/set/SetFormModal', () => {
           visibility: 'private'
         }
       })).toBe(true);
+    });
+
+    describe('when in item context', () => {
+      const propsData = { itemContext: '/123/abc' };
+
+      it('inserts item into set via API plugin', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.find('#set-title').setValue('My first public set');
+        await wrapper.find('#set-description').setValue('Lots of things in here');
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(setApiInsertItemStub.calledWith('123', '/123/abc')).toBe(true);
+      });
     });
   });
 
