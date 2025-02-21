@@ -213,7 +213,6 @@
         const params = {
           query: 'visibility:published',
           pageSize: 4,
-          profile: 'items.meta',
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });

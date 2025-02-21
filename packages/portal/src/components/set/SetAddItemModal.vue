@@ -112,9 +112,10 @@
         // TODO: pagination and/or search within one's collections
         const searchParams = {
           query: `creator:${creator}`,
-          profile: 'standard',
           pageSize: 100,
           page: 1,
+          // FIXME: this is a v1.0 profile
+          profile: 'standard',
           qf: [
             'type:Collection'
           ]

@@ -188,21 +188,16 @@
           return memo;
         }, {});
 
-        const searchParams = {
-          query: 'type:EntityBestItemsSet',
-          profile: 'items',
-          pageSize: 1
-        };
         await Promise.all(this.entities.map(async(entity) => {
           const entityUri = entity.id;
           // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
-          const searchResponse = await this.$apis.set.search({
-            ...searchParams,
+          const id = await this.$apis.set.findId({
+            query: 'type:EntityBestItemsSet',
             qf: `subject:${entityUri}`
           });
 
-          if (searchResponse?.total > 0) {
-            await this.getOneSet(searchResponse.items?.[0].split('/').pop());
+          if (id) {
+            await this.getOneSet(id.split('/').pop());
           }
           // TODO: Should an else block actually be RESETTING the data to empty values?
         }));

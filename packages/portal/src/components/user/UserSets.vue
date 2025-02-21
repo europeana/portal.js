@@ -130,7 +130,6 @@
 
       const searchParams = {
         query: `${this.userField}:${this.userId}`,
-        profile: 'items.meta',
         pageSize: this.perPage,
         page: this.page,
         qf

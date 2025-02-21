@@ -47,17 +47,12 @@ export default {
     },
 
     async findEntityBestItemsSet(entityId) {
-      const searchResponse = await this.$apis.set.search({
-        profile: 'items',
+      const id = await this.$apis.set.findId({
         query: 'type:EntityBestItemsSet',
         qf: `subject:${entityId}`
       });
 
-      if (searchResponse.total > 0) {
-        return searchResponse.items[0].split('/').pop();
-      } else {
-        return null;
-      }
+      return id?.split('/')?.pop() || null;
     },
 
     async pinItemToEntityBestItemsSet(itemId, entityBestItemsSetId, entityPrefLabel) {
