@@ -112,6 +112,7 @@ const fixtures = {
 
 const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
+const setApiGetWithItemsStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
 const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiPinItemStub = sinon.stub().resolves({});
@@ -139,6 +140,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
       },
       set: {
         get: setApiGetStub,
+        getWithItems: setApiGetWithItemsStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
         deleteItem: setApiDeleteItemStub,
@@ -177,7 +179,7 @@ describe('components/item/ItemPinModal', () => {
     describe('option buttons', () => {
       it('shows a button for each entity option', async() => {
         const wrapper = factory();
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.findAll('button[data-qa="pin item to entity choice"]').length).toEqual(3);
       });
@@ -185,7 +187,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is selected', () => {
         it('shows the check icon on the selected option', async() => {
           const wrapper = factory();
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
           await wrapper.setData({
             selected: ENTITY_URI
           });
@@ -197,7 +199,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is pinned', () => {
         it('shows the pin icon on the pinned option', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
 
           const button = wrapper.find('button[data-qa="pin item to entity choice"]');
 
@@ -393,7 +395,7 @@ describe('components/item/ItemPinModal', () => {
   });
 
   describe('methods', () => {
-    describe('fetchEntityBestItemsSets', () => {
+    describe('fetchData', () => {
       afterEach(() => {
         setApiSearchStub.resolves(setSearchApiResponse);
       });
@@ -401,7 +403,7 @@ describe('components/item/ItemPinModal', () => {
       it('fetches and stores the entities from the Entity API', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(entityApiFindStub.called).toBe(true);
         expect(wrapper.vm.entities).toEqual(entityApiFindResponse);
@@ -410,7 +412,7 @@ describe('components/item/ItemPinModal', () => {
       it('iterates over all entityIds and searches the set API for relevant sets', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(setApiSearchStub.callCount).toBe(3);
       });
@@ -421,7 +423,7 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory();
           const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').never();
 
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
 
           expect(setApiSearchStub.callCount).toBe(3);
           expect(getOneSetMock.verify()).toBe(true);
@@ -433,7 +435,7 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory();
           const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').thrice().withArgs('456');
 
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
 
           expect(getOneSetMock.verify()).toBe(true);
         });
@@ -442,7 +444,7 @@ describe('components/item/ItemPinModal', () => {
       it('sets `fetched` to `true`', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.vm.fetched).toBe(true);
       });
@@ -450,7 +452,7 @@ describe('components/item/ItemPinModal', () => {
 
     describe('getOneSet', () => {
       afterEach(() => {
-        setApiGetStub.resolves(setGetApiResponseWithPinnedItem);
+        setApiGetWithItemsStub.resolves(setGetApiResponseWithPinnedItem);
       });
 
       describe('when there are NO pinned items present', () => {
@@ -468,7 +470,7 @@ describe('components/item/ItemPinModal', () => {
           await wrapper.vm.getOneSet('456');
 
           expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
+            profile: 'items',
             pageSize: 100
           })).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
@@ -483,7 +485,7 @@ describe('components/item/ItemPinModal', () => {
           await wrapper.vm.getOneSet('456');
 
           expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
+            profile: 'items',
             pageSize: 100
           })).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
