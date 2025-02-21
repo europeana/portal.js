@@ -62,8 +62,7 @@
         query: 'visibility:published',
         qf: `lang:${this.$i18n.locale}`,
         pageSize: PER_PAGE,
-        page: this.page,
-        profile: 'items.meta'
+        page: this.page
       };
 
       const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });

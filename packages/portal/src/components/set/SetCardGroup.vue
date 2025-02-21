@@ -71,7 +71,11 @@
         //       supports searching by multiple IDs.
         let setResponse = await Promise.all(this.setUris.map(async(id) => {
           const numericId = id.toString().split('/').pop();
-          const setSearchResponse = await this.$apis.set.search({ query: `set_id:${numericId}`, qf: `lang:${this.$i18n.locale}`, profile: 'items.meta', page: 1 });
+          const setSearchResponse = await this.$apis.set.search({
+            query: `set_id:${numericId}`,
+            qf: `lang:${this.$i18n.locale}`,
+            page: 1
+          });
           return setSearchResponse?.items?.[0];
         }));
         setResponse = setResponse.filter(set => !!set);

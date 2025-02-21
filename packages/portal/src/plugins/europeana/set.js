@@ -22,6 +22,9 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
   async search(params, options = {}) {
+    if (!params.profile) {
+      params.profile = 'items.meta';
+    }
     // TODO: rm when new version is in production
     if (this.config.version === '1.0') {
       // account for early versions of the API paginating from 0, new version from 1
@@ -68,6 +71,19 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     }
 
     return response;
+  }
+
+  searchIds(params = {}) {
+    return this.search({ ...params, profile: 'items' });
+  }
+
+  async find(params = {}) {
+    const response = this.search({ ...params, pageSize: 1 });
+    return response.items?.[0];
+  }
+
+  findId(params = {}) {
+    return this.find({ ...params, profile: 'items' });
   }
 
   /**
