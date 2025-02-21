@@ -76,7 +76,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {string} the id of the set
    */
   getLikes(creator) {
-    return this.search({ query: `creator:${creator} type:BookmarkFolder` })
+    return this.search({ query: `creator:${creator} type:BookmarkFolder`, profile: 'items' })
       .then((response) => response.items?.[0] || null)
       .catch(error => {
         throw this.apiError(error);
