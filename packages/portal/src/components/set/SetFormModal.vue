@@ -186,9 +186,6 @@
           if (this.type === 'Collection') {
             setBody.collectionType = 'Gallery';
           }
-          if (this.itemContext) {
-            setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
-          }
         }
 
         return setBody;
@@ -241,23 +238,33 @@
       },
 
       // TODO: error handling other statuses
-      submitForm() {
+      async submitForm() {
         if (this.submissionPending) {
-          return Promise.resolve();
+          return;
         }
         this.submissionPending = true;
-        const handler = this.isNew ?
-          this.$apis.set.create(this.setBody) :
-          this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
 
-        return handler
-          .then(() => {
-            this.hide(this.isNew ? 'create' : 'update');
-          }).then(() => {
-            this.submissionPending = false;
-          }).catch((e) => {
-            this.$error(e, { scope: 'gallery' });
-          });
+        try {
+          const response = await this.createOrUpdateSet();
+
+          if (this.itemContext && this.isNew) {
+            await this.$apis.set.insertItem(response.id, this.itemContext);
+          }
+
+          this.hide(this.isNew ? 'create' : 'update');
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        } finally {
+          this.submissionPending = false;
+        }
+      },
+
+      async createOrUpdateSet() {
+        if (this.isNew) {
+          return this.$apis.set.create(this.setBody);
+        } else {
+          return this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
+        }
       },
 
       show() {
