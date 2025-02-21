@@ -27,7 +27,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
     $apis: {
       set: {
         create: sinon.stub().resolves({}),
-        get: sinon.stub().resolves({}),
+        getWithItems: sinon.stub().resolves({}),
         search: sinon.stub().resolves({}),
         deleteItem: sinon.spy(),
         pinItem: sinon.spy()
