@@ -30,12 +30,18 @@ export default {
     },
 
     async fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId) {
-      const entityBestItemsSet = await this.$apis.set.get(entityBestItemsSetId, {
-        profile: 'standard',
-        pageSize: 100
+      if (!entityBestItemsSetId) {
+        return;
+      }
+      await Promise.all([
+        this.$apis.set.get(entityBestItemsSetId),
+        this.$apis.set.getItemIds(entityBestItemsSetId)
+      ]).then((responses) => {
+        this.storeEntityBestItemsSetPinnedItems({
+          ...responses[0],
+          items: responses[1]
+        });
       });
-
-      this.storeEntityBestItemsSetPinnedItems(entityBestItemsSet);
     },
 
     storeEntityBestItemsSetPinnedItems(entityBestItemsSet) {

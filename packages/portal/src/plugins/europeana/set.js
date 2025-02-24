@@ -93,7 +93,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   // TODO: pagination for sets with > 100 items
-  async get(id, params = {}) {
+  get(id, params = {}) {
     const defaults = {
       profile: 'meta'
     };
@@ -127,24 +127,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       url: `/${setIdFromUri(id)}`,
       params: paramsWithDefaults
     });
-  }
-
-  getWithItems(id) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
-      return this.get(id, {
-        profile: 'itemDescriptions',
-        pageSize: 100
-      });
-    } else {
-      return Promise.all([
-        this.get(id, { profile: 'meta' }),
-        this.getItems(id)
-      ]).then((responses) => ({
-        ...responses[0],
-        items: responses[1]
-      }));
-    }
   }
 
   /**
@@ -270,6 +252,14 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       url,
       data
     });
+  }
+
+  getItemIds(id) {
+    return this.get(id, {
+      page: 1,
+      pageSize: 100,
+      profile: 'items'
+    }).then((response) => response?.items);
   }
 
   getItems(id) {

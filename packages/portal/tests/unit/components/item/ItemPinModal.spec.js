@@ -112,6 +112,7 @@ const fixtures = {
 
 const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
+const setApiGetItemIdsStub = sinon.stub().resolves(['http://data.europeana.eu/item/123/abc']);
 const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiPinItemStub = sinon.stub().resolves({});
@@ -139,6 +140,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
       },
       set: {
         get: setApiGetStub,
+        getItemIds: setApiGetItemIdsStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
         deleteItem: setApiDeleteItemStub,
@@ -177,7 +179,7 @@ describe('components/item/ItemPinModal', () => {
     describe('option buttons', () => {
       it('shows a button for each entity option', async() => {
         const wrapper = factory();
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.findAll('button[data-qa="pin item to entity choice"]').length).toEqual(3);
       });
@@ -185,7 +187,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is selected', () => {
         it('shows the check icon on the selected option', async() => {
           const wrapper = factory();
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
           await wrapper.setData({
             selected: ENTITY_URI
           });
@@ -197,7 +199,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is pinned', () => {
         it('shows the pin icon on the pinned option', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
-          await wrapper.vm.fetchEntityBestItemsSets();
+          await wrapper.vm.fetchData();
 
           const button = wrapper.find('button[data-qa="pin item to entity choice"]');
 
@@ -393,7 +395,7 @@ describe('components/item/ItemPinModal', () => {
   });
 
   describe('methods', () => {
-    describe('fetchEntityBestItemsSets', () => {
+    describe('fetchData', () => {
       afterEach(() => {
         setApiSearchStub.resolves(setSearchApiResponse);
       });
@@ -401,7 +403,7 @@ describe('components/item/ItemPinModal', () => {
       it('fetches and stores the entities from the Entity API', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(entityApiFindStub.called).toBe(true);
         expect(wrapper.vm.entities).toEqual(entityApiFindResponse);
@@ -410,85 +412,17 @@ describe('components/item/ItemPinModal', () => {
       it('iterates over all entityIds and searches the set API for relevant sets', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(setApiSearchStub.callCount).toBe(3);
-      });
-
-      describe('when there are no sets for any of the entities', () => {
-        it('does NOT call "getOneSet"', async() => {
-          setApiSearchStub.resolves({ total: 0 });
-          const wrapper = factory();
-          const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').never();
-
-          await wrapper.vm.fetchEntityBestItemsSets();
-
-          expect(setApiSearchStub.callCount).toBe(3);
-          expect(getOneSetMock.verify()).toBe(true);
-        });
-      });
-
-      describe('when an entity has an associated EntityBestItemsSet set', () => {
-        it('calls "getOneSet" for the setId', async() => {
-          const wrapper = factory();
-          const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').thrice().withArgs('456');
-
-          await wrapper.vm.fetchEntityBestItemsSets();
-
-          expect(getOneSetMock.verify()).toBe(true);
-        });
       });
 
       it('sets `fetched` to `true`', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.vm.fetched).toBe(true);
-      });
-    });
-
-    describe('getOneSet', () => {
-      afterEach(() => {
-        setApiGetStub.resolves(setGetApiResponseWithPinnedItem);
-      });
-
-      describe('when there are NO pinned items present', () => {
-        it('stores the set ID and blank array of pins', async() => {
-          const setGetResponse = {
-            id: 'http://data.europeana.eu/set/456',
-            type: 'EntityBestItemsSet',
-            subject: [ENTITY_URI],
-            pinned: 0
-          };
-          setApiGetStub.resolves(setGetResponse);
-
-          const wrapper = factory();
-
-          await wrapper.vm.getOneSet('456');
-
-          expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
-            pageSize: 100
-          })).toBe(true);
-          expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
-          expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
-        });
-      });
-
-      describe('when there are pinned items present', () => {
-        it('stores the set ID and pins', async() => {
-          const wrapper = factory();
-
-          await wrapper.vm.getOneSet('456');
-
-          expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
-            pageSize: 100
-          })).toBe(true);
-          expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
-          expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual(['/123/abc']);
-        });
       });
     });
 

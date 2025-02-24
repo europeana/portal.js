@@ -231,13 +231,13 @@ describe('store/set', () => {
 
     describe('fetchActive()', () => {
       it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
-        store.actions.$apis.set.getWithItems = sinon.stub().resolves(set);
-        store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
+        store.actions.$apis.set.get = sinon.stub().resolves(set);
+        store.actions.$apis.set.getItems = sinon.stub().resolves([]);
 
         await store.actions.fetchActive({ commit }, setId);
 
-        expect(store.actions.$apis.set.getWithItems.calledWith(setId)).toBe(true);
-        expect(commit.calledWith('setActive', set)).toBe(true);
+        expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
+        expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);
       });
     });
 

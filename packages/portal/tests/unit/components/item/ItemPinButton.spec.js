@@ -28,6 +28,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
       set: {
         create: sinon.stub().resolves({}),
         get: sinon.stub().resolves({}),
+        getItemIds: sinon.stub().resolves([]),
         search: sinon.stub().resolves({}),
         deleteItem: sinon.spy(),
         pinItem: sinon.spy()
