@@ -112,7 +112,7 @@ const fixtures = {
 
 const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
-const setApiGetWithItemsStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
+const setApiGetItemIdsStub = sinon.stub().resolves(['http://data.europeana.eu/item/123/abc']);
 const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiPinItemStub = sinon.stub().resolves({});
@@ -140,7 +140,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
       },
       set: {
         get: setApiGetStub,
-        getWithItems: setApiGetWithItemsStub,
+        getItemIds: setApiGetItemIdsStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
         deleteItem: setApiDeleteItemStub,

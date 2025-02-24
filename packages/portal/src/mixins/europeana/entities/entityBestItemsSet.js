@@ -33,8 +33,15 @@ export default {
       if (!entityBestItemsSetId) {
         return;
       }
-      const entityBestItemsSet = await this.$apis.set.getWithItems(entityBestItemsSetId);
-      this.storeEntityBestItemsSetPinnedItems(entityBestItemsSet);
+      await Promise.all([
+        this.$apis.set.get(entityBestItemsSetId),
+        this.$apis.set.getItemIds(entityBestItemsSetId)
+      ]).then((responses) => {
+        this.storeEntityBestItemsSetPinnedItems({
+          ...responses[0],
+          items: responses[1]
+        });
+      });
     },
 
     storeEntityBestItemsSetPinnedItems(entityBestItemsSet) {

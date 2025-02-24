@@ -129,24 +129,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
-  getWithItems(id) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
-      return this.get(id, {
-        profile: 'itemDescriptions',
-        pageSize: 100
-      });
-    } else {
-      return Promise.all([
-        this.get(id, { profile: 'meta' }),
-        this.getItems(id)
-      ]).then((responses) => ({
-        ...responses[0],
-        items: responses[1]
-      }));
-    }
-  }
-
   /**
    * Create a set of type BookmarkFolder with a fixed title
    * @return {Object} API response data
@@ -270,6 +252,14 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       url,
       data
     });
+  }
+
+  getItemIds(id) {
+    return this.get(id, {
+      page: 1,
+      pageSize: 100,
+      profile: 'items'
+    }).then((response) => response?.items);
   }
 
   getItems(id) {

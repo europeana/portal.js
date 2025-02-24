@@ -39,7 +39,8 @@ const factory = () => {
         set: {
           create: sinon.stub().resolves({ id: fixtures.setId }),
           deleteItem: sinon.spy(),
-          getWithItems: sinon.stub().resolves({ items: [fixtures.setId] }),
+          get: sinon.stub().resolves({ items: [fixtures.setId] }),
+          getItemIds: sinon.stub().resolves([fixtures.itemId]),
           pinItem: sinon.spy(),
           search: sinon.stub().resolves({})
         }
@@ -159,21 +160,21 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
         await wrapper.vm.fetchEntityBestItemsSetPinnedItems(fixtures.entityId);
 
-        expect(wrapper.vm.$apis.set.getWithItems.calledWith(fixtures.entityId)).toBe(true);
+        expect(wrapper.vm.$apis.set.get.calledWith(fixtures.entityId)).toBe(true);
       });
 
       it('stores pinned items if present', async() => {
         const wrapper = factory();
-        wrapper.vm.$apis.set.getWithItems.resolves({ items: [fixtures.setId], pinned: 1 });
+        wrapper.vm.$apis.set.get.resolves({ items: [fixtures.setId], pinned: 1 });
 
         await wrapper.vm.fetchEntityBestItemsSetPinnedItems(fixtures.entityId);
 
-        expect(wrapper.vm.$store.commit.calledWith('entity/setPinned', [fixtures.setId])).toBe(true);
+        expect(wrapper.vm.$store.commit.calledWith('entity/setPinned', [fixtures.itemId])).toBe(true);
       });
 
       it('resets stored pinned items if none', async() => {
         const wrapper = factory();
-        wrapper.vm.$apis.set.getWithItems.resolves({ items: [fixtures.setId], pinned: 0 });
+        wrapper.vm.$apis.set.get.resolves({ items: [fixtures.setId], pinned: 0 });
 
         await wrapper.vm.fetchEntityBestItemsSetPinnedItems(fixtures.entityId);
 

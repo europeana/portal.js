@@ -188,6 +188,7 @@
         const id = set?.id || null;
         // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
         const pinned = (set?.items || []).map((item) => item.replace('http://data.europeana.eu/item', '')).slice(0, set?.pinned || 0);
+
         return { id, pinned };
       },
 

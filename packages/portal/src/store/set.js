@@ -101,8 +101,15 @@ export default {
     },
     async fetchActive({ commit }, setId) {
       try {
-        const set = await this.$apis.set.getWithItems(setId);
-        commit('setActive', set);
+        await Promise.all([
+          this.$apis.set.get(setId),
+          this.$apis.set.getItems(setId)
+        ]).then((responses) => {
+          commit('setActive', {
+            ...responses[0],
+            items: responses[1]
+          });
+        });
       } catch (error) {
         if (process.server && error.statusCode) {
           this.app.context.res.statusCode = error.statusCode;
