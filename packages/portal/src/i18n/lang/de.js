@@ -1337,8 +1337,8 @@ export default {
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
-      "removeItemFromLikes": "Entfernen Sie dieses Objekt aus deinen Likes.",
-      "saveItemToLikes": "Speichere diesem Objekt in deinen Likes.",
+      "removeItemFromLikes": "Entfernen Sie dieses Objekt aus Ihren Likes.",
+      "saveItemToLikes": "Speichern Sie dieses Objekt in Ihren Likes.",
       "update": "Galerie aktualisieren"
     },
     "form": {
