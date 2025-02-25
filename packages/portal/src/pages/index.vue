@@ -56,8 +56,8 @@
     name: 'IndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       BrowsePage: () => import('@/components/browse/BrowsePage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       HomePage: () => import('@/components/home/HomePage'),
       LandingPage: () => import('@/components/landing/LandingPage'),
       LoadingSpinner,

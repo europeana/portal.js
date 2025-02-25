@@ -49,7 +49,15 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       }
     },
     localePath: () => '/'
-  }
+  },
+  stubs: [
+    'AuthoredHead',
+    'ContentWarningModal',
+    'EntityBadges',
+    'LinkList',
+    'RelatedCategoryTags',
+    'ThemeBadges'
+  ]
 });
 
 describe('pages/exhibitions/_exhibition/_chapter', () => {

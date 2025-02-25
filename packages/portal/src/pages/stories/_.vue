@@ -51,8 +51,8 @@
 
     components: {
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       StoryPost
     },
 

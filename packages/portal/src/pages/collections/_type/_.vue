@@ -84,10 +84,10 @@
     name: 'CollectionPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },

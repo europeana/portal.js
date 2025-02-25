@@ -189,16 +189,16 @@
     name: 'GalleryPage',
     components: {
       ClientOnly,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SearchViewToggles,
-      ShareButton,
-      ShareSocialModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
+      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
-      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
+      SetRecommendations: () => import('@/components/set/SetRecommendations'),
+      ShareButton,
+      ShareSocialModal
 
     },
     mixins: [

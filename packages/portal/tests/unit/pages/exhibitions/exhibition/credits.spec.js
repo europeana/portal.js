@@ -23,7 +23,12 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
       }
     },
     localePath: () => '/'
-  }
+  },
+  stubs: [
+    'EntityBadges',
+    'LinkList',
+    'ThemeBadges'
+  ]
 });
 
 describe('pages/exhibitions/_exhibition/credits', () => {

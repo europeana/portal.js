@@ -92,7 +92,10 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     },
     asyncData: () => true
   },
-  stubs: ['LoadingSpinner']
+  stubs: [
+    'AlertMessage',
+    'LoadingSpinner'
+  ]
 });
 
 describe('Gallery index page', () => {
