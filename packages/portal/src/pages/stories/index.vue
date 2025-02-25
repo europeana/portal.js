@@ -46,8 +46,8 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHeader,
-      StoriesInterface,
-      LoadingSpinner
+      LoadingSpinner,
+      StoriesInterface
     },
 
     mixins: [pageMetaMixin],

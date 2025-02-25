@@ -31,7 +31,14 @@ const factory = ({
     $route: { params: { pathMatch: 'about' }, query: {} },
     $t: key => key,
     ...mocks
-  }
+  },
+  stubs: [
+    'BrowsePage',
+    'ErrorMessage',
+    'HomePage',
+    'LandingPage',
+    'StaticPage'
+  ]
 });
 
 describe('IndexPage', () => {

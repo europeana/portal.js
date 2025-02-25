@@ -54,7 +54,12 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   },
   provide: {
     canonicalUrl: {}
-  }
+  },
+  stubs: [
+    'ContentWarningModal',
+    'ErrorMessage',
+    'LoadingSpinner'
+  ]
 });
 
 describe('Story page', () => {

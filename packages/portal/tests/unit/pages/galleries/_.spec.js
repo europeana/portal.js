@@ -88,7 +88,14 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     }
   },
-  stubs: ['LoadingSpinner', 'SetRecommendations', 'SetPublicationRequestWidget']
+  stubs: [
+    'ErrorMessage',
+    'LoadingSpinner',
+    'SetFormModal',
+    'SetPublicationRequestWidget',
+    'SetPublishButton',
+    'SetRecommendations'
+  ]
 });
 
 describe('GalleryPage (Set)', () => {

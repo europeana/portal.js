@@ -48,7 +48,10 @@ const factory = ({ $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(Stor
     $tc: (key) => key,
     ...mocks
   },
-  stubs: ['b-card-group']
+  stubs: [
+    'AlertMessage',
+    'b-card-group'
+  ]
 });
 
 describe('pages/stories/index', () => {

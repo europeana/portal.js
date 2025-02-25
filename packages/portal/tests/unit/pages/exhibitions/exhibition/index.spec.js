@@ -75,7 +75,15 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     },
     $route: {},
     $i18n: {}
-  }
+  },
+  stubs: [
+    'AuthoredHead',
+    'ContentWarningModal',
+    'EntityBadges',
+    'LinkList',
+    'RelatedCategoryTags',
+    'ThemeBadges'
+  ]
 });
 
 describe('exhibitionChapters mixin', () => {

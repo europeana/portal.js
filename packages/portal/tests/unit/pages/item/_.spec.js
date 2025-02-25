@@ -162,7 +162,6 @@ const redirectSpy = sinon.spy();
 
 const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only', 'i18n', 'ErrorMessage', 'EntityBadges', 'ItemLanguageSelector'],
   data() {
     return {
       ...data
@@ -217,7 +216,15 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   },
   provide: {
     canonicalUrl: {}
-  }
+  },
+  stubs: [
+    'client-only',
+    'EntityBadges',
+    'ErrorMessage',
+    'i18n',
+    'ItemLanguageSelector',
+    'ItemSummaryInfo'
+  ]
 });
 
 describe('pages/item/_.vue', () => {
