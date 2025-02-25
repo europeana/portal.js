@@ -6,6 +6,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const setApiDeleteSpy = sinon.spy();
 const storeDispatch = sinon.stub().resolves({});
 
 const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, {
@@ -15,6 +16,13 @@ const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, 
     ...propsData
   },
   mocks: {
+    $apis: {
+      set: { delete: setApiDeleteSpy }
+    },
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
     $store: {
       dispatch: storeDispatch
     },
@@ -26,6 +34,8 @@ const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, 
 });
 
 describe('components/set/SetDeleteModal', () => {
+  afterEach(sinon.resetHistory);
+
   it('shows a warning message', () => {
     const wrapper = factory({ setId: '123' });
 
@@ -59,7 +69,15 @@ describe('components/set/SetDeleteModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/delete', '123')).toBe(true);
+      expect(setApiDeleteSpy.calledWith('123')).toBe(true);
+    });
+
+    it('resets the active set id in the store', async() => {
+      const wrapper = factory({ setId: '123' });
+
+      await wrapper.find('form').trigger('submit.stop.prevent');
+
+      expect(storeDispatch.calledWith('set/setActive', null)).toBe(true);
     });
 
     it('hides the modal', async() => {

@@ -10,7 +10,6 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const storeDispatch = sinon.spy();
-const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
 const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMount(ItemHero, {
@@ -32,11 +31,7 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
       userHasClientRole: sinon.stub().returns(false)
     },
     $store: {
-      state: {
-        set: { ...{ liked: [] }, ...{} }
-      },
       getters: {
-        'set/isLiked': storeIsLikedGetter,
         'entity/isPinned': storeIsPinnedGetter,
         'entity/id': 'id123'
       },

@@ -10,7 +10,6 @@ localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 
 const storeDispatch = sinon.spy();
-const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
@@ -29,11 +28,7 @@ const factory = ({ propsData, mocks } = {}) => {
       $route: { query: {} },
       $t: () => {},
       $store: {
-        state: {
-          set: { ...{ liked: [] }, ...{} }
-        },
         getters: {
-          'set/isLiked': storeIsLikedGetter,
           'entity/isPinned': storeIsPinnedGetter
         },
         dispatch: storeDispatch

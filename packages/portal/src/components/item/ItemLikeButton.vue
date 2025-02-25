@@ -74,7 +74,7 @@
 
     computed: {
       liked() {
-        return this.$store.getters['set/isLiked'](this.identifier);
+        return this.$store.state.set.likedItemIds.includes(this.identifier);
       },
       likesId() {
         return this.$store.state.set.likesId;

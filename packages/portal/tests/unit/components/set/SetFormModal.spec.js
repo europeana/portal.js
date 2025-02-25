@@ -11,6 +11,7 @@ localVue.use(VueI18n);
 const storeDispatch = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: '123' });
 const setApiInsertItemStub = sinon.stub().resolves({});
+const setApiUpdateStub = sinon.stub().resolves({ id: '123' });
 
 const i18n = new VueI18n({
   locale: 'en'
@@ -43,7 +44,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
     $apis: {
       set: {
         create: setApiCreateStub,
-        insertItem: setApiInsertItemStub
+        insertItem: setApiInsertItemStub,
+        update: setApiUpdateStub
       }
     },
     $store: {
@@ -84,18 +86,15 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/update', {
-        id: '123',
-        body: {
-          type: 'Collection',
-          title: {
-            en: 'A better title'
-          },
-          description: {
-            en: 'Lots of things in here'
-          },
-          visibility: 'private'
-        }
+      expect(setApiUpdateStub.calledWith('123', {
+        type: 'Collection',
+        title: {
+          en: 'A better title'
+        },
+        description: {
+          en: 'Lots of things in here'
+        },
+        visibility: 'private'
       })).toBe(true);
     });
 

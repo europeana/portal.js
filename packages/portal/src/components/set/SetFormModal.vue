@@ -246,6 +246,7 @@
 
         try {
           const response = await this.createOrUpdateSet();
+          this.$store.dispatch('set/fetchActive', response.id);
 
           if (this.itemContext && this.isNew) {
             await this.$apis.set.insertItem(response.id, this.itemContext);
@@ -263,7 +264,7 @@
         if (this.isNew) {
           return this.$apis.set.create(this.setBody);
         } else {
-          return this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
+          return this.$apis.set.update(this.setId, this.setBody);
         }
       },
 
