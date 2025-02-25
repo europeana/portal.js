@@ -122,12 +122,7 @@ export default {
 
       // Check if updated set is active set
       if (state.active && (state.active.id === id)) {
-        // Respect reordering of items in update
-        let items = state.active.items;
-        if (response.items) {
-          items = response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
-        }
-        commit('setActive', { ...response, items });
+        commit('setActive', { ...state.active, ...response });
       }
     },
     async publish({ state, commit }, id) {
