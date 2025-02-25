@@ -28,7 +28,7 @@
     methods: {
       async suggestSets(val) {
         const response = await this.$apis.set.search({
-          query: val, qf: 'visibility:published', profile: 'standard'
+          query: val, qf: 'visibility:published', profile: 'items.meta'
         });
         return response.items || [];
       },
@@ -38,7 +38,7 @@
         //       linked set, but the Set API does not yet support searching
         //       by multiple IDs combined with OR. refactor when the API
         //       supports searching by multiple IDs.
-        return Promise.all(val.map((id) => this.$apis.set.get(id, { profile: 'standard' })));
+        return Promise.all(val.map((id) => this.$apis.set.get(id, { profile: 'items' })));
       },
 
       labelSet(val) {
