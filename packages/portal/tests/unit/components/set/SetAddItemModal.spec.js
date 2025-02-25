@@ -80,7 +80,7 @@ describe('components/set/SetAddItemModal', () => {
 
       it('removes item from gallery when item already added', async() => {
         const propsData = { itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
-        const data = { fetched: true, collections: sets };
+        const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
         const wrapper = factory({ propsData, data });
         const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
@@ -102,10 +102,25 @@ describe('components/set/SetAddItemModal', () => {
 
         expect(wrapper.vm.$apis.set.search.calledWith({
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 100,
           page: 1,
           qf: ['type:Collection']
+        })).toBe(true);
+      });
+
+      it('queries Set API for user\'s sets specific to the item', async() => {
+        const propsData = { itemId: '/000/aaa' };
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetchCollections();
+
+        expect(wrapper.vm.$apis.set.search.calledWith({
+          query: 'creator:user-id',
+          profile: 'items',
+          pageSize: 100,
+          page: 1,
+          qf: ['item:http://data.europeana.eu/item/000/aaa', 'type:Collection']
         })).toBe(true);
       });
 
