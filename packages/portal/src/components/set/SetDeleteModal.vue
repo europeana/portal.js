@@ -66,7 +66,7 @@
       async submitForm() {
         try {
           await this.$apis.set.delete(this.setId);
-          if (this.setId === this.$store.state.set.active.id) {
+          if (this.setId === this.$store.state.set.active?.id) {
             this.$store.dispatch('set/setActive', null);
           }
 
