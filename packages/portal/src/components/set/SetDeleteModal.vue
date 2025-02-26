@@ -65,7 +65,10 @@
       // TODO: error handling other statuses
       async submitForm() {
         try {
-          await this.$store.dispatch('set/delete', this.setId);
+          await this.$apis.set.delete(this.setId);
+          if (this.setId === this.$store.state.set.active?.id) {
+            this.$store.dispatch('set/setActive', null);
+          }
 
           this.makeToast(this.toastMsg);
           this.hide();
