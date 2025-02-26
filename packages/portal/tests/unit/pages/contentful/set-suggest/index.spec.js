@@ -46,8 +46,8 @@ describe('pages/contentful/set-suggest/index', () => {
 
         await wrapper.vm.findSets(value);
 
-        expect(wrapper.vm.$apis.set.get.calledWith(value[0], { profile: 'items' })).toBe(true);
-        expect(wrapper.vm.$apis.set.get.calledWith(value[1], { profile: 'items' })).toBe(true);
+        expect(wrapper.vm.$apis.set.get.calledWith(value[0])).toBe(true);
+        expect(wrapper.vm.$apis.set.get.calledWith(value[1])).toBe(true);
       });
     });
 

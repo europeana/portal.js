@@ -38,7 +38,7 @@
         //       linked set, but the Set API does not yet support searching
         //       by multiple IDs combined with OR. refactor when the API
         //       supports searching by multiple IDs.
-        return Promise.all(val.map((id) => this.$apis.set.get(id, { profile: 'items' })));
+        return Promise.all(val.map((id) => this.$apis.set.get(id)));
       },
 
       labelSet(val) {
