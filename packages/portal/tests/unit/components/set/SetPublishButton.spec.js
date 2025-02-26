@@ -7,6 +7,8 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const storeDispatch = sinon.stub().resolves({});
+const setApiPublishSpy = sinon.spy();
+const setApiUnpublishSpy = sinon.spy();
 
 const publicSet = { setId: '001', visibility: 'public' };
 
@@ -18,6 +20,12 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
     ...propsData
   },
   mocks: {
+    $apis: {
+      set: {
+        publish: setApiPublishSpy,
+        unpublish: setApiUnpublishSpy
+      }
+    },
     $t: key => key,
     $store: {
       dispatch: storeDispatch,
@@ -50,8 +58,8 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/publish', publicSet.setId)).toBe(false);
-      expect(storeDispatch.calledWith('set/unpublish', publicSet.setId)).toBe(false);
+      expect(setApiPublishSpy.called).toBe(false);
+      expect(setApiUnpublishSpy.called).toBe(false);
     });
 
     it('shows a toast with a notification', async() => {
@@ -71,7 +79,15 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/publish', publicSet.setId)).toBe(true);
+      expect(setApiPublishSpy.called).toBe(true);
+    });
+
+    it('refreshes the set in the store', async() => {
+      const wrapper = factory(publicSet);
+
+      await wrapper.find('[data-qa="publish set button"]').trigger('click');
+
+      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
     });
   });
 
@@ -81,7 +97,15 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/unpublish', publicSet.setId)).toBe(true);
+      expect(setApiUnpublishSpy.calledWith(publicSet.setId)).toBe(true);
+    });
+
+    it('refreshes the set in the store', async() => {
+      const wrapper = factory(publishedSet);
+
+      await wrapper.find('[data-qa="publish set button"]').trigger('click');
+
+      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
     });
   });
 });

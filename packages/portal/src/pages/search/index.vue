@@ -59,10 +59,10 @@
 
     components: {
       ClientOnly,
-      SearchInterface,
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
-      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
+      SearchInterface
     },
 
     mixins: [pageMetaMixin],

@@ -39,17 +39,7 @@ export default {
     }
   },
 
-  getters: {
-    isLiked: (state) => (itemId) => {
-      return state.likedItemIds.includes(itemId);
-    }
-  },
-
   actions: {
-    reset({ commit }) {
-      commit('setLikesId', null);
-      commit('setLikedItems', null);
-    },
     like({ dispatch, commit, state }, itemId) {
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
       return dispatch('fetchLikes')
@@ -75,10 +65,6 @@ export default {
         dispatch('fetchLikes');
         throw e;
       }
-    },
-    async setLikes({ commit }) {
-      const likesId = await this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null);
-      commit('setLikesId', likesId);
     },
     refreshSet({ state, dispatch }) {
       if (state.active) {
@@ -115,39 +101,6 @@ export default {
           this.app.context.res.statusCode = error.statusCode;
         }
         throw error;
-      }
-    },
-    async update({ state, commit }, { id, body, params }) {
-      const response = await this.$apis.set.update(id, body, params);
-
-      // Check if updated set is active set
-      if (state.active && (state.active.id === id)) {
-        // Respect reordering of items in update
-        let items = state.active.items;
-        if (response.items) {
-          items = response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
-        }
-        commit('setActive', { ...response, items });
-      }
-    },
-    async publish({ state, commit }, id) {
-      const response = await this.$apis.set.publish(id);
-
-      if (state.active && (state.active.id === id)) {
-        commit('setActive', { ...state.active, ...response });
-      }
-    },
-    async unpublish({ state, commit }, id) {
-      const response = await this.$apis.set.unpublish(id);
-
-      if (state.active && (state.active.id === id)) {
-        commit('setActive', { ...state.active, ...response });
-      }
-    },
-    async delete({ state, commit }, setId) {
-      await this.$apis.set.delete(setId);
-      if (state.active && setId === state.active.id) {
-        commit('setActive', 'DELETED');
       }
     },
     async reviewRecommendation({ state, commit }, params) {

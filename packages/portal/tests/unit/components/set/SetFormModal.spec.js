@@ -8,16 +8,19 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
+const setId = 'http://data.europeana.eu/set/123';
+
 const storeDispatch = sinon.stub().resolves({});
-const setApiCreateStub = sinon.stub().resolves({ id: '123' });
+const setApiCreateStub = sinon.stub().resolves({ id: setId });
 const setApiInsertItemStub = sinon.stub().resolves({});
+const setApiUpdateStub = sinon.stub().resolves({ id: setId });
 
 const i18n = new VueI18n({
   locale: 'en'
 });
 
 const existingSetPropsData = {
-  setId: '123',
+  setId,
   title: {
     en: 'My first public set'
   },
@@ -27,7 +30,7 @@ const existingSetPropsData = {
   visibility: 'public'
 };
 
-const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
+const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -43,11 +46,18 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
     $apis: {
       set: {
         create: setApiCreateStub,
-        insertItem: setApiInsertItemStub
+        insertItem: setApiInsertItemStub,
+        update: setApiUpdateStub
       }
     },
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
     $store: {
-      dispatch: storeDispatch
+      dispatch: storeDispatch,
+      state: { set: { active: { id: null } } },
+      ...$store
     },
     $t: () => {}
   }
@@ -84,23 +94,50 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/update', {
-        id: '123',
-        body: {
-          type: 'Collection',
-          title: {
-            en: 'A better title'
-          },
-          description: {
-            en: 'Lots of things in here'
-          },
-          visibility: 'private'
-        }
+      expect(setApiUpdateStub.calledWith(setId, {
+        type: 'Collection',
+        title: {
+          en: 'A better title'
+        },
+        description: {
+          en: 'Lots of things in here'
+        },
+        visibility: 'private'
       })).toBe(true);
     });
 
+    describe('when the active set', () => {
+      const $store = { state: { set: { active: { id: setId } } } };
+
+      it('re-fetches active set', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+        await wrapper.find('#set-title').setValue('A better title');
+        await wrapper.find('#set-private').setChecked();
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(true);
+      });
+    });
+
+    describe('when not the active set', () => {
+      const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
+
+      it('re-fetches active set', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+        await wrapper.find('#set-title').setValue('A better title');
+        await wrapper.find('#set-private').setChecked();
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(false);
+      });
+    });
+
     describe('when in item context', () => {
-      const propsData = { itemContext: '/123/abc' };
+      const propsData = { itemId: '/123/abc' };
 
       it('inserts item into set via API plugin', async() => {
         const wrapper = factory({ propsData });
@@ -110,7 +147,7 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(setApiInsertItemStub.calledWith('123', '/123/abc')).toBe(true);
+        expect(setApiInsertItemStub.calledWith(setId, '/123/abc')).toBe(true);
       });
     });
   });

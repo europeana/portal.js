@@ -5,7 +5,6 @@ import ItemPreviewCard from '@/components/item/ItemPreviewCard.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
 const item = {
@@ -39,11 +38,7 @@ const factory = ({ mocks, propsData } = {}) => {
       $route: { query: {} },
       $t: () => {},
       $store: {
-        state: {
-          set: { ...{ liked: [] }, ...{} }
-        },
         getters: {
-          'set/isLiked': storeIsLikedGetter,
           'entity/isPinned': storeIsPinnedGetter
         }
       },

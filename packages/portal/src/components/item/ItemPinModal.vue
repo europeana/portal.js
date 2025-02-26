@@ -216,10 +216,13 @@
           return null;
         }
 
-        return this.$apis.set.get(setId, {
-          profile: 'items',
-          pageSize: 100
-        });
+        return Promise.all([
+          this.$apis.set.get(setId),
+          this.$apis.set.getItemIds(setId)
+        ]).then((responses) => ({
+          ...responses[0],
+          items: responses[1]
+        }));
       },
 
       async pin() {

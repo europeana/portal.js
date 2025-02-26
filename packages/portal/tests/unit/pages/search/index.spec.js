@@ -47,7 +47,9 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     'SearchInterface': {
       template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     },
-    RelatedCollectionsCard: true
+    RelatedCollectionsCard: true,
+    RelatedEditorial: true,
+    RelatedGalleries: true
   },
   mocks: {
     $features: {},

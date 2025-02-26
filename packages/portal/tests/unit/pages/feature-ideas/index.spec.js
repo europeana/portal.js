@@ -30,7 +30,12 @@ const factory = ({ contentfulResponse = {}, mocks = {} }) => shallowMountNuxt(fe
     $t: (key) => key,
     $tc: (key) => key,
     ...mocks
-  }
+  },
+  stubs: [
+    'AlertMessage',
+    'ContentRichText',
+    'FeatureIdeas'
+  ]
 });
 
 describe('pages/feature-ideas/index', () => {

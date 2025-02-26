@@ -127,16 +127,16 @@
     name: 'ExhibitionChapterPage',
 
     components: {
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       BBreadcrumb,
-      ContentSection,
       ClientOnly,
+      ContentSection,
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      LinkList: () => import('@/components/generic/LinkList'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
-      LinkList: () => import('@/components/generic/LinkList'),
-      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
-      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [

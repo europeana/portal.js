@@ -77,32 +77,6 @@ describe('store/set', () => {
     });
   });
 
-  describe('getters', () => {
-    describe('isLiked()', () => {
-      it('is `true` if likedItemIds state includes item ID', () => {
-        const itemId = '/123/ghi';
-        const state = {
-          likedItemIds: ['/123/abc', '/123/def', '/123/ghi']
-        };
-
-        const isLiked = store.getters.isLiked(state)(itemId);
-
-        expect(isLiked).toBe(true);
-      });
-
-      it('is `false` if likedItemIds state does not include item ID', () => {
-        const itemId = '/123/ghi';
-        const state = {
-          likedItemIds: ['/123/abc', '/123/def']
-        };
-
-        const isLiked = store.getters.isLiked(state)(itemId);
-
-        expect(isLiked).toBe(false);
-      });
-    });
-  });
-
   describe('actions', () => {
     const commit = sinon.spy();
     const dispatch = sinon.stub().resolves({});
@@ -127,22 +101,6 @@ describe('store/set', () => {
       store.actions.$apis = { set: { config: $config }, recommendation: {}, record: {} };
       store.actions.$auth = {};
       store.actions.app = { context: { res: {} } };
-    });
-
-    describe('reset()', () => {
-      const resetCommits = {
-        setLikesId: null,
-        setLikedItems: null
-      };
-
-      for (const commitName in resetCommits) {
-        const commitValue = resetCommits[commitName];
-        it(`commits "${commitName}" with ${commitValue}`, ()  => {
-          store.actions.reset({ commit });
-
-          expect(commit.calledWith(commitName, commitValue)).toBe(true);
-        });
-      }
     });
 
     describe('like()', () => {
@@ -191,19 +149,6 @@ describe('store/set', () => {
       });
     });
 
-    // TODO: rename to indicate setting of ID only?
-    describe('setLikes()', () => {
-      it('gets likes set via $apis.set, then commits ID with "setLikesId"', async() => {
-        store.actions.$auth.user = { sub: userId };
-        store.actions.$apis.set.getLikes = sinon.stub().resolves(setId);
-
-        await store.actions.setLikes({ commit });
-
-        expect(store.actions.$apis.set.getLikes.calledWith(userId)).toBe(true);
-        expect(commit.calledWith('setLikesId', setId)).toBe(true);
-      });
-    });
-
     describe('fetchLikes()', () => {
       describe('without likesId in state', () => {
         it('does not fetch likes via $apis.set', async() => {
@@ -238,153 +183,6 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
         expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);
-      });
-    });
-
-    describe('update()', () => {
-      it('updates the set via $apis.set', async() => {
-        store.actions.$apis.set.update = sinon.stub().resolves({});
-        const body = {};
-        const state = {};
-
-        await store.actions.update({ commit, state }, { id: setId, body });
-
-        expect(store.actions.$apis.set.update.calledWith(setId, body)).toBe(true);
-      });
-
-      describe('when set is active', () => {
-        describe('and items are in API response', () => {
-          it('commits with "setActive", reordering items', async() => {
-            const activeWas = {
-              ...set,
-              items: [{ id: '1' }, { id: '2' }]
-            };
-            const activeUpdates = {
-              title: { en: 'My set' },
-              items: ['2', '1']
-            };
-            const activeResponse = { id: setId, title: { en: 'My set' }, items: ['2', '1'] };
-            const activeWillBe = {
-              id: setId,
-              items: [{ id: '2' }, { id: '1' }],
-              title: { en: 'My set' }
-            };
-            store.actions.$apis.set.update = sinon.stub().resolves(activeResponse);
-            const state = { active: activeWas };
-
-            await store.actions.update({ commit, state }, { id: setId, activeUpdates });
-
-            expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
-          });
-        });
-
-        describe('and items are not API response', () => {
-          it('commits with "setActive", preserving items', async() => {
-            const activeWas = {
-              ...set,
-              items: [{ id: '1' }, { id: '2' }]
-            };
-            const activeUpdates = {
-              title: { en: 'My set' }
-            };
-            const activeResponse = { id: setId, title: { en: 'My set' } };
-            const activeWillBe = {
-              id: setId,
-              items: [{ id: '1' }, { id: '2' }],
-              title: { en: 'My set' }
-            };
-            store.actions.$apis.set.update = sinon.stub().resolves(activeResponse);
-            const state = { active: activeWas };
-
-            await store.actions.update({ commit, state }, { id: setId, activeUpdates });
-
-            expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
-          });
-        });
-      });
-    });
-
-    describe('publish()', () => {
-      it('publishes the set via $apis.set', async() => {
-        store.actions.$apis.set.publish = sinon.stub().resolves({});
-        const state = {};
-
-        await store.actions.publish({ state, commit }, setId);
-
-        expect(store.actions.$apis.set.publish.calledWith(setId)).toBe(true);
-      });
-
-      describe('when set is active', () => {
-        it('commits with "setActive", preserving what has not been updated', async() => {
-          const activeWas = {
-            ...set
-          };
-          const activeResponse = { id: setId, visibility: 'published' };
-          const activeWillBe = {
-            ...set,
-            id: setId,
-            visibility: 'published'
-          };
-          store.actions.$apis.set.publish = sinon.stub().resolves(activeResponse);
-          const state = { active: activeWas };
-
-          await store.actions.publish({ commit, state }, setId);
-
-          expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
-        });
-      });
-    });
-
-    describe('unpublish()', () => {
-      it('unpublishes the set via $apis.set', async() => {
-        store.actions.$apis.set.unpublish = sinon.stub().resolves({});
-        const state = {};
-
-        await store.actions.unpublish({ state, commit }, setId);
-
-        expect(store.actions.$apis.set.unpublish.calledWith(setId)).toBe(true);
-      });
-
-      describe('when set is active', () => {
-        it('commits with "setActive", preserving what has not been updated', async() => {
-          const activeWas = {
-            ...set
-          };
-          const activeResponse = { id: setId, visibility: 'public' };
-          const activeWillBe = {
-            ...set,
-            id: setId,
-            visibility: 'public'
-          };
-          store.actions.$apis.set.unpublish = sinon.stub().resolves(activeResponse);
-          const state = { active: activeWas };
-
-          await store.actions.unpublish({ commit, state }, setId);
-
-          expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
-        });
-      });
-    });
-
-    describe('delete()', () => {
-      it('deletes the set via $apis.set', async() => {
-        store.actions.$apis.set.delete = sinon.stub().resolves();
-        const state = {};
-
-        await store.actions.delete({ commit, state }, setId);
-
-        expect(store.actions.$apis.set.delete.calledWith(setId)).toBe(true);
-      });
-
-      describe('when set was active', () => {
-        it('commits `DELETED` with "setActive"', async() => {
-          store.actions.$apis.set.delete = sinon.stub().resolves();
-          const state = { active: { id: setId } };
-
-          await store.actions.delete({ commit, state }, setId);
-
-          expect(commit.calledWith('setActive', 'DELETED')).toBe(true);
-        });
       });
     });
 

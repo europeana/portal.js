@@ -101,7 +101,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
+    'EntityHeader': true,
     'EntityRelatedCollectionsCard': true,
+    'ErrorMessage': true,
+    'RelatedEditorial': true,
     'SearchInterface': {
       template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }

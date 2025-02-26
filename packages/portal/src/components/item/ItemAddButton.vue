@@ -37,7 +37,7 @@
       />
       <SetFormModal
         :modal-id="setFormModalId"
-        :item-context="identifier"
+        :item-id="identifier"
         @response="setCreatedOrUpdated"
       />
     </template>
