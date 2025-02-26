@@ -202,12 +202,12 @@
         return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(resource) {
-        this.selectedMedia = {
+        this.selectedMedia = new WebResource({
           // media prop may contain some metadata not available from iiif-derived
           // resource emitted from ItemMediaPresentation, e.g. rights statement
           ...this.media.find((wr) => wr.about === resource.about),
           ...resource
-        };
+        });
       },
       async fetchEmbedCode() {
         if (this.embedCode) {
