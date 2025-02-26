@@ -41,6 +41,10 @@
           :button-text="true"
           button-variant="light-flat"
         />
+        <ItemSelectButton
+          v-if="showSelect"
+          :identifier="identifier"
+        />
       </div>
     </template>
     <template
@@ -63,6 +67,10 @@
           :show-move="showMove"
           :show-remove="showRemove"
         />
+        <ItemSelectButton
+          v-if="showSelect"
+          :identifier="identifier"
+        />
       </div>
     </template>
   </ContentCard>
@@ -78,9 +86,17 @@
 
     components: {
       ContentCard,
+      ItemSelectButton: () => import('./ItemSelectButton'),
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../user/UserButtons'),
-      RightsStatement: () => import('../generic/RightsStatement')
+      RightsStatement: () => import('../generic/RightsStatement'),
+      UserButtons: () => import('../user/UserButtons')
+    },
+
+    inject: {
+      showSelect: {
+        default: false,
+        from: 'showItemPreviewCardSelectButton'
+      }
     },
 
     props: {
