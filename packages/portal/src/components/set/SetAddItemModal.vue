@@ -84,18 +84,10 @@
     data() {
       return {
         collections: [],
+        collectionsWithItem: [],
         fetched: false,
         added: []
       };
-    },
-
-    computed: {
-      // Array of IDs of sets containing the item
-      collectionsWithItem() {
-        return this.collections
-          .filter(collection => (collection.items || []).some(item => item.replace(ITEM_URL_PREFIX, '') === this.itemId))
-          .map(collection => collection.id);
-      }
     },
 
     watch: {
@@ -108,21 +100,32 @@
 
     methods: {
       async fetchCollections() {
-        const creator = this.$auth.user?.sub;
-        // TODO: pagination and/or search within one's collections
-        const searchParams = {
-          query: `creator:${creator}`,
-          profile: 'standard',
+        const searchResponse = await this.$apis.set.search({
+          query: `creator:${this.$auth.user?.sub}`,
+          profile: 'items.meta',
           pageSize: 100,
           page: 1,
           qf: [
             'type:Collection'
           ]
-        };
-
-        const searchResponse = await this.$apis.set.search(searchParams);
+        });
         this.collections = searchResponse.items || [];
         this.fetched = true;
+        this.fetchCollectionsWithItem();
+      },
+
+      async fetchCollectionsWithItem() {
+        const searchResponse = await this.$apis.set.search({
+          query: `creator:${this.$auth.user?.sub}`,
+          profile: 'items',
+          pageSize: 100,
+          page: 1,
+          qf: [
+            `item:${ITEM_URL_PREFIX}${this.itemId}`,
+            'type:Collection'
+          ]
+        });
+        this.collectionsWithItem = searchResponse.items || [];
       },
 
       hideModal() {

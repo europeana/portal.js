@@ -10,7 +10,7 @@ const setId = '1234';
 
 const setUris = [`http://data.europeana.eu/set/${setId}`];
 
-const fetchedSets = [
+const fetchedSetsV1 = [
   {
     id: setId,
     type: 'Collection',
@@ -19,19 +19,40 @@ const fetchedSets = [
     description: 'A description',
     items: [
       {
-        edmPreview: ['http://www.example.org/image.jpg']
+        edmPreview: ['http://www.example.org/edmPreview.jpg']
       }
     ],
     total: 1
   }
 ];
+const parsedFetchedSetsV1 = [
+  {
+    description: 'A description',
+    title: { en: 'A new collection' },
+    slug: '1234-a-new-collection',
+    thumbnail: 'http://www.example.org/edmPreview.jpg'
+  }
+];
 
+const fetchedSets = [
+  {
+    id: setId,
+    type: 'Collection',
+    visibility: 'published',
+    title: { en: 'A new collection' },
+    description: 'A description',
+    isShownBy: {
+      thumbnail: 'http://www.example.org/isShownBy.jpg'
+    },
+    total: 1
+  }
+];
 const parsedFetchedSets = [
   {
     description: 'A description',
     title: { en: 'A new collection' },
     slug: '1234-a-new-collection',
-    thumbnail: 'http://www.example.org/image.jpg'
+    thumbnail: 'http://www.example.org/isShownBy.jpg'
   }
 ];
 
@@ -45,7 +66,7 @@ const factory = ({ propsData } = {}) => {
     mocks: {
       $apis: {
         set: { search: sinon.stub().resolves({ items: fetchedSets }) },
-        thumbnail: { edmPreview: (img) => img[0] }
+        thumbnail: { edmPreview: (img) => [].concat(img)[0] }
       },
       $i18n: { locale: 'en' }
     },
@@ -77,6 +98,28 @@ describe('components/related/SetCardGroup', () => {
   });
 
   describe('methods', () => {
+    describe('Set API v1 compatibility', () => {
+      describe('parseSets', () => {
+        it('selects and formats the relevant fields', () => {
+          const wrapper = factory({ propsData: { setUris } });
+          wrapper.vm.$apis.set.search = sinon.stub().resolves({ items: fetchedSetsV1 });
+
+          const parsedSets = wrapper.vm.parseSets(fetchedSetsV1);
+          expect(parsedSets).toEqual(parsedFetchedSetsV1);
+        });
+      });
+
+      describe('setPreviewUrl', () => {
+        it('uses the thumbnail plugin with edmPreview', () => {
+          const wrapper = factory({ propsData: { setUris } });
+          wrapper.vm.$apis.set.search = sinon.stub().resolves({ items: fetchedSetsV1 });
+
+          const previewUrl = wrapper.vm.setPreviewUrl(['https://example.org/edmPreview.jpg']);
+          expect(previewUrl).toEqual('https://example.org/edmPreview.jpg');
+        });
+      });
+    });
+
     describe('parseSets', () => {
       it('selects and formats the relevant fields', () => {
         const wrapper = factory({ propsData: { setUris } });
@@ -87,7 +130,7 @@ describe('components/related/SetCardGroup', () => {
     });
 
     describe('setPreviewUrl', () => {
-      it('uses the thumbnail plugin edmPreview at 400px', () => {
+      it('uses the thumbnail plugin with isShownBy thumbnail', () => {
         const wrapper = factory({ propsData: { setUris } });
 
         const previewUrl = wrapper.vm.setPreviewUrl(['https://example.org/edmPreview.jpg']);
