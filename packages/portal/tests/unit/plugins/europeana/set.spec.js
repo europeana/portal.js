@@ -7,7 +7,7 @@ const setId = '1234';
 const itemId = '/123/abc';
 const apiKey = 'apikey';
 const $config = { europeana: { apis: { set: { key: apiKey } } } };
-const $configV0_12 = { europeana: { apis: { set: { key: apiKey, version: '0.12' } } } };
+const $configV012 = { europeana: { apis: { set: { key: apiKey, version: '0.12' } } } };
 const likesResponse = {
   '@context': 'http://www.europeana.eu/schemas/context/collection.jsonld',
   id: 'http://data.europeana.eu/set/1234',
@@ -64,7 +64,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', profile: 'minimal' })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).get(setId, getParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -76,7 +76,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', profile: 'minimal' })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).get(setId, getParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -88,7 +88,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', profile: 'standard' })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).get(setId, getParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -100,7 +100,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', profile: 'itemDescriptions' })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).get(setId, getParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -161,13 +161,13 @@ describe('@/plugins/europeana/set', () => {
     });
 
     it('removes collectionType data property if API version is 0.12', async() => {
-      const bodyV0_12 = { type: 'Collection', visibility: 'public' };
+      const bodyV012 = { type: 'Collection', visibility: 'public' };
       nock(EuropeanaSetApi.BASE_URL)
-        .post('/', bodyV0_12)
+        .post('/', bodyV012)
         .query(true)
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).create(body);
+      await (new EuropeanaSetApi({ $config: $configV012 })).create(body);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -199,13 +199,13 @@ describe('@/plugins/europeana/set', () => {
     });
 
     it('removes collectionType data property if API version is 0.12', async() => {
-      const bodyV0_12 = { type: 'Collection', visibility: 'public' };
+      const bodyV012 = { type: 'Collection', visibility: 'public' };
       nock(EuropeanaSetApi.BASE_URL)
-        .put(`/${setId}`, bodyV0_12)
+        .put(`/${setId}`, bodyV012)
         .query(true)
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).update(setId, body);
+      await (new EuropeanaSetApi({ $config: $configV012 })).update(setId, body);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -266,7 +266,7 @@ describe('@/plugins/europeana/set', () => {
           .query({ wskey: apiKey, ...searchParams, page: 0 })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV0_12 })).search(searchParams);
+        await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
 
         expect(nock.isDone()).toBe(true);
       });
@@ -281,7 +281,7 @@ describe('@/plugins/europeana/set', () => {
           .query({ wskey: 'apikey', ...searchParams, profile: 'standard' })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV0_12 })).search(searchParams, { withMinimalItemPreviews: true });
+        await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams, { withMinimalItemPreviews: true });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -297,7 +297,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', ...searchParams, profile: 'minimal' })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).search(searchParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -314,7 +314,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ wskey: 'apikey', ...searchParams, profile: 'itemDescriptions', page: 0 })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config: $configV0_12 })).search(searchParams);
+      await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -342,7 +342,7 @@ describe('@/plugins/europeana/set', () => {
           ]
         };
         const context = {
-          $config: $configV0_12,
+          $config: $configV012,
           $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
         };
         const setSearchResponse = {
@@ -447,7 +447,7 @@ describe('@/plugins/europeana/set', () => {
           .query({ position, wskey: apiKey })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV0_12 })).insertItem(setId, itemId, position);
+        await (new EuropeanaSetApi({ $config: $configV012 })).insertItem(setId, itemId, position);
 
         expect(nock.isDone()).toBe(true);
       });
@@ -487,7 +487,7 @@ describe('@/plugins/europeana/set', () => {
           .query({ wskey: apiKey })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV0_12 })).deleteItem(setId, itemId);
+        await (new EuropeanaSetApi({ $config: $configV012 })).deleteItem(setId, itemId);
 
         expect(nock.isDone()).toBe(true);
       });
@@ -523,7 +523,7 @@ describe('@/plugins/europeana/set', () => {
           .query({ position, wskey: apiKey })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV0_12 })).repositionItem(setId, itemId, position);
+        await (new EuropeanaSetApi({ $config: $configV012 })).repositionItem(setId, itemId, position);
 
         expect(nock.isDone()).toBe(true);
       });
