@@ -43,7 +43,7 @@ describe('components/generic/LinkGroup', () => {
     });
   });
 
-  describe('when an item has been delete or unpublished', () => {
+  describe('when an item has been delete or depublished', () => {
     it('does not show this item as a link', () => {
       const wrapper = factory([
         { url: 'https://www.example.org',

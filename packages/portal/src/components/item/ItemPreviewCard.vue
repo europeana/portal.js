@@ -193,12 +193,12 @@
 
     computed: {
       dcTitle() {
-        return this.unpublishedItem ?
-          { [this.$i18n.locale]: [this.$t('record.status.unpublished')] } :
+        return this.depublishedItem ?
+          { [this.$i18n.locale]: [this.$t('record.status.depublished')] } :
           this.item.dcTitleLangAware;
       },
 
-      unpublishedItem() {
+      depublishedItem() {
         const itemProperties = Object.keys(this.item);
         return (itemProperties.length === 1) && (itemProperties[0] === 'id');
       },
