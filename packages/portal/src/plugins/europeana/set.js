@@ -23,7 +23,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    */
   async search(params, options = {}) {
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       // account for early versions of the API paginating from 0, new version from 1
       if (params.page) {
         params.page = params.page - 1;
@@ -48,7 +48,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
 
     // TODO: remove withMinimalItemPreviews option (also in component requests) when set API version is set to new
-    if (this.config.version === '1.0' && options.withMinimalItemPreviews && response.items) {
+    if (this.config.version === '0.12' && options.withMinimalItemPreviews && response.items) {
       const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
 
       const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
@@ -100,7 +100,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     const paramsWithDefaults = { ...defaults, ...params };
 
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       // get requests with pagination remove item metadata, use them without pagination
       if (paramsWithDefaults.page) {
         delete paramsWithDefaults.page;
@@ -150,7 +150,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    */
   create(data) {
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       delete data.collectionType;
     }
     return this.request({
@@ -168,7 +168,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    */
   update(id, data, params = {}) {
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       delete data.collectionType;
     }
     return this.request({
@@ -224,7 +224,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     let url = `/${setIdFromUri(setId)}/items`;
 
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       url = `/${setIdFromUri(setId)}${itemId}`;
       data = undefined;
     }
@@ -242,7 +242,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     let url = `/${setIdFromUri(setId)}/items`;
 
     // TODO: rm when new version is in production
-    if (this.config.version === '1.0') {
+    if (this.config.version === '0.12') {
       url = `/${setIdFromUri(setId)}${itemId}`;
       data = undefined;
     }
