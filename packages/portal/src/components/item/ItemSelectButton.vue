@@ -3,13 +3,13 @@
     v-if="$features.itemMultiSelect"
     v-b-tooltip.bottom
     :title="tooltipText"
-    class="item-select-button"
+    class="item-select-button p-0"
     :pressed="selected"
     variant="light-flat"
     :aria-label="ariaLabelText"
     @click="toggle"
   >
-    <span class="icon-check-circle" />
+    <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
   </b-button>
 </template>
 
@@ -40,6 +40,30 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+
+  .item-select-button {
+    font-size: $font-size-large;
+    line-height: 1;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-large-4k;
+    }
+
+    &:hover {
+      color: $black;
+
+      .icon-select-circle:before {
+        content: '\e96f';
+      }
+      .icon-select-circle-outlined:before {
+        content: '\e96e';
+      }
+    }
+  }
+</style>
 
 <docs lang="md">
   ```jsx
