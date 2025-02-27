@@ -8,14 +8,19 @@
     variant="light-flat"
     :aria-label="ariaLabelText"
     @click="toggle"
+    @mouseleave="hideTooltips"
   >
     <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
   </b-button>
 </template>
 
 <script>
+  import hideTooltips from '@/mixins/hideTooltips';
+
   export default {
     name: 'ItemSelectButton',
+
+    mixins: [hideTooltips],
 
     data() {
       return {
