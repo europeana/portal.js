@@ -2,7 +2,7 @@
   <ContentCard
     ref="card"
     :title="dcTitle || item.dcDescriptionLangAware"
-    :url="url"
+    :url="selectState ? '' : url"
     :image-url="imageUrl"
     :texts="texts"
     :hit-text="hitText"
@@ -34,6 +34,7 @@
           <span class="icon-file" />{{ type }}
         </span>
         <UserButtons
+          v-if="!selectState"
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
@@ -188,6 +189,13 @@
       routeQuery: {
         type: [Object, String],
         default: undefined
+      },
+      /**
+       * Select state for multi-select
+       */
+      selectState: {
+        type: Boolean,
+        default: false
       }
     },
 

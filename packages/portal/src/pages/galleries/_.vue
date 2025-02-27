@@ -153,6 +153,7 @@
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
                     :user-editable-items="userCanEditSet"
                     :view="view"
+                    :select-state="selectState"
                     @endItemDrag="repositionItem"
                   />
                 </b-col>
@@ -221,7 +222,8 @@
         identifier: null,
         images: [],
         title: '',
-        rawDescription: ''
+        rawDescription: '',
+        selectState: true
       };
     },
     async fetch() {
