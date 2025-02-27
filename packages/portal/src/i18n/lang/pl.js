@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne obiekty cyfrowe",
     "status": {
-      "unpublished": "[Pozycja nieopublikowana]"
+      "depublished": "[Wycofany obiekt cyfrowy]"
     }
   },
   "related": {

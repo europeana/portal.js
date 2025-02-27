@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Mostrar toda la información",
     "similarItems": "Ítems similares",
     "status": {
-      "unpublished": "[Ítem no publicado]"
+      "depublished": "[Ítem despublicado]"
     }
   },
   "related": {

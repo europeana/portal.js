@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna enote",
     "status": {
-      "unpublished": "[Neobjavljeni enota]"
+      "depublished": "[neobjavljena enota]"
     }
   },
   "related": {

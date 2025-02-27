@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
     "status": {
-      "unpublished": "[Oġġett mhux ippubblikat]"
+      "depublished": "[Oġġett imneħħi mill-pubblikazzjoni]"
     }
   },
   "related": {

@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
     "status": {
-      "unpublished": "[Opublicerat objekt]"
+      "depublished": "[Avpublicerat objekt]"
     }
   },
   "related": {

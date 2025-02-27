@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné objekty",
     "status": {
-      "unpublished": "[Nezverejnená objekt]"
+      "depublished": "[Odstránený objekt]"
     }
   },
   "related": {

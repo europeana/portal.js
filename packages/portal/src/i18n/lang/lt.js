@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs skaitmeniniai objektai",
     "status": {
-      "unpublished": "[Nepaskelbtas skaitmeninis objektas]"
+      "depublished": "[Iš publikacijos pašalintas skaitmeninis objektas]"
     }
   },
   "related": {

@@ -1215,7 +1215,7 @@ export default {
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Objekte",
     "status": {
-      "unpublished": "[unveröffentlichtes Objekt]"
+      "depublished": "[Depubliziertes Objekt]"
     }
   },
   "related": {

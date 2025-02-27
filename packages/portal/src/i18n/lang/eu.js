@@ -1220,7 +1220,7 @@ export default {
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
     "status": {
-      "unpublished": "[Argitaratu gabeko elementua]"
+      "depublished": "\"[Argitaratzetik kendutako elementua]\""
     }
   },
   "related": {

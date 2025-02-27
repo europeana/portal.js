@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
     "status": {
-      "unpublished": "[Mír neamhfhoilsithe]"
+      "depublished": "[Mír dhífhoilsithe]"
     }
   },
   "related": {
