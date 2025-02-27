@@ -16,11 +16,12 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'ItemSelectButton',
 
-    mixins: [hideTooltips],
+    mixins: [hideTooltips, keycloak],
 
     data() {
       return {
@@ -39,8 +40,12 @@
 
     methods: {
       toggle() {
-        this.selected = !this.selected;
-        this.$emit('select', this.selected);
+        if (this.$auth.loggedIn) {
+          this.selected = !this.selected;
+          this.$emit('select', this.selected);
+        } else {
+          this.keycloakLogin();
+        }
       }
     }
   };

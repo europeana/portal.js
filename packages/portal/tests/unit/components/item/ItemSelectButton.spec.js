@@ -1,17 +1,20 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ItemSelectButton from '@/components/item/ItemSelectButton';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(ItemSelectButton, {
+const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
   localVue,
   attachTo: document.body,
   directives: { 'b-tooltip': () => {} },
   mocks: {
+    $auth: { loggedIn: false },
     $features: { itemMultiSelect: true },
-    $t: (key) => key
+    $t: (key) => key,
+    ...mocks
   }
 });
 
@@ -26,15 +29,29 @@ describe('components/item/ItemSelectButton', () => {
     });
 
     describe('when clicked', () => {
-      it('toggles the select state', async() => {
-        const wrapper = factory();
+      describe('and user is not logged in', () => {
+        it('redirects to login', () => {
+          const wrapper = factory();
+          wrapper.vm.keycloakLogin = sinon.spy();
 
-        const selectButton = wrapper.find('.item-select-button');
-        selectButton.trigger('click');
-        await wrapper.vm.$nextTick();
+          const selectButton = wrapper.find('.item-select-button');
+          selectButton.trigger('click');
 
-        expect(selectButton.attributes('aria-label')).toBe('set.actions.cancelSelection');
-        expect(wrapper.emitted('select').length).toBe(1);
+          expect(wrapper.vm.keycloakLogin.called).toBe(true);
+        });
+      });
+
+      describe('and user is logged in', () => {
+        it('toggles the select state and emits the select event', async() => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
+
+          const selectButton = wrapper.find('.item-select-button');
+          selectButton.trigger('click');
+          await wrapper.vm.$nextTick();
+
+          expect(selectButton.attributes('aria-label')).toBe('set.actions.cancelSelection');
+          expect(wrapper.emitted('select').length).toBe(1);
+        });
       });
     });
   });
