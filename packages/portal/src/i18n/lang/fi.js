@@ -1215,7 +1215,7 @@ export default {
     "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia aineistot",
     "status": {
-      "unpublished": "[Julkaisematon aineisto]"
+      "depublished": "[Julkaisusta poistettu aineisto]"
     }
   },
   "related": {

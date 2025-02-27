@@ -1215,7 +1215,7 @@ export default {
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende genstande",
     "status": {
-      "unpublished": "[Ikke-publiceret element]"
+      "depublished": "[Depubliceret genstand]"
     }
   },
   "related": {

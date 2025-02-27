@@ -1214,7 +1214,7 @@ export default {
     "showAll": "Εμφάνιση όλων των πληροφοριών",
     "similarItems": "Παρόμοια τεκμήρια",
     "status": {
-      "unpublished": "[Μη δημοσιευμένο τεκμήριο]"
+      "depublished": "[Αποδημοσιευμένο τεκμήριο]"
     }
   },
   "related": {

@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Afișează toate informațiile",
     "similarItems": "Resurse culturale similare",
     "status": {
-      "unpublished": "[Resursă culturală nepublicat]"
+      "depublished": "[Resursă culturală depublicată]"
     }
   },
   "related": {

@@ -1215,7 +1215,7 @@ export default {
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične predmeti",
     "status": {
-      "unpublished": "[Neobjavljena predmet]"
+      "depublished": "[Povučeni predmet]"
     }
   },
   "related": {

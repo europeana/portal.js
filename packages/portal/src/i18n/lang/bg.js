@@ -1220,7 +1220,7 @@ export default {
     "showAll": "Показване на цялата информация",
     "similarItems": "Подобни обекта",
     "status": {
-      "unpublished": "[Непубликувани обект]"
+      "depublished": "[Оттеглен обект]"
     }
   },
   "related": {

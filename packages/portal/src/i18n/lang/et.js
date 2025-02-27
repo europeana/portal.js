@@ -1207,7 +1207,7 @@ export default {
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
-    "itemDepublished": "See üksus on avaldatud. Võite proovida juurdepääsu originaalmaterjalile selle edastanud asutuse veebisaidil.",
+    "itemDepublished": "See üksus on avaldamisest eemaldatud. Võite proovida juurdepääsu originaalmaterjalile selle edastanud asutuse veebisaidil.",
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
@@ -1215,7 +1215,7 @@ export default {
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased üksused",
     "status": {
-      "unpublished": "[Avaldamata üksus]"
+      "depublished": "[Avaldamisest eemaldatud üksus]"
     }
   },
   "related": {

@@ -1214,7 +1214,7 @@ export default {
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló tárgyak",
     "status": {
-      "unpublished": "[Közzé nem tett tárgy]"
+      "depublished": "[Eltávolított tárgy]"
     }
   },
   "related": {

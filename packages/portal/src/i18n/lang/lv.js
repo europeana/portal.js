@@ -1213,7 +1213,7 @@ export default {
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi digitālie objekti",
     "status": {
-      "unpublished": "[Nepublicēts digitālais objekts]"
+      "depublished": "[No publicēšanas izņemts digitālais objekts]"
     }
   },
   "related": {
