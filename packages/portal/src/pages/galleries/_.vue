@@ -335,9 +335,7 @@
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function') {
-        this.$redrawVueMasonry();
-      }
+      this.$redrawVueMasonry?.();
     },
 
     methods: {
@@ -349,9 +347,13 @@
       async repositionItem({ itemId, position }) {
         try {
           await this.$apis.set.repositionItem(this.setId, itemId, position);
-          await this.$store.dispatch('set/fetchActive', this.setId);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
+        } finally {
+          // always re-fetch in case of failure e.g. write lock, so moved items
+          // go back where they were
+          await this.$store.dispatch('set/fetchActive', this.setId);
+          this.$redrawVueMasonry?.();
         }
       }
     }
