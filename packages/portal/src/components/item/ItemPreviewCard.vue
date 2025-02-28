@@ -48,7 +48,10 @@
       v-if="selectState"
       #image-overlay
     >
-      <ItemSelectCheckbox :title="title" />
+      <ItemSelectCheckbox
+        :identifier="identifier"
+        :title="title"
+      />
     </template>
     <template
       v-else-if="variant !== 'list'"
