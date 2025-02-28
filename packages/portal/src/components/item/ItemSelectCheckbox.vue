@@ -4,10 +4,12 @@
     :checked="selected"
     :aria-label="selectCheckboxLabel"
     class="item-select-checkbox position-absolute"
-    button
-    button-variant="light-flat"
+    :class="{ active: selected }"
   >
-    <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
+    <span
+      class="m-3 position-relative d-inline-block"
+      :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'"
+    />
   </b-form-checkbox>
 </template>
 
@@ -61,37 +63,29 @@
     left: 0;
     z-index: 1;
     text-align: right;
+    padding-left: 0;
 
-    .btn-light-flat {
-      background-color: transparent;
-      font-size: $font-size-large;
-      line-height: 1;
-      padding: 0;
-      display: inline-flex;
-      margin: 1rem;
+    .custom-control-label {
+      position: static;
     }
 
     label {
       opacity: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius-small;
+      font-size: $font-size-large;
+      transition: opacity $standard-transition;
+      cursor: pointer;
 
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        border-radius: $border-radius-small;
-      }
-
-      &.active,
-      &.focus,
-      &:hover {
-        opacity: 1;
-
-        &::before {
-          background-color: rgba(0, 0, 0, 40%);
-        }
+      &::before,
+      &::after {
+        content: none
       }
 
       &:hover {
@@ -103,11 +97,26 @@
         }
       }
 
-      [class^='icon-select-circle'] {
+      [class*='icon-select-circle'] {
         color: $white;
-        position: relative;
         line-height: 1;
       }
+    }
+
+    label:hover,
+    &.active label,
+    input:focus-visible + label {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 40%);
+      transition: opacity $standard-transition;
+    }
+
+    input:focus + label {
+      outline: none;
+    }
+
+    input:focus-visible + label {
+      outline: auto;
     }
   }
 </style>
