@@ -48,7 +48,10 @@ export default {
             return Promise.reject(new Error('100 likes'));
           } else {
             return this.$apis.set.insertItem(state.likesId, itemId)
-              .then(commit('like', itemId));
+              .then(() => {
+                commit('like', itemId);
+                dispatch('fetchLikes');
+              });
           }
         })
         .catch((e) => {
