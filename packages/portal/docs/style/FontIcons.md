@@ -370,6 +370,16 @@ Example:
           <td><span class="icon icon-settings" /></td>
         </tr>
         <tr>
+          <td>Select circle</td>
+          <td><code>icon-select-circle</code></td>
+          <td><span class="icon icon-select-circle" /></td>
+        </tr>
+        <tr>
+          <td>Select circle outlined</td>
+          <td><code>icon-select-circle-outlined</code></td>
+          <td><span class="icon icon-select-circle-outlined" /></td>
+        </tr>
+        <tr>
           <td>Share</td>
           <td><code>icon-share</code></td>
           <td><span class="icon icon-share" /></td>

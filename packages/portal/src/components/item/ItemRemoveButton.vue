@@ -56,9 +56,13 @@
         const activeSet = this.$store.state.set.active;
         const setId = activeSet.id;
         const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
-        await this.$apis.set.deleteItem(setId, this.identifier);
-        this.$store.dispatch('set/refreshSet');
-        this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+        try {
+          await this.$apis.set.deleteItem(setId, this.identifier);
+          this.$store.dispatch('set/refreshSet');
+          this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        }
       }
     }
   };

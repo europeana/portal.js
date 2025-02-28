@@ -137,9 +137,13 @@
             >
               {{ displayItemCount }}
             </h2>
+            <ItemSelectButton
+              class="ml-auto"
+              @select="(newState) => selectState = newState"
+            />
             <SearchViewToggles
               v-model="view"
-              class="ml-auto"
+              :class="{ 'ml-auto': !$features.itemMultiSelect }"
             />
           </b-col>
         </b-row>
@@ -177,6 +181,7 @@
   import ClientOnly from 'vue-client-only';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemSelectButton from '@/components/item/ItemSelectButton';
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -192,6 +197,7 @@
       ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
+      ItemSelectButton,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SearchViewToggles,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -223,7 +229,7 @@
         images: [],
         title: '',
         rawDescription: '',
-        selectState: true
+        selectState: false
       };
     },
     async fetch() {
@@ -330,9 +336,7 @@
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function') {
-        this.$redrawVueMasonry();
-      }
+      this.$redrawVueMasonry?.();
     },
 
     methods: {
@@ -344,9 +348,13 @@
       async repositionItem({ itemId, position }) {
         try {
           await this.$apis.set.repositionItem(this.setId, itemId, position);
-          await this.$store.dispatch('set/fetchActive', this.setId);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
+        } finally {
+          // always re-fetch in case of failure e.g. write lock, so moved items
+          // go back where they were
+          await this.$store.dispatch('set/fetchActive', this.setId);
+          this.$redrawVueMasonry?.();
         }
       }
     }
