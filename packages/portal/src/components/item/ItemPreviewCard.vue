@@ -1,7 +1,7 @@
 <template>
   <ContentCard
     ref="card"
-    :title="dcTitle || item.dcDescriptionLangAware"
+    :title="title"
     :url="selectState ? '' : url"
     :image-url="imageUrl"
     :texts="texts"
@@ -45,7 +45,13 @@
       </div>
     </template>
     <template
-      v-else
+      v-if="selectState"
+      #image-overlay
+    >
+      <ItemSelectCheckbox :title="title" />
+    </template>
+    <template
+      v-else-if="variant !== 'list'"
       #image-overlay
     >
       <div
@@ -79,9 +85,10 @@
 
     components: {
       ContentCard,
+      ItemSelectCheckbox: () => import('./ItemSelectCheckbox'),
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../user/UserButtons'),
-      RightsStatement: () => import('../generic/RightsStatement')
+      RightsStatement: () => import('../generic/RightsStatement'),
+      UserButtons: () => import('../user/UserButtons')
     },
 
     props: {
@@ -204,6 +211,10 @@
         return this.depublishedItem ?
           { [this.$i18n.locale]: [this.$t('record.status.depublished')] } :
           this.item.dcTitleLangAware;
+      },
+
+      title() {
+        return this.dcTitle || this.item.dcDescriptionLangAware;
       },
 
       depublishedItem() {
