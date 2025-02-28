@@ -137,9 +137,13 @@
             >
               {{ displayItemCount }}
             </h2>
+            <ItemSelectButton
+              class="ml-auto"
+              @select="(newState) => selectState = newState"
+            />
             <SearchViewToggles
               v-model="view"
-              class="ml-auto"
+              :class="{ 'ml-auto': !$features.itemMultiSelect }"
             />
           </b-col>
         </b-row>
@@ -176,6 +180,7 @@
   import ClientOnly from 'vue-client-only';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemSelectButton from '@/components/item/ItemSelectButton';
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -191,6 +196,7 @@
       ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
+      ItemSelectButton,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SearchViewToggles,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -221,7 +227,8 @@
         identifier: null,
         images: [],
         title: '',
-        rawDescription: ''
+        rawDescription: '',
+        selectState: false
       };
     },
     async fetch() {
