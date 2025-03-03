@@ -75,6 +75,22 @@ describe('store/set', () => {
         expect(state.active.items).toEqual([{ id: 'item001' }, newItem]);
       });
     });
+    describe('selectItem()', () => {
+      it('adds an item to the selected items state', () => {
+        const newItem = 'item001';
+        const state = { selectedItems: [] };
+        store.mutations.selectItem(state, newItem);
+        expect(state.selectedItems).toEqual([newItem]);
+      });
+    });
+    describe('deselectItemToActive()', () => {
+      it('removes an item from the selected items state', () => {
+        const selectedItem = 'item002';
+        const state = { selectedItems: ['item001', selectedItem, 'item003'] };
+        store.mutations.deselectItem(state, selectedItem);
+        expect(state.selectedItems).toEqual(['item001', 'item003']);
+      });
+    });
   });
 
   describe('actions', () => {
