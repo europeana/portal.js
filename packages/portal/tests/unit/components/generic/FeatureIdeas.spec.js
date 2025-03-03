@@ -30,6 +30,9 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => {
       },
       $config: config,
       $error: sinon.spy(),
+      $keycloak: {
+        login: sinon.spy()
+      },
       $nuxt: { context: {} },
       $t: (key) => key,
       $tc: (key) => key,
@@ -152,11 +155,9 @@ describe('components/generic/FeatureIdeas', () => {
         it('causes a keycloak login to be triggered', async() => {
           const wrapper = factory({ propsData: { features } });
 
-          wrapper.vm.keycloakLogin = sinon.spy();
-
           await wrapper.vm.voteOnFeature('feature-1');
 
-          expect(wrapper.vm.keycloakLogin.calledOnce).toBe(true);
+          expect(wrapper.vm.$keycloak.login.calledOnce).toBe(true);
         });
       });
     });

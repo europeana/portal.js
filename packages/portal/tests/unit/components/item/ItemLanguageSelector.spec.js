@@ -20,6 +20,9 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => mount(ItemLanguageSelec
         { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
       ]
     },
+    $keycloak: {
+      login: sinon.spy()
+    },
     $t: (key) => {
       if (key === 'multilingual.differentLanguage') {
         return 'a different language';
@@ -75,11 +78,9 @@ describe('components/item/ItemLanguageSelector', () => {
       it('redirects to login', async() => {
         const wrapper = factory();
 
-        wrapper.vm.keycloakLogin = sinon.spy();
-
         wrapper.find('[data-qa="item language option nl"]').trigger('click');
 
-        expect(wrapper.vm.keycloakLogin.called).toBe(true);
+        expect(wrapper.vm.$keycloak.login.called).toBe(true);
       });
     });
   });

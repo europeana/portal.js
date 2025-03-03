@@ -24,6 +24,9 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
     },
     $auth,
     $features: {},
+    $keycloak: {
+      login: sinon.spy()
+    },
     $matomo: {
       trackEvent: sinon.spy()
     },
@@ -75,12 +78,11 @@ describe('components/item/ItemLikeButton', () => {
       describe('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth, storeState: { likesId: null } });
-          wrapper.vm.keycloakLogin = sinon.spy();
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
           likeButton.trigger('click');
 
-          expect(wrapper.vm.keycloakLogin.called).toBe(true);
+          expect(wrapper.vm.$keycloak.login.called).toBe(true);
         });
       });
     });
