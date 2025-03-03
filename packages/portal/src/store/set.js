@@ -4,7 +4,8 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    activeRecommendations: []
+    activeRecommendations: [],
+    selectedItems: []
   }),
 
   mutations: {
@@ -36,6 +37,12 @@ export default {
     },
     addItemToActive(state, item) {
       state.active.items.push(item);
+    },
+    selectItem(state, itemId) {
+      state.selectedItems.push(itemId);
+    },
+    deselectItem(state, itemId) {
+      state.selectedItems = state.selectedItems.filter(id => id !== itemId);
     }
   },
 

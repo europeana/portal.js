@@ -43,7 +43,8 @@ const factory = ({ mocks, propsData } = {}) => {
         }
       },
       ...mocks
-    }
+    },
+    stubs: ['ContentCard', 'ItemSelectCheckbox', 'UserButtons']
   });
 };
 
@@ -110,6 +111,18 @@ describe('components/item/ItemPreviewCard', () => {
         wrapper.vm.$refs.card.$el.dispatchEvent(new Event('auxclick'));
 
         expect(onAuxClickCard.calledWith(item.id)).toBe(true);
+      });
+    });
+  });
+
+  describe('select state', () => {
+    describe('when switched on', () => {
+      it('renders a checkbox, hides the user buttons and removes the item link', () => {
+        const wrapper = factory({ propsData: { item, selectState: true } });
+
+        expect(wrapper.find('itemselectcheckbox-stub').exists()).toBe(true);
+        expect(wrapper.find('userbuttons-stub').exists()).toBe(false);
+        expect(wrapper.find('contentcard-stub').attributes('url')).toEqual('');
       });
     });
   });

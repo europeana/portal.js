@@ -157,6 +157,7 @@
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
                     :user-editable-items="userCanEditSet"
                     :view="view"
+                    :select-state="selectState"
                     @endItemDrag="repositionItem"
                   />
                 </b-col>
