@@ -1390,6 +1390,7 @@ export default {
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
+      "deselectAll": "Deselect all.",
       "edit": "Edit gallery",
       "removeItemFromLikes": "Remove this item from your Likes.",
       "saveItemToLikes": "Save this item to your Likes.",
@@ -1450,6 +1451,9 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
       }
+    },
+    "toolbar": {
+      "info": "{count} item selected | {count} items selected"
     }
   },
   "shareWhere": "Where would you like to share this?",
