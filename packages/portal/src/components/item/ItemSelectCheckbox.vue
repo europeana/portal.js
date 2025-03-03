@@ -83,7 +83,6 @@
     padding-left: 0;
 
     .custom-control-label {
-      position: static;
       opacity: 0;
       position: absolute;
       top: 0;
