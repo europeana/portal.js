@@ -5,6 +5,7 @@ const redirects = {
   '/privacy-policy-newsletter': '/privacy-statement-newsletter',
   '/professionals': '/share-your-collections',
   '/rights/privacy-policy': '/rights/privacy-statement',
+  '/rights/public-domain-charter': 'https://pro.europeana.eu/post/the-europeana-public-domain-charter',
   '/share-your-data': '/share-your-collections'
 };
 
@@ -17,6 +18,7 @@ export default ({ redirect, route }) => {
     const localelessPath = `/${routePathParts.slice(2).join('/')}`;
 
     let match;
+
     if (redirectFrom.endsWith('*')) {
       const redirectFromPrefix = redirectFrom.slice(0, -1);
       match = localelessPath.startsWith(redirectFromPrefix);
@@ -30,7 +32,11 @@ export default ({ redirect, route }) => {
     }
 
     if (match) {
-      return redirect(`/${locale}${redirectTo}`);
+      if (redirectTo.startsWith('/')) {
+        return redirect(`/${locale}${redirectTo}`);
+      } else {
+        return redirect(redirectTo);
+      }
     }
   }
 

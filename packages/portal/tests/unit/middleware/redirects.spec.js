@@ -38,6 +38,14 @@ describe('middleware/redirects', () => {
     expect(redirect.calledWith('/es/stories?type=exhibition')).toBe(true);
   });
 
+  it('redirects /rights/public-domain-charter to https://pro.europeana.eu/post/the-europeana-public-domain-charter', () => {
+    const route = { path: '/en/rights/public-domain-charter' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith('https://pro.europeana.eu/post/the-europeana-public-domain-charter')).toBe(true);
+  });
+
   describe('when route path does not match a redirect', () => {
     const route = { path: '/en/collections' };
 
