@@ -1,8 +1,6 @@
 <template>
   <b-form-checkbox
     v-model="selected"
-    :checked="selected"
-    :aria-label="selectCheckboxLabel"
     class="item-select-checkbox position-absolute"
     :class="{ active: selected }"
     @change="toggleItemSelection"
@@ -11,6 +9,7 @@
       class="m-3 position-relative d-inline-block"
       :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'"
     />
+    <span class="visually-hidden">{{ selectCheckboxLabel }}</span>
   </b-form-checkbox>
 </template>
 
@@ -85,9 +84,6 @@
 
     .custom-control-label {
       position: static;
-    }
-
-    label {
       opacity: 0;
       position: absolute;
       top: 0;
@@ -121,20 +117,28 @@
       }
     }
 
-    label:hover,
-    &.active label,
-    input:focus-visible + label {
+    .custom-control-label:hover,
+    &.active .custom-control-label,
+    input:focus-visible + .custom-control-label {
       opacity: 1;
       background-color: rgba(0, 0, 0, 40%);
       transition: opacity $standard-transition;
     }
 
-    input:focus + label {
+    input:focus + .custom-control-label {
       outline: none;
     }
 
-    input:focus-visible + label {
+    input:focus-visible + .custom-control-label {
       outline: auto;
+    }
+
+    .custom-control-input {
+      right: 1rem;
+      left: auto;
+      top: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 </style>
