@@ -45,8 +45,6 @@
 
 <script>
   import axios from 'axios';
-  import keycloakMixin from '@/mixins/keycloak';
-  import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
   import ContentCard from '@/components/content/ContentCard';
 
   export default {
@@ -56,8 +54,6 @@
       ContentCard,
       ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
-
-    mixins: [keycloakMixin],
 
     props: {
       features: {
@@ -79,7 +75,7 @@
       });
       this.axiosInstance.interceptors.response.use(
         (response) => response,
-        (error) => keycloakResponseErrorHandler(this.$nuxt.context, error)
+        (error) => this.$keycloak.error(error)
       );
 
       if (this.features.length < 1) {
@@ -125,7 +121,7 @@
 
           this.$fetch();
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       },
       voteCountOnFeature(featureId) {

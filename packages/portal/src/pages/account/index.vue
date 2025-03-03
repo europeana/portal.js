@@ -12,7 +12,7 @@
           <div class="text-center">
             <b-button
               class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="keycloakAccountUrl"
+              :href="editProfileUrl"
             >
               <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
@@ -170,7 +170,6 @@
   import { mapState } from 'vuex';
 
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
-  import keycloak from '@/mixins/keycloak';
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
@@ -193,7 +192,6 @@
 
     mixins: [
       itemPreviewCardGroupViewMixin,
-      keycloak,
       pageMetaMixin
     ],
 
@@ -219,6 +217,9 @@
     fetchOnServer: false,
 
     computed: {
+      editProfileUrl() {
+        return this.$keycloak.accountUrl();
+      },
       pageMeta() {
         return {
           title: this.$t('account.title')

@@ -65,13 +65,11 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
   import locales from '@/mixins/locales';
 
   export default {
     name: 'ItemLanguageSelector',
     mixins: [
-      keycloak,
       locales
     ],
     props: {
@@ -111,7 +109,7 @@
       },
       login() {
         if (!this.$auth.loggedIn) {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

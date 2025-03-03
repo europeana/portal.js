@@ -70,7 +70,7 @@
         class="nav-link"
         :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
         :target="null"
-        @click.prevent="keycloakLogin"
+        @click.prevent="$keycloak.login()"
       >
         <span :class="renderIcon('/account/login')" />
         <span class="nav-link-text">
@@ -83,7 +83,6 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'PageNavigation',
@@ -91,9 +90,7 @@
     components: {
       SmartLink
     },
-    mixins: [
-      keycloak
-    ],
+
     props: {
       sidebarNav: {
         type: Boolean,
@@ -105,7 +102,8 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
-          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
+          // TODO: is the account url still responsive... and does it need to be?
+          { href: this.$keycloak.accountUrl(), text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },

@@ -87,14 +87,6 @@ const refreshAccessTokenRequestOptions = ($auth) => {
   };
 };
 
-export const keycloakResponseErrorHandler = (context, error) => {
-  if (error.response?.status === 401) {
-    return keycloakUnauthorizedResponseErrorHandler(context, error);
-  } else {
-    return Promise.reject(error);
-  }
-};
-
 const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
   if ($auth.getRefreshToken($auth.strategy.name)) {
     // User has previously logged in, and we have a refresh token, e.g.
@@ -105,4 +97,58 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, rou
     // redirect to OIDC login URL
     return redirect($auth.options.redirect.login, { redirect: route.path });
   }
+};
+
+export const keycloakPlugin = (ctx) => {
+  const redirectPath = () => {
+    let redirect = '/account';
+
+    if (ctx.route) {
+      if (ctx.route.query?.redirect) {
+        redirect = ctx.route.query.redirect;
+      } else if (ctx.route.path?.endsWith('/account/login')) {
+        redirect = `/account${ctx.route.hash || ''}`;
+      } else if (ctx.route.fullPath) {
+        redirect = ctx.route.fullPath;
+      }
+    }
+
+    return redirect;
+  };
+
+  const accountUrl = () => {
+    const keycloakAccountUrl = new URL(
+      `/auth/realms/${ctx.$auth.strategy.options.realm}/account`, ctx.$auth.strategy.options.origin
+    );
+    keycloakAccountUrl.search = new URLSearchParams({
+      referrer: ctx.$auth.strategy.options.client_id,
+      'referrer_uri': ctx.$config.app.baseUrl
+    }).toString();
+    return keycloakAccountUrl.toString();
+  };
+
+  const login = () => {
+    ctx.$auth.$storage.setUniversal('redirect', redirectPath());
+    ctx.$auth.$storage.setUniversal('portalLoggingIn', true);
+    ctx.$auth.loginWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale } });
+  };
+
+  const error = (err) => {
+    if (err.response?.status === 401) {
+      return keycloakUnauthorizedResponseErrorHandler(ctx, err);
+    } else {
+      return Promise.reject(err);
+    }
+  };
+
+  return {
+    accountUrl,
+    error,
+    login,
+    redirectPath
+  };
+};
+
+export default (ctx, inject) => {
+  inject('keycloak', keycloakPlugin(ctx));
 };
