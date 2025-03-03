@@ -40,24 +40,21 @@ export default {
   },
 
   actions: {
-    like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemId) {
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
-      return dispatch('fetchLikes')
-        .then(() => {
-          if (state.likedItems && state.likedItems.length >= 100) {
-            return Promise.reject(new Error('100 likes'));
-          } else {
-            return this.$apis.set.insertItem(state.likesId, itemId)
-              .then(() => {
-                commit('like', itemId);
-                dispatch('fetchLikes');
-              });
-          }
-        })
-        .catch((e) => {
+      await dispatch('fetchLikes');
+      if (state.likedItems && state.likedItems.length >= 100) {
+        throw new Error('100 likes');
+      } else {
+        try {
+          await this.$apis.set.insertItem(state.likesId, itemId);
+          commit('like', itemId);
+          dispatch('fetchLikes');
+        } catch (e) {
           dispatch('fetchLikes');
           throw e;
-        });
+        }
+      }
     },
     async unlike({ dispatch, commit, state }, itemId) {
       try {
