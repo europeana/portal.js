@@ -31,17 +31,17 @@ describe('ItemSelectCheckbox', () => {
     const titleLangMap = { en: title };
 
     describe('when it\'s of type string', () => {
-      it('is used for the aria label', () => {
+      it('is used for the label', () => {
         const wrapper = factory({ title });
 
-        expect(wrapper.find('b-form-checkbox-stub').attributes('aria-label')).toEqual(title);
+        expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
       });
     });
     describe('when it\'s of type object (is a langmap)', () => {
-      it('is used for the aria label', () => {
+      it('is used for the label', () => {
         const wrapper = factory({ title: titleLangMap });
 
-        expect(wrapper.find('b-form-checkbox-stub').attributes('aria-label')).toEqual(title);
+        expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
       });
     });
   });
