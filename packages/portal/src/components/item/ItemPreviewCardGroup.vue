@@ -51,10 +51,11 @@
             :key="card.id"
             ref="cards"
             v-masonry-tile
+            data-qa="item preview"
+            class="masonry-tile item"
             :item="card"
             :hit-selector="itemHitSelector(card)"
             :variant="cardVariant"
-            class="masonry-tile item"
             :lazy="true"
             :enable-accept-recommendation="enableAcceptRecommendations"
             :enable-reject-recommendation="enableRejectRecommendations"
@@ -64,9 +65,9 @@
             :show-move="useDraggable"
             :show-remove="userEditableItems"
             :offset="items.findIndex(item => item.id === card.id)"
-            data-qa="item preview"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
+            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -117,8 +118,9 @@
             v-else
             :key="card.id"
             ref="cards"
-            :item="card"
             class="item"
+            data-qa="item preview"
+            :item="card"
             :hit-selector="itemHitSelector(card)"
             :variant="cardVariant"
             :route-hash="routeHash"
@@ -127,9 +129,9 @@
             :show-move="useDraggable"
             :show-remove="userEditableItems"
             :offset="items.findIndex(item => item.id === card.id)"
-            data-qa="item preview"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
+            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -193,6 +195,10 @@
       onAuxClickCard: {
         type: Function,
         default: null
+      },
+      selectState: {
+        type: Boolean,
+        default: false
       }
     },
 

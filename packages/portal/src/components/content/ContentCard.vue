@@ -32,10 +32,11 @@
           @load.native="imageLoaded"
         />
       </div>
-      <SmartLink
+      <component
+        :is="url ? 'SmartLink' : 'div'"
         v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
-        link-class="card-link no-title"
+        class="card-link no-title"
       >
         <span
           v-if="displayTitle"
@@ -43,7 +44,7 @@
         >
           {{ truncate(displayTitle.value, 90) }}
         </span>
-      </SmartLink>
+      </component>
       <b-card-body
         v-if="variant !== 'mosaic'"
         data-qa="card body"
@@ -350,7 +351,7 @@
       },
 
       displayLabelMatchString() {
-        return this.url.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
+        return this.url?.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
       },
 
       displayTexts() {
