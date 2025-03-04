@@ -76,7 +76,9 @@ describe('components/set/SetFormModal', () => {
 
       expect(setApiCreateStub.calledWith({
         type: 'Collection',
-        collectionType: 'Gallery',
+        // TODO: reinstate, but for edits too, when logic for differentiating
+        //       w/ non-Gallery collections is introduced
+        // collectionType: 'Gallery',
         title: {
           en: 'My first public set'
         },
