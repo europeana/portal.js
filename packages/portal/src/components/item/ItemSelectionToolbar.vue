@@ -91,8 +91,10 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  // Abstract into shared style with .full-image-button from itemMediaPresentation?
   .multiSelectToolbar {
+    border-radius: .25rem;
+    padding: 1rem;
+    // Abstract into shared style with .full-image-button from itemMediaPresentation?
     background-color: $black;
     color: $white;
     border: 1px solid $white;
