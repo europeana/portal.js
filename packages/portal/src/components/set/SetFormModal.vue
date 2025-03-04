@@ -182,11 +182,13 @@
           visibility: this.visibilityValue
         };
 
-        if (this.isNew) {
-          if (this.type === 'Collection') {
-            setBody.collectionType = 'Gallery';
-          }
-        }
+        // TODO: reinstate, but for edits too, when logic for differentiating
+        //       w/ non-Gallery collections is introduced
+        // if (this.isNew) {
+        //   if (this.type === 'Collection') {
+        //     setBody.collectionType = 'Gallery';
+        //   }
+        // }
 
         return setBody;
       },

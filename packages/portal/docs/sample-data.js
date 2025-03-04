@@ -48,6 +48,18 @@ export default {
         width: 830, height: 470 }
     }
   ],
+  itemPreviewCardData: {
+    dataProvider: ['United Archives / WHA'],
+    dcCreatorLangAware: { en: ['United Archives / WHA'] },
+    dcDescriptionLangAware: { de:
+    [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+    frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
+    dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
+    edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
+    id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
+    type: 'IMAGE',
+    rights: ['http://creativecommons.org/licenses/by-sa/3.0/']
+  },
   thumbnails: [
     'https://api.europeana.eu/thumbnail/v3/400/3bc0291af7adc6b013a4be826af1f794', // Portrait of a young Woman, with 'Puck' the Dog https://www.europeana.eu/en/item/90402/SK_A_1703
     'https://api.europeana.eu/thumbnail/v3/400/3fa6a7d3f040cb177dc5b3f02d5570ab', // An eruption of Mount Etna at night https://www.europeana.eu/en/item/9200579/czyxv8m8

@@ -27,7 +27,6 @@
 
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
-  import keycloak from '@/mixins/keycloak';
   import logEventMixin from '@/mixins/logEvent';
   import makeToastMixin from '@/mixins/makeToast';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
@@ -37,7 +36,6 @@
 
     mixins: [
       hideTooltips,
-      keycloak,
       logEventMixin,
       makeToastMixin
     ],
@@ -98,7 +96,7 @@
             this.$error(e, { scope: 'gallery' });
           }
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
         this.hideTooltips();
       },

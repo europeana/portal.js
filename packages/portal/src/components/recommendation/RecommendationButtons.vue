@@ -24,13 +24,11 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
-  import keycloakMixin from '@/mixins/keycloak';
 
   export default {
     name: 'RecommendationButtons',
 
     mixins: [
-      keycloakMixin,
       makeToastMixin
     ],
 
@@ -66,14 +64,14 @@
           this.$store.dispatch('set/refreshSet');
           this.makeToast(this.toastMsg);
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'reject' });
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

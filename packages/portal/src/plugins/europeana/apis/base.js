@@ -1,7 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { keycloakResponseErrorHandler } from '../auth.js';
 import EuropeanaApiContextConfig from './config/context.js';
 
 export default class EuropeanaApi {
@@ -62,7 +61,7 @@ export default class EuropeanaApi {
     }
 
     if (this.constructor.AUTHORISING && (typeof axiosInstance.onResponseError === 'function')) {
-      axiosInstance.onResponseError(error => keycloakResponseErrorHandler(this.context, error));
+      axiosInstance.onResponseError((error) => this.context.$keycloak?.error?.(error));
     }
 
     return axiosInstance;
