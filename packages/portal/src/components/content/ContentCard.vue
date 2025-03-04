@@ -351,7 +351,7 @@
       },
 
       displayLabelMatchString() {
-        return this.url && this.url.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
+        return this.url?.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
       },
 
       displayTexts() {
