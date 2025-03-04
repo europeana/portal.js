@@ -117,10 +117,9 @@ describe('components/item/ItemPreviewCard', () => {
 
   describe('select state', () => {
     describe('when switched on', () => {
-      it('renders a checkbox, hides the user buttons and removes the item link', () => {
+      it('hides the user buttons and does not pass the url prop', () => {
         const wrapper = factory({ propsData: { item, selectState: true } });
 
-        expect(wrapper.find('itemselectcheckbox-stub').exists()).toBe(true);
         expect(wrapper.find('userbuttons-stub').exists()).toBe(false);
         expect(wrapper.find('contentcard-stub').attributes('url')).toEqual('');
       });

@@ -13,6 +13,8 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
+    :select-state="selectState"
+    :identifier="identifier"
   >
     <template
       v-if="variant === 'list'"
@@ -45,16 +47,7 @@
       </div>
     </template>
     <template
-      v-if="selectState"
-      #image-overlay
-    >
-      <ItemSelectCheckbox
-        :identifier="identifier"
-        :title="title"
-      />
-    </template>
-    <template
-      v-else-if="variant !== 'list'"
+      v-else-if="!selectState && variant !== 'list'"
       #image-overlay
     >
       <div
@@ -88,7 +81,6 @@
 
     components: {
       ContentCard,
-      ItemSelectCheckbox: () => import('./ItemSelectCheckbox'),
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       RightsStatement: () => import('../generic/RightsStatement'),
       UserButtons: () => import('../user/UserButtons')

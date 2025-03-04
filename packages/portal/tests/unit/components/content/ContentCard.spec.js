@@ -45,7 +45,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $store,
     ...mocks
   },
-  stubs: ['ImageOptimised']
+  stubs: ['ImageOptimised', 'ItemSelectCheckbox']
 });
 
 describe('components/content/ContentCard', () => {
@@ -67,6 +67,14 @@ describe('components/content/ContentCard', () => {
 
         const title = wrapper.find('[data-qa="content card"] .card-title');
         expect(title.text()).toBe('Art');
+      });
+
+      describe('in item select state', () => {
+        it('renders as checkbox', () => {
+          const wrapper = factory({ propsData: { selectState: true, identifier: '/001/item' } });
+
+          expect(wrapper.find('itemselectcheckbox-stub').exists()).toBe(true);
+        });
       });
     });
 

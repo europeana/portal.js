@@ -33,9 +33,10 @@
         />
       </div>
       <component
-        :is="url ? 'SmartLink' : 'div'"
+        :is="selectState ? 'ItemSelectCheckbox' : url ? 'SmartLink' : 'div'"
         v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
+        :identifier="selectState && identifier"
         class="card-link no-title"
       >
         <span
@@ -65,10 +66,11 @@
             :lang="langAttribute(displayTitle.code)"
           >
             <component
-              :is="url ? 'SmartLink' : 'div'"
+              :is="selectState ? 'ItemSelectCheckbox' : url ? 'SmartLink' : 'div'"
               :destination="url"
-              link-class="card-link"
+              :link-class="url && 'card-link'"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
+              :identifier="selectState && identifier"
             >
               <span>
                 {{ truncate(displayTitle.value, 90) }}
@@ -129,7 +131,8 @@
       ClientOnly,
       SmartLink,
       MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
-      ImageOptimised: () => import('@/components/image/ImageOptimised')
+      ImageOptimised: () => import('@/components/image/ImageOptimised'),
+      ItemSelectCheckbox: () => import('@/components/item/ItemSelectCheckbox')
     },
 
     mixins: [
@@ -285,6 +288,20 @@
        */
       offset: {
         type: Number,
+        default: null
+      },
+      /**
+       * Select state for multi-select
+       */
+      selectState: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Item identifier
+       */
+      identifier: {
+        type: String,
         default: null
       }
     },

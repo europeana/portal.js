@@ -26,26 +26,6 @@ describe('ItemSelectCheckbox', () => {
     expect(wrapper.find('b-form-checkbox-stub').exists()).toBe(true);
   });
 
-  describe('selectCheckboxLabel', () => {
-    const title = 'Title of an item';
-    const titleLangMap = { en: title };
-
-    describe('when it\'s of type string', () => {
-      it('is used for the label', () => {
-        const wrapper = factory({ title });
-
-        expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
-      });
-    });
-    describe('when it\'s of type object (is a langmap)', () => {
-      it('is used for the label', () => {
-        const wrapper = factory({ title: titleLangMap });
-
-        expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
-      });
-    });
-  });
-
   describe('toggleItemSelection', () => {
     describe('when value is true', () => {
       it('commits selectItem to the set store', () => {
