@@ -42,7 +42,7 @@ export default {
       state.selectedItems.push(itemId);
     },
     deselectItem(state, itemId) {
-      state.selectedItems = state.selectedItems.filter(id => id !== itemId);
+      state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
     }
   },
 
