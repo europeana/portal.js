@@ -29,6 +29,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
     $fetchState: options.fetchState || {},
+    $keycloak: { accountUrl: () => '/account' },
     localePath: (path) => path,
     $route: {
       hash: options.hash || '',

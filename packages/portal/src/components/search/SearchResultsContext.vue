@@ -59,7 +59,7 @@
           class="more-link"
           :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
           :target="null"
-          @click.prevent="keycloakLogin"
+          @click.prevent="$keycloak.login()"
         >
           {{ $t('actions.login') }}
         </b-link>
@@ -86,7 +86,6 @@
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'SearchResultsContext',
@@ -96,8 +95,7 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin,
-      keycloak
+      europeanaEntitiesOrganizationsMixin
     ],
 
     props: {
