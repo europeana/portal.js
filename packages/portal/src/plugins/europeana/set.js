@@ -216,25 +216,40 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   }
 
   pinItem(setId, itemId) {
-    return this.insertItem(setId, itemId, 'pin');
+    return this.insertItems(setId, itemId, 'pin');
   }
 
-  insertItem(setId, itemId, position) {
-    let data = [itemId];
-    let url = `/${setIdFromUri(setId)}/items`;
+  /**
+   * Delete a set
+   * @param {string} setId the set's id
+   * @param {string,array} itemIds the ID(s) of the item(s) to insert
+   * @param {number,string} position the position at which to insert the item(s)
+   * @return {Object} API response data
+   */
+  insertItems(setId, itemIds, position) {
+    itemIds = [].concat(itemIds);
 
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
-      url = `/${setIdFromUri(setId)}${itemId}`;
-      data = undefined;
+      const requests = [];
+      for (let i = 0; i < itemIds.length; i = i + 1) {
+        requests.push(
+          this.request({
+            method: 'put',
+            url: `/${setIdFromUri(setId)}${itemIds[i]}`,
+            params: { position: position + i }
+          })
+        );
+      }
+      return Promise.all(requests);
+    } else {
+      return this.request({
+        method: 'put',
+        url: `/${setIdFromUri(setId)}/items`,
+        data: itemIds,
+        params: { position }
+      });
     }
-
-    return this.request({
-      method: 'put',
-      url,
-      data,
-      params: { position }
-    });
   }
 
   deleteItem(setId, itemId) {
@@ -272,6 +287,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
 
   repositionItem(setId, itemId, position) {
     return this.deleteItem(setId, itemId)
-      .then(() => this.insertItem(setId, itemId, position));
+      .then(() => this.insertItems(setId, itemId, position));
   }
 }
