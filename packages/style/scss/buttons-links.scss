@@ -368,6 +368,69 @@
   }
 }
 
+.btn-dark-flat {
+  background: transparent;
+  border: 0;
+  color: $white;
+  font-size: $font-size-small;
+  text-decoration: none;
+  transition: $standard-transition;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border: none;
+  }
+
+  &.disabled {
+    opacity: 1;
+    color: $darkgrey-light;
+  }
+
+  &.button-icon-only {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: $font-size-large;
+    padding: 0; // Chrome 82 fix
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 1.5rem);
+        width: calc(1.5 * 1.5rem);
+        font-size: calc(1.5 * 1.1rem);
+      }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
+    }
+  }
+
+  &.add-button,
+  &.remove-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button,
+  &.move-button {
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
 .btn-overlay {
   background-color: rgb(0 0 0 / 70%);
   border: 0;

@@ -1338,12 +1338,15 @@ export default {
     "actions": {
       "addTo": "Bildumara gaineratu",
       "addToGallery": "Gehitu elementu hau galeria batera.",
+      "cancelSelection": "Utzi hautaketa",
+      "clickToSelectItems": "Egin klik elementuetan haiek hautatzeko",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
       "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
+      "selectItems": "Hautatu elementuak",
       "update": "Eguneratu galeria"
     },
     "form": {
