@@ -15,7 +15,7 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
   mocks: {
     $apis: {
       set: {
-        deleteItem: setApiDeleteItemStub
+        deleteItems: setApiDeleteItemStub
       }
     },
     $i18n: { locale: 'en' },
@@ -40,7 +40,7 @@ describe('ItemRemoveButton', () => {
     expect(wrapper.find('[data-qa="item remove button"]').classes()).toContain('button-icon-only');
   });
 
-  it('calls the deleteItem method when clicked', async() => {
+  it('calls the deleteItems method when clicked', async() => {
     const wrapper = factory({ identifier: 'item-1' });
     const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 

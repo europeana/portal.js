@@ -38,7 +38,7 @@ const factory = () => {
       $apis: {
         set: {
           create: sinon.stub().resolves({ id: fixtures.setId }),
-          deleteItem: sinon.spy(),
+          deleteItems: sinon.spy(),
           get: sinon.stub().resolves({ items: [fixtures.setId] }),
           getItemIds: sinon.stub().resolves([fixtures.itemId]),
           pinItem: sinon.spy(),
@@ -249,7 +249,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
         await wrapper.vm.unpinItemFromEntityBestItemsSet(fixtures.itemId, fixtures.setId);
 
-        expect(wrapper.vm.$apis.set.deleteItem.calledWith(
+        expect(wrapper.vm.$apis.set.deleteItems.calledWith(
           fixtures.setId, fixtures.itemId
         )).toBe(true);
       });

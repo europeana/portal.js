@@ -65,7 +65,7 @@ export default {
     },
     async unlike({ dispatch, commit, state }, itemId) {
       try {
-        await this.$apis.set.deleteItem(state.likesId, itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemId);
         commit('unlike', itemId);
         dispatch('fetchLikes');
       } catch (e) {

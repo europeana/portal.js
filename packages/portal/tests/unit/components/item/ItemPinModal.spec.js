@@ -143,7 +143,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
         getItemIds: setApiGetItemIdsStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
-        deleteItem: setApiDeleteItemStub,
+        deleteItems: setApiDeleteItemStub,
         pinItem: setApiPinItemStub
       }
     },

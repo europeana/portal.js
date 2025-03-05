@@ -237,14 +237,33 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
-  deleteItem(setId, itemId) {
-    let data = [itemId];
-    let url = `/${setIdFromUri(setId)}/items`;
+  /**
+   * Delete item(s) from a set
+   * @param {string} setId the set's id
+   * @param {string,array} itemIds the ID(s) of the item(s) to delete
+   * @return {Promise,Promise[]} API request(s)
+   */
+  deleteItems(setId, itemIds) {
+    itemIds = [].concat(itemIds);
 
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
-      url = `/${setIdFromUri(setId)}${itemId}`;
-      data = undefined;
+      const requests = [];
+      for (const itemId of itemIds) {
+        requests.push(
+          this.request({
+            method: 'delete',
+            url: `/${setIdFromUri(setId)}${itemId}`
+          })
+        );
+      }
+      return Promise.all(requests);
+    } else {
+      return this.request({
+        method: 'delete',
+        url: `/${setIdFromUri(setId)}/items`,
+        data: itemIds
+      });
     }
 
     return this.request({
@@ -271,7 +290,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   }
 
   repositionItem(setId, itemId, position) {
-    return this.deleteItem(setId, itemId)
+    return this.deleteItems(setId, itemId)
       .then(() => this.insertItem(setId, itemId, position));
   }
 }
