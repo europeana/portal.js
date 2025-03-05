@@ -130,18 +130,6 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
           });
-          describe('when the like limit is reached', () => {
-            it('shows the like limit modal', async() => {
-              const wrapper = factory({ $auth,
-                storeDispatch: sinon.stub().rejects({ message: '100 likes' }) });
-
-              const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
-              const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-              await likeButton.trigger('click');
-
-              expect(bvModalShow.calledWith(wrapper.vm.likeLimitModalId)).toBe(true);
-            });
-          });
         });
       });
 

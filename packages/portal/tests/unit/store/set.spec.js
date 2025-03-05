@@ -120,19 +120,6 @@ describe('store/set', () => {
     });
 
     describe('like()', () => {
-      describe('when amount of likes limit is reached', () => {
-        it('throws an error', async() => {
-          const likedItems = Array.from(Array(100).keys()).map(item => {
-            return { id: `${item}` };
-          });
-          const state = { likedItems };
-
-          await expect(store.actions.like({ dispatch, commit, state }, itemId)).rejects.toThrowError();
-          await expect(store.actions.like({ dispatch, state, commit }, itemId)).rejects.toEqual(new Error('100 likes'));
-          expect(dispatch.calledWith('fetchLikes')).toBe(true);
-        });
-      });
-
       it('adds to likes set via $apis.set, then commits with "like"', async() => {
         store.actions.$apis.set.insertItem = sinon.stub().resolves({});
         const state = { likesId: setId };

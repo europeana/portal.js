@@ -48,19 +48,13 @@ export default {
 
   actions: {
     async like({ dispatch, commit, state }, itemId) {
-      // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
-      await dispatch('fetchLikes');
-      if (state.likedItems && state.likedItems.length >= 100) {
-        throw new Error('100 likes');
-      } else {
-        try {
-          await this.$apis.set.insertItem(state.likesId, itemId);
-          commit('like', itemId);
-          dispatch('fetchLikes');
-        } catch (e) {
-          dispatch('fetchLikes');
-          throw e;
-        }
+      try {
+        await this.$apis.set.insertItem(state.likesId, itemId);
+        commit('like', itemId);
+        dispatch('fetchLikes');
+      } catch (e) {
+        dispatch('fetchLikes');
+        throw e;
       }
     },
     async unlike({ dispatch, commit, state }, itemId) {
