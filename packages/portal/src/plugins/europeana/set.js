@@ -220,11 +220,11 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   }
 
   /**
-   * Delete a set
+   * Insert item(s) into a set
    * @param {string} setId the set's id
    * @param {string,array} itemIds the ID(s) of the item(s) to insert
    * @param {number,string} position the position at which to insert the item(s)
-   * @return {Object} API response data
+   * @return {Promise,Promise[]} API request(s)
    */
   async insertItems(setId, itemIds, position) {
     itemIds = [].concat(itemIds);
