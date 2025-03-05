@@ -8,48 +8,49 @@
       <b-button
         :id="`deselect-all-button`"
         ref="deselectAllButton"
+        variant="link"
         data-qa="deselect all button"
-        :aria-label="$t('set.actions.deselectAll')"
+        :aria-label="$t('set.toolbar.actions.deselectAll')"
         @click="deselectAll"
       >
-        {{ $t('set.actions.deselectAll') }}
+        {{ $t('set.toolbar.actions.deselectAll') }}
       </b-button>
       <b-button
         :id="`remove-all-button`"
         ref="removeAllButton"
         v-b-tooltip.top
-        :title="$tc('set.actions.removeAll', selectionCount, { count: selectionCount } )"
+        class="button-icon-only icon-remove-circle"
+        variant="link"
+        :title="$tc('set.toolbar.actions.removeAll', selectionCount, { count: selectionCount } )"
         data-qa="remove all button"
-        :aria-label="$t('set.actions.removeAll')"
+        :aria-label="$t('set.toolbar.actions.removeAll')"
         @click="removeAll"
         @mouseleave="hideTooltips"
-      >
-        <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
-      </b-button>
+      />
       <b-button
         :id="`add-all-button`"
         ref="addAllButton"
         v-b-tooltip.top
-        :title="$tc('set.actions.addAll', selectionCount, { count: selectionCount } )"
+        class="button-icon-only icon-add-circle p-0"
+        variant="light-flat"
+        :title="$tc('set.toolbar.actions.addAll', selectionCount, { count: selectionCount } )"
         data-qa="add all button"
         :aria-label="$t('set.actions.addAll')"
         @click="addAll"
         @mouseleave="hideTooltips"
-      >
-        <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
-      </b-button>
+      />
       <b-button
         :id="`like-all-button`"
         ref="deselectAllButton"
         v-b-tooltip.top
-        :title="$tc('set.actions.likeAll', selectionCount, { count: selectionCount } )"
+        class="button-icon-only icon-heart-outlined"
+        variant="link"
+        :title="$tc('set.toolbar.actions.likeAll', selectionCount, { count: selectionCount } )"
         data-qa="deselect all button"
         :aria-label="$t('set.actions.likeAll')"
         @click="likeAll"
         @mouseleave="hideTooltips"
-      >
-        <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
-      </b-button>
+      />
     </template>
   </div>
 </template>
@@ -62,27 +63,27 @@
 
     mixins: [hideTooltips],
 
-    props: {
-      selected: {
-        type: Array,
-        default: []
-      },
-    },
-
     computed: {
       selectionCount() {
         return this.selected.length;
+      },
+      selected() {
+        return this.$store.state.set.selectedItems;
       }
     },
 
     methods: {
       deselectAll() {
-        if (this.$auth.loggedIn) {
-          this.selected = !this.selected;
-          this.$emit('select', this.selected);
-        } else {
-          this.keycloakLogin();
-        }
+        // TODO: deselect all selected items via store
+      },
+      addAll() {
+        // TODO: intialise and open set modal
+      },
+      removeAll() {
+        // TODO: remove all selected items via store
+      },
+      likeAll() {
+        // TODO: add all selected items to likes via store
       }
     }
   };
@@ -94,11 +95,11 @@
   .multiSelectToolbar {
     border-radius: .25rem;
     padding: 1rem;
+    position: fixed;
     // Abstract into shared style with .full-image-button from itemMediaPresentation?
     background-color: $black;
     color: $white;
     border: 1px solid $white;
-    position: absolute;
     bottom: 1rem;
     left: 0;
     right: 0;

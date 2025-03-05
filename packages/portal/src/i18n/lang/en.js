@@ -1390,7 +1390,6 @@ export default {
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
-      "deselectAll": "Deselect all.",
       "edit": "Edit gallery",
       "removeItemFromLikes": "Remove this item from your Likes.",
       "saveItemToLikes": "Save this item to your Likes.",
@@ -1453,11 +1452,12 @@ export default {
       }
     },
     "toolbar": {
-      "info": "{count} item selected | {count} items selected",
+      "info": "{count} item selected. | {count} items selected.",
       "actions": {
         "addAll": "Add {count} item to a gallery | Add {count} items to a gallery",
-        "removeAll": "Remove {count} item from this gallery | Add {count} items from this gallery",
-        "likeAll": "Like {count} item | Like {count} items"
+        "deselectAll": "Deselect all items.",
+        "likeAll": "Like {count} item | Like {count} items",
+        "removeAll": "Remove {count} item from this gallery | Add {count} items from this gallery"
       }
     }
   },
