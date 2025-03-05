@@ -1,9 +1,9 @@
 <template>
-  <div
+  <container
     v-if="$features.itemMultiSelect"
     class="multiSelectToolbar"
   >
-    <span>{{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}</span>
+    <span class="toolbar-info">{{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}</span>
     <template v-if="selectionCount >= 1">
       <b-button
         :id="`deselect-all-button`"
@@ -19,7 +19,7 @@
         :id="`remove-all-button`"
         ref="removeAllButton"
         v-b-tooltip.top
-        class="button-icon-only icon-remove-circle"
+        class="button-icon-only icon-remove-circle-outlined"
         variant="dark-flat"
         :title="$tc('set.toolbar.actions.removeAll', selectionCount, { count: selectionCount } )"
         data-qa="remove all button"
@@ -31,7 +31,7 @@
         :id="`add-all-button`"
         ref="addAllButton"
         v-b-tooltip.top
-        class="button-icon-only icon-add-circle p-0"
+        class="button-icon-only icon-add-circle-outlined"
         variant="dark-flat"
         :title="$tc('set.toolbar.actions.addAll', selectionCount, { count: selectionCount } )"
         data-qa="add all button"
@@ -52,7 +52,7 @@
         @mouseleave="hideTooltips"
       />
     </template>
-  </div>
+  </container>
 </template>
 
 <script>
@@ -106,6 +106,33 @@
     margin: 0 auto;
     width: fit-content;
     z-index: 1;
+  }
+
+  .toolbar-info {
+    display: inline-block;
+  }
+
+  button {
+    &.btn-link {
+      color: $white;
+      text-decoration: none;
+    }
+
+    &:hover  {
+      &.btn-dark-flat, &.btn-link {
+        color: $white;
+      }
+
+      &.icon-heart-outlined::before {
+        content: '\e918';
+      }
+      &.icon-add-circle-outlined::before {
+        content: '\e907';
+      }
+      &.icon-remove-circle-outlined::before {
+        content: '\e917';
+      }
+    }
   }
 </style>
 
