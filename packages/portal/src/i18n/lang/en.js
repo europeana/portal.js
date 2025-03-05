@@ -1455,7 +1455,7 @@ export default {
       "info": "{count} item selected. | {count} items selected.",
       "actions": {
         "addAll": "Add {count} item to a gallery | Add {count} items to a gallery",
-        "deselectAll": "Deselect all items.",
+        "deselectAll": "Deselect all.",
         "likeAll": "Like {count} item | Like {count} items",
         "removeAll": "Remove {count} item from this gallery | Add {count} items from this gallery"
       }

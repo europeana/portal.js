@@ -1,7 +1,7 @@
 <template>
   <container
     v-if="$features.itemMultiSelect"
-    class="multiSelectToolbar"
+    class="multiSelectToolbar d-inline-flex"
   >
     <span class="toolbar-info">{{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}</span>
     <template v-if="selectionCount >= 1">
@@ -110,12 +110,24 @@
 
   .toolbar-info {
     display: inline-block;
+    line-height: 32px;
   }
 
   button {
     &.btn-link {
       color: $white;
-      text-decoration: none;
+      text-decoration: underline;
+      padding: 0 2rem 0 0.5rem;
+    }
+
+    &.btn-dark-flat {
+      height: 2rem;
+      width: 2rem;
+      font-size: 2rem;
+      margin: 0 0.25rem;
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
     &:hover  {
