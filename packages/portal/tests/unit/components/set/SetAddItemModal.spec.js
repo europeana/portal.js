@@ -32,7 +32,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
     $i18n: {},
     $apis: {
       set: {
-        deleteItem: setApiDeleteItemStub,
+        deleteItems: setApiDeleteItemStub,
         insertItem: setApiInsertItemStub,
         search: sinon.stub().resolves({ items: sets })
       }
