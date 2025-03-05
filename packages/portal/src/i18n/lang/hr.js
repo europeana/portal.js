@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Dodaj u galeriju",
       "addToGallery": "Dodajte ovu predmet u galeriju.",
+      "cancelSelection": "Poništi odabir",
+      "clickToSelectItems": "Kliknite na predmete kako biste ih odabrali",
       "create": "Stvori galeriju",
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
       "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
+      "selectItems": "Odaberite predmete",
       "update": "Ažuriraj galeriju"
     },
     "form": {

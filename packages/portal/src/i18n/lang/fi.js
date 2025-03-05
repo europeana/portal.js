@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Lisää galleriaan",
       "addToGallery": "Lisää tämä aineisto galleriaan.",
+      "cancelSelection": "Peruuta valinta",
+      "clickToSelectItems": "Valitse aineistoja napsauttamalla niitä",
       "create": "Luo galleria",
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
       "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
       "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
+      "selectItems": "Valitse aineistot",
       "update": "Päivitä galleria"
     },
     "form": {
