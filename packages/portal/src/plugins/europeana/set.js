@@ -226,22 +226,19 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {number,string} position the position at which to insert the item(s)
    * @return {Object} API response data
    */
-  insertItems(setId, itemIds, position) {
+  async insertItems(setId, itemIds, position) {
     itemIds = [].concat(itemIds);
 
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
-      const requests = [];
       for (let i = 0; i < itemIds.length; i = i + 1) {
-        requests.push(
-          this.request({
-            method: 'put',
-            url: `/${setIdFromUri(setId)}${itemIds[i]}`,
-            params: { position: position + i }
-          })
-        );
+        // need to do one at a time so that positioning works as intended
+        await this.request({
+          method: 'put',
+          url: `/${setIdFromUri(setId)}${itemIds[i]}`,
+          params: { position: position + i }
+        });
       }
-      return Promise.all(requests);
     } else {
       return this.request({
         method: 'put',
