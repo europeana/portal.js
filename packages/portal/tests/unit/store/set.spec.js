@@ -195,7 +195,7 @@ describe('store/set', () => {
         store.actions.$apis.set.get = sinon.stub().resolves(set);
         store.actions.$apis.set.getItems = sinon.stub().resolves([]);
 
-        await store.actions.fetchActive({ commit }, setId);
+        await store.actions.fetchActive({ commit }, { setId });
 
         expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
         expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);

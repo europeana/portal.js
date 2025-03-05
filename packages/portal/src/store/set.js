@@ -92,11 +92,11 @@ export default {
       });
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ commit }, setId) {
+    async fetchActive({ commit }, { setId, page }) {
       try {
         await Promise.all([
           this.$apis.set.get(setId),
-          this.$apis.set.getItems(setId)
+          this.$apis.set.getItems(setId, { page })
         ]).then((responses) => {
           commit('setActive', {
             ...responses[0],

@@ -251,7 +251,7 @@
           const setId = response.id;
 
           if (setId === this.$store.state.set.active?.id) {
-            this.$store.dispatch('set/fetchActive', setId);
+            this.$store.dispatch('set/fetchActive', { setId });
           }
 
           if (this.itemId && this.isNew) {

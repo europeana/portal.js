@@ -44,7 +44,7 @@
       async togglePublishedSet() {
         try {
           const visibilityWas = this.visibility;
-          await this.$store.dispatch('set/fetchActive', this.setId);
+          await this.$store.dispatch('set/fetchActive', { setId: this.setId });
           if (visibilityWas === this.$store.state.set.active.visibility) {
             if (this.publishedSet) {
               await this.$apis.set.unpublish(this.setId);

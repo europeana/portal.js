@@ -119,7 +119,7 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive', { setId })).toBe(true);
       });
     });
 

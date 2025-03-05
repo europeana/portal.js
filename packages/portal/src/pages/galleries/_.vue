@@ -125,7 +125,13 @@
           />
         </div>
       </b-container>
+      <LoadingSpinner
+        v-if="$fetchState.pending"
+        class="flex-md-row py-4 text-center"
+      />
       <b-container
+        v-else
+        id="GalleryPage-set-items"
         class="mb-3"
         data-qa="user set"
       >
@@ -162,6 +168,14 @@
                   />
                 </b-col>
               </b-row>
+              <b-row v-if="set.total > perPage">
+                <b-col>
+                  <PaginationNavInput
+                    :total-results="set.total"
+                    :per-page="perPage"
+                  />
+                </b-col>
+              </b-row>
             </b-container>
           </b-col>
         </b-row>
@@ -182,14 +196,18 @@
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ItemSelectButton from '@/components/item/ItemSelectButton';
+  import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import useScrollTo from '@/composables/scrollTo.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
+
+  const PER_PAGE = 100;
 
   export default {
     name: 'GalleryPage',
@@ -199,6 +217,7 @@
       ItemPreviewCardGroup,
       ItemSelectButton,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      PaginationNavInput,
       SearchViewToggles,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
@@ -222,11 +241,16 @@
       this.$store.commit('entity/setBestItemsSetId', null);
       next();
     },
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
     data() {
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         images: [],
+        perPage: PER_PAGE,
         title: '',
         rawDescription: '',
         selectState: false
@@ -235,7 +259,7 @@
     async fetch() {
       try {
         this.validateRoute();
-        await this.$store.dispatch('set/fetchActive', this.setId);
+        await this.$store.dispatch('set/fetchActive', { setId: this.setId, page: this.page });
         this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
@@ -247,6 +271,9 @@
       }
     },
     computed: {
+      page() {
+        return Number(this.$route.query.page || 1);
+      },
       pageMeta() {
         return {
           title: this.displayTitle.values[0],
@@ -306,9 +333,7 @@
         return true;
       },
       displayItemCount() {
-        const max = 100;
-        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.set.total, { max });
+        return this.$tc('items.itemCount', this.set.total, { max: this.set.total });
       },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -332,6 +357,10 @@
         if (this.setIsEntityBestItems) {
           this.$fetch();
         }
+      },
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.scrollToSelector('#GalleryPage-set-items');
       }
     },
 
@@ -353,7 +382,7 @@
         } finally {
           // always re-fetch in case of failure e.g. write lock, so moved items
           // go back where they were
-          await this.$store.dispatch('set/fetchActive', this.setId);
+          await this.$store.dispatch('set/fetchActive', { setId: this.setId, page: this.page });
           this.$redrawVueMasonry?.();
         }
       }

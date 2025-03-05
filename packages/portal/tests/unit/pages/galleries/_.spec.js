@@ -115,7 +115,7 @@ describe('GalleryPage (Set)', () => {
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive', { setId: '123', page: 1 })).toBe(true);
     });
 
     describe('on errors', () => {
@@ -143,22 +143,11 @@ describe('GalleryPage (Set)', () => {
 
   describe('template', () => {
     describe('item count heading', () => {
-      describe('when less than max amount of items in set', () => {
-        it('displays the amount of items in the set', () => {
-          const wrapper = factory(defaultOptions);
-          const itemCount = wrapper.find('[data-qa="item count"]');
+      it('displays the amount of items in the set', () => {
+        const wrapper = factory(defaultOptions);
+        const itemCount = wrapper.find('[data-qa="item count"]');
 
-          expect(itemCount.text()).toEqual('items.itemCount');
-        });
-      });
-
-      describe('when more than max amount of items in set', () => {
-        it('displays the amount shown in total of items in the set', () => {
-          const wrapper = factory({ set: testSet2 });
-          const itemCount = wrapper.find('[data-qa="item count"]');
-
-          expect(itemCount.text()).toEqual('items.itemOf');
-        });
+        expect(itemCount.text()).toEqual('items.itemCount');
       });
     });
 
@@ -305,7 +294,7 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.repositionItem({ itemId, position });
 
-        expect(storeDispatch.calledWith('set/fetchActive', defaultOptions.set.id)).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive', { setId: defaultOptions.set.id, page: 1 })).toBe(true);
       });
     });
   });
