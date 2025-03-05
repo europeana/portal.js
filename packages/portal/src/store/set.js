@@ -19,8 +19,10 @@ export default {
         state.likedItemIds = value.map(item => item.id);
       }
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
+    like(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.push(itemId);
+      }
     },
     unlike(state, itemId) {
       state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
@@ -47,15 +49,16 @@ export default {
   },
 
   actions: {
-    async like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
       await dispatch('fetchLikes');
       if (state.likedItems && state.likedItems.length >= 100) {
         throw new Error('100 likes');
       } else {
         try {
-          await this.$apis.set.insertItem(state.likesId, itemId);
-          commit('like', itemId);
+          await this.$apis.set.insertItem(state.likesId, itemIds);
+          commit('like', itemIds);
           dispatch('fetchLikes');
         } catch (e) {
           dispatch('fetchLikes');
