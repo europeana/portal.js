@@ -20,7 +20,7 @@
         ref="removeAllButton"
         v-b-tooltip.top
         class="button-icon-only icon-remove-circle"
-        variant="link"
+        variant="dark-flat"
         :title="$tc('set.toolbar.actions.removeAll', selectionCount, { count: selectionCount } )"
         data-qa="remove all button"
         :aria-label="$t('set.toolbar.actions.removeAll')"
@@ -32,7 +32,7 @@
         ref="addAllButton"
         v-b-tooltip.top
         class="button-icon-only icon-add-circle p-0"
-        variant="light-flat"
+        variant="dark-flat"
         :title="$tc('set.toolbar.actions.addAll', selectionCount, { count: selectionCount } )"
         data-qa="add all button"
         :aria-label="$t('set.actions.addAll')"
@@ -44,7 +44,7 @@
         ref="deselectAllButton"
         v-b-tooltip.top
         class="button-icon-only icon-heart-outlined"
-        variant="link"
+        variant="dark-flat"
         :title="$tc('set.toolbar.actions.likeAll', selectionCount, { count: selectionCount } )"
         data-qa="deselect all button"
         :aria-label="$t('set.actions.likeAll')"
