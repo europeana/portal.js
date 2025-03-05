@@ -175,7 +175,7 @@
       </b-container>
     </div>
     <ItemSelectionToolbar
-      v-show="selectState"
+      v-if="selectState"
     />
   </div>
 </template>
