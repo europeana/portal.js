@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Dodaj zbirki",
       "addToGallery": "Dodajte ta enota v galerijo.",
+      "cancelSelection": "Prekliči izbiro",
+      "clickToSelectItems": "Kliknite na enote, da jih izberete",
       "create": "Ustvari zbirko",
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
       "removeItemFromLikes": "Odstranite to enoto iz všečkov.",
       "saveItemToLikes": "Shranite ta enota med svoje všečke.",
+      "selectItems": "Izberite enote",
       "update": "Posodobi zbirko"
     },
     "form": {

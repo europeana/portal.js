@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Pridať do galérie",
       "addToGallery": "Pridajte túto objekt do galérie.",
+      "cancelSelection": "Zrušiť výber",
+      "clickToSelectItems": "Kliknutím na objekty ich vyberiete",
       "create": "Vytvoriť galériu",
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
       "removeItemFromLikes": "Odstráňte tento objekt zo svojich hodnotení Páči sa mi.",
       "saveItemToLikes": "Uložte si túto objekt medzi obľúbené.",
+      "selectItems": "Vyberte objekty",
       "update": "Aktualizovať galériu"
     },
     "form": {

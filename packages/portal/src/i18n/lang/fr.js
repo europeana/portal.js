@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Ajouter à la galerie",
       "addToGallery": "Ajouter cet item à une galerie.",
+      "cancelSelection": "Annuler la sélection",
+      "clickToSelectItems": "Cliquez sur les items pour les sélectionner",
       "create": "Créer une galerie",
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
       "removeItemFromLikes": "Retirer cet item de vos j'aime.",
       "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
+      "selectItems": "Sélectionner des items",
       "update": "Mettre à jour la galerie"
     },
     "form": {

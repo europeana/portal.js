@@ -1332,12 +1332,15 @@ export default {
     "actions": {
       "addTo": "Hozzáadás a gelériához",
       "addToGallery": "Add hozzá ezt a tárgyat a galériához.",
+      "cancelSelection": "Kiválasztás törlése",
+      "clickToSelectItems": "Kattintson a tárgyakra a kiválasztásukhoz",
       "create": "Galéria létrehozása",
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
       "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
+      "selectItems": "Válassza ki a tárgyakat",
       "update": "Galéria frissítése"
     },
     "form": {
