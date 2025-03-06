@@ -82,6 +82,14 @@ describe('store/set', () => {
         store.mutations.selectItem(state, newItem);
         expect(state.selectedItems).toEqual([newItem]);
       });
+      describe('when item is already selected', () => {
+        it('does not add to the selected items state again', () => {
+          const newItem = 'item001';
+          const state = { selectedItems: ['item001'] };
+          store.mutations.selectItem(state, newItem);
+          expect(state.selectedItems).toEqual(['item001']);
+        });
+      });
     });
     describe('deselectItemToActive()', () => {
       it('removes an item from the selected items state', () => {
