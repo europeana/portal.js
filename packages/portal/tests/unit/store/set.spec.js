@@ -33,6 +33,13 @@ describe('store/set', () => {
         expect(state.likedItemIds).toEqual(['006']);
       });
     });
+    describe('setSelected', () => {
+      it('sets the selectedItems state', () => {
+        const state = { selectedItems: [] };
+        store.mutations.setSelected(state, ['123/abc']);
+        expect(state.selectedItems).toEqual(['123/abc']);
+      });
+    });
     describe('like()', () => {
       it('pushes the liked item id to likedItemIds state', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };

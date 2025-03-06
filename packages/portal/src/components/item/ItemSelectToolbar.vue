@@ -74,7 +74,7 @@
 
     methods: {
       deselectSelected() {
-        // TODO: deselect all selected items via store
+        this.$store.commit('set/setSelected', []);
       },
       addSelected() {
         // TODO: intialise and open set modal
