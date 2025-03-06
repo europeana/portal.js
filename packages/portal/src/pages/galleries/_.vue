@@ -143,7 +143,7 @@
             />
             <SearchViewToggles
               v-model="view"
-              :class="{ 'ml-auto': !$features.itemMultiSelect }"
+              :class="$features.itemMultiSelect ? 'ml-2' : 'ml-auto'"
             />
           </b-col>
         </b-row>
