@@ -1,4 +1,11 @@
+import useMakeToast from '@/composables/makeToast.js';
+
 export default {
+  setup() {
+    const { makeToast } = useMakeToast();
+    return { makeToast };
+  },
+
   data() {
     return {
       entityBestItemsSetPinnedItems: []

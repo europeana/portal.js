@@ -39,14 +39,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'EntityUpdateModal',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       id: {
@@ -61,6 +57,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {

@@ -29,14 +29,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'SetDeleteModal',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       setId: {
@@ -53,6 +49,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {

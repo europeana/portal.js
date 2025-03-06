@@ -45,7 +45,7 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -58,8 +58,7 @@
     },
 
     mixins: [
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     props: {
@@ -79,6 +78,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {

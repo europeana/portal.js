@@ -10,12 +10,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'SetPublishButton',
-
-    mixins: [makeToastMixin],
 
     props: {
       /**
@@ -32,6 +30,11 @@
         type: String,
         default: 'public'
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     computed: {
