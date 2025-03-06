@@ -110,12 +110,28 @@ describe('GalleryPage (Set)', () => {
       expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
 
+    it('stores the active set ID', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveId', '123')).toBe(true);
+    });
+
+    it('stores the active set params', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 100 })).toBe(true);
+    });
+
     it('fetches the active set', async() => {
       const wrapper = factory(defaultOptions);
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive', { setId: '123', page: 1 })).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
 
     describe('on errors', () => {
@@ -294,7 +310,7 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.repositionItem({ itemId, position });
 
-        expect(storeDispatch.calledWith('set/fetchActive', { setId: defaultOptions.set.id, page: 1 })).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
       });
     });
   });

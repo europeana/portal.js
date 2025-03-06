@@ -26,11 +26,11 @@ describe('store/set', () => {
         store.mutations.setLikedItems(state, likedItems);
         expect(state.likedItemIds).toEqual(likedItems.map(item => item.id));
       });
-      it('does not set the likedItemIds state when there is a falsy value', () => {
+      it('resets the likedItemIds state when there is a falsy value', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
         store.mutations.setLikedItems(state, null);
         expect(state.likedItems).toEqual(null);
-        expect(state.likedItemIds).toEqual(['006']);
+        expect(state.likedItemIds).toEqual([]);
       });
     });
     describe('like()', () => {
@@ -65,14 +65,6 @@ describe('store/set', () => {
         const state = { activeRecommendations: [], active: { items: [activeRecommendations[0]] } };
         store.mutations.setActiveRecommendations(state, activeRecommendations);
         expect(state.activeRecommendations.length).toBe(1);
-      });
-    });
-    describe('addItemToActive()', () => {
-      it('adds an item to the items from the active state', () => {
-        const newItem = { id: 'item002' };
-        const state = { active: { id: 'set001', items: [{ id: 'item001' }] } };
-        store.mutations.addItemToActive(state, newItem);
-        expect(state.active.items).toEqual([{ id: 'item001' }, newItem]);
       });
     });
     describe('selectItem()', () => {
@@ -195,22 +187,11 @@ describe('store/set', () => {
         store.actions.$apis.set.get = sinon.stub().resolves(set);
         store.actions.$apis.set.getItems = sinon.stub().resolves([]);
 
-        await store.actions.fetchActive({ commit }, { setId });
+        const state = { activeId: setId };
+        await store.actions.fetchActive({ commit, state });
 
         expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
         expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);
-      });
-    });
-
-    describe('refreshSet()', () => {
-      describe('when collection-modal hides', () => {
-        it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
-          const state = { active: set };
-
-          await store.actions.refreshSet({ state, dispatch });
-
-          expect(dispatch.calledWith('fetchActive')).toBe(true);
-        });
       });
     });
 

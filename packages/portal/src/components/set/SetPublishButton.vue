@@ -44,7 +44,7 @@
       async togglePublishedSet() {
         try {
           const visibilityWas = this.visibility;
-          await this.$store.dispatch('set/fetchActive', { setId: this.setId });
+          await this.$store.dispatch('set/fetchActive');
           if (visibilityWas === this.$store.state.set.active.visibility) {
             if (this.publishedSet) {
               await this.$apis.set.unpublish(this.setId);
@@ -52,7 +52,7 @@
               await this.$apis.set.publish(this.setId);
             }
 
-            this.$store.dispatch('set/refreshSet');
+            this.$store.dispatch('set/fetchActive');
           } else {
             this.makeToast(this.$t('set.notifications.visibilityChanged', { visibility: this.$store.state.set.active.visibility }), {
               variant: 'warning'

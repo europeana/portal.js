@@ -106,7 +106,7 @@
       },
       refreshSet() {
         if (!this.showFormModal) {
-          this.$store.dispatch('set/refreshSet');
+          this.$store.dispatch('set/fetchActive');
         }
       },
       addToSet() {

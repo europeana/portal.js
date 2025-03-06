@@ -56,7 +56,7 @@ const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
     },
     $store: {
       dispatch: storeDispatch,
-      state: { set: { active: { id: null } } },
+      state: { set: { activeId: null } },
       ...$store
     },
     $t: () => {}
@@ -109,7 +109,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     describe('when the active set', () => {
-      const $store = { state: { set: { active: { id: setId } } } };
+      const $store = { state: { set: { activeId: setId } } };
 
       it('re-fetches active set', async() => {
         const wrapper = factory({ propsData: existingSetPropsData, $store });
@@ -119,12 +119,12 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(storeDispatch.calledWith('set/fetchActive', { setId })).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
       });
     });
 
     describe('when not the active set', () => {
-      const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
+      const $store = { state: { set: { activeId: 'http://data.europeana.eu/set/456' } } };
 
       it('re-fetches active set', async() => {
         const wrapper = factory({ propsData: existingSetPropsData, $store });

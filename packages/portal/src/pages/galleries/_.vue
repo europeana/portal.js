@@ -235,6 +235,8 @@
       pageMetaMixin
     ],
     beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setActiveId', null);
+      this.$store.commit('set/setActiveParams', {});
       this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
@@ -259,7 +261,12 @@
     async fetch() {
       try {
         this.validateRoute();
-        await this.$store.dispatch('set/fetchActive', { setId: this.setId, page: this.page });
+        this.$store.commit('set/setActiveId', this.setId);
+        this.$store.commit('set/setActiveParams', {
+          page: this.page,
+          pageSize: this.perPage
+        });
+        await this.$store.dispatch('set/fetchActive');
         this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
@@ -382,7 +389,7 @@
         } finally {
           // always re-fetch in case of failure e.g. write lock, so moved items
           // go back where they were
-          await this.$store.dispatch('set/fetchActive', { setId: this.setId, page: this.page });
+          await this.$store.dispatch('set/fetchActive');
           this.$redrawVueMasonry?.();
         }
       }
