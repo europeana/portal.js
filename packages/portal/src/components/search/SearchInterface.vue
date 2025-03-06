@@ -172,7 +172,7 @@
   import SearchViewToggles from './SearchViewToggles';
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
@@ -198,8 +198,7 @@
     mixins: [
       advancedSearchMixin,
       elasticApmReporterMixin,
-      itemPreviewCardGroupViewMixin,
-      makeToastMixin
+      itemPreviewCardGroupViewMixin
     ],
 
     props: {
@@ -222,8 +221,9 @@
     },
 
     setup() {
+      const { makeToast } = useBootstrapVueHelpers();
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      return { makeToast, scrollToSelector };
     },
 
     data() {

@@ -1,4 +1,11 @@
+import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+
 export default {
+  setup() {
+    const { makeToast } = useBootstrapVueHelpers();
+    return { makeToast };
+  },
+
   data() {
     return {
       entityBestItemsSetPinnedItems: []

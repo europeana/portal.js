@@ -39,14 +39,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
   export default {
     name: 'EntityUpdateModal',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       id: {
@@ -61,6 +57,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     data() {

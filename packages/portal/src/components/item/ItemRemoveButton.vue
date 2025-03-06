@@ -17,15 +17,11 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemRemoveButton',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       /**
@@ -49,6 +45,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     methods: {

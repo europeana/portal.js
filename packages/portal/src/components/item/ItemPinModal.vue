@@ -75,14 +75,13 @@
 
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
-      makeToastMixin,
       langAttributeMixin,
       entityBestItemsSetMixin
     ],
@@ -113,6 +112,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     data() {

@@ -1,7 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ItemPinModal from '@/components/item/ItemPinModal';
 import sinon from 'sinon';
+import ItemPinModal from '@/components/item/ItemPinModal';
+import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
 /*
 ** The pin modal has a lot of API dependencies.
@@ -165,7 +166,13 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
 });
 
 describe('components/item/ItemPinModal', () => {
+  beforeAll(() => {
+    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   describe('template', () => {
     describe('while NO entity is selected', () => {
@@ -296,23 +303,21 @@ describe('components/item/ItemPinModal', () => {
         describe('when pinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemNotPinned);
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
 
-            expect(makeToast.calledWith('entity.notifications.pinned')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('entity.notifications.pinned')).toBe(true);
           });
         });
 
         describe('when unpinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemAlreadyPinned);
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-            expect(makeToast.calledWith('entity.notifications.unpinned')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('entity.notifications.unpinned')).toBe(true);
           });
         });
       });

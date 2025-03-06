@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ItemRemoveButton from '@/components/item/ItemRemoveButton';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import ItemRemoveButton from '@/components/item/ItemRemoveButton';
+import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -34,6 +35,14 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
 });
 
 describe('ItemRemoveButton', () => {
+  beforeAll(() => {
+    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
+
   it('renders the button icon only', () => {
     const wrapper = factory({ identifier: 'item-1' });
 
@@ -42,12 +51,11 @@ describe('ItemRemoveButton', () => {
 
   it('calls the deleteItem method when clicked', async() => {
     const wrapper = factory({ identifier: 'item-1' });
-    const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
 
     expect(setApiDeleteItemStub.calledWith('set-1', 'item-1')).toBe(true);
     expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
-    expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
+    expect(wrapper.vm.makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
   });
 });

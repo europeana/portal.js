@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SetPublishButton from '@/components/set/SetPublishButton';
 import sinon from 'sinon';
+import SetPublishButton from '@/components/set/SetPublishButton';
+import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -41,7 +42,13 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
 });
 
 describe('components/set/SetPublishButton', () => {
+  beforeAll(() => {
+    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   it('refreshes the active set first', async() => {
     const wrapper = factory(publicSet);
@@ -65,7 +72,6 @@ describe('components/set/SetPublishButton', () => {
     it('shows a toast with a notification', async() => {
       const wrapper = factory(publicSet);
       wrapper.vm.$store.state.set.active.visibility = 'private';
-      sinon.spy(wrapper.vm, 'makeToast');
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 

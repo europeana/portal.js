@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -59,7 +59,6 @@
     },
 
     mixins: [
-      makeToastMixin,
       entityBestItemsSetMixin
     ],
 
@@ -92,6 +91,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     data() {

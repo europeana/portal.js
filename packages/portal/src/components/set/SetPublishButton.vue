@@ -10,12 +10,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
   export default {
     name: 'SetPublishButton',
-
-    mixins: [makeToastMixin],
 
     props: {
       /**
@@ -32,6 +30,11 @@
         type: String,
         default: 'public'
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     computed: {

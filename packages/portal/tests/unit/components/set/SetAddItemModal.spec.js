@@ -1,7 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SetAddItemModal from '@/components/set/SetAddItemModal';
 import sinon from 'sinon';
+import SetAddItemModal from '@/components/set/SetAddItemModal';
+import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -42,6 +43,14 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
 });
 
 describe('components/set/SetAddItemModal', () => {
+  beforeAll(() => {
+    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
+
   describe('template', () => {
     describe('create set button', () => {
       it('emits "clickCreateSet" event', () => {
@@ -70,24 +79,22 @@ describe('components/set/SetAddItemModal', () => {
         const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
         const data = { fetched: true, collections: sets };
         const wrapper = factory({ propsData, data });
-        const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(setApiInsertItemStub.calledWith('001', '/123/abc')).toBe(true);
-        expect(makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
+        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
       });
 
       it('removes item from gallery when item already added', async() => {
         const propsData = { itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
         const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
         const wrapper = factory({ propsData, data });
-        const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(setApiDeleteItemStub.calledWith('001', '/000/aaa')).toBe(true);
-        expect(makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
+        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
       });
     });
   });

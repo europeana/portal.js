@@ -63,7 +63,7 @@
   import PageHeader from '@/components/page/PageHeader';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -82,9 +82,10 @@
       ErrorModal
     },
 
-    mixins: [
-      makeToastMixin
-    ],
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
+    },
 
     data() {
       return {

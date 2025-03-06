@@ -28,7 +28,7 @@
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -36,8 +36,7 @@
 
     mixins: [
       hideTooltips,
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     props: {
@@ -62,6 +61,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useBootstrapVueHelpers();
+      return { makeToast };
     },
 
     data() {
