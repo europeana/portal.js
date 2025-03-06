@@ -92,7 +92,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} params.perPage the number of items per page of results
    * @return {Object} the set's object, containing the requested window of the set's items
    */
-  // TODO: pagination for sets with > 100 items
   get(id, params = {}) {
     const defaults = {
       profile: 'meta'
@@ -101,12 +100,9 @@ export default class EuropeanaSetApi extends EuropeanaApi {
 
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
-      // get requests with pagination remove item metadata, use them without pagination
+      // account for early versions of the API paginating from 0, new version from 1
       if (paramsWithDefaults.page) {
-        delete paramsWithDefaults.page;
-      }
-      if (paramsWithDefaults.perPage) {
-        delete paramsWithDefaults.perPage;
+        paramsWithDefaults.page = paramsWithDefaults.page - 1;
       }
       // check for meta profile
       if (paramsWithDefaults.profile === 'meta') {
@@ -254,18 +250,18 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     });
   }
 
-  getItemIds(id) {
+  getItemIds(id, { page = 1, pageSize = 100 } = {}) {
     return this.get(id, {
-      page: 1,
-      pageSize: 100,
+      page,
+      pageSize,
       profile: 'items'
     }).then((response) => response?.items);
   }
 
-  getItems(id) {
+  getItems(id, { page = 1, pageSize = 100 } = {}) {
     return this.get(id, {
-      page: 1,
-      pageSize: 100,
+      page,
+      pageSize,
       profile: 'items.meta'
     }).then((response) => response?.items);
   }
