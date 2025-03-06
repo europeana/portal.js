@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'EntityUpdateModal',
@@ -60,7 +60,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

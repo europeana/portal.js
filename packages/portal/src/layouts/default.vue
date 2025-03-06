@@ -63,7 +63,7 @@
   import PageHeader from '@/components/page/PageHeader';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -83,7 +83,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

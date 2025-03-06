@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import SetAddItemModal from '@/components/set/SetAddItemModal';
-import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -44,7 +44,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
 
 describe('components/set/SetAddItemModal', () => {
   beforeAll(() => {
-    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+    sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
     });
   });

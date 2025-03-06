@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import ItemRemoveButton from '@/components/item/ItemRemoveButton';
-import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -36,7 +36,7 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
 
 describe('ItemRemoveButton', () => {
   beforeAll(() => {
-    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+    sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
     });
   });

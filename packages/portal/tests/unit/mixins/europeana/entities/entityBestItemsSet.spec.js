@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 import mixin from '@/mixins/europeana/entities/entityBestItemsSet';
-import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const component = {
   template: '<div></div>',
@@ -64,7 +64,7 @@ const factory = () => {
 
 describe('mixins/europeana/entities/entityBestItemsSet', () => {
   beforeAll(() => {
-    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+    sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
     });
   });

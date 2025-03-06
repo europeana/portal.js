@@ -1,6 +1,6 @@
 import { getCurrentInstance } from 'vue';
 
-export default function useBootstrapVueHelpers() {
+export default function useMakeToast() {
   const instance = getCurrentInstance();
   const $root = instance.proxy.$root;
 

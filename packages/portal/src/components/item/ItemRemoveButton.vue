@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
@@ -48,7 +48,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

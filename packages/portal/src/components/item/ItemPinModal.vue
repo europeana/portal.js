@@ -75,7 +75,7 @@
 
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
@@ -115,7 +115,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

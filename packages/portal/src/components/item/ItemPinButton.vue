@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -94,7 +94,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

@@ -45,7 +45,7 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
-  import useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -81,7 +81,7 @@
     },
 
     setup() {
-      const { makeToast } = useBootstrapVueHelpers();
+      const { makeToast } = useMakeToast();
       return { makeToast };
     },
 

@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import SetPublishButton from '@/components/set/SetPublishButton';
-import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -43,7 +43,7 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
 
 describe('components/set/SetPublishButton', () => {
   beforeAll(() => {
-    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+    sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
     });
   });

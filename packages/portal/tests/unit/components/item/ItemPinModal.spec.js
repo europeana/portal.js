@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import ItemPinModal from '@/components/item/ItemPinModal';
-import * as useBootstrapVueHelpers from '@/composables/bootstrapVueHelpers.js';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 /*
 ** The pin modal has a lot of API dependencies.
@@ -167,7 +167,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
 
 describe('components/item/ItemPinModal', () => {
   beforeAll(() => {
-    sinon.stub(useBootstrapVueHelpers, 'default').returns({
+    sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
     });
   });
