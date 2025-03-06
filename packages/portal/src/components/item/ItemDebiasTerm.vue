@@ -48,7 +48,7 @@
 
 <script>
   import SmartLink from '@/components/generic/SmartLink';
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemDebiasTerm',
@@ -56,8 +56,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [hideTooltips],
 
     props: {
       id: {
@@ -76,6 +74,11 @@
         type: String,
         default: null
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     },
 
     data() {
