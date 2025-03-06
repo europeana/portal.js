@@ -39,7 +39,9 @@ export default {
       state.active.items.push(item);
     },
     selectItem(state, itemId) {
-      state.selectedItems.push(itemId);
+      if (!state.selectedItems.includes(itemId)) {
+        state.selectedItems.push(itemId);
+      }
     },
     deselectItem(state, itemId) {
       state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
