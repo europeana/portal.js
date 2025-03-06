@@ -93,7 +93,7 @@
   @import '@europeana/style/scss/variables';
 
   .item-select-toolbar {
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     padding: 1rem;
     position: fixed;
     // Abstract into shared style with .full-image-button from itemMediaPresentation?
@@ -129,7 +129,7 @@
         }
       }
 
-      &:hover  {
+      &:hover {
         &.btn-dark-flat, &.btn-link {
           color: $white;
         }
