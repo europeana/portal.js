@@ -1,12 +1,12 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ItemSelectionToolbar from '@/components/item/ItemSelectionToolbar';
+import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectionToolbar, {
+const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectToolbar, {
   localVue,
   attachTo: document.body,
   directives: { 'b-tooltip': () => {} },
@@ -29,12 +29,12 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectionToolbar, {
   }
 });
 
-describe('components/item/ItemSelectionToolbar', () => {
+describe('components/item/ItemSelectToolbar', () => {
   describe('when itemMultiSelect feature toggle is enabled', () => {
     it('renders the toolbar', () => {
       const wrapper = factory();
 
-      const selectionToolbar = wrapper.find('.multiSelectToolbar');
+      const selectionToolbar = wrapper.find('.item-select-toolbar');
 
       expect(selectionToolbar.text()).toBe('0 set.toolbar.info');
     });

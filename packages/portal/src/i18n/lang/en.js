@@ -1454,10 +1454,10 @@ export default {
     "toolbar": {
       "info": "{count} item selected. | {count} items selected.",
       "actions": {
-        "addAll": "Add {count} item to a gallery | Add {count} items to a gallery",
-        "deselectAll": "Deselect all.",
-        "likeAll": "Like {count} item | Like {count} items",
-        "removeAll": "Remove {count} item from this gallery | Add {count} items from this gallery"
+        "addSelected": "Add {count} item to a gallery | Add {count} items to a gallery",
+        "deselectSelected": "Deselect all.",
+        "likeSelected": "Like {count} item | Like {count} items",
+        "removeSelected": "Remove {count} item from this gallery | Remove {count} items from this gallery"
       }
     }
   },
