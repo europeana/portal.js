@@ -207,7 +207,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
 
-  const PER_PAGE = 100;
+  const PER_PAGE = 24;
 
   export default {
     name: 'GalleryPage',
