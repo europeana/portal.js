@@ -73,16 +73,16 @@
     },
 
     methods: {
-      deselectAll() {
+      deselectSelected() {
         // TODO: deselect all selected items via store
       },
-      addAll() {
+      addSelected() {
         // TODO: intialise and open set modal
       },
-      removeAll() {
+      removeSelected() {
         // TODO: remove all selected items via store
       },
-      likeAll() {
+      likeSelected() {
         // TODO: add all selected items to likes via store
       }
     }
