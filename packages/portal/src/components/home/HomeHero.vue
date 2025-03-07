@@ -41,7 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
-  import { FULL_VIEWPORT_PRESETS as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'HomeHero',
