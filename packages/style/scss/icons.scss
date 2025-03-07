@@ -357,6 +357,18 @@
   content: '\e902';
 }
 
+.icon-view-grid::before {
+  content: '\e92a';
+}
+
+.icon-view-list::before {
+  content: '\e929';
+}
+
+.icon-view-mosaic::before {
+  content: '\e94a';
+}
+
 .icon-x::before {
   content: '\e906';
 }
