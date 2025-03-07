@@ -1,12 +1,19 @@
 <template>
   <div
     v-if="$features.itemMultiSelect"
+    role="dialog"
+    aria-labelledby="toolbar-info"
     class="item-select-toolbar position-fixed d-inline-flex align-items-center"
   >
-    <span class="toolbar-info">{{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}</span>
+    <span
+      id="toolbar-info"
+      class="toolbar-info"
+    >
+      {{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}
+    </span>
     <template v-if="selectionCount >= 1">
       <b-button
-        :id="`deselect-selected-button`"
+        id="deselect-selected-button"
         ref="deselectSelectedButton"
         variant="link"
         data-qa="deselect selected button"
@@ -17,7 +24,8 @@
         {{ $t('set.toolbar.actions.deselectSelected') }}
       </b-button>
       <b-button
-        :id="`remove-selected-button`"
+        v-if="userCanEditSet"
+        id="remove-selected-button"
         ref="removeSelectedButton"
         v-b-tooltip.top
         class="button-icon-only icon-remove-circle-outlined ml-2"
@@ -29,7 +37,7 @@
         @mouseleave="hideTooltips"
       />
       <b-button
-        :id="`add-selected-button`"
+        id="add-selected-button"
         ref="addSelectedButton"
         v-b-tooltip.top
         class="button-icon-only icon-add-circle-outlined ml-2"
@@ -41,7 +49,7 @@
         @mouseleave="hideTooltips"
       />
       <b-button
-        :id="`like-selected-button`"
+        id="like-selected-button"
         ref="deselectSelectedButton"
         v-b-tooltip.top
         class="button-icon-only icon-heart-outlined ml-2"
@@ -63,6 +71,13 @@
     name: 'ItemSelectToolbar',
 
     mixins: [hideTooltips],
+
+    props: {
+      userCanEditSet: {
+        type: Boolean,
+        default: false
+      }
+    },
 
     computed: {
       selectionCount() {

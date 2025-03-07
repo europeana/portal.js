@@ -176,6 +176,7 @@
     </div>
     <ItemSelectToolbar
       v-if="selectState"
+      :user-can-edit-set="userCanEditSet"
     />
   </div>
 </template>
