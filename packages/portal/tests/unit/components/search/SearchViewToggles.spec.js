@@ -15,57 +15,42 @@ const factory = (propsData = {}) => {
     mocks: {
       $t: (key) => key,
       localePath: (args) => args,
+      $cookies: {
+        set: sinon.spy()
+      },
       $matomo: {
         trackEvent: sinon.spy()
       },
-      $route: { query: {} },
-      $router: { push: sinon.spy() }
+      $route: { query: {} }
     }
   });
 };
 
 describe('components/search/SearchViewToggles', () => {
-  for (const view of ['list', 'grid', 'mosaic']) {
-    describe(`${view} view`, () => {
-      it('has a toggle', () => {
-        const wrapper = factory();
+  it('renders a dropdown', () => {
+    const wrapper = factory();
 
-        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"]`);
-        expect(viewToggle.exists()).toBe(true);
-      });
+    const viewToggle = wrapper.find('[data-qa="view toggle"]');
+    expect(viewToggle.exists()).toBe(true);
+  });
 
-      it('has a radio button with a value of the view', () => {
-        const wrapper = factory();
+  it('displays the active view icon on the toggle button', () => {
+    const wrapper = factory();
 
-        const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"]`);
-        expect(viewToggleLink.attributes('value')).toMatch(view);
-      });
+    const activeView = wrapper.vm.value;
+    const viewToggleIcon = wrapper.find(`[data-qa="view toggle"] .icon-view-${activeView}`);
+    expect(viewToggleIcon.exists()).toBe(true);
+  });
 
-      it('displays icon', () => {
-        const wrapper = factory();
-
-        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle icon"]`);
-        expect(viewToggleIcon.attributes('class')).toBe(`icon-view-toggle ${view}`);
-      });
-    });
-  }
-
-  describe('when the activeView changes', () => {
-    it('redirects the page', async() => {
-      const expectedGoToArgs = { query: { view: 'list' } };
+  describe('When clicking a view option from the dropdown', () => {
+    it('saves preference in a cookie and tracks the event in Matomo', async() => {
       const wrapper = factory({ value: 'grid' });
 
-      await wrapper.setData({ activeView: 'list' });
+      const viewOption = wrapper.find('[data-qa="mosaic view item"]');
+      viewOption.trigger('click');
 
-      expect(wrapper.vm.$router.push.calledWith(expectedGoToArgs)).toBe(true);
-    });
-
-    it('tracks the event in Matomo', async() => {
-      const wrapper = factory({ value: 'grid' });
-
-      await wrapper.setData({ activeView: 'list' });
-
-      expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'list')).toBe(true);
+      expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'mosaic')).toBe(true);
     });
   });
 });
