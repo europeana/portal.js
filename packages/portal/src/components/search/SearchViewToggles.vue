@@ -66,12 +66,12 @@
     min-width: 0;
     border: none;
     box-shadow: $boxshadow;
-    padding: 6px 6px 0;
+    padding: 0 6px;
     margin: 0;
     transform: none !important;
 
     @media (min-width: $bp-4k) {
-      padding: 9px 9px 0;
+      padding: 0 9px;
     }
 
     &.show {
@@ -99,11 +99,11 @@
     .dropdown-item {
       color: $black;
       padding: 0;
-      margin-bottom: 6px;
+      margin: 6px 0;
       line-height: 1;
 
       @media (min-width: $bp-4k) {
-        margin-bottom: 9px;
+        margin: 9px 0;
       }
 
       &:hover,
