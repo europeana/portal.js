@@ -46,7 +46,7 @@ describe('components/search/SearchViewToggles', () => {
     it('saves preference in a cookie and tracks the event in Matomo', async() => {
       const wrapper = factory({ value: 'grid' });
 
-      const viewOption = wrapper.find('[data-qa="mosaic view item"]');
+      const viewOption = wrapper.find('[data-qa="mosaic view option"]');
       viewOption.trigger('click');
 
       expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);

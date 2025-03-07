@@ -5,11 +5,11 @@
     no-flip
     no-caret
     data-qa="view toggle"
+    :toggle-attrs="{ 'aria-label': $t('actions.changeView') }"
   >
     <template #button-content>
       <span
         :class="`icon-view-${value}`"
-        :aria-label="$t('actions.changeView')"
       />
     </template>
     <b-dropdown-item
@@ -17,7 +17,7 @@
       :key="view"
       v-b-tooltip.left="$t(`searchViews.${view}`)"
       :aria-label="$t(`searchViews.${view}`)"
-      :data-qa="`${view} view item`"
+      :data-qa="`${view} view option`"
       :to="{ ...$route, ...{ query: { ...$route.query, ...{ view: view } } } }"
       @click="selectView(view)"
     >
