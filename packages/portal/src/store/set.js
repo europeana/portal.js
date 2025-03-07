@@ -56,7 +56,7 @@ export default {
         throw new Error('100 likes');
       } else {
         try {
-          await this.$apis.set.insertItem(state.likesId, itemId);
+          await this.$apis.set.insertItems(state.likesId, itemId);
           commit('like', itemId);
           dispatch('fetchLikes');
         } catch (e) {

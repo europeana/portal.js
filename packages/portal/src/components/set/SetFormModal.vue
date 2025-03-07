@@ -255,7 +255,7 @@
           }
 
           if (this.itemId && this.isNew) {
-            await this.$apis.set.insertItem(setId, this.itemId);
+            await this.$apis.set.insertItems(setId, this.itemId);
           }
 
           this.hide(this.isNew ? 'create' : 'update');
