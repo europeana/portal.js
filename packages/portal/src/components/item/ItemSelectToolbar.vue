@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="$features.itemMultiSelect"
-    class="item-select-toolbar d-inline-flex"
+    class="item-select-toolbar position-fixed d-inline-flex align-items-center"
   >
     <span class="toolbar-info">{{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}</span>
     <template v-if="selectionCount >= 1">
@@ -10,6 +10,7 @@
         ref="deselectSelectedButton"
         variant="link"
         data-qa="deselect selected button"
+        class="p-0 mr-3 ml-1"
         :aria-label="$t('set.toolbar.actions.deselectSelected')"
         @click="deselectSelected"
       >
@@ -19,7 +20,7 @@
         :id="`remove-selected-button`"
         ref="removeSelectedButton"
         v-b-tooltip.top
-        class="button-icon-only icon-remove-circle-outlined"
+        class="button-icon-only icon-remove-circle-outlined ml-2"
         variant="dark-flat"
         :title="$tc('set.toolbar.actions.removeSelected', selectionCount, { count: selectionCount } )"
         data-qa="remove selected button"
@@ -31,7 +32,7 @@
         :id="`add-selected-button`"
         ref="addSelectedButton"
         v-b-tooltip.top
-        class="button-icon-only icon-add-circle-outlined"
+        class="button-icon-only icon-add-circle-outlined ml-2"
         variant="dark-flat"
         :title="$tc('set.toolbar.actions.addSelected', selectionCount, { count: selectionCount } )"
         data-qa="add selected button"
@@ -43,7 +44,7 @@
         :id="`like-selected-button`"
         ref="deselectSelectedButton"
         v-b-tooltip.top
-        class="button-icon-only icon-heart-outlined"
+        class="button-icon-only icon-heart-outlined ml-2"
         variant="dark-flat"
         :title="$tc('set.toolbar.actions.likeSelected', selectionCount, { count: selectionCount } )"
         data-qa="deselect selected button"
@@ -93,10 +94,8 @@
   @import '@europeana/style/scss/variables';
 
   .item-select-toolbar {
-    border-radius: 0.25rem;
-    padding: 1rem;
-    position: fixed;
-    // Abstract into shared style with .full-image-button from itemMediaPresentation?
+    border-radius: $border-radius-small;
+    padding: 0.75rem;
     background-color: $black;
     color: $white;
     border: 1px solid $white;
@@ -105,28 +104,18 @@
     right: 0;
     margin: 0 auto;
     width: fit-content;
-    z-index: 1;
-
-    .toolbar-info {
-      display: inline-block;
-      line-height: 32px;
-    }
+    z-index: 4; // overlap footer
+    font-size: $font-size-small;
 
     button {
       &.btn-link {
         color: $white;
         text-decoration: underline;
-        padding: 0 2rem 0 0.5rem;
+        font-size: $font-size-small;
       }
 
       &.btn-dark-flat {
-        height: 2rem;
-        width: 2rem;
-        font-size: 2rem;
-        margin: 0 0.25rem;
-        &:last-child {
-          margin-right: 0;
-        }
+        font-size: $font-size-large;
       }
 
       &:hover {
