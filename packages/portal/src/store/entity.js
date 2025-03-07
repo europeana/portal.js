@@ -15,7 +15,7 @@ export default {
 
   mutations: {
     setBestItemsSetId(state, value) {
-      state.bestItemsSetId = value.split('/').pop();
+      state.bestItemsSetId = value?.split('/').pop();
     },
     setEntity(state, value) {
       state.entity = value;
