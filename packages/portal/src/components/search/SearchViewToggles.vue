@@ -62,28 +62,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  ::v-deep .btn-light.dropdown-toggle {
-    color: $black;
-    line-height: 1;
-    padding: 6px;
-
-    @at-root .dropdown.show & {
-      color: $black;
-    }
-
-    [class*="icon-"] {
-      font-size: $font-size-large;
-      display: inline-block;
-      line-height: 1;
-      width: $font-size-large;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
-        width: $font-size-large-4k;
-      }
-    }
-  }
-
   ::v-deep .dropdown-menu {
     min-width: 0;
     border: none;
@@ -97,7 +75,7 @@
       flex-direction: column;
     }
 
-    [class*="icon-"] {
+    [class*='icon-'] {
       font-size: $font-size-large;
 
       @media (min-width: $bp-4k) {
@@ -125,6 +103,28 @@
       &:active {
         background-color: transparent;
         color: $blue;
+      }
+    }
+  }
+
+  ::v-deep .btn-light.dropdown-toggle {
+    color: $black;
+    line-height: 1;
+    padding: 6px;
+
+    @at-root .dropdown.show & {
+      color: $black;
+    }
+
+    [class*='icon-'] {
+      font-size: $font-size-large;
+      display: inline-block;
+      line-height: 1;
+      width: $font-size-large;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+        width: $font-size-large-4k;
       }
     }
   }
