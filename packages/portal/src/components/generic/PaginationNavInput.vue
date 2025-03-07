@@ -101,8 +101,8 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
   import SmartLink from './SmartLink';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'PaginationNavInput',
@@ -110,8 +110,6 @@
     components: {
       SmartLink
     },
-
-    mixins: [hideTooltips],
 
     props: {
       /**
@@ -171,6 +169,11 @@
         type: Array,
         default: () => []
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     },
 
     data() {

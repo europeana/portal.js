@@ -23,18 +23,21 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemMediaSidebarWidget',
-
-    mixins: [hideTooltips],
 
     props: {
       showSidebar: {
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     }
   };
 </script>

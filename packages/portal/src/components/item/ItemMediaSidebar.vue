@@ -123,7 +123,7 @@
   import { BTab, BTabs } from 'bootstrap-vue';
 
   import useActiveTab from '@/composables/activeTab.js';
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -134,8 +134,6 @@
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
       MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
     },
-
-    mixins: [hideTooltips],
 
     provide() {
       return {
@@ -179,7 +177,8 @@
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      return { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex };
+      const { hideTooltips } = useHideTooltips();
+      return { activeTabHash, activeTabHistory, activeTabIndex, hideTooltips, watchTabIndex, unwatchTabIndex };
     },
 
     data() {
