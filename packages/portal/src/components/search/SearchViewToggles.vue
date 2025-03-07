@@ -70,6 +70,10 @@
     margin: 0;
     transform: none !important;
 
+    @media (min-width: $bp-4k) {
+      padding: 9px 9px 0;
+    }
+
     &.show {
       display: flex;
       flex-direction: column;
@@ -98,6 +102,10 @@
       margin-bottom: 6px;
       line-height: 1;
 
+      @media (min-width: $bp-4k) {
+        margin-bottom: 9px;
+      }
+
       &:hover,
       &:focus,
       &:active {
@@ -111,6 +119,10 @@
     color: $black;
     line-height: 1;
     padding: 6px;
+
+    @media (min-width: $bp-4k) {
+      padding: 9px;
+    }
 
     @at-root .dropdown.show & {
       color: $black;
