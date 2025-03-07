@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Agregar a la galería",
       "addToGallery": "Añade este ítem a una galería.",
+      "cancelSelection": "Cancelar selección",
+      "clickToSelectItems": "Haga clic en los ítems para seleccionarlos",
       "create": "Crear galería",
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
       "removeItemFromLikes": "Elimina este ítem de tus Me gusta.",
       "saveItemToLikes": "Guarde este ítem en sus Me gusta.",
+      "selectItems": "Seleccionar ítems",
       "update": "Actualizar galería"
     },
     "form": {

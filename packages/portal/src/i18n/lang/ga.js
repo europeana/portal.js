@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Cuir leis an ngailearaí",
       "addToGallery": "Cuir an mhír seo le gailearaí.",
+      "cancelSelection": "Cealaigh an roghnúchán",
+      "clickToSelectItems": "Cliceáil ar na míreanna chun iad a roghnú",
       "create": "Cruthaigh gailearaí",
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
       "removeItemFromLikes": "Bain an mír seo ó do thaitin.",
       "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
+      "selectItems": "Roghnaigh míreanna",
       "update": "Nuashonraigh gailearaí"
     },
     "form": {

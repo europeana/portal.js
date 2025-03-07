@@ -54,10 +54,10 @@ describe('store/entity', () => {
       });
     });
     describe('setBestItemsSetId', () => {
-      it('sets nest items set ID state', () => {
+      it('sets best items set ID state, numeric part only', () => {
         const state = {};
-        store.mutations.setBestItemsSetId(state, '/1');
-        expect(state.bestItemsSetId).toEqual('/1');
+        store.mutations.setBestItemsSetId(state, 'http://data.europeana.eu/set/1');
+        expect(state.bestItemsSetId).toEqual('1');
       });
     });
   });

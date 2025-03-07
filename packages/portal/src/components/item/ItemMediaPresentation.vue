@@ -96,7 +96,7 @@
                 v-if="viewableImageResource"
                 data-qa="item media load button"
                 class="full-image-button d-inline-flex align-items-center py-2 px-3"
-                variant="light-flat"
+                variant="dark-flat"
                 @click="() => thumbnailInteractedWith = true"
               >
                 <span class="icon-click mr-2" />
@@ -571,7 +571,6 @@
 
   .full-image-button {
     background-color: $black;
-    color: $white;
     border: 1px solid $white;
     position: absolute;
     bottom: 1rem;
@@ -580,6 +579,10 @@
     margin: 0 auto;
     width: fit-content;
     z-index: 1;
+
+    &:hover {
+      color: $white;
+    }
   }
 
   .icon-click {

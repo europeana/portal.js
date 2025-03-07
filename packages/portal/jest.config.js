@@ -29,6 +29,6 @@ export default {
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.(ico|svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };

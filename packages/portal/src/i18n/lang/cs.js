@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Vložit do galerie",
       "addToGallery": "Přidat tuto položku do galerie.",
+      "cancelSelection": "Zrušit výběr",
+      "clickToSelectItems": "Kliknutím na položky je vyberete",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
       "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
+      "selectItems": "Vyberte položky",
       "update": "Aktualizovat galerii"
     },
     "form": {

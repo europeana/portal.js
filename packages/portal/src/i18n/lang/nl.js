@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Toevoegen aan galerij",
       "addToGallery": "Voeg dit object toe aan een galerij.",
+      "cancelSelection": "Selectie annuleren",
+      "clickToSelectItems": "Klik op objecten om ze te selecteren",
       "create": "Galerij aanmaken",
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
       "removeItemFromLikes": "Verwijder dit object uit uw likes.",
       "saveItemToLikes": "Bewaar dit object bij uw likes.",
+      "selectItems": "Selecteer objecten",
       "update": "Galerij bijwerken"
     },
     "form": {

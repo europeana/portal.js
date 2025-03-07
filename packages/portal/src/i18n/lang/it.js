@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Aggiungi alla galleria",
       "addToGallery": "Aggiungi questo oggetto a una galleria.",
+      "cancelSelection": "Annulla selezione",
+      "clickToSelectItems": "Fai clic sugli oggetti per selezionarli",
       "create": "Crea galleria",
       "createNew": "Crea una nuova galleria",
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
       "removeItemFromLikes": "Rimuovi questo oggetto dai tuoi Mi piace.",
       "saveItemToLikes": "Salva questo oggetto nei tuoi Mi piace.",
+      "selectItems": "Seleziona oggetti",
       "update": "Aggiorna galleria"
     },
     "form": {

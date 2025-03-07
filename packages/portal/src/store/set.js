@@ -39,7 +39,9 @@ export default {
       state.active.items.push(item);
     },
     selectItem(state, itemId) {
-      state.selectedItems.push(itemId);
+      if (!state.selectedItems.includes(itemId)) {
+        state.selectedItems.push(itemId);
+      }
     },
     deselectItem(state, itemId) {
       state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
@@ -54,7 +56,7 @@ export default {
         throw new Error('100 likes');
       } else {
         try {
-          await this.$apis.set.insertItem(state.likesId, itemId);
+          await this.$apis.set.insertItems(state.likesId, itemId);
           commit('like', itemId);
           dispatch('fetchLikes');
         } catch (e) {

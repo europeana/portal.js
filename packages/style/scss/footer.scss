@@ -188,6 +188,7 @@
 
       @media (min-width: $bp-wqhd) {
         display: flex;
+        align-items: center;
       }
 
       .link {
@@ -200,6 +201,21 @@
 
           img {
             width: 120px;
+          }
+        }
+
+        &:nth-child(3) {
+          flex-grow: 1;
+
+          img {
+            width: 135px;
+            margin-top: -2px;
+            margin-left: -4px;
+
+            @media (min-width: $bp-wqhd) {
+              width: 175px;
+              margin: 0;
+            }
           }
         }
       }
