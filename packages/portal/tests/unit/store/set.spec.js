@@ -154,17 +154,17 @@ describe('store/set', () => {
 
     describe('unlike()', () => {
       it('removes from likes set via $apis.set, then commits with "unlike"', async() => {
-        store.actions.$apis.set.deleteItem = sinon.stub().resolves({});
+        store.actions.$apis.set.deleteItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         await store.actions.unlike({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.deleteItem.calledWith(state.likesId, itemId)).toBe(true);
+        expect(store.actions.$apis.set.deleteItems.calledWith(state.likesId, itemId)).toBe(true);
         expect(commit.calledWith('unlike', itemId)).toBe(true);
       });
       describe('when api call errors', () => {
         it('fetches likes', async() => {
-          store.actions.$apis.set.deleteItem = sinon.stub().rejects(new Error('API error'));
+          store.actions.$apis.set.deleteItems = sinon.stub().rejects(new Error('API error'));
           const state = { likesId: setId };
 
           await expect(store.actions.unlike({ dispatch, commit, state }, itemId)).rejects.toThrowError();
