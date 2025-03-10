@@ -13,7 +13,7 @@
       />
     </template>
     <b-dropdown-item
-      v-for="view in views"
+      v-for="view in sortedViews"
       :key="view"
       v-b-tooltip.left="$t(`searchViews.${view}`)"
       :aria-label="$t(`searchViews.${view}`)"
@@ -44,9 +44,15 @@
       }
     },
 
+    data() {
+      return {
+        views: ['list', 'grid', 'mosaic']
+      };
+    },
+
     computed: {
-      views() {
-        return ['list', 'grid', 'mosaic'].sort((a, b) => b === this.value);
+      sortedViews() {
+        return [this.value, ...this.views.filter((view) => view !== this.value)];
       }
     },
 
@@ -66,12 +72,12 @@
     min-width: 0;
     border: none;
     box-shadow: $boxshadow;
-    padding: 0 6px;
+    padding: 6px;
     margin: 0;
     transform: none !important;
 
     @media (min-width: $bp-4k) {
-      padding: 0 9px;
+      padding: 9px;
     }
 
     &.show {
@@ -96,15 +102,18 @@
       }
     }
 
+    li:not(:last-child) {
+      margin-bottom: 1rem;
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 1.5rem;
+      }
+    }
+
     .dropdown-item {
       color: $black;
       padding: 0;
-      margin: 6px 0;
       line-height: 1;
-
-      @media (min-width: $bp-4k) {
-        margin: 9px 0;
-      }
 
       &:hover,
       &:focus,
