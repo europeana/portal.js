@@ -397,9 +397,6 @@
       initOlImageLayerStatic(url, width, height) {
         const extent = [0, 0, width, height];
 
-        // Workaround OL bug for browsers that do not support ImageBitmap
-        window.ImageBitmap = window.ImageBitmap || class {};
-
         const source = new ImageStatic({
           url,
           imageExtent: extent

@@ -450,8 +450,16 @@ export default {
   */
   build: {
     babel: {
-      plugins: [
-        '@babel/plugin-transform-logical-assignment-operators'
+      // plugins: [
+      //   '@babel/plugin-transform-logical-assignment-operators',
+      //   '@babel/plugin-transform-nullish-coalescing-operator'
+      // ],
+
+      presets: [
+        [
+          '@babel/preset-env',
+          { targets: { node: 'current' } }
+        ]
       ]
     },
 
