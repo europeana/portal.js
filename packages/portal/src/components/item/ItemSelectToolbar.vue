@@ -120,7 +120,7 @@
     left: 0;
     right: 0;
     margin: 0 1rem;
-    z-index: 1080; // overlap footer, tooltips, feedback button
+    z-index: 1060; // overlap footer, feedback button
     font-size: $font-size-small;
 
     @media (min-width: $bp-small) {
