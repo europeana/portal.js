@@ -19,8 +19,10 @@ export default {
         state.likedItemIds = value.map(item => item.id);
       }
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
+    like(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.push(itemId);
+      }
     },
     unlike(state, itemId) {
       state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
@@ -49,10 +51,10 @@ export default {
   },
 
   actions: {
-    async like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemIds) {
       try {
-        await this.$apis.set.insertItems(state.likesId, itemId);
-        commit('like', itemId);
+        await this.$apis.set.insertItems(state.likesId, itemIds);
+        commit('like', itemIds);
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');
@@ -61,7 +63,7 @@ export default {
     },
     async unlike({ dispatch, commit, state }, itemId) {
       try {
-        await this.$apis.set.deleteItem(state.likesId, itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemId);
         commit('unlike', itemId);
         dispatch('fetchLikes');
       } catch (e) {

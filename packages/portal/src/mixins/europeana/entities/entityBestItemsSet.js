@@ -78,7 +78,7 @@ export default {
     },
 
     async unpinItemFromEntityBestItemsSet(itemId, entityBestItemsSetId) {
-      await this.$apis.set.deleteItem(entityBestItemsSetId, itemId);
+      await this.$apis.set.deleteItems(entityBestItemsSetId, itemId);
       this.makeToast(this.$t('entity.notifications.unpinned'));
     }
   }
