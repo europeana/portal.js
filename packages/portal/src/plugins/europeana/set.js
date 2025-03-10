@@ -265,12 +265,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
         data: itemIds
       });
     }
-
-    return this.request({
-      method: 'delete',
-      url,
-      data
-    });
   }
 
   getItemIds(id) {
