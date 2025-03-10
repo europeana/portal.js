@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Dodaj do galerii",
       "addToGallery": "Dodaj ten obiekt cyfrowy do galerii.",
+      "cancelSelection": "Anuluj wybór",
+      "clickToSelectItems": "Kliknij obiekty cyfrowe, aby je wybrać",
       "create": "Utwórz galerię",
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
       "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
       "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+      "selectItems": "Wybierz obiekty cyfrowe",
       "update": "Zaktualizuj galerię"
     },
     "form": {

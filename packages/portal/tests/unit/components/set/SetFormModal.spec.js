@@ -46,7 +46,7 @@ const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
     $apis: {
       set: {
         create: setApiCreateStub,
-        insertItem: setApiInsertItemStub,
+        insertItems: setApiInsertItemStub,
         update: setApiUpdateStub
       }
     },

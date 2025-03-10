@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Føj til galleri",
       "addToGallery": "Føj dette genstand til et galleri.",
+      "cancelSelection": "Annuller valg",
+      "clickToSelectItems": "Klik på genstande for at vælge dem",
       "create": "Opret galleri",
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
       "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
       "saveItemToLikes": "Gem dette genstand til dine likes.",
+      "selectItems": "Vælg genstande",
       "update": "Opdater galleri"
     },
     "form": {

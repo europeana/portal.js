@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Żid fid-direttorju tar-ritratti",
       "addToGallery": "Żid dan l-oġġett ma' gallerija.",
+      "cancelSelection": "Ikkanċella l-għażla",
+      "clickToSelectItems": "Ikklikkja fuq l-oġġetti biex tagħżilhom",
       "create": "Oħloq direttorju",
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
       "removeItemFromLikes": "Neħħi dan l-oġġett mill-Likes tiegħek.",
       "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
+      "selectItems": "Agħżel oġġetti",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "form": {

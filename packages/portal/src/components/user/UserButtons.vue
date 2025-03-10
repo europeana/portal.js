@@ -118,3 +118,59 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Button variant outline-light (default, grid and mosaic ItemPreviewCard)
+
+  ```jsx
+    <UserButtons
+      identifier="001/item"
+      showPins
+      showMove
+      showRemove
+      class="d-flex"
+    />
+  ```
+
+  Button variant light-flat (list ItemPreviewCard)
+
+  ```jsx
+    <UserButtons
+      identifier="001/item"
+      showPins
+      showMove
+      showRemove
+      button-variant="light-flat"
+      :button-text="true"
+      class="d-flex"
+    />
+  ```
+
+  Button variant secondary (ItemHero)
+
+  ```jsx
+    <UserButtons
+      identifier="001/item"
+      showPins
+      showMove
+      showRemove
+      button-variant="secondary"
+      class="d-flex"
+    />
+  ```
+
+  Button variant dark-flat (ItemSelectToolbar)
+
+  ```jsx
+    <b-container style="background-color: black; padding: 1rem;">
+      <UserButtons
+        identifier="001/item"
+        showPins
+        showMove
+        showRemove
+        button-variant="dark-flat"
+        class="d-flex"
+      />
+    </b-container>
+  ```
+</docs>

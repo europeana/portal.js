@@ -160,8 +160,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
   .pin-button:hover {
     .icon-pin-outlined::before {
       content: '\e91e';
