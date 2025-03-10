@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Įtraukti į galeriją",
       "addToGallery": "Pridėti šį skaitmeninis objektas į galeriją.",
+      "cancelSelection": "Atšaukti pasirinkimą",
+      "clickToSelectItems": "Spustelėkite skaitmeninius objektus, kad juos pasirinktumėte",
       "create": "Kurti galeriją",
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
       "removeItemFromLikes": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
       "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+      "selectItems": "Pasirinkite skaitmeninius objektus",
       "update": "Atnaujinti galeriją"
     },
     "form": {

@@ -427,28 +427,32 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
-  describe('insertItem', () => {
-    it('inserts the item into the set at the given position', async() => {
+  describe('insertItems', () => {
+    it('inserts the items into the set at the given position', async() => {
       const position = 7;
       nock(EuropeanaSetApi.BASE_URL)
-        .put(`/${setId}/items`, [itemId])
+        .put(`/${setId}/items`, itemIds)
         .query({ position, wskey: apiKey })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config })).insertItem(setId, itemId, position);
+      await (new EuropeanaSetApi({ $config })).insertItems(setId, itemIds, position);
 
       expect(nock.isDone()).toBe(true);
     });
 
     describe('v0.12 API compatibility', () => {
-      it('inserts the item into the set at the given position', async() => {
+      it('inserts each item into the set at the given position', async() => {
         const position = 7;
         nock(EuropeanaSetApi.BASE_URL)
-          .put(`/${setId}${itemId}`)
+          .put(`/${setId}${itemIds[0]}`)
           .query({ position, wskey: apiKey })
           .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemIds[1]}`)
+          .query({ position: 8, wskey: apiKey })
+          .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV012 })).insertItem(setId, itemId, position);
+        await (new EuropeanaSetApi({ $config: $configV012 })).insertItems(setId, itemIds, position);
 
         expect(nock.isDone()).toBe(true);
       });

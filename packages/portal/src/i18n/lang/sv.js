@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Lägg till i galleri",
       "addToGallery": "Lägg till detta objekt i ett galleri.",
+      "cancelSelection": "Avbryt val",
+      "clickToSelectItems": "Klicka på objekten för att välja dem",
       "create": "Skapa galleri",
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
       "removeItemFromLikes": "Ta bort det här objektet från dina gilla-markeringar.",
       "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
+      "selectItems": "Välj objekt",
       "update": "Uppdatera galleri"
     },
     "form": {

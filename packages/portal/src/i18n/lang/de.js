@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Zur Galerie hinzufügen",
       "addToGallery": "Fügen Sie diesem Objekt einer Galerie hinzu.",
+      "cancelSelection": "Auswahl aufheben",
+      "clickToSelectItems": "Klicken Sie auf Objekte, um sie auszuwählen",
       "create": "Galerie erstellen",
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
       "removeItemFromLikes": "Entfernen Sie dieses Objekt aus Ihren Likes.",
       "saveItemToLikes": "Speichern Sie dieses Objekt in Ihren Likes.",
+      "selectItems": "Objekte auswählen",
       "update": "Galerie aktualisieren"
     },
     "form": {

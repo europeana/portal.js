@@ -145,7 +145,7 @@
             this.added = this.added.filter(id => id !== setId);
             this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
-            await this.$apis.set.insertItem(setId, this.itemId);
+            await this.$apis.set.insertItems(setId, this.itemId);
             this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
             this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));

@@ -217,13 +217,6 @@ _Used for the non-list card user buttons_
   <b-button variant="outline-light" disabled>
     label
   </b-button>
-  <b-button
-    class="like-button text-uppercase d-inline-flex align-items-center button-icon-only"
-    variant="outline-light"
-    aria-label="like item"
-  >
-    <span class="icon-heart-outlined" />
-  </b-button>
 </b-container>
 ```
 
@@ -258,12 +251,39 @@ _Used for the icon buttons in the header and list card user buttons_
   >
     <span class="icon-search" />
   </b-button>
+</b-container>
+```
+
+Variant "dark-flat"<br>
+_Used for the media image viewer controls and item select toolbar user buttons_
+
+```jsx
+<b-container style="background-color: black; padding: 1rem;">
+  <b-button variant="dark-flat">label</b-button>
+  <b-button variant="dark-flat" class="d-inline-flex align-items-center">
+    <span class="icon-pinterest d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button variant="dark-flat" class="d-inline-flex align-items-center">
+    label
+    <span class="icon-pinterest d-inline-flex pl-1" />
+  </b-button>
   <b-button
-    class="like-button text-uppercase d-inline-flex align-items-center "
-    variant="light-flat"
+    variant="dark-flat"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
-    <span class="icon-heart-outlined" />
-    like
+    <span class="icon-pinterest" />
+  </b-button>
+  <b-button variant="dark-flat" disabled>
+    label
+  </b-button>
+  <b-button
+    variant="dark-flat"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-search" />
   </b-button>
 </b-container>
 ```

@@ -82,6 +82,14 @@ describe('store/set', () => {
         store.mutations.selectItem(state, newItem);
         expect(state.selectedItems).toEqual([newItem]);
       });
+      describe('when item is already selected', () => {
+        it('does not add to the selected items state again', () => {
+          const newItem = 'item001';
+          const state = { selectedItems: ['item001'] };
+          store.mutations.selectItem(state, newItem);
+          expect(state.selectedItems).toEqual(['item001']);
+        });
+      });
     });
     describe('deselectItemToActive()', () => {
       it('removes an item from the selected items state', () => {
@@ -134,12 +142,12 @@ describe('store/set', () => {
       });
 
       it('adds to likes set via $apis.set, then commits with "like"', async() => {
-        store.actions.$apis.set.insertItem = sinon.stub().resolves({});
+        store.actions.$apis.set.insertItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         await store.actions.like({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.insertItem.calledWith(state.likesId, itemId)).toBe(true);
+        expect(store.actions.$apis.set.insertItems.calledWith(state.likesId, itemId)).toBe(true);
         expect(commit.calledWith('like', itemId)).toBe(true);
       });
     });

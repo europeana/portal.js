@@ -20,12 +20,8 @@
 </template>
 
 <script>
-  import locales from '@/mixins/locales';
   export default {
-    name: 'LangSelector',
-    mixins: [
-      locales
-    ],
+    name: 'LanguageSelector',
 
     head() {
       return {
@@ -38,10 +34,16 @@
     },
 
     computed: {
+      availableLocales() {
+        return this.$i18n.locales.filter((locale) => locale.code !== this.$i18n.locale);
+      },
       removePaginationAtLanguageSwitch() {
         return ['galleries', 'stories'].some((routeNameBase) => {
           return this.$route.name === `${routeNameBase}___${this.$i18n.locale}`;
         });
+      },
+      selectedLocale() {
+        return this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale);
       }
     },
 

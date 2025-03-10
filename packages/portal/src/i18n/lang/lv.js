@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Pievienot galerijai",
       "addToGallery": "Pievienot šo digitālais objekts galerijai.",
+      "cancelSelection": "Atcelt atlasi",
+      "clickToSelectItems": "Noklikšķiniet uz digitālajiem objektiem, lai tos atlasītu",
       "create": "Izveidot galeriju",
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
       "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
       "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
+      "selectItems": "Izvēlieties digitālos objektus",
       "update": "Atjaunināt galeriju"
     },
     "form": {

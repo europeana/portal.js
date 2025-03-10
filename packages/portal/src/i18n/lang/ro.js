@@ -1331,12 +1331,15 @@ export default {
     "actions": {
       "addTo": "Adăugare în galerie",
       "addToGallery": "Adăugați acest resursă culturală la o galerie.",
+      "cancelSelection": "Anulează selecția",
+      "clickToSelectItems": "Faceți clic pe resursele culturale pentru a le selecta",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
       "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
       "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
+      "selectItems": "Selectați resurse culturale",
       "update": "Actualizare galerie"
     },
     "form": {

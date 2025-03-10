@@ -1333,12 +1333,15 @@ export default {
     "actions": {
       "addTo": "Lisa galeriisse",
       "addToGallery": "Lisa see üksus galeriisse.",
+      "cancelSelection": "Tühista valik",
+      "clickToSelectItems": "Klõpsake üksustel nende valimiseks",
       "create": "Loo galerii",
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
       "removeItemFromLikes": "Eemaldage see üksus meeldimistest.",
       "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
+      "selectItems": "Valige üksused",
       "update": "Värskenda galeriid"
     },
     "form": {
