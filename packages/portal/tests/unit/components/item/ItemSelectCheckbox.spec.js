@@ -6,7 +6,7 @@ const localVue = createLocalVue();
 
 const identifier = '/001/record';
 
-const factory = (propsData) => shallowMount(ItemSelectCheckbox, {
+const factory = ({ propsData, store } = {}) => shallowMount(ItemSelectCheckbox, {
   localVue,
   propsData: {
     identifier,
@@ -14,7 +14,15 @@ const factory = (propsData) => shallowMount(ItemSelectCheckbox, {
   },
   mocks: {
     $i18n: { locale: 'en' },
-    $store: { commit: sinon.spy() }
+    $store: {
+      state: {
+        set: {
+          selectedItems: []
+        }
+      },
+      commit: sinon.spy(),
+      ...store
+    }
   },
   stubs: ['b-form-checkbox']
 });
@@ -32,37 +40,62 @@ describe('ItemSelectCheckbox', () => {
 
     describe('when it\'s of type string', () => {
       it('is used for the label', () => {
-        const wrapper = factory({ title });
+        const wrapper = factory({ propsData: { title } });
 
         expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
       });
     });
     describe('when it\'s of type object (is a langmap)', () => {
       it('is used for the label', () => {
-        const wrapper = factory({ title: titleLangMap });
+        const wrapper = factory({ propsData: { title: titleLangMap } });
 
         expect(wrapper.find('b-form-checkbox-stub').text()).toEqual(title);
       });
     });
   });
 
-  describe('toggleItemSelection', () => {
-    describe('when value is true', () => {
-      it('commits selectItem to the set store', () => {
-        const wrapper = factory();
-
-        wrapper.vm.toggleItemSelection(true);
-
-        expect(wrapper.vm.$store.commit.calledWith('set/selectItem', identifier)).toBe(true);
+  describe('computed', () => {
+    describe('selected', () => {
+      describe('get', () => {
+        describe('when the identifier exists in the store', () => {
+          it('returns true', () => {
+            const store = {
+              state: {
+                set: {
+                  selectedItems: [identifier]
+                }
+              }
+            };
+            const wrapper = factory({ store });
+            expect(wrapper.vm.selected).toBe(true);
+          });
+        });
+        describe('when the identifier is NOT in the store', () => {
+          it('returns false', () => {
+            const wrapper = factory();
+            expect(wrapper.vm.selected).toBe(false);
+          });
+        });
       });
-    });
-    describe('when value is false', () => {
-      it('commits deselectItem to the set store', () => {
-        const wrapper = factory();
+      describe('set', () => {
+        describe('when passed value is true', () => {
+          it('commits selectItem to the set store', () => {
+            const wrapper = factory();
 
-        wrapper.vm.toggleItemSelection(false);
+            wrapper.vm.selected = true;
 
-        expect(wrapper.vm.$store.commit.calledWith('set/deselectItem', identifier)).toBe(true);
+            expect(wrapper.vm.$store.commit.calledWith('set/selectItem', identifier)).toBe(true);
+          });
+        });
+        describe('when passed value is false', () => {
+          it('commits deselectItem to the set store', () => {
+            const wrapper = factory();
+
+            wrapper.vm.selected = false;
+
+            expect(wrapper.vm.$store.commit.calledWith('set/deselectItem', identifier)).toBe(true);
+          });
+        });
       });
     });
   });

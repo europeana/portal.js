@@ -60,7 +60,7 @@
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
-          await this.$apis.set.insertItem(`http://data.europeana.eu/set/${this.$route.params.pathMatch}`, this.identifier);
+          await this.$apis.set.insertItems(`http://data.europeana.eu/set/${this.$route.params.pathMatch}`, this.identifier);
           this.$store.dispatch('set/refreshSet');
           this.makeToast(this.toastMsg);
         } else {

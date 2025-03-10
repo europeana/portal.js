@@ -65,13 +65,8 @@
 </template>
 
 <script>
-  import locales from '@/mixins/locales';
-
   export default {
     name: 'ItemLanguageSelector',
-    mixins: [
-      locales
-    ],
     props: {
       /**
        * Translation request error

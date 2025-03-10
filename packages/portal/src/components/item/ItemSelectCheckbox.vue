@@ -3,7 +3,6 @@
     v-model="selected"
     class="item-select-checkbox position-absolute"
     :class="{ active: selected }"
-    @change="toggleItemSelection"
   >
     <span
       class="m-3 position-relative d-inline-block"
@@ -39,13 +38,21 @@
       }
     },
 
-    data() {
-      return {
-        selected: false
-      };
-    },
-
     computed: {
+      selected: {
+        get() {
+          return this.$store.state.set.selectedItems.includes(this.identifier);
+        },
+
+        set(value) {
+          if (value) {
+            this.$store.commit('set/selectItem', this.identifier);
+          } else {
+            this.$store.commit('set/deselectItem', this.identifier);
+          }
+        }
+      },
+
       selectCheckboxLabel() {
         if (!this.title) {
           return null;
@@ -54,16 +61,6 @@
         } else {
           const langMapValue = langMapValueForLocale(this.title, this.$i18n.locale);
           return truncate(langMapValue.values[0], 90);
-        }
-      }
-    },
-
-    methods: {
-      toggleItemSelection(value) {
-        if (value) {
-          this.$store.commit('set/selectItem', this.identifier);
-        } else {
-          this.$store.commit('set/deselectItem', this.identifier);
         }
       }
     }
