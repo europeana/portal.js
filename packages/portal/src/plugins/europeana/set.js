@@ -5,8 +5,6 @@ export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
 export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
 
-const setIdFromUri = (uri) => uri.split('/').pop();
-
 import EuropeanaApi from './apis/base.js';
 
 export default class EuropeanaSetApi extends EuropeanaApi {
@@ -83,6 +81,15 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       });
   }
 
+  requestSet(id, options = {}) {
+    const url = `/${id.split('/').pop()}${options.url || ''}`;
+
+    return this.request({
+      ...options,
+      url
+    });
+  }
+
   /**
    * Get a set with given id
    * @param {string} id the set's id
@@ -122,9 +129,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       }
     }
 
-    return this.request({
+    return this.requestSet(id, {
       method: 'get',
-      url: `/${setIdFromUri(id)}`,
       params: paramsWithDefaults
     });
   }
@@ -171,9 +177,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     if (this.config.version === '0.12') {
       delete data.collectionType;
     }
-    return this.request({
+    return this.requestSet(id, {
       method: 'put',
-      url: `/${setIdFromUri(id)}`,
       data,
       params
     });
@@ -184,10 +189,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} id the set's id
    * @return {Object} API response data
    */
-  publish(id = '') {
-    return this.request({
+  publish(id) {
+    return this.requestSet(id, {
       method: 'put',
-      url: `/${setIdFromUri(id)}/publish`
+      url: '/publish'
     });
   }
 
@@ -196,10 +201,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} id the set's id
    * @return {Object} API response data
    */
-  unpublish(id = '') {
-    return this.request({
+  unpublish(id) {
+    return this.requestSet(id, {
       method: 'put',
-      url: `/${setIdFromUri(id)}/unpublish`
+      url: '/unpublish'
     });
   }
 
@@ -209,9 +214,8 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   delete(id) {
-    return this.request({
-      method: 'delete',
-      url: `/${setIdFromUri(id)}`
+    return this.requestSet(id, {
+      method: 'delete'
     });
   }
 
@@ -233,16 +237,16 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     if (this.config.version === '0.12') {
       for (let i = 0; i < itemIds.length; i = i + 1) {
         // need to do one at a time so that positioning works as intended
-        await this.request({
+        await this.requestSet(setId, {
           method: 'put',
-          url: `/${setIdFromUri(setId)}${itemIds[i]}`,
+          url: itemIds[i],
           params: { position: position + i }
         });
       }
     } else {
-      return this.request({
+      return this.requestSet(setId, {
         method: 'put',
-        url: `/${setIdFromUri(setId)}/items`,
+        url: '/items',
         data: itemIds,
         params: { position }
       });
@@ -263,17 +267,17 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       const requests = [];
       for (const itemId of itemIds) {
         requests.push(
-          this.request({
+          this.requestSet(setId, {
             method: 'delete',
-            url: `/${setIdFromUri(setId)}${itemId}`
+            url: itemId
           })
         );
       }
       return Promise.all(requests);
     } else {
-      return this.request({
+      return this.requestSet(setId, {
         method: 'delete',
-        url: `/${setIdFromUri(setId)}/items`,
+        url: '/items',
         data: itemIds
       });
     }
@@ -298,5 +302,17 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   repositionItem(setId, itemId, position) {
     return this.deleteItems(setId, itemId)
       .then(() => this.insertItems(setId, itemId, position));
+  }
+
+  searchItems(setId, itemIds) {
+    return this.requestSet(setId, {
+      method: 'get',
+      url: '/items/search',
+      params: {
+        profile: 'items',
+        qf: [].concat(itemIds).map((itemId) => `item:${itemId}`),
+        query: '*'
+      }
+    });
   }
 }
