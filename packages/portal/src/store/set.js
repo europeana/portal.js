@@ -1,8 +1,6 @@
 export default {
   state: () => ({
     likesId: null,
-    likedItems: null,
-    likedItemIds: [],
     active: null,
     activeRecommendations: [],
     selectedItems: []
@@ -11,21 +9,6 @@ export default {
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;
-    },
-    setLikedItems(state, value) {
-      state.likedItems = value;
-      // TODO should likedItemIds be reset to empty array when falsy value?
-      if (value) {
-        state.likedItemIds = value.map(item => item.id);
-      }
-    },
-    like(state, itemIds) {
-      for (const itemId of [].concat(itemIds)) {
-        state.likedItemIds.push(itemId);
-      }
-    },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
     },
     setActive(state, value) {
       state.active = value;
@@ -51,51 +34,10 @@ export default {
   },
 
   actions: {
-    async like({ dispatch, commit, state }, itemIds) {
-      itemIds = [].concat(itemIds);
-      // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
-      await dispatch('fetchLikes');
-      if (state.likedItems && state.likedItems.length >= 100) {
-        throw new Error('100 likes');
-      } else {
-        try {
-          await this.$apis.set.insertItems(state.likesId, itemIds);
-          commit('like', itemIds);
-          dispatch('fetchLikes');
-        } catch (e) {
-          dispatch('fetchLikes');
-          throw e;
-        }
-      }
-    },
-    async unlike({ dispatch, commit, state }, itemId) {
-      try {
-        await this.$apis.set.deleteItems(state.likesId, itemId);
-        commit('unlike', itemId);
-        dispatch('fetchLikes');
-      } catch (e) {
-        dispatch('fetchLikes');
-        throw e;
-      }
-    },
     refreshSet({ state, dispatch }) {
       if (state.active) {
         dispatch('fetchActive', state.active.id);
       }
-    },
-    async fetchLikes({ commit, state }) {
-      if (!state.likesId) {
-        return commit('setLikedItems', null);
-      }
-
-      const likes = await this.$apis.set.get(state.likesId, {
-        pageSize: 100,
-        profile: 'items.meta',
-        page: 1
-      }).catch(() => {
-        return {};
-      });
-      return commit('setLikedItems', likes.items || []);
     },
     async fetchActive({ commit }, setId) {
       try {

@@ -40,6 +40,7 @@
         :button-text="buttonText"
       />
       <ItemLikeButton
+        v-model="likedItems[identifier]"
         data-qa="item like button"
         :identifier="identifier"
         :button-variant="buttonVariant"
@@ -66,6 +67,12 @@
     },
 
     mixins: [hideTooltips],
+
+    inject: {
+      likedItems: {
+        default: () => ({})
+      }
+    },
 
     props: {
       /**

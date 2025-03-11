@@ -7,19 +7,22 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
-const setId = 'setId';
-const storeDispatchSuccess = sinon.spy();
+const setId = '123';
 const storeCommitSpy = sinon.spy();
 const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
+const setApiDeleteItemsStub = sinon.spy();
+const setApiInsertItemsStub = sinon.spy();
 
-const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
+const factory = ({ propsData = {}, storeState = { likesId: setId }, $auth = {} } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
-  propsData: { identifier },
+  propsData: { identifier, ...propsData },
   mocks: {
     $apis: {
       set: {
-        createLikes: setApiCreateLikesStub
+        createLikes: setApiCreateLikesStub,
+        deleteItems: setApiDeleteItemsStub,
+        insertItems: setApiInsertItemsStub
       }
     },
     $auth,
@@ -33,9 +36,8 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
     $store: {
       commit: storeCommitSpy,
       state: {
-        set: { likedItemIds: [], ...storeState }
-      },
-      dispatch: storeDispatch
+        set: storeState
+      }
     },
     $t: (key) => key
   }
@@ -102,13 +104,13 @@ describe('components/item/ItemLikeButton', () => {
             expect(storeCommitSpy.calledWith('set/setLikesId', setId)).toBe(true);
           });
 
-          it('dispatches to add item to likes set', () => {
+          it('adds item to likes set via Set API', () => {
             const wrapper = factory({ $auth });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/like', identifier)).toBe(true);
+            expect(setApiInsertItemsStub.calledWith(setId, identifier)).toBe(true);
           });
 
           it('tracks the event in Matomo', async() => {
@@ -130,43 +132,32 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
           });
-          describe('when the like limit is reached', () => {
-            it('shows the like limit modal', async() => {
-              const wrapper = factory({ $auth,
-                storeDispatch: sinon.stub().rejects({ message: '100 likes' }) });
-
-              const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
-              const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-              await likeButton.trigger('click');
-
-              expect(bvModalShow.calledWith(wrapper.vm.likeLimitModalId)).toBe(true);
-            });
-          });
         });
       });
 
       describe('and an item is already liked', () => {
-        const storeState = { likedItemIds: [identifier] };
+        const propsData = { buttonText: true, value: true };
 
-        it('button text is updated', async() => {
-          const wrapper = factory({ storeState });
-          await wrapper.setProps({ buttonText: true });
+        it('button text is updated', () => {
+          const wrapper = factory({ propsData });
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
+
           expect(likeButton.text()).toBe('statuses.liked');
         });
 
         describe('when pressed', () => {
-          it('dispatches to remove item from likes set', () => {
-            const wrapper = factory({ $auth, storeState });
+          it('adds item to likes set via Set API', () => {
+            const wrapper = factory({ $auth, propsData });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
+            expect(setApiDeleteItemsStub.calledWith(setId, identifier)).toBe(true);
           });
+
           it('makes toast', async() => {
-            const wrapper = factory({ $auth, storeState });
+            const wrapper = factory({ $auth, propsData });
             const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');

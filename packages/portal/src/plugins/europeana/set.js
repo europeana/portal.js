@@ -305,12 +305,15 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   }
 
   searchItems(setId, itemIds) {
+    itemIds = [].concat(itemIds);
     return this.requestSet(setId, {
       method: 'get',
       url: '/search',
       params: {
+        page: 1,
+        pageSize: itemIds.length,
         profile: 'items',
-        qf: [].concat(itemIds).map((itemId) => `item:${itemId}`),
+        qf: itemIds.map((itemId) => `item:${itemId}`),
         query: '*'
       }
     });

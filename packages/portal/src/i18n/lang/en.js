@@ -1414,10 +1414,6 @@ export default {
       "itemLiked": "Item has been saved to your likes.",
       "itemRemoved": "Item has been removed from gallery {gallery}.",
       "itemUnliked": "Item has been removed from your likes.",
-      "likeLimit": {
-        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
-        "title": "100 likes"
-      },
       "updated": "The item was added to the gallery.",
       "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },

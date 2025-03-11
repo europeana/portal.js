@@ -544,7 +544,7 @@ describe('@/plugins/europeana/set', () => {
       const itemIds = ['/123/abc', '/123/def'];
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}/search`)
-        .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
+        .query({ page: 1, pageSize: 2, profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).searchItems(setId, itemIds);

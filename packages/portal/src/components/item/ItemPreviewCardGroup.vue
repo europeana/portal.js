@@ -158,6 +158,10 @@
       advancedSearchMixin
     ],
 
+    provide() {
+      return { likedItems: computed(() => this.likedItems) };
+    },
+
     props: {
       items: {
         type: Array,

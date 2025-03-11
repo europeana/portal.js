@@ -76,12 +76,15 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
+
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ShareSnippet from '@/components/share/ShareSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
+  import useLikedItems from '@/composables/likedItems.js';
   import WebResource from '@/plugins/europeana/edm/WebResource';
   import rightsStatementMixin from '@/mixins/rightsStatement';
   import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
@@ -108,6 +111,10 @@
     ],
 
     inject: ['itemIsDeleted'],
+
+    provide() {
+      return { likedItems: computed(() => this.likedItems) };
+    },
 
     props: {
       allMediaUris: {
@@ -152,6 +159,13 @@
         type: String,
         default: null
       }
+    },
+    setup(props) {
+      const itemId = computed(() => props.identifier);
+
+      const { likedItems } = useLikedItems(itemId);
+
+      return { likedItems };
     },
     data() {
       return {
