@@ -543,7 +543,7 @@ describe('@/plugins/europeana/set', () => {
     it('searches for item(s) within a set', async() => {
       const itemIds = ['/123/abc', '/123/def'];
       nock(EuropeanaSetApi.BASE_URL)
-        .get(`/${setId}/items/search`)
+        .get(`/${setId}/search`)
         .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
         .reply(200);
 

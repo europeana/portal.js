@@ -307,7 +307,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   searchItems(setId, itemIds) {
     return this.requestSet(setId, {
       method: 'get',
-      url: '/items/search',
+      url: '/search',
       params: {
         profile: 'items',
         qf: [].concat(itemIds).map((itemId) => `item:${itemId}`),
