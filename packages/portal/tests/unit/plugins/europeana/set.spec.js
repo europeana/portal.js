@@ -547,7 +547,7 @@ describe('@/plugins/europeana/set', () => {
         .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
         .reply(200);
 
-      await (new EuropeanaSetApi()).searchItems(setId, itemIds);
+      await (new EuropeanaSetApi({ $config })).searchItems(setId, itemIds);
 
       expect(nock.isDone()).toBe(true);
     });
