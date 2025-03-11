@@ -303,4 +303,16 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     return this.deleteItems(setId, itemId)
       .then(() => this.insertItems(setId, itemId, position));
   }
+
+  searchItems(setId, itemIds) {
+    return this.requestSet(setId, {
+      method: 'get',
+      url: '/items/search',
+      params: {
+        profile: 'items',
+        qf: [].concat(itemIds).map((itemId) => `item:${itemId}`),
+        query: '*'
+      }
+    });
+  }
 }
