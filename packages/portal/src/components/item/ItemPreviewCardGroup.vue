@@ -140,7 +140,10 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
+
   import advancedSearchMixin from '@/mixins/advancedSearch';
+  import useLikedItems from '@/composables/likedItems.js';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
@@ -200,6 +203,14 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup(props) {
+      const itemIds = computed(() => props.items.map((item) => item.id));
+
+      const { likedItems } = useLikedItems(itemIds);
+
+      return { itemIds, likedItems };
     },
 
     data() {
