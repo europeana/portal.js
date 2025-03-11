@@ -538,4 +538,18 @@ describe('@/plugins/europeana/set', () => {
       });
     });
   });
+
+  describe('searchItems', () => {
+    it('searches for item(s) within a set', async() => {
+      const itemIds = ['/123/abc', '/123/def'];
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}/items/search`)
+        .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi()).searchItems(setId, itemIds);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
 });
