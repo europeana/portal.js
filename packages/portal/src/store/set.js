@@ -19,6 +19,9 @@ export default {
         state.likedItemIds = value.map(item => item.id);
       }
     },
+    setSelected(state, value) {
+      state.selectedItems = value;
+    },
     like(state, itemIds) {
       for (const itemId of [].concat(itemIds)) {
         state.likedItemIds.push(itemId);
