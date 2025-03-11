@@ -162,6 +162,10 @@
       }
     }
   }
+
+  .modal-open .item-select-toolbar {
+    z-index: 1030; // do not overlap modals
+  }
 </style>
 
 <docs lang="md">
