@@ -16,6 +16,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
     $keycloak: {
       login: sinon.spy()
     },
+    $store: { commit: sinon.spy() },
     $t: (key) => key,
     ...mocks
   }
@@ -87,6 +88,13 @@ describe('components/item/ItemSelectButton', () => {
         await wrapper.setData({ selected: false });
 
         expect(window.removeEventListener.calledWith('keyup', sinon.match.func)).toBe(true);
+      });
+      it('resets the selected store state', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ selected: true });
+        await wrapper.setData({ selected: false });
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
       });
     });
   });
