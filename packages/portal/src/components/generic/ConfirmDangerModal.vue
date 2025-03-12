@@ -29,14 +29,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'ConfirmDangerModal',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       cancelButtonText: {
@@ -80,8 +76,12 @@
       }
     },
 
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
+    },
+
     methods: {
-      // TODO: error handling other statuses
       async handleSubmitForm() {
         await this.confirm();
         this.toastMsg && this.makeToast(this.toastMsg);

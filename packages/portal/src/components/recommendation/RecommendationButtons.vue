@@ -23,14 +23,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'RecommendationButtons',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       // Identifier of the item
@@ -48,6 +44,11 @@
         type: Boolean,
         default: true
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
