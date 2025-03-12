@@ -47,7 +47,6 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -59,7 +58,6 @@
     },
 
     mixins: [
-      makeToastMixin,
       entityBestItemsSetMixin
     ],
 
