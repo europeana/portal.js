@@ -17,15 +17,11 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemRemoveButton',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       /**
@@ -51,13 +47,18 @@
       }
     },
 
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
+    },
+
     methods: {
       async removeItem() {
         const activeSet = this.$store.state.set.active;
         const setId = activeSet.id;
         const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
         try {
-          await this.$apis.set.deleteItem(setId, this.identifier);
+          await this.$apis.set.deleteItems(setId, this.identifier);
           this.$store.dispatch('set/refreshSet');
           this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
         } catch (e) {

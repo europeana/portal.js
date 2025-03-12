@@ -45,7 +45,7 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -58,8 +58,7 @@
     },
 
     mixins: [
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     props: {
@@ -79,6 +78,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
@@ -141,11 +145,11 @@
         const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
-            await this.$apis.set.deleteItem(setId, this.itemId);
+            await this.$apis.set.deleteItems(setId, this.itemId);
             this.added = this.added.filter(id => id !== setId);
             this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
-            await this.$apis.set.insertItem(setId, this.itemId);
+            await this.$apis.set.insertItems(setId, this.itemId);
             this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
             this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));

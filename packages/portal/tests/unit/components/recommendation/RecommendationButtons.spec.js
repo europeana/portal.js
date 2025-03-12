@@ -17,7 +17,7 @@ const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(
   mocks: {
     $apis: {
       set: {
-        insertItem: setApiInsertItemsStub
+        insertItems: setApiInsertItemsStub
       }
     },
     $auth,

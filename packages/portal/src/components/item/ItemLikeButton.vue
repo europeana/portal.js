@@ -28,15 +28,14 @@
 <script>
   import useHideTooltips from '@/composables/hideTooltips.js';
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
 
     mixins: [
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     props: {
@@ -65,7 +64,8 @@
 
     setup() {
       const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
+      const { makeToast } = useMakeToast();
+      return { hideTooltips, makeToast };
     },
 
     data() {
