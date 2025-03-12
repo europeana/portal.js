@@ -47,7 +47,6 @@
 </template>
 
 <script>
-  import useMakeToast from '@/composables/makeToast.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -91,11 +90,6 @@
         type: Boolean,
         default: false
       }
-    },
-
-    setup() {
-      const { makeToast } = useMakeToast();
-      return { makeToast };
     },
 
     data() {

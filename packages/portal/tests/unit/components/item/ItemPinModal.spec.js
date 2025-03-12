@@ -2,7 +2,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import ItemPinModal from '@/components/item/ItemPinModal';
-import * as useMakeToast from '@/composables/makeToast.js';
 
 /*
 ** The pin modal has a lot of API dependencies.
@@ -21,8 +20,6 @@ import * as useMakeToast from '@/composables/makeToast.js';
 ** allow reusing the same stubs.
 */
 
-// TODO: prevent b-toaster-bootm-left-dynamic re-regristration warning.
-// Maybe caused by the toast being registered on localVue?
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
@@ -166,11 +163,6 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
 });
 
 describe('components/item/ItemPinModal', () => {
-  beforeAll(() => {
-    sinon.stub(useMakeToast, 'default').returns({
-      makeToast: sinon.spy()
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.reset);
 
@@ -303,6 +295,7 @@ describe('components/item/ItemPinModal', () => {
         describe('when pinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemNotPinned);
+            wrapper.vm.makeToast = sinon.spy();
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
@@ -314,6 +307,7 @@ describe('components/item/ItemPinModal', () => {
         describe('when unpinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemAlreadyPinned);
+            wrapper.vm.makeToast = sinon.spy();
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 

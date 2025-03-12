@@ -75,7 +75,6 @@
 
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
@@ -112,11 +111,6 @@
         type: Boolean,
         default: false
       }
-    },
-
-    setup() {
-      const { makeToast } = useMakeToast();
-      return { makeToast };
     },
 
     data() {
