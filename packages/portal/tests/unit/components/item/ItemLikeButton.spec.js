@@ -2,6 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import ItemLikeButton from '@/components/item/ItemLikeButton';
+import * as useLikedItems from '@/composables/likedItems.js';
 import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
@@ -52,6 +53,10 @@ describe('components/item/ItemLikeButton', () => {
   beforeAll(() => {
     sinon.stub(useMakeToast, 'default').returns({
       makeToast: sinon.spy()
+    });
+    sinon.stub(useLikedItems, 'default').returns({
+      like: sinon.spy(),
+      unlike: sinon.spy()
     });
   });
   afterEach(sinon.resetHistory);
@@ -114,13 +119,13 @@ describe('components/item/ItemLikeButton', () => {
             expect(storeCommitSpy.calledWith('set/setLikesId', setId)).toBe(true);
           });
 
-          it('adds item to likes set via Set API', () => {
+          it('adds item to likes set via useLikedItems composable', () => {
             const wrapper = factory({ $auth });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(setApiInsertItemsStub.calledWith(setId, identifier)).toBe(true);
+            expect(wrapper.vm.likeItem.calledWith(identifier)).toBe(true);
           });
 
           it('tracks the event in Matomo', async() => {
@@ -133,6 +138,7 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
           });
+
           it('makes toast', async() => {
             const wrapper = factory({ $auth });
 
@@ -156,13 +162,13 @@ describe('components/item/ItemLikeButton', () => {
         });
 
         describe('when pressed', () => {
-          it('adds item to likes set via Set API', () => {
+          it('removes item from likes set via useLikedItems composable', () => {
             const wrapper = factory({ $auth, propsData });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(setApiDeleteItemsStub.calledWith(setId, identifier)).toBe(true);
+            expect(wrapper.vm.unlikeItem.calledWith(identifier)).toBe(true);
           });
 
           it('makes toast', async() => {

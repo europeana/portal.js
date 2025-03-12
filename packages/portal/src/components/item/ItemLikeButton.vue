@@ -21,6 +21,7 @@
   import hideTooltips from '@/mixins/hideTooltips';
   import logEventMixin from '@/mixins/logEvent';
   import useMakeToast from '@/composables/makeToast.js';
+  import useLikedItems from '@/composables/likedItems.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -30,15 +31,6 @@
       hideTooltips,
       logEventMixin
     ],
-
-    inject: {
-      likeHook: {
-        default: () => {}
-      },
-      unlikeHook: {
-        default: () => {}
-      }
-    },
 
     props: {
       /**
@@ -50,7 +42,7 @@
       },
       value: {
         type: Boolean,
-        default: false
+        default: null
       },
       /**
        * Button variant to use for styling the buttons
@@ -69,8 +61,9 @@
     },
 
     setup() {
+      const { like: likeItem, unlike: unlikeItem } = useLikedItems();
       const { makeToast } = useMakeToast();
-      return { makeToast };
+      return { likeItem, makeToast, unlikeItem };
     },
 
     data() {
@@ -113,23 +106,22 @@
         this.hideTooltips();
       },
       async like() {
+        // TODO: mv to likedItems composable?
         if (this.likesId === null) {
           const response = await this.$apis.set.createLikes();
           this.$store.commit('set/setLikesId', response.id);
         }
 
-        await this.$apis.set.insertItems(this.likesId, this.identifier);
+        await this.likeItem(this.identifier);
         this.liked = true;
         this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
         this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         this.makeToast(this.$t('set.notifications.itemLiked'));
-        this.likeHook?.(this.identifier);
       },
       async unlike() {
-        await this.$apis.set.deleteItems(this.likesId, this.identifier);
+        await this.unlikeItem(this.identifier);
         this.liked = false;
         this.makeToast(this.$t('set.notifications.itemUnliked'));
-        this.unlikeHook?.(this.identifier);
       }
     }
   };

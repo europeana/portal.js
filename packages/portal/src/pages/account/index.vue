@@ -83,6 +83,7 @@
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
+            <!-- TODO: create liked items component? -->
             <b-container
               v-else-if="activeTab === tabHashes.likes"
               data-qa="liked items"
@@ -172,6 +173,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
+  import useLikedItems from '@/composables/likedItems.js';
 
   export default {
     name: 'AccountIndexPage',
@@ -191,13 +193,12 @@
       pageMetaMixin
     ],
 
-    provide() {
-      return {
-        unlikeHook: this.fetchLikes
-      };
-    },
-
     middleware: 'auth',
+
+    setup() {
+      const { lastModified: likedItemsLastModified } = useLikedItems();
+      return { likedItemsLastModified };
+    },
 
     data() {
       return {
@@ -234,6 +235,12 @@
       },
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
+      }
+    },
+
+    watch: {
+      likedItemsLastModified() {
+        this.fetchLikes();
       }
     },
 
