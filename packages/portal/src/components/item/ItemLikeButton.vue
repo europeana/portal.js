@@ -20,7 +20,7 @@
 <script>
   import hideTooltips from '@/mixins/hideTooltips';
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -28,8 +28,7 @@
 
     mixins: [
       hideTooltips,
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     inject: {
@@ -67,6 +66,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
@@ -119,13 +123,13 @@
         this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
         this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         this.makeToast(this.$t('set.notifications.itemLiked'));
-        this.likeHook(this.identifier);
+        this.likeHook?.(this.identifier);
       },
       async unlike() {
         await this.$apis.set.deleteItems(this.likesId, this.identifier);
         this.liked = false;
         this.makeToast(this.$t('set.notifications.itemUnliked'));
-        this.unlikeHook(this.identifier);
+        this.unlikeHook?.(this.identifier);
       }
     }
   };

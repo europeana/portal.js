@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ItemLikeButton from '@/components/item/ItemLikeButton';
 import sinon from 'sinon';
+import ItemLikeButton from '@/components/item/ItemLikeButton';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -26,6 +27,10 @@ const factory = ({ propsData = {}, storeState = { likesId: setId }, $auth = {} }
       }
     },
     $auth,
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
     $features: {},
     $keycloak: {
       login: sinon.spy()
@@ -44,6 +49,11 @@ const factory = ({ propsData = {}, storeState = { likesId: setId }, $auth = {} }
 });
 
 describe('components/item/ItemLikeButton', () => {
+  beforeAll(() => {
+    sinon.stub(useMakeToast, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.reset);
 
@@ -125,12 +135,11 @@ describe('components/item/ItemLikeButton', () => {
           });
           it('makes toast', async() => {
             const wrapper = factory({ $auth });
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
           });
         });
       });
@@ -158,12 +167,11 @@ describe('components/item/ItemLikeButton', () => {
 
           it('makes toast', async() => {
             const wrapper = factory({ $auth, propsData });
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
           });
         });
       });

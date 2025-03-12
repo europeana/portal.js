@@ -1446,6 +1446,15 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
       }
+    },
+    "toolbar": {
+      "info": "{count} item selected. | {count} items selected.",
+      "actions": {
+        "addSelected": "Add {count} item to a gallery | Add {count} items to a gallery",
+        "deselectSelected": "Deselect all.",
+        "likeSelected": "Like {count} item | Like {count} items",
+        "removeSelected": "Remove {count} item from this gallery | Remove {count} items from this gallery"
+      }
     }
   },
   "shareWhere": "Where would you like to share this?",
