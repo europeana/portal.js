@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {
@@ -43,8 +43,6 @@
     components: {
       PaginationNavInput
     },
-
-    mixins: [hideTooltips],
 
     props: {
       showPages: {
@@ -55,6 +53,11 @@
         type: Number,
         default: 0
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     }
   };
   </script>
