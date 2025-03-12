@@ -58,7 +58,7 @@
         const setId = activeSet.id;
         const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
         try {
-          await this.$apis.set.deleteItem(setId, this.identifier);
+          await this.$apis.set.deleteItems(setId, this.identifier);
           this.$store.dispatch('set/refreshSet');
           this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
         } catch (e) {

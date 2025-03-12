@@ -30,7 +30,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
         get: sinon.stub().resolves({}),
         getItemIds: sinon.stub().resolves([]),
         search: sinon.stub().resolves({}),
-        deleteItem: sinon.spy(),
+        deleteItems: sinon.spy(),
         pinItem: sinon.spy()
       }
     },
