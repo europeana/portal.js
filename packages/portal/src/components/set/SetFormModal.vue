@@ -86,12 +86,17 @@
         </div>
       </b-form>
     </b-modal>
-    <SetDeleteModal
+    <ConfirmDangerModal
       v-if="!isNew"
-      :set-id="setId"
+      :confirm="deleteSet"
+      :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
+      :modal-title="$t('set.actions.delete')"
+      :prompt-text="$t('set.prompts.delete')"
+      :toast-msg="$t('set.notifications.deleted')"
       @cancel="show"
+      @success="handleDeleteSuccess"
     />
   </div>
 </template>
@@ -107,7 +112,7 @@
     name: 'SetFormModal',
 
     components: {
-      SetDeleteModal: () => import('./SetDeleteModal')
+      ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
     props: {
@@ -271,6 +276,25 @@
           return this.$apis.set.create(this.setBody);
         } else {
           return this.$apis.set.update(this.setId, this.setBody);
+        }
+      },
+
+      // TODO: error handling other statuses
+      async deleteSet() {
+        try {
+          await this.$apis.set.delete(this.setId);
+          if (this.setId === this.$store.state.set.active?.id) {
+            this.$store.dispatch('set/setActive', null);
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        }
+      },
+
+      handleDeleteSuccess() {
+        // redirect away from deleted set page
+        if (this.$route.name.startsWith('galleries-all___')) {
+          this.$router.push(this.localePath({ name: 'account' }));
         }
       },
 

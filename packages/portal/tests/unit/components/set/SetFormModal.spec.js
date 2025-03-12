@@ -12,9 +12,11 @@ const setId = 'http://data.europeana.eu/set/123';
 
 const storeDispatch = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: setId });
+const setApiDeleteSpy = sinon.spy();
 const setApiInsertItemStub = sinon.stub().resolves({});
 const setApiUpdateStub = sinon.stub().resolves({ id: setId });
 
+// FIXME: mock it!
 const i18n = new VueI18n({
   locale: 'en'
 });
@@ -30,7 +32,7 @@ const existingSetPropsData = {
   visibility: 'public'
 };
 
-const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
+const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -46,6 +48,7 @@ const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
     $apis: {
       set: {
         create: setApiCreateStub,
+        delete: setApiDeleteSpy,
         insertItems: setApiInsertItemStub,
         update: setApiUpdateStub
       }
@@ -54,13 +57,21 @@ const factory = ({ propsData, data, $store } = {}) => mount(SetFormModal, {
       console.error(error);
       throw error;
     },
+    localePath: (path) => path,
+    $route: {
+      name: 'galleries-all___fr',
+      params: { pathMatch: '123' },
+      ...$route
+    },
+    $router: { push: sinon.spy() },
     $store: {
       dispatch: storeDispatch,
       state: { set: { active: { id: null } } },
       ...$store
     },
     $t: () => {}
-  }
+  },
+  stubs: ['ConfirmDangerModal']
 });
 
 describe('components/set/SetFormModal', () => {
@@ -189,6 +200,54 @@ describe('components/set/SetFormModal', () => {
       deleteButton.trigger('click');
 
       expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`)).toBe(true);
+    });
+  });
+
+  describe('delete confirmation modal', () => {
+    describe('confirm callback', () => {
+      it('deletes the set', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData });
+
+        await wrapper.vm.deleteSet();
+
+        expect(setApiDeleteSpy.calledWith(setId)).toBe(true);
+      });
+
+      describe('when the active set', () => {
+        const $store = { state: { set: { active: { id: setId } } } };
+
+        it('resets the active set id in the store', async() => {
+          const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+          await wrapper.vm.deleteSet();
+
+          expect(storeDispatch.calledWith('set/setActive', null)).toBe(true);
+        });
+      });
+
+      describe('when not the active set', () => {
+        const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
+
+        it('does not reset the active set id in the store', async() => {
+          const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+          await wrapper.vm.deleteSet();
+
+          expect(storeDispatch.called).toBe(false);
+        });
+      });
+    });
+
+    describe('success event handler', () => {
+      describe('when on the deleted gallery page', () => {
+        it('redirects to the account page', async() => {
+          const wrapper = factory({ propsData: existingSetPropsData, $route: { name: 'galleries-all___fr', params: { pathMatch: '123' } } });
+
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('success');
+
+          expect(wrapper.vm.$router.push.calledWith({ name: 'account' })).toBe(true);
+        });
+      });
     });
   });
 
