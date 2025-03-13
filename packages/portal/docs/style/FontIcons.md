@@ -465,6 +465,21 @@ Example:
           <td><span class="icon icon-ic-view" /></td>
         </tr>
         <tr>
+          <td>View grid</td>
+          <td><code>icon-view-grid</code></td>
+          <td><span class="icon icon-view-grid" /></td>
+        </tr>
+        <tr>
+          <td>View list</td>
+          <td><code>icon-view-list</code></td>
+          <td><span class="icon icon-view-list" /></td>
+        </tr>
+        <tr>
+          <td>View mosaic</td>
+          <td><code>icon-view-mosaic</code></td>
+          <td><span class="icon icon-view-mosaic" /></td>
+        </tr>
+        <tr>
           <td>X</td>
           <td><code>icon-x</code></td>
           <td><span class="icon icon-x" /></td>
