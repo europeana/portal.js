@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
   import logEventMixin from '@/mixins/logEvent';
   import useMakeToast from '@/composables/makeToast.js';
   import useLikedItems from '@/composables/likedItems.js';
@@ -28,7 +28,6 @@
     name: 'ItemLikeButton',
 
     mixins: [
-      hideTooltips,
       logEventMixin
     ],
 
@@ -61,9 +60,10 @@
     },
 
     setup() {
+      const { hideTooltips } = useHideTooltips();
       const { like: likeItem, unlike: unlikeItem } = useLikedItems();
       const { makeToast } = useMakeToast();
-      return { likeItem, makeToast, unlikeItem };
+      return { hideTooltips, likeItem, makeToast, unlikeItem };
     },
 
     data() {

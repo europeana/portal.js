@@ -15,12 +15,15 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemSelectButton',
 
-    mixins: [hideTooltips],
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
+    },
 
     data() {
       return {

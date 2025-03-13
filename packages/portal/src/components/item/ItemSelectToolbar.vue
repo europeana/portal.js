@@ -67,18 +67,21 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemSelectToolbar',
-
-    mixins: [hideTooltips],
 
     props: {
       userCanEditSet: {
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     },
 
     computed: {
