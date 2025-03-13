@@ -24,11 +24,15 @@ export default {
     },
     like(state, itemIds) {
       for (const itemId of [].concat(itemIds)) {
-        state.likedItemIds.push(itemId);
+        if (!state.likedItemIds.includes(itemId)) {
+          state.likedItemIds.push(itemId);
+        }
       }
     },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+    unlike(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+      }
     },
     setActive(state, value) {
       state.active = value;
@@ -71,10 +75,11 @@ export default {
         }
       }
     },
-    async unlike({ dispatch, commit, state }, itemId) {
+    async unlike({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       try {
-        await this.$apis.set.deleteItems(state.likesId, itemId);
-        commit('unlike', itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemIds);
+        commit('unlike', itemIds);
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');
