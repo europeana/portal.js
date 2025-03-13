@@ -14,11 +14,8 @@
       </span>
       <template v-if="selectionCount >= 1">
         <b-button
-          id="deselect-selected-button"
-          ref="deselectSelectedButton"
           variant="link"
-          data-qa="deselect selected button"
-          class="p-0 mr-3 ml-1 my-1"
+          class="deselect-selected-button p-0 mr-3 ml-1 my-1"
           :aria-label="$t('set.toolbar.actions.deselectSelected')"
           @click="deselectSelected"
         >
@@ -50,7 +47,6 @@
 <script>
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
-  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemSelectToolbar',
@@ -66,11 +62,6 @@
         type: Boolean,
         default: false
       }
-    },
-
-    setup() {
-      const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
     },
 
     computed: {
