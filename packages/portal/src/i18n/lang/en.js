@@ -1457,7 +1457,8 @@ export default {
         "addSelected": "Add {count} item to a gallery | Add {count} items to a gallery",
         "deselectSelected": "Deselect all.",
         "likeSelected": "Like {count} item | Like {count} items",
-        "removeSelected": "Remove {count} item from this gallery | Remove {count} items from this gallery"
+        "removeSelected": "Remove {count} item from this gallery | Remove {count} items from this gallery",
+        "unlikeSelected": "Unlike {count} item | Unlike {count} items"
       }
     }
   },

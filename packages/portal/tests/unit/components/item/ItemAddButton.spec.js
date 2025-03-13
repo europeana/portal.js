@@ -24,7 +24,8 @@ const factory = ({ $auth = {}, propsData = { identifiers: identifier }, storeDis
     $store: {
       dispatch: storeDispatch
     },
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key) => key
   },
   stubs: [
     'SetAddItemModal',

@@ -38,7 +38,8 @@ const factory = ({ propsData = { identifiers: identifier }, storeState = {},  $a
       },
       dispatch: storeDispatch
     },
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key) => key
   }
 });
 

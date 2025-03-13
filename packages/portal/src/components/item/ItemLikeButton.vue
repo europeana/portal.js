@@ -8,7 +8,7 @@
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
-      :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
+      :title="tooltipTitle"
       @click="toggleLiked"
     >
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
@@ -92,6 +92,17 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
+      },
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+      },
+      tooltipTitle() {
+        if (Array.isArray(this.identifiers)) {
+          return this.liked ? this.$tc('set.toolbar.actions.unlikeSelected', this.selectionCount, { count: this.selectionCount }) :
+            this.$tc('set.toolbar.actions.likeSelected', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.liked ? this.$t('set.actions.removeItemFromLikes') : this.$t('set.actions.saveItemToLikes');
+        }
       }
     },
 

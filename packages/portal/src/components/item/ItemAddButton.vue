@@ -22,7 +22,7 @@
       placement="bottom"
       @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
     >
-      {{ $t('set.actions.addToGallery') }}
+      {{ tooltipTitle }}
     </b-tooltip>
     <template
       v-if="$auth.loggedIn"
@@ -91,6 +91,19 @@
         showTooltip: false,
         idSuffix
       };
+    },
+
+    computed: {
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+      },
+      tooltipTitle() {
+        if (Array.isArray(this.identifiers)) {
+          return this.$tc('set.toolbar.actions.addSelected', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$t('set.actions.addToGallery');
+        }
+      }
     },
 
     methods: {

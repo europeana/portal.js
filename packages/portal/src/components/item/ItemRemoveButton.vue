@@ -7,7 +7,7 @@
       :variant="buttonVariant"
       data-qa="item remove button"
       :aria-label="$t('actions.remove')"
-      :title="$t('account.tooltip.remove')"
+      :title="tooltipTitle"
       @click="removeItem"
     >
       <span class="icon-remove-circle-outlined" />
@@ -50,6 +50,19 @@
     setup() {
       const { makeToast } = useMakeToast();
       return { makeToast };
+    },
+
+    computed: {
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+      },
+      tooltipTitle() {
+        if (Array.isArray(this.identifiers)) {
+          return this.$tc('set.toolbar.actions.removeSelected', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$t('account.tooltip.remove');
+        }
+      }
     },
 
     methods: {
