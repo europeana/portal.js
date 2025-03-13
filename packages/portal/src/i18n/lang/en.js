@@ -1384,6 +1384,7 @@ export default {
   "set": {
     "actions": {
       "addTo": "Add to gallery",
+      "addSelectedTo": "Add {count} item to gallery | Add {count} items to gallery",
       "addToGallery": "Add this item to a gallery.",
       "cancelSelection": "Cancel selection",
       "clickToSelectItems": "Click on items to select them",

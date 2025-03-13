@@ -1,7 +1,7 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$t('set.actions.addTo')"
+    :title="modalTitle"
     hide-footer
     hide-header-close
     :static="modalStatic"
@@ -92,6 +92,19 @@
         fetched: false,
         added: []
       };
+    },
+
+    computed: {
+      selectionCount() {
+        return Array.isArray(this.itemIds) ? this.itemIds.length : false;
+      },
+      modalTitle() {
+        if (Array.isArray(this.itemIds)) {
+          return this.$tc('set.actions.addSelectedTo', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$t('set.actions.addTo');
+        }
+      }
     },
 
     watch: {
