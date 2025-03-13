@@ -101,9 +101,13 @@
                         >
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
+                        <ItemSelectButton
+                          class="ml-auto"
+                          @select="(newState) => selectState = newState"
+                        />
                         <SearchViewToggles
                           v-model="view"
-                          class="ml-auto"
+                          :class="{ 'ml-auto': !$features.itemMultiSelect }"
                         />
                       </b-col>
                     </b-row>
@@ -113,6 +117,7 @@
                           v-if="likesId && likedItems.length !== 0"
                           :items="likedItems"
                           :view="view"
+                          :select-state="selectState"
                           class="pb-5"
                         />
                       </b-col>
@@ -161,6 +166,10 @@
         </b-col>
       </b-row>
     </b-container>
+    <ItemSelectToolbar
+      v-if="selectState"
+      :user-can-edit-set="userCanEditSet"
+    />
   </div>
 </template>
 
@@ -173,6 +182,8 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemSelectButton from '@/components/item/ItemSelectButton';
+  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
@@ -185,6 +196,8 @@
       BNav,
       ClientOnly,
       ItemPreviewCardGroup,
+      ItemSelectButton,
+      ItemSelectToolbar,
       LoadingSpinner,
       SearchViewToggles,
       UserSets
@@ -200,6 +213,7 @@
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
+        selectState: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
