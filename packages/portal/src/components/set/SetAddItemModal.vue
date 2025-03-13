@@ -62,8 +62,8 @@
     ],
 
     props: {
-      itemId: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         required: true
       },
       modalId: {
@@ -119,13 +119,14 @@
       },
 
       async fetchCollectionsWithItem() {
+        const itemsQueries = [].concat(this.itemIds).map(id => `item:${ITEM_URL_PREFIX}${id}`);
         const searchResponse = await this.$apis.set.search({
           query: `creator:${this.$auth.user?.sub}`,
           profile: 'items',
           pageSize: 100,
           page: 1,
           qf: [
-            `item:${ITEM_URL_PREFIX}${this.itemId}`,
+            ...itemsQueries,
             'type:Collection'
           ]
         });
@@ -145,12 +146,15 @@
         const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
-            await this.$apis.set.deleteItems(setId, this.itemId);
+            await this.$apis.set.deleteItems(setId, this.itemIds);
             this.added = this.added.filter(id => id !== setId);
             this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
           } else {
-            await this.$apis.set.insertItems(setId, this.itemId);
-            this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
+            await this.$apis.set.insertItems(setId, this.itemIds);
+            // TODO: how to track multi-select - for each?
+            if (!Array.isArray(this.itemIds)) {
+              this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
+            }
             this.added.push(setId);
             this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));
           }

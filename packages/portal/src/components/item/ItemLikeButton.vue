@@ -40,10 +40,10 @@
 
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       /**
@@ -69,14 +69,20 @@
     },
 
     data() {
+      const modalIdSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
+
       return {
-        likeLimitModalId: `like-limit-modal-${this.identifier}`
+        likeLimitModalId: `like-limit-modal-${modalIdSuffix}`
       };
     },
 
     computed: {
       liked() {
-        return this.$store.state.set.likedItemIds.includes(this.identifier);
+        if (Array.isArray(this.identifiers)) {
+          return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
+        } else {
+          return this.$store.state.set.likedItemIds.includes(this.identifiers);
+        }
       },
       likesId() {
         return this.$store.state.set.likesId;
@@ -111,9 +117,13 @@
         }
 
         try {
-          await this.$store.dispatch('set/like', this.identifier);
-          this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
-          this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
+          await this.$store.dispatch('set/like', this.identifiers);
+          // TODO: how to log and track multi-select?
+          if (!Array.isArray(this.identifiers)) {
+            this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifiers}`);
+            this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifiers);
+          }
+
           this.makeToast(this.$t('set.notifications.itemLiked'));
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
@@ -125,7 +135,7 @@
         }
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifier);
+        await this.$store.dispatch('set/unlike', this.identifiers);
         this.makeToast(this.$t('set.notifications.itemUnliked'));
       }
     }

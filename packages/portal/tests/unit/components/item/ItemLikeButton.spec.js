@@ -13,10 +13,10 @@ const storeDispatchSuccess = sinon.spy();
 const storeCommitSpy = sinon.spy();
 const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
 
-const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
+const factory = ({ propsData = { identifiers: identifier }, storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
-  propsData: { identifier },
+  propsData,
   mocks: {
     $apis: {
       set: {
@@ -180,10 +180,50 @@ describe('components/item/ItemLikeButton', () => {
           });
         });
       });
+
+      describe('data()', () => {
+        describe('likeLimitModalId', () => {
+          describe('when there are multiple items selected', () => {
+            it('ends with "multi-select"', () => {
+              const wrapper = factory({
+                propsData: { identifiers: ['001', '002', '003'] }
+              });
+
+              expect(wrapper.vm.likeLimitModalId).toEqual('like-limit-modal-multi-select');
+            });
+          });
+        });
+      });
+
+      describe('computed', () => {
+        describe('liked()', () => {
+          describe('when there are multiple items selected', () => {
+            describe('and all are already liked', () => {
+              it('returns true', () => {
+                const ids = ['001', '002'];
+                const wrapper = factory({
+                  propsData: { identifiers: ids },
+                  storeState: { likedItemIds: ids },
+                  $auth
+                });
+
+                expect(wrapper.vm.liked).toBe(true);
+              });
+            });
+            describe('and only some are already liked', () => {
+              it('returns false', () => {
+                const wrapper = factory({
+                  propsData: { identifiers: ['001', '002', '003'] },
+                  storeState: { likedItemIds: ['001', '003'] },
+                  $auth
+                });
+
+                expect(wrapper.vm.liked).toBe(false);
+              });
+            });
+          });
+        });
+      });
     });
-  });
-
-  describe('methods', () => {
-
   });
 });

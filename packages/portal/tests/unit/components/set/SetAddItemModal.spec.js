@@ -54,7 +54,7 @@ describe('components/set/SetAddItemModal', () => {
   describe('template', () => {
     describe('create set button', () => {
       it('emits "clickCreateSet" event', () => {
-        const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+        const propsData = { itemIds: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
         const wrapper = factory({ propsData });
         wrapper.find('[data-qa="create new gallery button"]').trigger('click');
 
@@ -64,7 +64,7 @@ describe('components/set/SetAddItemModal', () => {
 
     describe('close button', () => {
       it('hides the modal', () => {
-        const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+        const propsData = { itemIds: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
         const wrapper = factory({ propsData });
         const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
 
@@ -76,7 +76,7 @@ describe('components/set/SetAddItemModal', () => {
 
     describe('toggle item button', () => {
       it('adds item to gallery when item is not yet added', async() => {
-        const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+        const propsData = { itemIds: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
         const data = { fetched: true, collections: sets };
         const wrapper = factory({ propsData, data });
 
@@ -87,7 +87,7 @@ describe('components/set/SetAddItemModal', () => {
       });
 
       it('removes item from gallery when item already added', async() => {
-        const propsData = { itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
+        const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
         const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
         const wrapper = factory({ propsData, data });
 
@@ -102,7 +102,7 @@ describe('components/set/SetAddItemModal', () => {
   describe('methods', () => {
     describe('fetchCollections', () => {
       it('queries Set API for user\'s sets', async() => {
-        const propsData = { itemId: '/000/aaa' };
+        const propsData = { itemIds: '/000/aaa' };
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetchCollections();
@@ -117,7 +117,7 @@ describe('components/set/SetAddItemModal', () => {
       });
 
       it('queries Set API for user\'s sets specific to the item', async() => {
-        const propsData = { itemId: '/000/aaa' };
+        const propsData = { itemIds: '/000/aaa' };
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetchCollections();
@@ -131,8 +131,29 @@ describe('components/set/SetAddItemModal', () => {
         })).toBe(true);
       });
 
+      describe('when items in an array (multi-select)', () => {
+        it('queries Set API for user\'s sets specific to all the items', async() => {
+          const propsData = { itemIds: ['/000/aaa', '/111/bbb'] };
+          const wrapper = factory({ propsData });
+
+          await wrapper.vm.fetchCollections();
+
+          expect(wrapper.vm.$apis.set.search.calledWith({
+            query: 'creator:user-id',
+            profile: 'items',
+            pageSize: 100,
+            page: 1,
+            qf: [
+              'item:http://data.europeana.eu/item/000/aaa',
+              'item:http://data.europeana.eu/item/111/bbb',
+              'type:Collection'
+            ]
+          })).toBe(true);
+        });
+      });
+
       it('stores sets from the Set API response', async() => {
-        const propsData = { itemId: '/000/aaa' };
+        const propsData = { itemIds: '/000/aaa' };
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetchCollections();

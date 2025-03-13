@@ -63,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemId ? $t('actions.cancel') : $t('actions.close') }}
+            {{ isNew && itemIds ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
@@ -151,8 +151,8 @@
         default: 'Collection'
       },
 
-      itemId: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         default: null
       }
     },
@@ -254,8 +254,8 @@
             this.$store.dispatch('set/fetchActive', setId);
           }
 
-          if (this.itemId && this.isNew) {
-            await this.$apis.set.insertItems(setId, this.itemId);
+          if (this.itemIds && this.isNew) {
+            await this.$apis.set.insertItems(setId, this.itemIds);
           }
 
           this.hide(this.isNew ? 'create' : 'update');

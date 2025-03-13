@@ -44,13 +44,13 @@ describe('ItemRemoveButton', () => {
   afterAll(sinon.reset);
 
   it('renders the button icon only', () => {
-    const wrapper = factory({ identifier: 'item-1' });
+    const wrapper = factory({ identifiers: 'item-1' });
 
     expect(wrapper.find('[data-qa="item remove button"]').classes()).toContain('button-icon-only');
   });
 
   it('calls the deleteItems method when clicked', async() => {
-    const wrapper = factory({ identifier: 'item-1' });
+    const wrapper = factory({ identifiers: 'item-1' });
 
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
 

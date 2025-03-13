@@ -139,7 +139,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     describe('when in item context', () => {
-      const propsData = { itemId: '/123/abc' };
+      const propsData = { itemIds: '/123/abc' };
 
       it('inserts item into set via API plugin', async() => {
         const wrapper = factory({ propsData });

@@ -9,10 +9,10 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 
-const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
+const factory = ({ $auth = {}, propsData = { identifiers: identifier }, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
   localVue,
   attachTo: document.body,
-  propsData: { identifier },
+  propsData,
   mocks: {
     $auth,
     $keycloak: {
@@ -70,6 +70,18 @@ describe('components/item/ItemAddButton', () => {
 
           expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`)).toBe(true);
         });
+
+        describe('when identifiers are an array (multi-select)', () => {
+          it('shows the collection modal', () => {
+            const wrapper = factory({ $auth, propsData: { identifiers: ['001', '002'] } });
+            const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+            const addButton = wrapper.find('[data-qa="add button"]');
+            addButton.trigger('click');
+
+            expect(bvModalShow.calledWith('add-item-to-set-modal-multi-select')).toBe(true);
+          });
+        });
       });
 
       describe('when the add item modal is closed', () => {
@@ -93,6 +105,20 @@ describe('components/item/ItemAddButton', () => {
 
           expect(focusedAddButton.exists()).toBe(true);
           expect(tooltip.exists()).toBe(false);
+        });
+      });
+    });
+  });
+
+  describe('data()', () => {
+    describe('idSuffix', () => {
+      describe('when there are multiple items selected', () => {
+        it('ends with "multi-select"', () => {
+          const wrapper = factory({
+            propsData: { identifiers: ['001', '002', '003'] }
+          });
+
+          expect(wrapper.vm.idSuffix).toEqual('multi-select');
         });
       });
     });
