@@ -88,20 +88,19 @@
     </b-modal>
     <ConfirmDangerModal
       v-if="!isNew"
-      :confirm="deleteSet"
       :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
       :modal-title="$t('set.actions.delete')"
       :prompt-text="$t('set.prompts.delete')"
-      :toast-msg="$t('set.notifications.deleted')"
       @cancel="show"
-      @success="handleDeleteSuccess"
+      @confirm="deleteSet"
     />
   </div>
 </template>
 
 <script>
+  import useMakeToast from '@/composables/makeToast.js';
   import {
     EUROPEANA_SET_VISIBILITY_PRIVATE,
     EUROPEANA_SET_VISIBILITY_PUBLIC,
@@ -160,6 +159,11 @@
         type: String,
         default: null
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
@@ -284,17 +288,17 @@
         try {
           await this.$apis.set.delete(this.setId);
           if (this.setId === this.$store.state.set.active?.id) {
-            this.$store.dispatch('set/setActive', null);
+            this.$store.commit('set/setActive', null);
+          }
+
+          this.makeToast(this.$t('set.notifications.deleted'));
+
+          // redirect away from deleted set page
+          if (this.$route.name.startsWith('galleries-all___')) {
+            this.$router.push(this.localePath({ name: 'account' }));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
-        }
-      },
-
-      handleDeleteSuccess() {
-        // redirect away from deleted set page
-        if (this.$route.name.startsWith('galleries-all___')) {
-          this.$router.push(this.localePath({ name: 'account' }));
         }
       },
 

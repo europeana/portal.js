@@ -10,6 +10,7 @@ localVue.use(VueI18n);
 
 const setId = 'http://data.europeana.eu/set/123';
 
+const storeCommit = sinon.spy();
 const storeDispatch = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: setId });
 const setApiDeleteSpy = sinon.spy();
@@ -65,11 +66,12 @@ const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal
     },
     $router: { push: sinon.spy() },
     $store: {
+      commit: storeCommit,
       dispatch: storeDispatch,
       state: { set: { active: { id: null } } },
       ...$store
     },
-    $t: () => {}
+    $t: (key) => key
   },
   stubs: ['ConfirmDangerModal']
 });
@@ -204,11 +206,11 @@ describe('components/set/SetFormModal', () => {
   });
 
   describe('delete confirmation modal', () => {
-    describe('confirm callback', () => {
+    describe('confirm event handler', () => {
       it('deletes the set', async() => {
         const wrapper = factory({ propsData: existingSetPropsData });
 
-        await wrapper.vm.deleteSet();
+        await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
         expect(setApiDeleteSpy.calledWith(setId)).toBe(true);
       });
@@ -219,9 +221,9 @@ describe('components/set/SetFormModal', () => {
         it('resets the active set id in the store', async() => {
           const wrapper = factory({ propsData: existingSetPropsData, $store });
 
-          await wrapper.vm.deleteSet();
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
-          expect(storeDispatch.calledWith('set/setActive', null)).toBe(true);
+          expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
         });
       });
 
@@ -231,19 +233,26 @@ describe('components/set/SetFormModal', () => {
         it('does not reset the active set id in the store', async() => {
           const wrapper = factory({ propsData: existingSetPropsData, $store });
 
-          await wrapper.vm.deleteSet();
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
-          expect(storeDispatch.called).toBe(false);
+          expect(storeCommit.called).toBe(false);
         });
       });
-    });
 
-    describe('success event handler', () => {
+      it('makes toast', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData });
+        const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+
+        await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+        expect(rootBvToast.calledWith('set.notifications.deleted')).toBe(true);
+      });
+
       describe('when on the deleted gallery page', () => {
         it('redirects to the account page', async() => {
           const wrapper = factory({ propsData: existingSetPropsData, $route: { name: 'galleries-all___fr', params: { pathMatch: '123' } } });
 
-          await wrapper.find('confirmdangermodal-stub').vm.$emit('success');
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
           expect(wrapper.vm.$router.push.calledWith({ name: 'account' })).toBe(true);
         });

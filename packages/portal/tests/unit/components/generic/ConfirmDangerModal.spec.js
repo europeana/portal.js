@@ -47,27 +47,9 @@ describe('components/generic/ConfirmDangerModal', () => {
 
       expect(wrapper.emitted('cancel').length).toBe(1);
     });
-
-    it('does not call the confirm callback', () => {
-      const confirm = sinon.spy();
-      const wrapper = factory({ propsData: { confirm } });
-
-      wrapper.find('[data-qa="cancel button"]').trigger('click');
-
-      expect(confirm.called).toBe(false);
-    });
   });
 
   describe('form submission', () => {
-    it('calls the confirm callback', async() => {
-      const confirm = sinon.spy();
-      const wrapper = factory({ propsData: { confirm } });
-
-      await wrapper.find('form').trigger('submit.stop.prevent');
-
-      expect(confirm.calledWith()).toBe(true);
-    });
-
     it('hides the modal', async() => {
       const modalId = 'acceptable-risk';
       const wrapper = factory({ propsData: { modalId } });
@@ -78,22 +60,12 @@ describe('components/generic/ConfirmDangerModal', () => {
       expect(bvModalHide.calledWith(modalId)).toBe(true);
     });
 
-    it('emits success event', async() => {
+    it('emits confirm event', async() => {
       const wrapper = factory();
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(wrapper.emitted('success').length).toBe(1);
-    });
-
-    it('optionally makes toast', async() => {
-      const toastMsg = 'it is done';
-      const wrapper = factory({ propsData: { toastMsg } });
-      const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-
-      await wrapper.find('form').trigger('submit.stop.prevent');
-
-      expect(rootBvToast.calledWith(toastMsg)).toBe(true);
+      expect(wrapper.emitted('confirm').length).toBe(1);
     });
   });
 });

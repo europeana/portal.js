@@ -29,8 +29,6 @@
 </template>
 
 <script>
-  import useMakeToast from '@/composables/makeToast.js';
-
   export default {
     name: 'ConfirmDangerModal',
 
@@ -68,25 +66,13 @@
       promptText: {
         type: String,
         default: null
-      },
-
-      toastMsg: {
-        type: String,
-        default: null
       }
-    },
-
-    setup() {
-      const { makeToast } = useMakeToast();
-      return { makeToast };
     },
 
     methods: {
       async handleSubmitForm() {
-        await this.confirm();
-        this.toastMsg && this.makeToast(this.toastMsg);
         this.hide();
-        this.$emit('success');
+        this.$emit('confirm');
       },
 
       handleClickCancelButton() {
