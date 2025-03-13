@@ -1,12 +1,6 @@
 import { computed, getCurrentInstance, ref, watchEffect } from 'vue';
 
 export default function useLikedItems(itemIds) {
-  if (process.server) {
-    return {
-      likedItems: {}
-    };
-  }
-
   const likedItems = ref({});
 
   const $root = getCurrentInstance()?.proxy?.$root;
