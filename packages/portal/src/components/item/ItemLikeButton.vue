@@ -18,10 +18,10 @@
 </template>
 
 <script>
+  import { useEventBus } from '@vueuse/core';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import logEventMixin from '@/mixins/logEvent';
   import useMakeToast from '@/composables/makeToast.js';
-  import useLikedItems from '@/composables/likedItems.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -60,10 +60,10 @@
     },
 
     setup() {
+      const eventBus = useEventBus('likedItems');
       const { hideTooltips } = useHideTooltips();
-      const { like: likeItem, unlike: unlikeItem } = useLikedItems();
       const { makeToast } = useMakeToast();
-      return { hideTooltips, likeItem, makeToast, unlikeItem };
+      return { eventBus, hideTooltips, makeToast };
     },
 
     data() {
@@ -105,21 +105,23 @@
         }
         this.hideTooltips();
       },
+
       async like() {
-        // TODO: mv to likedItems composable?
         if (this.likesId === null) {
           const response = await this.$apis.set.createLikes();
           this.$store.commit('set/setLikesId', response.id);
         }
 
-        await this.likeItem(this.identifier);
+        await this.$apis.set.insertItems(this.likesId, this.identifier);
+        this.eventBus.emit('like', this.identifier);
         this.liked = true;
         this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
         this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         this.makeToast(this.$t('set.notifications.itemLiked'));
       },
       async unlike() {
-        await this.unlikeItem(this.identifier);
+        await this.$apis.set.deleteItems(this.likesId, this.identifier);
+        this.eventBus.emit('unlike', this.identifier);
         this.liked = false;
         this.makeToast(this.$t('set.notifications.itemUnliked'));
       }

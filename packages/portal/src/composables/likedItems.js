@@ -1,8 +1,12 @@
 import { computed, getCurrentInstance, ref, watchEffect } from 'vue';
 
-const lastModified = ref(null);
-
 export default function useLikedItems(itemIds) {
+  if (process.server) {
+    return {
+      likedItems: {}
+    };
+  }
+
   const likedItems = ref({});
 
   const $root = getCurrentInstance()?.proxy?.$root;
@@ -21,26 +25,7 @@ export default function useLikedItems(itemIds) {
     }
   });
 
-  const touchLastModified = (() => {
-    lastModified.value = Date.now();
-  });
-
-  // TODO: needs to handle multiple item ids
-  const like = async(itemId) => {
-    await setAPI.insertItems(setId.value, itemId);
-    touchLastModified();
-  };
-
-  // TODO: needs to handle multiple item ids
-  const unlike = async(itemId) => {
-    await setAPI.deleteItems(setId.value, itemId);
-    touchLastModified();
-  };
-
   return {
-    lastModified,
-    like,
-    likedItems,
-    unlike
+    likedItems
   };
 }

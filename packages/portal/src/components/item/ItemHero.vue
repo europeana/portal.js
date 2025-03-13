@@ -93,6 +93,8 @@
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
+    name: 'ItemHero',
+
     components: {
       ClientOnly,
       DownloadWidget,

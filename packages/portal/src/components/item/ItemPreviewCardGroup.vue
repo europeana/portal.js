@@ -214,7 +214,7 @@
 
       const { likedItems } = useLikedItems(itemIds);
 
-      return { itemIds, likedItems };
+      return { likedItems };
     },
 
     data() {

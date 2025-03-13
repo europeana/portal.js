@@ -163,6 +163,7 @@
 </template>
 
 <script>
+  import { useEventBus } from '@vueuse/core';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
 
@@ -173,7 +174,6 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
-  import useLikedItems from '@/composables/likedItems.js';
 
   export default {
     name: 'AccountIndexPage',
@@ -196,8 +196,10 @@
     middleware: 'auth',
 
     setup() {
-      const { lastModified: likedItemsLastModified } = useLikedItems();
-      return { likedItemsLastModified };
+      if (process.client) {
+        const eventBus = useEventBus('likedItems');
+        return { eventBus };
+      }
     },
 
     data() {
@@ -238,13 +240,19 @@
       }
     },
 
-    watch: {
-      likedItemsLastModified() {
-        this.fetchLikes();
-      }
+    mounted() {
+      this.eventBus?.on(this.eventBusListener);
+    },
+
+    beforeDestroy() {
+      this.eventBus?.off(this.eventBusListener);
     },
 
     methods: {
+      eventBusListener() {
+        this.fetchLikes();
+      },
+
       async fetchLikes() {
         if (!this.$store.state.set.likesId) {
           return {};
