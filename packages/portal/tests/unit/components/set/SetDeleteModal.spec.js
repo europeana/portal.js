@@ -7,7 +7,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const setApiDeleteSpy = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
+const storeCommit = sinon.stub().resolves({});
 
 const setId = 'http://data.europeana.eu/set/123';
 
@@ -27,7 +27,7 @@ const factory = ({ propsData, $route, $store } = {}) => mount(SetDeleteModal, {
       throw error;
     },
     $store: {
-      dispatch: storeDispatch,
+      commit: storeCommit,
       state: {
         set: { active: { id: null } }
       },
@@ -70,7 +70,7 @@ describe('components/set/SetDeleteModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      expect(storeDispatch.called).toBe(false);
+      expect(storeCommit.called).toBe(false);
     });
   });
 
@@ -91,7 +91,7 @@ describe('components/set/SetDeleteModal', () => {
 
         await wrapper.find('form').trigger('submit.stop.prevent');
 
-        expect(storeDispatch.calledWith('set/setActive', null)).toBe(true);
+        expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
       });
     });
 
@@ -103,7 +103,7 @@ describe('components/set/SetDeleteModal', () => {
 
         await wrapper.find('form').trigger('submit.stop.prevent');
 
-        expect(storeDispatch.called).toBe(false);
+        expect(storeCommit.called).toBe(false);
       });
     });
 
