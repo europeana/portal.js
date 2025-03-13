@@ -83,6 +83,7 @@
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
+            <!-- TODO: create liked items component? -->
             <b-container
               v-else-if="activeTab === tabHashes.likes"
               data-qa="liked items"
@@ -90,11 +91,9 @@
               <b-row class="flex-md-row">
                 <b-col cols="12">
                   <template
-                    v-if="likedItems"
+                    v-if="likedItems.length > 0"
                   >
-                    <b-row
-                      v-if="likedItems.length > 0"
-                    >
+                    <b-row>
                       <b-col class="d-flex align-items-center mb-3">
                         <h2
                           class="related-heading text-uppercase mb-0"
@@ -110,7 +109,6 @@
                     <b-row>
                       <b-col cols="12">
                         <ItemPreviewCardGroup
-                          v-if="likesId && likedItems.length !== 0"
                           :items="likedItems"
                           :view="view"
                           class="pb-5"
@@ -165,9 +163,9 @@
 </template>
 
 <script>
+  import { useEventBus } from '@vueuse/core';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
-  import { mapState } from 'vuex';
 
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -197,8 +195,16 @@
 
     middleware: 'auth',
 
+    setup() {
+      if (process.client) {
+        const eventBus = useEventBus('likedItems');
+        return { eventBus };
+      }
+    },
+
     data() {
       return {
+        likedItems: [],
         loggedInUser: this.$store.state.auth.user,
         tabHashes: {
           likes: '#likes',
@@ -211,7 +217,7 @@
     },
 
     async fetch() {
-      this.fetchLikes();
+      await this.fetchLikes();
     },
 
     fetchOnServer: false,
@@ -229,19 +235,39 @@
         return this.$auth.userHasClientRole('entities', 'editor') &&
           this.$auth.userHasClientRole('usersets', 'editor');
       },
-      ...mapState({
-        likesId: state => state.set.likesId,
-        likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations
-      }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
       }
     },
 
+    mounted() {
+      this.eventBus?.on(this.eventBusListener);
+    },
+
+    beforeDestroy() {
+      this.eventBus?.off(this.eventBusListener);
+    },
+
     methods: {
-      fetchLikes() {
-        this.$store.dispatch('set/fetchLikes');
+      eventBusListener() {
+        this.fetchLikes();
+      },
+
+      async fetchLikes() {
+        if (!this.$store.state.set.likesId) {
+          return {};
+        }
+
+        try {
+          const response = await this.$apis.set.get(this.$store.state.set.likesId, {
+            pageSize: 100,
+            profile: 'items.meta',
+            page: 1
+          });
+          this.likedItems = response.items || [];
+        } catch {
+          this.likedItems = [];
+        }
       }
     }
   };

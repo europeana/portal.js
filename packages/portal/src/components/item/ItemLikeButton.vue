@@ -14,18 +14,11 @@
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
-    <!-- TODO: remove when 100-item like limit removed -->
-    <b-modal
-      :id="likeLimitModalId"
-      :title="$t('set.notifications.likeLimit.title')"
-      hide-footer
-    >
-      <p>{{ $t('set.notifications.likeLimit.body') }}</p>
-    </b-modal>
   </div>
 </template>
 
 <script>
+  import { useEventBus } from '@vueuse/core';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import logEventMixin from '@/mixins/logEvent';
   import useMakeToast from '@/composables/makeToast.js';
@@ -46,6 +39,10 @@
         type: String,
         required: true
       },
+      value: {
+        type: Boolean,
+        default: null
+      },
       /**
        * Button variant to use for styling the buttons
        */
@@ -63,21 +60,19 @@
     },
 
     setup() {
+      const eventBus = useEventBus('likedItems');
       const { hideTooltips } = useHideTooltips();
       const { makeToast } = useMakeToast();
-      return { hideTooltips, makeToast };
+      return { eventBus, hideTooltips, makeToast };
     },
 
     data() {
       return {
-        likeLimitModalId: `like-limit-modal-${this.identifier}`
+        liked: this.value
       };
     },
 
     computed: {
-      liked() {
-        return this.$store.state.set.likedItemIds.includes(this.identifier);
-      },
       likesId() {
         return this.$store.state.set.likesId;
       },
@@ -86,6 +81,12 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
+      }
+    },
+
+    watch: {
+      value() {
+        this.liked = this.value;
       }
     },
 
@@ -104,28 +105,24 @@
         }
         this.hideTooltips();
       },
+
       async like() {
         if (this.likesId === null) {
           const response = await this.$apis.set.createLikes();
           this.$store.commit('set/setLikesId', response.id);
         }
 
-        try {
-          await this.$store.dispatch('set/like', this.identifier);
-          this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
-          this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
-          this.makeToast(this.$t('set.notifications.itemLiked'));
-        } catch (e) {
-          // TODO: remove when 100 item like limit is removed
-          if (e.message === '100 likes') {
-            this.$bvModal.show(this.likeLimitModalId);
-          } else {
-            throw e;
-          }
-        }
+        await this.$apis.set.insertItems(this.likesId, this.identifier);
+        this.eventBus.emit('like', this.identifier);
+        this.liked = true;
+        this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
+        this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
+        this.makeToast(this.$t('set.notifications.itemLiked'));
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifier);
+        await this.$apis.set.deleteItems(this.likesId, this.identifier);
+        this.eventBus.emit('unlike', this.identifier);
+        this.liked = false;
         this.makeToast(this.$t('set.notifications.itemUnliked'));
       }
     }
