@@ -38,11 +38,6 @@
         default: null
       },
 
-      confirm: {
-        type: Function,
-        default: () => {}
-      },
-
       confirmButtonText: {
         type: String,
         default: null
