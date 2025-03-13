@@ -161,7 +161,7 @@
           if (this.collectionsWithItem.includes(setId)) {
             await this.$apis.set.deleteItems(setId, this.itemIds);
             this.added = this.added.filter(id => id !== setId);
-            this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+            this.makeToast(this.toastMessage('delete', setTitle));
           } else {
             await this.$apis.set.insertItems(setId, this.itemIds);
             // TODO: how to track multi-select - for each?
@@ -169,12 +169,26 @@
               this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
             }
             this.added.push(setId);
-            this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));
+            this.makeToast(this.toastMessage('add', setTitle));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }
         this.fetchCollections();
+      },
+
+      toastMessage(actionType, setTitle) {
+        if (Array.isArray(this.itemIds)) {
+          if (actionType === 'delete') {
+            return this.$tc('set.notifications.selectedItemsRemoved', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
+          } else {
+            return this.$tc('set.notifications.selectedItemsAdded', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
+          }
+        } else if (actionType === 'delete') {
+          return this.$t('set.notifications.itemRemoved', { gallery: setTitle });
+        } else {
+          return this.$t('set.notifications.itemAdded', { gallery: setTitle });
+        }
       }
     }
   };

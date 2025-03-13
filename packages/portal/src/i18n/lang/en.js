@@ -1413,14 +1413,18 @@ export default {
       "deleted": "Your gallery has been deleted.",
       "itemAdded": "Item has been added to the gallery \"{gallery}\".",
       "itemLiked": "Item has been saved to your likes.",
-      "itemRemoved": "Item has been removed from gallery {gallery}.",
+      "itemRemoved": "Item has been removed from gallery \"{gallery}\".",
       "itemUnliked": "Item has been removed from your likes.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
       },
       "updated": "The item was added to the gallery.",
-      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
+      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\".",
+      "selectedItemsAdded": "{count} item has been added to the gallery \"{gallery}\". | {count} items have been added to the gallery \"{gallery}\".",
+      "selectedItemsLiked": "{count} item has been saved to your likes. | {count} items have been saved to your likes.",
+      "selectedItemsRemoved": "{count} item has been removed from gallery \"{gallery}\". | {count} items have been removed from gallery \"{gallery}\".",
+      "selectedItemsUnliked": "{count} item has been removed from your likes. | {count} items have been removed from your likes."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."

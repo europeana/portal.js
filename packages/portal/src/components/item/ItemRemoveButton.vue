@@ -53,6 +53,9 @@
     },
 
     computed: {
+      activeSet() {
+        return this.$store.state.set.active;
+      },
       selectionCount() {
         return Array.isArray(this.identifiers) ? this.identifiers.length : false;
       },
@@ -62,18 +65,25 @@
         } else {
           return this.$t('account.tooltip.remove');
         }
+      },
+      toastMessage() {
+        const setTitle = langMapValueForLocale(this.activeSet.title, this.$i18n.locale).values[0];
+        if (Array.isArray(this.identifiers)) {
+          return this.$tc('set.notifications.selectedItemsRemoved', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
+        } else {
+          return this.$t('set.notifications.itemRemoved', { gallery: setTitle });
+        }
       }
     },
 
     methods: {
       async removeItem() {
-        const activeSet = this.$store.state.set.active;
-        const setId = activeSet.id;
-        const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
+        const setId = this.activeSet.id;
+
         try {
           await this.$apis.set.deleteItems(setId, this.identifiers);
           this.$store.dispatch('set/refreshSet');
-          this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+          this.makeToast(this.toastMessage);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }

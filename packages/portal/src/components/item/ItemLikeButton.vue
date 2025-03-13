@@ -103,6 +103,20 @@
         } else {
           return this.liked ? this.$t('set.actions.removeItemFromLikes') : this.$t('set.actions.saveItemToLikes');
         }
+      },
+      likeToastMessage() {
+        if (Array.isArray(this.identifiers)) {
+          return this.$tc('set.notifications.selectedItemsLiked', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$t('set.notifications.itemLiked');
+        }
+      },
+      unlikeToastMessage() {
+        if (Array.isArray(this.identifiers)) {
+          return this.$tc('set.notifications.selectedItemsUnliked', this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$t('set.notifications.itemUnliked');
+        }
       }
     },
 
@@ -135,7 +149,7 @@
             this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifiers);
           }
 
-          this.makeToast(this.$t('set.notifications.itemLiked'));
+          this.makeToast(this.likeToastMessage);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -147,7 +161,7 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifiers);
-        this.makeToast(this.$t('set.notifications.itemUnliked'));
+        this.makeToast(this.unlikeToastMessage);
       }
     }
   };
