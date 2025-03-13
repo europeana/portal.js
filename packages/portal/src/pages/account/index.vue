@@ -217,7 +217,7 @@
     },
 
     async fetch() {
-      this.fetchLikes();
+      await this.fetchLikes();
     },
 
     fetchOnServer: false,
