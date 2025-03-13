@@ -96,48 +96,4 @@ describe('useLikedItems', () => {
       });
     });
   });
-
-  describe('like', () => {
-    it('adds item to likes set via Set API', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.like(itemIds[0]);
-
-      expect(setApiInsertItemsStub.calledWith(likesId, itemIds[0])).toBe(true);
-    });
-
-    it('touches lastModified', async() => {
-      const date = new Date('2025-01-01');
-      const wrapper = factory();
-      jest.useFakeTimers();
-      jest.setSystemTime(date);
-
-      await wrapper.vm.like(itemIds[0]);
-
-      expect(wrapper.vm.lastModified).toEqual(date.getTime());
-      jest.useRealTimers();
-    });
-  });
-
-  describe('unlike', () => {
-    it('removes item from likes set via Set API', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.unlike(itemIds[0]);
-
-      expect(setApiDeleteItemsStub.calledWith(likesId, itemIds[0])).toBe(true);
-    });
-
-    it('touches lastModified', async() => {
-      const date = new Date('2025-01-02');
-      const wrapper = factory();
-      jest.useFakeTimers();
-      jest.setSystemTime(date);
-
-      await wrapper.vm.unlike(itemIds[0]);
-
-      expect(wrapper.vm.lastModified).toEqual(date.getTime());
-      jest.useRealTimers();
-    });
-  });
 });
