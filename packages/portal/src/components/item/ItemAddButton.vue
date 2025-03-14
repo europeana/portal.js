@@ -7,7 +7,7 @@
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
-      :aria-label="$t('set.actions.addTo')"
+      :aria-label="tooltipTitle"
       @click="addToSet"
       @focus="showTooltip = true"
       @mouseover="showTooltip = true"
@@ -47,6 +47,7 @@
 <script>
   import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
+  import { useCardinality } from '@/composables/cardinality.js';
 
   export default {
     name: 'ItemAddButton',
@@ -80,6 +81,11 @@
       }
     },
 
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
+      return { cardinality };
+    },
+
     data() {
       const idSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
 
@@ -98,11 +104,7 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : false;
       },
       tooltipTitle() {
-        if (Array.isArray(this.identifiers)) {
-          return this.$tc('set.toolbar.actions.addSelected', this.selectionCount, { count: this.selectionCount });
-        } else {
-          return this.$t('set.actions.addToGallery');
-        }
+        return this.$tc(`set.actions.addItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       }
     },
 

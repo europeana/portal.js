@@ -28,8 +28,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
   },
   data: () => ({ ...data }),
   mocks: {
-    $t: key => key,
-    $tc: () => {},
+    $t: (key) => key,
+    $tc: (key) => key,
     $i18n: {},
     $apis: {
       set: {
@@ -83,7 +83,7 @@ describe('components/set/SetAddItemModal', () => {
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(setApiInsertItemsStub.calledWith('001', '/123/abc')).toBe(true);
-        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemAdded')).toBe(true);
+        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsAdded.one')).toBe(true);
       });
 
       it('removes item from gallery when item already added', async() => {
@@ -94,7 +94,7 @@ describe('components/set/SetAddItemModal', () => {
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
         expect(setApiDeleteItemsStub.calledWith('001', '/000/aaa')).toBe(true);
-        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
+        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
       });
     });
   });

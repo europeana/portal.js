@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { useCardinality } from '@/composables/cardinality.js';
   import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -47,9 +48,10 @@
       }
     },
 
-    setup() {
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
       const { makeToast } = useMakeToast();
-      return { makeToast };
+      return { cardinality, makeToast };
     },
 
     computed: {
@@ -60,19 +62,11 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : false;
       },
       tooltipTitle() {
-        if (Array.isArray(this.identifiers)) {
-          return this.$tc('set.toolbar.actions.removeSelected', this.selectionCount, { count: this.selectionCount });
-        } else {
-          return this.$t('account.tooltip.remove');
-        }
+        return this.$tc(`set.actions.removeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       },
       toastMessage() {
         const setTitle = langMapValueForLocale(this.activeSet.title, this.$i18n.locale).values[0];
-        if (Array.isArray(this.identifiers)) {
-          return this.$tc('set.notifications.selectedItemsRemoved', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
-        } else {
-          return this.$t('set.notifications.itemRemoved', { gallery: setTitle });
-        }
+        return this.$tc(`set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle });
       }
     },
 

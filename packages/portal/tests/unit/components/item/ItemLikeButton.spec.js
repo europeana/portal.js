@@ -134,7 +134,7 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsLiked.one')).toBe(true);
           });
           describe('when the like limit is reached', () => {
             it('shows the like limit modal', async() => {
@@ -177,7 +177,7 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsUnliked.one')).toBe(true);
           });
         });
       });

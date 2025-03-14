@@ -57,6 +57,6 @@ describe('ItemRemoveButton', () => {
 
     expect(setApiDeleteItemStub.calledWith('set-1', 'item-1')).toBe(true);
     expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
-    expect(wrapper.vm.makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
+    expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
   });
 });

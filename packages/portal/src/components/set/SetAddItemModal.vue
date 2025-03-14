@@ -45,6 +45,7 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
+  import { useCardinality } from '@/composables/cardinality.js';
   import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
@@ -80,9 +81,10 @@
       }
     },
 
-    setup() {
+    setup(props) {
+      const { cardinality } = useCardinality(props.itemIds);
       const { makeToast } = useMakeToast();
-      return { makeToast };
+      return { cardinality, makeToast };
     },
 
     data() {
@@ -99,11 +101,7 @@
         return Array.isArray(this.itemIds) ? this.itemIds.length : false;
       },
       modalTitle() {
-        if (Array.isArray(this.itemIds)) {
-          return this.$tc('set.actions.addSelectedTo', this.selectionCount, { count: this.selectionCount });
-        } else {
-          return this.$t('set.actions.addTo');
-        }
+        return this.$tc(`set.actions.addItemsHere.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       }
     },
 
@@ -161,7 +159,9 @@
           if (this.collectionsWithItem.includes(setId)) {
             await this.$apis.set.deleteItems(setId, this.itemIds);
             this.added = this.added.filter(id => id !== setId);
-            this.makeToast(this.toastMessage('delete', setTitle));
+            this.makeToast(this.$tc(
+              `set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
+            ));
           } else {
             await this.$apis.set.insertItems(setId, this.itemIds);
             // TODO: how to track multi-select - for each?
@@ -169,26 +169,14 @@
               this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
             }
             this.added.push(setId);
-            this.makeToast(this.toastMessage('add', setTitle));
+            this.makeToast(this.$tc(
+              `set.notifications.itemsAdded.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
+            ));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }
         this.fetchCollections();
-      },
-
-      toastMessage(actionType, setTitle) {
-        if (Array.isArray(this.itemIds)) {
-          if (actionType === 'delete') {
-            return this.$tc('set.notifications.selectedItemsRemoved', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
-          } else {
-            return this.$tc('set.notifications.selectedItemsAdded', this.selectionCount, { count: this.selectionCount, gallery: setTitle });
-          }
-        } else if (actionType === 'delete') {
-          return this.$t('set.notifications.itemRemoved', { gallery: setTitle });
-        } else {
-          return this.$t('set.notifications.itemAdded', { gallery: setTitle });
-        }
       }
     }
   };
