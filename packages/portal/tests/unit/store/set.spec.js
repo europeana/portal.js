@@ -58,9 +58,15 @@ describe('store/set', () => {
       });
     });
     describe('unlike()', () => {
-      it('removes the unliked item id from likedItemIds state', () => {
+      it('removes a single unliked item id from likedItemIds state', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007'] };
         store.mutations.unlike(state, '007');
+        expect(state.likedItemIds).toEqual(['006']);
+      });
+
+      it('removes multiple unliked item id from likedItemIds state', () => {
+        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007', '008'] };
+        store.mutations.unlike(state, ['007', '008']);
         expect(state.likedItemIds).toEqual(['006']);
       });
     });
@@ -176,8 +182,8 @@ describe('store/set', () => {
 
         await store.actions.unlike({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.deleteItems.calledWith(state.likesId, itemId)).toBe(true);
-        expect(commit.calledWith('unlike', itemId)).toBe(true);
+        expect(store.actions.$apis.set.deleteItems.calledWith(state.likesId, [itemId])).toBe(true);
+        expect(commit.calledWith('unlike', [itemId])).toBe(true);
       });
       describe('when api call errors', () => {
         it('fetches likes', async() => {

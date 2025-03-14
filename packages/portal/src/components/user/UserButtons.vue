@@ -29,19 +29,19 @@
       <ItemRemoveButton
         v-if="showRemove"
         data-qa="item remove button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemAddButton
         data-qa="item add button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemLikeButton
         data-qa="item like button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />

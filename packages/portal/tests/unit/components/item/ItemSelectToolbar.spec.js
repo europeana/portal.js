@@ -11,15 +11,10 @@ const factory = ({ propsData = {}, mocks = {}, store = {} } = {}) => shallowMoun
     ...propsData
   },
   localVue,
-  attachTo: document.body,
-  directives: { 'b-tooltip': () => {} },
   mocks: {
-    $auth: { loggedIn: false },
     $features: { itemMultiSelect: true },
-    $keycloak: {
-      login: sinon.spy()
-    },
     $store: {
+      commit: sinon.spy(),
       state: {
         set: {
           selectedItems: []
@@ -30,7 +25,8 @@ const factory = ({ propsData = {}, mocks = {}, store = {} } = {}) => shallowMoun
     $t: (key) => key,
     $tc: (key, count) => `${count} ${key}`,
     ...mocks
-  }
+  },
+  stubs: ['ItemRemoveButton', 'ItemAddButton', 'ItemLikeButton']
 });
 
 describe('components/item/ItemSelectToolbar', () => {
@@ -58,7 +54,7 @@ describe('components/item/ItemSelectToolbar', () => {
         it('renders the toolbar', () => {
           const wrapper = factory({ propsData: { userCanEditSet: true }, store });
 
-          const removeButton = wrapper.find('#remove-selected-button');
+          const removeButton = wrapper.find('itemremovebutton-stub');
 
           expect(removeButton.exists()).toBe(true);
         });
@@ -68,9 +64,22 @@ describe('components/item/ItemSelectToolbar', () => {
         it('renders the toolbar', () => {
           const wrapper = factory({ propsData: { userCanEditSet: false }, store });
 
-          const removeButton = wrapper.find('#remove-selected-button');
+          const removeButton = wrapper.find('itemremovebutton-stub');
 
           expect(removeButton.exists()).toBe(false);
+        });
+      });
+    });
+
+    describe('deselect selected button', () => {
+      describe('on click', () => {
+        it('resets the selected state in the store', () => {
+          const wrapper = factory({ store });
+
+          const deselectButton = wrapper.find('.deselect-selected-button');
+          deselectButton.trigger('click');
+
+          expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
         });
       });
     });

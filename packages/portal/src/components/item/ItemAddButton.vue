@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-button
-      :id="`item-add-button-${identifier}`"
+      :id="`item-add-button-${idSuffix}`"
       ref="itemAddButton"
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
-      :aria-label="$t('set.actions.addTo')"
+      :aria-label="tooltipTitle"
       @click="addToSet"
       @focus="showTooltip = true"
       @mouseover="showTooltip = true"
@@ -18,11 +18,11 @@
     <b-tooltip
       data-qa="add button tooltip"
       :show.sync="showTooltip"
-      :target="`item-add-button-${identifier}`"
+      :target="`item-add-button-${idSuffix}`"
       placement="bottom"
       @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
     >
-      {{ $t('set.actions.addToGallery') }}
+      {{ tooltipTitle }}
     </b-tooltip>
     <template
       v-if="$auth.loggedIn"
@@ -30,14 +30,14 @@
       <SetAddItemModal
         data-qa="add item to set modal"
         :modal-id="addItemToSetModalId"
-        :item-id="identifier"
+        :item-ids="identifiers"
         :new-set-created="newSetCreated"
         @clickCreateSet="clickCreateSet"
         @hideModal="handleHideModal"
       />
       <SetFormModal
         :modal-id="setFormModalId"
-        :item-id="identifier"
+        :item-ids="identifiers"
         @response="setCreatedOrUpdated"
       />
     </template>
@@ -47,6 +47,7 @@
 <script>
   import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
+  import { useCardinality } from '@/composables/cardinality.js';
 
   export default {
     name: 'ItemAddButton',
@@ -58,10 +59,10 @@
 
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       /**
@@ -80,14 +81,31 @@
       }
     },
 
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
+      return { cardinality };
+    },
+
     data() {
+      const idSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
+
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
-        setFormModalId: `set-form-modal-${this.identifier}`,
+        addItemToSetModalId: `add-item-to-set-modal-${idSuffix}`,
+        setFormModalId: `set-form-modal-${idSuffix}`,
         showFormModal: false,
         newSetCreated: false,
-        showTooltip: false
+        showTooltip: false,
+        idSuffix
       };
+    },
+
+    computed: {
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+      },
+      tooltipTitle() {
+        return this.$tc(`set.actions.addItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      }
     },
 
     methods: {
@@ -113,7 +131,10 @@
         if (this.$auth.loggedIn) {
           this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
+          // TODO: how to track multi-select?
+          if (!Array.isArray(this.identifiers)) {
+            this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifiers);
+          }
         } else {
           this.$keycloak.login();
         }
