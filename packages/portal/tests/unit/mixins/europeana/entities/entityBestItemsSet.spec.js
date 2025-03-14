@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 import mixin from '@/mixins/europeana/entities/entityBestItemsSet';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const component = {
   template: '<div></div>',
@@ -38,7 +39,7 @@ const factory = () => {
       $apis: {
         set: {
           create: sinon.stub().resolves({ id: fixtures.setId }),
-          deleteItem: sinon.spy(),
+          deleteItems: sinon.spy(),
           get: sinon.stub().resolves({ items: [fixtures.setId] }),
           getItemIds: sinon.stub().resolves([fixtures.itemId]),
           pinItem: sinon.spy(),
@@ -56,14 +57,19 @@ const factory = () => {
           }
         }
       },
-      $t: (key, values) => values?.entity ? `${key} ${values.entity}` : key,
-      makeToast: sinon.spy()
+      $t: (key, values) => values?.entity ? `${key} ${values.entity}` : key
     }
   });
 };
 
 describe('mixins/europeana/entities/entityBestItemsSet', () => {
+  beforeAll(() => {
+    sinon.stub(useMakeToast, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   describe('methods', () => {
     describe('ensureEntityBestItemsSetExists', () => {
@@ -249,7 +255,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
         await wrapper.vm.unpinItemFromEntityBestItemsSet(fixtures.itemId, fixtures.setId);
 
-        expect(wrapper.vm.$apis.set.deleteItem.calledWith(
+        expect(wrapper.vm.$apis.set.deleteItems.calledWith(
           fixtures.setId, fixtures.itemId
         )).toBe(true);
       });

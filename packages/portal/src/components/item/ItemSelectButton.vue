@@ -15,12 +15,15 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemSelectButton',
 
-    mixins: [hideTooltips],
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
+    },
 
     data() {
       return {
@@ -37,7 +40,23 @@
       }
     },
 
+    watch: {
+      selected(newVal) {
+        if (newVal) {
+          window.addEventListener('keyup', this.handleKeyup);
+        } else {
+          window.removeEventListener('keyup', this.handleKeyup);
+          this.$store.commit('set/setSelected', []);
+        }
+      }
+    },
+
     methods: {
+      handleKeyup(event) {
+        if (event.key === 'Escape') {
+          this.toggle();
+        }
+      },
       toggle() {
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;

@@ -2,8 +2,13 @@
   <b-form-checkbox
     v-model="selected"
     class="item-select-checkbox position-absolute"
-    :class="{ active: selected }"
-    @change="toggleItemSelection"
+    :class="{
+      active: selected,
+      'mouse-enter': mouseenterClass
+    }"
+    @mouseenter.native="mouseenterClass = true"
+    @mouseleave.native="mouseenterClass = false"
+    @change.native="mouseenterClass = false"
   >
     <span
       class="m-3 position-relative d-inline-block"
@@ -41,11 +46,26 @@
 
     data() {
       return {
-        selected: false
+        // Custom event handling and styles to revert icon only on mouse enter. Relying on hover to revert the select icon results in confusing UX (outlined icon on selection).
+        mouseenterClass: false
       };
     },
 
     computed: {
+      selected: {
+        get() {
+          return this.$store.state.set.selectedItems.includes(this.identifier);
+        },
+
+        set(value) {
+          if (value) {
+            this.$store.commit('set/selectItem', this.identifier);
+          } else {
+            this.$store.commit('set/deselectItem', this.identifier);
+          }
+        }
+      },
+
       selectCheckboxLabel() {
         if (!this.title) {
           return null;
@@ -54,16 +74,6 @@
         } else {
           const langMapValue = langMapValueForLocale(this.title, this.$i18n.locale);
           return truncate(langMapValue.values[0], 90);
-        }
-      }
-    },
-
-    methods: {
-      toggleItemSelection(value) {
-        if (value) {
-          this.$store.commit('set/selectItem', this.identifier);
-        } else {
-          this.$store.commit('set/deselectItem', this.identifier);
         }
       }
     }
@@ -82,6 +92,12 @@
     text-align: right;
     padding-left: 0;
 
+    &.mouse-enter {
+      .icon-select-circle:before {
+        content: '\e96f';
+      }
+    }
+
     .custom-control-label {
       opacity: 0;
       position: absolute;
@@ -99,15 +115,6 @@
       &::before,
       &::after {
         content: none
-      }
-
-      &:hover {
-        .icon-select-circle:before {
-          content: '\e96f';
-        }
-        .icon-select-circle-outlined:before {
-          content: '\e96e';
-        }
       }
 
       [class*='icon-select-circle'] {

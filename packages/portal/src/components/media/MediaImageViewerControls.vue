@@ -85,14 +85,12 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
   import useRotation from '@/composables/rotation.js';
   import useZoom from '@/composables/zoom.js';
 
   export default {
     name: 'MediaImageViewerControls',
-
-    mixins: [hideTooltips],
 
     props: {
       fullscreen: {
@@ -102,6 +100,7 @@
     },
 
     setup() {
+      const { hideTooltips } = useHideTooltips();
       const {
         rotateLess,
         rotateMore
@@ -115,7 +114,7 @@
         zoomOut
       } = useZoom();
 
-      return { atMinZoom, atMaxZoom, atDefaultZoom, resetZoom, rotateLess, rotateMore, zoomIn, zoomOut };
+      return { atMinZoom, atMaxZoom, atDefaultZoom, hideTooltips, resetZoom, rotateLess, rotateMore, zoomIn, zoomOut };
     }
   };
 </script>

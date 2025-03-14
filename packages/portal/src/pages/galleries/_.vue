@@ -188,6 +188,10 @@
         </client-only>
       </b-container>
     </div>
+    <ItemSelectToolbar
+      v-if="selectState"
+      :user-can-edit-set="userCanEditSet"
+    />
   </div>
 </template>
 
@@ -196,6 +200,7 @@
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ItemSelectButton from '@/components/item/ItemSelectButton';
+  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
@@ -216,6 +221,7 @@
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
       ItemSelectButton,
+      ItemSelectToolbar,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       PaginationNavInput,
       SearchViewToggles,

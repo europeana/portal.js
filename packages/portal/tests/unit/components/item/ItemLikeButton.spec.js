@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ItemLikeButton from '@/components/item/ItemLikeButton';
 import sinon from 'sinon';
+import ItemLikeButton from '@/components/item/ItemLikeButton';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -42,6 +43,11 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
 });
 
 describe('components/item/ItemLikeButton', () => {
+  beforeAll(() => {
+    sinon.stub(useMakeToast, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.reset);
 
@@ -123,12 +129,11 @@ describe('components/item/ItemLikeButton', () => {
           });
           it('makes toast', async() => {
             const wrapper = factory({ $auth });
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
           });
           describe('when the like limit is reached', () => {
             it('shows the like limit modal', async() => {
@@ -167,12 +172,11 @@ describe('components/item/ItemLikeButton', () => {
           });
           it('makes toast', async() => {
             const wrapper = factory({ $auth, storeState });
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
           });
         });
       });

@@ -18,8 +18,13 @@ export default {
       state.likedItems = value || null;
       state.likedItemIds = value?.map(item => item.id) || [];
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
+    setSelected(state, value) {
+      state.selectedItems = value;
+    },
+    like(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.push(itemId);
+      }
     },
     unlike(state, itemId) {
       state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
@@ -41,7 +46,9 @@ export default {
       state.activeRecommendations = value.filter((rec) => !activeSetItemIds.includes(rec.id));
     },
     selectItem(state, itemId) {
-      state.selectedItems.push(itemId);
+      if (!state.selectedItems.includes(itemId)) {
+        state.selectedItems.push(itemId);
+      }
     },
     deselectItem(state, itemId) {
       state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
@@ -49,15 +56,16 @@ export default {
   },
 
   actions: {
-    async like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
       await dispatch('fetchLikes');
       if (state.likedItems && state.likedItems.length >= 100) {
         throw new Error('100 likes');
       } else {
         try {
-          await this.$apis.set.insertItem(state.likesId, itemId);
-          commit('like', itemId);
+          await this.$apis.set.insertItems(state.likesId, itemIds);
+          commit('like', itemIds);
           dispatch('fetchLikes');
         } catch (e) {
           dispatch('fetchLikes');
@@ -67,7 +75,7 @@ export default {
     },
     async unlike({ dispatch, commit, state }, itemId) {
       try {
-        await this.$apis.set.deleteItem(state.likesId, itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemId);
         commit('unlike', itemId);
         dispatch('fetchLikes');
       } catch (e) {
