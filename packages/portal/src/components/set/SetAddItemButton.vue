@@ -4,7 +4,6 @@
     :variant="variant"
     class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
     :data-qa="`toggle item button`"
-    @click="$emit('toggle')"
   >
     <span>{{ displayField('title') }} ({{ set.visibility }}) - {{ $tc('items.itemCount', set.total || 0) }}</span>
     <span
