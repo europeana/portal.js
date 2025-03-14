@@ -8,7 +8,7 @@
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
-      :title="tooltipTitle"
+      :title="messages.tooltipTitle"
       @click="toggleLiked"
     >
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
@@ -77,8 +77,11 @@
     },
 
     computed: {
+      multipleIdentifiers() {
+        return Array.isArray(this.identifiers);
+      },
       liked() {
-        if (Array.isArray(this.identifiers)) {
+        if (this.multipleIdentifiers) {
           return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
         } else {
           return this.$store.state.set.likedItemIds.includes(this.identifiers);
@@ -94,29 +97,32 @@
         return '';
       },
       selectionCount() {
-        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+        return this.multipleIdentifiers ? this.identifiers.length : false;
       },
-      tooltipTitle() {
-        if (Array.isArray(this.identifiers)) {
-          return this.liked ? this.$tc('set.toolbar.actions.unlikeSelected', this.selectionCount, { count: this.selectionCount }) :
-            this.$tc('set.toolbar.actions.likeSelected', this.selectionCount, { count: this.selectionCount });
+      messages() {
+        const msgs = {};
+
+        if (this.multipleIdentifiers) {
+          msgs.likeToastMessage = this.$tc('set.notifications.selectedItemsLiked', this.selectionCount, { count: this.selectionCount });
+          msgs.unlikeToastMessage = this.$tc('set.notifications.selectedItemsUnliked', this.selectionCount, { count: this.selectionCount });
+
+          if (this.liked) {
+            msgs.tooltipTitle = this.$tc('set.toolbar.actions.unlikeSelected', this.selectionCount, { count: this.selectionCount });
+          } else {
+            msgs.tooltipTitle = this.$tc('set.toolbar.actions.likeSelected', this.selectionCount, { count: this.selectionCount });
+          }
         } else {
-          return this.liked ? this.$t('set.actions.removeItemFromLikes') : this.$t('set.actions.saveItemToLikes');
+          msgs.likeToastMessage = this.$t('set.notifications.itemLiked');
+          msgs.unlikeToastMessage = this.$t('set.notifications.itemUnliked');
+
+          if (this.liked) {
+            msgs.tooltipTitle = this.$t('set.actions.removeItemFromLikes');
+          } else {
+            msgs.tooltipTitle = this.$t('set.actions.saveItemToLikes');
+          }
         }
-      },
-      likeToastMessage() {
-        if (Array.isArray(this.identifiers)) {
-          return this.$tc('set.notifications.selectedItemsLiked', this.selectionCount, { count: this.selectionCount });
-        } else {
-          return this.$t('set.notifications.itemLiked');
-        }
-      },
-      unlikeToastMessage() {
-        if (Array.isArray(this.identifiers)) {
-          return this.$tc('set.notifications.selectedItemsUnliked', this.selectionCount, { count: this.selectionCount });
-        } else {
-          return this.$t('set.notifications.itemUnliked');
-        }
+
+        return msgs;
       }
     },
 
@@ -144,12 +150,12 @@
         try {
           await this.$store.dispatch('set/like', this.identifiers);
           // TODO: how to log and track multi-select?
-          if (!Array.isArray(this.identifiers)) {
+          if (!this.multipleIdentifiers) {
             this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifiers}`);
             this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifiers);
           }
 
-          this.makeToast(this.likeToastMessage);
+          this.makeToast(this.messages.likeToastMessage);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -161,7 +167,7 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifiers);
-        this.makeToast(this.unlikeToastMessage);
+        this.makeToast(this.messages.unlikeToastMessage);
       }
     }
   };
