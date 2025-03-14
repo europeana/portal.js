@@ -55,7 +55,7 @@ describe('ItemRemoveButton', () => {
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
 
     expect(setApiDeleteItemStub.calledWith('set-1', 'item-1')).toBe(true);
-    expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
+    expect(wrapper.vm.$store.dispatch.calledWith('set/fetchActive')).toBe(true);
     expect(wrapper.vm.makeToast.calledWith('set.notifications.itemRemoved')).toBe(true);
   });
 });

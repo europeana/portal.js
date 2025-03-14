@@ -55,7 +55,7 @@ describe('components/set/SetPublishButton', () => {
 
     await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-    expect(storeDispatch.calledWith('set/fetchActive', publicSet.setId)).toBe(true);
+    expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
   });
 
   describe('when set visibility changed in the meantime', () => {
@@ -93,7 +93,7 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
   });
 
@@ -111,7 +111,7 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
   });
 });

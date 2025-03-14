@@ -78,7 +78,7 @@ describe('components/item/ItemAddButton', () => {
 
           wrapper.vm.handleHideModal();
 
-          expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
+          expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
         });
         it('sets focus on the item add button without showing the tooltip', async() => {
           const wrapper = factory({ $auth });
@@ -120,7 +120,7 @@ describe('components/item/ItemAddButton', () => {
         const wrapper = factory();
         await wrapper.vm.refreshSet();
 
-        expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
+        expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
       });
     });
   });

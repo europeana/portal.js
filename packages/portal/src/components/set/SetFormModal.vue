@@ -259,8 +259,8 @@
           const response = await this.createOrUpdateSet();
           const setId = response.id;
 
-          if (setId === this.$store.state.set.active?.id) {
-            this.$store.dispatch('set/fetchActive', setId);
+          if (setId === this.$store.state.set.activeId) {
+            this.$store.dispatch('set/fetchActive');
           }
 
           if (this.itemId && this.isNew) {
