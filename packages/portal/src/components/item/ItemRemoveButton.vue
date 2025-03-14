@@ -8,11 +8,20 @@
       data-qa="item remove button"
       :aria-label="$t('actions.remove')"
       :title="tooltipTitle"
-      @click="removeItem"
+      @click="handleClickButton"
     >
       <span class="icon-remove-circle-outlined" />
       {{ buttonText ? $t('actions.remove') : '' }}
     </b-button>
+    <ConfirmDangerModal
+      v-if="confirmationNeeded"
+      :confirm-button-text="$t('actions.remove')"
+      :modal-id="modalId"
+      :modal-title="modalTitle"
+      :prompt-text="modalPromptText"
+      data-qa="confirm removal modal"
+      @confirm="handleConfirmation"
+    />
   </div>
 </template>
 
@@ -23,6 +32,10 @@
 
   export default {
     name: 'ItemRemoveButton',
+
+    components: {
+      ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
+    },
 
     props: {
       /**
@@ -54,12 +67,30 @@
       return { cardinality, makeToast };
     },
 
+    data() {
+      return {
+        modalId: 'set-confirm-remove-multiple-items'
+      };
+    },
+
     computed: {
       activeSet() {
         return this.$store.state.set.active;
       },
+      confirmationNeeded() {
+        // TODO: should we really alway show the confirmation modal just to remove
+        //       one item?
+        // return Array.isArray(this.identifiers);
+        return true;
+      },
+      modalPromptText() {
+        return this.$tc('set.prompts.removeItems', this.selectionCount, { count: this.selectionCount });
+      },
+      modalTitle() {
+        return this.$tc('set.actions.removeItems.many', this.selectionCount, { count: this.selectionCount });
+      },
       selectionCount() {
-        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
         return this.$tc(`set.actions.removeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
@@ -71,6 +102,18 @@
     },
 
     methods: {
+      handleClickButton() {
+        if (this.confirmationNeeded) {
+          this.$bvModal.show(this.modalId);
+        } else {
+          this.removeItem();
+        }
+      },
+
+      handleConfirmation() {
+        this.removeItem();
+      },
+
       async removeItem() {
         const setId = this.activeSet.id;
 

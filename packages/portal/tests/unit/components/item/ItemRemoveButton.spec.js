@@ -7,7 +7,7 @@ import * as useMakeToast from '@/composables/makeToast.js';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const setApiDeleteItemStub = sinon.stub().resolves({});
+const setApiDeleteItemsStub = sinon.stub().resolves({});
 
 const factory = (propsData) => shallowMount(ItemRemoveButton, {
   localVue,
@@ -16,7 +16,7 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
   mocks: {
     $apis: {
       set: {
-        deleteItems: setApiDeleteItemStub
+        deleteItems: setApiDeleteItemsStub
       }
     },
     $i18n: { locale: 'en' },
@@ -32,7 +32,8 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
     },
     $t: key => key,
     $tc: (key) => key
-  }
+  },
+  stubs: ['ConfirmDangerModal']
 });
 
 describe('ItemRemoveButton', () => {
@@ -50,12 +51,24 @@ describe('ItemRemoveButton', () => {
     expect(wrapper.find('[data-qa="item remove button"]').classes()).toContain('button-icon-only');
   });
 
-  it('calls the deleteItems method when clicked', async() => {
+  it('first shows the confirmation modal, without removing the item yet', async() => {
     const wrapper = factory({ identifiers: 'item-1' });
+    const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
 
-    expect(setApiDeleteItemStub.calledWith('set-1', 'item-1')).toBe(true);
+    expect(bvModalShow.calledWith('set-confirm-remove-multiple-items')).toBe(true);
+    expect(setApiDeleteItemsStub.called).toBe(false);
+  });
+
+  it('removes the item once the modal emit confirm event', async() => {
+    const wrapper = factory({ identifiers: 'item-1' });
+
+    await wrapper.find('[data-qa="item remove button"]').trigger('click');
+    const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
+    await confirmRemovalModal.vm.$emit('confirm');
+
+    expect(setApiDeleteItemsStub.calledWith('set-1', 'item-1')).toBe(true);
     expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
     expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
   });

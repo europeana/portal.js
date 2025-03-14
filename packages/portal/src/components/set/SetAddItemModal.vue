@@ -1,46 +1,56 @@
 <template>
-  <b-modal
-    :id="modalId"
-    :title="modalTitle"
-    hide-footer
-    hide-header-close
-    :static="modalStatic"
-    @show="fetchCollections"
-    @hide="hideModal"
-  >
-    <b-button
-      variant="primary"
-      class="btn-collection w-100 mb-3 text-left p-3"
-      data-qa="create new gallery button"
-      @click="$emit('clickCreateSet')"
+  <div>
+    <b-modal
+      :id="modalId"
+      :title="modalTitle"
+      hide-footer
+      hide-header-close
+      :static="modalStatic"
+      @show="fetchCollections"
+      @hide="hideModal"
     >
-      {{ $t('set.actions.createNew') }}
-    </b-button>
-    <div
-      v-if="collections.length"
-      class="collections"
-    >
-      <SetAddItemButton
-        v-for="(collection, index) in collections"
-        :key="index"
-        :set="collection"
-        :disabled="!fetched"
-        :added="added.includes(collection.id)"
-        :checked="collectionsWithItem.includes(collection.id)"
-        :data-qa="`toggle item button ${index}`"
-        @toggle="toggleItem(collection)"
-      />
-    </div>
-    <div class="modal-footer">
       <b-button
-        variant="outline-primary"
-        data-qa="close button"
-        @click="$bvModal.hide(modalId)"
+        variant="primary"
+        class="btn-collection w-100 mb-3 text-left p-3"
+        data-qa="create new gallery button"
+        @click="$emit('clickCreateSet')"
       >
-        {{ $t('actions.close') }}
+        {{ $t('set.actions.createNew') }}
       </b-button>
-    </div>
-  </b-modal>
+      <div
+        v-if="collections.length"
+        class="collections"
+      >
+        <SetAddItemButton
+          v-for="(collection, index) in collections"
+          :key="index"
+          :set="collection"
+          :disabled="!fetched"
+          :added="added.includes(collection.id)"
+          :checked="collectionsWithItem.includes(collection.id)"
+          :data-qa="`toggle item button ${index}`"
+          @click.native="handleClickButton(collection)"
+        />
+      </div>
+      <div class="modal-footer">
+        <b-button
+          variant="outline-primary"
+          data-qa="close button"
+          @click="$bvModal.hide(modalId)"
+        >
+          {{ $t('actions.close') }}
+        </b-button>
+      </div>
+    </b-modal>
+    <ConfirmDangerModal
+      :confirm-button-text="$t('actions.remove')"
+      :modal-id="confirmRemoveModalId"
+      :modal-title="confirmRemoveModalTitle"
+      :prompt-text="confirmRemoveModalPromptText"
+      data-qa="confirm removal modal"
+      @confirm="handleRemoveConfirmation"
+    />
+  </div>
 </template>
 
 <script>
@@ -55,6 +65,7 @@
     name: 'SetAddItemModal',
 
     components: {
+      ConfirmDangerModal: () => import('../generic/ConfirmDangerModal'),
       SetAddItemButton
     },
 
@@ -91,17 +102,25 @@
       return {
         collections: [],
         collectionsWithItem: [],
+        confirming: null,
+        confirmRemoveModalId: 'set-confirm-remove-multiple-items',
         fetched: false,
         added: []
       };
     },
 
     computed: {
-      selectionCount() {
-        return Array.isArray(this.itemIds) ? this.itemIds.length : false;
+      confirmRemoveModalPromptText() {
+        return this.$tc('set.prompts.removeItems', this.selectionCount, { count: this.selectionCount });
+      },
+      confirmRemoveModalTitle() {
+        return this.$tc('set.actions.removeItems.many', this.selectionCount, { count: this.selectionCount });
       },
       modalTitle() {
         return this.$tc(`set.actions.addItemsHere.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      },
+      selectionCount() {
+        return Array.isArray(this.itemIds) ? this.itemIds.length : 1;
       }
     },
 
@@ -142,6 +161,20 @@
           ]
         });
         this.collectionsWithItem = searchResponse.items || [];
+      },
+
+      handleClickButton(set) {
+        if (this.collectionsWithItem.includes(set.id)) {
+          this.confirming = set;
+          this.$bvModal.show(this.confirmRemoveModalId);
+        } else {
+          this.toggleItem(set);
+        }
+      },
+
+      handleRemoveConfirmation() {
+        this.toggleItem(this.confirming);
+        this.confirming = null;
       },
 
       hideModal() {

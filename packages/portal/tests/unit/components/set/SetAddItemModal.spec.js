@@ -39,7 +39,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
       }
     },
     $auth: { user: { sub: 'user-id' } }
-  }
+  },
+  stubs: ['ConfirmDangerModal']
 });
 
 describe('components/set/SetAddItemModal', () => {
@@ -75,26 +76,45 @@ describe('components/set/SetAddItemModal', () => {
     });
 
     describe('toggle item button', () => {
-      it('adds item to gallery when item is not yet added', async() => {
-        const propsData = { itemIds: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
-        const data = { fetched: true, collections: sets };
-        const wrapper = factory({ propsData, data });
+      describe('when item is not yet added', () => {
+        it('adds item to gallery', async() => {
+          const propsData = { itemIds: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+          const data = { fetched: true, collections: sets };
+          const wrapper = factory({ propsData, data });
 
-        await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+          await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(setApiInsertItemsStub.calledWith('001', '/123/abc')).toBe(true);
-        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsAdded.one')).toBe(true);
+          expect(setApiInsertItemsStub.calledWith('001', '/123/abc')).toBe(true);
+          expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsAdded.one')).toBe(true);
+        });
       });
 
-      it('removes item from gallery when item already added', async() => {
-        const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
-        const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
-        const wrapper = factory({ propsData, data });
+      describe('when item is already added', () => {
+        it('shows the removal confirmation modal first, without removing the item yet', async() => {
+          const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
+          const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
+          const wrapper = factory({ propsData, data });
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
-        await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+          await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-        expect(setApiDeleteItemsStub.calledWith('001', '/000/aaa')).toBe(true);
-        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
+          expect(bvModalShow.calledWith('set-confirm-remove-multiple-items')).toBe(true);
+          expect(setApiDeleteItemsStub.called).toBe(false);
+        });
+
+        describe('when the removal confirmation modal emits the confirm event', () => {
+          it('removes item from gallery', async() => {
+            const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
+            const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
+            const wrapper = factory({ propsData, data });
+
+            await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+            const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
+            await confirmRemovalModal.vm.$emit('confirm');
+
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
+          });
+        });
       });
     });
   });
