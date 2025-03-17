@@ -23,7 +23,10 @@
         </b-button>
       </template>
     </span>
-    <div class="my-1 d-flex">
+    <div
+      v-if="selectionCount >= 1"
+      class="my-1 d-flex"
+    >
       <ItemRemoveButton
         v-if="userCanEditSet"
         :identifiers="selected"

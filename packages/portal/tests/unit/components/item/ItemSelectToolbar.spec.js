@@ -40,6 +40,18 @@ describe('components/item/ItemSelectToolbar', () => {
     });
   });
 
+  describe('when no items are selected', () => {
+    it('does not render the add and like buttons', () => {
+      const wrapper = factory();
+
+      const addButton = wrapper.find('itemaddbutton-stub');
+      const likeButton = wrapper.find('itemlikebutton-stub');
+
+      expect(addButton.exists()).toBe(false);
+      expect(likeButton.exists()).toBe(false);
+    });
+  });
+
   describe('when items are selected', () => {
     const store = {
       state: {
@@ -49,9 +61,19 @@ describe('components/item/ItemSelectToolbar', () => {
       }
     };
 
+    it('renders the add and like buttons', () => {
+      const wrapper = factory({ store });
+
+      const addButton = wrapper.find('itemaddbutton-stub');
+      const likeButton = wrapper.find('itemlikebutton-stub');
+
+      expect(addButton.exists()).toBe(true);
+      expect(likeButton.exists()).toBe(true);
+    });
+
     describe('remove selected button', () => {
       describe('when the user has rights to edit the set', () => {
-        it('renders the toolbar', () => {
+        it('renders the remove button', () => {
           const wrapper = factory({ propsData: { userCanEditSet: true }, store });
 
           const removeButton = wrapper.find('itemremovebutton-stub');
@@ -61,7 +83,7 @@ describe('components/item/ItemSelectToolbar', () => {
       });
 
       describe('when the user does NOT have rights to edit the set', () => {
-        it('renders the toolbar', () => {
+        it('does not render the remove button', () => {
           const wrapper = factory({ propsData: { userCanEditSet: false }, store });
 
           const removeButton = wrapper.find('itemremovebutton-stub');
