@@ -6,7 +6,6 @@
     no-caret
     data-qa="view toggle"
     :toggle-attrs="{ 'aria-label': $t('actions.changeView') }"
-    @hide="preventTooltipShow"
   >
     <b-tooltip
       placement="bottom"
@@ -67,19 +66,17 @@
 
     methods: {
       handleTooltipShow(event) {
-        // prevent showing tooltip on dropdown hide
         if (!this.showTooltip) {
           event.preventDefault();
-          // after preventing tooltip show on dropdown hide, enable tooltip show again for subsequent show
+          // after preventing tooltip show, enable tooltip show again for subsequent event
           this.showTooltip = true;
         }
-      },
-      preventTooltipShow() {
-        this.showTooltip = false;
       },
       selectView(view) {
         this.$cookies?.set('searchResultsView', view);
         this.$matomo?.trackEvent('View search results', 'Select view', view);
+        // prevent showing tooltip when selecting a view (dropdown hides and sets focus on dropdown toggle)
+        this.showTooltip = false;
       }
     }
   };

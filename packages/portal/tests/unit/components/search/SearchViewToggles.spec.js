@@ -52,13 +52,12 @@ describe('components/search/SearchViewToggles', () => {
       expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
       expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'mosaic')).toBe(true);
     });
-  });
 
-  describe('preventTooltipShow', () => {
     it('sets showTooltip to false', () => {
-      const wrapper = factory();
+      const wrapper = factory({ value: 'grid' });
 
-      wrapper.vm.preventTooltipShow();
+      const viewOption = wrapper.find('[data-qa="mosaic view option"]');
+      viewOption.trigger('click');
 
       expect(wrapper.vm.showTooltip).toEqual(false);
     });
