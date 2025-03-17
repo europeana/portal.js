@@ -1,12 +1,20 @@
 <template>
   <b-dropdown
-    v-b-tooltip.bottom="$t('actions.changeView')"
+    id="search-view-toggles"
     variant="light"
     no-flip
     no-caret
     data-qa="view toggle"
     :toggle-attrs="{ 'aria-label': $t('actions.changeView') }"
+    @hide="preventTooltipShow"
   >
+    <b-tooltip
+      placement="bottom"
+      target="search-view-toggles"
+      @show="(e) => handleTooltipShow(e) "
+    >
+      {{ $t('actions.changeView') }}
+    </b-tooltip>
     <template #button-content>
       <span
         :class="`icon-view-${value}`"
@@ -46,7 +54,8 @@
 
     data() {
       return {
-        views: ['list', 'grid', 'mosaic']
+        views: ['list', 'grid', 'mosaic'],
+        showTooltip: true
       };
     },
 
@@ -57,6 +66,17 @@
     },
 
     methods: {
+      handleTooltipShow(event) {
+        // prevent showing tooltip on dropdown hide
+        if (!this.showTooltip) {
+          event.preventDefault();
+          // after preventing tooltip show on dropdown hide, enable tooltip show again for subsequent show
+          this.showTooltip = true;
+        }
+      },
+      preventTooltipShow() {
+        this.showTooltip = false;
+      },
       selectView(view) {
         this.$cookies?.set('searchResultsView', view);
         this.$matomo?.trackEvent('View search results', 'Select view', view);

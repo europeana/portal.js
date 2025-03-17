@@ -43,7 +43,7 @@ describe('components/search/SearchViewToggles', () => {
   });
 
   describe('When clicking a view option from the dropdown', () => {
-    it('saves preference in a cookie and tracks the event in Matomo', async() => {
+    it('saves preference in a cookie and tracks the event in Matomo', () => {
       const wrapper = factory({ value: 'grid' });
 
       const viewOption = wrapper.find('[data-qa="mosaic view option"]');
@@ -51,6 +51,45 @@ describe('components/search/SearchViewToggles', () => {
 
       expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
       expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'mosaic')).toBe(true);
+    });
+  });
+
+  describe('preventTooltipShow', () => {
+    it('sets showTooltip to false', () => {
+      const wrapper = factory();
+
+      wrapper.vm.preventTooltipShow();
+
+      expect(wrapper.vm.showTooltip).toEqual(false);
+    });
+  });
+
+  describe('handleTooltipShow', () => {
+    describe('when showTooltip is falsy', () => {
+      const event = { preventDefault: sinon.spy() };
+
+      it('prevents showing the tooltip and resets showTooltip', () => {
+        const wrapper = factory();
+        wrapper.vm.showTooltip = false;
+
+        wrapper.vm.handleTooltipShow(event);
+
+        expect(event.preventDefault.called).toBe(true);
+        expect(wrapper.vm.showTooltip).toEqual(true);
+      });
+    });
+
+    describe('when showTooltip is truthy', () => {
+      const event = { preventDefault: sinon.spy() };
+
+      it('prevents showing the tooltip and resets showTooltip', () => {
+        const wrapper = factory();
+
+        wrapper.vm.handleTooltipShow(event);
+
+        expect(event.preventDefault.called).toBe(false);
+        expect(wrapper.vm.showTooltip).toEqual(true);
+      });
     });
   });
 });
