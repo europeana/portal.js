@@ -10,7 +10,7 @@
     <b-tooltip
       placement="bottom"
       target="search-view-toggles"
-      @show="(e) => handleTooltipShow(e) "
+      @show="handleTooltipShow"
     >
       {{ $t('actions.changeView') }}
     </b-tooltip>
