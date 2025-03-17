@@ -39,6 +39,7 @@ export default {
     "add": "Add",
     "apply": "Apply",
     "cancel": "Cancel",
+    "changeView": "Change view",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",

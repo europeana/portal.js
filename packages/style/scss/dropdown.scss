@@ -8,7 +8,6 @@
     &:focus,
     :not(:disabled):not(.disabled):active {
       background-color: $white;
-      box-shadow: none;
     }
   }
 
