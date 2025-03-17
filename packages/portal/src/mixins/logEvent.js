@@ -15,7 +15,7 @@ export default {
       return !!(
         this.$features?.eventLogging &&
         this.eventToLog &&
-        !this.eventLogged &&
+        !this.eventLogged && // QUESTION: is this giving false positives w/ multi-select...?
         !this.eventBeingLogged &&
         !this.$fetchState?.error &&
         process.client &&
