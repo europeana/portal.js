@@ -1,7 +1,7 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$t('set.actions.addTo')"
+    :title="modalTitle"
     hide-footer
     hide-header-close
     :static="modalStatic"
@@ -45,7 +45,8 @@
 
 <script>
   import logEventMixin from '@/mixins/logEvent';
-  import makeToastMixin from '@/mixins/makeToast';
+  import { useCardinality } from '@/composables/cardinality.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -58,13 +59,12 @@
     },
 
     mixins: [
-      logEventMixin,
-      makeToastMixin
+      logEventMixin
     ],
 
     props: {
-      itemId: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         required: true
       },
       modalId: {
@@ -81,6 +81,12 @@
       }
     },
 
+    setup(props) {
+      const { cardinality } = useCardinality(props.itemIds);
+      const { makeToast } = useMakeToast();
+      return { cardinality, makeToast };
+    },
+
     data() {
       return {
         collections: [],
@@ -88,6 +94,15 @@
         fetched: false,
         added: []
       };
+    },
+
+    computed: {
+      selectionCount() {
+        return Array.isArray(this.itemIds) ? this.itemIds.length : false;
+      },
+      modalTitle() {
+        return this.$tc(`set.actions.addItemsHere.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      }
     },
 
     watch: {
@@ -115,13 +130,14 @@
       },
 
       async fetchCollectionsWithItem() {
+        const itemsQueries = [].concat(this.itemIds).map(id => `item:${ITEM_URL_PREFIX}${id}`);
         const searchResponse = await this.$apis.set.search({
           query: `creator:${this.$auth.user?.sub}`,
           profile: 'items',
           pageSize: 100,
           page: 1,
           qf: [
-            `item:${ITEM_URL_PREFIX}${this.itemId}`,
+            ...itemsQueries,
             'type:Collection'
           ]
         });
@@ -141,14 +157,21 @@
         const setTitle = langMapValueForLocale(set.title, this.$i18n.locale).values[0];
         try {
           if (this.collectionsWithItem.includes(setId)) {
-            await this.$apis.set.deleteItem(setId, this.itemId);
+            await this.$apis.set.deleteItems(setId, this.itemIds);
             this.added = this.added.filter(id => id !== setId);
-            this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+            this.makeToast(this.$tc(
+              `set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
+            ));
           } else {
-            await this.$apis.set.insertItems(setId, this.itemId);
-            this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
+            await this.$apis.set.insertItems(setId, this.itemIds);
+            // TODO: how to track multi-select - for each?
+            if (!Array.isArray(this.itemIds)) {
+              this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
+            }
             this.added.push(setId);
-            this.makeToast(this.$t('set.notifications.itemAdded', { gallery: setTitle }));
+            this.makeToast(this.$tc(
+              `set.notifications.itemsAdded.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
+            ));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });

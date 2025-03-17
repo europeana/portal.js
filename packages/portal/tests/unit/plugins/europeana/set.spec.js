@@ -473,26 +473,30 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
-  describe('deleteItem', () => {
+  describe('deleteItems', () => {
     it('deletes the item from the set', async() => {
       nock(EuropeanaSetApi.BASE_URL)
-        .delete(`/${setId}/items`, [itemId])
+        .delete(`/${setId}/items`, itemIds)
         .query({ wskey: apiKey })
         .reply(200);
 
-      await (new EuropeanaSetApi({ $config })).deleteItem(setId, itemId);
+      await (new EuropeanaSetApi({ $config })).deleteItems(setId, itemIds);
 
       expect(nock.isDone()).toBe(true);
     });
 
     describe('v0.12 API compatibility', () => {
-      it('deletes the item from the set', async() => {
+      it('deletes each item from the set', async() => {
         nock(EuropeanaSetApi.BASE_URL)
-          .delete(`/${setId}${itemId}`)
+          .delete(`/${setId}${itemIds[0]}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemIds[1]}`)
           .query({ wskey: apiKey })
           .reply(200);
 
-        await (new EuropeanaSetApi({ $config: $configV012 })).deleteItem(setId, itemId);
+        await (new EuropeanaSetApi({ $config: $configV012 })).deleteItems(setId, itemIds);
 
         expect(nock.isDone()).toBe(true);
       });
@@ -532,6 +536,20 @@ describe('@/plugins/europeana/set', () => {
 
         expect(nock.isDone()).toBe(true);
       });
+    });
+  });
+
+  describe('searchItems', () => {
+    it('searches for item(s) within a set', async() => {
+      const itemIds = ['/123/abc', '/123/def'];
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}/search`)
+        .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).searchItems(setId, itemIds);
+
+      expect(nock.isDone()).toBe(true);
     });
   });
 });

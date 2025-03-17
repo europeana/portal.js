@@ -7,7 +7,7 @@
       :variant="buttonVariant"
       data-qa="item remove button"
       :aria-label="$t('actions.remove')"
-      :title="$t('account.tooltip.remove')"
+      :title="tooltipTitle"
       @click="removeItem"
     >
       <span class="icon-remove-circle-outlined" />
@@ -17,22 +17,19 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import { useCardinality } from '@/composables/cardinality.js';
+  import useMakeToast from '@/composables/makeToast.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemRemoveButton',
 
-    mixins: [
-      makeToastMixin
-    ],
-
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       /**
@@ -51,15 +48,36 @@
       }
     },
 
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
+      const { makeToast } = useMakeToast();
+      return { cardinality, makeToast };
+    },
+
+    computed: {
+      activeSet() {
+        return this.$store.state.set.active;
+      },
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+      },
+      tooltipTitle() {
+        return this.$tc(`set.actions.removeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      },
+      toastMessage() {
+        const setTitle = langMapValueForLocale(this.activeSet.title, this.$i18n.locale).values[0];
+        return this.$tc(`set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle });
+      }
+    },
+
     methods: {
       async removeItem() {
-        const activeSet = this.$store.state.set.active;
-        const setId = activeSet.id;
-        const setTitle = langMapValueForLocale(activeSet.title, this.$i18n.locale).values[0];
+        const setId = this.activeSet.id;
+
         try {
-          await this.$apis.set.deleteItem(setId, this.identifier);
+          await this.$apis.set.deleteItems(setId, this.identifiers);
           this.$store.dispatch('set/refreshSet');
-          this.makeToast(this.$t('set.notifications.itemRemoved', { gallery: setTitle }));
+          this.makeToast(this.toastMessage);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }

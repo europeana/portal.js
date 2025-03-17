@@ -19,11 +19,20 @@ export default {
         state.likedItemIds = value.map(item => item.id);
       }
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
+    setSelected(state, value) {
+      state.selectedItems = value;
     },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+    like(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        if (!state.likedItemIds.includes(itemId)) {
+          state.likedItemIds.push(itemId);
+        }
+      }
+    },
+    unlike(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+      }
     },
     setActive(state, value) {
       state.active = value;
@@ -49,15 +58,16 @@ export default {
   },
 
   actions: {
-    async like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
       await dispatch('fetchLikes');
       if (state.likedItems && state.likedItems.length >= 100) {
         throw new Error('100 likes');
       } else {
         try {
-          await this.$apis.set.insertItems(state.likesId, itemId);
-          commit('like', itemId);
+          await this.$apis.set.insertItems(state.likesId, itemIds);
+          commit('like', itemIds);
           dispatch('fetchLikes');
         } catch (e) {
           dispatch('fetchLikes');
@@ -65,10 +75,11 @@ export default {
         }
       }
     },
-    async unlike({ dispatch, commit, state }, itemId) {
+    async unlike({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       try {
-        await this.$apis.set.deleteItem(state.likesId, itemId);
-        commit('unlike', itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemIds);
+        commit('unlike', itemIds);
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');

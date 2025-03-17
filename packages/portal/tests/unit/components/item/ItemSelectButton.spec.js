@@ -16,6 +16,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
     $keycloak: {
       login: sinon.spy()
     },
+    $store: { commit: sinon.spy() },
     $t: (key) => key,
     ...mocks
   }
@@ -54,6 +55,46 @@ describe('components/item/ItemSelectButton', () => {
           expect(selectButton.attributes('aria-label')).toBe('set.actions.cancelSelection');
           expect(wrapper.emitted('select').length).toBe(1);
         });
+      });
+    });
+
+    describe('when select state changes to true', () => {
+      it('starts listening to keyup events', async() => {
+        sinon.spy(window, 'addEventListener');
+        const wrapper = factory();
+        await wrapper.setData({ selected: true });
+
+        expect(window.addEventListener.calledWith('keyup', sinon.match.func)).toBe(true);
+      });
+      describe('and hitting Escape', () => {
+        it('calls toggle to cancel selection', () => {
+          const wrapper = factory();
+          wrapper.vm.toggle = sinon.spy();
+          wrapper.setData({ selected: true });
+          const keyupEscapeEvent = new KeyboardEvent('keyup', { key: 'Escape' });
+
+          wrapper.vm.handleKeyup(keyupEscapeEvent);
+
+          expect(wrapper.vm.toggle.called).toBe(true);
+        });
+      });
+    });
+
+    describe('when select state changes to false', () => {
+      it('stops listening to keyup events', async() => {
+        sinon.spy(window, 'removeEventListener');
+        const wrapper = factory();
+        await wrapper.setData({ selected: true });
+        await wrapper.setData({ selected: false });
+
+        expect(window.removeEventListener.calledWith('keyup', sinon.match.func)).toBe(true);
+      });
+      it('resets the selected store state', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ selected: true });
+        await wrapper.setData({ selected: false });
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
       });
     });
   });

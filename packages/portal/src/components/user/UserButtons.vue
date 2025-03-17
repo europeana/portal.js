@@ -29,19 +29,19 @@
       <ItemRemoveButton
         v-if="showRemove"
         data-qa="item remove button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemAddButton
         data-qa="item add button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemLikeButton
         data-qa="item like button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
@@ -53,7 +53,7 @@
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
   import ItemPinButton from '@/components/item/ItemPinButton';
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'UserButtons',
@@ -64,8 +64,6 @@
       ItemPinButton,
       ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
     },
-
-    mixins: [hideTooltips],
 
     props: {
       /**
@@ -115,6 +113,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { hideTooltips } = useHideTooltips();
+      return { hideTooltips };
     }
   };
 </script>
