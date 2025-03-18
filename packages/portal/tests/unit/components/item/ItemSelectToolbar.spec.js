@@ -36,19 +36,27 @@ describe('components/item/ItemSelectToolbar', () => {
 
       const selectionToolbar = wrapper.find('.item-select-toolbar');
 
-      expect(selectionToolbar.text()).toBe('0 set.toolbar.info');
+      expect(selectionToolbar.isVisible()).toBe(true);
     });
   });
 
   describe('when no items are selected', () => {
-    it('does not render the add and like buttons', () => {
+    it('does not show the deselect selected button', () => {
+      const wrapper = factory();
+
+      const deselectSelectedButton = wrapper.find('.deselect-selected-button');
+
+      expect(deselectSelectedButton.isVisible()).toBe(false);
+    });
+
+    it('does not show the add and like buttons', () => {
       const wrapper = factory();
 
       const addButton = wrapper.find('itemaddbutton-stub');
       const likeButton = wrapper.find('itemlikebutton-stub');
 
-      expect(addButton.exists()).toBe(false);
-      expect(likeButton.exists()).toBe(false);
+      expect(addButton.isVisible()).toBe(false);
+      expect(likeButton.isVisible()).toBe(false);
     });
   });
 
@@ -61,14 +69,22 @@ describe('components/item/ItemSelectToolbar', () => {
       }
     };
 
-    it('renders the add and like buttons', () => {
+    it('shows the deselect selected button', () => {
+      const wrapper = factory({ store });
+
+      const deselectSelectedButton = wrapper.find('.deselect-selected-button');
+
+      expect(deselectSelectedButton.isVisible()).toBe(true);
+    });
+
+    it('shows the add and like buttons', () => {
       const wrapper = factory({ store });
 
       const addButton = wrapper.find('itemaddbutton-stub');
       const likeButton = wrapper.find('itemlikebutton-stub');
 
-      expect(addButton.exists()).toBe(true);
-      expect(likeButton.exists()).toBe(true);
+      expect(addButton.isVisible()).toBe(true);
+      expect(likeButton.isVisible()).toBe(true);
     });
 
     describe('remove selected button', () => {

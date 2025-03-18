@@ -12,20 +12,20 @@
       >
         {{ $tc('set.toolbar.info', selectionCount, { count: selectionCount }) }}
       </span>
-      <template v-if="selectionCount >= 1">
-        <b-button
-          variant="link"
-          class="deselect-selected-button p-0 mr-3 ml-1 my-1"
-          :aria-label="$t('set.toolbar.actions.deselectSelected')"
-          @click="deselectSelected"
-        >
-          {{ $t('set.toolbar.actions.deselectSelected') }}
-        </b-button>
-      </template>
+      <b-button
+        v-show="selectionCount >= 1"
+        variant="link"
+        class="deselect-selected-button p-0 mr-3 ml-1 my-1"
+        :aria-label="$t('set.toolbar.actions.deselectSelected')"
+        @click="deselectSelected"
+      >
+        {{ $t('set.toolbar.actions.deselectSelected') }}
+      </b-button>
     </span>
     <div
-      v-if="selectionCount >= 1"
-      class="my-1 d-flex"
+      v-show="selectionCount >= 1"
+      class="my-1"
+      :class="{ 'd-flex': selectionCount >= 1 }"
     >
       <ItemRemoveButton
         v-if="userCanEditSet"
