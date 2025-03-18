@@ -15,10 +15,10 @@ describe('useCardinality', () => {
     describe('when argument is a scalar', () => {
       const value = 3;
 
-      it('is "one"', () => {
+      it('is "1"', () => {
         const { cardinality } = useCardinality(value);
 
-        expect(cardinality.value).toBe('one');
+        expect(cardinality.value).toBe('1');
       });
     });
   });
