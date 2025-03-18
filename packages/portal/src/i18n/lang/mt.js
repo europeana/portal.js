@@ -31,7 +31,6 @@ export default {
       "private": "Gallerija privata tista' taraha biss int.",
       "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
       "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
-      "remove": "Neħħi dan l-oġġett minn din il-gallerija.",
       "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Żid fid-direttorju tar-ritratti",
-      "addToGallery": "Żid dan l-oġġett ma' gallerija.",
+      "addItems": "{\"one\":\"\u017bid dan l-o\u0121\u0121ett ma\u2019 gallerija.\",\"few\":\"\u017bid dawn l-o\u0121\u0121etti ma\u2019 gallerija.\",\"many\":\"\u017bid dawn l-o\u0121\u0121etti ma\u2019 gallerija.\",\"other\":\"\u017bid dawn l-o\u0121\u0121etti ma\u2019 gallerija.\"}",
+      "addItemsHere": "{\"one\":\"\u017bid mal-gallerija\",\"few\":\"\u017bid mal-gallerija\",\"many\":\"\u017bid mal-gallerija\",\"other\":\"\u017bid mal-gallerija\"}",
       "cancelSelection": "Ikkanċella l-għażla",
       "clickToSelectItems": "Ikklikkja fuq l-oġġetti biex tagħżilhom",
       "create": "Oħloq direttorju",
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
-      "removeItemFromLikes": "Neħħi dan l-oġġett mill-Likes tiegħek.",
-      "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
+      "likeItems": "{\"one\":\"Ssejvja dan l-o\u0121\u0121ett f\u2019likes tieg\u0127ek.\",\"few\":\"Ssejvja dawn l-o\u0121\u0121etti f\u2019likes tieg\u0127ek.\",\"many\":\"Ssejvja dawn l-o\u0121\u0121etti f\u2019likes tieg\u0127ek.\",\"other\":\"Ssejvja dawn l-o\u0121\u0121etti f\u2019likes tieg\u0127ek.\"}",
+      "removeItems": "{\"one\":\"Ne\u0127\u0127i dan l-o\u0121\u0121ett minn din il-gallerija.\",\"few\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn din il-gallerija.\",\"many\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn din il-gallerija.\",\"other\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn din il-gallerija.\"}",
       "selectItems": "Agħżel oġġetti",
+      "unlikeItems": "{\"one\":\"Ne\u0127\u0127i dan l-o\u0121\u0121ett minn likes tieg\u0127ek.\",\"few\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn likes tieg\u0127ek.\",\"many\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn likes tieg\u0127ek.\",\"other\":\"Ne\u0127\u0127i dawn l-o\u0121\u0121etti minn likes tieg\u0127ek.\"}",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
-      "itemAdded": "L-oġġett ġie miżjud mal-gallerija \"{gallery}\".",
-      "itemLiked": "L-oġġett ġie ffrankat fil-“likes” tiegħek.",
-      "itemRemoved": "L-oġġett tneħħa mill-gallerija {gallery}.",
-      "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
+      "itemsAdded": "{\"one\":\"L-o\u0121\u0121ett \u0121ie mi\u017cjud mal-gallerija \\"{gallery}\\".\",\"few\":\"L-o\u0121\u0121etti \u0121ew mi\u017cjuda mal-gallerija \\"{gallery}\\".\",\"many\":\"L-o\u0121\u0121etti \u0121ew mi\u017cjuda mal-gallerija \\"{gallery}\\".\",\"other\":\"L-o\u0121\u0121etti \u0121ew mi\u017cjuda mal-gallerija \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"L-o\u0121\u0121ett \u0121ie ssejvjat f\u2019likes tieg\u0127ek.\",\"few\":\"L-o\u0121\u0121etti tne\u0127\u0127ew mill-gallerija \\"{gallery}\\".\",\"many\":\"L-o\u0121\u0121etti tne\u0127\u0127ew mill-gallerija \\"{gallery}\\".\",\"other\":\"L-o\u0121\u0121etti tne\u0127\u0127ew mill-gallerija \\"{gallery}\\".\"}",
+      "itemsRemoved": "{\"one\":\"L-o\u0121\u0121ett tne\u0127\u0127a mill-gallerija \\"{gallery}\\".\",\"few\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\",\"many\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\",\"other\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\"}",
+      "itemsUnliked": "{\"one\":\"L-o\u0121\u0121ett tne\u0127\u0127a minn likes tieg\u0127ek.\",\"few\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\",\"many\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\",\"other\":\"L-o\u0121\u0121etti tne\u0127\u0127ew minn likes tieg\u0127ek.\"}",
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 likes"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) hija għodda bbażata fuq il-web għall-ġestjoni ta' kontenut ta' tipi differenti (inkluż 3D), id-dokumentazzjoni tal-wirt kulturali permezz ta' spazji tal-komunità diġitali, u l-kura ta' stejjer u esperjenzi diġitali."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Neħħi l-għażla kollha."
+      },
+      "info": "{count} oġġett magħżul. | {count} oġġetti magħżula."
     }
   },
   "shareWhere": "Fejn tixtieq taqsam dan?",

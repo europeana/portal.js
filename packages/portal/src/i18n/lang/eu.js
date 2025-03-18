@@ -31,7 +31,6 @@ export default {
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
       "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
-      "remove": "Kendu elementu hau galeria honetatik.",
       "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
@@ -1336,17 +1335,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Bildumara gaineratu",
-      "addToGallery": "Gehitu elementu hau galeria batera.",
+      "addItems": "{\"one\":\"Gehitu elementu hau galeria batera.\",\"other\":\"Gehitu elementu hauek galeria batera.\"}",
+      "addItemsHere": "{\"one\":\"Gehitu galeriara\",\"other\":\"Gehitu galeriara\"}",
       "cancelSelection": "Utzi hautaketa",
       "clickToSelectItems": "Egin klik elementuetan haiek hautatzeko",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
-      "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
-      "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
+      "likeItems": "{\"one\":\"Gorde elementu hau zure gustukoetan.\",\"other\":\"Gorde elementu hauek zure gustukoen artean.\"}",
+      "removeItems": "{\"one\":\"Kendu elementu hau galeria honetatik.\",\"other\":\"Kendu elementu hauek galeria honetatik.\"}",
       "selectItems": "Hautatu elementuak",
+      "unlikeItems": "{\"one\":\"Kendu elementu hau zure gustukoetatik.\",\"other\":\"Kendu elementu hauek zure gustukoetatik.\"}",
       "update": "Eguneratu galeria"
     },
     "form": {
@@ -1363,10 +1363,10 @@ export default {
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
-      "itemAdded": "Elementua \" {gallery} \" galerian gehitu da.",
-      "itemLiked": "Elementua zure gustukoetan gorde da.",
-      "itemRemoved": "Elementua {gallery} galeriatik kendu da.",
-      "itemUnliked": "Elementua zure gustukoenetatik kendu da.",
+      "itemsAdded": "{\"one\":\"Elementua \\"{gallery}\\" galeriara gehitu da.\",\"other\":\"Elementuak \\"{galeria}\\" galerian gehitu dira.\"}",
+      "itemsLiked": "{\"one\":\"Elementua zure gustukoen zerrendan gorde da.\",\"other\":\"Elementuak zure gustukoetan gorde dira.\"}",
+      "itemsRemoved": "{\"one\":\"Elementua \\"{gallery}\\" galeriatik kendu da.\",\"other\":\"Elementuak \\"{gallery}\\" galeriatik kendu dira.\"}",
+      "itemsUnliked": "{\"one\":\"Elementua zure gustuetatik kendu da.\",\"other\":\"Elementuak zure gustuetatik kendu dira.\"}",
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
@@ -1403,6 +1403,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deshautatu guztiak."
+      },
+      "info": "{count} elementu hautatuta. | {count} elementu hautatu dira."
     }
   },
   "shareWhere": "Non partekatu nahiko zenuke hau?",

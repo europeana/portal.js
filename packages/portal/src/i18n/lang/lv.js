@@ -31,7 +31,6 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
-      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pievienot galerijai",
-      "addToGallery": "Pievienot šo digitālais objekts galerijai.",
+      "addItems": "{\"zero\":\"Pievienojiet nulle digit\u0101lo objektu galerijai\",\"one\":\"Pievienojiet \u0161o digit\u0101lo objektu galerijai.\",\"other\":\"Pievienojiet \u0161os digit\u0101los objektus galerijai.\"}",
+      "addItemsHere": "{\"zero\":\"Pievienot galerijai\",\"one\":\"Pievienot galerijai\",\"other\":\"Pievienot galerijai\"}",
       "cancelSelection": "Atcelt atlasi",
       "clickToSelectItems": "Noklikšķiniet uz digitālajiem objektiem, lai tos atlasītu",
       "create": "Izveidot galeriju",
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
-      "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
+      "likeItems": "{\"zero\":\"Nav neviena digit\u0101l\u0101 objekta, ko saglab\u0101t j\u016bsu Patik.\",\"one\":\"Saglab\u0101jiet \u0161o digit\u0101lo objektu j\u016bsu Pat\u012bk.\",\"other\":\"Saglab\u0101jiet \u0161os digit\u0101los objektus j\u016bsu Patik.\"}",
+      "removeItems": "{\"zero\":\"No\u0146emiet \u0161os digit\u0101los objektus no \u0161\u012bs galerijas.\",\"one\":\"No\u0146emiet \u0161o digit\u0101lo objektu no \u0161\u012bs galerijas.\",\"other\":\"No\u0146emiet \u0161os digit\u0101los objektus no \u0161\u012bs galerijas.\"}",
       "selectItems": "Izvēlieties digitālos objektus",
+      "unlikeItems": "{\"zero\":\"Nav digit\u0101lo objektu j\u016bsu Pat\u012bk.\",\"one\":\"No\u0146emiet \u0161o digit\u0101lo objektu no j\u016bsu Pat\u012bk.\",\"other\":\"No\u0146emiet \u0161os digit\u0101los objektus no j\u016bsu Pat\u012bk.\"}",
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
-      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
-      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+      "itemsAdded": "{\"zero\":\"Nav neviena digit\u0101l\u0101 objekta pievienota galerijai \\"{gallery}\\".\",\"one\":\"Digit\u0101lais objekts ir pievienots galerijai \\"{gallery}\\".\",\"other\":\"Digit\u0101lie objekti ir pievienoti galerijai \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"zero\":\"Nav neviena digit\u0101l\u0101 objekta j\u016bsu Pat\u012bk sarakst\u0101.\",\"one\":\"Digit\u0101lais objekts ir saglab\u0101ts j\u016bsu Pat\u012bk.\",\"other\":\"Digit\u0101lie objekti ir saglab\u0101ti j\u016bsu Pat\u012bk.\"}",
+      "itemsRemoved": "{\"zero\":\"Nav neviena digit\u0101l\u0101 objekta galerij\u0101 \\"{gallery}\\".\",\"one\":\"Digit\u0101lais objekts ir no\u0146emts no galerijas \\"{gallery}\\".\",\"other\":\"Digit\u0101lie objekti ir no\u0146emti no galerijas \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"zero\":\"Nav neviena digit\u0101l\u0101 objekta j\u016bsu Pat\u012bk sarakst\u0101.\",\"one\":\"Digit\u0101lais objekts ir no\u0146emts no j\u016bsu Pat\u012bk.\",\"other\":\"Digit\u0101lie objekti ir no\u0146emti no j\u016bsu Pat\u012bk.\"}",
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Noņemiet visu atlasi."
+      },
+      "info": "{count} digitālais objekts izvēlēts. | {count} digitālos objektus izvēlēti."
     }
   },
   "shareWhere": "Kur jūs vēlētos dalīties ar šo?",

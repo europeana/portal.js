@@ -31,7 +31,6 @@ export default {
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
       "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
-      "remove": "Eliminați această resursă culturală din această galerie.",
       "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adăugare în galerie",
-      "addToGallery": "Adăugați acest resursă culturală la o galerie.",
+      "addItems": "{\"one\":\"Adaug\u0103 aceast\u0103 resurs\u0103 cultural\u0103 la o galerie.\",\"few\":\"Adaug\u0103 aceste resurse culturale la o galerie.\",\"other\":\"Adaug\u0103 aceste resurse culturale la o galerie.\"}",
+      "addItemsHere": "{\"one\":\"Adaug\u0103 \u00een galerie\",\"few\":\"Adaug\u0103 \u00een galerie\",\"other\":\"Adaug\u0103 \u00een galerie\"}",
       "cancelSelection": "Anulează selecția",
       "clickToSelectItems": "Faceți clic pe resursele culturale pentru a le selecta",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
-      "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
-      "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
+      "likeItems": "{\"one\":\"Salveaz\u0103 aceast\u0103 resurs\u0103 cultural\u0103 \u00een aprecierile tale.\",\"few\":\"Salveaz\u0103 aceste resurse culturale \u00een aprecierile tale.\",\"other\":\"Salveaz\u0103 aceste resurse culturale \u00een aprecierile tale.\"}",
+      "removeItems": "{\"one\":\"Elimin\u0103 aceast\u0103 resurs\u0103 cultural\u0103 din aceast\u0103 galerie.\",\"few\":\"Elimin\u0103 aceste resurse culturale din aceast\u0103 galerie.\",\"other\":\"Elimin\u0103 aceste resurse culturale din aceast\u0103 galerie.\"}",
       "selectItems": "Selectați resurse culturale",
+      "unlikeItems": "{\"one\":\"Elimin\u0103 aceast\u0103 resurs\u0103 cultural\u0103 din aprecierile tale.\",\"few\":\"Elimin\u0103 aceste resurse culturale din aprecierile tale.\",\"other\":\"Elimin\u0103 aceste resurse culturale din aprecierile tale.\"}",
       "update": "Actualizare galerie"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "itemAdded": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
-      "itemLiked": "Resursa culturală a fost salvată în aprecierile tale.",
-      "itemRemoved": "Resursa culturală a fost eliminată din galeria {gallery}.",
-      "itemUnliked": "Resursa culturală a fost eliminată din aprecierile tale.",
+      "itemsAdded": "{\"one\":\"Resursa cultural\u0103 a fost ad\u0103ugat\u0103 la galeria \\"{gallery}\\".\",\"few\":\"Resursele culturale au fost ad\u0103ugate la galeria \\"{gallery}\\".\",\"other\":\"Resursele culturale au fost ad\u0103ugate la galeria \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Resursa cultural\u0103 a fost salvat\u0103 \u00een aprecierile tale.\",\"few\":\"Resursele culturale au fost salvate \u00een aprecierile tale.\",\"other\":\"Resursele culturale au fost salvate \u00een aprecierile tale.\"}",
+      "itemsRemoved": "{\"one\":\"Resursa cultural\u0103 a fost eliminat\u0103 din galeria \\"{gallery}\\".\",\"few\":\"Resursele culturale au fost eliminate din galeria \\"{gallery}\\".\",\"other\":\"Resursele culturale au fost eliminate din galeria \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Resursa cultural\u0103 a fost eliminat\u0103 din aprecierile tale.\",\"few\":\"Resursele culturale au fost eliminate din aprecierile tale.\",\"other\":\"Resursele culturale au fost eliminate din aprecierile tale.\"}",
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deselectați tot."
+      },
+      "info": "{count} resursă culturală selectată. | {count} resurse culturale selectate."
     }
   },
   "shareWhere": "Unde ai vrea să împărtășești asta?",

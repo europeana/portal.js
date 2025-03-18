@@ -31,7 +31,6 @@ export default {
       "private": "Μια ιδιωτική γκαλερί μπορεί να προβληθεί μόνο από εσάς.",
       "public": "Οποιοσδήποτε έχει τον σύνδεσμο μπορεί να δει μια δημόσια γκαλερί.",
       "published": "Μια δημοσιευμένη γκαλερί μπορεί να προβληθεί από οποιονδήποτε και μπορεί να εμφανίζεται στη σελίδα μας με τις γκαλερί.",
-      "remove": "Αφαιρέστε αυτό το τεκμήριο από αυτήν την γκαλερί.",
       "reorder": "Μπορείτε να αναδιατάξετε τα τεκμήρια κάνοντας κλικ σε αυτό το κουμπί και σύροντας το τεκμήριο για να το μετακινήσετε."
     }
   },
@@ -1330,17 +1329,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Προσθήκη στη συλλογή",
-      "addToGallery": "Προσθέστε αυτό το τεκμήριο σε μια γκαλερί.",
+      "addItems": "{\"one\":\"\u03a0\u03c1\u03bf\u03c3\u03b8\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03cc \u03c4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03c3\u03b5 \u03bc\u03b9\u03b1 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af.\",\"other\":\"\u03a0\u03c1\u03bf\u03c3\u03b8\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03ac \u03c4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03c3\u03b5 \u03bc\u03b9\u03b1 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af.\"}",
+      "addItemsHere": "{\"one\":\"\u03a0\u03c1\u03bf\u03c3\u03b8\u03ae\u03ba\u03b7 \u03c3\u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af\",\"other\":\"\u03a0\u03c1\u03bf\u03c3\u03b8\u03ae\u03ba\u03b7 \u03c3\u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af\"}",
       "cancelSelection": "Ακύρωση επιλογής",
       "clickToSelectItems": "Κάντε κλικ στα τεκμήρια για να τα επιλέξετε",
       "create": "Δημιουργία συλλογής",
       "createNew": "Δημιουργία νέας συλλογής",
       "delete": "Διαγραφή συλλογής",
       "edit": "Επεξεργασία συλλογής",
-      "removeItemFromLikes": "Καταργήστε αυτό το στοιχείο από τα \"Μου αρέσει\".",
-      "saveItemToLikes": "Αποθήκευση αυτού του τεκμηρίου στα Αρέσει σας.",
+      "likeItems": "{\"one\":\"\u0391\u03c0\u03bf\u03b8\u03b7\u03ba\u03b5\u03cd\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03cc \u03c4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03c3\u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\",\"other\":\"\u0391\u03c0\u03bf\u03b8\u03b7\u03ba\u03b5\u03cd\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03ac \u03c4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03c3\u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\"}",
+      "removeItems": "{\"one\":\"\u0391\u03c6\u03b1\u03b9\u03c1\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03cc \u03c4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03b1\u03c0\u03cc \u03b1\u03c5\u03c4\u03ae \u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af.\",\"other\":\"\u0391\u03c6\u03b1\u03b9\u03c1\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03ac \u03c4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03b1\u03c0\u03cc \u03b1\u03c5\u03c4\u03ae \u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af.\"}",
       "selectItems": "Επιλέξτε τεκμήρια",
+      "unlikeItems": "{\"one\":\"\u0391\u03c6\u03b1\u03b9\u03c1\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03cc \u03c4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03b1\u03c0\u03cc \u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\",\"other\":\"\u0391\u03c6\u03b1\u03b9\u03c1\u03ad\u03c3\u03c4\u03b5 \u03b1\u03c5\u03c4\u03ac \u03c4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03b1\u03c0\u03cc \u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\"}",
       "update": "Ενημέρωση συλλογής"
     },
     "form": {
@@ -1357,10 +1357,10 @@ export default {
     },
     "notifications": {
       "deleted": "Η συλλογή σας διαγράφηκε.",
-      "itemAdded": "Το τεκμήριο προστέθηκε στην γκαλερί \"{gallery}\".",
-      "itemLiked": "Το τεκμήριο αποθηκεύτηκε στα \"Μου αρέσει\".",
-      "itemRemoved": "Το τεκμήριο αφαιρέθηκε από την γκαλερί {gallery}.",
-      "itemUnliked": "Το τεκμήριο αφαιρέθηκε από τα \"Μου αρέσει\".",
+      "itemsAdded": "{\"one\":\"\u03a4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03c0\u03c1\u03bf\u03c3\u03c4\u03ad\u03b8\u03b7\u03ba\u03b5 \u03c3\u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af \\"{gallery}\\".\",\"other\":\"\u03a4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03c0\u03c1\u03bf\u03c3\u03c4\u03ad\u03b8\u03b7\u03ba\u03b1\u03bd \u03c3\u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"\u03a4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03b1\u03c0\u03bf\u03b8\u03b7\u03ba\u03b5\u03cd\u03c4\u03b7\u03ba\u03b5 \u03c3\u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\",\"other\":\"\u03a4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03b1\u03c0\u03bf\u03b8\u03b7\u03ba\u03b5\u03cd\u03c4\u03b7\u03ba\u03b1\u03bd \u03c3\u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\"}",
+      "itemsRemoved": "{\"one\":\"\u03a4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03b1\u03c6\u03b1\u03b9\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b1\u03c0\u03cc \u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af \\"{gallery}\\".\",\"other\":\"\u03a4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03b1\u03c6\u03b1\u03b9\u03c1\u03ad\u03b8\u03b7\u03ba\u03b1\u03bd \u03b1\u03c0\u03cc \u03c4\u03b7 \u03b3\u03ba\u03b1\u03bb\u03b5\u03c1\u03af \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"\u03a4\u03bf \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03bf \u03b1\u03c6\u03b1\u03b9\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b1\u03c0\u03cc \u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\",\"other\":\"\u03a4\u03b1 \u03c4\u03b5\u03ba\u03bc\u03ae\u03c1\u03b9\u03b1 \u03b1\u03c6\u03b1\u03b9\u03c1\u03ad\u03b8\u03b7\u03ba\u03b1\u03bd \u03b1\u03c0\u03cc \u03c4\u03b1 \u03b1\u03c1\u03ad\u03c3\u03b5\u03b9 \u03c3\u03b1\u03c2.\"}",
       "likeLimit": {
         "body": "Δυστυχώς, προς το παρόν μπορείτε να κάνετε \"Μου αρέσει\" σε έως 100 τεκμήρια. Το όριο αυτό θα καταργηθεί σύντομα!",
         "title": "100 αρέσει"
@@ -1397,6 +1397,12 @@ export default {
       "weavex": {
         "tooltip": "Το WEAVExperience (WEAVEx) είναι ένα διαδικτυακό εργαλείο για τη διαχείριση διαφορετικών τύπων περιεχομένου  (συμπεριλαμβανομένου του 3D), την τεκμηρίωση της πολιτιστικής κληρονομιάς μέσω χώρων ψηφιακής κοινότητας και την επιμέλεια ψηφιακών ιστοριών και εμπειριών."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Αποεπιλογή όλων."
+      },
+      "info": "{count} τεκμήριο επιλέχθηκε. | {count} τεκμήρια επιλέχθηκαν."
     }
   },
   "shareWhere": "Πού θα θέλατε να το μοιραστείτε αυτό;",

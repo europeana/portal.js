@@ -31,7 +31,6 @@ export default {
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
       "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
-      "remove": "Odeberte tuto položku z této galerie.",
       "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Vložit do galerie",
-      "addToGallery": "Přidat tuto položku do galerie.",
+      "addItems": "{\"one\":\"P\u0159idejte tuto polo\u017eku do galerie.\",\"few\":\"P\u0159idejte tyto polo\u017eky do galerie.\",\"many\":\"P\u0159idejte mnoho polo\u017eek do galerie.\",\"other\":\"P\u0159idejte polo\u017eky do galerie.\"}",
+      "addItemsHere": "{\"one\":\"P\u0159idat do galerie\",\"few\":\"P\u0159idat do galerie\",\"many\":\"P\u0159idat do galerie\",\"other\":\"P\u0159idat do galerie\"}",
       "cancelSelection": "Zrušit výběr",
       "clickToSelectItems": "Kliknutím na položky je vyberete",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
-      "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
+      "likeItems": "{\"one\":\"Ulo\u017ete tuto polo\u017eku do sv\u00fdch obl\u00edben\u00fdch.\",\"few\":\"Ulo\u017ete tyto polo\u017eky do sv\u00fdch obl\u00edben\u00fdch.\",\"many\":\"Ulo\u017ete tyto polo\u017eky do sv\u00fdch obl\u00edben\u00fdch.\",\"other\":\"Ulo\u017ete polo\u017eky do sv\u00fdch obl\u00edben\u00fdch.\"}",
+      "removeItems": "{\"one\":\"Odstra\u0148te tuto polo\u017eku z t\u00e9to galerie.\",\"few\":\"Odstra\u0148te tyto polo\u017eky z t\u00e9to galerie.\",\"many\":\"Odstra\u0148te v\u0161echny polo\u017eky z t\u00e9to galerie.\",\"other\":\"Odstra\u0148te polo\u017eky z t\u00e9to galerie.\"}",
       "selectItems": "Vyberte položky",
+      "unlikeItems": "{\"one\":\"Odstra\u0148te tuto polo\u017eku ze sv\u00fdch obl\u00edben\u00fdch.\",\"few\":\"Odstra\u0148te tyto polo\u017eky ze sv\u00fdch obl\u00edben\u00fdch.\",\"many\":\"Odstra\u0148te v\u0161echny polo\u017eky ze sv\u00fdch obl\u00edben\u00fdch.\",\"other\":\"Odstra\u0148te polo\u017eky ze sv\u00fdch obl\u00edben\u00fdch.\"}",
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
-      "itemAdded": "Položka byla přidána do galerie \"{gallery}\".",
-      "itemLiked": "Položka byla uložena do vašich označení líbí se mi.",
-      "itemRemoved": "Položka byla odstraněna z galerie {gallery}.",
-      "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
+      "itemsAdded": "{\"one\":\"Polo\u017eka byla p\u0159id\u00e1na do galerie \\"{gallery}\u201c.\",\"few\":\"Polo\u017eky byly p\u0159id\u00e1ny do galerie \\"{gallery}\\".\",\"many\":\"Polo\u017eek bylo p\u0159id\u00e1no do galerie \\"{gallery}\\".\",\"other\":\"Polo\u017eky byly p\u0159id\u00e1ny do galerie \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Polo\u017eka byla ulo\u017eena do va\u0161ich obl\u00edben\u00fdch.\",\"few\":\"Polo\u017eky byly ulo\u017eeny do va\u0161ich obl\u00edben\u00fdch.\",\"many\":\"Polo\u017eek bylo ulo\u017eeno do va\u0161ich obl\u00edben\u00fdch.\",\"other\":\"Polo\u017eky byly ulo\u017eeny do va\u0161ich obl\u00edben\u00fdch.\"}",
+      "itemsRemoved": "{\"one\":\"Polo\u017eka byla odstran\u011bna z galerie \\"{gallery}\u201c.\",\"few\":\"Polo\u017eky byly odstran\u011bny z galerie \\"{gallery}\\".\",\"many\":\"Polo\u017eek bylo odstran\u011bno z galerie \\"{gallery}\\".\",\"other\":\"Polo\u017eky byly odstran\u011bny z galerie \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Polo\u017eka byla odstran\u011bna z va\u0161ich obl\u00edben\u00fdch.\",\"few\":\"Polo\u017eky byly odstran\u011bny z va\u0161ich obl\u00edben\u00fdch.\",\"many\":\"Polo\u017eek bylo odstran\u011bno z va\u0161ich obl\u00edben\u00fdch.\",\"other\":\"Polo\u017eky byly odstran\u011bny z va\u0161ich obl\u00edben\u00fdch.\"}",
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 lajků"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušit výběr všeho."
+      },
+      "info": "{count} vybraná položka. | {count} vybrané položky."
     }
   },
   "shareWhere": "Kam byste to chtěli sdílet?",

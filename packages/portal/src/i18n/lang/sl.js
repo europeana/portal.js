@@ -31,7 +31,6 @@ export default {
       "private": "Zasebno galerijo si lahko ogledate samo vi.",
       "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
       "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije.",
-      "remove": "Odstranite to enoto iz te galerije.",
       "reorder": "Enote lahko preuredite tako, da kliknete ta gumb in povlečete enota, da ga premaknete."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj zbirki",
-      "addToGallery": "Dodajte ta enota v galerijo.",
+      "addItems": "{\"one\":\"Dodaj to enoto v galerijo.\",\"two\":\"Dodajte enote v galerijo.\",\"few\":\"Dodajte enote v galerijo.\",\"other\":\"Dodajte enote v galerijo.\"}",
+      "addItemsHere": "{\"one\":\"Dodaj v galerijo\",\"two\":\"Dodaj v galerijo\",\"few\":\"Dodaj v galerijo\",\"other\":\"Dodaj v galerijo\"}",
       "cancelSelection": "Prekliči izbiro",
       "clickToSelectItems": "Kliknite na enote, da jih izberete",
       "create": "Ustvari zbirko",
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
-      "removeItemFromLikes": "Odstranite to enoto iz všečkov.",
-      "saveItemToLikes": "Shranite ta enota med svoje všečke.",
+      "likeItems": "{\"one\":\"Shrani to enoto med va\u0161e v\u0161e\u010dke.\",\"two\":\"Shranite enote med va\u0161e v\u0161e\u010dke.\",\"few\":\"Shranite enote med va\u0161e v\u0161e\u010dke.\",\"other\":\"Shranite enote med va\u0161e v\u0161e\u010dke.\"}",
+      "removeItems": "{\"one\":\"Odstrani to enoto iz te galerije.\",\"two\":\"Odstranite enote iz te galerije.\",\"few\":\"Odstranite enote iz te galerije.\",\"other\":\"Odstranite enote iz te galerije.\"}",
       "selectItems": "Izberite enote",
+      "unlikeItems": "{\"one\":\"Odstrani to enoto iz va\u0161ih v\u0161e\u010dkov.\",\"two\":\"Odstranite enote iz va\u0161ih v\u0161e\u010dkov\",\"few\":\"Odstranite enote iz va\u0161ih v\u0161e\u010dkov\",\"other\":\"Odstranite enote iz va\u0161ih v\u0161e\u010dkov\"}",
       "update": "Posodobi zbirko"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
-      "itemAdded": "Enota je bil dodan v galerijo \"{gallery}\".",
-      "itemLiked": "Enota je bila shranjena med vaše všečke.",
-      "itemRemoved": "Enota je bila odstranjena iz galerije {gallery}.",
-      "itemUnliked": "Enota je bila odstranjena iz vaših všečkov.",
+      "itemsAdded": "{\"one\":\"Enota je bila dodana v galerijo \\"{gallery}\\".\",\"two\":\"Enote so bile dodane v galerijo \\"{gallery}\\".\",\"few\":\"Enote so bile dodane v galerijo \\"{gallery}\\".\",\"other\":\"Enote so bile dodane v galerijo \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Enota je bila shranjena med va\u0161e v\u0161e\u010dke.\",\"two\":\"Enote so bile shranjene med va\u0161e v\u0161e\u010dke.\",\"few\":\"Enote so bile shranjene med va\u0161e v\u0161e\u010dke.\",\"other\":\"Enote so bile shranjene med va\u0161e v\u0161e\u010dke.\"}",
+      "itemsRemoved": "{\"one\":\"Enota je bila odstranjena iz galerije \\"{gallery}\\".\",\"two\":\"Enote so bile odstranjene iz galerije \\"{gallery}\\".\",\"few\":\"Enote so bile odstranjene iz galerije \\"{gallery}\\".\",\"other\":\"Enote so bile odstranjene iz galerije \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Enota je bila odstranjena iz va\u0161ih v\u0161e\u010dkov.\",\"two\":\"Enote so bile odstranjene iz va\u0161ih v\u0161e\u010dkov.\",\"few\":\"Enote so bile odstranjene iz va\u0161ih v\u0161e\u010dkov.\",\"other\":\"Enote so bile odstranjene iz va\u0161ih v\u0161e\u010dkov.\"}",
       "likeLimit": {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 enote. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Počisti izbor."
+      },
+      "info": "{count} izbrana enota. | {count} izbrane enote."
     }
   },
   "shareWhere": "Kje želite to deliti?",

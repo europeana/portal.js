@@ -31,7 +31,6 @@ export default {
       "private": "Eine private Galerie kann nur von Ihnen angesehen werden.",
       "public": "Eine öffentliche Galerie kann von jedem mit dem Link angesehen werden.",
       "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden.",
-      "remove": "Entfernen Sie dieses Objekt aus dieser Galerie.",
       "reorder": "Sie können Objekte neu anordnen, indem Sie auf diese Schaltfläche klicken und das Objekt ziehen, um es zu verschieben."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Zur Galerie hinzufügen",
-      "addToGallery": "Fügen Sie diesem Objekt einer Galerie hinzu.",
+      "addItems": "{\"one\":\"Dieses Objekt zu einer Galerie hinzuf\u00fcgen.\",\"other\":\"Diese Objekte zu einer Galerie hinzuf\u00fcgen.\"}",
+      "addItemsHere": "{\"one\":\"Zur Galerie hinzuf\u00fcgen\",\"other\":\"Zur Galerie hinzuf\u00fcgen\"}",
       "cancelSelection": "Auswahl aufheben",
       "clickToSelectItems": "Klicken Sie auf Objekte, um sie auszuwählen",
       "create": "Galerie erstellen",
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
-      "removeItemFromLikes": "Entfernen Sie dieses Objekt aus Ihren Likes.",
-      "saveItemToLikes": "Speichern Sie dieses Objekt in Ihren Likes.",
+      "likeItems": "{\"one\":\"Speichere dieses Objekt in deinen Likes.\",\"other\":\"Speichere diese Objekte in deinen Likes.\"}",
+      "removeItems": "{\"one\":\"Entferne dieses Objekt aus dieser Galerie.\",\"other\":\"Entferne diese Objekte aus dieser Galerie.\"}",
       "selectItems": "Objekte auswählen",
+      "unlikeItems": "{\"one\":\"Entferne dieses Objekt aus deinen Likes.\",\"other\":\"Entferne diese Objekte aus deinen Likes.\"}",
       "update": "Galerie aktualisieren"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
-      "itemAdded": "Das Objekt wurde zur Galerie \"{gallery}\" hinzugefügt.",
-      "itemLiked": "Das Objekt wurde zu Ihren Likes gespeichert.",
-      "itemRemoved": "Das Objekt wurde aus der Galerie {gallery} entfernt.",
-      "itemUnliked": "Das Objekt wurde aus Ihren Likes entfernt.",
+      "itemsAdded": "{\"one\":\"Das Objekt wurde zur Galerie \\"{gallery}\\" hinzugef\u00fcgt.\",\"other\":\"Die Objekte wurden zur Galerie \\"{gallery}\\" hinzugef\u00fcgt.\"}",
+      "itemsLiked": "{\"one\":\"Das Objekt wurde in deinen Likes gespeichert.\",\"other\":\"Die Objekte wurden in deinen Likes gespeichert.\"}",
+      "itemsRemoved": "{\"one\":\"Das Objekt wurde aus der Galerie \\"{gallery}\\" entfernt.\",\"other\":\"Die Objekte wurden aus der Galerie \\"{gallery}\\" entfernt.\"}",
+      "itemsUnliked": "{\"one\":\"Das Objekt wurde aus deinen Likes entfernt.\",\"other\":\"Die Objekte wurden aus deinen Likes entfernt.\"}",
       "likeLimit": {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alle abwählen."
+      },
+      "info": "{count} Objekt ausgewählt. | {count} ausgewählte Objekte."
     }
   },
   "shareWhere": "Wo möchtest du das teilen?",

@@ -31,7 +31,6 @@ export default {
       "private": "A privát galériát csak Ön tekintheti meg.",
       "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
       "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon.",
-      "remove": "Távolítsa el ezt a tárgyat ebből a galériából.",
       "reorder": "Az tárgyak átrendezéséhez kattintson erre a gombra, és húzza az tárgyat az áthelyezéshez."
     }
   },
@@ -1330,17 +1329,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Hozzáadás a gelériához",
-      "addToGallery": "Add hozzá ezt a tárgyat a galériához.",
+      "addItems": "{\"one\":\"Add hozz\u00e1 ezt a t\u00e1rgyat egy gal\u00e9ri\u00e1hoz.\",\"other\":\"Add hozz\u00e1 ezeket a t\u00e1rgyakat egy gal\u00e9ri\u00e1hoz.\"}",
+      "addItemsHere": "{\"one\":\"Hozz\u00e1ad\u00e1s a gal\u00e9ri\u00e1hoz\",\"other\":\"Hozz\u00e1ad\u00e1s a gal\u00e9ri\u00e1hoz\"}",
       "cancelSelection": "Kiválasztás törlése",
       "clickToSelectItems": "Kattintson a tárgyakra a kiválasztásukhoz",
       "create": "Galéria létrehozása",
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
-      "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
+      "likeItems": "{\"one\":\"Mentsd el ezt a t\u00e1rgyat a kedvel\u00e9seid k\u00f6z\u00e9.\",\"other\":\"Mentsd el ezeket a t\u00e1rgyakat a kedvel\u00e9seid k\u00f6z\u00e9.\"}",
+      "removeItems": "{\"one\":\"T\u00e1vol\u00edtsd el ezt a t\u00e1rgyat ebb\u0151l a gal\u00e9ri\u00e1b\u00f3l.\",\"other\":\"T\u00e1vol\u00edtsd el ezeket a t\u00e1rgyakat ebb\u0151l a gal\u00e9ri\u00e1b\u00f3l.\"}",
       "selectItems": "Válassza ki a tárgyakat",
+      "unlikeItems": "{\"one\":\"T\u00e1vol\u00edtsd el ezt a t\u00e1rgyat a kedvel\u00e9seid k\u00f6z\u00fcl.\",\"other\":\"T\u00e1vol\u00edtsd el ezeket a t\u00e1rgyakat a kedvel\u00e9seid k\u00f6z\u00fcl.\"}",
       "update": "Galéria frissítése"
     },
     "form": {
@@ -1357,10 +1357,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
-      "itemAdded": "A tárgyat hozzáadták a galériához \"{gallery}\".",
-      "itemLiked": "A tárgyat elmentettük a kedveléseidhez.",
-      "itemRemoved": "A tárgyat eltávolították a galériából {gallery}.",
-      "itemUnliked": "A tárgyat eltávolították a kedveléseid közül.",
+      "itemsAdded": "{\"one\":\"A t\u00e1rgy hozz\u00e1 lett adva a(z) \\"{gallery}\\" gal\u00e9ri\u00e1hoz.\",\"other\":\"A t\u00e1rgyak hozz\u00e1 lettek adva a(z) \\"{gallery}\\" gal\u00e9ri\u00e1hoz.\"}",
+      "itemsLiked": "{\"one\":\"A t\u00e1rgy el lett mentve a kedvel\u00e9seid k\u00f6z\u00e9.\",\"other\":\"A t\u00e1rgyak el lettek mentve a kedvel\u00e9seid k\u00f6z\u00e9.\"}",
+      "itemsRemoved": "{\"one\":\"A t\u00e1rgy elt\u00e1vol\u00edt\u00e1sra ker\u00fclt a(z) \\"{gallery}\\" gal\u00e9ri\u00e1b\u00f3l.\",\"other\":\"A t\u00e1rgyak elt\u00e1vol\u00edt\u00e1sra ker\u00fcltek a(z) \\"{gallery}\\" gal\u00e9ri\u00e1b\u00f3l.\"}",
+      "itemsUnliked": "{\"one\":\"A t\u00e1rgy elt\u00e1vol\u00edt\u00e1sra ker\u00fclt a kedvel\u00e9seid k\u00f6z\u00fcl.\",\"other\":\"A t\u00e1rgyak elt\u00e1vol\u00edt\u00e1sra ker\u00fcltek a kedvel\u00e9seid k\u00f6z\u00fcl.\"}",
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan tárgyak ezt a korlátozást!",
         "title": "100 kedvelés"
@@ -1397,6 +1397,12 @@ export default {
       "weavex": {
         "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Minden kijelölés megszüntetése."
+      },
+      "info": "{count} tárgy lett kiválasztva. | {count} tárgyak lettek kiválasztva."
     }
   },
   "shareWhere": "Hol szeretnéd ezt megosztani?",

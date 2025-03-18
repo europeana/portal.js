@@ -31,7 +31,6 @@ export default {
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
       "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
-      "remove": "Bain an mír seo den ghailearaí seo.",
       "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Cuir leis an ngailearaí",
-      "addToGallery": "Cuir an mhír seo le gailearaí.",
+      "addItems": "{\"one\":\"Cuir an mh\u00edr seo le gaileara\u00ed.\",\"two\":\"Cuir an d\u00e1 mh\u00edr seo le gaileara\u00ed.\",\"few\":\"Cuir na c\u00fapla m\u00edr seo le gaileara\u00ed.\",\"many\":\"Cuir na m\u00edreanna seo go l\u00e9ir le gaileara\u00ed.\",\"other\":\"Cuir na m\u00edreanna seo le gaileara\u00ed.\"}",
+      "addItemsHere": "{\"one\":\"Cuir le gaileara\u00ed\",\"two\":\"Cuir le gaileara\u00ed\",\"few\":\"Cuir le gaileara\u00ed\",\"many\":\"Cuir le gaileara\u00ed\",\"other\":\"Cuir le gaileara\u00ed\"}",
       "cancelSelection": "Cealaigh an roghnúchán",
       "clickToSelectItems": "Cliceáil ar na míreanna chun iad a roghnú",
       "create": "Cruthaigh gailearaí",
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
-      "removeItemFromLikes": "Bain an mír seo ó do thaitin.",
-      "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
+      "likeItems": "{\"one\":\"S\u00e1bh\u00e1il an mh\u00edr seo i d\u2019Is maith liom.\",\"two\":\"S\u00e1bh\u00e1il an d\u00e1 mh\u00edr seo i d\u2019Is maith liom.\",\"few\":\"S\u00e1bh\u00e1il na c\u00fapla m\u00edr seo i d\u2019Is maith liom.\",\"many\":\"S\u00e1bh\u00e1il na m\u00edreanna seo go l\u00e9ir i d\u2019Is maith liom.\",\"other\":\"S\u00e1bh\u00e1il m\u00edreanna i d\u2019Is maith liom.\"}",
+      "removeItems": "{\"one\":\"Bain an mh\u00edr seo as an ngaileara\u00ed seo.\",\"two\":\"Bain an d\u00e1 mh\u00edr seo as an nGaileara\u00ed seo.\",\"few\":\"Bain c\u00fapla m\u00edr as an nGaileara\u00ed seo.\",\"many\":\"Bain go leor m\u00edreanna as an nGaileara\u00ed seo.\",\"other\":\"Bain na m\u00edreanna seo as an nGaileara\u00ed seo.\"}",
       "selectItems": "Roghnaigh míreanna",
+      "unlikeItems": "{\"one\":\"Bain an mh\u00edr seo \u00f3 d\u2019Is maith liom.\",\"two\":\"Bain an d\u00e1 mh\u00edr seo \u00f3 d\u2019Is maith liom.\",\"few\":\"Bain na c\u00fapla m\u00edr seo \u00f3 d\u2019Is maith liom.\",\"many\":\"Bain na m\u00edreanna seo \u00f3 d\u2019Is maith liom.\",\"other\":\"Bain na m\u00edreanna \u00e9ags\u00fala seo \u00f3 d\u2019Is maith liom.\"}",
       "update": "Nuashonraigh gailearaí"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
-      "itemAdded": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
-      "itemLiked": "Sábháladh an mír le do rudaí is maith leat.",
-      "itemRemoved": "Baineadh an mhír as gailearaí {gallery}.",
-      "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
+      "itemsAdded": "{\"one\":\"Cuireadh an mh\u00edr leis an nGaileara\u00ed \\"{gallery}\\".\",\"two\":\"Cuireadh an d\u00e1 mh\u00edr leis an nGaileara\u00ed \\"{gallery}\\".\",\"few\":\"Cuireadh c\u00fapla m\u00edr leis an nGaileara\u00ed \\"{gallery}\\".\",\"many\":\"Cuireadh go leor m\u00edreanna leis an nGaileara\u00ed \\"{gallery}\\".\",\"other\":\"Cuireadh na m\u00edreanna leis an nGaileara\u00ed \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"S\u00e1bh\u00e1ladh an mh\u00edr i d\u2019Is maith liom.\",\"two\":\"S\u00e1bh\u00e1ladh an d\u00e1 mh\u00edr i d\u2019Is maith liom.\",\"few\":\"S\u00e1bh\u00e1ladh c\u00fapla m\u00edr i d\u2019Is maith liom.\",\"many\":\"S\u00e1bh\u00e1ladh go leor m\u00edreanna i d\u2019Is maith liom.\",\"other\":\"S\u00e1bh\u00e1ladh na m\u00edreanna i d\u2019Is maith liom.\"}",
+      "itemsRemoved": "{\"one\":\"Baineadh an mh\u00edr as an nGaileara\u00ed \\"{gallery}\\".\",\"two\":\"Baineadh an d\u00e1 mh\u00edr as an nGaileara\u00ed \\"{gallery}\\".\",\"few\":\"Baineadh c\u00fapla m\u00edr as an nGaileara\u00ed \\"{gallery}\\".\",\"many\":\"Baineadh go leor m\u00edreanna as an nGaileara\u00ed \\"{gallery}\\".\",\"other\":\"Baineadh na m\u00edreanna as an nGaileara\u00ed \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Baineadh an mh\u00edr \u00f3 d\u2019Is maith liom.\",\"two\":\"Baineadh an d\u00e1 mh\u00edr \u00f3 d\u2019Is maith liom.\",\"few\":\"Baineadh c\u00fapla m\u00edr \u00f3 d\u2019Is maith liom.\",\"many\":\"Baineadh go leor m\u00edreanna \u00f3 d\u2019Is maith liom.\",\"other\":\"Baineadh na m\u00edreanna \u00f3 d\u2019Is maith liom.\"}",
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 taitníonn"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "Uirlis gréasánbhunaithe is ea WEAVExperience (WEAVEx) chun inneachar de chineálacha éagsúla a bhainistiú (lena n-áirítear 3D), chun oidhreacht chultúrtha a dhoiciméadú trí spásanna digiteacha pobail, agus chun scéalta agus eispéiris dhigiteacha a choimeád."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Díroghnaigh uile."
+      },
+      "info": "{count} mír roghnaithe. | {count} míreanna roghnaithe."
     }
   },
   "shareWhere": "Cá háit ar mhaith leat é seo a roinnt?",

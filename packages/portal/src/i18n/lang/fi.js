@@ -31,7 +31,6 @@ export default {
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
       "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
-      "remove": "Poista tämä aineisto tästä galleriasta.",
       "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lisää galleriaan",
-      "addToGallery": "Lisää tämä aineisto galleriaan.",
+      "addItems": "{\"one\":\"Lis\u00e4\u00e4 t\u00e4m\u00e4 aineisto galleriaan.\",\"other\":\"Lis\u00e4\u00e4 n\u00e4m\u00e4 aineistot galleriaan.\"}",
+      "addItemsHere": "{\"one\":\"Lis\u00e4\u00e4 galleriaan\",\"other\":\"Lis\u00e4\u00e4 galleriaan\"}",
       "cancelSelection": "Peruuta valinta",
       "clickToSelectItems": "Valitse aineistoja napsauttamalla niitä",
       "create": "Luo galleria",
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
-      "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
-      "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
+      "likeItems": "{\"one\":\"Tallenna t\u00e4m\u00e4 aineisto tykk\u00e4yksiisi.\",\"other\":\"Tallenna n\u00e4m\u00e4 aineistot tykk\u00e4yksiisi.\"}",
+      "removeItems": "{\"one\":\"Poista t\u00e4m\u00e4 aineisto t\u00e4st\u00e4 galleriasta.\",\"other\":\"Poista n\u00e4m\u00e4 aineistot t\u00e4st\u00e4 galleriasta.\"}",
       "selectItems": "Valitse aineistot",
+      "unlikeItems": "{\"one\":\"Poista t\u00e4m\u00e4 aineisto tykk\u00e4yksist\u00e4si.\",\"other\":\"Poista n\u00e4m\u00e4 aineistot tykk\u00e4yksist\u00e4si.\"}",
       "update": "Päivitä galleria"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
-      "itemAdded": "Aineisto on lisätty galleriaan \"{gallery}\".",
-      "itemLiked": "Aineisto on tallennettu tykkääjäsi.",
-      "itemRemoved": "Aineisto on poistettu galleriasta {gallery}.",
-      "itemUnliked": "Aineisto on poistettu tykkäyksistäsi.",
+      "itemsAdded": "{\"one\":\"Aineisto on lis\u00e4tty galleriaan \\"{gallery}\\".\",\"other\":\"Aineistot on lis\u00e4tty galleriaan \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Aineisto on tallennettu tykk\u00e4yksiisi.\",\"other\":\"Aineistot on tallennettu tykk\u00e4yksiisi.\"}",
+      "itemsRemoved": "{\"one\":\"Aineisto on poistettu galleriasta \\"{gallery}\\".\",\"other\":\"Aineistot on poistettu galleriasta \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Aineisto on poistettu tykk\u00e4yksist\u00e4si.\",\"other\":\"Aineistot on poistettu tykk\u00e4yksist\u00e4si.\"}",
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 aineistot. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poista kaikki valinnat."
+      },
+      "info": "{count} valittu aineisto. | {count} valitut aineistot."
     }
   },
   "shareWhere": "Missä haluaisit jakaa tämän?",

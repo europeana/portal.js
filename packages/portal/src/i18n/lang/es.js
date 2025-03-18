@@ -31,7 +31,6 @@ export default {
       "private": "Una galería privada solo puede ser vista por usted.",
       "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
       "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías.",
-      "remove": "Eliminar este ítem de esta galería.",
       "reorder": "Puede reordenar ítems haciendo clic en este botón y arrastrando el ítem para moverlo."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Agregar a la galería",
-      "addToGallery": "Añade este ítem a una galería.",
+      "addItems": "{\"one\":\"A\u00f1ade este item a una galer\u00eda.\",\"other\":\"A\u00f1ade estos items a una galer\u00eda.\"}",
+      "addItemsHere": "{\"one\":\"A\u00f1adir a la galer\u00eda\",\"other\":\"A\u00f1adir a la galer\u00eda\"}",
       "cancelSelection": "Cancelar selección",
       "clickToSelectItems": "Haga clic en los ítems para seleccionarlos",
       "create": "Crear galería",
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
-      "removeItemFromLikes": "Elimina este ítem de tus Me gusta.",
-      "saveItemToLikes": "Guarde este ítem en sus Me gusta.",
+      "likeItems": "{\"one\":\"Guarda este item en tus Me gusta.\",\"other\":\"Guarda estos items en tus Me gusta.\"}",
+      "removeItems": "{\"one\":\"Elimina este item de esta galer\u00eda.\",\"other\":\"Elimina estos items de esta galer\u00eda.\"}",
       "selectItems": "Seleccionar ítems",
+      "unlikeItems": "{\"one\":\"Elimina este item de tus Me gusta.\",\"other\":\"Elimina estos items de tus Me gusta.\"}",
       "update": "Actualizar galería"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
-      "itemAdded": "El ítem ha sido añadido a la galería \"{gallery}\".",
-      "itemLiked": "El ítem se ha guardado en tus Me gusta.",
-      "itemRemoved": "El ítem ha sido eliminado de la galería {gallery}.",
-      "itemUnliked": "El ítem se ha eliminado de tus Me gusta.",
+      "itemsAdded": "{\"one\":\"El item ha sido a\u00f1adido a la galer\u00eda \\"{gallery}\\".\",\"other\":\"Los items han sido a\u00f1adidos a la galer\u00eda \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"El item ha sido guardado en tus Me gusta.\",\"other\":\"Los items han sido guardados en tus Me gusta.\"}",
+      "itemsRemoved": "{\"one\":\"El item ha sido eliminado de la galer\u00eda \\"{gallery}\\".\",\"other\":\"Los items han sido eliminados de la galer\u00eda \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"El item ha sido eliminado de tus Me gusta.\",\"other\":\"Los items han sido eliminados de tus Me gusta.\"}",
       "likeLimit": {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 Ítems. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) es una herramienta basada en la web para administrar contenido de diferentes tipos (incluido 3D), documentar el patrimonio cultural a través de espacios comunitarios digitales y curar historias y experiencias digitales."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deseleccionar todo."
+      },
+      "info": "{count} ítem seleccionado. | {count} ítems seleccionados."
     }
   },
   "shareWhere": "¿Dónde te gustaría compartir esto?",

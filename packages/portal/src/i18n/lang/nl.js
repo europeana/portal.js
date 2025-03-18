@@ -31,7 +31,6 @@ export default {
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
       "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
-      "remove": "Verwijder dit object uit deze galerij.",
       "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Toevoegen aan galerij",
-      "addToGallery": "Voeg dit object toe aan een galerij.",
+      "addItems": "{\"one\":\"Voeg dit object toe aan een galerij.\",\"other\":\"Voeg deze objecten toe aan een galerij.\"}",
+      "addItemsHere": "{\"one\":\"Toevoegen aan galerij\",\"other\":\"Toevoegen aan galerij\"}",
       "cancelSelection": "Selectie annuleren",
       "clickToSelectItems": "Klik op objecten om ze te selecteren",
       "create": "Galerij aanmaken",
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
-      "removeItemFromLikes": "Verwijder dit object uit uw likes.",
-      "saveItemToLikes": "Bewaar dit object bij uw likes.",
+      "likeItems": "{\"one\":\"Sla dit object op in uw vind-ik-leuks.\",\"other\":\"Sla deze objecten op in uw vind-ik-leuks.\"}",
+      "removeItems": "{\"one\":\"Verwijder dit object uit deze galerij.\",\"other\":\"Verwijder deze objecten uit deze galerij.\"}",
       "selectItems": "Selecteer objecten",
+      "unlikeItems": "{\"one\":\"Verwijder dit object uit uw vind-ik-leuks.\",\"other\":\"Verwijder deze objecten uit uw vind-ik-leuks.\"}",
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "itemAdded": "Het object is toegevoegd aan de galerij \"{gallery}\".",
-      "itemLiked": "Object is opgeslagen bij uw likes.",
-      "itemRemoved": "Object is verwijderd uit galerij {gallery}.",
-      "itemUnliked": "Het object is verwijderd uit uw likes.",
+      "itemsAdded": "{\"one\":\"Het object is toegevoegd aan de galerij \\"{gallery}\u201c\",\"other\":\"De objecten zijn toegevoegd aan de galerij \\"{gallery}\u201c\"}",
+      "itemsLiked": "{\"one\":\"Het object is opgeslagen in uw vind-ik-leuks\",\"other\":\"De objecten zijn opgeslagen in uw vind-ik-leuks\"}",
+      "itemsRemoved": "{\"one\":\"Het object is verwijderd uit de galerij \\"{gallery}\\".\",\"other\":\"De objecten zijn verwijderd uit de galerij \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Het object is verwijderd uit uw vind-ik-leuks.\",\"other\":\"De objecten zijn verwijderd uit uw vind-ik-leuks.\"}",
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 objecten liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alles deselecteren."
+      },
+      "info": "{count} object geselecteerd. | {count} objecten geselecteerd."
     }
   },
   "shareWhere": "Waar wilt u dit delen?",
