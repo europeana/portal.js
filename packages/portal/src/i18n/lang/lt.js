@@ -31,7 +31,6 @@ export default {
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
       "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
-      "remove": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
       "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Įtraukti į galeriją",
-      "addToGallery": "Pridėti šį skaitmeninis objektas į galeriją.",
+      "addItems": "{\"one\":\"Prid\u0117kite \u0161\u012f skaitmenin\u012f objekt\u0105 prie galerijos.\",\"few\":\"Prid\u0117kite kelet\u0105 skaitmenini\u0173 objekt\u0173 prie galerijos.\",\"many\":\"Prid\u0117kite daug skaitmenini\u0173 objekt\u0173 prie galerijos.\",\"other\":\"Prid\u0117kite \u0161iuos skaitmeninius objektus prie galerijos.\"}",
+      "addItemsHere": "{\"one\":\"Prid\u0117ti \u012f galerij\u0105\",\"few\":\"Prid\u0117ti \u012f galerij\u0105\",\"many\":\"Prid\u0117ti \u012f galerij\u0105\",\"other\":\"Prid\u0117ti \u012f galerij\u0105\"}",
       "cancelSelection": "Atšaukti pasirinkimą",
       "clickToSelectItems": "Spustelėkite skaitmeninius objektus, kad juos pasirinktumėte",
       "create": "Kurti galeriją",
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
-      "removeItemFromLikes": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
-      "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+      "likeItems": "{\"one\":\"I\u0161saugokite \u0161\u012f skaitmenin\u012f objekt\u0105 savo patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"few\":\"I\u0161saugokite kelet\u0105 skaitmenini\u0173 objekt\u0173 savo patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"many\":\"I\u0161saugokite daug skaitmenini\u0173 objekt\u0173 savo patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"other\":\"I\u0161saugokite \u0161iuos skaitmeninius objektus savo patinkan\u010di\u0173 s\u0105ra\u0161e.\"}",
+      "removeItems": "{\"one\":\"Pa\u0161alinkite \u0161\u012f skaitmenin\u012f objekt\u0105 i\u0161 \u0161ios galerijos.\",\"few\":\"Pa\u0161alinkite kelet\u0105 skaitmenini\u0173 objekt\u0173 i\u0161 \u0161ios galerijos.\",\"many\":\"Pa\u0161alinkite daug skaitmenini\u0173 objekt\u0173 i\u0161 \u0161ios galerijos.\",\"other\":\"Pa\u0161alinkite \u0161iuos skaitmeninius objektus i\u0161 \u0161ios galerijos.\"}",
       "selectItems": "Pasirinkite skaitmeninius objektus",
+      "unlikeItems": "{\"one\":\"Pa\u0161alinkite \u0161\u012f skaitmenin\u012f objekt\u0105 i\u0161 savo patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"few\":\"Pa\u0161alinkite kelet\u0105 skaitmenini\u0173 objekt\u0173 i\u0161 savo patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"many\":\"Pa\u0161alinkite daug skaitmenini\u0173 objekt\u0173 i\u0161 savo patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"other\":\"Pa\u0161alinkite \u0161iuos skaitmeninius objektus i\u0161 savo patinkan\u010di\u0173 s\u0105ra\u0161o.\"}",
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "itemAdded": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
-      "itemLiked": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
-      "itemRemoved": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
-      "itemUnliked": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
+      "itemsAdded": "{\"one\":\"Skaitmeninis objektas buvo prid\u0117tas prie galerijos \\"{gallery}\\".\",\"few\":\"Keletas skaitmenini\u0173 objekt\u0173 buvo prid\u0117ta prie galerijos \\"{gallery}\\".\",\"many\":\"Daug skaitmenini\u0173 objekt\u0173 buvo prid\u0117ta prie galerijos \\"{gallery}\\".\",\"other\":\"Skaitmeniniai objektai buvo prid\u0117ti prie galerijos \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Skaitmeninis objektas buvo i\u0161saugotas j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"few\":\"Keletas skaitmenini\u0173 objekt\u0173 buvo i\u0161saugota j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"many\":\"Daug skaitmenini\u0173 objekt\u0173 buvo i\u0161saugota j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161e.\",\"other\":\"Skaitmeniniai objektai buvo i\u0161saugoti j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161e.\"}",
+      "itemsRemoved": "{\"one\":\"Skaitmeninis objektas buvo pa\u0161alintas i\u0161 galerijos \\"{gallery}\\".\",\"few\":\"Keletas skaitmenini\u0173 objekt\u0173 buvo pa\u0161alinta i\u0161 galerijos \\"{gallery}\\".\",\"many\":\"Daug skaitmenini\u0173 objekt\u0173 buvo pa\u0161alinta i\u0161 galerijos \\"{gallery}\\".\",\"other\":\"Skaitmeniniai objektai buvo pa\u0161alinti i\u0161 galerijos \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Skaitmeninis objektas buvo pa\u0161alintas i\u0161 j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"few\":\"Keletas skaitmenini\u0173 objekt\u0173 buvo pa\u0161alinta i\u0161 j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"many\":\"Daug skaitmenini\u0173 objekt\u0173 buvo pa\u0161alinta i\u0161 j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161o.\",\"other\":\"Skaitmeniniai objektai buvo pa\u0161alinti i\u0161 j\u016bs\u0173 patinkan\u010di\u0173 s\u0105ra\u0161o.\"}",
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Panaikinti visų pasirinkimą."
+      },
+      "info": "{count} skaitmeninis objektas pasirinktas. | {count} skaitmeninius objektus pasirinkta."
     }
   },
   "shareWhere": "Kur norėtumėte tuo pasidalinti?",

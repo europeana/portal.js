@@ -31,7 +31,6 @@ export default {
       "private": "Súkromnú galériu si môžete prezerať iba vy.",
       "public": "Verejnú galériu si môže pozrieť ktokoľvek s odkazom.",
       "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie.",
-      "remove": "Odstráňte tento objekt z tejto galérie.",
       "reorder": "Kliknutím na toto tlačidlo a presunutím objekty môžete zmeniť poradie objekt."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pridať do galérie",
-      "addToGallery": "Pridajte túto objekt do galérie.",
+      "addItems": "{\"one\":\"Pridaj tento objekt do gal\u00e9rie.\",\"few\":\"Pridaj tieto objekty do gal\u00e9rie.\",\"many\":\"Pridaj tieto objekty do gal\u00e9rie.\",\"other\":\"Pridaj tieto objekty do gal\u00e9rie.\"}",
+      "addItemsHere": "{\"one\":\"Prida\u0165 do gal\u00e9rie\",\"few\":\"Prida\u0165 do gal\u00e9rie\",\"many\":\"Prida\u0165 do gal\u00e9rie\",\"other\":\"Prida\u0165 do gal\u00e9rie\"}",
       "cancelSelection": "Zrušiť výber",
       "clickToSelectItems": "Kliknutím na objekty ich vyberiete",
       "create": "Vytvoriť galériu",
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
-      "removeItemFromLikes": "Odstráňte tento objekt zo svojich hodnotení Páči sa mi.",
-      "saveItemToLikes": "Uložte si túto objekt medzi obľúbené.",
+      "likeItems": "{\"one\":\"Ulo\u017e tento objekt do va\u0161ich p\u00e1\u010di sa.\",\"few\":\"Ulo\u017e tieto objekty do va\u0161ich p\u00e1\u010di sa.\",\"many\":\"Ulo\u017e tieto objekty do va\u0161ich p\u00e1\u010di sa.\",\"other\":\"Ulo\u017e tieto objekty do va\u0161ich p\u00e1\u010di sa.\"}",
+      "removeItems": "{\"one\":\"Odstr\u00e1\u0148 tento objekt z tejto gal\u00e9rie.\",\"few\":\"Odstr\u00e1\u0148 tieto objekty z tejto gal\u00e9rie.\",\"many\":\"Odstr\u00e1\u0148 tieto objekty z tejto gal\u00e9rie.\",\"other\":\"Odstr\u00e1\u0148 tieto objekty z tejto gal\u00e9rie.\"}",
       "selectItems": "Vyberte objekty",
+      "unlikeItems": "{\"one\":\"Odstr\u00e1\u0148 tento objekt z va\u0161ich p\u00e1\u010di sa.\",\"few\":\"Odstr\u00e1\u0148 tieto objekty z va\u0161ich p\u00e1\u010di sa.\",\"many\":\"Odstr\u00e1\u0148 tieto objekty z va\u0161ich p\u00e1\u010di sa.\",\"other\":\"Odstr\u00e1\u0148 tieto objekty z va\u0161ich p\u00e1\u010di sa.\"}",
       "update": "Aktualizovať galériu"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
-      "itemAdded": "Objekt bola pridaná do galérie \"{gallery}\".",
-      "itemLiked": "Objekt bol uložený medzi vaše označenia páči sa mi.",
-      "itemRemoved": "Objekt bol odstránený z galérie {gallery}.",
-      "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
+      "itemsAdded": "{\"one\":\"Objekt bol pridan\u00fd do gal\u00e9rie \\"{gallery}\\".\",\"few\":\"Objekty boli pridan\u00e9 do gal\u00e9rie \\"{gallery}\\".\",\"many\":\"Objekty boli pridan\u00e9 do gal\u00e9rie \\"{gallery}\\".\",\"other\":\"Objekty boli pridan\u00e9 do gal\u00e9rie \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Objekt bol ulo\u017een\u00fd do va\u0161ich p\u00e1\u010di sa.\",\"few\":\"Objekty boli ulo\u017een\u00e9 do va\u0161ich p\u00e1\u010di sa.\",\"many\":\"Objekty boli ulo\u017een\u00e9 do va\u0161ich p\u00e1\u010di sa.\",\"other\":\"Objekty boli ulo\u017een\u00e9 do va\u0161ich p\u00e1\u010di sa.\"}",
+      "itemsRemoved": "{\"one\":\"Objekt bol odstr\u00e1nen\u00fd z gal\u00e9rie \\"{gallery}\\".\",\"few\":\"Objekty boli odstr\u00e1nen\u00e9 z gal\u00e9rie \\"{gallery}\\".\",\"many\":\"Objekty boli odstr\u00e1nen\u00e9 z gal\u00e9rie \\"{gallery}\\".\",\"other\":\"Objekty boli odstr\u00e1nen\u00e9 z gal\u00e9rie \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Objekt bol odstr\u00e1nen\u00fd z va\u0161ich p\u00e1\u010di sa.\",\"few\":\"Objekty boli odstr\u00e1nen\u00e9 z va\u0161ich p\u00e1\u010di sa.\",\"many\":\"Objekty boli odstr\u00e1nen\u00e9 z va\u0161ich p\u00e1\u010di sa.\",\"other\":\"Objekty boli odstr\u00e1nen\u00e9 z va\u0161ich p\u00e1\u010di sa.\"}",
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 páči sa mi"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj na správu rôznych typov obsahu (vrátane 3D), dokumentáciu kultúrneho dedičstva prostredníctvom digitálnych komunitných priestorov a kurátorstvo digitálnych príbehov a zážitkov."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušte výber všetkých."
+      },
+      "info": "{count} vybraný objekt. | {count} vybrané objekty."
     }
   },
   "shareWhere": "Kde by ste to chceli zdieľať?",

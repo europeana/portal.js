@@ -31,7 +31,6 @@ export default {
       "private": "Privaatset galeriid saate vaadata ainult teie.",
       "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
       "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
-      "remove": "Eemaldage see üksus sellest galeriist.",
       "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lisa galeriisse",
-      "addToGallery": "Lisa see üksus galeriisse.",
+      "addItems": "{\"one\":\"Lisage see \u00fcksus galeriisse.\",\"other\":\"Lisage need \u00fcksused galeriisse.\"}",
+      "addItemsHere": "{\"one\":\"Lisa galeriisse\",\"other\":\"Lisa galeriisse\"}",
       "cancelSelection": "Tühista valik",
       "clickToSelectItems": "Klõpsake üksustel nende valimiseks",
       "create": "Loo galerii",
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
-      "removeItemFromLikes": "Eemaldage see üksus meeldimistest.",
-      "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
+      "likeItems": "{\"one\":\"Salvestage see \u00fcksus oma meeldimistesse.\",\"other\":\"Salvestage need \u00fcksused oma meeldimistesse\"}",
+      "removeItems": "{\"one\":\"Eemaldage see \u00fcksus sellest galeriist.\",\"other\":\"Eemaldage need \u00fcksused sellest galeriist.\"}",
       "selectItems": "Valige üksused",
+      "unlikeItems": "{\"one\":\"Eemaldage see \u00fcksus oma meeldimistest.\",\"other\":\"Eemaldage need \u00fcksused oma meeldimistest.\"}",
       "update": "Värskenda galeriid"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "itemAdded": "Üksus on lisatud galeriisse \"{gallery}\".",
-      "itemLiked": "Üksus on salvestatud teie meeldimiste hulka.",
-      "itemRemoved": "Üksus on eemaldatud galeriist {gallery}.",
-      "itemUnliked": "Üksus on eemaldatud teie meeldimistest.",
+      "itemsAdded": "{\"one\":\"\u00dcksus on lisatud galeriisse \u201e{gallery}\u201c.\",\"other\":\"\u00dcksused on lisatud galeriisse \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"\u00dcksus on salvestatud teie meeldimistesse.\",\"other\":\"\u00dcksused on salvestatud teie meeldimistesse.\"}",
+      "itemsRemoved": "{\"one\":\"\u00dcksus on eemaldatud galeriist \\"{gallery}\\".\",\"other\":\"\u00dcksused on eemaldatud galeriist \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"\u00dcksus on eemaldatud teie meeldimistest.\",\"other\":\"\u00dcksused on eemaldatud teie meeldimistest.\"}",
       "likeLimit": {
         "body": "Meil on kahju, kuid hetkel on teil piiratud maksimaalselt 100 üksused meeldimine. Me kaotame selle piirangu peagi!",
         "title": "100 meeldimist"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Tühista kõik valikud."
+      },
+      "info": "{count} valitud üksus. | {count} valitud üksused."
     }
   },
   "shareWhere": "Kus soovite seda jagada?",

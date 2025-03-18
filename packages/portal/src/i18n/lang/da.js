@@ -31,7 +31,6 @@ export default {
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
       "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
-      "remove": "Fjern denne genstand fra dette galleri.",
       "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Føj til galleri",
-      "addToGallery": "Føj dette genstand til et galleri.",
+      "addItems": "{\"one\":\"Tilf\u00f8j denne genstand til et galleri.\",\"other\":\"Tilf\u00f8j disse genstande til et galleri. \"}",
+      "addItemsHere": "{\"one\":\"F\u00f8j til galleri\",\"other\":\"F\u00f8j til galleri\"}",
       "cancelSelection": "Annuller valg",
       "clickToSelectItems": "Klik på genstande for at vælge dem",
       "create": "Opret galleri",
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
-      "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
-      "saveItemToLikes": "Gem dette genstand til dine likes.",
+      "likeItems": "{\"one\":\"Gem denne genstand i dine likes.\",\"other\":\"Gem disse genstande i dine likes.\"}",
+      "removeItems": "{\"one\":\"Fjern denne genstand fra dette galleri.\",\"other\":\"Fjern disse genstande fra dette galleri.\"}",
       "selectItems": "Vælg genstande",
+      "unlikeItems": "{\"one\":\"Fjern denne genstand fra dine likes.\",\"other\":\"Fjern disse genstande fra dine likes.\"}",
       "update": "Opdater galleri"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "itemAdded": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
-      "itemLiked": "Genstanden er blevet gemt i dine likes.",
-      "itemRemoved": "Genstanden er blevet fjernet fra galleriet {gallery}.",
-      "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
+      "itemsAdded": "{\"one\":\"Genstanden er blevet tilf\u00f8jet til galleriet \\"{gallery}\u201c.\",\"other\":\"Genstandene er blevet tilf\u00f8jet til galleriet \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Genstanden er blevet gemt i dine likes.\",\"other\":\"Genstandene er blevet gemt i dine likes.\"}",
+      "itemsRemoved": "{\"one\":\"Genstanden er blevet fjernet fra galleriet \\"{gallery}\\".\",\"other\":\"Genstandene er blevet fjernet fra galleriet \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Genstanden er blevet fjernet fra dine likes.\",\"other\":\"Genstandene er blevet fjernet fra dine likes.\"}",
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
         "title": "100 likes"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) er et webbaseret værktøj til at administrere indhold af forskellige typer (inklusive 3D), dokumentere kulturarv gennem digitale fællesskabsrum og kuratere digitale historier og oplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Fravælg alle."
+      },
+      "info": "{count} valgt genstand. | {count} valgte genstande."
     }
   },
   "shareWhere": "Hvor vil du gerne dele dette?",

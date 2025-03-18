@@ -31,7 +31,6 @@ export default {
       "private": "Uma galeria privada só pode ser vista por si.",
       "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
       "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias.",
-      "remove": "Remova este item desta galeria.",
       "reorder": "Você pode reordenar os itens clicando neste botão e arrastando o item para movê-lo."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adicionar galeria",
-      "addToGallery": "Adicione este item a uma galeria.",
+      "addItems": "{\"one\":\"Adicione este item a uma galeria.\",\"other\":\"Adicione os itens a uma galeria.\"}",
+      "addItemsHere": "{\"one\":\"Adicionar \u00e0 galeria\",\"other\":\"Adicionar \u00e0 galeria\"}",
       "cancelSelection": "Cancelar seleção",
       "clickToSelectItems": "Clique nos itens para os selecionar",
       "create": "Criar galeria",
       "createNew": "Criar uma galeria",
       "delete": "Eliminar galeria",
       "edit": "Editar galeria",
-      "removeItemFromLikes": "Remova este item de suas curtidas.",
-      "saveItemToLikes": "Salve este item nas suas curtidas.",
+      "likeItems": "{\"one\":\"Salve este item nos seus gostos.\",\"other\":\"Salve esses itens nos seus gostos.\"}",
+      "removeItems": "{\"one\":\"Remove este item desta galeria.\",\"other\":\"Remova esses itens da galeria.\"}",
       "selectItems": "Selecionar itens",
+      "unlikeItems": "{\"one\":\"Remova este item dos seus gostos.\",\"other\":\"Remova estes itens dos seus gostos.\"}",
       "update": "Atualizar galeria"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
-      "itemAdded": "O item foi adicionado à galeria \"{gallery}\".",
-      "itemLiked": "O item foi salvo nos seus gostos.",
-      "itemRemoved": "O item foi removido da galeria {gallery}.",
-      "itemUnliked": "O item foi removido dos seus gostos.",
+      "itemsAdded": "{\"one\":\"Item has been added to the gallery \\"{gallery}\\".\",\"other\":\"Os itens foram adicionados \u00e0 galeria \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"O item foi salvo nos seus gostos.\",\"other\":\"Os itens foram salvos nos seus gostos.\"}",
+      "itemsRemoved": "{\"one\":\"O item foi removido da galeria \\"{gallery}\\".\",\"other\":\"Os itens foram removidos da galeria \\"{gallery}\\"\"}",
+      "itemsUnliked": "{\"one\":\"O item foi removido dos seus gostos.\",\"other\":\"Os itens foram removidos dos seus gostos.\"}",
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Desmarque tudo."
+      },
+      "info": "{count} item selecionado. | {count} itens selecionados."
     }
   },
   "shareWhere": "Onde você gostaria de compartilhar isso?",

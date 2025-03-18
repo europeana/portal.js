@@ -31,7 +31,6 @@ export default {
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
       "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
-      "remove": "Usuń ten obiekt cyfrowy z tej galerii.",
       "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj do galerii",
-      "addToGallery": "Dodaj ten obiekt cyfrowy do galerii.",
+      "addItems": "{\"one\":\"Dodaj ten obiekt cyfrowy do galerii.\",\"few\":\"Dodaj te obiekty cyfrowe do galerii.\",\"many\":\"Dodaj te obiekty cyfrowe do galerii.\",\"other\":\"Dodaj te obiekty cyfrowe do galerii.\"}",
+      "addItemsHere": "{\"one\":\"Dodaj do galerii\",\"few\":\"Dodaj do galerii\",\"many\":\"Dodaj do galerii\",\"other\":\"Dodaj do galerii\"}",
       "cancelSelection": "Anuluj wybór",
       "clickToSelectItems": "Kliknij obiekty cyfrowe, aby je wybrać",
       "create": "Utwórz galerię",
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
-      "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
-      "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+      "likeItems": "{\"one\":\"Zapisz ten obiekt cyfrowy w twoich polubieniach.\",\"few\":\"Zapisz te obiekty cyfrowe w twoich polubieniach.\",\"many\":\"Zapisz te obiekty cyfrowe w twoich polubieniach.\",\"other\":\"Zapisz te obiekty cyfrowe w twoich polubieniach.\"}",
+      "removeItems": "{\"one\":\"Usu\u0144 ten obiekt cyfrowy z tej galerii.\",\"few\":\"Usu\u0144 te obiekty cyfrowe z tej galerii.\",\"many\":\"Usu\u0144 te obiekty cyfrowe z tej galerii.\",\"other\":\"Usu\u0144 te obiekty cyfrowe z tej galerii.\"}",
       "selectItems": "Wybierz obiekty cyfrowe",
+      "unlikeItems": "{\"one\":\"Usu\u0144 ten obiekt cyfrowy z twoich polubie\u0144.\",\"few\":\"Usu\u0144 te obiekty cyfrowe z twoich polubie\u0144.\",\"many\":\"Usu\u0144 te obiekty cyfrowe z twoich polubie\u0144.\",\"other\":\"Usu\u0144 te obiekty cyfrowe z twoich polubie\u0144.\"}",
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
-      "itemAdded": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
-      "itemLiked": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
-      "itemRemoved": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
-      "itemUnliked": "Obiekt cyfrowy został usunięty z Twoich polubień.",
+      "itemsAdded": "{\"one\":\"Obiekt cyfrowy zosta\u0142 dodany do galerii \\"{gallery}\\".\",\"few\":\"Obiekty cyfrowe zosta\u0142y dodane do galerii \\"{gallery}\\".\",\"many\":\"Obiekty cyfrowe zosta\u0142y dodane do galerii \\"{gallery}\\".\",\"other\":\"Obiekty cyfrowe zosta\u0142y dodane do galerii \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Obiekt cyfrowy zosta\u0142 zapisany w twoich polubieniach.\",\"few\":\"Obiekty cyfrowe zosta\u0142y zapisane w twoich polubieniach.\",\"many\":\"Obiekty cyfrowe zosta\u0142y zapisane w twoich polubieniach.\",\"other\":\"Obiekty cyfrowe zosta\u0142y zapisane w twoich polubieniach.\"}",
+      "itemsRemoved": "{\"one\":\"Obiekt cyfrowy zosta\u0142 usuni\u0119ty z galerii \\"{gallery}\\".\",\"few\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z galerii \\"{gallery}\\".\",\"many\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z galerii \\"{gallery}\\".\",\"other\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z galerii \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Obiekt cyfrowy zosta\u0142 usuni\u0119ty z twoich polubie\u0144.\",\"few\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z twoich polubie\u0144.\",\"many\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z twoich polubie\u0144.\",\"other\":\"Obiekty cyfrowe zosta\u0142y usuni\u0119te z twoich polubie\u0144.\"}",
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) to internetowe narzędzie do zarządzania treściami różnego typu (w tym 3D), dokumentowania dziedzictwa kulturowego poprzez cyfrowe przestrzenie społecznościowe oraz kura torowania cyfrowych historii i doświadczeń."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Odznacz wszystko."
+      },
+      "info": "{count} wybrany obiekt cyfrowy. | {count} wybrane obiekty cyfrowe."
     }
   },
   "shareWhere": "Gdzie chcesz się tym podzielić?",

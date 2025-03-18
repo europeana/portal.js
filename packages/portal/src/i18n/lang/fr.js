@@ -31,7 +31,6 @@ export default {
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
       "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
-      "remove": "Retirez cet item de cette galerie.",
       "reorder": "Vous pouvez réorganiser les items en cliquant sur ce bouton et en faisant glisser l'item pour le déplacer."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Ajouter à la galerie",
-      "addToGallery": "Ajouter cet item à une galerie.",
+      "addItems": "{\"one\":\"Ajoutez cet item \u00e0 une galerie.\",\"other\":\"Ajoutez ces items \u00e0 une galerie.\"}",
+      "addItemsHere": "{\"one\":\"Ajouter \u00e0 la galerie\",\"other\":\"Ajouter \u00e0 la galerie\"}",
       "cancelSelection": "Annuler la sélection",
       "clickToSelectItems": "Cliquez sur les items pour les sélectionner",
       "create": "Créer une galerie",
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
-      "removeItemFromLikes": "Retirer cet item de vos j'aime.",
-      "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
+      "likeItems": "{\"one\":\"Enregistrez cet item dans vos J'aime.\",\"other\":\"Enregistrez ces items dans vos J\u2019aime.\"}",
+      "removeItems": "{\"one\":\"Supprimer cet item de cette galerie.\",\"other\":\"Supprimer ces items de cette galerie.\"}",
       "selectItems": "Sélectionner des items",
+      "unlikeItems": "{\"one\":\"Supprimer cet item de vos J'aime.\",\"other\":\"Supprimer ces items de vos J\u2019aime.\"}",
       "update": "Mettre à jour la galerie"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "itemAdded": "L'item a été ajouté à la galerie \"{gallery}\".",
-      "itemLiked": "L'item a été enregistré dans vos j'aime.",
-      "itemRemoved": "L'item a été supprimé de la galerie {gallery}.",
-      "itemUnliked": "L'item a été supprimé de vos j'aime.",
+      "itemsAdded": "{\"one\":\"L\u2019item a \u00e9t\u00e9 ajout\u00e9 \u00e0 la galerie \\"{gallery}\\".\",\"other\":\"Les items ont \u00e9t\u00e9 ajout\u00e9s \u00e0 la galerie \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"L\u2019item a \u00e9t\u00e9 enregistr\u00e9 dans vos J\u2019aime.\",\"other\":\"Les items ont \u00e9t\u00e9 enregistr\u00e9s dans vos J\u2019aime.\"}",
+      "itemsRemoved": "{\"one\":\"L\u2019item a \u00e9t\u00e9 supprim\u00e9 de la galerie \\"{gallery}\\".\",\"other\":\"Les items ont \u00e9t\u00e9 supprim\u00e9s de la galerie \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"L\u2019item a \u00e9t\u00e9 supprim\u00e9 de vos J\u2019aime.\",\"other\":\"Les items ont \u00e9t\u00e9 supprim\u00e9s de vos J\u2019aime.\"}",
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 items pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Désélectionner tout."
+      },
+      "info": "{count} item sélectionné. | {count} items sélectionnés."
     }
   },
   "shareWhere": "Où aimeriez-vous partager cela?",

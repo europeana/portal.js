@@ -31,7 +31,6 @@ export default {
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
       "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
-      "remove": "Ta bort detta objekt från detta galleri.",
       "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
@@ -1329,17 +1328,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lägg till i galleri",
-      "addToGallery": "Lägg till detta objekt i ett galleri.",
+      "addItems": "{\"one\":\"L\u00e4gg till det h\u00e4r objektet i ett galleri.\",\"other\":\"L\u00e4gg till dessa objekt i ett galleri.\"}",
+      "addItemsHere": "{\"one\":\"L\u00e4gg till i galleriet\",\"other\":\"L\u00e4gg till i galleriet\"}",
       "cancelSelection": "Avbryt val",
       "clickToSelectItems": "Klicka på objekten för att välja dem",
       "create": "Skapa galleri",
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
-      "removeItemFromLikes": "Ta bort det här objektet från dina gilla-markeringar.",
-      "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
+      "likeItems": "{\"one\":\"Spara det h\u00e4r objektet i dina Gilla-markeringar.\",\"other\":\"Spara dessa objekt i dina Gilla-markeringar.\"}",
+      "removeItems": "{\"one\":\"Ta bort det h\u00e4r objektet fr\u00e5n det h\u00e4r galleriet.\",\"other\":\"Ta bort dessa objekt fr\u00e5n det h\u00e4r galleriet.\"}",
       "selectItems": "Välj objekt",
+      "unlikeItems": "{\"one\":\"Ta bort det h\u00e4r objektet fr\u00e5n dina Gilla-markeringar.\",\"other\":\"Ta bort dessa objekt fr\u00e5n dina Gilla-markeringar.\"}",
       "update": "Uppdatera galleri"
     },
     "form": {
@@ -1356,10 +1356,10 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
-      "itemAdded": "Objektet har lagts till i galleriet \"{gallery}\".",
-      "itemLiked": "Objektet har sparats till dina gilla-markeringar.",
-      "itemRemoved": "Objektet har tagits bort från galleriet {gallery}.",
-      "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
+      "itemsAdded": "{\"one\":\"Objektet har lagts till i galleriet \\"{gallery}\\".\",\"other\":\"Objekten har lagts till i galleriet \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Objektet har sparats i dina Gilla-markeringar.\",\"other\":\"Objekten har sparats i dina Gilla-markeringar.\"}",
+      "itemsRemoved": "{\"one\":\"Objektet har tagits bort fr\u00e5n galleriet \\"{gallery}\\".\",\"other\":\"Objekten har tagits bort fr\u00e5n galleriet \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Objektet har tagits bort fr\u00e5n dina Gilla-markeringar.\",\"other\":\"Objekten har tagits bort fr\u00e5n dina Gilla-markeringar.\"}",
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 gilla-markeringar"
@@ -1396,6 +1396,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Avmarkera alla."
+      },
+      "info": "{count} valt objekt. | {count} valda objekt."
     }
   },
   "shareWhere": "Var skulle du vilja dela detta?",

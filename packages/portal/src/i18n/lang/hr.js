@@ -31,7 +31,6 @@ export default {
       "private": "Privatnu galeriju možete vidjeti samo vi.",
       "public": "Javnu galeriju može pogledati svatko s vezom.",
       "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije.",
-      "remove": "Uklonite ovaj predmet iz ove galerije.",
       "reorder": "Možete promijeniti redoslijed predmeti klikom na ovaj gumb i povlačenjem predmet da je premjestite."
     }
   },
@@ -1331,17 +1330,18 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj u galeriju",
-      "addToGallery": "Dodajte ovu predmet u galeriju.",
+      "addItems": "{\"one\":\"Dodajte ovaj predmet u galeriju.\",\"few\":\"Dodajte ove predmete u galeriju.\",\"other\":\"Dodajte ove predmete u galeriju.\"}",
+      "addItemsHere": "{\"one\":\"Dodaj u galeriju\",\"few\":\"Dodaj u galeriju\",\"other\":\"Dodaj u galeriju\"}",
       "cancelSelection": "Poništi odabir",
       "clickToSelectItems": "Kliknite na predmete kako biste ih odabrali",
       "create": "Stvori galeriju",
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
-      "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
+      "likeItems": "{\"one\":\"Spremite ovaj predmet u svoje oznake svi\u0111a mi se.\",\"few\":\"Spremite ove predmete u svoje oznake svi\u0111a mi se.\",\"other\":\"Spremite ove predmete u svoje oznake svi\u0111a mi se.\"}",
+      "removeItems": "{\"one\":\"Uklonite ovaj predmet iz ove galerije.\",\"few\":\"Uklonite ova dva (ili nekoliko) predmeta iz ove galerije.\",\"other\":\"Uklonite ove predmete iz ove galerije.\"}",
       "selectItems": "Odaberite predmete",
+      "unlikeItems": "{\"one\":\"Uklonite ovaj predmet iz svojih oznaka svi\u0111a mi se.\",\"few\":\"Uklonite ova tri predmeta iz svojih oznaka svi\u0111a mi se.\",\"other\":\"Uklonite ove predmete iz svojih oznaka svi\u0111a mi se.\"}",
       "update": "Ažuriraj galeriju"
     },
     "form": {
@@ -1358,10 +1358,10 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
-      "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše lajkove.",
-      "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
+      "itemsAdded": "{\"one\":\"Predmet je dodan u galeriju \\"{gallery}\\".\",\"few\":\"Predmeti su dodani u galeriju \\"{gallery}\\".\",\"other\":\"Predmeti su dodani u galeriju \\"{gallery}\\".\"}",
+      "itemsLiked": "{\"one\":\"Predmet je spremljen u va\u0161e oznake svi\u0111a mi se.\",\"few\":\"Predmeti su spremljeni u va\u0161e oznake svi\u0111a mi se.\",\"other\":\"Predmeti su spremljeni u va\u0161e oznake svi\u0111a mi se.\"}",
+      "itemsRemoved": "{\"one\":\"Predmet je uklonjen iz galerije \\"{gallery}\\".\",\"few\":\"Predmeti su uklonjeni iz galerije \\"{gallery}\\".\",\"other\":\"Predmeti su uklonjeni iz galerije \\"{gallery}\\".\"}",
+      "itemsUnliked": "{\"one\":\"Predmet je uklonjen s va\u0161ih oznaka svi\u0111a mi se.\",\"few\":\"Predmeta su uklonjena s va\u0161ih oznaka svi\u0111a mi se.\",\"other\":\"Predmeti su uklonjeni s va\u0161ih oznaka svi\u0111a mi se.\"}",
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 lajkova"
@@ -1398,6 +1398,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je alat temeljen na webu za upravljanje različitim vrstama sadržaja (uključujući 3D), dokumentiranje kulturne baštine kroz prostore digitalne zajednice i kuriranje digitalnih priča i iskustava."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poništi odabir svega."
+      },
+      "info": "{count} odabran predmet. | {count} odabrani predmeti."
     }
   },
   "shareWhere": "Gdje biste to htjeli podijeliti?",
