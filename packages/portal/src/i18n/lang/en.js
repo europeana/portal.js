@@ -1398,7 +1398,7 @@ export default {
       "delete": "Delete gallery",
       "edit": "Edit gallery",
       "likeItems": {
-        "many": "Unlike {count} item | Unlike {count} items",
+        "many": "Like {count} item | Like {count} items",
         "one": "Save this item to your likes."
       },
       "removeItems": {
@@ -1407,7 +1407,7 @@ export default {
       },
       "selectItems": "Select items",
       "unlikeItems": {
-        "many": "Like {count} item | Like {count} items",
+        "many": "Unlike {count} item | Unlike {count} items",
         "one": "Remove this item from your likes."
       },
       "update": "Update gallery"
