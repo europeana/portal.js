@@ -9,10 +9,13 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 
-const factory = ({ $auth = {}, propsData = { identifiers: identifier }, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
+const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier }, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
   localVue,
   attachTo: document.body,
   propsData,
+  data() {
+    return { ...data };
+  },
   mocks: {
     $auth,
     $keycloak: {
@@ -62,43 +65,46 @@ describe('components/item/ItemAddButton', () => {
       const $auth = { loggedIn: true };
 
       describe('when pressed', () => {
-        it('shows the collection modal', () => {
+        it('shows the collection modal', async() => {
           const wrapper = factory({ $auth });
-          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           const addButton = wrapper.find('[data-qa="add button"]');
-          addButton.trigger('click');
+          await addButton.trigger('click');
+          const addItemModal = wrapper.find('[data-qa="add item to set modal"]');
 
-          expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`)).toBe(true);
+          expect(addItemModal.isVisible()).toBe(true);
         });
 
         describe('when identifiers are an array (multi-select)', () => {
-          it('shows the collection modal', () => {
+          it('shows the collection modal', async() => {
             const wrapper = factory({ $auth, propsData: { identifiers: ['001', '002'] } });
-            const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
             const addButton = wrapper.find('[data-qa="add button"]');
-            addButton.trigger('click');
+            await addButton.trigger('click');
+            const addItemModal = wrapper.find('[data-qa="add item to set modal"]');
 
-            expect(bvModalShow.calledWith('add-item-to-set-modal-multi-select')).toBe(true);
+            expect(addItemModal.isVisible()).toBe(true);
           });
         });
       });
 
       describe('when the add item modal is closed', () => {
-        it('refreshes the set', () => {
-          const wrapper = factory({ $auth });
+        const data = { showAddItemModal: true };
 
-          wrapper.vm.handleHideModal();
+        it('refreshes the set', async() => {
+          const wrapper = factory({ $auth, data });
+
+          await wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
 
           expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
         });
+
         it('sets focus on the item add button without showing the tooltip', async() => {
-          const wrapper = factory({ $auth });
+          const wrapper = factory({ $auth, data });
 
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('focus');
-          wrapper.vm.handleHideModal();
+          wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
           await wrapper.vm.$nextTick();
 
           const focusedAddButton = wrapper.find('[data-qa="add button"]:focus');
