@@ -1,6 +1,7 @@
 <template>
   <b-modal
     :id="modalId"
+    v-model="show"
     :title="modalTitle"
     :static="modalStatic"
     hide-header-close
@@ -61,6 +62,23 @@
       promptText: {
         type: String,
         default: null
+      },
+
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+
+    data() {
+      return {
+        show: this.value
+      };
+    },
+
+    watch: {
+      value() {
+        this.show = this.value;
       }
     },
 
@@ -76,7 +94,7 @@
       },
 
       hide() {
-        this.$bvModal.hide(this.modalId);
+        this.$emit('input', false);
       }
     }
   };

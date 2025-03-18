@@ -94,11 +94,11 @@ describe('components/set/SetAddItemModal', () => {
           const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
           const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
           const wrapper = factory({ propsData, data });
-          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+          const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
 
-          expect(bvModalShow.calledWith('set-confirm-remove-multiple-items')).toBe(true);
+          expect(confirmRemovalModal.isVisible()).toBe(true);
           expect(setApiDeleteItemsStub.called).toBe(false);
         });
 

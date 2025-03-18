@@ -43,12 +43,15 @@
       </div>
     </b-modal>
     <ConfirmDangerModal
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
       :confirm-button-text="$t('actions.remove')"
       :modal-id="confirmRemoveModalId"
       :modal-title="confirmRemoveModalTitle"
       :prompt-text="confirmRemoveModalPromptText"
       data-qa="confirm removal modal"
       @confirm="handleRemoveConfirmation"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
@@ -100,12 +103,13 @@
 
     data() {
       return {
+        added: [],
         collections: [],
         collectionsWithItem: [],
         confirming: null,
         confirmRemoveModalId: 'set-confirm-remove-multiple-items',
         fetched: false,
-        added: []
+        showConfirmationModal: false
       };
     },
 
@@ -166,7 +170,7 @@
       handleClickButton(set) {
         if (this.collectionsWithItem.includes(set.id)) {
           this.confirming = set;
-          this.$bvModal.show(this.confirmRemoveModalId);
+          this.showConfirmationModal = true;
         } else {
           this.toggleItem(set);
         }

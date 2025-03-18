@@ -14,13 +14,15 @@
       {{ buttonText ? $t('actions.remove') : '' }}
     </b-button>
     <ConfirmDangerModal
-      v-if="confirmationNeeded"
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
       :confirm-button-text="$t('actions.remove')"
       :modal-id="modalId"
       :modal-title="modalTitle"
       :prompt-text="modalPromptText"
       data-qa="confirm removal modal"
       @confirm="handleConfirmation"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
@@ -69,7 +71,8 @@
 
     data() {
       return {
-        modalId: 'set-confirm-remove-multiple-items'
+        modalId: 'set-confirm-remove-multiple-items',
+        showConfirmationModal: false
       };
     },
 
@@ -104,7 +107,7 @@
     methods: {
       handleClickButton() {
         if (this.confirmationNeeded) {
-          this.$bvModal.show(this.modalId);
+          this.showConfirmationModal = true;
         } else {
           this.removeItem();
         }

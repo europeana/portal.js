@@ -53,11 +53,11 @@ describe('ItemRemoveButton', () => {
 
   it('first shows the confirmation modal, without removing the item yet', async() => {
     const wrapper = factory({ identifiers: 'item-1' });
-    const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
     await wrapper.find('[data-qa="item remove button"]').trigger('click');
+    const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
 
-    expect(bvModalShow.calledWith('set-confirm-remove-multiple-items')).toBe(true);
+    expect(confirmRemovalModal.isVisible()).toBe(true);
     expect(setApiDeleteItemsStub.called).toBe(false);
   });
 
