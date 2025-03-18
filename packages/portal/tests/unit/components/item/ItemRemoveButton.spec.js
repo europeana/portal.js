@@ -59,4 +59,12 @@ describe('ItemRemoveButton', () => {
     expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
     expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
   });
+
+  it('is disabled if there are no item identifiers', () => {
+    const wrapper = factory({ identifiers: [] });
+
+    const button = wrapper.find('[data-qa="item remove button"]');
+
+    expect(button.attributes('disabled')).toBe('true');
+  });
 });
