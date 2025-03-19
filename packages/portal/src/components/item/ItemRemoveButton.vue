@@ -4,6 +4,7 @@
       v-b-tooltip.bottom
       class="remove-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
+      :disabled="disabled"
       :variant="buttonVariant"
       data-qa="item remove button"
       :aria-label="$t('actions.remove')"
@@ -55,11 +56,14 @@
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       activeSet() {
         return this.$store.state.set.active;
       },
       selectionCount() {
-        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
         return this.$tc(`set.actions.removeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });

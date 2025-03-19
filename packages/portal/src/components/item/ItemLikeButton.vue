@@ -5,6 +5,7 @@
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
+      :disabled="disabled"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
@@ -79,6 +80,9 @@
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       liked() {
         if (Array.isArray(this.identifiers)) {
           return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
@@ -99,7 +103,7 @@
         return this.$tc(`set.notifications.itemsLiked.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       },
       selectionCount() {
-        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
         if (this.liked) {

@@ -36,7 +36,27 @@ describe('components/item/ItemSelectToolbar', () => {
 
       const selectionToolbar = wrapper.find('.item-select-toolbar');
 
-      expect(selectionToolbar.text()).toBe('0 set.toolbar.info');
+      expect(selectionToolbar.isVisible()).toBe(true);
+    });
+  });
+
+  describe('when no items are selected', () => {
+    it('does not show the deselect selected button', () => {
+      const wrapper = factory();
+
+      const deselectSelectedButton = wrapper.find('.deselect-selected-button');
+
+      expect(deselectSelectedButton.isVisible()).toBe(false);
+    });
+
+    it('does not show the add and like buttons', () => {
+      const wrapper = factory();
+
+      const addButton = wrapper.find('itemaddbutton-stub');
+      const likeButton = wrapper.find('itemlikebutton-stub');
+
+      expect(addButton.isVisible()).toBe(false);
+      expect(likeButton.isVisible()).toBe(false);
     });
   });
 
@@ -49,9 +69,27 @@ describe('components/item/ItemSelectToolbar', () => {
       }
     };
 
+    it('shows the deselect selected button', () => {
+      const wrapper = factory({ store });
+
+      const deselectSelectedButton = wrapper.find('.deselect-selected-button');
+
+      expect(deselectSelectedButton.isVisible()).toBe(true);
+    });
+
+    it('shows the add and like buttons', () => {
+      const wrapper = factory({ store });
+
+      const addButton = wrapper.find('itemaddbutton-stub');
+      const likeButton = wrapper.find('itemlikebutton-stub');
+
+      expect(addButton.isVisible()).toBe(true);
+      expect(likeButton.isVisible()).toBe(true);
+    });
+
     describe('remove selected button', () => {
       describe('when the user has rights to edit the set', () => {
-        it('renders the toolbar', () => {
+        it('renders the remove button', () => {
           const wrapper = factory({ propsData: { userCanEditSet: true }, store });
 
           const removeButton = wrapper.find('itemremovebutton-stub');
@@ -61,7 +99,7 @@ describe('components/item/ItemSelectToolbar', () => {
       });
 
       describe('when the user does NOT have rights to edit the set', () => {
-        it('renders the toolbar', () => {
+        it('does not render the remove button', () => {
           const wrapper = factory({ propsData: { userCanEditSet: false }, store });
 
           const removeButton = wrapper.find('itemremovebutton-stub');

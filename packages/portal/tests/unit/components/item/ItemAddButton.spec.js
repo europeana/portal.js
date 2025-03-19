@@ -115,6 +115,14 @@ describe('components/item/ItemAddButton', () => {
         });
       });
     });
+
+    it('is disabled if there are no item identifiers', () => {
+      const wrapper = factory({ propsData: { identifiers: [] } });
+
+      const addButton = wrapper.find('[data-qa="add button"]');
+
+      expect(addButton.attributes('disabled')).toBe('disabled');
+    });
   });
 
   describe('data()', () => {
