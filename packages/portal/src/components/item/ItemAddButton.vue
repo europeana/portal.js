@@ -6,6 +6,7 @@
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
+      :disabled="disabled"
       :variant="buttonVariant"
       :aria-label="tooltipTitle"
       @click="addToSet"
@@ -100,8 +101,11 @@
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       selectionCount() {
-        return Array.isArray(this.identifiers) ? this.identifiers.length : false;
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
         return this.$tc(`set.actions.addItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });

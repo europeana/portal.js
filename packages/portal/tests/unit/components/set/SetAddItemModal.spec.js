@@ -85,7 +85,7 @@ describe('components/set/SetAddItemModal', () => {
           await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
           expect(setApiInsertItemsStub.calledWith('001', '/123/abc')).toBe(true);
-          expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsAdded.one')).toBe(true);
+          expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsAdded.1')).toBe(true);
         });
       });
 
@@ -112,7 +112,7 @@ describe('components/set/SetAddItemModal', () => {
             const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
             await confirmRemovalModal.vm.$emit('confirm');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.one')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.1')).toBe(true);
           });
         });
       });

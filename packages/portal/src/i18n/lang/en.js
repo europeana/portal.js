@@ -39,6 +39,7 @@ export default {
     "add": "Add",
     "apply": "Apply",
     "cancel": "Cancel",
+    "changeView": "Change view",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
@@ -1385,11 +1386,11 @@ export default {
     "actions": {
       "addItemsHere": {
         "many": "Add {count} item to gallery | Add {count} items to gallery",
-        "one": "Add to gallery"
+        "1": "Add to gallery"
       },
       "addItems": {
         "many": "Add {count} item to a gallery | Add {count} items to a gallery",
-        "one": "Add this item to a gallery."
+        "1": "Add this item to a gallery."
       },
       "cancelSelection": "Cancel selection",
       "clickToSelectItems": "Click on items to select them",
@@ -1398,17 +1399,17 @@ export default {
       "delete": "Delete gallery",
       "edit": "Edit gallery",
       "likeItems": {
-        "many": "Unlike {count} item | Unlike {count} items",
-        "one": "Save this item to your likes."
+        "many": "Like {count} item | Like {count} items",
+        "1": "Save this item to your likes."
       },
       "removeItems": {
         "many": "Remove {count} item from this gallery | Remove {count} items from this gallery",
-        "one": "Remove this item from this gallery."
+        "1": "Remove this item from this gallery."
       },
       "selectItems": "Select items",
       "unlikeItems": {
-        "many": "Like {count} item | Like {count} items",
-        "one": "Remove this item from your likes."
+        "many": "Unlike {count} item | Unlike {count} items",
+        "1": "Remove this item from your likes."
       },
       "update": "Update gallery"
     },
@@ -1428,19 +1429,19 @@ export default {
       "deleted": "Your gallery has been deleted.",
       "itemsAdded": {
         "many": "{count} item has been added to the gallery \"{gallery}\". | {count} items have been added to the gallery \"{gallery}\".",
-        "one": "Item has been added to the gallery \"{gallery}\"."
+        "1": "Item has been added to the gallery \"{gallery}\"."
       },
       "itemsLiked": {
         "many": "{count} item has been saved to your likes. | {count} items have been saved to your likes.",
-        "one": "Item has been saved to your likes."
+        "1": "Item has been saved to your likes."
       },
       "itemsRemoved": {
         "many": "{count} item has been removed from gallery \"{gallery}\". | {count} items have been removed from gallery \"{gallery}\".",
-        "one": "Item has been removed from gallery \"{gallery}\"."
+        "1": "Item has been removed from gallery \"{gallery}\"."
       },
       "itemsUnliked": {
         "many": "{count} item has been removed from your likes. | {count} items have been removed from your likes.",
-        "one": "Item has been removed from your likes."
+        "1": "Item has been removed from your likes."
       },
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",

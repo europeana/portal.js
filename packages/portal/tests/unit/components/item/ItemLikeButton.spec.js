@@ -134,7 +134,7 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsLiked.one')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsLiked.1')).toBe(true);
           });
           describe('when the like limit is reached', () => {
             it('shows the like limit modal', async() => {
@@ -177,51 +177,57 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsUnliked.one')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsUnliked.1')).toBe(true);
           });
         });
       });
+    });
 
-      describe('data()', () => {
-        describe('likeLimitModalId', () => {
-          describe('when there are multiple items selected', () => {
-            it('ends with "multi-select"', () => {
-              const wrapper = factory({
-                propsData: { identifiers: ['001', '002', '003'] }
-              });
+    it('is disabled if there are no item identifiers', () => {
+      const wrapper = factory({ propsData: { identifiers: [] } });
 
-              expect(wrapper.vm.likeLimitModalId).toEqual('like-limit-modal-multi-select');
-            });
+      const likeButton = wrapper.find('[data-qa="like button"]');
+
+      expect(likeButton.attributes('disabled')).toBe('true');
+    });
+  });
+
+  describe('data()', () => {
+    describe('likeLimitModalId', () => {
+      describe('when there are multiple items selected', () => {
+        it('ends with "multi-select"', () => {
+          const wrapper = factory({
+            propsData: { identifiers: ['001', '002', '003'] }
           });
+
+          expect(wrapper.vm.likeLimitModalId).toEqual('like-limit-modal-multi-select');
         });
       });
+    });
+  });
 
-      describe('computed', () => {
-        describe('liked()', () => {
-          describe('when there are multiple items selected', () => {
-            describe('and all are already liked', () => {
-              it('returns true', () => {
-                const ids = ['001', '002'];
-                const wrapper = factory({
-                  propsData: { identifiers: ids },
-                  storeState: { likedItemIds: ids },
-                  $auth
-                });
-
-                expect(wrapper.vm.liked).toBe(true);
-              });
+  describe('computed', () => {
+    describe('liked()', () => {
+      describe('when there are multiple items selected', () => {
+        describe('and all are already liked', () => {
+          it('returns true', () => {
+            const ids = ['001', '002'];
+            const wrapper = factory({
+              propsData: { identifiers: ids },
+              storeState: { likedItemIds: ids }
             });
-            describe('and only some are already liked', () => {
-              it('returns false', () => {
-                const wrapper = factory({
-                  propsData: { identifiers: ['001', '002', '003'] },
-                  storeState: { likedItemIds: ['001', '003'] },
-                  $auth
-                });
 
-                expect(wrapper.vm.liked).toBe(false);
-              });
+            expect(wrapper.vm.liked).toBe(true);
+          });
+        });
+        describe('and only some are already liked', () => {
+          it('returns false', () => {
+            const wrapper = factory({
+              propsData: { identifiers: ['001', '002', '003'] },
+              storeState: { likedItemIds: ['001', '003'] }
             });
+
+            expect(wrapper.vm.liked).toBe(false);
           });
         });
       });

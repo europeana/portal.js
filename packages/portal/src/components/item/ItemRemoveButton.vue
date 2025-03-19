@@ -4,6 +4,7 @@
       v-b-tooltip.bottom
       class="remove-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
+      :disabled="disabled"
       :variant="buttonVariant"
       data-qa="item remove button"
       :aria-label="$t('actions.remove')"
@@ -77,6 +78,9 @@
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       activeSet() {
         return this.$store.state.set.active;
       },
