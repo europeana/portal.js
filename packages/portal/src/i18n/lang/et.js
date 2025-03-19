@@ -31,7 +31,6 @@ export default {
       "private": "Privaatset galeriid saate vaadata ainult teie.",
       "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
       "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
-      "remove": "Eemaldage see üksus sellest galeriist.",
       "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Lisa",
     "apply": "Kohalda",
     "cancel": "Tühista",
+    "changeView": "Muuda vaadet",
     "clear": "Lähtesta",
     "clearFilters": "Tühjenda filtrid",
     "close": "Sulge",
@@ -1331,17 +1331,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lisa galeriisse",
-      "addToGallery": "Lisa see üksus galeriisse.",
+      "addItems": {
+        "1": "Lisa see üksus galeriisse.",
+        "many": "Lisa {count} üksus galeriisse | Lisa {count} üksused galeriisse"
+      },
+      "addItemsHere": {
+        "1": "Lisa galeriisse",
+        "many": "Lisa {count} üksus galeriisse | Lisa {count} üksused galeriisse"
+      },
       "cancelSelection": "Tühista valik",
       "clickToSelectItems": "Klõpsake üksustel nende valimiseks",
       "create": "Loo galerii",
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
-      "removeItemFromLikes": "Eemaldage see üksus meeldimistest.",
-      "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
+      "likeItems": {
+        "1": "Salvestage see üksus oma meeldimiste hulka.",
+        "many": "Meeldi {count} üksus | Meeldi {count} üksused"
+      },
+      "removeItems": {
+        "1": "Eemaldage see üksus sellest galeriist.",
+        "many": "Eemalda {count} üksus sellest galeriist | Eemalda {count} üksused sellest galeriist"
+      },
       "selectItems": "Valige üksused",
+      "unlikeItems": {
+        "1": "Eemaldage see üksus meeldimistest.",
+        "many": "Eemalda meeldimine {count} üksus | Eemalda meeldimine {count} üksused"
+      },
       "update": "Värskenda galeriid"
     },
     "form": {
@@ -1358,10 +1374,22 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "itemAdded": "Üksus on lisatud galeriisse \"{gallery}\".",
-      "itemLiked": "Üksus on salvestatud teie meeldimiste hulka.",
-      "itemRemoved": "Üksus on eemaldatud galeriist {gallery}.",
-      "itemUnliked": "Üksus on eemaldatud teie meeldimistest.",
+      "itemsAdded": {
+        "1": "Üksus on lisatud galeriisse \"{gallery}\".",
+        "many": "{count} üksus on lisatud galeriisse \"{gallery}\". | {count} üksused on lisatud galeriisse \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Üksus on salvestatud teie meeldimiste hulka.",
+        "many": "{count} üksus on salvestatud teie meeldimiste hulka. | {count} üksused on salvestatud teie meeldimiste hulka."
+      },
+      "itemsRemoved": {
+        "1": "Üksus on eemaldatud galeriist {gallery}.",
+        "many": "{count} üksus on eemaldatud galeriist \"{gallery}\". | {count} üksused on eemaldatud galeriist \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Üksus on eemaldatud teie meeldimistest.",
+        "many": "{count} üksus on eemaldatud teie meeldimistest. | {count} üksused on eemaldatud teie meeldimistest."
+      },
       "likeLimit": {
         "body": "Meil on kahju, kuid hetkel on teil piiratud maksimaalselt 100 üksused meeldimine. Me kaotame selle piirangu peagi!",
         "title": "100 meeldimist"
@@ -1398,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Tühista kõik valikud."
+      },
+      "info": "{count} valitud üksus. | {count} valitud üksused."
     }
   },
   "shareWhere": "Kus soovite seda jagada?",

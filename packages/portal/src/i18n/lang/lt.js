@@ -31,7 +31,6 @@ export default {
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
       "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
-      "remove": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
       "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Pridėti",
     "apply": "Taikyti",
     "cancel": "Atšaukti",
+    "changeView": "Keisti vaizdą",
     "clear": "Išvalyti",
     "clearFilters": "Išvalyti filtrai",
     "close": "uždaryti",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Įtraukti į galeriją",
-      "addToGallery": "Pridėti šį skaitmeninis objektas į galeriją.",
+      "addItems": {
+        "1": "Pridėti šį skaitmeninis objektas į galeriją.",
+        "many": "Pridėti {count} skaitmeninį objektą prie galerijos | Pridėti {count} skaitmeninius objektus prie galerijos"
+      },
+      "addItemsHere": {
+        "1": "Įtraukti į galeriją",
+        "many": "Pridėti {count} skaitmeninį objektą prie galerijos | Pridėti {count} skaitmeninius objektus prie galerijos"
+      },
       "cancelSelection": "Atšaukti pasirinkimą",
       "clickToSelectItems": "Spustelėkite skaitmeninius objektus, kad juos pasirinktumėte",
       "create": "Kurti galeriją",
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
-      "removeItemFromLikes": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
-      "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+      "likeItems": {
+        "1": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+        "many": "Patinka {count} skaitmeninis objektas | Patinka {count} skaitmeniniai objektai"
+      },
+      "removeItems": {
+        "1": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
+        "many": "Pašalinti {count} skaitmeninį objektą iš šios galerijos | Pašalinti {count} skaitmeninius objektus iš šios galerijos"
+      },
       "selectItems": "Pasirinkite skaitmeninius objektus",
+      "unlikeItems": {
+        "1": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
+        "many": "Man nebepatinka {count} skaitmeninis objektas | Man nebepatinka {count} skaitmeniniai objektai"
+      },
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "itemAdded": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
-      "itemLiked": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
-      "itemRemoved": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
-      "itemUnliked": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
+      "itemsAdded": {
+        "1": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
+        "many": "{count} skaitmeninis objektas pridėtas į galeriją \"{gallery}\". | {count} skaitmeniniai objektai pridėti į galeriją \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
+        "many": "{count} skaitmeninis objektas išsaugotas jūsų pamėgtuose. | {count} skaitmeniniai objektai išsaugoti jūsų pamėgtuose."
+      },
+      "itemsRemoved": {
+        "1": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
+        "many": "{count} skaitmeninis objektas pašalintas iš galerijos \"{gallery}\". | {count} skaitmeniniai objektai pašalinti iš galerijos \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
+        "many": "{count} skaitmeninis objektas pašalintas iš jūsų pamėgtų. | {count} skaitmeniniai objektai pašalinti iš jūsų pamėgtų."
+      },
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Panaikinti visų pasirinkimą."
+      },
+      "info": "{count} skaitmeninis objektas pasirinktas. | {count} skaitmeninius objektus pasirinkta."
     }
   },
   "shareWhere": "Kur norėtumėte tuo pasidalinti?",
