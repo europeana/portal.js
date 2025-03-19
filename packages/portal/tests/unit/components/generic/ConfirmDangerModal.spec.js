@@ -27,19 +27,18 @@ describe('components/generic/ConfirmDangerModal', () => {
   });
 
   describe('cancel button', () => {
-    it('emits input event with value false', () => {
-      const modalId = 'too-risky';
-      const wrapper = factory({ propsData: { modalId } });
+    it('emits input event with value false', async() => {
+      const wrapper = factory({ propsData: { value: true } });
 
-      wrapper.find('[data-qa="cancel button"]').trigger('click');
+      await wrapper.find('[data-qa="cancel button"]').trigger('click');
 
       expect(wrapper.emitted('input')[0]).toEqual([false]);
     });
 
-    it('emits cancel event', () => {
-      const wrapper = factory();
+    it('emits cancel event', async() => {
+      const wrapper = factory({ propsData: { value: true } });
 
-      wrapper.find('[data-qa="cancel button"]').trigger('click');
+      await wrapper.find('[data-qa="cancel button"]').trigger('click');
 
       expect(wrapper.emitted('cancel').length).toBe(1);
     });
@@ -47,8 +46,7 @@ describe('components/generic/ConfirmDangerModal', () => {
 
   describe('form submission', () => {
     it('hides the modal', async() => {
-      const modalId = 'acceptable-risk';
-      const wrapper = factory({ propsData: { modalId } });
+      const wrapper = factory({ propsData: { value: true } });
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 

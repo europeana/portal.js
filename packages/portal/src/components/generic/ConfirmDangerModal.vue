@@ -7,13 +7,17 @@
     hide-header-close
     hide-footer
   >
-    <p>{{ promptText }}</p>
-    <b-form @submit.stop.prevent="handleSubmitForm">
+    <p v-if="promptText">
+      {{ promptText }}
+    </p>
+    <b-form
+      @submit.stop.prevent="handleConfirm"
+    >
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
           data-qa="cancel button"
-          @click="handleClickCancelButton"
+          @click="handleCancel"
         >
           {{ cancelButtonText || $t('actions.cancel') }}
         </b-button>
@@ -79,22 +83,26 @@
     watch: {
       value() {
         this.show = this.value;
+      },
+
+      show() {
+        this.$emit('input', this.show);
       }
     },
 
     methods: {
-      async handleSubmitForm() {
+      handleConfirm() {
         this.hide();
         this.$emit('confirm');
       },
 
-      handleClickCancelButton() {
+      handleCancel() {
         this.hide();
         this.$emit('cancel');
       },
 
       hide() {
-        this.$emit('input', false);
+        this.show = false;
       }
     }
   };
