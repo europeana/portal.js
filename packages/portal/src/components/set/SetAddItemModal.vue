@@ -1,10 +1,10 @@
 <template>
   <b-modal
-    :id="modalId"
+    v-model="show"
+    :static="modalStatic"
     :title="modalTitle"
     hide-footer
     hide-header-close
-    :static="modalStatic"
     @show="fetchCollections"
     @hide="hideModal"
   >
@@ -35,7 +35,7 @@
       <b-button
         variant="outline-primary"
         data-qa="close button"
-        @click="$bvModal.hide(modalId)"
+        @click="hideModal"
       >
         {{ $t('actions.close') }}
       </b-button>
@@ -67,15 +67,15 @@
         type: [String, Array],
         required: true
       },
-      modalId: {
-        type: String,
-        default: 'add-item-to-set-modal'
-      },
       modalStatic: {
         type: Boolean,
         default: false
       },
       newSetCreated: {
+        type: Boolean,
+        default: false
+      },
+      value: {
         type: Boolean,
         default: false
       }
@@ -89,10 +89,11 @@
 
     data() {
       return {
+        added: [],
         collections: [],
         collectionsWithItem: [],
         fetched: false,
-        added: []
+        show: this.value
       };
     },
 
@@ -110,6 +111,12 @@
         if (newVal) {
           this.added.push(this.collectionsWithItem[0]);
         }
+      },
+      value() {
+        this.show = this.value;
+      },
+      show() {
+        this.$emit('input', this.show);
       }
     },
 
@@ -148,7 +155,7 @@
         this.$nextTick(() => {
           this.fetched = false;
           this.added = [];
-          this.$emit('hideModal');
+          this.show = false;
         });
       },
 
