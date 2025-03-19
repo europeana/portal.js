@@ -102,6 +102,7 @@
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
                         <ItemSelectButton
+                          v-if="$features.itemMultiSelect"
                           class="ml-auto"
                           @select="(newState) => selectState = newState"
                         />
