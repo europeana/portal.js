@@ -64,7 +64,7 @@ describe('components/set/SetAddItemModal', () => {
 
     describe('close button', () => {
       it('emits input event with value false', async() => {
-        const propsData = { itemIds: '/123/abc' };
+        const propsData = { itemIds: '/123/abc', value: true };
         const wrapper = factory({ propsData });
 
         await wrapper.find('[data-qa="close button"]').trigger('click');

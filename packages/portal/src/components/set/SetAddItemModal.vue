@@ -114,6 +114,9 @@
       },
       value() {
         this.show = this.value;
+      },
+      show() {
+        this.$emit('input', this.show);
       }
     },
 
@@ -152,7 +155,7 @@
         this.$nextTick(() => {
           this.fetched = false;
           this.added = [];
-          this.$emit('input', false);
+          this.show = false;
         });
       },
 
