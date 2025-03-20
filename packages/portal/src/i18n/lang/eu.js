@@ -43,6 +43,7 @@ export default {
     "clear": "Garbi",
     "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
+    "confirm": "Baieztatu",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
@@ -1403,7 +1404,8 @@ export default {
       "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
+      "removeItems": "Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula? | Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula?"
     },
     "publication": {
       "criteria": {

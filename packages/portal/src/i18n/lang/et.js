@@ -43,6 +43,7 @@ export default {
     "clear": "Lähtesta",
     "clearFilters": "Tühjenda filtrid",
     "close": "Sulge",
+    "confirm": "Kinnita",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Kas olete kindel, et soovite selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sellesse lisatud üksused."
+      "delete": "Kas olete kindel, et soovite selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sellesse lisatud üksused.",
+      "removeItems": "Kas olete kindel, et soovite eemaldada {count} üksus sellest galeriist? | Kas olete kindel, et soovite eemaldada {count} üksused sellest galeriist?"
     },
     "publication": {
       "criteria": {

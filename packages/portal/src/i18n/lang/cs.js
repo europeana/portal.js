@@ -43,6 +43,7 @@ export default {
     "clear": "Vyčistit",
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
+    "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje.",
+      "removeItems": "Jste si jisti, že chcete odstranit {count} položku z této galerie? | Jste si jisti, že chcete odstranit {count} položky z této galerie?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Limpar",
     "clearFilters": "Limpar filtros",
     "close": "fechar",
+    "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
     "download": "Descarregar",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Aviso: o conjunto de visibilidade já foi alterado e atualmente é \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
+      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela.",
+      "removeItems": "Tem a certeza de que deseja remover {count} item da galeria? | Tem a certeza de que deseja remover {count} items desta galeria?"
     },
     "publication": {
       "criteria": {

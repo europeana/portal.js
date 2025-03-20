@@ -43,6 +43,7 @@ export default {
     "clear": "Išvalyti",
     "clearFilters": "Išvalyti filtrai",
     "close": "uždaryti",
+    "confirm": "Patvirtinti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai."
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai.",
+      "removeItems": "Ar tikrai norite pašalinti {count} skaitmeninį objektą iš šios galerijos? | Ar tikrai norite pašalinti {count} skaitmeninius objektus iš šios galerijos?"
     },
     "publication": {
       "criteria": {

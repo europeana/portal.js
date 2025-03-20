@@ -43,6 +43,7 @@ export default {
     "clear": "Ryd",
     "clearFilters": "Ryd filtre",
     "close": "luk",
+    "confirm": "Bekræft",
     "continue": "fortsæt",
     "depublish": "Depublicer",
     "download": "Hent",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det."
+      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det.",
+      "removeItems": "Er du sikker på, at du vil fjerne {count} genstand fra dette galleri? | Er du sikker på, at du vil fjerne {count} genstande fra dette galleri?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Tyhjennä",
     "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
+    "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot."
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot.",
+      "removeItems": "Oletko varma, että haluat poistaa {count} aineisto tästä galleriasta? | Oletko varma, että haluat poistaa {count} aineistot tästä galleriasta?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Cancella",
     "clearFilters": "Cancella filtri",
     "close": "chiudi",
+    "confirm": "Confermare",
     "continue": "continua",
     "depublish": "Depubblicare",
     "download": "Scarica",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto.",
+      "removeItems": "Sei sicuro di voler rimuovere {count} oggetto da questa galleria? | Sei sicuro di voler rimuovere {count} oggetti da questa galleria?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Törlés",
     "clearFilters": "Szűrők törlése",
     "close": "bezárás",
+    "confirm": "Megerősít",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
@@ -1397,7 +1398,8 @@ export default {
       "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott tárgyak."
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott tárgyak.",
+      "removeItems": "Biztosan el szeretné távolítani {count} tárgyat ebből a galériából? | Biztosan el szeretné távolítani {count} tárgyakat ebből a galériából?"
     },
     "publication": {
       "criteria": {
