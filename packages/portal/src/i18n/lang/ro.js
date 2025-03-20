@@ -31,7 +31,6 @@ export default {
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
       "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
-      "remove": "Eliminați această resursă culturală din această galerie.",
       "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Adăuga",
     "apply": "Aplică",
     "cancel": "Anulează",
+    "changeView": "Schimbați vizualizarea",
     "clear": "Curăță",
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
+    "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adăugare în galerie",
-      "addToGallery": "Adăugați acest resursă culturală la o galerie.",
+      "addItems": {
+        "1": "Adăugați acest resursă culturală la o galerie.",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
+      "addItemsHere": {
+        "1": "Adăugare în galerie",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
       "cancelSelection": "Anulează selecția",
       "clickToSelectItems": "Faceți clic pe resursele culturale pentru a le selecta",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
-      "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
-      "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
+      "likeItems": {
+        "1": "Salvați acest resursă culturală în Like-urile dvs.",
+        "many": "Apreciază {count} resursă culturală | Apreciază {count} resurse culturale"
+      },
+      "removeItems": {
+        "1": "Eliminați această resursă culturală din această galerie.",
+        "many": "Eliminați {count} resursă culturală din această galerie | Eliminați {count} resurse culturale din această galerie"
+      },
       "selectItems": "Selectați resurse culturale",
+      "unlikeItems": {
+        "1": "Eliminați această resursă culturală din preferințele dumneavoastră.",
+        "many": "Nu-mi mai place {count} resursă culturală | Nu-mi mai plac {count} resurse culturale"
+      },
       "update": "Actualizare galerie"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "itemAdded": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
-      "itemLiked": "Resursa culturală a fost salvată în aprecierile tale.",
-      "itemRemoved": "Resursa culturală a fost eliminată din galeria {gallery}.",
-      "itemUnliked": "Resursa culturală a fost eliminată din aprecierile tale.",
+      "itemsAdded": {
+        "1": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
+        "many": "{count} resursa culturală a fost adăugată în galeria \"{gallery}\". | {count} resurse culturale au fost adăugate în galeria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Resursa culturală a fost salvată în aprecierile tale.",
+        "many": "{count} resursa culturală a fost salvată în aprecierile tale. | {count} resurse culturale au fost salvate în aprecierile tale."
+      },
+      "itemsRemoved": {
+        "1": "Resursa culturală a fost eliminată din galeria {gallery}.",
+        "many": "{count} resursa culturală a fost eliminată din galeria \"{gallery}\". | {count} resurse culturale au fost eliminate din galeria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Resursa culturală a fost eliminată din aprecierile tale.",
+        "many": "{count} resursa culturală a fost eliminată din aprecierile tale. | {count} resurse culturale au fost eliminate din aprecierile tale."
+      },
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat.",
+      "removeItems": "Sunteți sigur că doriți să eliminați {count} resursă culturală din această galerie? | Sunteți sigur că doriți să eliminați {count} resurse culturale din această galerie?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deselectați tot."
+      },
+      "info": "{count} resursă culturală selectată. | {count} resurse culturale selectate."
     }
   },
   "shareWhere": "Unde ai vrea să împărtășești asta?",

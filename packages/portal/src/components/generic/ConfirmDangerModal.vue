@@ -1,18 +1,23 @@
 <template>
   <b-modal
     :id="modalId"
+    v-model="show"
     :title="modalTitle"
     :static="modalStatic"
     hide-header-close
     hide-footer
   >
-    <p>{{ promptText }}</p>
-    <b-form @submit.stop.prevent="handleSubmitForm">
+    <p v-if="promptText">
+      {{ promptText }}
+    </p>
+    <b-form
+      @submit.stop.prevent="handleConfirm"
+    >
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
           data-qa="cancel button"
-          @click="handleClickCancelButton"
+          @click="handleCancel"
         >
           {{ cancelButtonText || $t('actions.cancel') }}
         </b-button>
@@ -61,22 +66,43 @@
       promptText: {
         type: String,
         default: null
+      },
+
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+
+    data() {
+      return {
+        show: this.value
+      };
+    },
+
+    watch: {
+      value() {
+        this.show = this.value;
+      },
+
+      show() {
+        this.$emit('input', this.show);
       }
     },
 
     methods: {
-      async handleSubmitForm() {
+      handleConfirm() {
         this.hide();
         this.$emit('confirm');
       },
 
-      handleClickCancelButton() {
+      handleCancel() {
         this.hide();
         this.$emit('cancel');
       },
 
       hide() {
-        this.$bvModal.hide(this.modalId);
+        this.show = false;
       }
     }
   };

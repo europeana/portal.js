@@ -29,12 +29,13 @@
       v-if="$auth.loggedIn"
     >
       <SetAddItemModal
+        v-if="showAddItemModal"
+        v-model="showAddItemModal"
         data-qa="add item to set modal"
-        :modal-id="addItemToSetModalId"
         :item-ids="identifiers"
         :new-set-created="newSetCreated"
         @clickCreateSet="clickCreateSet"
-        @hideModal="handleHideModal"
+        @input="handleModalInput"
       />
       <SetFormModal
         :modal-id="setFormModalId"
@@ -91,12 +92,12 @@
       const idSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
 
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${idSuffix}`,
-        setFormModalId: `set-form-modal-${idSuffix}`,
-        showFormModal: false,
+        idSuffix,
         newSetCreated: false,
-        showTooltip: false,
-        idSuffix
+        setFormModalId: `set-form-modal-${idSuffix}`,
+        showAddItemModal: false,
+        showFormModal: false,
+        showTooltip: false
       };
     },
 
@@ -117,14 +118,14 @@
         if (this.showFormModal === false) {
           this.showFormModal = true;
           this.newSetCreated = false;
-          this.$bvModal.hide(this.addItemToSetModalId);
+          this.showAddItemModal = false;
           this.$bvModal.show(this.setFormModalId);
         }
       },
       setCreatedOrUpdated() {
         this.showFormModal = false;
         this.newSetCreated = true;
-        this.$bvModal.show(this.addItemToSetModalId);
+        this.showAddItemModal = true;
       },
       refreshSet() {
         if (!this.showFormModal) {
@@ -134,7 +135,7 @@
       addToSet() {
         if (this.$auth.loggedIn) {
           this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
-          this.$bvModal.show(this.addItemToSetModalId);
+          this.showAddItemModal = true;
           // TODO: how to track multi-select?
           if (!Array.isArray(this.identifiers)) {
             this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifiers);
@@ -143,12 +144,15 @@
           this.$keycloak.login();
         }
       },
-      async handleHideModal() {
-        this.refreshSet();
-        // Sets focus back to the toggle button, as this functionality is lost when opening the SetFormModal.
-        this.$refs.itemAddButton.focus();
-        // Do not show the tooltip when focus returns to button.
-        this.showTooltip = false;
+      handleModalInput(value) {
+        this.showAddItemModal = value;
+        if (!value) {
+          this.refreshSet();
+          // Sets focus back to the toggle button, as this functionality is lost when opening the SetFormModal.
+          this.$refs.itemAddButton.focus();
+          // Do not show the tooltip when focus returns to button.
+          this.showTooltip = false;
+        }
       }
     }
   };

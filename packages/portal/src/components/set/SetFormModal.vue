@@ -87,14 +87,17 @@
       </b-form>
     </b-modal>
     <ConfirmDangerModal
-      v-if="!isNew"
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
       :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
       :modal-title="$t('set.actions.delete')"
       :prompt-text="$t('set.prompts.delete')"
+      data-qa="confirm delete modal"
       @cancel="show"
       @confirm="deleteSet"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
@@ -169,10 +172,11 @@
     data() {
       return {
         titleValue: '',
+        deleteSetModalId: `delete-set-modal-${this.setId}`,
         descriptionValue: '',
         isPrivate: false,
-        submissionPending: false,
-        deleteSetModalId: `delete-set-modal-${this.setId}`
+        showConfirmationModal: false,
+        submissionPending: false
       };
     },
 
@@ -313,7 +317,9 @@
 
       clickDelete() {
         this.$bvModal.hide(this.modalId);
-        this.$bvModal.show(this.deleteSetModalId);
+        if (!this.isNew) {
+          this.showConfirmationModal = true;
+        }
       }
     }
   };
