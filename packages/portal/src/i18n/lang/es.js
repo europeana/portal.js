@@ -31,7 +31,6 @@ export default {
       "private": "Una galería privada solo puede ser vista por usted.",
       "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
       "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías.",
-      "remove": "Eliminar este ítem de esta galería.",
       "reorder": "Puede reordenar ítems haciendo clic en este botón y arrastrando el ítem para moverlo."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Agregar",
     "apply": "Aplicar",
     "cancel": "Cancelar",
+    "changeView": "Cambiar vista",
     "clear": "Limpiar",
     "clearFilters": "Limpiar filtros",
     "close": "cerrar",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Agregar a la galería",
-      "addToGallery": "Añade este ítem a una galería.",
+      "addItems": {
+        "1": "Añade este ítem a una galería.",
+        "many": "Añadir {count} ítem a una galería | Añadir {count} ítems a una galería"
+      },
+      "addItemsHere": {
+        "1": "Agregar a la galería",
+        "many": "Añadir {count} ítem a una galería | Añadir {count} ítems a una galería"
+      },
       "cancelSelection": "Cancelar selección",
       "clickToSelectItems": "Haga clic en los ítems para seleccionarlos",
       "create": "Crear galería",
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
-      "removeItemFromLikes": "Elimina este ítem de tus Me gusta.",
-      "saveItemToLikes": "Guarde este ítem en sus Me gusta.",
+      "likeItems": {
+        "1": "Guarde este ítem en sus Me gusta.",
+        "many": "Me gusta {count} ítem | Me gustan {count} ítems"
+      },
+      "removeItems": {
+        "1": "Eliminar este ítem de esta galería.",
+        "many": "Eliminar {count} ítem de esta galería | Eliminar {count} ítems de esta galería"
+      },
       "selectItems": "Seleccionar ítems",
+      "unlikeItems": {
+        "1": "Elimina este ítem de tus me gusta.",
+        "many": "Quitar el \"Me gusta\" de {count} ítem | Quitar el \"Me gusta\" de {count} ítems"
+      },
       "update": "Actualizar galería"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
-      "itemAdded": "El ítem ha sido añadido a la galería \"{gallery}\".",
-      "itemLiked": "El ítem se ha guardado en tus Me gusta.",
-      "itemRemoved": "El ítem ha sido eliminado de la galería {gallery}.",
-      "itemUnliked": "El ítem se ha eliminado de tus Me gusta.",
+      "itemsAdded": {
+        "1": "El ítem ha sido añadido a la galería \"{gallery}\".",
+        "many": "{count} ítem se ha añadido a la galería \"{gallery}\". | {count} ítems se han añadido a la galería \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "El ítem se ha guardado en tus Me gusta.",
+        "many": "{count} ítem se ha guardado en tus Me gusta. | {count} ítems se han guardado en tus Me gusta."
+      },
+      "itemsRemoved": {
+        "1": "El ítem ha sido eliminado de la galería {gallery}.",
+        "many": "{count} ítem se ha eliminado de la galería \"{gallery}\". | {count} ítems se han eliminado de la galería \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "El ítem se ha eliminado de tus Me gusta.",
+        "many": "{count} ítem se ha eliminado de tus Me gusta. | {count} ítems se han eliminado de tus Me gusta."
+      },
       "likeLimit": {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 Ítems. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) es una herramienta basada en la web para administrar contenido de diferentes tipos (incluido 3D), documentar el patrimonio cultural a través de espacios comunitarios digitales y curar historias y experiencias digitales."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deseleccionar todo."
+      },
+      "info": "{count} ítem seleccionado. | {count} ítems seleccionados."
     }
   },
   "shareWhere": "¿Dónde te gustaría compartir esto?",

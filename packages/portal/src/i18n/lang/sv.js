@@ -31,7 +31,6 @@ export default {
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
       "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
-      "remove": "Ta bort detta objekt från detta galleri.",
       "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Lägg till",
     "apply": "Tillämpa",
     "cancel": "Avbryt",
+    "changeView": "Ändra vy",
     "clear": "Rensa",
     "clearFilters": "Rensa filter",
     "close": "stäng",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lägg till i galleri",
-      "addToGallery": "Lägg till detta objekt i ett galleri.",
+      "addItems": {
+        "1": "Lägg till detta objekt i ett galleri.",
+        "many": "Lägg till {count} objekt i ett galleri | Lägg till {count} objekt i ett galleri"
+      },
+      "addItemsHere": {
+        "1": "Lägg till i galleri",
+        "many": "Lägg till {count} objekt i ett galleri | Lägg till {count} objekt i ett galleri"
+      },
       "cancelSelection": "Avbryt val",
       "clickToSelectItems": "Klicka på objekten för att välja dem",
       "create": "Skapa galleri",
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
-      "removeItemFromLikes": "Ta bort det här objektet från dina gilla-markeringar.",
-      "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
+      "likeItems": {
+        "1": "Spara det här objektet till dina gilla-markeringar.",
+        "many": "Gillar {count} objekt | Gillar {count} objekt"
+      },
+      "removeItems": {
+        "1": "Ta bort detta objekt från detta galleri.",
+        "many": "Ta bort {count} objekt från detta galleri | Ta bort {count} objekt från detta galleri"
+      },
       "selectItems": "Välj objekt",
+      "unlikeItems": {
+        "1": "Ta bort det här objektet från dina gilla-markeringar.",
+        "many": "Sluta gilla {count} objekt | Sluta gilla {count} objekt."
+      },
       "update": "Uppdatera galleri"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
-      "itemAdded": "Objektet har lagts till i galleriet \"{gallery}\".",
-      "itemLiked": "Objektet har sparats till dina gilla-markeringar.",
-      "itemRemoved": "Objektet har tagits bort från galleriet {gallery}.",
-      "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
+      "itemsAdded": {
+        "1": "Objektet har lagts till i galleriet \"{gallery}\".",
+        "many": "{count} objektet har lagts till i galleriet \"{gallery}\". | {count} objekten har lagts till i galleriet \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Objektet har sparats till dina gilla-markeringar.",
+        "many": "{count} objektet har sparats i dina gilla-markeringar. | {count} objekten har sparats i dina gilla-markeringar."
+      },
+      "itemsRemoved": {
+        "1": "Objektet har tagits bort från galleriet {gallery}.",
+        "many": "{count} objektet har tagits bort från galleriet \"{gallery}\". | {count} objekten har tagits bort från galleriet \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Objektet har tagits bort från dina gilla-markeringar.",
+        "many": "{count} objektet har tagits bort från dina gilla-markeringar. | {count} objekten har tagits bort från dina gilla-markeringar."
+      },
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 gilla-markeringar"
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Avmarkera alla."
+      },
+      "info": "{count} valt objekt. | {count} valda objekt."
     }
   },
   "shareWhere": "Var skulle du vilja dela detta?",
