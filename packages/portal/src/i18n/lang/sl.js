@@ -43,6 +43,7 @@ export default {
     "clear": "Počisti",
     "clearFilters": "Počisti filtre",
     "close": "zapri",
+    "confirm": "Potrdi",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
     "download": "Prenos",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali."
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali.",
+      "removeItems": "Ali ste prepričani, da želite odstraniti {count} enoto iz te galerije? | Ali ste prepričani, da želite odstraniti {count} enote iz te galerije?"
     },
     "publication": {
       "criteria": {

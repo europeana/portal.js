@@ -43,6 +43,7 @@ export default {
     "clear": "Glan",
     "clearFilters": "Glan scagairí",
     "close": "dún",
+    "confirm": "Deimhnigh",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
     },
     "prompts": {
-      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
+      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis.",
+      "removeItems": "An bhfuil tú cinnte gur mhaith leat {count} mír a bhaint den ghailearaí seo? | An bhfuil tú cinnte gur mhaith leat {count} míreanna a bhaint den ghailearaí seo?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Wissen",
     "clearFilters": "Filters wissen",
     "close": "sluiten",
+    "confirm": "Bevestigen",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd.",
+      "removeItems": "Weet u zeker dat u {count} object uit deze galerij wilt verwijderen? | Weet u zeker dat u {count} objecten uit deze galerij wilt verwijderen?"
     },
     "publication": {
       "criteria": {

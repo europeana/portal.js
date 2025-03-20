@@ -43,6 +43,7 @@ export default {
     "clear": "Očisti",
     "clearFilters": "Izbriši filtre",
     "close": "zatvori",
+    "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
     "download": "Preuzmi",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali."
+      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali.",
+      "removeItems": "Jeste li sigurni da želite ukloniti {count} predmet iz ove galerije? | Jeste li sigurni da želite ukloniti {count} predmete iz ove galerije?"
     },
     "publication": {
       "criteria": {

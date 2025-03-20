@@ -43,6 +43,7 @@ export default {
     "clear": "Curăță",
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
+    "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat.",
+      "removeItems": "Sunteți sigur că doriți să eliminați {count} resursă culturală din această galerie? | Sunteți sigur că doriți să eliminați {count} resurse culturale din această galerie?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Zurücksetzen",
     "clearFilters": "Filter löschen",
     "close": "schließen",
+    "confirm": "Bestätigen",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
@@ -1398,7 +1399,8 @@ export default {
       "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
+      "removeItems": "Sind Sie sicher, dass Sie {count} Objekt aus dieser Galerie entfernen möchten? | Sind Sie sicher, dass Sie {count} Objekte aus dieser Galerie entfernen möchten?"
     },
     "publication": {
       "criteria": {

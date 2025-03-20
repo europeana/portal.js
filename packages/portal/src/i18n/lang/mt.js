@@ -43,6 +43,7 @@ export default {
     "clear": "Ċara",
     "clearFilters": "Filtri ċari",
     "close": "agħlaq",
+    "confirm": "Ikkonferma",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
+      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha.",
+      "removeItems": "Inti żgur li trid neħħi {count} oġġett minn din il-gallerija? | Inti żgur li trid neħħi {count} oġġetti minn din il-gallerija?"
     },
     "publication": {
       "criteria": {

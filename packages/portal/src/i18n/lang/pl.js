@@ -43,6 +43,7 @@ export default {
     "clear": "Wyczyść",
     "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
+    "confirm": "Potwierdź",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
     "download": "Ściągnij",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Ostrzeżenie: zestaw widoczności już się zmienił i obecnie wynosi „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej."
+      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej.",
+      "removeItems": "Czy na pewno chcesz usunąć {count} obiekt cyfrowy z tej galerii? | Czy na pewno chcesz usunąć {count} obiekty cyfrowe z tej galerii?"
     },
     "publication": {
       "criteria": {

@@ -43,6 +43,7 @@ export default {
     "clear": "Vyčistiť",
     "clearFilters": "Vymazať filtre",
     "close": "zatvoriť",
+    "confirm": "Potvrdiť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
-      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky objekty, ktoré ste do nej pridali."
+      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky objekty, ktoré ste do nej pridali.",
+      "removeItems": "Naozaj chcete odstrániť {count} objekt z tejto galérie? | Naozaj chcete odstrániť {count} objekty z tejto galérie?"
     },
     "publication": {
       "criteria": {

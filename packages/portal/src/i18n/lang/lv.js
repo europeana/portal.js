@@ -43,6 +43,7 @@ export default {
     "clear": "Notīrīt",
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
+    "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti."
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti.",
+      "removeItems": "Vai tiešām vēlaties noņemt {count} digitālo objektu no šīs galerijas? | Vai tiešām vēlaties noņemt {count} digitālos objektus no šīs galerijas?"
     },
     "publication": {
       "criteria": {

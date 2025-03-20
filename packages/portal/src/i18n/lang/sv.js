@@ -43,6 +43,7 @@ export default {
     "clear": "Rensa",
     "clearFilters": "Rensa filter",
     "close": "stäng",
+    "confirm": "Bekräfta",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
     "download": "Ladda ner",
@@ -1396,7 +1397,8 @@ export default {
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
+      "removeItems": "Är du säker på att du vill ta bort {count} objekt från detta galleri? | Är du säker på att du vill ta bort {count} objekt från detta galleri?"
     },
     "publication": {
       "criteria": {
