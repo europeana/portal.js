@@ -233,7 +233,6 @@
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
-        images: [],
         title: '',
         rawDescription: '',
         selectState: false
