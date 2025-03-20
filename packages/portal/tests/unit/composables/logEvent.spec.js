@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../utils';
+// import Vue from 'vue';
+// import { createLocalVue } from '@vue/test-utils';
+// import { shallowMountNuxt } from '../utils';
 import nock from 'nock';
 import sinon from 'sinon';
 
-import mixin from '@/mixins/logEvent';
+import { useLogEvent } from '@/composables/logEvent.js';
 
 const component = {
   template: '<div></div>',
-  mixins: [mixin]
+  composables: [mixin]
 };
 
 const localVue = createLocalVue();
@@ -42,17 +42,23 @@ const fixtures = {
   }
 };
 
-describe('mixins/logEvent', () => {
+describe('composables/logEvent', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  })
   beforeEach(() => {
     nock('http://localhost')
-      .post('/_api/events')
+      .post('/_api/events', () => true)
       .reply(204);
   });
   afterEach(() => {
     sinon.resetHistory();
     nock.cleanAll();
   });
-  afterAll(sinon.resetBehavior);
+  afterAll(() => {
+    sinon.resetBehavior();
+    nock.enableNetConnect();
+  });
 
   describe('methods', () => {
     describe('logEvent', () => {

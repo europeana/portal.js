@@ -44,8 +44,8 @@
 </template>
 
 <script>
-  import logEventMixin from '@/mixins/logEvent';
   import { useCardinality } from '@/composables/cardinality.js';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
@@ -57,10 +57,6 @@
     components: {
       SetAddItemButton
     },
-
-    mixins: [
-      logEventMixin
-    ],
 
     props: {
       itemIds: {
@@ -83,8 +79,9 @@
 
     setup(props) {
       const { cardinality } = useCardinality(props.itemIds);
+      const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { cardinality, makeToast };
+      return { cardinality, logEvent, makeToast };
     },
 
     data() {
