@@ -39,7 +39,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
       }
     },
     $auth: { user: { sub: 'user-id' } }
-  }
+  },
+  stubs: ['ConfirmDangerModal']
 });
 
 describe('components/set/SetAddItemModal', () => {
@@ -91,9 +92,24 @@ describe('components/set/SetAddItemModal', () => {
         const wrapper = factory({ propsData, data });
 
         await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+        const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
 
-        expect(setApiDeleteItemsStub.calledWith('001', '/000/aaa')).toBe(true);
-        expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.1')).toBe(true);
+        expect(confirmRemovalModal.isVisible()).toBe(true);
+        expect(setApiDeleteItemsStub.called).toBe(false);
+      });
+
+      describe('when the removal confirmation modal emits the confirm event', () => {
+        it('removes item from gallery', async() => {
+          const propsData = { itemIds: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
+          const data = { fetched: true, collections: sets, collectionsWithItem: ['001'] };
+          const wrapper = factory({ propsData, data });
+
+          await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+          const confirmRemovalModal = wrapper.find('[data-qa="confirm removal modal"]');
+          await confirmRemovalModal.vm.$emit('confirm');
+
+          expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.1')).toBe(true);
+        });
       });
     });
   });
