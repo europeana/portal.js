@@ -118,7 +118,6 @@
                           v-if="likesId && likedItems.length !== 0"
                           :items="likedItems"
                           :view="view"
-                          :select-state="itemMultiSelect"
                           class="pb-5"
                         />
                       </b-col>
