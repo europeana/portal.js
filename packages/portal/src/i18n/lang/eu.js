@@ -31,7 +31,6 @@ export default {
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
       "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
-      "remove": "Kendu elementu hau galeria honetatik.",
       "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Gehitu",
     "apply": "Aplikatu",
     "cancel": "Utzi",
+    "changeView": "Ikuspegi aldatu",
     "clear": "Garbi",
     "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
@@ -1336,17 +1336,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Bildumara gaineratu",
-      "addToGallery": "Gehitu elementu hau galeria batera.",
+      "addItems": {
+        "1": "Gehitu elementu hau galeria batera.",
+        "many": "Gehitu {count} elementu galeria bati | Gehitu {count} elementu galeria batean"
+      },
+      "addItemsHere": {
+        "1": "Galeriara gehitu",
+        "many": "Gehitu {count} elementu galeria bati | Gehitu {count} elementu galeria batean"
+      },
       "cancelSelection": "Utzi hautaketa",
       "clickToSelectItems": "Egin klik elementuetan haiek hautatzeko",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
-      "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
-      "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
+      "likeItems": {
+        "1": "Gorde elementu hau zure maiteen artean.",
+        "many": "Gustatu {count} | elementua Gustatu {count} elementu"
+      },
+      "removeItems": {
+        "1": "Kendu elementu hau galeria honetatik.",
+        "many": "Kendu {count} elementu galeria honetatik | Kendu {count} elementu galeria honetatik"
+      },
       "selectItems": "Hautatu elementuak",
+      "unlikeItems": {
+        "1": "Kendu elementu hau zure gustukoenetatik.",
+        "many": "Ez gustatu {count} elementua | Ez gustatu {count} elementu"
+      },
       "update": "Eguneratu galeria"
     },
     "form": {
@@ -1363,10 +1379,22 @@ export default {
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
-      "itemAdded": "Elementua \" {gallery} \" galerian gehitu da.",
-      "itemLiked": "Elementua zure gustukoetan gorde da.",
-      "itemRemoved": "Elementua {gallery} galeriatik kendu da.",
-      "itemUnliked": "Elementua zure gustukoenetatik kendu da.",
+      "itemsAdded": {
+        "1": "Elementua \" {gallery} \" galerian gehitu da.",
+        "many": "{count} elementu gehitu da galeriara \"{gallery}\". | {count} elementu gehitu dira galeriara \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Elementua zure gustukoetan gorde da.",
+        "many": "{count} elementu gorde da zure gustukoetan. | {count} elementu gorde dira zure gustukoetan."
+      },
+      "itemsRemoved": {
+        "1": "Elementua {gallery} galeriatik kendu da.",
+        "many": "{count} elementu kendu da galeriatik \"{gallery}\". | {count} elementu kendu dira galeriatik \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Elementua zure gustukoenetatik kendu da.",
+        "many": "{count} elementu kendu da zure gustukoetatik. | {count} elementu kendu dira zure gustukoetatik."
+      },
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
@@ -1403,6 +1431,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deshautatu guztiak."
+      },
+      "info": "{count} elementu hautatuta. | {count} elementu hautatu dira."
     }
   },
   "shareWhere": "Non partekatu nahiko zenuke hau?",

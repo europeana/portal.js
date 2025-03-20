@@ -31,7 +31,6 @@ export default {
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
       "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
-      "remove": "Usuń ten obiekt cyfrowy z tej galerii.",
       "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Dodaj",
     "apply": "Zastosuj",
     "cancel": "Anuluj",
+    "changeView": "Zmień widok",
     "clear": "Wyczyść",
     "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj do galerii",
-      "addToGallery": "Dodaj ten obiekt cyfrowy do galerii.",
+      "addItems": {
+        "1": "Dodaj ten obiekt cyfrowy do galerii.",
+        "many": "Dodaj {count} obiekt cyfrowy do galerii | Dodaj {count} obiekty cyfrowe do galerii"
+      },
+      "addItemsHere": {
+        "1": "Dodaj do galerii",
+        "many": "Dodaj {count} obiekt cyfrowy do galerii | Dodaj {count} obiekty cyfrowe do galerii"
+      },
       "cancelSelection": "Anuluj wybór",
       "clickToSelectItems": "Kliknij obiekty cyfrowe, aby je wybrać",
       "create": "Utwórz galerię",
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
-      "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
-      "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+      "likeItems": {
+        "1": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+        "many": "Polub {count} obiekt cyfrowy | Polub {count} obiekty cyfrowe"
+      },
+      "removeItems": {
+        "1": "Usuń ten obiekt cyfrowy z tej galerii.",
+        "many": "Usuń {count} obiekt cyfrowy z tej galerii | Usuń {count} obiekty cyfrowe z tej galerii"
+      },
       "selectItems": "Wybierz obiekty cyfrowe",
+      "unlikeItems": {
+        "1": "Usuń ten obiekt cyfrowy ze swoich polubień.",
+        "many": "Odlub z {count} obiektu cyfrowego | Odlub z {count} obiektów cyfrowych"
+      },
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
-      "itemAdded": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
-      "itemLiked": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
-      "itemRemoved": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
-      "itemUnliked": "Obiekt cyfrowy został usunięty z Twoich polubień.",
+      "itemsAdded": {
+        "1": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
+        "many": "{count} obiekt cyfrowy został dodany do galerii \"{gallery}\". | {count} obiekty cyfrowe zostały dodane do galerii \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
+        "many": "{count} obiekt cyfrowy został zapisany w Twoich polubieniach. | {count} obiekty cyfrowe zostały zapisane w Twoich polubieniach."
+      },
+      "itemsRemoved": {
+        "1": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
+        "many": "{count} obiekt cyfrowy został usunięty z galerii \"{gallery}\". | {count} obiekty cyfrowe zostały usunięte z galerii \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Obiekt cyfrowy został usunięty z Twoich polubień.",
+        "many": "{count} obiekt cyfrowy został usunięty z Twoich polubień. | {count} obiekty cyfrowe zostały usunięte z Twoich polubień."
+      },
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) to internetowe narzędzie do zarządzania treściami różnego typu (w tym 3D), dokumentowania dziedzictwa kulturowego poprzez cyfrowe przestrzenie społecznościowe oraz kura torowania cyfrowych historii i doświadczeń."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Odznacz wszystko."
+      },
+      "info": "{count} wybrany obiekt cyfrowy. | {count} wybrane obiekty cyfrowe."
     }
   },
   "shareWhere": "Gdzie chcesz się tym podzielić?",

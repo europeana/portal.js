@@ -31,7 +31,6 @@ export default {
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
       "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
-      "remove": "Fjern denne genstand fra dette galleri.",
       "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Tilføje",
     "apply": "Anvend",
     "cancel": "Annuller",
+    "changeView": "Skift visning",
     "clear": "Ryd",
     "clearFilters": "Ryd filtre",
     "close": "luk",
@@ -1331,17 +1331,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Føj til galleri",
-      "addToGallery": "Føj dette genstand til et galleri.",
+      "addItems": {
+        "1": "Føj dette genstand til et galleri.",
+        "many": "Tilføj {count} genstand til et galleri | Tilføj {count} genstande til et galleri"
+      },
+      "addItemsHere": {
+        "1": "Føj til galleri",
+        "many": "Tilføj {count} genstand til et galleri | Tilføj {count} genstande til et galleri"
+      },
       "cancelSelection": "Annuller valg",
       "clickToSelectItems": "Klik på genstande for at vælge dem",
       "create": "Opret galleri",
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
-      "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
-      "saveItemToLikes": "Gem dette genstand til dine likes.",
+      "likeItems": {
+        "1": "Gem dette genstand til dine likes.",
+        "many": "Like {count} genstand | Like {count} genstande"
+      },
+      "removeItems": {
+        "1": "Fjern denne genstand fra dette galleri.",
+        "many": "Fjern {count} genstand fra dette galleri | Fjern {count} genstande fra dette galleri"
+      },
       "selectItems": "Vælg genstande",
+      "unlikeItems": {
+        "1": "Fjern denne genstand fra dine likes.",
+        "many": "Fjern like fra {count} genstand | Fjern like fra {count} genstande"
+      },
       "update": "Opdater galleri"
     },
     "form": {
@@ -1358,10 +1374,22 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "itemAdded": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
-      "itemLiked": "Genstanden er blevet gemt i dine likes.",
-      "itemRemoved": "Genstanden er blevet fjernet fra galleriet {gallery}.",
-      "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
+      "itemsAdded": {
+        "1": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
+        "many": "{count} genstand er blevet tilføjet til galleriet \"{gallery}\". | {count} genstande er blevet tilføjet til galleriet \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Genstanden er blevet gemt i dine likes.",
+        "many": "{count} genstand er blevet gemt i dine likes. | {count} genstande er blevet gemt i dine likes."
+      },
+      "itemsRemoved": {
+        "1": "Genstanden er blevet fjernet fra galleriet {gallery}.",
+        "many": "{count} genstand er blevet fjernet fra galleriet \"{gallery}\". | {count} genstande er blevet fjernet fra galleriet \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Genstanden er blevet fjernet fra dine likes.",
+        "many": "{count} genstand er blevet fjernet fra dine likes. | {count} genstande er blevet fjernet fra dine likes."
+      },
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
         "title": "100 likes"
@@ -1398,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) er et webbaseret værktøj til at administrere indhold af forskellige typer (inklusive 3D), dokumentere kulturarv gennem digitale fællesskabsrum og kuratere digitale historier og oplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Fravælg alle."
+      },
+      "info": "{count} valgt genstand. | {count} valgte genstande."
     }
   },
   "shareWhere": "Hvor vil du gerne dele dette?",
