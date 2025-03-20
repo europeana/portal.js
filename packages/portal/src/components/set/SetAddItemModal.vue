@@ -208,10 +208,7 @@
             ));
           } else {
             await this.$apis.set.insertItems(setId, this.itemIds);
-            // TODO: how to track multi-select - for each?
-            if (!Array.isArray(this.itemIds)) {
-              this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
-            }
+            this.logEvent('add', [].concat(this.itemIds).map((id) => `${ITEM_URL_PREFIX}${id}`));
             this.added.push(setId);
             this.makeToast(this.$tc(
               `set.notifications.itemsAdded.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
