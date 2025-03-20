@@ -76,7 +76,7 @@ export default async(req, res, next) => {
     const { actionType, objectUri, sessionId } = req.body;
 
     for (const eachObjectUri of [].concat(objectUri)) {
-      logEvent({ actionType, objectUri: eachObjectUri, sessionId });
+      await logEvent({ actionType, objectUri: eachObjectUri, sessionId });
     }
   } catch (err) {
     next(err);
