@@ -96,19 +96,21 @@
             <b-button
               class="d-inline-flex align-items-center mr-2 mt-2"
               data-qa="edit set button"
-              @click="$bvModal.show(setFormModalId)"
+              @click="showFormModal = true"
             >
               <span class="icon-edit pr-1" />
               {{ $t('actions.edit') }}
             </b-button>
             <SetFormModal
+              v-if="showFormModal"
+              v-model="showFormModal"
               :set-id="set.id"
-              :modal-id="setFormModalId"
               :title="set.title"
               :description="set.description"
               :visibility="set.visibility"
               :user-is-owner="userIsOwner"
               :type="set.type"
+              @input="showFormModal = $event"
             />
           </template>
           <SetPublicationRequestWidget
@@ -233,6 +235,7 @@
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         images: [],
+        showFormModal: false,
         title: '',
         rawDescription: '',
         selectState: false
@@ -266,9 +269,6 @@
       },
       setId() {
         return this.$route.params.pathMatch.split('-')[0];
-      },
-      setFormModalId() {
-        return `set-form-modal-${this.setId}`;
       },
       setCreatorId() {
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;

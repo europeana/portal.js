@@ -34,13 +34,7 @@
         data-qa="add item to set modal"
         :item-ids="identifiers"
         :new-set-created="newSetCreated"
-        @clickCreateSet="clickCreateSet"
-        @input="handleModalInput"
-      />
-      <SetFormModal
-        :modal-id="setFormModalId"
-        :item-ids="identifiers"
-        @response="setCreatedOrUpdated"
+        @input="handleAddItemModalInput"
       />
     </template>
   </div>
@@ -48,15 +42,13 @@
 
 <script>
   import SetAddItemModal from '../set/SetAddItemModal';
-  import SetFormModal from '../set/SetFormModal';
   import { useCardinality } from '@/composables/cardinality.js';
 
   export default {
     name: 'ItemAddButton',
 
     components: {
-      SetAddItemModal,
-      SetFormModal
+      SetAddItemModal
     },
 
     props: {
@@ -94,9 +86,7 @@
       return {
         idSuffix,
         newSetCreated: false,
-        setFormModalId: `set-form-modal-${idSuffix}`,
         showAddItemModal: false,
-        showFormModal: false,
         showTooltip: false
       };
     },
@@ -114,19 +104,6 @@
     },
 
     methods: {
-      clickCreateSet() {
-        if (this.showFormModal === false) {
-          this.showFormModal = true;
-          this.newSetCreated = false;
-          this.showAddItemModal = false;
-          this.$bvModal.show(this.setFormModalId);
-        }
-      },
-      setCreatedOrUpdated() {
-        this.showFormModal = false;
-        this.newSetCreated = true;
-        this.showAddItemModal = true;
-      },
       refreshSet() {
         if (!this.showFormModal) {
           this.$store.dispatch('set/refreshSet');
@@ -144,7 +121,7 @@
           this.$keycloak.login();
         }
       },
-      handleModalInput(value) {
+      handleAddItemModalInput(value) {
         this.showAddItemModal = value;
         if (!value) {
           this.refreshSet();

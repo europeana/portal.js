@@ -14,9 +14,12 @@
       </b-card-body>
     </div>
     <SetFormModal
-      :modal-id="setFormModalId"
+      v-if="showFormModal"
+      v-model="showFormModal"
       :visibility="visibility"
-      @response="setCreated"
+      @created="$emit('created')"
+      @updated="$emit('updated')"
+      @input="showFormModal = $event"
     />
   </b-card>
 </template>
@@ -45,21 +48,13 @@
 
     data() {
       return {
-        setFormModalId: `set-form-modal-${this.visibility}`,
         showFormModal: false
       };
     },
 
     methods: {
       clickCreateSet() {
-        if (!this.showFormModal) {
-          this.showFormModal = true;
-          this.$bvModal.show(this.setFormModalId);
-        }
-      },
-      setCreated() {
-        this.showFormModal = false;
-        this.$emit('created');
+        this.showFormModal = true;
       }
     }
   };

@@ -148,14 +148,6 @@ describe('components/item/ItemAddButton', () => {
         expect(wrapper.vm.showFormModal).toBe(true);
       });
     });
-    describe('setCreatedOrUpdated', () => {
-      it('shows the create/update modal', async() => {
-        const wrapper = factory();
-        await wrapper.vm.setCreatedOrUpdated();
-
-        expect(wrapper.vm.newSetCreated).toBe(true);
-      });
-    });
     describe('refreshSet', () => {
       it('refreshes the set', async() => {
         const wrapper = factory();

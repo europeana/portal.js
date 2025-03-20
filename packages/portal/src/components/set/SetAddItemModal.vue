@@ -13,7 +13,7 @@
         variant="primary"
         class="btn-collection w-100 mb-3 text-left p-3"
         data-qa="create new gallery button"
-        @click="$emit('clickCreateSet')"
+        @click="showFormModal = true"
       >
         {{ $t('set.actions.createNew') }}
       </b-button>
@@ -42,6 +42,12 @@
         </b-button>
       </div>
     </b-modal>
+    <SetFormModal
+      v-if="showFormModal"
+      v-model="showFormModal"
+      :item-ids="itemIds"
+      @input="showFormModal = $event"
+    />
     <ConfirmDangerModal
       v-if="showConfirmationModal"
       v-model="showConfirmationModal"
@@ -60,6 +66,7 @@
   import logEventMixin from '@/mixins/logEvent';
   import { useCardinality } from '@/composables/cardinality.js';
   import useMakeToast from '@/composables/makeToast.js';
+  import SetFormModal from './SetFormModal';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -69,7 +76,8 @@
 
     components: {
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal'),
-      SetAddItemButton
+      SetAddItemButton,
+      SetFormModal
     },
 
     mixins: [
@@ -110,7 +118,8 @@
         confirmRemoveModalId: 'set-confirm-remove-multiple-items',
         fetched: false,
         show: this.value,
-        showConfirmationModal: false
+        showConfirmationModal: false,
+        showFormModal: false
       };
     },
 

@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-modal
-      :id="modalId"
+      v-model="show"
       :title="modalTitle"
       :static="modalStatic"
       hide-footer
       hide-header-close
       @show="init"
-      @hide="$emit('response', 'cancel')"
+      @hide="hide('cancel')"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -95,8 +95,8 @@
       :modal-title="$t('set.actions.delete')"
       :prompt-text="$t('set.prompts.delete')"
       data-qa="confirm delete modal"
-      @cancel="show"
-      @confirm="deleteSet"
+      @cancel="handleRemoveCancel"
+      @confirm="handleRemoveConfirm"
       @input="showConfirmationModal = $event"
     />
   </div>
@@ -118,11 +118,6 @@
     },
 
     props: {
-      modalId: {
-        type: String,
-        default: 'set-form-modal'
-      },
-
       modalStatic: {
         type: Boolean,
         default: false
@@ -146,6 +141,11 @@
       userIsOwner: {
         type: Boolean,
         default: true
+      },
+
+      value: {
+        type: Boolean,
+        default: false
       },
 
       visibility: {
@@ -175,6 +175,7 @@
         deleteSetModalId: `delete-set-modal-${this.setId}`,
         descriptionValue: '',
         isPrivate: false,
+        show: this.value,
         showConfirmationModal: false,
         submissionPending: false
       };
@@ -240,6 +241,15 @@
       }
     },
 
+    watch: {
+      value() {
+        this.show = this.value;
+      },
+      show() {
+        this.$emit('input', this.show);
+      }
+    },
+
     created() {
       this.init();
     },
@@ -271,7 +281,8 @@
             await this.$apis.set.insertItems(setId, this.itemIds);
           }
 
-          this.hide(this.isNew ? 'create' : 'update');
+          this.hide();
+          this.$emit(this.isNew ? 'created' : 'updated');
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         } finally {
@@ -288,7 +299,7 @@
       },
 
       // TODO: error handling other statuses
-      async deleteSet() {
+      async handleRemoveConfirm() {
         try {
           await this.$apis.set.delete(this.setId);
           if (this.setId === this.$store.state.set.active?.id) {
@@ -306,17 +317,16 @@
         }
       },
 
-      show() {
-        this.$bvModal.show(this.modalId);
+      handleRemoveCancel() {
+        this.show = true;
       },
 
-      hide(signalType) {
-        this.$emit('response', signalType);
-        this.$bvModal.hide(this.modalId);
+      hide() {
+        this.show = false;
       },
 
       clickDelete() {
-        this.$bvModal.hide(this.modalId);
+        this.show = false;
         if (!this.isNew) {
           this.showConfirmationModal = true;
         }
