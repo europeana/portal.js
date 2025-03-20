@@ -31,7 +31,6 @@ export default {
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
       "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
-      "remove": "Bain an mír seo den ghailearaí seo.",
       "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Cuir",
     "apply": "Cuir i bhfeidhm",
     "cancel": "Cealaigh",
+    "changeView": "Athraigh amharc",
     "clear": "Glan",
     "clearFilters": "Glan scagairí",
     "close": "dún",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Cuir leis an ngailearaí",
-      "addToGallery": "Cuir an mhír seo le gailearaí.",
+      "addItems": {
+        "1": "Cuir an mhír seo le gailearaí.",
+        "many": "Cuir {count} mír le gailearaí | Cuir {count} míreanna le gailearaí"
+      },
+      "addItemsHere": {
+        "1": "Cuir leis an ngailearaí",
+        "many": "Cuir {count} mír le gailearaí | Cuir {count} míreanna le gailearaí"
+      },
       "cancelSelection": "Cealaigh an roghnúchán",
       "clickToSelectItems": "Cliceáil ar na míreanna chun iad a roghnú",
       "create": "Cruthaigh gailearaí",
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
-      "removeItemFromLikes": "Bain an mír seo ó do thaitin.",
-      "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
+      "likeItems": {
+        "1": "Sábháil an mhír seo chuig do thaitin.",
+        "many": "Taitníonn {count} mír liom | Taitníonn {count} míreanna liom"
+      },
+      "removeItems": {
+        "1": "Bain an mír seo den ghailearaí seo.",
+        "many": "Bain {count} mír den ghailearaí seo | Bain {count} míreanna den ghailearaí seo"
+      },
       "selectItems": "Roghnaigh míreanna",
+      "unlikeItems": {
+        "1": "Bain an mír seo ó do thaitin.",
+        "many": "{count} mír ní thaitníonn liom a thuilleadh | {count} míreanna ní thaitníonn liom a thuilleadh."
+      },
       "update": "Nuashonraigh gailearaí"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
-      "itemAdded": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
-      "itemLiked": "Sábháladh an mír le do rudaí is maith leat.",
-      "itemRemoved": "Baineadh an mhír as gailearaí {gallery}.",
-      "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
+      "itemsAdded": {
+        "1": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
+        "many": "{count} mír cuireadh leis an ngailearaí \"{gallery}\". | {count} míreanna cuireadh leis an ngailearaí \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Sábháladh an mír le do rudaí is maith leat.",
+        "many": "{count} mír sábháladh i do rudaí is maith leat. | {count} míreanna sábháladh i do rudaí is maith leat."
+      },
+      "itemsRemoved": {
+        "1": "Baineadh an mhír as gailearaí {gallery}.",
+        "many": "{count} mír baineadh as an ngailearaí \"{gallery}\". | {count} míreanna baineadh as an ngailearaí \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Baineadh an mír as do rudaí is maith leat.",
+        "many": "{count} mír baineadh as do rudaí is maith leat. | {count} míreanna baineadh as do rudaí is maith leat."
+      },
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 taitníonn"
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "Uirlis gréasánbhunaithe is ea WEAVExperience (WEAVEx) chun inneachar de chineálacha éagsúla a bhainistiú (lena n-áirítear 3D), chun oidhreacht chultúrtha a dhoiciméadú trí spásanna digiteacha pobail, agus chun scéalta agus eispéiris dhigiteacha a choimeád."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Díroghnaigh uile."
+      },
+      "info": "{count} mír roghnaithe. | {count} míreanna roghnaithe."
     }
   },
   "shareWhere": "Cá háit ar mhaith leat é seo a roinnt?",

@@ -31,7 +31,6 @@ export default {
       "private": "Uma galeria privada só pode ser vista por si.",
       "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
       "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias.",
-      "remove": "Remova este item desta galeria.",
       "reorder": "Você pode reordenar os itens clicando neste botão e arrastando o item para movê-lo."
     }
   },
@@ -40,6 +39,7 @@ export default {
     "add": "Adicionar",
     "apply": "Aplicar",
     "cancel": "Cancelar",
+    "changeView": "Alterar visualização",
     "clear": "Limpar",
     "clearFilters": "Limpar filtros",
     "close": "fechar",
@@ -1329,17 +1329,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adicionar galeria",
-      "addToGallery": "Adicione este item a uma galeria.",
+      "addItems": {
+        "1": "Adicione este item a uma galeria.",
+        "many": "Adicionar {count} item a uma galeria | Adicionar {count} itens a uma galeria"
+      },
+      "addItemsHere": {
+        "1": "Adicionar galeria",
+        "many": "Adicionar {count} item a uma galeria | Adicionar {count} itens a uma galeria"
+      },
       "cancelSelection": "Cancelar seleção",
       "clickToSelectItems": "Clique nos itens para os selecionar",
       "create": "Criar galeria",
       "createNew": "Criar uma galeria",
       "delete": "Eliminar galeria",
       "edit": "Editar galeria",
-      "removeItemFromLikes": "Remova este item de suas curtidas.",
-      "saveItemToLikes": "Salve este item nas suas curtidas.",
+      "likeItems": {
+        "1": "Guardar este item nos seus gostos.",
+        "many": "Goste de {count} item | Goste de {count} itens"
+      },
+      "removeItems": {
+        "1": "Remova este item desta galeria.",
+        "many": "Remover {count} item da galeria | Remover {count} items desta galeria"
+      },
       "selectItems": "Selecionar itens",
+      "unlikeItems": {
+        "1": "Remova este item dos seus gostos.",
+        "many": "Não gosto mais de {count} item | Não gosto mais de {count} itens"
+      },
       "update": "Atualizar galeria"
     },
     "form": {
@@ -1356,10 +1372,22 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
-      "itemAdded": "O item foi adicionado à galeria \"{gallery}\".",
-      "itemLiked": "O item foi salvo nos seus gostos.",
-      "itemRemoved": "O item foi removido da galeria {gallery}.",
-      "itemUnliked": "O item foi removido dos seus gostos.",
+      "itemsAdded": {
+        "1": "O item foi adicionado à galeria \"{gallery}\".",
+        "many": "{count} item foi adicionado à galeria \"{gallery}\". | {count} itens foram adicionados à galeria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "O item foi salvo nos seus gostos.",
+        "many": "{count} item foi salvo nos seus gostos. | {count} itens foram salvos nos seus gostos."
+      },
+      "itemsRemoved": {
+        "1": "O item foi removido da galeria {gallery}.",
+        "many": "{count} item foi removido da galeria \"{gallery}\". | {count} itens foram removidos da galeria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "O item foi removido dos seus gostos.",
+        "many": "{count} item foi removido dos seus gostos. | {count} itens foram removidos dos seus gostos."
+      },
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
@@ -1396,6 +1424,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Desmarque tudo."
+      },
+      "info": "{count} item selecionado. | {count} itens selecionados."
     }
   },
   "shareWhere": "Onde você gostaria de compartilhar isso?",
