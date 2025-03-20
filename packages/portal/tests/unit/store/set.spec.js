@@ -236,11 +236,25 @@ describe('store/set', () => {
     describe('refreshSet()', () => {
       describe('when collection-modal hides', () => {
         it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
-          const state = { active: set };
+          const state = { active: set, selectedItems: [] };
 
           await store.actions.refreshSet({ state, dispatch });
 
           expect(dispatch.calledWith('fetchActive')).toBe(true);
+        });
+      });
+      describe('when on the active set', () => {
+        describe('and there are selected items', () => {
+          it('refreshes the selected items', async() => {
+            const state = {
+              active: set,
+              selectedItems: ['/001/abc', '/002/abc']
+            };
+
+            await store.actions.refreshSet({ state, dispatch });
+
+            expect(dispatch.calledWith('refreshSelected')).toBe(true);
+          });
         });
       });
     });
@@ -268,6 +282,30 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.recommendation.reject.calledWith('set', setId, [itemId])).toBe(true);
         expect(commit.calledWith('setActiveRecommendations', updatedRecommendations)).toBe(true);
+      });
+    });
+
+    describe('refreshSelected()', () => {
+      it('refreshes the selected items to only the active set or recommended items', async() => {
+        const state = {
+          active: { ...set, items: [{ id: '/002/abc' }] },
+          activeRecommendations: [],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state, commit });
+
+        expect(commit.calledWith('setSelected', ['/002/abc'])).toBe(true);
+
+        const stateWithSelectedRecommndations = {
+          active: null,
+          activeRecommendations: [{ id: '/001/abc' }],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state: stateWithSelectedRecommndations, commit });
+
+        expect(commit.calledWith('setSelected', ['/001/abc'])).toBe(true);
       });
     });
   });

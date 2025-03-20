@@ -86,9 +86,12 @@ export default {
         throw e;
       }
     },
-    refreshSet({ state, dispatch }) {
+    async refreshSet({ state, dispatch }) {
       if (state.active) {
-        dispatch('fetchActive', state.active.id);
+        await dispatch('fetchActive', state.active.id);
+        if (state.selectedItems.length > 0) {
+          dispatch('refreshSelected');
+        }
       }
     },
     async fetchLikes({ commit, state }) {
@@ -134,6 +137,12 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
+    },
+    refreshSelected({ state, commit }) {
+      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
+      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
+
+      commit('setSelected', activeSelectedItems);
     }
   }
 };
