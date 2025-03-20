@@ -28,7 +28,7 @@
       :class="{ 'd-flex': selectionCount >= 1 }"
     >
       <ItemRemoveButton
-        v-if="userCanEditSet"
+        v-if="userCanEditSet && someSelectedInActiveSet"
         :identifiers="selected"
         button-variant="dark-flat"
         class="ml-2"
@@ -73,6 +73,12 @@
       },
       selected() {
         return this.$store.state.set.selectedItems;
+      },
+      activeSetItemIds() {
+        return this.$store.state.set.active?.items.map(item => item.id);
+      },
+      someSelectedInActiveSet() {
+        return this.activeSetItemIds && this.selected.some(item => this.activeSetItemIds.includes(item));
       }
     },
 

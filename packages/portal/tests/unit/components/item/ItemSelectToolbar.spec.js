@@ -64,6 +64,7 @@ describe('components/item/ItemSelectToolbar', () => {
     const store = {
       state: {
         set: {
+          active: { items: [{ id: '123/abc' }] },
           selectedItems: ['123/abc', '456/def']
         }
       }
@@ -95,6 +96,15 @@ describe('components/item/ItemSelectToolbar', () => {
           const removeButton = wrapper.find('itemremovebutton-stub');
 
           expect(removeButton.exists()).toBe(true);
+        });
+        describe('and the selected items are in the active set', () => {
+          it('renders the remove button', () => {
+            const wrapper = factory({ propsData: { userCanEditSet: true }, store });
+
+            const removeButton = wrapper.find('itemremovebutton-stub');
+
+            expect(removeButton.exists()).toBe(true);
+          });
         });
       });
 
