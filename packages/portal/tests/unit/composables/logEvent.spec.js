@@ -1,55 +1,93 @@
-// import Vue from 'vue';
-// import { createLocalVue } from '@vue/test-utils';
-// import { shallowMountNuxt } from '../utils';
+import Vue from 'vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import nock from 'nock';
 import sinon from 'sinon';
 
 import { useLogEvent } from '@/composables/logEvent.js';
 
 const component = {
-  template: '<div></div>',
-  composables: [mixin]
-};
-
-const localVue = createLocalVue();
-
-const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(component, {
-  data() {
-    return {
-      ...data
-    };
-  },
-  localVue,
-  mocks: {
-    $config: {
-      app: {
-        baseUrl: 'http://localhost'
-      }
-    },
-    $features: {},
-    ...mocks
-  }
-});
-
-const fixtures = {
-  features: {
-    disabled: { eventLogging: false },
-    enabled: { eventLogging: true }
-  },
-  session: {
-    inactive: Vue.observable({ isActive: false }),
-    active: Vue.observable({ isActive: true })
+  template: '<span />',
+  setup() {
+    const { logEvent } = useLogEvent();
+    return { logEvent };
   }
 };
 
-describe('composables/logEvent', () => {
-  beforeAll(() => {
-    nock.disableNetConnect();
-  })
+const factory = ({ $features } = {}) => {
+  const wrapper = shallowMount(component, {
+    localVue: createLocalVue()
+  });
+  wrapper.vm.$root.$features = $features;
+  return wrapper;
+};
+
+let $features;
+let session;
+
+const scenarios = {
+  'when feature is enabled'() {
+    $features = { eventLogging: true };
+  },
+  'when feature is not enabled'() {
+    $features = { eventLogging: false };
+  },
+  'when running on client'() {
+    beforeAll(() => {
+      process.server = false;
+      process.client = true;
+    });
+    afterAll(() => {
+      delete process.server;
+      delete process.client;
+    });
+  },
+  'when running on server'() {
+    beforeAll(() => {
+      process.server = true;
+      process.client = false;
+    });
+    afterAll(() => {
+      delete process.server;
+      delete process.client;
+    });
+  },
+  'when there is an active session'() {
+    session = Vue.observable({ id: 'session-789', isActive: true });
+  },
+  'when there is not an active session'() {
+    session = Vue.observable({ id: 'session-789', isActive: false });
+  },
+  'when user agent is a known bot'() {
+    let userAgent;
+    beforeAll(() => {
+      userAgent = navigator.userAgent;
+      sinon.stub(navigator, 'userAgent').get(() => 'Bot!');
+    });
+    afterAll(() => {
+      // sinon resets don't seem to restore the getter to its default...
+      sinon.stub(navigator, 'userAgent').get(() => userAgent);
+    });
+  }
+};
+
+const describe = (description, callback) => {
+  global.describe(description, () => {
+    scenarios[description]?.();
+    callback();
+  });
+};
+
+const objectUri = 'http://data.europeana.eu/item/123/abc';
+const actionType = 'like';
+
+describe('useLogEvent', () => {
   beforeEach(() => {
     nock('http://localhost')
       .post('/_api/events', () => true)
       .reply(204);
+  });
+  beforeAll(() => {
+    nock.disableNetConnect();
   });
   afterEach(() => {
     sinon.resetHistory();
@@ -60,124 +98,75 @@ describe('composables/logEvent', () => {
     nock.enableNetConnect();
   });
 
-  describe('methods', () => {
-    describe('logEvent', () => {
-      describe('when feature is not enabled', () => {
-        const $features = fixtures.features.disabled;
-
+  describe('logEvent', () => {
+    describe('when feature is not enabled', () => {
+      describe('when there is an active session', () => {
         it('does not post to event logging API', async() => {
-          const wrapper = factory({ mocks: { $features } });
+          const wrapper = factory({ $features });
 
-          await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+          await wrapper.vm.logEvent(actionType, objectUri, session);
 
           expect(nock.isDone()).toBe(false);
         });
       });
+    });
 
-      describe('when feature is enabled', () => {
-        const $features = fixtures.features.enabled;
-
-        describe('when running on server', () => {
-          beforeAll(() => {
-            process.server = true;
-            process.client = false;
-          });
-          afterAll(() => {
-            delete process.server;
-            delete process.client;
-          });
-
+    describe('when feature is enabled', () => {
+      describe('when running on server', () => {
+        describe('there is an active session', () => {
           it('does not post to event logging API', async() => {
-            const wrapper = factory({ mocks: { $features } });
+            const wrapper = factory({ $features });
 
-            await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+            await wrapper.vm.logEvent(actionType, objectUri, session);
 
             expect(nock.isDone()).toBe(false);
           });
         });
+      });
 
-        describe('when running on client', () => {
-          beforeAll(() => {
-            process.server = false;
-            process.client = true;
-          });
-          afterAll(() => {
-            delete process.server;
-            delete process.client;
-          });
-
-          describe('when user agent is a known bot', () => {
-            let userAgent;
-            beforeAll(() => {
-              userAgent = navigator.userAgent;
-              sinon.stub(navigator, 'userAgent').get(() => 'Bot!');
-            });
-            afterAll(() => {
-              // sinon resets don't seem to restore the getter to its default...
-              sinon.stub(navigator, 'userAgent').get(() => userAgent);
-            });
-
-            it('does not post to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features } });
-
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
-
-              expect(nock.isDone()).toBe(false);
-            });
-          });
-
-          describe('when there is no active session', () => {
-            const $session = fixtures.session.inactive;
-
-            it('does not post to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features, $session } });
-
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
-
-              expect(nock.isDone()).toBe(false);
-            });
-
-            describe('but then the session becomes active', () => {
-              it('posts to event logging API', async() => {
-                const wrapper = factory({ mocks: { $features, $session } });
-
-                await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
-
-                wrapper.vm.$session.isActive = true;
-                await new Promise(process.nextTick);
-
-                expect(nock.isDone()).toBe(true);
-              });
-            });
-          });
-
+      describe('when running on client', () => {
+        describe('when user agent is a known bot', () => {
           describe('when there is an active session', () => {
-            const $session = fixtures.session.active;
+            it('does not post to event logging API', async() => {
+              const wrapper = factory({ $features });
 
-            describe('but the event is already being logged', () => {
-              const data = { eventBeingLogged: true };
+              await wrapper.vm.logEvent(actionType, objectUri, session);
 
-              it('does not post to event logging API', async() => {
-                const wrapper = factory({ data, mocks: { $features, $session } });
-
-                wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
-                await new Promise(process.nextTick);
-
-                expect(nock.isDone()).toBe(false);
-              });
+              expect(nock.isDone()).toBe(false);
             });
+          });
+        });
 
-            describe('and the event is not already being logged', () => {
-              const data = { eventBeingLogged: false };
+        describe('when there is not an active session', () => {
+          it('does not post to event logging API', async() => {
+            const wrapper = factory({ $features });
 
-              it('posts to event logging API', async() => {
-                const wrapper = factory({ data, mocks: { $features, $session } });
+            await wrapper.vm.logEvent(actionType, objectUri, session);
+            wrapper.destroy();
+            expect(nock.isDone()).toBe(false);
+          });
 
-                await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+          describe('but then the session becomes active', () => {
+            it('posts to event logging API', async() => {
+              const wrapper = factory({ $features });
 
-                expect(nock.isDone()).toBe(true);
-              });
+              await wrapper.vm.logEvent(actionType, objectUri, session);
+              session.isActive = true;
+              await new Promise(process.nextTick);
+
+              expect(nock.isDone()).toBe(true);
             });
+          });
+        });
+
+        describe('when there is an active session', () => {
+          it('posts to event logging API', async() => {
+            const wrapper = factory({ $features });
+
+            await wrapper.vm.logEvent(actionType, objectUri, session);
+            await new Promise(process.nextTick);
+
+            expect(nock.isDone()).toBe(true);
           });
         });
       });

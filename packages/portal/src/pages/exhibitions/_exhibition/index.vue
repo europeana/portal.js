@@ -202,7 +202,7 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
+      this.logEvent('view', this.canonicalUrl.withOnlyQuery, this.$session);
     }
   };
 </script>

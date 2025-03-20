@@ -353,8 +353,8 @@
 
     mounted() {
       this.fetchEntities();
-      this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
         this.trackCustomDimensions();
       }
     },

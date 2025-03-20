@@ -114,7 +114,9 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
+      if (!this.$fetchState.error) {
+        this.logEvent('view', this.canonicalUrl.withOnlyQuery, this.$session);
+      }
     }
   };
 </script>

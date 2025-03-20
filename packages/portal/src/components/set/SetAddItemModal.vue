@@ -163,7 +163,7 @@
             await this.$apis.set.insertItems(setId, this.itemIds);
             // TODO: how to track multi-select - for each?
             if (!Array.isArray(this.itemIds)) {
-              this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`);
+              this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemIds}`, this.$session);
             }
             this.added.push(setId);
             this.makeToast(this.$tc(

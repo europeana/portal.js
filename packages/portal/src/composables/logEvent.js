@@ -1,58 +1,43 @@
 import axios from 'axios';
 import isbot from 'isbot';
-import { computed, getCurrentInstance, ref, watch } from 'vue';
+import { getCurrentInstance, watchEffect } from 'vue';
 
 export function useLogEvent() {
   const instance = getCurrentInstance();
   const $root = instance.proxy.$root;
 
-  const eventBeingLogged = ref(false);
-  const eventToLog = ref(null);
-
-  const logEvent = (actionType, objectUri) => {
-    eventToLog.value = { actionType, objectUri };
-  };
-
-  const eventMayBeLogged = computed(() => !!(
-    $root.$features?.eventLogging &&
-    eventToLog.value &&
-    !eventBeingLogged.value &&
-    !$root.$fetchState?.error &&
-    process.client &&
-    !isbot(navigator?.userAgent) &&
-    $root.$session?.isActive
-  ));
-
-  const sendEventLog = async() => {
-    console.log('sendEventLog', eventMayBeLogged.value)
-    if (!eventMayBeLogged.value) {
+  const logEvent = (actionType, objectUri, session) => {
+    // if feature is not enabled, or running on server-side, or user agent is a
+    // bot, don't log
+    if (!$root.$features?.eventLogging || !process.client || isbot(navigator?.userAgent)) {
       return;
     }
 
-    eventBeingLogged.value = true;
+    let unwatch;
 
-    const postData = {
-      ...eventToLog.value,
-      sessionId: $root.$session?.id
-    };
-
-    try {
-      await axios({
-        baseURL: $root.$config?.app?.baseUrl,
-        method: 'post',
-        data: postData,
-        url: '/_api/events'
-      });
-    // } catch (e) {
-    //   console.error(e)
-    //   throw e;
-    } finally {
-      eventToLog.value = null;
-      eventBeingLogged.value = false;
-    }
+    // wait for session to become active, then log
+    unwatch = watchEffect(async() => {
+      if (session?.isActive) {
+        await sendEventLog(actionType, objectUri, session);
+        unwatch();
+      }
+    });
   };
 
-  watch(eventMayBeLogged, sendEventLog);
+  const sendEventLog = async(actionType, objectUri, session) => {
+    const data = {
+      actionType,
+      objectUri,
+      sessionId: session?.id
+    };
+
+    await axios({
+      baseURL: window.origin,
+      method: 'post',
+      data,
+      url: '/_api/events'
+    });
+  };
 
   return {
     logEvent

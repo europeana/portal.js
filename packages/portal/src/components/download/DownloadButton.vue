@@ -134,7 +134,7 @@
       },
       trackDownload() {
         if (!this.disabled) {
-          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`);
+          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
             if (!this.clicked) {

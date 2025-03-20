@@ -188,7 +188,7 @@
     },
 
     mounted() {
-      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`);
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`, this.$session);
     }
   };
 </script>

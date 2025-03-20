@@ -232,7 +232,7 @@
     },
 
     mounted() {
-      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.exhibitionIdentifier}`);
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.exhibitionIdentifier}`, this.$session);
     },
 
     methods: {
