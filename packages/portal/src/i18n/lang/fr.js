@@ -31,7 +31,6 @@ export default {
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
       "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
-      "remove": "Retirez cet item de cette galerie.",
       "reorder": "Vous pouvez réorganiser les items en cliquant sur ce bouton et en faisant glisser l'item pour le déplacer."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Ajouter",
     "apply": "Appliquer",
     "cancel": "Annuler",
+    "changeView": "Changer la vue",
     "clear": "Réinitialiser",
     "clearFilters": "Effacer les filtres",
     "close": "fermer",
+    "confirm": "Confirmer",
     "continue": "continuer",
     "depublish": "Dépublier",
     "download": "Télécharger",
@@ -1331,17 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Ajouter à la galerie",
-      "addToGallery": "Ajouter cet item à une galerie.",
+      "addItems": {
+        "1": "Ajouter cet item à une galerie.",
+        "many": "Ajouter {count} item à une galerie | Ajouter {count} items à une galerie"
+      },
+      "addItemsHere": {
+        "1": "Ajouter à la galerie",
+        "many": "Ajouter {count} item à une galerie | Ajouter {count} items à une galerie"
+      },
       "cancelSelection": "Annuler la sélection",
       "clickToSelectItems": "Cliquez sur les items pour les sélectionner",
       "create": "Créer une galerie",
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
-      "removeItemFromLikes": "Retirer cet item de vos j'aime.",
-      "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
+      "likeItems": {
+        "1": "Enregistrez cet item dans vos J'aime.",
+        "many": "J’aime {count} item | J’aime {count} items"
+      },
+      "removeItems": {
+        "1": "Retirez cet item de cette galerie.",
+        "many": "Supprimer {count} item de cette galerie | Supprimer {count} items de cette galerie"
+      },
       "selectItems": "Sélectionner des items",
+      "unlikeItems": {
+        "1": "Retirer cet item de vos j'aime.",
+        "many": "Je n’aime plus {count} item | Je n’aime plus {count} items"
+      },
       "update": "Mettre à jour la galerie"
     },
     "form": {
@@ -1358,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "itemAdded": "L'item a été ajouté à la galerie \"{gallery}\".",
-      "itemLiked": "L'item a été enregistré dans vos j'aime.",
-      "itemRemoved": "L'item a été supprimé de la galerie {gallery}.",
-      "itemUnliked": "L'item a été supprimé de vos j'aime.",
+      "itemsAdded": {
+        "1": "L'item a été ajouté à la galerie \"{gallery}\".",
+        "many": "{count} item a été ajouté à la galerie \"{gallery}\". | {count} items ont été ajoutés à la galerie \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "L'item a été enregistré dans vos j'aime.",
+        "many": "{count} item a été enregistré dans vos j'aime. | {count} items ont été enregistrés dans vos j'aime."
+      },
+      "itemsRemoved": {
+        "1": "L'item a été supprimé de la galerie {gallery}.",
+        "many": "{count} item a été supprimé de la galerie \"{gallery}\". | {count} items ont été supprimés de la galerie \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "L'item a été supprimé de vos j'aime.",
+        "many": "{count} item a été supprimé de vos j'aime. | {count} items ont été supprimés de vos j'aime."
+      },
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 items pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
@@ -1370,7 +1399,8 @@ export default {
       "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les items que vous y avez ajoutés."
+      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les items que vous y avez ajoutés.",
+      "removeItems": "Êtes-vous sûr de vouloir supprimer {count} item de cette galerie ? | Êtes-vous sûr de vouloir supprimer {count} items de cette galerie ?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Désélectionner tout."
+      },
+      "info": "{count} item sélectionné. | {count} items sélectionnés."
     }
   },
   "shareWhere": "Où aimeriez-vous partager cela?",

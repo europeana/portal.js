@@ -31,7 +31,6 @@ export default {
       "private": "Zasebno galerijo si lahko ogledate samo vi.",
       "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
       "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije.",
-      "remove": "Odstranite to enoto iz te galerije.",
       "reorder": "Enote lahko preuredite tako, da kliknete ta gumb in povlečete enota, da ga premaknete."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Dodaj",
     "apply": "Prijavi se",
     "cancel": "Prekliči",
+    "changeView": "Spremeni pogled",
     "clear": "Počisti",
     "clearFilters": "Počisti filtre",
     "close": "zapri",
+    "confirm": "Potrdi",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
     "download": "Prenos",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj zbirki",
-      "addToGallery": "Dodajte ta enota v galerijo.",
+      "addItems": {
+        "1": "Dodajte ta enota v galerijo.",
+        "many": "Dodaj {count} enoto v galerijo | Dodaj {count} enote v galerijo"
+      },
+      "addItemsHere": {
+        "1": "Dodaj zbirki",
+        "many": "Dodaj {count} enoto v galerijo | Dodaj {count} enote v galerijo"
+      },
       "cancelSelection": "Prekliči izbiro",
       "clickToSelectItems": "Kliknite na enote, da jih izberete",
       "create": "Ustvari zbirko",
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
-      "removeItemFromLikes": "Odstranite to enoto iz všečkov.",
-      "saveItemToLikes": "Shranite ta enota med svoje všečke.",
+      "likeItems": {
+        "1": "Shranite ta enota med svoje všečke.",
+        "many": "Všeč mi je {count} enota | Všeč mi so {count} enote"
+      },
+      "removeItems": {
+        "1": "Odstranite to enoto iz te galerije.",
+        "many": "Odstrani {count} enoto iz te galerije | Odstrani {count} enote iz te galerije"
+      },
       "selectItems": "Izberite enote",
+      "unlikeItems": {
+        "1": "Odstranite to enoto iz všečkov.",
+        "many": "Odvšečkaj {count} enoto | Odvšečkaj {count} enote."
+      },
       "update": "Posodobi zbirko"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
-      "itemAdded": "Enota je bil dodan v galerijo \"{gallery}\".",
-      "itemLiked": "Enota je bila shranjena med vaše všečke.",
-      "itemRemoved": "Enota je bila odstranjena iz galerije {gallery}.",
-      "itemUnliked": "Enota je bila odstranjena iz vaših všečkov.",
+      "itemsAdded": {
+        "1": "Enota je bil dodan v galerijo \"{gallery}\".",
+        "many": "{count} enota je bila dodana v galerijo \"{gallery}\". | {count} enote so bile dodane v galerijo \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Enota je bila shranjena med vaše všečke.",
+        "many": "{count} enota je bila shranjena med vašimi všečki. | {count} enote so bile shranjene med vašimi všečki."
+      },
+      "itemsRemoved": {
+        "1": "Enota je bila odstranjena iz galerije {gallery}.",
+        "many": "{count} enota je bila odstranjena iz galerije \"{gallery}\". | {count} enote so bile odstranjene iz galerije \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Enota je bila odstranjena iz vaših všečkov.",
+        "many": "{count} enota je bila odstranjena iz vaših všečkov. | {count} enote so bile odstranjene iz vaših všečkov."
+      },
       "likeLimit": {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 enote. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali."
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali.",
+      "removeItems": "Ali ste prepričani, da želite odstraniti {count} enoto iz te galerije? | Ali ste prepričani, da želite odstraniti {count} enote iz te galerije?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Počisti izbor."
+      },
+      "info": "{count} izbrana enota. | {count} izbrane enote."
     }
   },
   "shareWhere": "Kje želite to deliti?",

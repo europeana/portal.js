@@ -43,6 +43,7 @@ export default {
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
+    "confirm": "Confirm",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
@@ -1450,7 +1451,8 @@ export default {
       "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
-      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it.",
+      "removeItems": "Are you sure you want to remove {count} item from this gallery? | Are you sure you want to remove {count} items from this gallery?"
     },
     "publication": {
       "criteria": {

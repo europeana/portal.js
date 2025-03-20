@@ -232,6 +232,7 @@
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
+      this.$store.commit('set/setSelected', []);
       next();
     },
     data() {

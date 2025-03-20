@@ -31,7 +31,6 @@ export default {
       "private": "Una galleria privata può essere visualizzata solo da te.",
       "public": "Una galleria pubblica può essere visualizzata da chiunque disponga del collegamento.",
       "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie.",
-      "remove": "Rimuovi questo oggetto da questa galleria.",
       "reorder": "È possibile riordinare gli oggetti facendo clic su questo pulsante e trascinando l'oggetto per spostarlo."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Aggiungere",
     "apply": "Applica",
     "cancel": "Annulla",
+    "changeView": "Cambia vista",
     "clear": "Cancella",
     "clearFilters": "Cancella filtri",
     "close": "chiudi",
+    "confirm": "Confermare",
     "continue": "continua",
     "depublish": "Depubblicare",
     "download": "Scarica",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Aggiungi alla galleria",
-      "addToGallery": "Aggiungi questo oggetto a una galleria.",
+      "addItems": {
+        "1": "Aggiungi questo oggetto a una galleria.",
+        "many": "Aggiungi {count} oggetto a una galleria | Aggiungi {count} oggetti a una galleria"
+      },
+      "addItemsHere": {
+        "1": "Aggiungi alla galleria",
+        "many": "Aggiungi {count} oggetto a una galleria | Aggiungi {count} oggetti a una galleria"
+      },
       "cancelSelection": "Annulla selezione",
       "clickToSelectItems": "Fai clic sugli oggetti per selezionarli",
       "create": "Crea galleria",
       "createNew": "Crea una nuova galleria",
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
-      "removeItemFromLikes": "Rimuovi questo oggetto dai tuoi Mi piace.",
-      "saveItemToLikes": "Salva questo oggetto nei tuoi Mi piace.",
+      "likeItems": {
+        "1": "Salva questo oggetto nei tuoi mi piace.",
+        "many": "Mi piace {count} oggetto | Mi piace {count} oggetti"
+      },
+      "removeItems": {
+        "1": "Rimuovi questo oggetto da questa galleria.",
+        "many": "Rimuovi {count} oggetto da questa galleria | Rimuovi {count} oggetti da questa galleria"
+      },
       "selectItems": "Seleziona oggetti",
+      "unlikeItems": {
+        "1": "Rimuovi questo oggetto dai tuoi Mi piace.",
+        "many": "Non mi piace più {count} oggetto | Non mi piacciono più {count} oggetti"
+      },
       "update": "Aggiorna galleria"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
-      "itemAdded": "L'oggetto è stato aggiunto alla galleria \"{gallery}\".",
-      "itemLiked": "L'oggetto è stato salvato nei tuoi Mi piace.",
-      "itemRemoved": "L'oggetto è stato rimosso dalla galleria {gallery}.",
-      "itemUnliked": "L'oggetto è stato rimosso dai tuoi Mi piace.",
+      "itemsAdded": {
+        "1": "L'oggetto è stato aggiunto alla galleria \"{gallery}\".",
+        "many": "{count} oggetto è stato aggiunto alla galleria \"{gallery}\". | {count} oggetti sono stati aggiunti alla galleria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "L'oggetto è stato salvato nei tuoi Mi piace.",
+        "many": "{count} oggetto è stato salvato nei tuoi Mi piace. | {count} oggetti sono stati salvati nei tuoi Mi piace."
+      },
+      "itemsRemoved": {
+        "1": "L'oggetto è stato rimosso dalla galleria {gallery}.",
+        "many": "{count} oggetto è stato rimosso dalla galleria \"{gallery}\". | {count} oggetti sono stati rimossi dalla galleria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "L'oggetto è stato rimosso dai tuoi Mi piace.",
+        "many": "{count} oggetto è stato rimosso dai tuoi Mi piace. | {count} oggetti sono stati rimossi dai tuoi Mi piace."
+      },
       "likeLimit": {
         "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto.",
+      "removeItems": "Sei sicuro di voler rimuovere {count} oggetto da questa galleria? | Sei sicuro di voler rimuovere {count} oggetti da questa galleria?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) è uno strumento basato sul Web per la gestione di contenuti di diverso tipo (incluso il 3D), la documentazione del patrimonio culturale attraverso gli spazi della comunità digitale e la cura di storie ed esperienze digitali."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deseleziona tutto."
+      },
+      "info": "{count} oggetto selezionato. | {count} oggetti selezionati."
     }
   },
   "shareWhere": "Dove vorresti condividere questo?",
