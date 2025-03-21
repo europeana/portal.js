@@ -8,6 +8,16 @@ export default {
     selectedItems: []
   }),
 
+  getters: {
+    activeSetItemIds(state) {
+      return state.active?.items.map((item) => item.id) || [];
+    },
+
+    someActiveSetItemsSelected(state, getters) {
+      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
+    }
+  },
+
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;
