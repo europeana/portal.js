@@ -25,115 +25,78 @@
             />
           </transition>
         </client-only>
-        <b-container
-          class="px-0 pb-3"
-        >
-          <section>
-            <div
-              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
+        <LoadingSpinner
+          v-show="$fetchState.pending"
+          class="flex-md-row py-4 text-center"
+          :status-message="$t('loadingResults')"
+        />
+        <template v-if="!$fetchState.pending">
+          <ErrorMessage
+            v-if="$fetchState.error"
+            :error="$fetchState.error"
+            :full-height="false"
+            :show-message="showErrorMessage"
+            title-tag="h2"
+          />
+          <template
+            v-else
+          >
+            <p
+              v-show="noMoreResults"
+              data-qa="warning notice"
             >
-              <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
-              <div v-show="$fetchState.pending" />
-              <SearchResultsContext
-                v-show="!$fetchState.pending"
-                :total-results="totalResults"
-                :entity="$store.state.entity.entity"
-                :query="query"
-                badge-variant="primary-light"
-              />
-              <SearchViewToggles
-                v-model="view"
-                class="ml-auto"
-              />
-            </div>
-            <b-row
-              class="mb-3"
+              {{ $t('noMoreResults') }}
+            </p>
+            <ItemPreviewInterface
+              data-qa="liked items"
+              :items="results"
+              :hits="hits"
+              :max-results="1000"
+              :per-page="perPage"
+              :show-pins="showPins"
+              :total="totalResults"
+              :on-aux-click-card="onClickItem"
+              :on-click-card="onClickItem"
+              @drawn="handleResultsDrawn"
             >
-              <b-col
-                cols="12"
-              >
-                <LoadingSpinner
-                  v-show="$fetchState.pending"
-                  class="flex-md-row py-4 text-center"
-                  :status-message="$t('loadingResults')"
+              <template #heading>
+                <SearchResultsContext
+                  :total-results="totalResults"
+                  :entity="$store.state.entity.entity"
+                  :query="query"
+                  badge-variant="primary-light"
                 />
-                <template
-                  v-if="!$fetchState.pending"
-                >
-                  <b-row
-                    class="mb-3"
-                  >
-                    <b-col>
-                      <ErrorMessage
-                        v-if="$fetchState.error"
-                        :error="$fetchState.error"
-                        :full-height="false"
-                        :show-message="showErrorMessage"
-                        title-tag="h2"
-                      />
-                      <template
-                        v-else
-                      >
-                        <p
-                          v-show="noMoreResults"
-                          data-qa="warning notice"
-                        >
-                          {{ $t('noMoreResults') }}
-                        </p>
-                        <ItemPreviewCardGroup
-                          id="item-search-results"
-                          :items="results"
-                          :hits="hits"
-                          :view="view"
-                          :show-pins="showPins"
-                          :on-aux-click-card="onClickItem"
-                          :on-click-card="onClickItem"
-                          @drawn="handleResultsDrawn"
-                        >
-                          <slot />
-                          <template
-                            v-if="page === 1"
-                            #related-galleries
-                          >
-                            <slot
-                              name="related-galleries"
-                            />
-                          </template>
-                          <template
-                            v-if="page === 1"
-                            #related-collections
-                          >
-                            <slot
-                              name="related-collections"
-                            />
-                          </template>
-                        </ItemPreviewCardGroup>
-                        <InfoMessage
-                          v-show="lastAvailablePage"
-                        >
-                          {{ $t('search.results.limitWarning') }}
-                        </InfoMessage>
-                      </template>
-                    </b-col>
-                  </b-row>
-                  <b-row
-                    v-show="!$fetchState.error"
-                  >
-                    <b-col>
-                      <PaginationNavInput
-                        :total-results="totalResults"
-                        :per-page="perPage"
-                        :max-results="1000"
-                        aria-controls="item-search-results"
-                        data-qa="search results pagination"
-                      />
-                    </b-col>
-                  </b-row>
-                </template>
-              </b-col>
-            </b-row>
-          </section>
-        </b-container>
+              </template>
+              <template #card-group-default>
+                <slot />
+              </template>
+              <template
+                v-if="page === 1"
+                #card-group-related-galleries
+              >
+                <slot
+                  name="related-galleries"
+                />
+              </template>
+              <template
+                v-if="page === 1"
+                #card-group-related-collections
+              >
+                <slot
+                  name="related-collections"
+                />
+              </template>
+              <template
+                v-if="lastAvailablePage"
+                #footer
+              >
+                <InfoMessage>
+                  {{ $t('search.results.limitWarning') }}
+                </InfoMessage>
+              </template>
+            </ItemPreviewInterface>
+          </template>
+        </template>
         <slot
           v-if="page === 1"
           name="after-results"
@@ -165,16 +128,14 @@
   import omitBy from 'lodash/omitBy.js';
   import uniq from 'lodash/uniq.js';
 
-  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
   import SearchSidebar from './SearchSidebar';
-  import SearchViewToggles from './SearchViewToggles';
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
@@ -186,18 +147,15 @@
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
-      ItemPreviewCardGroup,
+      ItemPreviewInterface,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SearchFilters,
-      SearchSidebar,
-      SearchViewToggles
+      SearchSidebar
     },
 
     mixins: [
       advancedSearchMixin,
-      elasticApmReporterMixin,
-      itemPreviewCardGroupViewMixin
+      elasticApmReporterMixin
     ],
 
     props: {
