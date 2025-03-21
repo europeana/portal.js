@@ -5,6 +5,7 @@
     placement="bottom"
     triggers=""
     show
+    custom-class="new-feature-tooltip"
   >
     {{ $t('newFeatureNotification.tooltip') }}
   </b-tooltip>
@@ -63,3 +64,22 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+
+  .new-feature-tooltip .tooltip-inner {
+    background-image: linear-gradient(to right, $black, $blue);
+    background-size: 400% 100%;
+    animation: slide 2000ms ease-in-out infinite alternate;
+  }
+
+  @keyframes slide {
+    from {
+      background-position: 0% 100%;
+    }
+    to {
+      background-position: 100% 100%;
+    }
+  }
+</style>
