@@ -125,59 +125,24 @@
           />
         </div>
       </b-container>
-      <b-container
-        class="mb-3"
-        data-qa="user set"
+      <ItemPreviewInterface
+        :items="set.items"
+        :total="set.total"
+        :show-pins="setIsEntityBestItems && userIsEntityEditor"
+        :user-editable-items="userCanEditSet"
+        @endItemDrag="repositionItem"
       >
-        <b-row>
-          <b-col class="d-flex align-items-center mb-3">
-            <h2
-              class="related-heading text-uppercase mb-0"
-              data-qa="item count"
-            >
-              {{ displayItemCount }}
-            </h2>
-            <ItemSelectButton
-              v-if="$features.itemMultiSelect"
-              class="ml-auto"
-              @select="(newState) => itemMultiSelect = newState"
+        <template #footer>
+          <client-only>
+            <SetRecommendations
+              v-if="displayRecommendations"
+              :identifier="`/${setId}`"
+              :type="set.type"
             />
-            <SearchViewToggles
-              v-model="view"
-              :class="$features.itemMultiSelect ? 'ml-2' : 'ml-auto'"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-container class="px-0">
-              <b-row class="mb-3">
-                <b-col cols="12">
-                  <ItemPreviewCardGroup
-                    :items="set.items"
-                    :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                    :user-editable-items="userCanEditSet"
-                    :view="view"
-                    @endItemDrag="repositionItem"
-                  />
-                </b-col>
-              </b-row>
-            </b-container>
-          </b-col>
-        </b-row>
-        <client-only>
-          <SetRecommendations
-            v-if="displayRecommendations"
-            :identifier="`/${setId}`"
-            :type="set.type"
-          />
-        </client-only>
-      </b-container>
+          </client-only>
+        </template>
+      </ItemPreviewInterface>
     </div>
-    <ItemSelectToolbar
-      v-if="itemMultiSelect"
-      :user-can-edit-set="userCanEditSet"
-    />
   </div>
 </template>
 
@@ -185,14 +150,10 @@
   import ClientOnly from 'vue-client-only';
   import { computed } from 'vue';
   import { langMapValueForLocale } from '@europeana/i18n';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ItemSelectButton from '@/components/item/ItemSelectButton';
-  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
-  import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
@@ -202,11 +163,8 @@
     components: {
       ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      ItemPreviewCardGroup,
-      ItemSelectButton,
-      ItemSelectToolbar,
+      ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      SearchViewToggles,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
@@ -217,16 +175,10 @@
     },
     mixins: [
       entityBestItemsSetMixin,
-      itemPreviewCardGroupViewMixin,
       langAttributeMixin,
       redirectToMixin,
       pageMetaMixin
     ],
-    provide() {
-      return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
-      };
-    },
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
@@ -240,8 +192,7 @@
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         title: '',
-        rawDescription: '',
-        itemMultiSelect: false
+        rawDescription: ''
       };
     },
     async fetch() {
@@ -316,11 +267,6 @@
             this.$features.rejectEntityRecommendations;
         }
         return true;
-      },
-      displayItemCount() {
-        const max = 100;
-        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.set.total, { max });
       },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);

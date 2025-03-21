@@ -83,55 +83,22 @@
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
-            <b-container
+            <template
               v-else-if="activeTab === tabHashes.likes"
-              data-qa="liked items"
             >
-              <b-row class="flex-md-row">
-                <b-col cols="12">
-                  <template
-                    v-if="likedItems"
-                  >
-                    <b-row
-                      v-if="likedItems.length > 0"
-                    >
-                      <b-col class="d-flex align-items-center mb-3">
-                        <h2
-                          class="related-heading text-uppercase mb-0"
-                        >
-                          {{ $tc('items.itemCount', likedItems.length) }}
-                        </h2>
-                        <ItemSelectButton
-                          v-if="$features.itemMultiSelect"
-                          class="ml-auto"
-                          @select="(newState) => itemMultiSelect = newState"
-                        />
-                        <SearchViewToggles
-                          v-model="view"
-                          :class="{ 'ml-auto': !$features.itemMultiSelect }"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col cols="12">
-                        <ItemPreviewCardGroup
-                          v-if="likesId && likedItems.length !== 0"
-                          :items="likedItems"
-                          :view="view"
-                          class="pb-5"
-                        />
-                      </b-col>
-                    </b-row>
-                  </template>
-                  <div
-                    v-else
-                    class="text-center pb-4"
-                  >
-                    {{ $t('account.notifications.noLikedItems') }}
-                  </div>
-                </b-col>
-              </b-row>
-            </b-container>
+              <ItemPreviewInterface
+                v-if="likedItems && likedItems.length !== 0"
+                data-qa="liked items"
+                :items="likedItems"
+                :total="likedItems.length"
+              />
+              <div
+                v-else
+                class="text-center pb-4"
+              >
+                {{ $t('account.notifications.noLikedItems') }}
+              </div>
+            </template>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
                 visibility="public"
@@ -166,10 +133,6 @@
         </b-col>
       </b-row>
     </b-container>
-    <ItemSelectToolbar
-      v-if="itemMultiSelect"
-      :user-can-edit-set="userCanEditSet"
-    />
   </div>
 </template>
 
@@ -179,12 +142,9 @@
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ItemSelectButton from '@/components/item/ItemSelectButton';
-  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
@@ -196,24 +156,15 @@
       AlertMessage,
       BNav,
       ClientOnly,
-      ItemPreviewCardGroup,
-      ItemSelectButton,
-      ItemSelectToolbar,
+      ItemPreviewInterface,
       LoadingSpinner,
       SearchViewToggles,
       UserSets
     },
 
     mixins: [
-      itemPreviewCardGroupViewMixin,
       pageMetaMixin
     ],
-
-    provide() {
-      return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
-      };
-    },
 
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setSelected', []);
@@ -225,7 +176,6 @@
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
-        itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
