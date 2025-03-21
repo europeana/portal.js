@@ -137,10 +137,11 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifiers);
+
           this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
-          // TODO: how to log and track multi-select?
-          if (!Array.isArray(this.identifiers)) {
-            this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifiers);
+
+          for (const id of [].concat(this.identifiers)) {
+            this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
           }
 
           this.makeToast(this.likeToastMessage);
