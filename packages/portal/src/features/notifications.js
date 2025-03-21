@@ -1,4 +1,8 @@
-const features = [{ name: 'featureIdeas', url: '/feature-ideas ' }];
+const features = [{
+  name: 'itemMultiSelect',
+  url: '/galleries/2',
+  tooltipTargetId: 'item-multi-select-button'
+}];
 
 export const featureNotificationExpiration = (value) => {
   const date = new Date(value);

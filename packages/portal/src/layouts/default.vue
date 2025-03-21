@@ -44,6 +44,11 @@
         :url="featureNotification.url"
         data-qa="new feature notification"
       />
+      <NewFeatureTooltip
+        v-if="featureNotification"
+        :name="featureNotification.name"
+        :tooltip-target-id="featureNotification.tooltipTargetId"
+      />
       <PageFooter />
       <DebugApiRequests />
     </client-only>
@@ -78,6 +83,7 @@
       PageFooter: () => import('@/components/page/PageFooter'),
       ProvideCanonicalUrl,
       NewFeatureNotification: () => import('@/components/generic/NewFeatureNotification'),
+      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ErrorModal
     },

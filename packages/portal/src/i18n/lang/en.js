@@ -1187,10 +1187,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Show me",
+    "readMore": "Go to a gallery",
     "text": {
-      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
-    }
+      "itemMultiSelect": "You can now select multiple items in a gallery at once, to Like or add them to a gallery of your own. Give it a try."
+    },
+    "tooltip": "Try out this new feature"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
