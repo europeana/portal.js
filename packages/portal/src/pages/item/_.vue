@@ -133,6 +133,7 @@
   ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
+  import { useLogEvent } from '@/composables/logEvent.js';
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
@@ -141,7 +142,6 @@
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/utils/text/stringify.js';
-  import logEventMixin from '@/mixins/logEvent';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
 
@@ -164,8 +164,7 @@
 
     mixins: [
       pageMetaMixin,
-      redirectToMixin,
-      logEventMixin
+      redirectToMixin
     ],
 
     inject: ['canonicalUrl'],
@@ -182,8 +181,9 @@
 
     setup() {
       const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+      const { logEvent } = useLogEvent();
 
-      return { deBiasDefinitions, deBiasTerms, parseDeBiasAnnotations };
+      return { deBiasDefinitions, deBiasTerms, logEvent, parseDeBiasAnnotations };
     },
 
     data() {
@@ -353,8 +353,8 @@
 
     mounted() {
       this.fetchEntities();
-      this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
         this.trackCustomDimensions();
       }
     },

@@ -29,16 +29,12 @@
 <script>
   import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
-  import logEventMixin from '@/mixins/logEvent';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
-
-    mixins: [
-      logEventMixin
-    ],
 
     props: {
       /**
@@ -67,8 +63,9 @@
     setup(props) {
       const { cardinality } = useCardinality(props.identifiers);
       const { hideTooltips } = useHideTooltips();
+      const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { cardinality, hideTooltips, makeToast };
+      return { cardinality, hideTooltips, logEvent, makeToast };
     },
 
     data() {
@@ -140,7 +137,7 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifiers);
-          this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`));
+          this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
           // TODO: how to log and track multi-select?
           if (!Array.isArray(this.identifiers)) {
             this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifiers);

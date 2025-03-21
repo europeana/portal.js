@@ -57,8 +57,8 @@
 </template>
 
 <script>
-  import logEventMixin from '@/mixins/logEvent';
   import { useCardinality } from '@/composables/cardinality.js';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
   import SetAddItemButton from './SetAddItemButton';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
@@ -71,10 +71,6 @@
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal'),
       SetAddItemButton
     },
-
-    mixins: [
-      logEventMixin
-    ],
 
     props: {
       itemIds: {
@@ -97,8 +93,9 @@
 
     setup(props) {
       const { cardinality } = useCardinality(props.itemIds);
+      const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { cardinality, makeToast };
+      return { cardinality, logEvent, makeToast };
     },
 
     data() {
@@ -208,7 +205,7 @@
             ));
           } else {
             await this.$apis.set.insertItems(setId, this.itemIds);
-            this.logEvent('add', [].concat(this.itemIds).map((id) => `${ITEM_URL_PREFIX}${id}`));
+            this.logEvent('add', [].concat(this.itemIds).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
             this.added.push(setId);
             this.makeToast(this.$tc(
               `set.notifications.itemsAdded.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
