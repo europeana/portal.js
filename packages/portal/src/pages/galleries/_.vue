@@ -138,8 +138,9 @@
               {{ displayItemCount }}
             </h2>
             <ItemSelectButton
+              v-if="$features.itemMultiSelect"
               class="ml-auto"
-              @select="(newState) => selectState = newState"
+              @select="(newState) => itemMultiSelect = newState"
             />
             <SearchViewToggles
               v-model="view"
@@ -157,7 +158,6 @@
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
                     :user-editable-items="userCanEditSet"
                     :view="view"
-                    :select-state="selectState"
                     @endItemDrag="repositionItem"
                   />
                 </b-col>
@@ -175,7 +175,7 @@
       </b-container>
     </div>
     <ItemSelectToolbar
-      v-if="selectState"
+      v-if="itemMultiSelect"
       :user-can-edit-set="userCanEditSet"
     />
   </div>
@@ -183,6 +183,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import { computed } from 'vue';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ItemSelectButton from '@/components/item/ItemSelectButton';
@@ -221,6 +222,11 @@
       redirectToMixin,
       pageMetaMixin
     ],
+    provide() {
+      return {
+        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+      };
+    },
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
@@ -235,7 +241,7 @@
         identifier: null,
         title: '',
         rawDescription: '',
-        selectState: false
+        itemMultiSelect: false
       };
     },
     async fetch() {

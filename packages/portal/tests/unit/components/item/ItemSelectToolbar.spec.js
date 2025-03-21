@@ -15,6 +15,7 @@ const factory = ({ propsData = {}, mocks = {}, store = {} } = {}) => shallowMoun
     $features: { itemMultiSelect: true },
     $store: {
       commit: sinon.spy(),
+      getters: { 'set/someActiveSetItemsSelected': false },
       state: {
         set: {
           selectedItems: []
@@ -64,6 +65,7 @@ describe('components/item/ItemSelectToolbar', () => {
     const store = {
       state: {
         set: {
+          active: { items: [{ id: '123/abc' }] },
           selectedItems: ['123/abc', '456/def']
         }
       }
@@ -89,16 +91,40 @@ describe('components/item/ItemSelectToolbar', () => {
 
     describe('remove selected button', () => {
       describe('when the user has rights to edit the set', () => {
-        it('renders the remove button', () => {
-          const wrapper = factory({ propsData: { userCanEditSet: true }, store });
+        describe('and the selected items are in the active set', () => {
+          it('renders the remove button', () => {
+            const wrapper = factory({
+              propsData: { userCanEditSet: true },
+              store: {
+                ...store,
+                getters: { 'set/someActiveSetItemsSelected': true }
+              }
+            });
 
-          const removeButton = wrapper.find('itemremovebutton-stub');
+            const removeButton = wrapper.find('itemremovebutton-stub');
 
-          expect(removeButton.exists()).toBe(true);
+            expect(removeButton.exists()).toBe(true);
+          });
+        });
+
+        describe('but the selected items are not the active set', () => {
+          it('does not render the remove button', () => {
+            const wrapper = factory({
+              propsData: { userCanEditSet: true },
+              store: {
+                ...store,
+                getters: { 'set/someActiveSetItemsSelected': false }
+              }
+            });
+
+            const removeButton = wrapper.find('itemremovebutton-stub');
+
+            expect(removeButton.exists()).toBe(false);
+          });
         });
       });
 
-      describe('when the user does NOT have rights to edit the set', () => {
+      describe('when the user does not have rights to edit the set', () => {
         it('does not render the remove button', () => {
           const wrapper = factory({ propsData: { userCanEditSet: false }, store });
 

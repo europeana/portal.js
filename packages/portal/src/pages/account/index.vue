@@ -102,8 +102,9 @@
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
                         <ItemSelectButton
+                          v-if="$features.itemMultiSelect"
                           class="ml-auto"
-                          @select="(newState) => selectState = newState"
+                          @select="(newState) => itemMultiSelect = newState"
                         />
                         <SearchViewToggles
                           v-model="view"
@@ -117,7 +118,6 @@
                           v-if="likesId && likedItems.length !== 0"
                           :items="likedItems"
                           :view="view"
-                          :select-state="selectState"
                           class="pb-5"
                         />
                       </b-col>
@@ -167,13 +167,14 @@
       </b-row>
     </b-container>
     <ItemSelectToolbar
-      v-if="selectState"
+      v-if="itemMultiSelect"
       :user-can-edit-set="userCanEditSet"
     />
   </div>
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
@@ -208,6 +209,12 @@
       pageMetaMixin
     ],
 
+    provide() {
+      return {
+        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+      };
+    },
+
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setSelected', []);
       next();
@@ -218,7 +225,7 @@
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
-        selectState: false,
+        itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
