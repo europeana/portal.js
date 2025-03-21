@@ -7,6 +7,44 @@ const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
+  describe('getters', () => {
+    describe('activeSetItemIds', () => {
+      it('returns the IDs of the active set items', () => {
+        const state = { active: { items: [{ id: 'item1' }, { id: 'item2' }] } };
+
+        const activeSetItemIds = store.getters.activeSetItemIds(state);
+
+        expect(activeSetItemIds).toEqual(['item1', 'item2']);
+      });
+    });
+
+    describe('someActiveSetItemsSelected', () => {
+      it('is `true` when some active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item2']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(true);
+      });
+
+      it('is `false` when no active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item3']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(false);
+      });
+    });
+  });
+
   describe('mutations', () => {
     describe('setLikesId()', () => {
       it('sets the likesId state', () => {

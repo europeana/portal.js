@@ -2,7 +2,7 @@
   <ContentCard
     ref="card"
     :title="title"
-    :url="selectState ? '' : url"
+    :url="itemMultiSelect ? '' : url"
     :image-url="imageUrl"
     :texts="texts"
     :hit-text="hitText"
@@ -34,7 +34,7 @@
           <span class="icon-file" />{{ type }}
         </span>
         <UserButtons
-          v-if="!selectState"
+          v-if="!itemMultiSelect"
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
@@ -45,7 +45,7 @@
       </div>
     </template>
     <template
-      v-if="selectState"
+      v-if="itemMultiSelect"
       #image-overlay
     >
       <ItemSelectCheckbox
@@ -92,6 +92,12 @@
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       RightsStatement: () => import('../generic/RightsStatement'),
       UserButtons: () => import('../user/UserButtons')
+    },
+
+    inject: {
+      itemMultiSelect: {
+        default: false
+      }
     },
 
     props: {
@@ -199,13 +205,6 @@
       routeQuery: {
         type: [Object, String],
         default: undefined
-      },
-      /**
-       * Select state for multi-select
-       */
-      selectState: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -309,11 +308,19 @@
   />
   ```
   Variant "default" in select state:
-  ```jsx
-  <ItemPreviewCard
-    :item="itemPreviewCardData"
-    :selectState="true"
-  />
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+          />
+        </div>
+      `
+    });
   ```
   Variant "list":
   ```jsx
@@ -331,12 +338,20 @@
   />
   ```
   Variant "list" in select state:
-  ```jsx
-  <ItemPreviewCard
-    variant="list"
-    :item="itemPreviewCardData"
-    :selectState="true"
-  />
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="list"
+          />
+        </div>
+      `
+    });
   ```
   Variant "mosaic":
   ```jsx
@@ -354,11 +369,19 @@
   />
   ```
   Variant "mosaic" in select state:
-  ```jsx
-  <ItemPreviewCard
-    variant="mosaic"
-    :item="itemPreviewCardData"
-    :selectState="true"
-  />
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="mosaic"
+          />
+        </div>
+      `
+    });
   ```
 </docs>
