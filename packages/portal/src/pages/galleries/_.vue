@@ -380,6 +380,7 @@
       async '$route.query.page'() {
         await this.$fetch();
         this.$store.commit('set/setSelected', []);
+        this.itemMultiSelect = false;
         this.scrollToSelector('#GalleryPage-set-items');
       }
     },
