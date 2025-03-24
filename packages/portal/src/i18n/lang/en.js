@@ -1187,11 +1187,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Go to a gallery",
+    "readMore": "Go to a gallery and try it",
     "text": {
-      "itemMultiSelect": "You can now select multiple items in a gallery at once, to Like or add them to a gallery of your own. Give it a try."
+      "itemMultiSelect": "You can now select multiple items in a gallery at once, to like or add them to a gallery of your own."
     },
-    "tooltip": "Try out this new feature"
+    "tooltip": "Click here to start selecting multiple items"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
