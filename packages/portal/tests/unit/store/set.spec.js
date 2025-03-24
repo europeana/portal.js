@@ -121,12 +121,6 @@ describe('store/set', () => {
         store.mutations.setActiveRecommendations(state, activeRecommendations);
         expect(state.activeRecommendations).toEqual(activeRecommendations);
       });
-
-      it('removes any that are already in the active set', () => {
-        const state = { activeRecommendations: [], active: { items: [activeRecommendations[0]] } };
-        store.mutations.setActiveRecommendations(state, activeRecommendations);
-        expect(state.activeRecommendations.length).toBe(1);
-      });
     });
     describe('selectItem()', () => {
       it('adds an item to the selected items state', () => {
