@@ -64,13 +64,3 @@
     }
   };
 </script>
-
-<docs lang="md">
-  ```jsx
-  <b-button id="new-feat-tooltip">target</b-button>
-  <NewFeatureTooltip
-  tooltipTargetId="new-feat-tooltip"
-  :set-cookie="false"
-  />
-  ```
-</docs>
