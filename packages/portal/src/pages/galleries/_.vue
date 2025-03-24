@@ -379,6 +379,7 @@
       },
       async '$route.query.page'() {
         await this.$fetch();
+        this.$store.commit('set/setSelected', []);
         this.scrollToSelector('#GalleryPage-set-items');
       }
     },
