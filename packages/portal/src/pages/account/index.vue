@@ -137,7 +137,6 @@
 </template>
 
 <script>
-  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
@@ -146,7 +145,6 @@
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
 
   export default {
@@ -158,7 +156,6 @@
       ClientOnly,
       ItemPreviewInterface,
       LoadingSpinner,
-      SearchViewToggles,
       UserSets
     },
 

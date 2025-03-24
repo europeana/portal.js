@@ -148,7 +148,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import { computed } from 'vue';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';

@@ -41,6 +41,7 @@
           <template
             v-else
           >
+            <!-- TODO: check this is working as intended after the ItemPreviewInterface refactor -->
             <p
               v-show="noMoreResults"
               data-qa="warning notice"

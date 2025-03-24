@@ -158,10 +158,6 @@
       };
     },
 
-    created() {
-      this.setViewFromRouteQuery();
-    },
-
     computed: {
       displayItemCount() {
         // TODO: this is residual from and specific to the set page; make more generic
@@ -186,6 +182,10 @@
 
     watch: {
       routeQueryView: 'setViewFromRouteQuery'
+    },
+
+    created() {
+      this.setViewFromRouteQuery();
     },
 
     methods: {
