@@ -5,7 +5,7 @@
     placement="bottom"
     triggers=""
     show
-    custom-class="new-feature-tooltip"
+    :custom-class="`new-feature-tooltip ${tooltipClass}`"
   >
     {{ $t('newFeatureNotification.tooltip') }}
   </b-tooltip>
@@ -23,6 +23,14 @@
       tooltipTargetId: {
         type: String,
         default: null
+      },
+      tooltipClass: {
+        type: String,
+        default: ''
+      },
+      setCookie: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -50,9 +58,11 @@
 
       this.trackEvent('show');
 
-      this.$cookies.set(this.cookieName, this.name, {
-        maxAge: 2678400
-      });
+      if (this.setCookie) {
+        this.$cookies.set(this.cookieName, this.name, {
+          maxAge: 2678400
+        });
+      }
     },
 
     methods: {
@@ -69,17 +79,42 @@
   @import '@europeana/style/scss/variables';
 
   .new-feature-tooltip .tooltip-inner {
-    background-image: linear-gradient(to right, $black, $blue);
-    background-size: 400% 100%;
-    animation: slide 2000ms ease-in-out infinite alternate;
+    background-image: linear-gradient(to right, $black 17%, $blue, $black 83%);
+    background-size: 800% 100%;
+    animation: slide 4000ms ease-in-out infinite;
+  }
+
+  .new-feature-tooltip.black .tooltip-inner {
+    background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
   }
 
   @keyframes slide {
-    from {
-      background-position: 0% 100%;
+    0% {
+      background-position: left;
     }
-    to {
-      background-position: 100% 100%;
+    50% {
+      background-position: right;
+    }
+    100% {
+      background-position: right;
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <b-button id="blue-flash">blue flash</b-button>
+  <NewFeatureTooltip
+  tooltipTargetId="blue-flash"
+  :set-cookie="false"
+  />
+  ```
+  ```jsx
+  <b-button id="black-flash">black flash</b-button>
+  <NewFeatureTooltip
+  tooltipTargetId="black-flash"
+  tooltipClass="black"
+  :set-cookie="false"
+  />
+  ```
+</docs>
