@@ -31,7 +31,6 @@ export default {
       "private": "Súkromnú galériu si môžete prezerať iba vy.",
       "public": "Verejnú galériu si môže pozrieť ktokoľvek s odkazom.",
       "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie.",
-      "remove": "Odstráňte tento objekt z tejto galérie.",
       "reorder": "Kliknutím na toto tlačidlo a presunutím objekty môžete zmeniť poradie objekt."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Pridať",
     "apply": "Použiť",
     "cancel": "Zrušiť",
+    "changeView": "Zmeniť zobrazenie",
     "clear": "Vyčistiť",
     "clearFilters": "Vymazať filtre",
     "close": "zatvoriť",
+    "confirm": "Potvrdiť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pridať do galérie",
-      "addToGallery": "Pridajte túto objekt do galérie.",
+      "addItems": {
+        "1": "Pridajte túto objekt do galérie.",
+        "many": "Pridať {count} objekt do galérie | Pridať {count} objekty do galérie"
+      },
+      "addItemsHere": {
+        "1": "Pridať do galérie",
+        "many": "Pridať {count} objekt do galérie | Pridať {count} objekty do galérie"
+      },
       "cancelSelection": "Zrušiť výber",
       "clickToSelectItems": "Kliknutím na objekty ich vyberiete",
       "create": "Vytvoriť galériu",
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
-      "removeItemFromLikes": "Odstráňte tento objekt zo svojich hodnotení Páči sa mi.",
-      "saveItemToLikes": "Uložte si túto objekt medzi obľúbené.",
+      "likeItems": {
+        "1": "Uložte si túto objekt medzi obľúbené.",
+        "many": "Páči sa mi {count} objekt | Páči sa mi {count} objekty"
+      },
+      "removeItems": {
+        "1": "Odstráňte tento objekt z tejto galérie.",
+        "many": "Odstrániť {count} objekt z tejto galérie | Odstrániť {count} objekty z tejto galérie"
+      },
       "selectItems": "Vyberte objekty",
+      "unlikeItems": {
+        "1": "Odstráňte tento objekt zo svojich hodnotení páči sa mi.",
+        "many": "Nepáči sa mi {count} objekt | Nepáčia sa mi {count} objekty"
+      },
       "update": "Aktualizovať galériu"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
-      "itemAdded": "Objekt bola pridaná do galérie \"{gallery}\".",
-      "itemLiked": "Objekt bol uložený medzi vaše označenia páči sa mi.",
-      "itemRemoved": "Objekt bol odstránený z galérie {gallery}.",
-      "itemUnliked": "Objekt bol odstránený z vašich označení, že sa mi páči.",
+      "itemsAdded": {
+        "1": "Objekt bola pridaná do galérie \"{gallery}\".",
+        "many": "{count} objekt bol pridaný do galérie \"{gallery}\". | {count} objekty boli pridané do galérie \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Objekt bol uložený medzi vaše označenia páči sa mi.",
+        "many": "{count} objekt bol uložený do vašich označení, že sa mi páči. | {count} objekty boli uložené do vašich označení, že sa mi páči."
+      },
+      "itemsRemoved": {
+        "1": "Objekt bol odstránený z galérie {gallery}.",
+        "many": "{count} objekt bol odstránený z galérie \"{gallery}\". | {count} objekty boli odstránené z galérie \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Objekt bol odstránený z vašich označení, že sa mi páči.",
+        "many": "{count} objekt bol odstránený z vašich označení, že sa mi páči. | {count} objekty boli odstránené z vašich označení, že sa mi páči."
+      },
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 objekty, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 páči sa mi"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
-      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky objekty, ktoré ste do nej pridali."
+      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky objekty, ktoré ste do nej pridali.",
+      "removeItems": "Naozaj chcete odstrániť {count} objekt z tejto galérie? | Naozaj chcete odstrániť {count} objekty z tejto galérie?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj na správu rôznych typov obsahu (vrátane 3D), dokumentáciu kultúrneho dedičstva prostredníctvom digitálnych komunitných priestorov a kurátorstvo digitálnych príbehov a zážitkov."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušte výber všetkých."
+      },
+      "info": "{count} vybraný objekt. | {count} vybrané objekty."
     }
   },
   "shareWhere": "Kde by ste to chceli zdieľať?",

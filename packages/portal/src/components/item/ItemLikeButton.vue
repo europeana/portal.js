@@ -5,10 +5,11 @@
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
+      :disabled="disabled"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
-      :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
+      :title="tooltipTitle"
       @click="toggleLiked"
     >
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
@@ -26,24 +27,21 @@
 </template>
 
 <script>
+  import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
-  import logEventMixin from '@/mixins/logEvent';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
 
-    mixins: [
-      logEventMixin
-    ],
-
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       /**
@@ -62,21 +60,32 @@
       }
     },
 
-    setup() {
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
       const { hideTooltips } = useHideTooltips();
+      const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { hideTooltips, makeToast };
+      return { cardinality, hideTooltips, logEvent, makeToast };
     },
 
     data() {
+      const modalIdSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
+
       return {
-        likeLimitModalId: `like-limit-modal-${this.identifier}`
+        likeLimitModalId: `like-limit-modal-${modalIdSuffix}`
       };
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       liked() {
-        return this.$store.state.set.likedItemIds.includes(this.identifier);
+        if (Array.isArray(this.identifiers)) {
+          return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
+        } else {
+          return this.$store.state.set.likedItemIds.includes(this.identifiers);
+        }
       },
       likesId() {
         return this.$store.state.set.likesId;
@@ -86,6 +95,22 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
+      },
+      likeToastMessage() {
+        return this.$tc(`set.notifications.itemsLiked.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      },
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
+      },
+      tooltipTitle() {
+        if (this.liked) {
+          return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+        }
+      },
+      unlikeToastMessage() {
+        return this.$tc(`set.notifications.itemsUnliked.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       }
     },
 
@@ -111,10 +136,15 @@
         }
 
         try {
-          await this.$store.dispatch('set/like', this.identifier);
-          this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
-          this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
-          this.makeToast(this.$t('set.notifications.itemLiked'));
+          await this.$store.dispatch('set/like', this.identifiers);
+
+          this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
+
+          for (const id of [].concat(this.identifiers)) {
+            this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
+          }
+
+          this.makeToast(this.likeToastMessage);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -125,8 +155,8 @@
         }
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifier);
-        this.makeToast(this.$t('set.notifications.itemUnliked'));
+        await this.$store.dispatch('set/unlike', this.identifiers);
+        this.makeToast(this.unlikeToastMessage);
       }
     }
   };

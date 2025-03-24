@@ -31,7 +31,6 @@ export default {
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
       "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
-      "remove": "Verwijder dit object uit deze galerij.",
       "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Toevoegen",
     "apply": "Toepassen",
     "cancel": "Annuleren",
+    "changeView": "Weergave wijzigen",
     "clear": "Wissen",
     "clearFilters": "Filters wissen",
     "close": "sluiten",
+    "confirm": "Bevestigen",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
@@ -1331,17 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Toevoegen aan galerij",
-      "addToGallery": "Voeg dit object toe aan een galerij.",
+      "addItems": {
+        "1": "Voeg dit object toe aan een galerij.",
+        "many": "Voeg {count} object toe aan een galerij | Voeg {count} objecten toe aan een galerij"
+      },
+      "addItemsHere": {
+        "1": "Toevoegen aan galerij",
+        "many": "Voeg {count} object toe aan galerij | Voeg {count} objecten toe aan galerij"
+      },
       "cancelSelection": "Selectie annuleren",
       "clickToSelectItems": "Klik op objecten om ze te selecteren",
       "create": "Galerij aanmaken",
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
-      "removeItemFromLikes": "Verwijder dit object uit uw likes.",
-      "saveItemToLikes": "Bewaar dit object bij uw likes.",
+      "likeItems": {
+        "1": "Bewaar dit object bij uw likes.",
+        "many": "Like {count} object | Like {count} objecten"
+      },
+      "removeItems": {
+        "1": "Verwijder dit object uit deze galerij.",
+        "many": "Verwijder {count} object uit deze galerij | Verwijder {count} objecten uit deze galerij"
+      },
       "selectItems": "Selecteer objecten",
+      "unlikeItems": {
+        "1": "Verwijder dit object uit uw likes.",
+        "many": "Unlike {count} object | Unlike {count} objecten"
+      },
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -1358,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "itemAdded": "Het object is toegevoegd aan de galerij \"{gallery}\".",
-      "itemLiked": "Object is opgeslagen bij uw likes.",
-      "itemRemoved": "Object is verwijderd uit galerij {gallery}.",
-      "itemUnliked": "Het object is verwijderd uit uw likes.",
+      "itemsAdded": {
+        "1": "Het object is toegevoegd aan de galerij \"{gallery}\".",
+        "many": "{count} object is toegevoegd aan de galerij \"{gallery}\". | {count} objecten zijn toegevoegd aan de galerij \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Object is opgeslagen bij uw likes.",
+        "many": "{count} object is opgeslagen in uw likes. | {count} objecten zijn opgeslagen in uw likes."
+      },
+      "itemsRemoved": {
+        "1": "Object is verwijderd uit galerij {gallery}.",
+        "many": "{count} object is verwijderd uit de galerij \"{gallery}\". | {count} objecten zijn verwijderd uit de galerij \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Het object is verwijderd uit uw likes.",
+        "many": "{count} object is verwijderd uit uw likes. | {count} objecten zijn verwijderd uit uw likes."
+      },
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 objecten liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
@@ -1370,7 +1399,8 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd.",
+      "removeItems": "Weet u zeker dat u {count} object uit deze galerij wilt verwijderen? | Weet u zeker dat u {count} objecten uit deze galerij wilt verwijderen?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alles deselecteren."
+      },
+      "info": "{count} object geselecteerd. | {count} objecten geselecteerd."
     }
   },
   "shareWhere": "Waar wilt u dit delen?",

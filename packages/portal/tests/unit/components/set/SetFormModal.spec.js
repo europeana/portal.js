@@ -152,7 +152,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     describe('when in item context', () => {
-      const propsData = { itemId: '/123/abc' };
+      const propsData = { itemIds: '/123/abc' };
 
       it('inserts item into set via API plugin', async() => {
         const wrapper = factory({ propsData });
@@ -194,21 +194,21 @@ describe('components/set/SetFormModal', () => {
       expect(deleteButton.exists()).toBe(false);
     });
 
-    it('opens the confirmation modal when pressed', () => {
+    it('opens the confirmation modal when pressed', async() => {
       const wrapper = factory({ propsData: existingSetPropsData });
-      const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
-      const deleteButton = wrapper.find('[data-qa="delete button"]');
-      deleteButton.trigger('click');
+      await wrapper.find('[data-qa="delete button"]').trigger('click');
+      const confirmDeleteModal = wrapper.find('[data-qa="confirm delete modal"]');
 
-      expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`)).toBe(true);
+      expect(confirmDeleteModal.isVisible()).toBe(true);
     });
   });
 
   describe('delete confirmation modal', () => {
+    const data = { showConfirmationModal: true };
     describe('confirm event handler', () => {
       it('deletes the set', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData });
+        const wrapper = factory({ data, propsData: existingSetPropsData });
 
         await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
@@ -219,7 +219,7 @@ describe('components/set/SetFormModal', () => {
         const $store = { state: { set: { active: { id: setId } } } };
 
         it('resets the active set id in the store', async() => {
-          const wrapper = factory({ propsData: existingSetPropsData, $store });
+          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
 
           await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
@@ -231,7 +231,7 @@ describe('components/set/SetFormModal', () => {
         const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
 
         it('does not reset the active set id in the store', async() => {
-          const wrapper = factory({ propsData: existingSetPropsData, $store });
+          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
 
           await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
@@ -240,7 +240,7 @@ describe('components/set/SetFormModal', () => {
       });
 
       it('makes toast', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData });
+        const wrapper = factory({ data, propsData: existingSetPropsData });
         const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
         await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
@@ -250,7 +250,7 @@ describe('components/set/SetFormModal', () => {
 
       describe('when on the deleted gallery page', () => {
         it('redirects to the account page', async() => {
-          const wrapper = factory({ propsData: existingSetPropsData, $route: { name: 'galleries-all___fr', params: { pathMatch: '123' } } });
+          const wrapper = factory({ data, propsData: existingSetPropsData, $route: { name: 'galleries-all___fr', params: { pathMatch: '123' } } });
 
           await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 

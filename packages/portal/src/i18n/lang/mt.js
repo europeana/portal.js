@@ -31,7 +31,6 @@ export default {
       "private": "Gallerija privata tista' taraha biss int.",
       "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
       "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
-      "remove": "Neħħi dan l-oġġett minn din il-gallerija.",
       "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Żid",
     "apply": "Applika",
     "cancel": "Ikkanċella",
+    "changeView": "Ibdel il-fehma",
     "clear": "Ċara",
     "clearFilters": "Filtri ċari",
     "close": "agħlaq",
+    "confirm": "Ikkonferma",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Żid fid-direttorju tar-ritratti",
-      "addToGallery": "Żid dan l-oġġett ma' gallerija.",
+      "addItems": {
+        "1": "Żid dan l-oġġett ma' gallerija.",
+        "many": "Żid {count} oġġett ma' gallerija | Żid {count} oġġetti ma' gallerija"
+      },
+      "addItemsHere": {
+        "1": "Żid fid-direttorju tar-ritratti",
+        "many": "Żid {count} oġġett ma' gallerija | Żid {count} oġġetti ma' gallerija"
+      },
       "cancelSelection": "Ikkanċella l-għażla",
       "clickToSelectItems": "Ikklikkja fuq l-oġġetti biex tagħżilhom",
       "create": "Oħloq direttorju",
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
-      "removeItemFromLikes": "Neħħi dan l-oġġett mill-Likes tiegħek.",
-      "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
+      "likeItems": {
+        "1": "Ħlief dan l-oġġett fil-Likes tiegħek.",
+        "many": "Like {count} oġġett | Like {count} oġġetti"
+      },
+      "removeItems": {
+        "1": "Neħħi dan l-oġġett minn din il-gallerija.",
+        "many": "Neħħi {count} oġġett minn din il-gallerija | Neħħi {count} oġġetti minn din il-gallerija"
+      },
       "selectItems": "Agħżel oġġetti",
+      "unlikeItems": {
+        "1": "Neħħi dan l-oġġett mill-Likes tiegħek.",
+        "many": "Unlike {count} oġġett | Unlike {count} oġġetti"
+      },
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
-      "itemAdded": "L-oġġett ġie miżjud mal-gallerija \"{gallery}\".",
-      "itemLiked": "L-oġġett ġie ffrankat fil-“likes” tiegħek.",
-      "itemRemoved": "L-oġġett tneħħa mill-gallerija {gallery}.",
-      "itemUnliked": "L-oġġett tneħħa mill-“likes” tiegħek.",
+      "itemsAdded": {
+        "1": "L-oġġett ġie miżjud mal-gallerija \"{gallery}\".",
+        "many": "{count} oġġett ġie miżjud mal-gallerija \"{gallery}\". | {count} oġġetti ġew miżjuda mal-gallerija \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "L-oġġett ġie ffrankat fil-“likes” tiegħek.",
+        "many": "{count} oġġett ġie ssejvjat fil-“likes” tiegħek. | {count} oġġetti ġew ssejvjati fil-“likes” tiegħek."
+      },
+      "itemsRemoved": {
+        "1": "L-oġġett tneħħa mill-gallerija {gallery}.",
+        "many": "{count} oġġett tneħħa mill-gallerija \"{gallery}\". | {count} oġġetti tneħħew mill-gallerija \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "L-oġġett tneħħa mill-“likes” tiegħek.",
+        "many": "{count} oġġett tneħħa mill-“likes” tiegħek. | {count} oġġetti tneħħew mill-“likes” tiegħek."
+      },
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 likes"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
+      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha.",
+      "removeItems": "Inti żgur li trid neħħi {count} oġġett minn din il-gallerija? | Inti żgur li trid neħħi {count} oġġetti minn din il-gallerija?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) hija għodda bbażata fuq il-web għall-ġestjoni ta' kontenut ta' tipi differenti (inkluż 3D), id-dokumentazzjoni tal-wirt kulturali permezz ta' spazji tal-komunità diġitali, u l-kura ta' stejjer u esperjenzi diġitali."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Neħħi l-għażla kollha."
+      },
+      "info": "{count} oġġett magħżul. | {count} oġġetti magħżula."
     }
   },
   "shareWhere": "Fejn tixtieq taqsam dan?",

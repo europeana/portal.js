@@ -31,7 +31,6 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
-      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Pievienot",
     "apply": "Pieteikties",
     "cancel": "Atcelt",
+    "changeView": "Mainīt skatu",
     "clear": "Notīrīt",
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
+    "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
@@ -1329,17 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pievienot galerijai",
-      "addToGallery": "Pievienot šo digitālais objekts galerijai.",
+      "addItems": {
+        "1": "Pievienot šo digitālais objekts galerijai.",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
+      "addItemsHere": {
+        "1": "Pievienot galerijai",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
       "cancelSelection": "Atcelt atlasi",
       "clickToSelectItems": "Noklikšķiniet uz digitālajiem objektiem, lai tos atlasītu",
       "create": "Izveidot galeriju",
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
-      "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
+      "likeItems": {
+        "1": "Saglabāt šo digitālo objektu savā patīk",
+        "many": "Man patīk {count} digitālais objekts | Man patīk {count} digitālie objekti"
+      },
+      "removeItems": {
+        "1": "Noņemiet šo digitālo objektu no šīs galerijas.",
+        "many": "Noņemt {count} digitālo objektu no šīs galerijas | Noņemt {count} digitālos objektus no šīs galerijas"
+      },
       "selectItems": "Izvēlieties digitālos objektus",
+      "unlikeItems": {
+        "1": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
+        "many": "Man vairs nepatīk {count} digitālais objekts | Man vairs nepatīk {count} digitālie objekti"
+      },
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -1356,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
-      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
-      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+      "itemsAdded": {
+        "1": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
+        "many": "{count} digitālais objekts ir pievienots galerijai \"{gallery}\". | {count} digitālie objekti ir pievienoti galerijai \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
+        "many": "{count} digitālais objekts ir saglabāts jūsu patīk sarakstā. | {count} digitālie objekti ir saglabāti jūsu patīk sarakstā."
+      },
+      "itemsRemoved": {
+        "1": "Digitālais objekts ir noņemts no galerijas {gallery}.",
+        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". | {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+        "many": "{count} digitālais objekts ir noņemts no jūsu patīk saraksta. | {count} digitālie objekti ir noņemti no jūsu patīk saraksta."
+      },
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
@@ -1368,7 +1397,8 @@ export default {
       "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti."
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti.",
+      "removeItems": "Vai tiešām vēlaties noņemt {count} digitālo objektu no šīs galerijas? | Vai tiešām vēlaties noņemt {count} digitālos objektus no šīs galerijas?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Noņemiet visu atlasi."
+      },
+      "info": "{count} digitālais objekts izvēlēts. | {count} digitālos objektus izvēlēti."
     }
   },
   "shareWhere": "Kur jūs vēlētos dalīties ar šo?",

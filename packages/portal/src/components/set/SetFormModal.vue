@@ -63,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemId ? $t('actions.cancel') : $t('actions.close') }}
+            {{ isNew && itemIds ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
@@ -87,14 +87,17 @@
       </b-form>
     </b-modal>
     <ConfirmDangerModal
-      v-if="!isNew"
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
       :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
       :modal-title="$t('set.actions.delete')"
       :prompt-text="$t('set.prompts.delete')"
+      data-qa="confirm delete modal"
       @cancel="show"
       @confirm="deleteSet"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
@@ -155,8 +158,8 @@
         default: 'Collection'
       },
 
-      itemId: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         default: null
       }
     },
@@ -169,10 +172,11 @@
     data() {
       return {
         titleValue: '',
+        deleteSetModalId: `delete-set-modal-${this.setId}`,
         descriptionValue: '',
         isPrivate: false,
-        submissionPending: false,
-        deleteSetModalId: `delete-set-modal-${this.setId}`
+        showConfirmationModal: false,
+        submissionPending: false
       };
     },
 
@@ -263,8 +267,8 @@
             this.$store.dispatch('set/fetchActive');
           }
 
-          if (this.itemId && this.isNew) {
-            await this.$apis.set.insertItems(setId, this.itemId);
+          if (this.itemIds && this.isNew) {
+            await this.$apis.set.insertItems(setId, this.itemIds);
           }
 
           this.hide(this.isNew ? 'create' : 'update');
@@ -313,7 +317,9 @@
 
       clickDelete() {
         this.$bvModal.hide(this.modalId);
-        this.$bvModal.show(this.deleteSetModalId);
+        if (!this.isNew) {
+          this.showConfirmationModal = true;
+        }
       }
     }
   };

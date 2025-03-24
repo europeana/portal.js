@@ -10,6 +10,16 @@ export default {
     selectedItems: []
   }),
 
+  getters: {
+    activeSetItemIds(state) {
+      return state.active?.items.map((item) => item.id) || [];
+    },
+
+    someActiveSetItemsSelected(state, getters) {
+      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
+    }
+  },
+
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;
@@ -23,11 +33,15 @@ export default {
     },
     like(state, itemIds) {
       for (const itemId of [].concat(itemIds)) {
-        state.likedItemIds.push(itemId);
+        if (!state.likedItemIds.includes(itemId)) {
+          state.likedItemIds.push(itemId);
+        }
       }
     },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+    unlike(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+      }
     },
     setActive(state, value) {
       state.active = value;
@@ -73,10 +87,11 @@ export default {
         }
       }
     },
-    async unlike({ dispatch, commit, state }, itemId) {
+    async unlike({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       try {
-        await this.$apis.set.deleteItems(state.likesId, itemId);
-        commit('unlike', itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemIds);
+        commit('unlike', itemIds);
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');
@@ -98,7 +113,7 @@ export default {
 
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ commit, state }) {
+    async fetchActive({ dispatch, commit, state }) {
       if (!state.activeId) {
         return;
       }
@@ -107,6 +122,9 @@ export default {
         this.$apis.set.get(state.activeId),
         this.$apis.set.getItems(state.activeId, state.activeParams)
       ]);
+      if ((state.selectedItems || []).length > 0) {
+        dispatch('refreshSelected');
+      }
 
       return commit('setActive', {
         ...responses[0],
@@ -124,6 +142,12 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
+    },
+    refreshSelected({ state, commit }) {
+      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
+      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
+
+      commit('setSelected', activeSelectedItems);
     }
   }
 };

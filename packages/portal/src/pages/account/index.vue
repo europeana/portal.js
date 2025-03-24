@@ -101,9 +101,14 @@
                         >
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
+                        <ItemSelectButton
+                          v-if="$features.itemMultiSelect"
+                          class="ml-auto"
+                          @select="(newState) => itemMultiSelect = newState"
+                        />
                         <SearchViewToggles
                           v-model="view"
-                          class="ml-auto"
+                          :class="{ 'ml-auto': !$features.itemMultiSelect }"
                         />
                       </b-col>
                     </b-row>
@@ -161,10 +166,15 @@
         </b-col>
       </b-row>
     </b-container>
+    <ItemSelectToolbar
+      v-if="itemMultiSelect"
+      :user-can-edit-set="userCanEditSet"
+    />
   </div>
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
@@ -173,6 +183,8 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemSelectButton from '@/components/item/ItemSelectButton';
+  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
   import UserSets from '@/components/user/UserSets';
@@ -185,6 +197,8 @@
       BNav,
       ClientOnly,
       ItemPreviewCardGroup,
+      ItemSelectButton,
+      ItemSelectToolbar,
       LoadingSpinner,
       SearchViewToggles,
       UserSets
@@ -195,11 +209,23 @@
       pageMetaMixin
     ],
 
+    provide() {
+      return {
+        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+      };
+    },
+
+    beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setSelected', []);
+      next();
+    },
+
     middleware: 'auth',
 
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
+        itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',

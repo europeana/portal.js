@@ -31,7 +31,6 @@ export default {
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
       "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
-      "remove": "Odeberte tuto položku z této galerie.",
       "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Přidat",
     "apply": "Použít",
     "cancel": "Zrušit",
+    "changeView": "Změnit zobrazení",
     "clear": "Vyčistit",
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
+    "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
@@ -1331,17 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Vložit do galerie",
-      "addToGallery": "Přidat tuto položku do galerie.",
+      "addItems": {
+        "1": "Přidat tuto položku do galerie.",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
+      "addItemsHere": {
+        "1": "Vložit do galerie",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
       "cancelSelection": "Zrušit výběr",
       "clickToSelectItems": "Kliknutím na položky je vyberete",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
-      "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
+      "likeItems": {
+        "1": "Uložte si tuto položku do seznamu líbí se vám.",
+        "many": "Lajkuj {count} položku | Lajkuj {count} položky"
+      },
+      "removeItems": {
+        "1": "Odeberte tuto položku z této galerie.",
+        "many": "Odstraňte {count} položku z této galerie | Odstraňte {count} položky z této galerie"
+      },
       "selectItems": "Vyberte položky",
+      "unlikeItems": {
+        "1": "Odeberte tuto položku ze svýchlíbí se mi.",
+        "many": "Odeber lajk z {count} položky | Odeber lajky z {count} položek"
+      },
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -1358,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
-      "itemAdded": "Položka byla přidána do galerie \"{gallery}\".",
-      "itemLiked": "Položka byla uložena do vašich označení líbí se mi.",
-      "itemRemoved": "Položka byla odstraněna z galerie {gallery}.",
-      "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
+      "itemsAdded": {
+        "1": "Položka byla přidána do galerie \"{gallery}\".",
+        "many": "{count} položka byla přidána do galerie \"{gallery}\". | {count} položky byly přidány do galerie \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Položka byla uložena do vašich označení líbí se mi.",
+        "many": "{count} položka byla uložena do vašich označení líbí se mi. | {count} položky byly uloženy do vašich označení líbí se mi."
+      },
+      "itemsRemoved": {
+        "1": "Položka byla odstraněna z galerie {gallery}.",
+        "many": "{count} položka byla odstraněna z galerie \"{gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Položka byla odstraněna z vašich označení líbí se mi.",
+        "many": "{count} položka byla odstraněna z vašich označení líbí se mi. | {count} položky byly odstraněny z vašich označení líbí se mi."
+      },
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 lajků"
@@ -1370,7 +1399,8 @@ export default {
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje.",
+      "removeItems": "Jste si jisti, že chcete odstranit {count} položku z této galerie? | Jste si jisti, že chcete odstranit {count} položky z této galerie?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušit výběr všeho."
+      },
+      "info": "{count} vybraná položka. | {count} vybrané položky."
     }
   },
   "shareWhere": "Kam byste to chtěli sdílet?",

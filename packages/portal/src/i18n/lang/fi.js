@@ -31,7 +31,6 @@ export default {
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
       "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
-      "remove": "Poista tämä aineisto tästä galleriasta.",
       "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Lisätä",
     "apply": "Käytä",
     "cancel": "Peruuttaa",
+    "changeView": "Vaihda näkymää",
     "clear": "Tyhjennä",
     "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
+    "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
@@ -1331,17 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lisää galleriaan",
-      "addToGallery": "Lisää tämä aineisto galleriaan.",
+      "addItems": {
+        "1": "Lisää tämä aineisto galleriaan.",
+        "many": "Lisää {count} aineisto galleriaan | Lisää {count} aineistot galleriaan"
+      },
+      "addItemsHere": {
+        "1": "Lisää galleriaan",
+        "many": "Lisää {count} aineisto galleriaan | Lisää {count} aineistot galleriaan"
+      },
       "cancelSelection": "Peruuta valinta",
       "clickToSelectItems": "Valitse aineistoja napsauttamalla niitä",
       "create": "Luo galleria",
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
-      "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
-      "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
+      "likeItems": {
+        "1": "Tallenna tämä aineisto tykkäyksiisi.",
+        "many": "Tykkää {count} aineistosta | Tykkää {count} aineistoista"
+      },
+      "removeItems": {
+        "1": "Poista tämä aineisto tästä galleriasta.",
+        "many": "Poista {count} aineisto tästä galleriasta | Poista {count} aineistot tästä galleriasta"
+      },
       "selectItems": "Valitse aineistot",
+      "unlikeItems": {
+        "1": "Poista tämä kohde tykkäyksistäsi.",
+        "many": "Poista tykkäys {count} aineistosta | Poista tykkäys {count} aineistoista"
+      },
       "update": "Päivitä galleria"
     },
     "form": {
@@ -1358,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
-      "itemAdded": "Aineisto on lisätty galleriaan \"{gallery}\".",
-      "itemLiked": "Aineisto on tallennettu tykkääjäsi.",
-      "itemRemoved": "Aineisto on poistettu galleriasta {gallery}.",
-      "itemUnliked": "Aineisto on poistettu tykkäyksistäsi.",
+      "itemsAdded": {
+        "1": "Aineisto on lisätty galleriaan \"{gallery}\".",
+        "many": "{count} aineisto on lisätty galleriaan \"{gallery}\". | {count} aineistot on lisätty galleriaan \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Aineisto on tallennettu tykkääjäsi.",
+        "many": "{count} aineisto on tallennettu tykkäyksiisi. | {count} aineistot on tallennettu tykkäyksiisi."
+      },
+      "itemsRemoved": {
+        "1": "Aineisto on poistettu galleriasta {gallery}.",
+        "many": "{count} aineisto on poistettu galleriasta \"{gallery}\". | {count} aineistot on poistettu galleriasta \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Aineisto on poistettu tykkäyksistäsi.",
+        "many": "{count} aineisto on poistettu tykkäyksistäsi. | {count} aineistot on poistettu tykkäyksistäsi."
+      },
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 aineistot. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
@@ -1370,7 +1399,8 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot."
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot.",
+      "removeItems": "Oletko varma, että haluat poistaa {count} aineisto tästä galleriasta? | Oletko varma, että haluat poistaa {count} aineistot tästä galleriasta?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poista kaikki valinnat."
+      },
+      "info": "{count} valittu aineisto. | {count} valitut aineistot."
     }
   },
   "shareWhere": "Missä haluaisit jakaa tämän?",

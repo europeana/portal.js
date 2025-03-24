@@ -67,7 +67,6 @@
             :offset="items.findIndex(item => item.id === card.id)"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
-            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -131,7 +130,6 @@
             :offset="items.findIndex(item => item.id === card.id)"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
-            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -195,10 +193,6 @@
       onAuxClickCard: {
         type: Function,
         default: null
-      },
-      selectState: {
-        type: Boolean,
-        default: false
       }
     },
 

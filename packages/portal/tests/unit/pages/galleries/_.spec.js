@@ -278,7 +278,7 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('beforeRouteLeave', () => {
-    it('resets the active set and recommendations', async() => {
+    it('resets the active set, recommendations and selected items', async() => {
       const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
       const wrapper = factory(defaultOptions);
 
@@ -288,6 +288,7 @@ describe('GalleryPage (Set)', () => {
 
       expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
       expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
+      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
       expect(next.called).toBe(true);
     });
   });
