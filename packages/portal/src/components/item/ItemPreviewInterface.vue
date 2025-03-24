@@ -160,10 +160,11 @@
 
     computed: {
       displayItemCount() {
-        // TODO: this is residual from and specific to the set page; make more generic
-        const max = 100;
-        const label = this.total > max ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.total, { max });
+        let label = 'items.itemCount';
+        if (this.maxResults && (this.total > this.maxResults)) {
+          label = 'items.itemOf';
+        }
+        return this.$tc(label, this.total, { max: this.maxResults });
       },
 
       routeQueryView() {

@@ -127,6 +127,7 @@
       </b-container>
       <ItemPreviewInterface
         :items="set.items"
+        :max-results="100"
         :total="set.total"
         :show-pins="setIsEntityBestItems && userIsEntityEditor"
         :user-editable-items="userCanEditSet"
