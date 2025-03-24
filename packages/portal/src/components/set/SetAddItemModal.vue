@@ -150,7 +150,7 @@
           qf: [
             'type:Collection'
           ]
-        });
+        }, { withMinimalItemPreviews: true });
         this.collections = searchResponse.items || [];
         this.fetched = true;
         this.fetchCollectionsWithItem();
