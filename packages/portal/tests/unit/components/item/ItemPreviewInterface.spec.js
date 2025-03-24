@@ -1,33 +1,31 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import mixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
-
-const component = {
-  template: '<div></div>',
-  mixins: [mixin]
-};
+import ItemPreviewInterface from '@/components/item/ItemPreviewInterface.vue';
 
 const localVue = createLocalVue();
 
-const factory = (mocks = {}) => shallowMount(component, {
+const factory = (mocks = {}) => shallowMount(ItemPreviewInterface, {
   localVue,
   mocks: {
+    $cookies: {
+      set: sinon.spy()
+    },
+    $features: {},
     $store: {
       commit: sinon.spy(),
       getters: {
         'search/activeView': 'grid'
       }
     },
-    $cookies: {
-      set: sinon.spy()
-    },
     $route: { query: {} },
+    $tc: (key) => key,
     ...mocks
-  }
+  },
+  stubs: ['b-col', 'b-row', 'b-container']
 });
 
-describe('@/mixins/europeana/item/itemPreviewCardGroupView', () => {
+describe('@/components/item/ItemPreviewInterface', () => {
   describe('view', () => {
     describe('setter', () => {
       it('commits to the search store', () => {
