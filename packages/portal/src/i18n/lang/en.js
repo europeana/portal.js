@@ -1187,9 +1187,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Go to a gallery and try it",
+    "readMore": "Try it",
     "text": {
-      "itemMultiSelect": "You can now select multiple items in a gallery at once, to like or add them to a gallery of your own."
+      "itemMultiSelect": "You can now select multiple items at once, to like or add them to a gallery of your own."
     },
     "tooltip": "Click here to start selecting multiple items"
   },
