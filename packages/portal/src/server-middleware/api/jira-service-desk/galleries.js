@@ -32,7 +32,7 @@ const jiraData = (options, req) => {
   return data;
 };
 
-const jiraOptions = options => ({
+const jiraOptions = (options) => ({
   auth: {
     username: options.serviceDesk.galleries.username,
     password: options.serviceDesk.galleries.password

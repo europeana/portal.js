@@ -47,7 +47,7 @@ const config = {
 const mockFacetRequest = (response = apiFacetResponse) => {
   nock(config.europeana.apis.record.url)
     .get('/search.json')
-    .query(query => (
+    .query((query) => (
       query.profile === 'facets' &&
         query.query === 'foaf_organization:*data.europeana.eu*' &&
         query.facet === 'foaf_organization' &&
@@ -60,7 +60,7 @@ const mockFacetRequest = (response = apiFacetResponse) => {
 const mockPlaceRequest = () => {
   nock(config.europeana.apis.entity.url)
     .get('/place/001.json')
-    .query(query => query.wskey === config.europeana.apis.entity.key)
+    .query((query) => query.wskey === config.europeana.apis.entity.key)
     .reply(200, apiPlaceResponse);
 };
 

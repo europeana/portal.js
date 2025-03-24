@@ -48,7 +48,7 @@
 
     fetch() {
       return this.$apis.recommendation.recommend('set', this.identifier)
-        .then(response => {
+        .then((response) => {
           this.$store.commit('set/setActiveRecommendations', response.items);
         });
     },

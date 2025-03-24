@@ -95,7 +95,7 @@
           };
           if (key === 'items/type-counts') {
             entry.label = 'items';
-            entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+            entry.info = cachedData[key]?.map((data) => data.count).reduce((a, b) => a + b);
           } else if (key === 'collections/organisations/count') {
             entry.label = 'providingInstitutions';
           }
@@ -110,7 +110,7 @@
         if (this.staticItems.length) {
           items = this.staticItems;
         } else {
-          items = this.entries?.map(entry => ({
+          items = this.entries?.map((entry) => ({
             info: isNaN(entry.info) ? entry.info : this.$i18n.n(this.roundedNumber(entry.info)) + ' +',
             label: this.$t(`landing.counts.${entry.label}`)
           }));
@@ -126,7 +126,7 @@
       fetchCachedData() {
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
-            .then(module => {
+            .then((module) => {
               return module.cached(this.keys, this.$config.redis)
                 .then((response) => response);
             });

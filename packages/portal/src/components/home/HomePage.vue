@@ -113,7 +113,7 @@
         const homePage = response.data.data.homePageCollection.items[0];
         const backgroundImages = homePage.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
-        this.callsToAction = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+        this.callsToAction = this.sections.filter((section) => section['__typename'] === 'PrimaryCallToAction');
         this.backgroundImage = this.selectRandomBackground(backgroundImages);
         this.socialMediaImage = homePage.image;
       },

@@ -128,7 +128,7 @@
         return `${this.id}-options`;
       },
       fieldNeedsEntityLookUp() {
-        return this.advancedSearchFieldsForEntityLookUp.map(field => field?.name)
+        return this.advancedSearchFieldsForEntityLookUp.map((field) => field?.name)
           .includes(this.advancedSearchField);
       }
     },

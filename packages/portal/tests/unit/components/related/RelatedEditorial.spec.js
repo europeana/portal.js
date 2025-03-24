@@ -78,7 +78,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+          expect(wrapper.vm.related.map((entry) => entry.identifier)).toEqual(relatedEditorialIdentifiers);
         });
       });
 
@@ -103,7 +103,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+          expect(wrapper.vm.related.map((entry) => entry.identifier)).toEqual(relatedEditorialIdentifiers);
         });
       });
     });
@@ -133,7 +133,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+          expect(wrapper.vm.related.map((entry) => entry.identifier)).toEqual(relatedEditorialIdentifiers);
         });
       });
 
@@ -158,7 +158,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+          expect(wrapper.vm.related.map((entry) => entry.identifier)).toEqual(relatedEditorialIdentifiers);
         });
       });
     });
@@ -189,7 +189,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+          expect(wrapper.vm.related.map((entry) => entry.identifier)).toEqual(relatedEditorialIdentifiers);
         });
       });
 

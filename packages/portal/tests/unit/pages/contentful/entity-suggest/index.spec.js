@@ -11,7 +11,7 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $apis: {
       entity: {
         find: sinon.spy(),

@@ -34,7 +34,7 @@ describe('cachers/items/type-counts', () => {
   beforeEach(() => {
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.profile === 'facets' &&
         query.query === '*:*' &&
         query.facet === 'TYPE' &&

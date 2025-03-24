@@ -12,7 +12,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
     $i18n: { locale: 'en' },
-    $t: key => key,
+    $t: (key) => key,
     $route: { path: '/ds4ch', fullPath: '/ds4ch' },
     $features: {},
     ...options.mocks

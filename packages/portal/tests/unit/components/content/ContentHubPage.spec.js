@@ -6,14 +6,14 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 // Creates an array of 25 number strings
-const identifiers = [...Array(25).keys()].map(key => (key + 1).toString());
+const identifiers = [...Array(25).keys()].map((key) => (key + 1).toString());
 
-const pageOfItems = [...identifiers].map(identifier => {
+const pageOfItems = [...identifiers].map((identifier) => {
   return { identifier, description: 'page description', name: 'page name',
     primaryImageOfPage: { image: { url: 'https://www.example.eu/image.jpg', contentType: 'image/jpeg', description: 'image alt text' } } };
 });
 
-const pageOfGalleries = [...identifiers].map(identifier => {
+const pageOfGalleries = [...identifiers].map((identifier) => {
   return { slug: identifier, description: 'gallery description', title: 'gallery title', thumbnail: 'https://www.example.eu/image.jpg' };
 });
 

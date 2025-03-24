@@ -62,7 +62,7 @@ describe('store/set', () => {
       it('sets the likedItemIds state when there are any', () => {
         const state = { likedItems: null, likedItemIds: [] };
         store.mutations.setLikedItems(state, likedItems);
-        expect(state.likedItemIds).toEqual(likedItems.map(item => item.id));
+        expect(state.likedItemIds).toEqual(likedItems.map((item) => item.id));
       });
       it('does not set the likedItemIds state when there is a falsy value', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
@@ -191,7 +191,7 @@ describe('store/set', () => {
     describe('like()', () => {
       describe('when amount of likes limit is reached', () => {
         it('throws an error', async() => {
-          const likedItems = Array.from(Array(100).keys()).map(item => {
+          const likedItems = Array.from(Array(100).keys()).map((item) => {
             return { id: `${item}` };
           });
           const state = { likedItems };

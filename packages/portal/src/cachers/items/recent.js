@@ -14,7 +14,7 @@ let randomSortSeed;
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
   let query = '*:*';
   if (exclude.length > 0) {
-    const excludedDatasets = exclude.map(e => `"${e}"`).join(' OR ');
+    const excludedDatasets = exclude.map((e) => `"${e}"`).join(' OR ');
     query = `NOT edm_datasetName:(${excludedDatasets})`;
   }
 

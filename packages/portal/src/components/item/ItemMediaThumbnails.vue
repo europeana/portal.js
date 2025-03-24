@@ -91,11 +91,11 @@
 
     computed: {
       firstRenderedResourceIndex() {
-        return this.resources?.findIndex(resource => resource === this.resourcesToRender[0]);
+        return this.resources?.findIndex((resource) => resource === this.resourcesToRender[0]);
       },
 
       lastRenderedResourceIndex() {
-        return this.resources?.findIndex(resource => resource === this.resourcesToRender[this.resourcesToRender.length - 1]);
+        return this.resources?.findIndex((resource) => resource === this.resourcesToRender[this.resourcesToRender.length - 1]);
       },
 
       selectedIndex() {

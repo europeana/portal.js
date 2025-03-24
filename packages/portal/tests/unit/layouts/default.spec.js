@@ -51,7 +51,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     },
     $i18n: {
       locale: 'fr',
-      t: key => key
+      t: (key) => key
     },
     $cookies: {
       get: (key) => options.cookies[key] || {},
@@ -117,14 +117,14 @@ describe('layouts/default.vue', () => {
       it('includes i18nHead head links', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.head().link.filter(anylink => nuxtI18nHead.link.some(i18nLink => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
+        expect(wrapper.vm.head().link.filter((anylink) => nuxtI18nHead.link.some((i18nLink) => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
       });
     });
     describe('meta', () => {
       it('includes i18nHead head meta tags', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
+        expect(wrapper.vm.head().meta.filter((anyTag) => nuxtI18nHead.meta.some((i18nTag) => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
       });
 
       it('includes description "Europeana"', () => {

@@ -86,12 +86,12 @@
     data() {
       return {
         // "eu" language code not supported for translation
-        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
+        translateLocales: this.$i18n.locales.filter((locale) => locale.code !== 'eu')
       };
     },
     computed: {
       translationLanguageLabel() {
-        return this.$i18n.locales.find(locale => locale.code === this.translationLanguage)?.name;
+        return this.$i18n.locales.find((locale) => locale.code === this.translationLanguage)?.name;
       }
     },
     methods: {

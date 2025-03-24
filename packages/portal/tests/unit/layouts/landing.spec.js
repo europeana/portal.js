@@ -12,7 +12,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
     $i18n: { locale: 'en' },
-    $t: key => key,
+    $t: (key) => key,
     $route: { path: '/landing', fullPath: '/landing' },
     $features: {},
     ...options.mocks
@@ -42,7 +42,7 @@ describe('layouts/landing.vue', () => {
       it('includes favicon', () => {
         const wrapper = factory();
 
-        const iconLink = wrapper.vm.head().link.find(anylink => anylink.rel = 'icon');
+        const iconLink = wrapper.vm.head().link.find((anylink) => anylink.rel = 'icon');
 
         expect(iconLink.type).toEqual('image/x-icon');
       });

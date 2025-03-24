@@ -256,9 +256,9 @@
           this.$auth.userHasClientRole('usersets', 'editor');
       },
       ...mapState({
-        likesId: state => state.set.likesId,
-        likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations
+        likesId: (state) => state.set.likesId,
+        likedItems: (state) => state.set.likedItems,
+        curations: (state) => state.set.curations
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;

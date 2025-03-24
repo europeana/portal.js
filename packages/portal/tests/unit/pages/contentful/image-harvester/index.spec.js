@@ -77,7 +77,7 @@ const apiErrorResponse = {
 const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }

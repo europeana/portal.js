@@ -18,7 +18,7 @@ export default {
         identifier = $config.app.homeLandingPageSlug;
       }
 
-      return Object.keys(LANDING_PAGES).find(key => LANDING_PAGES[key] === identifier);
+      return Object.keys(LANDING_PAGES).find((key) => LANDING_PAGES[key] === identifier);
     }
   }
 };

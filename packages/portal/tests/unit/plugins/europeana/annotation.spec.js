@@ -12,7 +12,7 @@ describe('plugins/europeana/annotation', () => {
       const apiQuery = '*:*';
       nock(EuropeanaAnnotationApi.BASE_URL)
         .get('/search')
-        .query(query => {
+        .query((query) => {
           return query.query === apiQuery;
         })
         .reply(200, {});

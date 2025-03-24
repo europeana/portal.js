@@ -41,7 +41,7 @@ const factory = (heroImage) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $tc: () => {},
     $config: {
       app: {

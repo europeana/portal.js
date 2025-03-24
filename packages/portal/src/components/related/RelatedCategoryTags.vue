@@ -72,7 +72,7 @@
         const route = { name: 'stories' };
 
         if (this.selected.includes(tagId)) {
-          const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
+          const tagsWithoutCurrent = this.selected.filter((item) => item !== tagId);
           const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
           const newQuery = { ...this.$route.query };
           delete newQuery.page;

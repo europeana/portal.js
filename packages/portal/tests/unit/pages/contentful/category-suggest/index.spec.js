@@ -31,7 +31,7 @@ const contentfulCategorySuggestResponse = {
 const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     }

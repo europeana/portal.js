@@ -7,7 +7,7 @@ export default {
       const nativeLocaleDefinable = langMap.def?.[0]?.prefLabel &&
         Object.keys(langMap.def[0].prefLabel).length <= 2;
       const nativeLocale =  nativeLocaleDefinable &&
-        (Object.keys(langMap.def[0].prefLabel).find(key => key !== ENGLISH_LOCALE_CODE) || ENGLISH_LOCALE_CODE);
+        (Object.keys(langMap.def[0].prefLabel).find((key) => key !== ENGLISH_LOCALE_CODE) || ENGLISH_LOCALE_CODE);
 
       return nativeLocale;
     },

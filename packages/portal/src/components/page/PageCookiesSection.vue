@@ -158,7 +158,7 @@
 
       updateConsent(serviceData, value) {
         if (serviceData.services) {
-          serviceData.services.forEach(service => {
+          serviceData.services.forEach((service) => {
             this.updateConsent(service, value);
           });
         }

@@ -232,7 +232,7 @@
 
       async unpin() {
         await this.unpinItemFromEntityBestItemsSet(this.identifier, this.selectedEntitySet.id);
-        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
+        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter((itemId) => itemId !== this.identifier);
         this.hide();
       },
 

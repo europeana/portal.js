@@ -51,7 +51,7 @@ const fakeContentfulExtensionField = (returnVal) => ({
 
 // Stubs the Contentful app extension
 export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = undefined, location = 'sidebar' } = {}) => {
-  const fakeInit = callback => {
+  const fakeInit = (callback) => {
     const fakeSdk = {
       location: {
         is: (val) => val === location

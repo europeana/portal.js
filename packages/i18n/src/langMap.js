@@ -151,7 +151,7 @@ const localizedLangMapFromFirstNonDefValue = (langMap) => {
 const hasNonDefValues = (langMap) => {
   return Object
     .keys(langMap)
-    .some(key => key !== 'def');
+    .some((key) => key !== 'def');
 };
 
 // check if values are exclusively URIs.
@@ -164,7 +164,7 @@ const isJSONLDExpanded = (values) => {
 };
 
 const langMapValueFromJSONLD = (value, locale) => {
-  const forCurrentLang = value.find(element => element['@language'] === locale);
+  const forCurrentLang = value.find((element) => element['@language'] === locale);
   return forCurrentLang?.['@value'];
 };
 
@@ -210,11 +210,11 @@ const normalizedLangCode = (key) => {
 };
 
 const filterEntities = (mappedObject) => {
-  mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
+  mappedObject.values = mappedObject.values.filter((v) => !isEntity(v));
 };
 
 export const isLangMap = (value) => {
-  return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every(key => {
+  return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every((key) => {
     // TODO: is this good enough to determine lang map or not?
     return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
@@ -243,8 +243,8 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
       // Preserve entities from .def property
       if (selectedLocale !== 'def' && Array.isArray(value.def)) {
         langMap.def = value.def
-          .filter(def => def.about)
-          .map(entity => reduceLangMapsForLocale(entity, locale, options));
+          .filter((def) => def.about)
+          .map((entity) => reduceLangMapsForLocale(entity, locale, options));
       }
       return options.freeze ? Object.freeze(langMap) : langMap;
     } else {

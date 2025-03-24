@@ -65,9 +65,9 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $d: date => date,
+    $d: (date) => date,
     $features: {},
-    $t: key => key,
+    $t: (key) => key,
     $tc: () => {},
     localePath: () => '/',
     $store: {

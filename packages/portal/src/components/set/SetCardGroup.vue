@@ -79,7 +79,7 @@
           });
           return setSearchResponse?.items?.[0];
         }));
-        setResponse = setResponse.filter(set => !!set);
+        setResponse = setResponse.filter((set) => !!set);
 
         if (setResponse)  {
           this.sets = this.parseSets(setResponse);

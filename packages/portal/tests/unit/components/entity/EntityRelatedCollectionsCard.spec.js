@@ -22,7 +22,7 @@ const factory = ({ propsData = {}, data = {}, responses } = {}) => {
           }
         }
       },
-      $t: key => key
+      $t: (key) => key
     },
     stubs: ['RelatedCollectionsCard']
   });

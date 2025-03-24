@@ -132,13 +132,13 @@
         }
         return langMapValueForLocale(value, this.$i18n.locale)
           .values
-          .filter(item => typeof item === 'string');
+          .filter((item) => typeof item === 'string');
       },
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
       onClickItem(clickedItemId) {
         const itemCount = this.items.length;
-        const rank = this.items.findIndex(item => item.id === clickedItemId) + 1;
+        const rank = this.items.findIndex((item) => item.id === clickedItemId) + 1;
 
         this.logApmTransaction({
           name: 'Similar items - click item',

@@ -410,7 +410,7 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
+      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex((route) => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
       routes.push({

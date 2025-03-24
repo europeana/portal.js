@@ -146,8 +146,8 @@
       filteredTags() {
         const relevantTags = this.relevantStoryMetadata.map((story) => story.cats).flat();
         const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
-          return { tag, total: array.filter(t => t === tag).length };
-        }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
+          return { tag, total: array.filter((t) => t === tag).length };
+        }).sort((a, b) => b.total - a.total).map((tag) => tag.tag);
 
         return uniq(tagsSortedByMostUsed);
       },
@@ -222,7 +222,7 @@
         // Paginate
         const sliceFrom = (this.page - 1) * this.perPage;
         const sliceTo = sliceFrom + this.perPage;
-        const storySysIds = this.relevantStoryMetadata.slice(sliceFrom, sliceTo).map(story => story.sys.id);
+        const storySysIds = this.relevantStoryMetadata.slice(sliceFrom, sliceTo).map((story) => story.sys.id);
 
         // Fetch full data for display of page of stories
         const storiesVariables = {

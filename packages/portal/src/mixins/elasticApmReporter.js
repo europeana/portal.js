@@ -37,7 +37,7 @@ export default {
 
       // wait a moment as otherwise the transaction is too fast and the APM
       // agent appears to discard it
-      const delay = () => new Promise(resolve => {
+      const delay = () => new Promise((resolve) => {
         setTimeout(resolve, 100);
       });
       await delay();

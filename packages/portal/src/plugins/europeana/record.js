@@ -24,7 +24,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
    * @return {Array} record data as returned by the API
    */
   find(europeanaIds, params = {}) {
-    europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+    europeanaIds = europeanaIds.map((id) => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
     const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
     return this.search({
       query,

@@ -85,7 +85,7 @@
           this.providerCountry,
           this.rights
         ]
-          .filter(value => value) // remove empty
+          .filter((value) => value) // remove empty
           .join(' - ') // output as a string
           .concat('.');
 

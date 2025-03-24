@@ -30,7 +30,7 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
       },
       dispatch: sinon.spy()
     },
-    $t: key => key,
+    $t: (key) => key,
     $tc: (key) => key
   },
   stubs: ['ConfirmDangerModal']

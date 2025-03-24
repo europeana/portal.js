@@ -56,7 +56,7 @@ describe('plugins/europeana/record', () => {
       const ids = ['/123/abc', '/123/def'];
       nock(EuropeanaRecordApi.BASE_URL)
         .get('/search.json')
-        .query(query => {
+        .query((query) => {
           return query.profile === 'minimal' &&
             !query.qf &&
             query.query === 'europeana_id:("/123/abc" OR "/123/def")';
@@ -72,7 +72,7 @@ describe('plugins/europeana/record', () => {
       const uris = ['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def'];
       nock(EuropeanaRecordApi.BASE_URL)
         .get('/search.json')
-        .query(query => {
+        .query((query) => {
           return !query.profile &&
             !query.qf &&
             query.query === 'europeana_id:("/123/abc" OR "/123/def")';

@@ -75,7 +75,7 @@ const FEATURED = [
 ];
 
 const featuredQf = FEATURED
-  .map(idNum => `*/${idNum}`)
+  .map((idNum) => `*/${idNum}`)
   .join(' OR ');
 
 const data = (config = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, config);

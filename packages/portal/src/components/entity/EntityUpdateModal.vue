@@ -88,7 +88,7 @@
         return this.descriptionFieldIsArray ? [this.descriptionValue] : this.descriptionValue;
       },
       europeanaProxy() {
-        return this.entity?.proxies?.find(proxy => proxy.id.endsWith('#proxy_europeana'));
+        return this.entity?.proxies?.find((proxy) => proxy.id.endsWith('#proxy_europeana'));
       },
       updatedBody() {
         return {

@@ -246,8 +246,8 @@
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
-      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
-        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter((qaWithEntity) => {
+        return qaRules.find((qa) => isEqual(qa, qaWithEntity.qa));
       });
 
       const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
@@ -307,7 +307,7 @@
         return [].concat(this.userParams.qa || []);
       },
       qaes() {
-        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
+        return this.qasWithAddedEntityValue.map((qaWithEntity) => qaWithEntity.qae).filter((qae) => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -441,7 +441,7 @@
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
       onClickItem(identifier) {
-        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+        const rank = this.results.findIndex((item) => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
         this.recordSearchInteraction('click result', { 'search_result_rank': rank });
       },
@@ -508,9 +508,9 @@
 
       advancedSearchQueriesForEntityLookUp() {
         const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
-          .filter(query => {
-            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
-            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+          .filter((query) => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map((field) => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find((qaWithEntity) => isEqual(qaWithEntity.qa, query));
 
             return fieldNeedsLookUp && newQuery;
           });
@@ -523,7 +523,7 @@
         const text = query.term;
 
         // Check if term is selected and stored from the entity dropdown
-        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find((queryWithSelectedEntity) => queryWithSelectedEntity.qa === text);
         queryEqualsEntity = queryHasSelectedEntity;
 
         // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
@@ -534,7 +534,7 @@
             type: query.suggestEntityType
           });
 
-          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+          queryEqualsEntity = suggestions.find((entity) => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         }
 
         if (queryEqualsEntity) {

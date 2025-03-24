@@ -49,8 +49,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $features: options.features || {},
-    $t: key => key,
-    $tc: key => key,
+    $t: (key) => key,
+    $tc: (key) => key,
     $i18n,
     $auth: {
       ...options.user || {},

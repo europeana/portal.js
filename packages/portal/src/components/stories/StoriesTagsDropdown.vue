@@ -118,13 +118,13 @@
         const keyword = this.trimmedKeyword;
         if (this.filteredTags) {
           // use filteredTags as those are sorted by most used
-          displayTags = this.filteredTags.filter(tag => !this.selectedTags.includes(tag)).map(tag => this.tags.filter(t => t.identifier === tag)[0]);
+          displayTags = this.filteredTags.filter((tag) => !this.selectedTags.includes(tag)).map((tag) => this.tags.filter((t) => t.identifier === tag)[0]);
         } else {
           displayTags = this.tags;
         }
 
         if (keyword) {
-          displayTags = displayTags.filter(tag => {
+          displayTags = displayTags.filter((tag) => {
             const tagLabel = tag.name;
             const tagNameMatch = tagLabel.toLowerCase().indexOf(keyword) > -1;
             return tagNameMatch;

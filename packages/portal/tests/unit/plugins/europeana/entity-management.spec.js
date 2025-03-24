@@ -48,7 +48,7 @@ describe('plugins/europeana/entity-management', () => {
       const profile = 'internal';
       nock(entityManagement.BASE_URL)
         .get(`/concept/${entityId}`)
-        .query(query => query.profile === profile)
+        .query((query) => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
       const response = await (new entityManagement).get(entityUri);
@@ -62,7 +62,7 @@ describe('plugins/europeana/entity-management', () => {
       const profile = 'external';
       nock(entityManagement.BASE_URL)
         .get(`/concept/${entityId}`)
-        .query(query => query.profile === profile)
+        .query((query) => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
       await (new entityManagement).get(entityUri, { profile });

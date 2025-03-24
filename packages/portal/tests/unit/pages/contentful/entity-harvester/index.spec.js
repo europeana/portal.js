@@ -48,7 +48,7 @@ const entityResponse = {
 const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $apis: {
       entity: {
         get: sinon.spy()

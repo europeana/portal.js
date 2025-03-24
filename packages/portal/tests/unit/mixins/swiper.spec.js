@@ -12,7 +12,7 @@ const localVue = createLocalVue();
 const factory = () => shallowMount(component, {
   localVue,
   mocks: {
-    $t: key => key
+    $t: (key) => key
   }
 });
 

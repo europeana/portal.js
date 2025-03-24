@@ -9,7 +9,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemMediaT
   mocks: {
     $route: { path: '/mock/path/', query: {} },
     $t: (key, opts) => key + JSON.stringify(opts),
-    $n: num => num,
+    $n: (num) => num,
     $nuxt: {},
     ...mocks
   },

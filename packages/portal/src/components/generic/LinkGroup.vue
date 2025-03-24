@@ -93,7 +93,7 @@
         if (this.links.length === 0) {
           return false;
         }
-        return this.links.filter(link => link !== null);
+        return this.links.filter((link) => link !== null);
       }
     }
   };

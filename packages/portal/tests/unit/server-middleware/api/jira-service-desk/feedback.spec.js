@@ -61,7 +61,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
         it('includes serviceDeskId and requestTypeId from options', async() => {
           const req = mockRequest();
           const res = mockResponse();
-          mockJiraApiRequest(body => (
+          mockJiraApiRequest((body) => (
             (body.serviceDeskId === options.serviceDesk.feedback.serviceDeskId) &&
             (body.requestTypeId === options.serviceDesk.feedback.requestTypeId)
           )).reply(201);
@@ -77,7 +77,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.requestFieldValues.description === reqBody.feedback).reply(201);
+          mockJiraApiRequest((body) => body.requestFieldValues.description === reqBody.feedback).reply(201);
 
           await middleware(req, res, expressNextStub);
 
@@ -116,7 +116,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.requestFieldValues.summary === summary).reply(201);
+          mockJiraApiRequest((body) => body.requestFieldValues.summary === summary).reply(201);
 
           await middleware(req, res, expressNextStub);
 
@@ -132,7 +132,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.requestFieldValues[options.serviceDesk.feedback.customFields.pageUrl] === reqBody.pageUrl).reply(201);
+          mockJiraApiRequest((body) => body.requestFieldValues[options.serviceDesk.feedback.customFields.pageUrl] === reqBody.pageUrl).reply(201);
 
           await middleware(req, res, expressNextStub);
 
@@ -145,7 +145,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf')).reply(201);
+          mockJiraApiRequest((body) => !Object.keys(body).includes('raiseOnBehalfOf')).reply(201);
 
           await middleware(req, res, expressNextStub);
 
@@ -159,7 +159,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email).reply(201);
+          mockJiraApiRequest((body) => body.raiseOnBehalfOf === reqBody.email).reply(201);
 
           await middleware(req, res, expressNextStub);
 

@@ -33,7 +33,7 @@ export default (config = {}) => (req, res, next) => {
   const ids = req.params[0] ? req.params[0] : req.query.id;
 
   return cached(ids, config)
-    .then(data => {
+    .then((data) => {
       res.set('Content-Type', 'application/json');
       res.send(data);
     })

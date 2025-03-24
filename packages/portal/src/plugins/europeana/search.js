@@ -159,7 +159,7 @@ const reduceFieldsForItem = (item, options = {}) => {
       for (const locale in item[field]) {
         item[field][locale] = []
           .concat(item[field][locale])
-          .map(value => truncate(value, 256));
+          .map((value) => truncate(value, 256));
       }
     }
   }
@@ -196,7 +196,7 @@ export function addContentTierFilter(qf) {
   }
 
   // contentTier:* is redundant so is removed
-  newQf = newQf.filter(v => v !== 'contentTier:*');
+  newQf = newQf.filter((v) => v !== 'contentTier:*');
 
   return newQf;
 }

@@ -34,7 +34,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRe
     },
     $auth: {},
     $i18n: { locale: 'en' },
-    $t: key => key,
+    $t: (key) => key,
     ...mocks
   },
   stubs: ['b-row', 'b-col']

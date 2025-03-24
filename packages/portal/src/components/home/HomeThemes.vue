@@ -30,7 +30,7 @@
 
       const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
 
-      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+      this.themes = contentfulResponse.data.data.themePageCollection.items.map((theme) => ({
         title: theme.name,
         description: theme.description,
         url: this.localePath({

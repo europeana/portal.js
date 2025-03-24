@@ -18,7 +18,7 @@ describe('plugins/europeana/search', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.rows === '24';
           })
           .reply(200, defaultResponse);
@@ -30,7 +30,7 @@ describe('plugins/europeana/search', () => {
 
       it('accepts and uses `rows` option', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.rows === '9';
           })
           .reply(200, defaultResponse);
@@ -42,7 +42,7 @@ describe('plugins/europeana/search', () => {
 
       it('paginates if `page` is passed', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.rows === '24' && query.start === '25';
           })
           .reply(200, defaultResponse);
@@ -54,7 +54,7 @@ describe('plugins/europeana/search', () => {
 
       it('does not request rows beyond API limit', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.rows === '16' && query.start === '985';
           })
           .reply(200, defaultResponse);
@@ -66,7 +66,7 @@ describe('plugins/europeana/search', () => {
 
       it('uses the supplied `facet` param', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.facet === 'LANGUAGE';
           })
           .reply(200, defaultResponse);
@@ -78,7 +78,7 @@ describe('plugins/europeana/search', () => {
 
       it('uses the supplied `facet` param when using comma seperated list', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.facet === 'COUNTRY,REUSABILITY';
           })
           .reply(200, defaultResponse);
@@ -90,7 +90,7 @@ describe('plugins/europeana/search', () => {
 
       it('maps blank `query` to "*:*"', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query['query'] === '*:*';
           })
           .reply(200, defaultResponse);
@@ -102,7 +102,7 @@ describe('plugins/europeana/search', () => {
 
       it('filters by reusability', async() => {
         baseRequest()
-          .query(query => {
+          .query((query) => {
             return query.reusability === 'open';
           })
           .reply(200, defaultResponse);
@@ -117,7 +117,7 @@ describe('plugins/europeana/search', () => {
           const translateLang = 'es';
 
           baseRequest()
-            .query(query => {
+            .query((query) => {
               return query['q.source'] === translateLang && query['q.target'] === 'en' && query.lang === translateLang;
             })
             .reply(200, defaultResponse);
@@ -129,7 +129,7 @@ describe('plugins/europeana/search', () => {
 
         it('does not pass API translation params if no translateLang option', async() => {
           baseRequest()
-            .query(query => {
+            .query((query) => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
             })
@@ -144,7 +144,7 @@ describe('plugins/europeana/search', () => {
           const translateLang = 'en';
 
           baseRequest()
-            .query(query => {
+            .query((query) => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
             })
@@ -159,7 +159,7 @@ describe('plugins/europeana/search', () => {
       describe('escaping Lucene reserved characters', () => {
         it('does not escape them by default', async() => {
           baseRequest()
-            .query(query => {
+            .query((query) => {
               return query.query === 'dress (red OR blue)';
             })
             .reply(200, defaultResponse);
@@ -171,7 +171,7 @@ describe('plugins/europeana/search', () => {
 
         it('does escape them when options.escape is `true`', async() => {
           baseRequest()
-            .query(query => {
+            .query((query) => {
               return query.query === 'dress \\(red OR blue\\)';
             })
             .reply(200, defaultResponse);
@@ -187,7 +187,7 @@ describe('plugins/europeana/search', () => {
       describe('with a boost in the params', () => {
         it('sends the boosting param', async() => {
           baseRequest()
-            .query(query => {
+            .query((query) => {
               return query['boost'] === 'BOOST';
             })
             .reply(200, defaultResponse);

@@ -58,7 +58,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
         if (set.items) {
           set.items = set.items.map((uri) => {
             const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-            return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
+            return minimalItemPreviews.items.find((item) => item.id === itemId) || { id: itemId };
           });
           set.isShownBy = { thumbnail: set.items[0].edmPreview };
         }
@@ -76,7 +76,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   getLikes(creator) {
     return this.search({ query: `creator:${creator} type:BookmarkFolder`, profile: 'items' })
       .then((response) => response.items?.[0] || null)
-      .catch(error => {
+      .catch((error) => {
         throw this.apiError(error);
       });
   }

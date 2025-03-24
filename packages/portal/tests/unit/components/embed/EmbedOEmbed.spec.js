@@ -50,7 +50,7 @@ describe('components/embed/EmbedOEmbed', () => {
 
     const nockRequest = () => nock(endpointOrigin)
       .get(endpointPath)
-      .query(query => (query.url === url) && (query.format === 'json'));
+      .query((query) => (query.url === url) && (query.format === 'json'));
 
     it('makes an oEmbed request to the provider', async() => {
       const wrapper = factory({ propsData: { url, endpoint } });

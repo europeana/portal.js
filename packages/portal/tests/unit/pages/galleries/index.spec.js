@@ -80,8 +80,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
         }
       }
     },
-    $t: key => key,
-    $tc: key => key,
+    $t: (key) => key,
+    $tc: (key) => key,
     $route: { query: {} },
     $i18n: {
       locale: 'fr'

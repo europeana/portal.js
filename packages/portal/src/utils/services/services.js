@@ -84,7 +84,7 @@ const socialMediaServices = [
     schemes: [
       'https://platform.twitter.com/widgets.js'
     ] }
-].map(service => ({ ...service, purposes: ['socialMedia'] }));
+].map((service) => ({ ...service, purposes: ['socialMedia'] }));
 
 const twoDServices = [
   { name: 'bookWidgets',
@@ -114,7 +114,7 @@ const twoDServices = [
     schemes: [
       'https://sgdap.girona.cat/*'
     ] }
-].map(service => ({ ...service, purposes: ['2D'] }));
+].map((service) => ({ ...service, purposes: ['2D'] }));
 
 const threeDServices = [
   { name: 'arctur3DViewer',
@@ -158,7 +158,7 @@ const threeDServices = [
     schemes: [
       'https://weave-3dviewer.com/asset/*'
     ] }
-].map(service => ({ ...service, purposes: ['3D'] }));
+].map((service) => ({ ...service, purposes: ['3D'] }));
 
 const audioServices = [
   { name: 'britishLibrarySounds',
@@ -191,7 +191,7 @@ const audioServices = [
       'https://soundcloud.com/*',
       'https://w.soundcloud.com/player/*'
     ] }
-].map(service => ({ ...service, purposes: ['audio'] }));
+].map((service) => ({ ...service, purposes: ['audio'] }));
 
 const multimediaServices = [
   { name: 'archiveOrg',
@@ -202,7 +202,7 @@ const multimediaServices = [
     schemes: [
       'https://repository.dri.ie/objects/*'
     ] }
-].map(service => ({ ...service, purposes: ['multimedia'] }));
+].map((service) => ({ ...service, purposes: ['multimedia'] }));
 
 const videoServices = [
   { name: 'deutschesFilmportal',
@@ -263,10 +263,10 @@ const videoServices = [
       'https://youtube.com/embed/*',
       'https://youtu.be/*'
     ] }
-].map(service => ({ ...service, purposes: ['video'] }));
+].map((service) => ({ ...service, purposes: ['video'] }));
 
 const mediaViewingServices = twoDServices.concat(threeDServices, audioServices, multimediaServices, videoServices)
-  .map(service => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
+  .map((service) => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
 
 const otherEmbeddingServices = [
   { name: 'albinLarsson',
@@ -325,9 +325,9 @@ const otherEmbeddingServices = [
     schemes: [
       'https://woobox.com/js/plugins/woo.js'
     ] }
-].map(service => ({ ...service, purposes: ['other'] }));
+].map((service) => ({ ...service, purposes: ['other'] }));
 
 const thirdPartyServices = [...socialMediaServices, ...mediaViewingServices, ...otherEmbeddingServices]
-  .map(service => ({ ...service, purposes: ['thirdPartyContent', ...service.purposes] }));
+  .map((service) => ({ ...service, purposes: ['thirdPartyContent', ...service.purposes] }));
 
 export default portalServices.concat(thirdPartyServices);

@@ -89,11 +89,11 @@ describe('cachers/collections/index', () => {
     beforeEach(() => {
       nock(config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
+        .query((query) => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
         .reply(200, apiResponse.pageOne);
       nock(config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
+        .query((query) => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
         .reply(200, apiResponse.pageTwo);
     });
 
@@ -120,7 +120,7 @@ describe('cachers/collections/index', () => {
     beforeEach(() => {
       nock(config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.pageSize === '0' && query.query === '*:*')
+        .query((query) => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.pageSize === '0' && query.query === '*:*')
         .reply(200, countResponse);
     });
 

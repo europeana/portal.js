@@ -196,7 +196,7 @@
       },
 
       suggestionSearchOptions() {
-        return Object.keys(this.suggestions).map(suggestionId => (
+        return Object.keys(this.suggestions).map((suggestionId) => (
           {
             entityId: suggestionId,
             query: this.suggestionQuery(this.suggestions[suggestionId]),
@@ -253,7 +253,7 @@
           this.suggestions = suggestions.reduce((memo, suggestion) => {
             const localisedSuggestionLabels = [suggestion?.prefLabel?.[locale]]
               .concat(suggestion?.altLabel?.[locale] || []);
-            memo[suggestion.id] = localisedSuggestionLabels.find(label => matchHighlight(label, this.text).length > 0) || localisedSuggestionLabels[0];
+            memo[suggestion.id] = localisedSuggestionLabels.find((label) => matchHighlight(label, this.text).length > 0) || localisedSuggestionLabels[0];
             return memo;
           }, {});
         } catch (error) {
@@ -349,7 +349,7 @@
       },
 
       advancedSearchDirectEnter(event) {
-        return this.advancedSearch && (event.key === 'Enter' && this.$refs.options.map(option => option.$el || option).indexOf(event.target) === -1);
+        return this.advancedSearch && (event.key === 'Enter' && this.$refs.options.map((option) => option.$el || option).indexOf(event.target) === -1);
       },
 
       navigateWithArrowKeys(event) {
@@ -357,7 +357,7 @@
         const searchQueryOptionsElements = this.$refs.options || [];
         const searchDropdownOptionsElements = (searchQueryOptionsElements).concat(quicksearchOptionsElements);
 
-        const activeOption = searchDropdownOptionsElements.map(option => option.$el || option).indexOf(event.target);
+        const activeOption = searchDropdownOptionsElements.map((option) => option.$el || option).indexOf(event.target);
 
         if (searchDropdownOptionsElements.length) {
           if (activeOption === -1) {

@@ -428,7 +428,7 @@ describe('components/search/SearchFacetDropdown', () => {
           });
           wrapper.setData({ fields: countryFields });
 
-          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Spain')).toBe(false);
+          expect(wrapper.vm.availableSortedOptions.some((option) => option.label === 'Spain')).toBe(false);
         });
       });
       describe('when a search term is inserted', () => {
@@ -445,8 +445,8 @@ describe('components/search/SearchFacetDropdown', () => {
             searchFacet: 'netherlands'
           });
 
-          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Netherlands')).toBe(true);
-          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Germany')).toBe(false);
+          expect(wrapper.vm.availableSortedOptions.some((option) => option.label === 'Netherlands')).toBe(true);
+          expect(wrapper.vm.availableSortedOptions.some((option) => option.label === 'Germany')).toBe(false);
         });
         describe('and the options are of the radio type', () => {
           it('returns the options that match the search term', () => {
@@ -459,7 +459,7 @@ describe('components/search/SearchFacetDropdown', () => {
               }
             });
 
-            expect(wrapper.vm.availableSortedOptions.some(option => option === 'ww1')).toBe(true);
+            expect(wrapper.vm.availableSortedOptions.some((option) => option === 'ww1')).toBe(true);
           });
         });
       });
@@ -497,7 +497,7 @@ describe('components/search/SearchFacetDropdown', () => {
           });
           wrapper.setData({ fetched: true, fields: providerFields });
 
-          expect(wrapper.vm.availableSortedDisplayableOptions.some(option => option.label === 'OpenUp!')).toBe(false);
+          expect(wrapper.vm.availableSortedDisplayableOptions.some((option) => option.label === 'OpenUp!')).toBe(false);
           expect(wrapper.vm.availableSortedDisplayableOptions.length).toBe(50);
         });
       });
@@ -515,8 +515,8 @@ describe('components/search/SearchFacetDropdown', () => {
             searchFacet: 'the european'
           });
 
-          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'The European Library')).toBe(true);
-          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'German Digital Library')).toBe(false);
+          expect(wrapper.vm.availableSortedOptions.some((option) => option.label === 'The European Library')).toBe(true);
+          expect(wrapper.vm.availableSortedOptions.some((option) => option.label === 'German Digital Library')).toBe(false);
         });
       });
     });
@@ -719,7 +719,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(3);
-          expect(filtered.map(field => field.label)).toEqual(['open', 'restricted', 'permission']);
+          expect(filtered.map((field) => field.label)).toEqual(['open', 'restricted', 'permission']);
         });
       });
 
@@ -742,7 +742,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(3);
-          expect(filtered.map(field => field.label)).toEqual(['2', '3', '4']);
+          expect(filtered.map((field) => field.label)).toEqual(['2', '3', '4']);
         });
 
         it('does not limit contentTier options in an organization collection', async() => {
@@ -755,7 +755,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(5);
-          expect(filtered.map(field => field.label)).toEqual(['0', '1', '2', '3', '4']);
+          expect(filtered.map((field) => field.label)).toEqual(['0', '1', '2', '3', '4']);
         });
 
         it('limits contentTier options to fields "1", "2", "3" and "4" in non-organization, non-thematic collections', async() => {
@@ -768,7 +768,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(4);
-          expect(filtered.map(field => field.label)).toEqual(['1', '2', '3', '4']);
+          expect(filtered.map((field) => field.label)).toEqual(['1', '2', '3', '4']);
         });
 
         it('elsewhere limits contentTier options to field "0"', async() => {
@@ -780,7 +780,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(1);
-          expect(filtered.map(field => field.label)).toEqual(['0']);
+          expect(filtered.map((field) => field.label)).toEqual(['0']);
         });
       });
 
@@ -802,7 +802,7 @@ describe('components/search/SearchFacetDropdown', () => {
           const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(2);
-          expect(filtered.map(field => field.label)).toEqual(['Chanel (Designer)', 'Emilio Pucci (Designer)']);
+          expect(filtered.map((field) => field.label)).toEqual(['Chanel (Designer)', 'Emilio Pucci (Designer)']);
         });
       });
     });

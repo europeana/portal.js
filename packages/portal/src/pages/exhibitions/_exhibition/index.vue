@@ -158,8 +158,8 @@
       };
 
       return app.$contentful.query('exhibitionLandingPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
+        .then((response) => response.data.data)
+        .then((data) => {
           if (data.exhibitionPageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return null;

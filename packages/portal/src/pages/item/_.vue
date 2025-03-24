@@ -273,7 +273,7 @@
       },
       europeanaEntityUris() {
         return this.europeanaEntities
-          .map(entity => entity.about);
+          .map((entity) => entity.about);
       },
       attributionFields() {
         return {
@@ -367,7 +367,7 @@
       },
 
       annotationsByMotivation(motivation) {
-        return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
+        return this.annotations?.filter((annotation) => annotation.motivation === motivation) || [];
       },
 
       async fetchMetadata() {
@@ -460,7 +460,7 @@
       },
 
       findProxy(proxies, type) {
-        return proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+        return proxies.find((proxy) => proxy.about?.startsWith(`/proxy/${type}/`));
       },
 
       extractEntities(edm) {

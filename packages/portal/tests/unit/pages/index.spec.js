@@ -29,7 +29,7 @@ const factory = ({
     $fetchState: {},
     $i18n: { localeProperties: { iso: 'en-GB' } },
     $route: { params: { pathMatch: 'about' }, query: {} },
-    $t: key => key,
+    $t: (key) => key,
     ...mocks
   },
   stubs: [

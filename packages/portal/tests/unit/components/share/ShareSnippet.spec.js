@@ -9,7 +9,7 @@ const factory = (propsData = { text }) => shallowMount(ShareSnippet, {
   localVue,
   propsData,
   mocks: {
-    $t: key => key
+    $t: (key) => key
   },
   stubs: ['b-button']
 });

@@ -142,7 +142,7 @@
 
         switch (this.sectionType) {
         case ITEM_COUNTS_MEDIA_TYPE:
-          items = this.entries?.map(entry => ({
+          items = this.entries?.map((entry) => ({
             __typename: this.cardType,
             url: this.searchFromType(entry.label),
             info: this.$i18n.n(entry.count),
@@ -151,7 +151,7 @@
           }));
           break;
         case LATEST_GALLERIES:
-          items = this.entries?.map(set => ({
+          items = this.entries?.map((set) => ({
             __typename: this.cardType,
             __variant: null,
             name: set.title,
@@ -162,7 +162,7 @@
           }));
           break;
         case FEATURED_THEMES:
-          items = this.entries?.map(entry => ({
+          items = this.entries?.map((entry) => ({
             __typename: this.cardType,
             __variant: null,
             name: entry.name,
@@ -173,7 +173,7 @@
           }));
           break;
         default:
-          items = this.entries?.map(entry => ({
+          items = this.entries?.map((entry) => ({
             __typename: this.cardType,
             __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
             name: entry.prefLabel,
@@ -192,7 +192,7 @@
       fetchCachedData() {
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
-            .then(module => {
+            .then((module) => {
               return module.cached(this.key, this.$config.redis)
                 .then((response) => response[this.key]);
             });

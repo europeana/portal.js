@@ -166,13 +166,13 @@
 
     computed: {
       essentialServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('essential'));
+        return this.klaroConfig?.services?.filter((s) => s.purposes.includes('essential'));
       },
       usageServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('usage'));
+        return this.klaroConfig?.services?.filter((s) => s.purposes.includes('usage'));
       },
       thirdPartyContentServices() {
-        return this.klaroConfig?.services?.filter(s => s.purposes.includes('thirdPartyContent'));
+        return this.klaroConfig?.services?.filter((s) => s.purposes.includes('thirdPartyContent'));
       },
 
       groupedSections() {
@@ -190,39 +190,39 @@
             {
               name: 'thirdPartyContent',
               services: [
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))?.length && {
+                this.thirdPartyContentServices.filter((service) => service.purposes?.includes('socialMedia'))?.length && {
                   name: 'socialMedia',
-                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('socialMedia'))
+                  services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('socialMedia'))
                 },
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('mediaViewing'))?.length && {
+                this.thirdPartyContentServices.filter((service) => service.purposes?.includes('mediaViewing'))?.length && {
                   name: 'mediaViewing',
                   services: [
                     {
                       name: '2D',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('2D'))
+                      services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('2D'))
                     }, {
                       name: '3D',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('3D'))
+                      services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('3D'))
                     }, {
                       name: 'audio',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('audio'))
+                      services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('audio'))
                     }, {
                       name: 'multimedia',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('multimedia'))
+                      services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('multimedia'))
                     }, {
                       name: 'video',
-                      services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('video'))
+                      services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('video'))
                     }
                   ]
                 },
-                this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))?.length && {
+                this.thirdPartyContentServices.filter((service) => service.purposes?.includes('other'))?.length && {
                   name: 'other',
-                  services: this.thirdPartyContentServices.filter(service => service.purposes?.includes('other'))
+                  services: this.thirdPartyContentServices.filter((service) => service.purposes?.includes('other'))
                 }
               ].filter(Boolean)
             }
         ].filter(Boolean)
-          .filter(purpose => !this.hidePurposes.includes(purpose.name));
+          .filter((purpose) => !this.hidePurposes.includes(purpose.name));
       },
 
       flattenedServiceNames() {
@@ -322,7 +322,7 @@
 
       toggleDisplay(name) {
         if (this.show.includes(name)) {
-          this.show = this.show.filter(purpose => purpose !== name);
+          this.show = this.show.filter((purpose) => purpose !== name);
         } else {
           this.show.push(name);
         }
@@ -342,8 +342,8 @@
         const consents = this.klaroManager.loadConsents();
 
         this.checkedServices = this.klaroConfig?.services
-          ?.filter(s => s.required === true || consents[s.name] === true)
-          .map(s => s.name);
+          ?.filter((s) => s.required === true || consents[s.name] === true)
+          .map((s) => s.name);
       }
     }
   };

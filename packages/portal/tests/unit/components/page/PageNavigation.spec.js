@@ -12,7 +12,7 @@ const factory = () => shallowMount(PageNavigation, {
     $features: {},
     $store: { state: { auth: { loggedIn: false } } },
     $t: (key) => key,
-    localePath: code => window.location.href + code,
+    localePath: (code) => window.location.href + code,
     $route: { fullPath: '/fr' }
   }
 });

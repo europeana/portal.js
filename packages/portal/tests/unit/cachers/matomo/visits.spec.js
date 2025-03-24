@@ -11,7 +11,7 @@ const config = {
 
 const matomoApiRequest = () => nock(config.matomo.host)
   .get('/')
-  .query(query => (
+  .query((query) => (
     query.date === 'last30' &&
     query.format === 'JSON' &&
     query.idSite === config.matomo.siteId &&

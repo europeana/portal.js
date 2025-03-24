@@ -203,8 +203,8 @@
       },
       resettableFilters() {
         const filters = this.filterableFacets
-          .map(facet => facet.name)
-          .filter(name => this.filters[name]);
+          .map((facet) => facet.name)
+          .filter((name) => this.filters[name]);
 
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
@@ -231,7 +231,7 @@
         return this.defaultFacetNames.concat(this.additionalFacetNames);
       },
       filterableFacets() {
-        let facets = this.facetNames.map(facetName => ({
+        let facets = this.facetNames.map((facetName) => ({
           name: facetName,
           search: this.SEARCHABLE_FACETS.includes(facetName)
         }));
@@ -239,7 +239,7 @@
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: this.COLLECTION_FACET_NAME,
-            staticFields: themes.map(theme => theme.qf)
+            staticFields: themes.map((theme) => theme.qf)
           });
         }
 
@@ -252,12 +252,12 @@
       },
       defaultFilterableFacets() {
         const defaultAndCollectionFacetNames = [this.COLLECTION_FACET_NAME].concat(this.defaultFacetNames);
-        const defaultFacets = this.filterableFacets.filter(facet => defaultAndCollectionFacetNames.includes(facet.name));
+        const defaultFacets = this.filterableFacets.filter((facet) => defaultAndCollectionFacetNames.includes(facet.name));
 
         return defaultFacets;
       },
       additionalFilterableFacets() {
-        const additionalFacets = this.filterableFacets.filter(facet => this.additionalFacetNames.includes(facet.name));
+        const additionalFacets = this.filterableFacets.filter((facet) => this.additionalFacetNames.includes(facet.name));
 
         return additionalFacets;
       },
@@ -307,7 +307,7 @@
         return this.resettableFilters.length > 0;
       },
       additionalFilterApplied() {
-        return Object.keys(this.filters).some(filter => this.additionalFacetNames.includes(filter));
+        return Object.keys(this.filters).some((filter) => this.additionalFacetNames.includes(filter));
       },
       contentTierFacetSwitchApplied() {
         return this.contentTierFacetSwitch && this.filters.contentTier;
@@ -399,7 +399,7 @@
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$router.push(this.localePath({ ...this.route, ...{ query } }));
         if (queryUpdates.qf) {
-          queryUpdates.qf.forEach(filter =>
+          queryUpdates.qf.forEach((filter) =>
             this.$matomo?.trackEvent('Filters', 'Filter selected', filter)
           );
         }

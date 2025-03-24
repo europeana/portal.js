@@ -49,7 +49,7 @@ describe('components/generic/ViewCount', () => {
     beforeEach(() => {
       nock(baseUrl)
         .get('/_api/events/views')
-        .query(query => query.url === url)
+        .query((query) => query.url === url)
         .reply(200, apiResponse);
     });
     const propsData = { url };

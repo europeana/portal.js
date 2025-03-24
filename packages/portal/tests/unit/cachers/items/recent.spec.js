@@ -39,56 +39,56 @@ describe('cachers/items/recent', () => {
   beforeEach(() => {
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === '*:*' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
       ))
       .reply(200, apiResponses.datasets[0]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'NOT edm_datasetName:("dataset1")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
       ))
       .reply(200, apiResponses.datasets[1]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'NOT edm_datasetName:("dataset1" OR "dataset2")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
       ))
       .reply(200, apiResponses.datasets[2]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'NOT edm_datasetName:("dataset1" OR "dataset2" OR "dataset3")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
       ))
       .reply(200, apiResponses.datasets[3]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'edm_datasetName:"dataset1"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
       ))
       .reply(200, apiResponses.items[0]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'edm_datasetName:"dataset2"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
       ))
       .reply(200, apiResponses.items[1]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'edm_datasetName:"dataset3"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
       ))
       .reply(200, apiResponses.items[2]);
 
     nock(config.europeana.apis.record.url)
       .get('/search.json')
-      .query(query => (
+      .query((query) => (
         query.query === 'edm_datasetName:"dataset4"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
       ))
       .reply(200, apiResponses.items[3]);

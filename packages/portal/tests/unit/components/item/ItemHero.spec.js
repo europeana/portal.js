@@ -244,7 +244,7 @@ describe('components/item/ItemHero', () => {
     beforeEach(() => {
       nock(OEMBED_BASE_URL)
         .get('/')
-        .query(query => {
+        .query((query) => {
           return query.url === 'http://data.europeana.eu/item/123/abc' && query.format === 'json';
         })
         .reply(200, { html });

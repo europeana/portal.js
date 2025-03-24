@@ -48,7 +48,7 @@ describe('@/plugins/europeana/set', () => {
     it('includes the axios default params', async() => {
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
-        .query(query => query.wskey === apiKey)
+        .query((query) => query.wskey === apiKey)
         .reply(200, setGetResponse);
 
       await (new EuropeanaSetApi({ $config })).get(setId);
@@ -191,7 +191,7 @@ describe('@/plugins/europeana/set', () => {
       const params = { profile: 'standard' };
       nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
-        .query(query => query.profile === params.profile)
+        .query((query) => query.profile === params.profile)
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).update(setId, body, params);

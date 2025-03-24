@@ -60,11 +60,11 @@ const localiseOne = (item, fields, locale) => {
 };
 
 const localise = (data, fields, locale) => {
-  return mutateObjects(data, object => localiseOne(object, fields, locale));
+  return mutateObjects(data, (object) => localiseOne(object, fields, locale));
 };
 
 const pick = (data, fields) => {
-  return mutateObjects(data, object => _pick(object, fields));
+  return mutateObjects(data, (object) => _pick(object, fields));
 };
 
 const sort = (data, sortOn) => {

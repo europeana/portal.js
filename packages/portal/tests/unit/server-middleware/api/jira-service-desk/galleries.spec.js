@@ -28,7 +28,7 @@ const mockResponse = () => {
   res.send = sinon.stub().returns(res);
   return res;
 };
-const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
+const mockJiraApiRequest = (body) => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
 describe('server-middleware/api/jira-service-desk/galleries', () => {
   beforeAll(() => {

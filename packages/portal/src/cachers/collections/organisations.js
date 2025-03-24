@@ -39,7 +39,7 @@ const data = async(config = {}) => {
   const recordCounts = await getRecordCounts();
 
   // Get array with all unique countries to only have to request prefLabels once
-  const organisationCountries = uniq(organisationData.map(organisation => organisation.country));
+  const organisationCountries = uniq(organisationData.map((organisation) => organisation.country));
 
   const organisationCountriesPrefLabels = {};
   for (const country of organisationCountries) {
@@ -64,7 +64,7 @@ const data = async(config = {}) => {
   }
 
   return organisationData.map(
-    organisation => {
+    (organisation) => {
       // Add recordCount
       const organisationIds = [organisation.id].concat(organisation.sameAs || []).filter((uri) => isEntityUri(uri));
       organisation.recordCount = recordCounts

@@ -11,7 +11,7 @@ export default {
         return null;
       }
       const nativeLocale = Object.keys(entity.prefLabel)
-        .find(locale => locale !== ENGLISH_LOCALE_CODE) || ENGLISH_LOCALE_CODE;
+        .find((locale) => locale !== ENGLISH_LOCALE_CODE) || ENGLISH_LOCALE_CODE;
       return { [nativeLocale]: entity.prefLabel[nativeLocale] };
     },
 

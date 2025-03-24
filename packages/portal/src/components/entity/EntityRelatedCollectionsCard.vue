@@ -59,10 +59,10 @@
       const facets = response?.facets || [];
       this.entityUris = facets
         .reduce((memo, facet) => {
-          memo = memo.concat(facet.fields.map(entity => entity.label));
+          memo = memo.concat(facet.fields.map((entity) => entity.label));
           return memo;
         }, [])
-        .filter(uri => {
+        .filter((uri) => {
           if (!uri.startsWith(EUROPEANA_DATA_URL)) {
             return false;
           }

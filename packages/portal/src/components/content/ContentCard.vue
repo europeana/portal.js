@@ -367,7 +367,7 @@
       },
 
       tooltipTexts() {
-        return this.displayTexts.map(text => text.values).join(' - ');
+        return this.displayTexts.map((text) => text.values).join(' - ');
       },
 
       tooltipTitle() {

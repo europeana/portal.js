@@ -7,7 +7,7 @@
     name: 'AccountLogoutPage',
 
     beforeRouteEnter(to, from, next) {
-      next(vm => {
+      next((vm) => {
         const redirectPath = /^account___[a-z]{2}$/.test(from.name) ? `/${vm.$i18n.locale}` : from.fullPath;
         vm.$auth.$storage.setUniversal('redirect', redirectPath);
       });

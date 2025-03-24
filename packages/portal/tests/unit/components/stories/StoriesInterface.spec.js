@@ -321,7 +321,7 @@ describe('components/stories/StoriesInterface', () => {
 
           const relevantStoryMetadata = wrapper.vm.relevantStoryMetadata;
 
-          const expectedStoryData = allStoryMetadata.filter(story => story.cats.includes('cooking'));
+          const expectedStoryData = allStoryMetadata.filter((story) => story.cats.includes('cooking'));
           expect(relevantStoryMetadata).toEqual(expectedStoryData);
         });
       });

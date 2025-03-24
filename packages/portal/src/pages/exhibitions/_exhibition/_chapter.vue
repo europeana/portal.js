@@ -155,14 +155,14 @@
       };
 
       return app.$contentful.query('exhibitionChapterPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
+        .then((response) => response.data.data)
+        .then((data) => {
           let chapter;
           let exhibition;
 
           if (data.exhibitionPageCollection.total === 1) {
             exhibition = data.exhibitionPageCollection.items[0];
-            chapter = exhibition.hasPartCollection.items.find(item => item.identifier === params.chapter);
+            chapter = exhibition.hasPartCollection.items.find((item) => item.identifier === params.chapter);
           }
 
           if (!chapter || !exhibition) {

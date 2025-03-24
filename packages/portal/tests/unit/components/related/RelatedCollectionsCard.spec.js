@@ -20,7 +20,7 @@ const factory = (options = {}) => {
     mocks: {
       $apis: { entity: { suggest: sinon.stub().resolves(relatedCollections) } },
       $i18n: { locale: 'en' },
-      $t: key => key,
+      $t: (key) => key,
       $store: {
         state: {
           entity: {

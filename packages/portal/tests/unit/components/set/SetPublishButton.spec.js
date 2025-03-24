@@ -27,7 +27,7 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
         unpublish: setApiUnpublishSpy
       }
     },
-    $t: key => key,
+    $t: (key) => key,
     $store: {
       dispatch: storeDispatch,
       state: {

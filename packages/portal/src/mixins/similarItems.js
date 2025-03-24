@@ -9,7 +9,7 @@ const SIMILAR_ITEMS_FIELDS = {
 
 // Construct one fielded and boosted query of potentially multiple terms
 const fieldQueriesFromQueryTerms = (queryTerms) => {
-  return Object.keys(queryTerms).map(queryField => {
+  return Object.keys(queryTerms).map((queryField) => {
     const boost = SIMILAR_ITEMS_FIELDS[queryField].boost;
 
     return `${queryField}:(` + queryTerms[queryField].map((term) => {

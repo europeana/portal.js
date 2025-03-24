@@ -14,7 +14,7 @@ const factory = (options = {}) => shallowMountNuxt(collectionType, {
     $fetchState: options.fetchState || {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { params: { type: options.type } },
-    $pageHeadTitle: key => key,
+    $pageHeadTitle: (key) => key,
     $error: sinon.spy()
   },
   stubs: ['EntityTable', 'ErrorMessage']

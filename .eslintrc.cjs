@@ -15,6 +15,7 @@ module.exports = {
     'array-bracket-newline': ['error', 'consistent'],
     'array-bracket-spacing': ['error', 'never'],
     'array-element-newline': ['error', 'consistent'],
+    'arrow-parens': ['error', 'always'],
     'arrow-spacing': 'error',
     'block-spacing': ['error', 'always'],
     'brace-style': ['error', '1tbs', { allowSingleLine: false }],

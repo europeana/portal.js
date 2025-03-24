@@ -199,7 +199,7 @@
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
       // IIIF manifests.
       downloadViaProxy(url) {
-        return this.allMediaUris.some(uri => uri === url);
+        return this.allMediaUris.some((uri) => uri === url);
       },
       selectMedia(resource) {
         this.selectedMedia = new WebResource({

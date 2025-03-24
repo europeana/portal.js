@@ -47,7 +47,7 @@ const factory = (data) => shallowMountNuxt(page, {
     return { ...data };
   },
   mocks: {
-    $t: key => key,
+    $t: (key) => key,
     $i18n: {
       locale: 'en'
     },
@@ -80,8 +80,8 @@ describe('pages/contentful/record-harvester/index', () => {
         const wrapper = factory();
 
         const buttons = await wrapper.findAll('b-button-stub');
-        const goButton = buttons.filter(button => button.text() === 'Go!');
-        const clearButton = buttons.filter(button => button.text() === 'Clear all data');
+        const goButton = buttons.filter((button) => button.text() === 'Go!');
+        const clearButton = buttons.filter((button) => button.text() === 'Clear all data');
 
         expect(goButton.isVisible()).toBe(true);
         expect(clearButton.isVisible()).toBe(true);

@@ -183,7 +183,7 @@ describe('components/search/SearchFilters', () => {
         const wrapper = factory();
 
         for (const facetName of facetNames) {
-          expect(wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields)).toBe(true);
+          expect(wrapper.vm.filterableFacets.some((facet) => (facet.name === facetName) && !facet.staticFields)).toBe(true);
         }
       });
 
@@ -234,7 +234,7 @@ describe('components/search/SearchFilters', () => {
           it('is omitted', () => {
             const wrapper = factory({ mocks });
 
-            expect(wrapper.vm.filterableFacets.some(facet => facet.name === 'collection')).toBe(false);
+            expect(wrapper.vm.filterableFacets.some((facet) => facet.name === 'collection')).toBe(false);
           });
         });
       });

@@ -168,7 +168,7 @@ describe('plugins/europeana/entity', () => {
       it('passes `text` to the API', async() => {
         nock(api.BASE_URL)
           .get(suggestEndpoint)
-          .query(query => {
+          .query((query) => {
             return query.text === text;
           })
           .reply(200, entitySuggestionsResponse);
@@ -181,7 +181,7 @@ describe('plugins/europeana/entity', () => {
       it('passes `language` to API', async() => {
         nock(api.BASE_URL)
           .get(suggestEndpoint)
-          .query(query => {
+          .query((query) => {
             return query.language === 'fr';
           })
           .reply(200, entitySuggestionsResponse);
@@ -194,7 +194,7 @@ describe('plugins/europeana/entity', () => {
       it('restricts types to agent, concept, timespan, organization & place', async() => {
         nock(api.BASE_URL)
           .get(suggestEndpoint)
-          .query(query => {
+          .query((query) => {
             return query.type === 'agent,concept,timespan,organization,place';
           })
           .reply(200, entitySuggestionsResponse);

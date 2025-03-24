@@ -84,7 +84,7 @@
 
     methods: {
       parseSets(sets) {
-        return sets.map(set => {
+        return sets.map((set) => {
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,

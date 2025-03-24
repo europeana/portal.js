@@ -47,7 +47,7 @@
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items.filter(card => card !== null);
+        return this.section.hasPartCollection.items.filter((card) => card !== null);
       },
       cardGroupClass() {
         if (this.section.type === 'items/type-counts') {

@@ -34,7 +34,7 @@ describe('components/page/PageFooter', () => {
     const wrapper = factory();
     const links = wrapper.vm.moreInfo.links;
 
-    expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
+    expect(links.some((link) => link.text === 'footer.navigation.about')).toBe(true);
   });
 
   it('displays links to supporting technical partners', () => {

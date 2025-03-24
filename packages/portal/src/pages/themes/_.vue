@@ -233,26 +233,26 @@
         };
       },
       sections() {
-        return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
+        return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter((section) => !!section);
       },
       relatedTopics() {
-        return this.sections?.filter(section => section['__typename'] === 'TopicGroup')[0];
+        return this.sections?.filter((section) => section['__typename'] === 'TopicGroup')[0];
       },
       relatedPersons() {
-        return this.sections?.filter(section => section['__typename'] === 'PersonGroup')[0];
+        return this.sections?.filter((section) => section['__typename'] === 'PersonGroup')[0];
       },
       relatedGalleries() {
-        return this.sections?.filter(section => section['__typename'] === 'GalleryGroup')[0];
+        return this.sections?.filter((section) => section['__typename'] === 'GalleryGroup')[0];
       },
       callToAction() {
-        return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+        return this.sections?.filter((section) => section['__typename'] === 'PrimaryCallToAction')[0];
       },
       curatedItems() {
-        return this.sections?.filter(section => section['__typename'] === 'CardGroup')[0];
+        return this.sections?.filter((section) => section['__typename'] === 'CardGroup')[0];
       },
       curatedItemsEncoding() {
-        const items = this.curatedItems?.hasPartCollection?.items?.length && this.curatedItems.hasPartCollection.items.filter(item => !!item);
-        const curatedItemsEncoding = items?.map(items => items.encoding);
+        const items = this.curatedItems?.hasPartCollection?.items?.length && this.curatedItems.hasPartCollection.items.filter((item) => !!item);
+        const curatedItemsEncoding = items?.map((items) => items.encoding);
         return curatedItemsEncoding;
       },
       dailySetOfCuratedItems() {

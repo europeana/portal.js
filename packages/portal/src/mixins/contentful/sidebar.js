@@ -8,7 +8,7 @@ export default {
   },
 
   mounted() {
-    window.contentfulExtension.init(sdk => {
+    window.contentfulExtension.init((sdk) => {
       this.contentfulExtensionSdk = sdk;
       if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_SIDEBAR)) {
         sdk.window.startAutoResizer();

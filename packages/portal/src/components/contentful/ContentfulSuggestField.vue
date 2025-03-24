@@ -133,11 +133,11 @@
       },
 
       isSelected(suggestion) {
-        return this.value.map(val => this.identifier(val)).includes(this.identifier(suggestion));
+        return this.value.map((val) => this.identifier(val)).includes(this.identifier(suggestion));
       },
 
       removeSelection(remove) {
-        this.value = this.value.filter(val => this.identifier(val) !== this.identifier(remove));
+        this.value = this.value.filter((val) => this.identifier(val) !== this.identifier(remove));
       },
 
       selectSuggestion(select) {
@@ -159,7 +159,7 @@
       },
 
       updateContentfulField() {
-        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => this.contentfulFieldValue(val)));
+        this.contentfulExtensionSdk?.field?.setValue(this.value.map((val) => this.contentfulFieldValue(val)));
       }
     }
   };

@@ -26,7 +26,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
         mediaType: data.mediaType || 'video/mpeg'
       }
     },
-    $t: key => key
+    $t: (key) => key
   }
 });
 

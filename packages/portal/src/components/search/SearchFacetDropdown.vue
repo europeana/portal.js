@@ -326,8 +326,8 @@
         const fields = this.groupedOptions;
         const sortByCount = (a, b) => b.count - a.count;
 
-        const selected = fields.filter(field => this.selected.includes(field.label)).sort(sortByCount);
-        const leftOver = fields.filter(field => !this.selected.includes(field.label)).sort(sortByCount);
+        const selected = fields.filter((field) => this.selected.includes(field.label)).sort(sortByCount);
+        const leftOver = fields.filter((field) => !this.selected.includes(field.label)).sort(sortByCount);
 
         return selected.concat(leftOver);
       },
@@ -339,12 +339,12 @@
 
         const criteria = this.criteria;
 
-        const unquotedSelectedOptions = this.selectedOptions.map(option => unescapeLuceneSpecials(option.replace(/^"(.*)"$/, '$1')));
+        const unquotedSelectedOptions = this.selectedOptions.map((option) => unescapeLuceneSpecials(option.replace(/^"(.*)"$/, '$1')));
 
-        const options = this.sortedOptions.filter(option => unquotedSelectedOptions.indexOf(this.isRadio ? option : option.label) === -1);
+        const options = this.sortedOptions.filter((option) => unquotedSelectedOptions.indexOf(this.isRadio ? option : option.label) === -1);
 
         if (criteria) {
-          return options.filter(option => {
+          return options.filter((option) => {
             const optionLabel = this.isRadio ? option : option.label;
             const optionLocalisedLabel = this.tFacetOption(this.name, optionLabel, { collection: this.collection });
             const exactMatch = optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
@@ -488,7 +488,7 @@
         }
 
         if (contentTierFilters) {
-          fields = fields.filter(field => contentTierFilters.includes(field.label));
+          fields = fields.filter((field) => contentTierFilters.includes(field.label));
         }
 
         return fields;

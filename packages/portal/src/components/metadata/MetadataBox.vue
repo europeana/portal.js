@@ -112,7 +112,7 @@
 
     computed: {
       mappableLocation() {
-        return this.location?.def?.find(loc => (
+        return this.location?.def?.find((loc) => (
           (typeof loc === 'object') && loc.latitude && loc.longitude
         )) || null;
       }

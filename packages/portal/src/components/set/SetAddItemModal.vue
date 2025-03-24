@@ -158,7 +158,7 @@
       },
 
       async fetchCollectionsWithItem() {
-        const itemsQueries = [].concat(this.itemIds).map(id => `item:${ITEM_URL_PREFIX}${id}`);
+        const itemsQueries = [].concat(this.itemIds).map((id) => `item:${ITEM_URL_PREFIX}${id}`);
         const searchResponse = await this.$apis.set.search({
           query: `creator:${this.$auth.user?.sub}`,
           profile: 'items',
@@ -200,7 +200,7 @@
         try {
           if (this.collectionsWithItem.includes(setId)) {
             await this.$apis.set.deleteItems(setId, this.itemIds);
-            this.added = this.added.filter(id => id !== setId);
+            this.added = this.added.filter((id) => id !== setId);
             this.makeToast(this.$tc(
               `set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle }
             ));
