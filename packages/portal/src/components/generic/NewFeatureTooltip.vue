@@ -5,7 +5,7 @@
     placement="bottom"
     triggers=""
     show
-    :custom-class="`new-feature-tooltip ${tooltipClass}`"
+    variant="primary"
   >
     {{ $t('newFeatureNotification.tooltip') }}
   </b-tooltip>
@@ -23,14 +23,6 @@
       tooltipTargetId: {
         type: String,
         default: null
-      },
-      tooltipClass: {
-        type: String,
-        default: ''
-      },
-      setCookie: {
-        type: Boolean,
-        default: true
       }
     },
 
@@ -58,11 +50,9 @@
 
       this.trackEvent('show');
 
-      if (this.setCookie) {
-        this.$cookies.set(this.cookieName, this.name, {
-          maxAge: 2678400
-        });
-      }
+      this.$cookies.set(this.cookieName, this.name, {
+        maxAge: 2678400
+      });
     },
 
     methods: {
@@ -74,54 +64,6 @@
     }
   };
 </script>
-
-<style lang="scss">
-  @import '@europeana/style/scss/variables';
-
-  .new-feature-tooltip {
-    z-index: 1071; // overlap the target's original tooltip
-
-    .tooltip-inner {
-      border-radius: 0.25rem;
-      padding: 0;
-      background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
-      background-size: 800% 100%;
-      animation: slide 3000ms ease-in-out infinite;
-    }
-
-    &.tooltip.b-tooltip .arrow {
-      display: block;
-
-      &::before {
-        z-index: 1;
-        border-bottom-color: $blue;
-      }
-
-      &:after { // mimics a border around the arrow
-        content: "";
-        bottom: 0;
-        border-width: 0 8px 8px;
-        position: absolute;
-        border-color: transparent;
-        border-bottom-color: $lightgrey;
-        border-style: solid;
-        left: -2px;
-      }
-    }
-  }
-
-  @keyframes slide {
-    0% {
-      background-position: left;
-    }
-    75% {
-      background-position: right;
-    }
-    100% {
-      background-position: right;
-    }
-  }
-</style>
 
 <docs lang="md">
   ```jsx
