@@ -78,21 +78,43 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .new-feature-tooltip .tooltip-inner {
-    background-image: linear-gradient(to right, $black 17%, $blue, $black 83%);
-    background-size: 800% 100%;
-    animation: slide 4000ms ease-in-out infinite;
-  }
+  .new-feature-tooltip {
+    z-index: 1071; // overlap the target's original tooltip
 
-  .new-feature-tooltip.black .tooltip-inner {
-    background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
+    .tooltip-inner {
+      border-radius: 0.25rem;
+      padding: 0;
+      background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
+      background-size: 800% 100%;
+      animation: slide 3000ms ease-in-out infinite;
+    }
+
+    &.tooltip.b-tooltip .arrow {
+      display: block;
+
+      &::before {
+        z-index: 1;
+        border-bottom-color: $blue;
+      }
+
+      &:after { // mimics a border around the arrow
+        content: "";
+        bottom: 0;
+        border-width: 0 8px 8px;
+        position: absolute;
+        border-color: transparent;
+        border-bottom-color: $lightgrey;
+        border-style: solid;
+        left: -2px;
+      }
+    }
   }
 
   @keyframes slide {
     0% {
       background-position: left;
     }
-    50% {
+    75% {
       background-position: right;
     }
     100% {
@@ -103,17 +125,9 @@
 
 <docs lang="md">
   ```jsx
-  <b-button id="blue-flash">blue flash</b-button>
+  <b-button id="new-feat-tooltip">target</b-button>
   <NewFeatureTooltip
-  tooltipTargetId="blue-flash"
-  :set-cookie="false"
-  />
-  ```
-  ```jsx
-  <b-button id="black-flash">black flash</b-button>
-  <NewFeatureTooltip
-  tooltipTargetId="black-flash"
-  tooltipClass="black"
+  tooltipTargetId="new-feat-tooltip"
   :set-cookie="false"
   />
   ```
