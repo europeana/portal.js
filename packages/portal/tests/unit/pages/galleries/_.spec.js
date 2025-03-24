@@ -237,20 +237,20 @@ describe('GalleryPage (Set)', () => {
         expect(storeCommit.calledWith('entity/setPinned', sinon.match.array)).toBe(true);
       });
 
-      describe('when accept entity recommendations is enabled', () => {
-        it('renders the recommendations', () => {
-          const wrapper = factory({
-            set: testSetEntityBestItems,
-            user: { loggedIn: true },
-            userHasClientRoleStub,
-            features: { acceptEntityRecommendations: true }
-          });
-
-          const recommendations = wrapper.find('setrecommendations-stub');
-
-          expect(recommendations.exists()).toBe(true);
-        });
-      });
+      // describe('when accept entity recommendations is enabled', () => {
+      //   it('renders the recommendations', () => {
+      //     const wrapper = factory({
+      //       set: testSetEntityBestItems,
+      //       user: { loggedIn: true },
+      //       userHasClientRoleStub,
+      //       features: { acceptEntityRecommendations: true }
+      //     });
+      //
+      //     const recommendations = wrapper.find('setrecommendations-stub');
+      //
+      //     expect(recommendations.exists()).toBe(true);
+      //   });
+      // });
     });
   });
 

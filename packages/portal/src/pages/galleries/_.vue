@@ -179,13 +179,14 @@
             </b-container>
           </b-col>
         </b-row>
-        <client-only>
+        <!-- NOTE: disabled until Recommendation API stops recommending items already in sets -->
+        <!-- <client-only>
           <SetRecommendations
             v-if="displayRecommendations"
             :identifier="`/${setId}`"
             :type="set.type"
           />
-        </client-only>
+        </client-only> -->
       </b-container>
     </div>
     <ItemSelectToolbar
@@ -196,7 +197,7 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
+  // import ClientOnly from 'vue-client-only';
   import { computed } from 'vue';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
@@ -218,7 +219,7 @@
   export default {
     name: 'GalleryPage',
     components: {
-      ClientOnly,
+      // ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
       ItemSelectButton,
@@ -229,7 +230,7 @@
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
+      // SetRecommendations: () => import('@/components/set/SetRecommendations'),
       ShareButton,
       ShareSocialModal
 
