@@ -144,7 +144,8 @@
       async fetchCollections() {
         const searchResponse = await this.$apis.set.search({
           query: `creator:${this.$auth.user?.sub}`,
-          profile: 'items.meta',
+          // TODO: always items.meta when new version is in production
+          profile: this.$apis.set.config.version === '0.12' ? 'standard' : 'items.meta',
           pageSize: 100,
           page: 1,
           qf: [
