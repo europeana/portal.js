@@ -333,6 +333,20 @@ describe('@/plugins/europeana/set', () => {
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(items);
       });
+
+      describe('when the response indicates invalid page param', () => {
+        it('returns an empty array', async() => {
+          nock(EuropeanaSetApi.BASE_URL)
+            .get(`/${setId}`)
+            .query({ page: 2, pageSize: 100, profile: 'items.meta', wskey: 'apikey' })
+            .reply(400, { message: 'Invalid property value. page : value out of range: 2, last page:1' });
+
+          const response = await (new EuropeanaSetApi({ $config })).getItems(setId, { page: 2 });
+
+          expect(nock.isDone()).toBe(true);
+          expect(response).toEqual([]);
+        });
+      });
     });
 
     describe('options', () => {

@@ -292,7 +292,14 @@ export default class EuropeanaSetApi extends EuropeanaApi {
       page,
       pageSize,
       profile: 'items.meta'
-    }).then((response) => response?.items);
+    })
+      .then((response) => response?.items)
+      .catch((error) => {
+        if (error.statusCode === 400 && error.response.data.message.includes('page : value out of range')) {
+          return [];
+        }
+        throw error;
+      });
   }
 
   repositionItem(setId, itemId, position) {

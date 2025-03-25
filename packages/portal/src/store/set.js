@@ -118,14 +118,14 @@ export default {
         this.$apis.set.get(state.activeId),
         this.$apis.set.getItems(state.activeId, state.activeParams)
       ]);
-      if ((state.selectedItems || []).length > 0) {
-        dispatch('refreshSelected');
-      }
-
-      return commit('setActive', {
+      commit('setActive', {
         ...responses[0],
         items: responses[1]
       });
+
+      if ((state.selectedItems || []).length > 0) {
+        dispatch('refreshSelected');
+      }
     },
     async reviewRecommendation({ state, commit }, params) {
       const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);
