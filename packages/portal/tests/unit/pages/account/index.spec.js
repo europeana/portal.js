@@ -8,8 +8,9 @@ import page from '@/pages/account/index';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const likesId = '123';
+const setApiGetStub = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
 
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
@@ -17,6 +18,11 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   mocks: {
     $t: key => key,
     $tc: key => key,
+    $apis: {
+      set: {
+        get: setApiGetStub
+      }
+    },
     $auth: {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false),
       strategy: {
@@ -38,19 +44,13 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     },
     $store: {
       commit: storeCommit,
-      dispatch: storeDispatch,
-      getters: {},
       state: {
         auth: { loggedIn: true,
           user: {
             'preferred_username': 'username',
             ...options.user
           } },
-        set: {
-          creations: [],
-          curations: [],
-          likedItems: ['http://data.europeana.eu/set/123']
-        }
+        set: { likesId }
       }
     }
   }
@@ -63,7 +63,7 @@ describe('pages/account/index.vue', () => {
 
       wrapper.vm.fetch();
 
-      expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
+      expect(setApiGetStub.calledWith(likesId)).toBe(true);
     });
 
     it('sets the page meta title to the localised account title key', () => {

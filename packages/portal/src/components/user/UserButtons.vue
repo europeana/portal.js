@@ -40,6 +40,7 @@
         :button-text="buttonText"
       />
       <ItemLikeButton
+        v-model="likedItems[identifier]"
         data-qa="item like button"
         :identifiers="identifier"
         :button-variant="buttonVariant"
@@ -63,6 +64,12 @@
       ItemLikeButton,
       ItemPinButton,
       ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
+    },
+
+    inject: {
+      likedItems: {
+        default: () => ({})
+      }
     },
 
     props: {
