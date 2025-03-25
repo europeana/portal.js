@@ -1,3 +1,5 @@
+import { isContentfulAssetUrl, optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
+
 export default {
   data() {
     return {
@@ -24,8 +26,8 @@ export default {
     },
 
     pageMetaOgImage() {
-      if (this.$contentful?.assets?.isValidUrl(this.pageMeta.ogImage?.url)) {
-        return this.$contentful.assets.optimisedSrc(this.pageMeta.ogImage, this.pageMetaContentfulImageParams);
+      if (isContentfulAssetUrl(this.pageMeta.ogImage?.url)) {
+        return optimisedContentfulImageUrl(this.pageMeta.ogImage, this.pageMetaContentfulImageParams);
       } else {
         return this.pageMeta.ogImage?.url || this.pageMeta.ogImage;
       }

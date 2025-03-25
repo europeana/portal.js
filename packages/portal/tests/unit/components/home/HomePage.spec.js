@@ -49,9 +49,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedSrc: sinon.spy((img) => `${img?.url}?optimised`)
-      },
       query: sinon.stub().resolves(homePageContentfulResponse)
     },
     $i18n: {
@@ -113,6 +110,7 @@ describe('components/home/HomePage', () => {
           const wrapper = factory();
           await wrapper.vm.fetch();
 
+          await wrapper.vm.fetch();
           const pageMeta = wrapper.vm.pageMeta;
 
           expect(pageMeta.ogImage).toBe(image);
