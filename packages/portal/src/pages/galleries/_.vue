@@ -127,7 +127,7 @@
       </b-container>
       <ItemPreviewInterface
         :items="set.items"
-        :max-results="100"
+        :per-page="perPage"
         :total="set.total"
         :show-pins="setIsEntityBestItems && userIsEntityEditor"
         :user-editable-items="userCanEditSet"
@@ -148,11 +148,11 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import useScrollTo from '@/composables/scrollTo.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -161,7 +161,6 @@
   export default {
     name: 'GalleryPage',
     components: {
-      ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
@@ -180,6 +179,8 @@
       pageMetaMixin
     ],
     beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setActiveId', null);
+      this.$store.commit('set/setActiveParams', {});
       this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
@@ -187,10 +188,15 @@
       this.$store.commit('set/setSelected', []);
       next();
     },
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
     data() {
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
+        perPage: 48,
         title: '',
         rawDescription: ''
       };
@@ -198,7 +204,12 @@
     async fetch() {
       try {
         this.validateRoute();
-        await this.$store.dispatch('set/fetchActive', this.setId);
+        this.$store.commit('set/setActiveId', this.setId);
+        this.$store.commit('set/setActiveParams', {
+          page: this.page,
+          pageSize: this.perPage
+        });
+        await this.$store.dispatch('set/fetchActive');
         this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
@@ -210,6 +221,9 @@
       }
     },
     computed: {
+      page() {
+        return Number(this.$route.query.page || 1);
+      },
       pageMeta() {
         return {
           title: this.displayTitle.values[0],
@@ -262,6 +276,9 @@
         return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
+        if (!this.$features.showSetRecommendations) {
+          return false;
+        }
         if (this.setIsEntityBestItems) {
           return this.$features.acceptEntityRecommendations ||
             this.$features.rejectEntityRecommendations;
@@ -290,6 +307,12 @@
         if (this.setIsEntityBestItems) {
           this.$fetch();
         }
+      },
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.$store.commit('set/setSelected', []);
+        this.itemMultiSelect = false;
+        this.scrollToSelector('#GalleryPage-set-items');
       }
     },
 
@@ -311,7 +334,7 @@
         } finally {
           // always re-fetch in case of failure e.g. write lock, so moved items
           // go back where they were
-          await this.$store.dispatch('set/fetchActive', this.setId);
+          await this.$store.dispatch('set/fetchActive');
           this.$redrawVueMasonry?.();
         }
       }

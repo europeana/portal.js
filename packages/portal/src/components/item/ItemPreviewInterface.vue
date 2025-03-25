@@ -94,7 +94,7 @@
   import SearchViewToggles from '@/components/search/SearchViewToggles';
 
   export default {
-    name: 'ItemPreviewsHeader',
+    name: 'ItemPreviewInterface',
 
     components: {
       ItemPreviewCardGroup,

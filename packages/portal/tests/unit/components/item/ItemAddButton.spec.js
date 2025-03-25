@@ -96,7 +96,7 @@ describe('components/item/ItemAddButton', () => {
 
           await wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
 
-          expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
+          expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
         });
 
         it('sets focus on the item add button without showing the tooltip', async() => {
@@ -161,7 +161,7 @@ describe('components/item/ItemAddButton', () => {
         const wrapper = factory();
         await wrapper.vm.refreshSet();
 
-        expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
+        expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
       });
     });
   });
