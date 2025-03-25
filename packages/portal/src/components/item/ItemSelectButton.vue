@@ -71,7 +71,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .item-select-button {
+  .btn-light-flat.item-select-button {
     font-size: $font-size-large;
     line-height: 1;
 
