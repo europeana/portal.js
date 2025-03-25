@@ -31,7 +31,6 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
-      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -40,14 +39,15 @@ export default {
     "add": "Pievienot",
     "apply": "Pieteikties",
     "cancel": "Atcelt",
+    "changeView": "Mainīt skatu",
     "clear": "Notīrīt",
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
+    "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
-    "explore": "Izpētīt",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
@@ -56,9 +56,11 @@ export default {
     "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
+    "nextPage": "Nākamā lapa",
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
+    "previousPage": "Iepriekšējā lapa",
     "publish": "Publicēt",
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
+    "unlike": "Atcelt patiku",
     "viewAt": "Skatīt vietnē {link}",
-    "viewDocument": "Skatīt dokumentu"
+    "viewDocument": "Skatīt dokumentu",
+    "vote": "Balsojums"
   },
   "attribution": {
     "country": "Valsts",
@@ -96,12 +100,7 @@ export default {
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
-    "topic": "Tematikas",
-    "trending": "Populārākās digitālie objekti"
-  },
-  "blog": {
-    "blog": "Emuārs",
-    "posts": "Bloga ieraksts | Bloga ieraksti"
+    "topic": "Tematikas"
   },
   "cardLabels": {
     "organisation": "Organizācija",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Krāsu paraugs",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Par Europeana",
-      "forDevelopers": "Izstrādātājiem",
-      "help": "Palīdzība",
-      "meetUs": "Mūsu komanda",
-      "MoreInfoLabel": "Papildinformācija",
-      "provide": "Kļūsti par datu nodrošinātāju",
-      "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Lietošanas noteikumi un Privātuma politika"
-    },
-    "headerNavigation": {
-      "Collections": "Kolekcijos",
-      "explore": "Jaunumi",
-      "teachers": "Skolotājiem"
-    }
-  },
   "contentYouMightLike": "Iespējams, Tev patiks šis saturs",
   "curatedAutomatically": "Automātiski glabāts Europeana",
   "dateFilter": {
@@ -193,6 +175,16 @@ export default {
     "broughtBy": "Jums atnesa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "embedNotification": {
+    "ifNotAll": "Ja nevēlaties ielādēt visus iegultos multivides failus, varat {0}.",
+    "loadAllEmbeddedContent": "Ielādēt visu iegulto saturu",
+    "loadOnlyThis": "ielādēt multivides tikai no šī pakalpojumu sniedzēja",
+    "message": "Lūdzu, ņemiet vērā, ka šajā lapā ir ievietots multivides saturs no {provider}. Uz šo multivides materiālu skatīšanos attiecas to noteikumi un paziņojumi par konfidencialitāti. Lai iegūtu vairāk informācijas par to, kā tiek izmantoti jūsu dati, lūdzu, skatiet šo uzņēmumu privātuma paziņojumus.",
+    "messageUnkownService": "Diemžēl šo saturu nevar parādīt.",
+    "ofThirdPartyServices": "{0} trešo pušu satura pakalpojumiem.",
+    "viewFullList": "Skatīt pilnu sarakstu",
+    "viewThisExternalLink": "Skatiet šo saturu, izmantojot ārējo saiti"
+  },
   "entity": {
     "actions": {
       "cancel": "Atcelt",
@@ -243,6 +235,10 @@ export default {
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
     },
+    "noFeatureIdeas": {
+      "description": "Drīzumā pārbaudiet vēlreiz!",
+      "title": "Pašlaik nav jaunu funkciju ideju."
+    },
     "pageNotFound": {
       "metaTitle": "Lapa nav atrasta",
       "title": "Lapa, kuru meklējat, neeksistē."
@@ -261,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Izstāde: {title}",
     "chapters": "Nodaļas",
     "credits": "Kredīti",
     "currentChapter": "Pašreizējā nodaļa",
@@ -723,10 +720,10 @@ export default {
       "faq": "Bieži uzdotie jautājumi (FAQ)",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
-      "privacy": "Privātuma politika",
-      "provide": "Kļūsti piegādājošā iestāde",
+      "privacy": "Konfidencialitātes paziņojums",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
+      "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
       "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",
@@ -748,9 +745,10 @@ export default {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Pedagogiem",
+      "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "shareYourData": "Kopīgot savus datus",
+      "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -767,7 +765,6 @@ export default {
     "discoverEditorial": "Jaunākie stāsti",
     "storiesCTA": "Skatīt visus stāstus",
     "subHeadline": "Meklējiet, saglabājiet un dalieties ar mākslu, grāmatām, filmām un mūziku no tūkstošiem kultūras iestāžu krājumiem",
-    "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
@@ -780,6 +777,9 @@ export default {
     "itemOf": "{max} no {count} digitālie objekti",
     "recent": "Pēdējie digitālie objekti",
     "recommended": "Leteiktie digitālie objekti",
+    "trending": {
+      "headline": "Izpētiet šodienas populārākos digitālos objektus"
+    },
     "youMightLike": "Digitālie objekti, kas jums varētu patikt"
   },
   "klaro": {
@@ -787,7 +787,11 @@ export default {
       "acceptAll": "Pieņemt visus",
       "acceptSelected": "Pieņemt atlasīto",
       "consentModal": {
-        "description": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-policy'> konfidencialitātes politiku </a>.",
+        "alwaysRequired": "(Vienmēr nepieciešams)",
+        "description": "Šeit varat apskatīt un pielāgot pakalpojumus, kurus vēlamies izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-statement'>konfidencialitātes paziņojumu</a>.",
+        "privacyPolicy": "Privātuma politika",
+        "servicesCount": "{count} pakalpojums | {count} pakalpojumi",
+        "text": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu {privacyPolicy}.",
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
@@ -797,13 +801,44 @@ export default {
       "decline": "Es noraidu",
       "ok": "Labi",
       "purposes": {
+        "2D": {
+          "title": "2D multivides"
+        },
+        "3D": {
+          "title": "3D multivides"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Šie pakalpojumi ir būtiski, lai pareizi darbotos šī vietne. Tajos ietilpst meklēšanas rezultātu skats un valodas preferences, tiek saglabāts pieteicies stāvoklis un jūsu apmeklējums ir drošs. Jūs nevarat tos atspējot, jo vietne citādi nedarbotos pareizi.",
           "title": "Būtiski pakalpojumi drošībai un pielāgošanai"
         },
+        "mediaViewing": {
+          "description": "Šie pakalpojumi ielādē attēlus (2D), 3D, audio un video vienumus skatīšanai.",
+          "title": "Multivides skatīšanās pakalpojumi"
+        },
+        "multimedia": {
+          "title": "Multivide"
+        },
+        "other": {
+          "description": "Šie pakalpojumi ielādē saturu, piemēram, kodu, spēles, kartes un stāstu veidošanas logrīkus.",
+          "title": "Citi iestrādes pakalpojumi"
+        },
+        "socialMedia": {
+          "description": "Šie pakalpojumi ielādē saturu no sociālo mediju platformām.",
+          "title": "Sociālo plašsaziņas līdzekļu iestrādes pakalpojumi"
+        },
+        "thirdPartyContent": {
+          "description": "Šie pakalpojumi ielādē saturu, ko mitina trešās puses. Uz tās izmantošanu attiecas šie trešo pušu noteikumi, nosacījumi un paziņojums par konfidencialitāti.",
+          "title": "Trešo pušu saturs"
+        },
         "usage": {
           "description": "Šie pakalpojumi apkopo informāciju, lai palīdzētu mums labāk saprast, kā vietne tiek izmantota un kur atrodas sāpju punkti, dodot mums iespēju izdarīt apzinātu izvēli, lai uzlabotu jūsu pieredzi.",
           "title": "Pakalpojumi vietņu izmantošanas un atsauksmju iegūšanai"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -814,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",
         "title": "Atkļūdošanas pārslēgšana"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivizē aptaujas logrīku, dodot jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Atceras jūsu vēlamo saskarnes valodu, lai nodrošinātu piekļuvi nākotnē.",
         "title": "Valodas kods"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivizē atsauksmju logrīku, sniedzot iespēju sazināties ar mums.",
         "title": "Jira servisa dienests"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Rāda paziņojumu, kad kļūst pieejamas jaunas funkcijas.",
         "title": "Jaunas funkcijas paziņojums"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
+        "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "nezināms pakalpojumu sniedzējs",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -870,8 +1068,38 @@ export default {
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
   },
+  "likes": {
+    "count": "{count} patīk | {count} Patīk"
+  },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Iziet pilnekrāna režīmā",
+      "fullscreen": "Pilnekrāna",
+      "keyboardNavigation": "Izmantojiet +, - un bulttaustiņus, lai tuvinātu un panoramētu attēlu.",
+      "resetZoom": "Atiestatīt tālummaiņu",
+      "rotateLeft": "Pagriezt pa kreisi",
+      "rotateRight": "Pagriezt pa labi",
+      "zoomIn": "Pietuvināt",
+      "zoomOut": "Attālināt"
+    },
+    "loadFull": "Īpaši liels attēls: ielādējiet pilnu izmēru.",
+    "pages": {
+      "hide": "Slēpt lapas",
+      "show": "Rādīt lapas"
+    },
+    "sidebar": {
+      "annotations": "Anotācijas",
+      "annotationsCount": "1 Anotācija | {count} Anotācijas",
+      "hide": "Paslēpt sānjoslu",
+      "IIIFManifest": "IIIF manifests",
+      "links": "Saites",
+      "search": "Meklēt",
+      "searchPlaceholder": "Ievadiet terminus",
+      "show": "Rādīt sānjoslu"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
@@ -880,6 +1108,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
+      "copyAttribution": "Kopēt digitālā objekta attiecinājumu",
       "modalIntro": "Ja izmantojat šo digitālais objekts tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
       "modalTitle": "Sakiet paldies"
     },
@@ -897,18 +1126,16 @@ export default {
     "automated": "Automātiskā tulkošana",
     "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
-    "other": "citas valodas",
-    "stopTranslating": "Pārtrauciet šī digitālais objekts tulkošanu uz {0}.",
-    "translateLanguage": "Vai jūs vēlētos redzēt šo digitālais objekts {0}?",
-    "translateMetadata": "Tulkot šī digitālais objekts metadatus.",
-    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
+    "stopViewingThisItemIn": "Pārtrauciet skatīt šo digitālo objektu {0}",
+    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+    "viewingThisItemIn": "Šī digitālā objekta skatīšana {0}",
+    "viewItemInAnotherLanguage": "Skatīt šo digitālo objektu citā valodā"
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
     "text": {
-      "trendingItems": "Uzziniet, kuri digitālie objekti piesaista cilvēku uzmanību un iegūst popularitāti reālajā laikā. Izmantojiet iespēju būt priekšā līknei - skatieties, ko cilvēki skatās, patīk, kurē un atkārtoti izmanto tieši tagad."
+      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -969,14 +1196,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopēt iegulšanas kodu.",
       "pin": "Piespraudiet digitālais objekts pieejamajām entītijām"
     },
     "allMetaData": "Visi metadati",
-    "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
+    "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
+    "debias": "De-bias",
+    "explanationby": "Skaidrojumu sniedz {0}.",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
-    "IIIFViewer": "IIIF skatītājs",
+    "itemDepublished": "Šis digitālais objekts ir izņemts no publikācijas. Jūs varat mēģināt piekļūt oriģinālajam multivides materiālam no tīmekļa vietnes iestādes, kas to nodrošina.",
     "location": "Atrašanās vieta",
     "locationOnMap": "Atrašanās vieta kartē",
     "mediaPlayer": "Multivides atskaņotājs",
@@ -984,7 +1214,7 @@ export default {
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi digitālie objekti",
     "status": {
-      "unpublished": "[Nepublicēts digitālais objekts]"
+      "depublished": "[No publicēšanas izņemts digitālais objekts]"
     }
   },
   "related": {
@@ -1036,6 +1266,7 @@ export default {
         "doesNotContain": "nesatur",
         "exact": "satur frāzi"
       },
+      "newRule": "jauns izvērstās meklēšanas noteikums",
       "placeholder": {
         "field": "Izvēlieties lauku",
         "modifier": "Izvēlieties modifikatoru",
@@ -1099,14 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pievienot galerijai",
-      "addToGallery": "Pievienot šo digitālais objekts galerijai.",
+      "addItems": {
+        "1": "Pievienot šo digitālais objekts galerijai.",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
+      "addItemsHere": {
+        "1": "Pievienot galerijai",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
+      "cancelSelection": "Atcelt atlasi",
+      "clickToSelectItems": "Noklikšķiniet uz digitālajiem objektiem, lai tos atlasītu",
       "create": "Izveidot galeriju",
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
-      "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
+      "likeItems": {
+        "1": "Saglabāt šo digitālo objektu savā patīk",
+        "many": "Man patīk {count} digitālais objekts | Man patīk {count} digitālie objekti"
+      },
+      "removeItems": {
+        "1": "Noņemiet šo digitālo objektu no šīs galerijas.",
+        "many": "Noņemt {count} digitālo objektu no šīs galerijas | Noņemt {count} digitālos objektus no šīs galerijas"
+      },
+      "selectItems": "Izvēlieties digitālos objektus",
+      "unlikeItems": {
+        "1": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
+        "many": "Man vairs nepatīk {count} digitālais objekts | Man vairs nepatīk {count} digitālie objekti"
+      },
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -1123,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
-      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
-      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+      "itemsAdded": {
+        "1": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
+        "many": "{count} digitālais objekts ir pievienots galerijai \"{gallery}\". | {count} digitālie objekti ir pievienoti galerijai \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
+        "many": "{count} digitālais objekts ir saglabāts jūsu patīk sarakstā. | {count} digitālie objekti ir saglabāti jūsu patīk sarakstā."
+      },
+      "itemsRemoved": {
+        "1": "Digitālais objekts ir noņemts no galerijas {gallery}.",
+        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". | {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+        "many": "{count} digitālais objekts ir noņemts no jūsu patīk saraksta. | {count} digitālie objekti ir noņemti no jūsu patīk saraksta."
+      },
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
@@ -1135,7 +1397,8 @@ export default {
       "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti."
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti.",
+      "removeItems": "Vai tiešām vēlaties noņemt {count} digitālo objektu no šīs galerijas? | Vai tiešām vēlaties noņemt {count} digitālos objektus no šīs galerijas?"
     },
     "publication": {
       "criteria": {
@@ -1163,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Noņemiet visu atlasi."
+      },
+      "info": "{count} digitālais objekts izvēlēts. | {count} digitālos objektus izvēlēti."
     }
   },
   "shareWhere": "Kur jūs vēlētos dalīties ar šo?",
@@ -1176,13 +1445,26 @@ export default {
     "required": "Nepieciešams"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Izstādes",
+      "stories": "Stāsti",
+      "viewAll": "Skatīt visu"
+    },
     "stories": "Stāsts | Stāsti"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
-    "paginationBulletLabel": "Slaidu grupa {page}"
+    "a11y": {
+      "firstSlide": "Šis ir pirmais slaids",
+      "lastSlide": "Šis ir pēdējais slaids",
+      "nextSlide": "Nākamais slaids",
+      "paginationBullet": "Slaids {page}",
+      "paginationBulletGroupedSlides": "Slaidu grupa {page}",
+      "previousSlide": "Iepriekšējais slaids",
+      "slideLabel": "Slaids {slide} no {totalSlides}"
+    }
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

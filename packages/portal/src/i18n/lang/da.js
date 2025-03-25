@@ -2,7 +2,7 @@ export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
     "editProfile": "Rediger profil",
-    "likes": "Synes om'er",
+    "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
@@ -20,7 +20,7 @@ export default {
       "noLikedItems": "Du har ikke syntes om nogen genstande endnu"
     },
     "privateCollections": "Private gallerier",
-    "profile": "Mine synes om'er og gallerier",
+    "profile": "Mine likes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
@@ -31,7 +31,6 @@ export default {
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
       "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
-      "remove": "Fjern denne genstand fra dette galleri.",
       "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
@@ -40,25 +39,28 @@ export default {
     "add": "Tilføje",
     "apply": "Anvend",
     "cancel": "Annuller",
+    "changeView": "Skift visning",
     "clear": "Ryd",
     "clearFilters": "Ryd filtre",
     "close": "luk",
+    "confirm": "Bekræft",
     "continue": "fortsæt",
     "depublish": "Depublicer",
     "download": "Hent",
     "edit": "Rediger",
-    "explore": "Udforske",
     "filter": "Filter",
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
-    "like": "Synes om",
+    "like": "Like",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
+    "nextPage": "Næste side",
     "pin": "Pin",
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
+    "previousPage": "Forrige side",
     "publish": "Offentliggøre",
     "readMore": "Læs mere",
     "reject": "Afvise",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
+    "unlike": "Fjern like",
     "viewAt": "Se på {link}",
-    "viewDocument": "Se dokument"
+    "viewDocument": "Se dokument",
+    "vote": "Stemme"
   },
   "attribution": {
     "country": "Land:",
@@ -96,12 +100,7 @@ export default {
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
-    "topic": "Emner",
-    "trending": "Trending genstande"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogindlæg | Blogindlæg"
+    "topic": "Emner"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Farveprøve",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Om Europeana",
-      "forDevelopers": "Til udviklere",
-      "help": "Hjælp",
-      "meetUs": "Mød holdet",
-      "MoreInfoLabel": "Flere oplysninger",
-      "provide": "Bliv dataleverandør",
-      "subscribe": "Abonner på vores nyhedsbrev",
-      "terms": "Vilkår for brug og Fortrolighedspolitik"
-    },
-    "headerNavigation": {
-      "Collections": "Samlinger",
-      "explore": "Udforsk",
-      "teachers": "Lærere"
-    }
-  },
   "contentYouMightLike": "Indhold, du måske vil synes om",
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
@@ -194,6 +176,16 @@ export default {
     "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "embedNotification": {
+    "ifNotAll": "Hvis du ikke ønsker at indlæse alle indlejrede medier, kan du {0}.",
+    "loadAllEmbeddedContent": "Indlæs alt indlejret indhold",
+    "loadOnlyThis": "indlæs kun medier fra denne udbyder",
+    "message": "Vær opmærksom på, at denne side indeholder medieindhold indlejret fra {provider}. Visning af dette medie er underlagt deres vilkår og erklæringer om beskyttelse af personlige oplysninger. Se deres erklæringer om beskyttelse af personlige oplysninger for at få flere oplysninger om, hvordan dine data bruges.",
+    "messageUnkownService": "Desværre kan dette indhold ikke vises.",
+    "ofThirdPartyServices": "{0} af tredjeparts indholdstjenester.",
+    "viewFullList": "Se hele listen",
+    "viewThisExternalLink": "Se dette indhold via et eksternt link"
+  },
   "entity": {
     "actions": {
       "cancel": "Annuller",
@@ -244,6 +236,10 @@ export default {
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
     },
+    "noFeatureIdeas": {
+      "description": "Kom snart tilbage igen!",
+      "title": "Ingen nye funktionsideer i øjeblikket."
+    },
     "pageNotFound": {
       "metaTitle": "Siden blev ikke fundet",
       "title": "Den side du leder efter eksisterer ikke."
@@ -262,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Udstilling: {title}",
     "chapters": "Kapitler",
     "credits": "Credits",
     "currentChapter": "Aktuelt kapitel",
@@ -724,10 +721,10 @@ export default {
       "faq": "Ofte stillede spørgsmål (FAQ)",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
-      "privacy": "Fortrolighedspolitik",
-      "provide": "Bliv en ejerinstiution",
+      "privacy": "Fortrolighedserklæring",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
+      "supportingTechnicalPartners": "Support til tekniske partnere",
       "terms": "Vilkår og politikker"
     },
     "ourMission": "Vores mission",
@@ -749,9 +746,10 @@ export default {
       "about": "Om",
       "collections": "Samlinger",
       "europeanaClassroom": "Til lærere",
+      "featureIdeas": "Funktionsideer",
       "help": "Hjælp",
       "home": "Hjem",
-      "shareYourData": "Del dine data",
+      "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -768,7 +766,6 @@ export default {
     "discoverEditorial": "Seneste historier",
     "storiesCTA": "Se alle historier",
     "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
-    "themesCTA": "Se alle temaer",
     "themesTitle": "Udforsk efter tema",
     "title": "Opdag Europas {digital} kulturarv",
     "titleDigital": "digitale"
@@ -781,6 +778,9 @@ export default {
     "itemOf": "{max} af {count} genstande",
     "recent": "Seneste genstande",
     "recommended": "Anbefalede genstande",
+    "trending": {
+      "headline": "Udforsk dagens populære genstande"
+    },
     "youMightLike": "Genstande, du måske vil synes om"
   },
   "klaro": {
@@ -788,7 +788,11 @@ export default {
       "acceptAll": "Accepter alle",
       "acceptSelected": "Accepter valgt",
       "consentModal": {
-        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. For at lære mere, læs venligst vores <a href='/rights/privacy-policy'> privatlivspolitik </a>.",
+        "alwaysRequired": "(Altid påkrævet)",
+        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Hvis du vil vide mere, kan du læse vores <a href='/rights/privacy-statement'>fortrolighedserklæring</a>.",
+        "privacyPolicy": "Privatlivspolitik",
+        "servicesCount": "{count} tjeneste | {count} tjenester",
+        "text": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. Læs vores {privacyPolicy} for at få flere oplysninger.",
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
@@ -798,13 +802,44 @@ export default {
       "decline": "Jeg afviser",
       "ok": "Okay",
       "purposes": {
+        "2D": {
+          "title": "2D-medier"
+        },
+        "3D": {
+          "title": "3D-medier"
+        },
+        "audio": {
+          "title": "Lyd"
+        },
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
           "title": "Væsentlige tjenester til sikkerhed og tilpasning"
         },
+        "mediaViewing": {
+          "description": "Disse tjenester indlæser billed- (2D), 3D-, lyd- og videoelementer til visning.",
+          "title": "Tjenester til visning af medier"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Disse tjenester indlæser indhold som f.eks. kode, spil, kort og historiefortællende widgets.",
+          "title": "Andre indlejringstjenester"
+        },
+        "socialMedia": {
+          "description": "Disse tjenester indlæser indhold fra sociale medieplatforme.",
+          "title": "Tjenester til indlejring i sociale medier"
+        },
+        "thirdPartyContent": {
+          "description": "Disse tjenester indlæser indhold, der hostes af tredjeparter. Brugen af dem er underlagt disse tredjeparters vilkår, betingelser og erklæring om beskyttelse af personlige oplysninger.",
+          "title": "Tredjepartsindhold"
+        },
         "usage": {
           "description": "Disse tjenester indsamler oplysningerne for at hjælpe os med bedre at forstå, hvordan hjemmesiden bliver brugt, og hvor smertepunkterne er, hvilket giver os mulighed for at træffe informerede valg for at forbedre din oplevelse.",
           "title": "Tjenester til at registrere brug og feedback på websitet"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +850,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktiverer en undersøgelses widget, der giver dig mulighed for at svare på vores undersøgelser om tilfredshed med besøgende.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Husker dit foretrukne grænsefladesprog for fremtidig adgang.",
         "title": "Sprogkode"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiverer feedback-widget'en, så du kan kontakte os.",
         "title": "Jira servicedesk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
         "title": "Meddelelse om ny funktion"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
+        "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "ukendt udbyder",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1070,38 @@ export default {
   "layout": {
     "skipToMain": "Spring til sideindhold"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Afslut fuld skærm",
+      "fullscreen": "Fuld skærm",
+      "keyboardNavigation": "Brug +, - og piletasterne til at zoome og panorere rundt i billedet.",
+      "resetZoom": "Nulstil zoom",
+      "rotateLeft": "Roter til venstre",
+      "rotateRight": "Roter til højre",
+      "zoomIn": "Zoom ind",
+      "zoomOut": "Zoom ud"
+    },
+    "loadFull": "Ekstra stort billede: indlæs i fuld størrelse.",
+    "pages": {
+      "hide": "Skjul sider",
+      "show": "Vis sider"
+    },
+    "sidebar": {
+      "annotations": "Annotationer",
+      "annotationsCount": "1 Annotation |{count} Annotationer",
+      "hide": "Skjul sidebjælke",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Søg",
+      "searchPlaceholder": "Indtast vilkår",
+      "show": "Vis sidebjælke"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
@@ -882,6 +1110,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
+      "copyAttribution": "Kopier genstandens tilskrivning.",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
     },
@@ -899,18 +1128,16 @@ export default {
     "automated": "Automatiseret oversættelse",
     "automatedPageTranslations": "Denne side bruger autogenererede oversættelser fra engelsk.",
     "enrichment": "Berigelse ved partnerprojekter",
-    "loginToTranslate": "{login} for at se denne genstand på andre sprog.",
-    "other": "andre sprog",
-    "stopTranslating": "Stop med at oversætte dette element til {0}.",
-    "translateLanguage": "Vil du gerne se dette element i {0} ?",
-    "translateMetadata": "Oversæt metadataene for dette genstand.",
-    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
+    "stopViewingThisItemIn": "Stop med at se denne genstand i {0}",
+    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere.",
+    "viewingThisItemIn": "Visning af denne genstand i {0}",
+    "viewItemInAnotherLanguage": "Se denne genstand på et andet sprog"
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
     "readMore": "Vis mig",
     "text": {
-      "trendingItems": "Opdag hvilke genstande der fanger folks opmærksomhed og vinder popularitet i realtid. Udnyt chancen for at være på forkant med kurven - se, hvad folk ser, kan lide, kuraterer og genbruger mest lige nu."
+      "featureIdeas": "Udforsk de kommende ændringer, vi planlægger, og stem på dem, du gerne vil have prioriteret. Dine input hjælper os med at fokusere på det, der betyder mest for dig."
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -971,14 +1198,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopiér indlejringskoden",
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
-    "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
+    "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
+    "debias": "De-bias",
+    "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
-    "IIIFViewer": "IIIF-fremviser",
+    "itemDepublished": "Denne genstand er blevet depubliceret. Du kan prøve at få adgang til det originale medie fra den leverede institutions hjemmeside.",
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",
@@ -986,7 +1216,7 @@ export default {
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende genstande",
     "status": {
-      "unpublished": "[Ikke-publiceret element]"
+      "depublished": "[Depubliceret genstand]"
     }
   },
   "related": {
@@ -1038,6 +1268,7 @@ export default {
         "doesNotContain": "indeholder ikke",
         "exact": "indeholder sætningen"
       },
+      "newRule": "ny avanceret søgeregel",
       "placeholder": {
         "field": "Vælg et felt",
         "modifier": "Vælg en modifikator",
@@ -1101,14 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Føj til galleri",
-      "addToGallery": "Føj dette genstand til et galleri.",
+      "addItems": {
+        "1": "Føj dette genstand til et galleri.",
+        "many": "Tilføj {count} genstand til et galleri | Tilføj {count} genstande til et galleri"
+      },
+      "addItemsHere": {
+        "1": "Føj til galleri",
+        "many": "Tilføj {count} genstand til et galleri | Tilføj {count} genstande til et galleri"
+      },
+      "cancelSelection": "Annuller valg",
+      "clickToSelectItems": "Klik på genstande for at vælge dem",
       "create": "Opret galleri",
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
-      "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
-      "saveItemToLikes": "Gem dette genstand til dine likes.",
+      "likeItems": {
+        "1": "Gem dette genstand til dine likes.",
+        "many": "Like {count} genstand | Like {count} genstande"
+      },
+      "removeItems": {
+        "1": "Fjern denne genstand fra dette galleri.",
+        "many": "Fjern {count} genstand fra dette galleri | Fjern {count} genstande fra dette galleri"
+      },
+      "selectItems": "Vælg genstande",
+      "unlikeItems": {
+        "1": "Fjern denne genstand fra dine likes.",
+        "many": "Fjern like fra {count} genstand | Fjern like fra {count} genstande"
+      },
       "update": "Opdater galleri"
     },
     "form": {
@@ -1125,19 +1375,32 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "itemAdded": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
-      "itemLiked": "Genstanden er blevet gemt i dine likes.",
-      "itemRemoved": "Genstanden er blevet fjernet fra galleriet {gallery}.",
-      "itemUnliked": "Genstanden er blevet fjernet fra dine likes.",
+      "itemsAdded": {
+        "1": "Genstanden er blevet tilføjet til galleriet \"{gallery}\".",
+        "many": "{count} genstand er blevet tilføjet til galleriet \"{gallery}\". | {count} genstande er blevet tilføjet til galleriet \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Genstanden er blevet gemt i dine likes.",
+        "many": "{count} genstand er blevet gemt i dine likes. | {count} genstande er blevet gemt i dine likes."
+      },
+      "itemsRemoved": {
+        "1": "Genstanden er blevet fjernet fra galleriet {gallery}.",
+        "many": "{count} genstand er blevet fjernet fra galleriet \"{gallery}\". | {count} genstande er blevet fjernet fra galleriet \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Genstanden er blevet fjernet fra dine likes.",
+        "many": "{count} genstand er blevet fjernet fra dine likes. | {count} genstande er blevet fjernet fra dine likes."
+      },
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 genstande. Vi fjerner denne begrænsning snart!",
-        "title": "100 synes om'er"
+        "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det."
+      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det.",
+      "removeItems": "Er du sikker på, at du vil fjerne {count} genstand fra dette galleri? | Er du sikker på, at du vil fjerne {count} genstande fra dette galleri?"
     },
     "publication": {
       "criteria": {
@@ -1165,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) er et webbaseret værktøj til at administrere indhold af forskellige typer (inklusive 3D), dokumentere kulturarv gennem digitale fællesskabsrum og kuratere digitale historier og oplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Fravælg alle."
+      },
+      "info": "{count} valgt genstand. | {count} valgte genstande."
     }
   },
   "shareWhere": "Hvor vil du gerne dele dette?",
@@ -1173,18 +1442,31 @@ export default {
     "search": "Søg"
   },
   "statuses": {
-    "liked": "Kunne lide",
+    "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Udstillinger",
+      "stories": "Historier",
+      "viewAll": "Se alle"
+    },
     "stories": "Historien | Historier"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide gruppe {page}"
+    "a11y": {
+      "firstSlide": "Dette er den første slide",
+      "lastSlide": "Dette er det sidste slide",
+      "nextSlide": "Næste slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide gruppe {page}",
+      "previousSlide": "Forrige slide",
+      "slideLabel": "Slide {slide} af {totalSlides}"
+    }
   },
   "themes": {
     "description": "Gennemse efter tema",

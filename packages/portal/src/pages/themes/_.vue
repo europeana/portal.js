@@ -1,18 +1,12 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -25,7 +19,7 @@
       <ContentHeader
         :title="name"
         :description="description"
-        :media-url="shareMediaUrl"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
@@ -234,12 +228,9 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImage: this.primaryImageOfPage?.image,
           ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
-      },
-      shareMediaUrl() {
-        return this.primaryImageOfPage?.image?.url;
       },
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
@@ -301,13 +292,9 @@
 
   .page {
     padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
 
     @media (min-width: $bp-4k) {
       padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
     }
 
     ::v-deep .content-header .divider {

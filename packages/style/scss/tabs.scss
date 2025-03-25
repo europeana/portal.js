@@ -13,11 +13,21 @@
       padding: 1rem;
     }
   }
+
+  // vertical tabs
+  &.row {
+    flex-wrap: nowrap;
+    height: 100%;
+
+    .col-auto {
+      padding-right: 0;
+    }
+  }
 }
 
 .nav-tabs {
   background: $white;
-  border-bottom: 2px solid #e7e7e9;
+  border-bottom: 2px solid $lightbluemagenta;
   padding: 0;
 
   .nav-item {
@@ -27,7 +37,6 @@
   .nav-link {
     border: 0;
     border-radius: 0;
-    color: mediumgrey;
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1;
@@ -62,6 +71,26 @@
       font-weight: inherit;
       line-height: inherit;
       margin-bottom: inherit;
+    }
+  }
+
+  // vertical tabs
+  &.flex-column {
+    border-bottom: none;
+    border-right: 1px solid $lightbluemagenta;
+    height: 100%;
+
+    .nav-item {
+      margin-bottom: 0;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.75rem 0.5rem 1rem;
+
+      &.active {
+        border-bottom: none;
+        border-right: 2px solid $blue;
+      }
     }
   }
 }

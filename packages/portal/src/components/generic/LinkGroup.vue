@@ -28,6 +28,11 @@
             :class="`footer-link-icon ${link.icon}`"
             :title="link.text"
           />
+          <b-img-lazy
+            v-else-if="link.image"
+            :src="link.image"
+            :alt="link.text"
+          />
           <template v-else>
             {{ link.text }}
           </template>
@@ -120,7 +125,7 @@
 
   .link-group-light {
     .group-title {
-      color: $bodygrey;
+      color: $lightgrey;
     }
 
     .link-group-list {

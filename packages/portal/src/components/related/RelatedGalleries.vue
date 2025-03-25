@@ -67,8 +67,8 @@
           query: this.query,
           qf: ['visibility:published', `lang:${this.$i18n.locale}`],
           pageSize: 3,
-          page: 0,
-          profile: 'standard'
+          page: 1,
+          profile: 'items.meta'
         };
 
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
@@ -88,7 +88,7 @@
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail)
           };
         });
       },

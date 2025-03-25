@@ -64,7 +64,17 @@ const factory = (data = {}) => shallowMountNuxt(ThemePage, {
     $t: (key) => key,
     $tc: (key) => key
   },
-  stubs: ['ContentHeader', 'EntityBadges', 'EntityCardGroup', 'SetCardGroup', 'CallToActionBanner', 'RelatedEditorial', 'ItemPreviewCardGroup', 'SmartLink']
+  stubs: [
+    'CallToActionBanner',
+    'ContentHeader',
+    'EntityBadges',
+    'EntityCardGroup',
+    'ErrorMessage',
+    'ItemPreviewCardGroup',
+    'RelatedEditorial',
+    'SetCardGroup',
+    'SmartLink'
+  ]
 });
 
 describe('pages/themes/_', () => {
@@ -127,7 +137,7 @@ describe('pages/themes/_', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image.url);
+      expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image);
     });
   });
 });

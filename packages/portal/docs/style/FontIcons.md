@@ -25,6 +25,11 @@ Example:
           <td><span class="icon icon-3d" /></td>
         </tr>
         <tr>
+          <td>3d bold</td>
+          <td><code>icon-3d-bold</code></td>
+          <td><span class="icon icon-3d-bold" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
@@ -50,9 +55,19 @@ Example:
           <td><span class="icon icon-add-circle-outlined" /></td>
         </tr>
         <tr>
+          <td>Annotations</td>
+          <td><code>icon-annotations</code></td>
+          <td><span class="icon icon-annotations" /></td>
+        </tr>
+        <tr>
           <td>Arrow down</td>
           <td><code>icon-arrow-down</code></td>
           <td><span class="icon icon-arrow-down" /></td>
+        </tr>
+        <tr>
+          <td>Arrow outline</td>
+          <td><code>icon-arrow-outline</code></td>
+          <td><span class="icon icon-arrow-outline" /></td>
         </tr>
         <tr>
           <td>Automated</td>
@@ -85,9 +100,24 @@ Example:
           <td><span class="icon icon-clear" /></td>
         </tr>
         <tr>
+          <td>Click</td>
+          <td><code>icon-click</code></td>
+          <td><span class="icon icon-click" /></td>
+        </tr>
+        <tr>
           <td>Collections</td>
           <td><code>icon-collections</code></td>
           <td><span class="icon icon-collections" /></td>
+        </tr>
+        <tr>
+          <td>De-bias</td>
+          <td><code>icon-debias</code></td>
+          <td><span class="icon icon-debias" /></td>
+        </tr>
+        <tr>
+          <td>De-bias logo</td>
+          <td><code>icon-debias-logo</code></td>
+          <td><span class="icon icon-debias-logo" /></td>
         </tr>
         <tr>
           <td>Download</td>
@@ -115,6 +145,11 @@ Example:
           <td><span class="icon icon-facebook" /></td>
         </tr>
         <tr>
+          <td>Feature ideas</td>
+          <td><code>icon-feature-ideas</code></td>
+          <td><span class="icon icon-feature-ideas" /></td>
+        </tr>
+        <tr>
           <td>Feedback</td>
           <td><code>icon-ic-feedback</code></td>
           <td><span class="icon icon-ic-feedback" /></td>
@@ -128,6 +163,16 @@ Example:
           <td>Filter</td>
           <td><code>icon-filter</code></td>
           <td><span class="icon icon-filter" /></td>
+        </tr>
+        <tr>
+          <td>Fullscreen</td>
+          <td><code>icon-fullscreen</code></td>
+          <td><span class="icon icon-fullscreen" /></td>
+        </tr>
+        <tr>
+          <td>Fullscreen exit</td>
+          <td><code>icon-fullscreen-exit</code></td>
+          <td><span class="icon icon-fullscreen-exit" /></td>
         </tr>
         <tr>
           <td>Globe</td>
@@ -160,6 +205,11 @@ Example:
           <td><span class="icon icon-image" /></td>
         </tr>
         <tr>
+          <td>Image bold</td>
+          <td><code>icon-image-bold</code></td>
+          <td><span class="icon icon-image-bold" /></td>
+        </tr>
+        <tr>
           <td>Info</td>
           <td><code>icon-info</code></td>
           <td><span class="icon icon-info" /></td>
@@ -180,6 +230,11 @@ Example:
           <td><span class="icon icon-institution" /></td>
         </tr>
         <tr>
+          <td>Kebab</td>
+          <td><code>icon-kebab</code></td>
+          <td><span class="icon icon-kebab" /></td>
+        </tr>
+        <tr>
           <td>Language</td>
           <td><code>icon-language</code></td>
           <td><span class="icon icon-language" /></td>
@@ -188,6 +243,11 @@ Example:
           <td>License</td>
           <td><code>icon-license</code></td>
           <td><span class="icon icon-license" /></td>
+        </tr>
+        <tr>
+          <td>Light bulb</td>
+          <td><code>icon-light-bulb</code></td>
+          <td><span class="icon icon-light-bulb" /></td>
         </tr>
         <tr>
           <td>Link</td>
@@ -225,9 +285,19 @@ Example:
           <td><span class="icon icon-ic-move-xy" /></td>
         </tr>
         <tr>
+          <td>Multimedia</td>
+          <td><code>icon-multimedia</code></td>
+          <td><span class="icon icon-multimedia" /></td>
+        </tr>
+        <tr>
           <td>Original</td>
           <td><code>icon-original</code></td>
           <td><span class="icon icon-original" /></td>
+        </tr>
+        <tr>
+          <td>Pages</td>
+          <td><code>icon-pages</code></td>
+          <td><span class="icon icon-pages" /></td>
         </tr>
         <tr>
           <td>Pinterest</td>
@@ -260,6 +330,26 @@ Example:
           <td><span class="icon icon-remove-circle-outlined" /></td>
         </tr>
         <tr>
+          <td>Reset</td>
+          <td><code>icon-reset</code></td>
+          <td><span class="icon icon-reset" /></td>
+        </tr>
+        <tr>
+          <td>Rotate left</td>
+          <td><code>icon-rotate-left</code></td>
+          <td><span class="icon icon-rotate-left" /></td>
+        </tr>
+        <tr>
+          <td>Rotate right</td>
+          <td><code>icon-rotate-right</code></td>
+          <td><span class="icon icon-rotate-right" /></td>
+        </tr>
+        <tr>
+          <td>Zoom out</td>
+          <td><code>icon-zoom-out</code></td>
+          <td><span class="icon icon-zoom-out" /></td>
+        </tr>
+        <tr>
           <td>School</td>
           <td><code>icon-school</code></td>
           <td><span class="icon icon-school" /></td>
@@ -270,9 +360,24 @@ Example:
           <td><span class="icon icon-search" /></td>
         </tr>
         <tr>
+          <td>Search in text</td>
+          <td><code>icon-search-in-text</code></td>
+          <td><span class="icon icon-search-in-text" /></td>
+        </tr>
+        <tr>
           <td>Settings</td>
           <td><code>icon-settings</code></td>
           <td><span class="icon icon-settings" /></td>
+        </tr>
+        <tr>
+          <td>Select circle</td>
+          <td><code>icon-select-circle</code></td>
+          <td><span class="icon icon-select-circle" /></td>
+        </tr>
+        <tr>
+          <td>Select circle outlined</td>
+          <td><code>icon-select-circle-outlined</code></td>
+          <td><span class="icon icon-select-circle-outlined" /></td>
         </tr>
         <tr>
           <td>Share</td>
@@ -283,6 +388,11 @@ Example:
           <td>Sound</td>
           <td><code>icon-sound</code></td>
           <td><span class="icon icon-sound" /></td>
+        </tr>
+        <tr>
+          <td>Sound bold</td>
+          <td><code>icon-sound-bold</code></td>
+          <td><span class="icon icon-sound-bold" /></td>
         </tr>
         <tr>
           <td>Stories</td>
@@ -303,6 +413,21 @@ Example:
           <td>Text</td>
           <td><code>icon-text</code></td>
           <td><span class="icon icon-text" /></td>
+        </tr>
+        <tr>
+          <td>Text bold</td>
+          <td><code>icon-text-bold</code></td>
+          <td><span class="icon icon-text-bold" /></td>
+        </tr>
+        <tr>
+          <td>Thumbsup</td>
+          <td><code>icon-thumbsup</code></td>
+          <td><span class="icon icon-thumbsup" /></td>
+        </tr>
+        <tr>
+          <td>Thumbsup outlined</td>
+          <td><code>icon-thumbsup-outlined</code></td>
+          <td><span class="icon icon-thumbsup-outlined" /></td>
         </tr>
         <tr>
           <td>Transcribe</td>
@@ -330,14 +455,44 @@ Example:
           <td><span class="icon icon-video" /></td>
         </tr>
         <tr>
+          <td>Video bold</td>
+          <td><code>icon-video-bold</code></td>
+          <td><span class="icon icon-video-bold" /></td>
+        </tr>
+        <tr>
           <td>View</td>
           <td><code>icon-ic-view</code></td>
           <td><span class="icon icon-ic-view" /></td>
         </tr>
         <tr>
+          <td>View grid</td>
+          <td><code>icon-view-grid</code></td>
+          <td><span class="icon icon-view-grid" /></td>
+        </tr>
+        <tr>
+          <td>View list</td>
+          <td><code>icon-view-list</code></td>
+          <td><span class="icon icon-view-list" /></td>
+        </tr>
+        <tr>
+          <td>View mosaic</td>
+          <td><code>icon-view-mosaic</code></td>
+          <td><span class="icon icon-view-mosaic" /></td>
+        </tr>
+        <tr>
           <td>X</td>
           <td><code>icon-x</code></td>
           <td><span class="icon icon-x" /></td>
+        </tr>
+        <tr>
+          <td>Zoom in</td>
+          <td><code>icon-zoom-in</code></td>
+          <td><span class="icon icon-zoom-in" /></td>
+        </tr>
+        <tr>
+          <td>Zoom out</td>
+          <td><code>icon-zoom-out</code></td>
+          <td><span class="icon icon-zoom-out" /></td>
         </tr>
         <!-- Template for additional icons follows.
              Be sure to insert into table in alphabetical order. -->

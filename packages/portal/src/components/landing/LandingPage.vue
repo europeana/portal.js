@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page landing-page white-page xxl-page"
+    class="landing-page xxl-page"
     :class="`${variant}-page`"
     data-qa="landing page"
   >
@@ -16,6 +16,7 @@
       :headline="headline"
       :text="text"
       :cta="cta"
+      :cta-help-text="ctaHelpText"
       :hero-image="primaryImageOfPage"
     />
     <div
@@ -93,7 +94,7 @@
   import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
 
   export default {
     name: 'LandingPage',
@@ -112,7 +113,6 @@
     },
 
     mixins: [
-      contentfulMixin,
       landingPageMixin
     ],
 
@@ -127,6 +127,10 @@
       },
       cta: {
         type: Object,
+        default: null
+      },
+      ctaHelpText: {
+        type: String,
         default: null
       },
       sections: {
@@ -156,6 +160,8 @@
     },
 
     methods: {
+      contentfulEntryHasContentType,
+
       getClasses(section) {
         const classes = [];
         if (section.profile?.background) {
@@ -180,12 +186,7 @@
   @import '@europeana/style/scss/landing';
 
   .page {
-    margin-top: -1rem;
     border-bottom: 1px solid transparent; // fix for when any margin of the last component on the page causes grey bg to display
-
-    @media (min-width: $bp-4k) {
-      margin-top: -1.5rem;
-    }
 
     .scroll-margin-top {
       scroll-margin-top: 3.5rem;
@@ -198,11 +199,11 @@
     &.pro-page {
       div:last-child {
         .bg-color-alternate,
-        .bg-bodygrey {
+        .bg-lightgrey {
           @include white-cutout;
 
           &:after {
-            border-top-color: $bodygrey;
+            border-top-color: $lightgrey;
             z-index: 1;
           }
         }

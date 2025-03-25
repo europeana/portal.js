@@ -81,7 +81,7 @@
   @include status-indicator;
 
   &:hover {
-    color: $mediumgrey;
+    color: $darkgrey;
 
     &.icon-transcribe-outlined::before {
       content: '\e916';

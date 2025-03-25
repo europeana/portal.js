@@ -48,6 +48,7 @@
           v-b-toggle.menu
           :to="item.to"
           :href="item.href"
+          :target="null"
           :data-qa="item.dataQa"
           class="nav-link"
         >
@@ -68,7 +69,8 @@
         data-qa="log in button"
         class="nav-link"
         :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-        @click.prevent="keycloakLogin"
+        :target="null"
+        @click.prevent="$keycloak.login()"
       >
         <span :class="renderIcon('/account/login')" />
         <span class="nav-link-text">
@@ -81,7 +83,6 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'PageNavigation',
@@ -89,9 +90,7 @@
     components: {
       SmartLink
     },
-    mixins: [
-      keycloak
-    ],
+
     props: {
       sidebarNav: {
         type: Boolean,
@@ -103,7 +102,8 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
-          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
+          // TODO: is the account url still responsive... and does it need to be?
+          { href: this.$keycloak.accountUrl(), text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
@@ -112,14 +112,15 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: '/share-your-data', text: this.$t('header.navigation.shareYourData') }
+          { url: '/share-your-collections', text: this.$t('header.navigation.shareYourCollections') }
         ];
       },
       sidebarNavigation() {
         return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
+          { url: '/help', text: this.$t('header.navigation.help') },
+          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
         ];
       },
       links() {
@@ -146,6 +147,7 @@
         case ('/account/login'):
         case ('/account/logout'):
         case ('/account/settings'):
+        case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
         case ('/'):
@@ -157,7 +159,7 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('/share-your-data'):
+        case ('/share-your-collections'):
           className = 'icon-institution';
           break;
         default:
@@ -187,7 +189,7 @@
     }
 
     .nav-link {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-decoration: none;
       font-size: $font-size-base;
       display: flex;

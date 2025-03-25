@@ -40,7 +40,7 @@ export default {
       return optimisedContentfulImageUrl(
         chapter?.primaryImageOfPage?.image,
         { w: 800, h: 800 }
-      );
+      ) || chapter?.primaryImageOfPage?.image?.url;
     }
   }
 };

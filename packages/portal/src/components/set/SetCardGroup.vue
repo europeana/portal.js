@@ -71,7 +71,12 @@
         //       supports searching by multiple IDs.
         let setResponse = await Promise.all(this.setUris.map(async(id) => {
           const numericId = id.toString().split('/').pop();
-          const setSearchResponse = await this.$apis.set.search({ query: `set_id:${numericId}`, qf: `lang:${this.$i18n.locale}`, profile: 'itemDescriptions' });
+          const setSearchResponse = await this.$apis.set.search({
+            query: `set_id:${numericId}`,
+            qf: `lang:${this.$i18n.locale}`,
+            profile: 'items.meta',
+            page: 1
+          });
           return setSearchResponse?.items?.[0];
         }));
         setResponse = setResponse.filter(set => !!set);
@@ -90,7 +95,8 @@
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            // TODO: rm fallback to edmPreview when new Set API live
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail || set.items?.[0].edmPreview)
           };
         });
       },

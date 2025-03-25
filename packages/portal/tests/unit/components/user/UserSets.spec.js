@@ -14,11 +14,7 @@ const sets = [
     visibility: 'public',
     title: 'A new collection',
     description: 'A description',
-    items: [
-      {
-        edmPreview: ['http://www.example.org/image.jpg']
-      }
-    ],
+    isShownBy: { thumbnail: 'http://www.example.org/image.jpg' },
     total: 1
   },
   {
@@ -37,7 +33,6 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
   mocks: {
     $auth: { user: { sub: 'user-id' } },
     $config: { app: { internalLinkDomain: null } },
-    $fetchState: {},
     $apis: {
       set: { search: sinon.stub().resolves({ items: sets, partOf: { total: sets.length } }) },
       thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
@@ -47,7 +42,6 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $router: { push: sinon.spy() },
     localePath: () => 'localizedPath',
     $i18n: { locale: 'en' },
-    $features: {},
     $route: {
       path: '/en/account',
       hash: '#public-galleries',
@@ -83,12 +77,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -100,12 +93,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:Collection', 'visibility:public']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -117,12 +109,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'contributor:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 19,
-          page: 0,
+          page: 1,
           qf: ['type:EntityBestItemsSet']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 
@@ -134,12 +125,11 @@ describe('components/user/UserSets', () => {
       expect(wrapper.vm.$apis.set.search.calledWith(
         {
           query: 'creator:user-id',
-          profile: 'standard',
+          profile: 'items.meta',
           pageSize: 20,
-          page: 0,
+          page: 1,
           qf: ['type:Collection']
-        },
-        { withMinimalItemPreviews: true }
+        }, { withMinimalItemPreviews: true }
       )).toBe(true);
     });
 

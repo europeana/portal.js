@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-import { errorHandler } from '../utils.js';
-import { truncate } from '../../../mixins/truncate.js';
+import truncate from '../../../utils/text/truncate.js';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
@@ -45,9 +44,9 @@ const jiraOptions = options => ({
 });
 
 // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
-export default (options = {}) => (req, res) => {
+export default (options = {}) => (req, res, next) => {
   return axios.create({ baseURL: options.origin })
     .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))
-    .then(jiraRes => res.sendStatus(jiraRes.status))
-    .catch(error => errorHandler(res, error));
+    .then((jiraRes) => res.sendStatus(jiraRes.status))
+    .catch(next);
 };

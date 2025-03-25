@@ -1,4 +1,11 @@
+import useMakeToast from '@/composables/makeToast.js';
+
 export default {
+  setup() {
+    const { makeToast } = useMakeToast();
+    return { makeToast };
+  },
+
   data() {
     return {
       entityBestItemsSetPinnedItems: []
@@ -30,12 +37,18 @@ export default {
     },
 
     async fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId) {
-      const entityBestItemsSet = await this.$apis.set.get(entityBestItemsSetId, {
-        profile: 'standard',
-        pageSize: 100
+      if (!entityBestItemsSetId) {
+        return;
+      }
+      await Promise.all([
+        this.$apis.set.get(entityBestItemsSetId),
+        this.$apis.set.getItemIds(entityBestItemsSetId)
+      ]).then((responses) => {
+        this.storeEntityBestItemsSetPinnedItems({
+          ...responses[0],
+          items: responses[1]
+        });
       });
-
-      this.storeEntityBestItemsSetPinnedItems(entityBestItemsSet);
     },
 
     storeEntityBestItemsSetPinnedItems(entityBestItemsSet) {
@@ -48,6 +61,7 @@ export default {
 
     async findEntityBestItemsSet(entityId) {
       const searchResponse = await this.$apis.set.search({
+        profile: 'items',
         query: 'type:EntityBestItemsSet',
         qf: `subject:${entityId}`
       });
@@ -66,12 +80,12 @@ export default {
         this.$bvModal.show(`pinned-limit-modal-${itemId}`);
         return;
       }
-      await this.$apis.set.modifyItems('add', entityBestItemsSetId, itemId, true);
+      await this.$apis.set.pinItem(entityBestItemsSetId, itemId);
       this.makeToast(this.$t('entity.notifications.pinned', { entity: entityPrefLabel }));
     },
 
     async unpinItemFromEntityBestItemsSet(itemId, entityBestItemsSetId) {
-      await this.$apis.set.modifyItems('delete', entityBestItemsSetId, itemId);
+      await this.$apis.set.deleteItems(entityBestItemsSetId, itemId);
       this.makeToast(this.$t('entity.notifications.unpinned'));
     }
   }

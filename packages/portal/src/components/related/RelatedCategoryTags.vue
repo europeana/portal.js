@@ -22,7 +22,10 @@
             variant="outline-light"
             :active="isActive(tag.identifier)"
             :to="badgeLink(tag.identifier)"
+            :data-qa="`${tag.name} category tag`"
             @click.native="clickBadge(tag.identifier)"
+            @keydown.left="handleLeft"
+            @keydown.right="handleRight"
           >
             <span>{{ tag.name }}</span>
             <span
@@ -69,12 +72,21 @@
         const route = { name: 'stories' };
 
         if (this.selected.includes(tagId)) {
-          const tags = this.selected.filter(item => item !== tagId);
-          if (tags.length > 0) {
-            route.query = { tags: tags.join(',') };
+          const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
+          const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          if (tagsQuery) {
+            newQuery.tags = tagsQuery;
+          } else {
+            delete newQuery.tags;
           }
+          route.query = newQuery;
         } else {
-          route.query = { tags: this.selected.concat(tagId).join(',') };
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          newQuery.tags = this.selected.concat(tagId).join(',');
+          route.query = newQuery;
         }
 
         return this.localePath(route);
@@ -87,6 +99,12 @@
           const action = this.isActive(tagId) ? 'Deselect tag' : 'Select tag';
           this.$matomo.trackEvent('Tags', action, tagId);
         }
+      },
+      handleLeft(event) {
+        event.target.previousSibling?.focus();
+      },
+      handleRight(event) {
+        event.target.nextSibling?.focus();
       }
     }
   };
@@ -96,7 +114,7 @@
   @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
-    color: $mediumgrey;
+    color: $darkgrey;
     display: inline-block;
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);

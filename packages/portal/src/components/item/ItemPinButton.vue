@@ -6,7 +6,7 @@
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
-      :aria-label="$t('entity.actions.pin')"
+      :aria-label="pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin')"
       @click="pinAction"
     >
       <span :class="pinned ? 'icon-pin' : 'icon-pin-outlined'" />
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -59,7 +58,6 @@
     },
 
     mixins: [
-      makeToastMixin,
       entityBestItemsSetMixin
     ],
 
@@ -160,8 +158,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
   .pin-button:hover {
     .icon-pin-outlined::before {
       content: '\e91e';

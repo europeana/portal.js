@@ -12,7 +12,7 @@
           :src="slide.image?.image?.url"
           :content-type="slide.image?.image?.contentType"
           :attribution="slide.image"
-          :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS"
+          :contentful-image-crop-presets="FULL_VIEWPORT_PRESETS_FOCUS_FACE"
           :picture-source-media-resolutions="[1, 2, 3]"
           :lazy="true"
           width="auto"
@@ -49,7 +49,7 @@
                   class="card-content"
                   :class="{ 'citation-text': slide.citation }"
                   data-qa="slide text"
-                  v-html="parseMarkdownHtml(slide.text)"
+                  v-html="parseMarkdown(slide.text)"
                 />
                 <cite
                   v-if="slide.citation"
@@ -69,9 +69,9 @@
 </template>
 
 <script>
-  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdown from '@/utils/markdown/parse.js';
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
-  import { FULL_VIEWPORT_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'StoryImageTextSlideScroller',
@@ -79,8 +79,6 @@
     components: {
       ImageWithAttribution
     },
-
-    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       section: {
@@ -91,7 +89,7 @@
 
     data() {
       return {
-        FULL_VIEWPORT_PRESETS,
+        FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         quotationIconSrc: require('@europeana/style/img/icons/quotationmark.svg')
       };
     },
@@ -105,6 +103,8 @@
     },
 
     methods: {
+      parseMarkdown,
+
       appearDisappearSlideImage() {
         this.$refs.slideCards.forEach((card, index) => {
           if (index > 0) {

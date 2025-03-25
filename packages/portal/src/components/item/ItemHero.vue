@@ -1,23 +1,18 @@
 <template>
-  <div class="item-hero">
-    <div
-      v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper d-flex flex-column"
-    >
-      <slot name="item-language-selector" />
-      <IIIFViewer
-        :uri="iiifPresentationManifest"
-        :search-query="fulltextSearchQuery"
-        :aria-label="$t('actions.viewDocument')"
-        :item-id="identifier"
-        :provider-url="providerUrl"
-      />
-    </div>
-    <ItemMediaSwiper
-      v-else
-      :europeana-identifier="identifier"
+  <div class="item-hero position-relative">
+    <NotificationBanner
+      v-if="itemIsDeleted"
+      class="position-absolute border-bottom-0"
+      icon-class="icon-info"
+      :text="$t('record.itemDepublished')"
+      :ignorable="false"
+    />
+    <ItemMediaPresentation
+      :uri="iiifPresentationManifest"
+      :item-id="identifier"
+      :provider-url="providerUrl"
+      :web-resources="media"
       :edm-type="edmType"
-      :displayable-media="media"
       @select="selectMedia"
     />
     <b-container>
@@ -36,12 +31,9 @@
             />
           </div>
           <div
-            v-if="!iiifPresentationManifest && (media.length !== 1)"
-            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
+            v-if="!itemIsDeleted"
+            class="d-flex justify-content-md-center align-items-center button-wrapper"
           >
-            <div class="swiper-pagination mx-lg-4" />
-          </div>
-          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
                 v-if="showTranscribathonLink"
@@ -69,10 +61,14 @@
         </b-col>
       </b-row>
       <ShareSocialModal
-        :media-url="selectedMedia.about"
+        :media-url="selectedMedia?.about"
+        @show="fetchEmbedCode"
       >
-        <ItemEmbedCode
-          :identifier="identifier"
+        <ShareSnippet
+          tag="code"
+          :text="embedCode"
+          :button-text="$t('record.actions.copyEmbedCode')"
+          :help-text="$t('record.clickToCopyEmbedCode')"
         />
       </ShareSocialModal>
     </b-container>
@@ -81,16 +77,15 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ItemEmbedCode from './ItemEmbedCode';
+  import ShareSnippet from '@/components/share/ShareSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-
-  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
+  import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
@@ -98,20 +93,21 @@
     components: {
       ClientOnly,
       DownloadWidget,
-      ItemEmbedCode,
-      ItemMediaSwiper,
+      ShareSnippet,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
+      ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
-      advancedSearchMixin,
       rightsStatementMixin
     ],
+
+    inject: ['itemIsDeleted'],
 
     props: {
       allMediaUris: {
@@ -159,51 +155,28 @@
     },
     data() {
       return {
-        selectedMediaItem: null,
-        selectedCanvas: null
+        selectedMedia: {},
+        embedCode: null
       };
     },
     computed: {
+      downloadEnabled() {
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
+      },
       downloadUrl() {
-        const url = (this.selectedCanvas || this.selectedMedia).about;
+        const url = this.selectedMedia?.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
-        if (this.selectedMedia.webResourceEdmRights) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
+        if (this.selectedMedia?.webResourceEdmRights) {
+          return this.selectedMedia?.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;
         }
         return '';
-      },
-      fulltextSearchQuery() {
-        let query = [];
-
-        if (this.$nuxt.context.from) {
-          if (this.$nuxt.context.from.query.qa) {
-            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
-            query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
-              .map((rule) => rule.term);
-          }
-        }
-
-        return query.join(' ');
-      },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedCanvas = null;
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt && !this.selectedMedia.isOEmbed;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -218,15 +191,8 @@
         return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
-    mounted() {
-      window.addEventListener('message', msg => {
-        if (msg.origin !== window.location.origin) {
-          return;
-        }
-        if (msg.data.event === 'updateDownloadLink') {
-          this.selectedCanvas = { about: msg.data.id };
-        }
-      });
+    created() {
+      this.selectMedia(this.media?.[0]);
     },
     methods: {
       // Ensure we only proxy web resource media, preventing proxying of
@@ -235,8 +201,25 @@
       downloadViaProxy(url) {
         return this.allMediaUris.some(uri => uri === url);
       },
-      selectMedia(about) {
-        this.selectedMedia = about;
+      selectMedia(resource) {
+        this.selectedMedia = new WebResource({
+          // media prop may contain some metadata not available from iiif-derived
+          // resource emitted from ItemMediaPresentation, e.g. rights statement
+          ...this.media.find((wr) => wr.about === resource.about),
+          ...resource
+        });
+      },
+      async fetchEmbedCode() {
+        if (this.embedCode) {
+          return;
+        }
+        // TODO: this should be read from Nuxt runtime config
+        const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
+                                                 `${EUROPEANA_DATA_URL}/item${this.identifier}`);
+
+        if (response.data.html) {
+          this.embedCode = response.data.html;
+        }
       }
     }
   };
@@ -244,24 +227,30 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/iiif';
 
   .item-hero {
     padding-bottom: 1.625rem;
 
-    .media-bar {
-      margin-top: 2.5rem;
+    .notification-banner {
+      background-color: rgba(0, 0, 0, 0.70);
+      color: $white;
+
+      .col-12 {
+        @media (min-width: $bp-large) {
+          flex: 0 0 83.333333%;
+          max-width: 83.333333%;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+
+      p {
+        flex-wrap: nowrap !important;
+      }
     }
 
-    .swiper-pagination {
-      display: inline-flex;
-      position: relative;
-
-      &.swiper-pagination-fraction {
-        left: auto;
-        width: auto;
-        bottom: auto;
-      }
+    .media-bar {
+      margin-top: 2.5rem;
     }
 
     .user-buttons {
@@ -284,7 +273,7 @@
         margin-right: 0.5rem;
 
         &:hover:not(.active) {
-          color: $mediumgrey;
+          color: $darkgrey;
         }
       }
     }
@@ -297,16 +286,6 @@
         button {
           text-align: center;
           justify-content: center;
-          width: 100%;
-        }
-
-        .pagination-wrapper {
-          order: 1;
-          margin-bottom: 1.125rem;
-
-          .swiper-pagination {
-            margin: auto;
-          }
         }
 
         .rights-wrapper {

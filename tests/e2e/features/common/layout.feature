@@ -6,13 +6,13 @@ Feature: Page layout on all pages.
 
 @klaro-notice-not-dismissed
   Scenario: Moving to the main content using the skip-to-main functionality
-    When I visit an `item page`
+    When I visit the `home page`
     And I see the Klaro banner
     And I accept all Klaro cookies
     And I press the TAB key
     And I see the `main content accessibility link`
     And I press the ENTER key
-    Then I should be on `/en/item/09102/_GNM_693983#main`
+    Then I should be on `/en#main`
 
   Scenario: Main navigation is visible
     When I open the `home page`

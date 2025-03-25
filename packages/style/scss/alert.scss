@@ -1,7 +1,7 @@
 .alert {
   &.alert-info {
     background-color: $lightblue;
-    color: $mediumgrey;
+    color: $darkgrey;
     border: 0;
   }
 
@@ -15,7 +15,7 @@
   .close {
     @extend %icon-font, .icon-clear;
 
-    color: $mediumgrey;
+    color: $darkgrey;
     font-size: 0 !important;
     opacity: 1;
     line-height: 1.5 !important;

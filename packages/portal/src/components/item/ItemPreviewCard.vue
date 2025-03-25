@@ -1,21 +1,18 @@
 <template>
   <ContentCard
     ref="card"
-    :title="dcTitle || item.dcDescriptionLangAware"
-    :url="url"
+    :title="title"
+    :url="itemMultiSelect ? '' : url"
     :image-url="imageUrl"
     :texts="texts"
     :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -37,6 +34,7 @@
           <span class="icon-file" />{{ type }}
         </span>
         <UserButtons
+          v-if="!itemMultiSelect"
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
@@ -47,7 +45,16 @@
       </div>
     </template>
     <template
-      v-else
+      v-if="itemMultiSelect"
+      #image-overlay
+    >
+      <ItemSelectCheckbox
+        :identifier="identifier"
+        :title="title"
+      />
+    </template>
+    <template
+      v-else-if="variant !== 'list'"
       #image-overlay
     >
       <div
@@ -81,9 +88,16 @@
 
     components: {
       ContentCard,
+      ItemSelectCheckbox: () => import('./ItemSelectCheckbox'),
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../user/UserButtons'),
-      RightsStatement: () => import('../generic/RightsStatement')
+      RightsStatement: () => import('../generic/RightsStatement'),
+      UserButtons: () => import('../user/UserButtons')
+    },
+
+    inject: {
+      itemMultiSelect: {
+        default: false
+      }
     },
 
     props: {
@@ -179,29 +193,33 @@
         default: null
       },
       /**
-       * Width of the image
+       * Hash to include in router link to item
        */
-      imageWidth: {
-        type: Number,
-        default: null
+      routeHash: {
+        type: String,
+        default: undefined
       },
       /**
-       * Height of the image
+       * Query to include in router link to item
        */
-      imageHeight: {
-        type: Number,
-        default: null
+      routeQuery: {
+        type: [Object, String],
+        default: undefined
       }
     },
 
     computed: {
       dcTitle() {
-        return this.unpublishedItem ?
-          { [this.$i18n.locale]: [this.$t('record.status.unpublished')] } :
+        return this.depublishedItem ?
+          { [this.$i18n.locale]: [this.$t('record.status.depublished')] } :
           this.item.dcTitleLangAware;
       },
 
-      unpublishedItem() {
+      title() {
+        return this.dcTitle || this.item.dcDescriptionLangAware;
+      },
+
+      depublishedItem() {
         const itemProperties = Object.keys(this.item);
         return (itemProperties.length === 1) && (itemProperties[0] === 'id');
       },
@@ -231,7 +249,12 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+        return {
+          hash: this.routeHash,
+          name: 'item-all',
+          params: { pathMatch: this.identifier.slice(1) },
+          query: this.routeQuery
+        };
       },
 
       imageUrl() {
@@ -266,82 +289,99 @@
   Variant "default":
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
   />
   ```
   Variant "default" for editors with pinning enabled:
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :showPins="true"
   />
   ```
   Variant "default" with accept and reject recommendations enabled:
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :enableAcceptRecommendation="true"
     :enableRejectRecommendation="true"
   />
+  ```
+  Variant "default" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+          />
+        </div>
+      `
+    });
   ```
   Variant "list":
   ```jsx
   <ItemPreviewCard
     variant="list"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
   />
   ```
   Variant "list" for editors with pinning enabled:
   ```jsx
   <ItemPreviewCard
     variant="list"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :showPins="true"
   />
+  ```
+  Variant "list" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="list"
+          />
+        </div>
+      `
+    });
+  ```
+  Variant "mosaic":
+  ```jsx
+  <ItemPreviewCard
+    variant="mosaic"
+    :item="itemPreviewCardData"
+  />
+  ```
+  Variant "mosaic" for editors with pinning enabled:
+  ```jsx
+  <ItemPreviewCard
+    variant="mosaic"
+    :item="itemPreviewCardData"
+    :showPins="true"
+  />
+  ```
+  Variant "mosaic" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="mosaic"
+          />
+        </div>
+      `
+    });
   ```
 </docs>

@@ -61,7 +61,7 @@ describe('components/content/ContentCardSection', () => {
       expect(cardGroup.findAll('[data-qa="content card"]').length).toBe(2);
     });
 
-    it('does not display unpublished or deleted cards', async() => {
+    it('does not display depublished or deleted cards', async() => {
       const dummySectionPlusNull = {
         hasPartCollection: {
           items: [

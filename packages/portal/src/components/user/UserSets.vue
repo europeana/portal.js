@@ -2,12 +2,10 @@
   <b-container>
     <b-row class="flex-md-row">
       <b-col cols="12">
-        <div
+        <LoadingSpinner
           v-if="$fetchState.pending"
           class="text-center pb-4"
-        >
-          <LoadingSpinner />
-        </div>
+        />
         <AlertMessage
           v-else-if="$fetchState.error"
           :error="$fetchState.error.message"
@@ -132,9 +130,9 @@
 
       const searchParams = {
         query: `${this.userField}:${this.userId}`,
-        profile: 'standard',
+        profile: 'items.meta',
         pageSize: this.perPage,
-        page: this.page - 1,
+        page: this.page,
         qf
       };
 
@@ -175,7 +173,7 @@
         return { name: 'galleries-all', params: { pathMatch: this.setPathMatch(set) } };
       },
       creationPreviewUrl(set) {
-        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
+        return this.$apis.thumbnail.edmPreview(set.isShownBy?.thumbnail);
       },
       creationPreviewType(set) {
         return set.items?.[0]?.type;

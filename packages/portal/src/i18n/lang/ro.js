@@ -31,7 +31,6 @@ export default {
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
       "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
-      "remove": "Eliminați această resursă culturală din această galerie.",
       "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
@@ -40,25 +39,28 @@ export default {
     "add": "Adăuga",
     "apply": "Aplică",
     "cancel": "Anulează",
+    "changeView": "Schimbați vizualizarea",
     "clear": "Curăță",
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
+    "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
-    "explore": "Explora",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
-    "like": "Apreciere",
+    "like": "Îmi place",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
+    "nextPage": "Pagina următoare",
     "pin": "Pin",
     "preview": "Previzualizare",
     "previous": "Anterior",
+    "previousPage": "Pagina anterioară",
     "publish": "Publica",
     "readMore": "Citește mai mult",
     "reject": "Respinge",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
+    "unlike": "Nu îmi place",
     "viewAt": "Vizualizați pe {link}",
-    "viewDocument": "Vizualizare document"
+    "viewDocument": "Vizualizare document",
+    "vote": "Vot"
   },
   "attribution": {
     "country": "Țară:",
@@ -96,12 +100,7 @@ export default {
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte",
-    "trending": "Resurse culturale populare"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Postare pe blog | Postări pe blog"
+    "topic": "Subiecte"
   },
   "cardLabels": {
     "organisation": "Organizare",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Specimen de culoare",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Despre colecțiile Europeana",
-      "forDevelopers": "Pentru dezvoltatori",
-      "help": "Help",
-      "meetUs": "Faceți cunoștință cu echipa",
-      "MoreInfoLabel": "Mai multe informații",
-      "provide": "Deveni un furnizor de date",
-      "subscribe": "Abonează-te la buletinul nostru de știri",
-      "terms": "Termeni de utilizare și Politica de confidențialitate"
-    },
-    "headerNavigation": {
-      "Collections": "Colecții",
-      "explore": "Explorează",
-      "teachers": "Profesori"
-    }
-  },
   "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
@@ -193,6 +175,16 @@ export default {
     "broughtBy": "Adus vouă de"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
+  "embedNotification": {
+    "ifNotAll": "Dacă nu doriți să încărcați tot conținutul încorporat, puteți {0}.",
+    "loadAllEmbeddedContent": "Încărcați tot conținutul încorporat",
+    "loadOnlyThis": "încărcați media numai de la acest furnizor",
+    "message": "Vă rugăm să rețineți că această pagină conține conținut media încorporat de la {provider}. Vizualizarea acestui conținut media este supusă termenilor și declarațiilor de confidențialitate ale acestora. Vă rugăm să consultați declarațiile lor de confidențialitate pentru mai multe informații despre modul în care sunt utilizate datele dumneavoastră.",
+    "messageUnkownService": "Din păcate, acest conținut nu poate fi afișat.",
+    "ofThirdPartyServices": "{0} de servicii de conținut terțe.",
+    "viewFullList": "Vezi lista completă",
+    "viewThisExternalLink": "Vizualizați acest conținut printr-un link extern"
+  },
   "entity": {
     "actions": {
       "cancel": "Anulează",
@@ -243,6 +235,10 @@ export default {
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
     },
+    "noFeatureIdeas": {
+      "description": "Reveniți în curând!",
+      "title": "Nu există idei de funcții noi în acest moment."
+    },
     "pageNotFound": {
       "metaTitle": "Pagina nu a fost găsita",
       "title": "Pagina pe care o cauți nu există."
@@ -261,6 +257,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Expoziție: {title}",
     "chapters": "Capitole",
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
@@ -723,10 +720,10 @@ export default {
       "faq": "Întrebări frecvente (FAQ)",
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
-      "privacy": "Politica de Confidențialitate",
-      "provide": "Devino instituție furnizoare",
+      "privacy": "Declarație de confidențialitate",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
+      "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",
       "terms": "Termeni și politici"
     },
     "ourMission": "Misiunea noastră",
@@ -748,9 +745,10 @@ export default {
       "about": "Despre",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
+      "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Pagină natală",
-      "shareYourData": "Contribuiți datele voastre",
+      "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -767,7 +765,6 @@ export default {
     "discoverEditorial": "Ultimele narațiuni",
     "storiesCTA": "Vezi toate narațiuni",
     "subHeadline": "Căutați, preluați și partajați artă, cărți, filme și muzică provenind din mii de instituții culturale.",
-    "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
     "titleDigital": "digital"
@@ -780,6 +777,9 @@ export default {
     "itemOf": "{max} de {count} resurse culturale",
     "recent": "Resurse culturale recente",
     "recommended": "Resurse culturale recomandate",
+    "trending": {
+      "headline": "Explorați resursele culturale populare de astăzi"
+    },
     "youMightLike": "Resurse culturale care ți-ar putea plăcea"
   },
   "klaro": {
@@ -787,7 +787,11 @@ export default {
       "acceptAll": "Accepta toate",
       "acceptSelected": "Acceptați selectat",
       "consentModal": {
-        "description": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-policy'> politica noastră de confidențialitate </a>.",
+        "alwaysRequired": "(Întotdeauna necesar)",
+        "description": "Aici puteți vedea și personaliza serviciile pe care dorim să le folosim pe acest site web. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-statement'>declarația de confidențialitate</a>.",
+        "privacyPolicy": "Politica de confidențialitate",
+        "servicesCount": "{count} serviciu | {count} servicii",
+        "text": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți {privacyPolicy}.",
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
@@ -797,13 +801,44 @@ export default {
       "decline": "Refuz",
       "ok": "Bine",
       "purposes": {
+        "2D": {
+          "title": "Media 2D"
+        },
+        "3D": {
+          "title": "Media 3D"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Aceste servicii sunt esențiale pentru buna funcționare a acestui site web. Acestea includ vizualizarea rezultatelor căutării și preferințele de limbă, păstrează starea conectată și vă păstrează vizita în siguranță. Nu le puteți dezactiva, deoarece site-ul nu ar funcționa corect altfel.",
           "title": "Servicii esențiale pentru securitate și personalizare"
         },
+        "mediaViewing": {
+          "description": "Aceste servicii încarcă imagini (2D), elemente 3D, audio și video pentru vizualizare.",
+          "title": "Servicii de vizionare media"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Aceste servicii încarcă conținut precum cod, jocuri, hărți și widget-uri de povestit.",
+          "title": "Alte servicii de încorporare"
+        },
+        "socialMedia": {
+          "description": "Aceste servicii încarcă conținut de pe platformele social media.",
+          "title": "Servicii de integrare în social media"
+        },
+        "thirdPartyContent": {
+          "description": "Aceste servicii încarcă conținut găzduit de terți. Utilizarea acestuia este supusă termenilor, condițiilor și declarației de confidențialitate ale acestor terți.",
+          "title": "Conținut de la terțe părți"
+        },
         "usage": {
           "description": "Aceste servicii colectează informații pentru a ne ajuta să înțelegem mai bine modul în care site-ul web este folosit și unde sunt punctele de durere, permițându-ne să facem alegeri în cunoștință de cauză pentru a vă îmbunătăți experiența.",
           "title": "Servicii pentru a capta utilizarea site-ului web și feedback-ul"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -814,37 +849,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
         "title": "Comutare depanare"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Reține limba de interfață preferată pentru acces viitor.",
         "title": "Codul limbii"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
         "title": "Birou de service Jira"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
         "title": "Notificare pentru funcții noi"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
+        "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "furnizor necunoscut",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -870,8 +1068,38 @@ export default {
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
   },
+  "likes": {
+    "count": "{count} place | {count} aprecieri"
+  },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ieșiți din ecranul complet",
+      "fullscreen": "Ecran complet",
+      "keyboardNavigation": "Folosește tastele +, - și săgețile pentru a mări și a deplasa imaginea.",
+      "resetZoom": "Resetați zoomul",
+      "rotateLeft": "Rotiți la stânga",
+      "rotateRight": "Rotiți la dreapta",
+      "zoomIn": "Mărește",
+      "zoomOut": "Micșorează"
+    },
+    "loadFull": "Imagine foarte mare: încărcați la dimensiune completă.",
+    "pages": {
+      "hide": "Ascunde paginile",
+      "show": "Afișați paginile"
+    },
+    "sidebar": {
+      "annotations": "Adnotări",
+      "annotationsCount": "1 Adnotare | {count} adnotări",
+      "hide": "Ascunde bara laterală",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Linkuri",
+      "search": "Căutare",
+      "searchPlaceholder": "Introduceți termeni",
+      "show": "Afișați bara laterală"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
@@ -880,6 +1108,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
+      "copyAttribution": "Copiază atribuirea resursei culturale.",
       "modalIntro": "Dacă folosiți acest resursă culturală pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
     },
@@ -897,18 +1126,16 @@ export default {
     "automated": "Traducere automată",
     "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
-    "other": "alte limbi",
-    "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
-    "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
-    "translateMetadata": "Traduceți metadatele acestui resursă culturalăl.",
-    "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
+    "stopViewingThisItemIn": "Opriți vizualizarea acestei resurse culturale în {0}",
+    "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu.",
+    "viewingThisItemIn": "Vizualizarea acestei resurse culturale în {0}",
+    "viewItemInAnotherLanguage": "Vizualizați această resursă culturală în altă limbă"
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
     "text": {
-      "trendingItems": "Descoperiți resursele culturale captivante care devin populare în timp real. Profitați de ocazia vizualizări lor în avans - cum le văd alții, cum le apreaciază, curatoriază și reutilizează ei, cel mai mult, acum."
+      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -969,14 +1196,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Copiați codul de încorporare",
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
-    "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
+    "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
+    "debias": "De-bias",
+    "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
-    "IIIFViewer": "Vizualizator IIIF",
+    "itemDepublished": "Această resursă culturală a fost depublicată. Puteți încerca să accesați conținutul original pe site-ul instituției furnizoare.",
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",
@@ -984,7 +1214,7 @@ export default {
     "showAll": "Afișează toate informațiile",
     "similarItems": "Resurse culturale similare",
     "status": {
-      "unpublished": "[Resursă culturală nepublicat]"
+      "depublished": "[Resursă culturală depublicată]"
     }
   },
   "related": {
@@ -1036,6 +1266,7 @@ export default {
         "doesNotContain": "nu conține",
         "exact": "conţine fraza"
       },
+      "newRule": "noua regulă de căutare avansată",
       "placeholder": {
         "field": "Selectați un câmp",
         "modifier": "Selectați un modificator",
@@ -1099,14 +1330,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adăugare în galerie",
-      "addToGallery": "Adăugați acest resursă culturală la o galerie.",
+      "addItems": {
+        "1": "Adăugați acest resursă culturală la o galerie.",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
+      "addItemsHere": {
+        "1": "Adăugare în galerie",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
+      "cancelSelection": "Anulează selecția",
+      "clickToSelectItems": "Faceți clic pe resursele culturale pentru a le selecta",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
-      "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
-      "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
+      "likeItems": {
+        "1": "Salvați acest resursă culturală în Like-urile dvs.",
+        "many": "Apreciază {count} resursă culturală | Apreciază {count} resurse culturale"
+      },
+      "removeItems": {
+        "1": "Eliminați această resursă culturală din această galerie.",
+        "many": "Eliminați {count} resursă culturală din această galerie | Eliminați {count} resurse culturale din această galerie"
+      },
+      "selectItems": "Selectați resurse culturale",
+      "unlikeItems": {
+        "1": "Eliminați această resursă culturală din preferințele dumneavoastră.",
+        "many": "Nu-mi mai place {count} resursă culturală | Nu-mi mai plac {count} resurse culturale"
+      },
       "update": "Actualizare galerie"
     },
     "form": {
@@ -1123,10 +1373,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "itemAdded": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
-      "itemLiked": "Resursa culturală a fost salvată în aprecierile tale.",
-      "itemRemoved": "Resursa culturală a fost eliminată din galeria {gallery}.",
-      "itemUnliked": "Resursa culturală a fost eliminată din aprecierile tale.",
+      "itemsAdded": {
+        "1": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
+        "many": "{count} resursa culturală a fost adăugată în galeria \"{gallery}\". | {count} resurse culturale au fost adăugate în galeria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Resursa culturală a fost salvată în aprecierile tale.",
+        "many": "{count} resursa culturală a fost salvată în aprecierile tale. | {count} resurse culturale au fost salvate în aprecierile tale."
+      },
+      "itemsRemoved": {
+        "1": "Resursa culturală a fost eliminată din galeria {gallery}.",
+        "many": "{count} resursa culturală a fost eliminată din galeria \"{gallery}\". | {count} resurse culturale au fost eliminate din galeria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Resursa culturală a fost eliminată din aprecierile tale.",
+        "many": "{count} resursa culturală a fost eliminată din aprecierile tale. | {count} resurse culturale au fost eliminate din aprecierile tale."
+      },
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
@@ -1135,7 +1397,8 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat.",
+      "removeItems": "Sunteți sigur că doriți să eliminați {count} resursă culturală din această galerie? | Sunteți sigur că doriți să eliminați {count} resurse culturale din această galerie?"
     },
     "publication": {
       "criteria": {
@@ -1163,6 +1426,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deselectați tot."
+      },
+      "info": "{count} resursă culturală selectată. | {count} resurse culturale selectate."
     }
   },
   "shareWhere": "Unde ai vrea să împărtășești asta?",
@@ -1176,13 +1445,26 @@ export default {
     "required": "Necesar"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Expoziții",
+      "stories": "Narațiuni",
+      "viewAll": "Vizualizează tot"
+    },
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {
-    "paginationBulletLabel": "Grup de diapozitive {page}"
+    "a11y": {
+      "firstSlide": "Acesta este primul diapozitiv",
+      "lastSlide": "Acesta este ultimul diapozitiv",
+      "nextSlide": "Următorul diapozitiv",
+      "paginationBullet": "Diapozitiv {page}",
+      "paginationBulletGroupedSlides": "Grup de diapozitive {page}",
+      "previousSlide": "Diapozitivul anterior",
+      "slideLabel": "Diapozitiv {slide} de {totalSlides}"
+    }
   },
   "themes": {
     "description": "Răsfoiți după temă",

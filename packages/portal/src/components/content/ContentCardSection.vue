@@ -32,7 +32,6 @@
             :title="card.name"
             :url="entityRouterLink(card.identifier, card.slug)"
             :image-url="card.entityImage"
-            :image-optimisation-options="{ width: 510 }"
             variant="mini"
           />
         </template>
@@ -121,7 +120,7 @@
     }
 
     .text {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-align: left;
       line-height: 1.5;
     }

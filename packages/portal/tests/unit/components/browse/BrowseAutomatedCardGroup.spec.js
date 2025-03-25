@@ -37,10 +37,6 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     $contentful: {
       query: sinon.stub()
     },
-    $fetchState: {
-      error: false,
-      pending: false
-    },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
@@ -141,9 +137,7 @@ const entries = {
   latestGalleries: [
     { id: '001',
       title: { en: 'gallery 001' },
-      items: [
-        { edmPreview: 'https://www.example.eu/image.jpg' }
-      ] }
+      isShownBy: { thumbnail: 'https://www.example.eu/image.jpg' } }
   ]
 };
 
@@ -239,7 +233,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
         ]
       };
 
-      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+      it('fetches from the set API  and stores response items in entries', async() => {
         const wrapper = factory(propsData);
         wrapper.vm.$apis.set.search.resolves(setResponse);
 
@@ -249,10 +243,9 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           {
             query: 'visibility:published',
             pageSize: 4,
-            profile: 'standard',
+            profile: 'items.meta',
             qf: 'lang:en'
-          },
-          { withMinimalItemPreviews: sinon.match.truthy }
+          }, { withMinimalItemPreviews: true }
         )).toBe(true);
         expect(wrapper.vm.entries).toEqual(setResponse.items);
       });

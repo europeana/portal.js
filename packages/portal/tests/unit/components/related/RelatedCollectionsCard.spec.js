@@ -19,7 +19,6 @@ const factory = (options = {}) => {
     propsData: options.propsData,
     mocks: {
       $apis: { entity: { suggest: sinon.stub().resolves(relatedCollections) } },
-      $fetchState: {},
       $i18n: { locale: 'en' },
       $t: key => key,
       $store: {

@@ -26,14 +26,6 @@ const factory = (propsData = {}) => mount(SetAddItemButton, {
 });
 
 describe('components/set/SetAddItemButton', () => {
-  it('emits the toggle event', async() => {
-    const wrapper = factory({ set: collection });
-
-    await wrapper.find('[data-qa="toggle item button"]').trigger('click');
-
-    expect(wrapper.emitted('toggle').length).toBe(1);
-  });
-
   describe('when an item is not yet added it', () => {
     it('does not show a check icon', () => {
       const wrapper = factory({ set: collection });

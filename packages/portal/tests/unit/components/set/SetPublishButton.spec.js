@@ -1,12 +1,15 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SetPublishButton from '@/components/set/SetPublishButton';
 import sinon from 'sinon';
+import SetPublishButton from '@/components/set/SetPublishButton';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const storeDispatch = sinon.stub().resolves({});
+const setApiPublishSpy = sinon.spy();
+const setApiUnpublishSpy = sinon.spy();
 
 const publicSet = { setId: '001', visibility: 'public' };
 
@@ -18,6 +21,12 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
     ...propsData
   },
   mocks: {
+    $apis: {
+      set: {
+        publish: setApiPublishSpy,
+        unpublish: setApiUnpublishSpy
+      }
+    },
     $t: key => key,
     $store: {
       dispatch: storeDispatch,
@@ -33,7 +42,13 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
 });
 
 describe('components/set/SetPublishButton', () => {
+  beforeAll(() => {
+    sinon.stub(useMakeToast, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   it('refreshes the active set first', async() => {
     const wrapper = factory(publicSet);
@@ -50,14 +65,13 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/publish', publicSet.setId)).toBe(false);
-      expect(storeDispatch.calledWith('set/unpublish', publicSet.setId)).toBe(false);
+      expect(setApiPublishSpy.called).toBe(false);
+      expect(setApiUnpublishSpy.called).toBe(false);
     });
 
     it('shows a toast with a notification', async() => {
       const wrapper = factory(publicSet);
       wrapper.vm.$store.state.set.active.visibility = 'private';
-      sinon.spy(wrapper.vm, 'makeToast');
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
@@ -71,7 +85,15 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/publish', publicSet.setId)).toBe(true);
+      expect(setApiPublishSpy.called).toBe(true);
+    });
+
+    it('refreshes the set in the store', async() => {
+      const wrapper = factory(publicSet);
+
+      await wrapper.find('[data-qa="publish set button"]').trigger('click');
+
+      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
     });
   });
 
@@ -81,7 +103,15 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/unpublish', publicSet.setId)).toBe(true);
+      expect(setApiUnpublishSpy.calledWith(publicSet.setId)).toBe(true);
+    });
+
+    it('refreshes the set in the store', async() => {
+      const wrapper = factory(publishedSet);
+
+      await wrapper.find('[data-qa="publish set button"]').trigger('click');
+
+      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
     });
   });
 });

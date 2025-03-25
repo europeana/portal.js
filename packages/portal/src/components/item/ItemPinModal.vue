@@ -5,7 +5,7 @@
     hide-footer
     hide-header-close
     :static="modalStatic"
-    @show="fetchEntityBestItemsSets"
+    @show="fetchData"
   >
     <b-button
       v-for="(entity, index) in entities"
@@ -75,14 +75,12 @@
 
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import makeToastMixin from '@/mixins/makeToast';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
-      makeToastMixin,
       langAttributeMixin,
       entityBestItemsSetMixin
     ],
@@ -166,62 +164,63 @@
     },
 
     methods: {
-      setFactory() {
-        return {
-          id: null,
-          pinned: []
-        };
-      },
-
-      async fetchEntityBestItemsSets() {
+      async fetchData() {
         if (this.fetched) {
           return;
         }
 
-        // Fetch the full entities first
-        const entities = await this.$apis.entity.find(this.entityUris);
-        this.entities = entities.map((entity) => pick(entity, 'id', 'prefLabel'));
-
-        // Initialise empty set objects
-        this.sets = this.entities.reduce((memo, entity) => {
-          memo[entity.id] = this.setFactory();
-          return memo;
-        }, {});
-
-        const searchParams = {
-          query: 'type:EntityBestItemsSet',
-          profile: 'minimal',
-          pageSize: 1
-        };
-        await Promise.all(this.entities.map(async(entity) => {
-          const entityUri = entity.id;
-          // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
-          const searchResponse = await this.$apis.set.search({
-            ...searchParams,
-            qf: `subject:${entityUri}`
-          });
-
-          if (searchResponse?.total > 0) {
-            await this.getOneSet(searchResponse.items?.[0].split('/').pop());
-          }
-          // TODO: Should an else block actually be RESETTING the data to empty values?
-        }));
+        this.entities = await this.fetchEntities();
+        await this.populateEntityBestItemsSets();
 
         this.fetched = true;
       },
 
-      async getOneSet(setId) {
-        const options = {
-          profile: 'standard',
-          pageSize: 100
-        };
-        const response = await this.$apis.set.get(setId, options);
-        const entityUri = response.subject[0];
-        this.sets[entityUri] = {
-          id: setId,
-          // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
-          pinned: (response.items || []).map(item => item.replace('http://data.europeana.eu/item', '')).slice(0, response.pinned)
-        };
+      // Fetch the full entities
+      async fetchEntities() {
+        const entities = await this.$apis.entity.find(this.entityUris);
+        return entities.map((entity) => pick(entity, 'id', 'prefLabel'));
+      },
+
+      // Initialise set object
+      initSetForEntity(set) {
+        const id = set?.id || null;
+        // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
+        const pinned = (set?.items || []).map((item) => item.replace('http://data.europeana.eu/item', '')).slice(0, set?.pinned || 0);
+
+        return { id, pinned };
+      },
+
+      populateEntityBestItemsSets() {
+        // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
+        return Promise.all(this.entities.map(async(entity) => {
+          const setId = await this.findEntityBestItemSetId(entity.id);
+          const set = await this.fetchEntityBestItemsSet(setId);
+          this.sets[entity.id] = this.initSetForEntity(set);
+        }));
+      },
+
+      async findEntityBestItemSetId(entityId) {
+        const response = await this.$apis.set.search({
+          pageSize: 1,
+          profile: 'items',
+          qf: `subject:${entityId}`,
+          query: 'type:EntityBestItemsSet'
+        });
+        return response.items?.[0];
+      },
+
+      async fetchEntityBestItemsSet(setId) {
+        if (!setId) {
+          return null;
+        }
+
+        return Promise.all([
+          this.$apis.set.get(setId),
+          this.$apis.set.getItemIds(setId)
+        ]).then((responses) => ({
+          ...responses[0],
+          items: responses[1]
+        }));
       },
 
       async pin() {
@@ -271,7 +270,7 @@
 
   .help {
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     display: flex;
     align-items: center;
     margin-bottom: 1.25rem;

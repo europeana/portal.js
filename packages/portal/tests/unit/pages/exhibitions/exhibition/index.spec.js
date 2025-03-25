@@ -28,6 +28,9 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   mixins: [
     exhibitionChapters
   ],
+  provide: {
+    canonicalUrl: {}
+  },
   data() {
     return {
       identifier: 'exhibition',
@@ -57,10 +60,12 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
         'http://data.europeana.eu/concept/21'
       ],
       categoriesCollection: options.tags || null,
-      genre: null
+      genre: null,
+      datePublished: '2020-01-01'
     };
   },
   mocks: {
+    $d: date => date,
     $features: {},
     $t: key => key,
     $tc: () => {},
@@ -68,19 +73,17 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     $store: {
       commit: sinon.spy()
     },
-    $route: {
-      fullPath: 'https://www.europeana.eu/en/exhibitions/exhibition',
-      path: '/en/exhibitions/exhibition'
-    },
-    $i18n: {
-      locale: 'en'
-    },
-    $config: {
-      app: {
-        baseUrl: 'https://www.europeana.eu'
-      }
-    }
-  }
+    $route: {},
+    $i18n: {}
+  },
+  stubs: [
+    'AuthoredHead',
+    'ContentWarningModal',
+    'EntityBadges',
+    'LinkList',
+    'RelatedCategoryTags',
+    'ThemeBadges'
+  ]
 });
 
 describe('exhibitionChapters mixin', () => {
@@ -127,7 +130,7 @@ describe('Exhibition landing page', () => {
 
       const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.ogImage).toBe(`${primaryImageOfPage.url}`);
+      expect(headMeta.ogImage).toBe(primaryImageOfPage.image);
     });
     it('uses optimised hero image description for og:image:alt', () => {
       primaryImageOfPage.image.description = 'alt description for hero image';
@@ -151,20 +154,6 @@ describe('Exhibition landing page', () => {
 
       expect(headMeta.description).toBeUndefined();
       expect(headMeta.ogImage).toBe(null);
-    });
-  });
-
-  describe('beforeRouteLeave', () => {
-    it('resets set id and set entity', async() => {
-      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
-      const wrapper = factory();
-
-      const next = sinon.stub();
-
-      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
-
-      expect(wrapper.vm.$store.commit.calledWith('breadcrumb/clearBreadcrumb')).toBe(true);
-      expect(next.called).toBe(true);
     });
   });
 

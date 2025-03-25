@@ -14,12 +14,18 @@
     :section-type="section.genre"
     :more-button="section.moreButton"
   />
-  <EmbedHTML
+
+  <EmbedGateway
     v-else-if="contentfulEntryHasContentType(section, 'Embed')"
-    :html="section.embed"
-    :title="section.title"
-    class="mb-5"
-  />
+    class="media-viewer-content mb-5"
+    :embed-code="section.embed"
+  >
+    <EmbedHTML
+      :html="section.embed"
+      :title="section.title"
+      class="mb-5"
+    />
+  </EmbedGateway>
   <ImageComparisonSlider
     v-else-if="contentfulEntryHasContentType(section, 'ImageComparison')"
     :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
@@ -68,7 +74,7 @@
 </template>
 
 <script>
-  import contentfulMixin from '@/mixins/contentful.js';
+  import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
 
   export default {
     name: 'ContentSection',
@@ -80,13 +86,12 @@
       ContentCardSection: () => import('./ContentCardSection'),
       ContentPrimaryCallToAction: () => import('./ContentPrimaryCallToAction'),
       ContentRichText: () => import('./ContentRichText'),
+      EmbedGateway: () => import('@/components/embed/EmbedGateway'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
       ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer'),
       StoryImageTextSlideScroller: () => import('../story/StoryImageTextSlideScroller')
     },
-
-    mixins: [contentfulMixin],
 
     props: {
       richTextIsCard: {
@@ -101,6 +106,7 @@
     },
 
     methods: {
+      contentfulEntryHasContentType,
       attributionFields(fields) {
         return {
           name: fields?.name,

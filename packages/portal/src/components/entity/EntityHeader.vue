@@ -95,7 +95,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import truncateMixin from '@/mixins/truncate';
+  import truncate from '@/utils/text/truncate.js';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
@@ -112,8 +112,7 @@
     },
 
     mixins: [
-      langAttributeMixin,
-      truncateMixin
+      langAttributeMixin
     ],
 
     props: {
@@ -197,7 +196,7 @@
 
     computed: {
       truncatedDescription() {
-        return this.truncate(this.fullDescription, this.limitCharacters);
+        return truncate(this.fullDescription, this.limitCharacters);
       },
       hasDescription() {
         return (this.description?.values?.length || 0) >= 1;
@@ -249,7 +248,7 @@
 
     .card-text {
       font-size: $font-size-small;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
@@ -275,7 +274,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0.375rem;
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     text-transform: uppercase;
 
     @at-root .xxl-page & {

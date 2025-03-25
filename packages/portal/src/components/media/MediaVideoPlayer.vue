@@ -66,3 +66,21 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
+
+  video {
+    @include media-viewer-height;
+    max-width: 100%;
+    width: auto;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media (max-width: ($bp-large - 1px)) {
+      max-height: 100%;
+    }
+  }
+</style>

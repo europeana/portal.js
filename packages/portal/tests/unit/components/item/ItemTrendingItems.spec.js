@@ -14,20 +14,28 @@ const fixtures = {
       { uri: 'http://data.europeana.eu/item/456/def' }
     ]
   },
-  recordApiResponse: {
+  recordApiFindResponse: {
     items: [
       { id: '/456/def' },
       { id: '/123/abc' }
     ]
+  },
+  recordApiSearchResponse: {
+    items: [
+      { id: '/456/random1' },
+      { id: '/123/random2' }
+    ]
   }
 };
 
-const factory = () => shallowMountNuxt(ItemTrendingItems, {
+const factory = ({ mocks = {} } = {}) => shallowMountNuxt(ItemTrendingItems, {
   localVue,
   mocks: {
+    $t: (key) => key,
     $apis: {
       record: {
-        find: sinon.stub().resolves(fixtures.recordApiResponse)
+        find: sinon.stub().resolves(fixtures.recordApiFindResponse),
+        search: sinon.stub().resolves(fixtures.recordApiSearchResponse)
       }
     },
     $config: {
@@ -35,7 +43,8 @@ const factory = () => shallowMountNuxt(ItemTrendingItems, {
         baseUrl: 'http://localhost'
       }
     },
-    $fetchState: {}
+    $features: { mockTrendingItems: false },
+    ...mocks
   },
   stubs: ['b-container']
 });
@@ -53,31 +62,53 @@ describe('ItemTrendingItems', () => {
   afterAll(sinon.resetBehavior);
 
   describe('fetch', () => {
-    it('gets trending items from local API', async() => {
-      const wrapper = factory();
+    describe('by default', () => {
+      it('gets trending items from local API', async() => {
+        const wrapper = factory();
 
-      await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-      expect(nock.isDone()).toBe(true);
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('gets item metadata from Record API', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.record.find.called).toBe(true);
+      });
+
+      it('stores items in data, respecting trending order', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.items).toEqual([
+          { id: '/123/abc' },
+          { id: '/456/def' }
+        ]);
+      });
     });
 
-    it('gets item metadata from Record API', async() => {
-      const wrapper = factory();
+    describe('when mockTrendingItems feature is toggled on', () => {
+      const mocks = { $features: { mockTrendingItems: true } };
 
-      await wrapper.vm.fetch();
+      it('gets random items metadata from Record API', async() => {
+        const wrapper = factory({ mocks });
 
-      expect(wrapper.vm.$apis.record.find.called).toBe(true);
-    });
+        await wrapper.vm.fetch();
 
-    it('stores items in data, respecting trending order', async() => {
-      const wrapper = factory();
+        expect(wrapper.vm.$apis.record.search.called).toBe(true);
+      });
 
-      await wrapper.vm.fetch();
+      it('stores items in data', async() => {
+        const wrapper = factory({ mocks });
 
-      expect(wrapper.vm.items).toEqual([
-        { id: '/123/abc' },
-        { id: '/456/def' }
-      ]);
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.items).toEqual(fixtures.recordApiSearchResponse.items);
+      });
     });
   });
 });

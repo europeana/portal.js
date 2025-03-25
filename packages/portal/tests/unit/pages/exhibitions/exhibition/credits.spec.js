@@ -21,8 +21,14 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
       app: {
         baseUrl: 'https://www.europeana.eu'
       }
-    }
-  }
+    },
+    localePath: () => '/'
+  },
+  stubs: [
+    'EntityBadges',
+    'LinkList',
+    'ThemeBadges'
+  ]
 });
 
 describe('pages/exhibitions/_exhibition/credits', () => {

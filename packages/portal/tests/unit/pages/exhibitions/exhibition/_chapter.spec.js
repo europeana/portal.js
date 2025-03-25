@@ -47,8 +47,17 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       app: {
         baseUrl: 'https://www.europeana.eu'
       }
-    }
-  }
+    },
+    localePath: () => '/'
+  },
+  stubs: [
+    'AuthoredHead',
+    'ContentWarningModal',
+    'EntityBadges',
+    'LinkList',
+    'RelatedCategoryTags',
+    'ThemeBadges'
+  ]
 });
 
 describe('pages/exhibitions/_exhibition/_chapter', () => {
@@ -58,7 +67,7 @@ describe('pages/exhibitions/_exhibition/_chapter', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(`${heroImageExample.image.url}`);
+      expect(pageMeta.ogImage).toBe(heroImageExample.image);
     });
 
     it('does not set og:image when no hero image', () => {

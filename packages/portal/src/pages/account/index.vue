@@ -1,18 +1,18 @@
 <template>
   <div
     data-qa="account page"
-    class="white-page xxl-page mt-n3"
+    class="xxl-page page"
   >
     <b-container fluid>
       <b-row>
-        <b-col class="pt-5 pb-4">
+        <b-col class="pb-4">
           <h1 class="text-center">
             @{{ loggedInUser && loggedInUser.preferred_username }}
           </h1>
           <div class="text-center">
             <b-button
               class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="keycloakAccountUrl"
+              :href="editProfileUrl"
             >
               <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
@@ -75,12 +75,10 @@
             </b-row>
           </b-container>
           <client-only>
-            <div
+            <LoadingSpinner
               v-if="$fetchState.pending"
               class="text-center pb-4"
-            >
-              <LoadingSpinner />
-            </div>
+            />
             <AlertMessage
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"
@@ -97,20 +95,32 @@
                     <b-row
                       v-if="likedItems.length > 0"
                     >
-                      <b-col>
+                      <b-col class="d-flex align-items-center mb-3">
                         <h2
-                          class="related-heading text-uppercase"
+                          class="related-heading text-uppercase mb-0"
                         >
                           {{ $tc('items.itemCount', likedItems.length) }}
                         </h2>
+                        <ItemSelectButton
+                          v-if="$features.itemMultiSelect"
+                          class="ml-auto"
+                          @select="(newState) => itemMultiSelect = newState"
+                        />
+                        <SearchViewToggles
+                          v-model="view"
+                          :class="{ 'ml-auto': !$features.itemMultiSelect }"
+                        />
                       </b-col>
                     </b-row>
                     <b-row>
-                      <ItemPreviewCardGroup
-                        v-if="likesId && likedItems.length !== 0"
-                        :items="likedItems"
-                        class="pb-5"
-                      />
+                      <b-col cols="12">
+                        <ItemPreviewCardGroup
+                          v-if="likesId && likedItems.length !== 0"
+                          :items="likedItems"
+                          :view="view"
+                          class="pb-5"
+                        />
+                      </b-col>
                     </b-row>
                   </template>
                   <div
@@ -156,20 +166,28 @@
         </b-col>
       </b-row>
     </b-container>
+    <ItemSelectToolbar
+      v-if="itemMultiSelect"
+      :user-can-edit-set="userCanEditSet"
+    />
   </div>
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import keycloak from '../../mixins/keycloak';
+  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
-  import UserSets from '../../components/user/UserSets';
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import AlertMessage from '@/components/generic/AlertMessage';
+  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemSelectButton from '@/components/item/ItemSelectButton';
+  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import SearchViewToggles from '@/components/search/SearchViewToggles';
+  import UserSets from '@/components/user/UserSets';
 
   export default {
     name: 'AccountIndexPage',
@@ -179,20 +197,35 @@
       BNav,
       ClientOnly,
       ItemPreviewCardGroup,
+      ItemSelectButton,
+      ItemSelectToolbar,
       LoadingSpinner,
+      SearchViewToggles,
       UserSets
     },
 
     mixins: [
-      keycloak,
+      itemPreviewCardGroupViewMixin,
       pageMetaMixin
     ],
+
+    provide() {
+      return {
+        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+      };
+    },
+
+    beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setSelected', []);
+      next();
+    },
 
     middleware: 'auth',
 
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
+        itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -210,6 +243,9 @@
     fetchOnServer: false,
 
     computed: {
+      editProfileUrl() {
+        return this.$keycloak.accountUrl();
+      },
       pageMeta() {
         return {
           title: this.$t('account.title')

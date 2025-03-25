@@ -60,7 +60,7 @@ describe('components/image/ImageOptimised', () => {
         const img = wrapper.find('picture imageeagerorlazy-stub');
 
         expect(img.attributes('src')).toBe('https://images.ctfassets.net/asset?q=80&fm=webp');
-        expect(img.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=576&h=896&fit=fill&fm=webp&q=40 576w,https://images.ctfassets.net/asset?w=768&h=1080&fit=fill&fm=webp&q=40 768w');
+        expect(img.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=576&h=896&fit=fill&q=80&fm=webp 576w,https://images.ctfassets.net/asset?w=768&h=1080&fit=fill&q=80&fm=webp 768w');
       });
 
       it('renders a source element for other resolutions, with responsive srcset', () => {
@@ -74,7 +74,7 @@ describe('components/image/ImageOptimised', () => {
 
         const source = wrapper.find('picture source');
 
-        expect(source.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=1152&h=1792&fit=fill&fm=webp&q=40 1152w,https://images.ctfassets.net/asset?w=1536&h=2160&fit=fill&fm=webp&q=40 1536w');
+        expect(source.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=1152&h=1792&fit=fill&q=80&fm=webp 1152w,https://images.ctfassets.net/asset?w=1536&h=2160&fit=fill&q=80&fm=webp 1536w');
         expect(source.attributes('media')).toBe('(resolution: 2x)');
       });
     });

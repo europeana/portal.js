@@ -5,11 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
-    :image-alt="imageAlt"
     :omit-all-uris="true"
-    :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
     :variant="variant"
   />
@@ -75,15 +71,6 @@
       },
       imageContentType() {
         return this.imageIsContentfulAsset ? this.cardFields.image.contentType : null;
-      },
-      imageAlt() {
-        return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
-      },
-      imageWidth() {
-        return this.imageIsContentfulAsset ? this.cardFields.image.width : null;
-      },
-      imageHeight() {
-        return this.imageIsContentfulAsset ? this.cardFields.image.height : null;
       },
       destination() {
         let destination = '';

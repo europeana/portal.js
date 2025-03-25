@@ -4,7 +4,8 @@ export default {
     newsletter: 'https://images.ctfassets.net/i01duvb6kq77/1tvbbzdiq0sc0hBjbqlihZ/a60ff9eb7d24df0b0a1e54ae19d3c3d9/il_newsletter.svg',
     curate: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
     audience: 'https://images.ctfassets.net/i01duvb6kq77/B0VJ9of5sryy5n34hS93I/991133dbbc2dd0f48fd215e3aa1c3c75/Audience.svg',
-    support: 'https://images.ctfassets.net/i01duvb6kq77/KIMCBhGmlm90mxG8hldb1/8339d01737e9456cd10715b40f6c1925/feedback.svg'
+    support: 'https://images.ctfassets.net/i01duvb6kq77/KIMCBhGmlm90mxG8hldb1/8339d01737e9456cd10715b40f6c1925/feedback.svg',
+    search: 'https://images.ctfassets.net/i01duvb6kq77/JX06hL2kGk2mqCJLsoJUh/4d8bad1506779f0029c00f5f522e8e00/search.svg'
   },
   imagesWithAttribution: [
     {
@@ -47,6 +48,18 @@ export default {
         width: 830, height: 470 }
     }
   ],
+  itemPreviewCardData: {
+    dataProvider: ['United Archives / WHA'],
+    dcCreatorLangAware: { en: ['United Archives / WHA'] },
+    dcDescriptionLangAware: { de:
+    [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+    frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
+    dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
+    edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
+    id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
+    type: 'IMAGE',
+    rights: ['http://creativecommons.org/licenses/by-sa/3.0/']
+  },
   thumbnails: [
     'https://api.europeana.eu/thumbnail/v3/400/3bc0291af7adc6b013a4be826af1f794', // Portrait of a young Woman, with 'Puck' the Dog https://www.europeana.eu/en/item/90402/SK_A_1703
     'https://api.europeana.eu/thumbnail/v3/400/3fa6a7d3f040cb177dc5b3f02d5570ab', // An eruption of Mount Etna at night https://www.europeana.eu/en/item/9200579/czyxv8m8

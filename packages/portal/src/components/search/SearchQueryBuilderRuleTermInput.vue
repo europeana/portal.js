@@ -16,7 +16,6 @@
       role="searchbox"
       aria-autocomplete="list"
       :aria-owns="showSearchOptions ? optionsId : null"
-      :aria-expanded="showSearchOptions"
       :aria-controls="showSearchOptions ? optionsId : null"
       @input="handleInput"
       @blur="handleBlur"
@@ -190,7 +189,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px solid $bodygrey;
+    border: 1px solid $lightgrey;
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;

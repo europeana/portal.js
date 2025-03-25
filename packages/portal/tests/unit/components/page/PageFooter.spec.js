@@ -36,4 +36,11 @@ describe('components/page/PageFooter', () => {
 
     expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
+
+  it('displays links to supporting technical partners', () => {
+    const wrapper = factory();
+    const partners = wrapper.find('[data-qa="supporting technical partners"]');
+
+    expect(partners.isVisible()).toBe(true);
+  });
 });

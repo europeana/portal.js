@@ -2,7 +2,6 @@
   <div
     data-qa="entity page"
     class="entity-page xxl-page"
-    :class="$fetchState.error && 'white-page'"
   >
     <ErrorMessage
       v-if="$fetchState.error"
@@ -17,7 +16,7 @@
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
-        :override-params="searchOverrides"
+        :default-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -85,10 +84,10 @@
     name: 'CollectionPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },
@@ -172,17 +171,15 @@
         return this.$store.state.entity.entity;
       },
       searchOverrides() {
-        const overrideParams = {};
+        const defaultParams = {};
 
         if (this.entity) {
           const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
-          overrideParams.qf = [entityQuery];
-          if (!this.$route.query.query) {
-            overrideParams.query = entityQuery; // Triggering best bets.
-          }
+          defaultParams.qf = [entityQuery];
+          defaultParams.query = entityQuery; // Triggering best bets.
         }
 
-        return overrideParams;
+        return defaultParams;
       },
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);
@@ -310,7 +307,7 @@
       async setBestItems() {
         const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
         this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-        entityBestItemsSetId && this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
       },
       titleFallback(title) {
         return {
@@ -324,15 +321,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .entity-page {
-    &.top-header {
-      margin-top: -1rem;
-    }
-  }
-
-  .page-container {
-    max-width: none;
-  }
-</style>

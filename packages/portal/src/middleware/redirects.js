@@ -1,12 +1,15 @@
-export default ({ redirect, route, $features }) => {
-  const redirects = {
-    '/professionals': '/share-your-data'
-  };
-  if ($features?.redirectBlogsToStories) {
-    redirects['/blog'] = '/stories';
-    redirects['/blog/*'] = '/stories/*';
-  }
+const redirects = {
+  '/blog': '/stories?type=story',
+  '/blog/*': '/stories/*',
+  '/exhibitions': '/stories?type=exhibition',
+  '/privacy-policy-newsletter': '/privacy-statement-newsletter',
+  '/professionals': '/share-your-collections',
+  '/rights/privacy-policy': '/rights/privacy-statement',
+  '/rights/public-domain-charter': 'https://pro.europeana.eu/post/the-europeana-public-domain-charter',
+  '/share-your-data': '/share-your-collections'
+};
 
+export default ({ redirect, route }) => {
   for (const redirectFrom in redirects) {
     let redirectTo = redirects[redirectFrom];
 
@@ -15,6 +18,7 @@ export default ({ redirect, route, $features }) => {
     const localelessPath = `/${routePathParts.slice(2).join('/')}`;
 
     let match;
+
     if (redirectFrom.endsWith('*')) {
       const redirectFromPrefix = redirectFrom.slice(0, -1);
       match = localelessPath.startsWith(redirectFromPrefix);
@@ -28,7 +32,11 @@ export default ({ redirect, route, $features }) => {
     }
 
     if (match) {
-      return redirect(`/${locale}${redirectTo}`);
+      if (redirectTo.startsWith('/')) {
+        return redirect(`/${locale}${redirectTo}`);
+      } else {
+        return redirect(redirectTo);
+      }
     }
   }
 

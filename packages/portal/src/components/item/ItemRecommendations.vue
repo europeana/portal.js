@@ -24,7 +24,8 @@
         v-if="!$auth.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
-        @click="keycloakLogin"
+        :target="null"
+        @click="$keycloak.login()"
       >
         {{ $t('related.items.loginForMore') }}
       </b-link>
@@ -36,7 +37,6 @@
   import { addContentTierFilter } from '@/plugins/europeana/search';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import keycloakMixin from '@/mixins/keycloak';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import similarItemsMixin from '@/mixins/similarItems';
 
@@ -51,7 +51,6 @@
 
     mixins: [
       elasticApmReporterMixin,
-      keycloakMixin,
       similarItemsMixin
     ],
 

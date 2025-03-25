@@ -9,19 +9,26 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 
-const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
+const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier }, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
   localVue,
   attachTo: document.body,
-  propsData: { identifier },
+  propsData,
+  data() {
+    return { ...data };
+  },
   mocks: {
     $auth,
+    $keycloak: {
+      login: sinon.spy()
+    },
     $matomo: {
       trackEvent: sinon.spy()
     },
     $store: {
       dispatch: storeDispatch
     },
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key) => key
   },
   stubs: [
     'SetAddItemModal',
@@ -45,12 +52,11 @@ describe('components/item/ItemAddButton', () => {
       describe('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth });
-          wrapper.vm.keycloakLogin = sinon.spy();
 
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          expect(wrapper.vm.keycloakLogin.called).toBe(true);
+          expect(wrapper.vm.$keycloak.login.called).toBe(true);
         });
       });
     });
@@ -59,31 +65,46 @@ describe('components/item/ItemAddButton', () => {
       const $auth = { loggedIn: true };
 
       describe('when pressed', () => {
-        it('shows the collection modal', () => {
+        it('shows the collection modal', async() => {
           const wrapper = factory({ $auth });
-          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           const addButton = wrapper.find('[data-qa="add button"]');
-          addButton.trigger('click');
+          await addButton.trigger('click');
+          const addItemModal = wrapper.find('[data-qa="add item to set modal"]');
 
-          expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`)).toBe(true);
+          expect(addItemModal.isVisible()).toBe(true);
+        });
+
+        describe('when identifiers are an array (multi-select)', () => {
+          it('shows the collection modal', async() => {
+            const wrapper = factory({ $auth, propsData: { identifiers: ['001', '002'] } });
+
+            const addButton = wrapper.find('[data-qa="add button"]');
+            await addButton.trigger('click');
+            const addItemModal = wrapper.find('[data-qa="add item to set modal"]');
+
+            expect(addItemModal.isVisible()).toBe(true);
+          });
         });
       });
 
       describe('when the add item modal is closed', () => {
-        it('refreshes the set', () => {
-          const wrapper = factory({ $auth });
+        const data = { showAddItemModal: true };
 
-          wrapper.vm.handleHideModal();
+        it('refreshes the set', async() => {
+          const wrapper = factory({ $auth, data });
+
+          await wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
 
           expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
         });
+
         it('sets focus on the item add button without showing the tooltip', async() => {
-          const wrapper = factory({ $auth });
+          const wrapper = factory({ $auth, data });
 
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('focus');
-          wrapper.vm.handleHideModal();
+          wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
           await wrapper.vm.$nextTick();
 
           const focusedAddButton = wrapper.find('[data-qa="add button"]:focus');
@@ -91,6 +112,28 @@ describe('components/item/ItemAddButton', () => {
 
           expect(focusedAddButton.exists()).toBe(true);
           expect(tooltip.exists()).toBe(false);
+        });
+      });
+    });
+
+    it('is disabled if there are no item identifiers', () => {
+      const wrapper = factory({ propsData: { identifiers: [] } });
+
+      const addButton = wrapper.find('[data-qa="add button"]');
+
+      expect(addButton.attributes('disabled')).toBe('disabled');
+    });
+  });
+
+  describe('data()', () => {
+    describe('idSuffix', () => {
+      describe('when there are multiple items selected', () => {
+        it('ends with "multi-select"', () => {
+          const wrapper = factory({
+            propsData: { identifiers: ['001', '002', '003'] }
+          });
+
+          expect(wrapper.vm.idSuffix).toEqual('multi-select');
         });
       });
     });

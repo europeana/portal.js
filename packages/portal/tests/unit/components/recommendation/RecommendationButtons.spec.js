@@ -9,11 +9,17 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const setId = '/123/def';
 const storeDispatch = sinon.spy();
+const setApiInsertItemsStub = sinon.stub().resolves({});
 
 const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(RecommendationButtons, {
   localVue,
   propsData: { identifier, ...propsData },
   mocks: {
+    $apis: {
+      set: {
+        insertItems: setApiInsertItemsStub
+      }
+    },
     $auth,
     $store: {
       state: {
@@ -64,7 +70,7 @@ describe('components/recommendation/RecommendationButtons', () => {
           acceptButton.trigger('click');
 
           expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' })).toBe(true);
-          expect(storeDispatch.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier })).toBe(true);
+          expect(setApiInsertItemsStub.calledWith(`http://data.europeana.eu/set${setId}`, identifier)).toBe(true);
         });
       });
     });

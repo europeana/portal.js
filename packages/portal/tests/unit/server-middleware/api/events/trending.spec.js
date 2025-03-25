@@ -14,6 +14,7 @@ const expressResStub = {
   json: sinon.spy(),
   sendStatus: sinon.spy()
 };
+const expressNextStub = sinon.spy();
 
 describe('@/server-middleware/api/events/trending', () => {
   beforeAll(() => {
@@ -22,35 +23,15 @@ describe('@/server-middleware/api/events/trending', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.resetBehavior);
 
-  describe('when not explicitly enabled', () => {
-    const options = {};
+  it('queries postgres for trending items', async() => {
+    await trendingEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-    it('does not query postgres', async() => {
-      await trendingEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(pgPoolQuery.called).toBe(false);
-    });
-
-    it('responds with empty items array as json', async() => {
-      await trendingEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(expressResStub.json.calledWith({ items: [] })).toBe(true);
-    });
+    expect(pgPoolQuery.called).toBe(true);
   });
 
-  describe('when explicitly enabled', () => {
-    const options = { enabled: true };
+  it('responds with items as json', async() => {
+    await trendingEventsHandler(expressReqStub, expressResStub, expressNextStub);
 
-    it('queries postgres for trending items', async() => {
-      await trendingEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(pgPoolQuery.called).toBe(true);
-    });
-
-    it('responds with items as json', async() => {
-      await trendingEventsHandler(options)(expressReqStub, expressResStub);
-
-      expect(expressResStub.json.calledWith({ items: fixtures.rows })).toBe(true);
-    });
+    expect(expressResStub.json.calledWith({ items: fixtures.rows })).toBe(true);
   });
 });

@@ -39,7 +39,7 @@
           <b-input-group
             role="combobox"
             :aria-owns="showSearchOptions ? searchFormOptionsId : null"
-            :aria-expanded="showSearchOptions"
+            :aria-expanded="showSearchOptions ? 'true' : 'false'"
             class="auto-suggest"
           >
             <b-form-input
@@ -489,7 +489,7 @@
 
     .auto-suggest-dropdown {
       transition: $standard-transition;
-      border-top: 1px solid $bodygrey;
+      border-top: 1px solid $lightgrey;
 
       @media (min-width: $bp-4k) {
         top: calc(1.5 * 3.45rem);

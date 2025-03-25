@@ -20,7 +20,10 @@
         tag="p"
       >
         <template #galleries>
-          <b-link :to="localePath('/galleries')">
+          <b-link
+            :to="localePath('/galleries')"
+            :target="null"
+          >
             {{ $t('set.publication.galleries') }}<!-- This comment removes white space
                   -->
           </b-link>
@@ -32,7 +35,10 @@
         tag="p"
       >
         <template #guidelines>
-          <b-link :to="localePath('/create-and-use-a-europeana-account')">
+          <b-link
+            :to="localePath('/create-and-use-a-europeana-account')"
+            :target="null"
+          >
             {{ $t('set.publication.process.guidelines') }}<!-- This comment removes white space
                   -->
           </b-link>
@@ -76,7 +82,7 @@
       solid
       toast-class="brand-toast-white"
       append-toast
-      toaster="b-toaster-bottom-left-dynamic"
+      toaster="b-toaster-bottom-left"
     >
       <i18n
         path="set.publication.toastMessage"
@@ -86,6 +92,7 @@
           <b-link
             class="text-decoration-none"
             :to="localePath('/galleries')"
+            :target="null"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>
@@ -172,7 +179,7 @@
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
 
       &.request-failed {
         font-size: $font-size-small;

@@ -11,8 +11,6 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
-    // TODO: Ignore swiper in transformIgnorePatterns instead?
-    '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
@@ -26,11 +24,11 @@ export default {
     '<rootDir>/tmp/'
   ],
   transformIgnorePatterns: [
-    '/node_modules/(?!decamelize)'
+    '/node_modules/(?!decamelize|swiper|ol|color-space|color-parse|color-rgba|color-name|rbush|quickselect|vue2-helpers)'
   ],
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.(ico|svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };

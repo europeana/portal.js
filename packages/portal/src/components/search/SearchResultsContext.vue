@@ -58,7 +58,8 @@
         <b-link
           class="more-link"
           :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          @click.prevent="keycloakLogin"
+          :target="null"
+          @click.prevent="$keycloak.login()"
         >
           {{ $t('actions.login') }}
         </b-link>
@@ -72,13 +73,12 @@
       variant="light-flat"
       data-qa="results more tooltip"
     />
-    <div
+    <output
       class="visually-hidden"
-      role="status"
       data-qa="results status message"
     >
       {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-    </div>
+    </output>
   </div>
 </template>
 
@@ -86,7 +86,6 @@
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'SearchResultsContext',
@@ -96,8 +95,7 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin,
-      keycloak
+      europeanaEntitiesOrganizationsMixin
     ],
 
     props: {

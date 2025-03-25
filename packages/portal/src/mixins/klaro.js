@@ -1,59 +1,28 @@
 export const version = '0.7.18';
+import services from '@/utils/services/services.js';
+import waitFor from '@/utils/waitFor.js';
+import initHotjar from '@/utils/hotjar.js';
 
-const klaroAllServices = [
-  {
-    cookies: ['auth.strategy'],
-    name: 'auth-strategy',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['debugSettings'],
-    name: 'debugSettings',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-    cookies: [/^_hj/],
-    name: 'hotjar',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['i18n_locale_code'],
-    name: 'i18n',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: [/^_pk_/, 'mtm_cookie_consent'],
-    name: 'matomo',
-    purposes: ['usage']
-  },
-  {
-    cookies: ['new_feature_notification'],
-    name: 'newFeatureNotification',
-    purposes: ['essential'],
-    required: true
-  },
-  {
-    cookies: ['searchResultsView'],
-    name: 'searchResultsView',
-    purposes: ['essential'],
-    required: true
-  }
-];
+import { ref } from 'vue';
+
+// shared global instances across multiple components
+let klaro = ref(null);
+let klaroManager = ref(null);
 
 export default {
+  props: {
+    // context-specific whitelist of services to declare in klaro, e.g.
+    // `:klaro-services="['auth-strategy', 'i18n']"`
+    klaroServices: {
+      type: Array,
+      default: null
+    }
+  },
+
   data() {
     return {
-      cookieConsentRequired: false,
       klaro: null,
-      klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
-      // context-specific whitelist of services to declare in klaro, e.g.
-      // `klaroServices: ['auth-strategy', 'i18n']`
-      klaroServices: null,
-      toastBottomOffset: '20px'
+      klaroManager: null
     };
   },
 
@@ -62,27 +31,35 @@ export default {
   },
 
   mounted() {
-    if (!this.klaro) {
-      this.klaro = window.klaro;
-    }
+    waitFor(() => window.klaro, { name: 'Klaro' })
+      .then(() => {
+        if (!klaro.value) {
+          klaro.value = window.klaro;
+        }
+        if (!this.klaro) {
+          this.klaro = klaro;
+        }
 
-    // If Matomo plugin is installed, wait for Matomo to load, but still render
-    // Klaro if it fails to.
-    const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-    renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+        this.renderKlaro();
+      });
+  },
+
+  head() {
+    return {
+      script: [
+        {
+          src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`
+        }
+      ]
+    };
   },
 
   computed: {
-    klaroConfig() {
-      const services = klaroAllServices
-        .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
-        .map((service) => ({
-          ...service,
-          translations: {
-            [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`)
-          }
-        }));
+    cookieConsentRequired() {
+      return this.klaroManager && !this.klaroManager.confirmed;
+    },
 
+    klaroConfig() {
       return {
         acceptAll: true,
         callback: this.klaroServiceConsentCallback,
@@ -91,12 +68,9 @@ export default {
         htmlTexts: true,
         lang: this.$i18n.locale,
         mustConsent: false,
-        services,
+        services: services.filter((service) => !this.klaroServices || this.klaroServices.includes(service.name)),
         storageMethod: 'cookie',
-        testing: false,
-        translations: {
-          [this.$i18n.locale]: this.$t('klaro.main')
-        }
+        testing: false
       };
     }
   },
@@ -104,22 +78,15 @@ export default {
   methods: {
     renderKlaro() {
       if (this.klaro) {
-        const manager = this.klaro.getManager(this.klaroConfig);
+        if (!klaroManager.value) {
+          klaroManager.value = this.klaro.getManager(this.klaroConfig);
+        }
+        if (!this.klaroManager) {
+          this.klaroManager = klaroManager;
+        }
 
-        this.cookieConsentRequired = !manager.confirmed;
-
-        this.klaro.render(this.klaroConfig, true);
-        manager.watch({ update: this.watchKlaroManagerUpdate });
-
-        setTimeout(() => {
-          this.setToastBottomOffset();
-        }, 100);
+        this.klaroManager.watch({ update: this.watchKlaroManagerUpdate });
       }
-    },
-
-    setToastBottomOffset() {
-      const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
-      this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
     },
 
     watchKlaroManagerUpdate(manager, eventType, data) {
@@ -133,23 +100,36 @@ export default {
         }[data.type];
       }
 
-      eventName && this.trackKlaroClickEvent(eventName);
-
-      setTimeout(() => {
-        this.setToastBottomOffset();
-      }, 10);
+      eventName && this.checkConsentAndOpenEmbed?.();
     },
 
-    trackKlaroClickEvent(eventName) {
-      this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
+    // If Matomo plugin is installed, wait for Matomo to load, and run callback
+    // if it does, else don't bother because it's down.
+    waitForMatomo(callback) {
+      waitFor(() => this.$matomo, this.$config.matomo.loadWait)
+        .then(callback)
+        .catch(() => {});
     },
 
     klaroServiceConsentCallback(consent, service) {
-      if (service.name === 'hotjar' && consent) {
-        this.initHotjar?.();
+      if (service.name === 'matomo') {
+        this.waitForMatomo(() => {
+          if (consent) {
+            this.$matomo?.rememberCookieConsentGiven();
+          } else {
+            this.$matomo?.forgetCookieConsentGiven();
+          }
+        });
       }
-      if (service.name === 'matomo' && consent) {
-        this.$matomo?.rememberCookieConsentGiven();
+
+      if (service.name === 'hotjar') {
+        if (consent) {
+          initHotjar(this.$config?.hotjar?.id, this.$config?.hotjar?.sv);
+        } else if (window.hj) {
+          // hotjar tracking code offers no method to disable/unload it, so
+          // reload the page to get rid of it
+          window.location.reload();
+        }
       }
     }
   }

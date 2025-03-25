@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="page">
     <ContentHeader
       :title="pageMeta.title"
     />
@@ -36,6 +36,7 @@
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   import ContentHeader from '@/components/content/ContentHeader';
   import ContentCard from '@/components/content/ContentCard';
@@ -53,6 +54,11 @@
     mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
 
     data() {
       return {
@@ -80,7 +86,7 @@
         this.entities = response.entities;
         this.total = response.total;
       } finally {
-        this.$scrollTo?.('#header');
+        process.client && this.scrollToSelector('#header');
       }
     },
 
@@ -105,7 +111,10 @@
     },
 
     watch: {
-      '$route.query.page': '$fetch'
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.scrollToSelector('#header');
+      }
     },
 
     methods: {

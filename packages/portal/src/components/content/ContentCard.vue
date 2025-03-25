@@ -19,31 +19,24 @@
         class="card-img"
         :class="{ logo }"
       >
-        <b-img-lazy
-          v-if="lazy"
-          :src="optimisedImageUrl"
-          :blank-width="blankImageWidth"
-          :blank-height="blankImageHeight"
-          :width="imageWidth"
-          :height="imageHeight"
-          :alt="imageAlt"
+        <ImageOptimised
+          :src="cardImageUrl"
+          :width="imageWidthPerVariant"
+          :height="imageHeightPerVariant"
+          :content-type="imageContentType"
+          :contentful-image-crop-presets="contentfulImageCropPresets"
+          :image-sizes="imageSizes"
+          :picture-source-media-resolutions="[1, 2]"
+          :lazy="lazy"
           @error.native="imageNotFound"
           @load.native="imageLoaded"
         />
-        <b-img
-          v-else
-          :src="optimisedImageUrl"
-          :width="imageWidth"
-          :height="imageHeight"
-          :alt="imageAlt"
-          @error="imageNotFound"
-          @load="imageLoaded"
-        />
       </div>
-      <SmartLink
+      <component
+        :is="url ? 'SmartLink' : 'div'"
         v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
-        link-class="card-link no-title"
+        class="card-link no-title"
       >
         <span
           v-if="displayTitle"
@@ -51,7 +44,7 @@
         >
           {{ truncate(displayTitle.value, 90) }}
         </span>
-      </SmartLink>
+      </component>
       <b-card-body
         v-if="variant !== 'mosaic'"
         data-qa="card body"
@@ -71,7 +64,8 @@
             data-qa="card title"
             :lang="langAttribute(displayTitle.code)"
           >
-            <SmartLink
+            <component
+              :is="url ? 'SmartLink' : 'div'"
               :destination="url"
               link-class="card-link"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
@@ -79,7 +73,7 @@
               <span>
                 {{ truncate(displayTitle.value, 90) }}
               </span>
-            </SmartLink>
+            </component>
           </b-card-title>
           <b-card-text
             v-if="hitText"
@@ -122,10 +116,9 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import truncateMixin from '@/mixins/truncate';
+  import stripMarkdown from '@/utils/markdown/strip.js';
+  import truncate from '@/utils/text/truncate.js';
   import { langMapValueForLocale } from '@europeana/i18n';
-  import { optimisedContentfulImageUrl } from '@/utils/contentful/assets.js';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 
@@ -135,13 +128,12 @@
     components: {
       ClientOnly,
       SmartLink,
-      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+      MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
 
     mixins: [
-      langAttributeMixin,
-      stripMarkdownMixin,
-      truncateMixin
+      langAttributeMixin
     ],
 
     props: {
@@ -205,30 +197,29 @@
        */
       imageWidth: {
         type: Number,
-        default: null
+        default: 520
       },
       /**
        * Height of the image
        */
       imageHeight: {
         type: Number,
-        default: null
+        default: 338
       },
       /**
-       * Image alt text
-       */
-      imageAlt: {
-        type: String,
-        default: ''
-      },
-      /**
-       * Image optimisation options
+       * Image crop presets for optimised images
        *
-       * Passed to `optimisedImageUrl` filter
        */
-      imageOptimisationOptions: {
+      contentfulImageCropPresets: {
         type: Object,
-        default: () => ({})
+        default: () => ({ 'small': { w: 520, h: 338, fit: 'fill', f: 'face' } })
+      },
+      /**
+       * Image sizes for optimised images
+       */
+      imageSizes: {
+        type: String,
+        default: null
       },
       /**
        * If `true`, image will be lazy-loaded
@@ -274,20 +265,6 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
-      },
-      /**
-       * Height of image placeholder when lazy-loading image
-       */
-      blankImageHeight: {
-        type: Number,
-        default: null
-      },
-      /**
-       * Width of image placeholder when lazy-loading image
-       */
-      blankImageWidth: {
-        type: Number,
-        default: null
       },
       /**
        * If `true`, the image is a logo and will be styled differently
@@ -351,7 +328,7 @@
         }
 
         if (this.displayLabelType === 'blog') {
-          return this.$features?.redirectBlogsToStories ? this.$tc('stories.stories', 1) : this.$tc('blog.posts', 1);
+          return this.$tc('stories.stories', 1);
         }
 
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
@@ -374,7 +351,7 @@
       },
 
       displayLabelMatchString() {
-        return this.url.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
+        return this.url?.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
       },
 
       displayTexts() {
@@ -389,13 +366,6 @@
         }).filter((displayText) => displayText.values.length > 0);
       },
 
-      optimisedImageUrl() {
-        return optimisedContentfulImageUrl(
-          { url: this.imageUrl, contentType: this.imageContentType },
-          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
-        );
-      },
-
       tooltipTexts() {
         return this.displayTexts.map(text => text.values).join(' - ');
       },
@@ -408,6 +378,26 @@
           return this.displayTitle?.value || this.tooltipTexts;
         }
         return null;
+      },
+
+      imageWidthPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageWidth;
+        }
+      },
+
+      imageHeightPerVariant() {
+        if (this.variant === 'mini') {
+          return 120;
+        } else if (this.variant === 'list') {
+          return 240;
+        } else {
+          return this.imageHeight;
+        }
       }
     },
 
@@ -418,14 +408,16 @@
     },
 
     methods: {
+      truncate,
+
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) {
           limited.push('…');
         }
         const joined = limited.join('; ');
-        const stripped = this.stripMarkdown(joined);
-        return this.truncate(stripped, 255);
+        const stripped = stripMarkdown(joined);
+        return truncate(stripped, 255);
       },
 
       redrawMasonry() {

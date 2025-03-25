@@ -27,7 +27,7 @@ import WebResource from './WebResource.js';
  */
 const sortByIsNextInSequence = (source) => {
   // Make a copy to work on
-  const items = [].concat(source);
+  const items = [].concat(source).filter(Boolean);
 
   const itemUris = items.map((item) => item.about);
 
@@ -54,6 +54,8 @@ const sortByIsNextInSequence = (source) => {
 };
 
 export default class Aggregation extends Base {
+  #displayableWebResources;
+
   static propertyClasses = {
     webResources: WebResource
   };
@@ -61,9 +63,14 @@ export default class Aggregation extends Base {
   constructor(data) {
     super(data);
 
+    const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
+
     for (const wr of (this.webResources || [])) {
       wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
-      wr.thumbnail = ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && data.edmObject) ? data.edmObject : null;
+      if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
+        // set the wr preview to a copy of edmObjectWebResource to prevent circular reference
+        wr.preview = { ...edmObjectWebResource };
+      }
     }
   }
 
@@ -71,19 +78,22 @@ export default class Aggregation extends Base {
     return (this.webResources || []).filter((wr) => wr.isIIIFPresentationManifest);
   }
 
-  // TODO: memoise
   get displayableWebResources() {
-    const uris = [].concat(this.hasView || []);
+    if (!this.#displayableWebResources) {
+      const uris = [].concat(this.hasView || []);
 
-    if (this.edmIsShownBy) {
-      uris.unshift(this.edmIsShownBy);
-    } else if (this.edmIsShownAt) {
-      uris.unshift(this.edmIsShownAt);
+      if (this.edmIsShownBy) {
+        uris.unshift(this.edmIsShownBy);
+      } else if (this.edmIsShownAt) {
+        uris.unshift(this.edmIsShownAt);
+      }
+
+      const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+
+      // Sort by isNextInSequence property if present
+      this.#displayableWebResources = sortByIsNextInSequence(wrs);
     }
 
-    const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
-
-    // Sort by isNextInSequence property if present
-    return sortByIsNextInSequence(wrs);
+    return this.#displayableWebResources;
   }
 }

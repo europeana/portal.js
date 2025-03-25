@@ -31,7 +31,6 @@ export default {
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
       "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
-      "remove": "Verwijder dit object uit deze galerij.",
       "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
@@ -40,25 +39,28 @@ export default {
     "add": "Toevoegen",
     "apply": "Toepassen",
     "cancel": "Annuleren",
+    "changeView": "Weergave wijzigen",
     "clear": "Wissen",
     "clearFilters": "Filters wissen",
     "close": "sluiten",
+    "confirm": "Bevestigen",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
-    "explore": "Ontdekken",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
-    "like": "Liken",
+    "like": "Like",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
+    "nextPage": "Volgende pagina",
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
+    "previousPage": "Vorige pagina",
     "publish": "Publiceren",
     "readMore": "Lees verder",
     "reject": "Afwijzen",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
+    "unlike": "Unlike",
     "viewAt": "Bekijken op {link}",
-    "viewDocument": "Document weergeven"
+    "viewDocument": "Document weergeven",
+    "vote": "Stemmen"
   },
   "attribution": {
     "country": "Land:",
@@ -96,12 +100,7 @@ export default {
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
-    "topic": "Onderwerpen",
-    "trending": "Populaire objecten"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogbericht | Blogberichten"
+    "topic": "Onderwerpen"
   },
   "cardLabels": {
     "organisation": "Organisatie",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Kleurstaal",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Over Europeana",
-      "forDevelopers": "Voor ontwikkelaars",
-      "help": "Help",
-      "meetUs": "Ontmoet het team",
-      "MoreInfoLabel": "Meer informatie",
-      "provide": "Word een gegevensprovider",
-      "subscribe": "Aanmelden voor onze nieuwsbrief",
-      "terms": "Gebruiksvoorwaarden en privacybeleid"
-    },
-    "headerNavigation": {
-      "Collections": "Collecties",
-      "explore": "Verkennen",
-      "teachers": "Leraren"
-    }
-  },
   "contentYouMightLike": "Content die u misschien interessant vindt",
   "curatedAutomatically": "Automatisch beheerd door Europeana",
   "dateFilter": {
@@ -194,6 +176,16 @@ export default {
     "homeLinkAlt": "De gemeenschappelijke Europese dataruimte voor cultureel erfgoed"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "embedNotification": {
+    "ifNotAll": "Als u niet alle ingesloten media wilt laden, kunt u {0}.",
+    "loadAllEmbeddedContent": "Laad alle ingesloten inhoud",
+    "loadOnlyThis": "laad alleen media van deze provider",
+    "message": "Houd er rekening mee dat deze pagina media-inhoud bevat die is ingesloten door {provider}. Het bekijken van deze media is onderworpen aan hun voorwaarden en privacyverklaringen. Raadpleeg hun privacyverklaringen voor meer informatie over hoe uw gegevens worden gebruikt.",
+    "messageUnkownService": "Helaas kan deze inhoud niet worden weergegeven.",
+    "ofThirdPartyServices": "{0} van diensten en inhoud van derden",
+    "viewFullList": "Bekijk de volledige lijst",
+    "viewThisExternalLink": "Bekijk deze content via een externe link"
+  },
   "entity": {
     "actions": {
       "cancel": "Annuleren",
@@ -244,6 +236,10 @@ export default {
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
     },
+    "noFeatureIdeas": {
+      "description": "Kom snel weer terug!",
+      "title": "Op dit moment geen ideeën voor nieuwe functies."
+    },
     "pageNotFound": {
       "metaTitle": "Pagina niet gevonden",
       "title": "De pagina die u zoekt, bestaat niet."
@@ -262,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Tentoonstelling: {title}",
     "chapters": "Hoofdstukken",
     "credits": "Credits",
     "currentChapter": "Huidig hoofdstuk",
@@ -724,10 +721,10 @@ export default {
       "faq": "Veelgestelde vragen (FAQ)",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
-      "privacy": "Privacybeleid",
-      "provide": "Word een deelnemende erfgoedorganisatie",
+      "privacy": "Privacyverklaring",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
+      "supportingTechnicalPartners": "Ondersteunende technische partners",
       "terms": "Voorwaarden en beleid"
     },
     "ourMission": "Onze missie",
@@ -749,9 +746,10 @@ export default {
       "about": "Over ons",
       "collections": "Collecties",
       "europeanaClassroom": "Voor leraren",
+      "featureIdeas": "Ideeën voor functies",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw data",
+      "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -768,7 +766,6 @@ export default {
     "discoverEditorial": "Laatste verhalen",
     "storiesCTA": "Bekijk alle verhalen",
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
-    "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
     "title": "Ontdek het {digital} culturele erfgoed van Europa",
     "titleDigital": "digitale"
@@ -781,6 +778,9 @@ export default {
     "itemOf": "{max} van {count} objecten",
     "recent": "Recente objecten",
     "recommended": "Aanbevolen objecten",
+    "trending": {
+      "headline": "Ontdek de populaire objecten van vandaag"
+    },
     "youMightLike": "Objecten die u misschien interessant vindt"
   },
   "klaro": {
@@ -788,7 +788,11 @@ export default {
       "acceptAll": "Accepteer alles",
       "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
-        "description": "Hier kunt u de diensten zien en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons <a href='/rights/privacy-policy'>privacybeleid</a>.",
+        "alwaysRequired": "(Altijd verplicht)",
+        "description": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie onze <a href='/rights/privacy-statement'> privacyverklaring </a>.",
+        "privacyPolicy": "Privacybeleid",
+        "servicesCount": "{count} dienst | {count} diensten",
+        "text": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons {privacyPolicy}.",
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
@@ -798,13 +802,44 @@ export default {
       "decline": "ik weiger",
       "ok": "Oké",
       "purposes": {
+        "2D": {
+          "title": "2D media"
+        },
+        "3D": {
+          "title": "3D media"
+        },
+        "audio": {
+          "title": "Geluid"
+        },
         "essential": {
           "description": "Deze diensten zijn essentieel voor het correct functioneren van deze website. Ze omvatten weergave van zoekresultaten en taalvoorkeuren, behouden de ingelogde status en houden uw bezoek veilig. U kunt ze niet uitschakelen, omdat de website anders niet correct zou werken.",
           "title": "Essentiële services voor beveiliging en maatwerk"
         },
+        "mediaViewing": {
+          "description": "Deze services laden afbeeldingen (2D), 3D, audio en video om te bekijken.",
+          "title": "Diensten voor het bekijken van media"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Deze services laden inhoud zoals code, games, kaarten en storytelling-widgets.",
+          "title": "Andere inbeddingsdiensten"
+        },
+        "socialMedia": {
+          "description": "Deze services laden inhoud van sociale mediaplatforms.",
+          "title": "Inbeddingsdiensten voor sociale media"
+        },
+        "thirdPartyContent": {
+          "description": "Deze services laden content die door derden wordt gehost. Het gebruik ervan is onderworpen aan de algemene voorwaarden en privacyverklaring van deze derden.",
+          "title": "Inhoud van derden"
+        },
         "usage": {
           "description": "Deze diensten verzamelen de informatie om ons te helpen beter te begrijpen hoe de website wordt gebruikt en waar de pijnpunten zijn, waardoor we weloverwogen keuzes kunnen maken om uw ervaring te verbeteren.",
           "title": "Services om websitegebruik en feedback vast te leggen"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +850,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helpt bij het debuggen van API-verzoeken",
         "title": "Debug toggle"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Onthoudt de interfacetaal van uw voorkeur voor toekomstige toegang.",
         "title": "Taalcode"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
         "title": "Jira-servicedesk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Toont een melding wanneer nieuwe functies beschikbaar komen.",
         "title": "Melding van nieuwe functie"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "onbekende provider",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1070,38 @@ export default {
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Volledig scherm afsluiten",
+      "fullscreen": "Volledig scherm",
+      "keyboardNavigation": "Gebruik de +, - en pijltjestoetsen om de afbeelding in en uit te zoomen en te verplaatsen.",
+      "resetZoom": "Zoom resetten",
+      "rotateLeft": "Draai naar links",
+      "rotateRight": "Draai naar rechts",
+      "zoomIn": "Inzoomen",
+      "zoomOut": "Uitzoomen"
+    },
+    "loadFull": "Extra grote afbeelding: volledige grootte laden.",
+    "pages": {
+      "hide": "Verberg pagina's",
+      "show": "Pagina's weergeven"
+    },
+    "sidebar": {
+      "annotations": "Annotaties",
+      "annotationsCount": "1 Annotatie | {count} Annotaties",
+      "hide": "Verberg zijbalk",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Links",
+      "search": "Zoeken",
+      "searchPlaceholder": "Voer termen in",
+      "show": "Zijbalk weergeven"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
@@ -882,6 +1110,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
+      "copyAttribution": "Kopieer de toeschrijving van het object.",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
     },
@@ -899,18 +1128,16 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
-    "loginToTranslate": "{login} om dit object in andere talen te zien",
-    "other": "andere talen",
-    "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
-    "translateLanguage": "Wilt u dit item in {0} zien?",
-    "translateMetadata": "Vertaal de metadata van dit object.",
-    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+    "stopViewingThisItemIn": "Stop met het bekijken van dit object in {0}",
+    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+    "viewingThisItemIn": "Dit object bekijken in {0}",
+    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal"
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
     "text": {
-      "trendingItems": "Ontdek welke objecten de aandacht van mensen trekken en in realtime aan populariteit winnen. Profiteer van de kans om voorop te blijven lopen en kijk wat mensen op dit moment het meest bekijken, leuk vinden, cureren en hergebruiken."
+      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -971,14 +1198,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Kopieer insluitcode",
       "pin": "Pin item aan beschikbare entiteiten"
     },
     "allMetaData": "Alle metadata",
-    "copyEmbedLabel": "Embed code (klik om te kopiëren)",
+    "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
+    "debias": "De-bias",
+    "explanationby": "Uitleg gegeven door {0}",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
-    "IIIFViewer": "IIIF-viewer",
+    "itemDepublished": "Dit object is gedepubliceerd. U kunt proberen toegang te krijgen tot de originele media via de website van de verstrekkende instelling.",
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
@@ -986,7 +1216,7 @@ export default {
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
-      "unpublished": "[Ongepubliceerd object]"
+      "depublished": "[Gedepubliceerd object]"
     }
   },
   "related": {
@@ -1038,6 +1268,7 @@ export default {
         "doesNotContain": "bevat geen",
         "exact": "bevat de zin"
       },
+      "newRule": "nieuwe geavanceerde zoekregel",
       "placeholder": {
         "field": "Selecteer een veld",
         "modifier": "Selecteer een modificator",
@@ -1101,14 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Toevoegen aan galerij",
-      "addToGallery": "Voeg dit object toe aan een galerij.",
+      "addItems": {
+        "1": "Voeg dit object toe aan een galerij.",
+        "many": "Voeg {count} object toe aan een galerij | Voeg {count} objecten toe aan een galerij"
+      },
+      "addItemsHere": {
+        "1": "Toevoegen aan galerij",
+        "many": "Voeg {count} object toe aan galerij | Voeg {count} objecten toe aan galerij"
+      },
+      "cancelSelection": "Selectie annuleren",
+      "clickToSelectItems": "Klik op objecten om ze te selecteren",
       "create": "Galerij aanmaken",
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
-      "removeItemFromLikes": "Verwijder dit object uit uw likes.",
-      "saveItemToLikes": "Bewaar dit object bij uw likes.",
+      "likeItems": {
+        "1": "Bewaar dit object bij uw likes.",
+        "many": "Like {count} object | Like {count} objecten"
+      },
+      "removeItems": {
+        "1": "Verwijder dit object uit deze galerij.",
+        "many": "Verwijder {count} object uit deze galerij | Verwijder {count} objecten uit deze galerij"
+      },
+      "selectItems": "Selecteer objecten",
+      "unlikeItems": {
+        "1": "Verwijder dit object uit uw likes.",
+        "many": "Unlike {count} object | Unlike {count} objecten"
+      },
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -1125,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "itemAdded": "Het object is toegevoegd aan de galerij \"{gallery}\".",
-      "itemLiked": "Object is opgeslagen bij uw likes.",
-      "itemRemoved": "Object is verwijderd uit galerij {gallery}.",
-      "itemUnliked": "Het object is verwijderd uit uw likes.",
+      "itemsAdded": {
+        "1": "Het object is toegevoegd aan de galerij \"{gallery}\".",
+        "many": "{count} object is toegevoegd aan de galerij \"{gallery}\". | {count} objecten zijn toegevoegd aan de galerij \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Object is opgeslagen bij uw likes.",
+        "many": "{count} object is opgeslagen in uw likes. | {count} objecten zijn opgeslagen in uw likes."
+      },
+      "itemsRemoved": {
+        "1": "Object is verwijderd uit galerij {gallery}.",
+        "many": "{count} object is verwijderd uit de galerij \"{gallery}\". | {count} objecten zijn verwijderd uit de galerij \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Het object is verwijderd uit uw likes.",
+        "many": "{count} object is verwijderd uit uw likes. | {count} objecten zijn verwijderd uit uw likes."
+      },
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 objecten liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
@@ -1137,7 +1399,8 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd.",
+      "removeItems": "Weet u zeker dat u {count} object uit deze galerij wilt verwijderen? | Weet u zeker dat u {count} objecten uit deze galerij wilt verwijderen?"
     },
     "publication": {
       "criteria": {
@@ -1165,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alles deselecteren."
+      },
+      "info": "{count} object geselecteerd. | {count} objecten geselecteerd."
     }
   },
   "shareWhere": "Waar wilt u dit delen?",
@@ -1178,13 +1447,26 @@ export default {
     "required": "Vereist"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Tentoonstellingen",
+      "stories": "Verhalen",
+      "viewAll": "Bekijk alles"
+    },
     "stories": "Verhaal | Verhalen"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {
-    "paginationBulletLabel": "Slide groep {page}"
+    "a11y": {
+      "firstSlide": "Dit is de eerste slide",
+      "lastSlide": "Dit is de laatste slide",
+      "nextSlide": "Volgende slide",
+      "paginationBullet": "Slide {page}",
+      "paginationBulletGroupedSlides": "Slide groep {page}",
+      "previousSlide": "Vorige slide",
+      "slideLabel": "Slide {slide} van {totalSlides}"
+    }
   },
   "themes": {
     "description": "Blader op thema",

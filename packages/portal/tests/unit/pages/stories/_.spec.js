@@ -32,11 +32,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $config: {
-      app: {
-        baseUrl: 'https://www.europeana.eu'
-      }
-    },
     $contentful: {
       query: contentfulQuery
     },
@@ -56,7 +51,15 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
       path: '/en/stories/once-upon-a-time',
       query: {}
     }
-  }
+  },
+  provide: {
+    canonicalUrl: {}
+  },
+  stubs: [
+    'ContentWarningModal',
+    'ErrorMessage',
+    'LoadingSpinner'
+  ]
 });
 
 describe('Story page', () => {
@@ -121,7 +124,7 @@ describe('Story page', () => {
 
       const pageMeta = wrapper.vm.pageMeta;
 
-      expect(pageMeta.ogImage).toBe(post.primaryImageOfPage.image.url);
+      expect(pageMeta.ogImage).toBe(post.primaryImageOfPage.image);
     });
   });
 });

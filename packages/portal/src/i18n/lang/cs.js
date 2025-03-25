@@ -31,7 +31,6 @@ export default {
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
       "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
-      "remove": "Odeberte tuto položku z této galerie.",
       "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
@@ -40,25 +39,28 @@ export default {
     "add": "Přidat",
     "apply": "Použít",
     "cancel": "Zrušit",
+    "changeView": "Změnit zobrazení",
     "clear": "Vyčistit",
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
+    "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
     "edit": "Upravit",
-    "explore": "Prozkoumat",
     "filter": "Filtr",
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
-    "like": "Oblíbené",
+    "like": "Líbí se mi",
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
+    "nextPage": "Další stránka",
     "pin": "Kolík",
     "preview": "Náhled",
     "previous": "Předchozí",
+    "previousPage": "Předchozí stránka",
     "publish": "Publikovat",
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
+    "unlike": "Nelíbí se mi",
     "viewAt": "Zobrazit na stránce {link}",
-    "viewDocument": "Zobrazit dokument"
+    "viewDocument": "Zobrazit dokument",
+    "vote": "Hlasování"
   },
   "attribution": {
     "country": "Země:",
@@ -96,12 +100,7 @@ export default {
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
-    "topic": "Tématy",
-    "trending": "Trendové položky"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogový příspěvek | Příspěvky na blogu"
+    "topic": "Tématy"
   },
   "cardLabels": {
     "organisation": "Organizace",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Vzorník barev",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "O stránkách Europeana",
-      "forDevelopers": "Pro vývojáře",
-      "help": "Pomoc",
-      "meetUs": "O nás",
-      "MoreInfoLabel": "Více informací",
-      "provide": "Stát se partnerem dat",
-      "subscribe": "Přihlaste se k odběru našeho newsletteru",
-      "terms": "Podmínky používání a zásady ochrany osobních údajů"
-    },
-    "headerNavigation": {
-      "Collections": "Sbírky",
-      "explore": "Prozkoumat",
-      "teachers": "Učitelé"
-    }
-  },
   "contentYouMightLike": "Obsah, který by se vám mohl líbit",
   "curatedAutomatically": "Kurátorem je automaticky Europeana",
   "dateFilter": {
@@ -194,6 +176,16 @@ export default {
     "homeLinkAlt": "Společný evropský datový prostor pro kulturní dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
+  "embedNotification": {
+    "ifNotAll": "Pokud nechcete načíst všechna vložená média, můžete {0}.",
+    "loadAllEmbeddedContent": "Načíst veškerý vložený obsah",
+    "loadOnlyThis": "načítat média pouze od tohoto poskytovatele",
+    "message": "Upozorňujeme, že tato stránka obsahuje mediální obsah vložený z webu {provider}. Na prohlížení těchto médií se vztahují jejich podmínky a prohlášení o ochraně osobních údajů. Další informace o tom, jak jsou vaše údaje používány, naleznete v jejich prohlášeních o ochraně osobních údajů.",
+    "messageUnkownService": "Bohužel tento obsah nelze zobrazit.",
+    "ofThirdPartyServices": "{0} obsahových služeb třetích stran.",
+    "viewFullList": "Zobrazit celý seznam",
+    "viewThisExternalLink": "Zobrazit tento obsah prostřednictvím externího odkazu"
+  },
   "entity": {
     "actions": {
       "cancel": "Zrušit",
@@ -244,6 +236,10 @@ export default {
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
     },
+    "noFeatureIdeas": {
+      "description": "Brzy se znovu podívejte!",
+      "title": "Momentálně žádné nové nápady na funkce."
+    },
     "pageNotFound": {
       "metaTitle": "Stránka nenalezena",
       "title": "Stránka, kterou hledáte, neexistuje."
@@ -262,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Výstava: {title}",
     "chapters": "Kapitoly",
     "credits": "Příspěvky",
     "currentChapter": "Aktuální kapitola",
@@ -724,10 +721,10 @@ export default {
       "faq": "Často kladené dotazy (FAQ)",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
-      "privacy": "Zásady ochrany osobních údajů",
-      "provide": "Staňte se poskytující instituce",
+      "privacy": "Prohlášení o ochraně osobních údajů",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
+      "supportingTechnicalPartners": "Podpora technických partnerů",
       "terms": "Podmínky a zásady"
     },
     "ourMission": "Naše mise",
@@ -749,9 +746,10 @@ export default {
       "about": "O nás",
       "collections": "Sbírky",
       "europeanaClassroom": "Pro učitele",
+      "featureIdeas": "Nápady na funkce",
       "help": "Pomoc",
       "home": "Domů",
-      "shareYourData": "Sdílejte svá data",
+      "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -768,7 +766,6 @@ export default {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
-    "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte {digital} kulturní dědictví Evropy",
     "titleDigital": "digitální"
@@ -781,6 +778,9 @@ export default {
     "itemOf": "{max} z {count} položky",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
+    "trending": {
+      "headline": "Prozkoumejte dnešní oblíbené položky"
+    },
     "youMightLike": "Položky, které by se vám mohly líbit"
   },
   "klaro": {
@@ -788,7 +788,11 @@ export default {
       "acceptAll": "Přijmout vše",
       "acceptSelected": "Přijmout vybrané",
       "consentModal": {
-        "description": "Zde můžete vidět a přizpůsobit služby, které bychom chtěli na tomto webu používat. Chcete-li se dozvědět více, přečtěte si prosím naše zásady ochrany osobních údajů <a href='/rights/privacy-policy'> privacy policy.</a>",
+        "alwaysRequired": "(Vždy povinné)",
+        "description": "Zde si můžete prohlédnout a přizpůsobit služby, které chceme na těchto webových stránkách používat. Chcete-li se dozvědět více, přečtěte si prosím naše <a href='/rights/privacy-statement'>prohlášení o ochraně osobních údajů</a>.",
+        "privacyPolicy": "Zásady ochrany osobních údajů",
+        "servicesCount": "{count} služba | {count} služeb",
+        "text": "Zde si můžete prohlédnout a přizpůsobit služby, které bychom chtěli na tomto webu používat. Chcete-li se dozvědět více, přečtěte si naše {privacyPolicy}.",
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
@@ -798,13 +802,44 @@ export default {
       "decline": "odmítám",
       "ok": "dobře",
       "purposes": {
+        "2D": {
+          "title": "2D média"
+        },
+        "3D": {
+          "title": "3D média"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Tyto služby jsou nezbytné pro správné fungování tohoto webu. Zahrnují zobrazení výsledků vyhledávání a jazykové předvolby, zachovávají přihlášený stav a udržují vaši návštěvu zabezpečenou. Nelze je deaktivovat, protože web by jinak nefungoval správně.",
           "title": "Základní služby pro zabezpečení a přizpůsobení"
         },
+        "mediaViewing": {
+          "description": "Tyto služby načítají obrazové (2D) , 3D, zvukové a video položky k prohlížení.",
+          "title": "Služby sledování médií"
+        },
+        "multimedia": {
+          "title": "Multimédia"
+        },
+        "other": {
+          "description": "Tyto služby načítají obsah, jako je kód, hry, mapy a widgety pro vyprávění příběhů.",
+          "title": "Další služby vkládání"
+        },
+        "socialMedia": {
+          "description": "Tyto služby načítají obsah z platforem sociálních médií.",
+          "title": "Služby vkládání sociálních médií"
+        },
+        "thirdPartyContent": {
+          "description": "Tyto služby načítají obsah hostovaný třetími stranami. Jeho použití podléhá podmínkám a prohlášením o ochraně osobních údajů těchto třetích stran.",
+          "title": "Obsah třetích stran"
+        },
         "usage": {
           "description": "Tyto služby shromažďují informace, které nám pomáhají lépe porozumět tomu, jak se web používá a kde jsou body bolesti, což nám umožňuje činit informovaná rozhodnutí ke zlepšení vašich zkušeností.",
           "title": "Služby zachycující používání webových stránek a zpětnou vazbu"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +850,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomáhá ladit požadavky API",
         "title": "Přepnout ladění"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktivuje widget průzkumu, který vám dává možnost reagovat na naše průzkumy spokojenosti návštěvníků.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Pamatuje si preferovaný jazyk rozhraní pro budoucí přístup.",
         "title": "Kód jazyka"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktivuje widget zpětné vazby, který vám dává možnost nás kontaktovat.",
         "title": "Jira service desk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Zobrazí oznámení, když jsou k dispozici nové funkce.",
         "title": "Oznámení o nové funkci"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
+        "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "neznámý poskytovatel",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1070,38 @@ export default {
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
   },
+  "likes": {
+    "count": "{count} like | {count} lajků"
+  },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Ukončete celou obrazovku",
+      "fullscreen": "Celá obrazovka",
+      "keyboardNavigation": "Použijte klávesy +, - a šipky pro přiblížení a posun po obrázku.",
+      "resetZoom": "Obnovit přiblížení",
+      "rotateLeft": "Otočit doleva",
+      "rotateRight": "Otočit doprava",
+      "zoomIn": "Přiblížit",
+      "zoomOut": "Oddálit"
+    },
+    "loadFull": "Extra velký obrázek: načíst v plné velikosti.",
+    "pages": {
+      "hide": "Skrýt stránky",
+      "show": "Zobrazit stránky"
+    },
+    "sidebar": {
+      "annotations": "Anotace",
+      "annotationsCount": "1 Anotace | {count} Anotace",
+      "hide": "Skrýt postranní panel",
+      "IIIFManifest": "IIIF Manifest",
+      "links": "Odkazy",
+      "search": "Vyhledat",
+      "searchPlaceholder": "Zadejte podmínky",
+      "show": "Zobrazit postranní panel"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "Zkopírováno do schránky",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
@@ -882,6 +1110,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknutím na atribut jej zkopírujete",
+      "copyAttribution": "Zkopírovat atribut položky.",
       "modalIntro": "Pokud používáte tuto položku na webu nebo jinde, nezapomeňte vedle ní zobrazit následující uvedení zdroje:",
       "modalTitle": "Řekni díky."
     },
@@ -899,18 +1128,16 @@ export default {
     "automated": "Automatizovaný překlad",
     "automatedPageTranslations": "Tato stránka používá automaticky generované překlady z angličtiny.",
     "enrichment": "Obohacení partnerskými projekty",
-    "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
-    "other": "jiné jazyky",
-    "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
-    "translateLanguage": "Chcete tuto položku vidět v {0}?",
-    "translateMetadata": "Přeložte metadata této položka.",
-    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
+    "stopViewingThisItemIn": "Přestaňte prohlížet tuto položku v {0}",
+    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později.",
+    "viewingThisItemIn": "Prohlížíte tuto položku v {0}",
+    "viewItemInAnotherLanguage": "Zobrazit tuto položku v jiném jazyce"
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
     "readMore": "Ukaž mi",
     "text": {
-      "trendingItems": "Zjistěte, které položky přitahují pozornost lidí a získávají popularitu v reálném čase. Využijte šanci zůstat na špici – podívejte se, co lidé právě teď nejvíce prohlížejí, co se jim líbí, upravují a opakovaně používají."
+      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -971,14 +1198,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Zkopírujte kód pro vložení",
       "pin": "Připnout položku k dostupným entitám"
     },
     "allMetaData": "Všechna metadata",
-    "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
+    "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
+    "debias": "De-bias",
+    "explanationby": "Vysvětlení poskytl {0}",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
-    "IIIFViewer": "Prohlížeč IIIF",
+    "itemDepublished": "Tato položka byla odebrána. Můžete se pokusit získat přístup k původnímu médiu na webových stránkách poskytující instituce.",
     "location": "Umístění",
     "locationOnMap": "Umístění na mapě",
     "mediaPlayer": "Přehrávač médií",
@@ -986,7 +1216,7 @@ export default {
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
     "status": {
-      "unpublished": "[Nepublikovaná položka]"
+      "depublished": "[Odebraná položka]"
     }
   },
   "related": {
@@ -1038,6 +1268,7 @@ export default {
         "doesNotContain": "neobsahuje",
         "exact": "obsahuje frázi"
       },
+      "newRule": "nové pravidlo pokročilého vyhledávání",
       "placeholder": {
         "field": "Vyberte pole",
         "modifier": "Vyberte modifikátor",
@@ -1101,14 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Vložit do galerie",
-      "addToGallery": "Přidat tuto položku do galerie.",
+      "addItems": {
+        "1": "Přidat tuto položku do galerie.",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
+      "addItemsHere": {
+        "1": "Vložit do galerie",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
+      "cancelSelection": "Zrušit výběr",
+      "clickToSelectItems": "Kliknutím na položky je vyberete",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svých lajků.",
-      "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
+      "likeItems": {
+        "1": "Uložte si tuto položku do seznamu líbí se vám.",
+        "many": "Lajkuj {count} položku | Lajkuj {count} položky"
+      },
+      "removeItems": {
+        "1": "Odeberte tuto položku z této galerie.",
+        "many": "Odstraňte {count} položku z této galerie | Odstraňte {count} položky z této galerie"
+      },
+      "selectItems": "Vyberte položky",
+      "unlikeItems": {
+        "1": "Odeberte tuto položku ze svýchlíbí se mi.",
+        "many": "Odeber lajk z {count} položky | Odeber lajky z {count} položek"
+      },
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -1125,19 +1375,32 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
-      "itemAdded": "Položka byla přidána do galerie \"{gallery}\".",
-      "itemLiked": "Položka byla uložena do vašich označení líbí se mi.",
-      "itemRemoved": "Položka byla odstraněna z galerie {gallery}.",
-      "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
+      "itemsAdded": {
+        "1": "Položka byla přidána do galerie \"{gallery}\".",
+        "many": "{count} položka byla přidána do galerie \"{gallery}\". | {count} položky byly přidány do galerie \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Položka byla uložena do vašich označení líbí se mi.",
+        "many": "{count} položka byla uložena do vašich označení líbí se mi. | {count} položky byly uloženy do vašich označení líbí se mi."
+      },
+      "itemsRemoved": {
+        "1": "Položka byla odstraněna z galerie {gallery}.",
+        "many": "{count} položka byla odstraněna z galerie \"{gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Položka byla odstraněna z vašich označení líbí se mi.",
+        "many": "{count} položka byla odstraněna z vašich označení líbí se mi. | {count} položky byly odstraněny z vašich označení líbí se mi."
+      },
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
-        "title": "100 oblíbených"
+        "title": "100 lajků"
       },
       "updated": "Položka byla přidána do galerie.",
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje.",
+      "removeItems": "Jste si jisti, že chcete odstranit {count} položku z této galerie? | Jste si jisti, že chcete odstranit {count} položky z této galerie?"
     },
     "publication": {
       "criteria": {
@@ -1165,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušit výběr všeho."
+      },
+      "info": "{count} vybraná položka. | {count} vybrané položky."
     }
   },
   "shareWhere": "Kam byste to chtěli sdílet?",
@@ -1178,13 +1447,26 @@ export default {
     "required": "Požadováno"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Výstavy",
+      "stories": "Příběhy",
+      "viewAll": "Zobrazit vše"
+    },
     "stories": "Příběh | Příběhy"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {
-    "paginationBulletLabel": "Skupina snímků {page}"
+    "a11y": {
+      "firstSlide": "Toto je první snímek",
+      "lastSlide": "Toto je poslední snímek",
+      "nextSlide": "Další snímek",
+      "paginationBullet": "Snímek {page}",
+      "paginationBulletGroupedSlides": "Skupina snímků {page}",
+      "previousSlide": "Předchozí snímek",
+      "slideLabel": "Snímek {slide} z {totalSlides}"
+    }
   },
   "themes": {
     "description": "Procházet podle tématu",

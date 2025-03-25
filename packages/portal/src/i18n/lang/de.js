@@ -31,7 +31,6 @@ export default {
       "private": "Eine private Galerie kann nur von Ihnen angesehen werden.",
       "public": "Eine öffentliche Galerie kann von jedem mit dem Link angesehen werden.",
       "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden.",
-      "remove": "Entfernen Sie dieses Objekt aus dieser Galerie.",
       "reorder": "Sie können Objekte neu anordnen, indem Sie auf diese Schaltfläche klicken und das Objekt ziehen, um es zu verschieben."
     }
   },
@@ -40,14 +39,15 @@ export default {
     "add": "Hinzufügen",
     "apply": "Anwenden",
     "cancel": "Abbrechen",
+    "changeView": "Ansicht ändern",
     "clear": "Zurücksetzen",
     "clearFilters": "Filter löschen",
     "close": "schließen",
+    "confirm": "Bestätigen",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
-    "explore": "Erkunden",
     "filter": "Filter",
     "goHome": "Zur Startseite gehen",
     "hide": "Verstecken",
@@ -56,9 +56,11 @@ export default {
     "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
+    "nextPage": "Nächste Seite",
     "pin": "Anheften",
     "preview": "Vorschau",
     "previous": "Vorherige",
+    "previousPage": "Vorherige Seite",
     "publish": "Veröffentlichen",
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
@@ -74,8 +76,10 @@ export default {
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "transcribe": "Transkribieren",
     "transcribeNow": "Jetzt transkribieren",
+    "unlike": "Unlike",
     "viewAt": "Ansicht unter {link}",
-    "viewDocument": "Dokument anzeigen"
+    "viewDocument": "Dokument anzeigen",
+    "vote": "Abstimmen"
   },
   "attribution": {
     "country": "Land:",
@@ -96,12 +100,7 @@ export default {
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
-    "topic": "Themen",
-    "trending": "Trendige Objekte"
-  },
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blogbeitrag | Blogeinträge"
+    "topic": "Themen"
   },
   "cardLabels": {
     "organisation": "Organisation",
@@ -154,23 +153,6 @@ export default {
     }
   },
   "colourSwatch": "Farbmuster",
-  "contentfulManual": {
-    "footerNavigation": {
-      "about": "Über Europeana",
-      "forDevelopers": "Für Entwickler",
-      "help": "Hilfe",
-      "meetUs": "Lernen Sie das Team kennen",
-      "MoreInfoLabel": "Mehr Infos",
-      "provide": "Werden Sie Datenanbieter",
-      "subscribe": "Abonnieren Sie unseren Newsletter",
-      "terms": "Nutzungsbedingungen und Datenschutzerklärung"
-    },
-    "headerNavigation": {
-      "Collections": "Sammlungen",
-      "explore": "Erkunden",
-      "teachers": "Lehrerinnen und Lehrerinnen"
-    }
-  },
   "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "curatedAutomatically": "Automatisch von Europeana kuratiert",
   "dateFilter": {
@@ -194,6 +176,16 @@ export default {
     "homeLinkAlt": "Der gemeinsame europäische Datenraum für das heimische Kulturerbe"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "embedNotification": {
+    "ifNotAll": "Wenn Sie nicht alle eingebetteten Medien laden möchten, können Sie {0}.",
+    "loadAllEmbeddedContent": "Alle eingebetteten Inhalte laden",
+    "loadOnlyThis": "nur Medien von diesem Anbieter laden",
+    "message": "Bitte beachten Sie, dass diese Seite eingebettete Medieninhalte von {provider} enthält. Das Betrachten dieser Medien unterliegt den Bedingungen und Datenschutzerklärungen dieser Seite. Weitere Informationen über die Verwendung Ihrer Daten finden Sie in den Datenschutzerklärungen dieser Unternehmen.",
+    "messageUnkownService": "Leider kann dieser Inhalt nicht angezeigt werden.",
+    "ofThirdPartyServices": "{0} von Inhaltsdiensten Dritter.",
+    "viewFullList": "Vollständige Liste anzeigen",
+    "viewThisExternalLink": "Diesen Inhalt über einen externen Link anzeigen"
+  },
   "entity": {
     "actions": {
       "cancel": "Abbrechen",
@@ -244,6 +236,10 @@ export default {
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
     },
+    "noFeatureIdeas": {
+      "description": "Schauen Sie bald wieder vorbei!",
+      "title": "Im Moment gibt es keine Ideen für neue Funktionen."
+    },
     "pageNotFound": {
       "metaTitle": "Seite nicht gefunden",
       "title": "Die gesuchte Seite existiert nicht."
@@ -262,6 +258,7 @@ export default {
     }
   },
   "exhibitions": {
+    "breadcrumbPrefix": "Ausstellung: {title}",
     "chapters": "Kapitel",
     "credits": "Credits",
     "currentChapter": "Aktuelles Kapitel",
@@ -724,10 +721,10 @@ export default {
       "faq": "Häufig gestellte Fragen (FAQ)",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
-      "privacy": "Datenschutz-Bestimmungen",
-      "provide": "Werden Sie Datenpartner",
+      "privacy": "Datenschutzerklärung",
       "seeApiRequests": "Siehe Anfragen an Europeana APIs",
       "subscribe": "Abonnieren Sie unseren Newsletter",
+      "supportingTechnicalPartners": "Unterstützung technischer Partner",
       "terms": "Bedingungen und Richtlinien"
     },
     "ourMission": "Unser Auftrag",
@@ -749,9 +746,10 @@ export default {
       "about": "Über (uns)",
       "collections": "Sammlungen",
       "europeanaClassroom": "Für Lehrende",
+      "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
-      "shareYourData": "Teilen Sie Ihre Daten",
+      "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -768,8 +766,7 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themenbereiche anzeigen",
-    "themesTitle": "Erkunden Sie nach Themenbereiche",
+    "themesTitle": "Erkunden Sie nach Themenbereich",
     "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
   },
@@ -781,6 +778,9 @@ export default {
     "itemOf": "{max} von {count} Objekte",
     "recent": "Aktuelle Objekte",
     "recommended": "Empfohlene Objekte",
+    "trending": {
+      "headline": "Entdecken Sie die beliebtesten Objekte von heute"
+    },
     "youMightLike": "Objekte, die Ihnen vielleicht gefallen könnten"
   },
   "klaro": {
@@ -788,7 +788,11 @@ export default {
       "acceptAll": "Alle akzeptieren",
       "acceptSelected": "Ausgewählte akzeptieren",
       "consentModal": {
-        "description": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website nutzen möchten. Um mehr zu erfahren, lesen Sie bitte unsere <a href='/rights/privacy-policy'> Datenschutzrichtlinie </a>.",
+        "alwaysRequired": "(Immer erforderlich)",
+        "description": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website nutzen möchten. Um mehr zu erfahren, lesen Sie bitte unsere <a href='/rights/privacy-statement'>datenschutzerklärung</a>.",
+        "privacyPolicy": "Datenschutzrichtlinie",
+        "servicesCount": "{count} Dienst | {count} Dienste",
+        "text": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website verwenden möchten. Weitere Informationen finden Sie in unserer {privacyPolicy}.",
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
@@ -798,13 +802,44 @@ export default {
       "decline": "Ich lehne ab",
       "ok": "Okay",
       "purposes": {
+        "2D": {
+          "title": "2D-Medien"
+        },
+        "3D": {
+          "title": "3D-Medien"
+        },
+        "audio": {
+          "title": "Audio"
+        },
         "essential": {
           "description": "Diese Dienste sind für das korrekte Funktionieren dieser Website unerlässlich. Sie umfassen die Anzeige von Suchergebnissen und Spracheinstellungen, bewahren den eingeloggten Status und sorgen für die Sicherheit Ihres Besuchs. Sie können sie nicht deaktivieren, da die Website sonst nicht richtig funktionieren würde.",
           "title": "Grundlegende Dienste für Sicherheit und Anpassung"
         },
+        "mediaViewing": {
+          "description": "Diese Dienste laden Bild- (2D), 3D-, Audio- und Videoelemente zur Ansicht.",
+          "title": "Medienbetrachtungsdienste"
+        },
+        "multimedia": {
+          "title": "Multimedia"
+        },
+        "other": {
+          "description": "Diese Dienste laden Inhalte wie Code, Spiele, Karten und Storytelling-Widgets.",
+          "title": "Andere Einbettungsdienste"
+        },
+        "socialMedia": {
+          "description": "Diese Dienste laden Inhalte von Social-Media-Plattformen.",
+          "title": "Dienste zur Einbettung in soziale Medien"
+        },
+        "thirdPartyContent": {
+          "description": "Diese Dienste laden Inhalte, die von Dritten gehostet werden. Ihre Nutzung unterliegt den Geschäftsbedingungen und Datenschutzbestimmungen dieser Dritten.",
+          "title": "Inhalte von Dritten"
+        },
         "usage": {
           "description": "Diese Dienste sammeln die Informationen, um uns zu helfen, besser zu verstehen, wie die Website verwendet wird und wo die Schwachstellen sind, und befähigen uns, fundierte Entscheidungen zu treffen, um Ihre Erfahrung zu verbessern.",
           "title": "Dienste zur Erfassung von Website-Nutzung und Feedback"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -815,37 +850,200 @@ export default {
       }
     },
     "services": {
+      "albinLarsson": {
+        "title": "Albin Larsson"
+      },
+      "archiveOrg": {
+        "title": "Archive.org"
+      },
+      "arctur3DViewer": {
+        "title": "Arctur 3Dviewer"
+      },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
         "title": "Auth-Strategie"
+      },
+      "behance": {
+        "title": "Behance"
+      },
+      "bookWidgets": {
+        "title": "Book Widgets"
+      },
+      "britishLibrarySounds": {
+        "title": "British Library Sounds"
+      },
+      "buzzsprout": {
+        "title": "Buzzsprout"
+      },
+      "codepen": {
+        "title": "Codepen"
+      },
+      "datawrapper": {
+        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hilft beim Debuggen von API-Anfragen",
         "title": "Debug toggle"
       },
+      "deutschesFilmportal": {
+        "title": "Deutsches Filmportal"
+      },
+      "deutscheWelle": {
+        "title": "Deutsche Welle"
+      },
+      "digitalRepositoryOfIreland": {
+        "title": "Digital Repository of Ireland"
+      },
+      "eclap": {
+        "title": "Eclap"
+      },
+      "ecorpus": {
+        "title": "Ecorpus"
+      },
+      "eureka3D": {
+        "title": "EUreka3D"
+      },
+      "europeanParliamentMultimediaService": {
+        "title": "European parliament multimedia service"
+      },
+      "euscreen": {
+        "title": "Euscreen"
+      },
+      "freesound": {
+        "title": "Freesound"
+      },
+      "gallica": {
+        "title": "Gallica"
+      },
+      "giphy": {
+        "title": "Giphy"
+      },
+      "googleDocs": {
+        "title": "Google Docs"
+      },
+      "googleDrive": {
+        "title": "Google Drive"
+      },
+      "gotlandPictureStones": {
+        "title": "Gotland Picture Stones"
+      },
       "hotjar": {
         "description": "Aktiviert ein Umfrage-Widget, das Ihnen die Möglichkeit gibt, auf unsere Umfragen zur Besucherzufriedenheit zu antworten.",
         "title": "Hotjar"
+      },
+      "humap": {
+        "title": "Humap"
       },
       "i18n": {
         "description": "Merkt sich Ihre bevorzugte Oberflächensprache für den zukünftigen Zugriff.",
         "title": "Sprachcode"
       },
+      "instagram": {
+        "title": "Instagram"
+      },
+      "institutNationalDeLAudiovisuel": {
+        "title": "Institut National de l'Audiovisuel"
+      },
+      "internetCulturale": {
+        "title": "Internet Culturale"
+      },
+      "jigsawplanet": {
+        "title": "Jigsawplanet"
+      },
       "jira-servicedesk": {
         "description": "Aktiviert das Feedback-Widget, das Ihnen die Möglichkeit gibt, uns zu kontaktieren.",
         "title": "Jira service desk"
+      },
+      "kompakkt": {
+        "title": "Kompakkt"
+      },
+      "kystreise": {
+        "title": "Kystreise"
       },
       "matomo": {
         "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
         "title": "Matomo"
       },
+      "myAdventCalendar": {
+        "title": "My Advent Calendar"
+      },
+      "myminifactory": {
+        "title": "Myminifactory"
+      },
+      "nakala": {
+        "title": "Nakala"
+      },
       "newFeatureNotification": {
         "description": "Zeigt eine Benachrichtigung an, wenn neue Funktionen verfügbar sind.",
         "title": "Benachrichtigung über neue Funktionen"
       },
+      "openbeelden": {
+        "title": "Openbeelden"
+      },
+      "phonobase": {
+        "title": "Phonobase"
+      },
+      "pinterest": {
+        "title": "Pinterest"
+      },
+      "prezi": {
+        "title": "Prezi"
+      },
       "searchResultsView": {
-        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "description": "Merkt sich, ob Sie die Suchergebnisse, Galerien und Ihre Likes lieber in einer Listen-, Raster- oder Mosaikansicht sehen möchten.",
+        "title": "Ansicht von Suchergebnis, Galerien und Likes (Liste/Raster/Mosaik)"
+      },
+      "serveiDeGestioDocumentalArxius": {
+        "title": "Servei de Gestió Documental, Arxius"
+      },
+      "sketchfab": {
+        "title": "Sketchfab"
+      },
+      "slidebean": {
+        "title": "Slidebean"
+      },
+      "soundArchivesOfTheCNRS": {
+        "title": "Sound archives of the CNRS"
+      },
+      "soundCloud": {
+        "title": "SoundCloud"
+      },
+      "spatial": {
+        "title": "Spatial"
+      },
+      "theCyprusInstitute": {
+        "title": "The Cyprus Institute"
+      },
+      "tibAvPortal": {
+        "title": "TIB AV-Portal"
+      },
+      "tv3": {
+        "title": "TV3 Televisió de Catalunya"
+      },
+      "universityOfCaliforniaSanDiego": {
+        "title": "University of California, San Diego"
+      },
+      "unknownProvider": "unbekannter Anbieter",
+      "vimeo": {
+        "title": "Vimeo"
+      },
+      "weave": {
+        "title": "WEAVE"
+      },
+      "wheeldecide": {
+        "title": "Wheeldecide"
+      },
+      "wikidata": {
+        "title": "Wikidata"
+      },
+      "woobox": {
+        "title": "Woobox"
+      },
+      "x": {
+        "title": "X"
+      },
+      "youTube": {
+        "title": "YouTube"
       }
     }
   },
@@ -872,8 +1070,38 @@ export default {
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
   },
+  "likes": {
+    "count": "{count} like | {count} likes"
+  },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
+  "media": {
+    "controls": {
+      "exitFullscreen": "Vollbild beenden",
+      "fullscreen": "Vollbild",
+      "keyboardNavigation": "Verwenden Sie die +, - und Pfeiltasten, um das Bild zu zoomen und zu verschieben.",
+      "resetZoom": "Zoom zurücksetzen",
+      "rotateLeft": "Nach links drehen",
+      "rotateRight": "Nach rechts drehen",
+      "zoomIn": "Vergrößern",
+      "zoomOut": "Verkleinern"
+    },
+    "loadFull": "Extra großes Bild: in voller Größe laden.",
+    "pages": {
+      "hide": "Seiten ausblenden",
+      "show": "Seiten anzeigen"
+    },
+    "sidebar": {
+      "annotations": "Anmerkungen",
+      "annotationsCount": "1 Anmerkung | {count} Anmerkungen",
+      "hide": "Seitenleiste ausblenden",
+      "IIIFManifest": "IIIF-Manifest",
+      "links": "Links",
+      "search": "Suche",
+      "searchPlaceholder": "Begriffe eingeben",
+      "show": "Seitenleiste anzeigen"
+    }
+  },
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
@@ -882,6 +1110,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
+      "copyAttribution": "Zuschreibung des Objekts kopieren.",
       "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Namensnennung daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
     },
@@ -899,18 +1128,16 @@ export default {
     "automated": "Automatisierte Übersetzung",
     "automatedPageTranslations": "Diese Seite verwendet automatisch generierte Übersetzungen aus dem Englischen.",
     "enrichment": "Anreicherung durch Partnerprojekte",
-    "loginToTranslate": "{login} um dies Objekt in anderen Sprachen anzuzeigen",
-    "other": "anderen Sprachen",
-    "stopTranslating": "Beenden Sie die Übersetzung dieses Objektes ins {0}.",
-    "translateLanguage": "Möchten Sie dieses Objekt in {0} sehen?",
-    "translateMetadata": "Übersetzen Sie die Metadaten dieses Objekt.",
-    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
+    "stopViewingThisItemIn": "Dieses Objekt nicht mehr anzeigen in {0}",
+    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "viewingThisItemIn": "Dieses Objekt in {0} anzeigen",
+    "viewItemInAnotherLanguage": "Dieses Objekt in einer anderen Sprache anzeigen"
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
     "readMore": "Zeig mir",
     "text": {
-      "trendingItems": "Entdecken Sie, welche Objekte die Aufmerksamkeit der Menschen auf sich ziehen und in Echtzeit an Beliebtheit gewinnen. Nutzen Sie die Chance, der Zeit voraus zu sein - sehen Sie, was die Leute gerade am meisten ansehen, mögen, kuratieren und wiederverwenden."
+      "featureIdeas": "Informieren Sie sich über die geplanten Änderungen und stimmen Sie ab, welche Änderungen für Sie Priorität haben sollen. Ihr Beitrag hilft uns, uns auf das zu konzentrieren, was für Sie am wichtigsten ist."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
@@ -971,14 +1198,17 @@ export default {
   },
   "record": {
     "actions": {
+      "copyEmbedCode": "Einbettungscode kopieren",
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
     "allMetaData": "Alle Metadaten",
-    "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
+    "clickToCopyEmbedCode": "Klicken Sie auf den Einbettungscode, um ihn zu kopieren",
+    "debias": "De-bias",
+    "explanationby": "Erklärung bereitgestellt von {0}.",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
-    "IIIFViewer": "IIIF-Viewer",
+    "itemDepublished": "Dieses Objekt wurde depubliziert. Sie können versuchen, auf das ursprüngliche Medium über die Website der anbietenden Einrichtung zuzugreifen.",
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",
@@ -986,7 +1216,7 @@ export default {
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Objekte",
     "status": {
-      "unpublished": "[unveröffentlichtes Objekt]"
+      "depublished": "[Depubliziertes Objekt]"
     }
   },
   "related": {
@@ -1038,6 +1268,7 @@ export default {
         "doesNotContain": "enthält nicht",
         "exact": "enthält die Phrase"
       },
+      "newRule": "neue erweiterte Suchregel",
       "placeholder": {
         "field": "Wählen Sie ein Feld aus",
         "modifier": "Wählen Sie einen Modifikator",
@@ -1101,14 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Zur Galerie hinzufügen",
-      "addToGallery": "Fügen Sie diesem Objekt einer Galerie hinzu.",
+      "addItems": {
+        "1": "Fügen Sie diesem Objekt einer Galerie hinzu.",
+        "many": "{count} Objekt zu einer Galerie hinzufügen | {count} Objekte zu einer Galerie hinzufügen"
+      },
+      "addItemsHere": {
+        "1": "Zur Galerie hinzufügen",
+        "many": "{count} Objekt zu einer Galerie hinzufügen | {count} Objekte zu einer Galerie hinzufügen"
+      },
+      "cancelSelection": "Auswahl aufheben",
+      "clickToSelectItems": "Klicken Sie auf Objekte, um sie auszuwählen",
       "create": "Galerie erstellen",
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
-      "removeItemFromLikes": "Entfernen Sie dieses Objekt aus deinen Likes.",
-      "saveItemToLikes": "Speichere diesem Objekt in deinen Likes.",
+      "likeItems": {
+        "1": "Speichern Sie dieses Objekt in Ihren Likes.",
+        "many": "Liken {count} Objekt | Liken {count} Objekte"
+      },
+      "removeItems": {
+        "1": "Entfernen Sie dieses Objekt aus dieser Galerie.",
+        "many": "{count} Objekt aus dieser Galerie entfernen | {count} Objekte aus dieser Galerie entfernen"
+      },
+      "selectItems": "Objekte auswählen",
+      "unlikeItems": {
+        "1": "Entfernen Sie dieses Objekt aus Ihren Likes.",
+        "many": "Nicht mehr liken {count} Objekt | Nicht mehr liken {count} Objekte"
+      },
       "update": "Galerie aktualisieren"
     },
     "form": {
@@ -1125,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
-      "itemAdded": "Das Objekt wurde zur Galerie \"{gallery}\" hinzugefügt.",
-      "itemLiked": "Das Objekt wurde zu Ihren Likes gespeichert.",
-      "itemRemoved": "Das Objekt wurde aus der Galerie {gallery} entfernt.",
-      "itemUnliked": "Das Objekt wurde aus Ihren Likes entfernt.",
+      "itemsAdded": {
+        "1": "Das Objekt wurde zur Galerie \"{gallery}\" hinzugefügt.",
+        "many": "{count} Objekt wurde zur Galerie \"{gallery}\" hinzugefügt. | {count} Objekte wurden zur Galerie \"{gallery}\" hinzugefügt."
+      },
+      "itemsLiked": {
+        "1": "Das Objekt wurde zu Ihren Likes gespeichert.",
+        "many": "{count} Objekt wurde in Ihre Likes gespeichert. | {count} Objekte wurden in Ihre Likes gespeichert."
+      },
+      "itemsRemoved": {
+        "1": "Das Objekt wurde aus der Galerie {gallery} entfernt.",
+        "many": "{count} Objekt wurde aus der Galerie \"{gallery}\" entfernt. | {count} Objekte wurden aus der Galerie \"{gallery}\" entfernt."
+      },
+      "itemsUnliked": {
+        "1": "Das Objekt wurde aus Ihren Likes entfernt.",
+        "many": "{count} Objekt wurde aus Ihren Likes entfernt. | {count} Objekte wurden aus Ihren Likes entfernt."
+      },
       "likeLimit": {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
@@ -1137,7 +1399,8 @@ export default {
       "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
+      "removeItems": "Sind Sie sicher, dass Sie {count} Objekt aus dieser Galerie entfernen möchten? | Sind Sie sicher, dass Sie {count} Objekte aus dieser Galerie entfernen möchten?"
     },
     "publication": {
       "criteria": {
@@ -1165,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alle abwählen."
+      },
+      "info": "{count} Objekt ausgewählt. | {count} ausgewählte Objekte."
     }
   },
   "shareWhere": "Wo möchtest du das teilen?",
@@ -1178,13 +1447,26 @@ export default {
     "required": "Erforderlich"
   },
   "stories": {
+    "filter": {
+      "exhibitions": "Ausstellungen",
+      "stories": "Geschichten",
+      "viewAll": "Alle anzeigen"
+    },
     "stories": "Geschichte | Geschichten"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} Geschichten gefunden"
   },
   "swiper": {
-    "paginationBulletLabel": "Foliengruppe {page}"
+    "a11y": {
+      "firstSlide": "Dies ist die erste Folie",
+      "lastSlide": "Dies ist die letzte Folie",
+      "nextSlide": "Nächste Folie",
+      "paginationBullet": "Folie {page}",
+      "paginationBulletGroupedSlides": "Foliengruppe {page}",
+      "previousSlide": "Vorherige Folie",
+      "slideLabel": "Folie {slide} von {totalSlides}"
+    }
   },
   "themes": {
     "description": "Nach Themenbereiche durchsuchen",

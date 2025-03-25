@@ -42,7 +42,7 @@
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
   import { responsiveContentfulBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
-  import { FULL_VIEWPORT_PRESETS as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
+  import { FULL_VIEWPORT_PRESETS_FOCUS_FACE as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'HomeHero',
@@ -94,9 +94,8 @@
   @import '@europeana/style/scss/responsive-background-image';
 
   .hero {
-    margin-top: -70px;
     margin-bottom: 4.5rem;
-    background-color: $mediumgrey-light;
+    background-color: $darkgrey-light;
     padding: 25vh 1.5rem 1.5rem;
     min-height: 100vh;
     position: relative;
@@ -104,27 +103,7 @@
     overflow: hidden;
 
     @media (min-width: $bp-4k) {
-      margin-top: calc(1.5 * -70px);
       padding-bottom: calc(1.5 * 128px);
-    }
-
-    &::after {
-      border-bottom: 209px solid $white;
-      border-left: 95px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: calc(100% - 209px);
-      width: 0;
-      z-index: 1;
-
-      @media (min-width: $bp-xxxl) {
-        border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
-        border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
-        top: calc(100% - (209 / 16 * 1vw) + 1px); // Adding one pixel so as to prevent a black line due to rounding
-      }
     }
 
     .hero-background {

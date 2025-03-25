@@ -5,7 +5,10 @@ import EuropeanaSetApi from '@/plugins/europeana/set';
 
 const setId = '1234';
 const itemId = '/123/abc';
-const $config = { europeana: { apis: { set: { key: 'apikey' } } } };
+const itemIds = ['/123/abc', '/123/def'];
+const apiKey = 'apikey';
+const $config = { europeana: { apis: { set: { key: apiKey } } } };
+const $configV012 = { europeana: { apis: { set: { key: apiKey, version: '0.12' } } } };
 const likesResponse = {
   '@context': 'http://www.europeana.eu/schemas/context/collection.jsonld',
   id: 'http://data.europeana.eu/set/1234',
@@ -45,10 +48,61 @@ describe('@/plugins/europeana/set', () => {
     it('includes the axios default params', async() => {
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
-        .query(query => query.wskey === 'apikey')
+        .query(query => query.wskey === apiKey)
         .reply(200, setGetResponse);
 
       await (new EuropeanaSetApi({ $config })).get(setId);
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('removes the page & perPage params if API version is 0.12', async() => {
+      const getParams = {
+        page: 1,
+        perPage: 100
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the meta param if API version is 0.12', async() => {
+      const getParams = { profile: 'meta' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the items param if API version is 0.12', async() => {
+      const getParams = { profile: 'items' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'standard' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('substitutes the items.meta param if API version is 0.12', async() => {
+      const getParams = { profile: 'items.meta' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}`)
+        .query({ wskey: 'apikey', profile: 'itemDescriptions' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
+
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -62,7 +116,7 @@ describe('@/plugins/europeana/set', () => {
       };
       nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
-        .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
+        .query({ profile: 'items', query: 'creator:auth-user-sub type:BookmarkFolder', wskey: 'apikey' })
         .reply(200, searchResponse);
 
       const response = await (new EuropeanaSetApi({ $config })).getLikes('auth-user-sub');
@@ -82,19 +136,8 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
-  describe('modifyItems()', () => {
-    it('adds item to set', async() => {
-      nock(EuropeanaSetApi.BASE_URL)
-        .put(`/${setId}${itemId}`)
-        .query(true)
-        .reply(200, likesResponse);
-      const response =  await (new EuropeanaSetApi({ $config })).modifyItems('add', setId, itemId);
-      expect(response.id).toBe('http://data.europeana.eu/set/1234');
-    });
-  });
-
   describe('delete()', () => {
-    it('deletes item from set', async() => {
+    it('deletes the set', async() => {
       nock(EuropeanaSetApi.BASE_URL)
         .delete(`/${setId}`)
         .query(true)
@@ -105,20 +148,46 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
+  describe('create()', () => {
+    const body = { type: 'Collection', collectionType: 'Gallery', visibility: 'public' };
+    it('creates the set', async() => {
+      nock(EuropeanaSetApi.BASE_URL)
+        .post('/', body)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).create(body);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('removes collectionType data property if API version is 0.12', async() => {
+      const bodyV012 = { type: 'Collection', visibility: 'public' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .post('/', bodyV012)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).create(body);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
   describe('update()', () => {
+    const body = { type: 'Collection', collectionType: 'Gallery', visibility: 'public' };
     it('updates the set', async() => {
-      const body = { type: 'Collection', visibility: 'public' };
       nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
         .query(true)
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).update(setId, body);
+
       expect(nock.isDone()).toBe(true);
     });
 
     it('includes params if supplied', async() => {
-      const body = { type: 'Collection', visibility: 'public' };
       const params = { profile: 'standard' };
       nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
@@ -126,6 +195,19 @@ describe('@/plugins/europeana/set', () => {
         .reply(200);
 
       await (new EuropeanaSetApi({ $config })).update(setId, body, params);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('removes collectionType data property if API version is 0.12', async() => {
+      const bodyV012 = { type: 'Collection', visibility: 'public' };
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}`, bodyV012)
+        .query(true)
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).update(setId, body);
+
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -159,19 +241,98 @@ describe('@/plugins/europeana/set', () => {
       const searchParams = {
         query: 'type:EntityBestItemsSet',
         profile: 'minimal',
+        page: 1,
         pageSize: 1
       };
-
       nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
-        // TODO: Expect the params, this isn't matching the request though.
-        // .query({ params: { wskey: 'apikey', ...searchParams } })
-        .query(true)
-        .reply(200, 'response');
+        .query({ wskey: apiKey, ...searchParams })
+        .reply(200);
 
-      const response = await (new EuropeanaSetApi({ $config })).search(searchParams);
+      await (new EuropeanaSetApi({ $config })).search(searchParams);
 
-      expect(response).toEqual('response');
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('if API version is 0.12', () => {
+      it('decrements page param', async() => {
+        const searchParams = {
+          query: 'type:EntityBestItemsSet',
+          profile: 'minimal',
+          page: 1,
+          pageSize: 1
+        };
+        nock(EuropeanaSetApi.BASE_URL)
+          .get('/search')
+          .query({ wskey: apiKey, ...searchParams, page: 0 })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('uses standard profile when items.meta profile and withMinimalItemPreviews option are set', async() => {
+        const searchParams = {
+          query: '',
+          profile: 'items.meta'
+        };
+        nock(EuropeanaSetApi.BASE_URL)
+          .get('/search')
+          .query({ wskey: 'apikey', ...searchParams, profile: 'standard' })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams, { withMinimalItemPreviews: true });
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+
+    it('changes param profile=items to profile=minimal if API version is 0.12', async() => {
+      const searchParams = {
+        query: 'type:Collection',
+        profile: 'items'
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get('/search')
+        .query({ wskey: 'apikey', ...searchParams, profile: 'minimal' })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('changes param profile=items.meta to profile=itemDescritpions if API version is 0.12', async() => {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        profile: 'items.meta',
+        page: 1,
+        pageSize: 1
+      };
+      nock(EuropeanaSetApi.BASE_URL)
+        .get('/search')
+        .query({ wskey: 'apikey', ...searchParams, profile: 'itemDescriptions', page: 0 })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config: $configV012 })).search(searchParams);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('getItems', () => {
+      it('gets the items within a set', async() => {
+        const items = ['item1', 'item2'];
+        nock(EuropeanaSetApi.BASE_URL)
+          .get(`/${setId}`)
+          .query({ page: 1, pageSize: 100, profile: 'items.meta', wskey: 'apikey' })
+          .reply(200, { items });
+
+        const response = await (new EuropeanaSetApi({ $config })).getItems(setId);
+
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(items);
+      });
     });
 
     describe('options', () => {
@@ -182,7 +343,7 @@ describe('@/plugins/europeana/set', () => {
           ]
         };
         const context = {
-          $config,
+          $config: $configV012,
           $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
         };
         const setSearchResponse = {
@@ -263,6 +424,132 @@ describe('@/plugins/europeana/set', () => {
           });
         });
       });
+    });
+  });
+
+  describe('insertItems', () => {
+    it('inserts the items into the set at the given position', async() => {
+      const position = 7;
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}/items`, itemIds)
+        .query({ position, wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).insertItems(setId, itemIds, position);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('v0.12 API compatibility', () => {
+      it('inserts each item into the set at the given position', async() => {
+        const position = 7;
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemIds[0]}`)
+          .query({ position, wskey: apiKey })
+          .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemIds[1]}`)
+          .query({ position: 8, wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV012 })).insertItems(setId, itemIds, position);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+  });
+
+  describe('pinItem', () => {
+    it('inserts the item into the set at the "pin" position', async() => {
+      const position = 'pin';
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}/items`, [itemId])
+        .query({ position, wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).pinItem(setId, itemId);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
+  describe('deleteItems', () => {
+    it('deletes the item from the set', async() => {
+      nock(EuropeanaSetApi.BASE_URL)
+        .delete(`/${setId}/items`, itemIds)
+        .query({ wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).deleteItems(setId, itemIds);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('v0.12 API compatibility', () => {
+      it('deletes each item from the set', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemIds[0]}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemIds[1]}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV012 })).deleteItems(setId, itemIds);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+  });
+
+  describe('repositionItem', () => {
+    const position = 7;
+
+    it('deletes then reinserts the item at the new position', async() => {
+      nock(EuropeanaSetApi.BASE_URL)
+        .delete(`/${setId}/items`, [itemId])
+        .query({ wskey: apiKey })
+        .reply(200);
+      nock(EuropeanaSetApi.BASE_URL)
+        .put(`/${setId}/items`, [itemId])
+        .query({ position, wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).repositionItem(setId, itemId, position);
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('v0.12 API compatibility', () => {
+      it('deletes then reinserts the item at the new position', async() => {
+        nock(EuropeanaSetApi.BASE_URL)
+          .delete(`/${setId}${itemId}`)
+          .query({ wskey: apiKey })
+          .reply(200);
+        nock(EuropeanaSetApi.BASE_URL)
+          .put(`/${setId}${itemId}`)
+          .query({ position, wskey: apiKey })
+          .reply(200);
+
+        await (new EuropeanaSetApi({ $config: $configV012 })).repositionItem(setId, itemId, position);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+  });
+
+  describe('searchItems', () => {
+    it('searches for item(s) within a set', async() => {
+      const itemIds = ['/123/abc', '/123/def'];
+      nock(EuropeanaSetApi.BASE_URL)
+        .get(`/${setId}/search`)
+        .query({ profile: 'items', query: '*', qf: ['item:/123/abc', 'item:/123/def'], wskey: apiKey })
+        .reply(200);
+
+      await (new EuropeanaSetApi({ $config })).searchItems(setId, itemIds);
+
+      expect(nock.isDone()).toBe(true);
     });
   });
 });
