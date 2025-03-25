@@ -8,16 +8,17 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
+const identifiers = identifier;
 const setId = '123';
 const storeCommitSpy = sinon.spy();
 const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
 const setApiDeleteItemsStub = sinon.spy();
 const setApiInsertItemsStub = sinon.spy();
 
-const factory = ({ propsData = {}, storeState = { likesId: setId }, $auth = {} } = {}) => shallowMount(ItemLikeButton, {
+const factory = ({ propsData = { identifiers }, storeState = { likesId: setId },  $auth = {} } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
-  propsData: { identifier, ...propsData },
+  propsData,
   mocks: {
     $apis: {
       set: {
@@ -44,7 +45,8 @@ const factory = ({ propsData = {}, storeState = { likesId: setId }, $auth = {} }
         set: storeState
       }
     },
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key) => key
   }
 });
 
@@ -140,15 +142,15 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemLiked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsLiked.1')).toBe(true);
           });
         });
       });
 
       describe('and an item is already liked', () => {
-        const propsData = { buttonText: true, value: true };
+        const propsData = { buttonText: true, identifiers, value: true };
 
-        it('button text is updated', () => {
+        it('updates button text', () => {
           const wrapper = factory({ propsData });
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
@@ -172,14 +174,18 @@ describe('components/item/ItemLikeButton', () => {
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemUnliked')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsUnliked.1')).toBe(true);
           });
         });
       });
     });
-  });
 
-  describe('methods', () => {
+    it('is disabled if there are no item identifiers', () => {
+      const wrapper = factory({ propsData: { identifiers: [] } });
 
+      const likeButton = wrapper.find('[data-qa="like button"]');
+
+      expect(likeButton.attributes('disabled')).toBe('true');
+    });
   });
 });

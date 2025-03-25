@@ -31,7 +31,6 @@ export default {
       "private": "Privatnu galeriju možete vidjeti samo vi.",
       "public": "Javnu galeriju može pogledati svatko s vezom.",
       "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije.",
-      "remove": "Uklonite ovaj predmet iz ove galerije.",
       "reorder": "Možete promijeniti redoslijed predmeti klikom na ovaj gumb i povlačenjem predmet da je premjestite."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Dodaj",
     "apply": "Primijeni",
     "cancel": "Otkazati",
+    "changeView": "Promjena prikaza",
     "clear": "Očisti",
     "clearFilters": "Izbriši filtre",
     "close": "zatvori",
+    "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
     "download": "Preuzmi",
@@ -1331,17 +1332,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj u galeriju",
-      "addToGallery": "Dodajte ovu predmet u galeriju.",
+      "addItems": {
+        "1": "Dodajte ovu predmet u galeriju.",
+        "many": "Dodajte {count} predmet u galeriju | Dodajte {count} predmete u galeriju"
+      },
+      "addItemsHere": {
+        "1": "Dodaj u galeriju",
+        "many": "Dodajte {count} predmet u galeriju | Dodajte {count} predmete u galeriju"
+      },
       "cancelSelection": "Poništi odabir",
       "clickToSelectItems": "Kliknite na predmete kako biste ih odabrali",
       "create": "Stvori galeriju",
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
-      "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
+      "likeItems": {
+        "1": "Spremite ovu predmet u svoje lajkove.",
+        "many": "Lajkaj {count} predmet | Lajkaj {count} predmete"
+      },
+      "removeItems": {
+        "1": "Uklonite ovaj predmet iz ove galerije.",
+        "many": "Uklonite {count} predmet iz ove galerije | Uklonite {count} predmete iz ove galerije"
+      },
       "selectItems": "Odaberite predmete",
+      "unlikeItems": {
+        "1": "Uklonite ovaj predmet iz svojih lajkova.",
+        "many": "Ukloni lajk s {count} predmeta | Ukloni lajkove s {count} predmeta"
+      },
       "update": "Ažuriraj galeriju"
     },
     "form": {
@@ -1358,10 +1375,22 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
-      "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše lajkove.",
-      "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
+      "itemsAdded": {
+        "1": "Predmet je dodana u galeriju \" {gallery} \".",
+        "many": "{count} predmet je dodan u galeriju \"{gallery}\". | {count} predmeti su dodani u galeriju \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Predmet je spremljen u vaše lajkove.",
+        "many": "{count} predmet je sačuvan u vašim lajkovima. | {count} predmeti su sačuvani u vašim lajkovima."
+      },
+      "itemsRemoved": {
+        "1": "Predmet je uklonjena iz galerije {gallery}.",
+        "many": "{count} predmet je uklonjen iz galerije \"{gallery}\". | {count} predmeti su uklonjeni iz galerije \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Predmet je uklonjen iz vaših lajkova.",
+        "many": "{count} predmet je uklonjen iz vaših lajkova. | {count} predmeti su uklonjeni iz vaših lajkova."
+      },
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 lajkova"
@@ -1370,7 +1399,8 @@ export default {
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali."
+      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali.",
+      "removeItems": "Jeste li sigurni da želite ukloniti {count} predmet iz ove galerije? | Jeste li sigurni da želite ukloniti {count} predmete iz ove galerije?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1428,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je alat temeljen na webu za upravljanje različitim vrstama sadržaja (uključujući 3D), dokumentiranje kulturne baštine kroz prostore digitalne zajednice i kuriranje digitalnih priča i iskustava."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poništi odabir svega."
+      },
+      "info": "{count} odabran predmet. | {count} odabrani predmeti."
     }
   },
   "shareWhere": "Gdje biste to htjeli podijeliti?",

@@ -22,7 +22,7 @@
 <script>
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
-  import logEventMixin from '@/mixins/logEvent';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -30,9 +30,6 @@
     components: {
       LoadingSpinner
     },
-    mixins: [
-      logEventMixin
-    ],
     inject: ['canonicalUrl'],
     props: {
       url: {
@@ -47,6 +44,10 @@
         type: Boolean,
         default: false
       }
+    },
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
     },
     data() {
       return {
@@ -133,7 +134,7 @@
       },
       trackDownload() {
         if (!this.disabled) {
-          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`);
+          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
             if (!this.clicked) {

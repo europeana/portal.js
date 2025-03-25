@@ -31,7 +31,6 @@ export default {
       "private": "A privát galériát csak Ön tekintheti meg.",
       "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
       "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon.",
-      "remove": "Távolítsa el ezt a tárgyat ebből a galériából.",
       "reorder": "Az tárgyak átrendezéséhez kattintson erre a gombra, és húzza az tárgyat az áthelyezéshez."
     }
   },
@@ -40,9 +39,11 @@ export default {
     "add": "Hozzáad",
     "apply": "Alkalmaz",
     "cancel": "Mégse",
+    "changeView": "Nézet módosítása",
     "clear": "Törlés",
     "clearFilters": "Szűrők törlése",
     "close": "bezárás",
+    "confirm": "Megerősít",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
@@ -1330,17 +1331,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Hozzáadás a gelériához",
-      "addToGallery": "Add hozzá ezt a tárgyat a galériához.",
+      "addItems": {
+        "1": "Add hozzá ezt a tárgyat a galériához.",
+        "many": "{count} tárgy hozzáadása egy galériához | {count} tárgyak hozzáadása egy galériához"
+      },
+      "addItemsHere": {
+        "1": "Hozzáadás a gelériához",
+        "many": "{count} tárgy hozzáadása egy galériához | {count} tárgyak hozzáadása egy galériához"
+      },
       "cancelSelection": "Kiválasztás törlése",
       "clickToSelectItems": "Kattintson a tárgyakra a kiválasztásukhoz",
       "create": "Galéria létrehozása",
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "removeItemFromLikes": "Távolítsa el ezt a tárgyat a kedvelésekből.",
-      "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
+      "likeItems": {
+        "1": "Mentsd el ezt a tárgyat a Kedvencek közé.",
+        "many": "Tetszik {count} tárgy | Tetszenek {count} tárgyak"
+      },
+      "removeItems": {
+        "1": "Távolítsa el ezt a tárgyat ebből a galériából.",
+        "many": "{count} tárgy eltávolítása ebből a galériából | {count} tárgyak eltávolítása ebből a galériából"
+      },
       "selectItems": "Válassza ki a tárgyakat",
+      "unlikeItems": {
+        "1": "Távolítsa el ezt a tárgyat a kedvelésekből.",
+        "many": "Már nem tetszik {count} tárgy | Már nem tetszenek {count} tárgyak"
+      },
       "update": "Galéria frissítése"
     },
     "form": {
@@ -1357,10 +1374,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
-      "itemAdded": "A tárgyat hozzáadták a galériához \"{gallery}\".",
-      "itemLiked": "A tárgyat elmentettük a kedveléseidhez.",
-      "itemRemoved": "A tárgyat eltávolították a galériából {gallery}.",
-      "itemUnliked": "A tárgyat eltávolították a kedveléseid közül.",
+      "itemsAdded": {
+        "1": "A tárgyat hozzáadták a galériához \"{gallery}\".",
+        "many": "{count} tárgyat hozzáadták a(z) \"{gallery}\" galériához. | {count} tárgyakat hozzáadták a(z) \"{gallery}\" galériához."
+      },
+      "itemsLiked": {
+        "1": "A tárgyat elmentettük a kedveléseidhez.",
+        "many": "{count} tárgyat elmentették a kedveléseid közé. | {count} tárgyakat elmentették a kedveléseid közé."
+      },
+      "itemsRemoved": {
+        "1": "A tárgyat eltávolították a galériából {gallery}.",
+        "many": "{count} tárgyat eltávolították a(z) \"{gallery}\" galériából. | {count} tárgyakat eltávolították a(z) \"{gallery}\" galériából."
+      },
+      "itemsUnliked": {
+        "1": "A tárgyat eltávolították a kedveléseid közül.",
+        "many": "{count} tárgyat eltávolították a kedveléseid közül. | {count} tárgyakat eltávolították a kedveléseid közül."
+      },
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan tárgyak ezt a korlátozást!",
         "title": "100 kedvelés"
@@ -1369,7 +1398,8 @@ export default {
       "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott tárgyak."
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott tárgyak.",
+      "removeItems": "Biztosan el szeretné távolítani {count} tárgyat ebből a galériából? | Biztosan el szeretné távolítani {count} tárgyakat ebből a galériából?"
     },
     "publication": {
       "criteria": {
@@ -1397,6 +1427,12 @@ export default {
       "weavex": {
         "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Minden kijelölés megszüntetése."
+      },
+      "info": "{count} tárgy lett kiválasztva. | {count} tárgyak lettek kiválasztva."
     }
   },
   "shareWhere": "Hol szeretnéd ezt megosztani?",

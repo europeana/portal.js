@@ -6,12 +6,57 @@ const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
+  describe('getters', () => {
+    describe('activeSetItemIds', () => {
+      it('returns the IDs of the active set items', () => {
+        const state = { active: { items: [{ id: 'item1' }, { id: 'item2' }] } };
+
+        const activeSetItemIds = store.getters.activeSetItemIds(state);
+
+        expect(activeSetItemIds).toEqual(['item1', 'item2']);
+      });
+    });
+
+    describe('someActiveSetItemsSelected', () => {
+      it('is `true` when some active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item2']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(true);
+      });
+
+      it('is `false` when no active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item3']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(false);
+      });
+    });
+  });
+
   describe('mutations', () => {
     describe('setLikesId()', () => {
       it('sets the likesId state', () => {
         const state = { likesId: null };
         store.mutations.setLikesId(state, likesId);
         expect(state.likesId).toEqual(likesId);
+      });
+    });
+    describe('setSelected', () => {
+      it('sets the selectedItems state', () => {
+        const state = { selectedItems: [] };
+        store.mutations.setSelected(state, ['123/abc']);
+        expect(state.selectedItems).toEqual(['123/abc']);
       });
     });
     describe('setActive()', () => {
@@ -109,11 +154,25 @@ describe('store/set', () => {
     describe('refreshSet()', () => {
       describe('when collection-modal hides', () => {
         it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
-          const state = { active: set };
+          const state = { active: set, selectedItems: [] };
 
           await store.actions.refreshSet({ state, dispatch });
 
           expect(dispatch.calledWith('fetchActive')).toBe(true);
+        });
+      });
+      describe('when on the active set', () => {
+        describe('and there are selected items', () => {
+          it('refreshes the selected items', async() => {
+            const state = {
+              active: set,
+              selectedItems: ['/001/abc', '/002/abc']
+            };
+
+            await store.actions.refreshSet({ state, dispatch });
+
+            expect(dispatch.calledWith('refreshSelected')).toBe(true);
+          });
         });
       });
     });
@@ -141,6 +200,30 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.recommendation.reject.calledWith('set', setId, [itemId])).toBe(true);
         expect(commit.calledWith('setActiveRecommendations', updatedRecommendations)).toBe(true);
+      });
+    });
+
+    describe('refreshSelected()', () => {
+      it('refreshes the selected items to only the active set or recommended items', async() => {
+        const state = {
+          active: { ...set, items: [{ id: '/002/abc' }] },
+          activeRecommendations: [],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state, commit });
+
+        expect(commit.calledWith('setSelected', ['/002/abc'])).toBe(true);
+
+        const stateWithSelectedRecommndations = {
+          active: null,
+          activeRecommendations: [{ id: '/001/abc' }],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state: stateWithSelectedRecommndations, commit });
+
+        expect(commit.calledWith('setSelected', ['/001/abc'])).toBe(true);
       });
     });
   });

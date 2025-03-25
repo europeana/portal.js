@@ -5,10 +5,11 @@
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
+      :disabled="disabled"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
-      :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
+      :title="tooltipTitle"
       @click="toggleLiked"
     >
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
@@ -18,25 +19,22 @@
 </template>
 
 <script>
+  import { useCardinality } from '@/composables/cardinality.js';
   import { useEventBus } from '@vueuse/core';
   import useHideTooltips from '@/composables/hideTooltips.js';
-  import logEventMixin from '@/mixins/logEvent';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
 
-    mixins: [
-      logEventMixin
-    ],
-
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       value: {
@@ -59,11 +57,13 @@
       }
     },
 
-    setup() {
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
       const eventBus = useEventBus('likedItems');
       const { hideTooltips } = useHideTooltips();
+      const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { eventBus, hideTooltips, makeToast };
+      return { cardinality, eventBus, hideTooltips, logEvent, makeToast };
     },
 
     data() {
@@ -73,6 +73,9 @@
     },
 
     computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
       likesId() {
         return this.$store.state.set.likesId;
       },
@@ -81,6 +84,22 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
+      },
+      likeToastMessage() {
+        return this.$tc(`set.notifications.itemsLiked.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      },
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
+      },
+      tooltipTitle() {
+        if (this.liked) {
+          return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+        } else {
+          return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+        }
+      },
+      unlikeToastMessage() {
+        return this.$tc(`set.notifications.itemsUnliked.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       }
     },
 
@@ -112,18 +131,21 @@
           this.$store.commit('set/setLikesId', response.id);
         }
 
-        await this.$apis.set.insertItems(this.likesId, this.identifier);
-        this.eventBus.emit('like', this.identifier);
+        await this.$apis.set.insertItems(this.likesId, this.identifiers);
+        this.eventBus.emit('like', this.identifiers);
         this.liked = true;
-        this.logEvent('like', `${ITEM_URL_PREFIX}${this.identifier}`);
-        this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
-        this.makeToast(this.$t('set.notifications.itemLiked'));
+        this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
+
+        for (const id of [].concat(this.identifiers)) {
+          this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
+        }
+        this.makeToast(this.likeToastMessage);
       },
       async unlike() {
-        await this.$apis.set.deleteItems(this.likesId, this.identifier);
-        this.eventBus.emit('unlike', this.identifier);
+        await this.$apis.set.deleteItems(this.likesId, this.identifiers);
+        this.eventBus.emit('unlike', this.identifiers);
         this.liked = false;
-        this.makeToast(this.$t('set.notifications.itemUnliked'));
+        this.makeToast(this.unlikeToastMessage);
       }
     }
   };

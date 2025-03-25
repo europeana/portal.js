@@ -116,9 +116,9 @@
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ViewCount from '@/components/generic/ViewCount.vue';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ExhibitionPage',
@@ -137,12 +137,15 @@
     },
     mixins: [
       exhibitionChapters,
-      logEventMixin,
       pageMetaMixin
     ],
     inject: [
       'canonicalUrl'
     ],
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
+    },
     asyncData({ params, query, error, app, redirect }) {
       if (params.exhibition === undefined) {
         redirect(app.localePath({ name: 'exhibitions' }));
@@ -199,7 +202,7 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
+      this.logEvent('view', this.canonicalUrl.withOnlyQuery, this.$session);
     }
   };
 </script>

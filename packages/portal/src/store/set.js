@@ -6,9 +6,22 @@ export default {
     selectedItems: []
   }),
 
+  getters: {
+    activeSetItemIds(state) {
+      return state.active?.items.map((item) => item.id) || [];
+    },
+
+    someActiveSetItemsSelected(state, getters) {
+      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
+    }
+  },
+
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;
+    },
+    setSelected(state, value) {
+      state.selectedItems = value;
     },
     setActive(state, value) {
       state.active = value;
@@ -34,9 +47,12 @@ export default {
   },
 
   actions: {
-    refreshSet({ state, dispatch }) {
+    async refreshSet({ state, dispatch }) {
       if (state.active) {
-        dispatch('fetchActive', state.active.id);
+        await dispatch('fetchActive', state.active.id);
+        if (state.selectedItems.length > 0) {
+          dispatch('refreshSelected');
+        }
       }
     },
     async fetchActive({ commit }, setId) {
@@ -68,6 +84,12 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
+    },
+    refreshSelected({ state, commit }) {
+      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
+      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
+
+      commit('setSelected', activeSelectedItems);
     }
   }
 };

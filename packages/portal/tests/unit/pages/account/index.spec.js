@@ -10,6 +10,7 @@ localVue.use(BootstrapVue);
 
 const likesId = '123';
 const setApiGetStub = sinon.stub().resolves({});
+const storeCommit = sinon.spy();
 
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
@@ -42,6 +43,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       query: {}
     },
     $store: {
+      commit: storeCommit,
       state: {
         auth: { loggedIn: true,
           user: {
@@ -128,6 +130,20 @@ describe('pages/account/index.vue', () => {
     it('shows the private galleries', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
       expect(privateGalleries.exists()).toBe(true);
+    });
+  });
+
+  describe('beforeRouteLeave', () => {
+    it('resets the active set, recommendations and selected items', async() => {
+      const wrapper = factory();
+      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
+
+      const next = sinon.stub();
+
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
+      expect(next.called).toBe(true);
     });
   });
 });

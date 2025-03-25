@@ -18,9 +18,10 @@ const item = {
   type: 'IMAGE'
 };
 
-const factory = ({ mocks, propsData } = {}) => {
+const factory = ({ mocks, parentComponent, propsData } = {}) => {
   return shallowMount(ItemPreviewCard, {
     localVue,
+    parentComponent,
     propsData,
     mocks: {
       $apis: {
@@ -115,10 +116,15 @@ describe('components/item/ItemPreviewCard', () => {
     });
   });
 
-  describe('select state', () => {
-    describe('when switched on', () => {
+  describe('item multi select', () => {
+    describe('when switched on, via inject', () => {
       it('renders a checkbox, hides the user buttons and removes the item link', () => {
-        const wrapper = factory({ propsData: { item, selectState: true } });
+        const parentComponent = {
+          provide() {
+            return { itemMultiSelect: true };
+          }
+        };
+        const wrapper = factory({ parentComponent, propsData: { item } });
 
         expect(wrapper.find('itemselectcheckbox-stub').exists()).toBe(true);
         expect(wrapper.find('userbuttons-stub').exists()).toBe(false);

@@ -1,6 +1,5 @@
 <template>
   <b-button
-    v-if="$features.itemMultiSelect"
     v-b-tooltip.bottom
     :title="tooltipText"
     class="item-select-button p-0"

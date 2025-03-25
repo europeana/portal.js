@@ -43,7 +43,7 @@
 
 <script>
   import StoryPost from '@/components/story/StoryPost';
-  import logEventMixin from '@/mixins/logEvent';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -57,13 +57,17 @@
     },
 
     mixins: [
-      pageMetaMixin,
-      logEventMixin
+      pageMetaMixin
     ],
 
     inject: [
       'canonicalUrl'
     ],
+
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
+    },
 
     data() {
       return {
@@ -110,7 +114,9 @@
     },
 
     mounted() {
-      this.logEvent('view', this.canonicalUrl.withOnlyQuery);
+      if (!this.$fetchState.error) {
+        this.logEvent('view', this.canonicalUrl.withOnlyQuery, this.$session);
+      }
     }
   };
 </script>

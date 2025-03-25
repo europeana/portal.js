@@ -99,9 +99,9 @@
 
   import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
   import ShareButton from '../../../components/share/ShareButton.vue';
+  import { useLogEvent } from '@/composables/logEvent.js';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ExhibitionCreditsPage',
@@ -116,10 +116,12 @@
     },
     mixins: [
       exhibitionChapters,
-      logEventMixin,
       pageMetaMixin
     ],
-
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
+    },
     asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.exhibition,
@@ -186,7 +188,7 @@
     },
 
     mounted() {
-      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`);
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`, this.$session);
     }
   };
 </script>
