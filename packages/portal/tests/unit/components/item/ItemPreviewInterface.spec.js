@@ -12,6 +12,7 @@ const factory = (mocks = {}) => shallowMount(ItemPreviewInterface, {
       set: sinon.spy()
     },
     $features: {},
+    $n: (key) => key,
     $store: {
       commit: sinon.spy(),
       getters: {
