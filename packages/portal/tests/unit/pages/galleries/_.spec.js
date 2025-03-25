@@ -123,7 +123,7 @@ describe('GalleryPage (Set)', () => {
 
       await wrapper.vm.fetch();
 
-      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 24 })).toBe(true);
+      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 48 })).toBe(true);
     });
 
     it('fetches the active set', async() => {
