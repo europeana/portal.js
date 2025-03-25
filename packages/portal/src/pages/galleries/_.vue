@@ -149,6 +149,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
+  import ClientOnly from 'vue-client-only';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -161,6 +162,7 @@
   export default {
     name: 'GalleryPage',
     components: {
+      ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),

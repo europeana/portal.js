@@ -164,7 +164,7 @@
         if (this.maxResults && (this.total > this.maxResults)) {
           label = 'items.itemOf';
         }
-        return this.$tc(label, this.total, { max: this.maxResults });
+        return this.$tc(label, this.total, { count: this.$n(this.total), max: this.$n(this.maxResults) });
       },
 
       routeQueryView() {
