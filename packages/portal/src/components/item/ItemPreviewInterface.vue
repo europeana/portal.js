@@ -27,43 +27,37 @@
           />
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="px-0">
-            <b-row class="mb-3">
-              <b-col cols="12">
-                <!-- TODO: support slots for ItemPreviewCardGroup -->
-                <ItemPreviewCardGroup
-                  :items="items"
-                  :on-aux-click-card="onAuxClickCard"
-                  :on-click-card="onClickCard"
-                  :show-pins="showPins"
-                  :user-editable-items="userEditableItems"
-                  :view="view"
-                  @drawn="$emit('drawn', $event)"
-                  @endItemDrag="$emit('endItemDrag', $event)"
-                >
-                  <slot
-                    name="card-group-default"
-                  />
-                  <template
-                    #related-galleries
-                  >
-                    <slot
-                      name="card-group-related-galleries"
-                    />
-                  </template>
-                  <template
-                    #related-collections
-                  >
-                    <slot
-                      name="card-group-related-collections"
-                    />
-                  </template>
-                </ItemPreviewCardGroup>
-              </b-col>
-            </b-row>
-          </b-container>
+      <b-row class="mb-3">
+        <b-col cols="12">
+          <!-- TODO: support slots for ItemPreviewCardGroup -->
+          <ItemPreviewCardGroup
+            :items="items"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
+            :show-pins="showPins"
+            :user-editable-items="userEditableItems"
+            :view="view"
+            @drawn="$emit('drawn', $event)"
+            @endItemDrag="$emit('endItemDrag', $event)"
+          >
+            <slot
+              name="card-group-default"
+            />
+            <template
+              #related-galleries
+            >
+              <slot
+                name="card-group-related-galleries"
+              />
+            </template>
+            <template
+              #related-collections
+            >
+              <slot
+                name="card-group-related-collections"
+              />
+            </template>
+          </ItemPreviewCardGroup>
         </b-col>
       </b-row>
       <slot

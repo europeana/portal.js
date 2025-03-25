@@ -38,9 +38,7 @@
             :show-message="showErrorMessage"
             title-tag="h2"
           />
-          <template
-            v-else
-          >
+          <b-row v-else>
             <!-- TODO: check this is working as intended after the ItemPreviewInterface refactor -->
             <p
               v-show="noMoreResults"
@@ -58,6 +56,7 @@
               :total="totalResults"
               :on-aux-click-card="onClickItem"
               :on-click-card="onClickItem"
+              class="w-100"
               @drawn="handleResultsDrawn"
             >
               <template #heading>
@@ -96,7 +95,7 @@
                 </InfoMessage>
               </template>
             </ItemPreviewInterface>
-          </template>
+          </b-row>
         </template>
         <slot
           v-if="page === 1"
