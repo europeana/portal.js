@@ -6,6 +6,7 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'mockTrendingItems' },
   { name: 'rejectEntityRecommendations' },
+  { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' }

@@ -55,14 +55,14 @@ describe('@/plugins/europeana/set', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    it('removes the page & perPage params if API version is 0.12', async() => {
+    it('decremenets the page param by 1 if API version is 0.12', async() => {
       const getParams = {
         page: 1,
         perPage: 100
       };
       nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
-        .query({ wskey: 'apikey', profile: 'minimal' })
+        .query({ wskey: 'apikey', page: 0, perPage: 100, profile: 'minimal' })
         .reply(200);
 
       await (new EuropeanaSetApi({ $config: $configV012 })).get(setId, getParams);
@@ -332,6 +332,20 @@ describe('@/plugins/europeana/set', () => {
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(items);
+      });
+
+      describe('when the response indicates invalid page param', () => {
+        it('returns an empty array', async() => {
+          nock(EuropeanaSetApi.BASE_URL)
+            .get(`/${setId}`)
+            .query({ page: 2, pageSize: 100, profile: 'items.meta', wskey: 'apikey' })
+            .reply(400, { message: 'Invalid property value. page : value out of range: 2, last page:1' });
+
+          const response = await (new EuropeanaSetApi({ $config })).getItems(setId, { page: 2 });
+
+          expect(nock.isDone()).toBe(true);
+          expect(response).toEqual([]);
+        });
       });
     });
 

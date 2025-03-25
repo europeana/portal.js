@@ -4,6 +4,8 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
+    activeId: null,
+    activeParams: {},
     activeRecommendations: [],
     selectedItems: []
   }),
@@ -23,11 +25,8 @@ export default {
       state.likesId = value;
     },
     setLikedItems(state, value) {
-      state.likedItems = value;
-      // TODO should likedItemIds be reset to empty array when falsy value?
-      if (value) {
-        state.likedItemIds = value.map(item => item.id);
-      }
+      state.likedItems = value || null;
+      state.likedItemIds = value?.map(item => item.id) || [];
     },
     setSelected(state, value) {
       state.selectedItems = value;
@@ -47,15 +46,14 @@ export default {
     setActive(state, value) {
       state.active = value;
     },
-    setActiveRecommendations(state, value) {
-      // Remove any recommendations that are already in the active set, because
-      // the Recommendation API/Engine is broken.
-      // TODO: remove if/when recommendations become useful.
-      const activeSetItemIds = state.active?.items.map((item) => item.id) || [];
-      state.activeRecommendations = value.filter((rec) => !activeSetItemIds.includes(rec.id));
+    setActiveId(state, value) {
+      state.activeId = value;
     },
-    addItemToActive(state, item) {
-      state.active.items.push(item);
+    setActiveParams(state, value) {
+      state.activeParams = value;
+    },
+    setActiveRecommendations(state, value) {
+      state.activeRecommendations = value;
     },
     selectItem(state, itemId) {
       if (!state.selectedItems.includes(itemId)) {
@@ -96,14 +94,6 @@ export default {
         throw e;
       }
     },
-    async refreshSet({ state, dispatch }) {
-      if (state.active) {
-        await dispatch('fetchActive', state.active.id);
-        if (state.selectedItems.length > 0) {
-          dispatch('refreshSelected');
-        }
-      }
-    },
     async fetchLikes({ commit, state }) {
       if (!state.likesId) {
         return commit('setLikedItems', null);
@@ -116,24 +106,25 @@ export default {
       }).catch(() => {
         return {};
       });
+
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ commit }, setId) {
-      try {
-        await Promise.all([
-          this.$apis.set.get(setId),
-          this.$apis.set.getItems(setId)
-        ]).then((responses) => {
-          commit('setActive', {
-            ...responses[0],
-            items: responses[1]
-          });
-        });
-      } catch (error) {
-        if (process.server && error.statusCode) {
-          this.app.context.res.statusCode = error.statusCode;
-        }
-        throw error;
+    async fetchActive({ dispatch, commit, state }) {
+      if (!state.activeId) {
+        return;
+      }
+
+      const responses = await Promise.all([
+        this.$apis.set.get(state.activeId),
+        this.$apis.set.getItems(state.activeId, state.activeParams)
+      ]);
+      commit('setActive', {
+        ...responses[0],
+        items: responses[1]
+      });
+
+      if ((state.selectedItems || []).length > 0) {
+        dispatch('refreshSelected');
       }
     },
     async reviewRecommendation({ state, commit }, params) {
