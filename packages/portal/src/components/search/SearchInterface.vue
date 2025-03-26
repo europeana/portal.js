@@ -67,6 +67,17 @@
                   badge-variant="primary-light"
                 />
               </template>
+              <template
+                v-if="noResults"
+                #no-items
+              >
+                <ErrorMessage
+                  :error="{ code: 'searchResultsNotFound', i18n: $t('errorMessage.searchResultsNotFound') }"
+                  :full-height="false"
+                  :show-message="false"
+                  title-tag="h2"
+                />
+              </template>
               <template #card-group-default>
                 <slot />
               </template>
@@ -229,12 +240,6 @@
         } else {
           this.$error(error);
         }
-      }
-
-      if (this.noResults) {
-        const error = new Error('No search results');
-        error.code = 'searchResultsNotFound';
-        this.$error(error);
       }
     },
 

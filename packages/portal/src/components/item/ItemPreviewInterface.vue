@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-container
-      class="pb-3"
+      class="mb-3"
       data-qa="item preview interface"
     >
       <b-row>
@@ -27,7 +27,12 @@
       </b-row>
       <b-row class="mb-3">
         <b-col cols="12">
+          <slot
+            v-if="items.length === 0"
+            name="no-items"
+          />
           <ItemPreviewCardGroup
+            v-else
             :items="items"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"

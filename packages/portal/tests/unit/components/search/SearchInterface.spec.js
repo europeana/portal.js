@@ -75,7 +75,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     }
   ],
-  stubs: ['SearchFilters', 'i18n']
+  stubs: ['ErrorMessage', 'SearchQueryBuilder', 'SearchFilters', 'SearchResultsContext', 'LoadingSpinner', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
@@ -119,15 +119,14 @@ describe('components/search/SearchInterface', () => {
       )).toBe(true);
     });
 
-    it('treats no results as an error', async() => {
+    it('displays no results like an error', async() => {
       const wrapper = factory();
       wrapper.vm.$apis.record.search.resolves({ totalResults: 0 });
 
       await wrapper.vm.fetch();
+      const errorMessageStub = wrapper.find('errormessage-stub');
 
-      expect(wrapper.vm.$error.calledWith(
-        sinon.match.has('code', 'searchResultsNotFound')
-      )).toBe(true);
+      expect(errorMessageStub.isVisible()).toBe(true);
     });
 
     describe('when there was a pagination error', () => {
