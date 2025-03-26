@@ -224,10 +224,10 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       route() {
         return {

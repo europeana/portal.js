@@ -49,7 +49,7 @@
 
     methods: {
       localeHref(code) {
-        const route = { ...this.$route, query: { ...this.$route.query } };
+        const route = { ...this.$route };
         delete route.name;
         if (this.removePaginationAtLanguageSwitch) {
           delete route.query.page;

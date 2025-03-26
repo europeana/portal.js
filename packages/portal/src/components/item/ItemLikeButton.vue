@@ -116,7 +116,7 @@
 
     methods: {
       async toggleLiked() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           try {
             await (this.liked ? this.unlike() : this.like());
           } catch (e) {

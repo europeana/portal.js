@@ -12,7 +12,6 @@ import versions from './pkg-versions.js';
 
 import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
-import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled } from './src/features/index.js';
 import { featureNotificationExpiration } from './src/features/notifications.js';
 
@@ -88,20 +87,6 @@ export default {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
-    auth: {
-      strategies: {
-        keycloak: {
-          client_id: process.env.OAUTH_CLIENT,
-          origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
-          scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-          realm: process.env.OAUTH_REALM || 'europeana',
-          response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-          access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-          grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-          token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
-        }
-      }
-    },
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
@@ -144,16 +129,6 @@ export default {
         name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
-    },
-    oauth: {
-      origin: process.env.OAUTH_ORIGIN,
-      realm: process.env.OAUTH_REALM,
-      client: process.env.OAUTH_CLIENT,
-      scope: process.env.OAUTH_SCOPE,
-      responseType: process.env.OAUTH_RESPONSE_TYPE,
-      accessType: process.env.OAUTH_ACCESS_TYPE,
-      grantType: process.env.OAUTH_GRANT_TYPE,
-      tokenType: process.env.OAUTH_TOKEN_TYPE
     }
   },
 
@@ -299,8 +274,9 @@ export default {
   plugins: [
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
-    '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/europeana-apis',
+    '~/plugins/error',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -314,8 +290,7 @@ export default {
     '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
-    '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/axios'
   ],
 
   /*
@@ -339,9 +314,6 @@ export default {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to account pages
-      parsePages: false,
-      pages: i18nRoutesExclude.reduce((memo, route) => ({ ...memo, [route.slice(1)]: false }), {}),
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
@@ -355,32 +327,6 @@ export default {
       }
     }]
   ],
-
-  auth: {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      // Include oauth2 so that ~/plugins/authScheme can extend it
-      _oauth2: {
-        _scheme: 'oauth2'
-      },
-      keycloak: {
-        _scheme: '~/auth/schemes/authScheme'
-      }
-    },
-    defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
-  },
 
   axios: {
     proxyHeadersIgnore: [

@@ -9,6 +9,7 @@
     layout: 'minimal',
 
     mounted() {
+      localStorage['kc.login'] = 'true';
       this.$keycloak.login();
     }
   };

@@ -26,7 +26,7 @@
       {{ tooltipTitle }}
     </b-tooltip>
     <template
-      v-if="$auth.loggedIn"
+      v-if="$store.state.keycloak.loggedIn"
     >
       <SetAddItemModal
         v-if="showAddItemModal"
@@ -133,7 +133,7 @@
         }
       },
       addToSet() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
           this.showAddItemModal = true;
           for (const id of [].concat(this.identifiers)) {

@@ -143,7 +143,7 @@
     methods: {
       async fetchCollections() {
         const searchResponse = await this.$apis.set.search({
-          query: `creator:${this.$auth.user?.sub}`,
+          query: `creator:${this.$store.state.keycloak.profile?.id}`,
           // TODO: always items.meta when new version is in production
           profile: this.$apis.set.config.version === '0.12' ? 'standard' : 'items.meta',
           pageSize: 100,
