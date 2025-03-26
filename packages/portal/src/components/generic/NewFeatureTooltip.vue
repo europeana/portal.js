@@ -39,7 +39,7 @@
 
     data() {
       return {
-        featureNotification: activeFeatureNotification(this.$nuxt?.context),
+        featureNotificationName: activeFeatureNotification(this.$nuxt?.context)?.name,
         cookieName: 'new_feature_tooltip',
         matomoEvent: 'New_feature_tooltip',
         toastId: 'new-feature-toast'
@@ -48,7 +48,7 @@
 
     computed: {
       enabled() {
-        return this.$cookies.get(this.cookieName) !== this.featureNotification.name;
+        return this.$cookies.get(this.cookieName) !== this.featureNotificationName;
       }
     },
 
@@ -59,7 +59,7 @@
 
       this.trackEvent('show');
 
-      this.$cookies.set(this.cookieName, this.featureNotification.name, {
+      this.$cookies.set(this.cookieName, this.featureNotificationName, {
         maxAge: 2678400
       });
     },
@@ -67,7 +67,7 @@
     methods: {
       trackEvent(msg) {
         if (this.$matomo) {
-          this.$matomo.trackEvent(this.matomoEvent, msg, this.featureNotification.name);
+          this.$matomo.trackEvent(this.matomoEvent, msg, this.featureNotificationName);
         }
       }
     }

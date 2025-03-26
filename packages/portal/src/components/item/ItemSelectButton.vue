@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div v-if="$features.itemMultiSelect">
     <b-button
-      v-if="$features.itemMultiSelect"
       :id="tooltipTargetId"
       class="item-select-button p-0"
       :pressed="selected"
