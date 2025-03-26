@@ -436,7 +436,6 @@
       },
 
       handleSearchParamsChanged() {
-        console.log('handleSearchParamsChanged')
         this.$store.commit('set/setSelected', []);
         this.itemMultiSelect = false;
         this.$fetch();
