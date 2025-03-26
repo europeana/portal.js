@@ -29,7 +29,6 @@
       </b-row>
       <b-row class="mb-3">
         <b-col cols="12">
-          <!-- TODO: support slots for ItemPreviewCardGroup -->
           <ItemPreviewCardGroup
             :items="items"
             :on-aux-click-card="onAuxClickCard"
