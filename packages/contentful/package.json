@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@europeana/portal": "^2.5.2",
-    "axios": "^0.21.4",
+    "axios": "^1.8.2",
     "chalk": "^2.4.1",
     "contentful-cli": "^1.14.29",
     "imurmurhash": "^0.1.4",
