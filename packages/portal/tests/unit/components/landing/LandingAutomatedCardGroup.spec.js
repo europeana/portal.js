@@ -1,5 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import axios from 'axios';
 import sinon from 'sinon';
 
 import LandingAutomatedCardGroup from '@/components/landing/LandingAutomatedCardGroup.vue';
@@ -8,14 +9,13 @@ const localVue = createLocalVue();
 
 const DS4CH_NUMBERS = 'Data space numbers';
 const EUROPEANA_NUMBERS = 'Europeana numbers';
-const axiosGetStub = sinon.stub();
 
 const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
   localVue,
   propsData,
   mocks: {
     $axios: {
-      get: axiosGetStub
+      get: axios.get
     },
     $config: { redis: {} },
     $i18n: { n: (num) => `${num}` },
@@ -25,21 +25,26 @@ const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
 });
 
 describe('components/landing/LandingAutomatedCardGroup', () => {
+  beforeEach(() => {
+    sinon.stub(axios, 'get');
+  });
+  afterEach(sinon.restore);
+
   describe('fetch()', () => {
     describe('when rendering on the client', () => {
       describe('for Europeana numbers', () => {
         const propsData = { genre: EUROPEANA_NUMBERS };
         const axiosArgs = '/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count';
         beforeEach(() => {
-          axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
+          axios.get.withArgs(axiosArgs).resolves({ data: 2000 });
         });
         afterEach(() => {
-          axiosGetStub.reset();
+          axios.get.reset();
         });
         it('gets the data from the cache API endpoint', async() => {
           const wrapper = factory(propsData);
           await wrapper.vm.fetch();
-          expect(axiosGetStub.calledWith(axiosArgs)).toBe(true);
+          expect(axios.get.calledWith(axiosArgs)).toBe(true);
         });
       });
 
@@ -47,15 +52,15 @@ describe('components/landing/LandingAutomatedCardGroup', () => {
         const propsData = { genre: DS4CH_NUMBERS };
         const axiosArgs = '/_api/cache?id=items/type-counts&id=dataspace/network-members&id=dataspace/data-providers&id=dataspace/hq-data&id=dataspace/api-requests';
         beforeEach(() => {
-          axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
+          axios.get.withArgs(axiosArgs).resolves({ data: 2000 });
         });
         afterEach(() => {
-          axiosGetStub.reset();
+          axios.get.reset();
         });
         it('gets the data from the cache API endpoint', async() => {
           const wrapper = factory(propsData);
           await wrapper.vm.fetch();
-          expect(axiosGetStub.calledWith(axiosArgs)).toBe(true);
+          expect(axios.get.calledWith(axiosArgs)).toBe(true);
         });
       });
     });
