@@ -210,15 +210,14 @@ describe('components/search/SearchInterface', () => {
       describe('and they require an entity look up', () => {
         describe('and a matching entity is found', () => {
           it('adds the matched entity as an additional field to look up', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:19th\\ century']
-            };
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:19th\\ century'] } }
+            } });
 
             await wrapper.vm.fetch();
 
@@ -227,16 +226,15 @@ describe('components/search/SearchInterface', () => {
         });
 
         describe('and there is no matching entity', () => {
-          it('saves the query anwyay', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:2023']
-            };
+          it('saves the query anyway', async() => {
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:2023'] } }
+            } });
 
             await wrapper.vm.fetch();
 

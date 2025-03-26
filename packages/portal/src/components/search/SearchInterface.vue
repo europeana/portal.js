@@ -265,7 +265,9 @@
         return [].concat(this.userParams.qa || []);
       },
       qaes() {
-        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
+        return this.qasWithAddedEntityValue
+          .map((qaWithEntity) => qaWithEntity.qae)
+          .filter((qae) => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -335,10 +337,11 @@
     },
 
     watch: {
-      '$route.query.boost': '$fetch',
-      '$route.query.reusability': '$fetch',
-      '$route.query.qa': '$fetch',
-      '$route.query.query': '$fetch',
+      // TODO: is boost still used?
+      '$route.query.boost': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.qa': 'handleSearchParamsChanged',
+      '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
     },
@@ -432,9 +435,16 @@
         }
       },
 
+      handleSearchParamsChanged() {
+        console.log('handleSearchParamsChanged')
+        this.$store.commit('set/setSelected', []);
+        this.itemMultiSelect = false;
+        this.$fetch();
+      },
+
       handlePaginationChanged() {
         this.paginationChanged = true;
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
       handleResultsDrawn(cardRefs) {
@@ -461,7 +471,7 @@
           return;
         }
 
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
       advancedSearchQueriesForEntityLookUp() {
