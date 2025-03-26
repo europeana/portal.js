@@ -89,6 +89,7 @@
               <ItemPreviewInterface
                 v-if="likedItems && likedItems.length !== 0"
                 data-qa="liked items"
+                :enable-item-multi-select="false"
                 :items="likedItems"
                 :total="likedItems.length"
               />
