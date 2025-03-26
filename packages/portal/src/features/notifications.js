@@ -1,7 +1,7 @@
 const features = [{
   name: 'itemMultiSelect',
-  url: '/galleries/2',
-  tooltipTargetId: 'item-multi-select-button'
+  // TODO: update URL to search when multi-select is available there
+  url: '/galleries/2'
 }];
 
 export const featureNotificationExpiration = (value) => {
