@@ -33,6 +33,7 @@
           />
           <ItemPreviewCardGroup
             v-else
+            id="item-preview-interface-card-group"
             :hits="hits"
             :items="items"
             :on-aux-click-card="onAuxClickCard"
@@ -58,7 +59,7 @@
         :max-results="maxResults"
         :per-page="perPage"
         :total-results="total"
-        aria-controls="item-search-results"
+        aria-controls="item-preview-interface-card-group"
         data-qa="item previews pagination"
       />
     </b-container>
