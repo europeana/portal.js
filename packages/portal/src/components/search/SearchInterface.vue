@@ -56,7 +56,7 @@
               :total="totalResults"
               :on-aux-click-card="onClickItem"
               :on-click-card="onClickItem"
-              class="w-100"
+              class="w-100 mb-3"
               @drawn="handleResultsDrawn"
             >
               <template #heading>
