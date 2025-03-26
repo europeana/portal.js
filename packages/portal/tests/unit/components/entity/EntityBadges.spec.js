@@ -65,6 +65,12 @@ const factory = ({ propsData, mocks } = {}) => {
       $t: () => {},
       $fetch: () => {},
       localePath: () => {},
+      $store: {
+        commit: sinon.spy()
+      },
+      $matomo: {
+        trackEvent: sinon.spy()
+      },
       ...mocks
     }
   });
@@ -154,6 +160,16 @@ describe('components/related/EntityBadges', () => {
         await wrapper.vm.draw();
 
         expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
+      });
+    });
+
+    describe('clickEventHandler', () => {
+      it('sets the loggable interaction state', () => {
+        const wrapper = factory();
+
+        wrapper.vm.clickEventHandler();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
       });
     });
   });

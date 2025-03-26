@@ -12,6 +12,12 @@ const factory = () => shallowMount(MetadataField, {
     $config: { app: { internalLinkDomain: null } },
     $features: { translatedItems: false },
     $i18n
+  },
+  provide: {
+    deBias: {
+      definitions: {},
+      terms: {}
+    }
   }
 });
 
@@ -120,7 +126,7 @@ describe('components/metadata/MetadataField', () => {
 
         const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
         expect(fieldValues.at(0).text()).toBe(props.fieldData.def[0]);
-        expect(fieldValues.at(1).text()).toBe('formatting.ellipsis');
+        expect(fieldValues.at(1).text()).toBe('…');
       });
 
       describe('URIs', () => {
@@ -266,6 +272,40 @@ describe('components/metadata/MetadataField', () => {
         const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
         expect(link.exists()).toBe(false);
         expect(fieldValues.exists()).toBe(true);
+      });
+    });
+
+    describe('isValidFieldData', () => {
+      describe('when the field name is timestampCreated or timestampUpdate', () => {
+        describe('and the field value equals the unix epoch', () => {
+          const props = {
+            name: 'timestampCreated',
+            fieldData: '1970-01-01T00:00:00.000Z'
+          };
+
+          it('is `false`', async() => {
+            const wrapper = factory();
+
+            await wrapper.setProps(props);
+
+            expect(wrapper.vm.isValidFieldData).toBe(false);
+          });
+        });
+      });
+
+      describe('when the field name is edmUgc', () => {
+        const props = {
+          name: 'edmUgc',
+          fieldData: 'true'
+        };
+
+        it('is `false`', async() => {
+          const wrapper = factory();
+
+          await wrapper.setProps(props);
+
+          expect(wrapper.vm.isValidFieldData).toBe(false);
+        });
       });
     });
   });

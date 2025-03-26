@@ -10,7 +10,7 @@ Feature: Sharing
     When I open the `exhibition page`
     And  I click the `share button`
     Then I see a `share facebook button`
-    And I see a `share twitter button`
+    And I see a `share x button`
     And I see a `share pinterest button`
 
   Scenario: Sharing an exhibition chapter
@@ -18,13 +18,13 @@ Feature: Sharing
     When I open the `exhibition chapter`
     And  I click the `share button`
     Then I see a `share facebook button`
-    And I see a `share twitter button`
+    And I see a `share x button`
     And I see a `share pinterest button`
 
   Scenario: Sharing an item
 
-    When  I open an `item page`
+    When  I open an `item page with IIIF annotations`
     And  I click the `share button`
     Then I see a `share facebook button`
-    And I see a `share twitter button`
+    And I see a `share x button`
     And I see a `share pinterest button`

@@ -1,13 +1,14 @@
 import defu from 'defu';
 import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
-import localeCodes from '../plugins/i18n/codes.js';
+import { codes as localeCodes } from '@europeana/i18n';
 
 const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cacherNames = [
   'collections:organisations',
+  'collections:organisations:count',
   'collections:organisations:featured',
   'collections:places',
   'collections:places:featured',
@@ -15,8 +16,13 @@ const cacherNames = [
   'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
+  'dataspace:api-requests',
+  'dataspace:data-providers',
+  'dataspace:hq-data',
+  'dataspace:network-members',
   'items:recent',
-  'items:type-counts'
+  'items:type-counts',
+  'matomo:visits'
 ];
 
 const cacherModule = (cacherName) => {
@@ -74,14 +80,16 @@ const runSetCacher = async(cacherName) => {
 
 const writeCacheKey = async(cacheKey, data) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  await redisClient.setAsync(cacheKey, JSON.stringify(data));
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  await redisClient.set(cacheKey, JSON.stringify(data));
+  await redisClient.disconnect();
 };
 
 const readCacheKey = async(cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  const data = await redisClient.getAsync(cacheKey);
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  const data = await redisClient.get(cacheKey);
+  await redisClient.disconnect();
   return data;
 };
 

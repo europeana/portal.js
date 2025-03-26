@@ -1,19 +1,64 @@
 .dropdown {
   .btn-light {
     background: $white;
-    color: $mediumgrey;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
+    color: $darkgrey;
     text-decoration: none;
+
+    &:hover,
+    &:focus,
+    :not(:disabled):not(.disabled):active {
+      background-color: $white;
+    }
+  }
+
+  &.show {
+    .btn-light.dropdown-toggle {
+      background-color: $white;
+      color: $darkgrey;
+    }
   }
 
   .dropdown-item {
     text-decoration: none;
+
+    &:hover {
+      background-color: $lightgrey;
+    }
+
+    &:active,
+    &.active {
+      background-color: $blue;
+    }
+  }
+
+  .dropdown-header {
+    font-size: $font-size-extrasmall;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-left: 1rem;
+    color: $darkgrey;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
   }
 
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    @extend %icon-font;
+
+    border: 0;
+    content: '\e91b'; // icon-chevron
+    font-size: 0.425rem;
+    margin-right: 0.25rem;
   }
 }
 
@@ -29,167 +74,6 @@
 
     .list-inline-item {
       margin-bottom: 0.5rem;
-    }
-  }
-
-  .dropdown {
-    .dropdown-toggle {
-      background: $white;
-      font-size: $font-size-small;
-      color: $mediumgrey-light;
-      height: 3rem;
-      border: 1px solid $middlegrey;
-      text-align: left;
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 0.375rem;
-      text-transform: none;
-      font-weight: normal;
-
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          font-size: $font-size-small-4k;
-          height: 4.5rem;
-        }
-      }
-
-      &:focus {
-        border: 1px solid $blue;
-      }
-
-      &::after {
-        color: $mediumgrey;
-      }
-
-      span.select-label {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
-    &.show {
-      .dropdown-toggle {
-        border-color: $blue;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
-  }
-
-  .dropdown-menu {
-    width: 100%;
-    font-size: $font-size-small;
-    max-height: 15rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-top: 0;
-    border-radius: 0 0 0.375rem 0.375rem;
-    box-shadow: $boxshadow-large;
-    border: 0;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k;
-        max-height: 22.5rem;
-      }
-    }
-
-    .b-dropdown-form {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          padding-left: calc(1.5 * 0.75rem);
-          padding-right: calc(1.5 * 0.75rem);
-        }
-      }
-    }
-
-    .form-group {
-      margin-bottom: 0.3rem;
-
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          margin-bottom: 0.45rem;
-        }
-      }
-
-      > div {
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid $blue;
-
-        input[type='text'] {
-          background: none;
-          border-radius: 0;
-          font-size: $font-size-small;
-          padding-right: 0.5rem;
-          padding-left: 0;
-          color: $mediumgrey;
-          height: 2rem;
-
-          @at-root .xxl-page & {
-            @media (min-width: $bp-4k) {
-              font-size: $font-size-small-4k;
-              padding-right: 0.75rem;
-              height: 3rem;
-            }
-          }
-        }
-      }
-    }
-
-    .dropdown-item {
-      padding: 1rem 0.75rem;
-      color: $greyblack;
-      line-height: 1rem;
-
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          padding: 1.5rem calc(1.5 * 0.75rem);
-          line-height: 1.5rem;
-        }
-      }
-
-      &:hover {
-        background-color: $lightblue-light;
-        color: $innovationblue-dark;
-      }
-
-      span {
-        white-space: normal;
-      }
-
-      .colour-palette {
-        border: 1px solid $whitegrey;
-        border-radius: 50%;
-        height: 1rem;
-        width: 1rem;
-        display: inline-block;
-        vertical-align: top;
-
-        @at-root .xxl-page & {
-          @media (min-width: $bp-4k) {
-            height: 1.5rem;
-            width: 1.5rem;
-          }
-        }
-      }
-    }
-
-    .b-dropdown-text {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          padding-left: calc(1.5 * 0.75rem);
-          padding-right: calc(1.5 * 0.75rem);
-        }
-      }
     }
   }
 }

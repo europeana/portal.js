@@ -2,25 +2,13 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="m-0 header-navbar container-fluid d-flex justify-content-between show xxl-page"
+    class="container-fluid m-0 show xxl-page"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
   >
     <div
-      v-if="showSearchBar"
-      class="d-flex justify-content-center w-100"
-      data-qa="search form wrapper"
-    >
-      <SearchForm
-        :in-top-nav="true"
-        :show="showSearchBar"
-        :hidable-form="true"
-        @hide="toggleSearchBar"
-      />
-    </div>
-    <template
-      v-else
+      class="header-navbar d-flex justify-content-between"
     >
       <b-button
         v-b-toggle.sidebar
@@ -53,11 +41,12 @@
           id="show-search-button"
           data-qa="show search button"
           class="button-icon-only icon-search ml-lg-3"
+          :class="{ 'query-applied': hasQuery }"
           variant="light-flat"
           :aria-label="$t('search.title')"
           @click="toggleSearchBar"
         />
-        <SearchFilterToggleButton />
+        <SearchSidebarToggleButton />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -66,6 +55,7 @@
         backdrop
         backdrop-variant="black"
         :aria-label="$t('header.sideNavigation')"
+        lazy
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
@@ -100,24 +90,40 @@
           <div />
         </b-navbar>
       </b-sidebar>
-    </template>
+    </div>
+    <div
+      v-if="showSearchBar"
+      class="search-bar d-flex justify-content-center"
+      data-qa="search form wrapper"
+    >
+      <SearchForm
+        parent="page-header"
+        :show="showSearchBar"
+        :hidable-form="true"
+      />
+    </div>
   </header>
 </template>
 
 <script>
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
+
   import SmartLink from '../generic/SmartLink';
-  import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
-  import SearchFilterToggleButton from '../search/SearchFilterToggleButton';
+  import SearchSidebarToggleButton from '../search/SearchSidebarToggleButton';
 
   export default {
     name: 'PageHeader',
 
     components: {
       SmartLink,
-      SearchForm,
+      SearchForm: () => import('../search/SearchForm'),
       PageNavigation,
-      SearchFilterToggleButton
+      SearchSidebarToggleButton
+    },
+
+    directives: {
+      'visible-on-scroll': visibleOnScrollDirective
     },
 
     data() {
@@ -130,12 +136,15 @@
     computed: {
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      hasQuery() {
+        return this.$route.query.query;
       }
     },
 
     methods: {
       toggleSearchBar() {
-        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+        this.$store.commit('search/setShowSearchBar', !this.showSearchBar);
       }
     }
   };
@@ -143,7 +152,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/mixins';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);
@@ -162,21 +171,15 @@
 
   .container-fluid {
     background: $white;
-    height: 3.5rem;
     position: fixed;
     right: 0;
     top: 0;
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: $boxshadow-small;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
-    }
-
-    @media (min-width: $bp-4k) {
-      height: calc(1.5 * 3.5rem);
     }
 
     &:not(.show) {
@@ -199,7 +202,14 @@
 
   .header-navbar {
     min-width: 11.0625rem;
-    flex: 0 0 auto;
+    height: 3.5rem;
+    box-shadow: $boxshadow-small;
+    position: relative;
+    z-index: 10;
+
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 3.5rem);
+    }
 
     .logo {
       min-width: 9.5625rem;
@@ -280,6 +290,21 @@
   .filters-toggle {
     @media (min-width: $bp-medium) {
       display: none;
+    }
+  }
+
+  .search-bar {
+    background-color: $white;
+    box-shadow: $boxshadow-light;
+  }
+
+  .query-applied {
+    position: relative;
+
+    @include status-indicator;
+    &::after {
+      right: 6px;
+      top: 0px;
     }
   }
 

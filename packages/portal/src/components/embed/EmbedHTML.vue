@@ -8,16 +8,18 @@
     data-qa="responsive embed wrapper"
   >
     <div
+      ref="embedContainer"
       data-qa="html embed"
-      class="mb-5 html-embed"
+      class="html-embed"
       :style="`padding-bottom:${heightAsPercentOfWidth}%`"
       v-html="html"
     />
   </div>
   <div
     v-else
+    ref="embedContainer"
     data-qa="html embed"
-    class="mb-5 html-embed"
+    class="html-embed"
     v-html="html"
   />
   <!-- eslint-enable vue/no-v-html -->
@@ -38,6 +40,10 @@
       },
       width: {
         type: [Number, String],
+        default: null
+      },
+      title: {
+        type: String,
         default: null
       },
       responsive: {
@@ -61,6 +67,11 @@
     mounted() {
       this.setWidthWrapper();
       window.addEventListener('resize', this.setWidthWrapper);
+
+      if (this.title) {
+        const iframe = this.$refs.embedContainer.getElementsByTagName('iframe')?.[0];
+        iframe?.setAttribute('title', this.title);
+      }
     },
 
     methods: {
@@ -76,12 +87,14 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .html-embed {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     ::v-deep iframe {
       display: inline;
@@ -96,26 +109,16 @@
 
       iframe {
         width: 100%;
-        max-height: calc($swiper-height-max - $swiper-top-padding);
-        height: $swiper-height;
-
-        @media (max-width: $bp-medium) {
-          height: calc(22.5rem - $swiper-top-padding);
-        }
+        @include media-viewer-height;
       }
     }
   }
 
   .responsive-embed-wrapper {
-    height: calc($swiper-height - $swiper-top-padding);
-    max-height: calc($swiper-height-max - $swiper-top-padding);
+    @include media-viewer-height;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;
-
-    @media (max-width: $bp-medium) {
-      height: 22.5rem;
-    }
 
     .html-embed {
       display: block;
@@ -129,18 +132,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-
-        @media (max-height: $bp-medium) {
-          max-height: calc($swiper-height - $swiper-top-padding);
-        }
-
-        @media (min-height: $bp-medium) {
-          max-height: calc($swiper-height-max - $swiper-top-padding);
-        }
-
-        @media (max-width: $bp-medium) {
-          max-height: calc($swiper-height-medium - $swiper-top-padding);
-        }
       }
     }
   }

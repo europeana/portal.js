@@ -8,10 +8,12 @@
     >
       <b-tabs card>
         <b-tab
-          :title="$t('record.goodToKnow')"
-          data-qa="good to know tab"
+          :title-link-attributes="{'data-qa': 'good to know tab'}"
           active
         >
+          <template #title>
+            <h2>{{ $t('record.goodToKnow') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
             data-qa="main metadata section"
@@ -22,13 +24,16 @@
               :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
+              :label-id="`${name}-main-label`"
             />
           </b-card-text>
         </b-tab>
         <b-tab
-          :title="$t('record.allMetaData')"
-          data-qa="all metadata tab"
+          :title-link-attributes="{'data-qa': 'all metadata tab'}"
         >
+          <template #title>
+            <h2>{{ $t('record.allMetaData') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
           >
@@ -38,41 +43,20 @@
               :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
+              :label-id="`${name}-label`"
             />
           </b-card-text>
         </b-tab>
         <b-tab
-          v-if="Boolean(transcribingAnnotations.length)"
-          :title="$t('record.transcription')"
-          data-qa="transcription tab"
-        >
-          <b-card-text
-            text-tag="div"
-          >
-            <p
-              class="disclaimer px-2 pb-3 d-flex"
-            >
-              {{ $t('record.transcriptionDisclaimer') }}
-            </p>
-            <div
-              v-for="(transcription, index) in transcribingAnnotations"
-              :key="index"
-              :lang="transcription.body.language"
-            >
-              <p>{{ transcription.body.value }}</p>
-              <hr
-                v-if="index !== (transcribingAnnotations.length - 1)"
-              >
-            </div>
-          </b-card-text>
-        </b-tab>
-        <b-tab
           v-if="mappableLocation"
-          :title="$t('record.location')"
           class="p-0"
+          :title-link-attributes="{'data-qa': 'location tab'}"
           data-qa="location tab"
           @click="clickLocationTab"
         >
+          <template #title>
+            <h2>{{ $t('record.location') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
           >
@@ -115,10 +99,6 @@
       metadataLanguage: {
         type: String,
         default: null
-      },
-      transcribingAnnotations: {
-        type: Array,
-        default: () => []
       }
     },
 
@@ -155,7 +135,7 @@
     'dctermsMedium'
   ];
 
-  const ALL_FIELDS = CORE_FIELDS.concat([
+  export const ALL_FIELDS = CORE_FIELDS.concat([
     'edmDataProvider',
     'edmProvider',
     'edmIntermediateProvider',

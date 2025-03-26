@@ -1,8 +1,11 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="text-page white-page "
+    class="page text-page"
   >
+    <b-breadcrumb
+      :items="breadcrumbs"
+    />
     <ContentWarningModal
       v-if="contentWarning"
       :title="contentWarning.name"
@@ -24,8 +27,19 @@
           class="col-lg-8 mb-3"
         >
           <article>
-            <ShareButton class="mb-4" />
-            <ShareSocialModal :media-url="heroImage && heroImage.url" />
+            <time
+              v-if="datePublished"
+              data-qa="date"
+              :datetime="datePublished"
+              class="font-small font-weight-bold d-block mb-4"
+            >
+              {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
+            </time>
+            <div class="mb-4 d-flex align-items-center">
+              <ShareButton class="mr-4" />
+              <ShareSocialModal :media-url="pageMetaOgImage" />
+              <ViewCount />
+            </div>
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -96,42 +110,50 @@
 </template>
 
 <script>
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
-  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
-  import ShareButton from '../../../components/share/ShareButton.vue';
-  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import ViewCount from '@/components/generic/ViewCount.vue';
+  import { useLogEvent } from '@/composables/logEvent.js';
+  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionPage',
     components: {
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
+      BBreadcrumb,
       ClientOnly,
-      LinkList: () => import('../../../components/generic/LinkList'),
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      LinkList: () => import('@/components/generic/LinkList'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
-      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ThemeBadges: () => import('@/components/theme/ThemeBadges')
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ViewCount
     },
     mixins: [
       exhibitionChapters,
       pageMetaMixin
     ],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
+    inject: [
+      'canonicalUrl'
+    ],
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
     },
-    asyncData({ params, query, error, app, store, redirect }) {
+    asyncData({ params, query, error, app, redirect }) {
       if (params.exhibition === undefined) {
         redirect(app.localePath({ name: 'exhibitions' }));
       }
 
       const variables = {
         identifier: params.exhibition,
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview'
       };
 
@@ -143,29 +165,25 @@
             return null;
           }
 
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.localePath({ name: 'exhibitions' })
-            },
-            {
-              text: data.exhibitionPageCollection.items[0].name,
-              active: true
-            }
-          ]);
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
     computed: {
+      breadcrumbs() {
+        return [
+          { text: this.$t('exhibitions.breadcrumbPrefix', { title: this.name }) }
+        ];
+      },
       pageMeta() {
         return {
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImage: this.heroImage,
           ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
         };
       },
@@ -180,13 +198,11 @@
       },
       mainContent() {
         return this.text ? marked.parse(this.text) : null;
-      },
-      optimisedImageUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.heroImage,
-          { w: 800, h: 800 }
-        );
       }
+    },
+
+    mounted() {
+      this.logEvent('view', this.canonicalUrl.withOnlyQuery, this.$session);
     }
   };
 </script>

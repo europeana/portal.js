@@ -1,32 +1,28 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemLanguageSelector from '@/components/item/ItemLanguageSelector';
-import VueI18n from 'vue-i18n';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
 
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
-i18n.locales = [
-  { code: 'en', name: 'English', iso: 'en-GB' },
-  { code: 'de', name: 'Deutsch', iso: 'de-DE' },
-  { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
-];
-
-const factory = (propsData = {}) => mount(ItemLanguageSelector, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => mount(ItemLanguageSelector, {
   localVue,
-  attachTo: document.body,
   propsData,
-  i18n,
   mocks: {
+    $auth: { loggedIn: mocks.loggedIn || false },
+    localePath: () => {},
+    $i18n: {
+      locale: 'en',
+      locales: [
+        { code: 'en', name: 'English', iso: 'en-GB' },
+        { code: 'de', name: 'Deutsch', iso: 'de-DE' },
+        { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
+      ]
+    },
+    $keycloak: {
+      login: sinon.spy()
+    },
     $t: (key) => {
       if (key === 'multilingual.differentLanguage') {
         return 'a different language';
@@ -39,44 +35,32 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
     $route: {
       path: 'item/example/123',
       query: {
-        lang: propsData.metadataLanguage
+        lang: mocks.translationLanguage
       }
     }
   },
-  stubs: {
-    NuxtLink: true
-  }
+  stubs: ['i18n']
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  describe('when no translations are applied', () => {
-    it('suggests to translate the item metadata to other languages', () => {
+  describe('when item metadata is not translated', () => {
+    it('suggests to translate the item', () => {
       const wrapper = factory();
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
+      const suggestion = wrapper.find('[data-qa="item language selector toggle text suggestion"]');
 
-      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
+      expect(suggestion.exists()).toBe(true);
+      expect(wrapper.findAll('[data-qa="item language selector toggle text translated"]').exists()).toBe(false);
     });
   });
-  describe('when tanslations are requested to a language other than the UI language', () => {
-    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-      const wrapper = factory({ metadataLanguage: 'de' });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
-      expect(removeButton.text()).toBe('Stop translating this item to Deutsch.');
-    });
-  });
-  describe('when tanslations are requested to the UI language', () => {
-    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-      const wrapper = factory({ metadataLanguage: 'en'  });
+  describe('when item metadata is translated', () => {
+    it('the first option in the dropdown is to remove translations', () => {
+      const wrapper = factory({ propsData: { translationLanguage: 'de' }, mocks: { loggedIn: true } });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
       const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
-      expect(removeButton.text()).toBe('Stop translating this item to English.');
+
+      expect(removeButton.exists()).toBe(true);
     });
   });
 
@@ -84,28 +68,32 @@ describe('components/item/ItemLanguageSelector', () => {
     it('adds the lang query with the provided language code', () => {
       const wrapper = factory();
       const newParams = wrapper.vm.translateParams('de');
+
       expect(newParams.query.lang).toBe('de');
     });
   });
 
-  describe('when the recuested translation failed', () => {
-    it('shows an error message', () => {
-      const wrapper = factory({ fromTranslationError: true });
+  describe('when clicking a language option', () => {
+    describe('when not logged in', () => {
+      it('redirects to login', async() => {
+        const wrapper = factory();
 
-      const suggestion = wrapper.find('[data-qa="translate item error"]');
-      expect(suggestion.text()).toContain('Translation service is temporarily unavailable. Please try again later.');
+        wrapper.find('[data-qa="item language option nl"]').trigger('click');
 
-      expect(wrapper.findAll('[data-qa="translate item suggestion"]').exists()).toBe(false);
-      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
+        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+      });
     });
   });
-  describe('when close button is clicked', () => {
-    it('emits the hidden event', () => {
-      const wrapper = factory();
-      const button = wrapper.find('[data-qa="item language selector close button"]');
-      button.trigger('click');
 
-      expect(wrapper.emitted('hidden').length).toBe(1);
+  describe('when the requested translation failed', () => {
+    it('shows an error message', () => {
+      const wrapper = factory({ propsData: { fromTranslationError: true } });
+
+      const suggestion = wrapper.find('[data-qa="translate item error"]');
+
+      expect(suggestion.exists()).toBe(true);
+      expect(wrapper.findAll('[data-qa="translate item suggestion"]').exists()).toBe(false);
+      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
 });

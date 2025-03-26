@@ -21,7 +21,7 @@
       {{ label }}
       <b-button
         v-if="tooltip"
-        v-b-tooltip.hover.bottom
+        v-b-tooltip.bottom
         :title="tooltip"
         class="icon-info-outline p-0 tooltip-button"
         variant="light-flat"

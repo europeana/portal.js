@@ -27,7 +27,11 @@
     background-image: var(--bg-img-wqhd, var(--bg-img-small));
   }
 
-  @media (min-width: ($bp-wqhd + 1px)) {
+  @media (min-width: ($bp-wqhd + 1px)) and (max-width: $bp-4k) {
     background-image: var(--bg-img-4k, var(--bg-img-small));
+  }
+
+  @media (min-width: ($bp-4k + 1px)) {
+    background-image: var(--bg-img-4k\+, var(--bg-img-small));
   }
 }

@@ -16,8 +16,19 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   data: () => ({ ...data }),
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key
-  }
+    $tc: (key) => key,
+    $config: {
+      app: {
+        baseUrl: 'https://www.europeana.eu'
+      }
+    },
+    localePath: () => '/'
+  },
+  stubs: [
+    'EntityBadges',
+    'LinkList',
+    'ThemeBadges'
+  ]
 });
 
 describe('pages/exhibitions/_exhibition/credits', () => {

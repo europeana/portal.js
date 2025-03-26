@@ -12,14 +12,20 @@ const themes = [{ name: 'art', identifier: 'art', primaryImageOfPage: {
   image: { url: 'https://images.ctfassets.net/example.jpg' }
 } }];
 
-const themesAfterFetch = [{ prefLabel: 'art',
+const themesAfterFetch = [{
+  prefLabel: 'art',
   primaryImageOfPage: {
     image: {
       url: 'https://images.ctfassets.net/example.jpg'
     }
   },
-  url: '/art' }];
-
+  url: {
+    name: 'themes-all',
+    params: {
+      pathMatch: 'art'
+    }
+  }
+}];
 const props = { title: 'themes' };
 
 const factory = ({ propsData = props, mocks } = {}) => {
@@ -37,11 +43,17 @@ const factory = ({ propsData = props, mocks } = {}) => {
       },
       $i18n: {
         locale: 'de',
-        isoLocale: () => 'de-DE'
+        localeProperties: { iso: 'de-DE' }
       },
       $t: () => {},
       localePath: (path) => `/${path.params?.pathMatch || ''}`,
       $route: { query: { mode: null } },
+      $store: {
+        commit: sinon.spy()
+      },
+      $matomo: {
+        trackEvent: sinon.spy()
+      },
       ...mocks
     },
     stubs: ['LinkBadge']
@@ -80,6 +92,16 @@ describe('components/related/ThemeBadges', () => {
 
         expect(wrapper.vm.themesData).toEqual(themesAfterFetch);
       });
+    });
+  });
+
+  describe('clickEventHandler', () => {
+    it('sets the loggable interaction state', () => {
+      const wrapper = factory();
+
+      wrapper.vm.clickEventHandler();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
     });
   });
 });

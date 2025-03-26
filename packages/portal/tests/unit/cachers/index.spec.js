@@ -9,9 +9,10 @@ let consoleLogStub;
 let processExitStub;
 
 const redisClientStub = {
-  getAsync: sinon.stub().resolves('cached'),
-  quitAsync: sinon.stub().resolves(),
-  setAsync: sinon.stub().resolves()
+  connect: sinon.stub().resolves(),
+  disconnect: sinon.stub().resolves(),
+  get: sinon.stub().resolves('cached'),
+  set: sinon.stub().resolves()
 };
 
 const recentItemsData = [
@@ -42,7 +43,7 @@ describe('@/cachers/index', () => {
       it('reads and returns the cached data', async() => {
         const response = await cachers.run('get', 'items:recent');
 
-        expect(redisClientStub.getAsync.calledWith('@europeana:portal.js:items:recent')).toBe(true);
+        expect(redisClientStub.get.calledWith('@europeana:portal.js:items:recent')).toBe(true);
         expect(response).toBe('cached');
       });
     });
@@ -51,7 +52,7 @@ describe('@/cachers/index', () => {
       it('generates and caches data', async() => {
         await cachers.run('set', 'items:recent');
 
-        expect(redisClientStub.setAsync.calledWith(
+        expect(redisClientStub.set.calledWith(
           '@europeana:portal.js:items:recent', JSON.stringify(recentItemsData)
         )).toBe(true);
       });

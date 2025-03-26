@@ -119,12 +119,25 @@
       extended: {
         type: Boolean,
         default: false
+      },
+      /**
+       * If `true`, focus the first link when mounted
+       */
+      setFocus: {
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
       linkText() {
         return [this.name, this.creator, this.provider].filter(Boolean).join(', ');
+      }
+    },
+
+    mounted() {
+      if (this.extended && this.setFocus) {
+        this.$el.getElementsByTagName('a')[0]?.focus();
       }
     }
   };

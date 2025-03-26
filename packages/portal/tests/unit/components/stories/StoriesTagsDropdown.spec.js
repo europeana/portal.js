@@ -34,7 +34,7 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {}
@@ -49,6 +49,15 @@ describe('components/stories/StoriesTagsDropdown', () => {
     await wrapper.vm.fetch();
 
     expect(wrapper.vm.tags.length).toBe(3);
+  });
+
+  describe('on focusin event', () => {
+    it('makes the click outside handler active, opens the dropdown', async() => {
+      const wrapper = factory();
+      await wrapper.vm.handleFocusin();
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+      expect(wrapper.vm.showDropdown).toBe(true);
+    });
   });
 
   describe('when searching for tag', () => {
@@ -86,23 +95,10 @@ describe('components/stories/StoriesTagsDropdown', () => {
 
   describe('when user clicks outside the search form dropdown', () => {
     it('hides the search options', async() => {
-      const handleClickOrTabOutsideEvent = new Event('click');
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(handleClickOrTabOutsideEvent);
-
-      expect(wrapper.vm.showDropdown).toBe(false);
-    });
-  });
-
-  describe('when user tabs outside the search form dropdown', () => {
-    it('hides the search options', async() => {
-      const tabOutsideEvent = new KeyboardEvent('keydown', { 'key': 'Tab' });
-      const wrapper = factory();
-
-      await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(tabOutsideEvent);
+      wrapper.vm.handleClickOutside();
 
       expect(wrapper.vm.showDropdown).toBe(false);
     });
@@ -110,11 +106,11 @@ describe('components/stories/StoriesTagsDropdown', () => {
 
   describe('when user uses escape key', () => {
     it('hides the search options', async() => {
-      const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOrTabOutside(escapeEvent);
+      const dropdown = wrapper.find('[data-qa="tags dropdown"]');
+      dropdown.trigger('keydown.esc');
 
       expect(wrapper.vm.showDropdown).toBe(false);
     });

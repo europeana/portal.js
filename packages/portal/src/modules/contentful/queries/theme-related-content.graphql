@@ -5,7 +5,7 @@ query ThemeRelatedContent(
   $theme: String!,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  exhibitionPageCollection(
     where: { genre_contains_some: [$theme], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
@@ -23,7 +23,7 @@ query ThemeRelatedContent(
       datePublished
     }
   }
-  exhibitionPageCollection(
+  storyCollection(
     where: { genre_contains_some: [$theme], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

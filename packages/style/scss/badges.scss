@@ -31,6 +31,7 @@
   span {
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.5rem;
   }
 
   .organisation-logo {
@@ -46,32 +47,41 @@
   }
 
   .close {
-    @extend %icon-font, .icon-cancel-circle;
+    @extend %icon-font, .icon-clear;
 
-    color: $mediumgrey;
-    margin-left: 0.5rem;
+    color: $darkgrey;
+    margin-left: 0.5rem !important;
     font-size: 0 !important;
     opacity: 1;
-    line-height: 1.5 !important;
+    text-shadow: none;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        margin-left: 0.75rem;
+        margin-left: 0.75rem !important;
       }
     }
 
-    &:hover,
-    &:hover:not(:disabled):not(.disabled) {
-      opacity: 1;
-    }
-
     &::before {
-      font-size: 15px;
+      font-size: $font-size-smallest;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
-          font-size: 20px;
+          font-size: $font-size-smallest-4k;
         }
+      }
+    }
+  }
+
+  .icon-clear {
+    color: $darkgrey;
+    font-size: $font-size-smallest;
+    margin-left: 0.5rem;
+    line-height: 1;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+        margin-left: calc(1.5 * 0.25rem);
       }
     }
   }
@@ -82,6 +92,7 @@
   padding: 0.25rem 0.75rem;
   height: 2.25rem;
   min-width: 4rem;
+  max-width: 100%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -134,7 +145,6 @@
 
 .badge-primary {
   background: $blue;
-  font-size: $font-size-smallest;
   font-weight: normal;
   padding: 0.5rem;
 
@@ -149,11 +159,15 @@
       background-color: $innovationblue-dark;
     }
   }
+
+  .close {
+    color: $white;
+  }
 }
 
 .badge-primary-light {
   background-color: $lightblue;
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
   border-radius: 2.25rem;
   align-items: center !important;
@@ -185,7 +199,7 @@
 }
 
 .badge-secondary {
-  background-color: $bodygrey;
+  background-color: $lightgrey;
   color: $greyblack;
 
   &[href] {
@@ -222,7 +236,7 @@
 
     &:hover,
     &:focus {
-      background-color: $bodygrey !important;
+      background-color: $lightgrey !important;
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
   }
@@ -246,7 +260,7 @@
 .badge-outline-light {
   background-color: $white;
   border: 1px solid $lightbluemagenta;
-  color: $mediumgrey;
+  color: $darkgrey;
   display: inline-flex;
   align-items: center;
   font-weight: normal;
@@ -270,30 +284,26 @@
 
   &:hover,
   &:focus {
-    color: $mediumgrey;
-    background: $bodygrey !important;
+    color: $darkgrey;
+    background: $lightgrey !important;
   }
 
   &.active {
     border: 0;
     background-color: $lightblue;
     box-shadow: 0;
+
     &:hover,
     &:focus {
       background-color: $lightblue-dark !important;
     }
   }
+}
 
-  .icon-clear {
-    color: $greyblack;
-    font-size: $font-size-medium;
-    margin-left: 0.25rem;
+.badge .close:hover {
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
-        margin-left: calc(1.5 * 0.25rem);
-      }
-    }
+  &,
+  &:not(:disabled):not(.disabled) {
+    opacity: 1;
   }
 }

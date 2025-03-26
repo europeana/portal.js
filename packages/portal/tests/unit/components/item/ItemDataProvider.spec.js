@@ -1,22 +1,10 @@
-
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 import ItemDataProvider from '@/components/item/ItemDataProvider';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const dataProvider = {
   en: ['Example organisation'],
@@ -38,21 +26,21 @@ const dataProviderEntity = {
 const factory = (propsData) => mount(ItemDataProvider, {
   localVue,
   propsData,
-  i18n,
   mocks: {
-    $t: (key) => key,
+    getPrefLanguage: sinon.stub(),
     localePath: () => 'localizedPath',
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo.id
       }
     },
-    $link: {
-      to: route => route,
-      href: () => null
+    $i18n: { locale: 'en' },
+    $store: {
+      commit: sinon.spy()
     },
-    getPrefLanguage: sinon.stub()
-  }
+    $t: (key) => key
+  },
+  stubs: ['i18n']
 });
 
 describe('components/item/ItemDataProvider', () => {
@@ -130,6 +118,30 @@ describe('components/item/ItemDataProvider', () => {
 
           expect(name).toBe('Example organisation');
         });
+      });
+    });
+
+    describe('providedByStringPath', () => {
+      describe('when there is user generated content', () => {
+        it('is reflected in the text', () => {
+          const wrapper = factory({ dataProviderEntity, userGeneratedContent: true });
+
+          const name = wrapper.vm.providedByStringPath;
+
+          expect(name).toBe('provider.providedByUgc');
+        });
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('badgeClickEventHandler', () => {
+      it('sets the loggable interaction state', () => {
+        const wrapper = factory();
+
+        wrapper.vm.badgeClickEventHandler();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
       });
     });
   });

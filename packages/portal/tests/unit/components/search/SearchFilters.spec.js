@@ -7,48 +7,43 @@ import SearchFilters from '@/components/search/SearchFilters.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (options = {}) => {
-  return shallowMount(SearchFilters, {
-    localVue,
-    attachTo: document.body,
-    mocks: {
-      $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
-      $tc: (key) => key,
-      $te: () => true,
-      $features: {},
-      localePath: () => '/',
-      ...options.mocks,
-      $route: { query: {} },
-      $router: { push: sinon.spy() },
-      $store: {
-        commit: () => sinon.spy(),
-        getters: {
-          'entity/id': null,
-          ...options.mocks?.$store?.getters
-        },
-        state: {
-          search: {
-            collectionFacetEnabled: true,
-            showFiltersSheet: false
-          },
-          ...options.mocks?.$store?.state
-        }
-      }
+const factory = (options = {}) => shallowMount(SearchFilters, {
+  localVue,
+  attachTo: document.body,
+  mocks: {
+    $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
+    $tc: (key) => key,
+    $te: () => true,
+    $features: {},
+    localePath: () => '/',
+    ...options.mocks,
+    $matomo: {
+      trackEvent: sinon.spy()
     },
-    propsData: options.propsData
-  });
-};
+    $route: { query: {} },
+    $router: { push: sinon.spy() },
+    $store: {
+      commit: sinon.spy(),
+      getters: {
+        'entity/id': null,
+        ...options.mocks?.$store?.getters
+      },
+      state: {
+        search: {
+          collectionFacetEnabled: true,
+          showSearchSidebar: false
+        },
+        ...options.mocks?.$store?.state
+      }
+    }
+  },
+  propsData: options.propsData
+});
 
 describe('components/search/SearchFilters', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
-    it('is wrapper in <section role="search">', () => {
-      const wrapper = factory();
-
-      const section = wrapper.find('section[role="search"]');
-
-      expect(section.exists()).toBe(true);
-    });
-
     describe('filters title', () => {
       describe('with advanced search', () => {
         it('has a level 2 heading', () => {
@@ -156,22 +151,6 @@ describe('components/search/SearchFilters', () => {
           const propsData = {
             apiParams: {},
             userParams: query
-          };
-
-          const wrapper = factory({ propsData });
-
-          expect(wrapper.vm.filters).toEqual(expected);
-        });
-      });
-
-      describe('with api value', () => {
-        it('returns it as a string on api property', async() => {
-          const query = { api: 'metadata' };
-          const expected = { 'api': 'metadata' };
-
-          const propsData = {
-            apiParams: query,
-            userParams: {}
           };
 
           const wrapper = factory({ propsData });
@@ -311,47 +290,6 @@ describe('components/search/SearchFilters', () => {
           expect(wrapper.vm.dateFilterField).toBe('proxy_dcterms_issued');
         });
       });
-
-      describe('enableApiFilter', () => {
-        it('is true', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(true);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is "fulltext"', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe('fulltext');
-        });
-      });
-    });
-
-    describe('when on the ww1 collection', () => {
-      const propsData = {
-        collection: 'ww1'
-      };
-
-      describe('enableDateFilter', () => {
-        it('is false', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableDateFilter).toBe(false);
-        });
-      });
-
-      describe('enableApiFilter', () => {
-        it('is true', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(true);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is "metadata"', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe('metadata');
-        });
-      });
     });
 
     describe('when on a collection without specific filters', () => {
@@ -366,20 +304,6 @@ describe('components/search/SearchFilters', () => {
         });
       });
 
-      describe('enableApiFilter', () => {
-        it('is false', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(false);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is null', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe(null);
-        });
-      });
-
       describe('dateFilterField', () => {
         it('is null', async() => {
           const wrapper = factory({ propsData });
@@ -390,10 +314,51 @@ describe('components/search/SearchFilters', () => {
   });
 
   describe('methods', () => {
+    describe('rerouteSearch', () => {
+      it('stores that the interaction is loggable', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
+      });
+
+      it('updates the route', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch();
+
+        expect(wrapper.vm.$router.push.called).toBe(true);
+      });
+
+      it('tracks each qf filter in Matomo', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch({
+          qf: [
+            'TYPE:"IMAGE"',
+            'LANGUAGE:"DE"'
+          ]
+        });
+
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Filter selected', 'TYPE:"IMAGE"')).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Filter selected', 'LANGUAGE:"DE"')).toBe(true);
+      });
+
+      it('tracks reusability filter in Matomo', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch({
+          reusability: 'open'
+        });
+
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Reusability filter selected', 'open')).toBe(true);
+      });
+    });
+
     describe('resetFilters', () => {
       it('removes all current filters from route', () => {
         const userParams = {
-          api: 'fulltext',
           reusability: 'open',
           qf: [
             'collection:newspaper',
@@ -406,7 +371,7 @@ describe('components/search/SearchFilters', () => {
 
         wrapper.vm.resetFilters();
 
-        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, api: null, reusability: null })).toBe(true);
+        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, reusability: null })).toBe(true);
       });
     });
 
@@ -537,9 +502,6 @@ describe('components/search/SearchFilters', () => {
 
       describe('in a collection having custom filters', () => {
         const propsData = {
-          apiParams: {
-            api: 'fulltext'
-          },
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
           },
@@ -548,45 +510,32 @@ describe('components/search/SearchFilters', () => {
 
         it('applies them', () => {
           const wrapper = factory({ propsData });
-          const selected = { api: 'metadata', 'proxy_dcterms_issued': ['1900-01-02'] };
+          const selected = { 'proxy_dcterms_issued': ['1900-01-02'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
           expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
-          expect(updates.api).toBe('metadata');
         });
 
         describe('when collection is changed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': 'art' };
+          const selected = { collection: 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
             expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
-          });
-
-          it('removes the api filter', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-
-            expect(updates.api).toStrictEqual([]);
           });
         });
 
         describe('when collection is removed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': null };
+          const selected = { collection: null };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
             expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
-          });
-
-          it('removes the api filter', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-
-            expect(updates.api).toStrictEqual([]);
           });
         });
       });
@@ -605,7 +554,7 @@ describe('components/search/SearchFilters', () => {
 
         describe('when collection is changed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': 'art' };
+          const selected = { collection: 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -628,7 +577,7 @@ describe('components/search/SearchFilters', () => {
 
         describe('when collection is removed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': [] };
+          const selected = { collection: [] };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);

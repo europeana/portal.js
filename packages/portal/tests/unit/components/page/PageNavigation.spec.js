@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMount(PageNavigation, {
   localVue,
   mocks: {
+    $features: {},
     $store: { state: { auth: { loggedIn: false } } },
     $t: (key) => key,
     localePath: code => window.location.href + code,

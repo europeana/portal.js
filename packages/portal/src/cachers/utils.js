@@ -1,38 +1,22 @@
 import axios from 'axios';
-import redis from 'redis';
+import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
-import { promisify } from 'util';
-import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
-
-const redisConfig = (config = {}) => {
-  const redisOptions = {
-    url: config.url
-  };
-
-  if (config.tlsCa) {
-    redisOptions.tls = {
-      ca: [Buffer.from(config.tlsCa, 'base64')]
-    };
-  }
-
-  return redisOptions;
-};
+import { daily } from '../plugins/europeana/utils.js';
+import { langMapValueForLocale } from '@europeana/i18n';
+import EuropeanaRecordApi from '../plugins/europeana/record.js';
+import EuropeanaEntityApi from '../plugins/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
-  const redisClient = redis.createClient(redisConfig(config));
+  const redisClient = createClient(config);
 
   redisClient.on('error', console.error);
-
-  for (const fn of ['get', 'set', 'quit']) {
-    redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
-  }
 
   return redisClient;
 };
 
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
-    baseURL: config.url,
+    baseURL: config.url || fallbackApiUrl(config.id),
     params: {
       wskey: config.key
     }
@@ -53,6 +37,14 @@ const errorMessage = (error) => {
   }
 
   return message;
+};
+
+const fallbackApiUrl = (apiId) => {
+  if (apiId === 'record') {
+    return EuropeanaRecordApi.BASE_URL;
+  } else if (apiId === 'entity') {
+    return EuropeanaEntityApi.BASE_URL;
+  }
 };
 
 const localiseOne = (item, fields, locale) => {
@@ -98,6 +90,7 @@ export {
   createEuropeanaApiClient,
   createRedisClient,
   errorMessage,
+  fallbackApiUrl,
   daily,
   localise,
   pick,

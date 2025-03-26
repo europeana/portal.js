@@ -33,7 +33,6 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRe
       }
     },
     $auth: {},
-    $fetchState: {},
     $i18n: { locale: 'en' },
     $t: key => key,
     ...mocks
@@ -81,11 +80,34 @@ describe('components/item/ItemRecommendations', () => {
 
         expect(wrapper.vm.$apis.record.search.calledWith({
           query: '(what:("whale" OR "image")^0.8 OR DATA_PROVIDER:("Europeana Foundation")^0.2) NOT europeana_id:"/123/abc"',
+          qf: ['contentTier:(1 OR 2 OR 3 OR 4)'],
           rows: 4,
           profile: 'minimal',
           facet: ''
         })).toBe(true);
       });
+    });
+  });
+
+  describe('when a similar item is clicked', () => {
+    it('logs the clicked item rank to APM', async() => {
+      const identifier = '/123/abc';
+      const propsData = { identifier };
+      const wrapper = factory({ propsData });
+      sinon.spy(wrapper.vm, 'logApmTransaction');
+
+      await wrapper.vm.$fetch();
+      await wrapper.vm.onClickItem(recommendedItems[0].id);
+
+      expect(wrapper.vm.logApmTransaction.calledWith({
+        name: 'Similar items - click item',
+        labels: { 'logged_in_user': false,
+          'similar_items_algorithm': wrapper.vm.similarItemsAlgorithm,
+          'similar_items_clicked_item': recommendedItems[0].id,
+          'similar_items_count': 10,
+          'similar_items_current_item': identifier,
+          'similar_item_rank': 1 }
+      })).toBe(true);
     });
   });
 });

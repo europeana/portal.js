@@ -1,23 +1,13 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt, mountNuxt } from '../../utils';
-import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
 import SearchFacetDropdown from '@/components/search/SearchFacetDropdown.vue';
-import messages from '@/lang/en';
 
 const localVue = createLocalVue();
 
-localVue.use(VueI18n);
 localVue.use(BootstrapVue);
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const storeDispatchStub = sinon.stub();
 
@@ -99,10 +89,11 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: options.fetchState || {},
     $route: {
       query: {}
     },
+    $i18n: { locale: 'en' },
+    $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
@@ -116,19 +107,20 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
       state: {
         search: {}
       }
-    }
+    },
+    ...options.mocks || {}
   },
   stubs: {
     'b-form-tags': {
       template: '<div><slot /></div>'
-    }
+    },
+    i18n: true
   },
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
-  },
-  i18n
+  }
 });
 
 const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
@@ -139,10 +131,11 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: options.fetchState || {},
     $route: {
       query: {}
     },
+    $i18n: { locale: 'en' },
+    $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
@@ -156,15 +149,15 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
       state: {
         search: {}
       }
-    }
+    },
+    ...options.mocks || {}
   },
-  stubs: [],
+  stubs: ['i18n'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
   },
-  i18n,
   attachTo: document.body
 });
 
@@ -172,10 +165,10 @@ describe('components/search/SearchFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
 
   describe('template', () => {
-    it('shows a label wrapped in an h3 heading', () => {
+    it('shows an h3 heading', () => {
       const wrapper = factory();
 
-      const label = wrapper.find('h3 label');
+      const label = wrapper.find('h3');
 
       expect(label.text()).toBe('facets.COUNTRY.name - 1');
     });
@@ -864,9 +857,6 @@ describe('components/search/SearchFacetDropdown', () => {
           propsData: {
             search: true,
             name: 'PROVIDER'
-          },
-          fetchState: {
-            pending: false
           }
         });
         await wrapper.setData({ fetched: true, fields: providerFields });

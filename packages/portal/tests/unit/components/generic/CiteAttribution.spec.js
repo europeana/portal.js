@@ -9,14 +9,15 @@ const requiredProps = {
   rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
 };
 
-const factory = () => mount(CiteAttribution, {
+const factory = (propsData = requiredProps) => mount(CiteAttribution, {
+  attachTo: document.body,
   localVue,
   mocks: {
     localePath: () => '/',
     $t: (key) => key,
     $config: { app: { internalLinkDomain: null } }
   },
-  propsData: requiredProps
+  propsData
 });
 
 describe('components/generic/CiteAttribution', () => {
@@ -63,6 +64,15 @@ describe('components/generic/CiteAttribution', () => {
       await wrapper.setProps({ name, provider });
 
       expect(wrapper.vm.linkText).toBe('Something, Somewhere');
+    });
+  });
+
+  describe('when extended through keyboard navigation', () => {
+    it('sets focus on the first link', () => {
+      const wrapper = factory({ ...requiredProps, extended: true, setFocus: true });
+
+      const link = wrapper.find('cite a:focus');
+      expect(link.exists()).toBe(true);
     });
   });
 });

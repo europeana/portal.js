@@ -14,7 +14,7 @@
 
 <script>
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import { recordIdFromUrl } from '@/plugins/europeana/record';
   import { BASE_URL } from '@/plugins/europeana/data';
 
@@ -52,9 +52,9 @@
 
         let itemResponse;
         try {
-          itemResponse = await this.$apis.record.$axios.get(`${id}.json`);
+          itemResponse = await this.$apis.record.axios.get(`${id}.json`);
         } catch (error) {
-          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`);
+          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`, error);
           return;
         }
 
@@ -62,7 +62,7 @@
           await this.populateFields(itemResponse.data.object);
           this.message = 'Success';
         } catch (error) {
-          this.showError('There was a problem updating the entry.');
+          this.showError('There was a problem updating the entry.', error);
         }
       },
 
@@ -79,7 +79,7 @@
       },
 
       async populateFields(item) {
-        const locale = this.$i18n.isoLocale();
+        const locale = this.$i18n.localeProperties.iso;
 
         const providerAggregation = item.aggregations.find(aggregation => aggregation.about.startsWith('/aggregation/provider/'));
         const providerProxy = item.proxies.find(proxy => proxy.about.startsWith('/proxy/provider/'));
@@ -122,7 +122,7 @@
         asset.fields.file[locale] = {
           contentType: edmIsShownByWebResource.ebucoreHasMimeType,
           fileName: asset.fields.title[locale],
-          upload: edmIsShownBy
+          upload: this.$apis.record.mediaProxyUrl(edmIsShownBy, item.about)
         };
 
         const rawAsset = await this.contentfulExtensionSdk.space.createAsset(asset);

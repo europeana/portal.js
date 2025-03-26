@@ -83,7 +83,7 @@ module.exports = {
   },
   settings: {
     jest: {
-      version: 27
+      version: 29
     }
   },
   overrides: [
@@ -97,7 +97,7 @@ module.exports = {
     },
     {
       files: [
-        'packages/portal/src/lang/*.js'
+        'packages/portal/src/i18n/lang/*.js'
       ],
       rules: {
         quotes: [
@@ -110,10 +110,7 @@ module.exports = {
       files: [
         '**/__tests__/*.{j,t}s?(x)',
         '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
-      env: {
-        mocha: true
-      }
+      ]
     }
   ]
 }

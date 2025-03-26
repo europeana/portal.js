@@ -28,7 +28,8 @@
 }
 
 .text-muted {
-  color: $mediumgrey !important;
+  color: $darkgrey !important;
+  margin-left: 0;
 }
 
 .invalid-feedback {
@@ -45,7 +46,7 @@
   legend {
     font-size: $font-size-extrasmall;
     text-transform: uppercase;
-    color: $mediumgrey;
+    color: $darkgrey;
     margin-bottom: 0.25rem;
 
     @media (min-width: $bp-4k) {
@@ -75,13 +76,13 @@
 
 .facet-label,
 h3.facet-label,
-.query-rule-form-group label {
+.query-rule-form-control .query-rule-field-label {
   font-size: $font-size-extrasmall;
   font-weight: 600;
   display: inline-block;
   line-height: 1.5;
   text-transform: uppercase;
-  color: $mediumgrey;
+  color: $darkgrey;
   margin-bottom: 0.25rem;
 
   @media (min-width: $bp-4k) {
@@ -155,7 +156,7 @@ h3.facet-label,
       left: -1.875rem;
       height: 0.875rem;
       width: 1.375rem;
-      border: 2px solid $mediumgrey;
+      border: 2px solid $darkgrey;
       cursor: pointer;
 
       @at-root .xxl-page & {
@@ -174,7 +175,7 @@ h3.facet-label,
       width: 0.875rem;
       height: 0.875rem;
       background-color: $white;
-      border: 2px solid $mediumgrey;
+      border: 2px solid $darkgrey;
       cursor: pointer;
 
       @at-root .xxl-page & {
@@ -185,6 +186,18 @@ h3.facet-label,
           height: calc(1.5 * 0.875rem);
           border-width: 3px;
         }
+      }
+    }
+  }
+
+  &:has(.custom-control-input:disabled, .custom-control-input[disabled]) {
+    .custom-control-label {
+      &::before {
+        cursor: not-allowed;
+      }
+
+      &::after {
+        cursor: not-allowed;
       }
     }
   }
@@ -211,7 +224,7 @@ h3.facet-label,
 
     &:focus:not(:checked) ~ .custom-control-label {
       &::before {
-        border-color: $mediumgrey;
+        border-color: $darkgrey;
       }
     }
   }
@@ -223,6 +236,7 @@ h3.facet-label,
   padding-left: 2.5em;
   height: auto;
   border-radius: 0.5em;
+  border: 1px solid $lightgrey;
   width: 100%;
 
   @media (min-width: $bp-4k) {
@@ -256,7 +270,7 @@ h3.facet-label,
     padding: 1em;
     background-color: $white;
     height: auto;
-    color: $mediumgrey;
+    color: $darkgrey;
     width: 100%;
 
     @media (min-width: $bp-4k) {
@@ -295,5 +309,20 @@ h3.facet-label,
   &:focus {
     border-color: $blue;
     box-shadow: none;
+  }
+
+  &.is-invalid,
+  &.is-valid {
+    background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEwIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDBMNSA1TDEwIDBIMFoiIGZpbGw9IiM0RDRENEQiLz4KPC9zdmc+Cg==') right 0.75rem center/8px 4px no-repeat;
+    padding-right: 0.75rem !important;
+  }
+
+  &.is-valid {
+    border-color: $middlegrey;
+
+    &:focus {
+      border-color: $blue;
+      box-shadow: none;
+    }
   }
 }

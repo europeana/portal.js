@@ -7,9 +7,7 @@ const localVue = createLocalVue();
 localVue.filter('truncate', (val) => {
   return val.length > 20 ? val.substring(0, 20) + '...' : val;
 });
-localVue.filter('convertNewLine', (val) => {
-  return val.replace('/n', '<br/>');
-});
+
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
@@ -35,6 +33,12 @@ const factory = (propsData, translated = false) => mount(ItemSummaryInfo, {
     $features: {
       translatedItems: translated
     }
+  },
+  provide: {
+    deBias: {
+      definitions: {},
+      terms: {}
+    }
   }
 });
 
@@ -50,17 +54,17 @@ describe('components/item/ItemSummaryInfo', () => {
 
     it('shows a title', () => {
       const title = wrapper.find('h1');
-      expect(title.attributes().lang).toBe('en');
+
       expect(title.text()).toBe('The title');
     });
     it('shows a sub-title', () => {
       const subTitle = wrapper.find('header p');
-      expect(subTitle.attributes().lang).toBe('en');
+
       expect(subTitle.text()).toBe('The sub-title');
     });
     it('shows a description', () => {
       const description = wrapper.find('div.description p');
-      expect(description.attributes().lang).toBe('en');
+
       expect(description.text()).toBe('The description');
     });
   });

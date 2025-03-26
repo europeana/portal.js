@@ -6,8 +6,8 @@ Feature: Entity page
     And I see an `entity title`
     And I see an `entity description`
     And I see the `context label`
-    And I see a `search list view toggle icon`
-    And I see the `side filters`
+    And I see a `view toggle`
+    And I see the `search sidebar`
     And I should see 24 `item preview`s
     And I see a `search results pagination`
     And I don't have a `contentTier facet`

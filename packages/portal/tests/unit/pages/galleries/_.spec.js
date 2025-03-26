@@ -8,6 +8,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const setApiRepositionItemStub = sinon.stub().resolves({});
 const storeDispatch = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
 
@@ -59,16 +60,21 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $route: {
       params: {
         pathMatch: (options.set?.id || '111') + '-my-set'
-      }
+      },
+      query: {}
     },
     $store: {
       commit: storeCommit,
       dispatch: storeDispatch,
+      getters: {},
       state: {
         set: { active: options.set || null }
       }
     },
     $apis: {
+      set: {
+        repositionItem: setApiRepositionItemStub
+      },
       thumbnail: {
         edmPreview: () => ''
       }
@@ -82,7 +88,14 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     }
   },
-  stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
+  stubs: [
+    'ErrorMessage',
+    'LoadingSpinner',
+    'SetFormModal',
+    'SetPublicationRequestWidget',
+    'SetPublishButton',
+    'SetRecommendations'
+  ]
 });
 
 describe('GalleryPage (Set)', () => {
@@ -97,12 +110,28 @@ describe('GalleryPage (Set)', () => {
       expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
 
+    it('stores the active set ID', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveId', '123')).toBe(true);
+    });
+
+    it('stores the active set params', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 48 })).toBe(true);
+    });
+
     it('fetches the active set', async() => {
       const wrapper = factory(defaultOptions);
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
 
     describe('on errors', () => {
@@ -130,22 +159,11 @@ describe('GalleryPage (Set)', () => {
 
   describe('template', () => {
     describe('item count heading', () => {
-      describe('when less than max amount of items in set', () => {
-        it('displays the amount of items in the set', () => {
-          const wrapper = factory(defaultOptions);
-          const itemCount = wrapper.find('[data-qa="item count"]');
+      it('displays the amount of items in the set', () => {
+        const wrapper = factory(defaultOptions);
+        const itemCount = wrapper.find('[data-qa="item count"]');
 
-          expect(itemCount.text()).toEqual('items.itemCount');
-        });
-      });
-
-      describe('when more than max amount of items in set', () => {
-        it('displays the amount shown in total of items in the set', () => {
-          const wrapper = factory({ set: testSet2 });
-          const itemCount = wrapper.find('[data-qa="item count"]');
-
-          expect(itemCount.text()).toEqual('items.itemOf');
-        });
+        expect(itemCount.text()).toEqual('items.itemCount');
       });
     });
 
@@ -153,7 +171,7 @@ describe('GalleryPage (Set)', () => {
       it('shows a loading spinner', async() => {
         const wrapper = factory({ fetchState: { pending: true } });
 
-        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+        const loadingSpinner = wrapper.find('loadingspinner-stub');
 
         expect(loadingSpinner.exists()).toBe(true);
       });
@@ -225,7 +243,7 @@ describe('GalleryPage (Set)', () => {
             set: testSetEntityBestItems,
             user: { loggedIn: true },
             userHasClientRoleStub,
-            features: { acceptEntityRecommendations: true }
+            features: { acceptEntityRecommendations: true, showSetRecommendations: true }
           });
 
           const recommendations = wrapper.find('setrecommendations-stub');
@@ -260,7 +278,7 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('beforeRouteLeave', () => {
-    it('resets the active set and recommendations', async() => {
+    it('resets the active set, recommendations and selected items', async() => {
       const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
       const wrapper = factory(defaultOptions);
 
@@ -270,45 +288,30 @@ describe('GalleryPage (Set)', () => {
 
       expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
       expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
+      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
       expect(next.called).toBe(true);
     });
   });
 
   describe('methods', () => {
-    describe('reorderItems', () => {
-      it('updates the set with new item order', async() => {
-        const wrapper = factory({
-          ...defaultOptions,
-          set: {
-            ...defaultOptions.set,
-            items: [
-              { id: '/123/abc' },
-              { id: '/123/def' }
-            ]
-          }
-        });
+    describe('repositionItem', () => {
+      const itemId = '/123/abc';
+      const position = 2;
 
-        await wrapper.vm.reorderItems([
-          { id: '/123/def' },
-          { id: '/123/abc' }
-        ]);
+      it('moves the item to the new position via Set API', async() => {
+        const wrapper = factory(defaultOptions);
 
-        expect(storeDispatch.calledWith('set/update', {
-          id: `http://data.europeana.eu/set/${defaultOptions.set.id}`,
-          body: {
-            type: defaultOptions.set.type,
-            title: defaultOptions.set.title,
-            description: defaultOptions.set.description,
-            visibility: defaultOptions.set.visibility,
-            items: [
-              'http://data.europeana.eu/item/123/def',
-              'http://data.europeana.eu/item/123/abc'
-            ]
-          },
-          params: {
-            profile: 'standard'
-          }
-        })).toBe(true);
+        await wrapper.vm.repositionItem({ itemId, position });
+
+        expect(setApiRepositionItemStub.calledWith(defaultOptions.set.id, itemId, position)).toBe(true);
+      });
+
+      it('re-fetches the active set via the store', async() => {
+        const wrapper = factory(defaultOptions);
+
+        await wrapper.vm.repositionItem({ itemId, position });
+
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
       });
     });
   });

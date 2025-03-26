@@ -4,7 +4,7 @@
     :href="url"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center download-button h-100"
+    class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
     :target="target"
     variant="primary"
     @click.native="handleClickDownloadButton"
@@ -13,6 +13,7 @@
     {{ $t('actions.download') }}
     <LoadingSpinner
       v-show="validating"
+      tag="span"
       class="ml-2"
     />
   </b-button>
@@ -21,12 +22,15 @@
 <script>
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import { useLogEvent } from '@/composables/logEvent.js';
+  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'DownloadButton',
     components: {
       LoadingSpinner
     },
+    inject: ['canonicalUrl'],
     props: {
       url: {
         type: String,
@@ -41,6 +45,10 @@
         default: false
       }
     },
+    setup() {
+      const { logEvent } = useLogEvent();
+      return { logEvent };
+    },
     data() {
       return {
         clicked: false,
@@ -54,10 +62,11 @@
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
-        if (this.validationNetworkError || !this.url.startsWith(this.$config.europeana.apis.mediaProxy.url)) {
-          return '_blank';
+        let target = null;
+        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseURL)) {
+          target = '_blank';
         }
-        return '_self';
+        return target;
       }
     },
     watch: {
@@ -124,9 +133,15 @@
         });
       },
       trackDownload() {
-        if (!this.disabled && this.$matomo && !this.clicked) {
-          this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
-          this.clicked = true;
+        if (!this.disabled) {
+          this.logEvent('download', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
+          if (this.$matomo) {
+            this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
+            if (!this.clicked) {
+              this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+              this.clicked = true;
+            }
+          }
         }
       }
     }

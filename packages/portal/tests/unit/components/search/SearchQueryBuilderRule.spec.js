@@ -6,10 +6,12 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = ({ propsData = {} } = {}) => shallowMount(SearchQueryBuilderRule, {
+  attachTo: document.body,
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $te: () => true
   }
 });
 
@@ -30,6 +32,46 @@ describe('components/search/SearchQueryBuilderRule', () => {
       clearButton.trigger('click');
 
       expect(wrapper.emitted('clear').length).toBe(1);
+    });
+  });
+
+  describe('ruleValueString', () => {
+    describe('when field, modifier and term are present', () => {
+      it('returns the correct string', () => {
+        const wrapper = factory({
+          propsData: {
+            value: {
+              field: 'title',
+              modifier: 'contains',
+              term: 'Art'
+            }
+          }
+        });
+
+        expect(wrapper.vm.ruleValuesString).toBe('fieldLabels.default.title search.advanced.modifiers.contains Art');
+      });
+    });
+    describe('when field and modifier are missing', () => {
+      it('computes ruleValuesString correctly with missing field and modifier', () => {
+        const wrapper = factory({
+          propsData: {
+            value: {
+              field: '',
+              modifier: '',
+              term: 'Painting'
+            }
+          }
+        });
+
+        expect(wrapper.vm.ruleValuesString).toBe('Painting');
+      });
+    });
+    describe('when field, modifier and term are missing', () => {
+      it('computes ruleValuesString correctly with missing values', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.ruleValuesString).toBe('');
+      });
     });
   });
 });

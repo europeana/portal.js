@@ -11,7 +11,8 @@ const fixtures = {
   static: {
     width: 640,
     height: 480,
-    html: '<iframe src="https://static.example.org/"></iframe>'
+    html: '<iframe src="https://static.example.org/"></iframe>',
+    title: 'Static example'
   },
   responsive: {
     responsive: true,
@@ -23,19 +24,25 @@ const fixtures = {
 
 const factory = (propsData = {}) => shallowMountNuxt(EmbedHTML, {
   propsData,
-  localVue,
-  mocks: {
-    $fetchState: {}
-  }
+  localVue
 });
 
 describe('components/embed/EmbedHTML', () => {
   describe('when there is something to embed', () => {
-    it('has an iframe', () => {
+    it('renders the html', () => {
       const wrapper = factory(fixtures.static);
       const iframe = wrapper.find('[data-qa="html embed"] iframe');
 
       expect(iframe.exists()).toBe(true);
+    });
+
+    describe('and there is a title supplied', () => {
+      it('sets it on the iframe', () => {
+        const wrapper = factory(fixtures.static);
+        const iframe = wrapper.find('[data-qa="html embed"] iframe');
+
+        expect(iframe.attributes('title')).toBe(fixtures.static.title);
+      });
     });
   });
 

@@ -2,21 +2,21 @@
   <div
     data-qa="entity page"
     class="entity-page xxl-page"
-    :class="$fetchState.error && 'white-page'"
   >
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <template v-else>
+    <div
+      v-else
+    >
       <SearchInterface
         v-if="!$fetchState.pending"
-        :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
-        :override-params="searchOverrides"
+        :default-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -61,32 +61,33 @@
           </client-only>
         </template>
       </SearchInterface>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
+
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   import {
-    getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
 
   export default {
     name: 'CollectionPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },
@@ -95,7 +96,7 @@
       entityBestItemsSetMixin,
       europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
-      redirectToPrefPathMixin
+      redirectToMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -121,6 +122,10 @@
     },
 
     async fetch() {
+      if (!this.isRouteValid) {
+        return this.$error(404, { scope: 'page' });
+      }
+
       this.$store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
@@ -135,28 +140,26 @@
       this.$store.commit('entity/setId', entityUri);
 
       try {
-        const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
-        this.$store.commit('entity/setEntity', pick(response.entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+        const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+
+        this.$store.commit('entity/setEntity', pick(entity, [
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-        const urlLabel = this.entity.prefLabel.en;
 
-        if (this.userIsEntitiesEditor) {
-          const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
-          this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-          if (entityBestItemsSetId) {
-            this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
-          }
-        }
+        this.userIsEntitiesEditor && await this.setBestItems();
 
-        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
     },
 
     computed: {
+      isRouteValid() {
+        return !!getEntityTypeApi(this.collectionType) &&
+          this.entityId?.match(/^\d+$/);
+      },
       pageMeta() {
         return {
           title: this.title.values[0],
@@ -167,24 +170,16 @@
       entity() {
         return this.$store.state.entity.entity;
       },
-      recordsPerPage() {
-        return this.$store.state.entity.recordsPerPage;
-      },
       searchOverrides() {
-        const overrideParams = {
-          qf: [],
-          rows: this.recordsPerPage
-        };
+        const defaultParams = {};
 
         if (this.entity) {
-          const entityQuery = getEntityQuery(this.entity.id);
-          overrideParams.qf.push(entityQuery);
-          if (!this.$route.query.query) {
-            overrideParams.query = entityQuery; // Triggering best bets.
-          }
+          const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
+          defaultParams.qf = [entityQuery];
+          defaultParams.query = entityQuery; // Triggering best bets.
         }
 
-        return overrideParams;
+        return defaultParams;
       },
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);
@@ -291,6 +286,7 @@
           const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
           labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
         }
+        // TODO: Update to use API country field?
         if (this.entity?.hasAddress?.countryName)  {
           labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
         }
@@ -308,6 +304,11 @@
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },
+      async setBestItems() {
+        const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
+        this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
+        await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+      },
       titleFallback(title) {
         return {
           values: [title],
@@ -320,15 +321,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .entity-page {
-    &.top-header {
-      margin-top: -1rem;
-    }
-  }
-
-  .page-container {
-    max-width: none;
-  }
-</style>

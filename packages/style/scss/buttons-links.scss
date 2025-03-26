@@ -23,11 +23,15 @@
     box-shadow: $boxshadow;
   }
 
-  .icon-cancel-circle::before {
-    font-size: $font-size-base;
+  .icon-add,
+  .icon-clear {
+    font-size: $font-size-smallest;
+    line-height: 1;
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-base-4k;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+      }
     }
   }
 }
@@ -76,7 +80,7 @@
 .btn-secondary {
   text-transform: uppercase;
   background: $offwhite;
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
   border: 1px solid $offwhite;
   border-radius: 0.25rem;
@@ -89,14 +93,6 @@
     }
   }
 
-  &:focus,
-  &:active {
-    background: $offwhite;
-    color: $mediumgrey;
-    box-shadow: none;
-    border: 1px solid $offwhite;
-  }
-
   &:hover {
     background: $offwhite;
     color: $blue;
@@ -107,16 +103,17 @@
   &:disabled {
     background: $offwhite;
     border: 1px solid $offwhite;
-    color: $mediumgrey;
+    color: $darkgrey;
     opacity: 0.7;
     box-shadow: none;
   }
 
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled).active {
+  &:focus,
+  &:active {
     background: $offwhite;
-    color: $mediumgrey;
+    color: $darkgrey;
     box-shadow: none;
+    border: 1px solid $offwhite;
 
     &:hover {
       color: $blue;
@@ -124,33 +121,46 @@
     }
   }
 
-  &.like-button,
-  &.pin-button {
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background: $offwhite;
+    color: $darkgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
 
-    &.active,
-    &:not(:disabled):not(.disabled).active {
-      color: $white;
-      background-color: $red;
-      border-color: $red;
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
     }
   }
 
-  .icon-heart {
-    font-size: $font-size-medium;
+  .show > &.dropdown-toggle {
+    color: $darkgrey;
+    background-color: $white;
+    border-color: $blue;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
-      }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &.like-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $red;
     }
   }
 
   .icon-link {
-    font-size: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1rem;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        font-size: 0.75rem;
+        font-size: calc(1.5 * 1.25rem);
       }
     }
   }
@@ -173,21 +183,7 @@
 
   &:hover {
     box-shadow: none;
-  }
-
-  &.multilingual-dropdown {
-    padding: 0;
-    color: $greyblack;
-    text-decoration: underline;
-
-    &::after {
-      @extend %icon-font;
-
-      content: '\e93e';
-      border: none;
-      margin-left: 0.25rem;
-      transform: scale(1.5);
-    }
+    color: $darkblue;
   }
 }
 
@@ -237,7 +233,7 @@
 }
 
 .btn-outline-secondary {
-  border: 1px solid $mediumgrey;
+  border: 1px solid $darkgrey;
   color: $greyblack;
   transition: $standard-transition;
   font-weight: 600;
@@ -269,7 +265,7 @@
 .btn-light {
   background: $white;
   border: 0;
-  color: $mediumgrey;
+  color: $darkgrey-light;
   font-size: $font-size-small;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
@@ -292,11 +288,11 @@
   &:disabled,
   &.disabled {
     background: $white;
-    color: $mediumgrey;
+    color: $darkgrey-light;
     opacity: 0.7;
   }
 
-  .icon-ic-add {
+  .icon-add-circle-outlined {
     line-height: 1;
 
     &::before {
@@ -331,6 +327,7 @@
     height: 1.5rem;
     width: 1.5rem;
     font-size: 1.1rem;
+    padding: 0; // Chrome 82 fix
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -339,17 +336,98 @@
         font-size: calc(1.5 * 1.1rem);
       }
     }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
+    }
   }
 
-  &.icon-clear,
   &.icon-filter {
     font-size: $font-size-large;
+  }
+
+  &.icon-clear {
+    font-size: $font-size-small;
+  }
+
+  .icon-pin,
+  .icon-pin-outlined,
+  .icon-add-circle-outlined,
+  .icon-heart,
+  .icon-heart-outlined,
+  .icon-ic-move-xy,
+  .icon-remove-circle-outlined {
+    font-size: $font-size-base;
   }
 
   &:hover {
     box-shadow: none;
     transition: $standard-transition;
     color: $innovationblue;
+  }
+}
+
+.btn-dark-flat {
+  background: transparent;
+  border: 0;
+  color: $white;
+  font-size: $font-size-small;
+  text-decoration: none;
+  transition: $standard-transition;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border: none;
+  }
+
+  &.disabled {
+    opacity: 1;
+    color: $darkgrey-light;
+  }
+
+  &.button-icon-only {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: $font-size-large;
+    padding: 0; // Chrome 82 fix
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 1.5rem);
+        width: calc(1.5 * 1.5rem);
+        font-size: calc(1.5 * 1.1rem);
+      }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
+    }
+  }
+
+  &.add-button,
+  &.remove-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button,
+  &.move-button {
+
+    &:hover {
+      color: $white;
+    }
   }
 }
 
@@ -396,7 +474,7 @@
 .btn-outline-light {
   border: 1px solid $paper;
   background: $white;
-  color: $mediumgrey;
+  color: $darkgrey;
   font-size: $font-size-small;
 
   @at-root .xxl-page & {
@@ -408,14 +486,15 @@
   &:hover {
     box-shadow: $boxshadow;
     background: $white;
-    color: $mediumgrey;
+    color: $darkgrey;
   }
 
   &.add-button,
   &.like-button,
   &.pin-button,
   &.recommendation-button,
-  &.move-button {
+  &.move-button,
+  &.remove-button {
     font-size: $font-size-large;
 
     @at-root .xxl-page & {
@@ -437,46 +516,28 @@
     }
   }
 
-  &.like-button,
+  &.like-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $red;
+    }
+  }
+
   &.pin-button {
 
     &.active,
     &:not(:disabled):not(.disabled).active {
-      color: $white;
-      background-color: $red;
-      border-color: $red;
+      color: $darkgrey;
     }
   }
 
-  &.like-button {
-    font-size: $font-size-medium;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-medium-4k;
-      }
-    }
-  }
-
-  &.pin-button,
   &.recommendation-button {
     &:hover {
       color: $innovationblue;
       background: $white;
       border-color: $white;
     }
-  }
-}
-
-.btn-outline-overlay {
-  border: 1px solid $white;
-  color: $white;
-  transition: $standard-transition;
-
-  &:hover {
-    color: $white;
-    background-color: rgba(255 255 255 / 20%);
-    transition: $standard-transition;
   }
 }
 

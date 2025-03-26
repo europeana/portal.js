@@ -82,7 +82,7 @@
 
     .cm-header p,
     .cm-list-description {
-      color: $mediumgrey;
+      color: $darkgrey;
     }
 
     .slider {
@@ -91,10 +91,11 @@
 
     .cm-list-input {
       + .cm-list-label .slider {
-        border: 5px solid $lightgrey;
+        // TODO: deprecate mediumgrey variable when cleaning up Klaro, as this is the only case where it's used
+        border: 5px solid $mediumgrey;
 
         &::before {
-          border: 5px solid $lightgrey;
+          border: 5px solid $mediumgrey;
           top: -5px;
           left: -5px;
           height: 30px;
@@ -115,10 +116,10 @@
 
       &.half-checked + .cm-list-label .slider {
         background-color: $white;
-        border: 5px solid $mediumgrey;
+        border: 5px solid $darkgrey;
 
         &::before {
-          border-color: $mediumgrey;
+          border-color: $darkgrey;
         }
       }
 
@@ -135,7 +136,7 @@
     .cn-body {
       p {
         font-size: $font-size-small;
-        color: $mediumgrey;
+        color: $darkgrey;
         margin-top: 0;
         margin-bottom: 1rem;
       }
@@ -209,7 +210,7 @@
 
       .purposes {
         display: none;
-        color: $mediumgrey;
+        color: $darkgrey;
         font-size: 0.875rem;
         font-weight: bold;
       }

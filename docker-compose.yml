@@ -1,7 +1,28 @@
-version: "3"
-
-# TODO: also run app in dev mode from here?
 services:
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadmin-password}
+      PGADMIN_DISABLE_POSTFIX: 1
+      PGADMIN_LISTEN_PORT: 8080
+    ports:
+      - "18080:8080"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./docker/compose/pgadmin/servers.json:/pgadmin4/servers.json
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres-password}
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/compose/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/compose/postgres/model:/var/lib/postgresql/model
   redis:
     image: redis
     command: redis-server --appendonly yes
@@ -11,4 +32,6 @@ services:
       - redis-data:/data
 
 volumes:
+  pgadmin-data:
+  postgres-data:
   redis-data:

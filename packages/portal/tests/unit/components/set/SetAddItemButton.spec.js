@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SetAddItemButton from '@/components/set/SetAddItemButton';
 
@@ -14,7 +14,7 @@ const collection =
     visibility: 'public'
   };
 
-const factory = (propsData = {}) => shallowMount(SetAddItemButton, {
+const factory = (propsData = {}) => mount(SetAddItemButton, {
   localVue,
   propsData: {
     ...propsData
@@ -26,19 +26,20 @@ const factory = (propsData = {}) => shallowMount(SetAddItemButton, {
 });
 
 describe('components/set/SetAddItemButton', () => {
-  it('emits the toggle event', async() => {
-    const wrapper = factory({ set: collection });
+  describe('when an item is not yet added it', () => {
+    it('does not show a check icon', () => {
+      const wrapper = factory({ set: collection });
 
-    await wrapper.find('[data-qa="toggle item button"]').trigger('click');
-
-    expect(wrapper.emitted('toggle').length).toBe(1);
+      expect(wrapper.find('[data-qa="toggle item button"] .icon-check-circle').exists()).toBe(false);
+    });
   });
 
-  describe('when an item is not yet added it', () => {
-    it('contains a background image of the first item in the set', () => {
-      const wrapper = factory({ set: collection, img: 'https://www.example.org/image' });
+  describe('when an item is added it', () => {
+    it('displays as a success button and shows a check icon', () => {
+      const wrapper = factory({ set: collection, checked: true, added: true });
 
-      expect(wrapper.find('[data-qa="toggle item button"]').attributes('style')).toBe('background-image: url(https://www.example.org/image);');
+      expect(wrapper.find('[data-qa="toggle item button"].btn-success').exists()).toBe(true);
+      expect(wrapper.find('[data-qa="toggle item button"] .icon-check-circle').exists()).toBe(true);
     });
   });
 });

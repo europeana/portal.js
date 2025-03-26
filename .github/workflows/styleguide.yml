@@ -68,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packages/styleguide/Dockerfile
+          file: ./styleguide/Dockerfile
           pull: true
           push: true
           cache-from: type=gha

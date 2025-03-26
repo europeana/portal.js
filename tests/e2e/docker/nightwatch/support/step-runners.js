@@ -118,12 +118,6 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
-  async clickOnTab(tab) {
-    await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
-  },
-  async doNotSeeATab(tab) {
-    client.expect.element('//a[contains(text(),"' + tab + '")]', 'xpath').to.not.be.present;
-  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
@@ -166,16 +160,15 @@ module.exports = {
     await client.url(pageUrl(pageName));
   },
   async acceptKlaroCookies() {
-    // #eu-klaro div remains in DOM after accepting. .cook-notice disappears
-    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
-    await client.click('#eu-klaro .cm-btn-success');
-    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
+    await client.expect.element('#cookie-notice-toast').to.be.visible;
+    await client.click('#cookie-notice-toast .btn-success');
+    await client.expect.element('#cookie-notice-toast').to.not.be.present;
   },
   async seeKlaroBanner() {
-    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
+    await client.expect.element('#cookie-notice-toast').to.be.visible;
   },
   async notSeeKlaroBanner() {
-    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
+    await client.expect.element('#cookie-notice-toast').to.not.be.present;
   },
   async seeKeycloakLoginForm() {
     await client.expect.element('.kcform').to.be.visible;
@@ -189,14 +182,6 @@ module.exports = {
   },
   async haveNotYetAcceptedKlaroCookies() {
     await client.deleteCookie('klaro');
-  },
-  async haveNotEnabledDebugAPIRequests() {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function() {
-      localStorage.debugSettings = null;
-    }, []);
-    /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
     const containerSelector = qaSelector('search results pagination');
@@ -302,6 +287,11 @@ module.exports = {
   async haveEuropeanaBrandedTitle() {
     await client.getTitle(async(title) => {
       await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
+  },
+  async doNotHaveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).not.to.match(new RegExp('\\| Europeana$'));
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {

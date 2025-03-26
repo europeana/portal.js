@@ -9,6 +9,7 @@ query ExhibitionLandingPage(
       name
       headline
       description
+      datePublished
       text
       genre
       primaryImageOfPage {

@@ -1,6 +1,6 @@
 import snakeCase from 'lodash/snakeCase';
 import featureToggles from '@/features/toggles.js';
-import features, { featureNotificationExpiration } from '@/features/index.js';
+import features from '@/features/index.js';
 
 describe('features/index', () => {
   describe('default', () => {
@@ -17,21 +17,6 @@ describe('features/index', () => {
 
       const featuresObject = features();
       expect(featuresObject[enabledFeature]).toBe(true);
-    });
-  });
-
-  describe('featureNotificationExpiration', () => {
-    it('returns a Date if parseable', () => {
-      const expiration = featureNotificationExpiration('2022-01-01');
-
-      expect(expiration instanceof Date).toBe(true);
-      expect(expiration.toString()).toContain('Jan 01 2022');
-    });
-
-    it('returns `null` if not parseable', () => {
-      const expiration = featureNotificationExpiration('typo');
-
-      expect(expiration).toBe(null);
     });
   });
 });

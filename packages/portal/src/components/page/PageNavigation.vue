@@ -16,7 +16,7 @@
         exact
       >
         <span :class="renderIcon(link.url)" />
-        <span>
+        <span class="nav-link-text">
           {{ link.text }}
         </span>
       </SmartLink>
@@ -48,11 +48,12 @@
           v-b-toggle.menu
           :to="item.to"
           :href="item.href"
+          :target="null"
           :data-qa="item.dataQa"
           class="nav-link"
         >
           <span :class="renderIcon(item.url)" />
-          <span>
+          <span class="nav-link-text">
             {{ item.text }}
           </span>
         </b-link>
@@ -67,10 +68,11 @@
         v-b-toggle.menu
         data-qa="log in button"
         class="nav-link"
+        :target="null"
         :to="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
       >
         <span :class="renderIcon('/account/login')" />
-        <span>
+        <span class="nav-link-text">
           {{ $t('account.linkLoginJoin') }}
         </span>
       </b-link>
@@ -87,6 +89,7 @@
     components: {
       SmartLink
     },
+
     props: {
       sidebarNav: {
         type: Boolean,
@@ -107,14 +110,15 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: '/professionals', text: this.$t('header.navigation.pro') }
+          { url: '/share-your-collections', text: this.$t('header.navigation.shareYourCollections') }
         ];
       },
       sidebarNavigation() {
         return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
+          { url: '/help', text: this.$t('header.navigation.help') },
+          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
         ];
       },
       links() {
@@ -141,6 +145,7 @@
         case ('/account/login'):
         case ('/account/logout'):
         case ('/account/settings'):
+        case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
         case ('/'):
@@ -152,8 +157,8 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('/professionals'):
-          className = 'icon-pro';
+        case ('/share-your-collections'):
+          className = 'icon-institution';
           break;
         default:
           className = 'icon-info blank';
@@ -172,7 +177,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
 
   .nav-item {
     margin-right: 1rem;
@@ -182,7 +187,7 @@
     }
 
     .nav-link {
-      color: $mediumgrey;
+      color: $darkgrey;
       text-decoration: none;
       font-size: $font-size-base;
       display: flex;
@@ -229,7 +234,6 @@
         &::before {
           @extend %icon-font;
 
-          content: '';
           color: $greyblack;
           transition: $standard-transition;
           font-size: $font-size-large;
@@ -239,64 +243,8 @@
           }
         }
 
-        &.icon-home::before {
-          content: '\e922';
-        }
-
-        &.icon-collections::before {
-          content: '\e91d';
-        }
-
-        &.icon-pro::before {
-          content: '\e95a';
-        }
-
-        &.icon-school::before {
-          content: '\e952';
-        }
-
-        &.icon-info::before {
-          content: '\e91f';
-        }
-
-        &.icon-help::before {
-          content: '\e94f';
-        }
-
-        &.icon-login::before {
-          content: '\e950';
-        }
-
-        &.icon-logout::before {
-          content: '\e950';
-        }
-
-        &.icon-settings::before {
-          content: '\e928';
-        }
-
-        &.icon-account::before {
-          content: '\e932';
-        }
-
-        &.icon-stories::before {
-          content: '\e951';
-        }
-
         &.blank::before {
           color: transparent;
-        }
-
-        &.icon-school::before,
-        &.icon-stories::before,
-        &.icon-login::before,
-        &.icon-help::before {
-          font-size: $font-size-medium;
-          padding: 0.1rem;
-
-          @media (min-width: $bp-4k) {
-            font-size: $font-size-medium-4k;
-          }
         }
       }
     }
@@ -347,10 +295,6 @@
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
-        overflow: hidden;
-        white-space: nowrap;
-        display: block;
-        text-overflow: ellipsis;
 
         @media (min-width: $bp-4k) {
           border-radius: calc(1.5 * $border-radius-small);
@@ -372,8 +316,10 @@
           }
         }
 
-        span {
-          flex: 0 0 auto;
+        .nav-link-text {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
     }

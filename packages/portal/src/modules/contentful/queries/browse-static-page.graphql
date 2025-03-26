@@ -1,9 +1,14 @@
 query BrowseStaticPage(
-  $identifier: String!,
-  $locale: String!,
+  $identifier: String!
+  $locale: String!
   $preview: Boolean = false
 ) {
-  browsePageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  browsePageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -16,67 +21,32 @@ query BrowseStaticPage(
         items {
           __typename
           ... on CardGroup {
-            headline
-          	text
-            hasPartCollection(limit: 28) {
-              items {
-                __typename
-                ... on AutomatedEntityCard {
-                  name
-                  identifier
-                  description
-                  slug
-                  entityImage: image
-                }
-                ... on AutomatedRecordCard {
-                  identifier
-                  encoding
-                }
-                ... on CuratedCard {
-                  name
-                  description
-                  url
-                  image {
-                    ...imageFields
-                  }
-                }
-              }
-            }
-            moreButton {
-              url
-              text
-            }
-        	}
+            ...cardGroupFields
+          }
           ... on AutomatedCardGroup {
-            genre
-            moreButton {
-              url
-              text
-            }
+            ...automatedCardGroupFields
           }
           ... on ContentTypeRichText {
             text
           }
           ... on PrimaryCallToAction {
-            name
-            text
-            relatedLink {
-              url
-              text
-            }
-            image {
-              ...illustrationFields
-            }
+            ...primaryCallToActionFields
           }
         }
       }
     }
   }
-  staticPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  staticPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
       description
+      automatedTranslation
       image {
         ...imageFields
       }
@@ -91,37 +61,25 @@ query BrowseStaticPage(
             embed
           }
           ... on ImageWithAttribution {
-            ... imageWithAttributionFields
+            ...imageWithAttributionFields
           }
           ... on ImageComparison {
             name
             hasPartCollection(limit: 2) {
               items {
-                ... imageWithAttributionFields
+                ...imageWithAttributionFields
               }
             }
           }
           ... on AutomatedCardGroup {
-            genre
-            moreButton {
-              url
-              text
-            }
+            ...automatedCardGroupFields
           }
           ... on Link {
             url
             text
           }
           ... on PrimaryCallToAction {
-            name
-            text
-            relatedLink {
-              url
-              text
-            }
-            image {
-              ...illustrationFields
-            }
+            ...primaryCallToActionFields
           }
         }
       }
@@ -159,7 +117,66 @@ fragment linkGroupFields on LinkGroup {
   }
 }
 fragment illustrationFields on Illustration {
+  name
   image {
     ...imageFields
+  }
+  url
+}
+fragment automatedCardGroupFields on AutomatedCardGroup {
+  genre
+  moreButton {
+    url
+    text
+  }
+}
+fragment automatedEntityCardFields on AutomatedEntityCard {
+  name
+  identifier
+  description
+  slug
+  entityImage: image
+}
+fragment curatedCardFields on CuratedCard {
+  name
+  description
+  url
+  image {
+    ...imageFields
+  }
+}
+fragment primaryCallToActionFields on PrimaryCallToAction {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  relatedLink {
+    url
+    text
+  }
+  image {
+    ...illustrationFields
+  }
+}
+fragment cardGroupFields on CardGroup {
+  headline
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
   }
 }

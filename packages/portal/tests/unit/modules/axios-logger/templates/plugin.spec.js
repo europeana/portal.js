@@ -130,30 +130,5 @@ describe('modules/axios-logger/templates/plugin', () => {
         url: 'https://api.example.org/search.json?query=*&apiKey='
       })).toBe(true);
     });
-
-    it('rewrites origins specified by config', () => {
-      const configuredContext = {
-        ...context,
-        $config: {
-          axiosLogger: {
-            rewriteOrigins: [
-              { from: 'http://api.local/record', to: 'https://api.example.org/record' }
-            ]
-          }
-        }
-      };
-      const requestConfig = {
-        method: 'get',
-        url: 'http://api.local/record/search.json'
-      };
-
-      const wrapper = factory(configuredContext);
-      wrapper.requestInterceptor(requestConfig);
-
-      expect(context.store.commit.calledWith('axiosLogger/push', {
-        method: 'GET',
-        url: 'https://api.example.org/record/search.json'
-      })).toBe(true);
-    });
   });
 });

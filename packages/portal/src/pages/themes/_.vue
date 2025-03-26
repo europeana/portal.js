@@ -1,18 +1,12 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -25,7 +19,7 @@
       <ContentHeader
         :title="name"
         :description="description"
-        :media-url="shareMediaUrl"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
@@ -89,6 +83,7 @@
             <CallToActionBanner
               v-if="callToAction"
               :name="callToAction.name"
+              :name-english="callToAction.nameEN"
               :text="callToAction.text"
               :link="callToAction.relatedLink"
               :illustration="callToAction.image"
@@ -148,6 +143,8 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -157,16 +154,17 @@
     name: 'ThemePage',
 
     components: {
-      ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
+      ClientOnly,
+      ContentHeader,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       EntityCardGroup: () => import('@/components/entity/EntityCardGroup'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      LoadingSpinner,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
-      SmartLink: () => import('@/components/generic/SmartLink'),
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      LoadingSpinner
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [pageMetaMixin],
@@ -186,7 +184,7 @@
 
     async fetch() {
       const variables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         identifier: this.$route.params.pathMatch,
         preview: this.$route.query.mode === 'preview'
       };
@@ -230,12 +228,9 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImage: this.primaryImageOfPage?.image,
           ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
-      },
-      shareMediaUrl() {
-        return this.primaryImageOfPage?.image?.url;
       },
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
@@ -297,13 +292,9 @@
 
   .page {
     padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
 
     @media (min-width: $bp-4k) {
       padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
     }
 
     ::v-deep .content-header .divider {

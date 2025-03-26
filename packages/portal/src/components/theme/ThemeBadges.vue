@@ -20,6 +20,7 @@
         :img="imageUrl(relatedTheme, 28, 28)"
         :image-src-set="imageSrcSet(relatedTheme)"
         badge-variant="outline-primary"
+        :click-event-handler="() => clickEventHandler(relatedTheme.url)"
       />
     </div>
   </div>
@@ -59,7 +60,7 @@
     async fetch() {
       if (!this.themes.length) {
         const contentfulVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           identifiers: this.themesIdentifiers
         };
@@ -68,12 +69,12 @@
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.localePath({
+          url: {
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier
             }
-          }),
+          },
           primaryImageOfPage: theme.primaryImageOfPage
         }));
       }
@@ -104,6 +105,13 @@
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;
+      },
+
+      clickEventHandler(link) {
+        this.$store.commit('search/setLoggableInteraction', true);
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
+        }
       }
     }
   };

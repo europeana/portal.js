@@ -11,14 +11,14 @@
     />
     <b-card-title
       title-tag="h2"
-      :lang="title.code"
+      :lang="langAttribute(title.code)"
       data-qa="entity title"
     >
       {{ title.values[0] }}
     </b-card-title>
     <b-card-sub-title
       v-if="subTitle"
-      :lang="subTitle.code"
+      :lang="langAttribute(subTitle.code)"
     >
       {{ subTitle.values[0] }}
     </b-card-sub-title>
@@ -29,7 +29,7 @@
     >
       <p
         data-qa="entity description"
-        :lang="description.code"
+        :lang="langAttribute(description.code)"
       >
         {{ showAll ? fullDescription : truncatedDescription }}
       </p>
@@ -94,6 +94,8 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import truncate from '@/utils/text/truncate.js';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
@@ -108,6 +110,10 @@
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
+
+    mixins: [
+      langAttributeMixin
+    ],
 
     props: {
       /**
@@ -190,7 +196,7 @@
 
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
+        return truncate(this.fullDescription, this.limitCharacters);
       },
       hasDescription() {
         return (this.description?.values?.length || 0) >= 1;
@@ -242,7 +248,7 @@
 
     .card-text {
       font-size: $font-size-small;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
@@ -268,7 +274,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0.375rem;
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     text-transform: uppercase;
 
     @at-root .xxl-page & {

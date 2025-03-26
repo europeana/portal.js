@@ -7,7 +7,7 @@
       class="related-galleries-card mb-4"
     >
       <b-card-title
-        tag="h2"
+        title-tag="h2"
         class="related-heading text-uppercase"
       >
         {{ $t('related.galleries.title') }}
@@ -30,7 +30,7 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'RelatedGalleries',
@@ -67,12 +67,12 @@
           query: this.query,
           qf: ['visibility:published', `lang:${this.$i18n.locale}`],
           pageSize: 3,
-          page: 0,
-          profile: 'standard'
+          page: 1,
+          profile: 'items.meta'
         };
 
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.relatedGalleries = setResponse.data.items ? this.parseSets(setResponse.data.items) : [];
+        this.relatedGalleries = setResponse.items ? this.parseSets(setResponse.items) : [];
 
         this.$emit('fetched', this.relatedGalleries);
       }
@@ -88,7 +88,7 @@
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail)
           };
         });
       },

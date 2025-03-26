@@ -17,10 +17,7 @@ const factory = (options = {}) => shallowMountNuxt(collectionType, {
     $pageHeadTitle: key => key,
     $error: sinon.spy()
   },
-  stubs: {
-    EntityTable: true,
-    ErrorMessage: true
-  }
+  stubs: ['EntityTable', 'ErrorMessage']
 });
 
 describe('pages/collections/_type/index', () => {

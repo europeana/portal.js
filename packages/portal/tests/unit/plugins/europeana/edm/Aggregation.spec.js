@@ -10,14 +10,15 @@ describe('plugins/europeana/edm/Aggregation', () => {
           edmIsShownBy,
           edmObject,
           webResources: [
-            { about: edmIsShownBy }
+            { about: edmIsShownBy },
+            { about: edmObject }
           ]
         };
 
-        it('gets edm:object as thumbnail', () => {
+        it('gets edm:object as preview', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].preview.about).toBe(edmObject);
         });
       });
 
@@ -28,14 +29,15 @@ describe('plugins/europeana/edm/Aggregation', () => {
           edmIsShownAt,
           edmObject,
           webResources: [
-            { about: edmIsShownAt }
+            { about: edmIsShownAt },
+            { about: edmObject }
           ]
         };
 
-        it('gets edm:object as thumbnail', () => {
+        it('gets edm:object as preview', () => {
           const aggregation = new Aggregation(edm);
 
-          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+          expect(aggregation.webResources[0].preview.about).toBe(edmObject);
         });
 
         it('gets forEdmIsShownAt set to `true`', () => {
@@ -87,6 +89,32 @@ describe('plugins/europeana/edm/Aggregation', () => {
         expect(displayableWebResources.length).toBe(2);
         expect(displayableWebResources.find((wr) => wr.about === edmIsShownAt)).toBeTruthy();
         expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
+      });
+
+      it('sorts by isNextInSequence', () => {
+        const edmIsShownBy = 'https://example.org/isShownBy.jpeg';
+        const hasView = [
+          'https://example.org/hasView1.jpeg',
+          'https://example.org/hasView2.jpeg',
+          'https://example.org/hasView3.jpeg'
+        ];
+        const edm = {
+          edmIsShownBy,
+          hasView,
+          webResources: [
+            { about: edmIsShownBy },
+            { about: hasView[2], isNextInSequence: hasView[1] },
+            { about: hasView[0], isNextInSequence: edmIsShownBy },
+            { about: hasView[1], isNextInSequence: hasView[0] }
+          ]
+        };
+
+        const displayableWebResources = new Aggregation(edm).displayableWebResources;
+
+        expect(displayableWebResources[0].about).toBe(edmIsShownBy);
+        expect(displayableWebResources[1].about).toBe(hasView[0]);
+        expect(displayableWebResources[2].about).toBe(hasView[1]);
+        expect(displayableWebResources[3].about).toBe(hasView[2]);
       });
     });
 

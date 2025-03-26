@@ -14,9 +14,7 @@
           class="facet-label"
           :class="{ 'facet-label-active' : activeLabel }"
         >
-          <label>
-            {{ facetName }}
-          </label>
+          {{ facetName }}
         </h3>
         <b-button
           v-if="tooltip"
@@ -56,6 +54,7 @@
             ref="dropdown"
             block
             no-flip
+            class="search-filter-dropdown"
             :data-qa="`${name} side facet dropdown button`"
             @show="prefetch"
             @shown="shownDropdown"
@@ -85,6 +84,7 @@
                     autocomplete="off"
                     :placeholder="$t('sideFilters.search')"
                     data-qa="side facet dropdown search input"
+                    :aria-label="$t('sideFilters.search')"
                     @input="activeSearchInput = true"
                     @blur="activeSearchInput = false"
                   />
@@ -109,7 +109,7 @@
                 <span>
                   {{ tFacetOption(name, option.label, { collection }) }}
                 </span>
-                <span>({{ option.count | localise }})</span>
+                <span>({{ $n(option.count) }})</span>
               </template>
             </b-dropdown-item-button>
             <template v-if="truncated">
@@ -124,7 +124,7 @@
                   tag="span"
                 >
                   <span class="font-weight-bold">
-                    {{ truncatedAmount | localise }}
+                    {{ $n(truncatedAmount) }}
                   </span>
                   {{ moreOptionsName }}<!-- This comment removes white space-->
                 </i18n>
@@ -134,7 +134,9 @@
               v-if="$fetchState.pending"
               class="text-center"
             >
-              <LoadingSpinner />
+              <LoadingSpinner
+                tag="span"
+              />
             </b-dropdown-text>
             <b-dropdown-text v-else-if="fetched && availableSortedDisplayableOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}
@@ -149,7 +151,7 @@
 <script>
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
-  import themes from '@/plugins/europeana/themes';
+  import themes from '@/utils/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
@@ -432,7 +434,6 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.api': 'refetch',
       '$route.query.qa': 'refetch',
       '$route.query.qf': 'refetch',
       '$route.query.query': 'refetch',
@@ -564,6 +565,11 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/dropdown-search-filter';
+</style>
 
 <docs lang="md">
   Type radio:

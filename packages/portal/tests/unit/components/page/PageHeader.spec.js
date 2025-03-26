@@ -13,6 +13,7 @@ const factory = () => shallowMount(PageHeader, {
       return `TRANSLATED: ${key}`;
     },
     localePath: (code) => window.location.href + code,
+    $route: { query: {} },
     $store: {
       commit(mutation, payload) {
         if (mutation === 'search/setShowSearchBar') {
@@ -28,7 +29,7 @@ const factory = () => shallowMount(PageHeader, {
 describe('components/PageHeader', () => {
   describe('template', () => {
     describe('search form', () => {
-      it('is hidden by default', () => {
+      it('is omitted by default', () => {
         const wrapper = factory();
 
         const form = wrapper.find('[data-qa="search form wrapper"]');

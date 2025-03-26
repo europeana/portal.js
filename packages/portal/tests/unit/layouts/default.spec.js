@@ -30,11 +30,12 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   },
   mocks: {
     $store: {
-      state: {
-        breadcrumb: {}
+      state: {},
+      getters: {
+        'debug/settings': {}
       }
     },
-    $t: key => key,
+    $t: (key) => key,
     $auth: {
       $storage: {
         getUniversal: sinon.spy()
@@ -43,16 +44,10 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
-    $exp: {
-      $variantIndexes: [0]
-    },
     $route: {
       query: {},
       fullPath: '/fr',
       path: '/fr'
-    },
-    $matomo: {
-      trackEvent: () => {}
     },
     $i18n: {
       locale: 'fr',
@@ -63,6 +58,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       set: () => {}
     },
     $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
+    $features: {},
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
@@ -84,143 +80,20 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('Klaro', () => {
-    const klaroManagerStub = {
-      watch: sinon.spy()
-    };
-    const klaroMock = {
-      getManager: sinon.stub().returns(klaroManagerStub),
-      render: sinon.spy()
-    };
-
-    describe('when Matomo plugin is installed', () => {
-      it('waits for Matomo to be ready first', async() => {
-        const $waitForMatomo = sinon.stub().resolves();
-
-        factory({ mocks: { $waitForMatomo } });
-
-        expect($waitForMatomo.called).toBe(true);
-      });
-
-      it('renders Klaro if Matomo becomes ready', () => {
-        const $waitForMatomo = sinon.stub().resolves();
-
-        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-
-      it('renders Klaro if Matomo does not become ready', () => {
-        const $waitForMatomo = sinon.stub().rejects();
-
-        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-    });
-
-    describe('renderKlaro', () => {
-      it('renders Klaro', async() => {
-        const wrapper = factory();
-        await wrapper.setData({ klaro: klaroMock });
-
-        await wrapper.vm.renderKlaro();
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-
-      it('registers Klaro manager update watcher', async() => {
-        const wrapper = factory();
-        await wrapper.setData({ klaro: klaroMock });
-
-        await wrapper.vm.renderKlaro();
-
-        expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
-      });
-    });
-
-    describe('watchKlaroManagerUpdate', () => {
-      const wrapper = factory({ data: { klaro: klaroMock } });
-      wrapper.vm.trackKlaroClickEvent = sinon.spy();
-      const manager = null;
-
-      describe('with event type "saveConsents"', () => {
-        const eventType = 'saveConsents';
-
-        const clickEvents = {
-          accept: 'Okay/Accept all',
-          decline: 'Decline',
-          save: 'Accept selected'
-        };
-        for (const dataType in clickEvents) {
-          describe(`and data type "${dataType}"`, () => {
-            const data = { type: dataType };
-            const eventName = clickEvents[dataType];
-            it(`tracks Klaro click event with name "${eventName}"`, () => {
-              wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
-
-              expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName)).toBe(true);
-            });
-          });
-        }
-      });
-    });
-
-    describe('trackKlaroClickEvent', () => {
-      it('tracks Klaro clicks with Matomo', () => {
-        const wrapper = factory({ data: { klaro: klaroMock } });
-        wrapper.vm.$matomo.trackEvent = sinon.spy();
-
-        const eventName = 'Saved';
-        wrapper.vm.trackKlaroClickEvent(eventName);
-
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
-      });
-    });
-  });
-
   describe('NewFeatureNotification', () => {
-    describe('when no feature notification is defined', () => {
-      it('is not loaded', () => {
-        const wrapper = factory({ data: { featureNotification: undefined } });
+    describe('when no feature notification is active', () => {
+      it('is not rendered', () => {
+        const wrapper = factory({ data: { featureNotification: null } });
         const notification = wrapper.find('[data-qa="new feature notification"]');
         expect(notification.exists()).toBe(false);
       });
     });
-    describe('when feature notification is defined', () => {
-      describe('and expiration has not passed', () => {
-        it('is rendered', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' }, featureNotificationExpiration: new Date('3011-11-20') }, cookies: {} });
+    describe('when a feature notification is active', () => {
+      it('is rendered', () => {
+        const wrapper = factory({ data: { featureNotification: { name: 'filters' } } });
 
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(true);
-        });
-      });
-      describe('and expiration has passed', () => {
-        it('is not loaded', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' }, featureNotificationExpiration: new Date('2011-11-20') }, cookies: {} });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(false);
-        });
-      });
-      describe('and new_feature_notification cookies are set with the feature`s name', () => {
-        it('is not loaded', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' } },
-            cookies: { 'new_feature_notification': 'filters' } });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(false);
-        });
-      });
-      describe('and new_feature_notification cookies are set with a different name', () => {
-        it('is rendered', () => {
-          const wrapper = factory({ data: { featureNotification: { name: 'filters' } },
-            cookies: { 'new_feature_notification': 'organisations' } });
-
-          const notification = wrapper.find('[data-qa="new feature notification"]');
-          expect(notification.exists()).toBe(true);
-        });
+        const notification = wrapper.find('[data-qa="new feature notification"]');
+        expect(notification.exists()).toBe(true);
       });
     });
   });
@@ -252,14 +125,6 @@ describe('layouts/default.vue', () => {
         const wrapper = factory();
 
         expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
-      });
-
-      it('includes og:url with canonical URL', () => {
-        const wrapper = factory();
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('https://www.example.org/fr');
       });
 
       it('includes description "Europeana"', () => {

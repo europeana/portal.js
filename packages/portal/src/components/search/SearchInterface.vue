@@ -1,7 +1,8 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="white-page pt-5 page-container side-filters-enabled"
+    class="search-page-container side-filters-enabled"
+    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -9,31 +10,27 @@
       <b-col
         class="col-results"
       >
+        <client-only>
+          <transition
+            name="fade"
+          >
+            <SearchQueryBuilder
+              v-show="showAdvancedSearch"
+              id="search-query-builder"
+              ref="queryBuilder"
+              tabindex="0"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
+            />
+          </transition>
+        </client-only>
         <b-container
           class="px-0 pb-3"
         >
-          <client-only>
-            <SearchBoostingForm
-              v-if="showSearchBoostingForm"
-              class="mb-3"
-            />
-          </client-only>
-          <client-only>
-            <transition
-              name="fade"
-            >
-              <SearchQueryBuilder
-                v-show="showAdvancedSearch"
-                id="search-query-builder"
-                class="d-none mb-3"
-                :class="{'d-lg-block': showAdvancedSearch}"
-                @show="(show) => showAdvancedSearch = show"
-              />
-            </transition>
-          </client-only>
           <section>
             <div
-              class="mb-3 d-flex align-items-start justify-content-between"
+              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
             >
               <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
@@ -46,6 +43,7 @@
               />
               <SearchViewToggles
                 v-model="view"
+                class="ml-auto"
               />
             </div>
             <b-row
@@ -54,16 +52,11 @@
               <b-col
                 cols="12"
               >
-                <b-row
+                <LoadingSpinner
                   v-show="$fetchState.pending"
                   class="flex-md-row py-4 text-center"
-                >
-                  <b-col cols="12">
-                    <LoadingSpinner
-                      :status-message="$t('loadingResults')"
-                    />
-                  </b-col>
-                </b-row>
+                  :status-message="$t('loadingResults')"
+                />
                 <template
                   v-if="!$fetchState.pending"
                 >
@@ -74,9 +67,9 @@
                       <ErrorMessage
                         v-if="$fetchState.error"
                         :error="$fetchState.error"
-                        :gridless="false"
                         :full-height="false"
                         :show-message="showErrorMessage"
+                        title-tag="h2"
                       />
                       <template
                         v-else
@@ -93,6 +86,8 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          :on-aux-click-card="onClickItem"
+                          :on-click-card="onClickItem"
                           @drawn="handleResultsDrawn"
                         >
                           <slot />
@@ -144,88 +139,65 @@
           name="after-results"
         />
       </b-col>
-      <SearchFilters
-        :route="route"
-        :collection="collection"
-        :api-params="apiParams"
-        :api-options="apiOptions"
-        :user-params="userParams"
+      <SearchSidebar
+        :advanced-search-query-count="advancedSearchQueryCount"
+        :show-advanced-search="showAdvancedSearch"
+        @showAdvancedSearch="(val) => showAdvancedSearch = val"
+        @focusQueryBuilder="$refs.queryBuilder?.$el.focus();"
       >
-        <b-row
-          class="d-flex justify-content-between align-items-center flex-nowrap"
-        >
-          <span
-            class="d-flex"
-          >
-            <b-button
-              aria-controls="search-query-builder search-query-builder-mobile"
-              :aria-expanded="showAdvancedSearch"
-              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
-              :class="{ 'open': showAdvancedSearch }"
-              variant="link"
-              @click="toggleAdvancedSearch"
-            >
-              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-            </b-button>
-            <b-button
-              v-b-tooltip.bottom
-              :title="$t('search.advanced.tooltip.advancedSearch')"
-              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
-              variant="light-flat"
-            />
-          </span>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
-        </b-row>
-        <transition
-          name="fade"
-        >
-          <SearchQueryBuilder
-            v-show="showAdvancedSearch"
-            id="search-query-builder-mobile"
-            class="d-lg-none"
-            @show="(show) => showAdvancedSearch = show"
-          />
-        </transition>
-      </SearchFilters>
+        <SearchFilters
+          :route="route"
+          :collection="collection"
+          :api-params="apiParams"
+          :api-options="apiOptions"
+          :user-params="userParams"
+        />
+      </SearchSidebar>
     </b-row>
   </b-container>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+  import merge from 'deepmerge';
+  import isEqual from 'lodash/isEqual.js';
+  import isUndefined from 'lodash/isUndefined.js';
+  import omitBy from 'lodash/omitBy.js';
+  import uniq from 'lodash/uniq.js';
+
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
+  import SearchFilters from './SearchFilters';
+  import SearchSidebar from './SearchSidebar';
   import SearchViewToggles from './SearchViewToggles';
 
-  import makeToastMixin from '@/mixins/makeToast';
-  import themes from '@/plugins/europeana/themes';
-  import { filtersFromQf } from '@/plugins/europeana/search';
-
-  import merge from 'deepmerge';
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
+  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
     name: 'SearchInterface',
 
     components: {
+      ClientOnly,
       ErrorMessage: () => import('../error/ErrorMessage'),
-      SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SearchFilters: () => import('./SearchFilters'),
+      SearchFilters,
+      SearchSidebar,
       SearchViewToggles
     },
 
     mixins: [
-      makeToastMixin
+      advancedSearchMixin,
+      elasticApmReporterMixin,
+      itemPreviewCardGroupViewMixin
     ],
 
     props: {
@@ -241,34 +213,50 @@
         type: Boolean,
         default: false
       },
-      overrideParams: {
+      defaultParams: {
         type: Object,
         default: () => ({})
       }
     },
 
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
+
     data() {
       return {
-        apiOptions: {},
         apiParams: {},
-        collection: null,
         hits: null,
         lastAvailablePage: null,
-        results: [],
-        theme: null,
-        totalResults: null,
         paginationChanged: false,
-        showAdvancedSearch: false
+        results: [],
+        showAdvancedSearch: false,
+        totalResults: null,
+        qasWithAddedEntityValue: []
       };
     },
 
     async fetch() {
+      this.$store.commit('search/setActive', true);
+
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
-      this.setViewFromRouteQuery();
+      process.client && this.scrollToSelector('#header');
 
-      this.$store.commit('search/setActive', true);
+      // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      });
+
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
+
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
+      }
+
+      this.deriveApiParams();
 
       try {
         await this.runSearch();
@@ -278,7 +266,7 @@
           error.code = 'searchPaginationLimitExceeded';
           error.message = 'Pagination limit exceeded';
           this.$error(error, {
-            tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+            tValues: { description: { limit: this.$i18n.n(Number(paginationError[1])) } }
           });
         } else {
           this.$error(error);
@@ -294,13 +282,35 @@
 
     computed: {
       advancedSearchQueryCount() {
-        return this.userParams?.qa ? [].concat(this.userParams?.qa).length : 0;
+        return this.qa.length;
       },
       userParams() {
         return this.$route.query;
       },
+      apiOptions() {
+        const apiOptions = {};
+
+        if (this.hasFulltextQa) {
+          apiOptions.url = this.$apis.fulltext.baseURL;
+        }
+
+        if (this.translateLang) {
+          apiOptions.translateLang = this.translateLang;
+        }
+
+        return apiOptions;
+      },
+      boost() {
+        return this.userParams.boost;
+      },
+      qa() {
+        return [].concat(this.userParams.qa || []);
+      },
+      qaes() {
+        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
+      },
       qf() {
-        return this.userParams.qf;
+        return [].concat(this.userParams.qf || []);
       },
       query() {
         return this.userParams.query;
@@ -308,8 +318,8 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
+      sort() {
+        return this.userParams.sort;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -327,32 +337,46 @@
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
       showErrorMessage() {
         return !this.$fetchState.error?.code ||
           !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
       },
-      showSearchBoostingForm() {
-        return !!this.debugSettings?.boosting;
+      collection() {
+        return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
-      routeQueryView() {
-        return this.$route.query.view;
+      fulltextQas() {
+        return this.qa
+          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
       },
-      view: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
+      hasFulltextQa() {
+        return this.fulltextQas.length > 0;
+      },
+      // Disable translate profile (multilingual search) when not logged in
+      doNotTranslate() {
+        return !this.$auth.loggedIn;
+      },
+      translateLang() {
+        if (this.doNotTranslate) {
+          return null;
         }
+
+        // Either translate locale(s) not configured, or current locale is not
+        // among them.
+        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
+          return null;
+        }
+
+        return this.$i18n.locale;
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
+      },
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
       }
     },
 
     watch: {
-      routeQueryView: 'setViewFromRouteQuery',
-      '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.qa': '$fetch',
@@ -361,60 +385,93 @@
       '$route.query.page': 'handlePaginationChanged'
     },
 
+    mounted() {
+      if (this.query) {
+        this.$store.commit('search/setShowSearchBar', true);
+      }
+    },
+
     destroyed() {
       this.$store.commit('search/setActive', false);
     },
 
     methods: {
-      // TODO: could this be refactored into two computed properties, for
-      //       apiOptions, and apiParams?
-      deriveApiSettings() {
-        const userParams = { ...this.userParams };
-        // Coerce qf from user input into an array as it may be a single string
-        userParams.qf = [].concat(userParams.qf || []);
+      // NOTE: deliberately not computed, so that `apiParams` can be used by
+      //       `onClickItem`
+      // TODO: reduce cognitive complexity
+      deriveApiParams() {
+        const localParams = omitBy({
+          boost: this.boost,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          sort: this.sort,
+          page: this.page,
+          profile: 'minimal',
+          rows: this.perPage
+        }, isUndefined);
 
-        const apiParams = merge(userParams, this.overrideParams);
+        const params = merge(this.defaultParams, localParams);
 
-        // `qa` params are queries from the advanced search builder
-        if (apiParams.qa) {
-          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
-          delete apiParams.qa;
-        }
-
-        if (!apiParams.profile) {
-          apiParams.profile = 'minimal';
-        }
-
-        const collectionFilter = filtersFromQf(apiParams.qf).collection;
-        this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find((theme) => theme.qf === this.collection);
-
-        const apiOptions = {};
-
-        if (this.theme?.filters?.api) {
-          // Set default API (of fulltext or metadata), from theme config
-          if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default;
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.qf = (params.qf || []).concat(params.query || []);
+            params.query = this.fulltextQas.join(' AND ');
+            params.profile = `${params.profile},hits`;
           }
-          if (apiParams.api === 'fulltext') {
-            apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.fulltext.url;
-          }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
         }
 
-        this.apiOptions = apiOptions;
-        this.apiParams = apiParams;
+        params.qf = addContentTierFilter(params.qf);
+        params.qf = uniq(params.qf);
+
+        this.apiParams = params;
+      },
+
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(identifier) {
+        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+          ((this.apiParams.page - 1) * this.apiParams.rows);
+        this.recordSearchInteraction('click result', { 'search_result_rank': rank });
+      },
+
+      recordSearchInteraction(name, labels = {}) {
+        for (const param of ['qf', 'query', 'reusability']) {
+          if (this.apiParams[param]) {
+            labels[`search_params_${param}`] = this.apiParams[param];
+          }
+        }
+        labels['search_results_total'] = this.totalResults;
+
+        this.logApmTransaction({
+          name: `Search - ${name}`,
+          labels
+        });
       },
 
       async runSearch() {
-        this.deriveApiSettings();
-
-        const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
+        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+
+        if (process.server || this.$store.state.search.loggableInteraction) {
+          this.recordSearchInteraction('fetch results');
+          this.$store.commit('search/setLoggableInteraction', false);
+        }
       },
 
       handlePaginationChanged() {
@@ -449,19 +506,62 @@
         this.$fetch();
       },
 
-      setViewFromRouteQuery() {
-        if (this.routeQueryView) {
-          this.view = this.routeQueryView;
-          this.$cookies?.set('searchResultsView', this.routeQueryView);
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
+      },
+
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
+          });
+
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+        }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
         }
       },
 
-      toggleAdvancedSearch() {
-        this.showAdvancedSearch = !this.showAdvancedSearch;
-      },
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
 
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
       }
     }
   };
@@ -470,6 +570,15 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 @import '@europeana/style/scss/transitions';
+
+.search-page-container {
+  max-width: none;
+  padding-top: 0.875rem;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 1.5rem;
+  }
+}
 
 .col-results {
   min-width: 0;
@@ -516,15 +625,11 @@
   }
 }
 
-.query-builder-toggle {
-  @media (min-width: $bp-large) {
-    &::before {
-      content: '<';
-    }
+.search-bar-open {
+  padding-top: 4.275rem !important;
 
-    &.open::before {
-      content: '>';
-    }
+  @media (min-width: $bp-4k) {
+    padding-top: 6.6rem !important;
   }
 }
 </style>

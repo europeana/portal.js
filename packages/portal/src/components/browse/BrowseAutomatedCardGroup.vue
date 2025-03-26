@@ -1,22 +1,28 @@
 <template>
   <div
-    v-if="entries && entries.length > 0"
+    v-if="(entries && entries.length > 0) || trending"
   >
     <BrowseInfoCardSection
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
     />
+    <ItemTrendingItems
+      v-else-if="trending"
+    />
     <ContentCardSection
       v-else
       :section="contentCardSection"
+      class="mb-5"
     />
   </div>
 </template>
 
 <script>
   import ContentCardSection from '../content/ContentCardSection';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { daily } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -26,13 +32,15 @@
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
   const LATEST_GALLERIES = 'Latest galleries';
+  const TRENDING_ITEMS = 'Trending items';
 
   export default {
     name: 'BrowseAutomatedCardGroup',
 
     components: {
       ContentCardSection,
-      BrowseInfoCardSection
+      BrowseInfoCardSection,
+      ItemTrendingItems
     },
 
     props: {
@@ -53,6 +61,7 @@
         headline: null,
         contentful: null,
         galleries: null,
+        trending: null,
         daily: false,
         entries: []
       };
@@ -94,13 +103,17 @@
         data.galleries = 'recent';
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
+      } else if (this.sectionType === TRENDING_ITEMS) {
+        data.trending = true;
       }
 
       return data;
     },
 
     async fetch() {
-      if (this.contentful) {
+      if (this.trending) {
+        return;
+      } else if (this.contentful) {
         this.entries = await this.fetchContentfulData();
       } else if (this.galleries) {
         this.entries = await this.fetchSetData();
@@ -143,7 +156,7 @@
             __variant: null,
             name: set.title,
             identifier: set.id,
-            image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
+            image: this.$apis.thumbnail.edmPreview(set.isShownBy?.thumbnail, { size: 400 }),
             url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
             description: set.description
           }));
@@ -180,16 +193,17 @@
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
-              return module.cached(this.key, this.$config.redis);
+              return module.cached(this.key, this.$config.redis)
+                .then((response) => response[this.key]);
             });
         } else {
           return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-            .then((response) => response.data);
+            .then((response) => response.data[this.key]);
         }
       },
       async fetchContentfulData() {
         const variables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
         const response = await this.$contentful.query(this.contentful.query, variables);
@@ -199,11 +213,11 @@
         const params = {
           query: 'visibility:published',
           pageSize: 4,
-          profile: 'standard',
+          profile: 'items.meta',
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
-        return response.data.items || [];
+        return response.items || [];
       },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;

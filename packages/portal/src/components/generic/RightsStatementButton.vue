@@ -84,13 +84,14 @@
   @import '@europeana/style/scss/variables';
 
   .rights-statement-button {
-    color: $mediumgrey;
+    color: $darkgrey;
     background: $offwhite;
     border-radius: 0.25rem;
     padding: 0.38rem 0.625rem;
     font-size: $font-size-small;
     transition: $standard-transition;
     overflow: hidden;
+    display: inline-block;
 
     &:hover {
       cursor: pointer;

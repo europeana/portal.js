@@ -5,7 +5,7 @@ query EntityRelatedContent(
   $entityUri: String!,
   $query: String = ""
 ) {
-  blogPostingCollection(
+  exhibitionPageCollection(
     where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
@@ -23,7 +23,7 @@ query EntityRelatedContent(
       datePublished
     }
   }
-  exhibitionPageCollection(
+  storyCollection(
     where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {

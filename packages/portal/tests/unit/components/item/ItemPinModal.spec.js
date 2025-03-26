@@ -1,8 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
-import ItemPinModal from '@/components/item/ItemPinModal';
 import sinon from 'sinon';
+import ItemPinModal from '@/components/item/ItemPinModal';
 
 /*
 ** The pin modal has a lot of API dependencies.
@@ -21,17 +20,12 @@ import sinon from 'sinon';
 ** allow reusing the same stubs.
 */
 
-// TODO: prevent b-toaster-bootm-left-dynamic re-regristration warning.
-// Maybe caused by the toast being registered on localVue?
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
 
 const setSearchApiResponse = {
-  data: {
-    total: 1,
-    items: ['http://data.europeana.eu/set/456']
-  }
+  total: 1,
+  items: ['http://data.europeana.eu/set/456']
 };
 
 const ENTITY_URI = 'http://data.europeana.eu/agent/123';
@@ -44,12 +38,28 @@ const setGetApiResponseWithPinnedItem = {
   items: ['http://data.europeana.eu/item/123/abc']
 };
 
+const entityApiFindResponse = [
+  {
+    id: ENTITY_URI,
+    prefLabel: { en: ['Agent entity'] }
+  },
+  {
+    id: 'http://data.europeana.eu/topic/123',
+    prefLabel: { en: ['Topic entity'] }
+  },
+  {
+    id: 'http://data.europeana.eu/organisation/123456789',
+    prefLabel: { en: ['Organisation entity'] }
+  }
+];
+
 const fullPins = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
 
 const fixtures = {
   itemAlreadyPinned: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: ['/123/abc'] }
@@ -59,6 +69,7 @@ const fixtures = {
   itemNotPinned: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: [] }
@@ -68,6 +79,7 @@ const fixtures = {
   itemAlreadyPinnedInFullSet: {
     propsData: { identifier: fullPins[0] },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: fullPins }
@@ -77,6 +89,7 @@ const fixtures = {
   itemNotPinnedInFullSet: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: fullPins }
@@ -86,6 +99,7 @@ const fixtures = {
   setDoesNotExist: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: null, pinned: [] }
@@ -94,19 +108,13 @@ const fixtures = {
   }
 };
 
+const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
-const setApiSearchStub = sinon.stub().resolves({});
+const setApiGetItemIdsStub = sinon.stub().resolves(['http://data.europeana.eu/item/123/abc']);
+const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
-const setApiModifyItemsStub = sinon.stub().resolves({});
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
+const setApiPinItemStub = sinon.stub().resolves({});
+const setApiDeleteItemStub = sinon.stub().resolves({});
 
 const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
   localVue,
@@ -114,34 +122,34 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
     identifier: '/123/abc',
     modalStatic: true,
     modalId: 'pin-modal-/123/abc',
-    entities: [
-      {
-        about: ENTITY_URI,
-        prefLabel: { en: ['Agent entity'] }
-      },
-      {
-        about: 'http://data.europeana.eu/topic/123',
-        prefLabel: { en: ['Topic entity'] }
-      },
-      {
-        about: 'http://data.europeana.eu/organisation/123456789',
-        prefLabel: { en: ['Organisation entity'] }
-      }
+    entityUris: [
+      ENTITY_URI,
+      'http://data.europeana.eu/topic/123',
+      'http://data.europeana.eu/organisation/123456789'
     ],
     ...propsData
   },
   data,
-  i18n,
   mocks: {
     localePath: () => {},
     $apis: {
+      entity: {
+        find: entityApiFindStub
+      },
       set: {
         get: setApiGetStub,
+        getItemIds: setApiGetItemIdsStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
-        modifyItems: setApiModifyItemsStub
+        deleteItems: setApiDeleteItemStub,
+        pinItem: setApiPinItemStub
       }
     },
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
+    $i18n: { locale: 'en' },
     $store: {
       commit: sinon.spy(),
       state: {
@@ -149,12 +157,14 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
           pinned: []
         }
       }
-    }
+    },
+    $t: (key) => key
   }
 });
 
 describe('components/item/ItemPinModal', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   describe('template', () => {
     describe('while NO entity is selected', () => {
@@ -166,8 +176,9 @@ describe('components/item/ItemPinModal', () => {
     });
 
     describe('option buttons', () => {
-      it('show a button for each entity option', async() => {
+      it('shows a button for each entity option', async() => {
         const wrapper = factory();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.findAll('button[data-qa="pin item to entity choice"]').length).toEqual(3);
       });
@@ -175,6 +186,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is selected', () => {
         it('shows the check icon on the selected option', async() => {
           const wrapper = factory();
+          await wrapper.vm.fetchData();
           await wrapper.setData({
             selected: ENTITY_URI
           });
@@ -184,12 +196,13 @@ describe('components/item/ItemPinModal', () => {
         });
       });
       describe('when an option is pinned', () => {
-        it('shows the pin icon on the pinned option', () => {
+        it('shows the pin icon on the pinned option', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
+          await wrapper.vm.fetchData();
 
           const button = wrapper.find('button[data-qa="pin item to entity choice"]');
 
-          expect(button.find('span.icon-push-pin').exists()).toEqual(true);
+          expect(button.find('span.icon-pin').exists()).toEqual(true);
         });
       });
     });
@@ -200,10 +213,10 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory();
 
           await wrapper.setData({ selected: null });
-
           const helpSpan = wrapper.find('span.help');
+
           expect(helpSpan.exists()).toBe(true);
-          expect(helpSpan.text()).toBe('Select a related entity to pin/unpin the item to/from it.');
+          expect(helpSpan.text()).toBe('entity.notifications.select');
         });
       });
 
@@ -213,8 +226,9 @@ describe('components/item/ItemPinModal', () => {
             const wrapper = factory(fixtures.itemAlreadyPinned);
 
             const helpSpan = wrapper.find('span.help');
+
             expect(helpSpan.exists()).toBe(true);
-            expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+            expect(helpSpan.text()).toBe('entity.notifications.unpin');
           });
         });
 
@@ -223,8 +237,9 @@ describe('components/item/ItemPinModal', () => {
             const wrapper = factory(fixtures.itemNotPinned);
 
             const helpSpan = wrapper.find('span.help');
+
             expect(helpSpan.exists()).toBe(true);
-            expect(helpSpan.text()).toBe('This item will show at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+            expect(helpSpan.text()).toBe('entity.notifications.pin');
           });
         });
 
@@ -234,8 +249,9 @@ describe('components/item/ItemPinModal', () => {
               const wrapper = factory(fixtures.itemAlreadyPinnedInFullSet);
 
               const helpSpan = wrapper.find('span.help');
+
               expect(helpSpan.exists()).toBe(true);
-              expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+              expect(helpSpan.text()).toBe('entity.notifications.unpin');
             });
           });
 
@@ -244,8 +260,9 @@ describe('components/item/ItemPinModal', () => {
               const wrapper = factory(fixtures.itemNotPinnedInFullSet);
 
               const helpSpan = wrapper.find('span.help');
+
               expect(helpSpan.exists()).toBe(true);
-              expect(helpSpan.text()).toBe('For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.');
+              expect(helpSpan.text()).toBe('entity.notifications.pinLimit.body');
             });
           });
         });
@@ -260,7 +277,8 @@ describe('components/item/ItemPinModal', () => {
 
             const button = wrapper.find('[data-qa="toggle pin button"]:enabled');
             expect(button.exists()).toBe(true);
-            expect(button.text()).toBe('Unpin item');
+
+            expect(button.text()).toBe('entity.actions.unpin');
           });
         });
 
@@ -272,39 +290,41 @@ describe('components/item/ItemPinModal', () => {
           });
         });
       });
+
       describe('when clicked', () => {
         describe('when pinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemNotPinned);
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
+            wrapper.vm.makeToast = sinon.spy();
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
 
-            expect(makeToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('entity.notifications.pinned')).toBe(true);
           });
         });
 
         describe('when unpinning', () => {
           it('makes a toast', async() => {
             const wrapper = factory(fixtures.itemAlreadyPinned);
-            const makeToast = sinon.spy(wrapper.vm, 'makeToast');
+            wrapper.vm.makeToast = sinon.spy();
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-            expect(makeToast.calledWith('The item has been unpinned. We will notify you when this change will be visible on the collection page.')).toBe(true);
+            expect(wrapper.vm.makeToast.calledWith('entity.notifications.unpinned')).toBe(true);
           });
         });
       });
 
       describe('when there is NO existing set', () => {
-        it('creates a set and pins the item, updates the store', async() => {
+        it('creates a set and pins the item', async() => {
           const wrapper = factory(fixtures.setDoesNotExist);
 
           await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
           await new Promise(process.nextTick);
+
           expect(setApiCreateStub.called).toBe(true);
-          expect(setApiModifyItemsStub.called).toBe(true);
+          expect(setApiPinItemStub.called).toBe(true);
         });
       });
 
@@ -315,8 +335,9 @@ describe('components/item/ItemPinModal', () => {
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
-            expect(setApiModifyItemsStub.called).toBe(true);
+
             expect(setApiCreateStub.called).toBe(false);
+            expect(setApiPinItemStub.called).toBe(true);
           });
         });
 
@@ -326,8 +347,8 @@ describe('components/item/ItemPinModal', () => {
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-            expect(setApiModifyItemsStub.called).toBe(true);
             expect(setApiCreateStub.called).toBe(false);
+            expect(setApiDeleteItemStub.called).toBe(true);
           });
         });
       });
@@ -350,7 +371,8 @@ describe('components/item/ItemPinModal', () => {
 
             const button = wrapper.find('[data-qa="go to set link"]');
             expect(button.exists()).toBe(true);
-            expect(button.text()).toBe('See pinned items');
+
+            expect(button.text()).toBe('entity.actions.viewPinned');
           });
         });
       });
@@ -372,94 +394,34 @@ describe('components/item/ItemPinModal', () => {
   });
 
   describe('methods', () => {
-    describe('fetchEntityBestItemsSets', () => {
+    describe('fetchData', () => {
       afterEach(() => {
         setApiSearchStub.resolves(setSearchApiResponse);
+      });
+
+      it('fetches and stores the entities from the Entity API', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetchData();
+
+        expect(entityApiFindStub.called).toBe(true);
+        expect(wrapper.vm.entities).toEqual(entityApiFindResponse);
       });
 
       it('iterates over all entityIds and searches the set API for relevant sets', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(setApiSearchStub.callCount).toBe(3);
-      });
-
-      describe('when there are no sets for any of the entities', () => {
-        it('does NOT call "getOneSet"', async() => {
-          setApiSearchStub.resolves({ data: { total: 0 } });
-          const wrapper = factory();
-          const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').never();
-
-          await wrapper.vm.fetchEntityBestItemsSets();
-
-          expect(setApiSearchStub.callCount).toBe(3);
-          expect(getOneSetMock.verify()).toBe(true);
-        });
-      });
-
-      describe('when an entity has an associated EntityBestItemsSet set', () => {
-        it('calls "getOneSet" for the setId', async() => {
-          setApiSearchStub.resolves(setSearchApiResponse);
-          const wrapper = factory();
-          const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').thrice().withArgs('456');
-
-          await wrapper.vm.fetchEntityBestItemsSets();
-
-          expect(getOneSetMock.verify()).toBe(true);
-        });
       });
 
       it('sets `fetched` to `true`', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntityBestItemsSets();
+        await wrapper.vm.fetchData();
 
         expect(wrapper.vm.fetched).toBe(true);
-      });
-    });
-
-    describe('getOneSet', () => {
-      afterEach(() => {
-        setApiGetStub.resolves(setGetApiResponseWithPinnedItem);
-      });
-
-      describe('when there are NO pinned items present', () => {
-        it('stores the set ID and blank array of pins', async() => {
-          const setGetResponse = {
-            id: 'http://data.europeana.eu/set/456',
-            type: 'EntityBestItemsSet',
-            subject: [ENTITY_URI],
-            pinned: 0
-          };
-          setApiGetStub.resolves(setGetResponse);
-
-          const wrapper = factory();
-
-          await wrapper.vm.getOneSet('456');
-
-          expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
-            pageSize: 100
-          })).toBe(true);
-          expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
-          expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
-        });
-      });
-
-      describe('when there are pinned items present', () => {
-        it('stores the set ID and pins', async() => {
-          const wrapper = factory();
-
-          await wrapper.vm.getOneSet('456');
-
-          expect(setApiGetStub.calledWith('456', {
-            profile: 'standard',
-            pageSize: 100
-          })).toBe(true);
-          expect(wrapper.vm.sets[ENTITY_URI].id).toBe('456');
-          expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual(['/123/abc']);
-        });
       });
     });
 
@@ -491,7 +453,7 @@ describe('components/item/ItemPinModal', () => {
 
           await wrapper.vm.pin();
 
-          expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
+          expect(setApiPinItemStub.calledWith('456', '/123/abc')).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual(['/123/abc']);
         });
       });
@@ -504,7 +466,7 @@ describe('components/item/ItemPinModal', () => {
 
           await wrapper.vm.unpin();
 
-          expect(setApiModifyItemsStub.calledWith('delete', '456', '/123/abc')).toBe(true);
+          expect(setApiDeleteItemStub.calledWith('456', '/123/abc')).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
         });
       });
@@ -565,7 +527,7 @@ describe('components/item/ItemPinModal', () => {
     describe('entityDisplayLabel', () => {
       describe('when there is an english prefLabel', () => {
         const entityWithEnglishPrefLabel = {
-          about: ENTITY_URI,
+          id: ENTITY_URI,
           prefLabel: { en: ['English label', 'another Label'], fr: ['French label'] }
         };
         it('uses the first english pref label value', async() => {
@@ -579,7 +541,7 @@ describe('components/item/ItemPinModal', () => {
 
       describe('when there is NO english prefLabel', () => {
         const entityWithFrenchPrefLabel = {
-          about: ENTITY_URI,
+          id: ENTITY_URI,
           prefLabel: { fr: ['French label'] }
         };
         it('uses the first prefLabel value of an available language', async() => {

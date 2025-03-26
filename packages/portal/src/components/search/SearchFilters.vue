@@ -1,144 +1,126 @@
 <template>
-  <b-col
-    class="col-filters col-3"
-    :class="{ open: showFiltersSheet, hide: hideFilterSheet }"
-  >
-    <div
-      class="filters-backdrop"
-      @click="toggleFilterSheet"
-    />
-    <b-container
-      class="side-filters"
-      data-qa="side filters"
+  <div>
+    <b-row
+      class="filters-header border-bottom border-top d-flex justify-content-between align-items-center"
     >
-      <section role="search">
-        <client-only>
-          <slot />
-          <b-row
-            class="filters-header border-bottom border-top d-flex justify-content-between align-items-center"
+      <h2
+        class="filters-title"
+      >
+        {{ filtersTitle }}
+      </h2>
+      <b-button
+        v-if="hasResettableFilters"
+        variant="light"
+        class="d-inline-flex align-items-baseline"
+        data-qa="reset filters button"
+        @click="resetFilters"
+      >
+        <span class="icon-clear pr-2" />
+        {{ $t('actions.clearFilters') }}
+      </b-button>
+    </b-row>
+    <b-row class="mb-3 mt-4">
+      <b-col
+        data-qa="search filters"
+      >
+        <div class="position-relative">
+          <b-alert
+            v-for="fulltextCollection in ['newspaper', 'ww1']"
+            :key="fulltextCollection"
+            :show="showFulltextHasMovedAlert(fulltextCollection)"
+            variant="info"
+            dismissible
+            @input="(show) => handleFulltextHasMovedAlertInput(show, fulltextCollection)"
           >
-            <h2
-              class="filters-title"
+            {{ $t(`facets.alert.fulltextHasMoved.${fulltextCollection}`) }}
+          </b-alert>
+          <SearchDateFilter
+            v-if="enableDateFilter"
+            :name="dateFilterField"
+            :start="dateFilter.start"
+            :end="dateFilter.end"
+            :specific="dateFilter.specific"
+            @dateFilter="dateFilterSelected"
+          />
+          <SearchFacetDropdown
+            v-for="facet in defaultFilterableFacets"
+            :key="facet.name"
+            :name="facet.name"
+            :type="facetDropdownType(facet.name)"
+            :selected="filters[facet.name]"
+            :static-fields="facet.staticFields"
+            :search="facet.search"
+            :group-by="sideFacetDropdownGroupBy(facet.name)"
+            :aria-label="facet.name"
+            :collection="collection"
+            :api-params="apiParams"
+            :api-options="apiOptions"
+            @changed="changeFacet"
+          />
+          <b-button
+            variant="link"
+            class="search-toggle"
+            data-qa="additional filters toggle"
+            :class="{ 'open': showAdditionalFilters }"
+            aria-controls="additional-filters"
+            :aria-expanded="showAdditionalFilters ? 'true' : 'false'"
+            @click="showAdditionalFilters = !showAdditionalFilters"
+          >
+            {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? $t('actions.hide') : $t('actions.show') }) }}
+          </b-button>
+          <transition
+            name="fade"
+          >
+            <div
+              v-show="showAdditionalFilters"
+              id="additional-filters"
             >
-              {{ filtersTitle }}
-            </h2>
-            <button
-              v-if="hasResettableFilters"
-              class="btn btn-outline-primary"
-              data-qa="reset filters button"
-              @click="resetFilters"
-            >
-              {{ $t('actions.resetFilters') }}
-            </button>
-          </b-row>
-          <b-row class="mb-3 mt-4">
-            <b-col
-              data-qa="search filters"
-            >
-              <div class="position-relative">
-                <SearchSwitchFilter
-                  v-if="enableApiFilter"
-                  :value="filters.api"
-                  name="api"
-                  :label="$t('facets.api.switch')"
-                  :tooltip="$t('facets.api.switchMoreInfo')"
-                  checked-value="fulltext"
-                  :unchecked-value="STANDARD_API_DEFAULT"
-                  :default-value="apiFilterDefaultValue"
-                  :collection="collection"
-                  @changed="changeFacet"
-                />
-                <SearchDateFilter
-                  v-if="enableDateFilter"
-                  :name="dateFilterField"
-                  :start="dateFilter.start"
-                  :end="dateFilter.end"
-                  :specific="dateFilter.specific"
-                  @dateFilter="dateFilterSelected"
-                />
-                <SearchFacetDropdown
-                  v-for="facet in defaultFilterableFacets"
-                  :key="facet.name"
-                  :name="facet.name"
-                  :type="facetDropdownType(facet.name)"
-                  :selected="filters[facet.name]"
-                  :static-fields="facet.staticFields"
-                  :search="facet.search"
-                  :group-by="sideFacetDropdownGroupBy(facet.name)"
-                  :aria-label="facet.name"
-                  :collection="collection"
-                  :api-params="apiParams"
-                  :api-options="apiOptions"
-                  @changed="changeFacet"
-                />
-                <b-button
-                  variant="link"
-                  class="search-toggle"
-                  data-qa="additional filters toggle"
-                  :class="{ 'open': showAdditionalFilters }"
-                  aria-controls="additional-filters"
-                  :aria-expanded="showAdditionalFilters"
-                  @click="showAdditionalFilters = !showAdditionalFilters"
-                >
-                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? $t('actions.hide') : $t('actions.show') }) }}
-                </b-button>
-                <transition
-                  name="fade"
-                >
-                  <div
-                    v-show="showAdditionalFilters"
-                    id="additional-filters"
-                  >
-                    <SearchFacetDropdown
-                      v-for="facet in additionalFilterableFacets"
-                      :key="facet.name"
-                      :name="facet.name"
-                      :type="facetDropdownType(facet.name)"
-                      :selected="filters[facet.name]"
-                      :static-fields="facet.staticFields"
-                      :search="facet.search"
-                      :group-by="sideFacetDropdownGroupBy(facet.name)"
-                      :aria-label="facet.name"
-                      :collection="collection"
-                      :api-params="apiParams"
-                      :api-options="apiOptions"
-                      @changed="changeFacet"
-                    />
-                    <SearchSwitchFilter
-                      v-if="contentTierFacetSwitch"
-                      :value="filters.contentTier"
-                      name="contentTier"
-                      :label="$t('facets.contentTier.options.0')"
-                      checked-value="&quot;0&quot;"
-                      :unchecked-value="null"
-                      :default-value="null"
-                      :collection="collection"
-                      @changed="changeFacet"
-                    />
-                  </div>
-                </transition>
-              </div>
-            </b-col>
-          </b-row>
-        </client-only>
-      </section>
-    </b-container>
-  </b-col>
+              <SearchFacetDropdown
+                v-for="facet in additionalFilterableFacets"
+                :key="facet.name"
+                :name="facet.name"
+                :type="facetDropdownType(facet.name)"
+                :selected="filters[facet.name]"
+                :static-fields="facet.staticFields"
+                :search="facet.search"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
+                :aria-label="facet.name"
+                :collection="collection"
+                :api-params="apiParams"
+                :api-options="apiOptions"
+                @changed="changeFacet"
+              />
+              <SearchSwitchFilter
+                v-if="contentTierFacetSwitch"
+                :value="filters.contentTier"
+                name="contentTier"
+                :label="$t('facets.contentTier.options.0')"
+                checked-value="&quot;0&quot;"
+                :unchecked-value="null"
+                :default-value="null"
+                :collection="collection"
+                @changed="changeFacet"
+              />
+            </div>
+          </transition>
+        </div>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
+  import { BAlert } from 'bootstrap-vue';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
-  import themes from '@/plugins/europeana/themes';
+  import themes from '@/utils/europeana/themes';
   import SearchFacetDropdown from './SearchFacetDropdown';
 
   export default {
-    // TODO: rename the component now it also includes advanced search?
     name: 'SearchFilters',
 
     components: {
-      ClientOnly,
+      BAlert,
       SearchFacetDropdown,
       SearchDateFilter: () => import('./SearchDateFilter'),
       SearchSwitchFilter: () => import('./SearchSwitchFilter')
@@ -202,8 +184,6 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        STANDARD_API_DEFAULT: 'metadata',
-        hideFilterSheet: true,
         showAdditionalFilters: false
       };
     },
@@ -211,19 +191,12 @@
       collectionFacetEnabled() {
         return this.$store.state.search.collectionFacetEnabled;
       },
-      showFiltersSheet() {
-        return this.$store.state.search.showFiltersSheet;
-      },
       // TODO: do not assume filters are fielded, e.g. `qf=whale`
       filters() {
         const filters = filtersFromQf(this.userParams?.qf);
 
         if (this.userParams?.reusability) {
           filters['REUSABILITY'] = this.userParams.reusability.split(',');
-        }
-
-        if (this.apiParams?.api) {
-          filters['api'] = this.apiParams.api;
         }
 
         return filters;
@@ -235,9 +208,6 @@
 
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
-        }
-        if (this.enableApiFilter && (this.filters.api !== this.STANDARD_API_DEFAULT)) {
-          filters.push('api');
         }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
@@ -306,9 +276,6 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
-      },
       view() {
         return this.userParams.view;
       },
@@ -318,12 +285,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      enableApiFilter() {
-        return !!this.theme?.filters?.api;
-      },
-      apiFilterDefaultValue() {
-        return this.theme?.filters?.api?.default || null;
       },
       enableDateFilter() {
         return !!this.theme?.filters?.date;
@@ -355,28 +316,24 @@
         return this.$t('searchFilters', { count: this.resettableFilters.length ? `(${this.resettableFilters.length})` : '' });
       }
     },
-    watch: {
-      showFiltersSheet(newVal) {
-        if (newVal) {
-          this.hideFilterSheet = false;
-        } else {
-          setTimeout(() => this.hideFilterSheet = true, 300);
-        }
-      }
-    },
     created() {
-      this.$store.commit('search/setShowFiltersToggle', true);
-
       if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied) {
         this.showAdditionalFilters = true;
       }
     },
-    beforeDestroy() {
-      this.$store.commit('search/setShowFiltersToggle', false);
-    },
     methods: {
+      showFulltextHasMovedAlert(collection) {
+        return process.client &&
+          (collection === this.collection) &&
+          (localStorage.getItem(`fulltextHasMovedAlertDismissed.${this.collection}`) !== 'true');
+      },
+      handleFulltextHasMovedAlertInput(show, collection) {
+        if (show === false) {
+          localStorage.setItem(`fulltextHasMovedAlertDismissed.${collection}`, 'true');
+        }
+      },
       facetDropdownType(name) {
-        return name === this.COLLECTION_FACET_NAME || name === 'api' ? 'radio' : 'checkbox';
+        return name === this.COLLECTION_FACET_NAME ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -391,7 +348,7 @@
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       queryUpdatesForFacetChanges(selected = {}) {
-        const filters = Object.assign({}, this.filters);
+        const filters = { ...this.filters };
 
         for (const name in selected) {
           filters[name] = selected[name];
@@ -422,16 +379,10 @@
         };
 
         for (const name in filters) {
-          switch (name) {
-          case 'REUSABILITY':
+          if (name === 'REUSABILITY') {
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
-            break;
-          case 'api':
-            // `api` is an option to /plugins/europeana/search/search()
-            queryUpdates.api = filters[name];
-            break;
-          default:
+          } else {
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
           }
@@ -443,7 +394,8 @@
           .filter((value) => (value !== undefined) && (value !== null))
           .map((value) => `${name}:${value}`);
       },
-      rerouteSearch(queryUpdates) {
+      rerouteSearch(queryUpdates = {}) {
+        this.$store.commit('search/setLoggableInteraction', true);
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$router.push(this.localePath({ ...this.route, ...{ query } }));
         if (queryUpdates.qf) {
@@ -463,8 +415,7 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          view: this.view,
-          api: this.api
+          view: this.view
         };
 
         const updated = { ...current, ...updates };
@@ -482,7 +433,6 @@
         this.rerouteSearch({
           page: 1,
           qf: null,
-          api: null,
           reusability: null
         });
       },
@@ -497,9 +447,6 @@
         }
         this.isCheckedSpecificDate = dateRange.specific;
         this.changeFacet(facetName, dateQuery);
-      },
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       },
       sideFacetDropdownGroupBy(facetName) {
         if (facetName === 'RIGHTS') {
@@ -532,8 +479,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
-  @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/transitions';
 
   .filters-header {
@@ -559,99 +504,11 @@
     margin-bottom: 1.25rem;
   }
 
-  .col-filters {
-    flex-grow: 0;
-    padding: 0;
-    margin-top: -1rem;
-
-    @media (max-width: ($bp-large - 1px)) {
-      display: flex;
-      position: fixed;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      padding-top: 1rem;
-      transition: right 300ms ease-in-out;
-      z-index: 1050;
-      max-width: none;
-      overflow: hidden;
-
-      .side-filters {
-        flex-shrink: 0;
-        margin-right: -320px;
-        overflow-y: auto;
-        width: 320px;
-        max-width: 75vw;
-        animation: appear 300ms ease-in-out;
-        transition: margin-right 300ms ease-in-out;
-
-        @keyframes appear {
-          from {
-            margin-right: -320px;
-          }
-
-          to {
-            margin-right: 0;
-          }
-        }
-      }
-
-      &.hide {
-        display: none;
-      }
-
-      &.open {
-        left: 0;
-
-        .side-filters {
-          margin-right: 0;
-        }
-
-        .filters-backdrop {
-          content: '';
-          width: 100%;
-          height: 100%;
-          background-color: rgb(0 0 0 / 70%);
-        }
-      }
-    }
-
-    @media (min-width: $bp-large) {
-      max-width: 320px;
-      min-width: 220px;
-      min-height: 31rem;
-      box-shadow: $boxshadow-small;
-
-      @include white-cutout;
-
-      .filters-backdrop {
-        display: none;
-      }
-    }
-
-    @media (min-width: $bp-4k) {
-      max-width: 480px;
-      margin-top: -1.5rem;
-
-      .col {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-    }
-
-    .side-filters {
-      background-color: $white;
-      height: 100%;
-    }
-
-    .icon-clear {
-      @media (min-width: $bp-large) {
-        display: none;
-      }
-    }
-  }
-
   .form-group {
     margin-bottom: 1.5rem;
+  }
+
+  .alert {
+    font-size: $font-size-extrasmall;
   }
 </style>

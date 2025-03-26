@@ -46,8 +46,8 @@ describe('pages/contentful/set-suggest/index', () => {
 
         await wrapper.vm.findSets(value);
 
-        expect(wrapper.vm.$apis.set.get.calledWith(value[0], { profile: 'standard' })).toBe(true);
-        expect(wrapper.vm.$apis.set.get.calledWith(value[1], { profile: 'standard' })).toBe(true);
+        expect(wrapper.vm.$apis.set.get.calledWith(value[0])).toBe(true);
+        expect(wrapper.vm.$apis.set.get.calledWith(value[1])).toBe(true);
       });
     });
 
@@ -59,7 +59,7 @@ describe('pages/contentful/set-suggest/index', () => {
         await wrapper.vm.suggestSets(text);
 
         expect(wrapper.vm.$apis.set.search.calledWith(
-          { query: text, qf: 'visibility:published', profile: 'standard' }
+          { query: text, qf: 'visibility:published', profile: 'items.meta' }
         )).toBe(true);
       });
     });

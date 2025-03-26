@@ -51,8 +51,6 @@ const agentEntity = {
   pathMatch: '60305-william-shakespeare'
 };
 
-const redirectToPrefPathStub = sinon.stub();
-
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
@@ -77,6 +75,13 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     localePath: sinon.stub().returns('/'),
     $error: sinon.spy(),
+    $config: {
+      app: {
+        search: {
+          collections: {}
+        }
+      }
+    },
     $store: {
       state: {
         entity: {
@@ -96,7 +101,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
+    'EntityHeader': true,
     'EntityRelatedCollectionsCard': true,
+    'ErrorMessage': true,
+    'RelatedEditorial': true,
     'SearchInterface': {
       template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
@@ -107,6 +115,47 @@ describe('pages/collections/_type/_', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
+    describe('when entity type in route is invalid', () => {
+      const type = 'train';
+
+      it('triggers 404 error via $error', async() => {
+        const wrapper = factory({ type });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$error.calledWith(404, { scope: 'page' })).toBe(true);
+      });
+
+      it('does not request entity from Entity API', async() => {
+        const wrapper = factory({ type });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.get.called).toBe(false);
+      });
+    });
+
+    describe('when entity ID in route is invalid', () => {
+      const type = 'topic';
+      const pathMatch = 'undefined';
+
+      it('triggers 404 error via $error', async() => {
+        const wrapper = factory({ type, pathMatch });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$error.calledWith(404, { scope: 'page' })).toBe(true);
+      });
+
+      it('does not request entity from Entity API', async() => {
+        const wrapper = factory({ type, pathMatch });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.get.called).toBe(false);
+      });
+    });
+
     it('disables collection facet via search store', async() => {
       const wrapper = factory(topicEntity);
 
@@ -134,7 +183,7 @@ describe('pages/collections/_type/_', () => {
     describe('on errors', () => {
       it('handles errors via $error', async() => {
         const apiError = new Error({ message: 'No collection found' });
-        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+        const wrapper = factory({ ...topicEntity, get: sinon.stub().rejects(apiError) });
 
         await wrapper.vm.fetch();
 
@@ -352,10 +401,10 @@ describe('pages/collections/_type/_', () => {
       it('uses the english prefLabel', async() => {
         const wrapper = factory(topicEntity);
 
-        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
+        sinon.spy(wrapper.vm, 'redirectToPrefPath');
 
         await wrapper.vm.fetch();
-        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Topic', sinon.match.object)).toBe(true);
+        expect(wrapper.vm.redirectToPrefPath.calledWith('http://data.europeana.eu/concept/01234567890', 'Topic')).toBe(true);
       });
     });
   });

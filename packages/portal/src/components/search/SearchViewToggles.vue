@@ -1,38 +1,44 @@
 <template>
-  <b-form-group>
-    <b-form-radio-group
-      v-model="activeView"
-      buttons
-      button-variant="light-flat"
+  <b-dropdown
+    id="search-view-toggles"
+    variant="light"
+    no-flip
+    no-caret
+    data-qa="view toggle"
+    :toggle-attrs="{ 'aria-label': $t('actions.changeView') }"
+  >
+    <b-tooltip
+      placement="bottom"
+      target="search-view-toggles"
+      @show="handleTooltipShow"
     >
-      <b-form-radio
-        v-for="view in views"
-        :key="view"
-        :value="view"
-        :data-qa="`search ${view} view toggle`"
-        :aria-labelledby="`${view}-label`"
-        class="ml-3"
-      >
-        <span
-          :id="`${view}-label`"
-          class="visually-hidden"
-        >
-          {{ $t(`searchViews.${view}`) }}
-        </span>
-        <span
-          :class="view"
-          class="icon-view-toggle"
-          :title="$t(`searchViews.${view}`)"
-          :data-qa="`search ${view} view toggle icon`"
-        />
-      </b-form-radio>
-    </b-form-radio-group>
-  </b-form-group>
+      {{ $t('actions.changeView') }}
+    </b-tooltip>
+    <template #button-content>
+      <span
+        :class="`icon-view-${value}`"
+      />
+    </template>
+    <b-dropdown-item
+      v-for="view in sortedViews"
+      :key="view"
+      v-b-tooltip.left="$t(`searchViews.${view}`)"
+      :aria-label="$t(`searchViews.${view}`)"
+      :data-qa="`${view} view option`"
+      :to="{ ...$route, ...{ query: { ...$route.query, ...{ view: view } } } }"
+      @click="selectView(view)"
+    >
+      <span
+        :class="`icon-view-${view}`"
+      />
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <script>
   export default {
     name: 'SearchViewToggles',
+
     props: {
       /**
        * Selected search results view
@@ -44,19 +50,33 @@
         default: 'grid'
       }
     },
+
     data() {
       return {
         views: ['list', 'grid', 'mosaic'],
-        activeView: this.value
+        showTooltip: true
       };
     },
-    watch: {
-      activeView() {
-        this.$cookies?.set('searchResultsView', this.activeView);
 
-        this.$matomo?.trackEvent('View search results', 'Select view', this.activeView);
+    computed: {
+      sortedViews() {
+        return [this.value, ...this.views.filter((view) => view !== this.value)];
+      }
+    },
 
-        this.$router.push({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
+    methods: {
+      handleTooltipShow(event) {
+        if (!this.showTooltip) {
+          event.preventDefault();
+          // after preventing tooltip show, enable tooltip show again for subsequent event
+          this.showTooltip = true;
+        }
+      },
+      selectView(view) {
+        this.$cookies?.set('searchResultsView', view);
+        this.$matomo?.trackEvent('View search results', 'Select view', view);
+        // prevent showing tooltip when selecting a view (dropdown hides and sets focus on dropdown toggle)
+        this.showTooltip = false;
       }
     }
   };
@@ -64,41 +84,32 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
 
-  .form-group {
+  ::v-deep .dropdown-menu {
+    min-width: 0;
+    border: none;
+    box-shadow: $boxshadow;
+    padding: 6px;
     margin: 0;
-    flex-shrink: 0;
-  }
-
-  .ml-3 {
-    @media (min-width: $bp-4k) {
-      margin-left: 1.5rem !important;
-    }
-  }
-
-  .btn-group-toggle {
-    position: relative;
-    height: 2.25rem;
-    align-items: center;
+    transform: none !important;
 
     @media (min-width: $bp-4k) {
-      height: calc(1.5 * 2.25rem);
+      padding: 9px;
     }
 
-    .icon-view-toggle {
-      color: $mediumgrey;
-      font-size: 1.5rem;
+    &.show {
+      display: flex;
+      flex-direction: column;
+    }
+
+    [class*='icon-'] {
+      font-size: $font-size-large;
 
       @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.5rem);
+        font-size: $font-size-large-4k;
       }
 
       &::before {
-        @extend %icon-font;
-
-        content: '\e929';
-        vertical-align: baseline;
         width: $font-size-large;
         display: inline-block;
 
@@ -106,52 +117,52 @@
           width: $font-size-large-4k;
         }
       }
+    }
 
-      &.grid::before {
-        content: '\e92a';
-      }
+    li:not(:last-child) {
+      margin-bottom: 1rem;
 
-      &.mosaic::before {
-        content: '\e94a';
+      @media (min-width: $bp-4k) {
+        margin-bottom: 1.5rem;
       }
     }
 
-    label.btn {
-      background: none;
-      border: 0;
+    .dropdown-item {
+      color: $black;
       padding: 0;
+      line-height: 1;
 
-      &:hover {
-        box-shadow: none !important;
-
-        .icon-view-toggle {
-          color: $black;
-        }
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent;
+        color: $blue;
       }
+    }
+  }
 
-      &.focus {
-        box-shadow: none !important;
-      }
+  ::v-deep .btn-light.dropdown-toggle {
+    color: $black;
+    line-height: 1;
+    padding: 6px;
 
-      &.active {
-        background: none !important;
+    @media (min-width: $bp-4k) {
+      padding: 9px;
+    }
 
-        &:hover {
-          cursor: default;
-        }
+    @at-root .dropdown.show & {
+      color: $black;
+    }
 
-        .icon-view-toggle {
-          color: $blue;
-        }
-      }
+    [class*='icon-'] {
+      font-size: $font-size-large;
+      display: inline-block;
+      line-height: 1;
+      width: $font-size-large;
 
-      input[type='radio']:focus-visible ~ .icon-view-toggle {
-        outline: auto;
-        /* stylelint-disable */
-        @media (-webkit-min-device-pixel-ratio: 0) {
-          outline: -webkit-focus-ring-color auto 5px;
-        }
-        /* stylelint-enable */
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+        width: $font-size-large-4k;
       }
     }
   }

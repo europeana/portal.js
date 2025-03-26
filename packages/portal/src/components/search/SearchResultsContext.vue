@@ -1,9 +1,13 @@
 <template>
-  <div class="overflow-hidden">
+  <div class="overflow-hidden d-inline-flex flex-wrap align-items-center">
     <i18n
       :path="i18nPath"
       tag="h1"
       class="context-label"
+      :class="{
+        'mr-4': suggestLoginForMoreResults,
+        'mr-1': multilingualSearchTooltip
+      }"
       data-qa="context label"
     >
       <template #count>
@@ -41,14 +45,40 @@
           :badge-variant="badgeVariant"
         />
       </template>
-    </i18n>
-    <div
+    </i18n><!-- This comment removes white space which gets underlined
+ -->
+    <i18n
+      v-if="suggestLoginForMoreResults"
+      path="search.results.loginToSeeMore"
+      tag="span"
+      class="context-label mr-1"
+      data-qa="results more link"
+    >
+      <template #login>
+        <b-link
+          class="more-link"
+          :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          :target="null"
+          @click.prevent="$keycloak.login()"
+        >
+          {{ $t('actions.login') }}
+        </b-link>
+      </template>
+    </i18n><!-- This comment removes white space which gets underlined
+ --><b-button
+      v-if="multilingualSearchTooltip"
+      v-b-tooltip.bottom
+      :title="multilingualSearchTooltip"
+      class="icon-info-outline p-0 tooltip-button"
+      variant="light-flat"
+      data-qa="results more tooltip"
+    />
+    <output
       class="visually-hidden"
-      role="status"
       data-qa="results status message"
     >
       {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-    </div>
+    </output>
   </div>
 </template>
 
@@ -115,7 +145,7 @@
         }
       },
       totalResultsLocalised() {
-        return this.$options.filters.localise(this.totalResults);
+        return this.$i18n.n(this.totalResults);
       },
       hasQuery() {
         return this.query && this.query !== '';
@@ -143,25 +173,24 @@
         return this.entityParams.id;
       },
       queryRemovalLink() {
-        return this.localePath({
+        return {
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
             ...this.activeCriteria,
             query: null
           }
-        });
+        };
       },
       entityRemovalLink() {
-        return this.localePath({
+        return {
           name: 'search', query: {
             ...this.activeCriteria
           }
-        });
+        };
       },
       activeCriteria() {
         return {
-          api: this.$route?.query?.api,
           boost: this.$route?.query?.boost,
           qa: this.$route?.query?.qa,
           qf: this.$route?.query?.qf,
@@ -169,6 +198,23 @@
           reusability: this.$route?.query?.reusability,
           view: this.$route?.query?.view
         };
+      },
+      translateProfileEnabledForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      suggestLoginForMoreResults() {
+        return !this.$auth.loggedIn && this.translateProfileEnabledForCurrentLocale;
+      },
+      multilingualSearchTooltip() {
+        if (this.translateProfileEnabledForCurrentLocale) {
+          if (this.$auth.loggedIn) {
+            return this.$t('search.results.showingMultilingualResults');
+          } else {
+            return this.$t('search.results.loginToSeeMultilingualResults');
+          }
+        } else {
+          return null;
+        }
       }
     }
   };
@@ -182,6 +228,18 @@
   line-height: 3;
   min-width: 0;
   font-size: $font-size-small;
+  display: inline-block;
+
+  .more-link {
+    text-decoration: none;
+    color: $blue;
+    transition: color 150ms ease-in-out;
+
+    &:hover {
+      color: $darkblue;
+      transition: color 150ms ease-in-out;
+    }
+  }
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
@@ -189,7 +247,7 @@
     }
   }
 
-  .badge {
+  ::v-deep .badge {
     max-width: calc(100% - 2rem);
     text-transform: none;
   }

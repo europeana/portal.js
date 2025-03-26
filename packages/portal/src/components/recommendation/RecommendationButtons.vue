@@ -23,14 +23,10 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'RecommendationButtons',
-
-    mixins: [
-      makeToastMixin
-    ],
 
     props: {
       // Identifier of the item
@@ -50,6 +46,11 @@
       }
     },
 
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
+    },
+
     data() {
       return {
         toastMsg: this.$t('set.notifications.updated')
@@ -60,8 +61,8 @@
       async acceptRecommendation() {
         if (this.$store.state.keycloak.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
-          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.identifier });
-          this.$store.dispatch('set/refreshSet');
+          await this.$apis.set.insertItems(`http://data.europeana.eu/set/${this.$route.params.pathMatch}`, this.identifier);
+          this.$store.dispatch('set/fetchActive');
           this.makeToast(this.toastMsg);
         } else {
           this.$keycloak.login();

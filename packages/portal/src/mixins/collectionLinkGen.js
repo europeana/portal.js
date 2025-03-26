@@ -1,5 +1,5 @@
 import { getEntityTypeHumanReadable  } from '@/plugins/europeana/entity';
-import { getLabelledSlug } from '@/plugins/europeana/utils';
+import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
 export default {
@@ -10,19 +10,20 @@ export default {
         return null;
       }
 
-      return this.localePath({
+      return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
           pathMatch: getLabelledSlug(collection.id, collection.prefLabel.en)
         }
-      });
+      };
     },
+
     entityRouterLink(uri, slug) {
       const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
       return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
-          pathMatch: slug ? slug : uriMatch[2]
+          pathMatch: slug || uriMatch[2]
         }
       };
     }

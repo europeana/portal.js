@@ -1,6 +1,5 @@
 <template>
   <img
-    width="304"
     height="64"
     :src="localisedEULogo"
     :alt="$t('footer.imageDescription')"
@@ -31,30 +30,22 @@
 
   .bottom-right {
     position: absolute;
-    bottom: 0;
-    max-width: calc(100vw - 95px - 4rem); // viewport width minus cutout (95px) minus space for image attribution icon (4rem)
-
-    --right-spacing: calc(64 / 304 * 50%); // 50% of height divided by width to get 50% height of img for right spacing
-
-    @media (max-width: ($bp-small - 1px)) {
-      margin-bottom: 1rem;
-      right: 95px; // keep space for cutout (95px)
-    }
+    bottom: 1rem;
+    right: 1rem;
+    max-width: calc(100vw - 5rem); // viewport width minus space for image attribution icon
+    height: auto; // image shrinks on mobile so height is not fixed
+    max-height: 64px;
 
     @media (min-width: $bp-small) {
-      right: 0;
-      transform: translate(calc(-95px - var(--right-spacing)), -50%); // spacing of 50% of img height and the cutout
-    }
-
-    @media (min-width: $bp-xxxl) {
-      transform: translate(calc((95 / 16 * -1vw) - var(--right-spacing)), -50%); // adjust for responsive cutout
+      left: 1rem;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
   img {
     @media (min-width: $bp-4k) {
-      width: 456px;
-      height: auto;
+      height: 96px;
     }
   }
 </style>

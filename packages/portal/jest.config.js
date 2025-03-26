@@ -1,17 +1,9 @@
 export default {
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/plugins/i18n/locales.js',
-    '<rootDir>/src/lang/'
+    '<rootDir>/src/i18n/locales.js',
+    '<rootDir>/src/i18n/lang/'
   ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.{cjs,js,vue}'
-  ],
-  coverageProvider: 'v8',
-  coverageReporters: [
-    'html',
-    'lcov',
-    'text'
-  ],
+  displayName: 'portal',
   moduleFileExtensions: [
     'js',
     'json',
@@ -19,7 +11,6 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
-    '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
@@ -33,11 +24,11 @@ export default {
     '<rootDir>/tmp/'
   ],
   transformIgnorePatterns: [
-    '/node_modules/(?!decamelize)'
+    '/node_modules/(?!decamelize|swiper|ol|color-space|color-parse|color-rgba|color-name|rbush|quickselect|vue2-helpers)'
   ],
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.(ico|svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };

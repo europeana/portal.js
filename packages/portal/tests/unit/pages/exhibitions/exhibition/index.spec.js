@@ -28,6 +28,9 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   mixins: [
     exhibitionChapters
   ],
+  provide: {
+    canonicalUrl: {}
+  },
   data() {
     return {
       identifier: 'exhibition',
@@ -57,22 +60,30 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
         'http://data.europeana.eu/concept/21'
       ],
       categoriesCollection: options.tags || null,
-      genre: null
+      genre: null,
+      datePublished: '2020-01-01'
     };
   },
   mocks: {
-    $contentful: {
-      assets: {
-        optimisedSrc: (img) => `${img?.url}?optimised`
-      }
-    },
+    $d: date => date,
+    $features: {},
     $t: key => key,
     $tc: () => {},
     localePath: () => '/',
     $store: {
       commit: sinon.spy()
-    }
-  }
+    },
+    $route: {},
+    $i18n: {}
+  },
+  stubs: [
+    'AuthoredHead',
+    'ContentWarningModal',
+    'EntityBadges',
+    'LinkList',
+    'RelatedCategoryTags',
+    'ThemeBadges'
+  ]
 });
 
 describe('exhibitionChapters mixin', () => {
@@ -96,7 +107,7 @@ describe('exhibitionChapters mixin', () => {
     const chapterList = wrapper.vm.hasPartCollection.items;
     const currentExhibitionIdentifier = wrapper.vm.identifier;
     const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterBackground = 'https://www.example.eu/image1.jpg?optimised';
+    const expectedChapterBackground = 'https://www.example.eu/image1.jpg';
 
     expect(linkListItems[0].background).toEqual(expectedChapterBackground);
   });
@@ -119,7 +130,7 @@ describe('Exhibition landing page', () => {
 
       const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.ogImage).toBe(`${primaryImageOfPage.url}?optimised`);
+      expect(headMeta.ogImage).toBe(primaryImageOfPage.image);
     });
     it('uses optimised hero image description for og:image:alt', () => {
       primaryImageOfPage.image.description = 'alt description for hero image';
@@ -143,20 +154,6 @@ describe('Exhibition landing page', () => {
 
       expect(headMeta.description).toBeUndefined();
       expect(headMeta.ogImage).toBe(null);
-    });
-  });
-
-  describe('beforeRouteLeave', () => {
-    it('resets set id and set entity', async() => {
-      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
-      const wrapper = factory();
-
-      const next = sinon.stub();
-
-      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
-
-      expect(wrapper.vm.$store.commit.calledWith('breadcrumb/clearBreadcrumb')).toBe(true);
-      expect(next.called).toBe(true);
     });
   });
 

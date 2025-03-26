@@ -10,15 +10,52 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/plugins/i18n/locales.js';
-import i18nDateTime from './src/plugins/i18n/datetime.js';
-import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureNotificationExpiration } from './src/features/index.js';
+import { locales as i18nLocales } from '@europeana/i18n';
+import i18nDateTime from './src/i18n/datetime.js';
+import features, { featureIsEnabled } from './src/features/index.js';
+import { featureNotificationExpiration } from './src/features/notifications.js';
 
-import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
+import {
+  nuxtRuntimeConfig as europeanaApisRuntimeConfig
+} from './src/plugins/europeana-apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
+};
+
+const redisConfig = () => {
+  const redisOptions = {
+    url: process.env.REDIS_URL
+  };
+
+  if (process.env.REDIS_TLS_CA) {
+    redisOptions.socket = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')],
+      rejectUnauthorized: false,
+      tls: true
+    };
+  }
+
+  return redisOptions;
+};
+
+const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
+  const postgresOptions = {
+    connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
+    max: Number(process.env.POSTGRES_MAX || 10)
+  };
+
+  if (process.env.POSTGRES_SSL_CA) {
+    postgresOptions.ssl = {
+      ca: Buffer.from(process.env.POSTGRES_SSL_CA, 'base64'),
+      rejectUnauthorized: false
+    };
+  }
+
+  return postgresOptions;
 };
 
 export default {
@@ -32,11 +69,19 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      featureNotification: {
+        expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
+        name: process.env.APP_FEATURE_NOTIFICATION
+      },
+      feedback: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+        }
+      },
+      homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
-      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
@@ -47,10 +92,7 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
-      // Construct a map of Europeana API URLs to rewrite for logging, so that
-      // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: publicPrivateRewriteOrigins()
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -79,16 +121,12 @@ export default {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
     },
-    keycloak: {
-      clientId: process.env.KEYCLOAK_CLIENT_ID,
-      realm: process.env.KEYCLOAK_REALM || 'europeana',
-      url: process.env.KEYCLOAK_URL || 'https://auth.europeana.eu/auth'
-    },
     matomo: {
       host: process.env.MATOMO_HOST,
       siteId: process.env.MATOMO_SITE_ID,
       loadWait: {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+        name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
     }
@@ -143,10 +181,11 @@ export default {
         }
       }
     },
-    redis: {
-      url: process.env.REDIS_URL,
-      tlsCa: process.env.REDIS_TLS_CA
-    }
+    matomo: {
+      authToken: process.env.MATOMO_AUTH_TOKEN
+    },
+    postgres: postgresConfig(),
+    redis: redisConfig()
   },
 
   /*
@@ -233,34 +272,42 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
-    '~/plugins/i18n/iso-locale',
-    '~/plugins/hotjar.client',
     '~/plugins/keycloak',
-    '~/plugins/apis',
+    '~/plugins/europeana-apis',
     '~/plugins/error',
-    '~/plugins/link',
+    '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
-    '~/plugins/vue-filters',
-    '~/plugins/vue-directives',
+    '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto.client',
-    '~/plugins/ab-testing',
-    '~/plugins/features'
+    '~/plugins/features',
+    '~/plugins/jsdom-domparser.server'
   ],
 
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
+  ],
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    '~/modules/elastic-apm',
+    'bootstrap-vue/nuxt',
+    'cookie-universal-nuxt',
+    // WARN: do not move this to buildModules, else custom transaction naming
+    //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
-      locales: i18nLocales,
+      locales: i18nLocales.map((locale) => ({ ...locale, file: `${locale.code}.js` })),
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
-      langDir: 'lang/',
+      langDir: 'i18n/lang/',
       strategy: 'prefix',
       vueI18n: {
         fallbackLocale: 'en',
@@ -279,15 +326,6 @@ export default {
         syncRouteParams: true
       }
     }]
-  ],
-
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '~/modules/elastic-apm',
-    'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt'
   ],
 
   axios: {
@@ -314,16 +352,10 @@ export default {
       'legacy/index',
       'l10n',
       'contentful-galleries',
-      'set-galleries'
+      'set-galleries',
+      'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
@@ -345,9 +377,7 @@ export default {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link',
-    parseQuery,
-    stringifyQuery
+    linkExactActiveClass: 'exact-active-link'
   },
 
   serverMiddleware: [
@@ -365,6 +395,12 @@ export default {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        '@babel/plugin-transform-logical-assignment-operators'
+      ]
+    },
+
     // Do not enable extractCSS as it is unreliable.
     // See: https://github.com/nuxt/nuxt.js/issues/4219
     extractCSS: false,
@@ -374,6 +410,13 @@ export default {
       config.module.rules.push({
         test: /\.ico(\?[a-z0-9=&.]+)?$/,
         loader: 'file-loader'
+      });
+
+      // Handle .mjs files, e.g. for @vueuse/core
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
       });
 
       // Extend webpack config only for client bundle
@@ -389,22 +432,62 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    transpile: ['dom7', 'ssr-window', 'swiper']
+    // Pure ESM needs to be transpiled to be used by Vue2
+    transpile: [
+      '@europeana/i18n',
+      '@europeana/oembed',
+      '@europeana/vue-visible-on-scroll',
+      'axios-cache-interceptor',
+      'color-parse',
+      'color-rgba',
+      'color-space',
+      'dom7',
+      'ol/Collection.js',
+      'ol/color.js',
+      'ol/control/Attribution.js',
+      'ol/control/Control.js',
+      'ol/extent.js',
+      'ol/events.js',
+      'ol/format/IIIFInfo.js',
+      'ol/geom/LineString.js',
+      'ol/interaction/DragBox.js',
+      'ol/layer/Image.js',
+      'ol/layer/Layer.js',
+      'ol/layer/Tile.js',
+      'ol/Map.js',
+      'ol/proj.js',
+      'ol/proj/epsg3857.js',
+      'ol/render/canvas/ZIndexContext.js',
+      'ol/render/Feature.js',
+      'ol/reproj/DataTile.js',
+      'ol/reproj/Tile.js',
+      'ol/source/IIIF.js',
+      'ol/source/ImageStatic.js',
+      'ol/source/Source.js',
+      'ol/source/static.js',
+      'ol/source/Vector.js',
+      'ol/structs/LRUCache.js',
+      'ol/style/Style.js',
+      'ol/style/RegularShape.js',
+      'ol/View.js',
+      'ssr-window',
+      'swiper',
+      'vue-router-query'
+    ]
   },
 
   /*
   ** Enable modern builds
   */
-  modern: true,
+  modern: !featureIsEnabled('skipModernBuild'),
 
   /*
   ** Render configuration
    */
   render: {
-    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
-    // Cloudflare.
-    compressor: false,
+    // Compression disabled by default, to leave it to a gateway/reverse proxy
+    // like NGINX or Cloudflare.
+    ...(featureIsEnabled('nuxtRenderCompressor') ? {} : { compressor: false }),
 
     static: {
       maxAge: '1d'

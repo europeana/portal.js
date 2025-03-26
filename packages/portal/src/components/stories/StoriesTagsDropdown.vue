@@ -9,15 +9,21 @@
     />
     <div
       ref="tagsdropdown"
+      v-click-outside="clickOutsideConfig"
       class="position-relative mb-4"
+      data-qa="tags dropdown"
+      @keydown.esc="handleEsc"
     >
       <b-form
+        id="stories-tags-search-form"
         class="search-form"
+        :class="{ 'show': showDropdown }"
         inline
         @submit.stop.prevent="() => {}"
       >
         <b-form-input
           :id="'tag-search-input'"
+          ref="tagsearchinput"
           v-model="searchTag"
           autocomplete="off"
           type="search"
@@ -27,9 +33,8 @@
           aria-autocomplete="list"
           :aria-owns="showDropdown ? 'tags-options' : null"
           :aria-controls="showDropdown ? 'tags-options' : null"
-          :aria-expanded="showDropdown"
           :aria-label="$t('categories.label')"
-          @focus="showDropdown = true"
+          @focusin="handleFocusin"
         />
       </b-form>
       <div
@@ -40,9 +45,11 @@
       >
         <RelatedCategoryTags
           v-if="displayTags.length > 0"
+          ref="relatedCategoryTags"
           :tags="displayTags"
           :selected="selectedTags"
           :heading="false"
+          tabindex="-1"
           class="badge-container mb-2"
         />
         <p v-else-if="displayTags.length === 0">
@@ -54,6 +61,8 @@
 </template>
 
 <script>
+  import vClickOutside from 'v-click-outside';
+
   import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
 
   export default {
@@ -61,6 +70,10 @@
 
     components: {
       RelatedCategoryTags
+    },
+
+    directives: {
+      clickOutside: vClickOutside.directive
     },
 
     props: {
@@ -76,6 +89,13 @@
 
     data() {
       return {
+        // https://www.npmjs.com/package/v-click-outside
+        clickOutsideConfig: {
+          capture: true,
+          events: ['click', 'dblclick', 'focusin', 'touchstart'],
+          handler: this.handleClickOutside,
+          isActive: false
+        },
         showDropdown: false,
         searchTag: '',
         tags: []
@@ -84,7 +104,7 @@
 
     async fetch() {
       const categoriesVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
       const categoriesResponse = await this.$contentful.query('categories', categoriesVariables);
@@ -121,23 +141,31 @@
     },
 
     watch: {
-      showDropdown(newVal) {
-        if (newVal === true) {
-          window.addEventListener('click', this.handleClickOrTabOutside);
-          window.addEventListener('keydown', this.handleClickOrTabOutside);
-        } else {
-          window.removeEventListener('click', this.handleClickOrTabOutside);
-          window.removeEventListener('keydown', this.handleClickOrTabOutside);
-        }
+      '$route.query.tags'() {
+        this.showDropdown = false;
       }
     },
 
     methods: {
-      handleClickOrTabOutside(event) {
-        const targetOutsideSearchDropdown = this.$refs.tagsdropdown && !this.$refs.tagsdropdown.contains(event.target);
-        if (((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) || event.key === 'Escape') {
-          this.showDropdown = false;
-        }
+      setClickOutsideConfigIsActive(isActive) {
+        // need to do this instead of just setting isActive due to
+        // https://github.com/ndelvalle/v-click-outside/issues/143
+        this.clickOutsideConfig = {
+          ...this.clickOutsideConfig,
+          isActive
+        };
+      },
+      handleFocusin() {
+        this.setClickOutsideConfigIsActive(true);
+        this.showDropdown = true;
+      },
+      handleClickOutside() {
+        this.setClickOutsideConfigIsActive(false);
+        this.showDropdown = false;
+      },
+      handleEsc() {
+        this.$refs.tagsearchinput.$el?.blur();
+        this.handleClickOutside();
       }
     }
   };
@@ -154,7 +182,9 @@
   z-index: 20;
   box-shadow: $boxshadow;
   padding: 0.5rem 0 0 0.5rem;
-  border-top: 1px solid $middlegrey;
+  border: 1px solid $lightgrey;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 
   @media (min-width: $bp-4k) {
     font-size: 1.5rem;
@@ -175,8 +205,9 @@
   }
 }
 
-.form-inline {
-  box-shadow: $boxshadow-light;
-  border-radius: 0;
+.search-form.show {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
 }
 </style>

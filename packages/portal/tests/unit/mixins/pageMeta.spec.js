@@ -5,7 +5,7 @@ import mixin from '@/mixins/pageMeta';
 
 const localVue = createLocalVue();
 
-const factory = ({ computed = {}, mocks = {} } = {}) => {
+const factory = ({ computed = {}, data = {}, mocks = {} } = {}) => {
   const component = {
     template: '<div></div>',
     computed,
@@ -14,8 +14,19 @@ const factory = ({ computed = {}, mocks = {} } = {}) => {
 
   const wrapper = shallowMountNuxt(component, {
     localVue,
+    data() {
+      return {
+        ...data
+      };
+    },
     mocks: {
       $config: { app: { siteName: 'Europeana' } },
+      $contentful: {
+        assets: {
+          isValidUrl: () => true,
+          optimisedSrc: (url) => `${url}?optimised`
+        }
+      },
       $fetchState: {},
       $t: (key) => key,
       ...mocks
@@ -40,6 +51,23 @@ describe('mixins/pageMeta', () => {
         const wrapper = factory({ computed });
 
         expect(wrapper.vm.head().title).toBe('Home | Europeana');
+      });
+
+      it('respects component-level overriden suffix', () => {
+        const computed = {
+          pageMeta() {
+            return {
+              title: 'Home'
+            };
+          }
+        };
+        const data = {
+          pageMetaSuffixTitle: null
+        };
+
+        const wrapper = factory({ computed, data });
+
+        expect(wrapper.vm.head().title).toBe('Home');
       });
     });
 
@@ -66,8 +94,27 @@ describe('mixins/pageMeta', () => {
         expect(headMeta.find((tag) => tag.name === 'description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:type').content).toBe(pageMeta.ogType);
-        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(pageMeta.ogImage);
+        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(`${pageMeta.ogImage}?optimised`);
         expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
+      });
+
+      it('concatenates title and subtitle for title tags', () => {
+        const pageMeta = {
+          title: 'Home',
+          subtitle: 'Away'
+        };
+        const computed = {
+          pageMeta() {
+            return pageMeta;
+          }
+        };
+        const wrapper = factory({ computed });
+
+        const headMeta = wrapper.vm.head().meta;
+
+        const titleTagContent = 'Home - Away';
+        expect(headMeta.find((tag) => tag.name === 'title').content).toBe(titleTagContent);
+        expect(headMeta.find((tag) => tag.property === 'og:title').content).toBe(titleTagContent);
       });
     });
   });

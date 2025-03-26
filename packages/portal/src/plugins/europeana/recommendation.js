@@ -1,52 +1,38 @@
-import { apiError, createKeycloakAuthAxios } from './utils.js';
+import EuropeanaApi from './apis/base.js';
 
-export const BASE_URL = 'https://api.europeana.eu/recommend';
-export const AUTHENTICATING = true;
+export default class EuropeanaRecommendationApi extends EuropeanaApi {
+  static ID = 'recommendation';
+  static BASE_URL = 'https://api.europeana.eu/recommend';
+  static AUTHENTICATING = true;
+  static AUTHORISING = true;
 
-export default (context = {}) => {
-  const $axios = createKeycloakAuthAxios(
-    { id: 'recommendation', baseURL: BASE_URL, $axios: context.$axios },
-    context
-  );
+  /**
+   * Get recommended items for a set or item
+   *
+   * @param {string} type what to get recommendations for, "set" or "record" (i.e. item)
+   * @param {string} identifier ID of the set or item, with leading slash
+   * @return {string[]} array of identifiers of recommended items
+   */
+  recommend(type, identifier) {
+    return this.request({
+      method: 'get',
+      url: `/${type}${identifier}`
+    });
+  }
 
-  return {
-    $axios,
+  accept(type, identifier, data) {
+    return this.request({
+      method: 'post',
+      url: `/${type}${identifier}`,
+      data
+    });
+  }
 
-    /**
-     * Get recommended items for a set or item
-     *
-     * @param {string} type what to get recommendations for, "set" or "record" (i.e. item)
-     * @param {string} identifier ID of the set or item, with leading slash
-     * @return {string[]} array of identifiers of recommended items
-     */
-    recommend(type, identifier) {
-      return $axios.get(`/${type}${identifier}`)
-        .then(response => response.data)
-        .catch(error => {
-          throw apiError(error);
-        });
-    },
-
-    accept(type, identifier, body) {
-      return $axios.post(
-        `/${type}${identifier}`,
-        body
-      )
-        .then(response => response.data)
-        .catch(error => {
-          throw apiError(error);
-        });
-    },
-
-    reject(type, identifier, body) {
-      return $axios.delete(
-        `/${type}${identifier}`,
-        { data: body }
-      )
-        .then(response => response.data)
-        .catch(error => {
-          throw apiError(error);
-        });
-    }
-  };
-};
+  reject(type, identifier, data) {
+    return this.request({
+      method: 'delete',
+      url: `/${type}${identifier}`,
+      data
+    });
+  }
+}

@@ -1,7 +1,41 @@
 .alert {
+  &.alert-info {
+    background-color: $lightblue;
+    color: $darkgrey;
+    border: 0;
+  }
+
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
       padding: calc(1.5 * 0.75rem) calc(1.5 * 1.25rem);
+    }
+  }
+
+
+  .close {
+    @extend %icon-font, .icon-clear;
+
+    color: $darkgrey;
+    font-size: 0 !important;
+    opacity: 1;
+    line-height: 1.5 !important;
+
+    &:hover,
+    &:hover:not(:disabled):not(.disabled) {
+      opacity: 1;
+      color: $blue;
+      transition: $standard-transition;
+    }
+
+    &::before {
+      font-size: $font-size-extrasmall;
+      line-height: 1.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-extrasmall-4k;
+        }
+      }
     }
   }
 }

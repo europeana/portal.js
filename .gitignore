@@ -104,3 +104,6 @@ locale
 
 # Styleguidist server
 client.manifest.json
+
+# SonarScanner output
+.scannerwork

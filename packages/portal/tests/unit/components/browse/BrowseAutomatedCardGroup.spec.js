@@ -15,6 +15,7 @@ const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
 const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 const LATEST_GALLERIES = 'Latest galleries';
+const TRENDING_ITEMS = 'Trending items';
 
 const $axiosGetStub = sinon.stub();
 
@@ -36,12 +37,8 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     $contentful: {
       query: sinon.stub()
     },
-    $fetchState: {
-      error: false,
-      pending: false
-    },
     localePath: () => 'mocked path',
-    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, isoLocale: () => 'en-GB' },
+    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
     $axios: {
       get: $axiosGetStub
@@ -140,9 +137,7 @@ const entries = {
   latestGalleries: [
     { id: '001',
       title: { en: 'gallery 001' },
-      items: [
-        { edmPreview: 'https://www.example.eu/image.jpg' }
-      ] }
+      isShownBy: { thumbnail: 'https://www.example.eu/image.jpg' } }
   ]
 };
 
@@ -151,7 +146,9 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
       beforeEach(() => {
-        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves(
+          { data: { 'en/collections/topics/featured': entries.featuredTopics } }
+        );
       });
       afterEach(() => {
         $axiosGetStub.reset();
@@ -196,45 +193,47 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
     describe('when the section is from the set API', () => {
       const propsData = { sectionType: LATEST_GALLERIES };
       const setResponse = {
-        data: {
-          items: [
-            {
-              title: { en: 'gallery I' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery II' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery III' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery IV' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            }
-          ]
-        }
+        items: [
+          {
+            id: 'http://data.europeana.eu/set/1',
+            title: { en: 'gallery I' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/2',
+            title: { en: 'gallery II' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/3',
+            title: { en: 'gallery III' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/4',
+            title: { en: 'gallery IV' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          }
+        ]
       };
 
-      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+      it('fetches from the set API  and stores response items in entries', async() => {
         const wrapper = factory(propsData);
         wrapper.vm.$apis.set.search.resolves(setResponse);
 
@@ -244,12 +243,24 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           {
             query: 'visibility:published',
             pageSize: 4,
-            profile: 'standard',
+            profile: 'items.meta',
             qf: 'lang:en'
-          },
-          { withMinimalItemPreviews: sinon.match.truthy }
+          }, { withMinimalItemPreviews: true }
         )).toBe(true);
-        expect(wrapper.vm.entries).toEqual(setResponse.data.items);
+        expect(wrapper.vm.entries).toEqual(setResponse.items);
+      });
+    });
+
+    describe('when the section is for trending items section', () => {
+      const propsData = { sectionType: TRENDING_ITEMS };
+
+      it('does not fetch entries', async() => {
+        const wrapper = factory(propsData);
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.trending).toEqual(true);
+        expect(wrapper.vm.entries).toEqual([]);
       });
     });
   });

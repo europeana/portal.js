@@ -3,7 +3,6 @@
     v-if="themes.length > 0"
     :slides="themes"
     :title="$t('homePage.themesTitle')"
-    :cta="{ url: localePath('/themes'), text: $t('homePage.themesCTA') }"
   />
 </template>
 
@@ -25,7 +24,7 @@
 
     async fetch() {
       const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
 

@@ -1,15 +1,9 @@
 <template>
-  <div class="page white-page xxl-page">
-    <b-container
+  <div class="page xxl-page">
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <b-container
       v-else-if="$fetchState.error"
       data-qa="alert message container"
@@ -28,12 +22,13 @@
       <ContentHeader
         :title="pageMeta.title"
         :description="headline"
-        :media-url="pageMeta.ogImage"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
       <StoriesInterface
         :call-to-action="callToAction"
+        :featured-story="featuredStory"
       />
     </b-container>
   </div>
@@ -51,8 +46,8 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHeader,
-      StoriesInterface,
-      LoadingSpinner
+      LoadingSpinner,
+      StoriesInterface
     },
 
     mixins: [pageMetaMixin],
@@ -61,10 +56,11 @@
 
     data() {
       return {
-        sections: [],
         headline: null,
         description: null,
         socialMediaImage: null,
+        callToAction: null,
+        featuredStory: null,
         pageFetched: false
       };
     },
@@ -74,31 +70,35 @@
         return;
       }
       const pageVariables = {
-        identifier: 'stories',
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
+
       const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
-      const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
-      this.sections = storiesPage?.hasPartCollection?.items || [];
-      this.headline = storiesPage?.headline;
-      this.description = storiesPage?.description;
-      this.socialMediaImage = storiesPage?.image;
+      const storiesPage = pageResponse.data.data.storiesPageCollection.items[0];
+
+      if (!storiesPage) {
+        return;
+      }
+
+      this.headline = storiesPage.headline;
+      this.description = storiesPage.description;
+      this.socialMediaImage = storiesPage.image;
+      this.callToAction = storiesPage.primaryCallToAction;
+      this.featuredStory = storiesPage.featuredStory;
+
       this.pageFetched = true;
     },
 
     computed: {
       pageMeta() {
         return {
-          title: this.$t('storiesPage.title'),
+          title: this.$tc('stories.stories', 2),
           description: this.description,
           ogType: 'article',
-          ogImage: this.socialMediaImage?.url,
+          ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImage?.description
         };
-      },
-      callToAction() {
-        return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
       }
     }
   };
@@ -110,13 +110,9 @@
 
 .page {
   padding-bottom: 1rem;
-  padding-top: 1rem;
-  margin-top: -1rem;
 
   @media (min-width: $bp-4k) {
     padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-    margin-top: -1.5rem;
   }
 }
 </style>

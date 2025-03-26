@@ -10,11 +10,10 @@ localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 
 const storeDispatch = sinon.spy();
-const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = ({ propsData } = {}) => {
+const factory = ({ propsData, mocks } = {}) => {
   return shallowMountNuxt(ItemPreviewCardGroup, {
     localVue,
     propsData,
@@ -26,13 +25,10 @@ const factory = ({ propsData } = {}) => {
       $i18n: {
         locale: 'en'
       },
+      $route: { query: {} },
       $t: () => {},
       $store: {
-        state: {
-          set: { ...{ liked: [] }, ...{} }
-        },
         getters: {
-          'set/isLiked': storeIsLikedGetter,
           'entity/isPinned': storeIsPinnedGetter
         },
         dispatch: storeDispatch
@@ -45,7 +41,8 @@ const factory = ({ propsData } = {}) => {
           edmPreview: () => '',
           generic: (id) => id
         }
-      }
+      },
+      ...mocks
     }
   });
 };
@@ -71,24 +68,28 @@ describe('components/item/ItemPreviewCardGroup', () => {
   describe('template', () => {
     describe('when view is grid', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
+        jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'grid' } });
         await wrapper.vm.fetch();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
         expect(renderedResults.length).toBe(2);
+        jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
     });
 
     describe('when view is mosaic', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
+        jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'mosaic' } });
         await wrapper.vm.fetch();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
         expect(renderedResults.length).toBe(2);
+        jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
     });
@@ -141,14 +142,18 @@ describe('components/item/ItemPreviewCardGroup', () => {
           expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
         });
       });
+    });
 
-      describe('when in explore view', () => {
-        it('uses the explore-more card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'explore' } });
-          wrapper.vm.fetch();
+    describe('routeQuery', () => {
+      it('includes adv search fulltext terms from route', () => {
+        const query = 'hamburger';
+        const qa = ['fulltext:(theater)', 'fulltext:"den haag"', 'NOT fulltext:(direktor)', 'when:1901'];
+        const mocks = { $route: { query: { qa, query } } };
+        const wrapper = factory({ propsData: { items: results }, mocks });
 
-          expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
-        });
+        const routeQuery = wrapper.vm.routeQuery;
+
+        expect(routeQuery).toEqual({ fulltext: 'theater "den haag"' });
       });
     });
   });
@@ -205,13 +210,14 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
 
     describe('endItemDrag', () => {
-      it('emits an @endItemDrag event with item cards', () => {
+      it('emits an @endItemDrag event with the item ID and new position', () => {
+        const position = 1;
         const wrapper = factory({ propsData: { items: results } });
         wrapper.vm.fetch();
 
-        wrapper.vm.endItemDrag();
+        wrapper.vm.endItemDrag({ newIndex: position });
 
-        expect(wrapper.emitted('endItemDrag')).toEqual([[results]]);
+        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[position].id, position }]]);
       });
     });
   });

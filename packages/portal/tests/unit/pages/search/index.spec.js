@@ -14,27 +14,27 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const searchEnableCollectionFacet = sinon.spy();
-const searchSetShowFiltersToggle = sinon.spy();
+const searchSetShowSidebarToggle = sinon.spy();
 const searchSet = sinon.spy();
 const setShowSearchBar = sinon.spy();
 
 const store = new Vuex.Store({
   state: {
     search: {
-      overrideParams: {
+      defaultParams: {
         query: {}
       },
-      showFiltersToggle: false
+      showSidebarToggle: false
     }
   },
   mutations: {
     'search/enableCollectionFacet': searchEnableCollectionFacet,
-    'search/setShowFiltersToggle': searchSetShowFiltersToggle,
+    'search/setShowSidebarToggle': searchSetShowSidebarToggle,
     'search/set': searchSet,
     'search/setShowSearchBar': (state, value) => setShowSearchBar(value)
   },
   getters: {
-    'search/showFiltersSheet': () => () => false,
+    'search/showSearchSidebar': () => () => false,
     'search/collection': () => () => false,
     'search/filters': () => () => false
   }
@@ -42,18 +42,20 @@ const store = new Vuex.Store({
 
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
+  i18n: new VueI18n({ locale: 'en' }),
   stubs: {
     'SearchInterface': {
       template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     },
-    RelatedCollectionsCard: true
+    RelatedCollectionsCard: true,
+    RelatedEditorial: true,
+    RelatedGalleries: true
   },
   mocks: {
     $features: {},
     $route: {
       query: {
-        query: options.query,
-        sort: options.sort
+        query: options.query
       }
     },
     $fetchState: {},
@@ -116,16 +118,6 @@ describe('pages/item/_.vue', () => {
     describe('when there is an active query', () => {
       it('does NOT include random sorting', () => {
         const wrapper = factory({ query: 'something' });
-
-        const searchOverrides = wrapper.vm.searchOverrides;
-
-        expect(searchOverrides.sort).toBe(undefined);
-      });
-    });
-
-    describe('when there is a custom sort provided', () => {
-      it('does NOT include random sorting', async() => {
-        const wrapper = factory({ sort: 'score desc' });
 
         const searchOverrides = wrapper.vm.searchOverrides;
 

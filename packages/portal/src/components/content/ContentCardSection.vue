@@ -1,17 +1,21 @@
 <template>
   <section
     v-if="section"
-    class="browse-section row mb-5"
+    class="browse-section row"
     data-qa="browse section"
   >
     <div class="col-12 col-lg-6">
-      <h2
+      <component
+        :is="titleTag"
         class="card-group-title"
         data-qa="section headline"
       >
         {{ section.headline }}
-      </h2>
-      <p>
+      </component>
+      <p
+        v-if="section.text"
+        class="text"
+      >
         {{ section.text }}
       </p>
     </div>
@@ -28,7 +32,6 @@
             :title="card.name"
             :url="entityRouterLink(card.identifier, card.slug)"
             :image-url="card.entityImage"
-            :image-optimisation-options="{ width: 510 }"
             variant="mini"
           />
         </template>
@@ -75,11 +78,18 @@
       section: {
         type: Object,
         default: () => (null)
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items.filter(card => !!card);
+        return this.section.hasPartCollection?.items.filter(card => !!card) || [];
       },
 
       isPeopleSection() {
@@ -109,8 +119,8 @@
       }
     }
 
-    p {
-      color: $mediumgrey;
+    .text {
+      color: $darkgrey;
       text-align: left;
       line-height: 1.5;
     }

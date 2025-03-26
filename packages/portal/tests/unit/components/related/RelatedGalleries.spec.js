@@ -15,9 +15,7 @@ const setGalleriesResponse = {
           en: 'testSet 001'
         },
         visibility: 'published',
-        items: [
-          { edmPreview: 'http://data.europeana.eu/item/191/item_D4UCMBDUPV2QGEDH7NJUTED2L3M2BJXQ' }
-        ]
+        isShownBy: { thumbnail: 'http://data.europeana.eu/item/191/item_D4UCMBDUPV2QGEDH7NJUTED2L3M2BJXQ' }
       },
       {
         id: 'http://data.europeana.eu/set/002',
@@ -25,9 +23,7 @@ const setGalleriesResponse = {
           en: 'testSet002'
         },
         visibility: 'published',
-        items: [
-          { edmPreview: 'http://data.europeana.eu/item/180/10622_685031B1_9C63_4D0E_80DB_7F03BDC89146_cho' }
-        ]
+        isShownBy: { thumbnail: 'http://data.europeana.eu/item/180/10622_685031B1_9C63_4D0E_80DB_7F03BDC89146_cho' }
       }
     ]
   }
@@ -124,8 +120,8 @@ describe('components/related/RelatedGalleries', () => {
           query,
           qf: ['visibility:published', `lang:${wrapper.vm.$i18n.locale}`],
           pageSize: 3,
-          page: 0,
-          profile: 'standard'
+          page: 1,
+          profile: 'items.meta'
         }, { withMinimalItemPreviews: true })).toBe(true);
       });
 

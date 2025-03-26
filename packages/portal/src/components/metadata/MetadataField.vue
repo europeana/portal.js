@@ -1,19 +1,21 @@
 <template>
   <div
-    v-if="hasValuesForLocale"
+    v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
   >
-    <label
+    <h3
       v-if="labelled"
+      :id="labelId"
       data-qa="label"
       class="m-0"
     >
       {{ $t(`fieldLabels.${context}.${name}`) }}
-    </label>
+    </h3>
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
+      :aria-labelledby="labelled && labelId"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -25,7 +27,7 @@
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
-            :lang="value.code"
+            :lang="langAttribute(value.code)"
             :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
@@ -41,10 +43,20 @@
             />
           </li>
         </template>
+        <ItemDebiasField
+          v-else-if="isDeBiased"
+          :key="index"
+          :data-value="value"
+          :name="name"
+          :text="value"
+          :lang="langAttribute(langMappedValues.code)"
+          tag="li"
+          data-qa="de-bias term"
+        />
         <li
           v-else
           :key="index"
-          :lang="langMappedValues.code"
+          :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
         >
           <SmartLink
@@ -65,22 +77,30 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
+  import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
-  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
+  import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
     name: 'MetadataField',
 
     components: {
+      ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
       SmartLink
     },
 
-    mixins: [itemPrefLanguage],
+    mixins: [
+      itemPrefLanguageMixin,
+      langAttributeMixin
+    ],
+
+    inject: ['deBias'],
 
     props: {
       name: {
@@ -98,6 +118,10 @@
       context: {
         type: String,
         default: 'default'
+      },
+      labelId: {
+        type: String,
+        default: null
       },
       labelled: {
         type: Boolean,
@@ -119,12 +143,16 @@
 
     computed: {
       displayValues() {
-        const display = Object.assign({}, this.langMappedValues);
+        const display = { ...this.langMappedValues };
 
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
-          display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
+          display.values = display.values.slice(0, this.limit).concat('…');
         }
         return display;
+      },
+
+      isDeBiased() {
+        return !!this.deBias.terms[this.name];
       },
 
       limitDisplayValues() {
@@ -152,14 +180,25 @@
 
       hasValuesForLocale() {
         return (this.langMappedValues?.values?.length || 0) >= 1;
+      },
+
+      timestampIsUnixEpochValue() {
+        if (['timestampCreated', 'timestampUpdate'].includes(this.name)) {
+          return new Date(this.fieldData).getTime() === 0;
+        } else {
+          return false;
+        }
+      },
+
+      isValidFieldData() {
+        return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
       }
     }
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
@@ -168,6 +207,11 @@
 
     &:first-child {
       padding-top: 0;
+    }
+
+    h3 {
+      font-size: inherit;
+      line-height: 1.5;
     }
 
     ul {
@@ -189,7 +233,7 @@
     }
 
     @media (min-width: $bp-large) {
-      label,
+      h3,
       ul {
         flex: 1;
       }

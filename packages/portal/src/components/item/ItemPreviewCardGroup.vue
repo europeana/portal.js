@@ -18,108 +18,127 @@
       handle=".move-button"
       @end="endItemDrag"
     >
-      <template
-        v-for="(card, index) in cards"
-      >
-        <template v-if="card === relatedGalleries">
-          <div
-            v-if="$slots[relatedGalleries]"
-            :key="index"
+      <TransitionGroup name="fade">
+        <template
+          v-for="(card, index) in cards"
+        >
+          <template v-if="card === relatedGalleries">
+            <div
+              v-if="$slots[relatedGalleries]"
+              :key="index"
+              v-masonry-tile
+              class="masonry-tile related-results"
+            >
+              <slot
+                :name="relatedGalleries"
+              />
+            </div>
+          </template>
+          <template v-else-if="card === relatedCollections">
+            <div
+              v-if="$slots[relatedCollections]"
+              :key="index"
+              v-masonry-tile
+              class="masonry-tile related-results"
+            >
+              <slot
+                :name="relatedCollections"
+              />
+            </div>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
             v-masonry-tile
-            class="masonry-tile related-results"
-          >
-            <slot
-              :name="relatedGalleries"
-            />
-          </div>
+            data-qa="item preview"
+            class="masonry-tile item"
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            :lazy="true"
+            :enable-accept-recommendation="enableAcceptRecommendations"
+            :enable-reject-recommendation="enableRejectRecommendations"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
+          />
         </template>
-        <template v-else-if="card === relatedCollections">
-          <div
-            v-if="$slots[relatedCollections]"
-            :key="index"
-            v-masonry-tile
-            class="masonry-tile related-results"
-          >
-            <slot
-              :name="relatedCollections"
-            />
-          </div>
-        </template>
-        <ItemPreviewCard
-          v-else
-          :key="index"
-          ref="cards"
-          v-masonry-tile
-          :item="card"
-          :hit-selector="itemHitSelector(card)"
-          :variant="cardVariant"
-          class="masonry-tile item"
-          :lazy="true"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
-          :show-pins="showPins"
-          :show-move="useDraggable"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-        />
-      </template>
+      </TransitionGroup>
     </component>
   </div>
-  <component
-    :is="useDraggable ? 'draggable' : 'b-card-group'"
+  <b-card-group
     v-else
-    v-model="cards"
-    :draggable="useDraggable && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     :columns="view === 'list'"
     :deck="view !== 'list'"
-    @end="endItemDrag"
   >
     <slot />
-    <template
-      v-for="(card, index) in cards"
+    <component
+      :is="useDraggable ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="useDraggable && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <template v-if="card === relatedGalleries">
-        <div
-          v-if="$slots[relatedGalleries]"
-          :key="index"
-          class="related-results"
+      <TransitionGroup name="fade">
+        <template
+          v-for="(card, index) in cards"
         >
-          <slot
-            :name="relatedGalleries"
+          <template v-if="card === relatedGalleries">
+            <div
+              v-if="$slots[relatedGalleries]"
+              :key="index"
+              class="related-results"
+            >
+              <slot
+                :name="relatedGalleries"
+              />
+            </div>
+          </template>
+          <template v-else-if="card === relatedCollections">
+            <div
+              v-if="$slots[relatedCollections]"
+              :key="index"
+              class="related-results"
+            >
+              <slot
+                :name="relatedCollections"
+              />
+            </div>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
+            class="item"
+            data-qa="item preview"
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
           />
-        </div>
-      </template>
-      <template v-else-if="card === relatedCollections">
-        <div
-          v-if="$slots[relatedCollections]"
-          :key="index"
-          class="related-results"
-        >
-          <slot
-            :name="relatedCollections"
-          />
-        </div>
-      </template>
-      <ItemPreviewCard
-        v-else
-        :key="card.id"
-        ref="cards"
-        :item="card"
-        class="item"
-        :hit-selector="itemHitSelector(card)"
-        :variant="cardVariant"
-        :show-pins="showPins"
-        :show-move="useDraggable"
-        :offset="items.findIndex(item => item.id === card.id)"
-        data-qa="item preview"
-      />
-    </template>
-  </component>
+        </template>
+      </TransitionGroup>
+    </component>
+  </b-card-group>
 </template>
 
 <script>
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
@@ -129,6 +148,10 @@
       draggable: () => import('vuedraggable'),
       ItemPreviewCard
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
 
     props: {
       items: {
@@ -141,7 +164,7 @@
       },
       /**
        * Layout view to use
-       * @values grid, mosaic, list, explore
+       * @values grid, mosaic, list
        */
       view: {
         type: String,
@@ -151,7 +174,7 @@
         type: Boolean,
         default: false
       },
-      draggableItems: {
+      userEditableItems: {
         type: Boolean,
         default: false
       },
@@ -162,6 +185,14 @@
       enableRejectRecommendations: {
         type: Boolean,
         default: false
+      },
+      onClickCard: {
+        type: Function,
+        default: null
+      },
+      onAuxClickCard: {
+        type: Function,
+        default: null
       }
     },
 
@@ -182,22 +213,27 @@
 
     computed: {
       cardGroupClass() {
-        let cardGroupClass;
-
-        switch (this.view) {
-        case 'list':
-          cardGroupClass = 'card-group-list';
-          break;
-        case 'explore':
-          cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        }
-
-        return cardGroupClass;
+        return this.view === 'list' ? 'card-group-list' : null;
       },
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      routeHash() {
+        return this.routeQuery ? '#search' : undefined;
+      },
+
+      routeQuery() {
+        if (this.$route.query?.qa) {
+          const fulltext = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa)
+            .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
+            .map((rule) => (rule.modifier === 'exact') ? `"${rule.term}"` : rule.term)
+            .join(' ');
+          return { fulltext };
+        } else {
+          return undefined;
+        }
       },
 
       masonryActive() {
@@ -205,37 +241,40 @@
       },
 
       useDraggable() {
-        return process.client && this.draggableItems;
+        return process.client && this.userEditableItems;
       }
     },
 
     watch: {
-      'cards.length': 'redrawMasonry',
+      'cards.length'() {
+        this.redrawMasonry(400);
+      },
       items() {
         this.$fetch();
       }
     },
 
-    async mounted() {
-      await this.redrawMasonry();
+    mounted() {
+      this.redrawMasonry();
       this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {
-      endItemDrag() {
-        this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
+      endItemDrag({ newIndex }) {
+        if (this.cards[newIndex].id) {
+          this.$emit('endItemDrag', { itemId: this.cards[newIndex].id, position: newIndex });
+        }
+        this.redrawMasonry();
       },
       itemHitSelector(item) {
-        if (!this.hits) {
-          return null;
-        }
-
-        const hit = this.hits.find(hit => item.id === hit.scope);
-        return hit ? hit.selectors[0] : null;
+        return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0] || null;
       },
-      redrawMasonry() {
+      redrawMasonry(timeout) {
         this.$nextTick(() => {
-          this.$redrawVueMasonry?.();
+          // Timeout is needed to ensure that the masonry is redrawn after TransitionGroup has finished
+          setTimeout(() => {
+            this.$redrawVueMasonry?.();
+          }, timeout || 0);
         });
       }
     }
@@ -245,4 +284,5 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/masonry';
+  @import '@europeana/style/scss/transitions';
 </style>

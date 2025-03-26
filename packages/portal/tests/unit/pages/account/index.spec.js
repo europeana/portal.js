@@ -8,6 +8,7 @@ import page from '@/pages/account/index';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const storeCommit = sinon.spy();
 const storeDispatch = sinon.stub().resolves({});
 
 const factory = (options = {}) => shallowMountNuxt(page, {
@@ -29,12 +30,16 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
     $fetchState: options.fetchState || {},
+    $keycloak: { accountUrl: () => '/account' },
     localePath: (path) => path,
     $route: {
-      hash: options.hash || ''
+      hash: options.hash || '',
+      query: {}
     },
     $store: {
+      commit: storeCommit,
       dispatch: storeDispatch,
+      getters: {},
       state: {
         auth: { loggedIn: true,
           user: {
@@ -125,6 +130,20 @@ describe('pages/account/index.vue', () => {
     it('shows the private galleries', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
       expect(privateGalleries.exists()).toBe(true);
+    });
+  });
+
+  describe('beforeRouteLeave', () => {
+    it('resets the active set, recommendations and selected items', async() => {
+      const wrapper = factory();
+      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
+
+      const next = sinon.stub();
+
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
+      expect(next.called).toBe(true);
     });
   });
 });
