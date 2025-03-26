@@ -33,6 +33,7 @@
           />
           <ItemPreviewCardGroup
             v-else
+            :hits="hits"
             :items="items"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
@@ -98,6 +99,11 @@
       items: {
         type: Array,
         default: () => []
+      },
+
+      hits: {
+        type: Array,
+        default: null
       },
 
       maxResults: {
