@@ -6,20 +6,20 @@
     triggers=""
     show
     variant="primary"
+    @hide="$emit('disabled')"
+    @show="$emit('enabled')"
   >
     {{ $t('newFeatureNotification.tooltip') }}
   </b-tooltip>
 </template>
 
 <script>
+  import { activeFeatureNotification } from '@/features/notifications';
+
   export default {
     name: 'NewFeatureTooltip',
 
     props: {
-      name: {
-        type: String,
-        default: null
-      },
       tooltipTargetId: {
         type: String,
         default: null
@@ -28,29 +28,27 @@
 
     data() {
       return {
+        featureNotification: activeFeatureNotification(this.$nuxt?.context),
         cookieName: 'new_feature_tooltip',
         matomoEvent: 'New_feature_tooltip',
-        newFeaturTooltipTargetIsRendered: false,
         toastId: 'new-feature-toast'
       };
     },
 
     computed: {
       enabled() {
-        return this.newFeaturTooltipTargetIsRendered && this.$cookies.get(this.cookieName) !== this.name;
+        return this.$cookies.get(this.cookieName) !== this.featureNotification.name;
       }
     },
 
     mounted() {
-      this.newFeaturTooltipTargetIsRendered = document.getElementById(this.tooltipTargetId);
-
       if (!this.enabled) {
         return;
       }
 
       this.trackEvent('show');
 
-      this.$cookies.set(this.cookieName, this.name, {
+      this.$cookies.set(this.cookieName, this.featureNotification.name, {
         maxAge: 2678400
       });
     },
@@ -58,7 +56,7 @@
     methods: {
       trackEvent(msg) {
         if (this.$matomo) {
-          this.$matomo.trackEvent(this.matomoEvent, msg, this.name);
+          this.$matomo.trackEvent(this.matomoEvent, msg, this.featureNotification.name);
         }
       }
     }

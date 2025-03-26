@@ -1,18 +1,38 @@
 <template>
-  <b-button
-    v-if="$features.itemMultiSelect"
-    id="item-multi-select-button"
-    v-b-tooltip.bottom
-    :title="tooltipText"
-    class="item-select-button p-0"
-    :pressed="selected"
-    variant="light-flat"
-    :aria-label="ariaLabelText"
-    @click="toggle"
-    @mouseleave="hideTooltips"
-  >
-    <span :class="selected ? 'icon-select-circle' : 'icon-select-circle-outlined'" />
-  </b-button>
+  <div>
+    <b-button
+      v-if="$features.itemMultiSelect"
+      :id="tooltipTargetId"
+      class="item-select-button p-0"
+      :pressed="selected"
+      variant="light-flat"
+      :aria-label="ariaLabelText"
+      @click="toggle"
+      @mouseleave="$root.$emit('bv::hide::tooltip', tooltipId);"
+      @focusout="hideTooltips"
+    >
+      <span
+        :class="{
+          'icon-select-circle': selected,
+          'icon-select-circle-outlined': !selected,
+          'target-animation': newFeatureTooltipEnabled
+        }"
+      />
+    </b-button>
+    <NewFeatureTooltip
+      :tooltip-target-id="tooltipTargetId"
+      @disabled="newFeatureTooltipEnabled = false"
+      @enabled="newFeatureTooltipEnabled = true"
+    />
+    <b-tooltip
+      v-if="!newFeatureTooltipEnabled"
+      :id="tooltipId"
+      placement="bottom"
+      :target="tooltipTargetId"
+    >
+      {{ tooltipText }}
+    </b-tooltip>
+  </div>
 </template>
 
 <script>
@@ -21,6 +41,10 @@
   export default {
     name: 'ItemSelectButton',
 
+    components: {
+      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip')
+    },
+
     setup() {
       const { hideTooltips } = useHideTooltips();
       return { hideTooltips };
@@ -28,7 +52,10 @@
 
     data() {
       return {
-        selected: false
+        newFeatureTooltipEnabled: false,
+        selected: false,
+        tooltipId: 'item-select-button-tooltip',
+        tooltipTargetId: 'item-select-button'
       };
     },
 
@@ -59,6 +86,7 @@
         }
       },
       toggle() {
+        this.hideTooltips();
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
@@ -89,6 +117,26 @@
       }
       .icon-select-circle-outlined:before {
         content: '\e96e';
+      }
+    }
+
+    .target-animation {
+      color: $blue;
+      animation: color-slide 3000ms ease-in-out infinite;
+
+      @keyframes color-slide {
+        0% {
+          color: $blue;
+        }
+        35% {
+          color: $black;
+        }
+        75% {
+          color: $blue;
+        }
+        100% {
+          color: $blue;
+        }
       }
     }
   }
