@@ -1,6 +1,7 @@
 <template>
   <b-tooltip
     v-if="enabled"
+    ref="newFeatureTooltip"
     :target="tooltipTargetId"
     placement="bottom"
     triggers=""
@@ -9,7 +10,17 @@
     @hide="$emit('disabled')"
     @show="$emit('enabled')"
   >
-    {{ $t('newFeatureNotification.tooltip') }}
+    <span class="d-inline-flex align-items-start">
+      {{ $t('newFeatureNotification.tooltip') }}
+      <b-button
+        variant="dark-flat"
+        class="pt-0 px-2 pb-2 text-white"
+        :aria-label="$t('actions.close')"
+        @click="$refs.newFeatureTooltip.$emit('close')"
+      >
+        <span class="icon-clear" />
+      </b-button>
+    </span>
   </b-tooltip>
 </template>
 
