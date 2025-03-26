@@ -6,9 +6,7 @@
     >
       <b-row>
         <b-col class="d-flex align-items-center mb-3">
-          <slot
-            name="heading"
-          >
+          <slot name="heading">
             <h2
               class="related-heading text-uppercase mb-0"
               data-qa="item count"
@@ -39,29 +37,17 @@
             @drawn="$emit('drawn', $event)"
             @endItemDrag="$emit('endItemDrag', $event)"
           >
-            <slot
-              name="card-group-default"
-            />
-            <template
-              #related-galleries
-            >
-              <slot
-                name="card-group-related-galleries"
-              />
+            <slot name="card-group-default" />
+            <template #related-galleries>
+              <slot name="card-group-related-galleries" />
             </template>
-            <template
-              #related-collections
-            >
-              <slot
-                name="card-group-related-collections"
-              />
+            <template #related-collections>
+              <slot name="card-group-related-collections" />
             </template>
           </ItemPreviewCardGroup>
         </b-col>
       </b-row>
-      <slot
-        name="footer"
-      />
+      <slot name="footer" />
       <PaginationNavInput
         :max-results="maxResults"
         :per-page="perPage"
