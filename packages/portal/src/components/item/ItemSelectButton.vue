@@ -51,6 +51,7 @@
 
     data() {
       return {
+        // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
         selected: false,
         tooltipId: 'item-select-button-tooltip',
