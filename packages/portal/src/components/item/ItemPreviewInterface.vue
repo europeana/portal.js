@@ -13,11 +13,11 @@
               class="related-heading text-uppercase mb-0"
               data-qa="item count"
             >
-              {{ itemCountLabel }}
+              {{ displayItemCount }}
             </h2>
           </slot>
           <ItemSelectButton
-            v-if="displayItemSelectButton"
+            v-if="$features.itemMultiSelect"
             class="ml-auto"
             @select="(newState) => itemMultiSelect = newState"
           />
@@ -71,7 +71,7 @@
       />
     </b-container>
     <ItemSelectToolbar
-      v-if="displayItemSelectToolbar"
+      v-if="itemMultiSelect"
       :user-can-edit-set="userEditableItems"
     />
   </section>
@@ -99,18 +99,11 @@
 
     provide() {
       return {
-        itemMultiSelect: computed(() => this.displayItemSelectButton)
+        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
       };
     },
 
     props: {
-      // if false, the item multi-select will be disabled
-      // TODO: remove when liked items pagination is available to pages/account/index.vue
-      enableItemMultiSelect: {
-        type: Boolean,
-        default: true
-      },
-
       items: {
         type: Array,
         default: () => []
@@ -159,15 +152,7 @@
     },
 
     computed: {
-      displayItemSelectButton() {
-        return this.$features.itemMultiSelect && this.enableItemMultiSelect;
-      },
-
-      displayItemSelectToolbar() {
-        return this.$features.itemMultiSelect && this.enableItemMultiSelect && this.itemMultiSelect;
-      },
-
-      itemCountLabel() {
+      displayItemCount() {
         let label = 'items.itemCount';
         if (this.maxResults && (this.total > this.maxResults)) {
           label = 'items.itemOf';
