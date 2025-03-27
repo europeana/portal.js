@@ -23,7 +23,24 @@
   }
 
   &.b-tooltip-primary {
-    z-index: 1071; // overlap any original tooltip
+
+    .arrow {
+      display: inline-block;
+    }
+
+    &.bs-tooltip-bottom .arrow {
+      &:before {
+        bottom: -1px;
+        border-bottom-color: $blue;
+      }
+    }
+
+    &.bs-tooltip-top .arrow {
+      &:before {
+        top: -1px;
+        border-top-color: $blue;
+      }
+    }
 
     .tooltip-inner {
       border-radius: 0.25rem;
