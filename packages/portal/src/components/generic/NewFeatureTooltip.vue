@@ -10,7 +10,7 @@
     @hide="$emit('disabled')"
     @show="$emit('enabled')"
   >
-    <span class="d-inline-flex align-items-start">
+    <span class="d-inline-flex align-items-start text-left">
       {{ $t('newFeatureNotification.tooltip') }}
       <b-button
         variant="dark-flat"
