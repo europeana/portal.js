@@ -52,7 +52,9 @@
             @drawn="$emit('drawn', $event)"
             @endItemDrag="$emit('endItemDrag', $event)"
           >
-            <slot name="card-group-default" />
+            <template #header>
+              <slot name="card-group-header" />
+            </template>
             <template #related-galleries>
               <slot name="card-group-related-galleries" />
             </template>

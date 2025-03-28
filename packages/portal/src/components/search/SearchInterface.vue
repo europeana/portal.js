@@ -75,15 +75,15 @@
                   title-tag="h2"
                 />
               </template>
-              <template #card-group-default>
-                <slot />
+              <template #card-group-header>
+                <slot name="card-group-header" />
               </template>
               <template
                 v-if="page === 1"
                 #card-group-related-galleries
               >
                 <slot
-                  name="related-galleries"
+                  name="card-group-related-galleries"
                 />
               </template>
               <template
@@ -91,7 +91,7 @@
                 #card-group-related-collections
               >
                 <slot
-                  name="related-collections"
+                  name="card-group-related-collections"
                 />
               </template>
               <template
