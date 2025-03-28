@@ -129,16 +129,15 @@
       },
       refreshSet() {
         if (!this.showFormModal) {
-          this.$store.dispatch('set/refreshSet');
+          this.$store.dispatch('set/fetchActive');
         }
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
           this.showAddItemModal = true;
-          // TODO: how to track multi-select?
-          if (!Array.isArray(this.identifiers)) {
-            this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifiers);
+          for (const id of [].concat(this.identifiers)) {
+            this.$matomo?.trackEvent('Item_add', 'Click add item button', id);
           }
         } else {
           this.$keycloak.login();

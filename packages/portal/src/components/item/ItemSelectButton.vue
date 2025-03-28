@@ -1,7 +1,7 @@
 <template>
   <div v-if="$features.itemMultiSelect">
     <b-button
-      :id="tooltipTargetId"
+      :id="buttonId"
       class="item-select-button p-0"
       :pressed="selected"
       variant="light-flat"
@@ -19,7 +19,7 @@
       />
     </b-button>
     <NewFeatureTooltip
-      :tooltip-target-id="tooltipTargetId"
+      :tooltip-target-id="buttonId"
       @disabled="newFeatureTooltipEnabled = false"
       @enabled="newFeatureTooltipEnabled = true"
     />
@@ -27,7 +27,7 @@
       v-if="!newFeatureTooltipEnabled"
       :id="tooltipId"
       placement="bottom"
-      :target="tooltipTargetId"
+      :target="buttonId"
     >
       {{ tooltipText }}
     </b-tooltip>
@@ -45,8 +45,11 @@
     },
 
     setup() {
-      const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
+      const buttonId = 'item-select-button';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
     },
 
     data() {
@@ -54,8 +57,7 @@
         // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
         selected: false,
-        tooltipId: 'item-select-button-tooltip',
-        tooltipTargetId: 'item-select-button'
+        tooltipId: 'item-select-button-tooltip'
       };
     },
 

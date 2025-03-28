@@ -69,7 +69,7 @@ describe('ItemRemoveButton', () => {
     await confirmRemovalModal.vm.$emit('confirm');
 
     expect(setApiDeleteItemsStub.calledWith('set-1', 'item-1')).toBe(true);
-    expect(wrapper.vm.$store.dispatch.calledWith('set/refreshSet')).toBe(true);
+    expect(wrapper.vm.$store.dispatch.calledWith('set/fetchActive')).toBe(true);
     expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.1')).toBe(true);
   });
 
