@@ -28,9 +28,17 @@
       <b-row class="mb-3">
         <b-col cols="12">
           <slot
-            v-if="items.length === 0"
+            v-if="noMoreItems"
+            name="no-more-items"
+          >
+            <p>{{ $t('items.noMoreItems') }}</p>
+          </slot>
+          <slot
+            v-else-if="items.length === 0"
             name="no-items"
-          />
+          >
+            <p>{{ $t('items.noItems') }}</p>
+          </slot>
           <ItemPreviewCardGroup
             v-else
             id="item-preview-interface-card-group"
@@ -156,6 +164,10 @@
           label = 'items.itemOf';
         }
         return this.$tc(label, this.total, { count: this.$n(this.total), max: this.$n(this.maxResults) });
+      },
+
+      noMoreItems() {
+        return (this.total > 0) && (this.items.length === 0);
       },
 
       routeQueryView() {

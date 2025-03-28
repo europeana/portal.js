@@ -817,6 +817,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "noItems": "There are no items.",
+    "noMoreItems": "There are no more items.",
     "recent": "Recent items",
     "recommended": "Recommended items",
     "trending": {

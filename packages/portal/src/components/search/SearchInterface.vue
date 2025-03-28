@@ -39,13 +39,6 @@
             title-tag="h2"
           />
           <b-row v-else>
-            <!-- TODO: check this is working as intended after the ItemPreviewInterface refactor -->
-            <p
-              v-show="noMoreResults"
-              data-qa="warning notice"
-            >
-              {{ $t('noMoreResults') }}
-            </p>
             <ItemPreviewInterface
               data-qa="liked items"
               :items="results"
@@ -68,7 +61,11 @@
                 />
               </template>
               <template
-                v-if="noResults"
+                #no-more-items
+              >
+                <p>{{ $t('noMoreResults') }}</p>
+              </template>
+              <template
                 #no-items
               >
                 <ErrorMessage
@@ -292,12 +289,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      hasAnyResults() {
-        return this.totalResults > 0;
-      },
-      noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;

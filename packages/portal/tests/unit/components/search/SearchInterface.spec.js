@@ -418,52 +418,6 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
-
-    describe('noMoreResults', () => {
-      describe('when there are 0 results in total', () => {
-        const wrapper = factory({
-          data: { totalResults: 0 }
-        });
-
-        it('is `false`', () => {
-          expect(wrapper.vm.noMoreResults).toBe(false);
-        });
-      });
-
-      describe('when there are some results in total', () => {
-        describe('and results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100,
-              results: [
-                {
-                  id: '/123/abc',
-                  dcTitle: { def: ['Record 123/abc'] },
-                  edmPreview: 'https://www.example.org/abc.jpg',
-                  edmDataProvider: ['Provider 123']
-                }
-              ]
-            }
-          });
-
-          it('is `false`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(false);
-          });
-        });
-
-        describe('but no results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100
-            }
-          });
-
-          it('is `true`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(true);
-          });
-        });
-      });
-    });
   });
 
   describe('destroyed', () => {
