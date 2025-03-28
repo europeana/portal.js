@@ -45,7 +45,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   i18n: new VueI18n({ locale: 'en' }),
   stubs: {
     'SearchInterface': {
-      template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
+      template: '<div><slot name="card-group-related-galleries" /><slot name="card-group-related-collections" /><slot name="after-results" /></div>'
     },
     RelatedCollectionsCard: true,
     RelatedEditorial: true,

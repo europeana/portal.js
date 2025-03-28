@@ -184,7 +184,7 @@ module.exports = {
     await client.deleteCookie('klaro');
   },
   async paginateToPage(page) {
-    const containerSelector = qaSelector('search results pagination');
+    const containerSelector = qaSelector('item previews pagination');
 
     await client.waitForElementVisible(containerSelector);
     const selector = containerSelector + ' ' + qaSelector('pagination input');

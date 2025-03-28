@@ -10,7 +10,7 @@
     class="masonry-container"
     :data-qa="`item previews ${view}`"
   >
-    <slot />
+    <slot name="header" />
     <component
       :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
