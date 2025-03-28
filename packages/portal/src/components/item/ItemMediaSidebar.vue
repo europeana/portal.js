@@ -165,9 +165,9 @@
     },
 
     setup(props) {
-      const annotationsTabButtonId = 'item-media-sidebar-annotations';
-      const searchTabButtonId = 'item-media-sidebar-search';
-      const linksTabButtonId = 'item-media-sidebar-links';
+      const annotationsTabButtonId = 'item-media-sidebar-annotations-button';
+      const searchTabButtonId = 'item-media-sidebar-search-button';
+      const linksTabButtonId = 'item-media-sidebar-links-button';
 
       const tabHashes = [];
       if (props.annotationList) {

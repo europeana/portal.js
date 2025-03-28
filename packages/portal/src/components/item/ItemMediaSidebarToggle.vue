@@ -37,7 +37,7 @@
     },
 
     setup() {
-      const buttonId = 'item-media-sidebar-toggle';
+      const buttonId = 'item-media-sidebar-toggle-button';
 
       const { hideTooltips } = useHideTooltips(buttonId);
 

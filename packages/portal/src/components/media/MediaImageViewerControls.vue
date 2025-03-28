@@ -106,12 +106,12 @@
     },
 
     setup() {
-      const rotateLeftButtonId = 'media-image-viewer-controls-rotate-left';
-      const rotateRightButtonId = 'media-image-viewer-controls-rotate-right';
-      const zoomInButtonId = 'media-image-viewer-controls-zoom-in';
-      const resetZoomButtonId = 'media-image-viewer-controls-reset-zoom';
-      const zoomOutButtonId = 'media-image-viewer-controls-zoom-out';
-      const fullscreenButtonId = 'media-image-viewer-controls-fullscreen';
+      const rotateLeftButtonId = 'media-image-viewer-controls-rotate-left-button';
+      const rotateRightButtonId = 'media-image-viewer-controls-rotate-right-button';
+      const zoomInButtonId = 'media-image-viewer-controls-zoom-in-button';
+      const resetZoomButtonId = 'media-image-viewer-controls-reset-zoom-button';
+      const zoomOutButtonId = 'media-image-viewer-controls-zoom-out-button';
+      const fullscreenButtonId = 'media-image-viewer-controls-fullscreen-button';
 
       const { hideTooltips } = useHideTooltips([
         rotateLeftButtonId, rotateRightButtonId, zoomInButtonId, resetZoomButtonId, zoomOutButtonId, fullscreenButtonId

@@ -19,7 +19,7 @@
         data-qa="prev button"
       >
         <SmartLink
-          id="pagination-nav-input-previous"
+          :id="prevLinkId"
           v-b-tooltip.top="!buttonText && $t('actions.previousPage')"
           :destination="prevUrl"
           :aria-label="$t('actions.previous')"
@@ -70,7 +70,7 @@
         data-qa="next button"
       >
         <SmartLink
-          id="pagination-nav-input-next"
+          :id="nextLinkId"
           v-b-tooltip.top="!buttonText && $t('actions.nextPage')"
           :destination="nextUrl"
           :aria-label="$t('actions.next')"
@@ -174,7 +174,11 @@
     },
 
     setup() {
-      const { hideTooltips } = useHideTooltips(['pagination-nav-input-next', 'pagination-nav-input-previous']);
+      const nextLinkId = 'pagination-nav-input-next';
+      const prevLinkId = 'pagination-nav-input-previous';
+
+      const { hideTooltips } = useHideTooltips([nextLinkId, prevLinkId]);
+
       return { hideTooltips };
     },
 
