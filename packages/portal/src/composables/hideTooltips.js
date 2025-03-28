@@ -6,7 +6,7 @@ export default function useHideTooltips(ids) {
 
   const hideTooltips = () => {
     for (const id of [].concat(ids)) {
-      $root.$emit('bv::hide::tooltip', id);      
+      $root.$emit('bv::hide::tooltip', id);
     }
   };
 

@@ -19,8 +19,8 @@
         data-qa="prev button"
       >
         <SmartLink
-          v-b-tooltip.top="!buttonText && $t('actions.previousPage')"
           id="pagination-nav-input-previous"
+          v-b-tooltip.top="!buttonText && $t('actions.previousPage')"
           :destination="prevUrl"
           :aria-label="$t('actions.previous')"
           :disabled="prevDisabled"
@@ -70,8 +70,8 @@
         data-qa="next button"
       >
         <SmartLink
-          v-b-tooltip.top="!buttonText && $t('actions.nextPage')"
           id="pagination-nav-input-next"
+          v-b-tooltip.top="!buttonText && $t('actions.nextPage')"
           :destination="nextUrl"
           :aria-label="$t('actions.next')"
           :disabled="nextDisabled"

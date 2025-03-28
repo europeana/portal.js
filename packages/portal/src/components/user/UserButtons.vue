@@ -14,8 +14,8 @@
     <div class="right-buttons-wrapper d-inline-flex">
       <b-button
         v-if="showMove"
-        v-b-tooltip.bottom
         :id="`item-move-button-${identifier}`"
+        v-b-tooltip.bottom
         class="move-button text-uppercase d-inline-flex align-items-center"
         :class="{ 'button-icon-only': !buttonText }"
         data-qa="item move button"

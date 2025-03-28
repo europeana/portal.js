@@ -4,8 +4,8 @@
     :class="{ 'closed': !showSidebar }"
   >
     <b-button
-      v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       :id="buttonId"
+      v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       variant="light-flat"
       class="sidebar-toggle button-icon-only"

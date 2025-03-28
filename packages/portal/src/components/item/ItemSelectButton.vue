@@ -1,7 +1,7 @@
 <template>
   <b-button
-    v-b-tooltip.bottom
     :id="buttonId"
+    v-b-tooltip.bottom
     :title="tooltipText"
     class="item-select-button p-0"
     :pressed="selected"

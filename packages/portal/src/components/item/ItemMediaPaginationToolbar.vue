@@ -15,9 +15,9 @@
     />
     <span class="divider" />
     <b-button
+      :id="buttonId"
       v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
-      :id="buttonId"
       variant="light-flat"
       class="pages-toggle button-icon-only ml-3 mr-auto mr-lg-0"
       data-qa="media viewer toolbar pages toggle"

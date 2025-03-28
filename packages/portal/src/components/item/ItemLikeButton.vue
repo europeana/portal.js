@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-button
-      v-b-tooltip.bottom
       :id="buttonId"
+      v-b-tooltip.bottom
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
