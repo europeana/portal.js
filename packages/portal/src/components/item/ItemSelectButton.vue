@@ -1,5 +1,6 @@
 <template>
   <b-button
+    :id="buttonId"
     v-b-tooltip.bottom
     :title="tooltipText"
     class="item-select-button p-0"
@@ -20,8 +21,11 @@
     name: 'ItemSelectButton',
 
     setup() {
-      const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
+      const buttonId = 'item-select-button';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
     },
 
     data() {

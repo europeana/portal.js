@@ -15,6 +15,7 @@
     />
     <span class="divider" />
     <b-button
+      :id="buttonId"
       v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       variant="light-flat"
@@ -56,8 +57,11 @@
     },
 
     setup() {
-      const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
+      const buttonId = 'item-media-pagination-toolbar-button';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
     }
   };
   </script>
