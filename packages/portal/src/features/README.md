@@ -31,6 +31,10 @@ with a name property, and optional URL property. For a feature notification
 to be shown to users, its name needs to be set in the environment variable
 `APP_FEATURE_NOTIFICATION`.
 
+To additionally add a tooltip to higlight a specific element of the feature,
+add the NewFeatureTooltip to the specific component and pass in the element's id as tooltipTargetId.
+When doing so see if any old instances can be cleaned up.
+
 ### Example
 
 ```js
@@ -49,6 +53,15 @@ export default {
     }
   }
 };
+```
+
+
+```js
+// src/components/newFeature.vue
+<template>
+  <b-button id="new-feature">New feature<b-button>
+  <NewFeatureTooltip tooltip-target-id="new-feature" />
+</template>
 ```
 
 ```sh

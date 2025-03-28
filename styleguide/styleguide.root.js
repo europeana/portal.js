@@ -92,6 +92,7 @@ Object.assign(Vue.prototype, {
   $contentful: {
     assets: contentfulModuleAssets({ store })
   },
+  $cookies: { get: () => {}, set: () => {} },
   $features: {},
   $fetchState: {},
   $path: () => {

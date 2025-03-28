@@ -1,4 +1,8 @@
-const features = [{ name: 'featureIdeas', url: '/feature-ideas ' }];
+const features = [{
+  name: 'itemMultiSelect',
+  // TODO: update URL to search when multi-select is available there
+  url: '/galleries/2'
+}];
 
 export const featureNotificationExpiration = (value) => {
   const date = new Date(value);
