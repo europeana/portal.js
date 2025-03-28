@@ -15,6 +15,7 @@
       <b-button
         v-if="showMove"
         v-b-tooltip.bottom
+        :id="`item-move-button-${identifier}`"
         class="move-button text-uppercase d-inline-flex align-items-center"
         :class="{ 'button-icon-only': !buttonText }"
         data-qa="item move button"
@@ -115,8 +116,8 @@
       }
     },
 
-    setup() {
-      const { hideTooltips } = useHideTooltips();
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(`item-move-button-${props.identifier}`);
       return { hideTooltips };
     }
   };

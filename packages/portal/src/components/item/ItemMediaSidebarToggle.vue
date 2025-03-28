@@ -5,6 +5,7 @@
   >
     <b-button
       v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
+      :id="buttonId"
       :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       variant="light-flat"
       class="sidebar-toggle button-icon-only"
@@ -36,8 +37,11 @@
     },
 
     setup() {
-      const { hideTooltips } = useHideTooltips();
-      return { hideTooltips };
+      const buttonId = 'item-media-sidebar-toggle';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
     }
   };
 </script>
