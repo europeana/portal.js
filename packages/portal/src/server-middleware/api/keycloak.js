@@ -3,9 +3,10 @@ import axios from 'axios';
 export default {
   config: {},
 
+  // TODO: check this is working with new keycloak plugin
   async userInfo(authorization) {
     const keycloakUserinfoResponse = await axios({
-      baseURL: this.config.origin,
+      baseURL: this.config.url,
       url: `/auth/realms/${this.config.realm}/protocol/openid-connect/userinfo`,
       method: 'get',
       headers: { authorization }

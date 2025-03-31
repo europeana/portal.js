@@ -15,7 +15,7 @@ app.use(logging);
 const runtimeConfig = nuxtRuntimeConfig();
 pg.config = runtimeConfig.postgres;
 // FIXME: update for new keycloak plugin
-keycloak.config = runtimeConfig.auth.strategies.keycloak;
+keycloak.config = runtimeConfig.keycloak;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {

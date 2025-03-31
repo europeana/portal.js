@@ -121,6 +121,11 @@ export default {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
     },
+    keycloak: {
+      clientId: process.env.KEYCLOAK_CLIENT_ID,
+      realm: process.env.KEYCLOAK_REALM,
+      url: process.env.KEYCLOAK_URL
+    },
     matomo: {
       host: process.env.MATOMO_HOST,
       siteId: process.env.MATOMO_SITE_ID,
