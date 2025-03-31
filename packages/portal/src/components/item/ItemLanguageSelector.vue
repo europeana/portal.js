@@ -6,7 +6,7 @@
     >
       <template #button-content>
         <span
-          class="icon-translate pr-sm-2"
+          class="icon-translate-outlined pr-sm-2"
           :class="{'translation-applied': translationLanguage}"
         />
         <i18n
@@ -115,8 +115,9 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
 
-  .icon-translate {
-    font-size: 1.125rem;
+  .icon-translate-outlined {
+    font-size: 1.25rem;
+    line-height: 1.35;
 
     &.translation-applied {
       @media (max-width: ($bp-small - 1px)) {
@@ -139,7 +140,7 @@
     align-items: center;
 
     @media (min-width: $bp-small) {
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0.75rem 0.25rem 0.5rem;
     }
 
     // dropdown is flipped up
