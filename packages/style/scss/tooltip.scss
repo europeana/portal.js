@@ -21,6 +21,49 @@
   .arrow {
     display: none;
   }
+
+  &.b-tooltip-primary {
+
+    .arrow {
+      display: inline-block;
+    }
+
+    &.bs-tooltip-bottom .arrow {
+      &:before {
+        bottom: -1px;
+        border-bottom-color: $blue;
+      }
+    }
+
+    &.bs-tooltip-top .arrow {
+      &:before {
+        top: -1px;
+        border-top-color: $blue;
+      }
+    }
+
+    .tooltip-inner {
+      border-radius: 0.25rem;
+      background-color: $blue;
+      background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
+      background-size: 800% 100%;
+      animation: slide 3s ease-in-out infinite;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      background-position: left;
+    }
+
+    75% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: right;
+    }
+  }
 }
 
 .btn.tooltip-button {

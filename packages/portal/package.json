@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -38,7 +38,7 @@
     "defu": "^5.0.0",
     "dotenv": "^10.0.0",
     "elastic-apm-node": "^3.24.0",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "http-errors": "^2.0.0",
     "i18n-iso-countries": "^7.11.0",
     "isbot": "^3.7.0",
@@ -54,9 +54,11 @@
     "redis": "^4.6.8",
     "swiper": "^11.1.9",
     "v-click-outside": "^3.2.0",
-    "vue": "^2.7.10",
+    "vue": "2.7.16",
     "vue-client-only": "^2.1.0",
     "vue-i18n": "^8.26.7",
+    "vue-server-renderer": "2.7.16",
+    "vue-template-compiler": "2.7.16",
     "vue2-helpers": "^2.1.1",
     "vuex": "^3.6.2"
   },
