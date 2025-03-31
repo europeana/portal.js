@@ -179,7 +179,7 @@
 
       const { hideTooltips } = useHideTooltips([nextLinkId, prevLinkId]);
 
-      return { hideTooltips };
+      return { hideTooltips, nextLinkId, prevLinkId };
     },
 
     data() {
