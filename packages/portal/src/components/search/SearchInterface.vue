@@ -41,9 +41,9 @@
                 :query="query"
                 badge-variant="primary-light"
               />
+              <SearchMultilingualButton class="ml-auto" />
               <SearchViewToggles
                 v-model="view"
-                class="ml-auto"
               />
             </div>
             <b-row
@@ -176,6 +176,7 @@
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import useScrollTo from '@/composables/scrollTo.js';
+  import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
     name: 'SearchInterface',
@@ -190,6 +191,7 @@
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SearchFilters,
+      SearchMultilingualButton,
       SearchSidebar,
       SearchViewToggles
     },
