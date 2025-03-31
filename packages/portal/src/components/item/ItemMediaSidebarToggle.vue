@@ -30,18 +30,21 @@
     name: 'ItemMediaSidebarWidget',
 
     props: {
+      buttonId: {
+        type: String,
+        default: 'item-media-sidebar-toggle-button'
+      },
+
       showSidebar: {
         type: Boolean,
         default: false
       }
     },
 
-    setup() {
-      const buttonId = 'item-media-sidebar-toggle-button';
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(props.buttonId);
 
-      const { hideTooltips } = useHideTooltips(buttonId);
-
-      return { buttonId, hideTooltips };
+      return { hideTooltips };
     }
   };
 </script>
