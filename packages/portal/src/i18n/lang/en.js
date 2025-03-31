@@ -111,9 +111,9 @@ export default {
     "topic": "Topic"
   },
   "categories": {
-    "label": "Explore stories by tag",
+    "label": "Explore results by tag",
     "noOptions": "There are no more tags to select",
-    "search": "Explore stories by tag"
+    "search": "Explore results by tag"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -1507,6 +1507,7 @@ export default {
     }
   },
   "storiesPage": {
+    "results": "{count} result | {count} results",
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {

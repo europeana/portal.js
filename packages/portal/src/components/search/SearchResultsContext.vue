@@ -133,6 +133,9 @@
     },
 
     computed: {
+      // TODO: it's not possible to pluralise these keys properly due to the
+      // i18n component usage here. i18n-vue 9.x supports a :plural prop for
+      // the updated i18n-t component. Depends on Vue 3.
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
