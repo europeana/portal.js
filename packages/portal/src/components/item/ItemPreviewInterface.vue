@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-container
-      class="mb-3"
+      class="pb-3"
       data-qa="item preview interface"
     >
       <b-row>
