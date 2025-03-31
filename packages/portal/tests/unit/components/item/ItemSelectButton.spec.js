@@ -19,7 +19,8 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
     $store: { commit: sinon.spy() },
     $t: (key) => key,
     ...mocks
-  }
+  },
+  stubs: ['NewFeatureTooltip']
 });
 
 describe('components/item/ItemSelectButton', () => {
