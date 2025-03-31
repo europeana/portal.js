@@ -148,16 +148,6 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
-    it('scrolls to the page header element', async() => {
-      const wrapper = factory();
-      process.client = true;
-      wrapper.vm.scrollToSelector = sinon.spy();
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
-    });
-
     it('logs the search interaction to APM', async() => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'logApmTransaction');

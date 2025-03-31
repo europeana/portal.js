@@ -205,7 +205,6 @@
   import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
-  import useScrollTo from '@/composables/scrollTo.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import langAttributeMixin from '@/mixins/langAttribute';
@@ -253,10 +252,6 @@
       this.$store.commit('entity/setBestItemsSetId', null);
       this.$store.commit('set/setSelected', []);
       next();
-    },
-    setup() {
-      const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
     },
     data() {
       return {
@@ -382,7 +377,6 @@
         await this.$fetch();
         this.$store.commit('set/setSelected', []);
         this.itemMultiSelect = false;
-        this.scrollToSelector('#GalleryPage-set-items');
       }
     },
 

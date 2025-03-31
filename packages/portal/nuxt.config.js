@@ -526,6 +526,7 @@ export default {
       'ol/View.js',
       'ssr-window',
       'swiper',
+      'vue2-helpers/vue-router',
       'vue-router-query'
     ]
   },
