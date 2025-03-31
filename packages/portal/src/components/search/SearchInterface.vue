@@ -63,7 +63,9 @@
               <template
                 #no-more-items
               >
-                <p data-qa="warning notice">{{ $t('noMoreResults') }}</p>
+                <p data-qa="warning notice">
+                  {{ $t('noMoreResults') }}
+                </p>
               </template>
               <template
                 #no-items
