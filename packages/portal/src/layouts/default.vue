@@ -131,6 +131,15 @@
             this.enableAnnouncer = true;
           }
         });
+      },
+      '$store.state.keycloak.loggedIn'(loggedIn) {
+        console.log('watched loggedIn');
+        // Notify of login/logout
+        if (loggedIn) {
+          this.makeToast(this.$t('account.notifications.loggedIn'));
+        } else {
+          this.makeToast(this.$t('account.notifications.loggedOut'));
+        }
       }
     },
 
@@ -145,8 +154,9 @@
           try {
             // TODO: assess whether there is a more efficient way to do this with fewer
             //       API requests
-            await this.$store.dispatch('set/setLikes');
-            await this.$store.dispatch('set/fetchLikes');
+            // FIXME: update for recent set work, and keycloak plugin, together
+            // await this.$store.dispatch('set/setLikes');
+            // await this.$store.dispatch('set/fetchLikes');
           } catch (e) {
             // Don't cause everything to break if the Set API is down...
             console.error('user likes plugin error', e);
