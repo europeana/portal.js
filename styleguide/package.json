@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@europeana/portal": "../packages/portal",
-    "vue": "^2.7.10",
+    "vue": "2.7.16",
     "vue-styleguidist": "4.72.4",
     "webpack": "^4.46.0"
   },
