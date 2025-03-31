@@ -181,7 +181,7 @@
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId]);
+      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId]);
 
       return {
         activeTabHash,
