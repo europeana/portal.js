@@ -36,7 +36,6 @@
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import useScrollTo from '@/composables/scrollTo.js';
 
   import ContentHeader from '@/components/content/ContentHeader';
   import ContentCard from '@/components/content/ContentCard';
@@ -54,11 +53,6 @@
     mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
-
-    setup() {
-      const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
-    },
 
     data() {
       return {
@@ -80,14 +74,10 @@
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
 
-      try {
-        const response = await this.$apis.entity.search(entityIndexParams);
+      const response = await this.$apis.entity.search(entityIndexParams);
 
-        this.entities = response.entities;
-        this.total = response.total;
-      } finally {
-        process.client && this.scrollToSelector('#header');
-      }
+      this.entities = response.entities;
+      this.total = response.total;
     },
 
     computed: {
@@ -111,10 +101,7 @@
     },
 
     watch: {
-      async '$route.query.page'() {
-        await this.$fetch();
-        this.scrollToSelector('#header');
-      }
+      '$route.query.page': '$fetch'
     },
 
     methods: {

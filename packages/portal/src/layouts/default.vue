@@ -64,6 +64,7 @@
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
   import useMakeToast from '@/composables/makeToast.js';
+  import { useScrollToHeader } from '@/composables/scrollToHeader.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -84,6 +85,8 @@
 
     setup() {
       const { makeToast } = useMakeToast();
+      useScrollToHeader();
+
       return { makeToast };
     },
 
