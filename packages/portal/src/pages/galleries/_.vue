@@ -204,6 +204,10 @@
       };
     },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
+      process.client && this.scrollToSelector('#header');
+
       try {
         this.validateRoute();
         this.$store.commit('set/setActiveId', this.setId);
@@ -314,7 +318,6 @@
         await this.$fetch();
         this.$store.commit('set/setSelected', []);
         this.itemMultiSelect = false;
-        this.scrollToSelector('#GalleryPage-set-items');
       }
     },
 
