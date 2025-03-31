@@ -79,7 +79,7 @@
     :columns="view === 'list'"
     :deck="view !== 'list'"
   >
-    <slot />
+    <slot name="header" />
     <component
       :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
