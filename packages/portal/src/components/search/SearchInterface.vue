@@ -42,6 +42,7 @@
                 badge-variant="primary-light"
               />
               <SearchMultilingualButton
+                v-if="showMultilingualButton"
                 class="ml-auto"
                 @toggleMultilingual="(value) => multilingualSearch = value"
               />
@@ -374,7 +375,7 @@
 
         // Either translate locale(s) not configured, or current locale is not
         // among them.
-        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
+        if (!this.multilingualSearchEnabledForLocale) {
           return null;
         }
 
@@ -385,6 +386,12 @@
       },
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      multilingualSearchEnabledForLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      showMultilingualButton() {
+        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale && this.query);
       }
     },
 

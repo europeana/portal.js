@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$features.multilingualSearch">
+  <div>
     <b-button
       class="search-multilingual-button p-0 mr-2"
       :pressed="selected"

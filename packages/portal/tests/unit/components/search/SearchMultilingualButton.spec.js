@@ -10,7 +10,6 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, 
   localVue,
   mocks: {
     $auth: { loggedIn: false },
-    $features: { multilingualSearch: true },
     $keycloak: {
       login: sinon.spy()
     },

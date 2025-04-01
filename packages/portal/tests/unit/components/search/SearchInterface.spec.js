@@ -480,6 +480,41 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
+
+    describe('showMultilingualButton', () => {
+      describe('when multilingual search is enabled for the current locale and there is a query', () => {
+        it('returns true', () => {
+          const wrapper = factory({ mocks: {
+            $config: { app: { search: { translateLocales: ['nl'] } } },
+            $i18n: { locale: 'nl' },
+            $route: { query: { query: 'arte visuales' } }
+          } });
+
+          expect(wrapper.vm.showMultilingualButton).toEqual(true);
+        });
+      });
+      describe('when multilingual search is not enabled for the current locale', () => {
+        it('returns true', () => {
+          const wrapper = factory({ mocks: {
+            $config: { app: { search: { translateLocales: ['fr'] } } },
+            $i18n: { locale: 'nl' },
+            $route: { query: { query: 'arte visuales' } }
+          } });
+
+          expect(wrapper.vm.showMultilingualButton).toEqual(false);
+        });
+      });
+      describe('when there is no query', () => {
+        it('returns true', () => {
+          const wrapper = factory({ mocks: {
+            $config: { app: { search: { translateLocales: ['nl'] } } },
+            $i18n: { locale: 'nl' }
+          } });
+
+          expect(wrapper.vm.showMultilingualButton).toEqual(false);
+        });
+      });
+    });
   });
 
   describe('destroyed', () => {
