@@ -4,6 +4,7 @@
     :class="{ 'closed': !showSidebar }"
   >
     <b-button
+      :id="buttonId"
       v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       variant="light-flat"
@@ -29,14 +30,20 @@
     name: 'ItemMediaSidebarWidget',
 
     props: {
+      buttonId: {
+        type: String,
+        default: 'item-media-sidebar-toggle-button'
+      },
+
       showSidebar: {
         type: Boolean,
         default: false
       }
     },
 
-    setup() {
-      const { hideTooltips } = useHideTooltips();
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(props.buttonId);
+
       return { hideTooltips };
     }
   };

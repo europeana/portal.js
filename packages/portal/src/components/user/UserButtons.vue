@@ -14,6 +14,7 @@
     <div class="right-buttons-wrapper d-inline-flex">
       <b-button
         v-if="showMove"
+        :id="`item-move-button-${identifier}`"
         v-b-tooltip.bottom
         class="move-button text-uppercase d-inline-flex align-items-center"
         :class="{ 'button-icon-only': !buttonText }"
@@ -115,8 +116,8 @@
       }
     },
 
-    setup() {
-      const { hideTooltips } = useHideTooltips();
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(`item-move-button-${props.identifier}`);
       return { hideTooltips };
     }
   };

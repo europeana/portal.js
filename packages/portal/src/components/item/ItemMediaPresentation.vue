@@ -113,6 +113,7 @@
           <!-- Sidebar toggle for mobile and tablet screens -->
           <ItemMediaSidebarToggle
             v-if="sidebarHasContent"
+            button-id="item-media-sidebar-toggle-button-mobile"
             :show-sidebar="showSidebar"
             class="d-inline-flex d-lg-none"
             @toggleSidebar="toggleSidebar"
