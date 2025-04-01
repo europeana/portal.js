@@ -29,6 +29,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
   localVue,
   attachTo: document.body,
   mocks: {
+    $features: { multilingualSearch: true },
     $t: (key) => key,
     localePath: () => '/',
     $router: { push: sinon.spy() },
@@ -343,12 +344,24 @@ describe('components/search/SearchInterface', () => {
             describe('and user is logged in', () => {
               const $auth = { loggedIn: true };
 
-              it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+              describe('and has enabled multilingual search', () => {
+                it('returns the current locale', () => {
+                  const wrapper = factory({ mocks: { $auth, $config, $i18n }, data: { multilingualSearch: true } });
 
-                const translateLang = wrapper.vm.apiOptions.translateLang;
+                  const translateLang = wrapper.vm.apiOptions.translateLang;
 
-                expect(translateLang).toBe('nl');
+                  expect(translateLang).toBe('nl');
+                });
+              });
+
+              describe('and has disabled multilingual search', () => {
+                it('is undefined', () => {
+                  const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+
+                  const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                  expect(translateLang).toBeUndefined();
+                });
               });
             });
 
@@ -717,6 +730,20 @@ describe('components/search/SearchInterface', () => {
             expect(wrapper.vm.$fetch.called).toBe(false);
           });
         });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('when multilingualSearch value changes', () => {
+      it('triggers $fetch', async() => {
+        const wrapper = factory({ data: { multilingualSearch: false } });
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.multilingualSearch = true;
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });

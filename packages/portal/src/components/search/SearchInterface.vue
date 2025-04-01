@@ -41,7 +41,10 @@
                 :query="query"
                 badge-variant="primary-light"
               />
-              <SearchMultilingualButton class="ml-auto" />
+              <SearchMultilingualButton
+                class="ml-auto"
+                @toggleMultilingual="(value) => multilingualSearch = value"
+              />
               <SearchViewToggles
                 v-model="view"
               />
@@ -231,6 +234,7 @@
         apiParams: {},
         hits: null,
         lastAvailablePage: null,
+        multilingualSearch: false,
         paginationChanged: false,
         results: [],
         showAdvancedSearch: false,
@@ -355,7 +359,13 @@
       },
       // Disable translate profile (multilingual search) when not logged in
       doNotTranslate() {
-        return !this.$auth.loggedIn;
+        if (!this.$auth.loggedIn) {
+          return true;
+        } else if (this.$features?.multilingualSearch && !this.multilingualSearch) {
+          return true;
+        } else {
+          return false;
+        }
       },
       translateLang() {
         if (this.doNotTranslate) {
@@ -384,7 +394,10 @@
       '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.page': 'handlePaginationChanged',
+      multilingualSearch() {
+        this.$fetch();
+      }
     },
 
     mounted() {

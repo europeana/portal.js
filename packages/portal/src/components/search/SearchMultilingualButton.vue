@@ -37,7 +37,7 @@
       toggle() {
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
-          // TODO: enable multilingual search
+          this.$emit('toggleMultilingual', this.selected);
         } else {
           this.$keycloak.login();
         }
