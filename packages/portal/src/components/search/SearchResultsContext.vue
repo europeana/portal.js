@@ -203,11 +203,11 @@
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
       suggestLoginForMoreResults() {
-        return !this.$auth.loggedIn && this.translateProfileEnabledForCurrentLocale;
+        return !this.$store.state.keycloak.loggedIn && this.translateProfileEnabledForCurrentLocale;
       },
       multilingualSearchTooltip() {
         if (this.translateProfileEnabledForCurrentLocale) {
-          if (this.$auth.loggedIn) {
+          if (this.$store.state.keycloak.loggedIn) {
             return this.$t('search.results.showingMultilingualResults');
           } else {
             return this.$t('search.results.loginToSeeMultilingualResults');

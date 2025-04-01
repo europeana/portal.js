@@ -353,7 +353,7 @@
       },
       // Disable translate profile (multilingual search) when not logged in
       doNotTranslate() {
-        return !this.$auth.loggedIn;
+        return !this.$store.state.keycloak.loggedIn;
       },
       translateLang() {
         if (this.doNotTranslate) {

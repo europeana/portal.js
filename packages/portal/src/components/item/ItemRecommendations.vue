@@ -142,7 +142,7 @@
 
         this.logApmTransaction({
           name: 'Similar items - click item',
-          labels: { 'logged_in_user': !!this.$auth.loggedIn,
+          labels: { 'logged_in_user': !!this.$store.state.keycloak.loggedIn,
                     'similar_items_algorithm': this.similarItemsAlgorithm,
                     'similar_items_clicked_item': clickedItemId,
                     'similar_items_count': itemCount,

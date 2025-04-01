@@ -213,7 +213,7 @@
 
     async fetch() {
       // When entering a translated item page, but not logged in, redirect to non-translated item page
-      if (this.$route.query.lang && !this.$auth.loggedIn) {
+      if (this.$route.query.lang && !this.$store.state.keycloak.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
       } else {
         await Promise.all([
@@ -332,7 +332,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$store.state.keycloak.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;
