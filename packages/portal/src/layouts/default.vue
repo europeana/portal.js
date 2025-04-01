@@ -153,7 +153,7 @@
           try {
             // TODO: assess whether there is a more efficient way to do this with fewer
             //       API requests
-            const likesId = await $apis.set.getLikes($auth.user ? $auth.user.sub : null);
+            const likesId = await this.$apis.set.getLikes(this.$store.state.keycloak.profile?.id);
             this.$store.commit('set/setLikesId', likesId);
             await this.$store.dispatch('set/fetchLikes');
           } catch (e) {

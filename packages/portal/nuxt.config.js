@@ -87,9 +87,6 @@ export default {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
-    axios: {
-      baseURL: process.env.PORTAL_BASE_URL
-    },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
       httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
@@ -294,8 +291,7 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/query-sanitiser',
-    '@nuxtjs/axios'
+    '~/modules/query-sanitiser'
   ],
 
   /*
