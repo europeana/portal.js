@@ -75,63 +75,31 @@
             </b-row>
           </b-container>
           <client-only>
-            <LoadingSpinner
-              v-if="$fetchState.pending"
-              class="text-center pb-4"
-            />
             <AlertMessage
-              v-else-if="$fetchState.error"
+              v-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
-            <b-container
+            <template
               v-else-if="activeTab === tabHashes.likes"
-              data-qa="liked items"
             >
-              <b-row class="flex-md-row">
-                <b-col cols="12">
-                  <template
-                    v-if="likedItems"
-                  >
-                    <b-row
-                      v-if="likedItems.length > 0"
-                    >
-                      <b-col class="d-flex align-items-center mb-3">
-                        <h2
-                          class="related-heading text-uppercase mb-0"
-                        >
-                          {{ $tc('items.itemCount', likedItems.length) }}
-                        </h2>
-                        <ItemSelectButton
-                          v-if="$features.itemMultiSelect"
-                          class="ml-auto"
-                          @select="(newState) => itemMultiSelect = newState"
-                        />
-                        <SearchViewToggles
-                          v-model="view"
-                          :class="{ 'ml-auto': !$features.itemMultiSelect }"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col cols="12">
-                        <ItemPreviewCardGroup
-                          v-if="likesId && likedItems.length !== 0"
-                          :items="likedItems"
-                          :view="view"
-                          class="pb-5"
-                        />
-                      </b-col>
-                    </b-row>
-                  </template>
+              <ItemPreviewInterface
+                data-qa="liked items"
+                :enable-item-multi-select="true"
+                :loading="$fetchState.pending"
+                :items="likedItems"
+                :per-page="100"
+                :max-results="100"
+                :total="likedItems?.length || 0"
+              >
+                <template #no-items>
                   <div
-                    v-else
                     class="text-center pb-4"
                   >
                     {{ $t('account.notifications.noLikedItems') }}
                   </div>
-                </b-col>
-              </b-row>
-            </b-container>
+                </template>
+              </ItemPreviewInterface>
+            </template>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
                 visibility="public"
@@ -166,27 +134,17 @@
         </b-col>
       </b-row>
     </b-container>
-    <ItemSelectToolbar
-      v-if="itemMultiSelect"
-      :user-can-edit-set="userCanEditSet"
-    />
   </div>
 </template>
 
 <script>
-  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ItemSelectButton from '@/components/item/ItemSelectButton';
-  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
-  import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import SearchViewToggles from '@/components/search/SearchViewToggles';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import UserSets from '@/components/user/UserSets';
 
   export default {
@@ -196,24 +154,13 @@
       AlertMessage,
       BNav,
       ClientOnly,
-      ItemPreviewCardGroup,
-      ItemSelectButton,
-      ItemSelectToolbar,
-      LoadingSpinner,
-      SearchViewToggles,
+      ItemPreviewInterface,
       UserSets
     },
 
     mixins: [
-      itemPreviewCardGroupViewMixin,
       pageMetaMixin
     ],
-
-    provide() {
-      return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
-      };
-    },
 
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setSelected', []);
@@ -225,7 +172,6 @@
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
-        itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
