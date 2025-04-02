@@ -30,7 +30,7 @@ RUN rm -rf packages/portal/src/lang
 RUN npm -w packages/portal ci --omit dev --omit peer
 
 
-FROM gcr.io/distroless/nodejs:20
+FROM gcr.io/distroless/nodejs20-debian12
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
