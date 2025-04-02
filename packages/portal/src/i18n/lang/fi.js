@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Näytä minulle",
     "text": {
-      "featureIdeas": "Tutustu suunnittelemiimme tuleviin muutoksiin ja äänestä niitä, jotka haluaisit nähdä etusijalla. Palautteesi auttaa meitä keskittymään siihen, mikä on sinulle tärkeintä."
-    }
+      "itemMultiSelect": "Voit nyt valita useita aineistoja kerralla, lisätä ne suosikkeihin tai omaan galleriaan."
+    },
+    "tooltip": "Napsauta tästä aloittaaksesi usean aineiston valinnan"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",

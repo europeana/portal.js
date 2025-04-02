@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Visa mig",
     "text": {
-      "featureIdeas": "Utforska de kommande förändringarna vi planerar och rösta på de du vill se prioriterade. Din input hjälper oss att fokusera på det som är viktigast för dig."
-    }
+      "itemMultiSelect": "Du kan nu välja flera objekt samtidigt för att gilla eller lägga till dem i ett eget galleri."
+    },
+    "tooltip": "Klicka här för att börja välja flera objekt"
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",

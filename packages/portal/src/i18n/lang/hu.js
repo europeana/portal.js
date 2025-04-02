@@ -1136,8 +1136,9 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Mutasd meg",
     "text": {
-      "featureIdeas": "Fedezze fel az általunk tervezett közelgő változtatásokat, és szavazzon azokra, amelyeket prioritásként szeretne látni. Hozzászólása segít abban, hogy arra összpontosíthassunk, ami a legfontosabb az Ön számára."
-    }
+      "itemMultiSelect": "Mostantól egyszerre több tárgyat is kiválaszthat, hogy kedvelje vagy hozzáadhassa őket egy saját galériához."
+    },
+    "tooltip": "Kattintson ide több tárgy kijelöléséhez"
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",

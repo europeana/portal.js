@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Parādi man",
     "text": {
-      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
-    }
+      "itemMultiSelect": "Tagad vienlaikus varat atlasīt vairākus digitālos objektus, lai tos atzīmētu kā iecienītus vai pievienotu savai galerijai."
+    },
+    "tooltip": "Noklikšķiniet šeit, lai sāktu atlasīt vairākus digitālos objektus"
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
