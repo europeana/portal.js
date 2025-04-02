@@ -7,12 +7,12 @@
       <b-row>
         <b-col class="pb-4">
           <h1 class="text-center">
-            @{{ loggedInUser && loggedInUser.preferred_username }}
+            @{{ loggedInUser && loggedInUser.username }}
           </h1>
           <div class="text-center">
             <b-button
               class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="editProfileUrl"
+              :href="$keycloak.accountUrl"
             >
               <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
@@ -224,7 +224,6 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
         itemMultiSelect: false,
         tabHashes: {
           likes: '#likes',
@@ -243,21 +242,19 @@
     fetchOnServer: false,
 
     computed: {
-      editProfileUrl() {
-        return this.$keycloak.accountUrl();
-      },
       pageMeta() {
         return {
           title: this.$t('account.title')
         };
       },
       userIsEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
+        loggedInUser: state => state.keycloak.profile,
         curations: state => state.set.curations
       }),
       activeTab() {

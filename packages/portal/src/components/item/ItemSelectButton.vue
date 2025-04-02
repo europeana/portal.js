@@ -89,7 +89,7 @@
       },
       toggle() {
         this.hideTooltips();
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
         } else {

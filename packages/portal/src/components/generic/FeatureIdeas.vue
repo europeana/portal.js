@@ -101,8 +101,9 @@
 
     methods: {
       headersForAuthorization() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           return {
+            // FIXME: update for new keycloak plugin, and no $auth
             authorization: this.$auth.getToken(this.$auth.strategy?.name)
           };
         } else {
@@ -110,7 +111,7 @@
         }
       },
       async voteOnFeature(featureId) {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
           await this.axiosInstance({

@@ -103,7 +103,7 @@
         return { path: this.$route.path, query };
       },
       login() {
-        if (!this.$auth.loggedIn) {
+        if (!this.$store.state.keycloak.loggedIn) {
           this.$keycloak.login();
         }
       }

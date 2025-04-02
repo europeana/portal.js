@@ -3,9 +3,12 @@
 </template>
 
 <script>
+  // Callback for both login and logout
   export default {
     name: 'AccountCallbackPage',
-    auth: false,
-    layout: 'minimal'
+
+    mounted() {
+      this.$keycloak.callback();
+    }
   };
 </script>

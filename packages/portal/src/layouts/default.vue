@@ -131,17 +131,35 @@
             this.enableAnnouncer = true;
           }
         });
+      },
+      '$store.state.keycloak.loggedIn'(loggedIn) {
+        // Notify of login/logout
+        // TODO: this is appearing too often...
+        if (loggedIn) {
+          this.makeToast(this.$t('account.notifications.loggedIn'));
+        } else {
+          this.makeToast(this.$t('account.notifications.loggedOut'));
+        }
       }
     },
 
     mounted() {
-      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        this.makeToast(this.$t('account.notifications.loggedIn'));
-        this.$auth.$storage.removeUniversal('portalLoggingIn');
-      }
-      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        this.makeToast(this.$t('account.notifications.loggedOut'));
-        this.$auth.$storage.removeUniversal('portalLoggingOut');
+      this.initKeycloak();
+    },
+
+    methods: {
+      async initKeycloak() {
+        if (this.$store.state.keycloak?.loggedIn) {
+          try {
+            // TODO: assess whether there is a more efficient way to do this with fewer
+            //       API requests
+            const likesId = await this.$apis.set.getLikes(this.$store.state.keycloak.profile?.id);
+            this.$store.commit('set/setLikesId', likesId);
+            this.$store.dispatch('set/fetchLikes');
+          } catch (e) {
+            // Don't cause everything to break if the Set API is down...
+          }
+        }
       }
     }
   };

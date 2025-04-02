@@ -21,11 +21,11 @@
         :on-click-card="onClickItem"
       />
       <b-link
-        v-if="!$auth.loggedIn"
+        v-if="!$store.state.keycloak.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
         :target="null"
-        @click="$keycloak.login()"
+        @click="$keycloak.login"
       >
         {{ $t('related.items.loginForMore') }}
       </b-link>
@@ -91,7 +91,7 @@
     async fetch() {
       let response;
 
-      if (this.$auth.loggedIn) {
+      if (this.$store.state.keycloak.loggedIn) {
         response = await this.$apis.recommendation.recommend('record', this.identifier);
         response.items = response.items
           // Remove any recommendations that are the same as the active item,
@@ -142,7 +142,7 @@
 
         this.logApmTransaction({
           name: 'Similar items - click item',
-          labels: { 'logged_in_user': !!this.$auth.loggedIn,
+          labels: { 'logged_in_user': !!this.$store.state.keycloak.loggedIn,
                     'similar_items_algorithm': this.similarItemsAlgorithm,
                     'similar_items_clicked_item': clickedItemId,
                     'similar_items_count': itemCount,

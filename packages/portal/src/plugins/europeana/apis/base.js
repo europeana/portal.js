@@ -50,18 +50,24 @@ export default class EuropeanaApi {
   }
 
   createAxios() {
-    const axiosBase = (this.constructor.AUTHORISING && this.context?.$axios) ? this.context?.$axios : axios;
-    const axiosInstance = axiosBase.create(this.axiosInstanceOptions);
+    const axiosInstance = axios.create(this.axiosInstanceOptions);
 
     axiosInstance.interceptors.request.use(this.rewriteAxiosRequestUrl.bind(this));
+
+    if (this.constructor.AUTHORISING && this.context?.$keycloak) {
+      this.context.$keycloak.addAxiosInterceptors(axiosInstance);
+    }
 
     const app = this.context?.app;
     if (app?.$axiosLogger) {
       axiosInstance.interceptors.request.use(app.$axiosLogger);
     }
 
-    if (this.constructor.AUTHORISING && (typeof axiosInstance.onResponseError === 'function')) {
-      axiosInstance.onResponseError((error) => this.context.$keycloak?.error?.(error));
+    if (this.constructor.AUTHORISING) {
+      axiosInstance.interceptors.response.use(
+        response => response,
+        (error) => this.context.$keycloak?.error?.(error)
+      );
     }
 
     return axiosInstance;
@@ -89,13 +95,16 @@ export default class EuropeanaApi {
   }
 
   get axiosInstanceOptions() {
+    const headers = {};
     const params = {};
+
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
     }
 
     return {
       baseURL: this.baseURL,
+      headers,
       params,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });

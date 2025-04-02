@@ -68,9 +68,8 @@
         v-b-toggle.menu
         data-qa="log in button"
         class="nav-link"
-        :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
         :target="null"
-        @click.prevent="$keycloak.login()"
+        :to="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
       >
         <span :class="renderIcon('/account/login')" />
         <span class="nav-link-text">
@@ -102,9 +101,8 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
-          // TODO: is the account url still responsive... and does it need to be?
-          { href: this.$keycloak.accountUrl(), text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+          { href: this.$keycloak.accountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
+          { to: this.localePath(this.$keycloak.logoutRoute), text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
       mainNavigation() {
@@ -127,7 +125,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
       },
       isAuthenticated() {
-        return this.$store.state.auth.loggedIn;
+        return this.$store.state.keycloak.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');
@@ -170,7 +168,7 @@
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
-          this.$auth.logout();
+          this.$keycloak.logout();
         }
       }
     }
