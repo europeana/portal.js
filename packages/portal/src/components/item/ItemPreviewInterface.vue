@@ -28,45 +28,49 @@
       <b-row class="mb-3">
         <b-col cols="12">
           <LoadingSpinner
-            v-if="loading"
+            v-show="loading"
             class="flex-md-row py-4 text-center"
             :status-message="$t('loadingResults')"
           />
-          <slot
-            v-else-if="noMoreItems"
-            name="no-more-items"
+          <template
+            v-if="!loading"
           >
-            <p>{{ $t('items.noMoreItems') }}</p>
-          </slot>
-          <slot
-            v-else-if="items.length === 0"
-            name="no-items"
-          >
-            <p>{{ $t('items.noItems') }}</p>
-          </slot>
-          <ItemPreviewCardGroup
-            v-else
-            id="item-preview-interface-card-group"
-            :hits="hits"
-            :items="items"
-            :on-aux-click-card="onAuxClickCard"
-            :on-click-card="onClickCard"
-            :show-pins="showPins"
-            :user-editable-items="userEditableItems"
-            :view="view"
-            @drawn="$emit('drawn', $event)"
-            @endItemDrag="$emit('endItemDrag', $event)"
-          >
-            <template #header>
-              <slot name="card-group-header" />
-            </template>
-            <template #related-galleries>
-              <slot name="card-group-related-galleries" />
-            </template>
-            <template #related-collections>
-              <slot name="card-group-related-collections" />
-            </template>
-          </ItemPreviewCardGroup>
+            <slot
+              v-if="noMoreItems"
+              name="no-more-items"
+            >
+              <p>{{ $t('items.noMoreItems') }}</p>
+            </slot>
+            <slot
+              v-else-if="items.length === 0"
+              name="no-items"
+            >
+              <p>{{ $t('items.noItems') }}</p>
+            </slot>
+            <ItemPreviewCardGroup
+              v-else
+              id="item-preview-interface-card-group"
+              :hits="hits"
+              :items="items"
+              :on-aux-click-card="onAuxClickCard"
+              :on-click-card="onClickCard"
+              :show-pins="showPins"
+              :user-editable-items="userEditableItems"
+              :view="view"
+              @drawn="$emit('drawn', $event)"
+              @endItemDrag="$emit('endItemDrag', $event)"
+            >
+              <template #header>
+                <slot name="card-group-header" />
+              </template>
+              <template #related-galleries>
+                <slot name="card-group-related-galleries" />
+              </template>
+              <template #related-collections>
+                <slot name="card-group-related-collections" />
+              </template>
+            </ItemPreviewCardGroup>
+          </template>
         </b-col>
       </b-row>
       <slot name="footer" />
