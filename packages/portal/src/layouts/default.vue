@@ -134,6 +134,7 @@
       },
       '$store.state.keycloak.loggedIn'(loggedIn) {
         // Notify of login/logout
+        // TODO: this is appearing too often...
         if (loggedIn) {
           this.makeToast(this.$t('account.notifications.loggedIn'));
         } else {
@@ -148,14 +149,13 @@
 
     methods: {
       async initKeycloak() {
-        await this.$keycloak?.init();
         if (this.$store.state.keycloak?.loggedIn) {
           try {
             // TODO: assess whether there is a more efficient way to do this with fewer
             //       API requests
             const likesId = await this.$apis.set.getLikes(this.$store.state.keycloak.profile?.id);
             this.$store.commit('set/setLikesId', likesId);
-            await this.$store.dispatch('set/fetchLikes');
+            this.$store.dispatch('set/fetchLikes');
           } catch (e) {
             // Don't cause everything to break if the Set API is down...
           }

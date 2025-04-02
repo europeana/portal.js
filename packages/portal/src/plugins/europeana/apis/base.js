@@ -88,7 +88,6 @@ export default class EuropeanaApi {
   }
 
   rewriteAxiosRequestUrl(requestConfig) {
-    console.log('EuropeanaApi rewriteAxiosRequestUrl');
     if (this.config.urlRewrite) {
       requestConfig.baseURL = this.config.urlRewrite;
     }

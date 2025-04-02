@@ -103,6 +103,7 @@
       headersForAuthorization() {
         if (this.$store.state.keycloak.loggedIn) {
           return {
+            // FIXME: update for new keycloak plugin, and no $auth
             authorization: this.$auth.getToken(this.$auth.strategy?.name)
           };
         } else {

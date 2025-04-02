@@ -160,7 +160,7 @@
       async fetchCollectionsWithItem() {
         const itemsQueries = [].concat(this.itemIds).map(id => `item:${ITEM_URL_PREFIX}${id}`);
         const searchResponse = await this.$apis.set.search({
-          query: `creator:${this.$auth.user?.sub}`,
+          query: `creator:${this.$store.state.keycloak.profile?.id}`,
           profile: 'items',
           pageSize: 100,
           page: 1,

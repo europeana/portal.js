@@ -1,7 +1,6 @@
 // TODO: move to new workspace pkg?
 // TODO: rm dependency on nuxt cookies module
 
-import axios from 'axios';
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
 
@@ -59,19 +58,16 @@ const plugin = (ctx) => ({
   },
   addAxiosInterceptors(axiosInstance) {
     axiosInstance.interceptors.request.use((requestConfig) => {
-      console.log('keycloak plugin request interceptor');
       if (this.keycloak?.token) {
-        console.log('add authorization header');
         requestConfig.headers.authorization = `Bearer ${this.keycloak.token}`;
       }
       return requestConfig;
     });
 
     axiosInstance.interceptors.response.use(
-      response => response,
+      (response) => response,
       (error) => {
-        console.log('keycloak plugin response interceptor');
-        this.handleResponseError(error);
+        this.handleResponseError(axiosInstance, error);
       }
     );
 
@@ -87,6 +83,10 @@ const plugin = (ctx) => ({
     ctx.app.router.replace(redirect);
   },
   async init() {
+    if (!process.client) {
+      return;
+    }
+
     try {
       await this.keycloak.init({
         checkLoginIframe: false,
@@ -172,25 +172,25 @@ const plugin = (ctx) => ({
       }
     };
   },
-  handleResponseError(error) {
+  handleResponseError(axiosInstance, error) {
     if (error.response?.status === 401) {
-      return this.handleUnauthorizedResponseError(error);
+      return this.handleUnauthorizedResponseError(axiosInstance, error);
     } else {
       return Promise.reject(error);
     }
   },
-  handleUnauthorizedResponseError(error) {
+  handleUnauthorizedResponseError(axiosInstance, error) {
     if (this.keycloak.refreshToken) {
       // User has previously logged in, and we have a refresh token, e.g.
       // access token has expired
-      return this.refreshAccessToken(error.config);
+      return this.refreshAccessToken(axiosInstance, error.config);
     } else {
       // User has not already logged in, or we have no refresh token:
       // redirect to OIDC login URL
       return ctx.redirect('/account/login', { redirect: ctx.route.path });
     }
   },
-  async refreshAccessToken(requestConfig) {
+  async refreshAccessToken(axiosInstance, requestConfig) {
     const updated = await this.keycloak.updateToken(-1);
     if (updated) {
       ctx.$cookies.set('kc.token', this.keycloak.token);
@@ -202,16 +202,20 @@ const plugin = (ctx) => ({
       this.keycloak.clearToken();
     }
 
+
     // Retry request with new access token
     // QUESTION: does this retain any interceptors?
-    return axios.request(requestConfig);
+    return axiosInstance.request(requestConfig);
   }
 });
 
-export default (ctx, inject) => {
+export default async(ctx, inject) => {
   ctx.store.registerModule('keycloak', storeModule);
 
   ctx.store.commit('keycloak/setLoggedIn', !!ctx.$cookies.get('kc.token'));
 
-  inject('keycloak', plugin(ctx));
+  const contextualPlugin = plugin(ctx);
+  await contextualPlugin.init();
+
+  inject('keycloak', contextualPlugin);
 };
