@@ -76,7 +76,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     }
   ],
-  stubs: ['SearchFilters', 'i18n']
+  stubs: ['ErrorMessage', 'SearchQueryBuilder', 'SearchFilters', 'SearchResultsContext', 'LoadingSpinner', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
@@ -120,15 +120,14 @@ describe('components/search/SearchInterface', () => {
       )).toBe(true);
     });
 
-    it('treats no results as an error', async() => {
+    it('displays no results like an error', async() => {
       const wrapper = factory();
       wrapper.vm.$apis.record.search.resolves({ totalResults: 0 });
 
       await wrapper.vm.fetch();
+      const errorMessageStub = wrapper.find('errormessage-stub');
 
-      expect(wrapper.vm.$error.calledWith(
-        sinon.match.has('code', 'searchResultsNotFound')
-      )).toBe(true);
+      expect(errorMessageStub.isVisible()).toBe(true);
     });
 
     describe('when there was a pagination error', () => {
@@ -211,15 +210,14 @@ describe('components/search/SearchInterface', () => {
       describe('and they require an entity look up', () => {
         describe('and a matching entity is found', () => {
           it('adds the matched entity as an additional field to look up', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:19th\\ century']
-            };
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:19th\\ century'] } }
+            } });
 
             await wrapper.vm.fetch();
 
@@ -228,16 +226,15 @@ describe('components/search/SearchInterface', () => {
         });
 
         describe('and there is no matching entity', () => {
-          it('saves the query anwyay', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:2023']
-            };
+          it('saves the query anyway', async() => {
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:2023'] } }
+            } });
 
             await wrapper.vm.fetch();
 
@@ -431,52 +428,6 @@ describe('components/search/SearchInterface', () => {
 
         it('is 3', () => {
           expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
-        });
-      });
-    });
-
-    describe('noMoreResults', () => {
-      describe('when there are 0 results in total', () => {
-        const wrapper = factory({
-          data: { totalResults: 0 }
-        });
-
-        it('is `false`', () => {
-          expect(wrapper.vm.noMoreResults).toBe(false);
-        });
-      });
-
-      describe('when there are some results in total', () => {
-        describe('and results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100,
-              results: [
-                {
-                  id: '/123/abc',
-                  dcTitle: { def: ['Record 123/abc'] },
-                  edmPreview: 'https://www.example.org/abc.jpg',
-                  edmDataProvider: ['Provider 123']
-                }
-              ]
-            }
-          });
-
-          it('is `false`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(false);
-          });
-        });
-
-        describe('but no results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100
-            }
-          });
-
-          it('is `true`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(true);
-          });
         });
       });
     });

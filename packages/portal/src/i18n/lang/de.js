@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Zeig mir",
     "text": {
-      "featureIdeas": "Informieren Sie sich über die geplanten Änderungen und stimmen Sie ab, welche Änderungen für Sie Priorität haben sollen. Ihr Beitrag hilft uns, uns auf das zu konzentrieren, was für Sie am wichtigsten ist."
-    }
+      "itemMultiSelect": "Sie können jetzt mehrere Objekte gleichzeitig auswählen, um sie zu liken oder zu Ihrer eigenen Galerie hinzuzufügen."
+    },
+    "tooltip": "Klicken Sie hier, um mehrere Objekte auszuwählen"
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",

@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
     "text": {
-      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
-    }
+      "itemMultiSelect": "Acum puteți selecta mai multe resurse culturale deodată, pentru a le aprecia sau a le adăuga în propria galerie."
+    },
+    "tooltip": "Faceți clic aici pentru a începe selectarea mai multor resurse culturale."
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",

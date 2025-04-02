@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Näita mulle",
     "text": {
-      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
-    }
+      "itemMultiSelect": "Nüüd saate valida mitu üksust korraga, et neid meeldivaks märkida või lisada omaenda galeriisse."
+    },
+    "tooltip": "Klõpsake siin, et alustada mitme üksuse valimist"
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",

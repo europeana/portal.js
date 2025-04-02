@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Pokaż mi",
     "text": {
-      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
-    }
+      "itemMultiSelect": "Możesz teraz zaznaczyć wiele obiektów cyfrowych naraz, aby je polubić lub dodać do własnej galerii."
+    },
+    "tooltip": "Kliknij tutaj, aby rozpocząć wybieranie wielu obiektów cyfrowych"
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
