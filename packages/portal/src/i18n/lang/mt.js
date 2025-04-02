@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Uri lili",
     "text": {
-      "featureIdeas": "Esplora l-bidliet li ġejjin li qed nippjanaw u ivvota għal dawk li tixtieq tara prijoritizzati. Il-kontribut tiegħek jgħinna niffukaw fuq dak li jgħodd l-aktar għalik."
-    }
+      "itemMultiSelect": "Issa tista’ tagħżel diversi oġġetti f’daqqa biex tħobbhom jew iżżidhom mal-gallerija tiegħek."
+    },
+    "tooltip": "Ikklikkja hawn biex tibda tagħżel oġġetti multipli"
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",

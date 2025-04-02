@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Pokaži mi",
     "text": {
-      "featureIdeas": "Istražite nadolazeće promjene koje planiramo i glasajte za one za koje biste željeli da imaju prioritet. Vaš nam doprinos pomaže da se usredotočimo na ono što vam je najvažnije."
-    }
+      "itemMultiSelect": "Sada možete odabrati više predmeta odjednom kako biste ih lajkali ili dodali u vlastitu galeriju."
+    },
+    "tooltip": "Kliknite ovdje kako biste počeli odabirati više predmeta"
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",

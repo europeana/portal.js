@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Toon mij",
     "text": {
-      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
-    }
+      "itemMultiSelect": "U kunt nu meerdere objecten tegelijk selecteren om ze te liken of toe te voegen aan uw eigen galerij."
+    },
+    "tooltip": "Klik hier om meerdere objecten te selecteren"
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",

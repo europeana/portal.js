@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Pokaži mi",
     "text": {
-      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
-    }
+      "itemMultiSelect": "Zdaj lahko izberete več enot naenkrat in jih všečkate ali dodate v svojo galerijo."
+    },
+    "tooltip": "Kliknite tukaj za začetek izbire več enot"
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",

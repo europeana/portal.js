@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Chiudi",
     "readMore": "Mostrami",
     "text": {
-      "featureIdeas": "Esplora i prossimi cambiamenti che stiamo pianificando e vota per quelli che vorresti vedere prioritari. Il tuo contributo ci aiuta a concentrarci su ciò che conta di più per te."
-    }
+      "itemMultiSelect": "Ora puoi selezionare più oggetti contemporaneamente, per mettere Mi piace o aggiungerli a una tua galleria."
+    },
+    "tooltip": "Fai clic qui per iniziare a selezionare più oggetti"
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",

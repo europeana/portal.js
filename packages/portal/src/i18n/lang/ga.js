@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Dún",
     "readMore": "Taispeáin dom",
     "text": {
-      "featureIdeas": "Déan iniúchadh ar na hathruithe atá le teacht atá á bpleanáil againn agus vótáil ar son na cinn ar mhaith leat go dtabharfar tosaíocht dóibh. Cuidíonn d’ionchur linn díriú ar na rudaí is tábhachtaí duitse."
-    }
+      "itemMultiSelect": "Is féidir leat míreanna iolracha a roghnú ag an am chéanna anois, chucu a thaitin nó a chur le gailearaí de do chuid féin."
+    },
+    "tooltip": "Cliceáil anseo chun tús a chur le roghnú míreanna"
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",

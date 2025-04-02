@@ -1142,8 +1142,9 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Erakutsi",
     "text": {
-      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
-    }
+      "itemMultiSelect": "Orain hainbat elementu batera hauta ditzakezu, gustuko gisa markatzeko edo zure galeria batean gehitzeko."
+    },
+    "tooltip": "Egin klik hemen hainbat elementu hautatzen hasteko"
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",

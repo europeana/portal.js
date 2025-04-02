@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Ukaž mi",
     "text": {
-      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
-    }
+      "itemMultiSelect": "Nyní můžete najednou vybrat více položek, které chcete označit jako „líbí se mi“ nebo přidat do vlastní galerie."
+    },
+    "tooltip": "Klikněte sem a začněte vybírat více položek"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
