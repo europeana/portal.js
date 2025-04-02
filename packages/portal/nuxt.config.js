@@ -301,6 +301,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/openid-client',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -524,6 +525,7 @@ export default {
       'ol/style/Style.js',
       'ol/style/RegularShape.js',
       'ol/View.js',
+      'openid-client',
       'ssr-window',
       'swiper',
       'vue-router-query'
