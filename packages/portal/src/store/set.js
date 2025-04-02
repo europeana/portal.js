@@ -114,10 +114,26 @@ export default {
         return;
       }
 
-      const responses = await Promise.all([
-        this.$apis.set.get(state.activeId),
-        this.$apis.set.getItems(state.activeId, state.activeParams)
-      ]);
+      // NOTE: Set API v0.12 has a bug where it will error if the set is empty,
+      //       profile=itemDescriptions, and page param is set. Therefore, we have
+      //       to get the set first, check if it's empty, and if so, not make
+      //       the items request.
+      // TODO: rm when v0.12 is replaced
+      let responses = [];
+      if (this.$apis.set.config.version === '0.12') {
+        console.log('0.12');
+        responses[0] = await this.$apis.set.get(state.activeId);
+        if (responses[0].total > 0) {
+          responses[1] = await this.$apis.set.getItems(state.activeId, state.activeParams);
+        } else {
+          responses[1] = [];
+        }
+      } else {
+        responses = await Promise.all([
+          this.$apis.set.get(state.activeId),
+          this.$apis.set.getItems(state.activeId, state.activeParams)
+        ]);
+      }
       commit('setActive', {
         ...responses[0],
         items: responses[1]

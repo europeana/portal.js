@@ -9,7 +9,7 @@
     >
       <template
         v-if="!!searchQuery"
-        #related-galleries
+        #card-group-related-galleries
       >
         <client-only>
           <RelatedGalleries
@@ -22,7 +22,7 @@
       </template>
       <template
         v-if="!!searchQuery"
-        #related-collections
+        #card-group-related-collections
       >
         <client-only>
           <RelatedCollectionsCard

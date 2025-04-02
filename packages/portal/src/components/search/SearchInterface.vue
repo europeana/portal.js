@@ -25,115 +25,82 @@
             />
           </transition>
         </client-only>
-        <b-container
-          class="px-0 pb-3"
-        >
-          <section>
-            <div
-              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
-            >
-              <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
-              <div v-show="$fetchState.pending" />
+        <ErrorMessage
+          v-if="$fetchState.error"
+          :error="$fetchState.error"
+          :full-height="false"
+          :show-message="showErrorMessage"
+          title-tag="h2"
+        />
+        <b-row v-else>
+          <ItemPreviewInterface
+            data-qa="liked items"
+            :items="results"
+            :hits="hits"
+            :loading="$fetchState.pending"
+            :max-results="1000"
+            :per-page="perPage"
+            :show-pins="showPins"
+            :total="totalResults"
+            :on-aux-click-card="onClickItem"
+            :on-click-card="onClickItem"
+            class="w-100 mb-3"
+            @drawn="handleResultsDrawn"
+          >
+            <template #heading>
               <SearchResultsContext
-                v-show="!$fetchState.pending"
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
               />
-              <SearchViewToggles
-                v-model="view"
-                class="ml-auto"
-              />
-            </div>
-            <b-row
-              class="mb-3"
+            </template>
+            <template
+              #no-more-items
             >
-              <b-col
-                cols="12"
-              >
-                <LoadingSpinner
-                  v-show="$fetchState.pending"
-                  class="flex-md-row py-4 text-center"
-                  :status-message="$t('loadingResults')"
-                />
-                <template
-                  v-if="!$fetchState.pending"
-                >
-                  <b-row
-                    class="mb-3"
-                  >
-                    <b-col>
-                      <ErrorMessage
-                        v-if="$fetchState.error"
-                        :error="$fetchState.error"
-                        :full-height="false"
-                        :show-message="showErrorMessage"
-                        title-tag="h2"
-                      />
-                      <template
-                        v-else
-                      >
-                        <p
-                          v-show="noMoreResults"
-                          data-qa="warning notice"
-                        >
-                          {{ $t('noMoreResults') }}
-                        </p>
-                        <ItemPreviewCardGroup
-                          id="item-search-results"
-                          :items="results"
-                          :hits="hits"
-                          :view="view"
-                          :show-pins="showPins"
-                          :on-aux-click-card="onClickItem"
-                          :on-click-card="onClickItem"
-                          @drawn="handleResultsDrawn"
-                        >
-                          <slot />
-                          <template
-                            v-if="page === 1"
-                            #related-galleries
-                          >
-                            <slot
-                              name="related-galleries"
-                            />
-                          </template>
-                          <template
-                            v-if="page === 1"
-                            #related-collections
-                          >
-                            <slot
-                              name="related-collections"
-                            />
-                          </template>
-                        </ItemPreviewCardGroup>
-                        <InfoMessage
-                          v-show="lastAvailablePage"
-                        >
-                          {{ $t('search.results.limitWarning') }}
-                        </InfoMessage>
-                      </template>
-                    </b-col>
-                  </b-row>
-                  <b-row
-                    v-show="!$fetchState.error"
-                  >
-                    <b-col>
-                      <PaginationNavInput
-                        :total-results="totalResults"
-                        :per-page="perPage"
-                        :max-results="1000"
-                        aria-controls="item-search-results"
-                        data-qa="search results pagination"
-                      />
-                    </b-col>
-                  </b-row>
-                </template>
-              </b-col>
-            </b-row>
-          </section>
-        </b-container>
+              <p data-qa="warning notice">
+                {{ $t('noMoreResults') }}
+              </p>
+            </template>
+            <template
+              #no-items
+            >
+              <ErrorMessage
+                :error="{ code: 'searchResultsNotFound', i18n: $t('errorMessage.searchResultsNotFound') }"
+                :full-height="false"
+                :show-message="false"
+                title-tag="h2"
+              />
+            </template>
+            <template #card-group-header>
+              <slot name="card-group-header" />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-galleries
+            >
+              <slot
+                name="card-group-related-galleries"
+              />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-collections
+            >
+              <slot
+                name="card-group-related-collections"
+              />
+            </template>
+            <template
+              v-if="lastAvailablePage"
+              #footer
+            >
+              <InfoMessage>
+                {{ $t('search.results.limitWarning') }}
+              </InfoMessage>
+            </template>
+          </ItemPreviewInterface>
+        </b-row>
         <slot
           v-if="page === 1"
           name="after-results"
@@ -165,16 +132,14 @@
   import omitBy from 'lodash/omitBy.js';
   import uniq from 'lodash/uniq.js';
 
-  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
   import SearchSidebar from './SearchSidebar';
-  import SearchViewToggles from './SearchViewToggles';
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
@@ -186,18 +151,14 @@
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
-      ItemPreviewCardGroup,
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      ItemPreviewInterface,
       SearchFilters,
-      SearchSidebar,
-      SearchViewToggles
+      SearchSidebar
     },
 
     mixins: [
       advancedSearchMixin,
-      elasticApmReporterMixin,
-      itemPreviewCardGroupViewMixin
+      elasticApmReporterMixin
     ],
 
     props: {
@@ -272,12 +233,6 @@
           this.$error(error);
         }
       }
-
-      if (this.noResults) {
-        const error = new Error('No search results');
-        error.code = 'searchResultsNotFound';
-        this.$error(error);
-      }
     },
 
     computed: {
@@ -307,7 +262,9 @@
         return [].concat(this.userParams.qa || []);
       },
       qaes() {
-        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
+        return this.qasWithAddedEntityValue
+          .map((qaWithEntity) => qaWithEntity.qae)
+          .filter((qae) => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -327,12 +284,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      hasAnyResults() {
-        return this.totalResults > 0;
-      },
-      noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
@@ -377,10 +328,11 @@
     },
 
     watch: {
-      '$route.query.boost': '$fetch',
-      '$route.query.reusability': '$fetch',
-      '$route.query.qa': '$fetch',
-      '$route.query.query': '$fetch',
+      // TODO: is boost still used?
+      '$route.query.boost': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.qa': 'handleSearchParamsChanged',
+      '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
     },
@@ -474,9 +426,15 @@
         }
       },
 
+      handleSearchParamsChanged() {
+        this.$store.commit('set/setSelected', []);
+        this.itemMultiSelect = false;
+        this.$fetch();
+      },
+
       handlePaginationChanged() {
         this.paginationChanged = true;
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
       handleResultsDrawn(cardRefs) {
@@ -503,7 +461,7 @@
           return;
         }
 
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
       advancedSearchQueriesForEntityLookUp() {
