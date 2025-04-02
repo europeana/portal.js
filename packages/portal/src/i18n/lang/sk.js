@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Ukáž mi",
     "text": {
-      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
-    }
+      "itemMultiSelect": "Teraz môžete naraz vybrať viac objektov, aby ste ich označili ako obľúbené alebo pridali do vlastnej galérie."
+    },
+    "tooltip": "Kliknutím sem spustíte výber viacerých objektov"
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",

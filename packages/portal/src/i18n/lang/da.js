@@ -1137,8 +1137,9 @@ export default {
     "dismiss": "Luk",
     "readMore": "Vis mig",
     "text": {
-      "featureIdeas": "Udforsk de kommende ændringer, vi planlægger, og stem på dem, du gerne vil have prioriteret. Dine input hjælper os med at fokusere på det, der betyder mest for dig."
-    }
+      "itemMultiSelect": "Du kan nu vælge flere genstande på én gang for at like dem eller tilføje dem til dit eget galleri."
+    },
+    "tooltip": "Klik her for at begynde at vælge flere genstande"
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",

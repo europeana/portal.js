@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Parodyk man",
     "text": {
-      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
-    }
+      "itemMultiSelect": "Dabar galite pasirinkti kelis skaitmeninius objektus vienu metu, kad juos pamėgtumėte arba įtrauktumėte į savo galeriją."
+    },
+    "tooltip": "Spustelėkite čia, kad pradėtumėte pasirinkti kelis skaitmeninius objektus"
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",

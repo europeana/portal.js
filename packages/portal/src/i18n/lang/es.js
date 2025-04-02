@@ -1135,8 +1135,9 @@ export default {
     "dismiss": "Cerrar",
     "readMore": "Muéstrame",
     "text": {
-      "featureIdeas": "Explora los próximos cambios que estamos planificando y vota por los que te gustaría que se priorizaran. Tus comentarios nos ayudan a centrarnos en lo que más te importa."
-    }
+      "itemMultiSelect": "Ahora puedes seleccionar varios ítems a la vez para darles Me gusta o añadirlos a tu propia galería."
+    },
+    "tooltip": "Haz clic aquí para empezar a seleccionar varios ítems"
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
