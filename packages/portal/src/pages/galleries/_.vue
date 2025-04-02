@@ -127,6 +127,7 @@
       </b-container>
       <ItemPreviewInterface
         :items="set.items"
+        :loading="$fetchState.pending"
         :per-page="perPage"
         :total="set.total"
         :show-pins="setIsEntityBestItems && userIsEntityEditor"

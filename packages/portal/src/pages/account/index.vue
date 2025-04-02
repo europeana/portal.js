@@ -75,32 +75,30 @@
             </b-row>
           </b-container>
           <client-only>
-            <LoadingSpinner
-              v-if="$fetchState.pending"
-              class="text-center pb-4"
-            />
             <AlertMessage
-              v-else-if="$fetchState.error"
+              v-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
             <template
               v-else-if="activeTab === tabHashes.likes"
             >
               <ItemPreviewInterface
-                v-if="likedItems && likedItems.length !== 0"
                 data-qa="liked items"
                 :enable-item-multi-select="true"
+                :loading="$fetchState.pending"
                 :items="likedItems"
                 :per-page="100"
                 :max-results="100"
-                :total="likedItems.length"
-              />
-              <div
-                v-else
-                class="text-center pb-4"
+                :total="likedItems?.length || 0"
               >
-                {{ $t('account.notifications.noLikedItems') }}
-              </div>
+                <template #no-items>
+                  <div
+                    class="text-center pb-4"
+                  >
+                    {{ $t('account.notifications.noLikedItems') }}
+                  </div>
+                </template>
+              </ItemPreviewInterface>
             </template>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
@@ -147,7 +145,6 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
-  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserSets from '@/components/user/UserSets';
 
   export default {
@@ -158,7 +155,6 @@
       BNav,
       ClientOnly,
       ItemPreviewInterface,
-      LoadingSpinner,
       UserSets
     },
 

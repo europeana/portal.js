@@ -25,88 +25,82 @@
             />
           </transition>
         </client-only>
-        <LoadingSpinner
-          v-show="$fetchState.pending"
-          class="flex-md-row py-4 text-center"
-          :status-message="$t('loadingResults')"
+        <ErrorMessage
+          v-if="$fetchState.error"
+          :error="$fetchState.error"
+          :full-height="false"
+          :show-message="showErrorMessage"
+          title-tag="h2"
         />
-        <template v-if="!$fetchState.pending">
-          <ErrorMessage
-            v-if="$fetchState.error"
-            :error="$fetchState.error"
-            :full-height="false"
-            :show-message="showErrorMessage"
-            title-tag="h2"
-          />
-          <b-row v-else>
-            <ItemPreviewInterface
-              data-qa="liked items"
-              :items="results"
-              :hits="hits"
-              :max-results="1000"
-              :per-page="perPage"
-              :show-pins="showPins"
-              :total="totalResults"
-              :on-aux-click-card="onClickItem"
-              :on-click-card="onClickItem"
-              class="w-100 mb-3"
-              @drawn="handleResultsDrawn"
+        <b-row v-else>
+          <ItemPreviewInterface
+            data-qa="liked items"
+            :items="results"
+            :hits="hits"
+            :loading="$fetchState.pending"
+            :max-results="1000"
+            :per-page="perPage"
+            :show-pins="showPins"
+            :total="totalResults"
+            :on-aux-click-card="onClickItem"
+            :on-click-card="onClickItem"
+            class="w-100 mb-3"
+            @drawn="handleResultsDrawn"
+          >
+            <template #heading>
+              <SearchResultsContext
+                :total-results="totalResults"
+                :entity="$store.state.entity.entity"
+                :query="query"
+                badge-variant="primary-light"
+              />
+            </template>
+            <template
+              #no-more-items
             >
-              <template #heading>
-                <SearchResultsContext
-                  :total-results="totalResults"
-                  :entity="$store.state.entity.entity"
-                  :query="query"
-                  badge-variant="primary-light"
-                />
-              </template>
-              <template
-                #no-more-items
-              >
-                <p data-qa="warning notice">
-                  {{ $t('noMoreResults') }}
-                </p>
-              </template>
-              <template
-                #no-items
-              >
-                <ErrorMessage
-                  :error="{ code: 'searchResultsNotFound', i18n: $t('errorMessage.searchResultsNotFound') }"
-                  :full-height="false"
-                  :show-message="false"
-                  title-tag="h2"
-                />
-              </template>
-              <template #card-group-header>
-                <slot name="card-group-header" />
-              </template>
-              <template
-                v-if="page === 1"
-                #card-group-related-galleries
-              >
-                <slot
-                  name="card-group-related-galleries"
-                />
-              </template>
-              <template
-                v-if="page === 1"
-                #card-group-related-collections
-              >
-                <slot
-                  name="card-group-related-collections"
-                />
-              </template>
-              <template
-                v-if="lastAvailablePage"
-                #footer
-              >
-                <InfoMessage>
-                  {{ $t('search.results.limitWarning') }}
-                </InfoMessage>
-              </template>
-            </ItemPreviewInterface>
-          </b-row>
-        </template>
+              <p data-qa="warning notice">
+                {{ $t('noMoreResults') }}
+              </p>
+            </template>
+            <template
+              #no-items
+            >
+              <ErrorMessage
+                :error="{ code: 'searchResultsNotFound', i18n: $t('errorMessage.searchResultsNotFound') }"
+                :full-height="false"
+                :show-message="false"
+                title-tag="h2"
+              />
+            </template>
+            <template #card-group-header>
+              <slot name="card-group-header" />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-galleries
+            >
+              <slot
+                name="card-group-related-galleries"
+              />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-collections
+            >
+              <slot
+                name="card-group-related-collections"
+              />
+            </template>
+            <template
+              v-if="lastAvailablePage"
+              #footer
+            >
+              <InfoMessage>
+                {{ $t('search.results.limitWarning') }}
+              </InfoMessage>
+            </template>
+          </ItemPreviewInterface>
+        </b-row>
         <slot
           v-if="page === 1"
           name="after-results"
@@ -158,7 +152,6 @@
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewInterface,
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
       SearchFilters,
       SearchSidebar
     },

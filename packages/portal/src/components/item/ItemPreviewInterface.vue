@@ -27,8 +27,13 @@
       </b-row>
       <b-row class="mb-3">
         <b-col cols="12">
+          <LoadingSpinner
+            v-if="loading"
+            class="flex-md-row py-4 text-center"
+            :status-message="$t('loadingResults')"
+          />
           <slot
-            v-if="noMoreItems"
+            v-else-if="noMoreItems"
             name="no-more-items"
           >
             <p>{{ $t('items.noMoreItems') }}</p>
@@ -86,6 +91,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ItemSelectButton from '@/components/item/ItemSelectButton';
   import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SearchViewToggles from '@/components/search/SearchViewToggles';
 
@@ -96,6 +102,7 @@
       ItemPreviewCardGroup,
       ItemSelectButton,
       ItemSelectToolbar,
+      LoadingSpinner,
       PaginationNavInput,
       SearchViewToggles
     },
@@ -115,6 +122,11 @@
       hits: {
         type: Array,
         default: null
+      },
+
+      loading: {
+        type: Boolean,
+        default: false
       },
 
       maxResults: {
