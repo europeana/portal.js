@@ -5,7 +5,7 @@
       data-qa="item preview interface"
     >
       <b-row>
-        <b-col class="d-flex align-items-end flex-wrap mb-3">
+        <b-col class="d-flex align-items-center flex-wrap mb-3">
           <slot name="heading">
             <h2
               class="related-heading text-uppercase mb-0"
