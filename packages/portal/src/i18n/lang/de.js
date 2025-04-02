@@ -111,9 +111,9 @@ export default {
     "topic": "Thema"
   },
   "categories": {
-    "label": "Entdecken Sie Geschichten nach Tags",
+    "label": "Ergebnisse nach Tags durchsuchen",
     "noOptions": "Es gibt keine weiteren Tags zur Auswahl",
-    "search": "Entdecken Sie Geschichten nach Tags"
+    "search": "Ergebnisse nach Tags durchsuchen"
   },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 Objekt |{count} Objekte",
     "itemOf": "{max} von {count} Objekte",
+    "noItems": "Es sind keine Objekte vorhanden.",
+    "noMoreItems": "Es gibt keine weiteren Objekte.",
     "recent": "Aktuelle Objekte",
     "recommended": "Empfohlene Objekte",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Zeig mir",
+    "readMore": "Versuchen Sie es",
     "text": {
       "itemMultiSelect": "Sie können jetzt mehrere Objekte gleichzeitig auswählen, um sie zu liken oder zu Ihrer eigenen Galerie hinzuzufügen."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Geschichte | Geschichten"
   },
   "storiesPage": {
+    "results": "{count} Ergebnis | {count} Ergebnisse",
     "storiesHaveLoaded": "{0} Geschichten gefunden"
   },
   "swiper": {

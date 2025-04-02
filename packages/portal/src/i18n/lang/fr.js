@@ -111,9 +111,9 @@ export default {
     "topic": "Sujet"
   },
   "categories": {
-    "label": "Explorez les histoires par tag",
+    "label": "Explorer les résultats par tag",
     "noOptions": "Il n'y a plus de balises à sélectionner",
-    "search": "Explorez les histoires par tag"
+    "search": "Explorer les résultats par tag"
   },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} sur {count} items",
+    "noItems": "Il n'y a pas d'items.",
+    "noMoreItems": "Il n'y a pas d'items.",
     "recent": "Items récents",
     "recommended": "Items recommandés",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Montre-moi",
+    "readMore": "Essayez-le",
     "text": {
       "itemMultiSelect": "Vous pouvez maintenant sélectionner plusieurs items à la fois, pour les aimer ou les ajouter à votre propre galerie."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Histoire | Histoires"
   },
   "storiesPage": {
+    "results": "{count} résultat | {count} résultats",
     "storiesHaveLoaded": "{0} histoires trouvées"
   },
   "swiper": {

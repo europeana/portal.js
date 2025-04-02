@@ -111,9 +111,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Istražite priče po oznaci",
+    "label": "Istražite rezultate prema oznaci",
     "noOptions": "Nema više oznaka za odabir",
-    "search": "Istražite priče po oznaci"
+    "search": "Istražite rezultate prema oznaci"
   },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 stavka |{count} predmeti",
     "itemOf": "{max} od {count} predmeti",
+    "noItems": "Nema predmeta.",
+    "noMoreItems": "Nema više predmeta.",
     "recent": "Nedavne predmeti",
     "recommended": "Preporučeni predmeti",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Pokaži mi",
+    "readMore": "Probajte",
     "text": {
       "itemMultiSelect": "Sada možete odabrati više predmeta odjednom kako biste ih lajkali ili dodali u vlastitu galeriju."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Priča | Priče"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultata",
     "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {

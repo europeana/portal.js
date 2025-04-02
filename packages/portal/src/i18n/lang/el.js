@@ -111,9 +111,9 @@ export default {
     "topic": "Θέμα"
   },
   "categories": {
-    "label": "Εξερευνήστε ιστορίες ανά ετικέτα",
+    "label": "Εξερευνήστε τα αποτελέσματα ανά ετικέτα",
     "noOptions": "Δεν υπάρχουν άλλες ετικέτες για επιλογή",
-    "search": "Εξερευνήστε ιστορίες ανά ετικέτα"
+    "search": "Εξερευνήστε τα αποτελέσματα ανά ετικέτα"
   },
   "clearAllFilters": "απαλοιφή όλων των φίλτρων",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 τεκμήριο | {count} τεκμήρια",
     "itemOf": "{max} από {count} τεκμήρια",
+    "noItems": "Δεν υπάρχουν τεκμήρια.",
+    "noMoreItems": "Δεν υπάρχουν άλλα τεκμήρια.",
     "recent": "Πρόσφατα αντικείμενα",
     "recommended": "Προτεινόμενα τεκμήρια",
     "trending": {
@@ -1134,7 +1136,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Κλείσιμο",
-    "readMore": "Δείξε μου",
+    "readMore": "Δοκιμάστε το",
     "text": {
       "itemMultiSelect": "Τώρα μπορείτε να επιλέξετε πολλά τεκμήρια ταυτόχρονα για να τα προσθέσετε στα \"μου αρέσει\" ή στη δική σας συλλογή."
     },
@@ -1455,6 +1457,7 @@ export default {
     "stories": "Ιστορία | Ιστορίες"
   },
   "storiesPage": {
+    "results": "{count} αποτέλεσμα | {count} αποτελέσματα",
     "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν"
   },
   "swiper": {

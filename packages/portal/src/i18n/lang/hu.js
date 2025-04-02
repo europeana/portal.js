@@ -111,9 +111,9 @@ export default {
     "topic": "Téma"
   },
   "categories": {
-    "label": "Történetek felfedezése címke szerint",
+    "label": "Eredmények feltárása címke szerint",
     "noOptions": "Nincs több kiválasztható címke",
-    "search": "Történetek felfedezése címke szerint"
+    "search": "Eredmények feltárása címke szerint"
   },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 cikk |{count} tárgyak",
     "itemOf": "{max} {count} tárgyak",
+    "noItems": "Nincsenek tárgyak.",
+    "noMoreItems": "Nincs több tárgy.",
     "recent": "Legutóbbi tárgyak",
     "recommended": "Ajánlott tárgyak",
     "trending": {
@@ -1134,7 +1136,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Mutasd meg",
+    "readMore": "Próbáld ki",
     "text": {
       "itemMultiSelect": "Mostantól egyszerre több tárgyat is kiválaszthat, hogy kedvelje vagy hozzáadhassa őket egy saját galériához."
     },
@@ -1455,6 +1457,7 @@ export default {
     "stories": "Történet | Történetek"
   },
   "storiesPage": {
+    "results": "{count} eredmény | {count} eredmények",
     "storiesHaveLoaded": "{0} történet található"
   },
   "swiper": {
