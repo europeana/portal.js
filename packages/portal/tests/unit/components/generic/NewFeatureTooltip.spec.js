@@ -6,6 +6,7 @@ const localVue = createLocalVue();
 
 const factory = () => shallowMount(NewFeatureTooltip, {
   localVue,
+  propsData: { tooltipTargetId: 'tooltip-target' },
   data: () => ({ featureNotificationName: 'newFeature' }),
   mocks: {
     $t: () => {},
@@ -21,17 +22,20 @@ const factory = () => shallowMount(NewFeatureTooltip, {
 });
 
 describe('components/generic/NewFeatureTooltip', () => {
-  it('sets a cookie for this new feature tooltip', () => {
+  it('sets a cookie for this new feature tooltip', async() => {
     const wrapper = factory();
 
     const setCookie = wrapper.vm.$cookies.set;
 
+    await wrapper.vm.$nextTick();
+
     expect(setCookie.calledWith('new_feature_tooltip', 'newFeature')).toBe(true);
   });
 
-  it('tracks the showing of the component in matomo', () => {
+  it('tracks the showing of the component in matomo', async() => {
     const wrapper = factory();
     const mtmTrackEvent = wrapper.vm.$matomo.trackEvent;
+    await wrapper.vm.$nextTick();
 
     expect(mtmTrackEvent.calledWith('New_feature_tooltip', 'show', 'newFeature')).toBe(true);
   });
