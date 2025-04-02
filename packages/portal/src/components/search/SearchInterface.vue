@@ -53,10 +53,12 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
+                class="mr-auto"
               />
+            </template>
+            <template #search-options>
               <SearchMultilingualButton
                 v-if="showMultilingualButton"
-                class="ml-auto"
                 @toggleMultilingual="(value) => multilingualSearch = value"
               />
             </template>
