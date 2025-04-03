@@ -48,7 +48,7 @@
       tooltipText() {
         if (this.selected) {
           return this.$t('search.multilingual.turnOffMultilingualSearch');
-        } if (this.$auth.loggedIn) {
+        } else if (this.$auth.loggedIn) {
           return this.$t('search.multilingual.turnOnMultilingualSearch');
         } else {
           return this.$t('search.multilingual.loginToUseMultilingualSearch');
