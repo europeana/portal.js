@@ -1,11 +1,14 @@
 <template>
   <div>
     <b-button
+      :id="buttonId"
+      v-b-tooltip.bottom="tooltipText"
       class="search-multilingual-button p-0 mr-2"
       :pressed="selected"
       variant="light-flat"
       :aria-label="ariaLabelText"
-      @click="toggle"
+      @click="(e) => toggle(e)"
+      @mouseleave="hideTooltips()"
     >
       <span
         :class="{
@@ -18,28 +21,53 @@
 </template>
 
 <script>
+  import useHideTooltips from '@/composables/hideTooltips.js';
+
   export default {
     name: 'SearchMultilingualButton',
 
+    setup() {
+      const buttonId = 'search-multilingual-button';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
+    },
+
     data() {
       return {
-        selected: false
+        selected: false,
+        touchTapCount: 0
       };
     },
 
     computed: {
       ariaLabelText() {
         return this.selected ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
+      },
+      tooltipText() {
+        if (this.selected) {
+          return this.$t('search.multilingual.turnOffMultilingualSearch');
+        } if (this.$auth.loggedIn) {
+          return this.$t('search.multilingual.turnOnMultilingualSearch');
+        } else {
+          return this.$t('search.multilingual.loginToUseMultilingualSearch');
+        }
       }
     },
 
     methods: {
-      toggle() {
-        if (this.$auth.loggedIn) {
+      toggle(event) {
+        if (event.pointerType === 'touch' && this.touchTapCount === 0) {
+          this.touchTapCount = 1;
+        } else if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);
+          this.touchTapCount = 0;
+          this.hideTooltips();
         } else {
           this.$keycloak.login();
+          this.touchTapCount = 0;
         }
       }
     }
