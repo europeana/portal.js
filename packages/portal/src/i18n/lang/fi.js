@@ -111,9 +111,9 @@ export default {
     "topic": "Aihe"
   },
   "categories": {
-    "label": "Tutustu tarinoihin tunnisteen mukaan",
+    "label": "Tutustu tuloksiin tagin mukaan",
     "noOptions": "Ei ole enää valittavia tunnisteita",
-    "search": "Tutustu tarinoihin tunnisteen mukaan"
+    "search": "Tutustu tuloksiin tagin mukaan"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 aineisto |{count} aineistot",
     "itemOf": "{max} / {count} aineistot",
+    "noItems": "Aineistoja ei ole.",
+    "noMoreItems": "Kohteita ei ole enää jäljellä.",
     "recent": "Viimeisimmät aineistot",
     "recommended": "Suositellut aineistot",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Näytä minulle",
+    "readMore": "Kokeile sitä",
     "text": {
       "itemMultiSelect": "Voit nyt valita useita aineistoja kerralla, lisätä ne suosikkeihin tai omaan galleriaan."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Tarina | Tarinoita"
   },
   "storiesPage": {
+    "results": "{count} tulos | {count} tulokset",
     "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {

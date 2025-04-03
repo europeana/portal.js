@@ -111,9 +111,9 @@ export default {
     "topic": "Suġġett"
   },
   "categories": {
-    "label": "Esplora stejjer b'tag",
+    "label": "Esplora r-riżultati skond it-tikketta",
     "noOptions": "M'hemmx aktar tags biex tagħżel",
-    "search": "Esplora stejjer b'tag"
+    "search": "Esplora r-riżultati skond it-tikketta"
   },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "oġġett 1 |{count} oġġetti",
     "itemOf": "{max} minn {count} oġġett",
+    "noItems": "M'hemm l-ebda oġġetti.",
+    "noMoreItems": "M'hemmx aktar oġġetti.",
     "recent": "Oġġetti reċenti",
     "recommended": "Oġġetti rakkomandati",
     "trending": {
@@ -1133,7 +1135,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Uri lili",
+    "readMore": "Ipprova",
     "text": {
       "itemMultiSelect": "Issa tista’ tagħżel diversi oġġetti f’daqqa biex tħobbhom jew iżżidhom mal-gallerija tiegħek."
     },
@@ -1454,6 +1456,7 @@ export default {
     "stories": "Storja | Stejjer"
   },
   "storiesPage": {
+    "results": "{count} riżultat | {count} riżultati",
     "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {

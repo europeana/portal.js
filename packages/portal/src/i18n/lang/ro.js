@@ -111,9 +111,9 @@ export default {
     "topic": "Subiect"
   },
   "categories": {
-    "label": "Explorați narațiuni după etichetă",
+    "label": "Explorați rezultatele după etichetă",
     "noOptions": "Nu mai sunt etichete de selectat",
-    "search": "Explorați narațiuni după etichetă"
+    "search": "Explorați rezultatele după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 resursă culturală |{count} resurse culturale",
     "itemOf": "{max} de {count} resurse culturale",
+    "noItems": "Nu există resurse culturale.",
+    "noMoreItems": "Nu mai sunt resurse culturale.",
     "recent": "Resurse culturale recente",
     "recommended": "Resurse culturale recomandate",
     "trending": {
@@ -1133,7 +1135,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Arată-mi",
+    "readMore": "Încearcă-l",
     "text": {
       "itemMultiSelect": "Acum puteți selecta mai multe resurse culturale deodată, pentru a le aprecia sau a le adăuga în propria galerie."
     },
@@ -1454,6 +1456,7 @@ export default {
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultate",
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {

@@ -111,9 +111,9 @@ export default {
     "topic": "Gai"
   },
   "categories": {
-    "label": "Esploratu istorioak etiketaren arabera",
+    "label": "Arakatu emaitzak etiketa bidez",
     "noOptions": "Ez dago etiketa gehiago hautatzeko",
-    "search": "Esploratu istorioak etiketaren arabera"
+    "search": "Arakatu emaitzak etiketa bidez"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
@@ -781,6 +781,8 @@ export default {
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
+    "noItems": "Ez dago elementurik.",
+    "noMoreItems": "Ez daude gehiago elementuak.",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "trending": {
@@ -1140,7 +1142,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Erakutsi",
+    "readMore": "Probatu",
     "text": {
       "itemMultiSelect": "Orain hainbat elementu batera hauta ditzakezu, gustuko gisa markatzeko edo zure galeria batean gehitzeko."
     },
@@ -1461,6 +1463,7 @@ export default {
     "stories": "Istorio | Istorioak"
   },
   "storiesPage": {
+    "results": "{count} emaitza | {count} emaitza",
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {
