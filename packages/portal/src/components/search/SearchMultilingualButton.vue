@@ -7,8 +7,9 @@
       :pressed="selected"
       variant="light-flat"
       :aria-label="ariaLabelText"
-      @click="(e) => toggle(e)"
+      @click="toggle()"
       @mouseleave="hideTooltips()"
+      @touchstart="detectTouchTap()"
     >
       <span
         :class="{
@@ -37,7 +38,8 @@
     data() {
       return {
         selected: false,
-        touchTapCount: 0
+        touchTapCount: 0,
+        touchTap: false
       };
     },
 
@@ -57,9 +59,13 @@
     },
 
     methods: {
-      toggle(event) {
-        if (event.pointerType === 'touch' && this.touchTapCount === 0) {
+      detectTouchTap() {
+        this.touchTap = true;
+      },
+      toggle() {
+        if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
+          this.touchTap = false;
         } else if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);

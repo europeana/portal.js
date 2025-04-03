@@ -46,7 +46,8 @@ describe('components/search/SearchMultilingualButton', () => {
           const wrapper = factory();
 
           const button = wrapper.find('.search-multilingual-button');
-          button.trigger('click', { pointerType: 'touch' });
+          button.trigger('touchstart');
+          button.trigger('click');
 
           expect(wrapper.vm.$keycloak.login.called).toBe(false);
           expect(wrapper.vm.touchTapCount).toEqual(1);
@@ -57,12 +58,14 @@ describe('components/search/SearchMultilingualButton', () => {
             const wrapper = factory();
 
             const button = wrapper.find('.search-multilingual-button');
-            button.trigger('click', { pointerType: 'touch' });
+            button.trigger('touchstart');
+            button.trigger('click');
 
             expect(wrapper.vm.$keycloak.login.called).toBe(false);
             expect(wrapper.vm.touchTapCount).toEqual(1);
 
-            button.trigger('click', { pointerType: 'touch' });
+            button.trigger('touchstart');
+            button.trigger('click');
 
             expect(wrapper.vm.$keycloak.login.called).toBe(true);
             expect(wrapper.vm.touchTapCount).toEqual(0);
@@ -92,7 +95,8 @@ describe('components/search/SearchMultilingualButton', () => {
           const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
 
           const button = wrapper.find('.search-multilingual-button');
-          button.trigger('click', { pointerType: 'touch' });
+          button.trigger('touchstart');
+          button.trigger('click');
 
           expect(wrapper.vm.$keycloak.login.called).toBe(false);
           expect(wrapper.vm.touchTapCount).toEqual(1);
@@ -104,14 +108,16 @@ describe('components/search/SearchMultilingualButton', () => {
             wrapper.vm.hideTooltips = sinon.spy();
 
             const button = wrapper.find('.search-multilingual-button');
-            button.trigger('click', { pointerType: 'touch' });
+            button.trigger('touchstart');
+            button.trigger('click');
             await wrapper.vm.$nextTick();
 
             expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
             expect(wrapper.emitted('toggleMultilingual')).toBe(undefined);
             expect(wrapper.vm.touchTapCount).toEqual(1);
 
-            button.trigger('click', { pointerType: 'touch' });
+            button.trigger('touchstart');
+            button.trigger('click');
             await wrapper.vm.$nextTick();
 
             expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
