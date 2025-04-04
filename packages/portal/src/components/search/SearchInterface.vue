@@ -379,12 +379,11 @@
             params.profile = `${params.profile},hits`;
           }
 
-          // All other advanced search rules are added to the query concatinated by AND.
+          // All other advanced search rules are added to the query concatenated by AND.
           params.query = [params.query].filter(Boolean)
             .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).join(' AND ');
 
-          // concatinate any advanced search rules with added entity value
-          // TODO: re multilingual search these could still go into qf's as entity URLs don't need translating.
+          // concatenate any advanced search rules with added entity value
           if (this.qaes.length) {
             params.query = params.query
               .concat(' OR ').concat(this.qaes.join(' OR '));
