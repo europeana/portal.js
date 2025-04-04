@@ -445,21 +445,11 @@ describe('components/search/SearchInterface', () => {
         });
       });
       describe('when multilingual search is not enabled for the current locale', () => {
-        it('returns true', () => {
+        it('returns false', () => {
           const wrapper = factory({ mocks: {
             $config: { app: { search: { translateLocales: ['fr'] } } },
             $i18n: { locale: 'nl' },
             $route: { query: { query: 'arte visuales' } }
-          } });
-
-          expect(wrapper.vm.showMultilingualButton).toEqual(false);
-        });
-      });
-      describe('when there is no query', () => {
-        it('returns true', () => {
-          const wrapper = factory({ mocks: {
-            $config: { app: { search: { translateLocales: ['nl'] } } },
-            $i18n: { locale: 'nl' }
           } });
 
           expect(wrapper.vm.showMultilingualButton).toEqual(false);

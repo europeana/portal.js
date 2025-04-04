@@ -345,7 +345,7 @@
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
       showMultilingualButton() {
-        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale && this.query);
+        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
       }
     },
 
