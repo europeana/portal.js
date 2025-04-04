@@ -106,7 +106,9 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { BTable } from 'bootstrap-vue';
+
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
@@ -173,7 +175,7 @@
 
     async fetch() {
       try {
-        const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
+        const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
         let collections = response.data[this.cacheKey];
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
