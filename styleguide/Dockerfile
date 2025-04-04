@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/styleguide.js
 
-ARG node_version=18
+ARG node_version=20
 
 FROM node:${node_version}-alpine AS build
 
