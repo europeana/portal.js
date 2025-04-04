@@ -111,9 +111,9 @@ export default {
     "topic": "Teema"
   },
   "categories": {
-    "label": "Uurige lugudega sildi järgi",
+    "label": "Uurige tulemusi sildi järgi",
     "noOptions": "Rohkem silte pole valida",
-    "search": "Uurige lugudega sildi järgi"
+    "search": "Uurige tulemusi sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 üksus | {count} üksused",
     "itemOf": "{max} / {count} üksused",
+    "noItems": "Üksusi pole.",
+    "noMoreItems": "Rohkem üksusi pole.",
     "recent": "Hiljutised üksused",
     "recommended": "Soovitatavad üksused",
     "trending": {
@@ -1135,10 +1137,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Näita mulle",
+    "readMore": "Proovi seda",
     "text": {
-      "featureIdeas": "Tutvuge eelseisvate muudatustega, mida me kavandame, ja hääletage nende poolt, mida soovite prioriteetsena näha. Teie panus aitab meil keskenduda sellele, mis teile kõige olulisem on."
-    }
+      "itemMultiSelect": "Nüüd saate valida mitu üksust korraga, et neid meeldivaks märkida või lisada omaenda galeriisse."
+    },
+    "tooltip": "Klõpsake siin, et alustada mitme üksuse valimist"
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1455,6 +1458,7 @@ export default {
     "stories": "Lugu | Lood"
   },
   "storiesPage": {
+    "results": "{count} tulemus | {count} tulemused",
     "storiesHaveLoaded": "Leiti {0} lugu"
   },
   "swiper": {

@@ -111,9 +111,9 @@ export default {
     "topic": "Topic"
   },
   "categories": {
-    "label": "Explore stories by tag",
+    "label": "Explore results by tag",
     "noOptions": "There are no more tags to select",
-    "search": "Explore stories by tag"
+    "search": "Explore results by tag"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -817,6 +817,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "noItems": "There are no items.",
+    "noMoreItems": "There are no more items.",
     "recent": "Recent items",
     "recommended": "Recommended items",
     "trending": {
@@ -1508,6 +1510,7 @@ export default {
     }
   },
   "storiesPage": {
+    "results": "{count} result | {count} results",
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {

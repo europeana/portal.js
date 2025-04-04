@@ -111,9 +111,9 @@ export default {
     "topic": "Téma"
   },
   "categories": {
-    "label": "Preskúmajte príbehy podľa tagov",
+    "label": "Preskúmať výsledky podľa značky",
     "noOptions": "Už nie sú žiadne tagy na výber",
-    "search": "Preskúmajte príbehy podľa tagov"
+    "search": "Preskúmať výsledky podľa značky"
   },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 objekt | Počet objekty: {count}",
     "itemOf": "Max. {max} z {count} objekty",
+    "noItems": "Nie sú k dispozícii objekty.",
+    "noMoreItems": "Nie sú k dispozícii ďalšie objekty.",
     "recent": "Nedávne objekty",
     "recommended": "Odporúčané položky",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Ukáž mi",
+    "readMore": "Skúste to",
     "text": {
-      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
-    }
+      "itemMultiSelect": "Teraz môžete naraz vybrať viac objektov, aby ste ich označili ako obľúbené alebo pridali do vlastnej galérie."
+    },
+    "tooltip": "Kliknutím sem spustíte výber viacerých objektov"
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Príbeh | Príbehy"
   },
   "storiesPage": {
+    "results": "{count} výsledok | {count} výsledkov",
     "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {

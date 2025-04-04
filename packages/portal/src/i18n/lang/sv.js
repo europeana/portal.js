@@ -111,9 +111,9 @@ export default {
     "topic": "Ämne"
   },
   "categories": {
-    "label": "Utforska berättelser efter tagg",
+    "label": "Utforska resultat efter tagg",
     "noOptions": "Det finns inga fler taggar att välja",
-    "search": "Utforska berättelser efter tagg"
+    "search": "Utforska resultat efter tagg"
   },
   "clearAllFilters": "rensa alla filter",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 objekt | {count} objekt",
     "itemOf": "{max} av {count} objekt",
+    "noItems": "Det finns inga objekt.",
+    "noMoreItems": "Det finns inga fler objekt.",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Visa mig",
+    "readMore": "Prova det",
     "text": {
-      "featureIdeas": "Utforska de kommande förändringarna vi planerar och rösta på de du vill se prioriterade. Din input hjälper oss att fokusera på det som är viktigast för dig."
-    }
+      "itemMultiSelect": "Du kan nu välja flera objekt samtidigt för att gilla eller lägga till dem i ett eget galleri."
+    },
+    "tooltip": "Klicka här för att börja välja flera objekt"
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Berättelse | Berättelser"
   },
   "storiesPage": {
+    "results": "{count} resultat | {count} resultat",
     "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {

@@ -10,9 +10,5 @@
   "dependencies": {
     "@size-limit/preset-app": "^11.2.0",
     "size-limit": "^11.2.0"
-  },
-  "engines": {
-    "node": "^18",
-    "npm": "^10"
   }
 }

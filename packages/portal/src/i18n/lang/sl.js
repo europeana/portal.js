@@ -111,9 +111,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Raziščite zgodbe po oznakah",
+    "label": "Raziščite rezultate po oznaki",
     "noOptions": "Ni več oznak, ki bi jih lahko izbrali",
-    "search": "Raziščite zgodbe po oznakah"
+    "search": "Raziščite rezultate po oznaki"
   },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 enota |{count} enote",
     "itemOf": "{max} od {count} enote",
+    "noItems": "Ni enota.",
+    "noMoreItems": "Ni več enot na voljo.",
     "recent": "Nedavni enote",
     "recommended": "Priporočeni enote",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Pokaži mi",
+    "readMore": "Poskusite",
     "text": {
-      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
-    }
+      "itemMultiSelect": "Zdaj lahko izberete več enot naenkrat in jih všečkate ali dodate v svojo galerijo."
+    },
+    "tooltip": "Kliknite tukaj za začetek izbire več enot"
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Zgodba | Zgodbe"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultatov",
     "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {

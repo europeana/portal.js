@@ -111,9 +111,9 @@ export default {
     "topic": "Ábhar"
   },
   "categories": {
-    "label": "Scrúdaigh scéalta trí chlib",
+    "label": "Déan iniúchadh ar na torthaí trí chlib",
     "noOptions": "Níl a thuilleadh clibeanna le roghnú",
-    "search": "Scrúdaigh scéalta trí chlib"
+    "search": "Déan iniúchadh ar na torthaí trí chlib"
   },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
+    "noItems": "Níl aon míreanna ann.",
+    "noMoreItems": "Níl níos mó míreanna ann.",
     "recent": "Míreanna le déanaí",
     "recommended": "Míreanna molta",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dún",
-    "readMore": "Taispeáin dom",
+    "readMore": "Bain triail as",
     "text": {
-      "featureIdeas": "Déan iniúchadh ar na hathruithe atá le teacht atá á bpleanáil againn agus vótáil ar son na cinn ar mhaith leat go dtabharfar tosaíocht dóibh. Cuidíonn d’ionchur linn díriú ar na rudaí is tábhachtaí duitse."
-    }
+      "itemMultiSelect": "Is féidir leat míreanna iolracha a roghnú ag an am chéanna anois, chucu a thaitin nó a chur le gailearaí de do chuid féin."
+    },
+    "tooltip": "Cliceáil anseo chun tús a chur le roghnú míreanna"
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Scéal | Scéalta"
   },
   "storiesPage": {
+    "results": "{count} toradh | {count} torthaí",
     "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {

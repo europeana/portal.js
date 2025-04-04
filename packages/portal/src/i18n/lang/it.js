@@ -111,9 +111,9 @@ export default {
     "topic": "Argomento"
   },
   "categories": {
-    "label": "Esplora le storie per tag",
+    "label": "Esplora i risultati per tag",
     "noOptions": "Non ci sono più tag da selezionare",
-    "search": "Esplora le storie per tag"
+    "search": "Esplora i risultati per tag"
   },
   "clearAllFilters": "cancella tutti i filtri",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 oggetto | {count} oggetti",
     "itemOf": "{max} di {count} oggetti",
+    "noItems": "Non ci sono oggetti.",
+    "noMoreItems": "Non ci sono più oggetti.",
     "recent": "Oggetti recenti",
     "recommended": "Oggetti consigliati",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Chiudi",
-    "readMore": "Mostrami",
+    "readMore": "Provalo",
     "text": {
-      "featureIdeas": "Esplora i prossimi cambiamenti che stiamo pianificando e vota per quelli che vorresti vedere prioritari. Il tuo contributo ci aiuta a concentrarci su ciò che conta di più per te."
-    }
+      "itemMultiSelect": "Ora puoi selezionare più oggetti contemporaneamente, per mettere Mi piace o aggiungerli a una tua galleria."
+    },
+    "tooltip": "Fai clic qui per iniziare a selezionare più oggetti"
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Storia | Storie"
   },
   "storiesPage": {
+    "results": "{count} risultato | {count} risultati",
     "storiesHaveLoaded": "{0} storie trovate"
   },
   "swiper": {

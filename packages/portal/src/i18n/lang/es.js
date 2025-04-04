@@ -111,9 +111,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Explora historias por etiqueta",
+    "label": "Explorar resultados por etiqueta",
     "noOptions": "No hay más etiquetas para seleccionar",
-    "search": "Explora historias por etiqueta"
+    "search": "Explorar resultados por etiqueta"
   },
   "clearAllFilters": "borrar todos los filtros",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 Ítem | {count} Ítems",
     "itemOf": "{max} de {count} Ítems",
+    "noItems": "No hay ítems.",
+    "noMoreItems": "No hay más ítems.",
     "recent": "Ítems recientes",
     "recommended": "Ítems recomendados",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Muéstrame",
+    "readMore": "Pruébalo",
     "text": {
-      "featureIdeas": "Explora los próximos cambios que estamos planificando y vota por los que te gustaría que se priorizaran. Tus comentarios nos ayudan a centrarnos en lo que más te importa."
-    }
+      "itemMultiSelect": "Ahora puedes seleccionar varios ítems a la vez para darles Me gusta o añadirlos a tu propia galería."
+    },
+    "tooltip": "Haz clic aquí para empezar a seleccionar varios ítems"
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Historia | Historias"
   },
   "storiesPage": {
+    "results": "{count} resultado | {count} resultados",
     "storiesHaveLoaded": "{0} historias encontradas"
   },
   "swiper": {

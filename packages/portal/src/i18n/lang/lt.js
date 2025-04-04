@@ -111,9 +111,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Naršykite istorijas pagal žymą",
+    "label": "Tyrinėti rezultatus pagal žymą",
     "noOptions": "Daugiau pasirinktinų žymų nėra",
-    "search": "Naršykite istorijas pagal žymą"
+    "search": "Tyrinėti rezultatus pagal žymą"
   },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 skaitmeninis objektas iš |{count} skaitmeninių objektų",
     "itemOf": "{max} iš {count} skaitmeniniai objektai",
+    "noItems": "Skaitmeninių objektų nėra.",
+    "noMoreItems": "Daugiau skaitmeninių objektų nėra.",
     "recent": "Naujausi skaitmeniniai objektai",
     "recommended": "Rekomenduojami skaitmeniniai objektai",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Parodyk man",
+    "readMore": "Išbandykite",
     "text": {
-      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
-    }
+      "itemMultiSelect": "Dabar galite pasirinkti kelis skaitmeninius objektus vienu metu, kad juos pamėgtumėte arba įtrauktumėte į savo galeriją."
+    },
+    "tooltip": "Spustelėkite čia, kad pradėtumėte pasirinkti kelis skaitmeninius objektus"
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Istorija | Istorijos"
   },
   "storiesPage": {
+    "results": "{count} rezultatas | {count} rezultatai",
     "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {

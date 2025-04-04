@@ -111,9 +111,9 @@ export default {
     "topic": "Temat"
   },
   "categories": {
-    "label": "Przeglądaj historie według tagów",
+    "label": "Przeglądaj wyniki według tagów",
     "noOptions": "Nie ma więcej tagów do wybrania",
-    "search": "Przeglądaj historie według tagów"
+    "search": "Przeglądaj wyniki według tagów"
   },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 obiekt cyfrowy | {count} obiekty cyfrowe",
     "itemOf": "{max} z {count} obiekty cyfrowe",
+    "noItems": "Brak obiektów cyfrowych.",
+    "noMoreItems": "Nie ma obiektów cyfrowych.",
     "recent": "Ostatnie obiekty cyfrowe",
     "recommended": "Polecane obiekty cyfrowe",
     "trending": {
@@ -1133,10 +1135,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Pokaż mi",
+    "readMore": "Spróbuj",
     "text": {
-      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
-    }
+      "itemMultiSelect": "Możesz teraz zaznaczyć wiele obiektów cyfrowych naraz, aby je polubić lub dodać do własnej galerii."
+    },
+    "tooltip": "Kliknij tutaj, aby rozpocząć wybieranie wielu obiektów cyfrowych"
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1453,6 +1456,7 @@ export default {
     "stories": "Historia | Historie"
   },
   "storiesPage": {
+    "results": "{count} wynik | {count} wyniki",
     "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {

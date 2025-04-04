@@ -158,15 +158,6 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('template', () => {
-    describe('item count heading', () => {
-      it('displays the amount of items in the set', () => {
-        const wrapper = factory(defaultOptions);
-        const itemCount = wrapper.find('[data-qa="item count"]');
-
-        expect(itemCount.text()).toEqual('items.itemCount');
-      });
-    });
-
     describe('while fetching the set', () => {
       it('shows a loading spinner', async() => {
         const wrapper = factory({ fetchState: { pending: true } });

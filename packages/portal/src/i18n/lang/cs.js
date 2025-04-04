@@ -111,9 +111,9 @@ export default {
     "topic": "Téma"
   },
   "categories": {
-    "label": "Prozkoumejte příběhy podle štítku",
+    "label": "Prozkoumejte výsledky podle značky",
     "noOptions": "Nejsou k dispozici žádné další tagy.",
-    "search": "Prozkoumejte příběhy podle štítku"
+    "search": "Prozkoumejte výsledky podle značky"
   },
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 položka |{count} položek",
     "itemOf": "{max} z {count} položky",
+    "noItems": "Nejsou žádné položky.",
+    "noMoreItems": "Žádné další položky nejsou k dispozici.",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
     "trending": {
@@ -1135,10 +1137,11 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Ukaž mi",
+    "readMore": "Zkuste to",
     "text": {
-      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
-    }
+      "itemMultiSelect": "Nyní můžete najednou vybrat více položek, které chcete označit jako „líbí se mi“ nebo přidat do vlastní galerie."
+    },
+    "tooltip": "Klikněte sem a začněte vybírat více položek"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1455,6 +1458,7 @@ export default {
     "stories": "Příběh | Příběhy"
   },
   "storiesPage": {
+    "results": "{count} výsledek | {count} výsledků",
     "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {
