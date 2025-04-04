@@ -1,4 +1,6 @@
-FROM node:18-alpine
+ARG node_version=18
+
+FROM node:${node_version}-alpine
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
