@@ -368,20 +368,27 @@
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
             // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
+            // any other query (from the simple search bar) is fielded to
             // `text` if not already fielded.
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
+
+            params.query = [params.query].filter(Boolean).concat(this.fulltextQas).join(' AND ');
+
             params.profile = `${params.profile},hits`;
           }
 
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
+          // All other advanced search rules are added to the query concatinated by AND.
+          params.query = [params.query].filter(Boolean)
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).join(' AND ');
+
+          // concatinate any advanced search rules with added entity value
+          // TODO: re multilingual search these could still go into qf's as entity URLs don't need translating.
+          if (this.qaes.length) {
+            params.query = params.query
+              .concat(' OR ').concat(this.qaes.join(' OR '));
+          }
         }
 
         params.qf = addContentTierFilter(params.qf);
