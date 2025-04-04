@@ -4,11 +4,14 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=security_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_portal.js)
 
-## Prerequisites
+## Requirements
 
-1. Node.js version 16, and npm
+1. Node.js version 18, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
-3. Redis cache (included as Docker Compose service for development)
+3. Redis cache
+4. PostgreSQL database
+
+NB: Redis & PostgreSQL are included as Docker Compose service for development.
 
 ## Configuration
 
