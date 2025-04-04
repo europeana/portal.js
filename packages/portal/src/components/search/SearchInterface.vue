@@ -53,6 +53,13 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
+                class="mr-auto"
+              />
+            </template>
+            <template #search-options>
+              <SearchMultilingualButton
+                v-if="showMultilingualButton"
+                @toggleMultilingual="(value) => multilingualSearch = value"
               />
             </template>
             <template
@@ -141,6 +148,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
     name: 'SearchInterface',
@@ -153,6 +161,7 @@
       InfoMessage,
       ItemPreviewInterface,
       SearchFilters,
+      SearchMultilingualButton,
       SearchSidebar
     },
 
@@ -190,6 +199,7 @@
         apiParams: {},
         hits: null,
         lastAvailablePage: null,
+        multilingualSearch: false,
         paginationChanged: false,
         results: [],
         showAdvancedSearch: false,
@@ -302,18 +312,21 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Disable translate profile (multilingual search) when not logged in
-      doNotTranslate() {
-        return !this.$auth.loggedIn;
+      // Allow translation depending on toggle state. Pre multilingualToggle feature allow for logged in users only.
+      allowTranslate() {
+        if (this.$features?.multilingualSearch) {
+          return this.multilingualSearch;
+        }
+        return this.$auth.loggedIn;
       },
       translateLang() {
-        if (this.doNotTranslate) {
+        if (!this.allowTranslate) {
           return null;
         }
 
         // Either translate locale(s) not configured, or current locale is not
         // among them.
-        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
+        if (!this.multilingualSearchEnabledForLocale) {
           return null;
         }
 
@@ -324,6 +337,12 @@
       },
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      multilingualSearchEnabledForLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      showMultilingualButton() {
+        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
       }
     },
 
@@ -334,7 +353,10 @@
       '$route.query.qa': 'handleSearchParamsChanged',
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.page': 'handlePaginationChanged',
+      multilingualSearch() {
+        this.$fetch();
+      }
     },
 
     mounted() {

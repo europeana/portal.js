@@ -29,6 +29,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
   localVue,
   attachTo: document.body,
   mocks: {
+    $features: { multilingualSearch: false },
     $t: (key) => key,
     localePath: () => '/',
     $router: { push: sinon.spy() },
@@ -336,21 +337,45 @@ describe('components/search/SearchInterface', () => {
 
           describe('and current locale is one of the configured locales to translate', () => {
             const $i18n = { locale: 'nl' };
-
             describe('and user is logged in', () => {
               const $auth = { loggedIn: true };
 
-              it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+              describe('and has enabled the multilingual searchfeature', () => {
+                const $features = { multilingualSearch: true };
+                describe('and has enabled the multilingual toggle', () => {
+                  it('returns the current locale', () => {
+                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { multilingualSearch: true } });
 
-                const translateLang = wrapper.vm.apiOptions.translateLang;
+                    const translateLang = wrapper.vm.apiOptions.translateLang;
 
-                expect(translateLang).toBe('nl');
+                    expect(translateLang).toBe('nl');
+                  });
+                });
+                describe('and has disabled the multilingual toggle', () => {
+                  it('is undefined', () => {
+                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { multilingualSearch: false } });
+
+                    const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                    expect(translateLang).toBeUndefined();
+                  });
+                });
+              });
+
+              describe('and has disabled multilingual search feature', () => {
+                it('returns the current locale', () => {
+                  const wrapper = factory({ mocks: { $auth, $config, $i18n, $features: { multilingualSearch: false }  } });
+
+                  const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                  expect(translateLang).toBe('nl');
+                });
               });
             });
 
             describe('but user is not logged in', () => {
               const $auth = { loggedIn: false };
+              const $i18n = { locale: 'nl' };
 
               it('is undefined', () => {
                 const wrapper = factory({ mocks: { $auth, $config, $i18n } });
@@ -415,6 +440,32 @@ describe('components/search/SearchInterface', () => {
 
         it('is 3', () => {
           expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
+        });
+      });
+    });
+
+    describe('showMultilingualButton', () => {
+      describe('when multilingual search is enabled for the current locale and there is a query', () => {
+        it('returns true', () => {
+          const wrapper = factory({ mocks: {
+            $config: { app: { search: { translateLocales: ['nl'] } } },
+            $i18n: { locale: 'nl' },
+            $route: { query: { query: 'arte visuales' } },
+            $features: { multilingualSearch: true }
+          } });
+
+          expect(wrapper.vm.showMultilingualButton).toEqual(true);
+        });
+      });
+      describe('when multilingual search is not enabled for the current locale', () => {
+        it('returns false', () => {
+          const wrapper = factory({ mocks: {
+            $config: { app: { search: { translateLocales: ['fr'] } } },
+            $i18n: { locale: 'nl' },
+            $route: { query: { query: 'arte visuales' } }
+          } });
+
+          expect(wrapper.vm.showMultilingualButton).toEqual(false);
         });
       });
     });
@@ -668,6 +719,20 @@ describe('components/search/SearchInterface', () => {
             expect(wrapper.vm.$fetch.called).toBe(false);
           });
         });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('when multilingualSearch value changes', () => {
+      it('triggers $fetch', async() => {
+        const wrapper = factory({ data: { multilingualSearch: false } });
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.multilingualSearch = true;
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });

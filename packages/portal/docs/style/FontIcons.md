@@ -445,6 +445,11 @@ Example:
           <td><span class="icon icon-translate" /></td>
         </tr>
         <tr>
+          <td>Translate outlined</td>
+          <td><code>icon-translate-outlined</code></td>
+          <td><span class="icon icon-translate-outlined" /></td>
+        </tr>
+        <tr>
           <td>Unavailable</td>
           <td><code>icon-unavailable</code></td>
           <td><span class="icon icon-unavailable" /></td>

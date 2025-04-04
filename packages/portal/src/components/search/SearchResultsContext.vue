@@ -47,32 +47,34 @@
       </template>
     </i18n><!-- This comment removes white space which gets underlined
  -->
-    <i18n
-      v-if="suggestLoginForMoreResults"
-      path="search.results.loginToSeeMore"
-      tag="span"
-      class="context-label mr-1"
-      data-qa="results more link"
-    >
-      <template #login>
-        <b-link
-          class="more-link"
-          :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          :target="null"
-          @click.prevent="$keycloak.login()"
-        >
-          {{ $t('actions.login') }}
-        </b-link>
-      </template>
-    </i18n><!-- This comment removes white space which gets underlined
- --><b-button
-      v-if="multilingualSearchTooltip"
-      v-b-tooltip.bottom
-      :title="multilingualSearchTooltip"
-      class="icon-info-outline p-0 tooltip-button"
-      variant="light-flat"
-      data-qa="results more tooltip"
-    />
+    <template v-if="!$features.multilingualSearch">
+      <i18n
+        v-if="suggestLoginForMoreResults"
+        path="search.results.loginToSeeMore"
+        tag="span"
+        class="context-label mr-1"
+        data-qa="results more link"
+      >
+        <template #login>
+          <b-link
+            class="more-link"
+            :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+            :target="null"
+            @click.prevent="$keycloak.login()"
+          >
+            {{ $t('actions.login') }}
+          </b-link>
+        </template>
+      </i18n><!-- This comment removes white space which gets underlined
+  --><b-button
+        v-if="multilingualSearchTooltip"
+        v-b-tooltip.bottom
+        :title="multilingualSearchTooltip"
+        class="icon-info-outline p-0 tooltip-button"
+        variant="light-flat"
+        data-qa="results more tooltip"
+      />
+    </template>
     <output
       class="visually-hidden"
       data-qa="results status message"
