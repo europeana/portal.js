@@ -19,7 +19,7 @@
       :height="optimisedHeight"
       :lazy="lazy"
       :sizes="imageSizes"
-      :src="optimisedSrc"
+      :src="optimisedContentfulImageUrl"
       :srcset="responsiveImageSrcsets[0]"
       :width="optimisedWidth"
     />
@@ -31,12 +31,13 @@
     :height="optimisedHeight"
     :lazy="lazy"
     :sizes="imageSizes"
-    :src="optimisedSrc"
+    :src="optimisedContentfulImageUrl"
     :width="optimisedWidth"
   />
 </template>
 
 <script>
+  import { isContentfulAssetUrl, optimisedContentfulImageUrl, responsiveContentfulImageSrcset } from '@/utils/contentful/assets.js';
   import ImageEagerOrLazy from './ImageEagerOrLazy';
 
   export default {
@@ -101,7 +102,7 @@
     data() {
       return {
         blankColor: '#fff',
-        isContentfulAsset: this.$contentful?.assets?.isValidUrl(this.src) || false
+        isContentfulAsset: isContentfulAssetUrl(this.src)
       };
     },
 
@@ -122,11 +123,8 @@
         return Math.round(this.optimisedWidth / this.aspectRatio);
       },
 
-      optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.isContentfulAsset || this.isSVG) {
-          return this.src;
-        }
-        return this.$contentful.assets.optimisedSrc(
+      optimisedContentfulImageUrl() {
+        return optimisedContentfulImageUrl(
           { url: this.src, contentType: this.contentType },
           { w: this.maxWidth, q: this.quality }
         );
@@ -148,7 +146,7 @@
             return memo;
           }, {});
 
-          return this.$contentful.assets.responsiveImageSrcset(
+          return responsiveContentfulImageSrcset(
             { contentType: this.contentType, url: this.src },
             resolutionSizes,
             this.contentfulImageDisplayProfile
