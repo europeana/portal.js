@@ -312,18 +312,15 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Disable translate profile (multilingual search) when not logged in
-      doNotTranslate() {
-        if (!this.$auth.loggedIn) {
-          return true;
-        } else if (this.$features?.multilingualSearch && !this.multilingualSearch) {
-          return true;
-        } else {
-          return false;
+      // Allow translation depending on toggle state. Pre multilingualToggle feature allow for logged in users only.
+      allowTranslate() {
+        if (this.$features?.multilingualSearch) {
+          return this.multilingualSearch;
         }
+        return this.$auth.loggedIn;
       },
       translateLang() {
-        if (this.doNotTranslate) {
+        if (!this.allowTranslate) {
           return null;
         }
 
@@ -345,7 +342,7 @@
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
       showMultilingualButton() {
-        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale && this.query);
+        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
       }
     },
 
