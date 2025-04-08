@@ -111,9 +111,9 @@ export default {
     "topic": "Onderwerp"
   },
   "categories": {
-    "label": "Verken verhalen op tag",
+    "label": "Resultaten verkennen op tag",
     "noOptions": "Er zijn geen tags meer om te selecteren",
-    "search": "Verken verhalen op tag"
+    "search": "Resultaten verkennen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} objecten",
     "itemOf": "{max} van {count} objecten",
+    "noItems": "Er zijn geen objecten.",
+    "noMoreItems": "Er zijn geen objecten meer.",
     "recent": "Recente objecten",
     "recommended": "Aanbevolen objecten",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Toon mij",
+    "readMore": "Probeer het",
     "text": {
       "itemMultiSelect": "U kunt nu meerdere objecten tegelijk selecteren om ze te liken of toe te voegen aan uw eigen galerij."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Verhaal | Verhalen"
   },
   "storiesPage": {
+    "results": "{count} resultaat | {count} resultaten",
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {

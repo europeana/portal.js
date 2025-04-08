@@ -111,9 +111,9 @@ export default {
     "topic": "Тема"
   },
   "categories": {
-    "label": "Разгледайте истории по етикет",
+    "label": "Разгледайте резултатите по етикет",
     "noOptions": "Няма повече тагове за избор",
-    "search": "Разгледайте истории по етикет."
+    "search": "Разгледайте резултатите по етикет"
   },
   "clearAllFilters": "изчистване на всички филтри",
   "collections": {
@@ -781,6 +781,8 @@ export default {
   "items": {
     "itemCount": "1 обект |{count} обекта",
     "itemOf": "{max} от {count} обекта",
+    "noItems": "Няма обекти.",
+    "noMoreItems": "Няма повече обекти.",
     "recent": "Скорошни обекта",
     "recommended": "Препоръчани обекта",
     "trending": {
@@ -1140,7 +1142,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Отхвърляне",
-    "readMore": "Покажи ми",
+    "readMore": "Опитайте",
     "text": {
       "itemMultiSelect": "Сега можете да изберете няколко обекта наведнъж, за да ги харесате или добавите в собствена галерия."
     },
@@ -1461,6 +1463,7 @@ export default {
     "stories": "История | Истории"
   },
   "storiesPage": {
+    "results": "{count} резултат | {count} резултата",
     "storiesHaveLoaded": "{0} намерени истории"
   },
   "swiper": {

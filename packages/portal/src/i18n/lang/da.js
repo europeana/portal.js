@@ -111,9 +111,9 @@ export default {
     "topic": "Emne"
   },
   "categories": {
-    "label": "Udforsk historier efter tag",
+    "label": "Udforsk resultater efter tag",
     "noOptions": "Der er ikke flere tags at vælge",
-    "search": "Udforsk historier efter tag"
+    "search": "Udforsk resultater efter tag"
   },
   "clearAllFilters": "ryd alle filtre",
   "collections": {
@@ -776,6 +776,8 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} genstande",
     "itemOf": "{max} af {count} genstande",
+    "noItems": "Der er ingen genstande.",
+    "noMoreItems": "Der er ikke flere genstande.",
     "recent": "Seneste genstande",
     "recommended": "Anbefalede genstande",
     "trending": {
@@ -1135,7 +1137,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
-    "readMore": "Vis mig",
+    "readMore": "Prøv det",
     "text": {
       "itemMultiSelect": "Du kan nu vælge flere genstande på én gang for at like dem eller tilføje dem til dit eget galleri."
     },
@@ -1456,6 +1458,7 @@ export default {
     "stories": "Historien | Historier"
   },
   "storiesPage": {
+    "results": "{count} resultat | {count} resultater",
     "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {

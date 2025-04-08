@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.5.3",
+  "version": "2.6.1",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
-    "@europeana/style": "^2.5.1",
+    "@europeana/style": "^2.6.1",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",

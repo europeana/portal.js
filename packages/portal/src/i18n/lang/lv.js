@@ -111,9 +111,9 @@ export default {
     "topic": "Temats"
   },
   "categories": {
-    "label": "Izpētiet stāstus pēc atzīmes",
+    "label": "Izpētīt rezultātus pēc birkas",
     "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
-    "search": "Izpētiet stāstus pēc atzīmes"
+    "search": "Izpētīt rezultātus pēc birkas"
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
@@ -775,6 +775,8 @@ export default {
   "items": {
     "itemCount": "1 digitālais objekts |{count} digitālie objekti",
     "itemOf": "{max} no {count} digitālie objekti",
+    "noItems": "Nav pieejami digitālie objekti.",
+    "noMoreItems": "Vairs nav pieejami digitālie objekti.",
     "recent": "Pēdējie digitālie objekti",
     "recommended": "Leteiktie digitālie objekti",
     "trending": {
@@ -1133,7 +1135,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Parādi man",
+    "readMore": "Izmēģiniet to",
     "text": {
       "itemMultiSelect": "Tagad vienlaikus varat atlasīt vairākus digitālos objektus, lai tos atzīmētu kā iecienītus vai pievienotu savai galerijai."
     },
@@ -1454,6 +1456,7 @@ export default {
     "stories": "Stāsts | Stāsti"
   },
   "storiesPage": {
+    "results": "{count} rezultāts | {count} rezultāti",
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {
