@@ -337,7 +337,11 @@
   content: '\e95b';
 }
 
-.icon-translate::before {
+.icon-translate:before {
+  content: '\e970';
+}
+
+.icon-translate-outlined::before {
   content: '\e93c';
 }
 

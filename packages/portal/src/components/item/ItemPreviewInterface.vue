@@ -5,7 +5,7 @@
       data-qa="item preview interface"
     >
       <b-row>
-        <b-col class="d-flex align-items-center mb-3">
+        <b-col class="d-flex align-items-center flex-wrap mb-3">
           <slot name="heading">
             <h2
               class="related-heading text-uppercase mb-0"
@@ -14,15 +14,18 @@
               {{ displayItemCount }}
             </h2>
           </slot>
-          <ItemSelectButton
-            v-if="$features.itemMultiSelect"
-            class="ml-auto"
-            @select="(newState) => itemMultiSelect = newState"
-          />
-          <SearchViewToggles
-            v-model="view"
-            :class="$features.itemMultiSelect ? 'ml-2' : 'ml-auto'"
-          />
+          <div class="d-flex align-items-center justify-content-end ml-auto">
+            <slot name="search-options" />
+            <ItemSelectButton
+              v-if="$features.itemMultiSelect"
+              class="ml-2"
+              @select="(newState) => itemMultiSelect = newState"
+            />
+            <SearchViewToggles
+              v-model="view"
+              class="ml-2"
+            />
+          </div>
         </b-col>
       </b-row>
       <b-row class="mb-3">

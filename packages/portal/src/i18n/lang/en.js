@@ -1351,6 +1351,10 @@ export default {
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
+    "multilingual": {
+      "disable": "Disable multilingual search",
+      "enable": "Enable multilingual search"
+    },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
       "loginToSeeMore": "{login} to see more results",

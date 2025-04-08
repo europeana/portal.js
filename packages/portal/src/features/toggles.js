@@ -5,6 +5,7 @@ export default [
   { name: 'itemMultiSelect' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'mockTrendingItems' },
+  { name: 'multilingualSearch' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
