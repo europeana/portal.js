@@ -10,10 +10,17 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, 
   localVue,
   mocks: {
     $auth: { loggedIn: false },
-    $keycloak: {
-      login: sinon.spy()
+    $config: { app: { baseUrl: 'https://www.example.eu' } },
+    $route: {
+      fullPath: '/search',
+      query: {}
+    },
+    $router: {
+      push: sinon.spy(),
+      replace: sinon.spy()
     },
     $t: (key) => key,
+    localePath: (args) => args,
     ...mocks
   }
 });
@@ -27,15 +34,38 @@ describe('components/search/SearchMultilingualButton', () => {
     expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
   });
 
+  describe('when user is logged in and the multilingual query is in the route', () => {
+    it('renders a button in selected state', () => {
+      const wrapper = factory({ mocks: { $auth: { loggedIn: true }, $route: { query: { multilingual: true } } } });
+
+      const button = wrapper.find('.search-multilingual-button');
+
+      expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
+    });
+
+    it('emits the toggleMultilingual event and removes the multilingual param from the URL', () => {
+      const searchQuery = { query: 'painting' };
+      const wrapper = factory({ mocks: { $auth: { loggedIn: true }, $route: { query: { searchQuery, multilingual: true } } } });
+
+      expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
+      expect(wrapper.vm.$router.replace.calledWith({ query: { searchQuery, multilingual: undefined } })).toBe(true);
+    });
+  });
+
   describe('when clicked', () => {
     describe('and user is not logged in', () => {
-      it('redirects to login', () => {
-        const wrapper = factory();
+      it('redirects to login with a redirect back including a multilingual paramater', () => {
+        const fullPath = '/es/search?query=painting';
+        const redirect = `${fullPath}&multilingual=true`;
+        const wrapper = factory({ mocks: { $route: { fullPath  } } });
 
         const button = wrapper.find('.search-multilingual-button');
         button.trigger('click');
 
-        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({
+          name: 'account-login',
+          query: { redirect }
+        })).toBe(true);
       });
     });
 
