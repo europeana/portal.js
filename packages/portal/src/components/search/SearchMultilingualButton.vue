@@ -23,7 +23,7 @@
 
     data() {
       return {
-        selected: false
+        selected: Boolean(this.$auth.loggedIn && this.$route.query.multilingual) || false
       };
     },
 
@@ -33,14 +33,30 @@
       }
     },
 
+    mounted() {
+      // after successful login redirect, enable multilingual search and clean up URL
+      if (this.selected && this.$auth.loggedIn) {
+        this.$emit('toggleMultilingual', this.selected);
+        this.$router.replace({ query: { ...this.$route.query, multilingual: undefined } });
+      }
+    },
+
     methods: {
       toggle() {
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);
         } else {
-          this.$keycloak.login();
+          const redirect = this.getFullPathWithMultilingualParam();
+          this.$router.push(this.localePath({ name: 'account-login', query: { redirect } }));
         }
+      },
+      getFullPathWithMultilingualParam() {
+        const baseUrl = this.$config.app.baseUrl;
+        const currentUrl = new URL(this.$route.fullPath, baseUrl);
+        currentUrl.searchParams.set('multilingual', true);
+        const fullPath = currentUrl.href.replace(baseUrl, '');
+        return fullPath;
       }
     }
   };
