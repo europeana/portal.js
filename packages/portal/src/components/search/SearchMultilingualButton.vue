@@ -35,6 +35,7 @@
 
     methods: {
       toggle() {
+        this.$matomo.trackEvent('Translate search', `${this.selected ? 'Disabled' : 'Enabled'} translated search`, this.url);
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);
