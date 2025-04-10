@@ -91,39 +91,18 @@ describe('components/search/SearchMultilingualButton', () => {
       });
 
       describe('and click is from a touch interaction', () => {
-        it('does not enable multilingual search and increases the touchTap count by 1', () => {
+        it('toggles selected, emits toggleMultilingual and hides the tooltip', async() => {
           const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
+          wrapper.vm.hideTooltips = sinon.spy();
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('touchstart');
           button.trigger('click');
+          await wrapper.vm.$nextTick();
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(false);
-          expect(wrapper.vm.touchTapCount).toEqual(1);
-        });
-
-        describe('on a second click', () => {
-          it('enables multilingual search and resets the touchTapCount to 0', async() => {
-            const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
-            wrapper.vm.hideTooltips = sinon.spy();
-
-            const button = wrapper.find('.search-multilingual-button');
-            button.trigger('touchstart');
-            button.trigger('click');
-            await wrapper.vm.$nextTick();
-
-            expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
-            expect(wrapper.emitted('toggleMultilingual')).toBe(undefined);
-            expect(wrapper.vm.touchTapCount).toEqual(1);
-
-            button.trigger('touchstart');
-            button.trigger('click');
-            await wrapper.vm.$nextTick();
-
-            expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
-            expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
-            expect(wrapper.vm.touchTapCount).toEqual(0);
-          });
+          expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
+          expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
+          expect(wrapper.vm.hideTooltips.called).toBe(true);
         });
       });
     });

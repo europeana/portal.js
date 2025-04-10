@@ -63,14 +63,13 @@
         this.touchTap = true;
       },
       toggle() {
-        if (this.touchTap && this.touchTapCount === 0) {
-          this.touchTapCount = 1;
-          this.touchTap = false;
-        } else if (this.$auth.loggedIn) {
+        if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);
-          this.touchTapCount = 0;
           this.hideTooltips();
+        } else if (this.touchTap && this.touchTapCount === 0) {
+          this.touchTapCount = 1;
+          this.touchTap = false;
         } else {
           this.$keycloak.login();
           this.touchTapCount = 0;
