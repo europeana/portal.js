@@ -312,25 +312,24 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Allow translation depending on toggle state. Pre multilingualToggle feature allow for logged in users only.
+      // Allow translation depending on toggle state.
       allowTranslate() {
-        if (this.$features?.multilingualSearch) {
-          return this.multilingualSearch;
+        if (this.$auth.loggedIn) {
+          if (this.$features?.multilingualSearch) {
+            return this.multilingualSearch;
+          } else {
+            return true;
+          }
+        } else {
+          return false;
         }
-        return this.$auth.loggedIn;
       },
       translateLang() {
-        if (!this.allowTranslate) {
+        if (this.allowTranslate && this.multilingualSearchEnabledForLocale) {
+          return this.$i18n.locale;
+        } else {
           return null;
         }
-
-        // Either translate locale(s) not configured, or current locale is not
-        // among them.
-        if (!this.multilingualSearchEnabledForLocale) {
-          return null;
-        }
-
-        return this.$i18n.locale;
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
