@@ -379,15 +379,22 @@
             params.profile = `${params.profile},hits`;
           }
 
+          const qasEnrichedWithEntities = [...this.qa];
+
+          // When there are qa with entity look up, replace those qa with entity enriched value
+          if (this.qaes.length) {
+            this.qasWithAddedEntityValue.forEach(qaWithEntity => {
+              if (qaWithEntity.qae) {
+                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex(qa => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
+
+                qasEnrichedWithEntities.splice(indexOfQaToEnrich, 1, qaWithEntity.qae);
+              }
+            });
+          }
+
           // All other advanced search rules are added to the query concatenated by AND.
           params.query = [params.query].filter(Boolean)
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).join(' AND ');
-
-          // concatenate any advanced search rules with added entity value
-          if (this.qaes.length) {
-            params.query = params.query
-              .concat(' OR ').concat(this.qaes.join(' OR '));
-          }
+            .concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).join(' AND ');
         }
 
         params.qf = addContentTierFilter(params.qf);
@@ -502,7 +509,7 @@
         }
 
         if (queryEqualsEntity) {
-          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `(${query.term} OR "${queryEqualsEntity.id}")` });
           return {
             qa: query,
             qae
