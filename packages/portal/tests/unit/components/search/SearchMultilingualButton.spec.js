@@ -25,7 +25,7 @@ const factory = ({ mocks = {}, data = {} } = {}) => shallowMount(SearchMultiling
         },
         {
           code: 'es',
-          name: 'Espanol'
+          name: 'Español'
         }
       ],
       locale: 'es'
@@ -70,7 +70,7 @@ describe('components/search/SearchMultilingualButton', () => {
           await wrapper.vm.$nextTick();
 
           expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Espanol multilingual search toggle')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
           expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
         });
       });
@@ -85,7 +85,7 @@ describe('components/search/SearchMultilingualButton', () => {
           await wrapper.vm.$nextTick();
 
           expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Espanol multilingual search toggle')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
           expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
         });
       });
