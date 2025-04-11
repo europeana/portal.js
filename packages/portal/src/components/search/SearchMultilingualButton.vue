@@ -2,15 +2,15 @@
   <div>
     <b-button
       class="search-multilingual-button p-0 mr-2"
-      :pressed="selected"
+      :pressed="multilingualSearchEnabled"
       variant="light-flat"
       :aria-label="ariaLabelText"
       @click="toggle"
     >
       <span
         :class="{
-          'icon-translate': selected,
-          'icon-translate-outlined': !selected
+          'icon-translate': multilingualSearchEnabled,
+          'icon-translate-outlined': !multilingualSearchEnabled
         }"
       />
     </b-button>
@@ -21,23 +21,37 @@
   export default {
     name: 'SearchMultilingualButton',
 
+    props: {
+      multilingualState: {
+        type: Boolean,
+        default: false
+      }
+    },
+
     data() {
       return {
-        selected: false
+        multilingualSearchEnabled: this.multilingualState
       };
     },
 
     computed: {
       ariaLabelText() {
-        return this.selected ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
+        return this.multilingualSearchEnabled ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
+      }
+    },
+
+    watch: {
+      multilingualState(newVal) {
+        this.multilingualSearchEnabled = newVal;
       }
     },
 
     methods: {
       toggle() {
         if (this.$auth.loggedIn) {
-          this.selected = !this.selected;
-          this.$emit('toggleMultilingual', this.selected);
+          this.multilingualSearchEnabled = !this.multilingualSearchEnabled;
+          this.$emit('toggleMultilingual', this.multilingualSearchEnabled);
+          this.$cookies?.set('multilingualSearch', this.multilingualSearchEnabled);
         } else {
           this.$keycloak.login();
         }

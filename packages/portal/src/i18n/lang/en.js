@@ -1007,6 +1007,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Remembers if you prefer to get multilingual search results.",
+        "title": "Multilingual search"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
