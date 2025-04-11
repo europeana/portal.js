@@ -59,7 +59,7 @@
             <template #search-options>
               <SearchMultilingualButton
                 v-if="showMultilingualButton"
-                :state="multilingualSearch"
+                :multilingual-state="multilingualSearch"
                 @toggleMultilingual="(value) => multilingualSearch = value"
               />
             </template>

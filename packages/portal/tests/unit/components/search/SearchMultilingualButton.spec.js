@@ -20,12 +20,14 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, 
 });
 
 describe('components/search/SearchMultilingualButton', () => {
-  it('renders a button in non-selected state', () => {
+  it('renders a button in not enabled state', () => {
     const wrapper = factory();
 
     const button = wrapper.find('.search-multilingual-button');
+    const buttonOutlinedIcon = wrapper.find('.search-multilingual-button .icon-translate-outlined');
 
     expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
+    expect(buttonOutlinedIcon.isVisible()).toBe(true);
   });
 
   describe('when clicked', () => {
@@ -41,27 +43,31 @@ describe('components/search/SearchMultilingualButton', () => {
     });
 
     describe('and user is logged in', () => {
-      it('toggles the selected state and emits the toggleMultilingual event', async() => {
+      it('toggles the multilingualSearchEnabled state and emits the toggleMultilingual event', async() => {
         const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
 
         const button = wrapper.find('.search-multilingual-button');
+
         button.trigger('click');
         await wrapper.vm.$nextTick();
 
+        const buttonFilledIcon = wrapper.find('.search-multilingual-button .icon-translate');
+
         expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
+        expect(buttonFilledIcon.isVisible()).toBe(true);
         expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
         expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
       });
     });
   });
 
-  describe('when state prop is passed', () => {
-    it('updates selected to the state', async() => {
+  describe('when multilingualState prop is passed', () => {
+    it('updates multilingualSearchEnabled to the multilingualState', async() => {
       const wrapper = factory();
-      wrapper.setProps({ state: true });
+      wrapper.setProps({ multilingualState: true });
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.selected).toEqual(true);
+      expect(wrapper.vm.multilingualSearchEnabled).toEqual(true);
     });
   });
 });
