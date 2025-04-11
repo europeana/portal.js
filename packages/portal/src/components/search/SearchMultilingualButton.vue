@@ -21,9 +21,16 @@
   export default {
     name: 'SearchMultilingualButton',
 
+    props: {
+      state: {
+        type: Boolean,
+        default: false
+      }
+    },
+
     data() {
       return {
-        selected: false
+        selected: this.state
       };
     },
 
@@ -33,11 +40,18 @@
       }
     },
 
+    watch: {
+      state(newVal) {
+        this.selected = newVal;
+      }
+    },
+
     methods: {
       toggle() {
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('toggleMultilingual', this.selected);
+          this.$cookies?.set('multilingualSearch', this.selected);
         } else {
           this.$keycloak.login();
         }

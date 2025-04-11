@@ -10,6 +10,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, 
   localVue,
   mocks: {
     $auth: { loggedIn: false },
+    $cookies: { set: sinon.spy() },
     $keycloak: {
       login: sinon.spy()
     },
@@ -49,7 +50,18 @@ describe('components/search/SearchMultilingualButton', () => {
 
         expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
         expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
+        expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
       });
+    });
+  });
+
+  describe('when state prop is passed', () => {
+    it('updates selected to the state', async() => {
+      const wrapper = factory();
+      wrapper.setProps({ state: true });
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.selected).toEqual(true);
     });
   });
 });
