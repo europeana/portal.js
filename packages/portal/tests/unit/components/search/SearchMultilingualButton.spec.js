@@ -6,7 +6,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, {
+const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(SearchMultilingualButton, {
   localVue,
   mocks: {
     $auth: { loggedIn: false },
@@ -15,12 +15,32 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchMultilingualButton, 
       login: sinon.spy()
     },
     $t: (key) => key,
+    $matomo: {
+      trackEvent: sinon.stub()
+    },
+    $i18n: {
+      locales: [
+        {
+          code: 'en',
+          name: 'English'
+        },
+        {
+          code: 'es',
+          name: 'Español'
+        }
+      ],
+      locale: 'es'
+    },
     ...mocks
-  }
+  },
+  propsData
 });
 
 describe('components/search/SearchMultilingualButton', () => {
-  it('renders a button in not enabled state', () => {
+  beforeEach(() => {
+    sinon.resetHistory();
+  });
+  it('renders a button in non-enabled state', () => {
     const wrapper = factory();
 
     const button = wrapper.find('.search-multilingual-button');
@@ -43,31 +63,35 @@ describe('components/search/SearchMultilingualButton', () => {
     });
 
     describe('and user is logged in', () => {
-      it('toggles the multilingualSearchEnabled state and emits the toggleMultilingual event', async() => {
-        const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
+      describe('when multilingual results are enabled', () => {
+        const propsData = { value: true };
 
-        const button = wrapper.find('.search-multilingual-button');
+        it('emits the input event to toggle the selected state off', () => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
 
-        button.trigger('click');
-        await wrapper.vm.$nextTick();
+          const button = wrapper.find('.search-multilingual-button');
+          button.trigger('click');
 
-        const buttonFilledIcon = wrapper.find('.search-multilingual-button .icon-translate');
-
-        expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
-        expect(buttonFilledIcon.isVisible()).toBe(true);
-        expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
-        expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
+          expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', false)).toBe(true);
+          expect(wrapper.emitted('input')).toEqual([[false]]);
+        });
       });
-    });
-  });
 
-  describe('when multilingualState prop is passed', () => {
-    it('updates multilingualSearchEnabled to the multilingualState', async() => {
-      const wrapper = factory();
-      wrapper.setProps({ multilingualState: true });
-      await wrapper.vm.$nextTick();
+      describe('when multilingual results are disabled', () => {
+        const propsData = { value: false };
 
-      expect(wrapper.vm.multilingualSearchEnabled).toEqual(true);
+        it('emits the input event to toggle the selected state on', () => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
+
+          const button = wrapper.find('.search-multilingual-button');
+          button.trigger('click');
+
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
+          expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
+          expect(wrapper.emitted('input')).toEqual([[true]]);
+        });
+      });
     });
   });
 });

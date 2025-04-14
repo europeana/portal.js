@@ -2,15 +2,15 @@
   <div>
     <b-button
       class="search-multilingual-button p-0 mr-2"
-      :pressed="multilingualSearchEnabled"
+      :pressed="value"
       variant="light-flat"
       :aria-label="ariaLabelText"
       @click="toggle"
     >
       <span
         :class="{
-          'icon-translate': multilingualSearchEnabled,
-          'icon-translate-outlined': !multilingualSearchEnabled
+          'icon-translate': value,
+          'icon-translate-outlined': !value
         }"
       />
     </b-button>
@@ -22,36 +22,24 @@
     name: 'SearchMultilingualButton',
 
     props: {
-      multilingualState: {
+      value: {
         type: Boolean,
         default: false
       }
     },
 
-    data() {
-      return {
-        multilingualSearchEnabled: this.multilingualState
-      };
-    },
-
     computed: {
       ariaLabelText() {
-        return this.multilingualSearchEnabled ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
-      }
-    },
-
-    watch: {
-      multilingualState(newVal) {
-        this.multilingualSearchEnabled = newVal;
+        return this.value ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
       }
     },
 
     methods: {
       toggle() {
+        this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
         if (this.$auth.loggedIn) {
-          this.multilingualSearchEnabled = !this.multilingualSearchEnabled;
-          this.$emit('toggleMultilingual', this.multilingualSearchEnabled);
-          this.$cookies?.set('multilingualSearch', this.multilingualSearchEnabled);
+          this.$emit('input', !this.value);
+          this.$cookies?.set('multilingualSearch', !this.value);
         } else {
           this.$keycloak.login();
         }
