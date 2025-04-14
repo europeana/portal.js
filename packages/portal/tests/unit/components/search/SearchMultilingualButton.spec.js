@@ -6,7 +6,7 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {}, data = {} } = {}) => shallowMount(SearchMultilingualButton, {
+const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(SearchMultilingualButton, {
   localVue,
   mocks: {
     $auth: { loggedIn: false },
@@ -32,7 +32,7 @@ const factory = ({ mocks = {}, data = {} } = {}) => shallowMount(SearchMultiling
     },
     ...mocks
   },
-  data: () => ({ ...data })
+  propsData
 });
 
 describe('components/search/SearchMultilingualButton', () => {
@@ -61,32 +61,30 @@ describe('components/search/SearchMultilingualButton', () => {
 
     describe('and user is logged in', () => {
       describe('when multilingual results are enabled', () => {
-        const data = { selected: true };
-        it('toggles the selected state off and emits the toggleMultilingual event', async() => {
-          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, data });
+        const propsData = { value: true };
+
+        it('emits the input event to toggle the selected state off', () => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('click');
-          await wrapper.vm.$nextTick();
 
-          expect(button.attributes('aria-label')).toBe('search.multilingual.enable');
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
-          expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
+          expect(wrapper.emitted('input')).toEqual([[false]]);
         });
       });
 
       describe('when multilingual results are disabled', () => {
-        const data = { selected: false };
-        it('toggles the selected state on and emits the toggleMultilingual event', async() => {
-          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, data });
+        const propsData = { value: false };
+
+        it('emits the input event to toggle the selected state on', () => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('click');
-          await wrapper.vm.$nextTick();
 
-          expect(button.attributes('aria-label')).toBe('search.multilingual.disable');
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
-          expect(wrapper.emitted('toggleMultilingual').length).toBe(1);
+          expect(wrapper.emitted('input')).toEqual([[true]]);
         });
       });
     });
