@@ -17,7 +17,6 @@
           <div class="d-flex align-items-center justify-content-end ml-auto">
             <slot name="search-options" />
             <ItemSelectButton
-              v-if="$features.itemMultiSelect"
               class="ml-2"
               @select="(newState) => itemMultiSelect = newState"
             />
@@ -116,7 +115,7 @@
 
     provide() {
       return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+        itemMultiSelect: computed(() => this.itemMultiSelect)
       };
     },
 

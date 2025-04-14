@@ -1,6 +1,6 @@
 const features = [{
-  name: 'itemMultiSelect',
-  url: '/search?qf=collection%3Aart'
+  name: '',
+  url: '/'
 }];
 
 export const featureNotificationExpiration = (value) => {
