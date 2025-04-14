@@ -6,7 +6,7 @@
     >
       <template #button-content>
         <span
-          class="icon-translate-outlined"
+          class="icon-translate-outlined pr-sm-1"
           :class="{'translation-applied': translationLanguage}"
         />
         <i18n
@@ -117,10 +117,10 @@
 
   .icon-translate-outlined {
     font-size: 1.25rem;
-    line-height: 1.35;
+    line-height: 1;
 
     @media (min-width: $bp-small) {
-      padding-right: 0.3rem;
+      font-size: 1.125rem;
     }
 
     &.translation-applied {
@@ -129,8 +129,8 @@
         @include status-indicator;
 
         &:after {
-          top: 0;
-          right: -2px;
+          top: -1px;
+          right: -1px;
           outline-color: $offwhite;
         }
       }
@@ -139,12 +139,12 @@
 
   ::v-deep .dropdown-toggle {
     text-transform: none;
-    padding: 0.25rem 0.5rem 0.25rem 0.35rem;
+    padding: 0.4375rem 0.5rem;
     display: flex;
     align-items: center;
 
     @media (min-width: $bp-small) {
-      padding: 0.25rem 0.75rem 0.25rem 0.6rem;
+      padding: 0.4375rem 0.75rem 0.4375rem 0.6rem;
     }
 
     // dropdown is flipped up
@@ -153,7 +153,7 @@
     }
 
     &:after {
-      padding-left: 0.3rem;
+      padding-left: 0.25rem;
       margin: 2px 0 0 0;
 
       @media (min-width: $bp-small) {
