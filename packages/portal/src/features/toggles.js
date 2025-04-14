@@ -4,6 +4,7 @@ export default [
   { name: 'eventLogging' },
   { name: 'itemMultiSelect' },
   { name: 'jiraServiceDeskFeedbackForm' },
+  { name: 'manageApiKeys' },
   { name: 'mockTrendingItems' },
   { name: 'multilingualSearch' },
   { name: 'rejectEntityRecommendations' },
