@@ -355,6 +355,7 @@
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged',
       multilingualSearch() {
+        this.resetItemMultiSelect();
         this.$fetch();
       }
     },
@@ -449,8 +450,7 @@
       },
 
       handleSearchParamsChanged() {
-        this.$store.commit('set/setSelected', []);
-        this.itemMultiSelect = false;
+        this.resetItemMultiSelect();
         this.$fetch();
       },
 
@@ -542,6 +542,10 @@
 
         // Clean up the store to prevent accumulating outdated data
         this.$store.commit('search/setQasWithSelectedEntityValue', []);
+      },
+
+      resetItemMultiSelect() {
+        this.$store.commit('set/setSelected', []);
       }
     }
   };

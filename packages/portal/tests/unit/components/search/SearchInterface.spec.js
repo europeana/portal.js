@@ -630,6 +630,18 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
+    describe('handleSearchParamsChanged', () => {
+      it('resets multi selected items and calls fetch', () => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.handleSearchParamsChanged();
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
     describe('watchRouteQueryQf', () => {
       describe('when values have been added', () => {
         describe('and old value was `undefined`', () => {
@@ -725,13 +737,14 @@ describe('components/search/SearchInterface', () => {
 
   describe('watch', () => {
     describe('when multilingualSearch value changes', () => {
-      it('triggers $fetch', async() => {
+      it('resets multi selected items and triggers $fetch', async() => {
         const wrapper = factory({ data: { multilingualSearch: false } });
         sinon.spy(wrapper.vm, '$fetch');
 
         wrapper.vm.multilingualSearch = true;
         await wrapper.vm.$nextTick();
 
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
