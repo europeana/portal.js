@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="$features.itemMultiSelect"
     role="dialog"
     aria-labelledby="toolbar-info"
     class="item-select-toolbar position-fixed d-inline-flex flex-wrap align-items-center justify-content-center"
