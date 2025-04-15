@@ -374,7 +374,7 @@
               params.query = `text:(${params.query})`;
             }
 
-            params.query = [params.query].filter(Boolean).concat(this.fulltextQas).join(' AND ');
+            params.query = this.fulltextQas.concat(params.query).filter(Boolean).join(' AND ');
 
             params.profile = `${params.profile},hits`;
           }
@@ -393,8 +393,7 @@
           }
 
           // All other advanced search rules are added to the query concatenated by AND.
-          params.query = [params.query].filter(Boolean)
-            .concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).join(' AND ');
+          params.query = [params.query].concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).filter(Boolean).join(' AND ');
         }
 
         params.qf = addContentTierFilter(params.qf);
