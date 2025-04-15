@@ -29,9 +29,10 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
   localVue,
   attachTo: document.body,
   mocks: {
+    $cookies: { get: sinon.stub(), set: sinon.spy() },
     $features: { multilingualSearch: false },
     $t: (key) => key,
-    localePath: () => '/',
+    localePath: (args) => args,
     $router: { push: sinon.spy() },
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
@@ -45,6 +46,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     },
     $auth: {},
+    $keycloak: { login: sinon.spy() },
     $i18n: {
       locale: 'en',
       n: (num) => num
@@ -94,16 +96,16 @@ describe('components/search/SearchInterface', () => {
 
     describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
       const $auth = { loggedIn: true };
-      const $cookies = { get: sinon.stub().returns(true) };
       const $config = { app: { search: { translateLocales: ['nl'] } } };
       const $i18n = { locale: 'nl' };
 
       it('activates multilingual search', async() => {
-        const wrapper = factory({ mocks: { $auth, $config, $cookies, $i18n }, data: { multilingualSearch: false } });
+        const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+        wrapper.vm.$cookies.get.returns(true);
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.multilingualSearch).toBe(true);
+        expect(wrapper.vm.translate).toBe(true);
       });
     });
 
@@ -355,11 +357,11 @@ describe('components/search/SearchInterface', () => {
             describe('and user is logged in', () => {
               const $auth = { loggedIn: true };
 
-              describe('and has enabled the multilingual searchfeature', () => {
+              describe('and has enabled the multilingual search feature', () => {
                 const $features = { multilingualSearch: true };
                 describe('and has enabled the multilingual toggle', () => {
                   it('returns the current locale', () => {
-                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { multilingualSearch: true } });
+                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { translate: true } });
 
                     const translateLang = wrapper.vm.apiOptions.translateLang;
 
@@ -368,7 +370,7 @@ describe('components/search/SearchInterface', () => {
                 });
                 describe('and has disabled the multilingual toggle', () => {
                   it('is undefined', () => {
-                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { multilingualSearch: false } });
+                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { translate: false } });
 
                     const translateLang = wrapper.vm.apiOptions.translateLang;
 
@@ -569,6 +571,38 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
+    describe('handleMultilingualButtonInput', () => {
+      it('stores the value in the multilingualSearch cookie', () => {
+        const $auth = { loggedIn: true };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
+      });
+
+      it('updates the route, resetting pagination', () => {
+        const $auth = { loggedIn: true };
+        const $route = { query: { query: 'casa', page: 2 } };
+        const wrapper = factory({ mocks: { $auth, $route } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$router.push.calledWith({
+          name: 'search', query: { query: 'casa', page: 1, translate: 1 }
+        })).toBe(true);
+      });
+
+      it('logs in if needed', () => {
+        const $auth = { loggedIn: false };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+      });
+    });
+
     describe('handlePaginationChanged', () => {
       it('is records pagination changed then triggers fetch', async() => {
         const wrapper = factory();
@@ -751,12 +785,12 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('watch', () => {
-    describe('when multilingualSearch value changes', () => {
+    describe('when translate value changes', () => {
       it('resets multi selected items and triggers $fetch', async() => {
-        const wrapper = factory({ data: { multilingualSearch: false } });
+        const wrapper = factory({ data: { translate: false } });
         sinon.spy(wrapper.vm, '$fetch');
 
-        wrapper.vm.multilingualSearch = true;
+        wrapper.vm.translate = true;
         await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);

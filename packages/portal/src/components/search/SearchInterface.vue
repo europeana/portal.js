@@ -59,8 +59,8 @@
             <template #search-options>
               <SearchMultilingualButton
                 v-if="showMultilingualButton"
-                v-model="multilingualSearch"
-                @input="(value) => multilingualSearch = value"
+                v-model="translate"
+                @input="handleMultilingualButtonInput"
               />
             </template>
             <template
@@ -200,22 +200,23 @@
         apiParams: {},
         hits: null,
         lastAvailablePage: null,
-        multilingualSearch: false,
         paginationChanged: false,
+        qasWithAddedEntityValue: [],
         results: [],
         showAdvancedSearch: false,
         totalResults: null,
-        qasWithAddedEntityValue: []
+        translate: false
       };
     },
 
     async fetch() {
       this.$store.commit('search/setActive', true);
-      this.multilingualSearch = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && this.$cookies.get('multilingualSearch'));
 
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       process.client && this.scrollToSelector('#header');
+
+      this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -317,7 +318,7 @@
       // Allow translation depending on toggle state. Pre multilingualToggle feature allow for logged in users only.
       allowTranslate() {
         if (this.$features?.multilingualSearch) {
-          return this.multilingualSearch;
+          return this.translate;
         }
         return this.$auth.loggedIn;
       },
@@ -356,7 +357,7 @@
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged',
-      multilingualSearch() {
+      translate() {
         this.resetItemMultiSelect();
         this.$fetch();
       }
@@ -448,6 +449,24 @@
         if (process.server || this.$store.state.search.loggableInteraction) {
           this.recordSearchInteraction('fetch results');
           this.$store.commit('search/setLoggableInteraction', false);
+        }
+      },
+
+      handleMultilingualButtonInput(value) {
+        this.translate = value;
+        this.$cookies?.set('multilingualSearch', value);
+
+        this.$router.push(this.localePath({
+          ...this.route,
+          query: {
+            ...this.$route.query,
+            page: 1,
+            translate: value ? 1 : undefined
+          }
+        }));
+
+        if (!this.$auth.loggedIn) {
+          this.$keycloak.login();
         }
       },
 
