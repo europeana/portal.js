@@ -72,6 +72,7 @@
         this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
         if (this.$auth.loggedIn) {
           this.$emit('input', !this.value);
+          this.$cookies?.set('multilingualSearch', !this.value);
           this.hideTooltips();
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;

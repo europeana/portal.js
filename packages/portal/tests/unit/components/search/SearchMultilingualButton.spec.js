@@ -11,6 +11,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(SearchMult
   localVue,
   mocks: {
     $auth: { loggedIn: false },
+    $cookies: { set: sinon.spy() },
     $keycloak: {
       login: sinon.spy()
     },
@@ -40,7 +41,7 @@ describe('components/search/SearchMultilingualButton', () => {
   beforeEach(() => {
     sinon.resetHistory();
   });
-  it('renders a button in non-selected state', () => {
+  it('renders a button in non-enabled state', () => {
     const wrapper = factory();
 
     const button = wrapper.find('.search-multilingual-button');
@@ -140,6 +141,7 @@ describe('components/search/SearchMultilingualButton', () => {
           button.trigger('click');
 
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
+          expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
           expect(wrapper.emitted('input')).toEqual([[true]]);
         });
       });
