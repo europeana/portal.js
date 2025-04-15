@@ -42,3 +42,15 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  h1 {
+    margin-bottom: 0.75rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(1.5 * 0.75rem);
+    }
+  }
+</style>
