@@ -211,6 +211,7 @@
 
     async fetch() {
       this.$store.commit('search/setActive', true);
+      this.multilingualSearch = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && this.$cookies.get('multilingualSearch'));
 
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();

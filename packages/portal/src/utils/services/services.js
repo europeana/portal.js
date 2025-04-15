@@ -46,6 +46,12 @@ const portalServices = [
     purposes: ['usage']
   },
   {
+    cookies: ['multilingualSearch'],
+    name: 'multilingualSearch',
+    purposes: ['essential'],
+    required: true
+  },
+  {
     cookies: ['new_feature_notification'],
     name: 'newFeatureNotification',
     purposes: ['essential'],

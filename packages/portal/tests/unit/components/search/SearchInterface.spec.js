@@ -92,6 +92,21 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.$store.commit.calledWith('search/setActive')).toBe(true);
     });
 
+    describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
+      const $auth = { loggedIn: true };
+      const $cookies = { get: sinon.stub().returns(true) };
+      const $config = { app: { search: { translateLocales: ['nl'] } } };
+      const $i18n = { locale: 'nl' };
+
+      it('activates multilingual search', async() => {
+        const wrapper = factory({ mocks: { $auth, $config, $cookies, $i18n }, data: { multilingualSearch: false } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.multilingualSearch).toBe(true);
+      });
+    });
+
     it('runs the search via the Record API', async() => {
       const wrapper = factory();
 
