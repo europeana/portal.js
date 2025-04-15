@@ -1353,7 +1353,10 @@ export default {
     },
     "multilingual": {
       "disable": "Disable multilingual search",
-      "enable": "Enable multilingual search"
+      "enable": "Enable multilingual search",
+      "loginToUseMultilingualSearch": "Log in to use multilingual search, and get results not limited to the language of your search term.",
+      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term.",
+      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term."
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
