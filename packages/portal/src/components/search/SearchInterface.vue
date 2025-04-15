@@ -509,7 +509,8 @@
         }
 
         if (queryEqualsEntity) {
-          const qae = this.advancedSearchQueryFromRule({ ...query, term: `(${query.term} OR "${queryEqualsEntity.id}")` });
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `((${query.term}) OR "${queryEqualsEntity.id}")` });
+
           return {
             qa: query,
             qae
