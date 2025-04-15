@@ -27,19 +27,19 @@
   export default {
     name: 'SearchMultilingualButton',
 
+    props: {
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+
     setup() {
       const buttonId = 'search-multilingual-button';
 
       const { hideTooltips } = useHideTooltips(buttonId);
 
       return { buttonId, hideTooltips };
-    },
-
-    props: {
-      value: {
-        type: Boolean,
-        default: false
-      }
     },
 
     data() {
