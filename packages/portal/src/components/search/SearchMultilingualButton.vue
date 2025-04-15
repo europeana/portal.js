@@ -54,7 +54,7 @@
         return this.value ? this.$t('search.multilingual.disable') : this.$t('search.multilingual.enable');
       },
       tooltipText() {
-        if (this.selected) {
+        if (this.value) {
           return this.$t('search.multilingual.turnOffMultilingualSearch');
         } else if (this.$auth.loggedIn) {
           return this.$t('search.multilingual.turnOnMultilingualSearch');
