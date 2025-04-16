@@ -407,9 +407,9 @@
 
           // When there are qa with entity look up, replace those qa with entity enriched value
           if (this.qaes.length) {
-            this.qasWithAddedEntityValue.forEach(qaWithEntity => {
+            this.qasWithAddedEntityValue.forEach((qaWithEntity) => {
               if (qaWithEntity.qae) {
-                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex(qa => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
+                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex((qa) => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
 
                 qasEnrichedWithEntities.splice(indexOfQaToEnrich, 1, qaWithEntity.qae);
               }
