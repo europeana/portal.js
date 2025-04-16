@@ -81,6 +81,9 @@ export default {
     "viewDocument": "View document",
     "vote": "Vote"
   },
+  "apiKeys": {
+    "title": "Manage API keys"
+  },
   "attribution": {
     "country": "Country:",
     "creator": "Creator:",
