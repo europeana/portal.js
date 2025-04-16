@@ -34,7 +34,7 @@
           exact
         >
           <span class="label">
-            {{ $t('account.myProfile') }}
+            {{ $t('account.title') }}
           </span>
         </SmartLink>
       </li>
@@ -101,7 +101,7 @@
     computed: {
       authLinks() {
         return [
-          { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
+          { to: this.localePath({ name: 'account' }), text: this.$t('account.title'), url: '/account', dataQa: 'likes and galleries button' },
           // TODO: is the account url still responsive... and does it need to be?
           { href: this.$keycloak.accountUrl(), text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
