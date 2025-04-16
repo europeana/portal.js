@@ -1196,7 +1196,13 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Try it"
+    "readMore": "Try it",
+    "text": {
+      "multilingualSearch": "Discover more with the new multilingual search — it matches your query with translations in other languages to bring you richer, more relevant results."
+    },
+    "tooltip": {
+      "multilingualSearch": "Click here to activate multilingual search"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

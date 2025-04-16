@@ -34,7 +34,8 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(SearchMult
     },
     ...mocks
   },
-  propsData
+  propsData,
+  stubs: ['NewFeatureTooltip']
 });
 
 describe('components/search/SearchMultilingualButton', () => {
