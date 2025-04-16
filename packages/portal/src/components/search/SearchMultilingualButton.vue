@@ -79,25 +79,21 @@
       }
     },
 
-    watch: {
-      value(newVal) {
-        this.$matomo.trackEvent('Multilingual search', `${newVal ? 'Enabled' : 'Disabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
-      }
-    },
-
     methods: {
       detectTouchTap() {
         this.touchTap = true;
       },
       toggle() {
         if (this.$auth.loggedIn) {
-          this.$emit('input', !this.value);
           this.$cookies?.set('multilingualSearch', !this.value);
+          this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
+          this.$emit('input', !this.value);
           this.showTooltip = false;
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
           this.touchTap = false;
         } else {
+          this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
           this.$keycloak.login();
           this.touchTapCount = 0;
         }
