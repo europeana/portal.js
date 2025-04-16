@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$features.itemMultiSelect">
+  <div>
     <b-button
       :id="buttonId"
       class="item-select-button p-0"
@@ -13,18 +13,11 @@
       <span
         :class="{
           'icon-select-circle': selected,
-          'icon-select-circle-outlined': !selected,
-          'target-animation': newFeatureTooltipEnabled
+          'icon-select-circle-outlined': !selected
         }"
       />
     </b-button>
-    <NewFeatureTooltip
-      :tooltip-target-id="buttonId"
-      @disabled="newFeatureTooltipEnabled = false"
-      @enabled="newFeatureTooltipEnabled = true"
-    />
     <b-tooltip
-      v-if="!newFeatureTooltipEnabled"
       :id="tooltipId"
       placement="bottom"
       :target="buttonId"
@@ -40,10 +33,6 @@
   export default {
     name: 'ItemSelectButton',
 
-    components: {
-      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip')
-    },
-
     setup() {
       const buttonId = 'item-select-button';
 
@@ -54,8 +43,6 @@
 
     data() {
       return {
-        // TODO: clean up when new feature tooltip expires
-        newFeatureTooltipEnabled: false,
         selected: false,
         tooltipId: 'item-select-button-tooltip'
       };
@@ -119,26 +106,6 @@
       }
       .icon-select-circle-outlined:before {
         content: '\e96e';
-      }
-    }
-
-    .target-animation {
-      color: $blue;
-      animation: color-slide 3000ms ease-in-out infinite;
-
-      @keyframes color-slide {
-        0% {
-          color: $blue;
-        }
-        35% {
-          color: $black;
-        }
-        75% {
-          color: $blue;
-        }
-        100% {
-          color: $blue;
-        }
       }
     }
   }

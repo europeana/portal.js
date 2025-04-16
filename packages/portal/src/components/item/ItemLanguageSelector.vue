@@ -6,7 +6,7 @@
     >
       <template #button-content>
         <span
-          class="icon-translate pr-sm-2"
+          class="icon-translate-outlined pr-sm-1"
           :class="{'translation-applied': translationLanguage}"
         />
         <i18n
@@ -115,8 +115,13 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
 
-  .icon-translate {
-    font-size: 1.125rem;
+  .icon-translate-outlined {
+    font-size: 1.25rem;
+    line-height: 1;
+
+    @media (min-width: $bp-small) {
+      font-size: 1.125rem;
+    }
 
     &.translation-applied {
       @media (max-width: ($bp-small - 1px)) {
@@ -124,8 +129,8 @@
         @include status-indicator;
 
         &:after {
-          top: -2px;
-          right: -2px;
+          top: -1px;
+          right: -1px;
           outline-color: $offwhite;
         }
       }
@@ -134,12 +139,12 @@
 
   ::v-deep .dropdown-toggle {
     text-transform: none;
-    padding: 0.25rem 0.5rem;
+    padding: 0.4375rem 0.5rem;
     display: flex;
     align-items: center;
 
     @media (min-width: $bp-small) {
-      padding: 0.25rem 0.75rem;
+      padding: 0.4375rem 0.75rem 0.4375rem 0.6rem;
     }
 
     // dropdown is flipped up
@@ -148,7 +153,7 @@
     }
 
     &:after {
-      padding-left: 0.5rem;
+      padding-left: 0.25rem;
       margin: 2px 0 0 0;
 
       @media (min-width: $bp-small) {

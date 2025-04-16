@@ -53,6 +53,14 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
+                class="mr-auto"
+              />
+            </template>
+            <template #search-options>
+              <SearchMultilingualButton
+                v-if="showMultilingualButton"
+                v-model="multilingualSearch"
+                @input="(value) => multilingualSearch = value"
               />
             </template>
             <template
@@ -141,6 +149,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
     name: 'SearchInterface',
@@ -153,6 +162,7 @@
       InfoMessage,
       ItemPreviewInterface,
       SearchFilters,
+      SearchMultilingualButton,
       SearchSidebar
     },
 
@@ -190,6 +200,7 @@
         apiParams: {},
         hits: null,
         lastAvailablePage: null,
+        multilingualSearch: false,
         paginationChanged: false,
         results: [],
         showAdvancedSearch: false,
@@ -200,6 +211,7 @@
 
     async fetch() {
       this.$store.commit('search/setActive', true);
+      this.multilingualSearch = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && this.$cookies.get('multilingualSearch'));
 
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
@@ -302,28 +314,36 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Disable translate profile (multilingual search) when not logged in
-      doNotTranslate() {
-        return !this.$auth.loggedIn;
+      // Allow translation depending on toggle state.
+      allowTranslate() {
+        if (this.$auth.loggedIn) {
+          if (this.$features?.multilingualSearch) {
+            return this.multilingualSearch;
+          } else {
+            return true;
+          }
+        } else {
+          return false;
+        }
       },
       translateLang() {
-        if (this.doNotTranslate) {
+        if (this.allowTranslate && this.multilingualSearchEnabledForLocale) {
+          return this.$i18n.locale;
+        } else {
           return null;
         }
-
-        // Either translate locale(s) not configured, or current locale is not
-        // among them.
-        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
-          return null;
-        }
-
-        return this.$i18n.locale;
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
       },
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      multilingualSearchEnabledForLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      showMultilingualButton() {
+        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
       }
     },
 
@@ -334,7 +354,11 @@
       '$route.query.qa': 'handleSearchParamsChanged',
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.page': 'handlePaginationChanged',
+      multilingualSearch() {
+        this.resetItemMultiSelect();
+        this.$fetch();
+      }
     },
 
     mounted() {
@@ -439,8 +463,7 @@
       },
 
       handleSearchParamsChanged() {
-        this.$store.commit('set/setSelected', []);
-        this.itemMultiSelect = false;
+        this.resetItemMultiSelect();
         this.$fetch();
       },
 
@@ -533,6 +556,10 @@
 
         // Clean up the store to prevent accumulating outdated data
         this.$store.commit('search/setQasWithSelectedEntityValue', []);
+      },
+
+      resetItemMultiSelect() {
+        this.$store.commit('set/setSelected', []);
       }
     }
   };

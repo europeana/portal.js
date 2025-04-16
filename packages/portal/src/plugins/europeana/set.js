@@ -232,7 +232,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
       for (let i = 0; i < itemIds.length; i = i + 1) {
-        // need to do one at a time so that positioning works as intended
+        // NOTE: need to do one at a time so that positioning works as intended
         await this.requestSet(setId, {
           method: 'put',
           url: itemIds[i],
@@ -255,21 +255,18 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string,array} itemIds the ID(s) of the item(s) to delete
    * @return {Promise,Promise[]} API request(s)
    */
-  deleteItems(setId, itemIds) {
+  async deleteItems(setId, itemIds) {
     itemIds = [].concat(itemIds);
 
     // TODO: rm when new version is in production
     if (this.config.version === '0.12') {
-      const requests = [];
       for (const itemId of itemIds) {
-        requests.push(
-          this.requestSet(setId, {
-            method: 'delete',
-            url: itemId
-          })
-        );
+        // NOTE: these can not be made in parallel due to a bug in v0.12
+        await this.requestSet(setId, {
+          method: 'delete',
+          url: itemId
+        });
       }
-      return Promise.all(requests);
     } else {
       return this.requestSet(setId, {
         method: 'delete',

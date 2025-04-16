@@ -1007,6 +1007,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Remembers if you prefer to get multilingual search results.",
+        "title": "Multilingual search"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1189,11 +1193,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Try it",
-    "text": {
-      "itemMultiSelect": "You can now select multiple items at once, to like or add them to a gallery of your own."
-    },
-    "tooltip": "Click here to start selecting multiple items"
+    "readMore": "Try it"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1350,6 +1350,13 @@ export default {
         "modifier": "Choose how this field should modify the search.",
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
+    },
+    "multilingual": {
+      "disable": "Disable multilingual search",
+      "enable": "Enable multilingual search",
+      "loginToUseMultilingualSearch": "Log in to use multilingual search, and get results not limited to the language of your search term.",
+      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term.",
+      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term."
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
