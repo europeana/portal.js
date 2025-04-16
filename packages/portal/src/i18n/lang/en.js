@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
-    "myProfile": "My Profile",
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
@@ -25,7 +24,7 @@ export default {
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account",
+    "title": "My Profile",
     "tooltip": {
       "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
       "private": "A private gallery can only be viewed by you.",
