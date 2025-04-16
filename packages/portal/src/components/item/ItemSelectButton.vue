@@ -7,8 +7,10 @@
       variant="light-flat"
       :aria-label="ariaLabelText"
       @click="toggle"
-      @mouseleave="$root.$emit('bv::hide::tooltip', tooltipId);"
-      @focusout="hideTooltips"
+      @mouseleave="showTooltip = false"
+      @focusout="showTooltip = false"
+      @focus="showTooltip = true"
+      @mouseover="showTooltip = true"
     >
       <span
         :class="{
@@ -20,7 +22,9 @@
     <b-tooltip
       :id="tooltipId"
       placement="bottom"
+      :show.sync="showTooltip"
       :target="buttonId"
+      @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
     >
       {{ tooltipText }}
     </b-tooltip>
@@ -28,22 +32,15 @@
 </template>
 
 <script>
-  import useHideTooltips from '@/composables/hideTooltips.js';
-
   export default {
     name: 'ItemSelectButton',
 
-    setup() {
-      const buttonId = 'item-select-button';
-
-      const { hideTooltips } = useHideTooltips(buttonId);
-
-      return { buttonId, hideTooltips };
-    },
-
     data() {
       return {
+        buttonId: 'item-select-button',
         selected: false,
+        // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when selected state is changed
+        showTooltip: false,
         tooltipId: 'item-select-button-tooltip'
       };
     },
@@ -75,7 +72,7 @@
         }
       },
       toggle() {
-        this.hideTooltips();
+        this.showTooltip = false;
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
@@ -101,11 +98,13 @@
     &:hover {
       color: $black;
 
-      .icon-select-circle:before {
-        content: '\e96f';
-      }
-      .icon-select-circle-outlined:before {
-        content: '\e96e';
+      @media (hover: hover) {
+        .icon-select-circle:before {
+          content: '\e96f';
+        }
+        .icon-select-circle-outlined:before {
+          content: '\e96e';
+        }
       }
     }
   }

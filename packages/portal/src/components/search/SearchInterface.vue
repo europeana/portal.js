@@ -217,7 +217,7 @@
       process.client && this.scrollToSelector('#header');
 
       this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabled && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
-
+      
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
       this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
@@ -338,10 +338,8 @@
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged',
-      translate() {
-        this.resetItemMultiSelect();
-        this.$fetch();
-      }
+      '$route.query.qa': 'handleSearchParamsChanged',
+      '$route.query.translate': 'handleSearchParamsChanged'
     },
 
     mounted() {
