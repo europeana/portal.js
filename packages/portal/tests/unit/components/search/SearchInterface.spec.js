@@ -225,6 +225,7 @@ describe('components/search/SearchInterface', () => {
       describe('and they require an entity look up', () => {
         describe('and a matching entity is found', () => {
           it('adds the matched entity as an additional field to look up', async() => {
+            const expectedAdvancedQuery = 'proxy_dc_date:((19th century) OR "http://data.example.eu/123")';
             const wrapper = factory({ mocks: {
               $apis: {
                 entity: {
@@ -237,6 +238,7 @@ describe('components/search/SearchInterface', () => {
             await wrapper.vm.fetch();
 
             expect(wrapper.vm.qaes.length).toBe(1);
+            expect(wrapper.vm.qaes[0]).toEqual(expectedAdvancedQuery);
           });
         });
 
@@ -513,11 +515,10 @@ describe('components/search/SearchInterface', () => {
         const expected = {
           page: 2,
           profile: 'minimal',
-          query: 'calais',
+          query: 'calais AND proxy_dc_title:dog',
           qf: [
             'edm_agent:"http://data.europeana.eu/agent/200"',
             'TYPE:"IMAGE"',
-            'proxy_dc_title:dog',
             'contentTier:(1 OR 2 OR 3 OR 4)'
           ],
           rows: 24
@@ -552,8 +553,8 @@ describe('components/search/SearchInterface', () => {
           const expected = {
             page: 1,
             profile: 'minimal,hits',
-            query: 'fulltext:europe AND NOT fulltext:united',
-            qf: ['text:(liberty)', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            query: 'fulltext:europe AND NOT fulltext:united AND text:(liberty)',
+            qf: ['contentTier:(1 OR 2 OR 3 OR 4)'],
             rows: 24
           };
 

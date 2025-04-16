@@ -101,11 +101,13 @@
     &:hover {
       color: $black;
 
-      .icon-select-circle:before {
-        content: '\e96f';
-      }
-      .icon-select-circle-outlined:before {
-        content: '\e96e';
+      @media (hover: hover) {
+        .icon-select-circle:before {
+          content: '\e96f';
+        }
+        .icon-select-circle-outlined:before {
+          content: '\e96e';
+        }
       }
     }
   }
