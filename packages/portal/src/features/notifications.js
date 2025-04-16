@@ -1,6 +1,6 @@
 const features = [{
-  name: '',
-  url: '/'
+  name: 'multilingualSearch',
+  url: '/search'
 }];
 
 export const featureNotificationExpiration = (value) => {

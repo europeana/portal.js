@@ -2,7 +2,6 @@
   <div>
     <b-button
       :id="buttonId"
-      v-b-tooltip.bottom="tooltipText"
       class="search-multilingual-button p-0 mr-2"
       :pressed="value"
       variant="light-flat"
@@ -18,6 +17,18 @@
         }"
       />
     </b-button>
+    <NewFeatureTooltip
+      :tooltip-target-id="buttonId"
+      @disabled="newFeatureTooltipEnabled = false"
+      @enabled="newFeatureTooltipEnabled = true"
+    />
+    <b-tooltip
+      v-if="!newFeatureTooltipEnabled"
+      placement="bottom"
+      :target="buttonId"
+    >
+      {{ tooltipText }}
+    </b-tooltip>
   </div>
 </template>
 
@@ -26,6 +37,10 @@
 
   export default {
     name: 'SearchMultilingualButton',
+
+    components: {
+      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip')
+    },
 
     props: {
       value: {
@@ -44,6 +59,8 @@
 
     data() {
       return {
+        // TODO: clean up when new feature tooltip expires
+        newFeatureTooltipEnabled: false,
         touchTapCount: 0,
         touchTap: false
       };
