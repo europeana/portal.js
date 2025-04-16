@@ -39,6 +39,7 @@
       return {
         buttonId: 'item-select-button',
         selected: false,
+        // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when selected state is changed
         showTooltip: false,
         tooltipId: 'item-select-button-tooltip'
       };
@@ -71,7 +72,7 @@
         }
       },
       toggle() {
-        this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
+        this.showTooltip = false;
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);

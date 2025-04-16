@@ -57,6 +57,7 @@
         buttonId: 'search-multilingual-button',
         // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
+        // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when value is changed
         showTooltip: false,
         touchTapCount: 0,
         touchTap: false
@@ -87,7 +88,7 @@
         if (this.$auth.loggedIn) {
           this.$emit('input', !this.value);
           this.$cookies?.set('multilingualSearch', !this.value);
-          this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
+          this.showTooltip = false;
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
           this.touchTap = false;
