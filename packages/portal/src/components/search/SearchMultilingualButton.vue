@@ -7,8 +7,11 @@
       variant="light-flat"
       :aria-label="ariaLabelText"
       @click="toggle"
-      @mouseleave="hideTooltips()"
+      @mouseleave="showTooltip = false"
+      @focusout="showTooltip = false"
       @touchstart="detectTouchTap()"
+      @focus="showTooltip = true"
+      @mouseover="showTooltip = true"
     >
       <span
         :class="{
@@ -25,7 +28,9 @@
     <b-tooltip
       v-if="!newFeatureTooltipEnabled"
       placement="bottom"
+      :show.sync="showTooltip"
       :target="buttonId"
+      @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
     >
       {{ tooltipText }}
     </b-tooltip>
@@ -33,8 +38,6 @@
 </template>
 
 <script>
-  import useHideTooltips from '@/composables/hideTooltips.js';
-
   export default {
     name: 'SearchMultilingualButton',
 
@@ -49,18 +52,12 @@
       }
     },
 
-    setup() {
-      const buttonId = 'search-multilingual-button';
-
-      const { hideTooltips } = useHideTooltips(buttonId);
-
-      return { buttonId, hideTooltips };
-    },
-
     data() {
       return {
+        buttonId: 'search-multilingual-button',
         // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
+        showTooltip: false,
         touchTapCount: 0,
         touchTap: false
       };
@@ -90,7 +87,7 @@
         if (this.$auth.loggedIn) {
           this.$emit('input', !this.value);
           this.$cookies?.set('multilingualSearch', !this.value);
-          this.hideTooltips();
+          this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
           this.touchTap = false;
