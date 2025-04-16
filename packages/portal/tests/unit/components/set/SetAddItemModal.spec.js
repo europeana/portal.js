@@ -132,22 +132,6 @@ describe('components/set/SetAddItemModal', () => {
         })).toBe(true);
       });
 
-      it('uses "standard" profile for Set API v0.12', async() => {
-        const propsData = { itemIds: '/000/aaa' };
-        const wrapper = factory({ propsData });
-        wrapper.vm.$apis.set.config.version = '0.12';
-
-        await wrapper.vm.fetchCollections();
-
-        expect(wrapper.vm.$apis.set.search.calledWith({
-          query: 'creator:user-id',
-          profile: 'standard',
-          pageSize: 100,
-          page: 1,
-          qf: ['type:Collection']
-        })).toBe(true);
-      });
-
       it('queries Set API for user\'s sets specific to the item', async() => {
         const propsData = { itemIds: '/000/aaa' };
         const wrapper = factory({ propsData });

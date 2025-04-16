@@ -71,7 +71,7 @@
           profile: 'items.meta'
         };
 
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        const setResponse = await this.$apis.set.search(searchParams);
         this.relatedGalleries = setResponse.items ? this.parseSets(setResponse.items) : [];
 
         this.$emit('fetched', this.relatedGalleries);

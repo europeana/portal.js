@@ -122,7 +122,7 @@ describe('components/related/RelatedGalleries', () => {
           pageSize: 3,
           page: 1,
           profile: 'items.meta'
-        }, { withMinimalItemPreviews: true })).toBe(true);
+        })).toBe(true);
       });
 
       it('emits fetched event with response', async() => {

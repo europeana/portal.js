@@ -66,7 +66,7 @@
         profile: 'items.meta'
       };
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const setResponse = await this.$apis.set.search(searchParams);
       this.galleries = setResponse.items && this.parseSets(setResponse.items);
       this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;

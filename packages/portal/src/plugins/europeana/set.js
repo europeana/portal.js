@@ -1,5 +1,3 @@
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-
 // TODO: move to static properties of class?
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
@@ -16,56 +14,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   /**
    * Search for user sets
    * @param {Object} params retrieval params to send to Set API search method
-   * @param {Object} options retrieval options
-   * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
-  async search(params, options = {}) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      // account for early versions of the API paginating from 0, new version from 1
-      if (params.page) {
-        params.page = params.page - 1;
-      }
-      if (params.profile === 'items.meta') {
-        // account for early versions of the API response not including first set item preview/thumbnail
-        if (options.withMinimalItemPreviews) {
-          params.profile = 'standard';
-        } else {
-          params.profile = 'itemDescriptions';
-        }
-      }
-      if (params.profile === 'items') {
-        params.profile = 'minimal';
-      }
-    }
-
-    const response = await this.request({
+  search(params) {
+    return this.request({
       method: 'get',
       url: '/search',
       params
     });
-
-    // TODO: remove withMinimalItemPreviews option (also in component requests) when set API version is set to new
-    if (this.config.version === '0.12' && options.withMinimalItemPreviews && response.items) {
-      const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
-
-      const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
-        profile: 'minimal',
-        rows: params.perPage ? params.perPage : 100
-      });
-
-      for (const set of response.items) {
-        if (set.items) {
-          set.items = set.items.map((uri) => {
-            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-            return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
-          });
-          set.isShownBy = { thumbnail: set.items[0].edmPreview };
-        }
-      }
-    }
-
-    return response;
   }
 
   /**
@@ -100,34 +55,12 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   get(id, params = {}) {
-    const defaults = {
-      profile: 'meta'
-    };
-    const paramsWithDefaults = { ...defaults, ...params };
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      // account for early versions of the API paginating from 0, new version from 1
-      if (paramsWithDefaults.page) {
-        paramsWithDefaults.page = paramsWithDefaults.page - 1;
-      }
-      // check for meta profile
-      if (paramsWithDefaults.profile === 'meta') {
-        paramsWithDefaults.profile = 'minimal';
-      }
-      // check for items profile
-      if (paramsWithDefaults.profile === 'items') {
-        paramsWithDefaults.profile = 'standard';
-      }
-      // check for items.meta profile
-      if (paramsWithDefaults.profile === 'items.meta') {
-        paramsWithDefaults.profile = 'itemDescriptions';
-      }
-    }
-
     return this.requestSet(id, {
       method: 'get',
-      params: paramsWithDefaults
+      params: {
+        profile: 'meta',
+        ...params
+      }
     });
   }
 
@@ -151,10 +84,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   create(data) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      delete data.collectionType;
-    }
     return this.request({
       method: 'post',
       url: '/',
@@ -169,10 +98,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   update(id, data, params = {}) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      delete data.collectionType;
-    }
     return this.requestSet(id, {
       method: 'put',
       data,
@@ -227,26 +152,12 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Promise,Promise[]} API request(s)
    */
   async insertItems(setId, itemIds, position) {
-    itemIds = [].concat(itemIds);
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      for (let i = 0; i < itemIds.length; i = i + 1) {
-        // NOTE: need to do one at a time so that positioning works as intended
-        await this.requestSet(setId, {
-          method: 'put',
-          url: itemIds[i],
-          params: { position: position + i }
-        });
-      }
-    } else {
-      return this.requestSet(setId, {
-        method: 'put',
-        url: '/items',
-        data: itemIds,
-        params: { position }
-      });
-    }
+    return this.requestSet(setId, {
+      method: 'put',
+      url: '/items',
+      data: [].concat(itemIds),
+      params: { position }
+    });
   }
 
   /**
@@ -256,24 +167,11 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Promise,Promise[]} API request(s)
    */
   async deleteItems(setId, itemIds) {
-    itemIds = [].concat(itemIds);
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      for (const itemId of itemIds) {
-        // NOTE: these can not be made in parallel due to a bug in v0.12
-        await this.requestSet(setId, {
-          method: 'delete',
-          url: itemId
-        });
-      }
-    } else {
-      return this.requestSet(setId, {
-        method: 'delete',
-        url: '/items',
-        data: itemIds
-      });
-    }
+    return this.requestSet(setId, {
+      method: 'delete',
+      url: '/items',
+      data: [].concat(itemIds)
+    });
   }
 
   getItemIds(id, { page = 1, pageSize = 100 } = {}) {
