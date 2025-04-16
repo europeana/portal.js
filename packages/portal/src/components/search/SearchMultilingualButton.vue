@@ -79,12 +79,17 @@
       }
     },
 
+    watch: {
+      value(newVal) {
+        this.$matomo.trackEvent('Multilingual search', `${newVal ? 'Enabled' : 'Disabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
+      }
+    },
+
     methods: {
       detectTouchTap() {
         this.touchTap = true;
       },
       toggle() {
-        this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
         if (this.$auth.loggedIn) {
           this.$emit('input', !this.value);
           this.$cookies?.set('multilingualSearch', !this.value);

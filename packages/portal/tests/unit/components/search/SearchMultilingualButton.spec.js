@@ -108,7 +108,6 @@ describe('components/search/SearchMultilingualButton', () => {
             button.trigger('click');
             await wrapper.vm.$nextTick();
 
-            expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
             expect(wrapper.emitted('input')).toEqual([[false]]);
             expect(wrapper.vm.showTooltip).toEqual(false);
           });
@@ -139,11 +138,24 @@ describe('components/search/SearchMultilingualButton', () => {
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('click');
 
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
           expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
           expect(wrapper.emitted('input')).toEqual([[true]]);
         });
       });
+    });
+  });
+
+  describe('when value changes', () => {
+    it('tracks the change in matomo', async() => {
+      const wrapper = factory();
+
+      await wrapper.setProps({ value: true });
+
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
+
+      await wrapper.setProps({ value: false });
+
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
     });
   });
 });
