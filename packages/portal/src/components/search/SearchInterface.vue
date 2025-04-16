@@ -58,7 +58,7 @@
             </template>
             <template #search-options>
               <SearchMultilingualButton
-                v-if="showMultilingualButton"
+                v-if="multilingualSearchEnabled"
                 v-model="translate"
                 @input="handleMultilingualButtonInput"
               />
@@ -216,7 +216,7 @@
       await this.$nextTick();
       process.client && this.scrollToSelector('#header');
 
-      this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
+      this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabled && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -315,25 +315,8 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Allow translation depending on toggle state. Pre multilingualToggle feature allow for logged in users only.
-      allowTranslate() {
-        if (this.$features?.multilingualSearch) {
-          return this.translate;
-        }
-        return this.$auth.loggedIn;
-      },
       translateLang() {
-        if (!this.allowTranslate) {
-          return null;
-        }
-
-        // Either translate locale(s) not configured, or current locale is not
-        // among them.
-        if (!this.multilingualSearchEnabledForLocale) {
-          return null;
-        }
-
-        return this.$i18n.locale;
+        return this.translate ? this.$i18n.locale : null;
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
@@ -341,11 +324,9 @@
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
       },
-      multilingualSearchEnabledForLocale() {
-        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
-      },
-      showMultilingualButton() {
-        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
+      multilingualSearchEnabled() {
+        return this.$features?.multilingualSearch &&
+          this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       }
     },
 
@@ -394,20 +375,32 @@
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
             // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
+            // any other query (from the simple search bar) is fielded to
             // `text` if not already fielded.
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
+
+            params.query = this.fulltextQas.concat(params.query).filter(Boolean).join(' AND ');
+
             params.profile = `${params.profile},hits`;
           }
 
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
+          const qasEnrichedWithEntities = [...this.qa];
+
+          // When there are qa with entity look up, replace those qa with entity enriched value
+          if (this.qaes.length) {
+            this.qasWithAddedEntityValue.forEach((qaWithEntity) => {
+              if (qaWithEntity.qae) {
+                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex((qa) => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
+
+                qasEnrichedWithEntities.splice(indexOfQaToEnrich, 1, qaWithEntity.qae);
+              }
+            });
+          }
+
+          // All other advanced search rules are added to the query concatenated by AND.
+          params.query = [params.query].concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).filter(Boolean).join(' AND ');
         }
 
         params.qf = addContentTierFilter(params.qf);
@@ -461,7 +454,7 @@
           query: {
             ...this.$route.query,
             page: 1,
-            translate: value ? 1 : undefined
+            translate: value ? 'true' : undefined
           }
         }));
 
@@ -539,7 +532,8 @@
         }
 
         if (queryEqualsEntity) {
-          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `((${query.term}) OR "${queryEqualsEntity.id}")` });
+
           return {
             qa: query,
             qae
