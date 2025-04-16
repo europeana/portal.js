@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Autentificare",
     "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
-    "myProfile": "Profilul meu",
     "notifications": {
       "loggedIn": "Sunteți autentificat. Bine ați venit!",
       "loggedOut": "Acum ești deconectat.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document",
     "vote": "Vot"
+  },
+  "apiKeys": {
+    "title": "Gestionați cheile API"
   },
   "attribution": {
     "country": "Țară:",
@@ -965,6 +967,10 @@ export default {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
+        "title": "Căutare multilingvă"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Încearcă-l",
     "text": {
-      "itemMultiSelect": "Acum puteți selecta mai multe resurse culturale deodată, pentru a le aprecia sau a le adăuga în propria galerie."
+      "multilingualSearch": "Descoperiți mai multe cu noua căutare multilingvă — aceasta potrivește interogarea dvs. cu traduceri în alte limbi pentru a vă oferi rezultate mai bogate și mai relevante."
     },
-    "tooltip": "Faceți clic aici pentru a începe selectarea mai multor resurse culturale."
+    "tooltip": {
+      "multilingualSearch": "Faceți clic aici pentru a activa căutarea multilingvă"
+    }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Alegeți modul în care acest câmp ar trebui să modifice căutarea.",
         "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
       }
+    },
+    "multilingual": {
+      "disable": "Dezactivați căutarea multilingvă",
+      "enable": "Activați căutarea multilingvă",
+      "loginToUseMultilingualSearch": "Conectați-vă pentru a utiliza căutarea multilingvă și pentru a obține rezultate care nu se limitează la limba în care ați efectuat căutarea.",
+      "turnOffMultilingualSearch": "Dezactivați căutarea multilingvă și vizualizați rezultatele numai în limba în care ați efectuat căutarea.",
+      "turnOnMultilingualSearch": "Activați căutarea multilingvă și obțineți rezultate care nu sunt limitate la limba termenului de căutare."
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",

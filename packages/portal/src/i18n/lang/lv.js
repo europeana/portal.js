@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Pieteikties",
     "linkLoginJoin": "Pieteikties / Pievienoties",
     "linkLogout": "Atteikties",
-    "myProfile": "Mans profils",
     "notifications": {
       "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
       "loggedOut": "Jūs tagad esat atteicies.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu",
     "vote": "Balsojums"
+  },
+  "apiKeys": {
+    "title": "Pārvaldīt API atslēgas"
   },
   "attribution": {
     "country": "Valsts",
@@ -965,6 +967,10 @@ export default {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Atcerieties, ja vēlaties iegūt daudzvalodu meklēšanas rezultātus.",
+        "title": "Daudzvalodu meklēšana"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Izmēģiniet to",
     "text": {
-      "itemMultiSelect": "Tagad vienlaikus varat atlasīt vairākus digitālos objektus, lai tos atzīmētu kā iecienītus vai pievienotu savai galerijai."
+      "multilingualSearch": "Atklājiet vairāk ar jauno daudzvalodu meklēšanu — tā saskaņo jūsu vaicājumu ar tulkojumiem citās valodās, lai sniegtu jums bagātīgākus un atbilstošākus rezultātus."
     },
-    "tooltip": "Noklikšķiniet šeit, lai sāktu atlasīt vairākus digitālos objektus"
+    "tooltip": {
+      "multilingualSearch": "Noklikšķiniet šeit, lai aktivizētu daudzvalodu meklēšanu"
+    }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Izvēlieties, kā šim laukam vajadzētu mainīt meklēšanu.",
         "term": "Ievadiet terminu(-us), ko satur vai nesatur izvēlētais lauks."
       }
+    },
+    "multilingual": {
+      "disable": "Atspējot daudzvalodu meklēšanu",
+      "enable": "Iespējot daudzvalodu meklēšanu",
+      "loginToUseMultilingualSearch": "Piesakieties, lai izmantotu daudzvalodu meklēšanu un iegūtu rezultātus, kas nav ierobežoti ar meklēšanas frāzes valodu.",
+      "turnOffMultilingualSearch": "Izslēdziet daudzvalodu meklēšanu un skatiet rezultātus tikai tajā valodā, kurā ir meklēšanas vārds.",
+      "turnOnMultilingualSearch": "Ieslēdziet daudzvalodu meklēšanu un saņemiet rezultātus, kas nav ierobežoti ar jūsu meklēšanas termina valodu."
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",

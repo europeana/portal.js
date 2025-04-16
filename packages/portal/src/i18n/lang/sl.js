@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Vpis",
     "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
-    "myProfile": "Moj profil",
     "notifications": {
       "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
       "loggedOut": "Zdaj ste odjavljeni.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta",
     "vote": "Glasuj"
+  },
+  "apiKeys": {
+    "title": "Upravljanje ključev API"
   },
   "attribution": {
     "country": "Država:",
@@ -965,6 +967,10 @@ export default {
         "description": "Zbira anonimne statistične podatke o tem, kako obiskovalci komunicirajo s spletnim mestom.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Zapomni si, ali želite dobiti večjezične rezultate iskanja.",
+        "title": "Večjezično iskanje"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Poskusite",
     "text": {
-      "itemMultiSelect": "Zdaj lahko izberete več enot naenkrat in jih všečkate ali dodate v svojo galerijo."
+      "multilingualSearch": "Odkrijte več z novim večjezičnim iskanjem – vašo poizvedbo poveže s prevodi v drugih jezikih, da vam zagotovi bogatejše in ustreznejše rezultate."
     },
-    "tooltip": "Kliknite tukaj za začetek izbire več enot"
+    "tooltip": {
+      "multilingualSearch": "Kliknite tukaj, da aktivirate večjezično iskanje"
+    }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Izberite, kako naj to polje spremeni iskanje.",
         "term": "Vnesite termin(e), ki jih izbrano polje vsebuje ali ne vsebuje."
       }
+    },
+    "multilingual": {
+      "disable": "Onemogoči večjezično iskanje",
+      "enable": "Omogoči večjezično iskanje",
+      "loginToUseMultilingualSearch": "Prijavite se za uporabo večjezičnega iskanja in pridobite rezultate, ki niso omejeni na jezik vašega iskalnega izraza.",
+      "turnOffMultilingualSearch": "Izklopite večjezično iskanje in si oglejte rezultate samo v jeziku iskane besede.",
+      "turnOnMultilingualSearch": "Vklopite večjezično iskanje in prejmite rezultate, ki niso omejeni na jezik iskalnega izraza."
     },
     "results": {
       "limitWarning": "Dodatni rezultati niso prikazani, saj je prikazanih le prvih 1000 najpomembnejših rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",

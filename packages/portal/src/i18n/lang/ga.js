@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
     "linkLogout": "Logáil amach",
-    "myProfile": "Mo phróifíl",
     "notifications": {
       "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
       "loggedOut": "Tá tú logáilte amach anois.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad",
     "vote": "Vóta"
+  },
+  "apiKeys": {
+    "title": "Bainistigh eochracha API"
   },
   "attribution": {
     "country": "Tír:",
@@ -965,6 +967,10 @@ export default {
         "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Cuimhníonn sé más fearr leat torthaí cuardaigh ilteangacha a fháil.",
+        "title": "Cuardach ilteangach"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Dún",
     "readMore": "Bain triail as",
     "text": {
-      "itemMultiSelect": "Is féidir leat míreanna iolracha a roghnú ag an am chéanna anois, chucu a thaitin nó a chur le gailearaí de do chuid féin."
+      "multilingualSearch": "Faigh amach níos mó leis an gcuardach ilteangach nua — meaitseálann sé do cheist le haistriúcháin i dteangacha eile chun torthaí níos saibhre agus níos ábhartha a thabhairt duit."
     },
-    "tooltip": "Cliceáil anseo chun tús a chur le roghnú míreanna"
+    "tooltip": {
+      "multilingualSearch": "Cliceáil anseo chun cuardach ilteangach a ghníomhachtú"
+    }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Roghnaigh conas ba cheart don réimse seo an cuardach a mhodhnú.",
         "term": "Cuir isteach an téarma(í) atá sa réimse roghnaithe nó nach bhfuil."
       }
+    },
+    "multilingual": {
+      "disable": "Díchumasaigh cuardach ilteangach",
+      "enable": "Cumasaigh cuardach ilteangach",
+      "loginToUseMultilingualSearch": "Logáil isteach chun cuardach ilteangach a úsáid, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
+      "turnOffMultilingualSearch": "Múch chuardach ilteangach, agus féach ar thorthaí i dteanga do théarma cuardaigh amháin.",
+      "turnOnMultilingualSearch": "Cuir cuardach ilteangach ar siúl, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh."
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",

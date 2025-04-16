@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Illoggja",
     "linkLoginJoin": "Idħol / Ingħaqad",
     "linkLogout": "Oħroġ",
-    "myProfile": "Il-profil Tiegħi",
     "notifications": {
       "loggedIn": "Inti issa illoggjat. Merħba!",
       "loggedOut": "Issa int illoggjat' il barra.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument",
     "vote": "Ivvota"
+  },
+  "apiKeys": {
+    "title": "Immaniġġja ċ-ċwievet tal-API"
   },
   "attribution": {
     "country": "Pajjiż:",
@@ -965,6 +967,10 @@ export default {
         "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Jiftakar jekk tippreferi tikseb riżultati tat-tfittxija b’ħafna lingwi.",
+        "title": "Tfittxija b’ħafna lingwi"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Ipprova",
     "text": {
-      "itemMultiSelect": "Issa tista’ tagħżel diversi oġġetti f’daqqa biex tħobbhom jew iżżidhom mal-gallerija tiegħek."
+      "multilingualSearch": "Skopri aktar bit-tfittxija multilingwi l-ġdida — tqabbel il-mistoqsija tiegħek ma' traduzzjonijiet f'lingwi oħra biex iġġiblek riżultati aktar sinjuri u aktar rilevanti."
     },
-    "tooltip": "Ikklikkja hawn biex tibda tagħżel oġġetti multipli"
+    "tooltip": {
+      "multilingualSearch": "Ikklikkja hawn biex tattiva t-tfittxija b’ħafna lingwi."
+    }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Agħżel kif dan il-qasam għandu jimmodifika t-tfittxija.",
         "term": "Daħħal it-terminu(i) li l-qasam magħżul fih jew ma fihx."
       }
+    },
+    "multilingual": {
+      "disable": "Itfi t-tfittxija b’ħafna lingwi",
+      "enable": "Ippermetti t-tfittxija b’ħafna lingwi",
+      "loginToUseMultilingualSearch": "Illoggja biex tuża t-tfittxija multilingwi, u ġib riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "turnOffMultilingualSearch": "Itfi t-tfittxija multilingwi, u ara r-riżultati biss fil-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "turnOnMultilingualSearch": "Ixgħel it-tfittxija multilingwi, u ġib riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek."
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
