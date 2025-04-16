@@ -84,6 +84,7 @@
         this.touchTap = true;
       },
       trackEvent() {
+        // TODO: mv up to parent input handler?
         this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
       },
       toggle() {

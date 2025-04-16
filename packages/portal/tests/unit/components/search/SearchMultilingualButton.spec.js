@@ -10,6 +10,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(SearchMult
   attachTo: document.body,
   localVue,
   mocks: {
+    $auth: { loggedIn: false },
     $t: (key) => key,
     $matomo: {
       trackEvent: sinon.stub()
@@ -46,81 +47,63 @@ describe('components/search/SearchMultilingualButton', () => {
   });
 
   describe('when clicked', () => {
-<<<<<<< HEAD
-    describe('when multilingual results are enabled', () => {
-      const propsData = { value: true };
-
-      it('emits the input event to toggle the selected state off', () => {
-        const wrapper = factory({ propsData });
-=======
     describe('and user is not logged in', () => {
       describe('and click is not a touch tap', () => {
-        it('redirects to login', () => {
+        it('emits the input event to toggle the selected state on; matomo tracks', () => {
           const wrapper = factory();
->>>>>>> master
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('click');
 
-<<<<<<< HEAD
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Disabled multilingual search', 'Español multilingual search toggle')).toBe(true);
-        expect(wrapper.emitted('input')).toEqual([[false]]);
-=======
-          expect(wrapper.vm.$keycloak.login.called).toBe(true);
+          expect(wrapper.emitted('input')).toEqual([[true]]);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
         });
       });
 
       describe('and click is from a touch interaction', () => {
-        it('does not login and increases the touchTap count by 1; does not matomo track', () => {
+        it('does not emit the input event, but increases the touchTap count by 1; does not matomo track', () => {
           const wrapper = factory();
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('touchstart');
           button.trigger('click');
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(false);
           expect(wrapper.vm.touchTapCount).toEqual(1);
+          expect(wrapper.emitted('input')).toBeUndefined();
           expect(wrapper.vm.$matomo.trackEvent.called).toBe(false);
         });
 
         describe('on a second click', () => {
-          it('redirects to login and resets the touchTapCount to 0', () => {
+          it('emits the input event and resets the touchTapCount to 0; matomo tracks', () => {
             const wrapper = factory();
 
             const button = wrapper.find('.search-multilingual-button');
             button.trigger('touchstart');
             button.trigger('click');
 
-            expect(wrapper.vm.$keycloak.login.called).toBe(false);
             expect(wrapper.vm.touchTapCount).toEqual(1);
+            expect(wrapper.emitted('input')).toBeUndefined();
 
             button.trigger('touchstart');
             button.trigger('click');
 
-            expect(wrapper.vm.$keycloak.login.called).toBe(true);
+            expect(wrapper.emitted('input')).toEqual([[true]]);
+            expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
             expect(wrapper.vm.touchTapCount).toEqual(0);
           });
         });
->>>>>>> master
       });
     });
 
-    describe('when multilingual results are disabled', () => {
-      const propsData = { value: false };
+    describe('and user is logged in', () => {
+      const mocks = { $auth: { loggedIn: true } };
 
-<<<<<<< HEAD
-      it('emits the input event to toggle the selected state on', () => {
-        const wrapper = factory({ propsData });
+      describe('when multilingual results are enabled', () => {
+        const propsData = { value: true };
 
-        const button = wrapper.find('.search-multilingual-button');
-        button.trigger('click');
-
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
-        expect(wrapper.emitted('input')).toEqual([[true]]);
-=======
         describe('and click is not a touch tap', () => {
           it('emits the input event to toggle the selected state and hides the tooltip', async() => {
-            const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
+            const wrapper = factory({ mocks, propsData });
 
             const button = wrapper.find('.search-multilingual-button');
             button.trigger('click');
@@ -134,7 +117,7 @@ describe('components/search/SearchMultilingualButton', () => {
 
         describe('and click is from a touch interaction', () => {
           it('emits the input event to toggle the selected state and hides the tooltip', async() => {
-            const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
+            const wrapper = factory({ mocks, propsData });
 
             const button = wrapper.find('.search-multilingual-button');
             button.trigger('touchstart');
@@ -152,16 +135,14 @@ describe('components/search/SearchMultilingualButton', () => {
         const propsData = { value: false };
 
         it('emits the input event to toggle the selected state on', () => {
-          const wrapper = factory({ mocks: { $auth: { loggedIn: true } }, propsData });
+          const wrapper = factory({ mocks, propsData });
 
           const button = wrapper.find('.search-multilingual-button');
           button.trigger('click');
 
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Multilingual search', 'Enabled multilingual search', 'Español multilingual search toggle')).toBe(true);
-          expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
           expect(wrapper.emitted('input')).toEqual([[true]]);
         });
->>>>>>> master
       });
     });
   });

@@ -217,7 +217,7 @@
       process.client && this.scrollToSelector('#header');
 
       this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabled && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
-      
+
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
       this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
@@ -333,12 +333,11 @@
     watch: {
       // TODO: is boost still used?
       '$route.query.boost': 'handleSearchParamsChanged',
-      '$route.query.reusability': 'handleSearchParamsChanged',
-      '$route.query.qa': 'handleSearchParamsChanged',
-      '$route.query.query': 'handleSearchParamsChanged',
-      '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged',
       '$route.query.qa': 'handleSearchParamsChanged',
+      '$route.query.qf': 'watchRouteQueryQf',
+      '$route.query.query': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
       '$route.query.translate': 'handleSearchParamsChanged'
     },
 

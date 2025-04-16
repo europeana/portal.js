@@ -97,10 +97,11 @@ describe('components/search/SearchInterface', () => {
     describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
       const $auth = { loggedIn: true };
       const $config = { app: { search: { translateLocales: ['nl'] } } };
+      const $features = { multilingualSearch: true };
       const $i18n = { locale: 'nl' };
 
       it('activates multilingual search', async() => {
-        const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+        const wrapper = factory({ mocks: { $auth, $config, $features, $i18n } });
         wrapper.vm.$cookies.get.returns(true);
 
         await wrapper.vm.fetch();
@@ -351,83 +352,29 @@ describe('components/search/SearchInterface', () => {
   describe('computed', () => {
     describe('apiOptions', () => {
       describe('translateLang', () => {
-        describe('when locales to translate are configured', () => {
-          const $config = { app: { search: { translateLocales: ['nl'] } } };
+        const $i18n = { locale: 'nl' };
 
-          describe('and current locale is one of the configured locales to translate', () => {
-            const $i18n = { locale: 'nl' };
-            describe('and user is logged in', () => {
-              const $auth = { loggedIn: true };
+        describe('when translate is not enabled', () => {
+          const data = { translate: false };
 
-              describe('and has enabled the multilingual search feature', () => {
-                const $features = { multilingualSearch: true };
-                describe('and has enabled the multilingual toggle', () => {
-                  it('returns the current locale', () => {
-                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { translate: true } });
-
-                    const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                    expect(translateLang).toBe('nl');
-                  });
-                });
-                describe('and has disabled the multilingual toggle', () => {
-                  it('is undefined', () => {
-                    const wrapper = factory({ mocks: { $auth, $config, $i18n, $features }, data: { translate: false } });
-
-                    const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                    expect(translateLang).toBeUndefined();
-                  });
-                });
-              });
-
-              describe('and has disabled multilingual search feature', () => {
-                it('returns the current locale', () => {
-                  const wrapper = factory({ mocks: { $auth, $config, $i18n, $features: { multilingualSearch: false }  } });
-
-                  const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                  expect(translateLang).toBe('nl');
-                });
-              });
-            });
-
-            describe('but user is not logged in', () => {
-              const $auth = { loggedIn: false };
-              const $i18n = { locale: 'nl' };
-
-              it('is undefined', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBeUndefined();
-              });
-            });
-          });
-
-          describe('but current locale is not one of the configured locales to translate', () => {
-            const $i18n = { locale: 'fr' };
-
-            it('is undefined', () => {
-              const wrapper = factory({ mocks: { $config, $i18n } });
-
-              const translateLang = wrapper.vm.apiOptions.translateLang;
-
-              expect(translateLang).toBeUndefined();
-            });
-          });
-        });
-
-        describe('when locales to translate are not configured', () => {
-          const $config = { app: { search: { translateLocales: [] } } };
-
-          it('is undefined', () => {
-            const wrapper = factory({ mocks: { $config } });
+          it('is not defined', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
 
             const translateLang = wrapper.vm.apiOptions.translateLang;
 
             expect(translateLang).toBeUndefined();
+          });
+        });
+
+        describe('when translate is enabled', () => {
+          const data = { translate: true };
+
+          it('returns the current locale', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
+
+            const translateLang = wrapper.vm.apiOptions.translateLang;
+
+            expect(translateLang).toBe('nl');
           });
         });
       });
@@ -459,32 +406,6 @@ describe('components/search/SearchInterface', () => {
 
         it('is 3', () => {
           expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
-        });
-      });
-    });
-
-    describe('showMultilingualButton', () => {
-      describe('when multilingual search is enabled for the current locale and there is a query', () => {
-        it('returns true', () => {
-          const wrapper = factory({ mocks: {
-            $config: { app: { search: { translateLocales: ['nl'] } } },
-            $i18n: { locale: 'nl' },
-            $route: { query: { query: 'arte visuales' } },
-            $features: { multilingualSearch: true }
-          } });
-
-          expect(wrapper.vm.showMultilingualButton).toEqual(true);
-        });
-      });
-      describe('when multilingual search is not enabled for the current locale', () => {
-        it('returns false', () => {
-          const wrapper = factory({ mocks: {
-            $config: { app: { search: { translateLocales: ['fr'] } } },
-            $i18n: { locale: 'nl' },
-            $route: { query: { query: 'arte visuales' } }
-          } });
-
-          expect(wrapper.vm.showMultilingualButton).toEqual(false);
         });
       });
     });
@@ -590,7 +511,7 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.handleMultilingualButtonInput(true);
 
         expect(wrapper.vm.$router.push.calledWith({
-          name: 'search', query: { query: 'casa', page: 1, translate: 1 }
+          name: 'search', query: { query: 'casa', page: 1, translate: 'true' }
         })).toBe(true);
       });
 
@@ -786,12 +707,12 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('watch', () => {
-    describe('when translate value changes', () => {
+    describe('when $route.query.translate value changes', () => {
       it('resets multi selected items and triggers $fetch', async() => {
-        const wrapper = factory({ data: { translate: false } });
+        const wrapper = factory({ mocks: { $route: { query: {} } } });
         sinon.spy(wrapper.vm, '$fetch');
 
-        wrapper.vm.translate = true;
+        wrapper.vm.$route.query = { translate: 'true' };
         await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
