@@ -117,11 +117,13 @@
     &:hover {
       color: $black;
 
-      .icon-translate:before {
-        content: '\e93c';
-      }
-      .icon-translate-outlined:before {
-        content: '\e970';
+      @media (hover: hover) {
+        .icon-translate:before {
+          content: '\e93c';
+        }
+        .icon-translate-outlined:before {
+          content: '\e970';
+        }
       }
     }
   }
