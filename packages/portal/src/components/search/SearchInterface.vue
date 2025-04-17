@@ -58,7 +58,7 @@
             </template>
             <template #search-options>
               <SearchMultilingualButton
-                v-if="multilingualSearchEnabled"
+                v-if="multilingualSearchButtonEnabled"
                 v-model="translate"
                 @input="handleMultilingualButtonInput"
               />
@@ -216,7 +216,11 @@
       await this.$nextTick();
       process.client && this.scrollToSelector('#header');
 
-      this.translate = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabled && (this.$route.query.translate || this.$cookies?.get('multilingualSearch')));
+      this.translate = Boolean(
+        this.$auth.loggedIn &&
+          this.translateSearchForCurrentLocale &&
+          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+      );
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -324,9 +328,11 @@
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
       },
-      multilingualSearchEnabled() {
-        return this.$features?.multilingualSearch &&
-          this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      translateSearchForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      multilingualSearchButtonEnabled() {
+        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
       }
     },
 

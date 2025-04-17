@@ -5,7 +5,7 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'manageApiKeys' },
   { name: 'mockTrendingItems' },
-  { name: 'multilingualSearch' },
+  { name: 'multilingualSearchButton' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
