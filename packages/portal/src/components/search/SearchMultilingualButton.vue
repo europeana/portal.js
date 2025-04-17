@@ -38,6 +38,8 @@
 </template>
 
 <script>
+  import useHideTooltips from '@/composables/hideTooltips.js';
+
   export default {
     name: 'SearchMultilingualButton',
 
@@ -52,9 +54,14 @@
       }
     },
 
+    setup() {
+      const buttonId = 'search-multilingual-button';
+      const { hideTooltips } = useHideTooltips(buttonId);
+      return { buttonId, hideTooltips };
+    },
+
     data() {
       return {
-        buttonId: 'search-multilingual-button',
         // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
         // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when value is changed
@@ -92,6 +99,8 @@
           this.trackEvent();
           this.$emit('input', !this.value);
           this.showTooltip = false;
+          // TODO: clean up when new feature tooltip expires
+          this.hideTooltips();
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
           this.touchTap = false;
