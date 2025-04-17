@@ -117,12 +117,13 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .search-multilingual-button {
+  .btn-light-flat.search-multilingual-button {
     font-size: $font-size-large;
     line-height: 1;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-large-4k;
+      margin-right: 0.75rem !important;
     }
 
     &:hover {
