@@ -85,9 +85,7 @@
       },
       trackEvent() {
         // TODO: mv up to parent input handler?
-        if (this.$matomo) {
-          this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
-        }
+        this.$matomo?.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
       },
       toggle() {
         if (this.$auth.loggedIn) {
