@@ -448,21 +448,23 @@
         }
       },
 
-      handleMultilingualButtonInput(value) {
+      async handleMultilingualButtonInput(value) {
         this.translate = value;
         this.$cookies?.set('multilingualSearch', value);
 
-        this.$router.push(this.localePath({
+        const redirect = this.localePath({
           ...this.route,
           query: {
             ...this.$route.query,
             page: 1,
             translate: value ? 'true' : undefined
           }
-        }));
+        });
 
-        if (!this.$auth.loggedIn) {
-          this.$keycloak.login();
+        if (value && !this.$auth.loggedIn) {
+          this.$keycloak.login({ redirect });
+        } else {
+          this.$router.push(redirect);
         }
       },
 
