@@ -47,7 +47,7 @@
       </template>
     </i18n><!-- This comment removes white space which gets underlined
  -->
-    <template v-if="!$features.multilingualSearch">
+    <template v-if="!$features.multilingualSearchButton">
       <i18n
         v-if="suggestLoginForMoreResults"
         path="search.results.loginToSeeMore"
@@ -204,14 +204,14 @@
           view: this.$route?.query?.view
         };
       },
-      translateProfileEnabledForCurrentLocale() {
+      translateSearchForCurrentLocale() {
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
       suggestLoginForMoreResults() {
-        return !this.$auth.loggedIn && this.translateProfileEnabledForCurrentLocale;
+        return !this.$auth.loggedIn && this.translateSearchForCurrentLocale;
       },
       multilingualSearchTooltip() {
-        if (this.translateProfileEnabledForCurrentLocale) {
+        if (this.translateSearchForCurrentLocale) {
           if (this.$auth.loggedIn) {
             return this.$t('search.results.showingMultilingualResults');
           } else {
