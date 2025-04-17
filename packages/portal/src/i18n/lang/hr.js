@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
     "linkLogout": "Odjava",
-    "myProfile": "Moj profil",
     "notifications": {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument",
     "vote": "Glasaj"
+  },
+  "apiKeys": {
+    "title": "Upravljanje API ključevima"
   },
   "attribution": {
     "country": "Država:",
@@ -966,6 +968,10 @@ export default {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamti želite li višejezične rezultate pretraživanja.",
+        "title": "Višejezično pretraživanje"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Probajte",
     "text": {
-      "itemMultiSelect": "Sada možete odabrati više predmeta odjednom kako biste ih lajkali ili dodali u vlastitu galeriju."
+      "multilingualSearch": "Otkrijte više uz novo višejezično pretraživanje koje povezuje vaš upit s prijevodima na druge jezike kako bi vam donijelo bogatije i relevantnije rezultate."
     },
-    "tooltip": "Kliknite ovdje kako biste počeli odabirati više predmeta"
+    "tooltip": {
+      "multilingualSearch": "Kliknite ovdje kako biste aktivirali višejezično pretraživanje."
+    }
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Odaberite kako ovo polje treba izmijeniti pretraživanje.",
         "term": "Unesite pojmove koje odabrano polje sadrži ili ne sadrži."
       }
+    },
+    "multilingual": {
+      "disable": "Onemogući višejezično pretraživanje",
+      "enable": "Omogući višejezično pretraživanje",
+      "loginToUseMultilingualSearch": "Prijavite se kako biste koristili višejezično pretraživanje i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
+      "turnOffMultilingualSearch": "Isključite višejezično pretraživanje i pogledajte rezultate samo na jeziku vašeg pojma za pretraživanje.",
+      "turnOnMultilingualSearch": "Uključite višejezično pretraživanje i dobijte rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje."
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",

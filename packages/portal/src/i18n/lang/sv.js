@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Logga in",
     "linkLoginJoin": "Logga in / Gå med",
     "linkLogout": "Logga ut",
-    "myProfile": "Min profil",
     "notifications": {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument",
     "vote": "Rösta"
+  },
+  "apiKeys": {
+    "title": "Hantera API-nycklar"
   },
   "attribution": {
     "country": "Land:",
@@ -965,6 +967,10 @@ export default {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Kommer ihåg om du föredrar att få flerspråkiga sökresultat.",
+        "title": "Flerspråkig sökning"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Prova det",
     "text": {
-      "itemMultiSelect": "Du kan nu välja flera objekt samtidigt för att gilla eller lägga till dem i ett eget galleri."
+      "multilingualSearch": "Upptäck mer med den nya flerspråkiga sökningen — den matchar din sökning med översättningar på andra språk för att ge dig rikare och mer relevanta resultat."
     },
-    "tooltip": "Klicka här för att börja välja flera objekt"
+    "tooltip": {
+      "multilingualSearch": "Klicka här för att aktivera flerspråkig sökning"
+    }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Välj hur detta fält ska ändra sökningen.",
         "term": "Ange termen/termerna som det valda fältet innehåller eller inte innehåller."
       }
+    },
+    "multilingual": {
+      "disable": "Inaktivera flerspråkig sökning",
+      "enable": "Aktivera flerspråkig sökning",
+      "loginToUseMultilingualSearch": "Logga in för att använda flerspråkig sökning och få resultat som inte är begränsade till språket för din sökterm.",
+      "turnOffMultilingualSearch": "Stäng av flerspråkig sökning och visa resultat endast på det språk som sökordet är skrivet på.",
+      "turnOnMultilingualSearch": "Aktivera flerspråkig sökning och få resultat som inte är begränsade till språket i ditt sökord."
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",

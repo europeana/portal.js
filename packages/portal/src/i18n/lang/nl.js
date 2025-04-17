@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Inloggen",
     "linkLoginJoin": "Inloggen / Aanmelden",
     "linkLogout": "Uitloggen",
-    "myProfile": "Mijn profiel",
     "notifications": {
       "loggedIn": "U bent nu ingelogd. Welkom!",
       "loggedOut": "U bent nu uitgelogd.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven",
     "vote": "Stemmen"
+  },
+  "apiKeys": {
+    "title": "API-sleutels beheren"
   },
   "attribution": {
     "country": "Land:",
@@ -966,6 +968,10 @@ export default {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Onthoudt of u de voorkeur geeft aan meertalige zoekresultaten.",
+        "title": "Meertalig zoeken"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Probeer het",
     "text": {
-      "itemMultiSelect": "U kunt nu meerdere objecten tegelijk selecteren om ze te liken of toe te voegen aan uw eigen galerij."
+      "multilingualSearch": "Ontdek meer met de nieuwe meertalige zoekfunctie — het stemt uw zoekopdracht af met vertalingen in andere talen om u rijkere, relevantere resultaten te bieden."
     },
-    "tooltip": "Klik hier om meerdere objecten te selecteren"
+    "tooltip": {
+      "multilingualSearch": "Klik hier om meertalig zoeken te activeren"
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Kies hoe dit veld de zoekopdracht moet wijzigen.",
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
+    },
+    "multilingual": {
+      "disable": "Meertalig zoeken uitschakelen",
+      "enable": "Meertalig zoeken inschakelen",
+      "loginToUseMultilingualSearch": "Log in om meertalig zoeken te gebruiken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
+      "turnOffMultilingualSearch": "Schakel meertalig zoeken uit en bekijk de resultaten alleen in de taal van uw zoekterm.",
+      "turnOnMultilingualSearch": "Schakel meertalige zoekopdracht in en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm."
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",

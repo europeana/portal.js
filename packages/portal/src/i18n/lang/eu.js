@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Saioa hasi",
     "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
-    "myProfile": "Nire profila",
     "notifications": {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi",
     "vote": "Bozkatu"
+  },
+  "apiKeys": {
+    "title": "API gakoak kudeatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -971,6 +973,10 @@ export default {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Gogoratuko dugu hizkuntza anitzeko bilaketa-emaitzak nahiago dituzula.",
+        "title": "Bilaketa eleanitza"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1144,9 +1150,11 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Probatu",
     "text": {
-      "itemMultiSelect": "Orain hainbat elementu batera hauta ditzakezu, gustuko gisa markatzeko edo zure galeria batean gehitzeko."
+      "multilingualSearch": "Ezagutu gehiago hizkuntza anitzeko bilaketa berriarekin — zure kontsulta beste hizkuntzetako itzulpenekin bat egiten du, emaitza aberatsagoak eta garrantzitsuagoak ekartzeko."
     },
-    "tooltip": "Egin klik hemen hainbat elementu hautatzen hasteko"
+    "tooltip": {
+      "multilingualSearch": "Egin klik hemen hizkuntza anitzeko bilaketa aktibatzeko"
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1303,6 +1311,13 @@ export default {
         "modifier": "Aukeratu eremu honek bilaketa nola aldatu behar duen.",
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
+    },
+    "multilingual": {
+      "disable": "Desgaitu bilaketa eleanitza",
+      "enable": "Gaitu bilaketa eleanitza",
+      "loginToUseMultilingualSearch": "Hasi saioa bilaketa eleanitza erabiltzeko, eta lortu emaitzak zure bilaketa-terminoaren hizkuntzara mugatu gabe.",
+      "turnOffMultilingualSearch": "Desaktibatu bilaketa eleanitza eta ikusi emaitzak zure bilaketa-terminoaren hizkuntzan soilik.",
+      "turnOnMultilingualSearch": "Aktibatu bilaketa eleanitza eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatzen ez direnak."
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",

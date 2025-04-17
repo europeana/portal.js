@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Anmelden",
     "linkLoginJoin": "Anmelden/Registrieren",
     "linkLogout": "Abmelden",
-    "myProfile": "Mein Profil",
     "notifications": {
       "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
       "loggedOut": "Sie sind jetzt ausgeloggt.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen",
     "vote": "Abstimmen"
+  },
+  "apiKeys": {
+    "title": "Verwalten von API-Schlüsseln"
   },
   "attribution": {
     "country": "Land:",
@@ -966,6 +968,10 @@ export default {
         "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Merkt sich, ob Sie mehrsprachige Suchergebnisse bevorzugen.",
+        "title": "Mehrsprachige Suche"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Versuchen Sie es",
     "text": {
-      "itemMultiSelect": "Sie können jetzt mehrere Objekte gleichzeitig auswählen, um sie zu liken oder zu Ihrer eigenen Galerie hinzuzufügen."
+      "multilingualSearch": "Entdecken Sie mehr mit der neuen mehrsprachigen Suche – sie gleicht Ihre Suchanfrage mit Übersetzungen in anderen Sprachen ab, um Ihnen reichhaltigere und relevantere Ergebnisse zu liefern."
     },
-    "tooltip": "Klicken Sie hier, um mehrere Objekte auszuwählen"
+    "tooltip": {
+      "multilingualSearch": "Klicken Sie hier, um die mehrsprachige Suche zu aktivieren"
+    }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Wählen Sie, wie dieses Feld die Suche verändern soll.",
         "term": "Geben Sie die Begriffe ein, die das ausgewählte Feld enthält bzw. nicht enthält."
       }
+    },
+    "multilingual": {
+      "disable": "Mehrsprachige Suche deaktivieren",
+      "enable": "Mehrsprachige Suche aktivieren",
+      "loginToUseMultilingualSearch": "Melden Sie sich an, um die mehrsprachige Suche zu nutzen, und erhalten Sie Ergebnisse, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind.",
+      "turnOffMultilingualSearch": "Deaktivieren Sie die mehrsprachige Suche, und zeigen Sie die Ergebnisse nur in der Sprache Ihres Suchbegriffs an.",
+      "turnOnMultilingualSearch": "Aktivieren Sie die mehrsprachige Suche, um Ergebnisse zu erhalten, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind."
     },
     "results": {
       "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",

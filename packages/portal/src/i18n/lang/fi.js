@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Kirjaudu sisään",
     "linkLoginJoin": "Kirjaudu / Luo tili",
     "linkLogout": "Kirjaudu ulos",
-    "myProfile": "Profiilini",
     "notifications": {
       "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
       "loggedOut": "Olet nyt kirjautunut ulos.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja",
     "vote": "Äänestää"
+  },
+  "apiKeys": {
+    "title": "Hallinnoi API-avaimia"
   },
   "attribution": {
     "country": "Maa:",
@@ -966,6 +968,10 @@ export default {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Muistaa, haluatko saada monikielisiä hakutuloksia.",
+        "title": "Monikielinen haku"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Kokeile sitä",
     "text": {
-      "itemMultiSelect": "Voit nyt valita useita aineistoja kerralla, lisätä ne suosikkeihin tai omaan galleriaan."
+      "multilingualSearch": "Löydä enemmän uudella monikielisellä haulla – se yhdistää kyselysi muiden kielten käännöksiin ja tuottaa monipuolisempia ja osuvampia tuloksia."
     },
-    "tooltip": "Napsauta tästä aloittaaksesi usean aineiston valinnan"
+    "tooltip": {
+      "multilingualSearch": "Klikkaa tästä ottaaksesi käyttöön monikielisen haun"
+    }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Valitse, kuinka tämän kentän tulee muokata hakua.",
         "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
+    },
+    "multilingual": {
+      "disable": "Poista monikielinen haku käytöstä",
+      "enable": "Ota monikielinen haku käyttöön",
+      "loginToUseMultilingualSearch": "Kirjaudu sisään käyttääksesi monikielistä hakua ja saadaksesi tuloksia, joita ei ole rajoitettu hakusanasi kielelle.",
+      "turnOffMultilingualSearch": "Poista monikielinen haku käytöstä ja näytä tulokset vain hakusanan kielellä.",
+      "turnOnMultilingualSearch": "Ota käyttöön monikielinen haku ja saat tuloksia, jotka eivät rajoitu hakutermisi kieleen."
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",

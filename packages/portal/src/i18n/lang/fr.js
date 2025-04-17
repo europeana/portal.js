@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Se connecter",
     "linkLoginJoin": "Connexion / Rejoignez-nous",
     "linkLogout": "Déconnexion",
-    "myProfile": "Mon profil",
     "notifications": {
       "loggedIn": "Vous êtes maintenant connecté. Bienvenue!",
       "loggedOut": "Vous êtes maintenant déconnecté.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document",
     "vote": "Voter"
+  },
+  "apiKeys": {
+    "title": "Gérer les clés API"
   },
   "attribution": {
     "country": "Pays :",
@@ -966,6 +968,10 @@ export default {
         "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Se souvient si vous préférez obtenir des résultats de recherche multilingues.",
+        "title": "Recherche multilingue"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Fermer",
     "readMore": "Essayez-le",
     "text": {
-      "itemMultiSelect": "Vous pouvez maintenant sélectionner plusieurs items à la fois, pour les aimer ou les ajouter à votre propre galerie."
+      "multilingualSearch": "Découvrez-en plus avec la nouvelle recherche multilingue : elle associe votre requête à des traductions dans d'autres langues pour vous proposer des résultats plus riches et plus pertinents."
     },
-    "tooltip": "Cliquez ici pour commencer à sélectionner plusieurs items"
+    "tooltip": {
+      "multilingualSearch": "Cliquez ici pour activer la recherche multilingue"
+    }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Choisissez comment ce champ doit modifier la recherche.",
         "term": "Entrez-le(s) terme(s) que le champ choisi contient ou ne contient pas."
       }
+    },
+    "multilingual": {
+      "disable": "Désactiver la recherche multilingue",
+      "enable": "Activer la recherche multilingue",
+      "loginToUseMultilingualSearch": "Connectez-vous pour utiliser la recherche multilingue et obtenir des résultats qui ne se limitent pas à la langue du terme recherché.",
+      "turnOffMultilingualSearch": "Désactivez la recherche multilingue et afficher les résultats uniquement dans la langue du terme recherché.",
+      "turnOnMultilingualSearch": "Activez la recherche multilingue et obtenez des résultats qui ne se limitent pas à la langue du terme recherché."
     },
     "results": {
       "limitWarning": "Les résultats supplémentaires ne sont pas affichés car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, pensez à affiner votre recherche.",

@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
     "linkLogout": "Odhlásiť sa",
-    "myProfile": "Môj profil",
     "notifications": {
       "loggedIn": "Teraz ste prihlásení. Vitajte!",
       "loggedOut": "Teraz ste odhlásení.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument",
     "vote": "Hlasujte"
+  },
+  "apiKeys": {
+    "title": "Spravovať kľúče API"
   },
   "attribution": {
     "country": "Krajina:",
@@ -965,6 +967,10 @@ export default {
         "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamätá si, či uprednostňujete získavanie viacjazyčných výsledkov vyhľadávania.",
+        "title": "Viacjazyčné vyhľadávanie"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Skúste to",
     "text": {
-      "itemMultiSelect": "Teraz môžete naraz vybrať viac objektov, aby ste ich označili ako obľúbené alebo pridali do vlastnej galérie."
+      "multilingualSearch": "Objavte viac s novým viacjazyčným vyhľadávaním — zodpovedá vášmu dotazu s prekladmi v iných jazykoch, aby vám prinieslo bohatšie a relevantnejšie výsledky."
     },
-    "tooltip": "Kliknutím sem spustíte výber viacerých objektov"
+    "tooltip": {
+      "multilingualSearch": "Kliknite sem pre aktiváciu viacjazyčného vyhľadávania"
+    }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Vyberte, ako má toto pole upraviť vyhľadávanie.",
         "term": "Zadajte výraz(y), ktoré zvolené pole obsahuje alebo neobsahuje."
       }
+    },
+    "multilingual": {
+      "disable": "Zakázať viacjazyčné vyhľadávanie",
+      "enable": "Povoliť viacjazyčné vyhľadávanie",
+      "loginToUseMultilingualSearch": "Prihláste sa a použite viacjazyčné vyhľadávanie a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
+      "turnOffMultilingualSearch": "Vypnite viacjazyčné vyhľadávanie a zobrazte výsledky len v jazyku vyhľadávaného výrazu.",
+      "turnOnMultilingualSearch": "Zapnite viacjazyčné vyhľadávanie a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu."
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",

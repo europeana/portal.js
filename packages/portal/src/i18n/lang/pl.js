@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Zaloguj się",
     "linkLoginJoin": "Zaloguj się / Zarejestruj się",
     "linkLogout": "Wyloguj",
-    "myProfile": "Mój profil",
     "notifications": {
       "loggedIn": "Jesteś teraz zalogowany. Witamy!",
       "loggedOut": "Teraz jesteś wylogowany.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument",
     "vote": "Głosować"
+  },
+  "apiKeys": {
+    "title": "Zarządzaj kluczami API"
   },
   "attribution": {
     "country": "Kraj:",
@@ -965,6 +967,10 @@ export default {
         "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Zapamiętuje, czy wolisz otrzymywać wielojęzyczne wyniki wyszukiwania.",
+        "title": "Wyszukiwanie wielojęzyczne"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Spróbuj",
     "text": {
-      "itemMultiSelect": "Możesz teraz zaznaczyć wiele obiektów cyfrowych naraz, aby je polubić lub dodać do własnej galerii."
+      "multilingualSearch": "Odkryj więcej dzięki nowej wielojęzycznej wyszukiwarce — dopasowuje ona Twoje zapytanie do tłumaczeń w innych językach, aby dostarczyć Ci bogatsze i bardziej trafne wyniki."
     },
-    "tooltip": "Kliknij tutaj, aby rozpocząć wybieranie wielu obiektów cyfrowych"
+    "tooltip": {
+      "multilingualSearch": "Kliknij tutaj, aby aktywować wyszukiwanie wielojęzyczne"
+    }
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Wybierz, jak to pole powinno modyfikować wyszukiwanie.",
         "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
+    },
+    "multilingual": {
+      "disable": "Wyłącz wyszukiwanie wielojęzyczne",
+      "enable": "Włącz wyszukiwanie wielojęzyczne",
+      "loginToUseMultilingualSearch": "Zaloguj się, aby korzystać z wyszukiwania wielojęzycznego i uzyskiwać wyniki nieograniczone do języka wyszukiwanego hasła.",
+      "turnOffMultilingualSearch": "Wyłącz wyszukiwanie wielojęzyczne i wyświetlaj wyniki tylko w języku wyszukiwanego hasła.",
+      "turnOnMultilingualSearch": "Włącz wyszukiwanie wielojęzyczne i otrzymuj wyniki nieograniczone do języka wyszukiwanego hasła."
     },
     "results": {
       "limitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najtrafniejszych wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",

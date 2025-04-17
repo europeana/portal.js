@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Přihlásit se",
     "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
-    "myProfile": "Můj profil",
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
+  },
+  "apiKeys": {
+    "title": "Správa klíčů API"
   },
   "attribution": {
     "country": "Země:",
@@ -966,6 +968,10 @@ export default {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamatuje si, zda dáváte přednost vícejazyčným výsledkům vyhledávání.",
+        "title": "Vícejazyčné vyhledávání"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Zkuste to",
     "text": {
-      "itemMultiSelect": "Nyní můžete najednou vybrat více položek, které chcete označit jako „líbí se mi“ nebo přidat do vlastní galerie."
+      "multilingualSearch": "Objevte více s novým vícejazyčným vyhledáváním – porovnává váš dotaz s překlady do jiných jazyků a přináší vám bohatší a relevantnější výsledky."
     },
-    "tooltip": "Klikněte sem a začněte vybírat více položek"
+    "tooltip": {
+      "multilingualSearch": "Kliknutím sem aktivujete vícejazyčné vyhledávání."
+    }
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Zvolte, jak má toto pole upravit vyhledávání.",
         "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
+    },
+    "multilingual": {
+      "disable": "Zakázat vícejazyčné vyhledávání",
+      "enable": "Povolit vícejazyčné vyhledávání",
+      "loginToUseMultilingualSearch": "Přihlaste se a použijte vícejazyčné vyhledávání a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
+      "turnOffMultilingualSearch": "Vypněte vícejazyčné vyhledávání a zobrazit výsledky pouze v jazyce hledaného výrazu.",
+      "turnOnMultilingualSearch": "Zapněte vícejazyčné vyhledávání a získejte výsledky neomezené na jazyk hledaného výrazu."
     },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",

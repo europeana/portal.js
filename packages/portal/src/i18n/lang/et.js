@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Logi sisse",
     "linkLoginJoin": "Logi sisse / Liitu",
     "linkLogout": "Logi välja",
-    "myProfile": "Minu profiil",
     "notifications": {
       "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
       "loggedOut": "Olete nüüd välja logitud.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti",
     "vote": "Hääletage"
+  },
+  "apiKeys": {
+    "title": "API võtmete haldamine"
   },
   "attribution": {
     "country": "Riik:",
@@ -966,6 +968,10 @@ export default {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Jätab meelde, kas eelistate saada mitmekeelseid otsingutulemusi.",
+        "title": "Mitmekeelne otsing"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1145,11 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Proovi seda",
     "text": {
-      "itemMultiSelect": "Nüüd saate valida mitu üksust korraga, et neid meeldivaks märkida või lisada omaenda galeriisse."
+      "multilingualSearch": "Avastage rohkem uue mitmekeelse otsinguga — see sobitab teie päringu tõlgetega teistes keeltes, et tuua teieni rikkalikumaid ja asjakohasemaid tulemusi."
     },
-    "tooltip": "Klõpsake siin, et alustada mitme üksuse valimist"
+    "tooltip": {
+      "multilingualSearch": "Klõpsake siin, et aktiveerida mitmekeelne otsing"
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1298,6 +1306,13 @@ export default {
         "modifier": "Valige, kuidas see väli peaks otsingut muutma.",
         "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
       }
+    },
+    "multilingual": {
+      "disable": "Keela mitmekeelne otsing",
+      "enable": "Võimaldage mitmekeelne otsing",
+      "loginToUseMultilingualSearch": "Logi sisse, et kasutada mitmekeelset otsingut ja saada tulemusi, mis ei ole piiratud teie otsingusõna keelega.",
+      "turnOffMultilingualSearch": "Lülitage mitmekeelne otsing välja ja vaadake tulemusi ainult selles keeles, milles on teie otsingusõna.",
+      "turnOnMultilingualSearch": "Lülitage sisse mitmekeelne otsing ja saate tulemusi, mis ei ole piiratud teie otsingusõnade keelega."
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
