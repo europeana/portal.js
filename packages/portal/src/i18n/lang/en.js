@@ -7,6 +7,10 @@ export default {
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
+    "menu": {
+      "close": "Close user menu",
+      "open": "Open user menu"
+    },
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",

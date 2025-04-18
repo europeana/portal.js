@@ -1,6 +1,9 @@
 <template>
   <b-dropdown
     boundary="window"
+    :toggle-attrs="{ 'aria-label': ariaLabelToggle}"
+    @show="menuOpen = true"
+    @hide="menuOpen= false"
   >
     <b-dropdown-item
       v-for="item, index in links"
@@ -24,8 +27,15 @@
         }, {
           text: this.$t('account.linkLogout'),
           url: '/account/logout'
-        }]
+        }],
+        menuOpen: false
       };
+    },
+
+    computed: {
+      ariaLabelToggle() {
+        return this.menuOpen ? this.$t('account.menu.close') : this.$t('account.menu.open');
+      }
     }
   };
 </script>
