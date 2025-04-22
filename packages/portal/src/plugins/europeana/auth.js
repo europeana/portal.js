@@ -6,6 +6,13 @@ export default class EuropeanaAuthApi extends EuropeanaApi {
   // static AUTHENTICATING = true;
   static AUTHORISING = true;
 
+  createClient() {
+    return this.request({
+      method: 'post',
+      url: '/auth/realms/europeana/client'
+    });
+  }
+
   getUserClients() {
     return this.request({
       method: 'get',
