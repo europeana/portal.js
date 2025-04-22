@@ -6,6 +6,13 @@ export default class EuropeanaAuthApi extends EuropeanaApi {
   // static AUTHENTICATING = true;
   static AUTHORISING = true;
 
+  deleteClient(id) {
+    return this.request({
+      method: 'delete',
+      url: `/auth/realms/europeana/client/${id}`
+    });
+  }
+
   getUserClients() {
     return this.request({
       method: 'get',

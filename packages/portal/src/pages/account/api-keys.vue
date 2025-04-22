@@ -34,7 +34,21 @@
                       v-for="apiKey in apiKeys"
                       :key="apiKey.id"
                     >
-                      {{ apiKey['client_id'] }}
+                      <span
+                        v-if="apiKey.state === 'disabled'"
+                        class="disabled"
+                      >
+                        {{ apiKey['client_id'] }} — {{ $t('statuses.disabled') }}
+                      </span>
+                      <template v-else>
+                        {{ apiKey['client_id'] }}
+                        <b-button
+                          @click="handleClickDisableButton(apiKey)"
+                          data-qa="disable personal api key button"
+                        >
+                          {{ $t('actions.disable') }}
+                        </b-button>
+                      </template>
                     </li>
                   </ol>
                   <p v-else>
@@ -87,6 +101,20 @@
           title: this.$t('apiKeys.title')
         };
       }
+    },
+
+    methods: {
+      async handleClickDisableButton(apiKey) {
+        await this.$apis.auth.deleteClient(apiKey.id);
+        this.$fetch();
+      }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .disabled {
+    opacity: 70%;
+    font-style: italic;
+  }
+</style>
