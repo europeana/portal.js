@@ -44,6 +44,7 @@ export default {
     "close": "close",
     "confirm": "Confirm",
     "continue": "continue",
+    "disable": "Disable",
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
@@ -1531,6 +1532,7 @@ export default {
     "search": "Search"
   },
   "statuses": {
+    "disabled": "Disabled",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Required"

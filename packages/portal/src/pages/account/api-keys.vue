@@ -45,11 +45,30 @@
                   <p>{{ $t('') }}</p>
                   <b-table
                     v-if="personalKeys.length > 0"
-                    striped
-                    hover
                     :fields="tableFields"
                     :items="personalKeys"
-                  />
+                    :tbody-tr-class="tableRowClass"
+                    striped
+                    hover
+                  >
+                    <template #cell(client_id)="data">
+                      <span
+                        v-if="data.item.state === 'disabled'"
+                        class="disabled"
+                      >
+                        {{ data.value }} — {{ $t('statuses.disabled') }}
+                      </span>
+                      <template v-else>
+                        {{ data.value }}
+                        <b-button
+                          data-qa="disable personal api key button"
+                          @click="handleClickDisableButton(data.item)"
+                        >
+                          {{ $t('actions.disable') }}
+                        </b-button>
+                      </template>
+                    </template>
+                  </b-table>
                   <p v-else>
                     {{ $t('apiKeys.noKeys') }}
                   </p>
@@ -119,7 +138,8 @@
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
-      this.personalKeys = apiKeys.filter((apiKey) => apiKey.type === 'PersonalKey');
+      this.personalKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'PersonalKey');
     },
 
     computed: {
@@ -135,10 +155,29 @@
     },
 
     methods: {
+      async handleClickDisableButton(apiKey) {
+        await this.$apis.auth.deleteClient(apiKey.id);
+        this.$fetch();
+      },
+
       async handleSubmitCreatePersonalKeyForm() {
         await this.$apis.auth.createClient();
         this.$fetch();
+      },
+
+      tableRowClass(item, type) {
+        if (type === 'row' && item?.state === 'disabled') {
+          return 'disabled';
+        }
+        return undefined;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .disabled {
+    opacity: 70%;
+    font-style: italic;
+  }
+</style>
