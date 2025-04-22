@@ -6,7 +6,12 @@ import AccountAPIKeysPage from '@/pages/account/api-keys';
 
 const localVue = createLocalVue();
 
-const factory = ({ mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
+const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
+  data() {
+    return {
+      ...data
+    };
+  },
   localVue,
   mocks: {
     localePath: (path) => path,
@@ -76,6 +81,50 @@ describe('pages/account/api-keys', () => {
       const table = wrapper.find('b-table-stub');
 
       expect(table.isVisible()).toBe(true);
+    });
+  });
+
+  describe('request personal api key form', () => {
+    describe('when an active personal API key exists', () => {
+      const apiKeys = [{ 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }];
+      it('is not displayed if an', () => {
+        const data = { personalKeys: apiKeys };
+        const wrapper = factory({ data });
+
+        const form = wrapper.find('[data-qa="request personal api key form"]');
+
+        expect(form.exists()).toBe(false);
+      });
+    });
+
+    describe('when no active personal API key exists', () => {
+      const apiKeys = [{ 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey', state: 'disabled' }];
+      it('is displayed', () => {
+        const data = { personalKeys: apiKeys };
+        const wrapper = factory({ data });
+
+        const form = wrapper.find('[data-qa="request personal api key form"]');
+
+        expect(form.isVisible()).toBe(true);
+      });
+
+      it('disables the submit button if terms of use are not confirmed', () => {
+        const data = { confirmPersonalKeyTermsOfUse: false, personalKeys: apiKeys };
+        const wrapper = factory({ data });
+
+        const button = wrapper.find('[data-qa="request personal api key form"] b-button-stub');
+
+        expect(button.attributes('disabled')).toBe('true');
+      });
+
+      it('enables the submit button if terms of use are confirmed', () => {
+        const data = { confirmPersonalKeyTermsOfUse: true, personalKeys: apiKeys };
+        const wrapper = factory({ data });
+
+        const button = wrapper.find('[data-qa="request personal api key form"] b-button-stub');
+
+        expect(button.attributes('disabled')).toBeUndefined();
+      });
     });
   });
 });

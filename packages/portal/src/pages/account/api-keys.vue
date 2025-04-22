@@ -55,6 +55,7 @@
                   </p>
                   <b-form
                     v-if="noActivePersonalKeys"
+                    data-qa="request personal api key form"
                     @submit.prevent="handleSubmitCreatePersonalKeyForm"
                   >
                     <b-form-group>
