@@ -135,7 +135,6 @@
 
     methods: {
       async handleSubmitCreatePersonalKeyForm() {
-        console.log('handleSubmitCreatePersonalKeyForm')
         await this.$apis.auth.createClient();
         this.$fetch();
       }
