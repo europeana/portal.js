@@ -82,13 +82,19 @@ export default {
   },
   "apiKeys": {
     "noKeys": "You have no API keys.",
+    "sections": {
+      "personalKeys": {
+        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}",
+        "heading": "Personal API key",
+        "howToLinkText": "How to use your key."
+      }
+    },
     "table": {
       "fields": {
         "clientId": {
           "label": "API key"
         }
-      },
-      "heading": "API keys"
+      }
     },
     "title": "Manage API keys"
   },

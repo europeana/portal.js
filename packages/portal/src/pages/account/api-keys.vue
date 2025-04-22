@@ -28,13 +28,27 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>{{ $t('apiKeys.table.heading') }}</h2>
+                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                  <i18n
+                    path="apiKeys.sections.personalKeys.description"
+                    tag="span"
+                  >
+                    <template #howToLink>
+                      <a
+                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                      >
+                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        -->
+                      </a>
+                    </template>
+                  </i18n>
+                  <p>{{ $t('') }}</p>
                   <b-table
-                    v-if="tableItems.length > 0"
+                    v-if="personalKeys.length > 0"
                     striped
                     hover
                     :fields="tableFields"
-                    :items="tableItems"
+                    :items="personalKeys"
                   />
                   <p v-else>
                     {{ $t('apiKeys.noKeys') }}
@@ -75,16 +89,16 @@
 
     data() {
       return {
+        personalKeys: [],
         tableFields: [
           { key: 'clientId', label: this.$t('apiKeys.table.fields.clientId.label') }
-        ],
-        tableItems: []
+        ]
       };
     },
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
-      this.tableItems = apiKeys.map((apiKey) => ({
+      this.personalKeys = apiKeys.filter((apiKey) => apiKey.type === 'PersonalKey').map((apiKey) => ({
         clientId: apiKey['client_id']
       }));
     },
