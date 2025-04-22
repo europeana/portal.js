@@ -146,7 +146,7 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep(.disabled) {
+  ::v-deep .disabled {
     opacity: 70%;
     font-style: italic;
   }
