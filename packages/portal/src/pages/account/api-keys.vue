@@ -7,18 +7,23 @@
       <b-row>
         <b-col class="p-0 mb-3">
           <b-container>
-            <b-row>
+            <b-row class="mb-3 pb-3 mb-sm-5">
               <b-col>
                 <hr>
                 <NuxtLink
                   :to="localePath('/account')"
+                  class="profile-back-link context-label d-inline-flex align-items-center"
                 >
-                  🡠 {{ $t('account.title') }}
+                  <span class="icon-arrow-down mr-1" />
+                  {{ $t('account.title') }}
                 </NuxtLink>
               </b-col>
             </b-row>
             <b-row>
-              <b-col>
+              <b-col
+                xl="6"
+                class="text-center text-sm-left"
+              >
                 <LoadingSpinner
                   v-if="$fetchState.pending"
                   class="text-center pb-4"
@@ -31,7 +36,7 @@
                   <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
                   <i18n
                     path="apiKeys.sections.personalKeys.description"
-                    tag="span"
+                    tag="p"
                   >
                     <template #howToLink>
                       <a
@@ -42,7 +47,6 @@
                       </a>
                     </template>
                   </i18n>
-                  <p>{{ $t('') }}</p>
                   <b-table
                     v-if="personalKeys.length > 0"
                     :fields="tableFields"
@@ -188,6 +192,39 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .profile-back-link {
+    font-size: $font-size-small;
+    text-decoration: none;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+
+    &:hover {
+      color: $blue;
+    }
+
+    .icon-arrow-down:before {
+      display: inline-block;
+      transform: rotate(90deg);
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+    }
+  }
+
+  h2 {
+    @extend %title-3;
+  }
+
+  p, p a {
+    color: $darkgrey;
+  }
+
   ::v-deep .disabled {
     opacity: 70%;
     font-style: italic;
