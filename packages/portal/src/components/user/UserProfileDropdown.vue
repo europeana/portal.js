@@ -26,7 +26,7 @@
           url: this.$keycloak?.accountUrl()
         }, this.$features.manageApiKeys && {
           text: this.$t('account.manageApiKeys'),
-          url: 'account/api-keys'
+          url: '/account/api-keys'
         }, {
           text: this.$t('account.linkLogout'),
           url: '/account/logout'
@@ -113,5 +113,10 @@
       }
     }
   }
-
 </style>
+
+<docs lang="md">
+  ```jsx
+    <UserProfileDropdown />
+  ```
+</docs>
