@@ -2,6 +2,8 @@ import nock from 'nock';
 
 import auth from '@/plugins/europeana/auth';
 
+const client = { 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' };
+
 describe('plugins/europeana/auth', () => {
   beforeAll(() => {
     nock.disableNetConnect();
@@ -13,14 +15,26 @@ describe('plugins/europeana/auth', () => {
     nock.enableNetConnect();
   });
 
+  describe('createClient', () => {
+    it('creates a client via the auth service', async() => {
+      nock(auth.BASE_URL)
+        .post('/auth/realms/europeana/client')
+        .reply(200, client);
+
+      const response = await (new auth).createClient();
+
+      expect(nock.isDone()).toBe(true);
+      expect(response).toEqual(client);
+    });
+  });
+
   describe('deleteClient', () => {
     it('deletes the client from the auth service', async() => {
-      const id = 'api-key-id';
       nock(auth.BASE_URL)
-        .delete(`/auth/realms/europeana/client/${id}`)
+        .delete(`/auth/realms/europeana/client/${client.id}`)
         .reply(204);
 
-      await (new auth).deleteClient(id);
+      await (new auth).deleteClient(client.id);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -28,15 +42,15 @@ describe('plugins/europeana/auth', () => {
 
   describe('getUserClients', () => {
     it('gets the user clients from the auth service', async() => {
-      const apiKeys = [{ 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }];
+      const clients = [client];
       nock(auth.BASE_URL)
         .get('/auth/realms/europeana/user/clients')
-        .reply(200, apiKeys);
+        .reply(200, clients);
 
       const response = await (new auth).getUserClients();
 
       expect(nock.isDone()).toBe(true);
-      expect(response).toEqual(apiKeys);
+      expect(response).toEqual(clients);
     });
   });
 });
