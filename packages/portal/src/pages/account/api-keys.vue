@@ -28,34 +28,48 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>API keys</h2>
-                  <ol v-if="apiKeys.length > 0">
-                    <li
-                      v-for="apiKey in apiKeys"
-                      :key="apiKey.id"
-                    >
-                      {{ apiKey['client_id'] }}
-                    </li>
-                  </ol>
+                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                  <i18n
+                    path="apiKeys.sections.personalKeys.description"
+                    tag="span"
+                  >
+                    <template #howToLink>
+                      <a
+                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                      >
+                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        -->
+                      </a>
+                    </template>
+                  </i18n>
+                  <p>{{ $t('') }}</p>
+                  <b-table
+                    v-if="personalKeys.length > 0"
+                    striped
+                    hover
+                    :fields="tableFields"
+                    :items="personalKeys"
+                  />
                   <p v-else>
-                    You have no API keys.
+                    {{ $t('apiKeys.noKeys') }}
                   </p>
                   <b-form
-                    @submit.prevent="handleSubmitForm"
+                    v-if="noActivePersonalKeys"
+                    @submit.prevent="handleSubmitCreatePersonalKeyForm"
                   >
                     <b-form-group>
                       <b-form-checkbox
                         id="api-keys-request-personal-key-confirm-terms-of-use"
                         v-model="confirmPersonalKeyTermsOfUse"
                       >
-                        I confirm that I have read and accept the API key terms of use.
+                        {{ $t('apiKeys.sections.personalKeys.create.checkbox') }}
                       </b-form-checkbox>
                     </b-form-group>
                     <b-button
                       :disabled="!confirmPersonalKeyTermsOfUse"
                       type="submit"
                     >
-                      Request a personal API key
+                      {{ $t('apiKeys.sections.personalKeys.create.button') }}
                     </b-button>
                   </b-form>
                 </template>
@@ -69,6 +83,8 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
+
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserHeader from '@/components/user/UserHeader';
@@ -79,6 +95,7 @@
 
     components: {
       AlertMessage,
+      BTable,
       LoadingSpinner,
       UserHeader
     },
@@ -91,16 +108,24 @@
 
     data() {
       return {
-        apiKeys: [],
-        confirmPersonalKeyTermsOfUse: false
+        confirmPersonalKeyTermsOfUse: false,
+        personalKeys: [],
+        tableFields: [
+          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
+        ]
       };
     },
 
     async fetch() {
-      this.apiKeys = await this.$apis.auth.getUserClients();
+      const apiKeys = await this.$apis.auth.getUserClients();
+      this.personalKeys = apiKeys.filter((apiKey) => apiKey.type === 'PersonalKey');
     },
 
     computed: {
+      noActivePersonalKeys() {
+        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+      },
+
       pageMeta() {
         return {
           title: this.$t('apiKeys.title')
@@ -109,8 +134,10 @@
     },
 
     methods: {
-      handleSubmitForm() {
-        console.log('handleSubmitForm');
+      async handleSubmitCreatePersonalKeyForm() {
+        console.log('handleSubmitCreatePersonalKeyForm')
+        await this.$apis.auth.createClient();
+        this.$fetch();
       }
     }
   };
