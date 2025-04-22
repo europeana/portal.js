@@ -7,6 +7,7 @@ export default {
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
+    "manageApiKeys": "Manage API keys",
     "menu": {
       "close": "Close user menu",
       "open": "Open user menu"
