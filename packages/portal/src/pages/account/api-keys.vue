@@ -72,6 +72,38 @@
                   <p v-else>
                     {{ $t('apiKeys.noKeys') }}
                   </p>
+                  <b-form
+                    v-if="noActivePersonalKeys"
+                    data-qa="request personal api key form"
+                    @submit.prevent="handleSubmitCreatePersonalKeyForm"
+                  >
+                    <b-form-group>
+                      <b-form-checkbox
+                        id="api-keys-request-personal-key-confirm-terms-of-use"
+                        v-model="confirmPersonalKeyTermsOfUse"
+                      >
+                        <i18n
+                          path="apiKeys.sections.personalKeys.create.checkbox"
+                          tag="span"
+                        >
+                          <template #termsOfUseLink>
+                            <NuxtLink
+                              to="/rights/terms-of-use#europeana-api"
+                            >
+                              {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
+                              -->
+                            </NuxtLink>
+                          </template>
+                        </i18n>
+                      </b-form-checkbox>
+                    </b-form-group>
+                    <b-button
+                      :disabled="!confirmPersonalKeyTermsOfUse"
+                      type="submit"
+                    >
+                      {{ $t('apiKeys.sections.personalKeys.create.button') }}
+                    </b-button>
+                  </b-form>
                 </template>
               </b-col>
             </b-row>
@@ -108,6 +140,7 @@
 
     data() {
       return {
+        confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
         tableFields: [
           { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
@@ -122,6 +155,10 @@
     },
 
     computed: {
+      noActivePersonalKeys() {
+        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+      },
+
       pageMeta() {
         return {
           title: this.$t('apiKeys.title')
@@ -132,6 +169,11 @@
     methods: {
       async handleClickDisableButton(apiKey) {
         await this.$apis.auth.deleteClient(apiKey.id);
+        this.$fetch();
+      },
+
+      async handleSubmitCreatePersonalKeyForm() {
+        await this.$apis.auth.createClient();
         this.$fetch();
       },
 
