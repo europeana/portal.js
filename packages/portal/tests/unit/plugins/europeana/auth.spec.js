@@ -28,6 +28,18 @@ describe('plugins/europeana/auth', () => {
     });
   });
 
+  describe('deleteClient', () => {
+    it('deletes the client from the auth service', async() => {
+      nock(auth.BASE_URL)
+        .delete(`/auth/realms/europeana/client/${client.id}`)
+        .reply(204);
+
+      await (new auth).deleteClient(client.id);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
   describe('getUserClients', () => {
     it('gets the user clients from the auth service', async() => {
       const clients = [client];

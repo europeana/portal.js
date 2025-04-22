@@ -14,6 +14,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
     ...mocks
   },
   stubs: [
+    'b-button',
     'b-col',
     'b-container',
     'b-row',
@@ -62,7 +63,7 @@ describe('pages/account/api-keys', () => {
 
       await wrapper.vm.$fetch();
 
-      expect(wrapper.vm.personalKeys).toEqual([{ clientId: 'myKey' }]);
+      expect(wrapper.vm.personalKeys).toEqual(apiKeys);
     });
 
     it('renders a table to display the API keys', async() => {
