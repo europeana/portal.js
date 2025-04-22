@@ -1,7 +1,7 @@
 export default {
   "account": {
+    "accountManagement": "Account management",
     "curatedCollections": "Curated Collections",
-    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",

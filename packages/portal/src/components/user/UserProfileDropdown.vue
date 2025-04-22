@@ -22,7 +22,7 @@
     data() {
       return {
         links: [{
-          text: this.$t('account.editProfile'),
+          text: this.$t('account.accountManagement'),
           url: this.$keycloak?.accountUrl()
         }, {
           text: this.$t('account.linkLogout'),
