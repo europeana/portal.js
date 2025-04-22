@@ -28,17 +28,30 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>API keys</h2>
-                  <ol v-if="apiKeys.length > 0">
-                    <li
-                      v-for="apiKey in apiKeys"
-                      :key="apiKey.id"
-                    >
-                      {{ apiKey['client_id'] }}
-                    </li>
-                  </ol>
+                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                  <i18n
+                    path="apiKeys.sections.personalKeys.description"
+                    tag="span"
+                  >
+                    <template #howToLink>
+                      <a
+                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                      >
+                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        -->
+                      </a>
+                    </template>
+                  </i18n>
+                  <p>{{ $t('') }}</p>
+                  <b-table
+                    v-if="personalKeys.length > 0"
+                    striped
+                    hover
+                    :fields="tableFields"
+                    :items="personalKeys"
+                  />
                   <p v-else>
-                    You have no API keys.
+                    {{ $t('apiKeys.noKeys') }}
                   </p>
                 </template>
               </b-col>
@@ -51,6 +64,8 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
+
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserHeader from '@/components/user/UserHeader';
@@ -61,6 +76,7 @@
 
     components: {
       AlertMessage,
+      BTable,
       LoadingSpinner,
       UserHeader
     },
@@ -73,12 +89,18 @@
 
     data() {
       return {
-        apiKeys: []
+        personalKeys: [],
+        tableFields: [
+          { key: 'clientId', label: this.$t('apiKeys.table.fields.clientId.label') }
+        ]
       };
     },
 
     async fetch() {
-      this.apiKeys = await this.$apis.auth.getUserClients();
+      const apiKeys = await this.$apis.auth.getUserClients();
+      this.personalKeys = apiKeys.filter((apiKey) => apiKey.type === 'PersonalKey').map((apiKey) => ({
+        clientId: apiKey['client_id']
+      }));
     },
 
     computed: {
