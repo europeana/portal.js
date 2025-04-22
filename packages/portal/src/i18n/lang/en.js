@@ -81,6 +81,15 @@ export default {
     "vote": "Vote"
   },
   "apiKeys": {
+    "noKeys": "You have no API keys.",
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API key"
+        }
+      },
+      "heading": "API keys"
+    },
     "title": "Manage API keys"
   },
   "attribution": {

@@ -28,17 +28,16 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>API keys</h2>
-                  <ol v-if="apiKeys.length > 0">
-                    <li
-                      v-for="apiKey in apiKeys"
-                      :key="apiKey.id"
-                    >
-                      {{ apiKey['client_id'] }}
-                    </li>
-                  </ol>
+                  <h2>{{ $t('apiKeys.table.heading') }}</h2>
+                  <b-table
+                    v-if="tableItems.length > 0"
+                    striped
+                    hover
+                    :fields="tableFields"
+                    :items="tableItems"
+                  />
                   <p v-else>
-                    You have no API keys.
+                    {{ $t('apiKeys.noKeys') }}
                   </p>
                 </template>
               </b-col>
@@ -51,6 +50,8 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
+
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserHeader from '@/components/user/UserHeader';
@@ -61,6 +62,7 @@
 
     components: {
       AlertMessage,
+      BTable,
       LoadingSpinner,
       UserHeader
     },
@@ -73,12 +75,18 @@
 
     data() {
       return {
-        apiKeys: []
+        tableFields: [
+          { key: 'clientId', label: this.$t('apiKeys.table.fields.clientId.label') }
+        ],
+        tableItems: []
       };
     },
 
     async fetch() {
-      this.apiKeys = await this.$apis.auth.getUserClients();
+      const apiKeys = await this.$apis.auth.getUserClients();
+      this.tableItems = apiKeys.map((apiKey) => ({
+        clientId: apiKey['client_id']
+      }));
     },
 
     computed: {

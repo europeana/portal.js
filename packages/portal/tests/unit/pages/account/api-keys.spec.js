@@ -17,6 +17,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
     'b-col',
     'b-container',
     'b-row',
+    'b-table',
     'NuxtLink'
   ]
 });
@@ -55,20 +56,21 @@ describe('pages/account/api-keys', () => {
       expect(getUserClientsStub.called).toBe(true);
     });
 
-    it('stores the API keys in apiKeys', async() => {
+    it('stores the API keys for table items', async() => {
       const wrapper = factory({ mocks });
 
       await wrapper.vm.$fetch();
 
-      expect(wrapper.vm.apiKeys).toEqual(apiKeys);
+      expect(wrapper.vm.tableItems).toEqual([{ clientId: 'myKey' }]);
     });
 
-    it('displays the API keys', async() => {
+    it('renders a table to display the API keys', async() => {
       const wrapper = factory({ mocks });
 
       await wrapper.vm.$fetch();
+      const table = wrapper.find('b-table-stub');
 
-      expect(wrapper.html()).toContain(apiKeys[0]['client_id']);
+      expect(table.isVisible()).toBe(true);
     });
   });
 });
