@@ -82,7 +82,19 @@
                         id="api-keys-request-personal-key-confirm-terms-of-use"
                         v-model="confirmPersonalKeyTermsOfUse"
                       >
-                        {{ $t('apiKeys.sections.personalKeys.create.checkbox') }}
+                        <i18n
+                          path="apiKeys.sections.personalKeys.create.checkbox"
+                          tag="span"
+                        >
+                          <template #termsOfUseLink>
+                            <NuxtLink
+                              to="/rights/terms-of-use#europeana-api"
+                            >
+                              {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
+                              -->
+                            </NuxtLink>
+                          </template>
+                        </i18n>
                       </b-form-checkbox>
                     </b-form-group>
                     <b-button
