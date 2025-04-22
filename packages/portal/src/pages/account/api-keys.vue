@@ -40,6 +40,24 @@
                   <p v-else>
                     You have no API keys.
                   </p>
+                  <b-form
+                    @submit.prevent="handleSubmitForm"
+                  >
+                    <b-form-group>
+                      <b-form-checkbox
+                        id="api-keys-request-personal-key-confirm-terms-of-use"
+                        v-model="confirmPersonalKeyTermsOfUse"
+                      >
+                        I confirm that I have read and accept the API key terms of use.
+                      </b-form-checkbox>
+                    </b-form-group>
+                    <b-button
+                      :disabled="!confirmPersonalKeyTermsOfUse"
+                      type="submit"
+                    >
+                      Request a personal API key
+                    </b-button>
+                  </b-form>
                 </template>
               </b-col>
             </b-row>
@@ -73,7 +91,8 @@
 
     data() {
       return {
-        apiKeys: []
+        apiKeys: [],
+        confirmPersonalKeyTermsOfUse: false
       };
     },
 
@@ -86,6 +105,12 @@
         return {
           title: this.$t('apiKeys.title')
         };
+      }
+    },
+
+    methods: {
+      handleSubmitForm() {
+        console.log('handleSubmitForm');
       }
     }
   };

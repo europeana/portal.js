@@ -14,6 +14,10 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
     ...mocks
   },
   stubs: [
+    'b-button',
+    'b-form',
+    'b-form-checkbox',
+    'b-form-group',
     'b-col',
     'b-container',
     'b-row',
