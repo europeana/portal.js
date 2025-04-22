@@ -30,6 +30,7 @@ Colours are also defined on the [Colours page on Figma](https://www.figma.com/fi
           { name: 'white', hex: '#fff' },
           { name: 'smoke', hex: '#f5f5f5' },
           { name: 'offwhite', hex: '#f1f1ee' },
+          { name: 'lightgrey', hex: '#fbfbfb' },
           { name: 'lightgrey', hex: '#ededed' },
           { name: 'illustration-whitegrey', hex: '#efece8' },
           { name: 'lightbluemagenta', hex: '#e7e7e9' },

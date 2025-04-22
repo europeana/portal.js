@@ -19,11 +19,8 @@
                 </NuxtLink>
               </b-col>
             </b-row>
-            <b-row>
-              <b-col
-                xl="6"
-                class="text-center text-sm-left"
-              >
+            <b-row class="api-keys-page-content">
+              <b-col>
                 <LoadingSpinner
                   v-if="$fetchState.pending"
                   class="text-center pb-4"
@@ -33,20 +30,27 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
-                  <i18n
-                    path="apiKeys.sections.personalKeys.description"
-                    tag="p"
-                  >
-                    <template #howToLink>
-                      <a
-                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left"
+                    >
+                      <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                      <i18n
+                        path="apiKeys.sections.personalKeys.description"
+                        tag="p"
                       >
-                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        <template #howToLink>
+                          <a
+                            href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                          >
+                            {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
                         -->
-                      </a>
-                    </template>
-                  </i18n>
+                          </a>
+                        </template>
+                      </i18n>
+                    </b-col>
+                  </b-row>
                   <b-table
                     v-if="personalKeys.length > 0"
                     :fields="tableFields"
@@ -54,6 +58,7 @@
                     :tbody-tr-class="tableRowClass"
                     striped
                     hover
+                    class="borderless"
                   >
                     <template #cell(client_id)="data">
                       <span
@@ -73,9 +78,6 @@
                       </template>
                     </template>
                   </b-table>
-                  <p v-else>
-                    {{ $t('apiKeys.noKeys') }}
-                  </p>
                   <b-form
                     v-if="noActivePersonalKeys"
                     data-qa="request personal api key form"
@@ -191,8 +193,10 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icon-font';
+  @import '@europeana/style/scss/table';
 
   .profile-back-link {
     font-size: $font-size-small;
@@ -217,16 +221,27 @@
     }
   }
 
-  h2 {
-    @extend %title-3;
-  }
+  .api-keys-page-content {
+    h2 {
+      @extend %title-3;
+    }
 
-  p, p a {
-    color: $darkgrey;
-  }
+    p, p a {
+      color: $darkgrey;
+    }
 
-  ::v-deep .disabled {
-    opacity: 70%;
-    font-style: italic;
+    .disabled {
+      opacity: 70%;
+      font-style: italic;
+    }
+
+    .table td {
+      font-weight: 600;
+      color: $darkgrey;
+
+      &:last-child {
+        border-bottom: 1px solid $middlegrey;
+      }
+    }
   }
 </style>
