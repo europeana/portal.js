@@ -28,31 +28,49 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>API keys</h2>
-                  <ol v-if="apiKeys.length > 0">
-                    <li
-                      v-for="apiKey in apiKeys"
-                      :key="apiKey.id"
-                    >
+                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                  <i18n
+                    path="apiKeys.sections.personalKeys.description"
+                    tag="span"
+                  >
+                    <template #howToLink>
+                      <a
+                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                      >
+                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        -->
+                      </a>
+                    </template>
+                  </i18n>
+                  <p>{{ $t('') }}</p>
+                  <b-table
+                    v-if="personalKeys.length > 0"
+                    :fields="tableFields"
+                    :items="personalKeys"
+                    :tbody-tr-class="tableRowClass"
+                    striped
+                    hover
+                  >
+                    <template #cell(client_id)="data">
                       <span
-                        v-if="apiKey.state === 'disabled'"
+                        v-if="data.item.state === 'disabled'"
                         class="disabled"
                       >
-                        {{ apiKey['client_id'] }} — {{ $t('statuses.disabled') }}
+                        {{ data.value }} — {{ $t('statuses.disabled') }}
                       </span>
                       <template v-else>
-                        {{ apiKey['client_id'] }}
+                        {{ data.value }}
                         <b-button
-                          @click="handleClickDisableButton(apiKey)"
                           data-qa="disable personal api key button"
+                          @click="handleClickDisableButton(data.item)"
                         >
                           {{ $t('actions.disable') }}
                         </b-button>
                       </template>
-                    </li>
-                  </ol>
+                    </template>
+                  </b-table>
                   <p v-else>
-                    You have no API keys.
+                    {{ $t('apiKeys.noKeys') }}
                   </p>
                 </template>
               </b-col>
@@ -65,6 +83,8 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
+
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserHeader from '@/components/user/UserHeader';
@@ -75,6 +95,7 @@
 
     components: {
       AlertMessage,
+      BTable,
       LoadingSpinner,
       UserHeader
     },
@@ -87,12 +108,17 @@
 
     data() {
       return {
-        apiKeys: []
+        personalKeys: [],
+        tableFields: [
+          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
+        ]
       };
     },
 
     async fetch() {
-      this.apiKeys = await this.$apis.auth.getUserClients();
+      const apiKeys = await this.$apis.auth.getUserClients();
+      this.personalKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'PersonalKey');
     },
 
     computed: {
@@ -107,13 +133,20 @@
       async handleClickDisableButton(apiKey) {
         await this.$apis.auth.deleteClient(apiKey.id);
         this.$fetch();
+      },
+
+      tableRowClass(item, type) {
+        if (type === 'row' && item?.state === 'disabled') {
+          return 'disabled';
+        }
+        return undefined;
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  .disabled {
+  :deep(.disabled) {
     opacity: 70%;
     font-style: italic;
   }
