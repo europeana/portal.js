@@ -28,18 +28,82 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>API keys</h2>
-                  <ol v-if="apiKeys.length > 0">
-                    <li
-                      v-for="apiKey in apiKeys"
-                      :key="apiKey.id"
-                    >
-                      {{ apiKey['client_id'] }}
-                    </li>
-                  </ol>
+                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                  <i18n
+                    path="apiKeys.sections.personalKeys.description"
+                    tag="span"
+                  >
+                    <template #howToLink>
+                      <a
+                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                      >
+                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        -->
+                      </a>
+                    </template>
+                  </i18n>
+                  <p>{{ $t('') }}</p>
+                  <b-table
+                    v-if="personalKeys.length > 0"
+                    :fields="tableFields"
+                    :items="personalKeys"
+                    :tbody-tr-class="tableRowClass"
+                    striped
+                    hover
+                  >
+                    <template #cell(client_id)="data">
+                      <span
+                        v-if="data.item.state === 'disabled'"
+                        class="disabled"
+                      >
+                        {{ data.value }} — {{ $t('statuses.disabled') }}
+                      </span>
+                      <template v-else>
+                        {{ data.value }}
+                        <b-button
+                          data-qa="disable personal api key button"
+                          @click="handleClickDisableButton(data.item)"
+                        >
+                          {{ $t('actions.disable') }}
+                        </b-button>
+                      </template>
+                    </template>
+                  </b-table>
                   <p v-else>
-                    You have no API keys.
+                    {{ $t('apiKeys.noKeys') }}
                   </p>
+                  <b-form
+                    v-if="noActivePersonalKeys"
+                    data-qa="request personal api key form"
+                    @submit.prevent="handleSubmitCreatePersonalKeyForm"
+                  >
+                    <b-form-group>
+                      <b-form-checkbox
+                        id="api-keys-request-personal-key-confirm-terms-of-use"
+                        v-model="confirmPersonalKeyTermsOfUse"
+                      >
+                        <i18n
+                          path="apiKeys.sections.personalKeys.create.checkbox"
+                          tag="span"
+                        >
+                          <template #termsOfUseLink>
+                            <NuxtLink
+                              to="/rights/terms-of-use#europeana-api"
+                            >
+                              {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
+                              -->
+                            </NuxtLink>
+                          </template>
+                        </i18n>
+                      </b-form-checkbox>
+                    </b-form-group>
+                    <b-button
+                      :disabled="!confirmPersonalKeyTermsOfUse"
+                      type="submit"
+                    >
+                      {{ $t('apiKeys.sections.personalKeys.create.button') }}
+                    </b-button>
+                  </b-form>
                 </template>
               </b-col>
             </b-row>
@@ -51,6 +115,8 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
+
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserHeader from '@/components/user/UserHeader';
@@ -61,6 +127,7 @@
 
     components: {
       AlertMessage,
+      BTable,
       LoadingSpinner,
       UserHeader
     },
@@ -73,20 +140,56 @@
 
     data() {
       return {
-        apiKeys: []
+        confirmPersonalKeyTermsOfUse: false,
+        personalKeys: [],
+        tableFields: [
+          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
+        ]
       };
     },
 
     async fetch() {
-      this.apiKeys = await this.$apis.auth.getUserClients();
+      const apiKeys = await this.$apis.auth.getUserClients();
+      this.personalKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'PersonalKey');
     },
 
     computed: {
+      noActivePersonalKeys() {
+        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+      },
+
       pageMeta() {
         return {
           title: this.$t('apiKeys.title')
         };
       }
+    },
+
+    methods: {
+      async handleClickDisableButton(apiKey) {
+        await this.$apis.auth.deleteClient(apiKey.id);
+        this.$fetch();
+      },
+
+      async handleSubmitCreatePersonalKeyForm() {
+        await this.$apis.auth.createClient();
+        this.$fetch();
+      },
+
+      tableRowClass(item, type) {
+        if (type === 'row' && item?.state === 'disabled') {
+          return 'disabled';
+        }
+        return undefined;
+      }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .disabled {
+    opacity: 70%;
+    font-style: italic;
+  }
+</style>
