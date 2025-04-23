@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xxl-page page"
+    class="xxl-page page mb-3 mb-sm-5"
   >
     <b-container fluid>
       <UserHeader />
@@ -19,7 +19,7 @@
                 </NuxtLink>
               </b-col>
             </b-row>
-            <b-row class="api-keys-page-content">
+            <b-row class="api-keys-page-content mb-sm-5">
               <b-col>
                 <LoadingSpinner
                   v-if="$fetchState.pending"
@@ -78,38 +78,42 @@
                       </template>
                     </template>
                   </b-table>
-                  <b-form
-                    v-if="noActivePersonalKeys"
-                    data-qa="request personal api key form"
-                    @submit.prevent="handleSubmitCreatePersonalKeyForm"
-                  >
-                    <b-form-group>
-                      <b-form-checkbox
-                        id="api-keys-request-personal-key-confirm-terms-of-use"
-                        v-model="confirmPersonalKeyTermsOfUse"
+                  <b-row>
+                    <b-col xl="6">
+                      <b-form
+                        v-if="noActivePersonalKeys"
+                        data-qa="request personal api key form"
+                        @submit.prevent="handleSubmitCreatePersonalKeyForm"
                       >
-                        <i18n
-                          path="apiKeys.sections.personalKeys.create.checkbox"
-                          tag="span"
-                        >
-                          <template #termsOfUseLink>
-                            <NuxtLink
-                              to="/rights/terms-of-use#europeana-api"
+                        <b-form-group>
+                          <b-form-checkbox
+                            id="api-keys-request-personal-key-confirm-terms-of-use"
+                            v-model="confirmPersonalKeyTermsOfUse"
+                          >
+                            <i18n
+                              path="apiKeys.sections.personalKeys.create.checkbox"
+                              tag="span"
                             >
-                              {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
+                              <template #termsOfUseLink>
+                                <NuxtLink
+                                  to="/rights/terms-of-use#europeana-api"
+                                >
+                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
                               -->
-                            </NuxtLink>
-                          </template>
-                        </i18n>
-                      </b-form-checkbox>
-                    </b-form-group>
-                    <b-button
-                      :disabled="!confirmPersonalKeyTermsOfUse"
-                      type="submit"
-                    >
-                      {{ $t('apiKeys.sections.personalKeys.create.button') }}
-                    </b-button>
-                  </b-form>
+                                </NuxtLink>
+                              </template>
+                            </i18n>
+                          </b-form-checkbox>
+                        </b-form-group>
+                        <b-button
+                          :disabled="!confirmPersonalKeyTermsOfUse"
+                          type="submit"
+                        >
+                          {{ $t('apiKeys.sections.personalKeys.create.button') }}
+                        </b-button>
+                      </b-form>
+                    </b-col>
+                  </b-row>
                 </template>
               </b-col>
             </b-row>
