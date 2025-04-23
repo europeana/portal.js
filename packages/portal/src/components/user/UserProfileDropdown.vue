@@ -2,6 +2,7 @@
   <b-dropdown
     boundary="window"
     :toggle-attrs="{ 'aria-label': ariaLabelToggle}"
+    toggle-class="ml-2 d-flex align-items-center justify-content-center"
     @show="menuOpen = true"
     @hide="menuOpen= false"
   >
@@ -48,22 +49,23 @@
 
   ::v-deep .dropdown-toggle {
     border-radius: 50%;
-    padding: 0.25rem;
-    line-height: 1.25rem;
-    margin-left: 0.5rem;
+    padding: 0;
+    width: 30px;
+    height: 30px;
 
     @media (min-width: $bp-4k) {
-      padding: 0.625rem;
+      width: 46px;
+      height: 46px;
     }
 
     &:after {
       font-size: 0.5rem;
       width: 1.25rem;
-      margin: 0;
+      margin-top: 2px;
+      margin-right: 0;
 
       @media (min-width: $bp-4k) {
         font-size: 0.75rem;
-        width: 1.25rem;
       }
     }
   }
@@ -80,7 +82,7 @@
 
     &:after {
       transform: rotateX(180deg);
-      margin-bottom: 1px;
+      margin-top: -2px;
     }
   }
 
