@@ -94,7 +94,7 @@
                         >
                           <template #termsOfUseLink>
                             <NuxtLink
-                              to="/rights/terms-of-use#europeana-api"
+                              :to="localePath('/rights/terms-of-use#europeana-api')"
                             >
                               {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
                               -->

@@ -30,8 +30,6 @@ services:
       - EUROPEANA_RECOMMENDATION_API_URL=https://nginx/api/recommendation
       - EUROPEANA_RECORD_API_URL=https://nginx/api/record
       - EUROPEANA_SET_API_URL=https://nginx/api/set
-      # TODO: rm when Set API updated in production
-      - EUROPEANA_SET_API_VERSION=0.12
       - EUROPEANA_THUMBNAIL_API_URL=https://nginx/api/thumbnail/v3
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - NUXT_LOADING_THROTTLE=0
