@@ -7,17 +7,19 @@
       <b-row>
         <b-col class="p-0 mb-3">
           <b-container>
-            <b-row>
+            <b-row class="mb-3 pb-3 mb-sm-5">
               <b-col>
                 <hr>
                 <NuxtLink
                   :to="localePath('/account')"
+                  class="profile-back-link context-label d-inline-flex align-items-center"
                 >
-                  🡠 {{ $t('account.title') }}
+                  <span class="icon-arrow-down mr-1" />
+                  {{ $t('account.title') }}
                 </NuxtLink>
               </b-col>
             </b-row>
-            <b-row>
+            <b-row class="api-keys-page-content">
               <b-col>
                 <LoadingSpinner
                   v-if="$fetchState.pending"
@@ -28,21 +30,27 @@
                   :error="$fetchState.error.message"
                 />
                 <template v-else>
-                  <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
-                  <i18n
-                    path="apiKeys.sections.personalKeys.description"
-                    tag="span"
-                  >
-                    <template #howToLink>
-                      <a
-                        href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left"
+                    >
+                      <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
+                      <i18n
+                        path="apiKeys.sections.personalKeys.description"
+                        tag="p"
                       >
-                        {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
+                        <template #howToLink>
+                          <a
+                            href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                          >
+                            {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
                         -->
-                      </a>
-                    </template>
-                  </i18n>
-                  <p>{{ $t('') }}</p>
+                          </a>
+                        </template>
+                      </i18n>
+                    </b-col>
+                  </b-row>
                   <b-table
                     v-if="personalKeys.length > 0"
                     :fields="tableFields"
@@ -50,6 +58,7 @@
                     :tbody-tr-class="tableRowClass"
                     striped
                     hover
+                    class="borderless"
                   >
                     <template #cell(client_id)="data">
                       <span
@@ -71,9 +80,6 @@
                       />
                     </template>
                   </b-table>
-                  <p v-else>
-                    {{ $t('apiKeys.noKeys') }}
-                  </p>
                   <b-form
                     v-if="noActivePersonalKeys"
                     data-qa="request personal api key form"
@@ -193,9 +199,55 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  ::v-deep .disabled {
-    opacity: 70%;
-    font-style: italic;
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icon-font';
+  @import '@europeana/style/scss/table';
+
+  .profile-back-link {
+    font-size: $font-size-small;
+    text-decoration: none;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+
+    &:hover {
+      color: $blue;
+    }
+
+    .icon-arrow-down:before {
+      display: inline-block;
+      transform: rotate(90deg);
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
+    }
+  }
+
+  .api-keys-page-content {
+    h2 {
+      @extend %title-3;
+    }
+
+    p, p a {
+      color: $darkgrey;
+    }
+
+    .disabled {
+      opacity: 70%;
+      font-style: italic;
+    }
+
+    .table td {
+      font-weight: 600;
+      color: $darkgrey;
+
+      &:last-child {
+        border-bottom: 1px solid $middlegrey;
+      }
+    }
   }
 </style>

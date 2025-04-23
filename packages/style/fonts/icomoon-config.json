@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Europeana",
     "lastOpened": 0,
-    "created": 1744623556184
+    "created": 1745324799526
   },
   "iconSets": [
     {
@@ -736,19 +736,11 @@
           "code": 59687
         },
         {
-          "order": 550,
-          "id": 56,
-          "name": "settings",
-          "prevSize": 24,
-          "tempChar": "",
-          "code": 59688
-        },
-        {
           "order": 551,
           "id": 60,
           "name": "ic-home",
           "prevSize": 24,
-          "tempChar": "",
+          "tempChar": "",
           "code": 59682
         },
         {
@@ -756,7 +748,7 @@
           "id": 61,
           "name": "split",
           "prevSize": 24,
-          "tempChar": "",
+          "tempChar": "",
           "code": 59680
         },
         {
@@ -764,7 +756,7 @@
           "id": 62,
           "prevSize": 24,
           "name": "collections",
-          "tempChar": "",
+          "tempChar": "",
           "code": 59677
         },
         {
@@ -772,7 +764,7 @@
           "id": 64,
           "prevSize": 24,
           "name": "info",
-          "tempChar": "",
+          "tempChar": "",
           "code": 59679
         },
         {
@@ -900,7 +892,7 @@
           "id": 83,
           "prevSize": 32,
           "name": "search",
-          "tempChar": "",
+          "tempChar": "",
           "code": 59691
         },
         {
@@ -925,7 +917,7 @@
           "order": 573,
           "id": 89,
           "prevSize": 32,
-          "tempChar": "",
+          "tempChar": "",
           "code": 59709
         },
         {
@@ -934,7 +926,7 @@
           "order": 574,
           "id": 92,
           "prevSize": 32,
-          "tempChar": "",
+          "tempChar": "",
           "code": 59968
         },
         {
@@ -943,7 +935,7 @@
           "order": 575,
           "id": 93,
           "prevSize": 32,
-          "tempChar": "",
+          "tempChar": "",
           "code": 60106
         }
       ],
@@ -3312,33 +3304,6 @@
           "defaultCode": 59687
         },
         {
-          "id": 56,
-          "paths": [
-            "M512 662q62 0 106-44t44-106-44-106-106-44-106 44-44 106 44 106 106 44zM830 554l90 70q14 10 4 28l-86 148q-8 14-26 8l-106-42q-42 30-72 42l-16 112q-4 18-20 18h-172q-16 0-20-18l-16-112q-38-16-72-42l-106 42q-18 6-26-8l-86-148q-10-18 4-28l90-70q-2-14-2-42t2-42l-90-70q-14-10-4-28l86-148q8-14 26-8l106 42q42-30 72-42l16-112q4-18 20-18h172q16 0 20 18l16 112q38 16 72 42l106-42q18-6 26 8l86 148q10 18-4 28l-90 70q2 14 2 42t-2 42z"
-          ],
-          "attrs": [
-            {}
-          ],
-          "isMulticolor": false,
-          "isMulticolor2": false,
-          "tags": [
-            "settings"
-          ],
-          "grid": 24,
-          "colorPermutations": {
-            "10114204125525525517777771": [
-              {}
-            ],
-            "11011420411181181181237237237125525525517777771": [
-              {}
-            ],
-            "11011420411181181181119617011221401123431245245245125525525517777771": [
-              {}
-            ]
-          },
-          "defaultCode": 59688
-        },
-        {
           "id": 60,
           "paths": [
             "M426.667 853.333v-256h170.667v256h213.333v-341.333h128l-426.667-384-426.667 384h128v341.333z"
@@ -4093,7 +4058,7 @@
     "showCodes": true,
     "gridSize": 16,
     "quickUsageToken": {
-      "Europeana": "ZmE1NzNjY2FjYyMxNzQ0NjIzNjEwIzl3aWdDMzdML01DMFpmOEI2TGhwQmVDSzJKZEVmMEI4bW5JVlNjRzVVM0JM"
+      "Europeana": "MTBhNmJmMWJlMCMxNzQ1MzI0ODQ2I3BDdlBGNWJTaXRaZGhoaUkwYjFwc0JpaHVhb211ZksvemxwcFN5NEFOK2tY"
     },
     "showGrid": false
   },

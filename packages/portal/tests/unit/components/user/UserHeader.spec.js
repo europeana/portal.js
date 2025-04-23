@@ -29,20 +29,4 @@ describe('components/user/UserHeader', () => {
 
     expect(h1.text()).toBe('@me');
   });
-
-  it('shows an edit profile button linking to keycloak account URL', () => {
-    const wrapper = factory();
-
-    const button = wrapper.find('[data-qa="edit profile button"]');
-
-    expect(button.attributes('href')).toBe(accountUrl);
-  });
-
-  it('shows a logout button linking to app logout URL', () => {
-    const wrapper = factory();
-
-    const button = wrapper.find('[data-qa="logout button"]');
-
-    expect(button.attributes('to')).toBe('/account/logout');
-  });
 });

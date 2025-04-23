@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Account management",
     "curatedCollections": "Curated Collections",
-    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
+    "manageApiKeys": "Manage API keys",
+    "menu": {
+      "close": "Close user menu",
+      "open": "Open user menu"
+    },
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
@@ -88,7 +92,6 @@ export default {
       "promptText2": "Once you disable this key, you will no longer be able to use it on your project. This will happen immediately. You will need to email us at api@europeana.eu to enable the API key again.",
       "title": "Disable API key"
     },
-    "noKeys": "You have no API keys.",
     "sections": {
       "personalKeys": {
         "create": {

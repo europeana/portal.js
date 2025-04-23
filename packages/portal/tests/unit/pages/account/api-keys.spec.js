@@ -60,7 +60,7 @@ describe('pages/account/api-keys', () => {
     const nuxtLink = wrapper.find('NuxtLink-stub');
 
     expect(nuxtLink.attributes('to')).toBe('/account');
-    expect(nuxtLink.text()).toBe('🡠 account.title');
+    expect(nuxtLink.text()).toBe('account.title');
   });
 
   describe('fetch', () => {
