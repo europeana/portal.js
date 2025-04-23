@@ -64,8 +64,10 @@
                       <span
                         v-if="data.item.state === 'disabled'"
                         class="disabled"
+                        :aria-disabled="true"
                       >
-                        {{ data.value }} — {{ $t('statuses.disabled') }}
+                        {{ data.value }}
+                        <span class="font-italic text-lowercase">- {{ $t('statuses.disabled') }}</span>
                       </span>
                       <template v-else>
                         {{ data.value }}
@@ -158,7 +160,8 @@
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
       this.personalKeys = apiKeys
-        .filter((apiKey) => apiKey.type === 'PersonalKey');
+        .filter((apiKey) => apiKey.type === 'PersonalKey')
+        .sort(this.sortByEnabled);
     },
 
     computed: {
@@ -189,6 +192,16 @@
           return 'disabled';
         }
         return undefined;
+      },
+
+      sortByEnabled(a, b) {
+        const isADisabled = a.state === 'disabled';
+        const isBDisabled = b.state === 'disabled';
+
+        if (isADisabled === isBDisabled) {
+          return 0;
+        }
+        return isADisabled ? 1 : -1;
       }
     }
   };
@@ -231,17 +244,20 @@
       color: $darkgrey;
     }
 
-    .disabled {
-      opacity: 70%;
-      font-style: italic;
-    }
+    .table {
+      td {
+        font-weight: 600;
+        color: $darkgrey;
+      }
 
-    .table td {
-      font-weight: 600;
-      color: $darkgrey;
+      tr {
+        &.disabled {
+          opacity: 0.7;
+        }
 
-      &:last-child {
-        border-bottom: 1px solid $middlegrey;
+        &:last-child td {
+          border-bottom: 1px solid $middlegrey;
+        }
       }
     }
   }
