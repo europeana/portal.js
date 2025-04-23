@@ -80,6 +80,7 @@
 
     &:after {
       transform: rotateX(180deg);
+      margin-bottom: 1px;
     }
   }
 
