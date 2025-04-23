@@ -86,7 +86,6 @@ export default {
     "vote": "Vote"
   },
   "apiKeys": {
-    "noKeys": "You have no API keys.",
     "sections": {
       "personalKeys": {
         "create": {
