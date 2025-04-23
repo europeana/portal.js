@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Account management",
     "curatedCollections": "Curated Collections",
-    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
+    "manageApiKeys": "Manage API keys",
+    "menu": {
+      "close": "Close user menu",
+      "open": "Open user menu"
+    },
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
