@@ -248,6 +248,20 @@
     }
 
     .table {
+      th {
+        @media (min-width: $bp-small) {
+          padding-right: 3rem !important;
+        }
+
+        @media (min-width: $bp-4k) {
+          padding-right: 4.5rem !important;
+        }
+
+        &:last-child {
+          width: 100%;
+        }
+      }
+
       td {
         font-weight: 600;
         color: $darkgrey;
