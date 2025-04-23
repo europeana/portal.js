@@ -61,6 +61,17 @@ describe('components/user/UserApiKeyActionsMenu', () => {
     expect(menu.isVisible()).toBe(true);
   });
 
+  describe('when the api key is enabled', () => {
+    it('has control button disabled', () => {
+      const propsData = { apiKey: fixtures.apiKey.personal.disabled };
+      const wrapper = factory({ propsData });
+
+      const button = wrapper.find('[data-qa="user api key actions menu control button"]');
+
+      expect(button.attributes('disabled')).toBe('true');
+    });
+  });
+
   describe('disable personal api key button', () => {
     describe('when the api key is enabled', () => {
       it('is rendered', () => {
