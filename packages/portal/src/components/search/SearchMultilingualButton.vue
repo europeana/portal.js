@@ -38,6 +38,8 @@
 </template>
 
 <script>
+  import useHideTooltips from '@/composables/hideTooltips.js';
+
   export default {
     name: 'SearchMultilingualButton',
 
@@ -52,9 +54,14 @@
       }
     },
 
+    setup() {
+      const buttonId = 'search-multilingual-button';
+      const { hideTooltips } = useHideTooltips(buttonId);
+      return { buttonId, hideTooltips };
+    },
+
     data() {
       return {
-        buttonId: 'search-multilingual-button',
         // TODO: clean up when new feature tooltip expires
         newFeatureTooltipEnabled: false,
         // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when value is changed
@@ -83,18 +90,23 @@
       detectTouchTap() {
         this.touchTap = true;
       },
+      trackEvent() {
+        // TODO: mv up to parent input handler?
+        this.$matomo?.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
+      },
       toggle() {
         if (this.$auth.loggedIn) {
-          this.$cookies?.set('multilingualSearch', !this.value);
-          this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
+          this.trackEvent();
           this.$emit('input', !this.value);
           this.showTooltip = false;
+          // TODO: clean up when new feature tooltip expires
+          this.hideTooltips();
         } else if (this.touchTap && this.touchTapCount === 0) {
           this.touchTapCount = 1;
           this.touchTap = false;
         } else {
-          this.$matomo.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
-          this.$keycloak.login();
+          this.trackEvent();
+          this.$emit('input', !this.value);
           this.touchTapCount = 0;
         }
       }
@@ -105,12 +117,13 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .search-multilingual-button {
+  .btn-light-flat.search-multilingual-button {
     font-size: $font-size-large;
     line-height: 1;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-large-4k;
+      margin-right: 0.75rem !important;
     }
 
     &:hover {

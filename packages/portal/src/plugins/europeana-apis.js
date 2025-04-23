@@ -4,6 +4,7 @@
 import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
 
 import annotation from './europeana/annotation.js';
+import auth from './europeana/auth.js';
 import entity from './europeana/entity.js';
 import entityManagement from './europeana/entity-management.js';
 import fulltext from './europeana/fulltext.js';
@@ -18,6 +19,7 @@ const MODULE_NAME = 'apis';
 
 export const APIS = {
   annotation,
+  auth,
   entity,
   entityManagement,
   fulltext,

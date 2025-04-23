@@ -169,9 +169,6 @@
     fetchOnServer: false,
 
     computed: {
-      editProfileUrl() {
-        return this.$keycloak.accountUrl();
-      },
       pageMeta() {
         return {
           title: this.$t('account.title')

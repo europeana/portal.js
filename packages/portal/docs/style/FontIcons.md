@@ -365,11 +365,6 @@ Example:
           <td><span class="icon icon-search-in-text" /></td>
         </tr>
         <tr>
-          <td>Settings</td>
-          <td><code>icon-settings</code></td>
-          <td><span class="icon icon-settings" /></td>
-        </tr>
-        <tr>
           <td>Select circle</td>
           <td><code>icon-select-circle</code></td>
           <td><span class="icon icon-select-circle" /></td>

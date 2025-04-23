@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Iniciar sesión",
     "linkLoginJoin": "Iniciar sesión / Registrarse",
     "linkLogout": "Cerrar sesión",
-    "myProfile": "Mi perfil",
     "notifications": {
       "loggedIn": "Ya ha iniciado la sesión. Bienvenido.",
       "loggedOut": "Ahora ha salido la sesión.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento",
     "vote": "Votar"
+  },
+  "apiKeys": {
+    "title": "Administrar claves de API"
   },
   "attribution": {
     "country": "País:",
@@ -965,6 +967,10 @@ export default {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Recuerda si prefieres obtener resultados de búsqueda multilingües.",
+        "title": "Búsqueda multilingüe"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Cerrar",
     "readMore": "Pruébalo",
     "text": {
-      "itemMultiSelect": "Ahora puedes seleccionar varios ítems a la vez para darles Me gusta o añadirlos a tu propia galería."
+      "multilingualSearch": "Descubra más con la nueva búsqueda multilingüe: combina su consulta con traducciones en otros idiomas para ofrecerle resultados más ricos y relevantes."
     },
-    "tooltip": "Haz clic aquí para empezar a seleccionar varios ítems"
+    "tooltip": {
+      "multilingualSearch": "Haga clic aquí para activar la búsqueda multilingüe"
+    }
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Elija cómo este campo debe modificar la búsqueda.",
         "term": "Ingrese los términos que el campo elegido contiene o no contiene."
       }
+    },
+    "multilingual": {
+      "disable": "Desactivar la búsqueda multilingüe",
+      "enable": "Habilitar la búsqueda multilingüe",
+      "loginToUseMultilingualSearch": "Inicia sesión para usar la búsqueda multilingüe y ver resultados que no se limitan al idioma de su término de búsqueda.",
+      "turnOffMultilingualSearch": "Desactive la búsqueda multilingüe y vea los resultados solo en el idioma de su término de búsqueda.",
+      "turnOnMultilingualSearch": "Activa la búsqueda multilingüe y obtén resultados no limitados al idioma de tu término de búsqueda."
     },
     "results": {
       "limitWarning": "No se muestran resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere refinar su búsqueda.",

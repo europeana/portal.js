@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Bejelentkezés",
     "linkLoginJoin": "Bejelentkezés / Csatlakozás",
     "linkLogout": "Kijelentkezés",
-    "myProfile": "Profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése",
     "vote": "Szavazás"
+  },
+  "apiKeys": {
+    "title": "API-kulcsok kezelése"
   },
   "attribution": {
     "country": "Ország:",
@@ -965,6 +967,10 @@ export default {
         "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Megjegyzi, hogy többnyelvű keresési eredményeket szeretne-e kapni.",
+        "title": "Többnyelvű keresés"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1138,9 +1144,11 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Próbáld ki",
     "text": {
-      "itemMultiSelect": "Mostantól egyszerre több tárgyat is kiválaszthat, hogy kedvelje vagy hozzáadhassa őket egy saját galériához."
+      "multilingualSearch": "Fedezzen fel többet az új többnyelvű kereséssel – a lekérdezését más nyelveken készült fordításokkal párosítja, így gazdagabb, relevánsabb találatokat hoz."
     },
-    "tooltip": "Kattintson ide több tárgy kijelöléséhez"
+    "tooltip": {
+      "multilingualSearch": "Kattintson ide a többnyelvű keresés aktiválásához"
+    }
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1297,6 +1305,13 @@ export default {
         "modifier": "Válassza ki, hogy ez a mező hogyan módosítsa a keresést.",
         "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mező tartalmaz vagy nem tartalmaz."
       }
+    },
+    "multilingual": {
+      "disable": "Többnyelvű keresés letiltása",
+      "enable": "Többnyelvű keresés engedélyezése",
+      "loginToUseMultilingualSearch": "Jelentkezzen be a többnyelvű keresés használatához, és kapjon olyan találatokat, amelyek nem korlátozódnak a keresési kifejezés nyelvére.",
+      "turnOffMultilingualSearch": "Kapcsolja ki a többnyelvű keresést, és csak a keresési kifejezés nyelvén jelenítse meg az eredményeket.",
+      "turnOnMultilingualSearch": "Kapcsolja be a többnyelvű keresést, és kapjon eredményeket, amelyek nincsenek korlátozva a keresési kifejezés nyelvére."
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",

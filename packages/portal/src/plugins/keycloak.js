@@ -127,8 +127,8 @@ export const keycloakPlugin = (ctx) => {
     return keycloakAccountUrl.toString();
   };
 
-  const login = () => {
-    ctx.$auth.$storage.setUniversal('redirect', redirectPath());
+  const login = ({ redirect } = {}) => {
+    ctx.$auth.$storage.setUniversal('redirect', redirect || redirectPath());
     ctx.$auth.$storage.setUniversal('portalLoggingIn', true);
     ctx.$auth.loginWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale } });
   };

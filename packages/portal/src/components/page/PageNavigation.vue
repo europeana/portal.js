@@ -102,8 +102,6 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.title'), url: '/account', dataQa: 'likes and galleries button' },
-          // TODO: is the account url still responsive... and does it need to be?
-          { href: this.$keycloak.accountUrl(), text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
@@ -146,7 +144,6 @@
         case ('/account'):
         case ('/account/login'):
         case ('/account/logout'):
-        case ('/account/settings'):
         case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;

@@ -7,7 +7,6 @@ export default {
     "linkLogin": "Prisijungti",
     "linkLoginJoin": "Prisijungti / Registruotis",
     "linkLogout": "Atsijungti",
-    "myProfile": "Mano profilis",
     "notifications": {
       "loggedIn": "Dabar esate prisijungę. Sveiki!",
       "loggedOut": "Dabar esate prisijungę.",
@@ -80,6 +79,9 @@ export default {
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą",
     "vote": "Balsuoti"
+  },
+  "apiKeys": {
+    "title": "Tvarkyti API raktus"
   },
   "attribution": {
     "country": "Šalis:",
@@ -965,6 +967,10 @@ export default {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Prisimena, ar norite gauti daugiakalbius paieškos rezultatus.",
+        "title": "Daugiakalbė paieška"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1143,11 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Išbandykite",
     "text": {
-      "itemMultiSelect": "Dabar galite pasirinkti kelis skaitmeninius objektus vienu metu, kad juos pamėgtumėte arba įtrauktumėte į savo galeriją."
+      "multilingualSearch": "Atraskite daugiau su nauja daugiakalbe paieška — ji suderina jūsų užklausą su vertimais į kitas kalbas, kad pateiktų jums turtingesnius ir aktualesnius rezultatus."
     },
-    "tooltip": "Spustelėkite čia, kad pradėtumėte pasirinkti kelis skaitmeninius objektus"
+    "tooltip": {
+      "multilingualSearch": "Spustelėkite čia, kad įjungtumėte daugiakalbę paiešką"
+    }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1296,6 +1304,13 @@ export default {
         "modifier": "Pasirinkite, kaip šis laukas turėtų keisti paiešką.",
         "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
       }
+    },
+    "multilingual": {
+      "disable": "Išjungti daugiakalbę paiešką",
+      "enable": "Įgalinti daugiakalbę paiešką",
+      "loginToUseMultilingualSearch": "Prisijunkite, kad galėtumėte naudotis daugiakalbe paieška ir gauti rezultatus, kurie nėra apriboti jūsų paieškos termino kalba.",
+      "turnOffMultilingualSearch": "Išjunkite daugiakalbę paiešką ir peržiūrėkite rezultatus tik jūsų paieškos termino kalba.",
+      "turnOnMultilingualSearch": "Įjunkite daugiakalbę paiešką ir gaukite rezultatus, kurie nėra apriboti jūsų paieškos termino kalba."
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",

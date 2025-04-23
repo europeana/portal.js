@@ -58,9 +58,9 @@
             </template>
             <template #search-options>
               <SearchMultilingualButton
-                v-if="showMultilingualButton"
-                v-model="multilingualSearch"
-                @input="(value) => multilingualSearch = value"
+                v-if="multilingualSearchButtonEnabled"
+                v-model="translate"
+                @input="handleMultilingualButtonInput"
               />
             </template>
             <template
@@ -200,22 +200,27 @@
         apiParams: {},
         hits: null,
         lastAvailablePage: null,
-        multilingualSearch: false,
         paginationChanged: false,
+        qasWithAddedEntityValue: [],
         results: [],
         showAdvancedSearch: false,
         totalResults: null,
-        qasWithAddedEntityValue: []
+        translate: false
       };
     },
 
     async fetch() {
       this.$store.commit('search/setActive', true);
-      this.multilingualSearch = Boolean(this.$auth.loggedIn && this.multilingualSearchEnabledForLocale && this.$cookies.get('multilingualSearch'));
 
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       process.client && this.scrollToSelector('#header');
+
+      this.translate = Boolean(
+        this.$auth.loggedIn &&
+          this.translateSearchForCurrentLocale &&
+          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+      );
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -314,24 +319,8 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Allow translation depending on toggle state.
-      allowTranslate() {
-        if (this.$auth.loggedIn) {
-          if (this.$features?.multilingualSearch) {
-            return this.multilingualSearch;
-          } else {
-            return true;
-          }
-        } else {
-          return false;
-        }
-      },
       translateLang() {
-        if (this.allowTranslate && this.multilingualSearchEnabledForLocale) {
-          return this.$i18n.locale;
-        } else {
-          return null;
-        }
+        return this.translate ? this.$i18n.locale : null;
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
@@ -339,26 +328,23 @@
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
       },
-      multilingualSearchEnabledForLocale() {
+      translateSearchForCurrentLocale() {
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
-      showMultilingualButton() {
-        return Boolean(this.$features.multilingualSearch && this.multilingualSearchEnabledForLocale);
+      multilingualSearchButtonEnabled() {
+        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
       }
     },
 
     watch: {
       // TODO: is boost still used?
       '$route.query.boost': 'handleSearchParamsChanged',
-      '$route.query.reusability': 'handleSearchParamsChanged',
-      '$route.query.qa': 'handleSearchParamsChanged',
-      '$route.query.query': 'handleSearchParamsChanged',
-      '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged',
-      multilingualSearch() {
-        this.resetItemMultiSelect();
-        this.$fetch();
-      }
+      '$route.query.qa': 'handleSearchParamsChanged',
+      '$route.query.qf': 'watchRouteQueryQf',
+      '$route.query.query': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.translate': 'handleSearchParamsChanged'
     },
 
     mounted() {
@@ -459,6 +445,26 @@
         if (process.server || this.$store.state.search.loggableInteraction) {
           this.recordSearchInteraction('fetch results');
           this.$store.commit('search/setLoggableInteraction', false);
+        }
+      },
+
+      async handleMultilingualButtonInput(value) {
+        this.translate = value;
+        this.$cookies?.set('multilingualSearch', value);
+
+        const redirect = this.localePath({
+          ...this.route,
+          query: {
+            ...this.$route.query,
+            page: 1,
+            translate: value ? 'true' : undefined
+          }
+        });
+
+        if (value && !this.$auth.loggedIn) {
+          this.$keycloak.login({ redirect });
+        } else {
+          this.$router.push(redirect);
         }
       },
 
