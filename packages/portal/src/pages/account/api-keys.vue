@@ -96,7 +96,7 @@
                         >
                           <template #termsOfUseLink>
                             <NuxtLink
-                              to="/rights/terms-of-use#europeana-api"
+                              :to="localePath('/rights/terms-of-use#europeana-api')"
                             >
                               {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
                               -->
@@ -155,6 +155,7 @@
         personalKeys: [],
         showConfirmDangerModal: false,
         tableFields: [
+          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
           { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
           { key: 'actions', label: '' }
         ]
