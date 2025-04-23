@@ -60,6 +60,9 @@
                     hover
                     class="borderless"
                   >
+                    <template #cell(created)="data">
+                      {{ $d(new Date(data.value), 'numeric') }}
+                    </template>
                     <template #cell(client_id)="data">
                       <span
                         v-if="data.item.state === 'disabled'"
