@@ -102,6 +102,9 @@ export default {
       "fields": {
         "clientId": {
           "label": "API key"
+        },
+        "created": {
+          "label": "Date created"
         }
       }
     },
