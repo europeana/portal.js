@@ -226,21 +226,23 @@
       @extend %title-3;
     }
 
-    p, p a {
+    p, p a, span, span a {
       color: $darkgrey;
     }
 
-    .disabled {
-      opacity: 70%;
-      font-style: italic;
-    }
+    .table {
+      tr.disabled {
+        opacity: 70%;
+        font-style: italic;
+      }
 
-    .table td {
-      font-weight: 600;
-      color: $darkgrey;
+      td {
+        font-weight: 600;
+        color: $darkgrey;
 
-      &:last-child {
-        border-bottom: 1px solid $middlegrey;
+        &:last-child {
+          border-bottom: 1px solid $middlegrey;
+        }
       }
     }
   }
