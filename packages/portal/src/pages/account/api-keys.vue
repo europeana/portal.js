@@ -149,6 +149,7 @@
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
         tableFields: [
+          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
           { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
         ]
       };
