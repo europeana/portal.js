@@ -6,6 +6,15 @@ import AccountAPIKeysPage from '@/pages/account/api-keys';
 
 const localVue = createLocalVue();
 
+const fixtures = {
+  apiKey: {
+    personal: {
+      disabled: { 'client_id': 'myKey', id: 'api-key-id', state: 'disabled', type: 'PersonalKey' },
+      enabled: { 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }
+    }
+  }
+};
+
 const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
   data() {
     return {
@@ -20,15 +29,16 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIK
   },
   stubs: [
     'b-button',
-    'b-form',
-    'b-form-checkbox',
-    'b-form-group',
     'b-col',
     'b-container',
+    'b-form-checkbox',
+    'b-form-group',
+    'b-form',
     'b-row',
     'b-table',
     'i18n',
-    'NuxtLink'
+    'NuxtLink',
+    'UserApiKeyActionsMenu'
   ]
 });
 
@@ -54,7 +64,10 @@ describe('pages/account/api-keys', () => {
   });
 
   describe('fetch', () => {
-    const apiKeys = [{ 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }];
+    const apiKeys = [
+      fixtures.apiKey.personal.disabled,
+      fixtures.apiKey.personal.enabled
+    ];
     const getUserClientsStub = sinon.stub().resolves(apiKeys);
     const mocks = { $apis: { auth: { getUserClients: getUserClientsStub } } };
 

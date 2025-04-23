@@ -82,6 +82,12 @@ export default {
     "vote": "Vote"
   },
   "apiKeys": {
+    "disable": {
+      "confirm": "Disable key",
+      "promptText1": "Are you sure you want to disable this API key?",
+      "promptText2": "Once you disable this key, you will no longer be able to use it on your project. This will happen immediately. You will need to email us at api@europeana.eu to enable the API key again.",
+      "title": "Disable API key"
+    },
     "noKeys": "You have no API keys.",
     "sections": {
       "personalKeys": {
