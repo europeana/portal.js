@@ -242,9 +242,26 @@
       font-style: italic;
     }
 
-    .table td {
-      font-weight: 600;
-      color: $darkgrey;
+    .table {
+      td {
+        font-weight: 600;
+        color: $darkgrey;
+
+        .dropdown-menu {
+          box-shadow: $boxshadow-large;
+          border: none;
+          border-radius: 0rem;
+          border-bottom-right-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        }
+
+        .btn-link:focus, .btn-link:hover {
+          text-decoration: none;
+        }
+        .btn:focus {
+          box-shadow: none;
+        }
+      }
 
       &:last-child {
         border-bottom: 1px solid $middlegrey;

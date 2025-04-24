@@ -1,35 +1,26 @@
 <template>
   <div>
-    <b-button
-      :aria-controls="id"
-      :aria-expanded="expanded"
-      :disabled="apiKey.state === 'disabled'"
-      data-qa="user api key actions menu control button"
-      variant="light-flat"
-      class="button-icon-only"
-      @click="expanded = !expanded"
-    >
-      <span
-        class="icon icon-kebab"
-      />
-    </b-button>
-    <b-list-group
-      v-show="expanded"
+    <b-dropdown
       :id="id"
+      :aria-expanded="expanded"
       data-qa="user api key actions menu"
-      deck
+      variant="link"
+      :disabled="apiKey.state === 'disabled'"
+      no-caret
     >
-      <b-list-group-item
+      <template #button-content>
+        <span
+          class="icon icon-kebab"
+        />
+      </template>
+      <b-dropdown-item
         v-if="apiKey.state !== 'disabled'"
+        data-qa="disable personal api key button"
+        @click="handleClickDisableButton(apiKey)"
       >
-        <b-button
-          data-qa="disable personal api key button"
-          @click="handleClickDisableButton(apiKey)"
-        >
-          {{ $t('actions.disable') }}
-        </b-button>
-      </b-list-group-item>
-    </b-list-group>
+        {{ $t('actions.disable') }}
+      </b-dropdown-item>
+    </b-dropdown>
     <ConfirmDangerModal
       v-if="showConfirmDangerModal"
       v-model="showConfirmDangerModal"

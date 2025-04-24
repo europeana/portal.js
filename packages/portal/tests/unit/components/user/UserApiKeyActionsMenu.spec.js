@@ -1,8 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const deleteClientStub = sinon.spy();
 
@@ -19,9 +21,6 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(UserApiKey
   },
   propsData,
   stubs: [
-    'b-button',
-    'b-list-group-item',
-    'b-list-group',
     'ConfirmDangerModal'
   ]
 });
@@ -39,26 +38,13 @@ describe('components/user/UserApiKeyActionsMenu', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
-  it('is collapsed by default', () => {
+  it('has a dropdown menu', () => {
     const propsData = { apiKey: fixtures.apiKey.personal.enabled };
     const wrapper = factory({ propsData });
 
     const menu = wrapper.find('[data-qa="user api key actions menu"]');
 
     expect(menu.exists()).toBe(true);
-    expect(menu.isVisible()).toBe(false);
-  });
-
-  it('is expanded when control button clicked', async() => {
-    const propsData = { apiKey: fixtures.apiKey.personal.enabled };
-    const wrapper = factory({ propsData });
-
-    const button = wrapper.find('[data-qa="user api key actions menu control button"]');
-    button.vm.$emit('click');
-    await wrapper.vm.$nextTick();
-    const menu = wrapper.find('[data-qa="user api key actions menu"]');
-
-    expect(menu.isVisible()).toBe(true);
   });
 
   describe('when the api key is enabled', () => {
@@ -66,7 +52,7 @@ describe('components/user/UserApiKeyActionsMenu', () => {
       const propsData = { apiKey: fixtures.apiKey.personal.disabled };
       const wrapper = factory({ propsData });
 
-      const button = wrapper.find('[data-qa="user api key actions menu control button"]');
+      const button = wrapper.find('[data-qa="user api key actions menu"]');
 
       expect(button.attributes('disabled')).toBe('true');
     });
@@ -74,7 +60,7 @@ describe('components/user/UserApiKeyActionsMenu', () => {
 
   describe('disable personal api key button', () => {
     describe('when the api key is enabled', () => {
-      it('is rendered', () => {
+      it('is available', () => {
         const propsData = { apiKey: fixtures.apiKey.personal.enabled };
         const wrapper = factory({ propsData });
 
