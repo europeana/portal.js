@@ -115,6 +115,10 @@
       @media (min-width: $bp-4k) {
         padding: calc(1.5 * 0.875rem) calc(1.5 * 0.75rem);
       }
+
+      &.exact-active-link {
+        background-color: $lightgrey;
+      }
     }
   }
 </style>
