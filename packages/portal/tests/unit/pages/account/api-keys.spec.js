@@ -84,6 +84,20 @@ describe('pages/account/api-keys', () => {
     });
   });
 
+  describe('sortedPersonalKeys', () => {
+    const apiKeys = [
+      { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey', state: 'disabled' },
+      { 'client_id': 'myKey2', id: 'api-key-id-2', type: 'PersonalKey', state: 'disabled' },
+      { 'client_id': 'myKey3', id: 'api-key-id-3', type: 'PersonalKey' }
+    ];
+
+    it('sorts the keys by enabled state first', () => {
+      const wrapper = factory({ data: { personalKeys: apiKeys } });
+
+      expect(wrapper.vm.sortedPersonalKeys[0].state).toBe(undefined);
+    });
+  });
+
   describe('request personal api key form', () => {
     describe('when an active personal API key exists', () => {
       const apiKeys = [{ 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }];
