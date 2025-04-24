@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Tilinhallinta",
     "curatedCollections": "Kuratoidut kokoelmat",
-    "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
     "linkLoginJoin": "Kirjaudu / Luo tili",
     "linkLogout": "Kirjaudu ulos",
+    "manageApiKeys": "Hallinnoi API-avaimia",
+    "menu": {
+      "close": "Sulje käyttäjävalikko",
+      "open": "Avaa käyttäjävalikko"
+    },
     "notifications": {
       "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
       "loggedOut": "Olet nyt kirjautunut ulos.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Yksityiset galleriat",
     "profile": "Omat tykkäykset ja galleriat",
-    "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
     "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
+    "disable": "Poista käytöstä",
     "download": "Lataa",
     "edit": "Muokkaa",
     "filter": "Suodattaa",
@@ -81,6 +86,28 @@ export default {
     "vote": "Äänestää"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Pyydä henkilökohtainen API-avain",
+          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
+          "termsOfUseLinkText": "käyttöehdot"
+        },
+        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}",
+        "heading": "Henkilökohtainen API-avain",
+        "howToLinkText": "Kuinka käyttää omaa avaintasi."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API-avain"
+        },
+        "created": {
+          "label": "Luontipäivämäärä"
+        }
+      }
+    },
     "title": "Hallinnoi API-avaimia"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Hae"
   },
   "statuses": {
+    "disabled": "Poistettu käytöstä",
     "liked": "Pidetty",
     "pinned": "Kiinnitetty",
     "required": "Pakollinen"

@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Paskyros valdymas",
     "curatedCollections": "Kuruojamos kolekcijos",
-    "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
     "linkLoginJoin": "Prisijungti / Registruotis",
     "linkLogout": "Atsijungti",
+    "manageApiKeys": "Tvarkyti API raktus",
+    "menu": {
+      "close": "Uždaryti naudotojo meniu",
+      "open": "Atidaryti naudotojo meniu"
+    },
     "notifications": {
       "loggedIn": "Dabar esate prisijungę. Sveiki!",
       "loggedOut": "Dabar esate prisijungę.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privačios parodos",
     "profile": "Man patinkančios skaitmeniniai objektai, kolekcijos ir parodos",
-    "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos parodos",
     "publishedCollections": "Paskelbtos Parodos",
     "settings": "Nustatymai",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Patvirtinti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
+    "disable": "Išjungti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "filter": "Filtras",
@@ -81,6 +86,28 @@ export default {
     "vote": "Balsuoti"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Paprašyti asmeninio API rakto",
+          "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}.",
+          "termsOfUseLinkText": "naudojimo sąlygos"
+        },
+        "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}",
+        "heading": "Asmeninis API raktas",
+        "howToLinkText": "Kaip naudoti savo raktą."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API raktas"
+        },
+        "created": {
+          "label": "Sukūrimo data"
+        }
+      }
+    },
     "title": "Tvarkyti API raktus"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Paieška"
   },
   "statuses": {
+    "disabled": "Išjungta",
     "liked": "Patiko",
     "pinned": "Prisegtas",
     "required": "Reikalingas"

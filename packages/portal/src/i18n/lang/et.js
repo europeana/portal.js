@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Konto haldamine",
     "curatedCollections": "Kureeritud kogud",
-    "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
     "linkLoginJoin": "Logi sisse / Liitu",
     "linkLogout": "Logi välja",
+    "manageApiKeys": "API võtmete haldamine",
+    "menu": {
+      "close": "Sulge kasutajamenüü",
+      "open": "Ava kasutajamenüü"
+    },
     "notifications": {
       "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
       "loggedOut": "Olete nüüd välja logitud.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privaatgaleriid",
     "profile": "Minu meeldimised ja galeriid",
-    "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Kinnita",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
+    "disable": "Keela",
     "download": "Lae alla",
     "edit": "Muuda",
     "filter": "Filter",
@@ -81,6 +86,28 @@ export default {
     "vote": "Hääletage"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Taotle isiklikku API võtit",
+          "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}.",
+          "termsOfUseLinkText": "kasutustingimused"
+        },
+        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}",
+        "heading": "Isiklik API võti",
+        "howToLinkText": "Kuidas oma võtit kasutada."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API võti"
+        },
+        "created": {
+          "label": "Loomise kuupäev"
+        }
+      }
+    },
     "title": "API võtmete haldamine"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Otsing"
   },
   "statuses": {
+    "disabled": "Keelatud",
     "liked": "Meeldis",
     "pinned": "Kinnitatud",
     "required": "Nõutud"

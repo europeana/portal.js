@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestione account",
     "curatedCollections": "Collezioni curate",
-    "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
     "linkLoginJoin": "Accedi / Iscriviti",
     "linkLogout": "Esci",
+    "manageApiKeys": "Gestisci le chiavi API",
+    "menu": {
+      "close": "Chiudi il menu utente",
+      "open": "Apri il menu utente"
+    },
     "notifications": {
       "loggedIn": "Ora sei loggato. Benvenuto!",
       "loggedOut": "Sei ora disconnesso.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
-    "profileSettings": "Impostazioni del profilo",
     "publicCollections": "Gallerie pubbliche",
     "publishedCollections": "Gallerie Pubblicate",
     "settings": "Impostazioni",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Confermare",
     "continue": "continua",
     "depublish": "Depubblicare",
+    "disable": "Disabilita",
     "download": "Scarica",
     "edit": "Modifica",
     "filter": "Filtro",
@@ -81,6 +86,28 @@ export default {
     "vote": "Votare"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Richiedi una chiave API personale",
+          "checkbox": "Confermo di aver letto e accettato la chiave API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termini di utilizzo"
+        },
+        "description": "Scopri e prova come utilizzare le API con la tua chiave API personale. Ti preghiamo di non condividerla. {howToLink}",
+        "heading": "Chiave API personale",
+        "howToLinkText": "Come usare la tua chiave."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Chiave API"
+        },
+        "created": {
+          "label": "Data di creazione"
+        }
+      }
+    },
     "title": "Gestisci le chiavi API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Cerca"
   },
   "statuses": {
+    "disabled": "Disabilitato",
     "liked": "Piaciuto",
     "pinned": "Appuntato",
     "required": "Richiesto"

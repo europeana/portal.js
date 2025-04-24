@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Bainistíocht cuntais",
     "curatedCollections": "Bailiúcháin Coimeádaithe",
-    "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Taitníonn",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
     "linkLogout": "Logáil amach",
+    "manageApiKeys": "Bainistigh eochracha API",
+    "menu": {
+      "close": "Oscail roghchlár úsáideora",
+      "open": "Oscail roghchlár úsáideora"
+    },
     "notifications": {
       "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
       "loggedOut": "Tá tú logáilte amach anois.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Gailearaithe Príobháideacha",
     "profile": "Mo Thoghanna & Gailearaithe",
-    "profileSettings": "Socruithe próifíle",
     "publicCollections": "Gailearaithe Poiblí",
     "publishedCollections": "Gailearaithe Foilsithe",
     "settings": "Socruithe",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Deimhnigh",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
+    "disable": "Díchumasaigh",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "filter": "Scagaire",
@@ -81,6 +86,28 @@ export default {
     "vote": "Vóta"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Iarr eochair API pearsanta",
+          "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam.",
+          "termsOfUseLinkText": "téarmaí úsáide"
+        },
+        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}",
+        "heading": "Eochair phearsanta API",
+        "howToLinkText": "Conas do eochair a úsáid."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Eochair API"
+        },
+        "created": {
+          "label": "Dáta cruthaithe"
+        }
+      }
+    },
     "title": "Bainistigh eochracha API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Cuardaigh"
   },
   "statuses": {
+    "disabled": "Díchumasaithe",
     "liked": "Taitníodh",
     "pinned": "Pionnáilte",
     "required": "Riachtanach"

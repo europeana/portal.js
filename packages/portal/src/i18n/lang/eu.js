@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontuaren kudeaketa",
     "curatedCollections": "Bilduma komisarioak",
-    "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
     "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
+    "manageApiKeys": "API gakoak kudeatu",
+    "menu": {
+      "close": "Itxi erabiltzailearen menua",
+      "open": "Ireki erabiltzailearen menua"
+    },
     "notifications": {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galeria pribatuak",
     "profile": "Nire gustukoak eta galeriak",
-    "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Galeria Publikoak",
     "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Baieztatu",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
+    "disable": "Desgaitu",
     "download": "Deskargatu",
     "edit": "Editatu",
     "filter": "Iragazkia",
@@ -81,6 +86,28 @@ export default {
     "vote": "Bozkatu"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Eskatu API gako pertsonala",
+          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
+          "termsOfUseLinkText": "erabilera baldintzak"
+        },
+        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}",
+        "heading": "API gako pertsonala",
+        "howToLinkText": "Nola erabili zure gakoa."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API gakoa"
+        },
+        "created": {
+          "label": "Sortze data"
+        }
+      }
+    },
     "title": "API gakoak kudeatu"
   },
   "attribution": {
@@ -1465,6 +1492,7 @@ export default {
     "search": "Bilatu"
   },
   "statuses": {
+    "disabled": "Desgaituta",
     "liked": "Gustatu",
     "pinned": "Ainguratuta",
     "required": "Beharrezkoa"
