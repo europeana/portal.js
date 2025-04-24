@@ -56,6 +56,7 @@
                     :fields="tableFields"
                     :items="sortedPersonalKeys"
                     :tbody-tr-class="tableRowClass"
+                    :tbody-tr-attr="tableRowAttributes"
                     striped
                     hover
                     class="borderless"
@@ -67,7 +68,6 @@
                       <span
                         v-if="data.item.state === 'disabled'"
                         class="disabled"
-                        :aria-disabled="true"
                       >
                         {{ data.value }}
                         <span class="font-italic text-lowercase">- {{ $t('statuses.disabled') }}</span>
@@ -164,6 +164,7 @@
       const apiKeys = await this.$apis.auth.getUserClients();
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
+      delete this.personalKeys[2].state;
     },
 
     computed: {
@@ -208,6 +209,13 @@
           return 0;
         }
         return isADisabled ? 1 : -1;
+      },
+
+      tableRowAttributes(item, type) {
+        if (type === 'row' && item?.state === 'disabled') {
+          return { 'aria-disabled': true };
+        }
+        return undefined;
       }
     }
   };

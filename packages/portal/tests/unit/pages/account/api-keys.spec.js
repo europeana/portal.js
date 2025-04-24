@@ -84,17 +84,19 @@ describe('pages/account/api-keys', () => {
     });
   });
 
-  describe('sortedPersonalKeys', () => {
-    const apiKeys = [
-      { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey', state: 'disabled' },
-      { 'client_id': 'myKey2', id: 'api-key-id-2', type: 'PersonalKey', state: 'disabled' },
-      { 'client_id': 'myKey3', id: 'api-key-id-3', type: 'PersonalKey' }
-    ];
+  describe('computed', () => {
+    describe('sortedPersonalKeys', () => {
+      const apiKeys = [
+        { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey', state: 'disabled' },
+        { 'client_id': 'myKey2', id: 'api-key-id-2', type: 'PersonalKey', state: 'disabled' },
+        { 'client_id': 'myKey3', id: 'api-key-id-3', type: 'PersonalKey' }
+      ];
 
-    it('sorts the keys by enabled state first', () => {
-      const wrapper = factory({ data: { personalKeys: apiKeys } });
+      it('sorts the keys by enabled state first', () => {
+        const wrapper = factory({ data: { personalKeys: apiKeys } });
 
-      expect(wrapper.vm.sortedPersonalKeys[0].state).toBe(undefined);
+        expect(wrapper.vm.sortedPersonalKeys[0].state).toBe(undefined);
+      });
     });
   });
 
@@ -138,6 +140,32 @@ describe('pages/account/api-keys', () => {
         const button = wrapper.find('[data-qa="request personal api key form"] b-button-stub');
 
         expect(button.attributes('disabled')).toBeUndefined();
+      });
+    });
+  });
+});
+
+describe('methods', () => {
+  describe('tableRowAttributess', () => {
+    const tableItem = { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey' };
+    const disabledTableItem = { ...tableItem, state: 'disabled' };
+
+    describe('when type is row and item state disabled', () => {
+      it('returns aria-disabled attribute', () => {
+        const wrapper = factory();
+
+        const rowAttributes = wrapper.vm.tableRowAttributes(disabledTableItem, 'row');
+
+        expect(rowAttributes).toEqual({ 'aria-disabled': true });
+      });
+    });
+    describe('when type is row and item state is not disabled', () => {
+      it('returns aria-disabled attribute', () => {
+        const wrapper = factory();
+
+        const rowAttributes = wrapper.vm.tableRowAttributes(tableItem, 'row');
+
+        expect(rowAttributes).toEqual(undefined);
       });
     });
   });
