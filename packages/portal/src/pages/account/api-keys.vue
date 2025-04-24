@@ -54,14 +54,14 @@
                   <b-table
                     v-if="personalKeys.length > 0"
                     :fields="tableFields"
-                    :items="personalKeys"
+                    :items="sortedPersonalKeys"
                     :tbody-tr-class="tableRowClass"
                     striped
                     hover
                     class="borderless"
                   >
                     <template #cell(created)="data">
-                      {{ $d(new Date(data.value), 'numeric') }}
+                      {{ data.value && $d(new Date(data.value), 'numeric') }}
                     </template>
                     <template #cell(client_id)="data">
                       <span
@@ -163,8 +163,7 @@
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
       this.personalKeys = apiKeys
-        .filter((apiKey) => apiKey.type === 'PersonalKey')
-        .sort(this.sortByEnabled);
+        .filter((apiKey) => apiKey.type === 'PersonalKey');
     },
 
     computed: {
@@ -176,6 +175,10 @@
         return {
           title: this.$t('apiKeys.title')
         };
+      },
+
+      sortedPersonalKeys() {
+        return [...this.personalKeys].sort(this.sortByEnabled);
       }
     },
 
