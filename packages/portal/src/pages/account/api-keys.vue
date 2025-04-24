@@ -164,7 +164,6 @@
       const apiKeys = await this.$apis.auth.getUserClients();
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
-      delete this.personalKeys[2].state;
     },
 
     computed: {
