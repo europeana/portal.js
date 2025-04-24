@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestionarea contului",
     "curatedCollections": "Colecții curatori ate",
-    "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
     "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
+    "manageApiKeys": "Gestionați cheile API",
+    "menu": {
+      "close": "Închideți meniul utilizatorului",
+      "open": "Deschide meniul utilizatorului"
+    },
     "notifications": {
       "loggedIn": "Sunteți autentificat. Bine ați venit!",
       "loggedOut": "Acum ești deconectat.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
-    "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
+    "disable": "Dezactivează",
     "download": "Descarcă",
     "edit": "Editare",
     "filter": "Filtru",
@@ -81,6 +86,28 @@ export default {
     "vote": "Vot"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitați o cheie API personală",
+          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termeni de utilizare"
+        },
+        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}",
+        "heading": "Cheie API personală",
+        "howToLinkText": "Cum să folosești cheia ta."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Cheia API"
+        },
+        "created": {
+          "label": "Data creării"
+        }
+      }
+    },
     "title": "Gestionați cheile API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Căutare"
   },
   "statuses": {
+    "disabled": "Dezactivat",
     "liked": "A apreciat",
     "pinned": "Fixat",
     "required": "Necesar"

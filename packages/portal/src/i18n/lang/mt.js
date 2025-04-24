@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Ġestjoni tal-kont",
     "curatedCollections": "Kollezzjonijiet Kurati",
-    "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
     "linkLoginJoin": "Idħol / Ingħaqad",
     "linkLogout": "Oħroġ",
+    "manageApiKeys": "Immaniġġja ċ-ċwievet tal-API",
+    "menu": {
+      "close": "Agħlaq il-menu tal-utent",
+      "open": "Iftaħ il-menu tal-utent"
+    },
     "notifications": {
       "loggedIn": "Inti issa illoggjat. Merħba!",
       "loggedOut": "Issa int illoggjat' il barra.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Direttorji tar-Ritratti privati",
     "profile": "Il-Likes u d-Direttorji tar-Ritratti Tiegħi",
-    "profileSettings": "Settings tal-profil",
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "publishedCollections": "Galleriji Ippubblikati",
     "settings": "Settings",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Ikkonferma",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
+    "disable": "Diżattiva",
     "download": "Niżżel",
     "edit": "Editja",
     "filter": "Filtru",
@@ -81,6 +86,28 @@ export default {
     "vote": "Ivvota"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Itlob ċavetta personali tal-API",
+          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key.",
+          "termsOfUseLinkText": "termini ta’ użu"
+        },
+        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}",
+        "heading": "Ċavetta API personali",
+        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Ċavetta API"
+        },
+        "created": {
+          "label": "Data tal-ħolqien"
+        }
+      }
+    },
     "title": "Immaniġġja ċ-ċwievet tal-API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Fittex"
   },
   "statuses": {
+    "disabled": "Diżattivat",
     "liked": "Għoġobni",
     "pinned": "Mehmuż",
     "required": "Meħtieġ"

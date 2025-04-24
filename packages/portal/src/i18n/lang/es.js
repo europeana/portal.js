@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestión de cuenta",
     "curatedCollections": "Colecciones curadas",
-    "editProfile": "Editar perfil",
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
     "linkLoginJoin": "Iniciar sesión / Registrarse",
     "linkLogout": "Cerrar sesión",
+    "manageApiKeys": "Administrar claves de API",
+    "menu": {
+      "close": "Cerrar menú de usuario",
+      "open": "Abrir menú de usuario"
+    },
     "notifications": {
       "loggedIn": "Ya ha iniciado la sesión. Bienvenido.",
       "loggedOut": "Ahora ha salido la sesión.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerías privadas",
     "profile": "Mis \"Me gusta\" y galerías",
-    "profileSettings": "Configuración de perfil",
     "publicCollections": "Galerías públicas",
     "publishedCollections": "Galerías Publicadas",
     "settings": "Configuración",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
+    "disable": "Desactivar",
     "download": "Descargar",
     "edit": "Editar",
     "filter": "Filtrar",
@@ -81,6 +86,28 @@ export default {
     "vote": "Votar"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitar una clave API personal",
+          "checkbox": "Confirmo que he leído y acepto la clave API {termsOfUseLink}.",
+          "termsOfUseLinkText": "términos de uso"
+        },
+        "description": "Aprende y prueba cómo usar las API con tu propia clave API personal. Por favor, no la compartas. {howToLink}",
+        "heading": "Clave API personal",
+        "howToLinkText": "Cómo usar tu clave."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Clave API"
+        },
+        "created": {
+          "label": "Fecha de creación"
+        }
+      }
+    },
     "title": "Administrar claves de API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Buscar"
   },
   "statuses": {
+    "disabled": "Desactivado",
     "liked": "Gustó",
     "pinned": "Fijado",
     "required": "Obligatorio"

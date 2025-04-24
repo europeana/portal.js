@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Accountbeheer",
     "curatedCollections": "Samengestelde collecties",
-    "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
     "linkLoginJoin": "Inloggen / Aanmelden",
     "linkLogout": "Uitloggen",
+    "manageApiKeys": "API-sleutels beheren",
+    "menu": {
+      "close": "Gebruikersmenu sluiten",
+      "open": "Gebruikersmenu openen"
+    },
     "notifications": {
       "loggedIn": "U bent nu ingelogd. Welkom!",
       "loggedOut": "U bent nu uitgelogd.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privé galerijen",
     "profile": "Mijn likes en galerijen",
-    "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Bevestigen",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
+    "disable": "Uitschakelen",
     "download": "Download",
     "edit": "Bewerken",
     "filter": "Filter",
@@ -81,6 +86,28 @@ export default {
     "vote": "Stemmen"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Vraag een persoonlijke API-sleutel aan",
+          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer.",
+          "termsOfUseLinkText": "gebruiksvoorwaarden"
+        },
+        "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}",
+        "heading": "Persoonlijke API sleutel",
+        "howToLinkText": "Hoe u uw sleutel gebruikt."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API sleutel"
+        },
+        "created": {
+          "label": "Datum aangemaakt"
+        }
+      }
+    },
     "title": "API-sleutels beheren"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Zoeken"
   },
   "statuses": {
+    "disabled": "Uitgeschakeld",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Vereist"

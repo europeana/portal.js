@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestão da conta",
     "curatedCollections": "Coleções Curadas",
-    "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
     "linkLoginJoin": "Entrar / Participar",
     "linkLogout": "Encerrar sessão",
+    "manageApiKeys": "Gerir chaves de API",
+    "menu": {
+      "close": "Fechar menu do usuário",
+      "open": "Abrir menu do usuário"
+    },
     "notifications": {
       "loggedIn": "Está agora autenticado. Bem-vindo!",
       "loggedOut": "Está agora desconectado.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerias privadas",
     "profile": "Os meus gostos e galerias",
-    "profileSettings": "Configurações de perfil",
     "publicCollections": "Galerias públicas",
     "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
+    "disable": "Desativar",
     "download": "Descarregar",
     "edit": "Editar",
     "filter": "Filtro",
@@ -81,6 +86,28 @@ export default {
     "vote": "Voto"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitar uma chave API pessoal",
+          "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termos de uso"
+        },
+        "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}",
+        "heading": "Chave API pessoal",
+        "howToLinkText": "Como usar a sua chave"
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Chave API"
+        },
+        "created": {
+          "label": "Data de criação"
+        }
+      }
+    },
     "title": "Gerir chaves de API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Procurar"
   },
   "statuses": {
+    "disabled": "Desativado",
     "liked": "Apreciado",
     "pinned": "Fixado",
     "required": "Obrigatório"

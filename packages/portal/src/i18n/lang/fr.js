@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestion de compte",
     "curatedCollections": "Collections organisées",
-    "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
     "linkLoginJoin": "Connexion / Rejoignez-nous",
     "linkLogout": "Déconnexion",
+    "manageApiKeys": "Gérer les clés API",
+    "menu": {
+      "close": "Fermer le menu utilisateur",
+      "open": "Ouvrir le menu utilisateur"
+    },
     "notifications": {
       "loggedIn": "Vous êtes maintenant connecté. Bienvenue!",
       "loggedOut": "Vous êtes maintenant déconnecté.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galeries privées",
     "profile": "Mes mentions J'aime et mes galeries",
-    "profileSettings": "Paramètres du profil",
     "publicCollections": "Galeries publiques",
     "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Confirmer",
     "continue": "continuer",
     "depublish": "Dépublier",
+    "disable": "Désactiver",
     "download": "Télécharger",
     "edit": "Modifier",
     "filter": "Filtre",
@@ -81,6 +86,28 @@ export default {
     "vote": "Voter"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Demander une clé API personnelle",
+          "checkbox": "Je confirme avoir lu et accepté la clé API {termsOfUseLink}.",
+          "termsOfUseLinkText": "conditions d'utilisation"
+        },
+        "description": "Apprenez et testez comment utiliser les API avec votre propre clé API personnelle. Veuillez ne pas la partager. {howToLink}",
+        "heading": "Clé API personnelle",
+        "howToLinkText": "Comment utiliser votre clé."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Clé API"
+        },
+        "created": {
+          "label": "Date de création"
+        }
+      }
+    },
     "title": "Gérer les clés API"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Rechercher"
   },
   "statuses": {
+    "disabled": "Désactivé",
     "liked": "Aimé",
     "pinned": "Épinglé",
     "required": "Obligatoire"
