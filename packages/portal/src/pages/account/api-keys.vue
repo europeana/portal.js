@@ -242,17 +242,6 @@
     }
 
     .table {
-      tr {
-        &.disabled {
-          opacity: 70%;
-          font-style: italic;
-        }
-
-        &:last-child td {
-          border-bottom: 1px solid $middlegrey;
-        }
-      }
-
       td {
         font-weight: 600;
         color: $darkgrey;
@@ -270,6 +259,17 @@
         }
         .btn:focus {
           box-shadow: none;
+        }
+      }
+
+      tr {
+        &.disabled {
+          opacity: 70%;
+          font-style: italic;
+        }
+
+        &:last-child td {
+          border-bottom: 1px solid $middlegrey;
         }
       }
     }
