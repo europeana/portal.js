@@ -56,18 +56,19 @@
                     :fields="tableFields"
                     :items="sortedPersonalKeys"
                     :tbody-tr-class="tableRowClass"
-                    :tbody-tr-attr="tableRowAttributes"
                     striped
-                    hover
                     class="borderless"
                   >
                     <template #cell(created)="data">
-                      {{ data.value && $d(new Date(data.value), 'numeric') }}
+                      <time :aria-disabled="isDisabled(data.item)">
+                        {{ data.value && $d(new Date(data.value), 'numeric') }}
+                      </time>
                     </template>
                     <template #cell(client_id)="data">
                       <span
                         v-if="isDisabled(data.item)"
                         class="disabled"
+                        aria-disabled="true"
                       >
                         {{ data.value }}
                         <span class="font-italic text-lowercase">- {{ $t('statuses.disabled') }}</span>
@@ -164,9 +165,15 @@
         personalKeys: [],
         showConfirmDangerModal: false,
         tableFields: [
-          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
-          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
-          { key: 'actions', label: '' }
+          { key: 'created',
+            label: this.$t('apiKeys.table.fields.created.label'),
+            sortable: true },
+          { class: 'table-api-key-cell',
+            key: 'client_id',
+            label: this.$t('apiKeys.table.fields.clientId.label') },
+          { class: 'table-actions-cell',
+            key: 'actions',
+            label: '' }
         ]
       };
     },
@@ -222,13 +229,6 @@
           return 0;
         }
         return isADisabled ? 1 : -1;
-      },
-
-      tableRowAttributes(item, type) {
-        if (type === 'row' && this.isDisabled(item)) {
-          return { 'aria-disabled': true };
-        }
-        return undefined;
       }
     }
   };
@@ -281,7 +281,7 @@
           padding-right: 4.5rem !important;
         }
 
-        &:nth-child(2) {
+        &.table-api-key-cell {
           width: 100%;
         }
       }
@@ -289,6 +289,13 @@
       td {
         font-weight: 600;
         color: $darkgrey;
+        line-height: 1.5;
+        padding: 1.5rem 1rem;
+
+        &.table-actions-cell {
+          padding: 0;
+          vertical-align: middle;
+        }
 
         .dropdown-menu {
           box-shadow: $boxshadow-large;
@@ -308,7 +315,17 @@
 
       tr {
         &.disabled {
-          opacity: 0.7;
+          &:nth-of-type(2n+1) {
+            background-color: rgba($lightergrey, 0.7);
+          }
+
+          td {
+            opacity: 0.7;
+
+            &.table-actions-cell {
+              opacity: 1;
+            }
+          }
         }
 
         &:last-child td {
