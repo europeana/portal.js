@@ -61,7 +61,6 @@
 
     computed: {
       enabled() {
-        console.log(this.$cookies.get(this.cookieName))
         return this.$cookies.get(this.cookieName) !== this.name;
       }
     },

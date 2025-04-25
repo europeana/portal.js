@@ -495,6 +495,7 @@ export default {
       'color-parse',
       'color-rgba',
       'color-space',
+      'cookie',
       'dom7',
       'ol/Collection.js',
       'ol/color.js',
