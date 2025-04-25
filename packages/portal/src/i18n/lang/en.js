@@ -209,7 +209,8 @@ export default {
           "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
           "descriptionLine2": "Need an API key? Register for one {link}.",
           "here": "here",
-          "label": "API key"
+          "label": "API key",
+          "usePersonal": "Use your personal API key"
         }
       },
       "noRequests": "No requests to Europeana APIs were used on this page."

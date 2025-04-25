@@ -40,6 +40,11 @@
             id="debug-input-api-key"
             v-model="debugSettings.apiKey"
           />
+          <b-button
+            v-if="userApiKey"
+            class="my-2"
+            @click="handleClickUsePersonalApiKey"
+          >{{ $t('debug.apiRequests.form.apiKey.usePersonal') }}</b-button>
           <template
             #description
           >
@@ -120,10 +125,20 @@
 
     data() {
       return {
+        debugSettings: { ...this.$store.getters['debug/settings'] },
         hash: '#api-requests',
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        debugSettings: { ...this.$store.getters['debug/settings'] }
+        userApiKey: null
       };
+    },
+
+    async fetch() {
+      if (!this.$auth.loggedIn || !this.$features.manageApiKeys) {
+        return;
+      }
+      const userApiKeys = await this.$apis.auth.getUserClients();
+      this.userApiKey = userApiKeys
+        .find((apiKey) => apiKey.state !== 'disabled') || null;
     },
 
     computed: {
@@ -167,6 +182,10 @@
     },
 
     methods: {
+      handleClickUsePersonalApiKey() {
+        this.debugSettings.apiKey = this.userApiKey['client_id'];
+      },
+
       showModal() {
         this.$bvModal.show('api-requests');
       },
