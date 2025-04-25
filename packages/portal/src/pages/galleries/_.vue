@@ -224,7 +224,7 @@
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {
-        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
+        this.$error(e, { scope: 'gallery' });
       }
     },
     computed: {

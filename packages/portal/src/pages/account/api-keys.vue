@@ -190,7 +190,7 @@
           await this.$apis.auth.createClient();
           this.$fetch();
         } catch (error) {
-          this.$error(error, { scope: 'apiKey' });
+          this.$error(error);
         }
       },
 

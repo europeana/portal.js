@@ -1,5 +1,4 @@
 import createHttpError from 'http-errors';
-import camelCase from 'lodash/camelCase.js';
 
 const HTTP_CODES = {
   401: 'Unauthorised',
@@ -32,9 +31,7 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 
   if (typeof errorOrStatusCode === 'object') {
     error = errorOrStatusCode;
-    if (error.response?.data?.code) {
-      error.code = `${scope}${camelCase(error.response.data.code)}`;
-    } else if (HTTP_CODES[error.statusCode]) {
+    if (!error.code && HTTP_CODES[error.statusCode]) {
       const httpCode = HTTP_CODES[error.statusCode];
       error.code = `${scope}${httpCode}`;
     }
@@ -68,8 +65,8 @@ function translateErrorWithCode(error, { tValues = {} }) {
 
 export function handleError(errorOrStatusCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrStatusCode, options);
-  console.log('normalised error', error.code);
   error = translateErrorWithCode.bind(this)(error, options);
+  console.log('error code', error.code);
   error.isFetchError = this.$fetchState?.pending || false;
 
   if (this.$nuxt?.context?.res && error.statusCode) {
