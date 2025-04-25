@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Konta pārvaldība",
     "curatedCollections": "Kuratora veidotās kolekcijas",
-    "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
     "linkLoginJoin": "Pieteikties / Pievienoties",
     "linkLogout": "Atteikties",
+    "manageApiKeys": "Pārvaldīt API atslēgas",
+    "menu": {
+      "close": "Aizvērt lietotāja izvēlni",
+      "open": "Atvērt lietotāja izvēlni"
+    },
     "notifications": {
       "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
       "loggedOut": "Jūs tagad esat atteicies.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privātas galerijas",
     "profile": "Mani favorīti un galerijas",
-    "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
     "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
+    "disable": "Atspējot",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "filter": "Filtrs",
@@ -81,6 +86,28 @@ export default {
     "vote": "Balsojums"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Pieprasīt personīgo API atslēgu",
+          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}.",
+          "termsOfUseLinkText": "lietošanas noteikumi"
+        },
+        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}",
+        "heading": "Personīgā API atslēga",
+        "howToLinkText": "Kā lietot savu atslēgu."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API atslēga"
+        },
+        "created": {
+          "label": "Izveidošanas datums"
+        }
+      }
+    },
     "title": "Pārvaldīt API atslēgas"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Meklēt"
   },
   "statuses": {
+    "disabled": "Atspējots",
     "liked": "Patika",
     "pinned": "Piesprausts",
     "required": "Nepieciešams"

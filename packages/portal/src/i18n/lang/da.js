@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontoadministration",
     "curatedCollections": "Kuraterede samlinger",
-    "editProfile": "Rediger profil",
     "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
     "linkLogout": "Log ud",
+    "manageApiKeys": "Administrer API-nøgler",
+    "menu": {
+      "close": "Luk brugermenuen",
+      "open": "Åbn brugermenuen"
+    },
     "notifications": {
       "loggedIn": "Du er nu logget ind. Velkommen!",
       "loggedOut": "Du er nu logget ud.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Private gallerier",
     "profile": "Mine likes om'er og gallerier",
-    "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Bekræft",
     "continue": "fortsæt",
     "depublish": "Depublicer",
+    "disable": "Deaktiver",
     "download": "Hent",
     "edit": "Rediger",
     "filter": "Filter",
@@ -81,6 +86,28 @@ export default {
     "vote": "Stemme"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Anmod om en personlig API nøgle",
+          "checkbox": "Jeg bekræfter, at jeg har læst og accepteret API nøglen {termsOfUseLink}.",
+          "termsOfUseLinkText": "vilkår for brug"
+        },
+        "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}",
+        "heading": "Personlig API nøgle",
+        "howToLinkText": "Sådan bruger du din nøgle."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API nøgle"
+        },
+        "created": {
+          "label": "Oprettelsesdato"
+        }
+      }
+    },
     "title": "Administrer API-nøgler"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Søg"
   },
   "statuses": {
+    "disabled": "Deaktiveret",
     "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"

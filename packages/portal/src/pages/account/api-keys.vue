@@ -62,20 +62,22 @@
                   >
                     <template #cell(client_id)="data">
                       <span
-                        v-if="data.item.state === 'disabled'"
+                        v-if="data.item?.state === 'disabled'"
                         class="disabled"
                       >
                         {{ data.value }} — {{ $t('statuses.disabled') }}
                       </span>
                       <template v-else>
                         {{ data.value }}
-                        <b-button
-                          data-qa="disable personal api key button"
-                          @click="handleClickDisableButton(data.item)"
-                        >
-                          {{ $t('actions.disable') }}
-                        </b-button>
                       </template>
+                    </template>
+                    <template #cell(actions)="data">
+                      <UserApiKeyActionsMenu
+                        v-if="data.item"
+                        :id="`personal-api-key-actions-menu-${data.index}`"
+                        :api-key="data.item"
+                        @disable="handleDisableApiKey"
+                      />
                     </template>
                   </b-table>
                   <b-row>
@@ -129,6 +131,7 @@
 
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -139,6 +142,7 @@
       AlertMessage,
       BTable,
       LoadingSpinner,
+      UserApiKeyActionsMenu,
       UserHeader
     },
 
@@ -150,10 +154,14 @@
 
     data() {
       return {
+        apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
+        showConfirmDangerModal: false,
         tableFields: [
-          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
+          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
+          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
+          { key: 'actions', label: '' }
         ]
       };
     },
@@ -177,8 +185,7 @@
     },
 
     methods: {
-      async handleClickDisableButton(apiKey) {
-        await this.$apis.auth.deleteClient(apiKey.id);
+      handleDisableApiKey() {
         this.$fetch();
       },
 
@@ -235,17 +242,34 @@
     }
 
     .table {
-      tr.disabled {
-        opacity: 70%;
-        font-style: italic;
+      tr {
+        &.disabled {
+          opacity: 70%;
+          font-style: italic;
+        }
+
+        &:last-child td {
+          border-bottom: 1px solid $middlegrey;
+        }
       }
 
       td {
         font-weight: 600;
         color: $darkgrey;
 
-        &:last-child {
-          border-bottom: 1px solid $middlegrey;
+        .dropdown-menu {
+          box-shadow: $boxshadow-large;
+          border: none;
+          border-radius: 0rem;
+          border-bottom-right-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        }
+
+        .btn-link:focus, .btn-link:hover {
+          text-decoration: none;
+        }
+        .btn:focus {
+          box-shadow: none;
         }
       }
     }
