@@ -112,6 +112,23 @@
                       {{ $t('apiKeys.sections.personalKeys.create.button') }}
                     </b-button>
                   </b-form>
+                  <b-modal
+                    :id="errorModalId"
+                    :title="errorTitle"
+                    hide-footer
+                    hide-header-close
+                  >
+                    <p>{{ errorMessage }}</p>
+                    <div class="modal-footer">
+                      <b-button
+                        variant="outline-primary"
+                        data-qa="close button"
+                        @click="$bvModal.hide(errorModalId)"
+                      >
+                        {{ $t('actions.close') }}
+                      </b-button>
+                    </div>
+                  </b-modal>
                 </template>
               </b-col>
             </b-row>
@@ -152,6 +169,9 @@
       return {
         apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
+        errorTitle: null,
+        errorMessage: null,
+        errorModalId: 'api-key-error-modal',
         personalKeys: [],
         showConfirmDangerModal: false,
         tableFields: [
@@ -186,8 +206,29 @@
       },
 
       async handleSubmitCreatePersonalKeyForm() {
-        await this.$apis.auth.createClient();
-        this.$fetch();
+        try {
+          await this.$apis.auth.createClient();
+          this.$fetch();
+        } catch (error) {
+          const keyLimitReachedCode = '400_key_limit_reached';
+          const duplicateKeyCode = '400_duplicate_key';
+
+          if ([keyLimitReachedCode, duplicateKeyCode].includes(error.response.data.code)) {
+            if (error.response.data.code === keyLimitReachedCode) {
+              this.errorTitle = this.$t('errorMessage.apiKeyKeyLimitReached.title');
+              this.errorMessage = this.$t('errorMessage.apiKeyKeyLimitReached.description');
+            }
+            if (error.response.data.code === duplicateKeyCode) {
+              this.errorTitle = this.$t('errorMessage.apiKeyDuplicateKey.title');
+              this.errorMessage = this.$t('errorMessage.apiKeyDuplicateKey.description');
+            }
+            console.log(this.errorMessage);
+            await this.$nextTick();
+            this.$bvModal.show(this.errorModalId);
+          } else {
+            throw error;
+          }
+        }
       },
 
       tableRowClass(item, type) {
