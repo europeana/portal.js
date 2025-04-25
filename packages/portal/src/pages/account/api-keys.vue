@@ -141,6 +141,7 @@
 
 <script>
   import { BTable } from 'bootstrap-vue';
+  import camelCase from 'lodash/camelCase.js';
 
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -210,24 +211,18 @@
           await this.$apis.auth.createClient();
           this.$fetch();
         } catch (error) {
-          const keyLimitReachedCode = '400_key_limit_reached';
-          const duplicateKeyCode = '400_duplicate_key';
-
-          if ([keyLimitReachedCode, duplicateKeyCode].includes(error.response.data.code)) {
-            if (error.response.data.code === keyLimitReachedCode) {
-              this.errorTitle = this.$t('errorMessage.apiKeyKeyLimitReached.title');
-              this.errorMessage = this.$t('errorMessage.apiKeyKeyLimitReached.description');
+          if (error.response.data.code) {
+            const errorMessageKey = `keycloak${camelCase(error.response.data.code)}`;
+            if (this.$te(`errorMessage.${errorMessageKey}`)) {
+              this.errorTitle = this.$te(`errorMessage.${errorMessageKey}.title`);
+              this.errorMessage = this.$te(`errorMessage.${errorMessageKey}.description`);
+              await this.$nextTick();
+              this.$bvModal.show(this.errorModalId);
+              return;
             }
-            if (error.response.data.code === duplicateKeyCode) {
-              this.errorTitle = this.$t('errorMessage.apiKeyDuplicateKey.title');
-              this.errorMessage = this.$t('errorMessage.apiKeyDuplicateKey.description');
-            }
-            console.log(this.errorMessage);
-            await this.$nextTick();
-            this.$bvModal.show(this.errorModalId);
-          } else {
-            throw error;
           }
+
+          throw error;
         }
       },
 

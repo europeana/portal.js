@@ -264,14 +264,6 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
-    "apiKeyKeyLimitReached": {
-      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
-      "title": "You have reached the limit of personal keys"
-    },
-    "apiKeyDuplicateKey": {
-      "description": "Users can only have one enabled personal key which is intended for personal use.",
-      "title": "You already have a personal key"
-    },
     "galleryLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"
@@ -296,6 +288,14 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "keycloak400DuplicateKey": {
+      "description": "Users can only have one enabled personal key which is intended for personal use.",
+      "title": "You already have a personal key"
+    },
+    "keycloak400KeyLimitReached": {
+      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "You have reached the limit of personal keys"
     },
     "noFeatureIdeas": {
       "title": "No new feature ideas at the moment.",

@@ -34,6 +34,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIK
     'b-form-checkbox',
     'b-form-group',
     'b-form',
+    'b-modal',
     'b-row',
     'b-table',
     'i18n',
