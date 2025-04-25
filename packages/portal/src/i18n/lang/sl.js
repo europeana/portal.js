@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Upravljanje računa",
     "curatedCollections": "Kurirane zbirke",
-    "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
     "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
+    "manageApiKeys": "Upravljanje ključev API",
+    "menu": {
+      "close": "Zapri uporabniški meni",
+      "open": "Odpri uporabniški meni"
+    },
     "notifications": {
       "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
       "loggedOut": "Zdaj ste odjavljeni.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Zasebne zbirke",
     "profile": "Moji všečki & zbirke",
-    "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Potrdi",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
+    "disable": "Onemogoči",
     "download": "Prenos",
     "edit": "Uredi",
     "filter": "Filter",
@@ -81,6 +86,28 @@ export default {
     "vote": "Glasuj"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Zahtevajte osebni API ključ",
+          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ.",
+          "termsOfUseLinkText": "pogoji uporabe"
+        },
+        "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}",
+        "heading": "Osebni API ključ",
+        "howToLinkText": "Kako uporabljati svoj ključ."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API ključ"
+        },
+        "created": {
+          "label": "Datum ustvarjanja"
+        }
+      }
+    },
     "title": "Upravljanje ključev API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
+    "disabled": "Onemogočeno",
     "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"

@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontohantering",
     "curatedCollections": "Kuraterade samlingar",
-    "editProfile": "Redigera profil",
     "likes": "Gilla-markeringar",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
     "linkLoginJoin": "Logga in / Gå med",
     "linkLogout": "Logga ut",
+    "manageApiKeys": "Hantera API-nycklar",
+    "menu": {
+      "close": "Stäng användarmenyn",
+      "open": "Öppna användarmenyn"
+    },
     "notifications": {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina gilla-markeringar & gallerier",
-    "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Bekräfta",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
+    "disable": "Inaktivera",
     "download": "Ladda ner",
     "edit": "Redigera",
     "filter": "Filtrera",
@@ -81,6 +86,28 @@ export default {
     "vote": "Rösta"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Begär en personlig API-nyckel",
+          "checkbox": "Jag bekräftar att jag har läst och accepterar API-nyckeln {termsOfUseLink}.",
+          "termsOfUseLinkText": "användarvillkor"
+        },
+        "description": "Lär dig och testa hur du använder API:er med din personliga API-nyckel. Dela den inte, tack. {howToLink}",
+        "heading": "Personlig API-nyckel",
+        "howToLinkText": "Hur du använder din nyckel."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API-nyckel"
+        },
+        "created": {
+          "label": "Skapad datum"
+        }
+      }
+    },
     "title": "Hantera API-nycklar"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Sök"
   },
   "statuses": {
+    "disabled": "Inaktiverad",
     "liked": "Gillade",
     "pinned": "Fäst",
     "required": "Obligatoriskt"

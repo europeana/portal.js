@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Správa účtů",
     "curatedCollections": "Kurátorské sbírky",
-    "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
     "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
+    "manageApiKeys": "Správa klíčů API",
+    "menu": {
+      "close": "Zavřít uživatelské menu",
+      "open": "Otevřít uživatelské menu"
+    },
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
-    "profileSettings": "Nastavení profilu",
     "publicCollections": "Veřejné galerie",
     "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
+    "disable": "Deaktivovat",
     "download": "Stáhnout",
     "edit": "Upravit",
     "filter": "Filtr",
@@ -81,6 +86,28 @@ export default {
     "vote": "Hlasování"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Požádejte o osobní API klíč",
+          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
+          "termsOfUseLinkText": "podmínky použití"
+        },
+        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}",
+        "heading": "Osobní API klíč",
+        "howToLinkText": "Jak používat svůj klíč."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API klíč"
+        },
+        "created": {
+          "label": "Datum vytvoření"
+        }
+      }
+    },
     "title": "Správa klíčů API"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "Vyhledat"
   },
   "statuses": {
+    "disabled": "Deaktivováno",
     "liked": "Oblíbené",
     "pinned": "Připnuté",
     "required": "Požadováno"

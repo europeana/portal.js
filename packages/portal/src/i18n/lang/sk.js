@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Správa účtov",
     "curatedCollections": "Spravované kolekcie",
-    "editProfile": "Upraviť profil",
     "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
     "linkLogout": "Odhlásiť sa",
+    "manageApiKeys": "Spravovať kľúče API",
+    "menu": {
+      "close": "Zavrieť používateľskú ponuku",
+      "open": "Otvoriť používateľskú ponuku"
+    },
     "notifications": {
       "loggedIn": "Teraz ste prihlásení. Vitajte!",
       "loggedOut": "Teraz ste odhlásení.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Súkromné galérie",
     "profile": "Moje označenia Páči sa mi a galérie",
-    "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
     "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Potvrdiť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
+    "disable": "Deaktivovať",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "filter": "Filter",
@@ -81,6 +86,28 @@ export default {
     "vote": "Hlasujte"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Požiadajte o osobný API kľúč",
+          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem API kľúč {termsOfUseLink}.",
+          "termsOfUseLinkText": "podmienky používania"
+        },
+        "description": "Naučte sa a vyskúšajte, ako používať API pomocou svojho osobného API kľúča. Prosím, nezdieľajte ho. {howToLink}",
+        "heading": "Osobný API kľúč",
+        "howToLinkText": "Ako používať svoj kľúč."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API kľúč"
+        },
+        "created": {
+          "label": "Dátum vytvorenia"
+        }
+      }
+    },
     "title": "Spravovať kľúče API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
+    "disabled": "Zakázané",
     "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"

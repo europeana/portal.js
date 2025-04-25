@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Διαχείριση λογαριασμού",
     "curatedCollections": "Επιλεγμένες Συλλογές",
-    "editProfile": "Επεξεργασία προφίλ",
     "likes": "Μου αρέσει",
     "linkAccount": "Ο λογαριασμός μου",
     "linkLogin": "Σύνδεση",
     "linkLoginJoin": "Είσοδος/ Εγγραφή",
     "linkLogout": "Αποσύνδεση",
+    "manageApiKeys": "Διαχείριση κλειδιών API",
+    "menu": {
+      "close": "Κλείσιμο μενού χρήστη",
+      "open": "Άνοιγμα μενού χρήστη"
+    },
     "notifications": {
       "loggedIn": "Έχετε συνδεθεί τώρα. Καλώς ήλθατε!",
       "loggedOut": "Έχετε αποσυνδεθεί τώρα.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Δεν έχετε δημιουργήσει ιδιωτικές γκαλερί.",
     "profile": "Τα \"Μου αρέσει\" και οι γκαλερί μου.",
-    "profileSettings": "Ρυθμίσεις προφίλ",
     "publicCollections": "Δημόσιες γκαλερί",
     "publishedCollections": "Δημοσιευμένες Γκαλερί",
     "settings": "Ρυθμίσεις",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Επιβεβαιώνω",
     "continue": "Συνέχεια",
     "depublish": "Αναδημοσίευση",
+    "disable": "Απενεργοποίηση",
     "download": "Μεταφόρτωση",
     "edit": "Επεξεργασία",
     "filter": "Φίλτρο",
@@ -81,6 +86,28 @@ export default {
     "vote": "Ψήφος"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Ζητήστε ένα προσωπικό κλειδί API",
+          "checkbox": "Επιβεβαιώνω ότι έχω διαβάσει και αποδέχομαι το κλειδί API {termsOfUseLink}.",
+          "termsOfUseLinkText": "όροι χρήσης"
+        },
+        "description": "Μάθετε και δοκιμάστε πώς να χρησιμοποιείτε τα API με το προσωπικό σας κλειδί API. Μην το κοινοποιείτε. {howToLink}",
+        "heading": "Προσωπικό κλειδί API",
+        "howToLinkText": "Πώς να χρησιμοποιήσετε το κλειδί σας."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Κλειδί API"
+        },
+        "created": {
+          "label": "Ημερομηνία δημιουργίας"
+        }
+      }
+    },
     "title": "Διαχείριση κλειδιών API"
   },
   "attribution": {
@@ -1459,6 +1486,7 @@ export default {
     "search": "Αναζήτηση"
   },
   "statuses": {
+    "disabled": "Απενεργοποιημένο",
     "liked": "Άρεσε",
     "pinned": "Καρφιτσωμένο",
     "required": "Απαιτείται"

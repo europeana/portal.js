@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Upravljanje računom",
     "curatedCollections": "Kurirane zbirke",
-    "editProfile": "Uredi profil",
     "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
     "linkLogout": "Odjava",
+    "manageApiKeys": "Upravljanje API ključevima",
+    "menu": {
+      "close": "Zatvori korisnički izbornik",
+      "open": "Otvori korisnički izbornik"
+    },
     "notifications": {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Privatne galerije",
     "profile": "Moji lajkovi i galerije",
-    "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Postavke",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
+    "disable": "Onemogući",
     "download": "Preuzmi",
     "edit": "Uredi",
     "filter": "Filtar",
@@ -81,6 +86,28 @@ export default {
     "vote": "Glasaj"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Zatražite osobni API ključ",
+          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}.",
+          "termsOfUseLinkText": "uvjeti korištenja"
+        },
+        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}",
+        "heading": "Osobni API ključ",
+        "howToLinkText": "Kako koristiti svoj ključ."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API ključ"
+        },
+        "created": {
+          "label": "Datum kreiranja"
+        }
+      }
+    },
     "title": "Upravljanje API ključevima"
   },
   "attribution": {
@@ -1460,6 +1487,7 @@ export default {
     "search": "traži"
   },
   "statuses": {
+    "disabled": "Onemogućeno",
     "liked": "Lajkano",
     "pinned": "Prikvačeno",
     "required": "Potreban"
