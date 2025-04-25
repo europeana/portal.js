@@ -112,23 +112,6 @@
                       {{ $t('apiKeys.sections.personalKeys.create.button') }}
                     </b-button>
                   </b-form>
-                  <b-modal
-                    :id="errorModalId"
-                    :title="errorTitle"
-                    hide-footer
-                    hide-header-close
-                  >
-                    <p>{{ errorMessage }}</p>
-                    <div class="modal-footer">
-                      <b-button
-                        variant="outline-primary"
-                        data-qa="close button"
-                        @click="$bvModal.hide(errorModalId)"
-                      >
-                        {{ $t('actions.close') }}
-                      </b-button>
-                    </div>
-                  </b-modal>
                 </template>
               </b-col>
             </b-row>
@@ -141,7 +124,6 @@
 
 <script>
   import { BTable } from 'bootstrap-vue';
-  import camelCase from 'lodash/camelCase.js';
 
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -211,18 +193,7 @@
           await this.$apis.auth.createClient();
           this.$fetch();
         } catch (error) {
-          if (error.response.data.code) {
-            const errorMessageKey = `keycloak${camelCase(error.response.data.code)}`;
-            if (this.$te(`errorMessage.${errorMessageKey}`)) {
-              this.errorTitle = this.$te(`errorMessage.${errorMessageKey}.title`);
-              this.errorMessage = this.$te(`errorMessage.${errorMessageKey}.description`);
-              await this.$nextTick();
-              this.$bvModal.show(this.errorModalId);
-              return;
-            }
-          }
-
-          throw error;
+          this.$error(error, { scope: 'apiKey' });
         }
       },
 
