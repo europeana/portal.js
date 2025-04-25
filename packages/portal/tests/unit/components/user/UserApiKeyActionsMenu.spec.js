@@ -47,19 +47,33 @@ describe('components/user/UserApiKeyActionsMenu', () => {
     expect(menu.exists()).toBe(true);
   });
 
-  describe('when the api key is enabled', () => {
-    it('has control button disabled', () => {
-      const propsData = { apiKey: fixtures.apiKey.personal.disabled };
-      const wrapper = factory({ propsData });
+  describe('when the api key is disabled', () => {
+    describe('re-enable personal api key button', () => {
+      it('is available', () => {
+        const propsData = { apiKey: fixtures.apiKey.personal.disabled };
+        const wrapper = factory({ propsData });
 
-      const button = wrapper.find('[data-qa="user api key actions menu"]');
+        const button = wrapper.find('[data-qa="re-enable personal api key button"]');
 
-      expect(button.attributes('disabled')).toBe('true');
+        expect(button.exists()).toBe(true);
+      });
+
+      describe('when clicked', () => {
+        it('shows the info modal', async() => {
+          const propsData = { apiKey: fixtures.apiKey.personal.disabled };
+          const wrapper = factory({ propsData });
+
+          wrapper.find('[data-qa="re-enable personal api key button"]').vm.$emit('click');
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.find('[data-qa="re-enable api key info modal"]').isVisible()).toBe(true);
+        });
+      });
     });
   });
 
-  describe('disable personal api key button', () => {
-    describe('when the api key is enabled', () => {
+  describe('when the api key is enabled', () => {
+    describe('disable personal api key button', () => {
       it('is available', () => {
         const propsData = { apiKey: fixtures.apiKey.personal.enabled };
         const wrapper = factory({ propsData });
@@ -106,17 +120,6 @@ describe('components/user/UserApiKeyActionsMenu', () => {
             expect(wrapper.emitted('disable')).toEqual([[]]);
           });
         });
-      });
-    });
-
-    describe('when the api key is disabled', () => {
-      it('is not rendered', () => {
-        const propsData = { apiKey: fixtures.apiKey.personal.disabled };
-        const wrapper = factory({ propsData });
-
-        const button = wrapper.find('[data-qa="disable personal api key button"]');
-
-        expect(button.exists()).toBe(false);
       });
     });
   });

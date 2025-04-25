@@ -48,7 +48,6 @@ export default {
     "close": "close",
     "confirm": "Confirm",
     "continue": "continue",
-    "disable": "Disable",
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
@@ -86,11 +85,18 @@ export default {
     "vote": "Vote"
   },
   "apiKeys": {
+    "actions": {
+      "disable": "Disable key",
+      "reEnable": "Re-enable key"
+    },
     "disable": {
-      "confirm": "Disable key",
       "promptText1": "Are you sure you want to disable this API key?",
       "promptText2": "Once you disable this key, you will no longer be able to use it on your project. This will happen immediately. You will need to email us at api@europeana.eu to enable the API key again.",
       "title": "Disable API key"
+    },
+    "reEnable": {
+      "text": "To re-enable this API key, please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "Re-enable API key"
     },
     "sections": {
       "personalKeys": {
