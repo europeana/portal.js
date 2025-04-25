@@ -51,7 +51,7 @@
             >
               <template #link>
                 <SmartLink
-                  destination="https://pro.europeana.eu/pages/get-api"
+                  :destination="$features.manageApiKeys ? '/account/api-keys' : 'https://pro.europeana.eu/pages/get-api'"
                   hide-external-icon
                 >
                   {{ $t('debug.apiRequests.form.apiKey.here') }}<!-- This comment removes white space
