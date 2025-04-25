@@ -36,7 +36,14 @@
           :label="$t('debug.apiRequests.form.apiKey.label')"
           label-for="debug-input-api-key"
         >
+          <b-form-select
+            v-if="userApiKeyOptions.length > 0"
+            id="debug-input-api-key"
+            v-model="debugSettings.apiKey"
+            :options="userApiKeyOptions"
+          />
           <b-form-input
+            v-else
             id="debug-input-api-key"
             v-model="debugSettings.apiKey"
           />
@@ -107,23 +114,38 @@
 </template>
 
 <script>
+  import { BFormSelect } from 'bootstrap-vue';
+
   import InfoMessage from '../generic/InfoMessage';
   import SmartLink from '@/components/generic/SmartLink';
 
   export default {
+    // TODO: rename to not include 'Debug'
     name: 'DebugApiRequests',
 
     components: {
+      BFormSelect,
       InfoMessage,
       SmartLink
     },
 
     data() {
       return {
+        debugSettings: { ...this.$store.getters['debug/settings'] },
         hash: '#api-requests',
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        debugSettings: { ...this.$store.getters['debug/settings'] }
+        userApiKeyOptions: []
       };
+    },
+
+    async fetch() {
+      if (!this.$auth.loggedIn || !this.$features.manageApiKeys) {
+        return;
+      }
+      const userApiKeys = await this.$apis.auth.getUserClients();
+      this.userApiKeyOptions = userApiKeys
+        .sort((a, b) => a['client_id'].localeCompare(b['client_id']))
+        .map((apiKey) => ({ text: apiKey['client_id'], value: apiKey['client_id'] }));
     },
 
     computed: {
