@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Zarządzanie kontem",
     "curatedCollections": "Kolekcje kuratorowane",
-    "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
     "linkLoginJoin": "Zaloguj się / Zarejestruj się",
     "linkLogout": "Wyloguj",
+    "manageApiKeys": "Zarządzaj kluczami API",
+    "menu": {
+      "close": "Zamknij menu użytkownika",
+      "open": "Otwórz menu użytkownika"
+    },
     "notifications": {
       "loggedIn": "Jesteś teraz zalogowany. Witamy!",
       "loggedOut": "Teraz jesteś wylogowany.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
-    "profileSettings": "Ustawienia profilu",
     "publicCollections": "Galerie publiczne",
     "publishedCollections": "Opublikowane Galerie",
     "settings": "Ustawienia",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Potwierdź",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
+    "disable": "Wyłącz",
     "download": "Ściągnij",
     "edit": "Edytuj",
     "filter": "Filtr",
@@ -81,6 +86,28 @@ export default {
     "vote": "Głosować"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Poproś o osobisty klucz API",
+          "checkbox": "Potwierdzam, że przeczytałem i akceptuję klucz API {termsOfUseLink}.",
+          "termsOfUseLinkText": "warunki użytkowania"
+        },
+        "description": "Dowiedz się i przetestuj, jak korzystać z API za pomocą własnego klucza API. Proszę, nie udostępniaj go. {howToLink}",
+        "heading": "Osobisty klucz API",
+        "howToLinkText": "Jak używać swojego klucza."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "Klucz API"
+        },
+        "created": {
+          "label": "Data utworzenia"
+        }
+      }
+    },
     "title": "Zarządzaj kluczami API"
   },
   "attribution": {
@@ -1458,6 +1485,7 @@ export default {
     "search": "Szukaj"
   },
   "statuses": {
+    "disabled": "Wyłączone",
     "liked": "Lubiana",
     "pinned": "Przypięty",
     "required": "Wymagane"

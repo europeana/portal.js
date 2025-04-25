@@ -1,12 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Управление на акаунта",
     "curatedCollections": "Курирани колекции",
-    "editProfile": "Редактиране на профила",
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
     "linkLoginJoin": "Вход / Регистрация",
     "linkLogout": "Излизане",
+    "manageApiKeys": "Управление на API ключове",
+    "menu": {
+      "close": "Затворете потребителското меню",
+      "open": "Отворете потребителското меню"
+    },
     "notifications": {
       "loggedIn": "Вече сте влезли в системата. Добре дошли!",
       "loggedOut": "Вече сте излезли.",
@@ -20,7 +25,6 @@ export default {
     },
     "privateCollections": "Лични галерии",
     "profile": "Моите харесвания и галерии",
-    "profileSettings": "Настройки на профила",
     "publicCollections": "Публични галерии",
     "publishedCollections": "Публикувани галерии",
     "settings": "Настройки",
@@ -45,6 +49,7 @@ export default {
     "confirm": "Потвърди",
     "continue": "продължи",
     "depublish": "Депубликувай",
+    "disable": "Деактивирай",
     "download": "Изтегляне",
     "edit": "Редактиране",
     "filter": "Филтър",
@@ -81,6 +86,28 @@ export default {
     "vote": "Гласувайте"
   },
   "apiKeys": {
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Поискайте личен API ключ",
+          "checkbox": "Потвърждавам, че съм прочел/а и приемам ключа за API {termsOfUseLink}.",
+          "termsOfUseLinkText": "условия за ползване"
+        },
+        "description": "Научете и тествайте как да използвате API с вашия личен API ключ. Моля, не го споделяйте. {howToLink}",
+        "heading": "Личен API ключ",
+        "howToLinkText": "Как да използвате своя ключ."
+      }
+    },
+    "table": {
+      "fields": {
+        "clientId": {
+          "label": "API ключ"
+        },
+        "created": {
+          "label": "Дата на създаване"
+        }
+      }
+    },
     "title": "Управление на API ключове"
   },
   "attribution": {
@@ -1465,6 +1492,7 @@ export default {
     "search": "Търсене"
   },
   "statuses": {
+    "disabled": "Деактивирано",
     "liked": "Харесвах",
     "pinned": "Закрепен",
     "required": "Задължително"

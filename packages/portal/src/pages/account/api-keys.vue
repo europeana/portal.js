@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xxl-page page"
+    class="xxl-page page mb-3 mb-sm-5"
   >
     <b-container fluid>
       <UserHeader />
@@ -19,7 +19,7 @@
                 </NuxtLink>
               </b-col>
             </b-row>
-            <b-row class="api-keys-page-content">
+            <b-row class="api-keys-page-content mb-sm-5">
               <b-col>
                 <LoadingSpinner
                   v-if="$fetchState.pending"
@@ -62,54 +62,60 @@
                   >
                     <template #cell(client_id)="data">
                       <span
-                        v-if="data.item.state === 'disabled'"
+                        v-if="data.item?.state === 'disabled'"
                         class="disabled"
                       >
                         {{ data.value }} — {{ $t('statuses.disabled') }}
                       </span>
                       <template v-else>
                         {{ data.value }}
-                        <b-button
-                          data-qa="disable personal api key button"
-                          @click="handleClickDisableButton(data.item)"
-                        >
-                          {{ $t('actions.disable') }}
-                        </b-button>
                       </template>
                     </template>
+                    <template #cell(actions)="data">
+                      <UserApiKeyActionsMenu
+                        v-if="data.item"
+                        :id="`personal-api-key-actions-menu-${data.index}`"
+                        :api-key="data.item"
+                        @disable="handleDisableApiKey"
+                      />
+                    </template>
                   </b-table>
-                  <b-form
-                    v-if="noActivePersonalKeys"
-                    data-qa="request personal api key form"
-                    @submit.prevent="handleSubmitCreatePersonalKeyForm"
-                  >
-                    <b-form-group>
-                      <b-form-checkbox
-                        id="api-keys-request-personal-key-confirm-terms-of-use"
-                        v-model="confirmPersonalKeyTermsOfUse"
+                  <b-row>
+                    <b-col xl="6">
+                      <b-form
+                        v-if="noActivePersonalKeys"
+                        data-qa="request personal api key form"
+                        @submit.prevent="handleSubmitCreatePersonalKeyForm"
                       >
-                        <i18n
-                          path="apiKeys.sections.personalKeys.create.checkbox"
-                          tag="span"
-                        >
-                          <template #termsOfUseLink>
-                            <NuxtLink
-                              :to="localePath('/rights/terms-of-use#europeana-api')"
+                        <b-form-group>
+                          <b-form-checkbox
+                            id="api-keys-request-personal-key-confirm-terms-of-use"
+                            v-model="confirmPersonalKeyTermsOfUse"
+                          >
+                            <i18n
+                              path="apiKeys.sections.personalKeys.create.checkbox"
+                              tag="span"
                             >
-                              {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
+                              <template #termsOfUseLink>
+                                <NuxtLink
+                                  :to="localePath('/rights/terms-of-use#europeana-api')"
+                                >
+                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
                               -->
-                            </NuxtLink>
-                          </template>
-                        </i18n>
-                      </b-form-checkbox>
-                    </b-form-group>
-                    <b-button
-                      :disabled="!confirmPersonalKeyTermsOfUse"
-                      type="submit"
-                    >
-                      {{ $t('apiKeys.sections.personalKeys.create.button') }}
-                    </b-button>
-                  </b-form>
+                                </NuxtLink>
+                              </template>
+                            </i18n>
+                          </b-form-checkbox>
+                        </b-form-group>
+                        <b-button
+                          :disabled="!confirmPersonalKeyTermsOfUse"
+                          type="submit"
+                        >
+                          {{ $t('apiKeys.sections.personalKeys.create.button') }}
+                        </b-button>
+                      </b-form>
+                    </b-col>
+                  </b-row>
                 </template>
               </b-col>
             </b-row>
@@ -125,6 +131,7 @@
 
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -135,6 +142,7 @@
       AlertMessage,
       BTable,
       LoadingSpinner,
+      UserApiKeyActionsMenu,
       UserHeader
     },
 
@@ -146,10 +154,14 @@
 
     data() {
       return {
+        apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
+        showConfirmDangerModal: false,
         tableFields: [
-          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') }
+          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
+          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
+          { key: 'actions', label: '' }
         ]
       };
     },
@@ -173,8 +185,7 @@
     },
 
     methods: {
-      async handleClickDisableButton(apiKey) {
-        await this.$apis.auth.deleteClient(apiKey.id);
+      handleDisableApiKey() {
         this.$fetch();
       },
 
@@ -226,21 +237,40 @@
       @extend %title-3;
     }
 
-    p, p a {
+    p, p a, span, span a {
       color: $darkgrey;
     }
 
-    .disabled {
-      opacity: 70%;
-      font-style: italic;
-    }
+    .table {
+      td {
+        font-weight: 600;
+        color: $darkgrey;
 
-    .table td {
-      font-weight: 600;
-      color: $darkgrey;
+        .dropdown-menu {
+          box-shadow: $boxshadow-large;
+          border: none;
+          border-radius: 0rem;
+          border-bottom-right-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        }
 
-      &:last-child {
-        border-bottom: 1px solid $middlegrey;
+        .btn-link:focus, .btn-link:hover {
+          text-decoration: none;
+        }
+        .btn:focus {
+          box-shadow: none;
+        }
+      }
+
+      tr {
+        &.disabled {
+          opacity: 70%;
+          font-style: italic;
+        }
+
+        &:last-child td {
+          border-bottom: 1px solid $middlegrey;
+        }
       }
     }
   }

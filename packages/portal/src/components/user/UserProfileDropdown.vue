@@ -9,7 +9,8 @@
     <b-dropdown-item
       v-for="item, index in links"
       :key="index"
-      :href="item.url"
+      :href="item.href"
+      :to="item.to"
     >
       {{ item.text }}
     </b-dropdown-item>
@@ -24,13 +25,13 @@
       return {
         links: [{
           text: this.$t('account.accountManagement'),
-          url: this.$keycloak?.accountUrl()
+          href: this.$keycloak?.accountUrl()
         }, this.$features.manageApiKeys && {
           text: this.$t('account.manageApiKeys'),
-          url: '/account/api-keys'
+          to: this.localePath('/account/api-keys')
         }, {
           text: this.$t('account.linkLogout'),
-          url: '/account/logout'
+          to: '/account/logout'
         }].filter(Boolean),
         menuOpen: false
       };
@@ -113,6 +114,10 @@
 
       @media (min-width: $bp-4k) {
         padding: calc(1.5 * 0.875rem) calc(1.5 * 0.75rem);
+      }
+
+      &.exact-active-link {
+        background-color: $lightgrey;
       }
     }
   }

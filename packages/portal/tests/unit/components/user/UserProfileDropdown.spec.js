@@ -13,6 +13,7 @@ const factory = () => mount(UserProfileDropdown, {
     $keycloak: {
       accountUrl: () => {}
     },
+    localePath: (path) => path,
     $t: (key) => key
   }
 });
