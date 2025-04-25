@@ -152,9 +152,6 @@
       return {
         apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
-        errorTitle: null,
-        errorMessage: null,
-        errorModalId: 'api-key-error-modal',
         personalKeys: [],
         showConfirmDangerModal: false,
         tableFields: [
