@@ -66,7 +66,7 @@
                     </template>
                     <template #cell(client_id)="data">
                       <span
-                        v-if="data.item?.state === 'disabled'"
+                        v-if="isDisabled(data.item)"
                         class="disabled"
                       >
                         {{ data.value }}
@@ -179,7 +179,7 @@
 
     computed: {
       noActivePersonalKeys() {
-        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+        return this.personalKeys.every((apiKey) => this.isDisabled(apiKey));
       },
 
       pageMeta() {
@@ -203,16 +203,20 @@
         this.$fetch();
       },
 
+      isDisabled(apiKey) {
+        return apiKey?.state === 'disabled';
+      },
+
       tableRowClass(item, type) {
-        if (type === 'row' && item?.state === 'disabled') {
+        if (type === 'row' && this.isDisabled(item)) {
           return 'disabled';
         }
         return undefined;
       },
 
       sortByEnabled(a, b) {
-        const isADisabled = a.state === 'disabled';
-        const isBDisabled = b.state === 'disabled';
+        const isADisabled = this.isDisabled(a);
+        const isBDisabled = this.isDisabled(b);
 
         if (isADisabled === isBDisabled) {
           return 0;
@@ -221,7 +225,7 @@
       },
 
       tableRowAttributes(item, type) {
-        if (type === 'row' && item?.state === 'disabled') {
+        if (type === 'row' && this.isDisabled(item)) {
           return { 'aria-disabled': true };
         }
         return undefined;
