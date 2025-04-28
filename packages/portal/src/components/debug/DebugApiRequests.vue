@@ -49,15 +49,13 @@
               tag="span"
             >
               <template #link>
-                <NuxtLink
-                  event=""
-                  to="/account/api-keys"
-                  hide-external-icon
-                  @click.native="handleClickUsePersonalApiKey"
+                <b-button
+                  v-if="userApiKey"
+                  variant="link"
+                  @click="handleClickUsePersonalApiKey"
                 >
-                  {{ $t('debug.apiRequests.form.apiKey.usePersonal.linkText') }}<!-- This comment removes white space
-                  -->
-                </NuxtLink>
+                  {{ $t('debug.apiRequests.form.apiKey.usePersonal.linkText') }}
+                </b-button>
               </template>
             </i18n>
             <span v-else>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
