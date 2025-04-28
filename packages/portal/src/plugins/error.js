@@ -66,7 +66,7 @@ function translateErrorWithCode(error, { tValues = {} }) {
 export function handleError(errorOrStatusCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrStatusCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
-  console.log('error code', error.code);
+
   error.isFetchError = this.$fetchState?.pending || false;
 
   if (this.$nuxt?.context?.res && error.statusCode) {
