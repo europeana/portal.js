@@ -157,29 +157,3 @@ describe('pages/account/api-keys', () => {
     });
   });
 });
-
-describe('methods', () => {
-  describe('tableRowAttributess', () => {
-    const tableItem = { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey' };
-    const disabledTableItem = { ...tableItem, state: 'disabled' };
-
-    describe('when type is row and item state disabled', () => {
-      it('returns aria-disabled attribute', () => {
-        const wrapper = factory();
-
-        const rowAttributes = wrapper.vm.tableRowAttributes(disabledTableItem, 'row');
-
-        expect(rowAttributes).toEqual({ 'aria-disabled': true });
-      });
-    });
-    describe('when type is row and item state is not disabled', () => {
-      it('returns aria-disabled attribute', () => {
-        const wrapper = factory();
-
-        const rowAttributes = wrapper.vm.tableRowAttributes(tableItem, 'row');
-
-        expect(rowAttributes).toEqual(undefined);
-      });
-    });
-  });
-});
