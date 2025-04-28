@@ -31,7 +31,7 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 
   if (typeof errorOrStatusCode === 'object') {
     error = errorOrStatusCode;
-    if (HTTP_CODES[error.statusCode]) {
+    if (!error.code && HTTP_CODES[error.statusCode]) {
       const httpCode = HTTP_CODES[error.statusCode];
       error.code = `${scope}${httpCode}`;
     }
@@ -66,6 +66,7 @@ function translateErrorWithCode(error, { tValues = {} }) {
 export function handleError(errorOrStatusCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrStatusCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
+
   error.isFetchError = this.$fetchState?.pending || false;
 
   if (this.$nuxt?.context?.res && error.statusCode) {

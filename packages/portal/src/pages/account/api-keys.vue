@@ -190,8 +190,12 @@
       },
 
       async handleSubmitCreatePersonalKeyForm() {
-        await this.$apis.auth.createClient();
-        this.$fetch();
+        try {
+          await this.$apis.auth.createClient();
+          this.$fetch();
+        } catch (error) {
+          this.$error(error);
+        }
       },
 
       tableRowClass(item, type) {
