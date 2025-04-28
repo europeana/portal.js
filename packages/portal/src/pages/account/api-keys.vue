@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xxl-page page mb-3 mb-sm-5"
+    class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
     <b-container fluid>
       <UserHeader />
@@ -242,6 +242,16 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+
+  .api-keys-page .container {
+    @media (min-width: $bp-extralarge) {
+      max-width: 1250px;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: 2100px;
+    }
+  }
 
   .profile-back-link {
     font-size: $font-size-small;
