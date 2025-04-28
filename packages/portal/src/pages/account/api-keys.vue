@@ -61,7 +61,7 @@
                   >
                     <template #cell(created)="data">
                       <time :aria-disabled="isDisabled(data.item)">
-                        {{ data.value && $d(new Date(data.value), 'numeric') }}
+                        {{ data.value && $d(new Date(data.value), 'numeric', $i18n.localeProperties.iso) }}
                       </time>
                     </template>
                     <template #cell(client_id)="data">
