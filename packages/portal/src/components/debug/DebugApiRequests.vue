@@ -251,6 +251,13 @@
     }
   }
 
+  ::v-deep .form-text .btn-link {
+    font-size: inherit;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+  }
+
   ::v-deep .alert {
     padding: 0;
     margin-bottom: 0;
