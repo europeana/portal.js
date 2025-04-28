@@ -105,9 +105,9 @@ export default {
           "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}.",
           "termsOfUseLinkText": "terms of use"
         },
-        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}",
+        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
         "heading": "Personal API key",
-        "howToLinkText": "How to use your key."
+        "howToLinkText": "How to use your key"
       }
     },
     "table": {

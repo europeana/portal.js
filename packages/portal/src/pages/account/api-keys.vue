@@ -43,9 +43,13 @@
                         <template #howToLink>
                           <a
                             href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
+                            target="_blank"
                           >
-                            {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}<!-- This comment removes white space
-                        -->
+                            {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}
+                            <span class="icon-external-link" /><!-- This comment removes white space
+                            --><span class="sr-only">
+                              ({{ $t('newWindow') }})
+                            </span>
                           </a>
                         </template>
                       </i18n>
@@ -99,9 +103,13 @@
                               <template #termsOfUseLink>
                                 <NuxtLink
                                   :to="localePath('/rights/terms-of-use#europeana-api')"
+                                  target="_blank"
                                 >
-                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}<!-- This comment removes white space
-                              -->
+                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}
+                                  <span class="icon-external-link" /><!-- This comment removes white space
+                                  --><span class="sr-only">
+                                    ({{ $t('newWindow') }})
+                                  </span>
                                 </NuxtLink>
                               </template>
                             </i18n>
@@ -243,6 +251,14 @@
 
     p, p a, span, span a {
       color: $darkgrey;
+    }
+
+    .icon-external-link {
+      font-size: $font-size-extrasmall;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
     }
 
     .table {
