@@ -38,7 +38,7 @@
         >
           <b-form-input
             id="debug-input-api-key"
-            v-model="debugSettings.apiKey"
+            v-model="apiKey"
           />
           <template
             #description
@@ -135,7 +135,7 @@
 
     data() {
       return {
-        debugSettings: { ...this.$store.getters['debug/settings'] },
+        apiKey: this.$store.getters['debug/settings'].apiKey,
         hash: '#api-requests',
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
         userApiKey: null
@@ -193,7 +193,7 @@
 
     methods: {
       handleClickUsePersonalApiKey() {
-        this.debugSettings.apiKey = this.userApiKey['client_id'];
+        this.apiKey = this.userApiKey['client_id'];
       },
 
       showModal() {
@@ -207,7 +207,10 @@
         }
       },
       saveApiKey() {
-        this.$store.commit('debug/updateSettings', this.debugSettings);
+        this.$store.commit('debug/updateSettings', {
+          ...this.$store.getters['debug/settings'],
+          apiKey: this.apiKey
+        });
       }
     }
   };
