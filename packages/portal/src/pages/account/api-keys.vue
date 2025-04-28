@@ -272,7 +272,11 @@
     }
 
     .table {
-      th {
+      thead th {
+        @media (max-width: ($bp-small - 1px)) {
+          padding-right: 0 !important;
+        }
+
         @media (min-width: $bp-small) {
           padding-right: 3rem !important;
         }
@@ -282,7 +286,16 @@
         }
 
         &.table-api-key-cell {
-          width: 100%;
+          @media (min-width: $bp-small) {
+            width: 100%;
+          }
+        }
+
+        div {
+          @media (max-width: ($bp-small - 1px)) {
+            overflow-wrap: anywhere;
+            white-space: wrap;
+          }
         }
       }
 
@@ -295,6 +308,14 @@
         &.table-actions-cell {
           padding: 0;
           vertical-align: middle;
+        }
+
+        .dropdown-toggle {
+          font-size: $font-size-large;
+
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-large-4k;
+          }
         }
 
         .dropdown-menu {
