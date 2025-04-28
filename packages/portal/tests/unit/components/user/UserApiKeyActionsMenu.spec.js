@@ -6,7 +6,8 @@ import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const deleteClientStub = sinon.spy();
+const deleteClientStub = sinon.stub();
+const errorPluginSpy = sinon.spy();
 
 const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(UserApiKeyActionsMenu, {
   localVue,
@@ -16,6 +17,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(UserApiKey
         deleteClient: deleteClientStub
       }
     },
+    $error: errorPluginSpy,
     $t: (key) => key,
     ...mocks
   },
@@ -118,6 +120,74 @@ describe('components/user/UserApiKeyActionsMenu', () => {
             await wrapper.vm.$nextTick();
 
             expect(wrapper.emitted('disable')).toEqual([[]]);
+          });
+
+          describe('when the auth service errors', () => {
+            const error = new Error;
+            const $apis = {
+              auth: {
+                deleteClient: sinon.stub().rejects(error)
+              }
+            };
+
+            it('handles the error via error plugin', async() => {
+              const mocks = { $apis };
+              const propsData = { apiKey: fixtures.apiKey.personal.enabled };
+              const wrapper = factory({ mocks, propsData });
+
+              wrapper.find('[data-qa="disable personal api key button"]').vm.$emit('click');
+              await wrapper.vm.$nextTick();
+              wrapper.find('[data-qa="confirm disable api key modal"]').vm.$emit('confirm');
+              await wrapper.vm.$nextTick();
+
+              expect(errorPluginSpy.calledWith(error)).toBe(true);
+            });
+
+            describe('when the error is due to the key already being disabled', () => {
+              const error = new Error;
+              error.code = 'authClientDisabled';
+              const $apis = {
+                auth: {
+                  deleteClient: sinon.stub().rejects(error)
+                }
+              };
+
+              it('emits the disable event', async() => {
+                const mocks = { $apis };
+                const propsData = { apiKey: fixtures.apiKey.personal.enabled };
+                const wrapper = factory({ mocks, propsData });
+
+                wrapper.find('[data-qa="disable personal api key button"]').vm.$emit('click');
+                await wrapper.vm.$nextTick();
+                wrapper.find('[data-qa="confirm disable api key modal"]').vm.$emit('confirm');
+                await wrapper.vm.$nextTick();
+
+                expect(wrapper.emitted('disable')).toEqual([[]]);
+              });
+            });
+
+            describe('when the error is not due to the key already being disabled', () => {
+              const error = new Error;
+              error.code = 'unknownError';
+              const $apis = {
+                auth: {
+                  deleteClient: sinon.stub().rejects(error)
+                }
+              };
+
+              it('does not emit the disable event', async() => {
+                const mocks = { $apis };
+                const propsData = { apiKey: fixtures.apiKey.personal.enabled };
+                const wrapper = factory({ mocks, propsData });
+
+                wrapper.find('[data-qa="disable personal api key button"]').vm.$emit('click');
+                await wrapper.vm.$nextTick();
+                wrapper.find('[data-qa="confirm disable api key modal"]').vm.$emit('confirm');
+                await wrapper.vm.$nextTick();
+
+                expect(wrapper.emitted('disable')).toBeUndefined();
+              });
+            });
           });
         });
       });

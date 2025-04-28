@@ -100,8 +100,15 @@
       },
 
       async handleConfirmDisableKey() {
-        await this.$apis.auth.deleteClient(this.apiKey.id);
-        this.$emit('disable');
+        try {
+          await this.$apis.auth.deleteClient(this.apiKey.id);
+          this.$emit('disable');
+        } catch (error) {
+          this.$error(error);
+          if (error.code === 'authClientDisabled') {
+            this.$emit('disable');
+          }
+        }
       }
     }
   };

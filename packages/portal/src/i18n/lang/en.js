@@ -274,6 +274,10 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "This API key has already been disabled, perhaps in a different browser tab.",
+      "title": "Key already disabled"
+    },
     "authDuplicateKey": {
       "description": "Users can only have one enabled personal key which is intended for personal use.",
       "title": "You already have a personal key"
