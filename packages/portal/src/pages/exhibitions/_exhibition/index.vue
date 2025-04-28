@@ -33,7 +33,7 @@
               :datetime="datePublished"
               class="font-small font-weight-bold d-block mb-4"
             >
-              {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
+              {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short', $i18n.localeProperties.iso) }) }}
             </time>
             <div class="mb-4 d-flex align-items-center">
               <ShareButton class="mr-4" />

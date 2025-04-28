@@ -1,4 +1,5 @@
 import codes from './codes.js';
+import isoCodes from './isoCodes.js';
 import locales from './locales.js';
 
 export {
@@ -13,5 +14,6 @@ export {
 
 export {
   codes,
+  isoCodes,
   locales
 };
