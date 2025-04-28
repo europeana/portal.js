@@ -41,6 +41,7 @@ export default class EuropeanaApi {
     if (error.isAxiosError) {
       if (error.response) {
         error.statusCode = error.response.status;
+
         if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
           error.message = error.response.data.error;
         }
