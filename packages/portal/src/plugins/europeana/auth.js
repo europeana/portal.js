@@ -7,7 +7,8 @@ export default class EuropeanaAuthApi extends EuropeanaApi {
   static AUTHORISING = true;
   static ERROR_CODES = {
     '400_key_limit_reached': 'authKeyLimitReached',
-    '400_duplicate_key': 'authDuplicateKey'
+    '400_duplicate_key': 'authDuplicateKey',
+    '410_client_disabled': 'authClientDisabled'
   };
 
   createClient() {
