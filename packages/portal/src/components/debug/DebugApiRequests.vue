@@ -148,7 +148,7 @@
       }
       const userApiKeys = await this.$apis.auth.getUserClients();
       this.userApiKey = userApiKeys
-        .find((apiKey) => apiKey.state !== 'disabled') || null;
+        .find((apiKey) => (apiKey.type === 'PersonalKey') && (apiKey.state !== 'disabled')) || null;
     },
 
     computed: {
