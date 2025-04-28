@@ -67,14 +67,14 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   mocks: {
     $d: date => date,
     $features: {},
+    $i18n: { localeProperties: { iso: {} } },
     $t: key => key,
     $tc: () => {},
     localePath: () => '/',
     $store: {
       commit: sinon.spy()
     },
-    $route: {},
-    $i18n: {}
+    $route: {}
   },
   stubs: [
     'AuthoredHead',

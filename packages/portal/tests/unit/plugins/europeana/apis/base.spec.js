@@ -3,6 +3,14 @@ import nock from 'nock';
 import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 import EuropeanaApiEnvConfig from '@/plugins/europeana/apis/config/env.js';
 
+class EuropeanaTestApi extends EuropeanaApi {
+  static ID = 'test';
+  static BASE_URL = 'https://default.example.org/';
+  static ERROR_CODES = {
+    'upstream-error-code': 'localErrorCode'
+  };
+}
+
 describe('EuropeanaApi', () => {
   beforeAll(() => {
     nock.disableNetConnect();
@@ -32,11 +40,6 @@ describe('EuropeanaApi', () => {
 
     let req = { headers: {} };
     let scope;
-
-    class EuropeanaTestApi extends EuropeanaApi {
-      static ID = 'test';
-      static BASE_URL = 'https://default.example.org/';
-    }
 
     const urls = {
       default: EuropeanaTestApi.BASE_URL,
@@ -145,12 +148,12 @@ describe('EuropeanaApi', () => {
 
   describe('request', () => {
     it('makes the http request with supplied config', async() => {
-      nock(EuropeanaApi.BASE_URL)
+      nock(EuropeanaTestApi.BASE_URL)
         .get('/search')
         .query((query) => query.page === '1')
         .reply(200);
 
-      const api = new EuropeanaApi;
+      const api = new EuropeanaTestApi;
       await api.request({
         method: 'get',
         url: '/search',
@@ -163,15 +166,16 @@ describe('EuropeanaApi', () => {
     describe('when it errors', () => {
       it('throws an error', async() => {
         const errorMessage = 'Invalid syntax';
-        nock(EuropeanaApi.BASE_URL)
+        nock(EuropeanaTestApi.BASE_URL)
           .get('/')
           .reply(400, {
+            code: 'upstream-error-code',
             error: errorMessage
           });
 
         let error;
         try {
-          const api = new EuropeanaApi;
+          const api = new EuropeanaTestApi;
           await api.request({
             method: 'get',
             url: '/'
@@ -180,6 +184,7 @@ describe('EuropeanaApi', () => {
           error = e;
         }
 
+        expect(error.code).toBe('localErrorCode');
         expect(error.message).toBe(errorMessage);
         expect(error.statusCode).toBe(400);
       });

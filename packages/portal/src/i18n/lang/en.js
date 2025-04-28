@@ -270,6 +270,14 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authDuplicateKey": {
+      "description": "Users can only have one enabled personal key which is intended for personal use.",
+      "title": "You already have a personal key"
+    },
+    "authKeyLimitReached": {
+      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "You have reached the limit of personal keys"
+    },
     "galleryLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"

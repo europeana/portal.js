@@ -43,6 +43,7 @@ const factory = (propsData = baseProps) => shallowMount(StoryPost, {
   mocks: {
     $features: {},
     $d: () => {},
+    $i18n: { localeProperties: { iso: {} } },
     $t: () => {},
     $tc: () => {}
   },
