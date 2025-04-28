@@ -40,15 +40,27 @@
             id="debug-input-api-key"
             v-model="debugSettings.apiKey"
           />
-          <b-button
-            v-if="userApiKey"
-            class="my-2"
-            @click="handleClickUsePersonalApiKey"
-          >{{ $t('debug.apiRequests.form.apiKey.usePersonal') }}</b-button>
           <template
             #description
           >
-            <span>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
+            <i18n
+              v-if="userApiKey"
+              path="debug.apiRequests.form.apiKey.usePersonal.prompt"
+              tag="span"
+            >
+              <template #link>
+                <NuxtLink
+                  event=""
+                  to="/account/api-keys"
+                  hide-external-icon
+                  @click.native="handleClickUsePersonalApiKey"
+                >
+                  {{ $t('debug.apiRequests.form.apiKey.usePersonal.linkText') }}<!-- This comment removes white space
+                  -->
+                </NuxtLink>
+              </template>
+            </i18n>
+            <span v-else>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
             <br>
             <i18n
               path="debug.apiRequests.form.apiKey.descriptionLine2"

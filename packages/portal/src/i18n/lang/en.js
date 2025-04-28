@@ -210,7 +210,10 @@ export default {
           "descriptionLine2": "Need an API key? Register for one {link}.",
           "here": "here",
           "label": "API key",
-          "usePersonal": "Use your personal API key"
+          "usePersonal": {
+            "linkText": "Enter your personal API key",
+            "prompt": "{link} and it will be used."
+          }
         }
       },
       "noRequests": "No requests to Europeana APIs were used on this page."
