@@ -38,12 +38,27 @@
         >
           <b-form-input
             id="debug-input-api-key"
-            v-model="debugSettings.apiKey"
+            v-model="apiKey"
           />
           <template
             #description
           >
-            <span>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
+            <i18n
+              v-if="userApiKey"
+              path="debug.apiRequests.form.apiKey.usePersonal.prompt"
+              tag="span"
+            >
+              <template #link>
+                <b-button
+                  v-if="userApiKey"
+                  variant="link"
+                  @click="handleClickUsePersonalApiKey"
+                >
+                  {{ $t('debug.apiRequests.form.apiKey.usePersonal.linkText') }}
+                </b-button>
+              </template>
+            </i18n>
+            <span v-else>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
             <br>
             <i18n
               path="debug.apiRequests.form.apiKey.descriptionLine2"
@@ -120,10 +135,20 @@
 
     data() {
       return {
+        apiKey: this.$store.getters['debug/settings'].apiKey,
         hash: '#api-requests',
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        debugSettings: { ...this.$store.getters['debug/settings'] }
+        userApiKey: null
       };
+    },
+
+    async fetch() {
+      if (!this.$auth.loggedIn || !this.$features.manageApiKeys) {
+        return;
+      }
+      const userApiKeys = await this.$apis.auth.getUserClients();
+      this.userApiKey = userApiKeys
+        .find((apiKey) => (apiKey.type === 'PersonalKey') && (apiKey.state !== 'disabled')) || null;
     },
 
     computed: {
@@ -167,6 +192,10 @@
     },
 
     methods: {
+      handleClickUsePersonalApiKey() {
+        this.apiKey = this.userApiKey['client_id'];
+      },
+
       showModal() {
         this.$bvModal.show('api-requests');
       },
@@ -178,7 +207,10 @@
         }
       },
       saveApiKey() {
-        this.$store.commit('debug/updateSettings', this.debugSettings);
+        this.$store.commit('debug/updateSettings', {
+          ...this.$store.getters['debug/settings'],
+          apiKey: this.apiKey
+        });
       }
     }
   };
@@ -220,6 +252,13 @@
         display: inline-block;
       }
     }
+  }
+
+  ::v-deep .form-text .btn-link {
+    font-size: inherit;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
   }
 
   ::v-deep .alert {
