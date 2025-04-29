@@ -31,7 +31,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
-    $route: { query: null, path: '/collections/persons' },
+    $route: { query: {}, path: '/collections/persons' },
     $auth: {
       loggedIn: false
     },
