@@ -114,6 +114,9 @@ export default {
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API key management"
+        },
         "clientId": {
           "label": "API key"
         },

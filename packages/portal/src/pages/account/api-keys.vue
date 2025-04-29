@@ -181,7 +181,8 @@
             label: this.$t('apiKeys.table.fields.clientId.label') },
           { class: 'table-actions-cell',
             key: 'actions',
-            label: '' }
+            label: this.$t('apiKeys.table.fields.actions.label'),
+            thClass: 'sr-only' }
         ]
       };
     },
