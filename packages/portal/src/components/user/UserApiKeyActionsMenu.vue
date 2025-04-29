@@ -7,6 +7,9 @@
       right
       variant="link"
       no-caret
+      :toggle-attrs="{ 'aria-label': ariaLabelToggle}"
+      @show="menuOpen = true"
+      @hide="menuOpen= false"
     >
       <template #button-content>
         <span
@@ -86,9 +89,16 @@
     data() {
       return {
         expanded: false,
+        menuOpen: false,
         showConfirmDangerModal: false,
         showUserReEnableApiKeyModal: false
       };
+    },
+
+    computed: {
+      ariaLabelToggle() {
+        return this.menuOpen ? this.$t('apiKeys.actions.closeMenu') : this.$t('apiKeys.actions.showMenu');
+      }
     },
 
     methods: {

@@ -86,8 +86,10 @@ export default {
   },
   "apiKeys": {
     "actions": {
+      "closeMenu": "Close key management menu",
       "disable": "Disable key",
-      "reEnable": "Re-enable key"
+      "reEnable": "Re-enable key",
+      "showMenu": "Show key management menu"
     },
     "disable": {
       "promptText1": "Are you sure you want to disable this API key?",
