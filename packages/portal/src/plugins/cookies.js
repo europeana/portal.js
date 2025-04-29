@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import { parse, serialize } from 'cookie';
 
 export default (ctx, inject) => {
   const ctxCookie = () => {
@@ -7,7 +7,7 @@ export default (ctx, inject) => {
 
   const plugin = {
     get(name) {
-      return cookie.parse(ctxCookie())[name];
+      return parse(ctxCookie())[name];
     },
 
     set(name, value, options = {}) {
@@ -16,7 +16,7 @@ export default (ctx, inject) => {
         ...options
       };
 
-      const serialized = cookie.serialize(name, value, options);
+      const serialized = serialize(name, value, options);
 
       if (ctx.res) {
         ctx.res.setHeader('set-cookie', [].concat(ctx.res.getHeader('set-cookie'), serialized));
