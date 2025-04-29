@@ -129,7 +129,7 @@
   @import '@europeana/style/scss/variables';
 
   ::v-deep .dropdown-toggle {
-      color: $black;
+    color: $black;
 
     &:hover {
       color: $blue;
