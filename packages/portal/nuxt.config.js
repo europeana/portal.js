@@ -313,7 +313,6 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
