@@ -105,9 +105,9 @@ export default {
           "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}.",
           "termsOfUseLinkText": "terms of use"
         },
-        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}",
+        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
         "heading": "Personal API key",
-        "howToLinkText": "How to use your key."
+        "howToLinkText": "How to use your key"
       }
     },
     "table": {
@@ -209,7 +209,11 @@ export default {
           "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
           "descriptionLine2": "Need an API key? Register for one {link}.",
           "here": "here",
-          "label": "API key"
+          "label": "API key",
+          "usePersonal": {
+            "linkText": "Enter your personal API key",
+            "prompt": "{link} and it will be used."
+          }
         }
       },
       "noRequests": "No requests to Europeana APIs were used on this page."
@@ -270,6 +274,18 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "This API key has already been disabled, perhaps in a different browser tab.",
+      "title": "Key already disabled"
+    },
+    "authDuplicateKey": {
+      "description": "Users can only have one enabled personal key which is intended for personal use.",
+      "title": "You already have a personal key"
+    },
+    "authKeyLimitReached": {
+      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "You have reached the limit of personal keys"
+    },
     "galleryLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"

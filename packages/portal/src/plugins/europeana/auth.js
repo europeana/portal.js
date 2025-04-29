@@ -5,6 +5,11 @@ export default class EuropeanaAuthApi extends EuropeanaApi {
   static BASE_URL = 'https://auth.europeana.eu';
   // static AUTHENTICATING = true;
   static AUTHORISING = true;
+  static ERROR_CODES = {
+    '400_key_limit_reached': 'authKeyLimitReached',
+    '400_duplicate_key': 'authDuplicateKey',
+    '410_client_disabled': 'authClientDisabled'
+  };
 
   createClient() {
     return this.request({

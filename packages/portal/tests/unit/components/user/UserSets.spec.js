@@ -81,7 +81,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 1,
           qf: ['type:Collection']
-        }, { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -97,7 +97,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 1,
           qf: ['type:Collection', 'visibility:public']
-        }, { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -113,7 +113,7 @@ describe('components/user/UserSets', () => {
           pageSize: 19,
           page: 1,
           qf: ['type:EntityBestItemsSet']
-        }, { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
@@ -129,7 +129,7 @@ describe('components/user/UserSets', () => {
           pageSize: 20,
           page: 1,
           qf: ['type:Collection']
-        }, { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
     });
 
