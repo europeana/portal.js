@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xxl-page page mb-3 mb-sm-5"
+    class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
     <b-container fluid>
       <UserHeader />
@@ -58,18 +58,24 @@
                   <b-table
                     v-if="personalKeys.length > 0"
                     :fields="tableFields"
-                    :items="personalKeys"
+                    :items="sortedPersonalKeys"
                     :tbody-tr-class="tableRowClass"
                     striped
-                    hover
                     class="borderless"
                   >
+                    <template #cell(created)="data">
+                      <time :aria-disabled="isDisabled(data.item)">
+                        {{ data.value && $d(new Date(data.value), 'numeric', $i18n.localeProperties.iso) }}
+                      </time>
+                    </template>
                     <template #cell(client_id)="data">
                       <span
-                        v-if="data.item?.state === 'disabled'"
+                        v-if="isDisabled(data.item)"
                         class="disabled"
+                        aria-disabled="true"
                       >
-                        {{ data.value }} — {{ $t('statuses.disabled') }}
+                        {{ data.value }}
+                        <span class="font-italic text-lowercase">- {{ $t('statuses.disabled') }}</span>
                       </span>
                       <template v-else>
                         {{ data.value }}
@@ -167,9 +173,15 @@
         personalKeys: [],
         showConfirmDangerModal: false,
         tableFields: [
-          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
-          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
-          { key: 'actions', label: '' }
+          { key: 'created',
+            label: this.$t('apiKeys.table.fields.created.label'),
+            sortable: true },
+          { class: 'table-api-key-cell',
+            key: 'client_id',
+            label: this.$t('apiKeys.table.fields.clientId.label') },
+          { class: 'table-actions-cell',
+            key: 'actions',
+            label: '' }
         ]
       };
     },
@@ -182,13 +194,17 @@
 
     computed: {
       noActivePersonalKeys() {
-        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+        return this.personalKeys.every((apiKey) => this.isDisabled(apiKey));
       },
 
       pageMeta() {
         return {
           title: this.$t('apiKeys.title')
         };
+      },
+
+      sortedPersonalKeys() {
+        return [...this.personalKeys].sort(this.sortByEnabled);
       }
     },
 
@@ -206,11 +222,25 @@
         }
       },
 
+      isDisabled(apiKey) {
+        return apiKey?.state === 'disabled';
+      },
+
       tableRowClass(item, type) {
-        if (type === 'row' && item?.state === 'disabled') {
+        if (type === 'row' && this.isDisabled(item)) {
           return 'disabled';
         }
         return undefined;
+      },
+
+      sortByEnabled(a, b) {
+        const isADisabled = this.isDisabled(a);
+        const isBDisabled = this.isDisabled(b);
+
+        if (isADisabled === isBDisabled) {
+          return 0;
+        }
+        return isADisabled ? 1 : -1;
       }
     }
   };
@@ -220,6 +250,16 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+
+  .api-keys-page .container {
+    @media (min-width: $bp-extralarge) {
+      max-width: 1250px;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: 2100px;
+    }
+  }
 
   .profile-back-link {
     font-size: $font-size-small;
@@ -262,9 +302,51 @@
     }
 
     .table {
+      thead th {
+        @media (max-width: ($bp-small - 1px)) {
+          padding-right: 0 !important;
+        }
+
+        @media (min-width: $bp-small) {
+          padding-right: 3rem !important;
+        }
+
+        @media (min-width: $bp-4k) {
+          padding-right: 4.5rem !important;
+        }
+
+        &.table-api-key-cell {
+          @media (min-width: $bp-small) {
+            width: 100%;
+          }
+        }
+
+        div {
+          @media (max-width: ($bp-small - 1px)) {
+            overflow-wrap: anywhere;
+            white-space: wrap;
+          }
+        }
+      }
+
       td {
         font-weight: 600;
         color: $darkgrey;
+        line-height: 1.5;
+        padding: 1.5rem 1rem;
+
+        &.table-actions-cell {
+          padding: 0;
+          vertical-align: middle;
+        }
+
+        .dropdown-toggle {
+          font-size: $font-size-large;
+
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-large-4k;
+          }
+        }
 
         .dropdown-menu {
           box-shadow: $boxshadow-large;
@@ -284,8 +366,17 @@
 
       tr {
         &.disabled {
-          opacity: 70%;
-          font-style: italic;
+          &:nth-of-type(2n+1) {
+            background-color: rgba($lightergrey, 0.7);
+          }
+
+          td {
+            opacity: 0.7;
+
+            &.table-actions-cell {
+              opacity: 1;
+            }
+          }
         }
 
         &:last-child td {
