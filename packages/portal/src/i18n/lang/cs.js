@@ -49,7 +49,6 @@ export default {
     "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
-    "disable": "Deaktivovat",
     "download": "Stáhnout",
     "edit": "Upravit",
     "filter": "Filtr",
@@ -86,6 +85,21 @@ export default {
     "vote": "Hlasování"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zavřít nabídku správy klíčů",
+      "disable": "Zakázat klíč",
+      "reEnable": "Znovu povolit klíč",
+      "showMenu": "Zobrazit nabídku správy klíčů"
+    },
+    "disable": {
+      "promptText1": "Opravdu chcete zakázat tento API klíč?",
+      "promptText2": "Jakmile tento klíč zakážete, již jej nebudete moci používat ve svém projektu. Toto nastane okamžitě. Pro opětovné povolení API klíče nám prosím pošlete e-mail na adresu api@europeana.eu.",
+      "title": "Zakázat API klíč"
+    },
+    "reEnable": {
+      "text": "Chcete-li znovu aktivovat tento klíč API, pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu pro zpětnou vazbu ve spodní části okna.",
+      "title": "Znovu povolit API klíč"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
           "termsOfUseLinkText": "podmínky použití"
         },
-        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}",
+        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
         "heading": "Osobní API klíč",
-        "howToLinkText": "Jak používat svůj klíč."
+        "howToLinkText": "Jak používat svůj klíč"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Správa API klíčů"
+        },
         "clientId": {
           "label": "API klíč"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Zadejte svůj osobní API klíč",
+            "prompt": "{link} a bude použito"
+          }
+        }
+      },
       "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento API klíč již byl zakázán, možná v jiné záložce prohlížeče.",
+      "title": "Klíč je již zakázán"
+    },
+    "authDuplicateKey": {
+      "description": "Uživatelé mohou mít pouze jeden povolený osobní klíč určený pro osobní použití.",
+      "title": "Již máte osobní klíč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nelze vytvořit nový osobní klíč, protože jste dosáhli limitu deaktivovaných osobních klíčů. Pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu zpětné vazby ve spodní části okna.",
+      "title": "Dosáhli jste limitu osobních klíčů"
+    },
     "galleryLocked": {
       "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
       "title": "Aktualizace selhala"
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtry vyhledávání {count}",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Hledejte přes 50 milionů položek",
+  "searchPlaceholder": "Hledejte přes 60 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",

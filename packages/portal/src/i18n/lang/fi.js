@@ -49,7 +49,6 @@ export default {
     "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
-    "disable": "Poista käytöstä",
     "download": "Lataa",
     "edit": "Muokkaa",
     "filter": "Suodattaa",
@@ -86,6 +85,21 @@ export default {
     "vote": "Äänestää"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Sulje avaintenhallintavalikko",
+      "disable": "Poista avain käytöstä",
+      "reEnable": "Ota avain uudelleen käyttöön",
+      "showMenu": "Näytä avaintenhallintavalikko"
+    },
+    "disable": {
+      "promptText1": "Haluatko varmasti poistaa tämän API-avaimen käytöstä?",
+      "promptText2": "Kun poistat tämän avaimen käytöstä, et voi enää käyttää sitä projektissasi. Tämä tapahtuu välittömästi. Sinun tulee lähettää meille sähköpostia osoitteeseen api@europeana.eu ottaaksesi API-avaimen uudelleen käyttöön.",
+      "title": "Poista API-avain käytöstä"
+    },
+    "reEnable": {
+      "text": "Jos haluat ottaa tämän API-avaimen uudelleen käyttöön, lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunassa olevan palautewidgetin kautta.",
+      "title": "Ota API-avain uudelleen käyttöön"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
           "termsOfUseLinkText": "käyttöehdot"
         },
-        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}",
+        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
         "heading": "Henkilökohtainen API-avain",
-        "howToLinkText": "Kuinka käyttää omaa avaintasi."
+        "howToLinkText": "Kuinka käyttää omaa avaintasi"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API-avainten hallinta"
+        },
         "clientId": {
           "label": "API-avain"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Syötä henkilökohtainen API-avaimesi",
+            "prompt": "{link} ja sitä käytetään."
+          }
+        }
+      },
       "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tämä API-avain on jo poistettu käytöstä, ehkä toisessa selaimen välilehdessä.",
+      "title": "Avain on jo poistettu käytöstä"
+    },
+    "authDuplicateKey": {
+      "description": "Käyttäjillä voi olla vain yksi käytössä oleva henkilökohtainen avain, joka on tarkoitettu henkilökohtaiseen käyttöön.",
+      "title": "Sinulla on jo henkilökohtainen avain"
+    },
+    "authKeyLimitReached": {
+      "description": "Uutta henkilökohtaista avainta ei voi luoda, koska olet saavuttanut poistettujen henkilökohtaisten avainten rajan. Lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunan palautewidgetin kautta.",
+      "title": "Olet saavuttanut henkilökohtaisten avainten rajan"
+    },
     "galleryLocked": {
       "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
       "title": "Päivitys epäonnistui"
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Hakusuodattimet {count}",
   "searchHasLoaded": "{0} tulosta palautettu",
-  "searchPlaceholder": "Etsi 50+ miljoonaa aineistot",
+  "searchPlaceholder": "Etsi 60+ miljoonaa aineistot",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
   "searchSuggestions": "Hakuehdotuksia",

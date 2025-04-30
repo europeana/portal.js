@@ -49,7 +49,6 @@ export default {
     "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
-    "disable": "Dezactivează",
     "download": "Descarcă",
     "edit": "Editare",
     "filter": "Filtru",
@@ -86,6 +85,21 @@ export default {
     "vote": "Vot"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Închideți meniul de gestionare a cheilor",
+      "disable": "Dezactivați cheia",
+      "reEnable": "Reactivează cheia",
+      "showMenu": "Afișează meniul de gestionare a cheilor"
+    },
+    "disable": {
+      "promptText1": "Sigur doriți să dezactivați această cheie API?",
+      "promptText2": "După ce dezactivați această cheie, nu o veți mai putea utiliza în proiectul dvs. Acest lucru se va întâmpla imediat. Va trebui să ne trimiteți un e-mail la api@europeana.eu pentru a activa din nou cheia API.",
+      "title": "Dezactivați cheia API"
+    },
+    "reEnable": {
+      "text": "Pentru a reactiva această cheie API, vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Reactivează cheia API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
           "termsOfUseLinkText": "termeni de utilizare"
         },
-        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}",
+        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
         "heading": "Cheie API personală",
-        "howToLinkText": "Cum să folosești cheia ta."
+        "howToLinkText": "Cum să folosești cheia ta"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestionarea cheilor API"
+        },
         "clientId": {
           "label": "Cheia API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Introduceți cheia API personală",
+            "prompt": "{link} și va fi utilizat."
+          }
+        }
+      },
       "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Această cheie API a fost deja dezactivată, poate într-un alt tab al browserului.",
+      "title": "Cheia este deja dezactivată"
+    },
+    "authDuplicateKey": {
+      "description": "Utilizatorii pot avea doar o singură cheie personală activată, destinată utilizării personale.",
+      "title": "Aveți deja o cheie personală"
+    },
+    "authKeyLimitReached": {
+      "description": "O nouă cheie personală nu poate fi creată deoarece ați atins limita de chei personale dezactivate. Vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Ați atins limita de chei personale"
+    },
     "galleryLocked": {
       "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
       "title": "Actualizarea a eșuat"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtre de căutare {count}",
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Căutați peste 50 de milioane de resurse culturale",
+  "searchPlaceholder": "Căutați peste 60 de milioane de resurse culturale",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",
