@@ -10,7 +10,7 @@ export default ({ $apm, $config }) => {
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance);
 
-  const config = $config.contentful;
+  const config = $config?.contentful || {};
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
 

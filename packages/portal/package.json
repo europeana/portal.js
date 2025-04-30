@@ -70,6 +70,7 @@
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
+    "jest-transform-graphql": "^2.1.0",
     "nock": "^13.2.7",
     "nuxt": "2.17.0",
     "postcss": "^8.4.16",
