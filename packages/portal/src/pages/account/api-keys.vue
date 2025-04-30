@@ -181,7 +181,8 @@
             label: this.$t('apiKeys.table.fields.clientId.label') },
           { class: 'table-actions-cell',
             key: 'actions',
-            label: '' }
+            label: this.$t('apiKeys.table.fields.actions.label'),
+            thClass: 'sr-only' }
         ]
       };
     },
@@ -342,6 +343,8 @@
 
         .dropdown-toggle {
           font-size: $font-size-large;
+          padding-top: 0;
+          padding-bottom: 0;
 
           @media (min-width: $bp-4k) {
             font-size: $font-size-large-4k;
@@ -351,9 +354,12 @@
         .dropdown-menu {
           box-shadow: $boxshadow-large;
           border: none;
-          border-radius: 0rem;
-          border-bottom-right-radius: 0.25rem;
-          border-bottom-left-radius: 0.25rem;
+          border-radius: 0 0 $border-radius $border-radius;
+
+          // dropdown is flipped up
+          &[x-placement='top-end'] {
+            border-radius: $border-radius $border-radius 0 0;
+          }
         }
 
         .btn-link:focus, .btn-link:hover {
