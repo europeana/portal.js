@@ -555,10 +555,10 @@
   }
 }
 
-a {
+button {
   &.skip-main {
-    left: -999px;
     position: absolute;
+    left: -999px;
     top: auto;
     width: 1px;
     height: 1px;
@@ -567,24 +567,33 @@ a {
   }
 
   &.skip-main:focus,
-  &.skip-main:active {
-    color: $white;
-    background-color: $greyblack;
+  &.skip-main:active,
+  &.skip-main.btn-secondary:not(:disabled):not(.disabled):active {
     left: auto;
     top: 70px;
     width: 30%;
     height: auto;
     overflow: auto;
+    z-index: 999;
+    color: $white;
+    background-color: $greyblack;
     margin: 10px 35%;
     padding: 0.5rem;
     border-radius: 1rem;
     border: 4px solid $yellow;
     text-align: center;
     font-size: 1.2rem;
-    z-index: 999;
+    font-weight: 400;
+    text-transform: none;
+    text-decoration: underline;
 
     @media (min-width: $bp-4k) {
       top: calc(1.5 * 70px);
+    }
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
     }
   }
 }
