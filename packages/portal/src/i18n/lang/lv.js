@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Konta pārvaldība",
     "curatedCollections": "Kuratora veidotās kolekcijas",
-    "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
     "linkLoginJoin": "Pieteikties / Pievienoties",
     "linkLogout": "Atteikties",
-    "myProfile": "Mans profils",
+    "manageApiKeys": "Pārvaldīt API atslēgas",
+    "menu": {
+      "close": "Aizvērt lietotāja izvēlni",
+      "open": "Atvērt lietotāja izvēlni"
+    },
     "notifications": {
       "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
       "loggedOut": "Jūs tagad esat atteicies.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privātas galerijas",
     "profile": "Mani favorīti un galerijas",
-    "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
     "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
@@ -31,7 +34,6 @@ export default {
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
       "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
-      "remove": "Noņemiet šo digitālo objektu no šīs galerijas.",
       "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Pievienot",
     "apply": "Pieteikties",
     "cancel": "Atcelt",
+    "changeView": "Mainīt skatu",
     "clear": "Notīrīt",
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
+    "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Skatīt dokumentu",
     "vote": "Balsojums"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Aizvērt atslēgu pārvaldības izvēlni",
+      "disable": "Atspējot atslēgu",
+      "reEnable": "Atkārtoti aktivizēt atslēgu",
+      "showMenu": "Rādīt atslēgu pārvaldības izvēlni"
+    },
+    "disable": {
+      "promptText1": "Vai esat pārliecināts, ka vēlaties atspējot šo API atslēgu?",
+      "promptText2": "Kad atspējosiet šo atslēgu, jūs vairs nevarēsiet to izmantot savā projektā. Tas notiks nekavējoties. Lai atkal iespējotu API atslēgu, jums būs jāsazinās ar mums pa e-pastu api@europeana.eu.",
+      "title": "Atspējot API atslēgu"
+    },
+    "reEnable": {
+      "text": "Lai atkārtoti aktivizētu šo API atslēgu, lūdzu, nosūtiet mums e-pastu uz api@europeana.eu vai sazinieties ar mums, izmantojot atsauksmju logrīku loga apakšdaļā.",
+      "title": "Atkārtoti iespējot API atslēgu"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Pieprasīt personīgo API atslēgu",
+          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}.",
+          "termsOfUseLinkText": "lietošanas noteikumi"
+        },
+        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
+        "heading": "Personīgā API atslēga",
+        "howToLinkText": "Kā lietot savu atslēgu"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API atslēgu pārvaldība"
+        },
+        "clientId": {
+          "label": "API atslēga"
+        },
+        "created": {
+          "label": "Izveidošanas datums"
+        }
+      }
+    },
+    "title": "Pārvaldīt API atslēgas"
+  },
   "attribution": {
     "country": "Valsts",
     "creator": "Autors:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Temats"
   },
   "categories": {
-    "label": "Izpētiet stāstus pēc atzīmes",
+    "label": "Izpētīt rezultātus pēc birkas",
     "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
-    "search": "Izpētiet stāstus pēc atzīmes"
+    "search": "Izpētīt rezultātus pēc birkas"
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Ievadiet savu personīgo API atslēgu",
+            "prompt": "{link} un tas tiks izmantots."
+          }
+        }
+      },
       "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Šī API atslēga jau ir atspējota, iespējams, citā pārlūkprogrammas cilnē.",
+      "title": "Atslēga jau ir atspējota"
+    },
+    "authDuplicateKey": {
+      "description": "Lietotājiem var būt tikai viena aktivizēta personīgā atslēga, kas paredzēta personīgai lietošanai.",
+      "title": "Jums jau ir personīgā atslēga"
+    },
+    "authKeyLimitReached": {
+      "description": "Jaunu personīgo atslēgu nevar izveidot, jo esat sasniedzis atspējoto personīgo atslēgu limitu. Lūdzu, nosūtiet mums e-pastu uz api@europeana.eu vai sazinieties ar mums, izmantojot atsauksmju logrīku loga apakšā.",
+      "title": "Esat sasniedzis personīgo atslēgu limitu"
+    },
     "galleryLocked": {
       "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
       "title": "Atjaunināšana neizdevās"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 digitālais objekts |{count} digitālie objekti",
     "itemOf": "{max} no {count} digitālie objekti",
+    "noItems": "Nav pieejami digitālie objekti.",
+    "noMoreItems": "Vairs nav pieejami digitālie objekti.",
     "recent": "Pēdējie digitālie objekti",
     "recommended": "Leteiktie digitālie objekti",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Atcerieties, ja vēlaties iegūt daudzvalodu meklēšanas rezultātus.",
+        "title": "Daudzvalodu meklēšana"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Parādi man",
+    "readMore": "Izmēģiniet to",
     "text": {
-      "featureIdeas": "Izpētiet gaidāmās izmaiņas, kuras mēs plānojam, un balsojiet par tām, kurām vēlaties piešķirt prioritāti. Jūsu ieguldījums palīdz mums koncentrēties uz to, kas jums ir vissvarīgākais."
+      "multilingualSearch": "Atklājiet vairāk ar jauno daudzvalodu meklēšanu — tā saskaņo jūsu vaicājumu ar tulkojumiem citās valodās, lai sniegtu jums bagātīgākus un atbilstošākus rezultātus."
+    },
+    "tooltip": {
+      "multilingualSearch": "Noklikšķiniet šeit, lai aktivizētu daudzvalodu meklēšanu"
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Ievadiet terminu(-us), ko satur vai nesatur izvēlētais lauks."
       }
     },
+    "multilingual": {
+      "disable": "Atspējot daudzvalodu meklēšanu",
+      "enable": "Iespējot daudzvalodu meklēšanu",
+      "loginToUseMultilingualSearch": "Piesakieties, lai izmantotu daudzvalodu meklēšanu un iegūtu rezultātus, kas nav ierobežoti ar meklēšanas frāzes valodu.",
+      "turnOffMultilingualSearch": "Izslēdziet daudzvalodu meklēšanu un skatiet rezultātus tikai tajā valodā, kurā ir meklēšanas vārds.",
+      "turnOnMultilingualSearch": "Ieslēdziet daudzvalodu meklēšanu un saņemiet rezultātus, kas nav ierobežoti ar jūsu meklēšanas termina valodu."
+    },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
       "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Meklēšanas filtri {count}",
   "searchHasLoaded": "{0} atgriezti rezultāti",
-  "searchPlaceholder": "Meklēt 50+ miljonus digitālie objekti",
+  "searchPlaceholder": "Meklēt 60+ miljonus digitālie objekti",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
   "searchSuggestions": "Meklēšanas ieteikumi",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Pievienot galerijai",
-      "addToGallery": "Pievienot šo digitālais objekts galerijai.",
+      "addItems": {
+        "1": "Pievienot šo digitālais objekts galerijai.",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
+      "addItemsHere": {
+        "1": "Pievienot galerijai",
+        "many": "Pievienot {count} digitālo objektu galerijai | Pievienot {count} digitālos objektus galerijai"
+      },
       "cancelSelection": "Atcelt atlasi",
       "clickToSelectItems": "Noklikšķiniet uz digitālajiem objektiem, lai tos atlasītu",
       "create": "Izveidot galeriju",
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "removeItemFromLikes": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
-      "saveItemToLikes": "Saglabāt šo digitālo objektu savā Patīk",
+      "likeItems": {
+        "1": "Saglabāt šo digitālo objektu savā patīk",
+        "many": "Man patīk {count} digitālais objekts | Man patīk {count} digitālie objekti"
+      },
+      "removeItems": {
+        "1": "Noņemiet šo digitālo objektu no šīs galerijas.",
+        "many": "Noņemt {count} digitālo objektu no šīs galerijas | Noņemt {count} digitālos objektus no šīs galerijas"
+      },
       "selectItems": "Izvēlieties digitālos objektus",
+      "unlikeItems": {
+        "1": "Noņemiet šo digitālo objektu no atzīmēm Patīk.",
+        "many": "Man vairs nepatīk {count} digitālais objekts | Man vairs nepatīk {count} digitālie objekti"
+      },
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "itemAdded": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
-      "itemLiked": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
-      "itemRemoved": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-      "itemUnliked": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+      "itemsAdded": {
+        "1": "Digitālais objekts ir pievienots galerijai \"{gallery}\".",
+        "many": "{count} digitālais objekts ir pievienots galerijai \"{gallery}\". | {count} digitālie objekti ir pievienoti galerijai \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Digitālais objekts ir saglabāts jūsu patīk sarakstā.",
+        "many": "{count} digitālais objekts ir saglabāts jūsu patīk sarakstā. | {count} digitālie objekti ir saglabāti jūsu patīk sarakstā."
+      },
+      "itemsRemoved": {
+        "1": "Digitālais objekts ir noņemts no galerijas {gallery}.",
+        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". | {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",
+        "many": "{count} digitālais objekts ir noņemts no jūsu patīk saraksta. | {count} digitālie objekti ir noņemti no jūsu patīk saraksta."
+      },
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 digitālie objekti. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti."
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti.",
+      "removeItems": "Vai tiešām vēlaties noņemt {count} digitālo objektu no šīs galerijas? | Vai tiešām vēlaties noņemt {count} digitālos objektus no šīs galerijas?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Noņemiet visu atlasi."
+      },
+      "info": "{count} digitālais objekts izvēlēts. | {count} digitālos objektus izvēlēti."
     }
   },
   "shareWhere": "Kur jūs vēlētos dalīties ar šo?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Meklēt"
   },
   "statuses": {
+    "disabled": "Atspējots",
     "liked": "Patika",
     "pinned": "Piesprausts",
     "required": "Nepieciešams"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Stāsts | Stāsti"
   },
   "storiesPage": {
+    "results": "{count} rezultāts | {count} rezultāti",
     "storiesHaveLoaded": "{0} atrasti stāsti"
   },
   "swiper": {

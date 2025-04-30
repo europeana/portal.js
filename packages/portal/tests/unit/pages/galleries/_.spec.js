@@ -110,12 +110,28 @@ describe('GalleryPage (Set)', () => {
       expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
 
+    it('stores the active set ID', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveId', '123')).toBe(true);
+    });
+
+    it('stores the active set params', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 48 })).toBe(true);
+    });
+
     it('fetches the active set', async() => {
       const wrapper = factory(defaultOptions);
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
 
     describe('on errors', () => {
@@ -142,26 +158,6 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('template', () => {
-    describe('item count heading', () => {
-      describe('when less than max amount of items in set', () => {
-        it('displays the amount of items in the set', () => {
-          const wrapper = factory(defaultOptions);
-          const itemCount = wrapper.find('[data-qa="item count"]');
-
-          expect(itemCount.text()).toEqual('items.itemCount');
-        });
-      });
-
-      describe('when more than max amount of items in set', () => {
-        it('displays the amount shown in total of items in the set', () => {
-          const wrapper = factory({ set: testSet2 });
-          const itemCount = wrapper.find('[data-qa="item count"]');
-
-          expect(itemCount.text()).toEqual('items.itemOf');
-        });
-      });
-    });
-
     describe('while fetching the set', () => {
       it('shows a loading spinner', async() => {
         const wrapper = factory({ fetchState: { pending: true } });
@@ -238,7 +234,7 @@ describe('GalleryPage (Set)', () => {
             set: testSetEntityBestItems,
             user: { loggedIn: true },
             userHasClientRoleStub,
-            features: { acceptEntityRecommendations: true }
+            features: { acceptEntityRecommendations: true, showSetRecommendations: true }
           });
 
           const recommendations = wrapper.find('setrecommendations-stub');
@@ -273,7 +269,7 @@ describe('GalleryPage (Set)', () => {
   });
 
   describe('beforeRouteLeave', () => {
-    it('resets the active set and recommendations', async() => {
+    it('resets the active set, recommendations and selected items', async() => {
       const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
       const wrapper = factory(defaultOptions);
 
@@ -283,6 +279,7 @@ describe('GalleryPage (Set)', () => {
 
       expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
       expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
+      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
       expect(next.called).toBe(true);
     });
   });
@@ -305,7 +302,7 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.repositionItem({ itemId, position });
 
-        expect(storeDispatch.calledWith('set/fetchActive', defaultOptions.set.id)).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
       });
     });
   });

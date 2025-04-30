@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestão da conta",
     "curatedCollections": "Coleções Curadas",
-    "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
     "linkLoginJoin": "Entrar / Participar",
     "linkLogout": "Encerrar sessão",
-    "myProfile": "Meu perfil",
+    "manageApiKeys": "Gerir chaves de API",
+    "menu": {
+      "close": "Fechar menu do usuário",
+      "open": "Abrir menu do usuário"
+    },
     "notifications": {
       "loggedIn": "Está agora autenticado. Bem-vindo!",
       "loggedOut": "Está agora desconectado.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerias privadas",
     "profile": "Os meus gostos e galerias",
-    "profileSettings": "Configurações de perfil",
     "publicCollections": "Galerias públicas",
     "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
@@ -31,7 +34,6 @@ export default {
       "private": "Uma galeria privada só pode ser vista por si.",
       "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
       "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias.",
-      "remove": "Remova este item desta galeria.",
       "reorder": "Você pode reordenar os itens clicando neste botão e arrastando o item para movê-lo."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Adicionar",
     "apply": "Aplicar",
     "cancel": "Cancelar",
+    "changeView": "Alterar visualização",
     "clear": "Limpar",
     "clearFilters": "Limpar filtros",
     "close": "fechar",
+    "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
     "download": "Descarregar",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Ver documento",
     "vote": "Voto"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Fechar menu de gestão de chaves",
+      "disable": "Desativar chave",
+      "reEnable": "Reativar chave",
+      "showMenu": "Mostrar menu de gerenciamento de chaves"
+    },
+    "disable": {
+      "promptText1": "Tem a certeza de que deseja desativar esta chave API?",
+      "promptText2": "Depois de desativar esta chave, não poderá mais usá-la no seu projeto. Isto acontecerá imediatamente. Terá de nos enviar um e-mail para api@europeana.eu para reativar a chave API.",
+      "title": "Desativar chave API"
+    },
+    "reEnable": {
+      "text": "Para reativar esta chave API, envie-nos um e-mail para api@europeana.eu ou contacte-nos através do widget de feedback na parte inferior da janela.",
+      "title": "Reativar chave API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitar uma chave API pessoal",
+          "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termos de uso"
+        },
+        "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}.",
+        "heading": "Chave API pessoal",
+        "howToLinkText": "Como usar a sua chave"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Gestão de chaves de API"
+        },
+        "clientId": {
+          "label": "Chave API"
+        },
+        "created": {
+          "label": "Data de criação"
+        }
+      }
+    },
+    "title": "Gerir chaves de API"
+  },
   "attribution": {
     "country": "País:",
     "creator": "Criador:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Tópico"
   },
   "categories": {
-    "label": "Explorar histórias por tag",
+    "label": "Explorar resultados por tag",
     "noOptions": "Não há mais tags para selecionar",
-    "search": "Explorar histórias por tag"
+    "search": "Explorar resultados por tag"
   },
   "clearAllFilters": "limpar todos os filtros",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Insira a sua chave API pessoal",
+            "prompt": "{link} e será utilizado."
+          }
+        }
+      },
       "noRequests": "Nenhuma solicitação para APIs da Europeana foi usada nesta página."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Erro",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Esta chave API já foi desativada, talvez noutra aba do navegador.",
+      "title": "Chave já desativada"
+    },
+    "authDuplicateKey": {
+      "description": "Os utilizadores podem ter apenas uma chave pessoal ativada, destinada ao uso pessoal.",
+      "title": "Você já tem uma chave pessoal"
+    },
+    "authKeyLimitReached": {
+      "description": "Não é possível criar uma nova chave pessoal porque atingiu o limite de chaves pessoais desativadas. Por favor, envie-nos um e-mail para api@europeana.eu ou contacte-nos através do widget de feedback no fundo da janela.",
+      "title": "Você atingiu o limite de chaves pessoais"
+    },
     "galleryLocked": {
       "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
       "title": "Atualização falhou"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} itens",
     "itemOf": "{max} de {count} itens",
+    "noItems": "Não há itens.",
+    "noMoreItems": "Não há mais itens.",
     "recent": "Itens recentes",
     "recommended": "Itens recomendados",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Lembra-se se prefere obter resultados de pesquisa multilíngues.",
+        "title": "Pesquisa multilíngue"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
-    "readMore": "Mostre-me",
+    "readMore": "Experimente",
     "text": {
-      "featureIdeas": "Explore as próximas mudanças que estamos planeando e vote nas que você gostaria de ver priorizadas. Sua opinião nos ajuda a focar no que é mais importante para você."
+      "multilingualSearch": "Descubra mais com a nova pesquisa multilíngue — ela combina sua consulta com traduções em outros idiomas para oferecer resultados mais ricos e relevantes."
+    },
+    "tooltip": {
+      "multilingualSearch": "Clique aqui para ativar a pesquisa multilíngue"
     }
   },
   "newWindow": "abre numa nova janela",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Insira o(s) termo(s) que o campo escolhido contém ou não."
       }
     },
+    "multilingual": {
+      "disable": "Desativar pesquisa multilingue",
+      "enable": "Ativar pesquisa multilingue",
+      "loginToUseMultilingualSearch": "Inicie sessão para utilizar a pesquisa multilingue e obtenha resultados que não se limitam à língua do seu termo de pesquisa.",
+      "turnOffMultilingualSearch": "Desativar a pesquisa multilingue e visualizar os resultados apenas no idioma do termo de pesquisa.",
+      "turnOnMultilingualSearch": "Ative a pesquisa multilingue e obtenha resultados não limitados à língua do seu termo de pesquisa."
+    },
     "results": {
       "limitWarning": "Resultados adicionais não são mostrados como apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que está a procurar, por favor, considere refinar a sua pesquisa.",
       "loginToSeeMore": "{login} para ver mais resultados",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtros de pesquisa {count}",
   "searchHasLoaded": "{0} resultados retornados",
-  "searchPlaceholder": "Pesquise mais de 50 milhões de itens",
+  "searchPlaceholder": "Pesquise mais de 60 milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
   "searchSuggestions": "Sugestões de pesquisa",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adicionar galeria",
-      "addToGallery": "Adicione este item a uma galeria.",
+      "addItems": {
+        "1": "Adicione este item a uma galeria.",
+        "many": "Adicionar {count} item a uma galeria | Adicionar {count} itens a uma galeria"
+      },
+      "addItemsHere": {
+        "1": "Adicionar galeria",
+        "many": "Adicionar {count} item a uma galeria | Adicionar {count} itens a uma galeria"
+      },
       "cancelSelection": "Cancelar seleção",
       "clickToSelectItems": "Clique nos itens para os selecionar",
       "create": "Criar galeria",
       "createNew": "Criar uma galeria",
       "delete": "Eliminar galeria",
       "edit": "Editar galeria",
-      "removeItemFromLikes": "Remova este item de suas curtidas.",
-      "saveItemToLikes": "Salve este item nas suas curtidas.",
+      "likeItems": {
+        "1": "Guardar este item nos seus gostos.",
+        "many": "Goste de {count} item | Goste de {count} itens"
+      },
+      "removeItems": {
+        "1": "Remova este item desta galeria.",
+        "many": "Remover {count} item da galeria | Remover {count} items desta galeria"
+      },
       "selectItems": "Selecionar itens",
+      "unlikeItems": {
+        "1": "Remova este item dos seus gostos.",
+        "many": "Não gosto mais de {count} item | Não gosto mais de {count} itens"
+      },
       "update": "Atualizar galeria"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
-      "itemAdded": "O item foi adicionado à galeria \"{gallery}\".",
-      "itemLiked": "O item foi salvo nos seus gostos.",
-      "itemRemoved": "O item foi removido da galeria {gallery}.",
-      "itemUnliked": "O item foi removido dos seus gostos.",
+      "itemsAdded": {
+        "1": "O item foi adicionado à galeria \"{gallery}\".",
+        "many": "{count} item foi adicionado à galeria \"{gallery}\". | {count} itens foram adicionados à galeria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "O item foi salvo nos seus gostos.",
+        "many": "{count} item foi salvo nos seus gostos. | {count} itens foram salvos nos seus gostos."
+      },
+      "itemsRemoved": {
+        "1": "O item foi removido da galeria {gallery}.",
+        "many": "{count} item foi removido da galeria \"{gallery}\". | {count} itens foram removidos da galeria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "O item foi removido dos seus gostos.",
+        "many": "{count} item foi removido dos seus gostos. | {count} itens foram removidos dos seus gostos."
+      },
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Aviso: o conjunto de visibilidade já foi alterado e atualmente é \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
+      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela.",
+      "removeItems": "Tem a certeza de que deseja remover {count} item da galeria? | Tem a certeza de que deseja remover {count} items desta galeria?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Desmarque tudo."
+      },
+      "info": "{count} item selecionado. | {count} itens selecionados."
     }
   },
   "shareWhere": "Onde você gostaria de compartilhar isso?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Procurar"
   },
   "statuses": {
+    "disabled": "Desativado",
     "liked": "Apreciado",
     "pinned": "Fixado",
     "required": "Obrigatório"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "História | Histórias"
   },
   "storiesPage": {
+    "results": "{count} resultado | {count} resultados",
     "storiesHaveLoaded": "{0} histórias encontradas"
   },
   "swiper": {

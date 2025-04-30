@@ -450,16 +450,8 @@ export default {
   */
   build: {
     babel: {
-      // plugins: [
-      //   '@babel/plugin-transform-logical-assignment-operators',
-      //   '@babel/plugin-transform-nullish-coalescing-operator'
-      // ],
-
-      presets: [
-        [
-          '@babel/preset-env',
-          { targets: { node: 'current' } }
-        ]
+      plugins: [
+        '@babel/plugin-transform-logical-assignment-operators'
       ]
     },
 
@@ -504,34 +496,7 @@ export default {
       'color-rgba',
       'color-space',
       'dom7',
-      'ol/Collection.js',
-      'ol/color.js',
-      'ol/control/Attribution.js',
-      'ol/control/Control.js',
-      'ol/extent.js',
-      'ol/events.js',
-      'ol/format/IIIFInfo.js',
-      'ol/geom/LineString.js',
-      'ol/interaction/DragBox.js',
-      'ol/layer/Image.js',
-      'ol/layer/Layer.js',
-      'ol/layer/Tile.js',
-      'ol/Map.js',
-      'ol/proj.js',
-      'ol/proj/epsg3857.js',
-      'ol/render/canvas/ZIndexContext.js',
-      'ol/render/Feature.js',
-      'ol/reproj/DataTile.js',
-      'ol/reproj/Tile.js',
-      'ol/source/IIIF.js',
-      'ol/source/ImageStatic.js',
-      'ol/source/Source.js',
-      'ol/source/static.js',
-      'ol/source/Vector.js',
-      'ol/structs/LRUCache.js',
-      'ol/style/Style.js',
-      'ol/style/RegularShape.js',
-      'ol/View.js',
+      'ol',
       'ssr-window',
       'swiper',
       'vue-router-query'

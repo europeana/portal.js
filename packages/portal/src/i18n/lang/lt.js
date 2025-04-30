@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Paskyros valdymas",
     "curatedCollections": "Kuruojamos kolekcijos",
-    "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
     "linkLoginJoin": "Prisijungti / Registruotis",
     "linkLogout": "Atsijungti",
-    "myProfile": "Mano profilis",
+    "manageApiKeys": "Tvarkyti API raktus",
+    "menu": {
+      "close": "Uždaryti naudotojo meniu",
+      "open": "Atidaryti naudotojo meniu"
+    },
     "notifications": {
       "loggedIn": "Dabar esate prisijungę. Sveiki!",
       "loggedOut": "Dabar esate prisijungę.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privačios parodos",
     "profile": "Man patinkančios skaitmeniniai objektai, kolekcijos ir parodos",
-    "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos parodos",
     "publishedCollections": "Paskelbtos Parodos",
     "settings": "Nustatymai",
@@ -31,7 +34,6 @@ export default {
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
       "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
-      "remove": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
       "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Pridėti",
     "apply": "Taikyti",
     "cancel": "Atšaukti",
+    "changeView": "Keisti vaizdą",
     "clear": "Išvalyti",
     "clearFilters": "Išvalyti filtrai",
     "close": "uždaryti",
+    "confirm": "Patvirtinti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Peržiūrėti dokumentą",
     "vote": "Balsuoti"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Uždaryti raktų valdymo meniu",
+      "disable": "Išjungti raktą",
+      "reEnable": "Iš naujo įgalinti raktą",
+      "showMenu": "Rodyti raktų valdymo meniu"
+    },
+    "disable": {
+      "promptText1": "Ar tikrai norite išjungti šį API raktą?",
+      "promptText2": "Kai išjungsite šį raktą, jo nebegalėsite naudoti savo projekte. Tai įvyks nedelsiant. Norėdami iš naujo įgalinti API raktą, turėsite mums atsiųsti el. laišką adresu api@europeana.eu.",
+      "title": "Išjungti API raktą"
+    },
+    "reEnable": {
+      "text": "Norėdami iš naujo įgalinti šį API raktą, atsiųskite mums el. laišką adresu api@europeana.eu arba susisiekite su mumis naudodami lango apačioje esantį atsiliepimų valdiklį.",
+      "title": "Iš naujo įgalinti API raktą"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Paprašyti asmeninio API rakto",
+          "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}.",
+          "termsOfUseLinkText": "naudojimo sąlygos"
+        },
+        "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}.",
+        "heading": "Asmeninis API raktas",
+        "howToLinkText": "Kaip naudoti savo raktą"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API raktų valdymas"
+        },
+        "clientId": {
+          "label": "API raktas"
+        },
+        "created": {
+          "label": "Sukūrimo data"
+        }
+      }
+    },
+    "title": "Tvarkyti API raktus"
+  },
   "attribution": {
     "country": "Šalis:",
     "creator": "Autorius:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Naršykite istorijas pagal žymą",
+    "label": "Tyrinėti rezultatus pagal žymą",
     "noOptions": "Daugiau pasirinktinų žymų nėra",
-    "search": "Naršykite istorijas pagal žymą"
+    "search": "Tyrinėti rezultatus pagal žymą"
   },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Įveskite savo asmeninį API raktą",
+            "prompt": "{link} ir jis bus naudojamas."
+          }
+        }
+      },
       "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Klaida",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Šis API raktas jau išjungtas, galbūt kitame naršyklės skirtuke.",
+      "title": "Raktas jau išjungtas"
+    },
+    "authDuplicateKey": {
+      "description": "Vartotojai gali turėti tik vieną įgalintą asmeninį raktą, kuris skirtas asmeniniam naudojimui.",
+      "title": "Jau turite asmeninį raktą"
+    },
+    "authKeyLimitReached": {
+      "description": "Naujo asmeninio rakto negalima sukurti, nes pasiekėte išjungtų asmeninių raktų ribą. Atsiųskite mums el. laišką adresu api@europeana.eu arba susisiekite su mumis per atsiliepimų valdiklį lango apačioje.",
+      "title": "Pasiekėte asmeninių raktų limitą"
+    },
     "galleryLocked": {
       "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
       "title": "Atnaujinti nepavyko"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 skaitmeninis objektas iš |{count} skaitmeninių objektų",
     "itemOf": "{max} iš {count} skaitmeniniai objektai",
+    "noItems": "Skaitmeninių objektų nėra.",
+    "noMoreItems": "Daugiau skaitmeninių objektų nėra.",
     "recent": "Naujausi skaitmeniniai objektai",
     "recommended": "Rekomenduojami skaitmeniniai objektai",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Prisimena, ar norite gauti daugiakalbius paieškos rezultatus.",
+        "title": "Daugiakalbė paieška"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Parodyk man",
+    "readMore": "Išbandykite",
     "text": {
-      "featureIdeas": "Naršykite būsimus pokyčius, kuriuos planuojame, ir balsuokite už tuos, kuriems norėtumėte, kad būtų teikiama pirmenybė. Jūsų indėlis padeda mums sutelkti dėmesį į tai, kas jums svarbiausia."
+      "multilingualSearch": "Atraskite daugiau su nauja daugiakalbe paieška — ji suderina jūsų užklausą su vertimais į kitas kalbas, kad pateiktų jums turtingesnius ir aktualesnius rezultatus."
+    },
+    "tooltip": {
+      "multilingualSearch": "Spustelėkite čia, kad įjungtumėte daugiakalbę paiešką"
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
       }
     },
+    "multilingual": {
+      "disable": "Išjungti daugiakalbę paiešką",
+      "enable": "Įgalinti daugiakalbę paiešką",
+      "loginToUseMultilingualSearch": "Prisijunkite, kad galėtumėte naudotis daugiakalbe paieška ir gauti rezultatus, kurie nėra apriboti jūsų paieškos termino kalba.",
+      "turnOffMultilingualSearch": "Išjunkite daugiakalbę paiešką ir peržiūrėkite rezultatus tik jūsų paieškos termino kalba.",
+      "turnOnMultilingualSearch": "Įjunkite daugiakalbę paiešką ir gaukite rezultatus, kurie nėra apriboti jūsų paieškos termino kalba."
+    },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
       "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Paieškos filtrai {count}",
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Paieška 50+ milijonų skaitmeninius objektus",
+  "searchPlaceholder": "Paieška 60+ milijonų skaitmeninius objektus",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Įtraukti į galeriją",
-      "addToGallery": "Pridėti šį skaitmeninis objektas į galeriją.",
+      "addItems": {
+        "1": "Pridėti šį skaitmeninis objektas į galeriją.",
+        "many": "Pridėti {count} skaitmeninį objektą prie galerijos | Pridėti {count} skaitmeninius objektus prie galerijos"
+      },
+      "addItemsHere": {
+        "1": "Įtraukti į galeriją",
+        "many": "Pridėti {count} skaitmeninį objektą prie galerijos | Pridėti {count} skaitmeninius objektus prie galerijos"
+      },
       "cancelSelection": "Atšaukti pasirinkimą",
       "clickToSelectItems": "Spustelėkite skaitmeninius objektus, kad juos pasirinktumėte",
       "create": "Kurti galeriją",
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
-      "removeItemFromLikes": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
-      "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+      "likeItems": {
+        "1": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
+        "many": "Patinka {count} skaitmeninis objektas | Patinka {count} skaitmeniniai objektai"
+      },
+      "removeItems": {
+        "1": "Pašalinkite šį skaitmeninį objektą iš šios galerijos.",
+        "many": "Pašalinti {count} skaitmeninį objektą iš šios galerijos | Pašalinti {count} skaitmeninius objektus iš šios galerijos"
+      },
       "selectItems": "Pasirinkite skaitmeninius objektus",
+      "unlikeItems": {
+        "1": "Pašalinkite šį skaitmeninį objektą iš „Patinka“ mygtukų.",
+        "many": "Man nebepatinka {count} skaitmeninis objektas | Man nebepatinka {count} skaitmeniniai objektai"
+      },
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "itemAdded": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
-      "itemLiked": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
-      "itemRemoved": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
-      "itemUnliked": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
+      "itemsAdded": {
+        "1": "Skaitmeninis objektas buvo įtrauktas į galeriją \"{gallery}\".",
+        "many": "{count} skaitmeninis objektas pridėtas į galeriją \"{gallery}\". | {count} skaitmeniniai objektai pridėti į galeriją \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Skaitmeninis objektas išsaugotas prie jūsų pamėgtų.",
+        "many": "{count} skaitmeninis objektas išsaugotas jūsų pamėgtuose. | {count} skaitmeniniai objektai išsaugoti jūsų pamėgtuose."
+      },
+      "itemsRemoved": {
+        "1": "Skaitmeninis objektas buvo pašalintas iš galerijos {gallery}.",
+        "many": "{count} skaitmeninis objektas pašalintas iš galerijos \"{gallery}\". | {count} skaitmeniniai objektai pašalinti iš galerijos \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Skaitmeninis objektas pašalintas iš jūsų pamėgtų.",
+        "many": "{count} skaitmeninis objektas pašalintas iš jūsų pamėgtų. | {count} skaitmeniniai objektai pašalinti iš jūsų pamėgtų."
+      },
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai."
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai.",
+      "removeItems": "Ar tikrai norite pašalinti {count} skaitmeninį objektą iš šios galerijos? | Ar tikrai norite pašalinti {count} skaitmeninius objektus iš šios galerijos?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Panaikinti visų pasirinkimą."
+      },
+      "info": "{count} skaitmeninis objektas pasirinktas. | {count} skaitmeninius objektus pasirinkta."
     }
   },
   "shareWhere": "Kur norėtumėte tuo pasidalinti?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Paieška"
   },
   "statuses": {
+    "disabled": "Išjungta",
     "liked": "Patiko",
     "pinned": "Prisegtas",
     "required": "Reikalingas"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Istorija | Istorijos"
   },
   "storiesPage": {
+    "results": "{count} rezultatas | {count} rezultatai",
     "storiesHaveLoaded": "{0} rastos istorijos"
   },
   "swiper": {

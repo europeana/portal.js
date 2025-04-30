@@ -365,11 +365,6 @@ Example:
           <td><span class="icon icon-search-in-text" /></td>
         </tr>
         <tr>
-          <td>Settings</td>
-          <td><code>icon-settings</code></td>
-          <td><span class="icon icon-settings" /></td>
-        </tr>
-        <tr>
           <td>Select circle</td>
           <td><code>icon-select-circle</code></td>
           <td><span class="icon icon-select-circle" /></td>
@@ -445,6 +440,11 @@ Example:
           <td><span class="icon icon-translate" /></td>
         </tr>
         <tr>
+          <td>Translate outlined</td>
+          <td><code>icon-translate-outlined</code></td>
+          <td><span class="icon icon-translate-outlined" /></td>
+        </tr>
+        <tr>
           <td>Unavailable</td>
           <td><code>icon-unavailable</code></td>
           <td><span class="icon icon-unavailable" /></td>
@@ -463,6 +463,21 @@ Example:
           <td>View</td>
           <td><code>icon-ic-view</code></td>
           <td><span class="icon icon-ic-view" /></td>
+        </tr>
+        <tr>
+          <td>View grid</td>
+          <td><code>icon-view-grid</code></td>
+          <td><span class="icon icon-view-grid" /></td>
+        </tr>
+        <tr>
+          <td>View list</td>
+          <td><code>icon-view-list</code></td>
+          <td><span class="icon icon-view-list" /></td>
+        </tr>
+        <tr>
+          <td>View mosaic</td>
+          <td><code>icon-view-mosaic</code></td>
+          <td><span class="icon icon-view-mosaic" /></td>
         </tr>
         <tr>
           <td>X</td>

@@ -9,20 +9,10 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 const storeIsPinnedGetter = sinon.stub();
-const makeToastSpy = sinon.spy();
-
-const mixins = [
-  {
-    methods: {
-      makeToast: makeToastSpy
-    }
-  }
-];
 
 const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemPinButton, {
   localVue,
   propsData: { identifier },
-  mixins,
   mocks: {
     $apis: {
       set: {
@@ -30,7 +20,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
         get: sinon.stub().resolves({}),
         getItemIds: sinon.stub().resolves([]),
         search: sinon.stub().resolves({}),
-        deleteItem: sinon.spy(),
+        deleteItems: sinon.spy(),
         pinItem: sinon.spy()
       }
     },

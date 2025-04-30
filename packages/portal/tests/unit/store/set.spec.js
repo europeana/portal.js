@@ -7,6 +7,44 @@ const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
+  describe('getters', () => {
+    describe('activeSetItemIds', () => {
+      it('returns the IDs of the active set items', () => {
+        const state = { active: { items: [{ id: 'item1' }, { id: 'item2' }] } };
+
+        const activeSetItemIds = store.getters.activeSetItemIds(state);
+
+        expect(activeSetItemIds).toEqual(['item1', 'item2']);
+      });
+    });
+
+    describe('someActiveSetItemsSelected', () => {
+      it('is `true` when some active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item2']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(true);
+      });
+
+      it('is `false` when no active set items are selected', () => {
+        const state = {
+          active: { items: [{ id: 'item1' }, { id: 'item2' }] },
+          selectedItems: ['item3']
+        };
+        const getters = { activeSetItemIds: store.getters.activeSetItemIds(state) };
+
+        const someActiveSetItemsSelected = store.getters.someActiveSetItemsSelected(state, getters);
+
+        expect(someActiveSetItemsSelected).toBe(false);
+      });
+    });
+  });
+
   describe('mutations', () => {
     describe('setLikesId()', () => {
       it('sets the likesId state', () => {
@@ -26,24 +64,47 @@ describe('store/set', () => {
         store.mutations.setLikedItems(state, likedItems);
         expect(state.likedItemIds).toEqual(likedItems.map(item => item.id));
       });
-      it('does not set the likedItemIds state when there is a falsy value', () => {
+      it('resets the likedItemIds state when there is a falsy value', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
         store.mutations.setLikedItems(state, null);
         expect(state.likedItems).toEqual(null);
-        expect(state.likedItemIds).toEqual(['006']);
+        expect(state.likedItemIds).toEqual([]);
+      });
+    });
+    describe('setSelected', () => {
+      it('sets the selectedItems state', () => {
+        const state = { selectedItems: [] };
+        store.mutations.setSelected(state, ['123/abc']);
+        expect(state.selectedItems).toEqual(['123/abc']);
       });
     });
     describe('like()', () => {
-      it('pushes the liked item id to likedItemIds state', () => {
-        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
+      it('pushes single liked item id to likedItemIds state', () => {
+        const state = { likedItemIds: ['006'] };
+
         store.mutations.like(state, '007');
+
         expect(state.likedItemIds).toEqual(['006', '007']);
+      });
+
+      it('pushes multiple liked item ids to likedItemIds state', () => {
+        const state = { likedItemIds: ['006'] };
+
+        store.mutations.like(state, ['007', '008']);
+
+        expect(state.likedItemIds).toEqual(['006', '007', '008']);
       });
     });
     describe('unlike()', () => {
-      it('removes the unliked item id from likedItemIds state', () => {
+      it('removes a single unliked item id from likedItemIds state', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007'] };
         store.mutations.unlike(state, '007');
+        expect(state.likedItemIds).toEqual(['006']);
+      });
+
+      it('removes multiple unliked item id from likedItemIds state', () => {
+        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007', '008'] };
+        store.mutations.unlike(state, ['007', '008']);
         expect(state.likedItemIds).toEqual(['006']);
       });
     });
@@ -59,20 +120,6 @@ describe('store/set', () => {
         const state = { activeRecommendations: [], active: { items: [] } };
         store.mutations.setActiveRecommendations(state, activeRecommendations);
         expect(state.activeRecommendations).toEqual(activeRecommendations);
-      });
-
-      it('removes any that are already in the active set', () => {
-        const state = { activeRecommendations: [], active: { items: [activeRecommendations[0]] } };
-        store.mutations.setActiveRecommendations(state, activeRecommendations);
-        expect(state.activeRecommendations.length).toBe(1);
-      });
-    });
-    describe('addItemToActive()', () => {
-      it('adds an item to the items from the active state', () => {
-        const newItem = { id: 'item002' };
-        const state = { active: { id: 'set001', items: [{ id: 'item001' }] } };
-        store.mutations.addItemToActive(state, newItem);
-        expect(state.active.items).toEqual([{ id: 'item001' }, newItem]);
       });
     });
     describe('selectItem()', () => {
@@ -142,29 +189,29 @@ describe('store/set', () => {
       });
 
       it('adds to likes set via $apis.set, then commits with "like"', async() => {
-        store.actions.$apis.set.insertItem = sinon.stub().resolves({});
+        store.actions.$apis.set.insertItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         await store.actions.like({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.insertItem.calledWith(state.likesId, itemId)).toBe(true);
-        expect(commit.calledWith('like', itemId)).toBe(true);
+        expect(store.actions.$apis.set.insertItems.calledWith(state.likesId, [itemId])).toBe(true);
+        expect(commit.calledWith('like', [itemId])).toBe(true);
       });
     });
 
     describe('unlike()', () => {
       it('removes from likes set via $apis.set, then commits with "unlike"', async() => {
-        store.actions.$apis.set.deleteItem = sinon.stub().resolves({});
+        store.actions.$apis.set.deleteItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         await store.actions.unlike({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.deleteItem.calledWith(state.likesId, itemId)).toBe(true);
-        expect(commit.calledWith('unlike', itemId)).toBe(true);
+        expect(store.actions.$apis.set.deleteItems.calledWith(state.likesId, [itemId])).toBe(true);
+        expect(commit.calledWith('unlike', [itemId])).toBe(true);
       });
       describe('when api call errors', () => {
         it('fetches likes', async() => {
-          store.actions.$apis.set.deleteItem = sinon.stub().rejects(new Error('API error'));
+          store.actions.$apis.set.deleteItems = sinon.stub().rejects(new Error('API error'));
           const state = { likesId: setId };
 
           await expect(store.actions.unlike({ dispatch, commit, state }, itemId)).rejects.toThrowError();
@@ -199,25 +246,31 @@ describe('store/set', () => {
     });
 
     describe('fetchActive()', () => {
+      const dispatch = sinon.spy();
       it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
         store.actions.$apis.set.get = sinon.stub().resolves(set);
         store.actions.$apis.set.getItems = sinon.stub().resolves([]);
 
-        await store.actions.fetchActive({ commit }, setId);
+        const state = { activeId: setId };
+        await store.actions.fetchActive({ commit, dispatch, state });
 
         expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
         expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);
       });
-    });
 
-    describe('refreshSet()', () => {
-      describe('when collection-modal hides', () => {
-        it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
-          const state = { active: set };
+      describe('when there are selected items', () => {
+        it('refreshes the selected items', async() => {
+          store.actions.$apis.set.get = sinon.stub().resolves(set);
+          store.actions.$apis.set.getItems = sinon.stub().resolves([]);
 
-          await store.actions.refreshSet({ state, dispatch });
+          const state = {
+            activeId: setId,
+            selectedItems: ['/001/abc', '/002/abc']
+          };
 
-          expect(dispatch.calledWith('fetchActive')).toBe(true);
+          await store.actions.fetchActive({ commit, dispatch, state });
+
+          expect(dispatch.calledWith('refreshSelected')).toBe(true);
         });
       });
     });
@@ -245,6 +298,30 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.recommendation.reject.calledWith('set', setId, [itemId])).toBe(true);
         expect(commit.calledWith('setActiveRecommendations', updatedRecommendations)).toBe(true);
+      });
+    });
+
+    describe('refreshSelected()', () => {
+      it('refreshes the selected items to only the active set or recommended items', async() => {
+        const state = {
+          active: { ...set, items: [{ id: '/002/abc' }] },
+          activeRecommendations: [],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state, commit });
+
+        expect(commit.calledWith('setSelected', ['/002/abc'])).toBe(true);
+
+        const stateWithSelectedRecommndations = {
+          active: null,
+          activeRecommendations: [{ id: '/001/abc' }],
+          selectedItems: ['/001/abc', '/002/abc']
+        };
+
+        await store.actions.refreshSelected({ state: stateWithSelectedRecommndations, commit });
+
+        expect(commit.calledWith('setSelected', ['/001/abc'])).toBe(true);
       });
     });
   });

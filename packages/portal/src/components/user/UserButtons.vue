@@ -14,6 +14,7 @@
     <div class="right-buttons-wrapper d-inline-flex">
       <b-button
         v-if="showMove"
+        :id="`item-move-button-${identifier}`"
         v-b-tooltip.bottom
         class="move-button text-uppercase d-inline-flex align-items-center"
         :class="{ 'button-icon-only': !buttonText }"
@@ -29,19 +30,19 @@
       <ItemRemoveButton
         v-if="showRemove"
         data-qa="item remove button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemAddButton
         data-qa="item add button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
       <ItemLikeButton
         data-qa="item like button"
-        :identifier="identifier"
+        :identifiers="identifier"
         :button-variant="buttonVariant"
         :button-text="buttonText"
       />
@@ -53,7 +54,7 @@
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
   import ItemPinButton from '@/components/item/ItemPinButton';
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'UserButtons',
@@ -64,8 +65,6 @@
       ItemPinButton,
       ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
     },
-
-    mixins: [hideTooltips],
 
     props: {
       /**
@@ -115,6 +114,11 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(`item-move-button-${props.identifier}`);
+      return { hideTooltips };
     }
   };
 </script>

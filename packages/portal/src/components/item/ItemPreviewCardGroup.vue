@@ -10,7 +10,7 @@
     class="masonry-container"
     :data-qa="`item previews ${view}`"
   >
-    <slot />
+    <slot name="header" />
     <component
       :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
@@ -67,7 +67,6 @@
             :offset="items.findIndex(item => item.id === card.id)"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
-            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -80,7 +79,7 @@
     :columns="view === 'list'"
     :deck="view !== 'list'"
   >
-    <slot />
+    <slot name="header" />
     <component
       :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
@@ -131,7 +130,6 @@
             :offset="items.findIndex(item => item.id === card.id)"
             :on-aux-click-card="onAuxClickCard"
             :on-click-card="onClickCard"
-            :select-state="selectState"
           />
         </template>
       </TransitionGroup>
@@ -195,10 +193,6 @@
       onAuxClickCard: {
         type: Function,
         default: null
-      },
-      selectState: {
-        type: Boolean,
-        default: false
       }
     },
 

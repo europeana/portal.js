@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontohantering",
     "curatedCollections": "Kuraterade samlingar",
-    "editProfile": "Redigera profil",
     "likes": "Gilla-markeringar",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
     "linkLoginJoin": "Logga in / Gå med",
     "linkLogout": "Logga ut",
-    "myProfile": "Min profil",
+    "manageApiKeys": "Hantera API-nycklar",
+    "menu": {
+      "close": "Stäng användarmenyn",
+      "open": "Öppna användarmenyn"
+    },
     "notifications": {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina gilla-markeringar & gallerier",
-    "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
@@ -31,7 +34,6 @@ export default {
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
       "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
-      "remove": "Ta bort detta objekt från detta galleri.",
       "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Lägg till",
     "apply": "Tillämpa",
     "cancel": "Avbryt",
+    "changeView": "Ändra vy",
     "clear": "Rensa",
     "clearFilters": "Rensa filter",
     "close": "stäng",
+    "confirm": "Bekräfta",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
     "download": "Ladda ner",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Visa dokument",
     "vote": "Rösta"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Stäng menyn för nyckelhantering",
+      "disable": "Inaktivera nyckel",
+      "reEnable": "Aktivera nyckel igen",
+      "showMenu": "Visa menyn för nyckelhantering"
+    },
+    "disable": {
+      "promptText1": "Är du säker på att du vill inaktivera denna API-nyckel?",
+      "promptText2": "När du inaktiverar den här nyckeln kan du inte längre använda den i ditt projekt. Detta kommer att ske omedelbart. Du måste mejla oss på api@europeana.eu för att aktivera API-nyckeln igen.",
+      "title": "Inaktivera API-nyckel"
+    },
+    "reEnable": {
+      "text": "För att återaktivera denna API-nyckel, skicka oss ett e-postmeddelande till api@europeana.eu eller kontakta oss via feedbackwidgeten längst ner i fönstret.",
+      "title": "Aktivera API-nyckel igen"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Begär en personlig API-nyckel",
+          "checkbox": "Jag bekräftar att jag har läst och accepterar API-nyckeln {termsOfUseLink}.",
+          "termsOfUseLinkText": "användarvillkor"
+        },
+        "description": "Lär dig och testa hur du använder API:er med din personliga API-nyckel. Dela den inte, tack. {howToLink}.",
+        "heading": "Personlig API-nyckel",
+        "howToLinkText": "Hur du använder din nyckel"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Hantering av API-nycklar"
+        },
+        "clientId": {
+          "label": "API-nyckel"
+        },
+        "created": {
+          "label": "Skapad datum"
+        }
+      }
+    },
+    "title": "Hantera API-nycklar"
+  },
   "attribution": {
     "country": "Land:",
     "creator": "Upphovsperson:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Ämne"
   },
   "categories": {
-    "label": "Utforska berättelser efter tagg",
+    "label": "Utforska resultat efter tagg",
     "noOptions": "Det finns inga fler taggar att välja",
-    "search": "Utforska berättelser efter tagg"
+    "search": "Utforska resultat efter tagg"
   },
   "clearAllFilters": "rensa alla filter",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Ange din personliga API-nyckel",
+            "prompt": "{link} och den kommer att användas."
+          }
+        }
+      },
       "noRequests": "Inga förfrågningar till Europeana API:er användes på den här sidan."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Fel",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Denna API-nyckel har redan inaktiverats, kanske i en annan flik i webbläsaren.",
+      "title": "Nyckel redan inaktiverad"
+    },
+    "authDuplicateKey": {
+      "description": "Användare kan bara ha en aktiverad personlig nyckel som är avsedd för personligt bruk.",
+      "title": "Du har redan en personlig nyckel"
+    },
+    "authKeyLimitReached": {
+      "description": "Det går inte att skapa en ny personlig nyckel eftersom du har nått gränsen för inaktiverade personliga nycklar. Skicka ett e-postmeddelande till oss på api@europeana.eu eller kontakta oss via feedbackwidgeten längst ner i fönstret.",
+      "title": "Du har nått gränsen för personliga nycklar"
+    },
     "galleryLocked": {
       "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
       "title": "Uppdateringen misslyckades"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 objekt | {count} objekt",
     "itemOf": "{max} av {count} objekt",
+    "noItems": "Det finns inga objekt.",
+    "noMoreItems": "Det finns inga fler objekt.",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Kommer ihåg om du föredrar att få flerspråkiga sökresultat.",
+        "title": "Flerspråkig sökning"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Visa mig",
+    "readMore": "Prova det",
     "text": {
-      "featureIdeas": "Utforska de kommande förändringarna vi planerar och rösta på de du vill se prioriterade. Din input hjälper oss att fokusera på det som är viktigast för dig."
+      "multilingualSearch": "Upptäck mer med den nya flerspråkiga sökningen — den matchar din sökning med översättningar på andra språk för att ge dig rikare och mer relevanta resultat."
+    },
+    "tooltip": {
+      "multilingualSearch": "Klicka här för att aktivera flerspråkig sökning"
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Ange termen/termerna som det valda fältet innehåller eller inte innehåller."
       }
     },
+    "multilingual": {
+      "disable": "Inaktivera flerspråkig sökning",
+      "enable": "Aktivera flerspråkig sökning",
+      "loginToUseMultilingualSearch": "Logga in för att använda flerspråkig sökning och få resultat som inte är begränsade till språket för din sökterm.",
+      "turnOffMultilingualSearch": "Stäng av flerspråkig sökning och visa resultat endast på det språk som sökordet är skrivet på.",
+      "turnOnMultilingualSearch": "Aktivera flerspråkig sökning och få resultat som inte är begränsade till språket i ditt sökord."
+    },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
       "loginToSeeMore": "{login} för att se fler resultat",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Sökfilter {count}",
   "searchHasLoaded": "{0} resultat returnerade",
-  "searchPlaceholder": "Sök bland 50+ miljoner objekt",
+  "searchPlaceholder": "Sök bland 60+ miljoner objekt",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
   "searchSuggestions": "Sök förslag",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lägg till i galleri",
-      "addToGallery": "Lägg till detta objekt i ett galleri.",
+      "addItems": {
+        "1": "Lägg till detta objekt i ett galleri.",
+        "many": "Lägg till {count} objekt i ett galleri | Lägg till {count} objekt i ett galleri"
+      },
+      "addItemsHere": {
+        "1": "Lägg till i galleri",
+        "many": "Lägg till {count} objekt i ett galleri | Lägg till {count} objekt i ett galleri"
+      },
       "cancelSelection": "Avbryt val",
       "clickToSelectItems": "Klicka på objekten för att välja dem",
       "create": "Skapa galleri",
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
-      "removeItemFromLikes": "Ta bort det här objektet från dina gilla-markeringar.",
-      "saveItemToLikes": "Spara det här objektet till dina gilla-markeringar.",
+      "likeItems": {
+        "1": "Spara det här objektet till dina gilla-markeringar.",
+        "many": "Gillar {count} objekt | Gillar {count} objekt"
+      },
+      "removeItems": {
+        "1": "Ta bort detta objekt från detta galleri.",
+        "many": "Ta bort {count} objekt från detta galleri | Ta bort {count} objekt från detta galleri"
+      },
       "selectItems": "Välj objekt",
+      "unlikeItems": {
+        "1": "Ta bort det här objektet från dina gilla-markeringar.",
+        "many": "Sluta gilla {count} objekt | Sluta gilla {count} objekt."
+      },
       "update": "Uppdatera galleri"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
-      "itemAdded": "Objektet har lagts till i galleriet \"{gallery}\".",
-      "itemLiked": "Objektet har sparats till dina gilla-markeringar.",
-      "itemRemoved": "Objektet har tagits bort från galleriet {gallery}.",
-      "itemUnliked": "Objektet har tagits bort från dina gilla-markeringar.",
+      "itemsAdded": {
+        "1": "Objektet har lagts till i galleriet \"{gallery}\".",
+        "many": "{count} objektet har lagts till i galleriet \"{gallery}\". | {count} objekten har lagts till i galleriet \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Objektet har sparats till dina gilla-markeringar.",
+        "many": "{count} objektet har sparats i dina gilla-markeringar. | {count} objekten har sparats i dina gilla-markeringar."
+      },
+      "itemsRemoved": {
+        "1": "Objektet har tagits bort från galleriet {gallery}.",
+        "many": "{count} objektet har tagits bort från galleriet \"{gallery}\". | {count} objekten har tagits bort från galleriet \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Objektet har tagits bort från dina gilla-markeringar.",
+        "many": "{count} objektet har tagits bort från dina gilla-markeringar. | {count} objekten har tagits bort från dina gilla-markeringar."
+      },
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 gilla-markeringar"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
+      "removeItems": "Är du säker på att du vill ta bort {count} objekt från detta galleri? | Är du säker på att du vill ta bort {count} objekt från detta galleri?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Avmarkera alla."
+      },
+      "info": "{count} valt objekt. | {count} valda objekt."
     }
   },
   "shareWhere": "Var skulle du vilja dela detta?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Sök"
   },
   "statuses": {
+    "disabled": "Inaktiverad",
     "liked": "Gillade",
     "pinned": "Fäst",
     "required": "Obligatoriskt"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Berättelse | Berättelser"
   },
   "storiesPage": {
+    "results": "{count} resultat | {count} resultat",
     "storiesHaveLoaded": "{0} berättelser hittades"
   },
   "swiper": {

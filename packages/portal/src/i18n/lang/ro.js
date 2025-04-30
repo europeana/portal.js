@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestionarea contului",
     "curatedCollections": "Colecții curatori ate",
-    "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
     "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
-    "myProfile": "Profilul meu",
+    "manageApiKeys": "Gestionați cheile API",
+    "menu": {
+      "close": "Închideți meniul utilizatorului",
+      "open": "Deschide meniul utilizatorului"
+    },
     "notifications": {
       "loggedIn": "Sunteți autentificat. Bine ați venit!",
       "loggedOut": "Acum ești deconectat.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
-    "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
@@ -31,7 +34,6 @@ export default {
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
       "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
-      "remove": "Eliminați această resursă culturală din această galerie.",
       "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Adăuga",
     "apply": "Aplică",
     "cancel": "Anulează",
+    "changeView": "Schimbați vizualizarea",
     "clear": "Curăță",
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
+    "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Vizualizare document",
     "vote": "Vot"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Închideți meniul de gestionare a cheilor",
+      "disable": "Dezactivați cheia",
+      "reEnable": "Reactivează cheia",
+      "showMenu": "Afișează meniul de gestionare a cheilor"
+    },
+    "disable": {
+      "promptText1": "Sigur doriți să dezactivați această cheie API?",
+      "promptText2": "După ce dezactivați această cheie, nu o veți mai putea utiliza în proiectul dvs. Acest lucru se va întâmpla imediat. Va trebui să ne trimiteți un e-mail la api@europeana.eu pentru a activa din nou cheia API.",
+      "title": "Dezactivați cheia API"
+    },
+    "reEnable": {
+      "text": "Pentru a reactiva această cheie API, vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Reactivează cheia API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitați o cheie API personală",
+          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termeni de utilizare"
+        },
+        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
+        "heading": "Cheie API personală",
+        "howToLinkText": "Cum să folosești cheia ta"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Gestionarea cheilor API"
+        },
+        "clientId": {
+          "label": "Cheia API"
+        },
+        "created": {
+          "label": "Data creării"
+        }
+      }
+    },
+    "title": "Gestionați cheile API"
+  },
   "attribution": {
     "country": "Țară:",
     "creator": "Creator:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Subiect"
   },
   "categories": {
-    "label": "Explorați narațiuni după etichetă",
+    "label": "Explorați rezultatele după etichetă",
     "noOptions": "Nu mai sunt etichete de selectat",
-    "search": "Explorați narațiuni după etichetă"
+    "search": "Explorați rezultatele după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Introduceți cheia API personală",
+            "prompt": "{link} și va fi utilizat."
+          }
+        }
+      },
       "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Această cheie API a fost deja dezactivată, poate într-un alt tab al browserului.",
+      "title": "Cheia este deja dezactivată"
+    },
+    "authDuplicateKey": {
+      "description": "Utilizatorii pot avea doar o singură cheie personală activată, destinată utilizării personale.",
+      "title": "Aveți deja o cheie personală"
+    },
+    "authKeyLimitReached": {
+      "description": "O nouă cheie personală nu poate fi creată deoarece ați atins limita de chei personale dezactivate. Vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Ați atins limita de chei personale"
+    },
     "galleryLocked": {
       "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
       "title": "Actualizarea a eșuat"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 resursă culturală |{count} resurse culturale",
     "itemOf": "{max} de {count} resurse culturale",
+    "noItems": "Nu există resurse culturale.",
+    "noMoreItems": "Nu mai sunt resurse culturale.",
     "recent": "Resurse culturale recente",
     "recommended": "Resurse culturale recomandate",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
+        "title": "Căutare multilingvă"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Arată-mi",
+    "readMore": "Încearcă-l",
     "text": {
-      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
+      "multilingualSearch": "Descoperiți mai multe cu noua căutare multilingvă — aceasta potrivește interogarea dvs. cu traduceri în alte limbi pentru a vă oferi rezultate mai bogate și mai relevante."
+    },
+    "tooltip": {
+      "multilingualSearch": "Faceți clic aici pentru a activa căutarea multilingvă"
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
       }
     },
+    "multilingual": {
+      "disable": "Dezactivați căutarea multilingvă",
+      "enable": "Activați căutarea multilingvă",
+      "loginToUseMultilingualSearch": "Conectați-vă pentru a utiliza căutarea multilingvă și pentru a obține rezultate care nu se limitează la limba în care ați efectuat căutarea.",
+      "turnOffMultilingualSearch": "Dezactivați căutarea multilingvă și vizualizați rezultatele numai în limba în care ați efectuat căutarea.",
+      "turnOnMultilingualSearch": "Activați căutarea multilingvă și obțineți rezultate care nu sunt limitate la limba termenului de căutare."
+    },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
       "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtre de căutare {count}",
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Căutați peste 50 de milioane de resurse culturale",
+  "searchPlaceholder": "Căutați peste 60 de milioane de resurse culturale",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Adăugare în galerie",
-      "addToGallery": "Adăugați acest resursă culturală la o galerie.",
+      "addItems": {
+        "1": "Adăugați acest resursă culturală la o galerie.",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
+      "addItemsHere": {
+        "1": "Adăugare în galerie",
+        "many": "Adaugă {count} resursă culturală într-o galerie | Adaugă {count} resurse culturale într-o galerie"
+      },
       "cancelSelection": "Anulează selecția",
       "clickToSelectItems": "Faceți clic pe resursele culturale pentru a le selecta",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
-      "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
-      "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
+      "likeItems": {
+        "1": "Salvați acest resursă culturală în Like-urile dvs.",
+        "many": "Apreciază {count} resursă culturală | Apreciază {count} resurse culturale"
+      },
+      "removeItems": {
+        "1": "Eliminați această resursă culturală din această galerie.",
+        "many": "Eliminați {count} resursă culturală din această galerie | Eliminați {count} resurse culturale din această galerie"
+      },
       "selectItems": "Selectați resurse culturale",
+      "unlikeItems": {
+        "1": "Eliminați această resursă culturală din preferințele dumneavoastră.",
+        "many": "Nu-mi mai place {count} resursă culturală | Nu-mi mai plac {count} resurse culturale"
+      },
       "update": "Actualizare galerie"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "itemAdded": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
-      "itemLiked": "Resursa culturală a fost salvată în aprecierile tale.",
-      "itemRemoved": "Resursa culturală a fost eliminată din galeria {gallery}.",
-      "itemUnliked": "Resursa culturală a fost eliminată din aprecierile tale.",
+      "itemsAdded": {
+        "1": "Resursa culturală a fost adăugată la galeria \"{gallery}\".",
+        "many": "{count} resursa culturală a fost adăugată în galeria \"{gallery}\". | {count} resurse culturale au fost adăugate în galeria \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Resursa culturală a fost salvată în aprecierile tale.",
+        "many": "{count} resursa culturală a fost salvată în aprecierile tale. | {count} resurse culturale au fost salvate în aprecierile tale."
+      },
+      "itemsRemoved": {
+        "1": "Resursa culturală a fost eliminată din galeria {gallery}.",
+        "many": "{count} resursa culturală a fost eliminată din galeria \"{gallery}\". | {count} resurse culturale au fost eliminate din galeria \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Resursa culturală a fost eliminată din aprecierile tale.",
+        "many": "{count} resursa culturală a fost eliminată din aprecierile tale. | {count} resurse culturale au fost eliminate din aprecierile tale."
+      },
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat.",
+      "removeItems": "Sunteți sigur că doriți să eliminați {count} resursă culturală din această galerie? | Sunteți sigur că doriți să eliminați {count} resurse culturale din această galerie?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deselectați tot."
+      },
+      "info": "{count} resursă culturală selectată. | {count} resurse culturale selectate."
     }
   },
   "shareWhere": "Unde ai vrea să împărtășești asta?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Căutare"
   },
   "statuses": {
+    "disabled": "Dezactivat",
     "liked": "A apreciat",
     "pinned": "Fixat",
     "required": "Necesar"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultate",
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {

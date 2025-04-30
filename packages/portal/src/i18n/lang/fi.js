@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Tilinhallinta",
     "curatedCollections": "Kuratoidut kokoelmat",
-    "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
     "linkLoginJoin": "Kirjaudu / Luo tili",
     "linkLogout": "Kirjaudu ulos",
-    "myProfile": "Profiilini",
+    "manageApiKeys": "Hallinnoi API-avaimia",
+    "menu": {
+      "close": "Sulje käyttäjävalikko",
+      "open": "Avaa käyttäjävalikko"
+    },
     "notifications": {
       "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
       "loggedOut": "Olet nyt kirjautunut ulos.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Yksityiset galleriat",
     "profile": "Omat tykkäykset ja galleriat",
-    "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
     "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
@@ -31,7 +34,6 @@ export default {
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
       "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
-      "remove": "Poista tämä aineisto tästä galleriasta.",
       "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Lisätä",
     "apply": "Käytä",
     "cancel": "Peruuttaa",
+    "changeView": "Vaihda näkymää",
     "clear": "Tyhjennä",
     "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
+    "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Näytä asiakirja",
     "vote": "Äänestää"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Sulje avaintenhallintavalikko",
+      "disable": "Poista avain käytöstä",
+      "reEnable": "Ota avain uudelleen käyttöön",
+      "showMenu": "Näytä avaintenhallintavalikko"
+    },
+    "disable": {
+      "promptText1": "Haluatko varmasti poistaa tämän API-avaimen käytöstä?",
+      "promptText2": "Kun poistat tämän avaimen käytöstä, et voi enää käyttää sitä projektissasi. Tämä tapahtuu välittömästi. Sinun tulee lähettää meille sähköpostia osoitteeseen api@europeana.eu ottaaksesi API-avaimen uudelleen käyttöön.",
+      "title": "Poista API-avain käytöstä"
+    },
+    "reEnable": {
+      "text": "Jos haluat ottaa tämän API-avaimen uudelleen käyttöön, lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunassa olevan palautewidgetin kautta.",
+      "title": "Ota API-avain uudelleen käyttöön"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Pyydä henkilökohtainen API-avain",
+          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
+          "termsOfUseLinkText": "käyttöehdot"
+        },
+        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
+        "heading": "Henkilökohtainen API-avain",
+        "howToLinkText": "Kuinka käyttää omaa avaintasi"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API-avainten hallinta"
+        },
+        "clientId": {
+          "label": "API-avain"
+        },
+        "created": {
+          "label": "Luontipäivämäärä"
+        }
+      }
+    },
+    "title": "Hallinnoi API-avaimia"
+  },
   "attribution": {
     "country": "Maa:",
     "creator": "Luoja:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Aihe"
   },
   "categories": {
-    "label": "Tutustu tarinoihin tunnisteen mukaan",
+    "label": "Tutustu tuloksiin tagin mukaan",
     "noOptions": "Ei ole enää valittavia tunnisteita",
-    "search": "Tutustu tarinoihin tunnisteen mukaan"
+    "search": "Tutustu tuloksiin tagin mukaan"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Syötä henkilökohtainen API-avaimesi",
+            "prompt": "{link} ja sitä käytetään."
+          }
+        }
+      },
       "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä."
     }
   },
@@ -210,6 +265,18 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tämä API-avain on jo poistettu käytöstä, ehkä toisessa selaimen välilehdessä.",
+      "title": "Avain on jo poistettu käytöstä"
+    },
+    "authDuplicateKey": {
+      "description": "Käyttäjillä voi olla vain yksi käytössä oleva henkilökohtainen avain, joka on tarkoitettu henkilökohtaiseen käyttöön.",
+      "title": "Sinulla on jo henkilökohtainen avain"
+    },
+    "authKeyLimitReached": {
+      "description": "Uutta henkilökohtaista avainta ei voi luoda, koska olet saavuttanut poistettujen henkilökohtaisten avainten rajan. Lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunan palautewidgetin kautta.",
+      "title": "Olet saavuttanut henkilökohtaisten avainten rajan"
+    },
     "galleryLocked": {
       "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
       "title": "Päivitys epäonnistui"
@@ -775,6 +842,8 @@ export default {
   "items": {
     "itemCount": "1 aineisto |{count} aineistot",
     "itemOf": "{max} / {count} aineistot",
+    "noItems": "Aineistoja ei ole.",
+    "noMoreItems": "Kohteita ei ole enää jäljellä.",
     "recent": "Viimeisimmät aineistot",
     "recommended": "Suositellut aineistot",
     "trending": {
@@ -963,6 +1032,10 @@ export default {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Muistaa, haluatko saada monikielisiä hakutuloksia.",
+        "title": "Monikielinen haku"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1134,9 +1207,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Näytä minulle",
+    "readMore": "Kokeile sitä",
     "text": {
-      "featureIdeas": "Tutustu suunnittelemiimme tuleviin muutoksiin ja äänestä niitä, jotka haluaisit nähdä etusijalla. Palautteesi auttaa meitä keskittymään siihen, mikä on sinulle tärkeintä."
+      "multilingualSearch": "Löydä enemmän uudella monikielisellä haulla – se yhdistää kyselysi muiden kielten käännöksiin ja tuottaa monipuolisempia ja osuvampia tuloksia."
+    },
+    "tooltip": {
+      "multilingualSearch": "Klikkaa tästä ottaaksesi käyttöön monikielisen haun"
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -1295,6 +1371,13 @@ export default {
         "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
     },
+    "multilingual": {
+      "disable": "Poista monikielinen haku käytöstä",
+      "enable": "Ota monikielinen haku käyttöön",
+      "loginToUseMultilingualSearch": "Kirjaudu sisään käyttääksesi monikielistä hakua ja saadaksesi tuloksia, joita ei ole rajoitettu hakusanasi kielelle.",
+      "turnOffMultilingualSearch": "Poista monikielinen haku käytöstä ja näytä tulokset vain hakusanan kielellä.",
+      "turnOnMultilingualSearch": "Ota käyttöön monikielinen haku ja saat tuloksia, jotka eivät rajoitu hakutermisi kieleen."
+    },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
       "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
@@ -1310,7 +1393,7 @@ export default {
   },
   "searchFilters": "Hakusuodattimet {count}",
   "searchHasLoaded": "{0} tulosta palautettu",
-  "searchPlaceholder": "Etsi 50+ miljoonaa aineistot",
+  "searchPlaceholder": "Etsi 60+ miljoonaa aineistot",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
   "searchSuggestions": "Hakuehdotuksia",
@@ -1331,17 +1414,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Lisää galleriaan",
-      "addToGallery": "Lisää tämä aineisto galleriaan.",
+      "addItems": {
+        "1": "Lisää tämä aineisto galleriaan.",
+        "many": "Lisää {count} aineisto galleriaan | Lisää {count} aineistot galleriaan"
+      },
+      "addItemsHere": {
+        "1": "Lisää galleriaan",
+        "many": "Lisää {count} aineisto galleriaan | Lisää {count} aineistot galleriaan"
+      },
       "cancelSelection": "Peruuta valinta",
       "clickToSelectItems": "Valitse aineistoja napsauttamalla niitä",
       "create": "Luo galleria",
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
-      "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
-      "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
+      "likeItems": {
+        "1": "Tallenna tämä aineisto tykkäyksiisi.",
+        "many": "Tykkää {count} aineistosta | Tykkää {count} aineistoista"
+      },
+      "removeItems": {
+        "1": "Poista tämä aineisto tästä galleriasta.",
+        "many": "Poista {count} aineisto tästä galleriasta | Poista {count} aineistot tästä galleriasta"
+      },
       "selectItems": "Valitse aineistot",
+      "unlikeItems": {
+        "1": "Poista tämä kohde tykkäyksistäsi.",
+        "many": "Poista tykkäys {count} aineistosta | Poista tykkäys {count} aineistoista"
+      },
       "update": "Päivitä galleria"
     },
     "form": {
@@ -1358,10 +1457,22 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
-      "itemAdded": "Aineisto on lisätty galleriaan \"{gallery}\".",
-      "itemLiked": "Aineisto on tallennettu tykkääjäsi.",
-      "itemRemoved": "Aineisto on poistettu galleriasta {gallery}.",
-      "itemUnliked": "Aineisto on poistettu tykkäyksistäsi.",
+      "itemsAdded": {
+        "1": "Aineisto on lisätty galleriaan \"{gallery}\".",
+        "many": "{count} aineisto on lisätty galleriaan \"{gallery}\". | {count} aineistot on lisätty galleriaan \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Aineisto on tallennettu tykkääjäsi.",
+        "many": "{count} aineisto on tallennettu tykkäyksiisi. | {count} aineistot on tallennettu tykkäyksiisi."
+      },
+      "itemsRemoved": {
+        "1": "Aineisto on poistettu galleriasta {gallery}.",
+        "many": "{count} aineisto on poistettu galleriasta \"{gallery}\". | {count} aineistot on poistettu galleriasta \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Aineisto on poistettu tykkäyksistäsi.",
+        "many": "{count} aineisto on poistettu tykkäyksistäsi. | {count} aineistot on poistettu tykkäyksistäsi."
+      },
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 aineistot. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
@@ -1370,7 +1481,8 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot."
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot.",
+      "removeItems": "Oletko varma, että haluat poistaa {count} aineisto tästä galleriasta? | Oletko varma, että haluat poistaa {count} aineistot tästä galleriasta?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1510,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poista kaikki valinnat."
+      },
+      "info": "{count} valittu aineisto. | {count} valitut aineistot."
     }
   },
   "shareWhere": "Missä haluaisit jakaa tämän?",
@@ -1406,6 +1524,7 @@ export default {
     "search": "Hae"
   },
   "statuses": {
+    "disabled": "Poistettu käytöstä",
     "liked": "Pidetty",
     "pinned": "Kiinnitetty",
     "required": "Pakollinen"
@@ -1419,6 +1538,7 @@ export default {
     "stories": "Tarina | Tarinoita"
   },
   "storiesPage": {
+    "results": "{count} tulos | {count} tulokset",
     "storiesHaveLoaded": "{0} tarinaa löydetty"
   },
   "swiper": {

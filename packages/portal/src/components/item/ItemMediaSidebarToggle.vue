@@ -4,6 +4,7 @@
     :class="{ 'closed': !showSidebar }"
   >
     <b-button
+      :id="buttonId"
       v-b-tooltip.top="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       :aria-label="showSidebar ? $t('media.sidebar.hide') : $t('media.sidebar.show')"
       variant="light-flat"
@@ -23,18 +24,27 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'ItemMediaSidebarWidget',
 
-    mixins: [hideTooltips],
-
     props: {
+      buttonId: {
+        type: String,
+        default: 'item-media-sidebar-toggle-button'
+      },
+
       showSidebar: {
         type: Boolean,
         default: false
       }
+    },
+
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(props.buttonId);
+
+      return { hideTooltips };
     }
   };
 </script>

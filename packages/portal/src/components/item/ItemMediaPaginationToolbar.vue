@@ -15,6 +15,7 @@
     />
     <span class="divider" />
     <b-button
+      :id="buttonId"
       v-b-tooltip.top="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       :aria-label="showPages ? $t('media.pages.hide') : $t('media.pages.show')"
       variant="light-flat"
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {
@@ -43,8 +44,6 @@
     components: {
       PaginationNavInput
     },
-
-    mixins: [hideTooltips],
 
     props: {
       showPages: {
@@ -55,6 +54,14 @@
         type: Number,
         default: 0
       }
+    },
+
+    setup() {
+      const buttonId = 'item-media-pagination-toolbar-button';
+
+      const { hideTooltips } = useHideTooltips(buttonId);
+
+      return { buttonId, hideTooltips };
     }
   };
   </script>

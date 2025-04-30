@@ -143,7 +143,7 @@ describe('Gallery index page', () => {
           pageSize: 24,
           page: 1,
           profile: 'items.meta'
-        }, { withMinimalItemPreviews: true }
+        }
       )).toBe(true);
       expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
     });

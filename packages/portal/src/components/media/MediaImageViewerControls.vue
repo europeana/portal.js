@@ -4,6 +4,7 @@
     class="viewer-controls position-absolute d-inline-flex align-items-center justify-content-center mx-auto"
   >
     <b-button
+      :id="rotateLeftButtonId"
       v-b-tooltip.top="$t('media.controls.rotateLeft')"
       :aria-label="$t('media.controls.rotateLeft')"
       variant="dark-flat"
@@ -16,6 +17,7 @@
       />
     </b-button>
     <b-button
+      :id="rotateRightButtonId"
       v-b-tooltip.top="$t('media.controls.rotateRight')"
       :aria-label="$t('media.controls.rotateRight')"
       variant="dark-flat"
@@ -29,6 +31,7 @@
     </b-button>
     <span class="divider" />
     <b-button
+      :id="zoomInButtonId"
       v-b-tooltip.top="$t('media.controls.zoomIn')"
       :disabled="atMaxZoom"
       :aria-label="$t('media.controls.zoomIn')"
@@ -42,6 +45,7 @@
       />
     </b-button>
     <b-button
+      :id="resetZoomButtonId"
       v-b-tooltip.top="$t('media.controls.resetZoom')"
       :disabled="atDefaultZoom"
       :aria-label="$t('media.controls.resetZoom')"
@@ -55,6 +59,7 @@
       />
     </b-button>
     <b-button
+      :id="zoomOutButtonId"
       v-b-tooltip.top="$t('media.controls.zoomOut')"
       :disabled="atMinZoom"
       :aria-label="$t('media.controls.zoomOut')"
@@ -69,6 +74,7 @@
     </b-button>
     <span class="divider" />
     <b-button
+      :id="fullscreenButtonId"
       v-b-tooltip.top="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       :aria-label="fullscreen ? $t('media.controls.exitFullscreen') : $t('media.controls.fullscreen')"
       variant="dark-flat"
@@ -85,14 +91,12 @@
 </template>
 
 <script>
-  import hideTooltips from '@/mixins/hideTooltips';
+  import useHideTooltips from '@/composables/hideTooltips.js';
   import useRotation from '@/composables/rotation.js';
   import useZoom from '@/composables/zoom.js';
 
   export default {
     name: 'MediaImageViewerControls',
-
-    mixins: [hideTooltips],
 
     props: {
       fullscreen: {
@@ -102,6 +106,16 @@
     },
 
     setup() {
+      const rotateLeftButtonId = 'media-image-viewer-controls-rotate-left-button';
+      const rotateRightButtonId = 'media-image-viewer-controls-rotate-right-button';
+      const zoomInButtonId = 'media-image-viewer-controls-zoom-in-button';
+      const resetZoomButtonId = 'media-image-viewer-controls-reset-zoom-button';
+      const zoomOutButtonId = 'media-image-viewer-controls-zoom-out-button';
+      const fullscreenButtonId = 'media-image-viewer-controls-fullscreen-button';
+
+      const { hideTooltips } = useHideTooltips([
+        rotateLeftButtonId, rotateRightButtonId, zoomInButtonId, resetZoomButtonId, zoomOutButtonId, fullscreenButtonId
+      ]);
       const {
         rotateLess,
         rotateMore
@@ -115,7 +129,23 @@
         zoomOut
       } = useZoom();
 
-      return { atMinZoom, atMaxZoom, atDefaultZoom, resetZoom, rotateLess, rotateMore, zoomIn, zoomOut };
+      return {
+        atDefaultZoom,
+        atMaxZoom,
+        atMinZoom,
+        fullscreenButtonId,
+        hideTooltips,
+        resetZoom,
+        resetZoomButtonId,
+        rotateLeftButtonId,
+        rotateLess,
+        rotateMore,
+        rotateRightButtonId,
+        zoomIn,
+        zoomInButtonId,
+        zoomOut,
+        zoomOutButtonId
+      };
     }
   };
 </script>

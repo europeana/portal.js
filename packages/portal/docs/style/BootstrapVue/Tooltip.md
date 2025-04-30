@@ -33,5 +33,12 @@ Used by:
   <b-tooltip target="tooltip-target-1" placement="bottom">
     <span>This tooltip contains a <b-link href="/#">link</b-link></span>
   </b-tooltip>
+
+  <b-button id="tooltip-target-2" variant="primary">
+    Hover or tab for primary variant
+  </b-button>
+  <b-tooltip target="tooltip-target-2" placement="bottom" variant="primary">
+    <span>This tooltip is used to call the user's attention to for example a new feature</span>
+  </b-tooltip>
 </div>
 ```

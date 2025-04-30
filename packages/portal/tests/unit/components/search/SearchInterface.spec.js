@@ -29,8 +29,10 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
   localVue,
   attachTo: document.body,
   mocks: {
+    $cookies: { get: sinon.stub(), set: sinon.spy() },
+    $features: { multilingualSearch: false },
     $t: (key) => key,
-    localePath: () => '/',
+    localePath: (args) => args,
     $router: { push: sinon.spy() },
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
@@ -44,6 +46,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     },
     $auth: {},
+    $keycloak: { login: sinon.spy() },
     $i18n: {
       locale: 'en',
       n: (num) => num
@@ -75,7 +78,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     }
   ],
-  stubs: ['SearchFilters', 'i18n']
+  stubs: ['ErrorMessage', 'SearchQueryBuilder', 'SearchFilters', 'SearchResultsContext', 'LoadingSpinner', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
@@ -89,6 +92,22 @@ describe('components/search/SearchInterface', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.commit.calledWith('search/setActive')).toBe(true);
+    });
+
+    describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
+      const $auth = { loggedIn: true };
+      const $config = { app: { search: { translateLocales: ['nl'] } } };
+      const $features = { multilingualSearch: true };
+      const $i18n = { locale: 'nl' };
+
+      it('activates multilingual search', async() => {
+        const wrapper = factory({ mocks: { $auth, $config, $features, $i18n } });
+        wrapper.vm.$cookies.get.returns(true);
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.translate).toBe(true);
+      });
     });
 
     it('runs the search via the Record API', async() => {
@@ -119,15 +138,14 @@ describe('components/search/SearchInterface', () => {
       )).toBe(true);
     });
 
-    it('treats no results as an error', async() => {
+    it('displays no results like an error', async() => {
       const wrapper = factory();
       wrapper.vm.$apis.record.search.resolves({ totalResults: 0 });
 
       await wrapper.vm.fetch();
+      const errorMessageStub = wrapper.find('errormessage-stub');
 
-      expect(wrapper.vm.$error.calledWith(
-        sinon.match.has('code', 'searchResultsNotFound')
-      )).toBe(true);
+      expect(errorMessageStub.isVisible()).toBe(true);
     });
 
     describe('when there was a pagination error', () => {
@@ -210,33 +228,33 @@ describe('components/search/SearchInterface', () => {
       describe('and they require an entity look up', () => {
         describe('and a matching entity is found', () => {
           it('adds the matched entity as an additional field to look up', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:19th\\ century']
-            };
+            const expectedAdvancedQuery = 'proxy_dc_date:((19th century) OR "http://data.example.eu/123")';
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:19th\\ century'] } }
+            } });
 
             await wrapper.vm.fetch();
 
             expect(wrapper.vm.qaes.length).toBe(1);
+            expect(wrapper.vm.qaes[0]).toEqual(expectedAdvancedQuery);
           });
         });
 
         describe('and there is no matching entity', () => {
-          it('saves the query anwyay', async() => {
-            const wrapper = factory({ mocks: { $apis: {
-              entity: {
-                suggest: sinon.stub().resolves([])
-              }
-            } } });
-
-            wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:2023']
-            };
+          it('saves the query anyway', async() => {
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:2023'] } }
+            } });
 
             await wrapper.vm.fetch();
 
@@ -334,59 +352,29 @@ describe('components/search/SearchInterface', () => {
   describe('computed', () => {
     describe('apiOptions', () => {
       describe('translateLang', () => {
-        describe('when locales to translate are configured', () => {
-          const $config = { app: { search: { translateLocales: ['nl'] } } };
+        const $i18n = { locale: 'nl' };
 
-          describe('and current locale is one of the configured locales to translate', () => {
-            const $i18n = { locale: 'nl' };
+        describe('when translate is not enabled', () => {
+          const data = { translate: false };
 
-            describe('and user is logged in', () => {
-              const $auth = { loggedIn: true };
-
-              it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBe('nl');
-              });
-            });
-
-            describe('but user is not logged in', () => {
-              const $auth = { loggedIn: false };
-
-              it('is undefined', () => {
-                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
-
-                const translateLang = wrapper.vm.apiOptions.translateLang;
-
-                expect(translateLang).toBeUndefined();
-              });
-            });
-          });
-
-          describe('but current locale is not one of the configured locales to translate', () => {
-            const $i18n = { locale: 'fr' };
-
-            it('is undefined', () => {
-              const wrapper = factory({ mocks: { $config, $i18n } });
-
-              const translateLang = wrapper.vm.apiOptions.translateLang;
-
-              expect(translateLang).toBeUndefined();
-            });
-          });
-        });
-
-        describe('when locales to translate are not configured', () => {
-          const $config = { app: { search: { translateLocales: [] } } };
-
-          it('is undefined', () => {
-            const wrapper = factory({ mocks: { $config } });
+          it('is not defined', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
 
             const translateLang = wrapper.vm.apiOptions.translateLang;
 
             expect(translateLang).toBeUndefined();
+          });
+        });
+
+        describe('when translate is enabled', () => {
+          const data = { translate: true };
+
+          it('returns the current locale', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
+
+            const translateLang = wrapper.vm.apiOptions.translateLang;
+
+            expect(translateLang).toBe('nl');
           });
         });
       });
@@ -421,52 +409,6 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
-
-    describe('noMoreResults', () => {
-      describe('when there are 0 results in total', () => {
-        const wrapper = factory({
-          data: { totalResults: 0 }
-        });
-
-        it('is `false`', () => {
-          expect(wrapper.vm.noMoreResults).toBe(false);
-        });
-      });
-
-      describe('when there are some results in total', () => {
-        describe('and results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100,
-              results: [
-                {
-                  id: '/123/abc',
-                  dcTitle: { def: ['Record 123/abc'] },
-                  edmPreview: 'https://www.example.org/abc.jpg',
-                  edmDataProvider: ['Provider 123']
-                }
-              ]
-            }
-          });
-
-          it('is `false`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(false);
-          });
-        });
-
-        describe('but no results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100
-            }
-          });
-
-          it('is `true`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(true);
-          });
-        });
-      });
-    });
   });
 
   describe('destroyed', () => {
@@ -496,11 +438,10 @@ describe('components/search/SearchInterface', () => {
         const expected = {
           page: 2,
           profile: 'minimal',
-          query: 'calais',
+          query: 'calais AND proxy_dc_title:dog',
           qf: [
             'edm_agent:"http://data.europeana.eu/agent/200"',
             'TYPE:"IMAGE"',
-            'proxy_dc_title:dog',
             'contentTier:(1 OR 2 OR 3 OR 4)'
           ],
           rows: 24
@@ -535,8 +476,8 @@ describe('components/search/SearchInterface', () => {
           const expected = {
             page: 1,
             profile: 'minimal,hits',
-            query: 'fulltext:europe AND NOT fulltext:united',
-            qf: ['text:(liberty)', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            query: 'fulltext:europe AND NOT fulltext:united AND text:(liberty)',
+            qf: ['contentTier:(1 OR 2 OR 3 OR 4)'],
             rows: 24
           };
 
@@ -549,6 +490,38 @@ describe('components/search/SearchInterface', () => {
 
           expect(wrapper.vm.apiParams).toEqual(expected);
         });
+      });
+    });
+
+    describe('handleMultilingualButtonInput', () => {
+      it('stores the value in the multilingualSearch cookie', () => {
+        const $auth = { loggedIn: true };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
+      });
+
+      it('updates the route, resetting pagination', () => {
+        const $auth = { loggedIn: true };
+        const $route = { query: { query: 'casa', page: 2 } };
+        const wrapper = factory({ mocks: { $auth, $route } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$router.push.calledWith({
+          name: 'search', query: { query: 'casa', page: 1, translate: 'true' }
+        })).toBe(true);
+      });
+
+      it('logs in if needed', () => {
+        const $auth = { loggedIn: false };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$keycloak.login.called).toBe(true);
       });
     });
 
@@ -625,6 +598,18 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.handleResultsDrawn(cardRefs);
 
         expect(linkStub.focus.called).toBe(false);
+      });
+    });
+
+    describe('handleSearchParamsChanged', () => {
+      it('resets multi selected items and calls fetch', () => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.handleSearchParamsChanged();
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
 
@@ -717,6 +702,21 @@ describe('components/search/SearchInterface', () => {
             expect(wrapper.vm.$fetch.called).toBe(false);
           });
         });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('when $route.query.translate value changes', () => {
+      it('resets multi selected items and triggers $fetch', async() => {
+        const wrapper = factory({ mocks: { $route: { query: {} } } });
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.$route.query = { translate: 'true' };
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });

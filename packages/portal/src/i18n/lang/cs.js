@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Správa účtů",
     "curatedCollections": "Kurátorské sbírky",
-    "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
     "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
-    "myProfile": "Můj profil",
+    "manageApiKeys": "Správa klíčů API",
+    "menu": {
+      "close": "Zavřít uživatelské menu",
+      "open": "Otevřít uživatelské menu"
+    },
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
-    "profileSettings": "Nastavení profilu",
     "publicCollections": "Veřejné galerie",
     "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
@@ -31,7 +34,6 @@ export default {
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
       "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
-      "remove": "Odeberte tuto položku z této galerie.",
       "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Přidat",
     "apply": "Použít",
     "cancel": "Zrušit",
+    "changeView": "Změnit zobrazení",
     "clear": "Vyčistit",
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
+    "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zavřít nabídku správy klíčů",
+      "disable": "Zakázat klíč",
+      "reEnable": "Znovu povolit klíč",
+      "showMenu": "Zobrazit nabídku správy klíčů"
+    },
+    "disable": {
+      "promptText1": "Opravdu chcete zakázat tento API klíč?",
+      "promptText2": "Jakmile tento klíč zakážete, již jej nebudete moci používat ve svém projektu. Toto nastane okamžitě. Pro opětovné povolení API klíče nám prosím pošlete e-mail na adresu api@europeana.eu.",
+      "title": "Zakázat API klíč"
+    },
+    "reEnable": {
+      "text": "Chcete-li znovu aktivovat tento klíč API, pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu pro zpětnou vazbu ve spodní části okna.",
+      "title": "Znovu povolit API klíč"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Požádejte o osobní API klíč",
+          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
+          "termsOfUseLinkText": "podmínky použití"
+        },
+        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
+        "heading": "Osobní API klíč",
+        "howToLinkText": "Jak používat svůj klíč"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Správa API klíčů"
+        },
+        "clientId": {
+          "label": "API klíč"
+        },
+        "created": {
+          "label": "Datum vytvoření"
+        }
+      }
+    },
+    "title": "Správa klíčů API"
+  },
   "attribution": {
     "country": "Země:",
     "creator": "Tvůrce:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Téma"
   },
   "categories": {
-    "label": "Prozkoumejte příběhy podle štítku",
+    "label": "Prozkoumejte výsledky podle značky",
     "noOptions": "Nejsou k dispozici žádné další tagy.",
-    "search": "Prozkoumejte příběhy podle štítku"
+    "search": "Prozkoumejte výsledky podle značky"
   },
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Zadejte svůj osobní API klíč",
+            "prompt": "{link} a bude použito"
+          }
+        }
+      },
       "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany."
     }
   },
@@ -210,6 +265,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento API klíč již byl zakázán, možná v jiné záložce prohlížeče.",
+      "title": "Klíč je již zakázán"
+    },
+    "authDuplicateKey": {
+      "description": "Uživatelé mohou mít pouze jeden povolený osobní klíč určený pro osobní použití.",
+      "title": "Již máte osobní klíč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nelze vytvořit nový osobní klíč, protože jste dosáhli limitu deaktivovaných osobních klíčů. Pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu zpětné vazby ve spodní části okna.",
+      "title": "Dosáhli jste limitu osobních klíčů"
+    },
     "galleryLocked": {
       "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
       "title": "Aktualizace selhala"
@@ -775,6 +842,8 @@ export default {
   "items": {
     "itemCount": "1 položka |{count} položek",
     "itemOf": "{max} z {count} položky",
+    "noItems": "Nejsou žádné položky.",
+    "noMoreItems": "Žádné další položky nejsou k dispozici.",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
     "trending": {
@@ -963,6 +1032,10 @@ export default {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamatuje si, zda dáváte přednost vícejazyčným výsledkům vyhledávání.",
+        "title": "Vícejazyčné vyhledávání"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1134,9 +1207,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Ukaž mi",
+    "readMore": "Zkuste to",
     "text": {
-      "featureIdeas": "Prozkoumejte nadcházející změny, které plánujeme, a hlasujte pro ty, které byste rádi viděli jako prioritní. Váš příspěvek nám pomůže zaměřit se na to, co je pro vás nejdůležitější."
+      "multilingualSearch": "Objevte více s novým vícejazyčným vyhledáváním – porovnává váš dotaz s překlady do jiných jazyků a přináší vám bohatší a relevantnější výsledky."
+    },
+    "tooltip": {
+      "multilingualSearch": "Kliknutím sem aktivujete vícejazyčné vyhledávání."
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -1295,6 +1371,13 @@ export default {
         "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
     },
+    "multilingual": {
+      "disable": "Zakázat vícejazyčné vyhledávání",
+      "enable": "Povolit vícejazyčné vyhledávání",
+      "loginToUseMultilingualSearch": "Přihlaste se a použijte vícejazyčné vyhledávání a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
+      "turnOffMultilingualSearch": "Vypněte vícejazyčné vyhledávání a zobrazit výsledky pouze v jazyce hledaného výrazu.",
+      "turnOnMultilingualSearch": "Zapněte vícejazyčné vyhledávání a získejte výsledky neomezené na jazyk hledaného výrazu."
+    },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
       "loginToSeeMore": "{login} zobrazíte další výsledky",
@@ -1310,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtry vyhledávání {count}",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Hledejte přes 50 milionů položek",
+  "searchPlaceholder": "Hledejte přes 60 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",
@@ -1331,17 +1414,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Vložit do galerie",
-      "addToGallery": "Přidat tuto položku do galerie.",
+      "addItems": {
+        "1": "Přidat tuto položku do galerie.",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
+      "addItemsHere": {
+        "1": "Vložit do galerie",
+        "many": "Přidat {count} položku do galerie | Přidat {count} položky do galerie"
+      },
       "cancelSelection": "Zrušit výběr",
       "clickToSelectItems": "Kliknutím na položky je vyberete",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "removeItemFromLikes": "Odeberte tuto položku ze svýchlíbí se mi.",
-      "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
+      "likeItems": {
+        "1": "Uložte si tuto položku do seznamu líbí se vám.",
+        "many": "Lajkuj {count} položku | Lajkuj {count} položky"
+      },
+      "removeItems": {
+        "1": "Odeberte tuto položku z této galerie.",
+        "many": "Odstraňte {count} položku z této galerie | Odstraňte {count} položky z této galerie"
+      },
       "selectItems": "Vyberte položky",
+      "unlikeItems": {
+        "1": "Odeberte tuto položku ze svýchlíbí se mi.",
+        "many": "Odeber lajk z {count} položky | Odeber lajky z {count} položek"
+      },
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -1358,10 +1457,22 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
-      "itemAdded": "Položka byla přidána do galerie \"{gallery}\".",
-      "itemLiked": "Položka byla uložena do vašich označení líbí se mi.",
-      "itemRemoved": "Položka byla odstraněna z galerie {gallery}.",
-      "itemUnliked": "Položka byla odstraněna z vašich označení líbí se mi.",
+      "itemsAdded": {
+        "1": "Položka byla přidána do galerie \"{gallery}\".",
+        "many": "{count} položka byla přidána do galerie \"{gallery}\". | {count} položky byly přidány do galerie \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Položka byla uložena do vašich označení líbí se mi.",
+        "many": "{count} položka byla uložena do vašich označení líbí se mi. | {count} položky byly uloženy do vašich označení líbí se mi."
+      },
+      "itemsRemoved": {
+        "1": "Položka byla odstraněna z galerie {gallery}.",
+        "many": "{count} položka byla odstraněna z galerie \"{gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Položka byla odstraněna z vašich označení líbí se mi.",
+        "many": "{count} položka byla odstraněna z vašich označení líbí se mi. | {count} položky byly odstraněny z vašich označení líbí se mi."
+      },
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 lajků"
@@ -1370,7 +1481,8 @@ export default {
       "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje.",
+      "removeItems": "Jste si jisti, že chcete odstranit {count} položku z této galerie? | Jste si jisti, že chcete odstranit {count} položky z této galerie?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1510,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Zrušit výběr všeho."
+      },
+      "info": "{count} vybraná položka. | {count} vybrané položky."
     }
   },
   "shareWhere": "Kam byste to chtěli sdílet?",
@@ -1406,6 +1524,7 @@ export default {
     "search": "Vyhledat"
   },
   "statuses": {
+    "disabled": "Deaktivováno",
     "liked": "Oblíbené",
     "pinned": "Připnuté",
     "required": "Požadováno"
@@ -1419,6 +1538,7 @@ export default {
     "stories": "Příběh | Příběhy"
   },
   "storiesPage": {
+    "results": "{count} výsledek | {count} výsledků",
     "storiesHaveLoaded": "{0} nalezených příběhů"
   },
   "swiper": {

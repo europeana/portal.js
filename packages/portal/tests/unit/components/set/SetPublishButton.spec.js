@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SetPublishButton from '@/components/set/SetPublishButton';
 import sinon from 'sinon';
+import SetPublishButton from '@/components/set/SetPublishButton';
+import * as useMakeToast from '@/composables/makeToast.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -41,14 +42,20 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
 });
 
 describe('components/set/SetPublishButton', () => {
+  beforeAll(() => {
+    sinon.stub(useMakeToast, 'default').returns({
+      makeToast: sinon.spy()
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.reset);
 
   it('refreshes the active set first', async() => {
     const wrapper = factory(publicSet);
 
     await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-    expect(storeDispatch.calledWith('set/fetchActive', publicSet.setId)).toBe(true);
+    expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
   });
 
   describe('when set visibility changed in the meantime', () => {
@@ -65,7 +72,6 @@ describe('components/set/SetPublishButton', () => {
     it('shows a toast with a notification', async() => {
       const wrapper = factory(publicSet);
       wrapper.vm.$store.state.set.active.visibility = 'private';
-      sinon.spy(wrapper.vm, 'makeToast');
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
@@ -87,7 +93,7 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
   });
 
@@ -105,7 +111,7 @@ describe('components/set/SetPublishButton', () => {
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
     });
   });
 });

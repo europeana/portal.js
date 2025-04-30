@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Account management",
     "curatedCollections": "Curated Collections",
-    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
-    "myProfile": "My Profile",
+    "manageApiKeys": "Manage API keys",
+    "menu": {
+      "close": "Close user menu",
+      "open": "Open user menu"
+    },
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
@@ -21,17 +25,15 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account",
+    "title": "My Profile",
     "tooltip": {
       "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
       "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
-      "remove": "Remove this item from this gallery.",
       "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Add",
     "apply": "Apply",
     "cancel": "Cancel",
+    "changeView": "Change view",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
+    "confirm": "Confirm",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "View document",
     "vote": "Vote"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Close key management menu",
+      "disable": "Disable key",
+      "reEnable": "Re-enable key",
+      "showMenu": "Show key management menu"
+    },
+    "disable": {
+      "promptText1": "Are you sure you want to disable this API key?",
+      "promptText2": "Once you disable this key, you will no longer be able to use it on your project. This will happen immediately. You will need to email us at api@europeana.eu to enable the API key again.",
+      "title": "Disable API key"
+    },
+    "reEnable": {
+      "text": "To re-enable this API key, please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "Re-enable API key"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Request a personal API key",
+          "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}.",
+          "termsOfUseLinkText": "terms of use"
+        },
+        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
+        "heading": "Personal API key",
+        "howToLinkText": "How to use your key"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API key management"
+        },
+        "clientId": {
+          "label": "API key"
+        },
+        "created": {
+          "label": "Date created"
+        }
+      }
+    },
+    "title": "Manage API keys"
+  },
   "attribution": {
     "country": "Country:",
     "creator": "Creator:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Topic"
   },
   "categories": {
-    "label": "Explore stories by tag",
+    "label": "Explore results by tag",
     "noOptions": "There are no more tags to select",
-    "search": "Explore stories by tag"
+    "search": "Explore results by tag"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -167,7 +214,11 @@ export default {
           "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
           "descriptionLine2": "Need an API key? Register for one {link}.",
           "here": "here",
-          "label": "API key"
+          "label": "API key",
+          "usePersonal": {
+            "linkText": "Enter your personal API key",
+            "prompt": "{link} and it will be used."
+          }
         }
       },
       "noRequests": "No requests to Europeana APIs were used on this page."
@@ -228,6 +279,18 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "This API key has already been disabled, perhaps in a different browser tab.",
+      "title": "Key already disabled"
+    },
+    "authDuplicateKey": {
+      "description": "Users can only have one enabled personal key which is intended for personal use.",
+      "title": "You already have a personal key"
+    },
+    "authKeyLimitReached": {
+      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "You have reached the limit of personal keys"
+    },
     "galleryLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"
@@ -816,6 +879,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "noItems": "There are no items.",
+    "noMoreItems": "There are no more items.",
     "recent": "Recent items",
     "recommended": "Recommended items",
     "trending": {
@@ -1004,6 +1069,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Remembers if you prefer to get multilingual search results.",
+        "title": "Multilingual search"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1186,9 +1255,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Show me",
+    "readMore": "Try it",
     "text": {
-      "featureIdeas": "Explore the upcoming changes we’re planning and vote for the ones you’d like to see prioritised. Your input helps us focus on what matters most to you."
+      "multilingualSearch": "Discover more with the new multilingual search — it matches your query with translations in other languages to bring you richer, more relevant results."
+    },
+    "tooltip": {
+      "multilingualSearch": "Click here to activate multilingual search"
     }
   },
   "newWindow": "opens in new window",
@@ -1347,6 +1419,13 @@ export default {
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
+    "multilingual": {
+      "disable": "Disable multilingual search",
+      "enable": "Enable multilingual search",
+      "loginToUseMultilingualSearch": "Log in to use multilingual search, and get results not limited to the language of your search term.",
+      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term.",
+      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term."
+    },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
       "loginToSeeMore": "{login} to see more results",
@@ -1362,7 +1441,7 @@ export default {
   },
   "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search 50+ million items",
+  "searchPlaceholder": "Search 60+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",
@@ -1383,17 +1462,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Add to gallery",
-      "addToGallery": "Add this item to a gallery.",
+      "addItemsHere": {
+        "many": "Add {count} item to gallery | Add {count} items to gallery",
+        "1": "Add to gallery"
+      },
+      "addItems": {
+        "many": "Add {count} item to a gallery | Add {count} items to a gallery",
+        "1": "Add this item to a gallery."
+      },
       "cancelSelection": "Cancel selection",
       "clickToSelectItems": "Click on items to select them",
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
-      "removeItemFromLikes": "Remove this item from your Likes.",
-      "saveItemToLikes": "Save this item to your Likes.",
+      "likeItems": {
+        "many": "Like {count} item | Like {count} items",
+        "1": "Save this item to your likes."
+      },
+      "removeItems": {
+        "many": "Remove {count} item from this gallery | Remove {count} items from this gallery",
+        "1": "Remove this item from this gallery."
+      },
       "selectItems": "Select items",
+      "unlikeItems": {
+        "many": "Unlike {count} item | Unlike {count} items",
+        "1": "Remove this item from your likes."
+      },
       "update": "Update gallery"
     },
     "form": {
@@ -1410,10 +1505,22 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
-      "itemAdded": "Item has been added to the gallery \"{gallery}\".",
-      "itemLiked": "Item has been saved to your likes.",
-      "itemRemoved": "Item has been removed from gallery {gallery}.",
-      "itemUnliked": "Item has been removed from your likes.",
+      "itemsAdded": {
+        "many": "{count} item has been added to the gallery \"{gallery}\". | {count} items have been added to the gallery \"{gallery}\".",
+        "1": "Item has been added to the gallery \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "many": "{count} item has been saved to your likes. | {count} items have been saved to your likes.",
+        "1": "Item has been saved to your likes."
+      },
+      "itemsRemoved": {
+        "many": "{count} item has been removed from gallery \"{gallery}\". | {count} items have been removed from gallery \"{gallery}\".",
+        "1": "Item has been removed from gallery \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "many": "{count} item has been removed from your likes. | {count} items have been removed from your likes.",
+        "1": "Item has been removed from your likes."
+      },
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
@@ -1422,7 +1529,8 @@ export default {
       "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
-      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it.",
+      "removeItems": "Are you sure you want to remove {count} item from this gallery? | Are you sure you want to remove {count} items from this gallery?"
     },
     "publication": {
       "criteria": {
@@ -1450,6 +1558,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
       }
+    },
+    "toolbar": {
+      "info": "{count} item selected. | {count} items selected.",
+      "actions": {
+        "deselectSelected": "Deselect all."
+      }
     }
   },
   "shareWhere": "Where would you like to share this?",
@@ -1458,6 +1572,7 @@ export default {
     "search": "Search"
   },
   "statuses": {
+    "disabled": "Disabled",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Required"
@@ -1471,6 +1586,7 @@ export default {
     }
   },
   "storiesPage": {
+    "results": "{count} result | {count} results",
     "storiesHaveLoaded": "{0} stories found"
   },
   "swiper": {

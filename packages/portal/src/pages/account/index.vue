@@ -4,28 +4,7 @@
     class="xxl-page page"
   >
     <b-container fluid>
-      <b-row>
-        <b-col class="pb-4">
-          <h1 class="text-center">
-            @{{ loggedInUser && loggedInUser.preferred_username }}
-          </h1>
-          <div class="text-center">
-            <b-button
-              class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="editProfileUrl"
-            >
-              <span class="icon-edit pr-1" />
-              {{ $t('account.editProfile') }}
-            </b-button>
-            <b-button
-              to="/account/logout"
-              class="text-decoration-none"
-            >
-              {{ $t('account.linkLogout') }}
-            </b-button>
-          </div>
-        </b-col>
-      </b-row>
+      <UserHeader />
       <b-row>
         <b-col class="p-0 mb-3">
           <b-container>
@@ -75,58 +54,31 @@
             </b-row>
           </b-container>
           <client-only>
-            <LoadingSpinner
-              v-if="$fetchState.pending"
-              class="text-center pb-4"
-            />
             <AlertMessage
-              v-else-if="$fetchState.error"
+              v-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
-            <b-container
+            <template
               v-else-if="activeTab === tabHashes.likes"
-              data-qa="liked items"
             >
-              <b-row class="flex-md-row">
-                <b-col cols="12">
-                  <template
-                    v-if="likedItems"
-                  >
-                    <b-row
-                      v-if="likedItems.length > 0"
-                    >
-                      <b-col class="d-flex align-items-center mb-3">
-                        <h2
-                          class="related-heading text-uppercase mb-0"
-                        >
-                          {{ $tc('items.itemCount', likedItems.length) }}
-                        </h2>
-                        <SearchViewToggles
-                          v-model="view"
-                          class="ml-auto"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col cols="12">
-                        <ItemPreviewCardGroup
-                          v-if="likesId && likedItems.length !== 0"
-                          :items="likedItems"
-                          :view="view"
-                          class="pb-5"
-                        />
-                      </b-col>
-                    </b-row>
-                  </template>
+              <ItemPreviewInterface
+                data-qa="liked items"
+                :enable-item-multi-select="true"
+                :loading="$fetchState.pending"
+                :items="likedItems"
+                :per-page="100"
+                :max-results="100"
+                :total="likedItems?.length || 0"
+              >
+                <template #no-items>
                   <div
-                    v-else
                     class="text-center pb-4"
                   >
                     {{ $t('account.notifications.noLikedItems') }}
                   </div>
-                </b-col>
-              </b-row>
-            </b-container>
+                </template>
+              </ItemPreviewInterface>
+            </template>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
                 visibility="public"
@@ -169,12 +121,10 @@
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import SearchViewToggles from '@/components/search/SearchViewToggles';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
+  import UserHeader from '@/components/user/UserHeader';
   import UserSets from '@/components/user/UserSets';
 
   export default {
@@ -184,22 +134,24 @@
       AlertMessage,
       BNav,
       ClientOnly,
-      ItemPreviewCardGroup,
-      LoadingSpinner,
-      SearchViewToggles,
+      ItemPreviewInterface,
+      UserHeader,
       UserSets
     },
 
     mixins: [
-      itemPreviewCardGroupViewMixin,
       pageMetaMixin
     ],
+
+    beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setSelected', []);
+      next();
+    },
 
     middleware: 'auth',
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -217,9 +169,6 @@
     fetchOnServer: false,
 
     computed: {
-      editProfileUrl() {
-        return this.$keycloak.accountUrl();
-      },
       pageMeta() {
         return {
           title: this.$t('account.title')
@@ -251,14 +200,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/tabs';
-
-  h1 {
-    margin-bottom: 0.75rem;
-
-    @media (min-width: $bp-4k) {
-      margin-bottom: calc(1.5 * 0.75rem);
-    }
-  }
 
   .nav-tabs {
     margin-bottom: 2.5rem;

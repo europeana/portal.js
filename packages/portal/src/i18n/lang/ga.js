@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Bainistíocht cuntais",
     "curatedCollections": "Bailiúcháin Coimeádaithe",
-    "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Taitníonn",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
     "linkLoginJoin": "Logáil isteach / Ballraíocht",
     "linkLogout": "Logáil amach",
-    "myProfile": "Mo phróifíl",
+    "manageApiKeys": "Bainistigh eochracha API",
+    "menu": {
+      "close": "Oscail roghchlár úsáideora",
+      "open": "Oscail roghchlár úsáideora"
+    },
     "notifications": {
       "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
       "loggedOut": "Tá tú logáilte amach anois.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Gailearaithe Príobháideacha",
     "profile": "Mo Thoghanna & Gailearaithe",
-    "profileSettings": "Socruithe próifíle",
     "publicCollections": "Gailearaithe Poiblí",
     "publishedCollections": "Gailearaithe Foilsithe",
     "settings": "Socruithe",
@@ -31,7 +34,6 @@ export default {
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
       "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
-      "remove": "Bain an mír seo den ghailearaí seo.",
       "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Cuir",
     "apply": "Cuir i bhfeidhm",
     "cancel": "Cealaigh",
+    "changeView": "Athraigh amharc",
     "clear": "Glan",
     "clearFilters": "Glan scagairí",
     "close": "dún",
+    "confirm": "Deimhnigh",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Breathnaigh ar dhoiciméad",
     "vote": "Vóta"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Dún roghchlár bainistíochta eochracha",
+      "disable": "Díchumasaigh eochair",
+      "reEnable": "Athchumasaigh eochair",
+      "showMenu": "Taispeáin roghchlár bainistíochta eochracha"
+    },
+    "disable": {
+      "promptText1": "An bhfuil tú cinnte gur mian leat an eochair API seo a dhíchumasú?",
+      "promptText2": "Nuair a dhíchumasaíonn tú an eochair seo, ní bheidh tú in ann í a úsáid i do thionscadal a thuilleadh. Tarlaíonn sé seo láithreach. Beidh ort ríomhphost a sheoladh chugainn ag api@europeana.eu chun an eochair API a athchumasú.",
+      "title": "Díchumasaigh eochair API"
+    },
+    "reEnable": {
+      "text": "Chun an eochair API seo a athchumasú, seol ríomhphost chuig api@europeana.eu nó déan teagmháil linn tríd an ghiuirléid aiseolais ag bun na fuinneoige.",
+      "title": "Athchumasaigh eochair API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Iarr eochair API pearsanta",
+          "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam.",
+          "termsOfUseLinkText": "téarmaí úsáide"
+        },
+        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}.",
+        "heading": "Eochair phearsanta API",
+        "howToLinkText": "Conas do eochair a úsáid"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Bainistíocht eochracha API"
+        },
+        "clientId": {
+          "label": "Eochair API"
+        },
+        "created": {
+          "label": "Dáta cruthaithe"
+        }
+      }
+    },
+    "title": "Bainistigh eochracha API"
+  },
   "attribution": {
     "country": "Tír:",
     "creator": "Cruthaitheoir:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Ábhar"
   },
   "categories": {
-    "label": "Scrúdaigh scéalta trí chlib",
+    "label": "Déan iniúchadh ar na torthaí trí chlib",
     "noOptions": "Níl a thuilleadh clibeanna le roghnú",
-    "search": "Scrúdaigh scéalta trí chlib"
+    "search": "Déan iniúchadh ar na torthaí trí chlib"
   },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Iontráil d'eochair API phearsanta",
+            "prompt": "{link} agus úsáidfear é."
+          }
+        }
+      },
       "noRequests": "Níor úsáideadh aon iarratas chuig Europeana APIs ar an leathanach seo."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Earráid",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tá an eochair API seo díchumasaithe cheana féin, b’fhéidir i gcluaisín brabhsálaí eile.",
+      "title": "Eochair díchumasaithe cheana féin"
+    },
+    "authDuplicateKey": {
+      "description": "Ní féidir le húsáideoirí ach eochair phearsanta amháin a bheith acu atá beartaithe le haghaidh úsáide pearsanta.",
+      "title": "Tá eochair phearsanta agat cheana féin"
+    },
+    "authKeyLimitReached": {
+      "description": "Ní féidir eochair phearsanta nua a chruthú mar tá teorainn na n-eochracha pearsanta díchumasaithe bainte amach agat. Seol ríomhphost chugainn ag api@europeana.eu nó déan teagmháil linn tríd an ngiuirléid aiseolais ag bun na fuinneoige.",
+      "title": "Tá teorainn na n-eochracha pearsanta sroichte agat"
+    },
     "galleryLocked": {
       "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
       "title": "Theip ar an nuashonrú"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
+    "noItems": "Níl aon míreanna ann.",
+    "noMoreItems": "Níl níos mó míreanna ann.",
     "recent": "Míreanna le déanaí",
     "recommended": "Míreanna molta",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Cuimhníonn sé más fearr leat torthaí cuardaigh ilteangacha a fháil.",
+        "title": "Cuardach ilteangach"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dún",
-    "readMore": "Taispeáin dom",
+    "readMore": "Bain triail as",
     "text": {
-      "featureIdeas": "Déan iniúchadh ar na hathruithe atá le teacht atá á bpleanáil againn agus vótáil ar son na cinn ar mhaith leat go dtabharfar tosaíocht dóibh. Cuidíonn d’ionchur linn díriú ar na rudaí is tábhachtaí duitse."
+      "multilingualSearch": "Faigh amach níos mó leis an gcuardach ilteangach nua — meaitseálann sé do cheist le haistriúcháin i dteangacha eile chun torthaí níos saibhre agus níos ábhartha a thabhairt duit."
+    },
+    "tooltip": {
+      "multilingualSearch": "Cliceáil anseo chun cuardach ilteangach a ghníomhachtú"
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Cuir isteach an téarma(í) atá sa réimse roghnaithe nó nach bhfuil."
       }
     },
+    "multilingual": {
+      "disable": "Díchumasaigh cuardach ilteangach",
+      "enable": "Cumasaigh cuardach ilteangach",
+      "loginToUseMultilingualSearch": "Logáil isteach chun cuardach ilteangach a úsáid, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
+      "turnOffMultilingualSearch": "Múch chuardach ilteangach, agus féach ar thorthaí i dteanga do théarma cuardaigh amháin.",
+      "turnOnMultilingualSearch": "Cuir cuardach ilteangach ar siúl, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh."
+    },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
       "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Scagairí cuardaigh {count}",
   "searchHasLoaded": "{0} torthaí ar ais",
-  "searchPlaceholder": "Cuardaigh 50+ milliún míreanna",
+  "searchPlaceholder": "Cuardaigh 60+ milliún míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
   "searchSuggestions": "Cuardaigh moltaí",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Cuir leis an ngailearaí",
-      "addToGallery": "Cuir an mhír seo le gailearaí.",
+      "addItems": {
+        "1": "Cuir an mhír seo le gailearaí.",
+        "many": "Cuir {count} mír le gailearaí | Cuir {count} míreanna le gailearaí"
+      },
+      "addItemsHere": {
+        "1": "Cuir leis an ngailearaí",
+        "many": "Cuir {count} mír le gailearaí | Cuir {count} míreanna le gailearaí"
+      },
       "cancelSelection": "Cealaigh an roghnúchán",
       "clickToSelectItems": "Cliceáil ar na míreanna chun iad a roghnú",
       "create": "Cruthaigh gailearaí",
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
-      "removeItemFromLikes": "Bain an mír seo ó do thaitin.",
-      "saveItemToLikes": "Sábháil an mhír seo chuig do Thaitin.",
+      "likeItems": {
+        "1": "Sábháil an mhír seo chuig do thaitin.",
+        "many": "Taitníonn {count} mír liom | Taitníonn {count} míreanna liom"
+      },
+      "removeItems": {
+        "1": "Bain an mír seo den ghailearaí seo.",
+        "many": "Bain {count} mír den ghailearaí seo | Bain {count} míreanna den ghailearaí seo"
+      },
       "selectItems": "Roghnaigh míreanna",
+      "unlikeItems": {
+        "1": "Bain an mír seo ó do thaitin.",
+        "many": "{count} mír ní thaitníonn liom a thuilleadh | {count} míreanna ní thaitníonn liom a thuilleadh."
+      },
       "update": "Nuashonraigh gailearaí"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
-      "itemAdded": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
-      "itemLiked": "Sábháladh an mír le do rudaí is maith leat.",
-      "itemRemoved": "Baineadh an mhír as gailearaí {gallery}.",
-      "itemUnliked": "Baineadh an mír as do rudaí is maith leat.",
+      "itemsAdded": {
+        "1": "Cuireadh an mír leis an gailearaí \"{gallery}\".",
+        "many": "{count} mír cuireadh leis an ngailearaí \"{gallery}\". | {count} míreanna cuireadh leis an ngailearaí \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Sábháladh an mír le do rudaí is maith leat.",
+        "many": "{count} mír sábháladh i do rudaí is maith leat. | {count} míreanna sábháladh i do rudaí is maith leat."
+      },
+      "itemsRemoved": {
+        "1": "Baineadh an mhír as gailearaí {gallery}.",
+        "many": "{count} mír baineadh as an ngailearaí \"{gallery}\". | {count} míreanna baineadh as an ngailearaí \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Baineadh an mír as do rudaí is maith leat.",
+        "many": "{count} mír baineadh as do rudaí is maith leat. | {count} míreanna baineadh as do rudaí is maith leat."
+      },
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 míreanna a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 taitníonn"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
     },
     "prompts": {
-      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
+      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis.",
+      "removeItems": "An bhfuil tú cinnte gur mhaith leat {count} mír a bhaint den ghailearaí seo? | An bhfuil tú cinnte gur mhaith leat {count} míreanna a bhaint den ghailearaí seo?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "Uirlis gréasánbhunaithe is ea WEAVExperience (WEAVEx) chun inneachar de chineálacha éagsúla a bhainistiú (lena n-áirítear 3D), chun oidhreacht chultúrtha a dhoiciméadú trí spásanna digiteacha pobail, agus chun scéalta agus eispéiris dhigiteacha a choimeád."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Díroghnaigh uile."
+      },
+      "info": "{count} mír roghnaithe. | {count} míreanna roghnaithe."
     }
   },
   "shareWhere": "Cá háit ar mhaith leat é seo a roinnt?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Cuardaigh"
   },
   "statuses": {
+    "disabled": "Díchumasaithe",
     "liked": "Taitníodh",
     "pinned": "Pionnáilte",
     "required": "Riachtanach"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Scéal | Scéalta"
   },
   "storiesPage": {
+    "results": "{count} toradh | {count} torthaí",
     "storiesHaveLoaded": "{0} scéalta aimsithe"
   },
   "swiper": {

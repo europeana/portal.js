@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Upravljanje računom",
     "curatedCollections": "Kurirane zbirke",
-    "editProfile": "Uredi profil",
     "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
     "linkLoginJoin": "Prijavi se / Pridruži se",
     "linkLogout": "Odjava",
-    "myProfile": "Moj profil",
+    "manageApiKeys": "Upravljanje API ključevima",
+    "menu": {
+      "close": "Zatvori korisnički izbornik",
+      "open": "Otvori korisnički izbornik"
+    },
     "notifications": {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privatne galerije",
     "profile": "Moji lajkovi i galerije",
-    "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Postavke",
@@ -31,7 +34,6 @@ export default {
       "private": "Privatnu galeriju možete vidjeti samo vi.",
       "public": "Javnu galeriju može pogledati svatko s vezom.",
       "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije.",
-      "remove": "Uklonite ovaj predmet iz ove galerije.",
       "reorder": "Možete promijeniti redoslijed predmeti klikom na ovaj gumb i povlačenjem predmet da je premjestite."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Dodaj",
     "apply": "Primijeni",
     "cancel": "Otkazati",
+    "changeView": "Promjena prikaza",
     "clear": "Očisti",
     "clearFilters": "Izbriši filtre",
     "close": "zatvori",
+    "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
     "download": "Preuzmi",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Pogledajte dokument",
     "vote": "Glasaj"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zatvori izbornik za upravljanje ključevima",
+      "disable": "Onemogući ključ",
+      "reEnable": "Ponovno omogućite ključ",
+      "showMenu": "Prikaži izbornik za upravljanje ključevima"
+    },
+    "disable": {
+      "promptText1": "Jeste li sigurni da želite onemogućiti ovaj API ključ?",
+      "promptText2": "Kada onemogućite ovaj ključ, više ga nećete moći koristiti na svom projektu. To će se dogoditi odmah. Morat ćete nam poslati e-mail na api@europeana.eu da ponovno omogućimo API ključ.",
+      "title": "Onemogući API ključ"
+    },
+    "reEnable": {
+      "text": "Da biste ponovno omogućili ovaj API ključ, pošaljite nam e-poruku na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Ponovno omogućite API ključ"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Zatražite osobni API ključ",
+          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}.",
+          "termsOfUseLinkText": "uvjeti korištenja"
+        },
+        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
+        "heading": "Osobni API ključ",
+        "howToLinkText": "Kako koristiti svoj ključ"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Upravljanje API ključevima"
+        },
+        "clientId": {
+          "label": "API ključ"
+        },
+        "created": {
+          "label": "Datum kreiranja"
+        }
+      }
+    },
+    "title": "Upravljanje API ključevima"
+  },
   "attribution": {
     "country": "Država:",
     "creator": "Stvorio/la:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Istražite priče po oznaci",
+    "label": "Istražite rezultate prema oznaci",
     "noOptions": "Nema više oznaka za odabir",
-    "search": "Istražite priče po oznaci"
+    "search": "Istražite rezultate prema oznaci"
   },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Unesite svoj osobni API ključ",
+            "prompt": "{link} i bit će korišten."
+          }
+        }
+      },
       "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane."
     }
   },
@@ -210,6 +265,18 @@ export default {
   },
   "error": "Greška",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ovaj API ključ je već onemogućen, možda u drugoj kartici preglednika.",
+      "title": "Ključ je već onemogućen"
+    },
+    "authDuplicateKey": {
+      "description": "Korisnici mogu imati samo jedan omogućen osobni ključ namijenjen osobnoj upotrebi.",
+      "title": "Već imate osobni ključ"
+    },
+    "authKeyLimitReached": {
+      "description": "Nije moguće stvoriti novi osobni ključ jer ste dosegli ograničenje onemogućenih osobnih ključeva. Molimo pošaljite nam e-mail na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Dosegli ste ograničenje osobnih ključeva"
+    },
     "galleryLocked": {
       "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
       "title": "Ažuriranje nije uspjelo"
@@ -775,6 +842,8 @@ export default {
   "items": {
     "itemCount": "1 stavka |{count} predmeti",
     "itemOf": "{max} od {count} predmeti",
+    "noItems": "Nema predmeta.",
+    "noMoreItems": "Nema više predmeta.",
     "recent": "Nedavne predmeti",
     "recommended": "Preporučeni predmeti",
     "trending": {
@@ -963,6 +1032,10 @@ export default {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamti želite li višejezične rezultate pretraživanja.",
+        "title": "Višejezično pretraživanje"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1134,9 +1207,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Pokaži mi",
+    "readMore": "Probajte",
     "text": {
-      "featureIdeas": "Istražite nadolazeće promjene koje planiramo i glasajte za one za koje biste željeli da imaju prioritet. Vaš nam doprinos pomaže da se usredotočimo na ono što vam je najvažnije."
+      "multilingualSearch": "Otkrijte više uz novo višejezično pretraživanje koje povezuje vaš upit s prijevodima na druge jezike kako bi vam donijelo bogatije i relevantnije rezultate."
+    },
+    "tooltip": {
+      "multilingualSearch": "Kliknite ovdje kako biste aktivirali višejezično pretraživanje."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -1295,6 +1371,13 @@ export default {
         "term": "Unesite pojmove koje odabrano polje sadrži ili ne sadrži."
       }
     },
+    "multilingual": {
+      "disable": "Onemogući višejezično pretraživanje",
+      "enable": "Omogući višejezično pretraživanje",
+      "loginToUseMultilingualSearch": "Prijavite se kako biste koristili višejezično pretraživanje i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
+      "turnOffMultilingualSearch": "Isključite višejezično pretraživanje i pogledajte rezultate samo na jeziku vašeg pojma za pretraživanje.",
+      "turnOnMultilingualSearch": "Uključite višejezično pretraživanje i dobijte rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje."
+    },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
       "loginToSeeMore": "{login} da biste vidjeli više rezultata",
@@ -1310,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtri pretraživanja {count}",
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Pretražite više od 50 milijuna predmeti",
+  "searchPlaceholder": "Pretražite više od 60 milijuna predmeti",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",
@@ -1331,17 +1414,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj u galeriju",
-      "addToGallery": "Dodajte ovu predmet u galeriju.",
+      "addItems": {
+        "1": "Dodajte ovu predmet u galeriju.",
+        "many": "Dodajte {count} predmet u galeriju | Dodajte {count} predmete u galeriju"
+      },
+      "addItemsHere": {
+        "1": "Dodaj u galeriju",
+        "many": "Dodajte {count} predmet u galeriju | Dodajte {count} predmete u galeriju"
+      },
       "cancelSelection": "Poništi odabir",
       "clickToSelectItems": "Kliknite na predmete kako biste ih odabrali",
       "create": "Stvori galeriju",
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "removeItemFromLikes": "Uklonite ovaj predmet iz svojih lajkova.",
-      "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
+      "likeItems": {
+        "1": "Spremite ovu predmet u svoje lajkove.",
+        "many": "Lajkaj {count} predmet | Lajkaj {count} predmete"
+      },
+      "removeItems": {
+        "1": "Uklonite ovaj predmet iz ove galerije.",
+        "many": "Uklonite {count} predmet iz ove galerije | Uklonite {count} predmete iz ove galerije"
+      },
       "selectItems": "Odaberite predmete",
+      "unlikeItems": {
+        "1": "Uklonite ovaj predmet iz svojih lajkova.",
+        "many": "Ukloni lajk s {count} predmeta | Ukloni lajkove s {count} predmeta"
+      },
       "update": "Ažuriraj galeriju"
     },
     "form": {
@@ -1358,10 +1457,22 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
-      "itemAdded": "Predmet je dodana u galeriju \" {gallery} \".",
-      "itemLiked": "Predmet je spremljen u vaše lajkove.",
-      "itemRemoved": "Predmet je uklonjena iz galerije {gallery} .",
-      "itemUnliked": "Predmet je uklonjen iz vaših lajkova.",
+      "itemsAdded": {
+        "1": "Predmet je dodana u galeriju \" {gallery} \".",
+        "many": "{count} predmet je dodan u galeriju \"{gallery}\". | {count} predmeti su dodani u galeriju \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Predmet je spremljen u vaše lajkove.",
+        "many": "{count} predmet je sačuvan u vašim lajkovima. | {count} predmeti su sačuvani u vašim lajkovima."
+      },
+      "itemsRemoved": {
+        "1": "Predmet je uklonjena iz galerije {gallery}.",
+        "many": "{count} predmet je uklonjen iz galerije \"{gallery}\". | {count} predmeti su uklonjeni iz galerije \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Predmet je uklonjen iz vaših lajkova.",
+        "many": "{count} predmet je uklonjen iz vaših lajkova. | {count} predmeti su uklonjeni iz vaših lajkova."
+      },
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 lajkova"
@@ -1370,7 +1481,8 @@ export default {
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali."
+      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali.",
+      "removeItems": "Jeste li sigurni da želite ukloniti {count} predmet iz ove galerije? | Jeste li sigurni da želite ukloniti {count} predmete iz ove galerije?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1510,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je alat temeljen na webu za upravljanje različitim vrstama sadržaja (uključujući 3D), dokumentiranje kulturne baštine kroz prostore digitalne zajednice i kuriranje digitalnih priča i iskustava."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Poništi odabir svega."
+      },
+      "info": "{count} odabran predmet. | {count} odabrani predmeti."
     }
   },
   "shareWhere": "Gdje biste to htjeli podijeliti?",
@@ -1406,6 +1524,7 @@ export default {
     "search": "traži"
   },
   "statuses": {
+    "disabled": "Onemogućeno",
     "liked": "Lajkano",
     "pinned": "Prikvačeno",
     "required": "Potreban"
@@ -1419,6 +1538,7 @@ export default {
     "stories": "Priča | Priče"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultata",
     "storiesHaveLoaded": "Broj pronađenih priča {0}"
   },
   "swiper": {

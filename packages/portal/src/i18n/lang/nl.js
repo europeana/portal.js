@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Accountbeheer",
     "curatedCollections": "Samengestelde collecties",
-    "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
     "linkLoginJoin": "Inloggen / Aanmelden",
     "linkLogout": "Uitloggen",
-    "myProfile": "Mijn profiel",
+    "manageApiKeys": "API-sleutels beheren",
+    "menu": {
+      "close": "Gebruikersmenu sluiten",
+      "open": "Gebruikersmenu openen"
+    },
     "notifications": {
       "loggedIn": "U bent nu ingelogd. Welkom!",
       "loggedOut": "U bent nu uitgelogd.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privé galerijen",
     "profile": "Mijn likes en galerijen",
-    "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
@@ -31,7 +34,6 @@ export default {
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
       "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
-      "remove": "Verwijder dit object uit deze galerij.",
       "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Toevoegen",
     "apply": "Toepassen",
     "cancel": "Annuleren",
+    "changeView": "Weergave wijzigen",
     "clear": "Wissen",
     "clearFilters": "Filters wissen",
     "close": "sluiten",
+    "confirm": "Bevestigen",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Document weergeven",
     "vote": "Stemmen"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Sluit sleutelbeheer menu",
+      "disable": "Sleutel uitschakelen",
+      "reEnable": "Sleutel opnieuw inschakelen",
+      "showMenu": "Toon sleutelbeheer menu"
+    },
+    "disable": {
+      "promptText1": "Weet u zeker dat u deze API-sleutel wilt uitschakelen?",
+      "promptText2": "Zodra u deze sleutel uitschakelt, kun je deze niet meer gebruiken in voor uw project. Dit gebeurt direct. U moet ons een e-mail sturen op api@europeana.eu om de API-sleutel opnieuw in te schakelen.",
+      "title": "API sleutel uitschakelen"
+    },
+    "reEnable": {
+      "text": "Als u deze API-sleutel opnieuw wilt activeren, kunt u ons een e-mail sturen op api@europeana.eu of contact met ons opnemen via de feedbackwidget onderaan het venster.",
+      "title": "API-sleutel opnieuw inschakelen"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Vraag een persoonlijke API-sleutel aan",
+          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer.",
+          "termsOfUseLinkText": "gebruiksvoorwaarden"
+        },
+        "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}.",
+        "heading": "Persoonlijke API-sleutel",
+        "howToLinkText": "Hoe u uw sleutel gebruikt"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API-sleutelbeheer"
+        },
+        "clientId": {
+          "label": "API-sleutel"
+        },
+        "created": {
+          "label": "Datum aangemaakt"
+        }
+      }
+    },
+    "title": "API-sleutels beheren"
+  },
   "attribution": {
     "country": "Land:",
     "creator": "Maker:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Onderwerp"
   },
   "categories": {
-    "label": "Verken verhalen op tag",
+    "label": "Resultaten verkennen op tag",
     "noOptions": "Er zijn geen tags meer om te selecteren",
-    "search": "Verken verhalen op tag"
+    "search": "Resultaten verkennen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Voer uw persoonlijke API-sleutel in",
+            "prompt": "{link} en het zal worden gebruikt."
+          }
+        }
+      },
       "noRequests": "Op deze pagina zijn geen verzoeken aan Europeana API's gebruikt."
     }
   },
@@ -210,6 +265,18 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Deze API-sleutel is al uitgeschakeld, mogelijk in een ander browsertabblad.",
+      "title": "Sleutel al uitgeschakeld"
+    },
+    "authDuplicateKey": {
+      "description": "Gebruikers kunnen slechts één ingeschakelde persoonlijke sleutel hebben die bedoeld is voor persoonlijk gebruik.",
+      "title": "U heeft al een persoonlijke sleutel"
+    },
+    "authKeyLimitReached": {
+      "description": "Er kan geen nieuwe persoonlijke sleutel worden aangemaakt, omdat u de limiet van uitgeschakelde persoonlijke sleutels hebt bereikt. Stuur ons een e-mail op api@europeana.eu of neem contact met ons op via de feedbackwidget onderaan het venster.",
+      "title": "U heeft de limiet van persoonlijke sleutels bereikt"
+    },
     "galleryLocked": {
       "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
       "title": "Update mislukt"
@@ -775,6 +842,8 @@ export default {
   "items": {
     "itemCount": "1 item |{count} objecten",
     "itemOf": "{max} van {count} objecten",
+    "noItems": "Er zijn geen objecten.",
+    "noMoreItems": "Er zijn geen objecten meer.",
     "recent": "Recente objecten",
     "recommended": "Aanbevolen objecten",
     "trending": {
@@ -963,6 +1032,10 @@ export default {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Onthoudt of u de voorkeur geeft aan meertalige zoekresultaten.",
+        "title": "Meertalig zoeken"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1134,9 +1207,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Toon mij",
+    "readMore": "Probeer het",
     "text": {
-      "featureIdeas": "Ontdek de komende veranderingen die we plannen en stem op de veranderingen die u prioriteit wilt geven. Uw input helpt ons om ons te richten op wat voor u het belangrijkst is."
+      "multilingualSearch": "Ontdek meer met de nieuwe meertalige zoekfunctie — het stemt uw zoekopdracht af met vertalingen in andere talen om u rijkere, relevantere resultaten te bieden."
+    },
+    "tooltip": {
+      "multilingualSearch": "Klik hier om meertalig zoeken te activeren"
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -1295,6 +1371,13 @@ export default {
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
+    "multilingual": {
+      "disable": "Meertalig zoeken uitschakelen",
+      "enable": "Meertalig zoeken inschakelen",
+      "loginToUseMultilingualSearch": "Log in om meertalig zoeken te gebruiken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
+      "turnOffMultilingualSearch": "Schakel meertalig zoeken uit en bekijk de resultaten alleen in de taal van uw zoekterm.",
+      "turnOnMultilingualSearch": "Schakel meertalige zoekopdracht in en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm."
+    },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
       "loginToSeeMore": "{login} om meer resultaten te zien",
@@ -1310,7 +1393,7 @@ export default {
   },
   "searchFilters": "Zoekfilters {count}",
   "searchHasLoaded": "{0} resultaten geretourneerd",
-  "searchPlaceholder": "Zoek meer dan 50 miljoen objecten",
+  "searchPlaceholder": "Zoek meer dan 60 miljoen objecten",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
   "searchSuggestions": "Zoeksuggesties",
@@ -1331,17 +1414,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Toevoegen aan galerij",
-      "addToGallery": "Voeg dit object toe aan een galerij.",
+      "addItems": {
+        "1": "Voeg dit object toe aan een galerij.",
+        "many": "Voeg {count} object toe aan een galerij | Voeg {count} objecten toe aan een galerij"
+      },
+      "addItemsHere": {
+        "1": "Toevoegen aan galerij",
+        "many": "Voeg {count} object toe aan galerij | Voeg {count} objecten toe aan galerij"
+      },
       "cancelSelection": "Selectie annuleren",
       "clickToSelectItems": "Klik op objecten om ze te selecteren",
       "create": "Galerij aanmaken",
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
-      "removeItemFromLikes": "Verwijder dit object uit uw likes.",
-      "saveItemToLikes": "Bewaar dit object bij uw likes.",
+      "likeItems": {
+        "1": "Bewaar dit object bij uw likes.",
+        "many": "Like {count} object | Like {count} objecten"
+      },
+      "removeItems": {
+        "1": "Verwijder dit object uit deze galerij.",
+        "many": "Verwijder {count} object uit deze galerij | Verwijder {count} objecten uit deze galerij"
+      },
       "selectItems": "Selecteer objecten",
+      "unlikeItems": {
+        "1": "Verwijder dit object uit uw likes.",
+        "many": "Unlike {count} object | Unlike {count} objecten"
+      },
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -1358,10 +1457,22 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "itemAdded": "Het object is toegevoegd aan de galerij \"{gallery}\".",
-      "itemLiked": "Object is opgeslagen bij uw likes.",
-      "itemRemoved": "Object is verwijderd uit galerij {gallery}.",
-      "itemUnliked": "Het object is verwijderd uit uw likes.",
+      "itemsAdded": {
+        "1": "Het object is toegevoegd aan de galerij \"{gallery}\".",
+        "many": "{count} object is toegevoegd aan de galerij \"{gallery}\". | {count} objecten zijn toegevoegd aan de galerij \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Object is opgeslagen bij uw likes.",
+        "many": "{count} object is opgeslagen in uw likes. | {count} objecten zijn opgeslagen in uw likes."
+      },
+      "itemsRemoved": {
+        "1": "Object is verwijderd uit galerij {gallery}.",
+        "many": "{count} object is verwijderd uit de galerij \"{gallery}\". | {count} objecten zijn verwijderd uit de galerij \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Het object is verwijderd uit uw likes.",
+        "many": "{count} object is verwijderd uit uw likes. | {count} objecten zijn verwijderd uit uw likes."
+      },
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 objecten liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
@@ -1370,7 +1481,8 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd.",
+      "removeItems": "Weet u zeker dat u {count} object uit deze galerij wilt verwijderen? | Weet u zeker dat u {count} objecten uit deze galerij wilt verwijderen?"
     },
     "publication": {
       "criteria": {
@@ -1398,6 +1510,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Alles deselecteren."
+      },
+      "info": "{count} object geselecteerd. | {count} objecten geselecteerd."
     }
   },
   "shareWhere": "Waar wilt u dit delen?",
@@ -1406,6 +1524,7 @@ export default {
     "search": "Zoeken"
   },
   "statuses": {
+    "disabled": "Uitgeschakeld",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Vereist"
@@ -1419,6 +1538,7 @@ export default {
     "stories": "Verhaal | Verhalen"
   },
   "storiesPage": {
+    "results": "{count} resultaat | {count} resultaten",
     "storiesHaveLoaded": "{0} verhalen gevonden"
   },
   "swiper": {

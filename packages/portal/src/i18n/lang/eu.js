@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontuaren kudeaketa",
     "curatedCollections": "Bilduma komisarioak",
-    "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
     "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
-    "myProfile": "Nire profila",
+    "manageApiKeys": "API gakoak kudeatu",
+    "menu": {
+      "close": "Itxi erabiltzailearen menua",
+      "open": "Ireki erabiltzailearen menua"
+    },
     "notifications": {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galeria pribatuak",
     "profile": "Nire gustukoak eta galeriak",
-    "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Galeria Publikoak",
     "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
@@ -31,7 +34,6 @@ export default {
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
       "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
-      "remove": "Kendu elementu hau galeria honetatik.",
       "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Gehitu",
     "apply": "Aplikatu",
     "cancel": "Utzi",
+    "changeView": "Ikuspegi aldatu",
     "clear": "Garbi",
     "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
+    "confirm": "Baieztatu",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Dokumentua ikusi",
     "vote": "Bozkatu"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Itxi gakoen kudeaketa menu",
+      "disable": "Desgaitu gakoa",
+      "reEnable": "Berriro gaitu gakoa",
+      "showMenu": "Erakutsi gakoen kudeaketa menua"
+    },
+    "disable": {
+      "promptText1": "Ziur zaude API gako hau desgaitu nahi duzula?",
+      "promptText2": "Behin gako hau desgaitzen duzunean, ezingo duzu zure proiektuan gehiago erabili. Hau berehala gertatuko da. API gakoa berriro gaitzeko, idatzi mesedez api@europeana.eu helbidera.",
+      "title": "Desgaitu API gakoa"
+    },
+    "reEnable": {
+      "text": "API gako hau berriro gaitzeko, bidali mezua helbide honetara: api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzien widget-aren bidez.",
+      "title": "Berriro gaitu API gakoa"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Eskatu API gako pertsonala",
+          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
+          "termsOfUseLinkText": "erabilera baldintzak"
+        },
+        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
+        "heading": "API gako pertsonala",
+        "howToLinkText": "Nola erabili zure gakoa"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API gakoen kudeaketa"
+        },
+        "clientId": {
+          "label": "API gakoa"
+        },
+        "created": {
+          "label": "Sortze data"
+        }
+      }
+    },
+    "title": "API gakoak kudeatu"
+  },
   "attribution": {
     "country": "Herrialdea:",
     "creator": "Sortzailea:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Gai"
   },
   "categories": {
-    "label": "Esploratu istorioak etiketaren arabera",
+    "label": "Arakatu emaitzak etiketa bidez",
     "noOptions": "Ez dago etiketa gehiago hautatzeko",
-    "search": "Esploratu istorioak etiketaren arabera"
+    "search": "Arakatu emaitzak etiketa bidez"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Sartu zure API gako pertsonala",
+            "prompt": "{link} eta erabiliko da."
+          }
+        }
+      },
       "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
@@ -215,6 +270,18 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "API gako hau dagoeneko desgaituta dago, agian beste nabigatzaile-fitxa batean.",
+      "title": "Gakoa dagoeneko desgaituta dago"
+    },
+    "authDuplicateKey": {
+      "description": "Erabiltzaileek erabilgarri dagoen gako pertsonal bakarra izan dezakete, erabilera pertsonalerako pentsatua.",
+      "title": "Dagoeneko baduzu gako pertsonal bat"
+    },
+    "authKeyLimitReached": {
+      "description": "Ezin da gako pertsonal berri bat sortu, desgaitutako gako pertsonalen muga iritsi delako. Bidali iezaguzu mezu bat helbidera api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzi-widgetaren bidez.",
+      "title": "Zure gako pertsonalen muga iritsi duzu"
+    },
     "galleryLocked": {
       "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
       "title": "Eguneratzea huts egin du"
@@ -780,6 +847,8 @@ export default {
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
+    "noItems": "Ez dago elementurik.",
+    "noMoreItems": "Ez daude gehiago elementuak.",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "trending": {
@@ -968,6 +1037,10 @@ export default {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Gogoratuko dugu hizkuntza anitzeko bilaketa-emaitzak nahiago dituzula.",
+        "title": "Bilaketa eleanitza"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1212,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Erakutsi",
+    "readMore": "Probatu",
     "text": {
-      "featureIdeas": "Arakatu planifikatzen ari garen datozen aldaketak eta bozkatu lehentasuna ikusi nahi dituzunak. Zure ekarpenak zuretzat gehien inporta zaizun horretan zentratzen laguntzen digu."
+      "multilingualSearch": "Ezagutu gehiago hizkuntza anitzeko bilaketa berriarekin — zure kontsulta beste hizkuntzetako itzulpenekin bat egiten du, emaitza aberatsagoak eta garrantzitsuagoak ekartzeko."
+    },
+    "tooltip": {
+      "multilingualSearch": "Egin klik hemen hizkuntza anitzeko bilaketa aktibatzeko"
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -1300,6 +1376,13 @@ export default {
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
     },
+    "multilingual": {
+      "disable": "Desgaitu bilaketa eleanitza",
+      "enable": "Gaitu bilaketa eleanitza",
+      "loginToUseMultilingualSearch": "Hasi saioa bilaketa eleanitza erabiltzeko, eta lortu emaitzak zure bilaketa-terminoaren hizkuntzara mugatu gabe.",
+      "turnOffMultilingualSearch": "Desaktibatu bilaketa eleanitza eta ikusi emaitzak zure bilaketa-terminoaren hizkuntzan soilik.",
+      "turnOnMultilingualSearch": "Aktibatu bilaketa eleanitza eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatzen ez direnak."
+    },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
       "loginToSeeMore": "{login} emaitza gehiago ikusteko",
@@ -1315,7 +1398,7 @@ export default {
   },
   "searchFilters": "Bilaketa-iragazkiak {count}",
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
+  "searchPlaceholder": "Bilatu 60 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",
@@ -1336,17 +1419,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Bildumara gaineratu",
-      "addToGallery": "Gehitu elementu hau galeria batera.",
+      "addItems": {
+        "1": "Gehitu elementu hau galeria batera.",
+        "many": "Gehitu {count} elementu galeria bati | Gehitu {count} elementu galeria batean"
+      },
+      "addItemsHere": {
+        "1": "Galeriara gehitu",
+        "many": "Gehitu {count} elementu galeria bati | Gehitu {count} elementu galeria batean"
+      },
       "cancelSelection": "Utzi hautaketa",
       "clickToSelectItems": "Egin klik elementuetan haiek hautatzeko",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
-      "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
-      "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
+      "likeItems": {
+        "1": "Gorde elementu hau zure maiteen artean.",
+        "many": "Gustatu {count} | elementua Gustatu {count} elementu"
+      },
+      "removeItems": {
+        "1": "Kendu elementu hau galeria honetatik.",
+        "many": "Kendu {count} elementu galeria honetatik | Kendu {count} elementu galeria honetatik"
+      },
       "selectItems": "Hautatu elementuak",
+      "unlikeItems": {
+        "1": "Kendu elementu hau zure gustukoenetatik.",
+        "many": "Ez gustatu {count} elementua | Ez gustatu {count} elementu"
+      },
       "update": "Eguneratu galeria"
     },
     "form": {
@@ -1363,10 +1462,22 @@ export default {
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
-      "itemAdded": "Elementua \" {gallery} \" galerian gehitu da.",
-      "itemLiked": "Elementua zure gustukoetan gorde da.",
-      "itemRemoved": "Elementua {gallery} galeriatik kendu da.",
-      "itemUnliked": "Elementua zure gustukoenetatik kendu da.",
+      "itemsAdded": {
+        "1": "Elementua \" {gallery} \" galerian gehitu da.",
+        "many": "{count} elementu gehitu da galeriara \"{gallery}\". | {count} elementu gehitu dira galeriara \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Elementua zure gustukoetan gorde da.",
+        "many": "{count} elementu gorde da zure gustukoetan. | {count} elementu gorde dira zure gustukoetan."
+      },
+      "itemsRemoved": {
+        "1": "Elementua {gallery} galeriatik kendu da.",
+        "many": "{count} elementu kendu da galeriatik \"{gallery}\". | {count} elementu kendu dira galeriatik \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Elementua zure gustukoenetatik kendu da.",
+        "many": "{count} elementu kendu da zure gustukoetatik. | {count} elementu kendu dira zure gustukoetatik."
+      },
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
@@ -1375,7 +1486,8 @@ export default {
       "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
+      "removeItems": "Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula? | Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula?"
     },
     "publication": {
       "criteria": {
@@ -1403,6 +1515,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Deshautatu guztiak."
+      },
+      "info": "{count} elementu hautatuta. | {count} elementu hautatu dira."
     }
   },
   "shareWhere": "Non partekatu nahiko zenuke hau?",
@@ -1411,6 +1529,7 @@ export default {
     "search": "Bilatu"
   },
   "statuses": {
+    "disabled": "Desgaituta",
     "liked": "Gustatu",
     "pinned": "Ainguratuta",
     "required": "Beharrezkoa"
@@ -1424,6 +1543,7 @@ export default {
     "stories": "Istorio | Istorioak"
   },
   "storiesPage": {
+    "results": "{count} emaitza | {count} emaitza",
     "storiesHaveLoaded": "{0} istorio aurkitu dira"
   },
   "swiper": {

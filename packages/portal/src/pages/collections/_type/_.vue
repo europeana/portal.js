@@ -18,24 +18,28 @@
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :default-params="searchOverrides"
       >
-        <EntityHeader
+        <template
           v-if="entity"
-          v-show="!hasUserQuery"
-          :id="entity && entity.id"
-          :description="description"
-          :title="title"
-          :sub-title="subTitle"
-          :logo="logo"
-          :image="thumbnail"
-          :editable="editable"
-          :external-link="homepage"
-          :proxy="proxy"
-          :more-info="moreInfo"
-          @updated="proxyUpdated"
-        />
+          #card-group-header
+        >
+          <EntityHeader
+            v-show="!hasUserQuery"
+            :id="entity && entity.id"
+            :description="description"
+            :title="title"
+            :sub-title="subTitle"
+            :logo="logo"
+            :image="thumbnail"
+            :editable="editable"
+            :external-link="homepage"
+            :proxy="proxy"
+            :more-info="moreInfo"
+            @updated="proxyUpdated"
+          />
+        </template>
         <template
           v-if="collectionType !== 'organisation'"
-          #related-collections
+          #card-group-related-collections
         >
           <client-only>
             <EntityRelatedCollectionsCard

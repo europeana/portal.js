@@ -47,32 +47,34 @@
       </template>
     </i18n><!-- This comment removes white space which gets underlined
  -->
-    <i18n
-      v-if="suggestLoginForMoreResults"
-      path="search.results.loginToSeeMore"
-      tag="span"
-      class="context-label mr-1"
-      data-qa="results more link"
-    >
-      <template #login>
-        <b-link
-          class="more-link"
-          :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          :target="null"
-          @click.prevent="$keycloak.login()"
-        >
-          {{ $t('actions.login') }}
-        </b-link>
-      </template>
-    </i18n><!-- This comment removes white space which gets underlined
- --><b-button
-      v-if="multilingualSearchTooltip"
-      v-b-tooltip.bottom
-      :title="multilingualSearchTooltip"
-      class="icon-info-outline p-0 tooltip-button"
-      variant="light-flat"
-      data-qa="results more tooltip"
-    />
+    <template v-if="!$features.multilingualSearchButton">
+      <i18n
+        v-if="suggestLoginForMoreResults"
+        path="search.results.loginToSeeMore"
+        tag="span"
+        class="context-label mr-1"
+        data-qa="results more link"
+      >
+        <template #login>
+          <b-link
+            class="more-link"
+            :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+            :target="null"
+            @click.prevent="$keycloak.login()"
+          >
+            {{ $t('actions.login') }}
+          </b-link>
+        </template>
+      </i18n><!-- This comment removes white space which gets underlined
+  --><b-button
+        v-if="multilingualSearchTooltip"
+        v-b-tooltip.bottom
+        :title="multilingualSearchTooltip"
+        class="icon-info-outline p-0 tooltip-button"
+        variant="light-flat"
+        data-qa="results more tooltip"
+      />
+    </template>
     <output
       class="visually-hidden"
       data-qa="results status message"
@@ -133,6 +135,9 @@
     },
 
     computed: {
+      // TODO: it's not possible to pluralise these keys properly due to the
+      // i18n component usage here. i18n-vue 9.x supports a :plural prop for
+      // the updated i18n-t component. Depends on Vue 3.
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -199,14 +204,14 @@
           view: this.$route?.query?.view
         };
       },
-      translateProfileEnabledForCurrentLocale() {
+      translateSearchForCurrentLocale() {
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
       },
       suggestLoginForMoreResults() {
-        return !this.$auth.loggedIn && this.translateProfileEnabledForCurrentLocale;
+        return !this.$auth.loggedIn && this.translateSearchForCurrentLocale;
       },
       multilingualSearchTooltip() {
-        if (this.translateProfileEnabledForCurrentLocale) {
+        if (this.translateSearchForCurrentLocale) {
           if (this.$auth.loggedIn) {
             return this.$t('search.results.showingMultilingualResults');
           } else {

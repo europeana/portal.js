@@ -63,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemId ? $t('actions.cancel') : $t('actions.close') }}
+            {{ isNew && itemIds ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
@@ -86,17 +86,24 @@
         </div>
       </b-form>
     </b-modal>
-    <SetDeleteModal
-      v-if="!isNew"
-      :set-id="setId"
+    <ConfirmDangerModal
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
+      :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
+      :modal-title="$t('set.actions.delete')"
+      :prompt-text="$t('set.prompts.delete')"
+      data-qa="confirm delete modal"
       @cancel="show"
+      @confirm="deleteSet"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
 
 <script>
+  import useMakeToast from '@/composables/makeToast.js';
   import {
     EUROPEANA_SET_VISIBILITY_PRIVATE,
     EUROPEANA_SET_VISIBILITY_PUBLIC,
@@ -107,7 +114,7 @@
     name: 'SetFormModal',
 
     components: {
-      SetDeleteModal: () => import('./SetDeleteModal')
+      ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
     props: {
@@ -151,19 +158,25 @@
         default: 'Collection'
       },
 
-      itemId: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         default: null
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
       return {
         titleValue: '',
+        deleteSetModalId: `delete-set-modal-${this.setId}`,
         descriptionValue: '',
         isPrivate: false,
-        submissionPending: false,
-        deleteSetModalId: `delete-set-modal-${this.setId}`
+        showConfirmationModal: false,
+        submissionPending: false
       };
     },
 
@@ -248,14 +261,14 @@
 
         try {
           const response = await this.createOrUpdateSet();
-          const setId = response.id;
+          const setId = response.id.split('/').pop();
 
-          if (setId === this.$store.state.set.active?.id) {
-            this.$store.dispatch('set/fetchActive', setId);
+          if (setId === this.$store.state.set.activeId) {
+            this.$store.dispatch('set/fetchActive');
           }
 
-          if (this.itemId && this.isNew) {
-            await this.$apis.set.insertItem(setId, this.itemId);
+          if (this.itemIds && this.isNew) {
+            await this.$apis.set.insertItems(setId, this.itemIds);
           }
 
           this.hide(this.isNew ? 'create' : 'update');
@@ -274,6 +287,25 @@
         }
       },
 
+      // TODO: error handling other statuses
+      async deleteSet() {
+        try {
+          await this.$apis.set.delete(this.setId);
+          if (this.setId === this.$store.state.set.active?.id) {
+            this.$store.commit('set/setActive', null);
+          }
+
+          this.makeToast(this.$t('set.notifications.deleted'));
+
+          // redirect away from deleted set page
+          if (this.$route.name.startsWith('galleries-all___')) {
+            this.$router.push(this.localePath({ name: 'account' }));
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        }
+      },
+
       show() {
         this.$bvModal.show(this.modalId);
       },
@@ -285,7 +317,9 @@
 
       clickDelete() {
         this.$bvModal.hide(this.modalId);
-        this.$bvModal.show(this.deleteSetModalId);
+        if (!this.isNew) {
+          this.showConfirmationModal = true;
+        }
       }
     }
   };

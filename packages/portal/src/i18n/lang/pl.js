@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Zarządzanie kontem",
     "curatedCollections": "Kolekcje kuratorowane",
-    "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
     "linkLoginJoin": "Zaloguj się / Zarejestruj się",
     "linkLogout": "Wyloguj",
-    "myProfile": "Mój profil",
+    "manageApiKeys": "Zarządzaj kluczami API",
+    "menu": {
+      "close": "Zamknij menu użytkownika",
+      "open": "Otwórz menu użytkownika"
+    },
     "notifications": {
       "loggedIn": "Jesteś teraz zalogowany. Witamy!",
       "loggedOut": "Teraz jesteś wylogowany.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
-    "profileSettings": "Ustawienia profilu",
     "publicCollections": "Galerie publiczne",
     "publishedCollections": "Opublikowane Galerie",
     "settings": "Ustawienia",
@@ -31,7 +34,6 @@ export default {
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
       "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
-      "remove": "Usuń ten obiekt cyfrowy z tej galerii.",
       "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
@@ -40,9 +42,11 @@ export default {
     "add": "Dodaj",
     "apply": "Zastosuj",
     "cancel": "Anuluj",
+    "changeView": "Zmień widok",
     "clear": "Wyczyść",
     "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
+    "confirm": "Potwierdź",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
     "download": "Ściągnij",
@@ -80,6 +84,49 @@ export default {
     "viewDocument": "Zobacz dokument",
     "vote": "Głosować"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zamknij menu zarządzania kluczami",
+      "disable": "Wyłącz klucz",
+      "reEnable": "Ponownie włącz klucz",
+      "showMenu": "Pokaż menu zarządzania kluczami"
+    },
+    "disable": {
+      "promptText1": "Czy na pewno chcesz wyłączyć ten klucz API?",
+      "promptText2": "Po wyłączeniu tego klucza nie będziesz mógł go już używać w swoim projekcie. Nastąpi to natychmiast. Aby ponownie włączyć klucz API, musisz wysłać nam e-mail na adres api@europeana.eu.",
+      "title": "Wyłącz klucz API"
+    },
+    "reEnable": {
+      "text": "Aby ponownie włączyć ten klucz API, wyślij nam wiadomość e-mail na adres api@europeana.eu lub skontaktuj się z nami za pośrednictwem widżetu opinii u dołu okna.",
+      "title": "Ponownie włącz klucz API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Poproś o osobisty klucz API",
+          "checkbox": "Potwierdzam, że przeczytałem i akceptuję klucz API {termsOfUseLink}.",
+          "termsOfUseLinkText": "warunki użytkowania"
+        },
+        "description": "Dowiedz się i przetestuj, jak korzystać z API za pomocą własnego klucza API. Proszę, nie udostępniaj go. {howToLink}.",
+        "heading": "Osobisty klucz API",
+        "howToLinkText": "Jak używać swojego klucza"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Zarządzanie kluczami API"
+        },
+        "clientId": {
+          "label": "Klucz API"
+        },
+        "created": {
+          "label": "Data utworzenia"
+        }
+      }
+    },
+    "title": "Zarządzaj kluczami API"
+  },
   "attribution": {
     "country": "Kraj:",
     "creator": "Twórca:",
@@ -110,9 +157,9 @@ export default {
     "topic": "Temat"
   },
   "categories": {
-    "label": "Przeglądaj historie według tagów",
+    "label": "Przeglądaj wyniki według tagów",
     "noOptions": "Nie ma więcej tagów do wybrania",
-    "search": "Przeglądaj historie według tagów"
+    "search": "Przeglądaj wyniki według tagów"
   },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
@@ -162,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Wprowadź swój osobisty klucz API",
+            "prompt": "{link} i zostanie użyty."
+          }
+        }
+      },
       "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana."
     }
   },
@@ -209,6 +264,18 @@ export default {
   },
   "error": "Błąd",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ten klucz API został już wyłączony, być może w innej karcie przeglądarki.",
+      "title": "Klucz już wyłączony"
+    },
+    "authDuplicateKey": {
+      "description": "Użytkownicy mogą mieć tylko jeden aktywowany klucz osobisty przeznaczony do użytku osobistego.",
+      "title": "Masz już klucz osobisty"
+    },
+    "authKeyLimitReached": {
+      "description": "Nie można utworzyć nowego klucza osobistego, ponieważ osiągnięto limit wyłączonych kluczy osobistych. Prosimy o wysłanie e-maila na adres api@europeana.eu lub o kontakt poprzez widget opinii na dole okna.",
+      "title": "Osiągnąłeś limit kluczy osobistych"
+    },
     "galleryLocked": {
       "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
       "title": "Aktualizacja nie powiodła się"
@@ -774,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 obiekt cyfrowy | {count} obiekty cyfrowe",
     "itemOf": "{max} z {count} obiekty cyfrowe",
+    "noItems": "Brak obiektów cyfrowych.",
+    "noMoreItems": "Nie ma obiektów cyfrowych.",
     "recent": "Ostatnie obiekty cyfrowe",
     "recommended": "Polecane obiekty cyfrowe",
     "trending": {
@@ -962,6 +1031,10 @@ export default {
         "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Zapamiętuje, czy wolisz otrzymywać wielojęzyczne wyniki wyszukiwania.",
+        "title": "Wyszukiwanie wielojęzyczne"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1132,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Pokaż mi",
+    "readMore": "Spróbuj",
     "text": {
-      "featureIdeas": "Zapoznaj się z nadchodzącymi zmianami, które planujemy i zagłosuj na te, które chcesz, aby były traktowane priorytetowo. Twój wkład pomoże nam skupić się na tym, co dla Ciebie najważniejsze."
+      "multilingualSearch": "Odkryj więcej dzięki nowej wielojęzycznej wyszukiwarce — dopasowuje ona Twoje zapytanie do tłumaczeń w innych językach, aby dostarczyć Ci bogatsze i bardziej trafne wyniki."
+    },
+    "tooltip": {
+      "multilingualSearch": "Kliknij tutaj, aby aktywować wyszukiwanie wielojęzyczne"
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -1293,6 +1369,13 @@ export default {
         "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
     },
+    "multilingual": {
+      "disable": "Wyłącz wyszukiwanie wielojęzyczne",
+      "enable": "Włącz wyszukiwanie wielojęzyczne",
+      "loginToUseMultilingualSearch": "Zaloguj się, aby korzystać z wyszukiwania wielojęzycznego i uzyskiwać wyniki nieograniczone do języka wyszukiwanego hasła.",
+      "turnOffMultilingualSearch": "Wyłącz wyszukiwanie wielojęzyczne i wyświetlaj wyniki tylko w języku wyszukiwanego hasła.",
+      "turnOnMultilingualSearch": "Włącz wyszukiwanie wielojęzyczne i otrzymuj wyniki nieograniczone do języka wyszukiwanego hasła."
+    },
     "results": {
       "limitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najtrafniejszych wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
       "loginToSeeMore": "{login} aby zobaczyć więcej wyników",
@@ -1308,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtry wyszukiwania {count}",
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Przeszukaj ponad 50 milionów obiekty cyfrowe",
+  "searchPlaceholder": "Przeszukaj ponad 60 milionów obiekty cyfrowe",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",
@@ -1329,17 +1412,33 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Dodaj do galerii",
-      "addToGallery": "Dodaj ten obiekt cyfrowy do galerii.",
+      "addItems": {
+        "1": "Dodaj ten obiekt cyfrowy do galerii.",
+        "many": "Dodaj {count} obiekt cyfrowy do galerii | Dodaj {count} obiekty cyfrowe do galerii"
+      },
+      "addItemsHere": {
+        "1": "Dodaj do galerii",
+        "many": "Dodaj {count} obiekt cyfrowy do galerii | Dodaj {count} obiekty cyfrowe do galerii"
+      },
       "cancelSelection": "Anuluj wybór",
       "clickToSelectItems": "Kliknij obiekty cyfrowe, aby je wybrać",
       "create": "Utwórz galerię",
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
-      "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
-      "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+      "likeItems": {
+        "1": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
+        "many": "Polub {count} obiekt cyfrowy | Polub {count} obiekty cyfrowe"
+      },
+      "removeItems": {
+        "1": "Usuń ten obiekt cyfrowy z tej galerii.",
+        "many": "Usuń {count} obiekt cyfrowy z tej galerii | Usuń {count} obiekty cyfrowe z tej galerii"
+      },
       "selectItems": "Wybierz obiekty cyfrowe",
+      "unlikeItems": {
+        "1": "Usuń ten obiekt cyfrowy ze swoich polubień.",
+        "many": "Odlub z {count} obiektu cyfrowego | Odlub z {count} obiektów cyfrowych"
+      },
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -1356,10 +1455,22 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
-      "itemAdded": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
-      "itemLiked": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
-      "itemRemoved": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
-      "itemUnliked": "Obiekt cyfrowy został usunięty z Twoich polubień.",
+      "itemsAdded": {
+        "1": "Obiekt cyfrowy został dodany do galerii \"{gallery}\".",
+        "many": "{count} obiekt cyfrowy został dodany do galerii \"{gallery}\". | {count} obiekty cyfrowe zostały dodane do galerii \"{gallery}\"."
+      },
+      "itemsLiked": {
+        "1": "Obiekt cyfrowy został zapisany w Twoich polubieniach.",
+        "many": "{count} obiekt cyfrowy został zapisany w Twoich polubieniach. | {count} obiekty cyfrowe zostały zapisane w Twoich polubieniach."
+      },
+      "itemsRemoved": {
+        "1": "Obiekt cyfrowy został usunięty z galerii {gallery}.",
+        "many": "{count} obiekt cyfrowy został usunięty z galerii \"{gallery}\". | {count} obiekty cyfrowe zostały usunięte z galerii \"{gallery}\"."
+      },
+      "itemsUnliked": {
+        "1": "Obiekt cyfrowy został usunięty z Twoich polubień.",
+        "many": "{count} obiekt cyfrowy został usunięty z Twoich polubień. | {count} obiekty cyfrowe zostały usunięte z Twoich polubień."
+      },
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"
@@ -1368,7 +1479,8 @@ export default {
       "visibilityChanged": "Ostrzeżenie: zestaw widoczności już się zmienił i obecnie wynosi „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej."
+      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej.",
+      "removeItems": "Czy na pewno chcesz usunąć {count} obiekt cyfrowy z tej galerii? | Czy na pewno chcesz usunąć {count} obiekty cyfrowe z tej galerii?"
     },
     "publication": {
       "criteria": {
@@ -1396,6 +1508,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) to internetowe narzędzie do zarządzania treściami różnego typu (w tym 3D), dokumentowania dziedzictwa kulturowego poprzez cyfrowe przestrzenie społecznościowe oraz kura torowania cyfrowych historii i doświadczeń."
       }
+    },
+    "toolbar": {
+      "actions": {
+        "deselectSelected": "Odznacz wszystko."
+      },
+      "info": "{count} wybrany obiekt cyfrowy. | {count} wybrane obiekty cyfrowe."
     }
   },
   "shareWhere": "Gdzie chcesz się tym podzielić?",
@@ -1404,6 +1522,7 @@ export default {
     "search": "Szukaj"
   },
   "statuses": {
+    "disabled": "Wyłączone",
     "liked": "Lubiana",
     "pinned": "Przypięty",
     "required": "Wymagane"
@@ -1417,6 +1536,7 @@ export default {
     "stories": "Historia | Historie"
   },
   "storiesPage": {
+    "results": "{count} wynik | {count} wyniki",
     "storiesHaveLoaded": "{0} znalezionych historii"
   },
   "swiper": {
