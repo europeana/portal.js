@@ -285,10 +285,6 @@
   content: '\e96f';
 }
 
-.icon-settings::before {
-  content: '\e928';
-}
-
 .icon-share::before {
   content: '\e925';
 }
@@ -337,7 +333,11 @@
   content: '\e95b';
 }
 
-.icon-translate::before {
+.icon-translate:before {
+  content: '\e970';
+}
+
+.icon-translate-outlined::before {
   content: '\e93c';
 }
 

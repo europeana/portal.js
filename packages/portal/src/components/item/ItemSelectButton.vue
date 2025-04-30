@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$features.itemMultiSelect">
+  <div>
     <b-button
       :id="buttonId"
       class="item-select-button p-0"
@@ -7,27 +7,24 @@
       variant="light-flat"
       :aria-label="ariaLabelText"
       @click="toggle"
-      @mouseleave="$root.$emit('bv::hide::tooltip', tooltipId);"
-      @focusout="hideTooltips"
+      @mouseleave="showTooltip = false"
+      @focusout="showTooltip = false"
+      @focus="showTooltip = true"
+      @mouseover="showTooltip = true"
     >
       <span
         :class="{
           'icon-select-circle': selected,
-          'icon-select-circle-outlined': !selected,
-          'target-animation': newFeatureTooltipEnabled
+          'icon-select-circle-outlined': !selected
         }"
       />
     </b-button>
-    <NewFeatureTooltip
-      :tooltip-target-id="buttonId"
-      @disabled="newFeatureTooltipEnabled = false"
-      @enabled="newFeatureTooltipEnabled = true"
-    />
     <b-tooltip
-      v-if="!newFeatureTooltipEnabled"
       :id="tooltipId"
       placement="bottom"
+      :show.sync="showTooltip"
       :target="buttonId"
+      @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
     >
       {{ tooltipText }}
     </b-tooltip>
@@ -35,28 +32,15 @@
 </template>
 
 <script>
-  import useHideTooltips from '@/composables/hideTooltips.js';
-
   export default {
     name: 'ItemSelectButton',
 
-    components: {
-      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip')
-    },
-
-    setup() {
-      const buttonId = 'item-select-button';
-
-      const { hideTooltips } = useHideTooltips(buttonId);
-
-      return { buttonId, hideTooltips };
-    },
-
     data() {
       return {
-        // TODO: clean up when new feature tooltip expires
-        newFeatureTooltipEnabled: false,
+        buttonId: 'item-select-button',
         selected: false,
+        // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when selected state is changed
+        showTooltip: false,
         tooltipId: 'item-select-button-tooltip'
       };
     },
@@ -88,7 +72,7 @@
         }
       },
       toggle() {
-        this.hideTooltips();
+        this.showTooltip = false;
         if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
@@ -103,7 +87,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
 
-  .item-select-button {
+  .btn-light-flat.item-select-button {
     font-size: $font-size-large;
     line-height: 1;
 
@@ -114,30 +98,12 @@
     &:hover {
       color: $black;
 
-      .icon-select-circle:before {
-        content: '\e96f';
-      }
-      .icon-select-circle-outlined:before {
-        content: '\e96e';
-      }
-    }
-
-    .target-animation {
-      color: $blue;
-      animation: color-slide 3000ms ease-in-out infinite;
-
-      @keyframes color-slide {
-        0% {
-          color: $blue;
+      @media (hover: hover) {
+        .icon-select-circle:before {
+          content: '\e96f';
         }
-        35% {
-          color: $black;
-        }
-        75% {
-          color: $blue;
-        }
-        100% {
-          color: $blue;
+        .icon-select-circle-outlined:before {
+          content: '\e96e';
         }
       }
     }

@@ -42,7 +42,7 @@
                 data-qa="date"
                 :datetime="datePublished"
               >
-                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short') }) }}
+                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short', $i18n.localeProperties.iso) }) }}
               </time>
               <span
                 v-if="authors"

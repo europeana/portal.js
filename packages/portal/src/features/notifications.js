@@ -1,7 +1,6 @@
 const features = [{
-  name: 'itemMultiSelect',
-  // TODO: update URL to search when multi-select is available there
-  url: '/galleries/2'
+  name: 'multilingualSearch',
+  url: '/search'
 }];
 
 export const featureNotificationExpiration = (value) => {

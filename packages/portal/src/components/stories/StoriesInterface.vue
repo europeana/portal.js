@@ -13,7 +13,7 @@
       class="d-flex justify-content-between align-items-center mb-4"
     >
       <span class="context-label">
-        {{ $tc('items.itemCount', total, { count: total }) }}
+        {{ $tc('storiesPage.results', total, { count: total }) }}
       </span>
       <StoriesTypeFilter />
       <output

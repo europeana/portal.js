@@ -218,7 +218,7 @@
           profile: 'items.meta',
           qf: `lang:${this.$i18n.locale}`
         };
-        const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
+        const response = await this.$apis.set.search(params);
         return response.items || [];
       },
       infoImageFromType(itemType) {

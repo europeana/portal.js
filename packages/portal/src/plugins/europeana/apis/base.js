@@ -10,6 +10,7 @@ export default class EuropeanaApi {
   // whether authorisation via Keycloak is used
   static AUTHORISING = false;
   static BASE_URL = 'https://api.europeana.eu/';
+  static ERROR_CODES = {};
   #axios;
 
   constructor(context) {
@@ -40,8 +41,13 @@ export default class EuropeanaApi {
     if (error.isAxiosError) {
       if (error.response) {
         error.statusCode = error.response.status;
+
         if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
           error.message = error.response.data.error;
+        }
+
+        if (this.constructor.ERROR_CODES[error.response.data?.code]) {
+          error.code = this.constructor.ERROR_CODES[error.response.data.code];
         }
       }
     }

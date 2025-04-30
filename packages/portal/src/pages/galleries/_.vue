@@ -125,105 +125,48 @@
           />
         </div>
       </b-container>
-      <LoadingSpinner
-        v-if="$fetchState.pending"
-        class="flex-md-row py-4 text-center"
-      />
-      <b-container
-        v-else
-        id="GalleryPage-set-items"
-        class="mb-3"
-        data-qa="user set"
+      <ItemPreviewInterface
+        :items="set.items"
+        :loading="$fetchState.pending"
+        :per-page="perPage"
+        :total="set.total"
+        :show-pins="setIsEntityBestItems && userIsEntityEditor"
+        :user-editable-items="userCanEditSet"
+        @endItemDrag="repositionItem"
       >
-        <b-row>
-          <b-col class="d-flex align-items-center mb-3">
-            <h2
-              class="related-heading text-uppercase mb-0"
-              data-qa="item count"
-            >
-              {{ displayItemCount }}
-            </h2>
-            <ItemSelectButton
-              v-if="$features.itemMultiSelect"
-              class="ml-auto"
-              @select="(newState) => itemMultiSelect = newState"
+        <template #footer>
+          <client-only>
+            <SetRecommendations
+              v-if="displayRecommendations"
+              :identifier="`/${setId}`"
+              :type="set.type"
             />
-            <SearchViewToggles
-              v-model="view"
-              :class="$features.itemMultiSelect ? 'ml-2' : 'ml-auto'"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-container class="px-0">
-              <b-row class="mb-3">
-                <b-col cols="12">
-                  <ItemPreviewCardGroup
-                    :items="set.items"
-                    :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                    :user-editable-items="userCanEditSet"
-                    :view="view"
-                    @endItemDrag="repositionItem"
-                  />
-                </b-col>
-              </b-row>
-              <b-row v-if="set.total > perPage">
-                <b-col>
-                  <PaginationNavInput
-                    :total-results="set.total"
-                    :per-page="perPage"
-                  />
-                </b-col>
-              </b-row>
-            </b-container>
-          </b-col>
-        </b-row>
-        <!-- NOTE: disabled until Recommendation API stops recommending items already in sets -->
-        <client-only v-if="displayRecommendations">
-          <SetRecommendations
-            :identifier="`/${setId}`"
-            :type="set.type"
-          />
-        </client-only>
-      </b-container>
+          </client-only>
+        </template>
+      </ItemPreviewInterface>
     </div>
-    <ItemSelectToolbar
-      v-if="itemMultiSelect"
-      :user-can-edit-set="userCanEditSet"
-    />
   </div>
 </template>
 
 <script>
-  import { computed } from 'vue';
   import { langMapValueForLocale } from '@europeana/i18n';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ItemSelectButton from '@/components/item/ItemSelectButton';
-  import ItemSelectToolbar from '@/components/item/ItemSelectToolbar';
-  import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
+  import ClientOnly from 'vue-client-only';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import useScrollTo from '@/composables/scrollTo.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import itemPreviewCardGroupViewMixin from '@/mixins/europeana/item/itemPreviewCardGroupView';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
 
-  const PER_PAGE = 48;
-
   export default {
     name: 'GalleryPage',
     components: {
+      ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      ItemPreviewCardGroup,
-      ItemSelectButton,
-      ItemSelectToolbar,
+      ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNavInput,
-      SearchViewToggles,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
@@ -234,16 +177,10 @@
     },
     mixins: [
       entityBestItemsSetMixin,
-      itemPreviewCardGroupViewMixin,
       langAttributeMixin,
       redirectToMixin,
       pageMetaMixin
     ],
-    provide() {
-      return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
-      };
-    },
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('set/setActiveId', null);
       this.$store.commit('set/setActiveParams', {});
@@ -262,13 +199,16 @@
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
-        perPage: PER_PAGE,
+        perPage: 48,
         title: '',
-        rawDescription: '',
-        itemMultiSelect: false
+        rawDescription: ''
       };
     },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
+      process.client && this.scrollToSelector('#header');
+
       try {
         this.validateRoute();
         this.$store.commit('set/setActiveId', this.setId);
@@ -284,7 +224,7 @@
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {
-        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
+        this.$error(e, { scope: 'gallery' });
       }
     },
     computed: {
@@ -352,9 +292,6 @@
         }
         return true;
       },
-      displayItemCount() {
-        return this.$tc('items.itemCount', this.set.total, { max: this.set.total });
-      },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
@@ -381,8 +318,6 @@
       async '$route.query.page'() {
         await this.$fetch();
         this.$store.commit('set/setSelected', []);
-        this.itemMultiSelect = false;
-        this.scrollToSelector('#GalleryPage-set-items');
       }
     },
 

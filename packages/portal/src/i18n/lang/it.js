@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestione account",
     "curatedCollections": "Collezioni curate",
-    "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
     "linkLoginJoin": "Accedi / Iscriviti",
     "linkLogout": "Esci",
-    "myProfile": "Il mio profilo",
+    "manageApiKeys": "Gestisci le chiavi API",
+    "menu": {
+      "close": "Chiudi il menu utente",
+      "open": "Apri il menu utente"
+    },
     "notifications": {
       "loggedIn": "Ora sei loggato. Benvenuto!",
       "loggedOut": "Sei ora disconnesso.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
-    "profileSettings": "Impostazioni del profilo",
     "publicCollections": "Gallerie pubbliche",
     "publishedCollections": "Gallerie Pubblicate",
     "settings": "Impostazioni",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Visualizza documento",
     "vote": "Votare"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Chiudi il menu di gestione delle chiavi",
+      "disable": "Disattiva chiave",
+      "reEnable": "Riattiva la chiave",
+      "showMenu": "Mostra il menu di gestione delle chiavi"
+    },
+    "disable": {
+      "promptText1": "Sei sicuro di voler disattivare questa chiave API?",
+      "promptText2": "Una volta disattivata questa chiave, non potrai più utilizzarla nel tuo progetto. Ciò avverrà immediatamente. Dovrai inviarci un’e-mail a api@europeana.eu per riattivare la chiave API.",
+      "title": "Disattiva la chiave API"
+    },
+    "reEnable": {
+      "text": "Per riattivare questa chiave API, inviaci un'e-mail all'indirizzo api@europeana.eu o contattaci tramite il widget di feedback in fondo alla finestra.",
+      "title": "Riattiva la chiave API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Richiedi una chiave API personale",
+          "checkbox": "Confermo di aver letto e accettato la chiave API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termini di utilizzo"
+        },
+        "description": "Scopri e prova come utilizzare le API con la tua chiave API personale. Ti preghiamo di non condividerla. {howToLink}.",
+        "heading": "Chiave API personale",
+        "howToLinkText": "Come usare la tua chiave"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Gestione delle chiavi API"
+        },
+        "clientId": {
+          "label": "Chiave API"
+        },
+        "created": {
+          "label": "Data di creazione"
+        }
+      }
+    },
+    "title": "Gestisci le chiavi API"
+  },
   "attribution": {
     "country": "Paese:",
     "creator": "Creatore:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Argomento"
   },
   "categories": {
-    "label": "Esplora le storie per tag",
+    "label": "Esplora i risultati per tag",
     "noOptions": "Non ci sono più tag da selezionare",
-    "search": "Esplora le storie per tag"
+    "search": "Esplora i risultati per tag"
   },
   "clearAllFilters": "cancella tutti i filtri",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Inserisci la tua chiave API personale",
+            "prompt": "{link} e verrà utilizzato."
+          }
+        }
+      },
       "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Errore",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Questa chiave API è già stata disattivata, forse in un'altra scheda del browser.",
+      "title": "Chiave già disattivata"
+    },
+    "authDuplicateKey": {
+      "description": "Gli utenti possono avere una sola chiave personale abilitata destinata all'uso personale.",
+      "title": "Hai già una chiave personale"
+    },
+    "authKeyLimitReached": {
+      "description": "Non è possibile creare una nuova chiave personale perché hai raggiunto il limite delle chiavi personali disattivate. Ti preghiamo di inviarci un'e-mail a api@europeana.eu o di contattarci tramite il widget dei feedback in fondo alla finestra.",
+      "title": "Hai raggiunto il limite delle chiavi personali"
+    },
     "galleryLocked": {
       "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
       "title": "Aggiornamento non riuscito"
@@ -775,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 oggetto | {count} oggetti",
     "itemOf": "{max} di {count} oggetti",
+    "noItems": "Non ci sono oggetti.",
+    "noMoreItems": "Non ci sono più oggetti.",
     "recent": "Oggetti recenti",
     "recommended": "Oggetti consigliati",
     "trending": {
@@ -963,6 +1031,10 @@ export default {
         "description": "Raccoglie statistiche anonime su come i visitatori interagiscono con il sito web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Ricorda se preferisci ottenere risultati di ricerca multilingue.",
+        "title": "Ricerca multilingue"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1133,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Chiudi",
-    "readMore": "Mostrami",
+    "readMore": "Provalo",
     "text": {
-      "featureIdeas": "Esplora i prossimi cambiamenti che stiamo pianificando e vota per quelli che vorresti vedere prioritari. Il tuo contributo ci aiuta a concentrarci su ciò che conta di più per te."
+      "multilingualSearch": "Scopri di più con la nuova ricerca multilingue — abbina la tua query alle traduzioni in altre lingue per offrirti risultati più ricchi e pertinenti."
+    },
+    "tooltip": {
+      "multilingualSearch": "Clicca qui per attivare la ricerca multilingue"
     }
   },
   "newWindow": "si apre in una nuova finestra",
@@ -1294,6 +1369,13 @@ export default {
         "term": "Immettere i termini che il campo scelto contiene o non contiene."
       }
     },
+    "multilingual": {
+      "disable": "Disabilita la ricerca multilingue",
+      "enable": "Abilita la ricerca multilingue",
+      "loginToUseMultilingualSearch": "Accedi per utilizzare la ricerca multilingue e ottenere risultati non limitati alla lingua del termine di ricerca.",
+      "turnOffMultilingualSearch": "Disattivare la ricerca multilingue e visualizzare i risultati solo nella lingua del termine di ricerca.",
+      "turnOnMultilingualSearch": "Attivate la ricerca multilingue e otterrete risultati non limitati alla lingua del termine di ricerca."
+    },
     "results": {
       "limitWarning": "I risultati aggiuntivi non vengono visualizzati, in quanto vengono mostrati solo i primi 1000 risultati più rilevanti. Se non avete trovato quello che cercate, potete affinare la vostra ricerca.",
       "loginToSeeMore": "{login} per vedere più risultati",
@@ -1309,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtri di ricerca {count}",
   "searchHasLoaded": "{0} risultati restituiti",
-  "searchPlaceholder": "Cerca oltre 50 milioni di oggetti",
+  "searchPlaceholder": "Cerca oltre 60 milioni di oggetti",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
   "searchSuggestions": "Suggerimenti di ricerca",
@@ -1440,6 +1522,7 @@ export default {
     "search": "Cerca"
   },
   "statuses": {
+    "disabled": "Disattivato",
     "liked": "Piaciuto",
     "pinned": "Appuntato",
     "required": "Richiesto"
@@ -1453,6 +1536,7 @@ export default {
     "stories": "Storia | Storie"
   },
   "storiesPage": {
+    "results": "{count} risultato | {count} risultati",
     "storiesHaveLoaded": "{0} storie trovate"
   },
   "swiper": {
