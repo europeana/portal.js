@@ -4,7 +4,7 @@
     data-qa="skip to content link"
     @click="handleClick"
   >
-    {{ text }}
+    {{ $t(textPath) }}
   </b-button>
 </template>
 
@@ -21,17 +21,17 @@
         type: String,
         default: 'skip-main'
       },
-      text: {
+      textPath: {
         type: String,
-        default: this.$t('layout.skipToMain')
+        default: 'layout.skipToMain'
       }
     },
 
     methods: {
       handleClick() {
         const element = document.querySelector(this.selector);
-        element.setAttribute('tabindex', '-1');
-        element.focus();
+        element?.setAttribute('tabindex', '-1');
+        element?.focus();
       }
     }
   };
