@@ -297,6 +297,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/elastic-apm/plugin.client',
+    '~/plugins/elastic-apm/plugin.server',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
@@ -322,7 +324,6 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
