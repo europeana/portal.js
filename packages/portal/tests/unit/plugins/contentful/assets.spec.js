@@ -1,4 +1,4 @@
-import assets from '@/modules/contentful/templates/assets';
+import assets from '@/plugins/contentful/assets.js';
 
 const responsiveParams = {
   small: { w: 245, h: 440, fit: 'fill' },
@@ -11,7 +11,7 @@ const responsiveParams = {
   '4k': { w: 700, h: 900, fit: 'fill' }
 };
 
-describe('modules/contentful/templates/assets', () => {
+describe('@/plugins/contentful/assets.js', () => {
   describe('isValidUrl', () => {
     it('is `true` for URLs on host images.ctfassets.net', () => {
       const src = 'https://images.ctfassets.net/asset.jpeg';

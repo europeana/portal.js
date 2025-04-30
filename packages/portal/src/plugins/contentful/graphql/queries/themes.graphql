@@ -1,0 +1,23 @@
+#import "../fragments/imageFields.graphql"
+
+query themes($locale: String!, $preview: Boolean = false) {
+  themePageCollection(
+    preview: $preview
+    locale: $locale
+    limit: 1000
+    order: name_ASC
+  ) {
+    total
+    items {
+      identifier
+      name
+      description
+      primaryImageOfPage {
+        url
+        image {
+          ...imageFields
+        }
+      }
+    }
+  }
+}
