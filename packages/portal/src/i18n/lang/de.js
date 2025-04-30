@@ -49,7 +49,6 @@ export default {
     "confirm": "Bestätigen",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
-    "disable": "Deaktivieren",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "filter": "Filter",
@@ -86,6 +85,21 @@ export default {
     "vote": "Abstimmen"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Schlüsselverwaltungsmenü schließen",
+      "disable": "Schlüssel deaktivieren",
+      "reEnable": "Schlüssel wieder aktivieren",
+      "showMenu": "Schlüsselverwaltungsmenü anzeigen"
+    },
+    "disable": {
+      "promptText1": "Sind Sie sicher, dass Sie diesen API-Schlüssel deaktivieren möchten?",
+      "promptText2": "Sobald Sie diesen Schlüssel deaktivieren, können Sie ihn nicht mehr für Ihr Projekt verwenden. Dies geschieht sofort. Sie müssen uns eine E-Mail an api@europeana.eu schicken, um den API-Schlüssel wieder zu aktivieren.",
+      "title": "API-Schlüssel deaktivieren"
+    },
+    "reEnable": {
+      "text": "Um diesen API-Schlüssel wieder zu aktivieren, senden Sie uns bitte eine E-Mail an api@europeana.eu oder kontaktieren Sie uns über das Feedback-Widget am unteren Rand des Fensters.",
+      "title": "API-Schlüssel wieder aktivieren"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Ich bestätige, dass ich den API-Schlüssel {termsOfUseLink} gelesen und akzeptiert habe.",
           "termsOfUseLinkText": "Nutzungsbedingungen"
         },
-        "description": "Lernen und testen Sie, wie Sie APIs mit Ihrem persönlichen API-Schlüssel verwenden können. Bitte teilen Sie ihn nicht. {howToLink}",
+        "description": "Lernen und testen Sie, wie Sie APIs mit Ihrem persönlichen API-Schlüssel verwenden können. Bitte teilen Sie ihn nicht. {howToLink}.",
         "heading": "Persönlicher API-Schlüssel",
-        "howToLinkText": "So verwenden Sie Ihren Schlüssel."
+        "howToLinkText": "So verwenden Sie Ihren Schlüssel"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API-Schlüsselverwaltung"
+        },
         "clientId": {
           "label": "API-Schlüssel"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Geben Sie Ihren persönlichen API-Schlüssel ein",
+            "prompt": "{link} und es wird verwendet."
+          }
+        }
+      },
       "noRequests": "Auf dieser Seite wurden keine Anfragen an Europeana-APIs verwendet."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Fehler",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Dieser API-Schlüssel wurde bereits deaktiviert, möglicherweise in einem anderen Browser-Tab.",
+      "title": "Schlüssel bereits deaktiviert"
+    },
+    "authDuplicateKey": {
+      "description": "Benutzer können nur einen aktivierten persönlichen Schlüssel haben, der für den persönlichen Gebrauch bestimmt ist.",
+      "title": "Sie haben bereits einen persönlichen Schlüssel"
+    },
+    "authKeyLimitReached": {
+      "description": "Ein neuer persönlicher Schlüssel kann nicht erstellt werden, da Sie das Limit der deaktivierten persönlichen Schlüssel erreicht haben. Bitte senden Sie uns eine E-Mail an api@europeana.eu oder kontaktieren Sie uns über das Feedback-Widget am unteren Rand des Fensters.",
+      "title": "Sie haben das Limit der persönlichen Schlüssel erreicht"
+    },
     "galleryLocked": {
       "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
       "title": "Aktualisierung fehlgeschlagen"
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Suchfilter {count}",
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Suche 50+ Millionen Objekte",
+  "searchPlaceholder": "Suche 60+ Millionen Objekte",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",

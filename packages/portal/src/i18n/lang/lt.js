@@ -49,7 +49,6 @@ export default {
     "confirm": "Patvirtinti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
-    "disable": "Išjungti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "filter": "Filtras",
@@ -86,6 +85,21 @@ export default {
     "vote": "Balsuoti"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Uždaryti raktų valdymo meniu",
+      "disable": "Išjungti raktą",
+      "reEnable": "Iš naujo įgalinti raktą",
+      "showMenu": "Rodyti raktų valdymo meniu"
+    },
+    "disable": {
+      "promptText1": "Ar tikrai norite išjungti šį API raktą?",
+      "promptText2": "Kai išjungsite šį raktą, jo nebegalėsite naudoti savo projekte. Tai įvyks nedelsiant. Norėdami iš naujo įgalinti API raktą, turėsite mums atsiųsti el. laišką adresu api@europeana.eu.",
+      "title": "Išjungti API raktą"
+    },
+    "reEnable": {
+      "text": "Norėdami iš naujo įgalinti šį API raktą, atsiųskite mums el. laišką adresu api@europeana.eu arba susisiekite su mumis naudodami lango apačioje esantį atsiliepimų valdiklį.",
+      "title": "Iš naujo įgalinti API raktą"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}.",
           "termsOfUseLinkText": "naudojimo sąlygos"
         },
-        "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}",
+        "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}.",
         "heading": "Asmeninis API raktas",
-        "howToLinkText": "Kaip naudoti savo raktą."
+        "howToLinkText": "Kaip naudoti savo raktą"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API raktų valdymas"
+        },
         "clientId": {
           "label": "API raktas"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Įveskite savo asmeninį API raktą",
+            "prompt": "{link} ir jis bus naudojamas."
+          }
+        }
+      },
       "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Klaida",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Šis API raktas jau išjungtas, galbūt kitame naršyklės skirtuke.",
+      "title": "Raktas jau išjungtas"
+    },
+    "authDuplicateKey": {
+      "description": "Vartotojai gali turėti tik vieną įgalintą asmeninį raktą, kuris skirtas asmeniniam naudojimui.",
+      "title": "Jau turite asmeninį raktą"
+    },
+    "authKeyLimitReached": {
+      "description": "Naujo asmeninio rakto negalima sukurti, nes pasiekėte išjungtų asmeninių raktų ribą. Atsiųskite mums el. laišką adresu api@europeana.eu arba susisiekite su mumis per atsiliepimų valdiklį lango apačioje.",
+      "title": "Pasiekėte asmeninių raktų limitą"
+    },
     "galleryLocked": {
       "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
       "title": "Atnaujinti nepavyko"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Paieškos filtrai {count}",
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Paieška 50+ milijonų skaitmeninius objektus",
+  "searchPlaceholder": "Paieška 60+ milijonų skaitmeninius objektus",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",

@@ -49,7 +49,6 @@ export default {
     "confirm": "Kinnita",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
-    "disable": "Keela",
     "download": "Lae alla",
     "edit": "Muuda",
     "filter": "Filter",
@@ -86,6 +85,21 @@ export default {
     "vote": "Hääletage"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Sulge võtmehalduse menüü",
+      "disable": "Keela võti",
+      "reEnable": "Luba võti uuesti",
+      "showMenu": "Näita võtmehalduse menüüd"
+    },
+    "disable": {
+      "promptText1": "Kas oled kindel, et soovid selle API võtme keelata?",
+      "promptText2": "Kui keelad selle võtme, ei saa sa seda enam oma projektis kasutada. See juhtub kohe. API võtme uuesti lubamiseks pead meile saatma e-kirja aadressil api@europeana.eu.",
+      "title": "Keela API võti"
+    },
+    "reEnable": {
+      "text": "Selle API võtme uuesti lubamiseks saatke meile e-kiri aadressil api@europeana.eu või võtke meiega ühendust akna allosas oleva tagasiside vidina kaudu.",
+      "title": "Luba API võti uuesti"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}.",
           "termsOfUseLinkText": "kasutustingimused"
         },
-        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}",
+        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}.",
         "heading": "Isiklik API võti",
-        "howToLinkText": "Kuidas oma võtit kasutada."
+        "howToLinkText": "Kuidas oma võtit kasutada"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API võtme haldus"
+        },
         "clientId": {
           "label": "API võti"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Sisestage oma isiklik API võti",
+            "prompt": "{link} ja seda kasutatakse."
+          }
+        }
+      },
       "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Viga",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "See API võti on juba keelatud, võib-olla mõnes teises brauseri vahekaardil.",
+      "title": "Võti on juba keelatud"
+    },
+    "authDuplicateKey": {
+      "description": "Kasutajatel võib olla ainult üks lubatud isiklik võti, mis on mõeldud isiklikuks kasutamiseks.",
+      "title": "Teil on juba isiklik võti"
+    },
+    "authKeyLimitReached": {
+      "description": "Uut isiklikku võtit ei saa luua, sest olete jõudnud keelatud isiklike võtmete piirini. Palun saatke meile e-kiri aadressil api@europeana.eu või võtke meiega ühendust akna allosas oleva tagasisidevidina kaudu.",
+      "title": "Olete jõudnud isiklike võtmete limiidini"
+    },
     "galleryLocked": {
       "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
       "title": "Uuendus ebaõnnestus"
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Otsingufiltrid {count}",
   "searchHasLoaded": "{0} tagastatud tulemused",
-  "searchPlaceholder": "Otsi 50+ miljonit üksust",
+  "searchPlaceholder": "Otsi 60+ miljonit üksust",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
   "searchSuggestions": "Otsige soovitusi",

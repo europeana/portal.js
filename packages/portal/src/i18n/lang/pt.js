@@ -49,7 +49,6 @@ export default {
     "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
-    "disable": "Desativar",
     "download": "Descarregar",
     "edit": "Editar",
     "filter": "Filtro",
@@ -86,6 +85,21 @@ export default {
     "vote": "Voto"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Fechar menu de gestão de chaves",
+      "disable": "Desativar chave",
+      "reEnable": "Reativar chave",
+      "showMenu": "Mostrar menu de gerenciamento de chaves"
+    },
+    "disable": {
+      "promptText1": "Tem a certeza de que deseja desativar esta chave API?",
+      "promptText2": "Depois de desativar esta chave, não poderá mais usá-la no seu projeto. Isto acontecerá imediatamente. Terá de nos enviar um e-mail para api@europeana.eu para reativar a chave API.",
+      "title": "Desativar chave API"
+    },
+    "reEnable": {
+      "text": "Para reativar esta chave API, envie-nos um e-mail para api@europeana.eu ou contacte-nos através do widget de feedback na parte inferior da janela.",
+      "title": "Reativar chave API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}.",
           "termsOfUseLinkText": "termos de uso"
         },
-        "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}",
+        "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}.",
         "heading": "Chave API pessoal",
         "howToLinkText": "Como usar a sua chave"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestão de chaves de API"
+        },
         "clientId": {
           "label": "Chave API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Insira a sua chave API pessoal",
+            "prompt": "{link} e será utilizado."
+          }
+        }
+      },
       "noRequests": "Nenhuma solicitação para APIs da Europeana foi usada nesta página."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Erro",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Esta chave API já foi desativada, talvez noutra aba do navegador.",
+      "title": "Chave já desativada"
+    },
+    "authDuplicateKey": {
+      "description": "Os utilizadores podem ter apenas uma chave pessoal ativada, destinada ao uso pessoal.",
+      "title": "Você já tem uma chave pessoal"
+    },
+    "authKeyLimitReached": {
+      "description": "Não é possível criar uma nova chave pessoal porque atingiu o limite de chaves pessoais desativadas. Por favor, envie-nos um e-mail para api@europeana.eu ou contacte-nos através do widget de feedback no fundo da janela.",
+      "title": "Você atingiu o limite de chaves pessoais"
+    },
     "galleryLocked": {
       "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
       "title": "Atualização falhou"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtros de pesquisa {count}",
   "searchHasLoaded": "{0} resultados retornados",
-  "searchPlaceholder": "Pesquise mais de 50 milhões de itens",
+  "searchPlaceholder": "Pesquise mais de 60 milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
   "searchSuggestions": "Sugestões de pesquisa",

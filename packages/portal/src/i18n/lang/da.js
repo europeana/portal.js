@@ -49,7 +49,6 @@ export default {
     "confirm": "Bekræft",
     "continue": "fortsæt",
     "depublish": "Depublicer",
-    "disable": "Deaktiver",
     "download": "Hent",
     "edit": "Rediger",
     "filter": "Filter",
@@ -86,22 +85,40 @@ export default {
     "vote": "Stemme"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Luk menuen for nøglehåndtering",
+      "disable": "Deaktiver nøgle",
+      "reEnable": "Genaktiver nøgle",
+      "showMenu": "Vis menu for nøglehåndtering"
+    },
+    "disable": {
+      "promptText1": "Er du sikker på, at du vil deaktivere denne API-nøgle?",
+      "promptText2": "Når du deaktiverer denne nøgle, vil du ikke længere kunne bruge den i dit projekt. Dette sker med det samme. Du skal sende os en e-mail på api@europeana.eu for at aktivere API-nøglen igen.",
+      "title": "Deaktiver API-nøgle"
+    },
+    "reEnable": {
+      "text": "For at genaktivere denne API-nøgle, bedes du sende os en e-mail på api@europeana.eu eller kontakte os via feedback-widgetten nederst i vinduet.",
+      "title": "Genaktiver API-nøgle"
+    },
     "sections": {
       "personalKeys": {
         "create": {
-          "button": "Anmod om en personlig API nøgle",
-          "checkbox": "Jeg bekræfter, at jeg har læst og accepteret API nøglen {termsOfUseLink}.",
+          "button": "Anmod om en personlig API-nøgle",
+          "checkbox": "Jeg bekræfter, at jeg har læst og accepterer API-nøglen {termsOfUseLink}.",
           "termsOfUseLinkText": "vilkår for brug"
         },
-        "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}",
-        "heading": "Personlig API nøgle",
-        "howToLinkText": "Sådan bruger du din nøgle."
+        "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}.",
+        "heading": "Personlig API-nøgle",
+        "howToLinkText": "Sådan bruger du din nøgle"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Administration af API-nøgler"
+        },
         "clientId": {
-          "label": "API nøgle"
+          "label": "API-nøgle"
         },
         "created": {
           "label": "Oprettelsesdato"
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Indtast din personlige API-nøgle",
+            "prompt": "{link} og det vil blive brugt."
+          }
+        }
+      },
       "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Fejl",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Denne API-nøgle er allerede deaktiveret, måske i en anden faneblad i browseren.",
+      "title": "Nøgle allerede deaktiveret"
+    },
+    "authDuplicateKey": {
+      "description": "Brugere kan kun have én aktiveret personlig nøgle, som er beregnet til personlig brug.",
+      "title": "Du har allerede en personlig nøgle"
+    },
+    "authKeyLimitReached": {
+      "description": "En ny personlig nøgle kan ikke oprettes, da du har nået grænsen for deaktiverede personlige nøgler. Send os venligst en e-mail på api@europeana.eu eller kontakt os via feedback-widgetten nederst i vinduet.",
+      "title": "Du har nået grænsen for personlige nøgler"
+    },
     "galleryLocked": {
       "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
       "title": "Opdatering fejlede"
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Søgefiltre {count}",
   "searchHasLoaded": "{0} resultater returneret",
-  "searchPlaceholder": "Søg i mere end 50 millioner genstande",
+  "searchPlaceholder": "Søg i mere end 60 millioner genstande",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
   "searchSuggestions": "Søgeforslag",

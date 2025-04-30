@@ -49,7 +49,6 @@ export default {
     "confirm": "Apstiprināt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
-    "disable": "Atspējot",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "filter": "Filtrs",
@@ -86,6 +85,21 @@ export default {
     "vote": "Balsojums"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Aizvērt atslēgu pārvaldības izvēlni",
+      "disable": "Atspējot atslēgu",
+      "reEnable": "Atkārtoti aktivizēt atslēgu",
+      "showMenu": "Rādīt atslēgu pārvaldības izvēlni"
+    },
+    "disable": {
+      "promptText1": "Vai esat pārliecināts, ka vēlaties atspējot šo API atslēgu?",
+      "promptText2": "Kad atspējosiet šo atslēgu, jūs vairs nevarēsiet to izmantot savā projektā. Tas notiks nekavējoties. Lai atkal iespējotu API atslēgu, jums būs jāsazinās ar mums pa e-pastu api@europeana.eu.",
+      "title": "Atspējot API atslēgu"
+    },
+    "reEnable": {
+      "text": "Lai atkārtoti aktivizētu šo API atslēgu, lūdzu, nosūtiet mums e-pastu uz api@europeana.eu vai sazinieties ar mums, izmantojot atsauksmju logrīku loga apakšdaļā.",
+      "title": "Atkārtoti iespējot API atslēgu"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}.",
           "termsOfUseLinkText": "lietošanas noteikumi"
         },
-        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}",
+        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
         "heading": "Personīgā API atslēga",
-        "howToLinkText": "Kā lietot savu atslēgu."
+        "howToLinkText": "Kā lietot savu atslēgu"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API atslēgu pārvaldība"
+        },
         "clientId": {
           "label": "API atslēga"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Ievadiet savu personīgo API atslēgu",
+            "prompt": "{link} un tas tiks izmantots."
+          }
+        }
+      },
       "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Šī API atslēga jau ir atspējota, iespējams, citā pārlūkprogrammas cilnē.",
+      "title": "Atslēga jau ir atspējota"
+    },
+    "authDuplicateKey": {
+      "description": "Lietotājiem var būt tikai viena aktivizēta personīgā atslēga, kas paredzēta personīgai lietošanai.",
+      "title": "Jums jau ir personīgā atslēga"
+    },
+    "authKeyLimitReached": {
+      "description": "Jaunu personīgo atslēgu nevar izveidot, jo esat sasniedzis atspējoto personīgo atslēgu limitu. Lūdzu, nosūtiet mums e-pastu uz api@europeana.eu vai sazinieties ar mums, izmantojot atsauksmju logrīku loga apakšā.",
+      "title": "Esat sasniedzis personīgo atslēgu limitu"
+    },
     "galleryLocked": {
       "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
       "title": "Atjaunināšana neizdevās"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Meklēšanas filtri {count}",
   "searchHasLoaded": "{0} atgriezti rezultāti",
-  "searchPlaceholder": "Meklēt 50+ miljonus digitālie objekti",
+  "searchPlaceholder": "Meklēt 60+ miljonus digitālie objekti",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
   "searchSuggestions": "Meklēšanas ieteikumi",

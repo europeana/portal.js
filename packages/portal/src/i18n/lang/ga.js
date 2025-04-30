@@ -49,7 +49,6 @@ export default {
     "confirm": "Deimhnigh",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
-    "disable": "Díchumasaigh",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "filter": "Scagaire",
@@ -86,6 +85,21 @@ export default {
     "vote": "Vóta"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Dún roghchlár bainistíochta eochracha",
+      "disable": "Díchumasaigh eochair",
+      "reEnable": "Athchumasaigh eochair",
+      "showMenu": "Taispeáin roghchlár bainistíochta eochracha"
+    },
+    "disable": {
+      "promptText1": "An bhfuil tú cinnte gur mian leat an eochair API seo a dhíchumasú?",
+      "promptText2": "Nuair a dhíchumasaíonn tú an eochair seo, ní bheidh tú in ann í a úsáid i do thionscadal a thuilleadh. Tarlaíonn sé seo láithreach. Beidh ort ríomhphost a sheoladh chugainn ag api@europeana.eu chun an eochair API a athchumasú.",
+      "title": "Díchumasaigh eochair API"
+    },
+    "reEnable": {
+      "text": "Chun an eochair API seo a athchumasú, seol ríomhphost chuig api@europeana.eu nó déan teagmháil linn tríd an ghiuirléid aiseolais ag bun na fuinneoige.",
+      "title": "Athchumasaigh eochair API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam.",
           "termsOfUseLinkText": "téarmaí úsáide"
         },
-        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}",
+        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}.",
         "heading": "Eochair phearsanta API",
-        "howToLinkText": "Conas do eochair a úsáid."
+        "howToLinkText": "Conas do eochair a úsáid"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Bainistíocht eochracha API"
+        },
         "clientId": {
           "label": "Eochair API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Iontráil d'eochair API phearsanta",
+            "prompt": "{link} agus úsáidfear é."
+          }
+        }
+      },
       "noRequests": "Níor úsáideadh aon iarratas chuig Europeana APIs ar an leathanach seo."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Earráid",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tá an eochair API seo díchumasaithe cheana féin, b’fhéidir i gcluaisín brabhsálaí eile.",
+      "title": "Eochair díchumasaithe cheana féin"
+    },
+    "authDuplicateKey": {
+      "description": "Ní féidir le húsáideoirí ach eochair phearsanta amháin a bheith acu atá beartaithe le haghaidh úsáide pearsanta.",
+      "title": "Tá eochair phearsanta agat cheana féin"
+    },
+    "authKeyLimitReached": {
+      "description": "Ní féidir eochair phearsanta nua a chruthú mar tá teorainn na n-eochracha pearsanta díchumasaithe bainte amach agat. Seol ríomhphost chugainn ag api@europeana.eu nó déan teagmháil linn tríd an ngiuirléid aiseolais ag bun na fuinneoige.",
+      "title": "Tá teorainn na n-eochracha pearsanta sroichte agat"
+    },
     "galleryLocked": {
       "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
       "title": "Theip ar an nuashonrú"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Scagairí cuardaigh {count}",
   "searchHasLoaded": "{0} torthaí ar ais",
-  "searchPlaceholder": "Cuardaigh 50+ milliún míreanna",
+  "searchPlaceholder": "Cuardaigh 60+ milliún míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
   "searchSuggestions": "Cuardaigh moltaí",

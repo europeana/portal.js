@@ -49,7 +49,6 @@ export default {
     "confirm": "Ikkonferma",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
-    "disable": "Diżattiva",
     "download": "Niżżel",
     "edit": "Editja",
     "filter": "Filtru",
@@ -86,6 +85,21 @@ export default {
     "vote": "Ivvota"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Agħlaq il-menu tal-immaniġġjar taċ-ċwievet",
+      "disable": "Diżattiva ċ-ċavetta",
+      "reEnable": "Erġa’ attiva ċ-ċavetta",
+      "showMenu": "Uri l-menu tal-immaniġġjar taċ-ċwievet"
+    },
+    "disable": {
+      "promptText1": "Int żgur li trid tiddiżattiva din iċ-ċavetta API?",
+      "promptText2": "Ladarba tiddiżattiva din iċ-ċavetta, ma tkunx tista’ tużaha fil-proġett tiegħek. Dan jiġri immedjatament. Ikollok tibgħatilna email fuq api@europeana.eu biex terġa’ tattiva ċ-ċavetta API.",
+      "title": "Diżattiva ċ-ċavetta API"
+    },
+    "reEnable": {
+      "text": "Biex terġa’ tattiva din iċ-ċavetta API, jekk jogħġbok ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Erġa’ attiva ċ-ċavetta tal-API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key.",
           "termsOfUseLinkText": "termini ta’ użu"
         },
-        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}",
+        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}.",
         "heading": "Ċavetta API personali",
-        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek."
+        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Ġestjoni taċ-ċwievet tal-API"
+        },
         "clientId": {
           "label": "Ċavetta API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Daħħal iċ-ċavetta API personali tiegħek",
+            "prompt": "{link} u se jintuża."
+          }
+        }
+      },
       "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Żball",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Din iċ-ċavetta API diġà ġiet diżattivata, forsi f'tab ieħor tal-browser.",
+      "title": "Iċ-ċavetta diġà hija diżattivata"
+    },
+    "authDuplicateKey": {
+      "description": "L-utenti jistgħu jkollhom biss ċavetta personali waħda attivata, maħsuba għall-użu personali.",
+      "title": "Diġà għandek ċavetta personali"
+    },
+    "authKeyLimitReached": {
+      "description": "Ma tistax tinħoloq ċavetta personali ġdida għax laħaqt il-limitu taċ-ċwievet personali diżattivati. Jekk jogħġbok, ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Inti lħaqt il-limitu taċ-ċwievet personali"
+    },
     "galleryLocked": {
       "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
       "title": "L-aġġornament falla"
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Fittex filtri {count}",
   "searchHasLoaded": "{0} riżultati rritornati",
-  "searchPlaceholder": "Fittex 50+ miljun oġġett",
+  "searchPlaceholder": "Fittex 60+ miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
   "searchSuggestions": "Fittex is-suġġerimenti",
