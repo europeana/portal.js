@@ -67,8 +67,12 @@ export default class EuropeanaApi {
 
     if (this.constructor.AUTHORISING) {
       axiosInstance.interceptors.response.use(
-        response => response,
-        (error) => this.context.$keycloak?.error?.(error)
+        (response) => response,
+        (error) => {
+          this.context.$keycloak?.error?.(error);
+          return Promise.reject(error);
+        }
+
       );
     }
 
