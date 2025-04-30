@@ -1,21 +1,28 @@
+// TODO: use @vue/apollo-composable instead
+
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { print as printGraphql } from 'graphql/language/printer';
 
-import queries from './queries';
+import * as queries from './graphql/queries/index.js';
 
 export default ({ $apm, $config }) => {
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance);
 
-  const config = $config.contentful;
+  const config = $config?.contentful || {};
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
 
   return (alias, variables = {}) => {
     const accessToken = variables.preview ? config.accessToken.preview : config.accessToken.delivery;
 
+    const ast = queries[alias];
+    // TODO: memoise
+    const query = printGraphql(ast);
+
     const body = {
-      query: queries[alias],
+      query,
       variables
     };
 

@@ -1,3 +1,7 @@
+#import "../fragments/imageFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+#import "../fragments/imageWithAttributionFields.graphql"
+
 query HomePage(
 	$locale: String!
 	$preview: Boolean = false
@@ -45,29 +49,4 @@ query HomePage(
 			}
 		}
 	}
-}
-
-fragment imageWithAttributionFields on ImageWithAttribution {
-	name
-	creator
-	provider
-	license
-	url
-	image {
-		...imageFields
-	}
-}
-
-fragment illustrationFields on Illustration {
-	image {
-		...imageFields
-	}
-}
-
-fragment imageFields on Asset {
-	url
-	contentType
-	description
-	width
-	height
 }

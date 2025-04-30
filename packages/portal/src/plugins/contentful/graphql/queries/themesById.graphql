@@ -1,3 +1,5 @@
+#import "../fragments/imageFields.graphql"
+
 query themesById(
   $locale: String!,
   $identifiers: [String]!,
@@ -20,12 +22,4 @@ query themesById(
       }
     }
   }
-}
-
-fragment imageFields on Asset {
-  url
-  contentType
-  description
-  width
-  height
 }

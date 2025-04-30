@@ -1,7 +1,6 @@
-import assets from './assets';
-import query from './query';
-
-import storeModule from './store';
+import assets from './assets.js';
+import query from './query.js';
+import storeModule from './store.js';
 
 const MODULE_NAME = 'contentful';
 

@@ -1,6 +1,6 @@
-import store from '@/modules/contentful/templates/store';
+import store from '@/plugins/contentful/store.js';
 
-describe('modules/contentful/templates/store', () => {
+describe('@/plugins/contentful/store.js', () => {
   it('is namespaced', () => {
     expect(store.namespaced).toBe(true);
   });
