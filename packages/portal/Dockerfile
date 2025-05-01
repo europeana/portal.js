@@ -20,16 +20,15 @@ COPY packages/vue-router-query ./packages/vue-router-query
 COPY packages/vue-session ./packages/vue-session
 COPY packages/vue-visible-on-scroll ./packages/vue-visible-on-scroll
 
-RUN npm -w packages/portal ci
+RUN pnpm -w packages/portal install
 
 COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
-RUN npm run build
-RUN rm -rf node_modules packages/*/node_modules packages/style
-RUN rm -rf packages/portal/src/lang
-RUN npm -w packages/portal ci --omit dev --omit peer
+RUN pnpm build
+RUN rm -rf packages/style packages/portal/src/lang
+RUN pnpm -w packages/portal install --prod
 
 
 FROM gcr.io/distroless/nodejs${node_version}-debian12
