@@ -12,7 +12,7 @@ Feature: Page layout on all pages.
     And I press the TAB key
     And I see the `skip to content link`
     And I press the ENTER key
-    Then I should be on `/en#main`
+    Then the `main content` is highlighted
 
   Scenario: Main navigation is visible
     When I open the `home page`

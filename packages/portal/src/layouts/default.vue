@@ -28,6 +28,7 @@
       <ProvideCanonicalUrl>
         <nuxt
           id="main"
+          data-qa="main content"
         />
       </ProvideCanonicalUrl>
     </main>
