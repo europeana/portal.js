@@ -362,6 +362,10 @@
 
   &.icon-clear {
     font-size: $font-size-small;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
   }
 
   .icon-pin,
