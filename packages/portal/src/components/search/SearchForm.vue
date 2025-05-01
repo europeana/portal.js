@@ -366,21 +366,23 @@
     position: relative;
   }
 
-  .back-button {
+  .back-button.btn-light-flat.button-icon-only {
     position: absolute;
     left: 1rem;
     top: 1rem;
     z-index: 4;
-
-    &::before {
-      font-size: 0.5rem;
-      transform: rotateX(180deg);
-    }
+    font-size: 0.5rem;
 
     @media (min-width: $bp-4k) {
       left: 1.5rem;
       top: 1.5rem;
+      font-size: 0.75rem;
     }
+
+    &::before {
+      transform: rotateX(180deg);
+    }
+
   }
 
   .clear-button {
