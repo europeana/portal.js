@@ -64,7 +64,6 @@
   @import '@europeana/style/scss/variables';
 
   .dropdown {
-    ::v-deep .btn-light,
     ::v-deep .dropdown-menu {
       @media (min-width: $bp-wqhd) {
         font-size: 1.125rem;
@@ -72,8 +71,12 @@
     }
 
     ::v-deep .btn-light {
-      font-size: 1rem;
+      font-size: $font-size-base;
       padding: 0.75rem 1rem;
+
+      @media (min-width: $bp-wqhd) {
+        font-size: 1.125rem;
+      }
     }
 
     ::v-deep .dropdown-menu {
