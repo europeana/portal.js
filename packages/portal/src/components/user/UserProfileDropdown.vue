@@ -33,7 +33,7 @@
                 },
                 {
                   text: 'Delete account',
-                  href: this.$keycloak?.accountUrl('DELETE_ACCOUNT')
+                  href: this.$keycloak?.accountUrl('delete_account')
                 },
                 this.$features.manageApiKeys && {
                   text: this.$t('account.manageApiKeys'),

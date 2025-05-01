@@ -125,7 +125,6 @@ export const keycloakPlugin = (ctx) => {
       // FIXME: this should be the current url, not the base url
       'redirect_uri': ctx.$config.app.baseUrl,
       'response_type': 'code',
-      scope: 'openid',
       'kc_action': action
     }).toString();
     return keycloakAccountUrl.toString();
