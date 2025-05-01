@@ -16,6 +16,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@europeana/portal':
+        specifier: link:packages/portal
+        version: link:packages/portal
     devDependencies:
       '@babel/core':
         specifier: ^7.19.1
