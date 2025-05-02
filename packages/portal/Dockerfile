@@ -16,7 +16,7 @@ RUN apk add pnpm
 
 RUN mkdir -p packages/portal
 
-COPY package*.json pnpm-* ./
+COPY package.json pnpm-* ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/i18n ./packages/i18n
 COPY packages/style ./packages/style
