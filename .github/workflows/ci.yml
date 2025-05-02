@@ -115,14 +115,13 @@ jobs:
       -
         name: Install eslint
         run: |
-          npm install --prefix tmp \
-            eslint@$(jq -Mr '.packages["node_modules/eslint"].version' package-lock.json) \
-            eslint-plugin-jest@$(jq -Mr '.packages["node_modules/eslint-plugin-jest"].version' package-lock.json) \
-            eslint-plugin-vue@$(jq -Mr '.packages["node_modules/eslint-plugin-vue"].version' package-lock.json)
-          mv tmp/node_modules ./
+          pnpm install \
+            eslint@$(pnpm list --json eslint | jq -Mr .[0].devDependencies.eslint.version) \
+            eslint-plugin-jest@$(pnpm list --json eslint-plugin-jest | jq -Mr ".[0].devDependencies.[\"eslint-plugin-jest\"].version") \
+            eslint-plugin-vue@$(pnpm list --json eslint-plugin-vue | jq -Mr ".[0].devDependencies.[\"eslint-plugin-vue\"].version")
       -
         name: Run eslint
-        run: npm run lint
+        run: pnpm run lint
 
   # Run style linting on master and all PRs (including drafts)
   lint-style:
@@ -142,11 +141,10 @@ jobs:
       -
         name: Install stylelint
         run: |
-          npm install --prefix tmp \
-            stylelint@$(jq -Mr '.packages["node_modules/stylelint"].version' package-lock.json) \
-            stylelint-config-recommended-vue@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-vue"].version' package-lock.json) \ \
-            stylelint-config-recommended-scss@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-scss"].version' package-lock.json)
-          mv tmp/node_modules ./
+          pnpm install \
+            stylelint@$(pnpm list --json stylelint | jq -Mr .[0].devDependencies.stylelint.version) \
+            stylelint-config-recommended-vue@$(pnpm list --json stylelint-config-recommended-vue | jq -Mr ".[0].devDependencies.[\"stylelint-config-recommended-vue\"].version") \
+            stylelint-config-recommended-scss@$(pnpm list --json stylelint-config-recommended-scss | jq -Mr ".[0].devDependencies.[\"stylelint-config-recommended-scss\"].version")
       -
         name: Run stylelint
         run: npm run stylelint
@@ -168,10 +166,10 @@ jobs:
           cache: 'npm'
       -
         name: NPM install
-        run: npm ci --include-workspace-root -w packages/portal
+        run: pnpm install
       -
         name: List cachers
-        run: npm run cache list
+        run: pnpm run cache list
 
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
@@ -190,10 +188,10 @@ jobs:
           cache: 'npm'
       -
         name: NPM install
-        run: npm ci --include-workspace-root -w packages/portal
+        run: pnpm install
       -
         name: Run unit tests with coverage reporting
-        run: npm run test:coverage:ci
+        run: pnpm run test:coverage:ci
       -
         name: Archive code coverage
         run: |
