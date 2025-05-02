@@ -11,7 +11,6 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-# install pnpm
 RUN apk add pnpm
 
 RUN mkdir -p packages/portal
