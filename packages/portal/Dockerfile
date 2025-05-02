@@ -4,15 +4,18 @@ ARG node_version=20
 
 FROM node:${node_version}-alpine AS build
 
+# QUESTION: are these still relevant?
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 WORKDIR /app
 
+RUN apk add pnpm
+
 RUN mkdir -p packages/portal
 
-COPY package*.json ./
+COPY package.json pnpm-* ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/i18n ./packages/i18n
 COPY packages/style ./packages/style
@@ -20,16 +23,15 @@ COPY packages/vue-router-query ./packages/vue-router-query
 COPY packages/vue-session ./packages/vue-session
 COPY packages/vue-visible-on-scroll ./packages/vue-visible-on-scroll
 
-RUN npm -w packages/portal ci
+RUN pnpm install
 
 COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
-RUN npm run build
-RUN rm -rf node_modules packages/*/node_modules packages/style
-RUN rm -rf packages/portal/src/lang
-RUN npm -w packages/portal ci --omit dev --omit peer
+RUN pnpm build
+RUN rm -rf packages/style packages/portal/src/lang node_modules
+RUN pnpm install --prod
 
 
 FROM gcr.io/distroless/nodejs${node_version}-debian12

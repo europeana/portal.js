@@ -10,7 +10,7 @@
     "lokalise": "node --require dotenv/config bin/lokalise.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
-    "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
+    "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || pnpm build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
     "version": "node bin/pkg-versions.js && git add pkg-versions.js"
   },
   "dependencies": {

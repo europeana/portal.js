@@ -7,23 +7,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'pnpm'
       -
         name: Install Node packages
         run: |
-          npm install --prefix tmp \
-            dotenv@$(jq -Mr '.packages["node_modules/dotenv"].version' package-lock.json) \
-            @lokalise/node-api@$(jq -Mr '.packages["node_modules/@lokalise/node-api"].version' package-lock.json)
-          mv tmp/node_modules .
+          pnpm install \
+            dotenv@$(pnpm list --json dotenv | jq -Mr .[0].unsavedDependencies.dotenv.version) \
+            @lokalise/node-api@$(pnpm list --json @lokalise/node-api | jq -Mr ".[0].unsavedDependencies.[\"@lokalise/node-api\"].version")
       -
         name: Update lang files
         env:
           LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
           LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
-        run: npm run -w packages/portal lokalise
+        run: pnpm run --filter @europeana/portal lokalise
       -
         name: Set pull request branch name
         run: echo "PR_BRANCH=l10n/$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
