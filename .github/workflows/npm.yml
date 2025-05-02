@@ -22,4 +22,4 @@ jobs:
         name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: npm -w packages/style publish --access public
+        run: pnpm publish --access public --filter @europeana/style

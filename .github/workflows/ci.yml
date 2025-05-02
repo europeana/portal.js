@@ -147,7 +147,7 @@ jobs:
             stylelint-config-recommended-scss@$(pnpm list --json stylelint-config-recommended-scss | jq -Mr ".[0].devDependencies.[\"stylelint-config-recommended-scss\"].version")
       -
         name: Run stylelint
-        run: npm run stylelint
+        run: pnpm run stylelint
 
   # Verify cachers can load in Node.js on master and all PRs (including drafts)
   test-cachers:
