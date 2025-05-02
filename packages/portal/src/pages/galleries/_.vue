@@ -224,7 +224,7 @@
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {
-        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
+        this.$error(e, { scope: 'gallery' });
       }
     },
     computed: {
@@ -318,7 +318,6 @@
       async '$route.query.page'() {
         await this.$fetch();
         this.$store.commit('set/setSelected', []);
-        this.itemMultiSelect = false;
       }
     },
 

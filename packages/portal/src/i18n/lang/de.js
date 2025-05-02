@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontoverwaltung",
     "curatedCollections": "Kuratierte Sammlungen",
-    "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
     "linkLoginJoin": "Anmelden/Registrieren",
     "linkLogout": "Abmelden",
-    "myProfile": "Mein Profil",
+    "manageApiKeys": "Verwalten von API-Schlüsseln",
+    "menu": {
+      "close": "Benutzermenü schließen",
+      "open": "Benutzermenü öffnen"
+    },
     "notifications": {
       "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
       "loggedOut": "Sie sind jetzt ausgeloggt.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Private Galerien",
     "profile": "Meine Likes & Galerien",
-    "profileSettings": "Profileinstellungen",
     "publicCollections": "Öffentliche Galerien",
     "publishedCollections": "Veröffentlichte Galerien",
     "settings": "Einstellungen",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen",
     "vote": "Abstimmen"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Schlüsselverwaltungsmenü schließen",
+      "disable": "Schlüssel deaktivieren",
+      "reEnable": "Schlüssel wieder aktivieren",
+      "showMenu": "Schlüsselverwaltungsmenü anzeigen"
+    },
+    "disable": {
+      "promptText1": "Sind Sie sicher, dass Sie diesen API-Schlüssel deaktivieren möchten?",
+      "promptText2": "Sobald Sie diesen Schlüssel deaktivieren, können Sie ihn nicht mehr für Ihr Projekt verwenden. Dies geschieht sofort. Sie müssen uns eine E-Mail an api@europeana.eu schicken, um den API-Schlüssel wieder zu aktivieren.",
+      "title": "API-Schlüssel deaktivieren"
+    },
+    "reEnable": {
+      "text": "Um diesen API-Schlüssel wieder zu aktivieren, senden Sie uns bitte eine E-Mail an api@europeana.eu oder kontaktieren Sie uns über das Feedback-Widget am unteren Rand des Fensters.",
+      "title": "API-Schlüssel wieder aktivieren"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Persönlichen API-Schlüssel anfordern",
+          "checkbox": "Ich bestätige, dass ich den API-Schlüssel {termsOfUseLink} gelesen und akzeptiert habe.",
+          "termsOfUseLinkText": "Nutzungsbedingungen"
+        },
+        "description": "Lernen und testen Sie, wie Sie APIs mit Ihrem persönlichen API-Schlüssel verwenden können. Bitte teilen Sie ihn nicht. {howToLink}.",
+        "heading": "Persönlicher API-Schlüssel",
+        "howToLinkText": "So verwenden Sie Ihren Schlüssel"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API-Schlüsselverwaltung"
+        },
+        "clientId": {
+          "label": "API-Schlüssel"
+        },
+        "created": {
+          "label": "Erstellungsdatum"
+        }
+      }
+    },
+    "title": "Verwalten von API-Schlüsseln"
   },
   "attribution": {
     "country": "Land:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Geben Sie Ihren persönlichen API-Schlüssel ein",
+            "prompt": "{link} und es wird verwendet."
+          }
+        }
+      },
       "noRequests": "Auf dieser Seite wurden keine Anfragen an Europeana-APIs verwendet."
     }
   },
@@ -211,6 +265,18 @@ export default {
   },
   "error": "Fehler",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Dieser API-Schlüssel wurde bereits deaktiviert, möglicherweise in einem anderen Browser-Tab.",
+      "title": "Schlüssel bereits deaktiviert"
+    },
+    "authDuplicateKey": {
+      "description": "Benutzer können nur einen aktivierten persönlichen Schlüssel haben, der für den persönlichen Gebrauch bestimmt ist.",
+      "title": "Sie haben bereits einen persönlichen Schlüssel"
+    },
+    "authKeyLimitReached": {
+      "description": "Ein neuer persönlicher Schlüssel kann nicht erstellt werden, da Sie das Limit der deaktivierten persönlichen Schlüssel erreicht haben. Bitte senden Sie uns eine E-Mail an api@europeana.eu oder kontaktieren Sie uns über das Feedback-Widget am unteren Rand des Fensters.",
+      "title": "Sie haben das Limit der persönlichen Schlüssel erreicht"
+    },
     "galleryLocked": {
       "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
       "title": "Aktualisierung fehlgeschlagen"
@@ -966,6 +1032,10 @@ export default {
         "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Merkt sich, ob Sie mehrsprachige Suchergebnisse bevorzugen.",
+        "title": "Mehrsprachige Suche"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1209,11 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Versuchen Sie es",
     "text": {
-      "itemMultiSelect": "Sie können jetzt mehrere Objekte gleichzeitig auswählen, um sie zu liken oder zu Ihrer eigenen Galerie hinzuzufügen."
+      "multilingualSearch": "Entdecken Sie mehr mit der neuen mehrsprachigen Suche – sie gleicht Ihre Suchanfrage mit Übersetzungen in anderen Sprachen ab, um Ihnen reichhaltigere und relevantere Ergebnisse zu liefern."
     },
-    "tooltip": "Klicken Sie hier, um mehrere Objekte auszuwählen"
+    "tooltip": {
+      "multilingualSearch": "Klicken Sie hier, um die mehrsprachige Suche zu aktivieren"
+    }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -1299,6 +1371,13 @@ export default {
         "term": "Geben Sie die Begriffe ein, die das ausgewählte Feld enthält bzw. nicht enthält."
       }
     },
+    "multilingual": {
+      "disable": "Mehrsprachige Suche deaktivieren",
+      "enable": "Mehrsprachige Suche aktivieren",
+      "loginToUseMultilingualSearch": "Melden Sie sich an, um die mehrsprachige Suche zu nutzen, und erhalten Sie Ergebnisse, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind.",
+      "turnOffMultilingualSearch": "Deaktivieren Sie die mehrsprachige Suche, und zeigen Sie die Ergebnisse nur in der Sprache Ihres Suchbegriffs an.",
+      "turnOnMultilingualSearch": "Aktivieren Sie die mehrsprachige Suche, um Ergebnisse zu erhalten, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind."
+    },
     "results": {
       "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",
       "loginToSeeMore": "{login} um mehr Ergebnisse zu sehen",
@@ -1314,7 +1393,7 @@ export default {
   },
   "searchFilters": "Suchfilter {count}",
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Suche 50+ Millionen Objekte",
+  "searchPlaceholder": "Suche 60+ Millionen Objekte",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",
@@ -1445,6 +1524,7 @@ export default {
     "search": "Suche"
   },
   "statuses": {
+    "disabled": "Deaktiviert",
     "liked": "Gemocht",
     "pinned": "Angeheftet",
     "required": "Erforderlich"

@@ -34,7 +34,6 @@ main {
 
   &#default,
   &#landing-layout {
-    overflow: hidden;
     margin-top: $page-header-height; // leave space for the fixed positioned header
 
     @media (min-width: $bp-4k) {
@@ -338,7 +337,7 @@ video {
 }
 
 .btn:focus,
-input[type='checkbox']:focus + label {
+input[type='checkbox']:focus-visible + label {
   outline: auto;
 
   /* stylelint-disable */

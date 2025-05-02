@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontuaren kudeaketa",
     "curatedCollections": "Bilduma komisarioak",
-    "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
     "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
-    "myProfile": "Nire profila",
+    "manageApiKeys": "API gakoak kudeatu",
+    "menu": {
+      "close": "Itxi erabiltzailearen menua",
+      "open": "Ireki erabiltzailearen menua"
+    },
     "notifications": {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galeria pribatuak",
     "profile": "Nire gustukoak eta galeriak",
-    "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Galeria Publikoak",
     "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi",
     "vote": "Bozkatu"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Itxi gakoen kudeaketa menu",
+      "disable": "Desgaitu gakoa",
+      "reEnable": "Berriro gaitu gakoa",
+      "showMenu": "Erakutsi gakoen kudeaketa menua"
+    },
+    "disable": {
+      "promptText1": "Ziur zaude API gako hau desgaitu nahi duzula?",
+      "promptText2": "Behin gako hau desgaitzen duzunean, ezingo duzu zure proiektuan gehiago erabili. Hau berehala gertatuko da. API gakoa berriro gaitzeko, idatzi mesedez api@europeana.eu helbidera.",
+      "title": "Desgaitu API gakoa"
+    },
+    "reEnable": {
+      "text": "API gako hau berriro gaitzeko, bidali mezua helbide honetara: api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzien widget-aren bidez.",
+      "title": "Berriro gaitu API gakoa"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Eskatu API gako pertsonala",
+          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
+          "termsOfUseLinkText": "erabilera baldintzak"
+        },
+        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
+        "heading": "API gako pertsonala",
+        "howToLinkText": "Nola erabili zure gakoa"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API gakoen kudeaketa"
+        },
+        "clientId": {
+          "label": "API gakoa"
+        },
+        "created": {
+          "label": "Sortze data"
+        }
+      }
+    },
+    "title": "API gakoak kudeatu"
   },
   "attribution": {
     "country": "Herrialdea:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Sartu zure API gako pertsonala",
+            "prompt": "{link} eta erabiliko da."
+          }
+        }
+      },
       "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
@@ -216,6 +270,18 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "API gako hau dagoeneko desgaituta dago, agian beste nabigatzaile-fitxa batean.",
+      "title": "Gakoa dagoeneko desgaituta dago"
+    },
+    "authDuplicateKey": {
+      "description": "Erabiltzaileek erabilgarri dagoen gako pertsonal bakarra izan dezakete, erabilera pertsonalerako pentsatua.",
+      "title": "Dagoeneko baduzu gako pertsonal bat"
+    },
+    "authKeyLimitReached": {
+      "description": "Ezin da gako pertsonal berri bat sortu, desgaitutako gako pertsonalen muga iritsi delako. Bidali iezaguzu mezu bat helbidera api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzi-widgetaren bidez.",
+      "title": "Zure gako pertsonalen muga iritsi duzu"
+    },
     "galleryLocked": {
       "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
       "title": "Eguneratzea huts egin du"
@@ -971,6 +1037,10 @@ export default {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Gogoratuko dugu hizkuntza anitzeko bilaketa-emaitzak nahiago dituzula.",
+        "title": "Bilaketa eleanitza"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1144,9 +1214,11 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Probatu",
     "text": {
-      "itemMultiSelect": "Orain hainbat elementu batera hauta ditzakezu, gustuko gisa markatzeko edo zure galeria batean gehitzeko."
+      "multilingualSearch": "Ezagutu gehiago hizkuntza anitzeko bilaketa berriarekin — zure kontsulta beste hizkuntzetako itzulpenekin bat egiten du, emaitza aberatsagoak eta garrantzitsuagoak ekartzeko."
     },
-    "tooltip": "Egin klik hemen hainbat elementu hautatzen hasteko"
+    "tooltip": {
+      "multilingualSearch": "Egin klik hemen hizkuntza anitzeko bilaketa aktibatzeko"
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1304,6 +1376,13 @@ export default {
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
     },
+    "multilingual": {
+      "disable": "Desgaitu bilaketa eleanitza",
+      "enable": "Gaitu bilaketa eleanitza",
+      "loginToUseMultilingualSearch": "Hasi saioa bilaketa eleanitza erabiltzeko, eta lortu emaitzak zure bilaketa-terminoaren hizkuntzara mugatu gabe.",
+      "turnOffMultilingualSearch": "Desaktibatu bilaketa eleanitza eta ikusi emaitzak zure bilaketa-terminoaren hizkuntzan soilik.",
+      "turnOnMultilingualSearch": "Aktibatu bilaketa eleanitza eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatzen ez direnak."
+    },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
       "loginToSeeMore": "{login} emaitza gehiago ikusteko",
@@ -1319,7 +1398,7 @@ export default {
   },
   "searchFilters": "Bilaketa-iragazkiak {count}",
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
+  "searchPlaceholder": "Bilatu 60 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",
@@ -1450,6 +1529,7 @@ export default {
     "search": "Bilatu"
   },
   "statuses": {
+    "disabled": "Desgaituta",
     "liked": "Gustatu",
     "pinned": "Ainguratuta",
     "required": "Beharrezkoa"

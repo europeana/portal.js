@@ -3,13 +3,21 @@
     :id="modalId"
     v-model="show"
     :title="modalTitle"
+    title-tag="h2"
     :static="modalStatic"
     hide-header-close
     hide-footer
   >
-    <p v-if="promptText">
-      {{ promptText }}
-    </p>
+    <template
+      v-if="promptTextValues.length > 0"
+    >
+      <p
+        v-for="(text, index) in promptTextValues"
+        :key="index"
+      >
+        {{ text }}
+      </p>
+    </template>
     <b-form
       @submit.stop.prevent="handleConfirm"
     >
@@ -64,7 +72,7 @@
       },
 
       promptText: {
-        type: String,
+        type: [String, Array],
         default: null
       },
 
@@ -78,6 +86,12 @@
       return {
         show: this.value
       };
+    },
+
+    computed: {
+      promptTextValues() {
+        return [].concat(this.promptText).filter(Boolean);
+      }
     },
 
     watch: {

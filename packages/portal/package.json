@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.5.3",
+  "version": "2.7.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -48,7 +48,7 @@
     "marked": "^4.0.10",
     "md5": "^2.3.0",
     "morgan": "^1.10.0",
-    "ol": "^10.2.0",
+    "ol": "^10.5.0",
     "openid-client": "^6.3.4",
     "pg": "^8.11.3",
     "qs": "^6.10.1",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
-    "@europeana/style": "^2.5.1",
+    "@europeana/style": "^2.7.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
@@ -74,7 +74,7 @@
     "postcss": "^8.4.16",
     "postcss-html": "^1.5.0",
     "postcss-scss": "^4.0.4",
-    "sass": "^1.44.0",
+    "sass": "1.77.6",
     "sass-loader": "^10.0.0",
     "sinon": "^13.0.1",
     "style-resources-loader": "^1.4.1",

@@ -53,6 +53,14 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
+                class="mr-auto"
+              />
+            </template>
+            <template #search-options>
+              <SearchMultilingualButton
+                v-if="multilingualSearchButtonEnabled"
+                v-model="translate"
+                @input="handleMultilingualButtonInput"
               />
             </template>
             <template
@@ -141,6 +149,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
     name: 'SearchInterface',
@@ -153,6 +162,7 @@
       InfoMessage,
       ItemPreviewInterface,
       SearchFilters,
+      SearchMultilingualButton,
       SearchSidebar
     },
 
@@ -191,10 +201,11 @@
         hits: null,
         lastAvailablePage: null,
         paginationChanged: false,
+        qasWithAddedEntityValue: [],
         results: [],
         showAdvancedSearch: false,
         totalResults: null,
-        qasWithAddedEntityValue: []
+        translate: false
       };
     },
 
@@ -204,6 +215,12 @@
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       process.client && this.scrollToSelector('#header');
+
+      this.translate = Boolean(
+        this.$auth.loggedIn &&
+          this.translateSearchForCurrentLocale &&
+          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+      );
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -302,39 +319,32 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
-      // Disable translate profile (multilingual search) when not logged in
-      doNotTranslate() {
-        return !this.$auth.loggedIn;
-      },
       translateLang() {
-        if (this.doNotTranslate) {
-          return null;
-        }
-
-        // Either translate locale(s) not configured, or current locale is not
-        // among them.
-        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
-          return null;
-        }
-
-        return this.$i18n.locale;
+        return this.translate ? this.$i18n.locale : null;
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
       },
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      translateSearchForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      multilingualSearchButtonEnabled() {
+        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
       }
     },
 
     watch: {
       // TODO: is boost still used?
       '$route.query.boost': 'handleSearchParamsChanged',
-      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.page': 'handlePaginationChanged',
       '$route.query.qa': 'handleSearchParamsChanged',
-      '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.query': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.translate': 'handleSearchParamsChanged'
     },
 
     mounted() {
@@ -368,20 +378,32 @@
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
             // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
+            // any other query (from the simple search bar) is fielded to
             // `text` if not already fielded.
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
+
+            params.query = this.fulltextQas.concat(params.query).filter(Boolean).join(' AND ');
+
             params.profile = `${params.profile},hits`;
           }
 
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
+          const qasEnrichedWithEntities = [...this.qa];
+
+          // When there are qa with entity look up, replace those qa with entity enriched value
+          if (this.qaes.length) {
+            this.qasWithAddedEntityValue.forEach((qaWithEntity) => {
+              if (qaWithEntity.qae) {
+                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex((qa) => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
+
+                qasEnrichedWithEntities.splice(indexOfQaToEnrich, 1, qaWithEntity.qae);
+              }
+            });
+          }
+
+          // All other advanced search rules are added to the query concatenated by AND.
+          params.query = [params.query].concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).filter(Boolean).join(' AND ');
         }
 
         params.qf = addContentTierFilter(params.qf);
@@ -426,9 +448,28 @@
         }
       },
 
+      async handleMultilingualButtonInput(value) {
+        this.translate = value;
+        this.$cookies?.set('multilingualSearch', value);
+
+        const redirect = this.localePath({
+          ...this.route,
+          query: {
+            ...this.$route.query,
+            page: 1,
+            translate: value ? 'true' : undefined
+          }
+        });
+
+        if (value && !this.$auth.loggedIn) {
+          this.$keycloak.login({ redirect });
+        } else {
+          this.$router.push(redirect);
+        }
+      },
+
       handleSearchParamsChanged() {
-        this.$store.commit('set/setSelected', []);
-        this.itemMultiSelect = false;
+        this.resetItemMultiSelect();
         this.$fetch();
       },
 
@@ -496,7 +537,8 @@
         }
 
         if (queryEqualsEntity) {
-          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `((${query.term}) OR "${queryEqualsEntity.id}")` });
+
           return {
             qa: query,
             qae
@@ -520,6 +562,10 @@
 
         // Clean up the store to prevent accumulating outdated data
         this.$store.commit('search/setQasWithSelectedEntityValue', []);
+      },
+
+      resetItemMultiSelect() {
+        this.$store.commit('set/setSelected', []);
       }
     }
   };

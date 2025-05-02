@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Account management",
     "curatedCollections": "Curated Collections",
-    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
     "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
-    "myProfile": "My Profile",
+    "manageApiKeys": "Manage API keys",
+    "menu": {
+      "close": "Close user menu",
+      "open": "Open user menu"
+    },
     "notifications": {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
@@ -21,11 +25,10 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account",
+    "title": "My Profile",
     "tooltip": {
       "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
       "private": "A private gallery can only be viewed by you.",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "View at {link}",
     "viewDocument": "View document",
     "vote": "Vote"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Close key management menu",
+      "disable": "Disable key",
+      "reEnable": "Re-enable key",
+      "showMenu": "Show key management menu"
+    },
+    "disable": {
+      "promptText1": "Are you sure you want to disable this API key?",
+      "promptText2": "Once you disable this key, you will no longer be able to use it on your project. This will happen immediately. You will need to email us at api@europeana.eu to enable the API key again.",
+      "title": "Disable API key"
+    },
+    "reEnable": {
+      "text": "To re-enable this API key, please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "Re-enable API key"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Request a personal API key",
+          "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}.",
+          "termsOfUseLinkText": "terms of use"
+        },
+        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
+        "heading": "Personal API key",
+        "howToLinkText": "How to use your key"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API key management"
+        },
+        "clientId": {
+          "label": "API key"
+        },
+        "created": {
+          "label": "Date created"
+        }
+      }
+    },
+    "title": "Manage API keys"
   },
   "attribution": {
     "country": "Country:",
@@ -168,7 +214,11 @@ export default {
           "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
           "descriptionLine2": "Need an API key? Register for one {link}.",
           "here": "here",
-          "label": "API key"
+          "label": "API key",
+          "usePersonal": {
+            "linkText": "Enter your personal API key",
+            "prompt": "{link} and it will be used."
+          }
         }
       },
       "noRequests": "No requests to Europeana APIs were used on this page."
@@ -229,6 +279,18 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "This API key has already been disabled, perhaps in a different browser tab.",
+      "title": "Key already disabled"
+    },
+    "authDuplicateKey": {
+      "description": "Users can only have one enabled personal key which is intended for personal use.",
+      "title": "You already have a personal key"
+    },
+    "authKeyLimitReached": {
+      "description": "A new personal key cannot be created because you reached the limit of disabled personal keys. Please send us an email at api@europeana.eu or contact us through the feedback widget at the bottom of the window.",
+      "title": "You have reached the limit of personal keys"
+    },
     "galleryLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"
@@ -1007,6 +1069,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Remembers if you prefer to get multilingual search results.",
+        "title": "Multilingual search"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1191,9 +1257,11 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Try it",
     "text": {
-      "itemMultiSelect": "You can now select multiple items at once, to like or add them to a gallery of your own."
+      "multilingualSearch": "Discover more with the new multilingual search — it matches your query with translations in other languages to bring you richer, more relevant results."
     },
-    "tooltip": "Click here to start selecting multiple items"
+    "tooltip": {
+      "multilingualSearch": "Click here to activate multilingual search"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -1351,6 +1419,13 @@ export default {
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
+    "multilingual": {
+      "disable": "Disable multilingual search",
+      "enable": "Enable multilingual search",
+      "loginToUseMultilingualSearch": "Log in to use multilingual search, and get results not limited to the language of your search term.",
+      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term.",
+      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term."
+    },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
       "loginToSeeMore": "{login} to see more results",
@@ -1366,7 +1441,7 @@ export default {
   },
   "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search 50+ million items",
+  "searchPlaceholder": "Search 60+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",
@@ -1497,6 +1572,7 @@ export default {
     "search": "Search"
   },
   "statuses": {
+    "disabled": "Disabled",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Required"

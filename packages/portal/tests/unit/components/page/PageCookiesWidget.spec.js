@@ -222,6 +222,7 @@ describe('components/page/PageCookiesWidget', () => {
           'auth-strategy',
           'debugSettings',
           'i18n',
+          'multilingualSearch',
           'newFeatureNotification',
           'searchResultsView',
           'hotjar',

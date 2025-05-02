@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Konto haldamine",
     "curatedCollections": "Kureeritud kogud",
-    "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
     "linkLoginJoin": "Logi sisse / Liitu",
     "linkLogout": "Logi välja",
-    "myProfile": "Minu profiil",
+    "manageApiKeys": "API võtmete haldamine",
+    "menu": {
+      "close": "Sulge kasutajamenüü",
+      "open": "Ava kasutajamenüü"
+    },
     "notifications": {
       "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
       "loggedOut": "Olete nüüd välja logitud.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privaatgaleriid",
     "profile": "Minu meeldimised ja galeriid",
-    "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti",
     "vote": "Hääletage"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Sulge võtmehalduse menüü",
+      "disable": "Keela võti",
+      "reEnable": "Luba võti uuesti",
+      "showMenu": "Näita võtmehalduse menüüd"
+    },
+    "disable": {
+      "promptText1": "Kas oled kindel, et soovid selle API võtme keelata?",
+      "promptText2": "Kui keelad selle võtme, ei saa sa seda enam oma projektis kasutada. See juhtub kohe. API võtme uuesti lubamiseks pead meile saatma e-kirja aadressil api@europeana.eu.",
+      "title": "Keela API võti"
+    },
+    "reEnable": {
+      "text": "Selle API võtme uuesti lubamiseks saatke meile e-kiri aadressil api@europeana.eu või võtke meiega ühendust akna allosas oleva tagasiside vidina kaudu.",
+      "title": "Luba API võti uuesti"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Taotle isiklikku API võtit",
+          "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}.",
+          "termsOfUseLinkText": "kasutustingimused"
+        },
+        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}.",
+        "heading": "Isiklik API võti",
+        "howToLinkText": "Kuidas oma võtit kasutada"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API võtme haldus"
+        },
+        "clientId": {
+          "label": "API võti"
+        },
+        "created": {
+          "label": "Loomise kuupäev"
+        }
+      }
+    },
+    "title": "API võtmete haldamine"
   },
   "attribution": {
     "country": "Riik:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Sisestage oma isiklik API võti",
+            "prompt": "{link} ja seda kasutatakse."
+          }
+        }
+      },
       "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid."
     }
   },
@@ -211,6 +265,18 @@ export default {
   },
   "error": "Viga",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "See API võti on juba keelatud, võib-olla mõnes teises brauseri vahekaardil.",
+      "title": "Võti on juba keelatud"
+    },
+    "authDuplicateKey": {
+      "description": "Kasutajatel võib olla ainult üks lubatud isiklik võti, mis on mõeldud isiklikuks kasutamiseks.",
+      "title": "Teil on juba isiklik võti"
+    },
+    "authKeyLimitReached": {
+      "description": "Uut isiklikku võtit ei saa luua, sest olete jõudnud keelatud isiklike võtmete piirini. Palun saatke meile e-kiri aadressil api@europeana.eu või võtke meiega ühendust akna allosas oleva tagasisidevidina kaudu.",
+      "title": "Olete jõudnud isiklike võtmete limiidini"
+    },
     "galleryLocked": {
       "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
       "title": "Uuendus ebaõnnestus"
@@ -966,6 +1032,10 @@ export default {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Jätab meelde, kas eelistate saada mitmekeelseid otsingutulemusi.",
+        "title": "Mitmekeelne otsing"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1209,11 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Proovi seda",
     "text": {
-      "itemMultiSelect": "Nüüd saate valida mitu üksust korraga, et neid meeldivaks märkida või lisada omaenda galeriisse."
+      "multilingualSearch": "Avastage rohkem uue mitmekeelse otsinguga — see sobitab teie päringu tõlgetega teistes keeltes, et tuua teieni rikkalikumaid ja asjakohasemaid tulemusi."
     },
-    "tooltip": "Klõpsake siin, et alustada mitme üksuse valimist"
+    "tooltip": {
+      "multilingualSearch": "Klõpsake siin, et aktiveerida mitmekeelne otsing"
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1299,6 +1371,13 @@ export default {
         "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
       }
     },
+    "multilingual": {
+      "disable": "Keela mitmekeelne otsing",
+      "enable": "Võimaldage mitmekeelne otsing",
+      "loginToUseMultilingualSearch": "Logi sisse, et kasutada mitmekeelset otsingut ja saada tulemusi, mis ei ole piiratud teie otsingusõna keelega.",
+      "turnOffMultilingualSearch": "Lülitage mitmekeelne otsing välja ja vaadake tulemusi ainult selles keeles, milles on teie otsingusõna.",
+      "turnOnMultilingualSearch": "Lülitage sisse mitmekeelne otsing ja saate tulemusi, mis ei ole piiratud teie otsingusõnade keelega."
+    },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
       "loginToSeeMore": "{login} , et näha rohkem tulemusi",
@@ -1314,7 +1393,7 @@ export default {
   },
   "searchFilters": "Otsingufiltrid {count}",
   "searchHasLoaded": "{0} tagastatud tulemused",
-  "searchPlaceholder": "Otsi 50+ miljonit üksust",
+  "searchPlaceholder": "Otsi 60+ miljonit üksust",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
   "searchSuggestions": "Otsige soovitusi",
@@ -1445,6 +1524,7 @@ export default {
     "search": "Otsing"
   },
   "statuses": {
+    "disabled": "Keelatud",
     "liked": "Meeldis",
     "pinned": "Kinnitatud",
     "required": "Nõutud"

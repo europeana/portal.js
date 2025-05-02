@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestión de cuenta",
     "curatedCollections": "Colecciones curadas",
-    "editProfile": "Editar perfil",
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
     "linkLoginJoin": "Iniciar sesión / Registrarse",
     "linkLogout": "Cerrar sesión",
-    "myProfile": "Mi perfil",
+    "manageApiKeys": "Administrar claves de API",
+    "menu": {
+      "close": "Cerrar menú de usuario",
+      "open": "Abrir menú de usuario"
+    },
     "notifications": {
       "loggedIn": "Ya ha iniciado la sesión. Bienvenido.",
       "loggedOut": "Ahora ha salido la sesión.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerías privadas",
     "profile": "Mis \"Me gusta\" y galerías",
-    "profileSettings": "Configuración de perfil",
     "publicCollections": "Galerías públicas",
     "publishedCollections": "Galerías Publicadas",
     "settings": "Configuración",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento",
     "vote": "Votar"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Cerrar menú de gestión de claves",
+      "disable": "Desactivar la clave",
+      "reEnable": "Volver a habilitar la clave",
+      "showMenu": "Mostrar menú de gestión de claves"
+    },
+    "disable": {
+      "promptText1": "¿Estás seguro de que quieres desactivar esta clave API?",
+      "promptText2": "Una vez que desactive esta clave, ya no podrá utilizarla en su proyecto. Esto ocurrirá de inmediato. Deberá enviarnos un correo electrónico a api@europeana.eu para volver a habilitar la clave API.",
+      "title": "Desactivar la clave API"
+    },
+    "reEnable": {
+      "text": "Para volver a habilitar esta clave API, envíanos un correo a api@europeana.eu o contáctanos mediante el widget de comentarios en la parte inferior de la ventana.",
+      "title": "Volver a habilitar la clave API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitar una clave API personal",
+          "checkbox": "Confirmo que he leído y acepto la clave API {termsOfUseLink}.",
+          "termsOfUseLinkText": "términos de uso"
+        },
+        "description": "Aprende y prueba cómo usar las API con tu propia clave API personal. Por favor, no la compartas. {howToLink}.",
+        "heading": "Clave API personal",
+        "howToLinkText": "Cómo usar tu clave"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Gestión de claves API"
+        },
+        "clientId": {
+          "label": "Clave API"
+        },
+        "created": {
+          "label": "Fecha de creación"
+        }
+      }
+    },
+    "title": "Administrar claves de API"
   },
   "attribution": {
     "country": "País:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Ingrese su clave API personal",
+            "prompt": "{link} y se utilizará."
+          }
+        }
+      },
       "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Está clave API ya ha sido desactivada, quizás en otra pestaña del navegador.",
+      "title": "Clave ya desactivada"
+    },
+    "authDuplicateKey": {
+      "description": "Los usuarios solo pueden tener una clave personal activada destinada al uso personal.",
+      "title": "Ya tienes una clave personal"
+    },
+    "authKeyLimitReached": {
+      "description": "No se puede crear una nueva clave personal porque ha alcanzado el límite de claves personales desactivadas. Envíenos un correo electrónico a api@europeana.eu o contáctenos a través del widget de comentarios en la parte inferior de la ventana.",
+      "title": "Has alcanzado el límite de claves personales"
+    },
     "galleryLocked": {
       "description": "La edición está deshabilitada temporalmente y sus cambios no se han guardado. Por favor, inténtelo de nuevo más tarde.",
       "title": "Actualización fallida"
@@ -965,6 +1031,10 @@ export default {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Recuerda si prefieres obtener resultados de búsqueda multilingües.",
+        "title": "Búsqueda multilingüe"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1137,9 +1207,11 @@ export default {
     "dismiss": "Cerrar",
     "readMore": "Pruébalo",
     "text": {
-      "itemMultiSelect": "Ahora puedes seleccionar varios ítems a la vez para darles Me gusta o añadirlos a tu propia galería."
+      "multilingualSearch": "Descubra más con la nueva búsqueda multilingüe: combina su consulta con traducciones en otros idiomas para ofrecerle resultados más ricos y relevantes."
     },
-    "tooltip": "Haz clic aquí para empezar a seleccionar varios ítems"
+    "tooltip": {
+      "multilingualSearch": "Haga clic aquí para activar la búsqueda multilingüe"
+    }
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1297,6 +1369,13 @@ export default {
         "term": "Ingrese los términos que el campo elegido contiene o no contiene."
       }
     },
+    "multilingual": {
+      "disable": "Desactivar la búsqueda multilingüe",
+      "enable": "Habilitar la búsqueda multilingüe",
+      "loginToUseMultilingualSearch": "Inicia sesión para usar la búsqueda multilingüe y ver resultados que no se limitan al idioma de su término de búsqueda.",
+      "turnOffMultilingualSearch": "Desactive la búsqueda multilingüe y vea los resultados solo en el idioma de su término de búsqueda.",
+      "turnOnMultilingualSearch": "Activa la búsqueda multilingüe y obtén resultados no limitados al idioma de tu término de búsqueda."
+    },
     "results": {
       "limitWarning": "No se muestran resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere refinar su búsqueda.",
       "loginToSeeMore": "{login} para ver más resultados",
@@ -1312,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtros de búsqueda {count}",
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Buscar más de 50 millones de Ítems",
+  "searchPlaceholder": "Buscar más de 60 millones de Ítems",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",
@@ -1443,6 +1522,7 @@ export default {
     "search": "Buscar"
   },
   "statuses": {
+    "disabled": "Desactivado",
     "liked": "Gustó",
     "pinned": "Fijado",
     "required": "Obligatorio"

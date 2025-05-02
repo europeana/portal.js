@@ -5,7 +5,7 @@
       data-qa="item preview interface"
     >
       <b-row>
-        <b-col class="d-flex align-items-center mb-3">
+        <b-col class="d-flex align-items-center flex-wrap mb-3">
           <slot name="heading">
             <h2
               class="related-heading text-uppercase mb-0"
@@ -14,15 +14,17 @@
               {{ displayItemCount }}
             </h2>
           </slot>
-          <ItemSelectButton
-            v-if="$features.itemMultiSelect"
-            class="ml-auto"
-            @select="(newState) => itemMultiSelect = newState"
-          />
-          <SearchViewToggles
-            v-model="view"
-            :class="$features.itemMultiSelect ? 'ml-2' : 'ml-auto'"
-          />
+          <div class="d-flex align-items-center justify-content-end ml-auto">
+            <slot name="search-options" />
+            <ItemSelectButton
+              class="ml-2"
+              @select="(newState) => itemMultiSelect = newState"
+            />
+            <SearchViewToggles
+              v-model="view"
+              class="ml-2"
+            />
+          </div>
         </b-col>
       </b-row>
       <b-row class="mb-3">
@@ -42,7 +44,7 @@
               <p>{{ $t('items.noMoreItems') }}</p>
             </slot>
             <slot
-              v-else-if="items.length === 0"
+              v-else-if="!items || items.length === 0"
               name="no-items"
             >
               <p>{{ $t('items.noItems') }}</p>
@@ -113,7 +115,7 @@
 
     provide() {
       return {
-        itemMultiSelect: computed(() => this.$features.itemMultiSelect && this.itemMultiSelect)
+        itemMultiSelect: computed(() => this.itemMultiSelect)
       };
     },
 
@@ -185,7 +187,7 @@
       },
 
       noMoreItems() {
-        return (this.total > 0) && (this.items.length === 0);
+        return (this.total > 0) && (this.items?.length === 0);
       },
 
       routeQueryView() {

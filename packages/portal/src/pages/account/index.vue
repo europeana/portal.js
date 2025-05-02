@@ -4,28 +4,7 @@
     class="xxl-page page"
   >
     <b-container fluid>
-      <b-row>
-        <b-col class="pb-4">
-          <h1 class="text-center">
-            @{{ loggedInUser && loggedInUser.preferred_username }}
-          </h1>
-          <div class="text-center">
-            <b-button
-              class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="editProfileUrl"
-            >
-              <span class="icon-edit pr-1" />
-              {{ $t('account.editProfile') }}
-            </b-button>
-            <b-button
-              to="/account/logout"
-              class="text-decoration-none"
-            >
-              {{ $t('account.linkLogout') }}
-            </b-button>
-          </div>
-        </b-col>
-      </b-row>
+      <UserHeader />
       <b-row>
         <b-col class="p-0 mb-3">
           <b-container>
@@ -145,6 +124,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
+  import UserHeader from '@/components/user/UserHeader';
   import UserSets from '@/components/user/UserSets';
 
   export default {
@@ -155,6 +135,7 @@
       BNav,
       ClientOnly,
       ItemPreviewInterface,
+      UserHeader,
       UserSets
     },
 
@@ -171,7 +152,6 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -189,9 +169,6 @@
     fetchOnServer: false,
 
     computed: {
-      editProfileUrl() {
-        return this.$keycloak.accountUrl();
-      },
       pageMeta() {
         return {
           title: this.$t('account.title')
@@ -223,14 +200,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/tabs';
-
-  h1 {
-    margin-bottom: 0.75rem;
-
-    @media (min-width: $bp-4k) {
-      margin-bottom: calc(1.5 * 0.75rem);
-    }
-  }
 
   .nav-tabs {
     margin-bottom: 2.5rem;

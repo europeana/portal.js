@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Správa účtů",
     "curatedCollections": "Kurátorské sbírky",
-    "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
     "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
-    "myProfile": "Můj profil",
+    "manageApiKeys": "Správa klíčů API",
+    "menu": {
+      "close": "Zavřít uživatelské menu",
+      "open": "Otevřít uživatelské menu"
+    },
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
-    "profileSettings": "Nastavení profilu",
     "publicCollections": "Veřejné galerie",
     "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zavřít nabídku správy klíčů",
+      "disable": "Zakázat klíč",
+      "reEnable": "Znovu povolit klíč",
+      "showMenu": "Zobrazit nabídku správy klíčů"
+    },
+    "disable": {
+      "promptText1": "Opravdu chcete zakázat tento API klíč?",
+      "promptText2": "Jakmile tento klíč zakážete, již jej nebudete moci používat ve svém projektu. Toto nastane okamžitě. Pro opětovné povolení API klíče nám prosím pošlete e-mail na adresu api@europeana.eu.",
+      "title": "Zakázat API klíč"
+    },
+    "reEnable": {
+      "text": "Chcete-li znovu aktivovat tento klíč API, pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu pro zpětnou vazbu ve spodní části okna.",
+      "title": "Znovu povolit API klíč"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Požádejte o osobní API klíč",
+          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
+          "termsOfUseLinkText": "podmínky použití"
+        },
+        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
+        "heading": "Osobní API klíč",
+        "howToLinkText": "Jak používat svůj klíč"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Správa API klíčů"
+        },
+        "clientId": {
+          "label": "API klíč"
+        },
+        "created": {
+          "label": "Datum vytvoření"
+        }
+      }
+    },
+    "title": "Správa klíčů API"
   },
   "attribution": {
     "country": "Země:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Zadejte svůj osobní API klíč",
+            "prompt": "{link} a bude použito"
+          }
+        }
+      },
       "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany."
     }
   },
@@ -211,6 +265,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento API klíč již byl zakázán, možná v jiné záložce prohlížeče.",
+      "title": "Klíč je již zakázán"
+    },
+    "authDuplicateKey": {
+      "description": "Uživatelé mohou mít pouze jeden povolený osobní klíč určený pro osobní použití.",
+      "title": "Již máte osobní klíč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nelze vytvořit nový osobní klíč, protože jste dosáhli limitu deaktivovaných osobních klíčů. Pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu zpětné vazby ve spodní části okna.",
+      "title": "Dosáhli jste limitu osobních klíčů"
+    },
     "galleryLocked": {
       "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
       "title": "Aktualizace selhala"
@@ -966,6 +1032,10 @@ export default {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamatuje si, zda dáváte přednost vícejazyčným výsledkům vyhledávání.",
+        "title": "Vícejazyčné vyhledávání"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1209,11 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Zkuste to",
     "text": {
-      "itemMultiSelect": "Nyní můžete najednou vybrat více položek, které chcete označit jako „líbí se mi“ nebo přidat do vlastní galerie."
+      "multilingualSearch": "Objevte více s novým vícejazyčným vyhledáváním – porovnává váš dotaz s překlady do jiných jazyků a přináší vám bohatší a relevantnější výsledky."
     },
-    "tooltip": "Klikněte sem a začněte vybírat více položek"
+    "tooltip": {
+      "multilingualSearch": "Kliknutím sem aktivujete vícejazyčné vyhledávání."
+    }
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1299,6 +1371,13 @@ export default {
         "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
     },
+    "multilingual": {
+      "disable": "Zakázat vícejazyčné vyhledávání",
+      "enable": "Povolit vícejazyčné vyhledávání",
+      "loginToUseMultilingualSearch": "Přihlaste se a použijte vícejazyčné vyhledávání a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
+      "turnOffMultilingualSearch": "Vypněte vícejazyčné vyhledávání a zobrazit výsledky pouze v jazyce hledaného výrazu.",
+      "turnOnMultilingualSearch": "Zapněte vícejazyčné vyhledávání a získejte výsledky neomezené na jazyk hledaného výrazu."
+    },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
       "loginToSeeMore": "{login} zobrazíte další výsledky",
@@ -1314,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtry vyhledávání {count}",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Hledejte přes 50 milionů položek",
+  "searchPlaceholder": "Hledejte přes 60 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",
@@ -1445,6 +1524,7 @@ export default {
     "search": "Vyhledat"
   },
   "statuses": {
+    "disabled": "Deaktivováno",
     "liked": "Oblíbené",
     "pinned": "Připnuté",
     "required": "Požadováno"

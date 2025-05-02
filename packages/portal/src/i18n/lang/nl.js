@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Accountbeheer",
     "curatedCollections": "Samengestelde collecties",
-    "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
     "linkLoginJoin": "Inloggen / Aanmelden",
     "linkLogout": "Uitloggen",
-    "myProfile": "Mijn profiel",
+    "manageApiKeys": "API-sleutels beheren",
+    "menu": {
+      "close": "Gebruikersmenu sluiten",
+      "open": "Gebruikersmenu openen"
+    },
     "notifications": {
       "loggedIn": "U bent nu ingelogd. Welkom!",
       "loggedOut": "U bent nu uitgelogd.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Privé galerijen",
     "profile": "Mijn likes en galerijen",
-    "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
@@ -80,6 +83,49 @@ export default {
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven",
     "vote": "Stemmen"
+  },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Sluit sleutelbeheer menu",
+      "disable": "Sleutel uitschakelen",
+      "reEnable": "Sleutel opnieuw inschakelen",
+      "showMenu": "Toon sleutelbeheer menu"
+    },
+    "disable": {
+      "promptText1": "Weet u zeker dat u deze API-sleutel wilt uitschakelen?",
+      "promptText2": "Zodra u deze sleutel uitschakelt, kun je deze niet meer gebruiken in voor uw project. Dit gebeurt direct. U moet ons een e-mail sturen op api@europeana.eu om de API-sleutel opnieuw in te schakelen.",
+      "title": "API sleutel uitschakelen"
+    },
+    "reEnable": {
+      "text": "Als u deze API-sleutel opnieuw wilt activeren, kunt u ons een e-mail sturen op api@europeana.eu of contact met ons opnemen via de feedbackwidget onderaan het venster.",
+      "title": "API-sleutel opnieuw inschakelen"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Vraag een persoonlijke API-sleutel aan",
+          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer.",
+          "termsOfUseLinkText": "gebruiksvoorwaarden"
+        },
+        "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}.",
+        "heading": "Persoonlijke API-sleutel",
+        "howToLinkText": "Hoe u uw sleutel gebruikt"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "API-sleutelbeheer"
+        },
+        "clientId": {
+          "label": "API-sleutel"
+        },
+        "created": {
+          "label": "Datum aangemaakt"
+        }
+      }
+    },
+    "title": "API-sleutels beheren"
   },
   "attribution": {
     "country": "Land:",
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Voer uw persoonlijke API-sleutel in",
+            "prompt": "{link} en het zal worden gebruikt."
+          }
+        }
+      },
       "noRequests": "Op deze pagina zijn geen verzoeken aan Europeana API's gebruikt."
     }
   },
@@ -211,6 +265,18 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Deze API-sleutel is al uitgeschakeld, mogelijk in een ander browsertabblad.",
+      "title": "Sleutel al uitgeschakeld"
+    },
+    "authDuplicateKey": {
+      "description": "Gebruikers kunnen slechts één ingeschakelde persoonlijke sleutel hebben die bedoeld is voor persoonlijk gebruik.",
+      "title": "U heeft al een persoonlijke sleutel"
+    },
+    "authKeyLimitReached": {
+      "description": "Er kan geen nieuwe persoonlijke sleutel worden aangemaakt, omdat u de limiet van uitgeschakelde persoonlijke sleutels hebt bereikt. Stuur ons een e-mail op api@europeana.eu of neem contact met ons op via de feedbackwidget onderaan het venster.",
+      "title": "U heeft de limiet van persoonlijke sleutels bereikt"
+    },
     "galleryLocked": {
       "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
       "title": "Update mislukt"
@@ -966,6 +1032,10 @@ export default {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Onthoudt of u de voorkeur geeft aan meertalige zoekresultaten.",
+        "title": "Meertalig zoeken"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1139,9 +1209,11 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Probeer het",
     "text": {
-      "itemMultiSelect": "U kunt nu meerdere objecten tegelijk selecteren om ze te liken of toe te voegen aan uw eigen galerij."
+      "multilingualSearch": "Ontdek meer met de nieuwe meertalige zoekfunctie — het stemt uw zoekopdracht af met vertalingen in andere talen om u rijkere, relevantere resultaten te bieden."
     },
-    "tooltip": "Klik hier om meerdere objecten te selecteren"
+    "tooltip": {
+      "multilingualSearch": "Klik hier om meertalig zoeken te activeren"
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -1299,6 +1371,13 @@ export default {
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
+    "multilingual": {
+      "disable": "Meertalig zoeken uitschakelen",
+      "enable": "Meertalig zoeken inschakelen",
+      "loginToUseMultilingualSearch": "Log in om meertalig zoeken te gebruiken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
+      "turnOffMultilingualSearch": "Schakel meertalig zoeken uit en bekijk de resultaten alleen in de taal van uw zoekterm.",
+      "turnOnMultilingualSearch": "Schakel meertalige zoekopdracht in en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm."
+    },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
       "loginToSeeMore": "{login} om meer resultaten te zien",
@@ -1314,7 +1393,7 @@ export default {
   },
   "searchFilters": "Zoekfilters {count}",
   "searchHasLoaded": "{0} resultaten geretourneerd",
-  "searchPlaceholder": "Zoek meer dan 50 miljoen objecten",
+  "searchPlaceholder": "Zoek meer dan 60 miljoen objecten",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
   "searchSuggestions": "Zoeksuggesties",
@@ -1445,6 +1524,7 @@ export default {
     "search": "Zoeken"
   },
   "statuses": {
+    "disabled": "Uitgeschakeld",
     "liked": "Liked",
     "pinned": "Pinned",
     "required": "Vereist"

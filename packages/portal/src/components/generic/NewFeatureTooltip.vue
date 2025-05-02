@@ -14,7 +14,7 @@
       @show="$emit('enabled')"
     >
       <span class="d-inline-flex align-items-start text-left">
-        {{ $t('newFeatureNotification.tooltip') }}
+        {{ $t(`newFeatureNotification.tooltip.${featureNotificationName}`) }}
         <b-button
           variant="dark-flat"
           class="pt-0 px-2 pb-2 text-white"

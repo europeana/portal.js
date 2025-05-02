@@ -250,13 +250,12 @@ describe('SearchResultsContext', () => {
           expect(tooltip.exists()).toBe(true);
         });
       });
-      describe('when multilingual search is disabled for collections', () => {
-        describe('searching on keyword inside a collection', () => {
+      describe('searrching on a collections page', () => {
+        describe('searching on keyword', () => {
           const wrapper = factory({
             propsData: { entity: fixtures.thematicCollectionTopicEntity },
             locale: 'es',
-            route: { query: { query: 'casa' } },
-            searchConfig: { collections: { doNotTranslate: true } }
+            route: { query: { query: 'casa' } }
           });
           it('suggests to log in to see more results', () => {
             const suggestion = wrapper.find('[data-qa="results more link"]');
@@ -267,6 +266,19 @@ describe('SearchResultsContext', () => {
             const tooltip = wrapper.find('[data-qa="results more tooltip"]');
 
             expect(tooltip.exists()).toBe(true);
+          });
+        });
+
+        describe('searching without keyword', () => {
+          it('suggests to log in to see more results', () => {
+            const wrapper = factory({
+              propsData: { entity: fixtures.thematicCollectionTopicEntity },
+              locale: 'es'
+            });
+            const suggestion = wrapper.find('[data-qa="results more link"]');
+
+            expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
+            expect(suggestion.text()).toBe('actions.login');
           });
         });
       });
