@@ -55,7 +55,8 @@
 
     computed: {
       enabled() {
-        return this.$cookies.get(this.cookieName) !== this.featureNotificationName;
+        return this.featureNotificationName &&
+          (this.$cookies.get(this.cookieName) !== this.featureNotificationName);
       }
     },
 
