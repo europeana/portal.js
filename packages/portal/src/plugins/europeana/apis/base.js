@@ -56,8 +56,7 @@ export default class EuropeanaApi {
   }
 
   createAxios() {
-    const axiosBase = (this.constructor.AUTHORISING && this.context?.$axios) ? this.context?.$axios : axios;
-    const axiosInstance = axiosBase.create(this.axiosInstanceOptions);
+    const axiosInstance = axios.create(this.axiosInstanceOptions);
 
     axiosInstance.interceptors.request.use(this.rewriteAxiosRequestUrl.bind(this));
 
@@ -66,8 +65,15 @@ export default class EuropeanaApi {
       axiosInstance.interceptors.request.use(app.$axiosLogger);
     }
 
-    if (this.constructor.AUTHORISING && (typeof axiosInstance.onResponseError === 'function')) {
-      axiosInstance.onResponseError((error) => this.context.$keycloak?.error?.(error));
+    if (this.constructor.AUTHORISING) {
+      axiosInstance.interceptors.response.use(
+        (response) => response,
+        (error) => {
+          this.context.$keycloak?.error?.(error);
+          return Promise.reject(error);
+        }
+
+      );
     }
 
     return axiosInstance;
@@ -95,13 +101,19 @@ export default class EuropeanaApi {
   }
 
   get axiosInstanceOptions() {
+    const headers = {};
     const params = {};
+
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
+    }
+    if (this.constructor.AUTHORISING && this.context?.$auth?.loggedIn) {
+      headers.authorization = this.context.$auth.getToken(this.context.$auth.strategy.name);
     }
 
     return {
       baseURL: this.baseURL,
+      headers,
       params,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });

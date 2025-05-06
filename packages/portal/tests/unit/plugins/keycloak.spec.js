@@ -1,9 +1,15 @@
+import axios from 'axios';
 import merge from 'deepmerge';
 import sinon from 'sinon';
 
 import { keycloakPlugin } from '@/plugins/keycloak.js';
 
 describe('plugins/keycloak.js', () => {
+  beforeEach(() => {
+    sinon.stub(axios, 'request');
+  });
+  afterEach(sinon.restore);
+
   describe('keycloakPlugin', () => {
     describe('redirectPath', () => {
       describe('when there is no route', () => {
@@ -176,9 +182,6 @@ describe('plugins/keycloak.js', () => {
                 request: sinon.stub().resolves({
                   accessToken: 'new'
                 })
-              },
-              $axios: {
-                request: sinon.spy()
               }
             });
 
@@ -192,7 +195,7 @@ describe('plugins/keycloak.js', () => {
             it('retries the original request', async() => {
               await keycloakPlugin(ctx).error(mockError());
 
-              expect(ctx.$axios.request.called).toBe(true);
+              expect(axios.request.called).toBe(true);
             });
           });
 
@@ -202,9 +205,6 @@ describe('plugins/keycloak.js', () => {
                 getRefreshToken: () => 'token',
                 request: sinon.stub().throws(),
                 logout: sinon.spy()
-              },
-              $axios: {
-                request: sinon.spy()
               }
             });
 
@@ -217,7 +217,7 @@ describe('plugins/keycloak.js', () => {
             it('retries the original request without authorization', async() => {
               await keycloakPlugin(ctx).error(mockError());
 
-              expect(ctx.$axios.request.calledWith({ headers: {} })).toBe(true);
+              expect(axios.request.calledWith({ headers: {} })).toBe(true);
             });
           });
 
