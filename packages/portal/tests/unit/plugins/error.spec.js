@@ -132,12 +132,24 @@ describe('@/plugins/error', () => {
       expect(wrapper.vm.$store.commit.calledWith('error/set', sinon.match.has('statusCode', 404))).toBe(true);
     });
 
+    describe('when error has a code already', () => {
+      const errorOrStatusCode = { code: 'authKeyDuplicateKey', statusCode: 400 };
+      const options = { scope: 'page' };
+      const $fetchState = { pending: true };
+
+      it('is preserved', () => {
+        const { error } = triggerHandleError(errorOrStatusCode, options, { $fetchState });
+
+        expect(error.code).toBe('authKeyDuplicateKey');
+      });
+    });
+
     describe('when scope and status code resolve to a known code', () => {
       const errorOrStatusCode = { statusCode: 403 };
       const options = { scope: 'gallery' };
       const $fetchState = { pending: true };
 
-      it('decorates error with code', () => {
+      it('decorates error with scoped code', () => {
         const { error } = triggerHandleError(errorOrStatusCode, options, { $fetchState });
 
         expect(error.code).toBe('galleryUnauthorised');

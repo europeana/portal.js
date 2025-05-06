@@ -76,8 +76,8 @@
       }
     },
 
-    setup() {
-      const { hideTooltips } = useHideTooltips();
+    setup(props) {
+      const { hideTooltips } = useHideTooltips(props.id);
       return { hideTooltips };
     },
 

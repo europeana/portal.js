@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Upravljanje računa",
     "curatedCollections": "Kurirane zbirke",
-    "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
     "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
-    "myProfile": "Moj profil",
+    "manageApiKeys": "Upravljanje API ključev",
+    "menu": {
+      "close": "Zapri uporabniški meni",
+      "open": "Odpri uporabniški meni"
+    },
     "notifications": {
       "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
       "loggedOut": "Zdaj ste odjavljeni.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Zasebne zbirke",
     "profile": "Moji všečki & zbirke",
-    "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Ogled dokumenta",
     "vote": "Glasuj"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zapri meni za upravljanje ključev",
+      "disable": "Onemogoči ključ",
+      "reEnable": "Znova omogoči ključ",
+      "showMenu": "Prikaži meni za upravljanje ključev"
+    },
+    "disable": {
+      "promptText1": "Ste prepričani, da želite onemogočiti ta API ključ?",
+      "promptText2": "Ko onemogočite ta ključ, ga ne boste več mogli uporabljati v svojem projektu. To se bo zgodilo takoj. Če želite znova omogočiti API ključ, nam morate poslati e-pošto na api@europeana.eu.",
+      "title": "Onemogoči API ključ"
+    },
+    "reEnable": {
+      "text": "Če želite znova omogočiti ta API ključ, nam pošljite e-pošto na api@europeana.eu ali nas kontaktirajte prek pripomočka za povratne informacije na dnu okna.",
+      "title": "Znova omogoči API ključ"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Zahtevajte osebni API ključ",
+          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ.",
+          "termsOfUseLinkText": "pogoji uporabe"
+        },
+        "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}.",
+        "heading": "Osebni API ključ",
+        "howToLinkText": "Kako uporabljati svoj ključ"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Upravljanje API ključev"
+        },
+        "clientId": {
+          "label": "API ključ"
+        },
+        "created": {
+          "label": "Datum ustvarjanja"
+        }
+      }
+    },
+    "title": "Upravljanje ključev API"
+  },
   "attribution": {
     "country": "Država:",
     "creator": "Ustvarjalec:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Tema"
   },
   "categories": {
-    "label": "Raziščite zgodbe po oznakah",
+    "label": "Raziščite rezultate po oznaki",
     "noOptions": "Ni več oznak, ki bi jih lahko izbrali",
-    "search": "Raziščite zgodbe po oznakah"
+    "search": "Raziščite rezultate po oznaki"
   },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Vnesite svoj osebni API ključ",
+            "prompt": "{link} in bo uporabljen."
+          }
+        }
+      },
       "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Napaka",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ta API ključ je že onemogočen, morda v drugem zavihku brskalnika.",
+      "title": "Ključ je že onemogočen"
+    },
+    "authDuplicateKey": {
+      "description": "Uporabniki lahko imajo samo en omogočen osebni ključ, namenjen osebni uporabi.",
+      "title": "Osebni ključ že imate"
+    },
+    "authKeyLimitReached": {
+      "description": "Novega osebnega ključa ni mogoče ustvariti, ker ste dosegli omejitev onemogočenih osebnih ključev. Pošljite nam e-pošto na naslov api@europeana.eu ali nas kontaktirajte prek pripomočka za povratne informacije na dnu okna.",
+      "title": "Dosegli ste omejitev osebnih ključev"
+    },
     "galleryLocked": {
       "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
       "title": "Posodobitev ni uspela"
@@ -775,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 enota |{count} enote",
     "itemOf": "{max} od {count} enote",
+    "noItems": "Ni enota.",
+    "noMoreItems": "Ni več enot na voljo.",
     "recent": "Nedavni enote",
     "recommended": "Priporočeni enote",
     "trending": {
@@ -963,6 +1031,10 @@ export default {
         "description": "Zbira anonimne statistične podatke o tem, kako obiskovalci komunicirajo s spletnim mestom.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Zapomni si, ali želite dobiti večjezične rezultate iskanja.",
+        "title": "Večjezično iskanje"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1133,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Pokaži mi",
+    "readMore": "Poskusite",
     "text": {
-      "featureIdeas": "Raziščite prihajajoče spremembe, ki jih načrtujemo, in glasujte za tiste, za katere bi radi imeli prednost. Vaš prispevek nam pomaga, da se osredotočimo na tisto, kar je za vas najpomembnejše."
+      "multilingualSearch": "Odkrijte več z novim večjezičnim iskanjem – vašo poizvedbo poveže s prevodi v drugih jezikih, da vam zagotovi bogatejše in ustreznejše rezultate."
+    },
+    "tooltip": {
+      "multilingualSearch": "Kliknite tukaj, da aktivirate večjezično iskanje"
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -1294,6 +1369,13 @@ export default {
         "term": "Vnesite termin(e), ki jih izbrano polje vsebuje ali ne vsebuje."
       }
     },
+    "multilingual": {
+      "disable": "Onemogoči večjezično iskanje",
+      "enable": "Omogoči večjezično iskanje",
+      "loginToUseMultilingualSearch": "Prijavite se za uporabo večjezičnega iskanja in pridobite rezultate, ki niso omejeni na jezik vašega iskalnega izraza.",
+      "turnOffMultilingualSearch": "Izklopite večjezično iskanje in si oglejte rezultate samo v jeziku iskane besede.",
+      "turnOnMultilingualSearch": "Vklopite večjezično iskanje in prejmite rezultate, ki niso omejeni na jezik iskalnega izraza."
+    },
     "results": {
       "limitWarning": "Dodatni rezultati niso prikazani, saj je prikazanih le prvih 1000 najpomembnejših rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
       "loginToSeeMore": "{login} za ogled več rezultatov",
@@ -1309,7 +1391,7 @@ export default {
   },
   "searchFilters": "Iskalni filtri {count}",
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Iskanje 50+ milijonov enote",
+  "searchPlaceholder": "Iskanje 60+ milijonov enote",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",
@@ -1440,6 +1522,7 @@ export default {
     "search": "Išči"
   },
   "statuses": {
+    "disabled": "Onemogočeno",
     "liked": "Všeč mi je bilo",
     "pinned": "Pripet",
     "required": "Zahtevano"
@@ -1453,6 +1536,7 @@ export default {
     "stories": "Zgodba | Zgodbe"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultatov",
     "storiesHaveLoaded": "{0} zgodbe najdene"
   },
   "swiper": {

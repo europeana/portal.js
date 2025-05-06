@@ -2,6 +2,8 @@ export default {
   state: () => ({
     likesId: null,
     active: null,
+    activeId: null,
+    activeParams: {},
     activeRecommendations: [],
     selectedItems: []
   }),
@@ -26,15 +28,14 @@ export default {
     setActive(state, value) {
       state.active = value;
     },
-    setActiveRecommendations(state, value) {
-      // Remove any recommendations that are already in the active set, because
-      // the Recommendation API/Engine is broken.
-      // TODO: remove if/when recommendations become useful.
-      const activeSetItemIds = state.active?.items.map((item) => item.id) || [];
-      state.activeRecommendations = value.filter((rec) => !activeSetItemIds.includes(rec.id));
+    setActiveId(state, value) {
+      state.activeId = value;
     },
-    addItemToActive(state, item) {
-      state.active.items.push(item);
+    setActiveParams(state, value) {
+      state.activeParams = value;
+    },
+    setActiveRecommendations(state, value) {
+      state.activeRecommendations = value;
     },
     selectItem(state, itemId) {
       if (!state.selectedItems.includes(itemId)) {
@@ -47,30 +48,23 @@ export default {
   },
 
   actions: {
-    async refreshSet({ state, dispatch }) {
-      if (state.active) {
-        await dispatch('fetchActive', state.active.id);
-        if (state.selectedItems.length > 0) {
-          dispatch('refreshSelected');
-        }
+    async fetchActive({ dispatch, commit, state }) {
+      if (!state.activeId) {
+        return;
       }
-    },
-    async fetchActive({ commit }, setId) {
-      try {
-        await Promise.all([
-          this.$apis.set.get(setId),
-          this.$apis.set.getItems(setId)
-        ]).then((responses) => {
-          commit('setActive', {
-            ...responses[0],
-            items: responses[1]
-          });
-        });
-      } catch (error) {
-        if (process.server && error.statusCode) {
-          this.app.context.res.statusCode = error.statusCode;
-        }
-        throw error;
+
+      const responses = await Promise.all([
+        this.$apis.set.get(state.activeId),
+        this.$apis.set.getItems(state.activeId, state.activeParams)
+      ]);
+
+      commit('setActive', {
+        ...responses[0],
+        items: responses[1]
+      });
+
+      if ((state.selectedItems || []).length > 0) {
+        dispatch('refreshSelected');
       }
     },
     async reviewRecommendation({ state, commit }, params) {

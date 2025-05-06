@@ -261,10 +261,10 @@
 
         try {
           const response = await this.createOrUpdateSet();
-          const setId = response.id;
+          const setId = response.id.split('/').pop();
 
-          if (setId === this.$store.state.set.active?.id) {
-            this.$store.dispatch('set/fetchActive', setId);
+          if (setId === this.$store.state.set.activeId) {
+            this.$store.dispatch('set/fetchActive');
           }
 
           if (this.itemIds && this.isNew) {

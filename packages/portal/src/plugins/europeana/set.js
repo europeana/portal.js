@@ -1,5 +1,3 @@
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-
 // TODO: move to static properties of class?
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
@@ -16,56 +14,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
   /**
    * Search for user sets
    * @param {Object} params retrieval params to send to Set API search method
-   * @param {Object} options retrieval options
-   * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
-  async search(params, options = {}) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      // account for early versions of the API paginating from 0, new version from 1
-      if (params.page) {
-        params.page = params.page - 1;
-      }
-      if (params.profile === 'items.meta') {
-        // account for early versions of the API response not including first set item preview/thumbnail
-        if (options.withMinimalItemPreviews) {
-          params.profile = 'standard';
-        } else {
-          params.profile = 'itemDescriptions';
-        }
-      }
-      if (params.profile === 'items') {
-        params.profile = 'minimal';
-      }
-    }
-
-    const response = await this.request({
+  search(params) {
+    return this.request({
       method: 'get',
       url: '/search',
       params
     });
-
-    // TODO: remove withMinimalItemPreviews option (also in component requests) when set API version is set to new
-    if (this.config.version === '0.12' && options.withMinimalItemPreviews && response.items) {
-      const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
-
-      const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
-        profile: 'minimal',
-        rows: params.perPage ? params.perPage : 100
-      });
-
-      for (const set of response.items) {
-        if (set.items) {
-          set.items = set.items.map((uri) => {
-            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-            return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
-          });
-          set.isShownBy = { thumbnail: set.items[0].edmPreview };
-        }
-      }
-    }
-
-    return response;
   }
 
   /**
@@ -99,39 +54,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string} params.perPage the number of items per page of results
    * @return {Object} the set's object, containing the requested window of the set's items
    */
-  // TODO: pagination for sets with > 100 items
   get(id, params = {}) {
-    const defaults = {
-      profile: 'meta'
-    };
-    const paramsWithDefaults = { ...defaults, ...params };
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      // get requests with pagination remove item metadata, use them without pagination
-      if (paramsWithDefaults.page) {
-        delete paramsWithDefaults.page;
-      }
-      if (paramsWithDefaults.perPage) {
-        delete paramsWithDefaults.perPage;
-      }
-      // check for meta profile
-      if (paramsWithDefaults.profile === 'meta') {
-        paramsWithDefaults.profile = 'minimal';
-      }
-      // check for items profile
-      if (paramsWithDefaults.profile === 'items') {
-        paramsWithDefaults.profile = 'standard';
-      }
-      // check for items.meta profile
-      if (paramsWithDefaults.profile === 'items.meta') {
-        paramsWithDefaults.profile = 'itemDescriptions';
-      }
-    }
-
     return this.requestSet(id, {
       method: 'get',
-      params: paramsWithDefaults
+      params: {
+        profile: 'meta',
+        ...params
+      }
     });
   }
 
@@ -155,10 +84,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   create(data) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      delete data.collectionType;
-    }
     return this.request({
       method: 'post',
       url: '/',
@@ -173,10 +98,6 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   update(id, data, params = {}) {
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      delete data.collectionType;
-    }
     return this.requestSet(id, {
       method: 'put',
       data,
@@ -231,26 +152,12 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Promise,Promise[]} API request(s)
    */
   async insertItems(setId, itemIds, position) {
-    itemIds = [].concat(itemIds);
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      for (let i = 0; i < itemIds.length; i = i + 1) {
-        // need to do one at a time so that positioning works as intended
-        await this.requestSet(setId, {
-          method: 'put',
-          url: itemIds[i],
-          params: { position: position + i }
-        });
-      }
-    } else {
-      return this.requestSet(setId, {
-        method: 'put',
-        url: '/items',
-        data: itemIds,
-        params: { position }
-      });
-    }
+    return this.requestSet(setId, {
+      method: 'put',
+      url: '/items',
+      data: [].concat(itemIds),
+      params: { position }
+    });
   }
 
   /**
@@ -259,44 +166,35 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {string,array} itemIds the ID(s) of the item(s) to delete
    * @return {Promise,Promise[]} API request(s)
    */
-  deleteItems(setId, itemIds) {
-    itemIds = [].concat(itemIds);
-
-    // TODO: rm when new version is in production
-    if (this.config.version === '0.12') {
-      const requests = [];
-      for (const itemId of itemIds) {
-        requests.push(
-          this.requestSet(setId, {
-            method: 'delete',
-            url: itemId
-          })
-        );
-      }
-      return Promise.all(requests);
-    } else {
-      return this.requestSet(setId, {
-        method: 'delete',
-        url: '/items',
-        data: itemIds
-      });
-    }
+  async deleteItems(setId, itemIds) {
+    return this.requestSet(setId, {
+      method: 'delete',
+      url: '/items',
+      data: [].concat(itemIds)
+    });
   }
 
-  getItemIds(id) {
+  getItemIds(id, { page = 1, pageSize = 100 } = {}) {
     return this.get(id, {
-      page: 1,
-      pageSize: 100,
+      page,
+      pageSize,
       profile: 'items'
     }).then((response) => response?.items);
   }
 
-  getItems(id) {
+  getItems(id, { page = 1, pageSize = 100 } = {}) {
     return this.get(id, {
-      page: 1,
-      pageSize: 100,
+      page,
+      pageSize,
       profile: 'items.meta'
-    }).then((response) => response?.items);
+    })
+      .then((response) => response?.items)
+      .catch((error) => {
+        if (error.statusCode === 400 && error.response.data.message.includes('page : value out of range')) {
+          return [];
+        }
+        throw error;
+      });
   }
 
   repositionItem(setId, itemId, position) {

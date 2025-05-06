@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-button
+      :id="buttonId"
       v-b-tooltip.bottom
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
@@ -58,12 +59,17 @@
     },
 
     setup(props) {
+      const idSuffix = Array.isArray(props.identifiers) ? 'multi-select' : props.identifiers;
+      const buttonId = `item-like-button-${idSuffix}`;
+      const likeLimitModalId = `like-limit-modal-${idSuffix}`;
+
       const { cardinality } = useCardinality(props.identifiers);
       const eventBus = useEventBus('likedItems');
       const { hideTooltips } = useHideTooltips();
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
-      return { cardinality, eventBus, hideTooltips, logEvent, makeToast };
+
+      return { buttonId, cardinality, eventBus, hideTooltips, likeLimitModalId, logEvent, makeToast };
     },
 
     data() {

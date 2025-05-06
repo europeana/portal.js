@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Správa účtov",
     "curatedCollections": "Spravované kolekcie",
-    "editProfile": "Upraviť profil",
     "likes": "Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
     "linkLoginJoin": "Prihlásiť / Registrovať",
     "linkLogout": "Odhlásiť sa",
-    "myProfile": "Môj profil",
+    "manageApiKeys": "Spravovať kľúče API",
+    "menu": {
+      "close": "Zavrieť používateľskú ponuku",
+      "open": "Otvoriť používateľskú ponuku"
+    },
     "notifications": {
       "loggedIn": "Teraz ste prihlásení. Vitajte!",
       "loggedOut": "Teraz ste odhlásení.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Súkromné galérie",
     "profile": "Moje označenia Páči sa mi a galérie",
-    "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
     "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Zobraziť dokument",
     "vote": "Hlasujte"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Zatvoriť ponuku správy kľúčov",
+      "disable": "Deaktivovať kľúč",
+      "reEnable": "Znova povoliť kľúč",
+      "showMenu": "Zobraziť ponuku správy kľúčov"
+    },
+    "disable": {
+      "promptText1": "Ste si istý, že chcete deaktivovať tento kľúč API?",
+      "promptText2": "Keď deaktivujete tento kľúč, už ho nebudete môcť použiť vo svojom projekte. Stane sa to okamžite. Ak chcete kľúč API znova povoliť, musíte nám poslať e-mail na adresu api@europeana.eu.",
+      "title": "Deaktivovať kľúč API"
+    },
+    "reEnable": {
+      "text": "Ak chcete znova povoliť tento kľúč API, pošlite nám e-mail na api@europeana.eu alebo nás kontaktujte cez spätnoväzbový widget v dolnej časti okna.",
+      "title": "Znova povoľte kľúč API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Požiadajte o osobný kľúč API",
+          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}.",
+          "termsOfUseLinkText": "podmienky používania"
+        },
+        "description": "Naučte sa, ako používať API, a vyskúšajte si to pomocou svojho osobného kľúča API. Prosím, nezdieľajte ho. {howToLink}.",
+        "heading": "Osobný kľúč API",
+        "howToLinkText": "Ako používať svoj kľúč"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Správa kľúčov API"
+        },
+        "clientId": {
+          "label": "Kľúč API"
+        },
+        "created": {
+          "label": "Dátum vytvorenia"
+        }
+      }
+    },
+    "title": "Spravovať kľúče API"
+  },
   "attribution": {
     "country": "Krajina:",
     "creator": "Autor:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Téma"
   },
   "categories": {
-    "label": "Preskúmajte príbehy podľa tagov",
+    "label": "Preskúmať výsledky podľa značky",
     "noOptions": "Už nie sú žiadne tagy na výber",
-    "search": "Preskúmajte príbehy podľa tagov"
+    "search": "Preskúmať výsledky podľa značky"
   },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Zadajte svoj osobný kľúč API",
+            "prompt": "{link} a bude použitý."
+          }
+        }
+      },
       "noRequests": "Na tejto stránke neboli použité žiadne požiadavky na rozhrania Europeana API."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento kľúč API už bol zakázaný, možno v inom paneli prehliadača.",
+      "title": "Kľúč už je deaktivovaný"
+    },
+    "authDuplicateKey": {
+      "description": "Používatelia môžu mať iba jeden povolený osobný kľúč určený na osobné použitie.",
+      "title": "Už máte osobný kľúč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nový osobný kľúč nemôže byť vytvorený, pretože ste dosiahli limit deaktivovaných osobných kľúčov. Pošlite nám prosím e-mail na api@europeana.eu alebo nás kontaktujte prostredníctvom widgetu spätnej väzby v dolnej časti okna.",
+      "title": "Dosiahli ste limit osobných kľúčov"
+    },
     "galleryLocked": {
       "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
       "title": "Aktualizácia zlyhala"
@@ -775,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 objekt | Počet objekty: {count}",
     "itemOf": "Max. {max} z {count} objekty",
+    "noItems": "Nie sú k dispozícii objekty.",
+    "noMoreItems": "Nie sú k dispozícii ďalšie objekty.",
     "recent": "Nedávne objekty",
     "recommended": "Odporúčané položky",
     "trending": {
@@ -963,6 +1031,10 @@ export default {
         "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Pamätá si, či uprednostňujete získavanie viacjazyčných výsledkov vyhľadávania.",
+        "title": "Viacjazyčné vyhľadávanie"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1133,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Ukáž mi",
+    "readMore": "Skúste to",
     "text": {
-      "featureIdeas": "Preskúmajte nadchádzajúce zmeny, ktoré plánujeme, a hlasujte za tie, ktoré by ste chceli uprednostniť. Váš príspevok nám pomáha zamerať sa na to, čo je pre vás najdôležitejšie."
+      "multilingualSearch": "Objavte viac s novým viacjazyčným vyhľadávaním — zodpovedá vášmu dotazu s prekladmi v iných jazykoch, aby vám prinieslo bohatšie a relevantnejšie výsledky."
+    },
+    "tooltip": {
+      "multilingualSearch": "Kliknite sem pre aktiváciu viacjazyčného vyhľadávania"
     }
   },
   "newWindow": "otvorí sa v novom okne",
@@ -1294,6 +1369,13 @@ export default {
         "term": "Zadajte výraz(y), ktoré zvolené pole obsahuje alebo neobsahuje."
       }
     },
+    "multilingual": {
+      "disable": "Zakázať viacjazyčné vyhľadávanie",
+      "enable": "Povoliť viacjazyčné vyhľadávanie",
+      "loginToUseMultilingualSearch": "Prihláste sa a použite viacjazyčné vyhľadávanie a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
+      "turnOffMultilingualSearch": "Vypnite viacjazyčné vyhľadávanie a zobrazte výsledky len v jazyku vyhľadávaného výrazu.",
+      "turnOnMultilingualSearch": "Zapnite viacjazyčné vyhľadávanie a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu."
+    },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
       "loginToSeeMore": "{login} pre zobrazenie viac výsledkov",
@@ -1309,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtre vyhľadávania {count}",
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov objekty",
+  "searchPlaceholder": "Vyhľadajte viac ako 60 miliónov objekty",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",
@@ -1440,6 +1522,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
+    "disabled": "Deaktivované",
     "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"
@@ -1453,6 +1536,7 @@ export default {
     "stories": "Príbeh | Príbehy"
   },
   "storiesPage": {
+    "results": "{count} výsledok | {count} výsledkov",
     "storiesHaveLoaded": "{0} nájdených príbehov"
   },
   "swiper": {

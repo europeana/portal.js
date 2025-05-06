@@ -19,7 +19,8 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
     $store: { commit: sinon.spy() },
     $t: (key) => key,
     ...mocks
-  }
+  },
+  stubs: ['NewFeatureTooltip']
 });
 
 describe('components/item/ItemSelectButton', () => {
@@ -33,6 +34,15 @@ describe('components/item/ItemSelectButton', () => {
     });
 
     describe('when clicked', () => {
+      it('hides the tooltip', () => {
+        const wrapper = factory();
+
+        const selectButton = wrapper.find('.item-select-button');
+        selectButton.trigger('click');
+
+        expect(wrapper.vm.showTooltip).toEqual(false);
+      });
+
       describe('and user is not logged in', () => {
         it('redirects to login', () => {
           const wrapper = factory();

@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Gestionarea contului",
     "curatedCollections": "Colecții curatori ate",
-    "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
     "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
-    "myProfile": "Profilul meu",
+    "manageApiKeys": "Gestionați cheile API",
+    "menu": {
+      "close": "Închideți meniul utilizatorului",
+      "open": "Deschide meniul utilizatorului"
+    },
     "notifications": {
       "loggedIn": "Sunteți autentificat. Bine ați venit!",
       "loggedOut": "Acum ești deconectat.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
-    "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Vizualizare document",
     "vote": "Vot"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Închideți meniul de gestionare a cheilor",
+      "disable": "Dezactivați cheia",
+      "reEnable": "Reactivează cheia",
+      "showMenu": "Afișează meniul de gestionare a cheilor"
+    },
+    "disable": {
+      "promptText1": "Sigur doriți să dezactivați această cheie API?",
+      "promptText2": "După ce dezactivați această cheie, nu o veți mai putea utiliza în proiectul dvs. Acest lucru se va întâmpla imediat. Va trebui să ne trimiteți un e-mail la api@europeana.eu pentru a activa din nou cheia API.",
+      "title": "Dezactivați cheia API"
+    },
+    "reEnable": {
+      "text": "Pentru a reactiva această cheie API, vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Reactivează cheia API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Solicitați o cheie API personală",
+          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
+          "termsOfUseLinkText": "termeni de utilizare"
+        },
+        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
+        "heading": "Cheie API personală",
+        "howToLinkText": "Cum să folosești cheia ta"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Gestionarea cheilor API"
+        },
+        "clientId": {
+          "label": "Cheia API"
+        },
+        "created": {
+          "label": "Data creării"
+        }
+      }
+    },
+    "title": "Gestionați cheile API"
+  },
   "attribution": {
     "country": "Țară:",
     "creator": "Creator:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Subiect"
   },
   "categories": {
-    "label": "Explorați narațiuni după etichetă",
+    "label": "Explorați rezultatele după etichetă",
     "noOptions": "Nu mai sunt etichete de selectat",
-    "search": "Explorați narațiuni după etichetă"
+    "search": "Explorați rezultatele după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Introduceți cheia API personală",
+            "prompt": "{link} și va fi utilizat."
+          }
+        }
+      },
       "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Această cheie API a fost deja dezactivată, poate într-un alt tab al browserului.",
+      "title": "Cheia este deja dezactivată"
+    },
+    "authDuplicateKey": {
+      "description": "Utilizatorii pot avea doar o singură cheie personală activată, destinată utilizării personale.",
+      "title": "Aveți deja o cheie personală"
+    },
+    "authKeyLimitReached": {
+      "description": "O nouă cheie personală nu poate fi creată deoarece ați atins limita de chei personale dezactivate. Vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Ați atins limita de chei personale"
+    },
     "galleryLocked": {
       "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
       "title": "Actualizarea a eșuat"
@@ -775,6 +841,8 @@ export default {
   "items": {
     "itemCount": "1 resursă culturală |{count} resurse culturale",
     "itemOf": "{max} de {count} resurse culturale",
+    "noItems": "Nu există resurse culturale.",
+    "noMoreItems": "Nu mai sunt resurse culturale.",
     "recent": "Resurse culturale recente",
     "recommended": "Resurse culturale recomandate",
     "trending": {
@@ -963,6 +1031,10 @@ export default {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
+        "title": "Căutare multilingvă"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1133,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Arată-mi",
+    "readMore": "Încearcă-l",
     "text": {
-      "featureIdeas": "Explorați modificările viitoare pe care le plănuim și votați-le pe cele pe care ați dori să le vedeți cu prioritate. Contribuția dvs. ne ajută să ne concentrăm asupra a ceea ce contează cel mai mult pentru dvs."
+      "multilingualSearch": "Descoperiți mai multe cu noua căutare multilingvă — aceasta potrivește interogarea dvs. cu traduceri în alte limbi pentru a vă oferi rezultate mai bogate și mai relevante."
+    },
+    "tooltip": {
+      "multilingualSearch": "Faceți clic aici pentru a activa căutarea multilingvă"
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -1294,6 +1369,13 @@ export default {
         "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
       }
     },
+    "multilingual": {
+      "disable": "Dezactivați căutarea multilingvă",
+      "enable": "Activați căutarea multilingvă",
+      "loginToUseMultilingualSearch": "Conectați-vă pentru a utiliza căutarea multilingvă și pentru a obține rezultate care nu se limitează la limba în care ați efectuat căutarea.",
+      "turnOffMultilingualSearch": "Dezactivați căutarea multilingvă și vizualizați rezultatele numai în limba în care ați efectuat căutarea.",
+      "turnOnMultilingualSearch": "Activați căutarea multilingvă și obțineți rezultate care nu sunt limitate la limba termenului de căutare."
+    },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
       "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
@@ -1309,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtre de căutare {count}",
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Căutați peste 50 de milioane de resurse culturale",
+  "searchPlaceholder": "Căutați peste 60 de milioane de resurse culturale",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",
@@ -1440,6 +1522,7 @@ export default {
     "search": "Căutare"
   },
   "statuses": {
+    "disabled": "Dezactivat",
     "liked": "A apreciat",
     "pinned": "Fixat",
     "required": "Necesar"
@@ -1453,6 +1536,7 @@ export default {
     "stories": "Narațiune | Narațiuni"
   },
   "storiesPage": {
+    "results": "{count} rezultat | {count} rezultate",
     "storiesHaveLoaded": "{0} narațiuni găsite"
   },
   "swiper": {

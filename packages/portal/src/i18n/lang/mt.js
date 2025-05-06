@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Ġestjoni tal-kont",
     "curatedCollections": "Kollezzjonijiet Kurati",
-    "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
     "linkLoginJoin": "Idħol / Ingħaqad",
     "linkLogout": "Oħroġ",
-    "myProfile": "Il-profil Tiegħi",
+    "manageApiKeys": "Immaniġġja ċ-ċwievet tal-API",
+    "menu": {
+      "close": "Agħlaq il-menu tal-utent",
+      "open": "Iftaħ il-menu tal-utent"
+    },
     "notifications": {
       "loggedIn": "Inti issa illoggjat. Merħba!",
       "loggedOut": "Issa int illoggjat' il barra.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Direttorji tar-Ritratti privati",
     "profile": "Il-Likes u d-Direttorji tar-Ritratti Tiegħi",
-    "profileSettings": "Settings tal-profil",
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "publishedCollections": "Galleriji Ippubblikati",
     "settings": "Settings",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Ara d-dokument",
     "vote": "Ivvota"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Agħlaq il-menu tal-immaniġġjar taċ-ċwievet",
+      "disable": "Diżattiva ċ-ċavetta",
+      "reEnable": "Erġa’ attiva ċ-ċavetta",
+      "showMenu": "Uri l-menu tal-immaniġġjar taċ-ċwievet"
+    },
+    "disable": {
+      "promptText1": "Int żgur li trid tiddiżattiva din iċ-ċavetta API?",
+      "promptText2": "Ladarba tiddiżattiva din iċ-ċavetta, ma tkunx tista’ tużaha fil-proġett tiegħek. Dan jiġri immedjatament. Ikollok tibgħatilna email fuq api@europeana.eu biex terġa’ tattiva ċ-ċavetta API.",
+      "title": "Diżattiva ċ-ċavetta API"
+    },
+    "reEnable": {
+      "text": "Biex terġa’ tattiva din iċ-ċavetta API, jekk jogħġbok ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Erġa’ attiva ċ-ċavetta tal-API"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Itlob ċavetta personali tal-API",
+          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key.",
+          "termsOfUseLinkText": "termini ta’ użu"
+        },
+        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}.",
+        "heading": "Ċavetta API personali",
+        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Ġestjoni taċ-ċwievet tal-API"
+        },
+        "clientId": {
+          "label": "Ċavetta API"
+        },
+        "created": {
+          "label": "Data tal-ħolqien"
+        }
+      }
+    },
+    "title": "Immaniġġja ċ-ċwievet tal-API"
+  },
   "attribution": {
     "country": "Pajjiż:",
     "creator": "Kreatur:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Suġġett"
   },
   "categories": {
-    "label": "Esplora stejjer b'tag",
+    "label": "Esplora r-riżultati skond it-tikketta",
     "noOptions": "M'hemmx aktar tags biex tagħżel",
-    "search": "Esplora stejjer b'tag"
+    "search": "Esplora r-riżultati skond it-tikketta"
   },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Daħħal iċ-ċavetta API personali tiegħek",
+            "prompt": "{link} u se jintuża."
+          }
+        }
+      },
       "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna."
     }
   },
@@ -210,6 +264,18 @@ export default {
   },
   "error": "Żball",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Din iċ-ċavetta API diġà ġiet diżattivata, forsi f'tab ieħor tal-browser.",
+      "title": "Iċ-ċavetta diġà hija diżattivata"
+    },
+    "authDuplicateKey": {
+      "description": "L-utenti jistgħu jkollhom biss ċavetta personali waħda attivata, maħsuba għall-użu personali.",
+      "title": "Diġà għandek ċavetta personali"
+    },
+    "authKeyLimitReached": {
+      "description": "Ma tistax tinħoloq ċavetta personali ġdida għax laħaqt il-limitu taċ-ċwievet personali diżattivati. Jekk jogħġbok, ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Inti lħaqt il-limitu taċ-ċwievet personali"
+    },
     "galleryLocked": {
       "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
       "title": "L-aġġornament falla"
@@ -775,6 +841,8 @@ export default {
   "items": {
     "itemCount": "oġġett 1 |{count} oġġetti",
     "itemOf": "{max} minn {count} oġġett",
+    "noItems": "M'hemm l-ebda oġġetti.",
+    "noMoreItems": "M'hemmx aktar oġġetti.",
     "recent": "Oġġetti reċenti",
     "recommended": "Oġġetti rakkomandati",
     "trending": {
@@ -963,6 +1031,10 @@ export default {
         "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Jiftakar jekk tippreferi tikseb riżultati tat-tfittxija b’ħafna lingwi.",
+        "title": "Tfittxija b’ħafna lingwi"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1133,9 +1205,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Uri lili",
+    "readMore": "Ipprova",
     "text": {
-      "featureIdeas": "Esplora l-bidliet li ġejjin li qed nippjanaw u ivvota għal dawk li tixtieq tara prijoritizzati. Il-kontribut tiegħek jgħinna niffukaw fuq dak li jgħodd l-aktar għalik."
+      "multilingualSearch": "Skopri aktar bit-tfittxija multilingwi l-ġdida — tqabbel il-mistoqsija tiegħek ma' traduzzjonijiet f'lingwi oħra biex iġġiblek riżultati aktar sinjuri u aktar rilevanti."
+    },
+    "tooltip": {
+      "multilingualSearch": "Ikklikkja hawn biex tattiva t-tfittxija b’ħafna lingwi."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -1294,6 +1369,13 @@ export default {
         "term": "Daħħal it-terminu(i) li l-qasam magħżul fih jew ma fihx."
       }
     },
+    "multilingual": {
+      "disable": "Itfi t-tfittxija b’ħafna lingwi",
+      "enable": "Ippermetti t-tfittxija b’ħafna lingwi",
+      "loginToUseMultilingualSearch": "Illoggja biex tuża t-tfittxija multilingwi, u ġib riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "turnOffMultilingualSearch": "Itfi t-tfittxija multilingwi, u ara r-riżultati biss fil-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "turnOnMultilingualSearch": "Ixgħel it-tfittxija multilingwi, u ġib riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek."
+    },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
       "loginToSeeMore": "{login} biex tara aktar riżultati",
@@ -1309,7 +1391,7 @@ export default {
   },
   "searchFilters": "Fittex filtri {count}",
   "searchHasLoaded": "{0} riżultati rritornati",
-  "searchPlaceholder": "Fittex 50+ miljun oġġett",
+  "searchPlaceholder": "Fittex 60+ miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
   "searchSuggestions": "Fittex is-suġġerimenti",
@@ -1440,6 +1522,7 @@ export default {
     "search": "Fittex"
   },
   "statuses": {
+    "disabled": "Diżattivat",
     "liked": "Għoġobni",
     "pinned": "Mehmuż",
     "required": "Meħtieġ"
@@ -1453,6 +1536,7 @@ export default {
     "stories": "Storja | Stejjer"
   },
   "storiesPage": {
+    "results": "{count} riżultat | {count} riżultati",
     "storiesHaveLoaded": "{0} stejjer misjuba"
   },
   "swiper": {

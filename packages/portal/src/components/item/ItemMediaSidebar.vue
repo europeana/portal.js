@@ -15,7 +15,7 @@
         <!-- Place tooltip outside tab to prevent being lazy loaded -->
         <b-tooltip
           v-if="annotationList"
-          target="item-media-sidebar-annotations"
+          :target="annotationsTabButtonId"
           :title="$t('media.sidebar.annotations')"
           boundary=".media-viewer-sidebar"
           placement="right"
@@ -24,7 +24,7 @@
         <b-tab
           v-if="annotationList"
           data-qa="item media sidebar annotations"
-          button-id="item-media-sidebar-annotations"
+          :button-id="annotationsTabButtonId"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
         >
           <template #title>
@@ -49,7 +49,7 @@
         </b-tab>
         <b-tooltip
           v-if="annotationSearch"
-          target="item-media-sidebar-search"
+          :target="searchTabButtonId"
           :title="$t('media.sidebar.search')"
           boundary=".media-viewer-sidebar"
           placement="right"
@@ -58,7 +58,7 @@
         <b-tab
           v-if="annotationSearch"
           data-qa="item media sidebar search"
-          button-id="item-media-sidebar-search"
+          :button-id="searchTabButtonId"
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
         >
           <template #title>
@@ -81,7 +81,7 @@
         </b-tab>
         <b-tooltip
           v-if="!!manifestUri"
-          target="item-media-sidebar-links"
+          :target="linksTabButtonId"
           :title="$t('media.sidebar.links')"
           boundary=".media-viewer-sidebar"
           placement="right"
@@ -90,7 +90,7 @@
         <b-tab
           v-if="!!manifestUri"
           data-qa="item media sidebar links"
-          button-id="item-media-sidebar-links"
+          :button-id="linksTabButtonId"
           lazy
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
         >
@@ -165,6 +165,10 @@
     },
 
     setup(props) {
+      const annotationsTabButtonId = 'item-media-sidebar-annotations-button';
+      const searchTabButtonId = 'item-media-sidebar-search-button';
+      const linksTabButtonId = 'item-media-sidebar-links-button';
+
       const tabHashes = [];
       if (props.annotationList) {
         tabHashes.push('#annotations');
@@ -177,8 +181,19 @@
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      const { hideTooltips } = useHideTooltips();
-      return { activeTabHash, activeTabHistory, activeTabIndex, hideTooltips, watchTabIndex, unwatchTabIndex };
+      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId]);
+
+      return {
+        activeTabHash,
+        activeTabHistory,
+        activeTabIndex,
+        annotationsTabButtonId,
+        hideTooltips,
+        linksTabButtonId,
+        searchTabButtonId,
+        watchTabIndex,
+        unwatchTabIndex
+      };
     },
 
     data() {

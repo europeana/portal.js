@@ -260,6 +260,20 @@
   font-size: $font-size-small;
   text-transform: uppercase;
   font-weight: 600;
+  background-color: $red;
+
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(201, 28, 28, 50%);
+  }
+
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-color: $darkred;
+    border-color: $darkred;
+  }
 }
 
 .btn-light {

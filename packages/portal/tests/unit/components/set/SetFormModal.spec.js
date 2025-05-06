@@ -68,7 +68,7 @@ const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal
     $store: {
       commit: storeCommit,
       dispatch: storeDispatch,
-      state: { set: { active: { id: null } } },
+      state: { set: { activeId: null } },
       ...$store
     },
     $t: (key) => key
@@ -122,7 +122,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     describe('when the active set', () => {
-      const $store = { state: { set: { active: { id: setId } } } };
+      const $store = { state: { set: { activeId: setId.split('/').pop() } } };
 
       it('re-fetches active set', async() => {
         const wrapper = factory({ propsData: existingSetPropsData, $store });
@@ -132,12 +132,12 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(true);
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
       });
     });
 
     describe('when not the active set', () => {
-      const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
+      const $store = { state: { set: { activeId: '456' } } };
 
       it('re-fetches active set', async() => {
         const wrapper = factory({ propsData: existingSetPropsData, $store });
@@ -162,7 +162,7 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(setApiInsertItemStub.calledWith(setId, '/123/abc')).toBe(true);
+        expect(setApiInsertItemStub.calledWith(setId.split('/').pop(), '/123/abc')).toBe(true);
       });
     });
   });

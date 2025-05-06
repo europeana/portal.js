@@ -1,13 +1,17 @@
 export default {
   "account": {
+    "accountManagement": "Kontoadministration",
     "curatedCollections": "Kuraterede samlinger",
-    "editProfile": "Rediger profil",
     "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
     "linkLoginJoin": "Log ind / Bliv medlem",
     "linkLogout": "Log ud",
-    "myProfile": "Min profil",
+    "manageApiKeys": "Administrer API-nøgler",
+    "menu": {
+      "close": "Luk brugermenuen",
+      "open": "Åbn brugermenuen"
+    },
     "notifications": {
       "loggedIn": "Du er nu logget ind. Velkommen!",
       "loggedOut": "Du er nu logget ud.",
@@ -21,7 +25,6 @@ export default {
     },
     "privateCollections": "Private gallerier",
     "profile": "Mine likes om'er og gallerier",
-    "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
@@ -81,6 +84,49 @@ export default {
     "viewDocument": "Se dokument",
     "vote": "Stemme"
   },
+  "apiKeys": {
+    "actions": {
+      "closeMenu": "Luk menuen for nøglehåndtering",
+      "disable": "Deaktiver nøgle",
+      "reEnable": "Genaktiver nøgle",
+      "showMenu": "Vis menu for nøglehåndtering"
+    },
+    "disable": {
+      "promptText1": "Er du sikker på, at du vil deaktivere denne API-nøgle?",
+      "promptText2": "Når du deaktiverer denne nøgle, vil du ikke længere kunne bruge den i dit projekt. Dette sker med det samme. Du skal sende os en e-mail på api@europeana.eu for at aktivere API-nøglen igen.",
+      "title": "Deaktiver API-nøgle"
+    },
+    "reEnable": {
+      "text": "For at genaktivere denne API-nøgle, bedes du sende os en e-mail på api@europeana.eu eller kontakte os via feedback-widgetten nederst i vinduet.",
+      "title": "Genaktiver API-nøgle"
+    },
+    "sections": {
+      "personalKeys": {
+        "create": {
+          "button": "Anmod om en personlig API-nøgle",
+          "checkbox": "Jeg bekræfter, at jeg har læst og accepterer API-nøglen {termsOfUseLink}.",
+          "termsOfUseLinkText": "vilkår for brug"
+        },
+        "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}.",
+        "heading": "Personlig API-nøgle",
+        "howToLinkText": "Sådan bruger du din nøgle"
+      }
+    },
+    "table": {
+      "fields": {
+        "actions": {
+          "label": "Administration af API-nøgler"
+        },
+        "clientId": {
+          "label": "API-nøgle"
+        },
+        "created": {
+          "label": "Oprettelsesdato"
+        }
+      }
+    },
+    "title": "Administrer API-nøgler"
+  },
   "attribution": {
     "country": "Land:",
     "creator": "Oprettet af:",
@@ -111,9 +157,9 @@ export default {
     "topic": "Emne"
   },
   "categories": {
-    "label": "Udforsk historier efter tag",
+    "label": "Udforsk resultater efter tag",
     "noOptions": "Der er ikke flere tags at vælge",
-    "search": "Udforsk historier efter tag"
+    "search": "Udforsk resultater efter tag"
   },
   "clearAllFilters": "ryd alle filtre",
   "collections": {
@@ -163,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Indtast din personlige API-nøgle",
+            "prompt": "{link} og det vil blive brugt."
+          }
+        }
+      },
       "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side."
     }
   },
@@ -211,6 +265,18 @@ export default {
   },
   "error": "Fejl",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Denne API-nøgle er allerede deaktiveret, måske i en anden faneblad i browseren.",
+      "title": "Nøgle allerede deaktiveret"
+    },
+    "authDuplicateKey": {
+      "description": "Brugere kan kun have én aktiveret personlig nøgle, som er beregnet til personlig brug.",
+      "title": "Du har allerede en personlig nøgle"
+    },
+    "authKeyLimitReached": {
+      "description": "En ny personlig nøgle kan ikke oprettes, da du har nået grænsen for deaktiverede personlige nøgler. Send os venligst en e-mail på api@europeana.eu eller kontakt os via feedback-widgetten nederst i vinduet.",
+      "title": "Du har nået grænsen for personlige nøgler"
+    },
     "galleryLocked": {
       "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
       "title": "Opdatering fejlede"
@@ -776,6 +842,8 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} genstande",
     "itemOf": "{max} af {count} genstande",
+    "noItems": "Der er ingen genstande.",
+    "noMoreItems": "Der er ikke flere genstande.",
     "recent": "Seneste genstande",
     "recommended": "Anbefalede genstande",
     "trending": {
@@ -964,6 +1032,10 @@ export default {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
         "title": "Matomo"
       },
+      "multilingualSearch": {
+        "description": "Husker, hvis du foretrækker at få flersprogede søgeresultater.",
+        "title": "Flersproget søgning"
+      },
       "myAdventCalendar": {
         "title": "My Advent Calendar"
       },
@@ -1135,9 +1207,12 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
-    "readMore": "Vis mig",
+    "readMore": "Prøv det",
     "text": {
-      "featureIdeas": "Udforsk de kommende ændringer, vi planlægger, og stem på dem, du gerne vil have prioriteret. Dine input hjælper os med at fokusere på det, der betyder mest for dig."
+      "multilingualSearch": "Opdag mere med den nye flersprogede søgning – den matcher din forespørgsel med oversættelser på andre sprog for at give dig rigere og mere relevante resultater."
+    },
+    "tooltip": {
+      "multilingualSearch": "Klik her for at aktivere flersproget søgning"
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -1296,6 +1371,13 @@ export default {
         "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
       }
     },
+    "multilingual": {
+      "disable": "Deaktiver flersproget søgning",
+      "enable": "Aktiver flersproget søgning",
+      "loginToUseMultilingualSearch": "Log ind for at bruge flersproget søgning, og få resultater, der ikke er begrænset til sproget i dit søgeord.",
+      "turnOffMultilingualSearch": "Slå flersproget søgning fra, og se kun resultater på det sprog, der svarer til dit søgeord.",
+      "turnOnMultilingualSearch": "Slå flersproget søgning til, og få resultater, der ikke er begrænset til sproget i dit søgeord."
+    },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
       "loginToSeeMore": "{login} for at se flere resultater",
@@ -1311,7 +1393,7 @@ export default {
   },
   "searchFilters": "Søgefiltre {count}",
   "searchHasLoaded": "{0} resultater returneret",
-  "searchPlaceholder": "Søg i mere end 50 millioner genstande",
+  "searchPlaceholder": "Søg i mere end 60 millioner genstande",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
   "searchSuggestions": "Søgeforslag",
@@ -1442,6 +1524,7 @@ export default {
     "search": "Søg"
   },
   "statuses": {
+    "disabled": "Deaktiveret",
     "liked": "Liked",
     "pinned": "Fastgjort",
     "required": "Påkrævet"
@@ -1455,6 +1538,7 @@ export default {
     "stories": "Historien | Historier"
   },
   "storiesPage": {
+    "results": "{count} resultat | {count} resultater",
     "storiesHaveLoaded": "{0} historier fundet"
   },
   "swiper": {
