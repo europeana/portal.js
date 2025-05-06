@@ -301,6 +301,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/axios-logger',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -312,7 +313,6 @@ export default {
 
   buildModules: [
     '~/modules/contentful',
-    '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'

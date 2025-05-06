@@ -1,8 +1,30 @@
 import axios from 'axios';
 
-import storeModule from './store';
-
 const MODULE_NAME = 'axiosLogger';
+
+const storeModule = {
+  namespaced: true,
+
+  state: () => ({
+    requests: [],
+    recording: false
+  }),
+
+  mutations: {
+    start(state) {
+      state.recording = true;
+    },
+    stop(state) {
+      state.recording = false;
+    },
+    push(state, request) {
+      state.requests.push(request);
+    },
+    reset(state) {
+      state.requests = [];
+    }
+  }
+};
 
 const requestParams = (requestConfig, moduleConfig) => {
   const params = {
