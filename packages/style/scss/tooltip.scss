@@ -9,6 +9,10 @@
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
+      border-width: 2px;
+      border-radius: $border-radius-small-4k;
+      padding: 0.75rem;
+      max-width: 300px;
     }
 
     a {
@@ -32,6 +36,10 @@
       &:before {
         bottom: -1px;
         border-bottom-color: $blue;
+
+        @media (min-width: $bp-4k) {
+          bottom: -2px;
+        }
       }
     }
 
@@ -39,11 +47,14 @@
       &:before {
         top: -1px;
         border-top-color: $blue;
+
+        @media (min-width: $bp-4k) {
+          top: -2px;
+        }
       }
     }
 
     .tooltip-inner {
-      border-radius: 0.25rem;
       background-color: $blue;
       background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
       background-size: 800% 100%;

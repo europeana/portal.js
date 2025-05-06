@@ -102,8 +102,7 @@
   .disclaimer {
     .eu-logo {
       @media (min-width: $bp-4k) {
-        width: 810px;
-        height: auto;
+        height: 170px;
         margin-bottom: 2.625rem !important;
       }
     }
