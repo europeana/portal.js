@@ -167,7 +167,7 @@
 
     data() {
       return {
-        activeTab: HASH_LIKES,
+        activeTab: null,
         HASH_CURATED_COLLECTIONS,
         HASH_LIKES,
         HASH_PRIVATE_GALLERIES,
@@ -221,6 +221,8 @@
     created() {
       if (this.tabHashes.includes(this.$route.hash)) {
         this.activeTab = this.$route.hash;
+      } else {
+        this.activeTab = HASH_LIKES;
       }
     },
 
