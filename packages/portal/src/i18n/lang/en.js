@@ -1033,7 +1033,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
+        "description": "Collects usage data to help us analyse user interactions. Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
         "title": "Hotjar"
       },
       "humap": {
