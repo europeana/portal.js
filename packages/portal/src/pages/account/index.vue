@@ -28,7 +28,7 @@
                     />
                     <ItemPreviewInterface
                       v-else
-                      :id="HASH_LIKES.slice(1)"
+                      :ref="HASH_LIKES"
                       class="tab-content"
                       data-qa="liked items"
                       :enable-item-multi-select="true"
@@ -58,7 +58,7 @@
                   <client-only>
                     <UserSets
                       v-if="activeTabHash === HASH_PUBLIC_GALLERIES"
-                      :id="HASH_PUBLIC_GALLERIES.slice(1)"
+                      :ref="HASH_PUBLIC_GALLERIES"
                       class="tab-content"
                       visibility="public"
                       :empty-text="$t('account.notifications.noCollections.public')"
@@ -77,7 +77,7 @@
                   <client-only>
                     <UserSets
                       v-if="activeTabHash === HASH_PRIVATE_GALLERIES"
-                      :id="HASH_PRIVATE_GALLERIES.slice(1)"
+                      :ref="HASH_PRIVATE_GALLERIES"
                       class="tab-content"
                       visibility="private"
                       :empty-text="$t('account.notifications.noCollections.private')"
@@ -96,7 +96,7 @@
                   <client-only>
                     <UserSets
                       v-if="activeTabHash === HASH_PUBLISHED_GALLERIES"
-                      :id="HASH_PUBLISHED_GALLERIES.slice(1)"
+                      :ref="HASH_PUBLISHED_GALLERIES"
                       class="tab-content"
                       visibility="published"
                       :show-create-set-button="false"
@@ -117,7 +117,7 @@
                   <client-only>
                     <UserSets
                       v-if="userIsEditor && activeTabHash === HASH_CURATED_COLLECTIONS"
-                      :id="HASH_CURATED_COLLECTIONS.slice(1)"
+                      :ref="HASH_CURATED_COLLECTIONS"
                       class="tab-content"
                       type="EntityBestItemsSet"
                       :show-create-set-button="false"
@@ -250,7 +250,7 @@
       // TODO: incorporate into useActiveTab composable?
       focusActiveTab() {
         if (!this.tabFocused && this.$route.hash) {
-          const element = document.querySelector(this.$route.hash);
+          const element = this.$refs[this.$route.hash]?.$el;
           element?.setAttribute('tabindex', '-1');
           element?.focus();
           this.tabFocused = true;
