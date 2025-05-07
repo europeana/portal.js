@@ -16,37 +16,37 @@
               >
                 <b-nav-item
                   data-qa="likes collection"
-                  :to="localePath({ hash: tabHashes.likes })"
-                  :active="activeTab === tabHashes.likes"
+                  :to="localePath({ hash: HASH_LIKES })"
+                  :active="activeTab === HASH_LIKES"
                 >
                   {{ $t('account.likes') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="public collections"
-                  :to="localePath({ hash: tabHashes.publicGalleries })"
-                  :active="activeTab === tabHashes.publicGalleries"
+                  :to="localePath({ hash: HASH_PUBLIC_GALLERIES })"
+                  :active="activeTab === HASH_PUBLIC_GALLERIES"
                 >
                   {{ $t('account.publicCollections') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="private collections"
-                  :to="localePath({ hash: tabHashes.privateGalleries })"
-                  :active="activeTab === tabHashes.privateGalleries"
+                  :to="localePath({ hash: HASH_PRIVATE_GALLERIES })"
+                  :active="activeTab === HASH_PRIVATE_GALLERIES"
                 >
                   {{ $t('account.privateCollections') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="published collections"
-                  :to="localePath({ hash: tabHashes.publishedGalleries })"
-                  :active="activeTab === tabHashes.publishedGalleries"
+                  :to="localePath({ hash: HASH_PUBLISHED_GALLERIES })"
+                  :active="activeTab === HASH_PUBLISHED_GALLERIES"
                 >
                   {{ $t('account.publishedCollections') }}
                 </b-nav-item>
                 <b-nav-item
                   v-if="userIsEditor"
                   data-qa="curated collections"
-                  :to="localePath({ hash: tabHashes.curatedCollections })"
-                  :active="activeTab === tabHashes.curatedCollections"
+                  :to="localePath({ hash: HASH_CURATED_COLLECTIONS })"
+                  :active="activeTab === HASH_CURATED_COLLECTIONS"
                 >
                   {{ $t('account.curatedCollections') }}
                 </b-nav-item>
@@ -54,14 +54,14 @@
             </b-row>
           </b-container>
           <client-only>
-            <template v-if="activeTab === tabHashes.likes">
+            <template v-if="activeTab === HASH_LIKES">
               <AlertMessage
                 v-if="$fetchState.error"
                 :error="$fetchState.error.message"
               />
               <ItemPreviewInterface
                 v-else
-                :ref="tabHashes.likes"
+                :ref="HASH_LIKES"
                 class="tab-content"
                 data-qa="liked items"
                 :enable-item-multi-select="true"
@@ -81,8 +81,8 @@
               </ItemPreviewInterface>
             </template>
             <UserSets
-              v-else-if="activeTab === tabHashes.publicGalleries"
-              :ref="tabHashes.publicGalleries"
+              v-else-if="activeTab === HASH_PUBLIC_GALLERIES"
+              :ref="HASH_PUBLIC_GALLERIES"
               class="tab-content"
               visibility="public"
               :empty-text="$t('account.notifications.noCollections.public')"
@@ -90,8 +90,8 @@
               @fetched="focusActiveTab"
             />
             <UserSets
-              v-else-if="activeTab === tabHashes.privateGalleries"
-              :ref="tabHashes.privateGalleries"
+              v-else-if="activeTab === HASH_PRIVATE_GALLERIES"
+              :ref="HASH_PRIVATE_GALLERIES"
               class="tab-content"
               visibility="private"
               :empty-text="$t('account.notifications.noCollections.private')"
@@ -99,8 +99,8 @@
               @fetched="focusActiveTab"
             />
             <UserSets
-              v-else-if="activeTab === tabHashes.publishedGalleries"
-              :ref="tabHashes.publishedGalleries"
+              v-else-if="activeTab === HASH_PUBLISHED_GALLERIES"
+              :ref="HASH_PUBLISHED_GALLERIES"
               class="tab-content"
               visibility="published"
               :show-create-set-button="false"
@@ -109,8 +109,8 @@
               @fetched="focusActiveTab"
             />
             <UserSets
-              v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections"
-              :ref="tabHashes.curatedCollections"
+              v-else-if="userIsEditor && activeTab === HASH_CURATED_COLLECTIONS"
+              :ref="HASH_CURATED_COLLECTIONS"
               class="tab-content"
               type="EntityBestItemsSet"
               :show-create-set-button="false"
@@ -135,6 +135,12 @@
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import UserHeader from '@/components/user/UserHeader';
   import UserSets from '@/components/user/UserSets';
+
+  const HASH_CURATED_COLLECTIONS = '#curated-collections';
+  const HASH_LIKES = '#likes';
+  const HASH_PRIVATE_GALLERIES = '#private-galleries';
+  const HASH_PUBLIC_GALLERIES = '#public-galleries';
+  const HASH_PUBLISHED_GALLERIES = '#published-galleries';
 
   export default {
     name: 'AccountIndexPage',
@@ -161,20 +167,26 @@
 
     data() {
       return {
+        activeTab: HASH_LIKES,
+        HASH_CURATED_COLLECTIONS,
+        HASH_LIKES,
+        HASH_PRIVATE_GALLERIES,
+        HASH_PUBLIC_GALLERIES,
+        HASH_PUBLISHED_GALLERIES,
         tabFocused: false,
-        tabHashes: {
-          likes: '#likes',
-          publicGalleries: '#public-galleries',
-          privateGalleries: '#private-galleries',
-          publishedGalleries: '#published-galleries',
-          curatedCollections: '#curated-collections'
-        }
+        tabHashes: [
+          HASH_CURATED_COLLECTIONS,
+          HASH_LIKES,
+          HASH_PRIVATE_GALLERIES,
+          HASH_PUBLIC_GALLERIES,
+          HASH_PUBLISHED_GALLERIES
+        ]
       };
     },
 
     async fetch() {
       await this.fetchLikes();
-      if (this.$route.hash === '#likes') {
+      if (this.$route.hash === HASH_LIKES) {
         this.focusActiveTab();
       }
     },
@@ -195,9 +207,20 @@
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
         curations: state => state.set.curations
-      }),
-      activeTab() {
-        return this.$route.hash || this.tabHashes.likes;
+      })
+    },
+
+    watch: {
+      '$route.hash'() {
+        if (this.tabHashes.includes(this.$route.hash)) {
+          this.activeTab = this.$route.hash;
+        }
+      }
+    },
+
+    created() {
+      if (this.tabHashes.includes(this.$route.hash)) {
+        this.activeTab = this.$route.hash;
       }
     },
 
