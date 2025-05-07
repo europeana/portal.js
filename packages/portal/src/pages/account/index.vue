@@ -247,6 +247,7 @@
         await this.$store.dispatch('set/fetchLikes');
       },
 
+      // TODO: incorporate into useActiveTab composable?
       focusActiveTab() {
         if (!this.tabFocused && this.$route.hash) {
           const element = this.$refs[this.$route.hash]?.$el;
