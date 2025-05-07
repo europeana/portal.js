@@ -16,28 +16,28 @@
               >
                 <b-nav-item
                   data-qa="likes collection"
-                  :to="localePath({ hash: tabHashes.likes})"
+                  :to="localePath({ hash: tabHashes.likes })"
                   :active="activeTab === tabHashes.likes"
                 >
                   {{ $t('account.likes') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="public collections"
-                  :to="localePath({ hash: tabHashes.publicGalleries})"
+                  :to="localePath({ hash: tabHashes.publicGalleries })"
                   :active="activeTab === tabHashes.publicGalleries"
                 >
                   {{ $t('account.publicCollections') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="private collections"
-                  :to="localePath({ hash: tabHashes.privateGalleries})"
+                  :to="localePath({ hash: tabHashes.privateGalleries })"
                   :active="activeTab === tabHashes.privateGalleries"
                 >
                   {{ $t('account.privateCollections') }}
                 </b-nav-item>
                 <b-nav-item
                   data-qa="published collections"
-                  :to="localePath({ hash: tabHashes.publishedGalleries})"
+                  :to="localePath({ hash: tabHashes.publishedGalleries })"
                   :active="activeTab === tabHashes.publishedGalleries"
                 >
                   {{ $t('account.publishedCollections') }}
@@ -45,7 +45,7 @@
                 <b-nav-item
                   v-if="userIsEditor"
                   data-qa="curated collections"
-                  :to="localePath({ hash: tabHashes.curatedCollections})"
+                  :to="localePath({ hash: tabHashes.curatedCollections })"
                   :active="activeTab === tabHashes.curatedCollections"
                 >
                   {{ $t('account.curatedCollections') }}
@@ -54,14 +54,15 @@
             </b-row>
           </b-container>
           <client-only>
-            <AlertMessage
-              v-if="$fetchState.error"
-              :error="$fetchState.error.message"
-            />
-            <template
-              v-else-if="activeTab === tabHashes.likes"
-            >
+            <template v-if="activeTab === tabHashes.likes">
+              <AlertMessage
+                v-if="$fetchState.error"
+                :error="$fetchState.error.message"
+              />
               <ItemPreviewInterface
+                v-else
+                :ref="tabHashes.likes"
+                class="tab-content"
                 data-qa="liked items"
                 :enable-item-multi-select="true"
                 :loading="$fetchState.pending"
@@ -79,36 +80,44 @@
                 </template>
               </ItemPreviewInterface>
             </template>
-            <template v-else-if="activeTab === tabHashes.publicGalleries">
-              <UserSets
-                visibility="public"
-                :empty-text="$t('account.notifications.noCollections.public')"
-                data-qa="public sets"
-              />
-            </template>
-            <template v-else-if="activeTab === tabHashes.privateGalleries">
-              <UserSets
-                visibility="private"
-                :empty-text="$t('account.notifications.noCollections.private')"
-                data-qa="private sets"
-              />
-            </template>
-            <template v-else-if="activeTab === tabHashes.publishedGalleries">
-              <UserSets
-                visibility="published"
-                :show-create-set-button="false"
-                :empty-text="$t('account.notifications.noCollections.published')"
-                data-qa="published sets"
-              />
-            </template>
-            <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
-              <UserSets
-                type="EntityBestItemsSet"
-                :show-create-set-button="false"
-                :empty-text="$t('account.notifications.noCollections.curated')"
-                data-qa="curated sets"
-              />
-            </template>
+            <UserSets
+              v-else-if="activeTab === tabHashes.publicGalleries"
+              :ref="tabHashes.publicGalleries"
+              class="tab-content"
+              visibility="public"
+              :empty-text="$t('account.notifications.noCollections.public')"
+              data-qa="public sets"
+              @fetched="focusActiveTab"
+            />
+            <UserSets
+              v-else-if="activeTab === tabHashes.privateGalleries"
+              :ref="tabHashes.privateGalleries"
+              class="tab-content"
+              visibility="private"
+              :empty-text="$t('account.notifications.noCollections.private')"
+              data-qa="private sets"
+              @fetched="focusActiveTab"
+            />
+            <UserSets
+              v-else-if="activeTab === tabHashes.publishedGalleries"
+              :ref="tabHashes.publishedGalleries"
+              class="tab-content"
+              visibility="published"
+              :show-create-set-button="false"
+              :empty-text="$t('account.notifications.noCollections.published')"
+              data-qa="published sets"
+              @fetched="focusActiveTab"
+            />
+            <UserSets
+              v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections"
+              :ref="tabHashes.curatedCollections"
+              class="tab-content"
+              type="EntityBestItemsSet"
+              :show-create-set-button="false"
+              :empty-text="$t('account.notifications.noCollections.curated')"
+              data-qa="curated sets"
+              @fetched="focusActiveTab"
+            />
           </client-only>
         </b-col>
       </b-row>
@@ -152,6 +161,7 @@
 
     data() {
       return {
+        tabFocused: false,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -163,7 +173,10 @@
     },
 
     async fetch() {
-      this.fetchLikes();
+      await this.fetchLikes();
+      if (this.$route.hash === '#likes') {
+        this.focusActiveTab();
+      }
     },
 
     fetchOnServer: false,
@@ -189,8 +202,17 @@
     },
 
     methods: {
-      fetchLikes() {
-        this.$store.dispatch('set/fetchLikes');
+      async fetchLikes() {
+        await this.$store.dispatch('set/fetchLikes');
+      },
+
+      focusActiveTab() {
+        if (!this.tabFocused && this.$route.hash) {
+          const element = this.$refs[this.$route.hash]?.$el;
+          element?.setAttribute('tabindex', '-1');
+          element?.focus();
+          this.tabFocused = true;
+        }
       }
     }
   };
@@ -207,5 +229,9 @@
     @media (min-width: $bp-4k) {
       margin-bottom: calc(1.5 * 2.5rem);
     }
+  }
+
+  .tab-content:focus {
+    outline: none;
   }
 </style>
