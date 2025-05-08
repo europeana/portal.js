@@ -34,9 +34,6 @@ export default function useActiveTab(tabHashes) {
     }
 
     unwatchTabIndex = watch(activeTabIndex, () => {
-      if (route.hash && !tabHashes.includes(route.hash)) {
-        return;
-      }
       if (activeTabIndex.value !== -1) {
         activeTabHistory.value.push(activeTabHash.value);
         router.replace({ ...route, hash: activeTabHash.value });
