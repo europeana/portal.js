@@ -139,7 +139,6 @@
       const searchResponse = await this.$apis.set.search(searchParams);
       this.sets = searchResponse.items || [];
       this.total = searchResponse.partOf?.total || 0;
-      this.$emit('fetched');
     },
     computed: {
       userId() {

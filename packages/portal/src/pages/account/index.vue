@@ -63,7 +63,6 @@
                       visibility="public"
                       :empty-text="$t('account.notifications.noCollections.public')"
                       data-qa="public sets"
-                      @fetched="focusActiveTab"
                     />
                   </client-only>
                 </b-tab>
@@ -82,7 +81,6 @@
                       visibility="private"
                       :empty-text="$t('account.notifications.noCollections.private')"
                       data-qa="private sets"
-                      @fetched="focusActiveTab"
                     />
                   </client-only>
                 </b-tab>
@@ -102,7 +100,6 @@
                       :show-create-set-button="false"
                       :empty-text="$t('account.notifications.noCollections.published')"
                       data-qa="published sets"
-                      @fetched="focusActiveTab"
                     />
                   </client-only>
                 </b-tab>
@@ -123,7 +120,6 @@
                       :show-create-set-button="false"
                       :empty-text="$t('account.notifications.noCollections.curated')"
                       data-qa="curated sets"
-                      @fetched="focusActiveTab"
                     />
                   </client-only>
                 </b-tab>
@@ -208,18 +204,11 @@
       };
     },
 
-    async fetch() {
-      await this.fetchLikes();
-      if (this.$route.hash === HASH_LIKES) {
-        this.focusActiveTab();
-      }
+    fetch() {
+      this.fetchLikes();
     },
 
     fetchOnServer: false,
-
-    mounted() {
-      this.watchTabIndex();
-    },
 
     computed: {
       pageMeta() {
@@ -238,23 +227,17 @@
       })
     },
 
+    mounted() {
+      this.watchTabIndex();
+    },
+
     beforeDestroy() {
       this.unwatchTabIndex();
     },
 
     methods: {
-      async fetchLikes() {
-        await this.$store.dispatch('set/fetchLikes');
-      },
-
-      // TODO: incorporate into useActiveTab composable?
-      focusActiveTab() {
-        if (!this.tabFocused && this.$route.hash) {
-          const element = this.$refs[this.$route.hash]?.$el;
-          element?.setAttribute('tabindex', '-1');
-          element?.focus();
-          this.tabFocused = true;
-        }
+      fetchLikes() {
+        this.$store.dispatch('set/fetchLikes');
       }
     }
   };
