@@ -3,7 +3,13 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 // vue2-helpers provides helpers that do
 import { useRoute, useRouter } from 'vue2-helpers/vue-router';
 
-export default function useActiveTab(tabHashes) {
+export default function useActiveTab(tabHashes, options = {}) {
+  const { replaceRoute } = {
+    replaceRoute: true,
+    ...options
+  };
+  const routerUpdateAction = replaceRoute ? 'replace' : 'push';
+
   const router = useRouter();
   const route = useRoute();
   const activeTabIndex = ref(-1);
@@ -29,14 +35,14 @@ export default function useActiveTab(tabHashes) {
     if (activeTabIndex.value !== -1) {
       activeTabHistory.value.push(activeTabHash.value);
       if (activeTabHash.value !== route.hash) {
-        router.replace({ ...route, hash: activeTabHash.value });
+        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
       }
     }
 
     unwatchTabIndex = watch(activeTabIndex, () => {
       if (activeTabIndex.value !== -1) {
         activeTabHistory.value.push(activeTabHash.value);
-        router.replace({ ...route, hash: activeTabHash.value });
+        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
       }
     });
   };

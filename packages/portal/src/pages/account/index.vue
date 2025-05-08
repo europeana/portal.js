@@ -183,7 +183,7 @@
         HASH_CURATED_COLLECTIONS
       ];
 
-      const { activeTabHash, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
+      const { activeTabHash, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes, { replaceRoute: false });
 
       return {
         activeTabHash,
