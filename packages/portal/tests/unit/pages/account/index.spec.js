@@ -18,7 +18,7 @@ const factory = (options = {}) => {
 
   return shallowMountNuxt(page, {
     localVue,
-    stubs: ['b-tabs', 'b-tab', 'client-only'],
+    stubs: ['b-nav', 'b-nav-item', 'client-only'],
     mocks: {
       $t: key => key,
       $tc: key => key,

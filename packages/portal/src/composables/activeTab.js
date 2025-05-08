@@ -16,9 +16,14 @@ export default function useActiveTab(tabHashes, options = {}) {
   const activeTabHistory = ref([]);
 
   const setActiveTabIndexFromRouteHash = () => {
-    if (tabHashes.includes(route?.hash)) {
-      activeTabIndex.value = tabHashes.indexOf(route.hash);
-      activeTabHistory.value.push(activeTabHash.value);
+    if (route) {
+      if (!route.hash) {
+        activeTabIndex.value = 0;
+        activeTabHistory.value.push(activeTabHash.value);
+      } else if (tabHashes.includes(route.hash)) {
+        activeTabIndex.value = tabHashes.indexOf(route.hash);
+        activeTabHistory.value.push(activeTabHash.value);
+      }
     }
   };
 
