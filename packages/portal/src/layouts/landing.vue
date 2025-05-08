@@ -1,12 +1,6 @@
 <template>
   <div>
-    <a
-      class="skip-main"
-      href="#main"
-      data-qa="main content accessibility link"
-    >
-      {{ $t('layout.skipToMain') }}
-    </a>
+    <SkipLink />
     <LandingPageHeader
       ref="pageHeader"
     />
@@ -34,6 +28,7 @@
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import versions from '../../pkg-versions';
+  import SkipLink from '@/components/generic/SkipLink';
 
   export default {
     name: 'LandingLayout',
@@ -42,7 +37,8 @@
       LandingPageHeader,
       LandingPageFooter,
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
-      ProvideCanonicalUrl
+      ProvideCanonicalUrl,
+      SkipLink
     },
 
     head() {

@@ -10,13 +10,7 @@
       ref="resetfocus"
       data-qa="top page"
     />
-    <a
-      class="skip-main"
-      href="#main"
-      data-qa="main content accessibility link"
-    >
-      {{ $t('layout.skipToMain') }}
-    </a>
+    <SkipLink />
     <PageHeader
       ref="pageHeader"
     />
@@ -66,20 +60,22 @@
   import useMakeToast from '@/composables/makeToast.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
+  import SkipLink from '@/components/generic/SkipLink';
 
   export default {
     name: 'DefaultLayout',
 
     components: {
-      DebugApiRequests: () => import('@/components/debug/DebugApiRequests'),
       ClientOnly,
-      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
-      PageHeader,
-      PageFooter: () => import('@/components/page/PageFooter'),
-      ProvideCanonicalUrl,
+      DebugApiRequests: () => import('@/components/debug/DebugApiRequests'),
+      ErrorModal,
       NewFeatureNotification: () => import('@/components/generic/NewFeatureNotification'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
-      ErrorModal
+      PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
+      PageFooter: () => import('@/components/page/PageFooter'),
+      PageHeader,
+      ProvideCanonicalUrl,
+      SkipLink
     },
 
     setup() {
