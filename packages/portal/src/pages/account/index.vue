@@ -167,13 +167,10 @@
         HASH_CURATED_COLLECTIONS
       ];
 
-      const { activeTabHash, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabHash } = useActiveTab(tabHashes, { replaceRoute: false });
 
       return {
-        activeTabHash,
-        activeTabIndex,
-        watchTabIndex,
-        unwatchTabIndex
+        activeTabHash
       };
     },
 
@@ -230,9 +227,5 @@
     @media (min-width: $bp-4k) {
       margin-bottom: calc(1.5 * 2.5rem);
     }
-  }
-
-  .tab-content:focus {
-    outline: none;
   }
 </style>
