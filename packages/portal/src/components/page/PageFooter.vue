@@ -97,12 +97,18 @@
             data-qa="footer disclaimer"
           >
             <div class="sub-footer">
+              <a :href="ds4chLink">
+                <img
+                  :src="ds4chLogoSrc"
+                  :alt="$t('ds4ch.homeLinkAlt')"
+                  class="ds4ch-logo mb-3"
+                  data-qa="ds4chLogo"
+                >
+              </a>
               <EULogo
                 class="mb-3"
               />
               <p>{{ $t('footer.disclaimerLine1') }}</p>
-
-              <p>{{ $t('footer.disclaimerLine2') }}</p>
             </div>
           </b-col>
         </b-row>
@@ -161,8 +167,10 @@
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
               { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
+              // TODO: Remove condition and stop filtering null values when ENABLE_MANAGE_API_KEYS is permanently enabaled.
+              (this.$features.manageApiKeys ? { url: '/account/api-keys', text: this.$t('footer.navigation.registerApiKey'), dataQa: 'API key registration link' } : null),
               { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS', text: this.$t('footer.navigation.subscribe') }
-            ]
+            ].filter(Boolean)
           };
         }
       }
@@ -170,6 +178,8 @@
 
     data() {
       return {
+        ds4chLink: 'https://www.dataspace-culturalheritage.eu',
+        ds4chLogoSrc: require('@europeana/style/img/DS4CH/logo.svg'),
         social: [
           {
             text: 'Facebook',
@@ -178,9 +188,9 @@
             hideExternalIcon: true
           },
           {
-            text: 'X',
-            url: 'https://twitter.com/europeanaeu',
-            icon: 'icon-x',
+            text: 'Bsky',
+            url: 'https://bsky.app/profile/europeana.bsky.social',
+            icon: 'icon-bsky',
             hideExternalIcon: true
           },
           {

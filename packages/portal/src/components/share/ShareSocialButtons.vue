@@ -53,9 +53,9 @@
             url: `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`
           },
           {
-            identifier: 'x',
-            name: 'X',
-            url: `https://twitter.com/intent/tweet?text=${this.shareUrl}`
+            identifier: 'bsky',
+            name: 'Bluesky',
+            url: `https://bsky.app/intent/compose?text=${this.shareUrl}`
           },
           {
             identifier: 'pinterest',

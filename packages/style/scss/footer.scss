@@ -108,6 +108,12 @@
         font-size: $font-size-base;
       }
     }
+    img.ds4ch-logo {
+      height: 64px;
+      @media (min-width: $bp-4k) {
+        height: 96px;
+      }
+    }
   }
 
   .link-group-list {
@@ -208,12 +214,12 @@
           flex-grow: 1;
 
           img {
-            width: 135px;
+            width: 110px;
             margin-top: -2px;
             margin-left: -4px;
 
             @media (min-width: $bp-wqhd) {
-              width: 175px;
+              width: 135px;
               margin: 0;
             }
           }

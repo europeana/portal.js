@@ -480,9 +480,9 @@ Example:
           <td><span class="icon icon-view-mosaic" /></td>
         </tr>
         <tr>
-          <td>X</td>
-          <td><code>icon-x</code></td>
-          <td><span class="icon icon-x" /></td>
+          <td>Bsky</td>
+          <td><code>icon-bsky</code></td>
+          <td><span class="icon icon-bsky" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>
