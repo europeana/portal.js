@@ -57,6 +57,7 @@
           <client-only>
             <UserLikes
               v-if="activeTabHash === HASH_LIKES"
+              data-qa="liked items"
             />
             <UserSets
               v-else-if="activeTabHash === HASH_PUBLIC_GALLERIES"

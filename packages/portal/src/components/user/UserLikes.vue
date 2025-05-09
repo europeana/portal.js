@@ -6,7 +6,6 @@
   <ItemPreviewInterface
     v-else
     id="user-likes"
-    data-qa="liked items"
     :loading="$fetchState.pending"
     :items="items"
     :per-page="perPage"
@@ -73,7 +72,6 @@
 
     beforeDestroy() {
       this.eventBus.off(this.fetchLikes);
-      this.$store.commit('set/setSelected', []);
     },
 
     methods: {
@@ -82,18 +80,13 @@
           return {};
         }
 
-        try {
-          const response = await this.$apis.set.get(this.$store.state.set.likesId, {
-            page: Number(this.$route.query.page || 1),
-            pageSize: this.perPage,
-            profile: 'items.meta'
-          });
-          this.items = response.items || [];
-          this.total = response.partOf.total;
-        } catch {
-          this.items = [];
-          this.total = 0;
-        }
+        const response = await this.$apis.set.get(this.$store.state.set.likesId, {
+          page: Number(this.$route.query.page || 1),
+          pageSize: this.perPage,
+          profile: 'items.meta'
+        });
+        this.items = response.items || [];
+        this.total = response.partOf?.total || 0;
       }
     }
   };
