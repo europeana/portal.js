@@ -84,7 +84,7 @@
   import ShareSnippet from '@/components/share/ShareSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
-  import useLikedItems from '@/composables/likedItems.js';
+  import { useLikedItems } from '@/composables/likedItems.js';
   import WebResource from '@/plugins/europeana/edm/WebResource';
   import rightsStatementMixin from '@/mixins/rightsStatement';
   import { oEmbedForEndpoint } from '@/utils/services/oembed.js';

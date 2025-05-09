@@ -1,6 +1,9 @@
 import { computed, getCurrentInstance, ref, watchEffect } from 'vue';
+import { useEventBus } from '@vueuse/core';
 
-export default function useLikedItems(itemIds) {
+const eventBus = useEventBus('likedItems');
+
+export function useLikedItems(itemIds) {
   const likedItems = ref({});
 
   const $root = getCurrentInstance()?.proxy?.$root;
@@ -20,6 +23,7 @@ export default function useLikedItems(itemIds) {
   });
 
   return {
+    eventBus,
     likedItems
   };
 }

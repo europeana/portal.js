@@ -141,7 +141,7 @@
   import { computed } from 'vue';
 
   import advancedSearchMixin from '@/mixins/advancedSearch';
-  import useLikedItems from '@/composables/likedItems.js';
+  import { useLikedItems } from '@/composables/likedItems.js';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {

@@ -21,10 +21,10 @@
 
 <script>
   import { useCardinality } from '@/composables/cardinality.js';
-  import { useEventBus } from '@vueuse/core';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
+  import { useLikedItems } from '@/composables/likedItems.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -64,8 +64,8 @@
       const likeLimitModalId = `like-limit-modal-${idSuffix}`;
 
       const { cardinality } = useCardinality(props.identifiers);
-      const eventBus = useEventBus('likedItems');
       const { hideTooltips } = useHideTooltips();
+      const { eventBus } = useLikedItems();
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
