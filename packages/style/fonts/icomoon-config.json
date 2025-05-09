@@ -376,14 +376,6 @@
           "tempChar": ""
         },
         {
-          "order": 0,
-          "id": 96,
-          "name": "logo",
-          "prevSize": 32,
-          "code": 59654,
-          "tempChar": ""
-        },
-        {
           "order": 504,
           "id": 95,
           "name": "add",
@@ -2069,36 +2061,6 @@
             "11011420411181181181119617011221401123431245245245125525525517777771": [
               {
                 "f": 6
-              }
-            ]
-          }
-        },
-        {
-          "id": 96,
-          "paths": [
-            "M596.009 433.371l372.819-433.371h-88.346l-323.718 376.29-258.553-376.29h-298.21l390.983 569.018-390.983 454.457h88.351l341.855-397.375 273.051 397.375h298.21l-405.458-590.103zM475 574.031l-354.815-507.521h135.702l624.636 893.48h-135.702l-269.821-385.959z"
-          ],
-          "attrs": [
-            {
-              "fill": "rgb(255, 255, 255)"
-            }
-          ],
-          "width": 1001,
-          "isMulticolor": false,
-          "isMulticolor2": false,
-          "grid": 14,
-          "tags": [
-            "logo"
-          ],
-          "colorPermutations": {
-            "11011420411181181181237237237125525525517777771": [
-              {
-                "f": 5
-              }
-            ],
-            "11011420411181181181119617011221401123431245245245125525525517777771": [
-              {
-                "f": 8
               }
             ]
           }
@@ -4086,7 +4048,7 @@
     "showCodes": true,
     "gridSize": 16,
     "quickUsageToken": {
-      "Europeana": "NDI5Y2YwMWQ4ZiMxNzQ2Njg4NzQ4IzU0YkJDdWdmL2lEVlJXTktMR1dhSnhwVWZOMno5ejJPa1ZLN3FQNE9DUVNC"
+      "Europeana": "MzhmOWVkYzZhNSMxNzQ2NzgwOTcxI0VDN3hBRDVtNklLdHI0ZGUreC9yS3B2ZHpLR3ZCQkRrZnhDY2xlSVdoaHFi"
     },
     "showGrid": false
   },

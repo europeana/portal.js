@@ -480,7 +480,7 @@ Example:
           <td><span class="icon icon-view-mosaic" /></td>
         </tr>
         <tr>
-          <td>Bsky</td>
+          <td>Bluesky</td>
           <td><code>icon-bsky</code></td>
           <td><span class="icon icon-bsky" /></td>
         </tr>

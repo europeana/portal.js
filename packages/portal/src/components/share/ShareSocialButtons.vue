@@ -117,17 +117,17 @@
       }
     }
 
-    &.x {
-      $x-black: #000000;
-      border: solid 1px $x-black;
-      color: $x-black;
+    &.bsky {
+      $bsky-black: #000000;
+      border: solid 1px $bsky-black;
+      color: $bsky-black;
 
       &:not(:disabled):not(.disabled) {
         &:active,
         &.active {
-          color: $x-black;
+          color: $bsky-black;
           background-color: $white;
-          border-color: $x-black;
+          border-color: $bsky-black;
         }
       }
     }
