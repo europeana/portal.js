@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { computed } from 'vue';
-import useLikedItems from '@/composables/likedItems.js';
+import { useLikedItems } from '@/composables/likedItems.js';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 const itemIds = ['/123/abc', '/123/def'];
