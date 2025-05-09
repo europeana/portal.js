@@ -4,7 +4,7 @@ import sinon from 'sinon';
 const factory = ({ $auth } = {}) => {
   return {
     $auth,
-    store: { commit: sinon.spy(), dispatch: sinon.spy() },
+    store: { commit: sinon.spy() },
     $apis: { set: { getLikes: sinon.stub().resolves('123') } }
   };
 };
@@ -27,14 +27,6 @@ describe('@/plugins/user-likes.client', () => {
       await plugin(context);
 
       expect(context.store.commit.calledWith('set/setLikesId', '123')).toBe(true);
-    });
-
-    it('fetches the user\'s likes via the store', async() => {
-      const context = factory({ $auth });
-
-      await plugin(context);
-
-      expect(context.store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });
   });
 

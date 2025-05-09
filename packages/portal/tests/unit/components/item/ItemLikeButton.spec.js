@@ -8,22 +8,30 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
-const setId = 'setId';
-const storeDispatchSuccess = sinon.spy();
+const identifiers = identifier;
+const setId = '123';
 const storeCommitSpy = sinon.spy();
 const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
+const setApiDeleteItemsStub = sinon.spy();
+const setApiInsertItemsStub = sinon.spy();
 
-const factory = ({ propsData = { identifiers: identifier }, storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
+const factory = ({ propsData = { identifiers }, storeState = { likesId: setId },  $auth = {} } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
   propsData,
   mocks: {
     $apis: {
       set: {
-        createLikes: setApiCreateLikesStub
+        createLikes: setApiCreateLikesStub,
+        deleteItems: setApiDeleteItemsStub,
+        insertItems: setApiInsertItemsStub
       }
     },
     $auth,
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
     $features: {},
     $keycloak: {
       login: sinon.spy()
@@ -34,9 +42,8 @@ const factory = ({ propsData = { identifiers: identifier }, storeState = {},  $a
     $store: {
       commit: storeCommitSpy,
       state: {
-        set: { likedItemIds: [], ...storeState }
-      },
-      dispatch: storeDispatch
+        set: storeState
+      }
     },
     $t: (key) => key,
     $tc: (key) => key
@@ -109,13 +116,13 @@ describe('components/item/ItemLikeButton', () => {
             expect(storeCommitSpy.calledWith('set/setLikesId', setId)).toBe(true);
           });
 
-          it('dispatches to add item to likes set', () => {
+          it('adds item to likes set via set API', () => {
             const wrapper = factory({ $auth });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/like', identifier)).toBe(true);
+            expect(setApiInsertItemsStub.calledWith(setId, identifier)).toBe(true);
           });
 
           it('tracks the event in Matomo', async() => {
@@ -128,6 +135,7 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
           });
+
           it('makes toast', async() => {
             const wrapper = factory({ $auth });
 
@@ -136,43 +144,32 @@ describe('components/item/ItemLikeButton', () => {
 
             expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsLiked.1')).toBe(true);
           });
-          describe('when the like limit is reached', () => {
-            it('shows the like limit modal', async() => {
-              const wrapper = factory({ $auth,
-                storeDispatch: sinon.stub().rejects({ message: '100 likes' }) });
-
-              const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
-              const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-              await likeButton.trigger('click');
-
-              expect(bvModalShow.calledWith(wrapper.vm.likeLimitModalId)).toBe(true);
-            });
-          });
         });
       });
 
       describe('and an item is already liked', () => {
-        const storeState = { likedItemIds: [identifier] };
+        const propsData = { buttonText: true, identifiers, value: true };
 
-        it('button text is updated', async() => {
-          const wrapper = factory({ storeState });
-          await wrapper.setProps({ buttonText: true });
+        it('updates button text', () => {
+          const wrapper = factory({ propsData });
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
+
           expect(likeButton.text()).toBe('statuses.liked');
         });
 
         describe('when pressed', () => {
-          it('dispatches to remove item from likes set', () => {
-            const wrapper = factory({ $auth, storeState });
+          it('removes item from likes set via set API', () => {
+            const wrapper = factory({ $auth, propsData });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
+            expect(setApiDeleteItemsStub.calledWith(setId, identifier)).toBe(true);
           });
+
           it('makes toast', async() => {
-            const wrapper = factory({ $auth, storeState });
+            const wrapper = factory({ $auth, propsData });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
@@ -189,48 +186,6 @@ describe('components/item/ItemLikeButton', () => {
       const likeButton = wrapper.find('[data-qa="like button"]');
 
       expect(likeButton.attributes('disabled')).toBe('true');
-    });
-  });
-
-  describe('data()', () => {
-    describe('likeLimitModalId', () => {
-      describe('when there are multiple items selected', () => {
-        it('ends with "multi-select"', () => {
-          const wrapper = factory({
-            propsData: { identifiers: ['001', '002', '003'] }
-          });
-
-          expect(wrapper.vm.likeLimitModalId).toEqual('like-limit-modal-multi-select');
-        });
-      });
-    });
-  });
-
-  describe('computed', () => {
-    describe('liked()', () => {
-      describe('when there are multiple items selected', () => {
-        describe('and all are already liked', () => {
-          it('returns true', () => {
-            const ids = ['001', '002'];
-            const wrapper = factory({
-              propsData: { identifiers: ids },
-              storeState: { likedItemIds: ids }
-            });
-
-            expect(wrapper.vm.liked).toBe(true);
-          });
-        });
-        describe('and only some are already liked', () => {
-          it('returns false', () => {
-            const wrapper = factory({
-              propsData: { identifiers: ['001', '002', '003'] },
-              storeState: { likedItemIds: ['001', '003'] }
-            });
-
-            expect(wrapper.vm.liked).toBe(false);
-          });
-        });
-      });
     });
   });
 });
