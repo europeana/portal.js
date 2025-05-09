@@ -17,6 +17,7 @@
         toggle-class="btn-light"
         variant="light"
         :text="activeType.name"
+        right
       >
         <b-dropdown-item
           v-for="type, index in storyTypes"
@@ -80,6 +81,10 @@
 
 ::v-deep .nav-link {
   font-size: $font-size-small;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
+  }
 
   &.active {
     color: $blue;
