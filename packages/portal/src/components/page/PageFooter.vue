@@ -97,17 +97,21 @@
             data-qa="footer disclaimer"
           >
             <div class="sub-footer">
-              <a :href="ds4chLink">
-                <img
-                  :src="ds4chLogoSrc"
-                  :alt="$t('ds4ch.homeLinkAlt')"
-                  class="ds4ch-logo mb-3"
-                  data-qa="ds4chLogo"
+              <div class="d-flex mb-3">
+                <a
+                  :href="ds4chLink"
+                  class="mr-2 mr-sm-3"
                 >
-              </a>
-              <EULogo
-                class="mb-3"
-              />
+                  <img
+                    :src="ds4chLogoSrc"
+                    :alt="$t('ds4ch.homeLinkAlt')"
+                    class="ds4ch-logo"
+                    data-qa="ds4chLogo"
+                    height="64"
+                  >
+                </a>
+                <EULogo />
+              </div>
               <p>{{ $t('footer.disclaimerLine1') }}</p>
             </div>
           </b-col>
