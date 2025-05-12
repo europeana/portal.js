@@ -33,7 +33,7 @@ Feature: item page
     And I click a `share button`
     Then I see a `share modal`
     And I see a `share facebook button`
-    And I see a `share x button`
+    And I see a `share bsky button`
     And I see a `share pinterest button`
 
   Scenario: Record without isShownBy or hasView

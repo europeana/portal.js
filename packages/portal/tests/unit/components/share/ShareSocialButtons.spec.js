@@ -37,10 +37,10 @@ describe('components/share/ShareSocialButtons', () => {
 
     it('one button has a x share url', () => {
       const wrapper = factory();
-      const x = wrapper.find('[data-qa="share x button"]');
+      const bsky = wrapper.find('[data-qa="share bsky button"]');
 
-      expect(x.attributes().href.startsWith('https://twitter.com/intent/tweet')).toBe(true);
-      expect(x.attributes().href).toContain('https://www.example.org/page');
+      expect(bsky.attributes().href.startsWith('https://bsky.app/intent/compose')).toBe(true);
+      expect(bsky.attributes().href).toContain('https://www.example.org/page');
     });
 
     it('one button has a pinterest share url', () => {
