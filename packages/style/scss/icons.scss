@@ -53,6 +53,10 @@
   content: '\ea40';
 }
 
+.icon-bsky::before {
+  content: '\e906';
+}
+
 .icon-cancel-circle::before {
   content: '\e934';
 }
@@ -367,10 +371,6 @@
 
 .icon-view-mosaic::before {
   content: '\e94a';
-}
-
-.icon-bsky::before {
-  content: '\e906';
 }
 
 .icon-zoom-in:before {

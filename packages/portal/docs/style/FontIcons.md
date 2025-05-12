@@ -80,6 +80,11 @@ Example:
           <td><span class="icon icon-back" /></td>
         </tr>
         <tr>
+          <td>Bluesky</td>
+          <td><code>icon-bsky</code></td>
+          <td><span class="icon icon-bsky" /></td>
+        </tr>
+        <tr>
           <td>Cancel circle</td>
           <td><code>icon-cancel-circle</code></td>
           <td><span class="icon icon-cancel-circle" /></td>
@@ -478,11 +483,6 @@ Example:
           <td>View mosaic</td>
           <td><code>icon-view-mosaic</code></td>
           <td><span class="icon icon-view-mosaic" /></td>
-        </tr>
-        <tr>
-          <td>Bluesky</td>
-          <td><code>icon-bsky</code></td>
-          <td><span class="icon icon-bsky" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>
