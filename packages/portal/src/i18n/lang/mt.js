@@ -995,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Jattiva widget tal-istħarriġ li jagħtik l-għażla li tirrispondi għall-istħarriġiet tagħna dwar is-sodisfazzjon tal-viżitaturi.",
+        "description": "Jikkolletta data dwar l-użu biex jgħinna nanalizzaw l-interazzjonijiet tal-utenti. Jattiva widget ta' stħarriġ li jagħtik l-għażla li twieġeb għall-istħarriġiet ta' sodisfazzjon tal-viżitaturi tagħna.",
         "title": "Hotjar"
       },
       "humap": {

@@ -996,7 +996,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
+        "description": "Verzamelt gebruiksgegevens om ons te helpen gebruikersinteracties te analyseren. Activeert een enquêtewidget waarmee u kunt deelnemen aan onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"
       },
       "humap": {
