@@ -98,9 +98,10 @@
           >
             <div class="sub-footer">
               <div class="d-flex mb-3">
-                <a
-                  :href="ds4chLink"
+                <SmartLink
+                  :destination="ds4chLink"
                   class="mr-2 mr-sm-3"
+                  :hide-external-icon="true"
                 >
                   <img
                     :src="ds4chLogoSrc"
@@ -109,7 +110,7 @@
                     data-qa="ds4chLogo"
                     height="64"
                   >
-                </a>
+                </SmartLink>
                 <EULogo />
               </div>
               <p>{{ $t('footer.disclaimerLine1') }}</p>
@@ -125,17 +126,19 @@
 </template>
 
 <script>
-  import LangSelector from '../generic/LanguageSelector';
-  import LinkGroup from '../generic/LinkGroup';
-  import EULogo from '../image/ImageEULogo';
-  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
+  import EULogo from '@/components/image/ImageEULogo';
+  import FeedbackWidget from '@/components/feedback/FeedbackWidget.vue';
+  import LangSelector from '@/components/generic/LanguageSelector';
+  import LinkGroup from '@/components/generic/LinkGroup';
+  import SmartLink from '@/components/generic/SmartLink.vue';
 
   export default {
     components: {
       EULogo,
       FeedbackWidget,
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      SmartLink
     },
 
     props: {
