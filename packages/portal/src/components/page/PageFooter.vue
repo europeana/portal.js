@@ -192,7 +192,7 @@
             hideExternalIcon: true
           },
           {
-            text: 'Bsky',
+            text: 'Bluesky',
             url: 'https://bsky.app/profile/europeana.bsky.social',
             icon: 'icon-bsky',
             hideExternalIcon: true
