@@ -1001,7 +1001,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
+        "description": "Erabiltzaileen elkarrekintzak aztertzen laguntzeko erabilera-datuak biltzen ditu. Bisitarien gogobetetasun-inkestak erantzuteko aukera ematen dizun inkesta-widget bat aktibatzen du.",
         "title": "Hotjar"
       },
       "humap": {

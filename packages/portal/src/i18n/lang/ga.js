@@ -995,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
+        "description": "Bailíonn sé sonraí úsáide chun cabhrú linn idirghníomhaíochtaí úsáideoirí a anailísiú. Gníomhaíonn sé giuirléid suirbhé a thugann na rogha duit freagra a thabhairt ar ár suirbhéanna sástachta cuairteoirí.",
         "title": "Hotjar"
       },
       "humap": {

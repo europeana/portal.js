@@ -995,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "description": "Használati adatokat gyűjt, hogy segítsen nekünk elemezni a felhasználói interakciókat. Aktivál egy felmérési widgetet, amely lehetőséget ad arra, hogy válaszoljon a látogatói elégedettségi felméréseinkre.",
         "title": "Hotjar"
       },
       "humap": {
