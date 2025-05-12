@@ -118,16 +118,16 @@
     }
 
     &.bsky {
-      $bsky-black: #000000;
-      border: solid 1px $bsky-black;
-      color: $bsky-black;
+      $bsky-blue: #0085ff;
+      border: solid 1px $bsky-blue;
+      color: $bsky-blue;
 
       &:not(:disabled):not(.disabled) {
         &:active,
         &.active {
-          color: $bsky-black;
+          color: $bsky-blue;
           background-color: $white;
-          border-color: $bsky-black;
+          border-color: $bsky-blue;
         }
       }
     }
