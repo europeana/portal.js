@@ -812,7 +812,7 @@ export default {
   "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
-    "disclaimerLine1": "    The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission, contract number LC-01901432.",
+    "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission, contract number LC-01901432.",
     "findUsElsewhere": "Find us elsewhere",
     "footer": "Footer",
     "imageDescription": "Funded by the European Union",
