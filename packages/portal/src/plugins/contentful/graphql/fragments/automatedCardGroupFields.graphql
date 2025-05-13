@@ -1,7 +1,0 @@
-fragment automatedCardGroupFields on AutomatedCardGroup {
-  genre
-  moreButton {
-    url
-    text
-  }
-}
