@@ -1,12 +1,6 @@
 <template>
   <div class="ds4ch-layout">
-    <a
-      class="skip-main"
-      href="#main"
-      data-qa="main content accessibility link"
-    >
-      {{ $t('layout.skipToMain') }}
-    </a>
+    <SkipLink />
     <DS4CHPageHeader
       ref="pageHeader"
     />
@@ -35,6 +29,7 @@
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
+  import SkipLink from '@/components/generic/SkipLink';
   import versions from '../../pkg-versions';
 
   export default {
@@ -45,7 +40,8 @@
       DS4CHPageHeader,
       DS4CHPageFooter,
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
-      ProvideCanonicalUrl
+      ProvideCanonicalUrl,
+      SkipLink
     },
 
     head() {
