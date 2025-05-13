@@ -89,7 +89,7 @@ describe('@/plugins/contentful/assets.js', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
+      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
     });
 
     it('joins all the options', () => {
@@ -98,7 +98,7 @@ describe('@/plugins/contentful/assets.js', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
+      expect(assets().optimisedSrc(asset, { fm: 'jpg', w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&w=200&q=80&fl=progressive');
     });
 
     it('applies passed max width', () => {
@@ -107,7 +107,7 @@ describe('@/plugins/contentful/assets.js', () => {
         contentType: 'image/png'
       };
 
-      expect(assets().optimisedSrc(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40');
+      expect(assets().optimisedSrc(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40&fm=webp&q=40');
     });
   });
 
@@ -146,7 +146,7 @@ describe('@/plugins/contentful/assets.js', () => {
 
         const srcset = assets().responsiveImageSrcset(asset, responsiveParams);
 
-        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?w=245&h=440&fit=fill&fm=jpg&fl=progressive&q=80 245w,https://images.ctfassets.net/asset.jpeg?w=260&h=420&fit=fill&fm=jpg&fl=progressive&q=80 260w,https://images.ctfassets.net/asset.jpeg?w=280&h=400&fit=fill&fm=jpg&fl=progressive&q=80 280w,https://images.ctfassets.net/asset.jpeg?w=300&h=400&fit=fill&fm=jpg&fl=progressive&q=80 300w,https://images.ctfassets.net/asset.jpeg?w=320&h=370&fit=fill&fm=jpg&fl=progressive&q=80 320w,https://images.ctfassets.net/asset.jpeg?w=355&h=345&fit=fill&fm=jpg&fl=progressive&q=80 355w,https://images.ctfassets.net/asset.jpeg?w=510&h=540&fit=fill&fm=jpg&fl=progressive&q=80 510w,https://images.ctfassets.net/asset.jpeg?w=700&h=900&fit=fill&fm=jpg&fl=progressive&q=80 700w');
+        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?w=245&h=440&fit=fill&fm=webp&q=40 245w,https://images.ctfassets.net/asset.jpeg?w=260&h=420&fit=fill&fm=webp&q=40 260w,https://images.ctfassets.net/asset.jpeg?w=280&h=400&fit=fill&fm=webp&q=40 280w,https://images.ctfassets.net/asset.jpeg?w=300&h=400&fit=fill&fm=webp&q=40 300w,https://images.ctfassets.net/asset.jpeg?w=320&h=370&fit=fill&fm=webp&q=40 320w,https://images.ctfassets.net/asset.jpeg?w=355&h=345&fit=fill&fm=webp&q=40 355w,https://images.ctfassets.net/asset.jpeg?w=510&h=540&fit=fill&fm=webp&q=40 510w,https://images.ctfassets.net/asset.jpeg?w=700&h=900&fit=fill&fm=webp&q=40 700w');
       });
     });
 

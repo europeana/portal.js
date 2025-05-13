@@ -49,7 +49,6 @@ export default {
     "confirm": "Confirmer",
     "continue": "continuer",
     "depublish": "Dépublier",
-    "disable": "Désactiver",
     "download": "Télécharger",
     "edit": "Modifier",
     "filter": "Filtre",
@@ -86,6 +85,21 @@ export default {
     "vote": "Voter"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Fermer le menu de gestion des clés",
+      "disable": "Désactiver la clé",
+      "reEnable": "Réactiver la clé",
+      "showMenu": "Afficher le menu de gestion des clés"
+    },
+    "disable": {
+      "promptText1": "Êtes-vous sûr de vouloir désactiver cette clé API ?",
+      "promptText2": "Une fois que vous aurez désactivé cette clé, vous ne pourrez plus l’utiliser dans votre projet. Cela prendra effet immédiatement. Vous devrez nous envoyer un e-mail à api@europeana.eu pour réactiver la clé API.",
+      "title": "Désactiver la clé API"
+    },
+    "reEnable": {
+      "text": "Pour réactiver cette clé API, veuillez nous envoyer un e-mail à api@europeana.eu ou nous contacter via le widget de commentaires en bas de la fenêtre.",
+      "title": "Réactiver la clé API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Je confirme avoir lu et accepté la clé API {termsOfUseLink}.",
           "termsOfUseLinkText": "conditions d'utilisation"
         },
-        "description": "Apprenez et testez comment utiliser les API avec votre propre clé API personnelle. Veuillez ne pas la partager. {howToLink}",
+        "description": "Apprenez et testez comment utiliser les API avec votre propre clé API personnelle. Veuillez ne pas la partager. {howToLink}.",
         "heading": "Clé API personnelle",
-        "howToLinkText": "Comment utiliser votre clé."
+        "howToLinkText": "Comment utiliser votre clé"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestion des clés API"
+        },
         "clientId": {
           "label": "Clé API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Entrez votre clé API personnelle",
+            "prompt": "{link} et il sera utilisé."
+          }
+        }
+      },
       "noRequests": "Aucune demande aux API Europeana n'a été utilisée sur cette page."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Erreur",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Cette clé API a déjà été désactivée, peut-être dans un autre onglet du navigateur.",
+      "title": "Clé déjà désactivée"
+    },
+    "authDuplicateKey": {
+      "description": "Les utilisateurs ne peuvent avoir qu’une seule clé personnelle activée, destinée à un usage personnel.",
+      "title": "Vous avez déjà une clé personnelle"
+    },
+    "authKeyLimitReached": {
+      "description": "Une nouvelle clé personnelle ne peut pas être créée car vous avez atteint la limite des clés personnelles désactivées. Veuillez nous envoyer un e-mail à api@europeana.eu ou nous contacter via le widget de commentaires en bas de la fenêtre.",
+      "title": "Vous avez atteint la limite des clés personnelles"
+    },
     "galleryLocked": {
       "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
       "title": "Mise à jour a échoué"
@@ -959,7 +996,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Active un widget d'enquête vous donnant la possibilité de répondre à nos enquêtes de satisfaction des visiteurs.",
+        "description": "Collecte des données d'utilisation pour nous aider à analyser les interactions avec les utilisateurs. Active un widget d'enquête vous donnant la possibilité de répondre à nos enquêtes de satisfaction des visiteurs.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtres de recherche {count}",
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Rechercher plus de 50 millions d'items",
+  "searchPlaceholder": "Rechercher plus de 60 millions d'items",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",

@@ -173,7 +173,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     margin-top: 0;
-    border-radius: 0 0 0.375rem 0.375rem;
+    border-radius: 0 0 $border-radius $border-radius;
     box-shadow: $boxshadow-large;
     border: 0;
 
@@ -183,7 +183,7 @@
 
     // dropdown is flipped up
     &[x-placement='top-start'] {
-      border-radius: 0.375rem 0.375rem 0 0;
+      border-radius: $border-radius $border-radius 0 0;
     }
   }
 

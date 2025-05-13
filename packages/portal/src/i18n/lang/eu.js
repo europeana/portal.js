@@ -49,7 +49,6 @@ export default {
     "confirm": "Baieztatu",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
-    "disable": "Desgaitu",
     "download": "Deskargatu",
     "edit": "Editatu",
     "filter": "Iragazkia",
@@ -86,6 +85,21 @@ export default {
     "vote": "Bozkatu"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Itxi gakoen kudeaketa menu",
+      "disable": "Desgaitu gakoa",
+      "reEnable": "Berriro gaitu gakoa",
+      "showMenu": "Erakutsi gakoen kudeaketa menua"
+    },
+    "disable": {
+      "promptText1": "Ziur zaude API gako hau desgaitu nahi duzula?",
+      "promptText2": "Behin gako hau desgaitzen duzunean, ezingo duzu zure proiektuan gehiago erabili. Hau berehala gertatuko da. API gakoa berriro gaitzeko, idatzi mesedez api@europeana.eu helbidera.",
+      "title": "Desgaitu API gakoa"
+    },
+    "reEnable": {
+      "text": "API gako hau berriro gaitzeko, bidali mezua helbide honetara: api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzien widget-aren bidez.",
+      "title": "Berriro gaitu API gakoa"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
           "termsOfUseLinkText": "erabilera baldintzak"
         },
-        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}",
+        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
         "heading": "API gako pertsonala",
-        "howToLinkText": "Nola erabili zure gakoa."
+        "howToLinkText": "Nola erabili zure gakoa"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API gakoen kudeaketa"
+        },
         "clientId": {
           "label": "API gakoa"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Sartu zure API gako pertsonala",
+            "prompt": "{link} eta erabiliko da."
+          }
+        }
+      },
       "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
@@ -245,6 +270,18 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "API gako hau dagoeneko desgaituta dago, agian beste nabigatzaile-fitxa batean.",
+      "title": "Gakoa dagoeneko desgaituta dago"
+    },
+    "authDuplicateKey": {
+      "description": "Erabiltzaileek erabilgarri dagoen gako pertsonal bakarra izan dezakete, erabilera pertsonalerako pentsatua.",
+      "title": "Dagoeneko baduzu gako pertsonal bat"
+    },
+    "authKeyLimitReached": {
+      "description": "Ezin da gako pertsonal berri bat sortu, desgaitutako gako pertsonalen muga iritsi delako. Bidali iezaguzu mezu bat helbidera api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzi-widgetaren bidez.",
+      "title": "Zure gako pertsonalen muga iritsi duzu"
+    },
     "galleryLocked": {
       "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
       "title": "Eguneratzea huts egin du"
@@ -964,7 +1001,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
+        "description": "Erabiltzaileen elkarrekintzak aztertzen laguntzeko erabilera-datuak biltzen ditu. Bisitarien gogobetetasun-inkestak erantzuteko aukera ematen dizun inkesta-widget bat aktibatzen du.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1361,7 +1398,7 @@ export default {
   },
   "searchFilters": "Bilaketa-iragazkiak {count}",
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
+  "searchPlaceholder": "Bilatu 60 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",

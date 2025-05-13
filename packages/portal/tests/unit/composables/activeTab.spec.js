@@ -5,17 +5,19 @@ import { reactive } from 'vue';
 
 import useActiveTab from '@/composables/activeTab.js';
 
+const routerPushSpy = sinon.spy();
 const routerReplaceSpy = sinon.spy();
 
 const route = reactive({ hash: '#links' });
 sinon.stub(vueRouter, 'useRoute').returns(route);
 sinon.stub(vueRouter, 'useRouter').returns({
+  push: routerPushSpy,
   replace: routerReplaceSpy
 });
 
 const tabHashes = ['#annotations', '#search', '#links'];
 
-const component = {
+const component = (options = {}) => ({
   template: `
     <div>
       <span id="activeTabHash">{{ activeTabHash }}</span>
@@ -23,15 +25,15 @@ const component = {
     </div>
   `,
   setup() {
-    const { activeTabHash, activeTabIndex, watchTabIndex } = useActiveTab(tabHashes);
+    const { activeTabHash, activeTabIndex, watchTabIndex } = useActiveTab(tabHashes, options);
 
     return { activeTabHash, activeTabIndex, watchTabIndex };
   }
-};
+});
 
 const localVue = createLocalVue();
 
-const factory = () => shallowMount(component, {
+const factory = (componentOptions = {}) => shallowMount(component(componentOptions), {
   propsData: {},
   mocks: {},
   localVue
@@ -85,6 +87,16 @@ describe('useActiveTab', () => {
       await wrapper.vm.$nextTick();
 
       expect(routerReplaceSpy.calledWith({ hash: '#search' })).toBe(true);
+    });
+
+    it('uses push instead of replace if supplied option replaceRoute: false', async() => {
+      const wrapper = factory({ replaceRoute: false });
+      wrapper.vm.watchTabIndex();
+
+      wrapper.find('#activeTabIndex').setValue(1);
+      await wrapper.vm.$nextTick();
+
+      expect(routerPushSpy.calledWith({ hash: '#search' })).toBe(true);
     });
   });
 });

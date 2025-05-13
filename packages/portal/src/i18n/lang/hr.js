@@ -49,7 +49,6 @@ export default {
     "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
-    "disable": "Onemogući",
     "download": "Preuzmi",
     "edit": "Uredi",
     "filter": "Filtar",
@@ -86,6 +85,21 @@ export default {
     "vote": "Glasaj"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zatvori izbornik za upravljanje ključevima",
+      "disable": "Onemogući ključ",
+      "reEnable": "Ponovno omogućite ključ",
+      "showMenu": "Prikaži izbornik za upravljanje ključevima"
+    },
+    "disable": {
+      "promptText1": "Jeste li sigurni da želite onemogućiti ovaj API ključ?",
+      "promptText2": "Kada onemogućite ovaj ključ, više ga nećete moći koristiti na svom projektu. To će se dogoditi odmah. Morat ćete nam poslati e-mail na api@europeana.eu da ponovno omogućimo API ključ.",
+      "title": "Onemogući API ključ"
+    },
+    "reEnable": {
+      "text": "Da biste ponovno omogućili ovaj API ključ, pošaljite nam e-poruku na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Ponovno omogućite API ključ"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}.",
           "termsOfUseLinkText": "uvjeti korištenja"
         },
-        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}",
+        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
         "heading": "Osobni API ključ",
-        "howToLinkText": "Kako koristiti svoj ključ."
+        "howToLinkText": "Kako koristiti svoj ključ"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Upravljanje API ključevima"
+        },
         "clientId": {
           "label": "API ključ"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Unesite svoj osobni API ključ",
+            "prompt": "{link} i bit će korišten."
+          }
+        }
+      },
       "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane."
     }
   },
@@ -240,6 +265,18 @@ export default {
   },
   "error": "Greška",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ovaj API ključ je već onemogućen, možda u drugoj kartici preglednika.",
+      "title": "Ključ je već onemogućen"
+    },
+    "authDuplicateKey": {
+      "description": "Korisnici mogu imati samo jedan omogućen osobni ključ namijenjen osobnoj upotrebi.",
+      "title": "Već imate osobni ključ"
+    },
+    "authKeyLimitReached": {
+      "description": "Nije moguće stvoriti novi osobni ključ jer ste dosegli ograničenje onemogućenih osobnih ključeva. Molimo pošaljite nam e-mail na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Dosegli ste ograničenje osobnih ključeva"
+    },
     "galleryLocked": {
       "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
       "title": "Ažuriranje nije uspjelo"
@@ -959,7 +996,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
+        "description": "Prikuplja podatke o korištenju kako bi nam pomogao analizirati interakcije korisnika. Aktivira widget za anketu koji vam omogućuje sudjelovanje u našim anketama o zadovoljstvu posjetitelja.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1356,7 +1393,7 @@ export default {
   },
   "searchFilters": "Filtri pretraživanja {count}",
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Pretražite više od 50 milijuna predmeti",
+  "searchPlaceholder": "Pretražite više od 60 milijuna predmeti",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",

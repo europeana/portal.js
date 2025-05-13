@@ -30,7 +30,7 @@
         >
       </SmartLink>
       <b-navbar
-        class="align-items-center flex-row d-flex p-0 mr-3"
+        class="align-items-center flex-row d-flex p-0"
         role="navigation"
       >
         <PageNavigation
@@ -40,7 +40,7 @@
         <b-button
           id="show-search-button"
           data-qa="show search button"
-          class="button-icon-only icon-search ml-lg-3"
+          class="show-search-button button-icon-only icon-search ml-lg-3 mr-3"
           :class="{ 'query-applied': hasQuery }"
           variant="light-flat"
           :aria-label="$t('search.title')"
@@ -58,11 +58,11 @@
         lazy
       >
         <b-navbar
-          class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
+          class="sidebar-nav align-items-start flex-column p-0 pb-4"
           role="navigation"
           data-qa="sidebar navigation"
         >
-          <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
+          <div class="sidebar-header w-100 d-flex align-items-center pl-3">
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
@@ -243,6 +243,7 @@
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
         font-size: $font-size-extrasmall-4k;
+        margin-left: 1.5rem !important;
       }
     }
 
@@ -267,8 +268,10 @@
       top: initial;
       width: auto;
       padding: 0;
+    }
 
-      .navbar-nav {
+    .navbar-nav {
+      @media (min-width: $bp-large) {
         padding-top: 0;
         flex-direction: row;
         width: 100%;
@@ -283,7 +286,27 @@
       .navbar-nav {
         flex-direction: column;
         width: 100%;
+        padding: 0.25rem 0.5rem 0;
+
+        @media (min-width: $bp-4k) {
+          padding: 0.375rem 0.75rem 0;
+        }
       }
+    }
+
+    .show-search-button {
+      @media (min-width: $bp-4k) {
+        margin-right: 1.5rem !important;
+      }
+    }
+  }
+
+  .sidebar-header {
+    height: 3.5rem;
+
+    @media (min-width: $bp-4k) {
+      padding-left: 1.5rem !important;
+      height: calc(1.5 * 3.5rem);
     }
   }
 

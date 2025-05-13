@@ -49,7 +49,6 @@ export default {
     "confirm": "Potwierdź",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
-    "disable": "Wyłącz",
     "download": "Ściągnij",
     "edit": "Edytuj",
     "filter": "Filtr",
@@ -86,6 +85,21 @@ export default {
     "vote": "Głosować"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zamknij menu zarządzania kluczami",
+      "disable": "Wyłącz klucz",
+      "reEnable": "Ponownie włącz klucz",
+      "showMenu": "Pokaż menu zarządzania kluczami"
+    },
+    "disable": {
+      "promptText1": "Czy na pewno chcesz wyłączyć ten klucz API?",
+      "promptText2": "Po wyłączeniu tego klucza nie będziesz mógł go już używać w swoim projekcie. Nastąpi to natychmiast. Aby ponownie włączyć klucz API, musisz wysłać nam e-mail na adres api@europeana.eu.",
+      "title": "Wyłącz klucz API"
+    },
+    "reEnable": {
+      "text": "Aby ponownie włączyć ten klucz API, wyślij nam wiadomość e-mail na adres api@europeana.eu lub skontaktuj się z nami za pośrednictwem widżetu opinii u dołu okna.",
+      "title": "Ponownie włącz klucz API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Potwierdzam, że przeczytałem i akceptuję klucz API {termsOfUseLink}.",
           "termsOfUseLinkText": "warunki użytkowania"
         },
-        "description": "Dowiedz się i przetestuj, jak korzystać z API za pomocą własnego klucza API. Proszę, nie udostępniaj go. {howToLink}",
+        "description": "Dowiedz się i przetestuj, jak korzystać z API za pomocą własnego klucza API. Proszę, nie udostępniaj go. {howToLink}.",
         "heading": "Osobisty klucz API",
-        "howToLinkText": "Jak używać swojego klucza."
+        "howToLinkText": "Jak używać swojego klucza"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Zarządzanie kluczami API"
+        },
         "clientId": {
           "label": "Klucz API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Wprowadź swój osobisty klucz API",
+            "prompt": "{link} i zostanie użyty."
+          }
+        }
+      },
       "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Błąd",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ten klucz API został już wyłączony, być może w innej karcie przeglądarki.",
+      "title": "Klucz już wyłączony"
+    },
+    "authDuplicateKey": {
+      "description": "Użytkownicy mogą mieć tylko jeden aktywowany klucz osobisty przeznaczony do użytku osobistego.",
+      "title": "Masz już klucz osobisty"
+    },
+    "authKeyLimitReached": {
+      "description": "Nie można utworzyć nowego klucza osobistego, ponieważ osiągnięto limit wyłączonych kluczy osobistych. Prosimy o wysłanie e-maila na adres api@europeana.eu lub o kontakt poprzez widget opinii na dole okna.",
+      "title": "Osiągnąłeś limit kluczy osobistych"
+    },
     "galleryLocked": {
       "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
       "title": "Aktualizacja nie powiodła się"
@@ -958,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktywuje widget ankiety dający możliwość odpowiadania na nasze ankiety satysfakcji odwiedzających.",
+        "description": "Zbiera dane dotyczące użytkowania, aby pomóc nam analizować interakcje użytkowników. Aktywuje widżet ankiety, który daje możliwość odpowiedzi na nasze ankiety dotyczące satysfakcji odwiedzających.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtry wyszukiwania {count}",
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Przeszukaj ponad 50 milionów obiekty cyfrowe",
+  "searchPlaceholder": "Przeszukaj ponad 60 milionów obiekty cyfrowe",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",

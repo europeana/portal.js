@@ -1,6 +1,5 @@
 import browseStaticPage from './browseStaticPage.graphql';
 import categories from './categories.graphql';
-import collectionPage from './collectionPage.graphql';
 import entityRelatedContent from './entityRelatedContent.graphql';
 import exhibitionChapterPage from './exhibitionChapterPage.graphql';
 import exhibitionCreditsPage from './exhibitionCreditsPage.graphql';
@@ -23,7 +22,6 @@ import themes from './themes.graphql';
 export {
   browseStaticPage,
   categories,
-  collectionPage,
   entityRelatedContent,
   exhibitionChapterPage,
   exhibitionCreditsPage,

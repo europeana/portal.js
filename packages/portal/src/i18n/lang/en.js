@@ -86,8 +86,10 @@ export default {
   },
   "apiKeys": {
     "actions": {
+      "closeMenu": "Close key management menu",
       "disable": "Disable key",
-      "reEnable": "Re-enable key"
+      "reEnable": "Re-enable key",
+      "showMenu": "Show key management menu"
     },
     "disable": {
       "promptText1": "Are you sure you want to disable this API key?",
@@ -112,6 +114,9 @@ export default {
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API key management"
+        },
         "clientId": {
           "label": "API key"
         },
@@ -807,8 +812,7 @@ export default {
   "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
-    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
-    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
+    "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission, contract number LC-01901432.",
     "findUsElsewhere": "Find us elsewhere",
     "footer": "Footer",
     "imageDescription": "Funded by the European Union",
@@ -820,6 +824,7 @@ export default {
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
       "privacy": "Privacy statement",
+      "registerApiKey": "Register for an API key",
       "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "supportingTechnicalPartners": "Supporting technical partners",
@@ -1028,7 +1033,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
+        "description": "Collects usage data to help us analyse user interactions. Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1436,7 +1441,7 @@ export default {
   },
   "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search 50+ million items",
+  "searchPlaceholder": "Search 60+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",

@@ -49,7 +49,6 @@ export default {
     "confirm": "Megerősít",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
-    "disable": "Letiltás",
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "filter": "Szűrő",
@@ -86,22 +85,40 @@ export default {
     "vote": "Szavazás"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Kulcskezelési menü bezárása",
+      "disable": "Kulcs letiltása",
+      "reEnable": "Kulcs újra engedélyezése",
+      "showMenu": "Kulcskezelési menü megjelenítése"
+    },
+    "disable": {
+      "promptText1": "Biztosan le szeretné tiltani ezt az API-kulcsot?",
+      "promptText2": "Amint letiltod ezt a kulcsot, többé nem tudod használni a projektedben. Ez azonnal megtörténik. Az API-kulcs újbóli engedélyezéséhez kérjük, írj nekünk e-mailt az api@europeana.eu címre.",
+      "title": "API-kulcs letiltása"
+    },
+    "reEnable": {
+      "text": "Az API-kulcs újbóli engedélyezéséhez kérjük, küldjön nekünk egy e-mailt az api@europeana.eu címre, vagy lépjen kapcsolatba velünk az ablak alján található visszajelzési widgeten keresztül.",
+      "title": "API-kulcs újra engedélyezése"
+    },
     "sections": {
       "personalKeys": {
         "create": {
-          "button": "Személyes API kulcs igénylése",
-          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API kulcsot {termsOfUseLink}.",
+          "button": "Személyes API-kulcs igénylése",
+          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}.",
           "termsOfUseLinkText": "felhasználási feltételek"
         },
-        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg. {howToLink}",
-        "heading": "Személyes API kulcs",
-        "howToLinkText": "Hogyan használja a kulcsát."
+        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg. {howToLink}.",
+        "heading": "Személyes API-kulcs",
+        "howToLinkText": "Hogyan használja a kulcsát"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API-kulcsok kezelése"
+        },
         "clientId": {
-          "label": "API kulcs"
+          "label": "API-kulcs"
         },
         "created": {
           "label": "Létrehozás dátuma"
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Adja meg a személyes API-kulcsát",
+            "prompt": "{link} és használatba kerül."
+          }
+        }
+      },
       "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Hiba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ez az API-kulcs már le lett tiltva, esetleg egy másik böngészőfülön.",
+      "title": "A kulcs már le van tiltva"
+    },
+    "authDuplicateKey": {
+      "description": "A felhasználóknak csak egy engedélyezett személyes kulcsuk lehet, amely személyes használatra szolgál.",
+      "title": "Már van személyes kulcsod"
+    },
+    "authKeyLimitReached": {
+      "description": "Nem hozható létre új személyes kulcs, mert elérte a letiltott személyes kulcsok határát. Kérjük, küldjön e-mailt az api@europeana.eu címre, vagy lépjen velünk kapcsolatba az ablak alján található visszajelzési widgeten keresztül.",
+      "title": "Elérte a személyes kulcsok határát"
+    },
     "galleryLocked": {
       "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
       "title": "Frissítés sikertelen"
@@ -958,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "description": "Használati adatokat gyűjt, hogy segítsen nekünk elemezni a felhasználói interakciókat. Aktivál egy felmérési widgetet, amely lehetőséget ad arra, hogy válaszoljon a látogatói elégedettségi felméréseinkre.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1355,7 +1392,7 @@ export default {
   },
   "searchFilters": "Keresési szűrők {count}",
   "searchHasLoaded": "{0} találat",
-  "searchPlaceholder": "Keresés 50+ millió elem között",
+  "searchPlaceholder": "Keresés 60+ millió elem között",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
   "searchSuggestions": "Keresési javaslatok",

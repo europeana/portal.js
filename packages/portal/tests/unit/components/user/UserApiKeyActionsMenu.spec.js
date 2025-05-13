@@ -49,6 +49,28 @@ describe('components/user/UserApiKeyActionsMenu', () => {
     expect(menu.exists()).toBe(true);
   });
 
+  describe('dropdown toggle button', () => {
+    describe('menu closed', () => {
+      it('aria-label reads show menu', () => {
+        const propsData = { apiKey: fixtures.apiKey.personal.enabled };
+        const wrapper = factory({ propsData });
+
+        expect(wrapper.vm.ariaLabelToggle).toEqual('apiKeys.actions.showMenu');
+      });
+    });
+
+    describe('menu opened', () => {
+      it('aria-label reads close menu', async() => {
+        const propsData = { apiKey: fixtures.apiKey.personal.enabled };
+        const wrapper = factory({ propsData });
+
+        wrapper.vm.menuOpen = true;
+
+        expect(wrapper.vm.ariaLabelToggle).toEqual('apiKeys.actions.closeMenu');
+      });
+    });
+  });
+
   describe('when the api key is disabled', () => {
     describe('re-enable personal api key button', () => {
       it('is available', () => {

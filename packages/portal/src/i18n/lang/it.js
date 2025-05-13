@@ -49,7 +49,6 @@ export default {
     "confirm": "Confermare",
     "continue": "continua",
     "depublish": "Depubblicare",
-    "disable": "Disabilita",
     "download": "Scarica",
     "edit": "Modifica",
     "filter": "Filtro",
@@ -86,6 +85,21 @@ export default {
     "vote": "Votare"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Chiudi il menu di gestione delle chiavi",
+      "disable": "Disattiva chiave",
+      "reEnable": "Riattiva la chiave",
+      "showMenu": "Mostra il menu di gestione delle chiavi"
+    },
+    "disable": {
+      "promptText1": "Sei sicuro di voler disattivare questa chiave API?",
+      "promptText2": "Una volta disattivata questa chiave, non potrai più utilizzarla nel tuo progetto. Ciò avverrà immediatamente. Dovrai inviarci un’e-mail a api@europeana.eu per riattivare la chiave API.",
+      "title": "Disattiva la chiave API"
+    },
+    "reEnable": {
+      "text": "Per riattivare questa chiave API, inviaci un'e-mail all'indirizzo api@europeana.eu o contattaci tramite il widget di feedback in fondo alla finestra.",
+      "title": "Riattiva la chiave API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Confermo di aver letto e accettato la chiave API {termsOfUseLink}.",
           "termsOfUseLinkText": "termini di utilizzo"
         },
-        "description": "Scopri e prova come utilizzare le API con la tua chiave API personale. Ti preghiamo di non condividerla. {howToLink}",
+        "description": "Scopri e prova come utilizzare le API con la tua chiave API personale. Ti preghiamo di non condividerla. {howToLink}.",
         "heading": "Chiave API personale",
-        "howToLinkText": "Come usare la tua chiave."
+        "howToLinkText": "Come usare la tua chiave"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestione delle chiavi API"
+        },
         "clientId": {
           "label": "Chiave API"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Inserisci la tua chiave API personale",
+            "prompt": "{link} e verrà utilizzato."
+          }
+        }
+      },
       "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Errore",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Questa chiave API è già stata disattivata, forse in un'altra scheda del browser.",
+      "title": "Chiave già disattivata"
+    },
+    "authDuplicateKey": {
+      "description": "Gli utenti possono avere una sola chiave personale abilitata destinata all'uso personale.",
+      "title": "Hai già una chiave personale"
+    },
+    "authKeyLimitReached": {
+      "description": "Non è possibile creare una nuova chiave personale perché hai raggiunto il limite delle chiavi personali disattivate. Ti preghiamo di inviarci un'e-mail a api@europeana.eu o di contattarci tramite il widget dei feedback in fondo alla finestra.",
+      "title": "Hai raggiunto il limite delle chiavi personali"
+    },
     "galleryLocked": {
       "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
       "title": "Aggiornamento non riuscito"
@@ -958,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Attiva un widget sondaggio che ti dà la possibilità di rispondere ai nostri sondaggi sulla soddisfazione dei visitatori.",
+        "description": "Raccoglie dati sull'utilizzo per aiutarci ad analizzare le interazioni degli utenti. Attiva un widget di sondaggio che ti offre la possibilità di rispondere ai nostri sondaggi sulla soddisfazione dei visitatori.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtri di ricerca {count}",
   "searchHasLoaded": "{0} risultati restituiti",
-  "searchPlaceholder": "Cerca oltre 50 milioni di oggetti",
+  "searchPlaceholder": "Cerca oltre 60 milioni di oggetti",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
   "searchSuggestions": "Suggerimenti di ricerca",
@@ -1485,7 +1522,7 @@ export default {
     "search": "Cerca"
   },
   "statuses": {
-    "disabled": "Disabilitato",
+    "disabled": "Disattivato",
     "liked": "Piaciuto",
     "pinned": "Appuntato",
     "required": "Richiesto"

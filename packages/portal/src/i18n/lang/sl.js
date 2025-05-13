@@ -7,7 +7,7 @@ export default {
     "linkLogin": "Vpis",
     "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
-    "manageApiKeys": "Upravljanje ključev API",
+    "manageApiKeys": "Upravljanje API ključev",
     "menu": {
       "close": "Zapri uporabniški meni",
       "open": "Odpri uporabniški meni"
@@ -49,7 +49,6 @@ export default {
     "confirm": "Potrdi",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
-    "disable": "Onemogoči",
     "download": "Prenos",
     "edit": "Uredi",
     "filter": "Filter",
@@ -86,6 +85,21 @@ export default {
     "vote": "Glasuj"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zapri meni za upravljanje ključev",
+      "disable": "Onemogoči ključ",
+      "reEnable": "Znova omogoči ključ",
+      "showMenu": "Prikaži meni za upravljanje ključev"
+    },
+    "disable": {
+      "promptText1": "Ste prepričani, da želite onemogočiti ta API ključ?",
+      "promptText2": "Ko onemogočite ta ključ, ga ne boste več mogli uporabljati v svojem projektu. To se bo zgodilo takoj. Če želite znova omogočiti API ključ, nam morate poslati e-pošto na api@europeana.eu.",
+      "title": "Onemogoči API ključ"
+    },
+    "reEnable": {
+      "text": "Če želite znova omogočiti ta API ključ, nam pošljite e-pošto na api@europeana.eu ali nas kontaktirajte prek pripomočka za povratne informacije na dnu okna.",
+      "title": "Znova omogoči API ključ"
+    },
     "sections": {
       "personalKeys": {
         "create": {
@@ -93,13 +107,16 @@ export default {
           "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ.",
           "termsOfUseLinkText": "pogoji uporabe"
         },
-        "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}",
+        "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}.",
         "heading": "Osebni API ključ",
-        "howToLinkText": "Kako uporabljati svoj ključ."
+        "howToLinkText": "Kako uporabljati svoj ključ"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Upravljanje API ključev"
+        },
         "clientId": {
           "label": "API ključ"
         },
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Vnesite svoj osebni API ključ",
+            "prompt": "{link} in bo uporabljen."
+          }
+        }
+      },
       "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Napaka",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ta API ključ je že onemogočen, morda v drugem zavihku brskalnika.",
+      "title": "Ključ je že onemogočen"
+    },
+    "authDuplicateKey": {
+      "description": "Uporabniki lahko imajo samo en omogočen osebni ključ, namenjen osebni uporabi.",
+      "title": "Osebni ključ že imate"
+    },
+    "authKeyLimitReached": {
+      "description": "Novega osebnega ključa ni mogoče ustvariti, ker ste dosegli omejitev onemogočenih osebnih ključev. Pošljite nam e-pošto na naslov api@europeana.eu ali nas kontaktirajte prek pripomočka za povratne informacije na dnu okna.",
+      "title": "Dosegli ste omejitev osebnih ključev"
+    },
     "galleryLocked": {
       "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
       "title": "Posodobitev ni uspela"
@@ -958,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktivira gradnik za ankete, ki vam omogoča, da se odzovete na naše ankete o zadovoljstvu obiskovalcev.",
+        "description": "Zbira podatke o uporabi, da nam pomaga analizirati interakcije uporabnikov. Aktivira pripomoček za anketo, ki vam omogoča odgovoriti na naše ankete o zadovoljstvu obiskovalcev.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Iskalni filtri {count}",
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Iskanje 50+ milijonov enote",
+  "searchPlaceholder": "Iskanje 60+ milijonov enote",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",

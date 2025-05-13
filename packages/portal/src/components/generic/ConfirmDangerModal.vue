@@ -3,6 +3,7 @@
     :id="modalId"
     v-model="show"
     :title="modalTitle"
+    title-tag="h2"
     :static="modalStatic"
     hide-header-close
     hide-footer

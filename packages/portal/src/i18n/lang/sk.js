@@ -49,7 +49,6 @@ export default {
     "confirm": "Potvrdiť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
-    "disable": "Deaktivovať",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "filter": "Filter",
@@ -86,22 +85,40 @@ export default {
     "vote": "Hlasujte"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zatvoriť ponuku správy kľúčov",
+      "disable": "Deaktivovať kľúč",
+      "reEnable": "Znova povoliť kľúč",
+      "showMenu": "Zobraziť ponuku správy kľúčov"
+    },
+    "disable": {
+      "promptText1": "Ste si istý, že chcete deaktivovať tento kľúč API?",
+      "promptText2": "Keď deaktivujete tento kľúč, už ho nebudete môcť použiť vo svojom projekte. Stane sa to okamžite. Ak chcete kľúč API znova povoliť, musíte nám poslať e-mail na adresu api@europeana.eu.",
+      "title": "Deaktivovať kľúč API"
+    },
+    "reEnable": {
+      "text": "Ak chcete znova povoliť tento kľúč API, pošlite nám e-mail na api@europeana.eu alebo nás kontaktujte cez spätnoväzbový widget v dolnej časti okna.",
+      "title": "Znova povoľte kľúč API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
-          "button": "Požiadajte o osobný API kľúč",
-          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem API kľúč {termsOfUseLink}.",
+          "button": "Požiadajte o osobný kľúč API",
+          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}.",
           "termsOfUseLinkText": "podmienky používania"
         },
-        "description": "Naučte sa a vyskúšajte, ako používať API pomocou svojho osobného API kľúča. Prosím, nezdieľajte ho. {howToLink}",
-        "heading": "Osobný API kľúč",
-        "howToLinkText": "Ako používať svoj kľúč."
+        "description": "Naučte sa, ako používať API, a vyskúšajte si to pomocou svojho osobného kľúča API. Prosím, nezdieľajte ho. {howToLink}.",
+        "heading": "Osobný kľúč API",
+        "howToLinkText": "Ako používať svoj kľúč"
       }
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Správa kľúčov API"
+        },
         "clientId": {
-          "label": "API kľúč"
+          "label": "Kľúč API"
         },
         "created": {
           "label": "Dátum vytvorenia"
@@ -192,6 +209,14 @@ export default {
   },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "usePersonal": {
+            "linkText": "Zadajte svoj osobný kľúč API",
+            "prompt": "{link} a bude použitý."
+          }
+        }
+      },
       "noRequests": "Na tejto stránke neboli použité žiadne požiadavky na rozhrania Europeana API."
     }
   },
@@ -239,6 +264,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento kľúč API už bol zakázaný, možno v inom paneli prehliadača.",
+      "title": "Kľúč už je deaktivovaný"
+    },
+    "authDuplicateKey": {
+      "description": "Používatelia môžu mať iba jeden povolený osobný kľúč určený na osobné použitie.",
+      "title": "Už máte osobný kľúč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nový osobný kľúč nemôže byť vytvorený, pretože ste dosiahli limit deaktivovaných osobných kľúčov. Pošlite nám prosím e-mail na api@europeana.eu alebo nás kontaktujte prostredníctvom widgetu spätnej väzby v dolnej časti okna.",
+      "title": "Dosiahli ste limit osobných kľúčov"
+    },
     "galleryLocked": {
       "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
       "title": "Aktualizácia zlyhala"
@@ -958,7 +995,7 @@ export default {
         "title": "Gotland Picture Stones"
       },
       "hotjar": {
-        "description": "Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
+        "description": "Zhromažďuje údaje o používaní, ktoré nám pomáhajú analyzovať interakcie používateľov. Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
         "title": "Hotjar"
       },
       "humap": {
@@ -1354,7 +1391,7 @@ export default {
   },
   "searchFilters": "Filtre vyhľadávania {count}",
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov objekty",
+  "searchPlaceholder": "Vyhľadajte viac ako 60 miliónov objekty",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",
@@ -1485,7 +1522,7 @@ export default {
     "search": "Vyhľadávanie"
   },
   "statuses": {
-    "disabled": "Zakázané",
+    "disabled": "Deaktivované",
     "liked": "Páči sa mi",
     "pinned": "Pripnuté",
     "required": "Požadované"

@@ -1,16 +1,11 @@
 import assets from './assets.js';
 import query from './query.js';
-import storeModule from './store.js';
 
 const MODULE_NAME = 'contentful';
 
-export default ({ $config, $apm, store }, inject) => {
-  if (store) {
-    store.registerModule(MODULE_NAME, storeModule);
-  }
-
+export default ({ $config, $apm }, inject) => {
   const plugin = {
-    assets: assets({ store }),
+    assets: assets(),
     query: query({ $apm, $config })
   };
 
