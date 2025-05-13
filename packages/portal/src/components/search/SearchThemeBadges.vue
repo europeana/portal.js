@@ -13,6 +13,8 @@
 
 <script>
   import ThemeBadges from '../theme/ThemeBadges';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
+  import themesGraphql from '@/graphql/queries/themes.graphql';
   import themeDefinitions from '@/utils/europeana/themes';
 
   export default {
@@ -33,6 +35,12 @@
       }
     },
 
+    setup() {
+      const { query: queryContentful } = useContentfulGraphql();
+
+      return { queryContentful };
+    },
+
     data() {
       return {
         themes: []
@@ -45,7 +53,7 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
+      const contentfulResponse = await this.queryContentful(themesGraphql, contentfulVariables);
 
       this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,

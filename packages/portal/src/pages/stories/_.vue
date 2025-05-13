@@ -43,7 +43,9 @@
 
 <script>
   import StoryPost from '@/components/story/StoryPost';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import { useLogEvent } from '@/composables/logEvent.js';
+  import storyPageGraphql from '@/graphql/queries/storyPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -65,8 +67,10 @@
     ],
 
     setup() {
+      const { query: queryContentful } = useContentfulGraphql();
       const { logEvent } = useLogEvent();
-      return { logEvent };
+
+      return { logEvent, queryContentful };
     },
 
     data() {
@@ -84,7 +88,7 @@
 
       let data;
       try {
-        const response = await this.$contentful.query('storyPage', variables);
+        const response = await this.queryContentful(storyPageGraphql, variables);
         data = response.data.data;
       } catch (e) {
         this.$error(e);
