@@ -51,4 +51,4 @@ export function useContentfulGraphql() {
   return {
     query
   };
-};
+}

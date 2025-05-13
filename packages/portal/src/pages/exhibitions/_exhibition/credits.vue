@@ -110,8 +110,10 @@
 
   import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
   import ShareButton from '../../../components/share/ShareButton.vue';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import { useLogEvent } from '@/composables/logEvent.js';
-  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import exhibitionCreditsPageGraphql from '@/graphql/queries/exhibitionCreditsPage.graphql';
+  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -132,8 +134,10 @@
       pageMetaMixin
     ],
     setup() {
+      const { query: queryContentful } = useContentfulGraphql();
       const { logEvent } = useLogEvent();
-      return { logEvent };
+
+      return { logEvent, queryContentful };
     },
     data() {
       return {
@@ -153,7 +157,7 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query('exhibitionCreditsPage', variables);
+        const response = await this.queryContentful(exhibitionCreditsPageGraphql, variables);
         const data = response.data.data;
 
         if (data.exhibitionPageCollection.items.length === 0) {
