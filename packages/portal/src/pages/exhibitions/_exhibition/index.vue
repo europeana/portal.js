@@ -3,109 +3,120 @@
     data-qa="exhibition page"
     class="page text-page"
   >
-    <b-breadcrumb
-      :items="breadcrumbs"
+    <LoadingSpinner
+      v-if="$fetchState.pending"
+      class="flex-md-row py-4 text-center"
     />
-    <ContentWarningModal
-      v-if="contentWarning"
-      :title="contentWarning.name"
-      :description="contentWarning.description"
-      :page-slug="`exhibition/${identifier}`"
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error"
     />
-    <AuthoredHead
-      :title="name"
-      :description="headline"
-      :hero="hero"
-      :context-label="$tc('exhibitions.exhibitions')"
-    />
-    <b-container
-      class="footer-margin"
-    >
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8 mb-3"
-        >
-          <article>
-            <time
-              v-if="datePublished"
-              data-qa="date"
-              :datetime="datePublished"
-              class="font-small font-weight-bold d-block mb-4"
-            >
-              {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short', $i18n.localeProperties.iso) }) }}
-            </time>
-            <div class="mb-4 d-flex align-items-center">
-              <ShareButton class="mr-4" />
-              <ShareSocialModal :media-url="pageMetaOgImage" />
-              <ViewCount />
-            </div>
-            <!-- eslint-disable vue/no-v-html -->
-            <div
-              data-qa="exhibition text"
-              v-html="mainContent"
-            />
-            <!-- eslint-enable vue/no-v-html -->
-          </article>
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="hasPartCollection"
-        class="justify-content-center"
+    <template v-else>
+      <b-breadcrumb
+        :items="breadcrumbs"
+      />
+      <ContentWarningModal
+        v-if="contentWarning"
+        :title="contentWarning.name"
+        :description="contentWarning.description"
+        :page-slug="`exhibition/${identifier}`"
+      />
+      <AuthoredHead
+        :title="name"
+        :description="headline"
+        :hero="hero"
+        :context-label="$tc('exhibitions.exhibitions')"
+      />
+      <b-container
+        class="footer-margin"
       >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
-        >
-          <LinkList
-            :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
-            :title="$t('exhibitions.chapters')"
-          />
-        </b-col>
-      </b-row>
-      <client-only>
-        <b-row
-          v-if="hasRelatedCategoryTags"
-          data-qa="related category tags"
-          class="related-container justify-content-center"
-        >
+        <b-row class="justify-content-center">
           <b-col
             cols="12"
-            class="col-lg-8"
+            class="col-lg-8 mb-3"
           >
-            <RelatedCategoryTags
-              :tags="categoriesCollection.items"
-            />
+            <article>
+              <time
+                v-if="datePublished"
+                data-qa="date"
+                :datetime="datePublished"
+                class="font-small font-weight-bold d-block mb-4"
+              >
+                {{ $t('authored.publishedDate', { date: $d(new Date(datePublished), 'short', $i18n.localeProperties.iso) }) }}
+              </time>
+              <div class="mb-4 d-flex align-items-center">
+                <ShareButton class="mr-4" />
+                <ShareSocialModal :media-url="pageMetaOgImage" />
+                <ViewCount />
+              </div>
+              <!-- eslint-disable vue/no-v-html -->
+              <div
+                data-qa="exhibition text"
+                v-html="mainContent"
+              />
+              <!-- eslint-enable vue/no-v-html -->
+            </article>
           </b-col>
         </b-row>
         <b-row
-          v-if="relatedLink"
-          class="related-container justify-content-center"
+          v-if="hasPartCollection"
+          class="justify-content-center"
         >
           <b-col
             cols="12"
-            class="col-lg-8"
+            class="mt-3 col-lg-8"
           >
-            <EntityBadges
-              :entity-uris="relatedLink"
+            <LinkList
+              :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
+              :title="$t('exhibitions.chapters')"
             />
           </b-col>
         </b-row>
-        <b-row
-          v-if="genre"
-          class="related-container justify-content-center"
-        >
-          <b-col
-            cols="12"
-            class="col-lg-8"
+        <client-only>
+          <b-row
+            v-if="hasRelatedCategoryTags"
+            data-qa="related category tags"
+            class="related-container justify-content-center"
           >
-            <ThemeBadges
-              :themes-identifiers="genre"
-            />
-          </b-col>
-        </b-row>
-      </client-only>
-    </b-container>
+            <b-col
+              cols="12"
+              class="col-lg-8"
+            >
+              <RelatedCategoryTags
+                :tags="categoriesCollection.items"
+              />
+            </b-col>
+          </b-row>
+          <b-row
+            v-if="relatedLink"
+            class="related-container justify-content-center"
+          >
+            <b-col
+              cols="12"
+              class="col-lg-8"
+            >
+              <EntityBadges
+                :entity-uris="relatedLink"
+              />
+            </b-col>
+          </b-row>
+          <b-row
+            v-if="genre"
+            class="related-container justify-content-center"
+          >
+            <b-col
+              cols="12"
+              class="col-lg-8"
+            >
+              <ThemeBadges
+                :themes-identifiers="genre"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
+      </b-container>
+    </template>
   </div>
 </template>
 
@@ -128,6 +139,8 @@
       ClientOnly,
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       LinkList: () => import('@/components/generic/LinkList'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
@@ -146,30 +159,47 @@
       const { logEvent } = useLogEvent();
       return { logEvent };
     },
-    asyncData({ params, query, error, app, redirect }) {
-      if (params.exhibition === undefined) {
-        redirect(app.localePath({ name: 'exhibitions' }));
-      }
-
-      const variables = {
-        identifier: params.exhibition,
-        locale: app.i18n.localeProperties.iso,
-        preview: query.mode === 'preview'
+    data() {
+      return {
+        categoriesCollection: null,
+        contentWarning: null,
+        credits: null,
+        datePublished: null,
+        description: null,
+        genre: null,
+        hasPartCollection: null,
+        headline: null,
+        identifier: null,
+        name: null,
+        primaryImageOfPage: null,
+        relatedLink: null,
+        text: null
       };
+    },
+    async fetch() {
+      try {
+        const variables = {
+          identifier: this.$route.params.exhibition,
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        };
 
-      return app.$contentful.query('exhibitionLandingPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          if (data.exhibitionPageCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return null;
-          }
+        const response = await this.$contentful.query('exhibitionLandingPage', variables);
+        const data = response.data.data;
 
-          return data.exhibitionPageCollection.items[0];
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
+        if (data.exhibitionPageCollection.items.length === 0) {
+          this.$error(404, { scope: 'page' });
+          return;
+        }
+
+        const page = data.exhibitionPageCollection.items[0];
+
+        for (const key in page) {
+          this[key] = page[key];
+        }
+      } catch (e) {
+        this.$error(e, { scope: 'page' });
+      }
     },
 
     computed: {
