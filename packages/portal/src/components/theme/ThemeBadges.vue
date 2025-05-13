@@ -28,6 +28,8 @@
 
 <script>
   import LinkBadge from '@/components/generic/LinkBadge';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
+  import themesByIdGraphql from '@/graphql/queries/themesById.graphql';
 
   export default {
     name: 'ThemeBadges',
@@ -51,6 +53,12 @@
       }
     },
 
+    setup() {
+      const { query: queryContentful } = useContentfulGraphql();
+
+      return { queryContentful };
+    },
+
     data() {
       return {
         themesData: this.themes
@@ -65,7 +73,7 @@
           identifiers: this.themesIdentifiers
         };
 
-        const contentfulResponse = await this.$contentful.query('themesById', contentfulVariables);
+        const contentfulResponse = await this.queryContentful(themesByIdGraphql, contentfulVariables);
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,

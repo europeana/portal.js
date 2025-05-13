@@ -46,8 +46,9 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import pageMetaMixin from '@/mixins/pageMeta';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import landingPageMixin from '@/mixins/landingPage';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
   const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
@@ -72,6 +73,12 @@
       } else {
         return landingLayout(ctx) ? 'landing' : 'default';
       }
+    },
+
+    setup() {
+      const { query: queryContentful } = useContentfulGraphql();
+
+      return { queryContentful };
     },
 
     data() {
@@ -139,9 +146,11 @@
 
     methods: {
       async fetchContentfulEntry() {
-        let ctfQuery = 'browseStaticPage';
+        let graphql;
         if (this.landingPage) {
-          ctfQuery = 'landingPage';
+          graphql = await import('@/graphql/queries/landingPage.graphql');
+        } else {
+          graphql = await import('@/graphql/queries/browseStaticPage.graphql');
         }
 
         const variables = {
@@ -150,7 +159,7 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query(ctfQuery, variables);
+        const response = await this.queryContentful(graphql, variables);
         const data = response.data.data;
 
         const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);

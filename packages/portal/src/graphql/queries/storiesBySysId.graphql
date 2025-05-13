@@ -28,7 +28,7 @@ fragment exhibitionPageCollectionFields on ExhibitionPageCollection {
     identifier
     name
     primaryImageOfPage {
-      ...imageWithAttributionFields
+      ...storiesBySysIdImageWithAttributionFields
     }
   }
 }
@@ -42,12 +42,12 @@ fragment storyCollectionFields on StoryCollection {
     identifier
     name
     primaryImageOfPage {
-      ...imageWithAttributionFields
+      ...storiesBySysIdImageWithAttributionFields
     }
   }
 }
 
-fragment imageWithAttributionFields on ImageWithAttribution {
+fragment storiesBySysIdImageWithAttributionFields on ImageWithAttribution {
   image {
     url
     contentType

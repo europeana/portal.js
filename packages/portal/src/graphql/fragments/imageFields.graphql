@@ -1,0 +1,13 @@
+fragment imageFields on Asset {
+  contentfulMetadata {
+    tags {
+      id
+    }
+  }
+  contentType
+  description
+  height
+  title
+  url
+  width
+}

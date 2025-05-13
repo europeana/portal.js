@@ -39,16 +39,3 @@ query ExhibitionLandingPage(
     }
   }
 }
-
-fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    url
-    description
-    contentType
-  }
-}

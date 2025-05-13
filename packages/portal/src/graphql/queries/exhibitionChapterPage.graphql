@@ -1,3 +1,5 @@
+#import "../fragments/imageWithAttributionFields.graphql"
+
 # This is inefficient as it collects the full data for all chapters when that
 # is only needed for the chapter being viewed, but is necessary to validate
 # that the requested exhibition and chapter are in fact linked.
@@ -28,7 +30,7 @@ query ExhibitionChapterPage(
           headline
           description
           primaryImageOfPage {
-            ... imageWithAttributionFields
+            ...imageWithAttributionFields
           }
           categoriesCollection(limit: 10) {
             items {
@@ -47,13 +49,13 @@ query ExhibitionChapterPage(
                 embed
               }
               ... on ImageWithAttribution {
-                ... imageWithAttributionFields
+                ...imageWithAttributionFields
               }
               ... on ImageComparison {
                 name
                 hasPartCollection(limit: 2) {
                   items {
-                    ... imageWithAttributionFields
+                    ...imageWithAttributionFields
                   }
                 }
               }
@@ -67,20 +69,5 @@ query ExhibitionChapterPage(
         }
       }
     }
-  }
-}
-
-fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    url
-    description
-    contentType
-    width
-    height
   }
 }
