@@ -1,27 +1,11 @@
-// TODO: remove if unused
-// Defaults for custom `imageDisplayProfile` content type
-// const CONTENTFUL_IMAGE_DISPLAY_PROFILE_DEFAULTS = {
-//   crop: true,
-//   fit: null,
-//   focus: 'center',
-//   name: null,
-//   overlay: true,
-//   quality: 40,
-//   sizes: ['small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k', '4k+']
-// };
 const CONTENTFUL_IMAGES_ASSET_HOST = 'images.ctfassets.net';
 const CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE = 'progressive';
 const CONTENTFUL_IMAGES_PARAMS_FM_WEBP = 'webp';
 const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg';
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
-const MEDIA_TYPE_WEBP = 'image/webp';
 
-export default ({ store } = {}) => ({
-  acceptedMediaTypes() {
-    return store?.state?.contentful?.acceptedMediaTypes || [];
-  },
-
+export default () => ({
   imageApiParamsForImageDisplayProfile(profile) {
     return {
       ...profile?.focus && { f: profile.focus },
@@ -45,14 +29,6 @@ export default ({ store } = {}) => ({
     }, {});
   },
 
-  // TODO: remove if unused
-  // imageDisplayProfileWithDefaults(entryProfile = {}) {
-  //   return {
-  //     ...CONTENTFUL_IMAGE_DISPLAY_PROFILE_DEFAULTS,
-  //     ...entryProfile
-  //   };
-  // },
-
   isValidUrl(url) {
     try {
       return (new URL(url)).host === CONTENTFUL_IMAGES_ASSET_HOST;
@@ -71,7 +47,7 @@ export default ({ store } = {}) => ({
 
     const params = { ...options, ...profileParams };
 
-    if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
+    if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG)) {
       params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;
       if (!params.q) {
         params.q = 40;
