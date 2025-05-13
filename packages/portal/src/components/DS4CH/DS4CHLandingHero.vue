@@ -42,6 +42,7 @@
 
 <script>
   import SmartLink from '@/components/generic/SmartLink';
+  import { responsiveBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
   import parseMarkdown from '@/utils/markdown/parse.js';
 
   const CSS_VARS_PRESETS = {
@@ -99,7 +100,7 @@
       return {
         europeanaLogoSrc: require('@europeana/style/img/logo.svg'),
         imageCSSVars: this.heroImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          responsiveBackgroundImageCSSVars(
             this.heroImage.image,
             CSS_VARS_PRESETS
           )

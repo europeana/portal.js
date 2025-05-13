@@ -1,13 +1,9 @@
-import assets from './assets';
-import query from './query';
+import query from './query.js';
 
-const MODULE_NAME = 'contentful';
-
-export default ({ $config, $apm }, inject) => {
+export default ({ $apm, $config }, inject) => {
   const plugin = {
-    assets: assets(),
     query: query({ $apm, $config })
   };
 
-  inject(MODULE_NAME, plugin);
+  inject('contentful', plugin);
 };
