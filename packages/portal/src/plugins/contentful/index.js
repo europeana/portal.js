@@ -2,7 +2,7 @@ import assets from './assets.js';
 
 const MODULE_NAME = 'contentful';
 
-export default ({ $config, $apm }, inject) => {
+export default (ctx, inject) => {
   const plugin = {
     assets: assets()
   };
