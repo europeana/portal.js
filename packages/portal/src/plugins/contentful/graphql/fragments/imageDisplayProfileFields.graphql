@@ -1,0 +1,9 @@
+fragment imageDisplayProfileFields on ImageDisplayProfile {
+  fit
+  sizes
+  focus
+  quality
+  overlay
+  crop
+  background
+}

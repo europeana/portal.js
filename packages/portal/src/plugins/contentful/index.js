@@ -1,5 +1,5 @@
-import assets from './assets';
-import query from './query';
+import assets from './assets.js';
+import query from './query.js';
 
 const MODULE_NAME = 'contentful';
 
