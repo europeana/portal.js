@@ -35,11 +35,6 @@
       ItemPreviewInterface
     },
 
-    beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setSelected', []);
-      next();
-    },
-
     setup() {
       const { eventBus } = useLikedItems();
       const { scrollToSelector } = useScrollTo();
@@ -71,6 +66,7 @@
     },
 
     beforeDestroy() {
+      this.$store.commit('set/setSelected', []);
       this.eventBus.off(this.fetchLikes);
     },
 
