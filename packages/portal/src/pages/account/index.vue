@@ -124,6 +124,11 @@
       pageMetaMixin
     ],
 
+    beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setSelected', []);
+      next();
+    },
+
     middleware: 'auth',
 
     setup() {
