@@ -38,6 +38,9 @@
         type: [String, Array],
         required: true
       },
+      /**
+       * Model representing whether or not the item started out liked
+       */
       value: {
         type: Boolean,
         default: null
