@@ -16,14 +16,6 @@
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
-    <!-- TODO: remove when 100-item like limit removed -->
-    <b-modal
-      :id="likeLimitModalId"
-      :title="$t('set.notifications.likeLimit.title')"
-      hide-footer
-    >
-      <p>{{ $t('set.notifications.likeLimit.body') }}</p>
-    </b-modal>
   </div>
 </template>
 
@@ -32,6 +24,7 @@
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
+  import { useLikedItems } from '@/composables/likedItems.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
@@ -44,6 +37,13 @@
       identifiers: {
         type: [String, Array],
         required: true
+      },
+      /**
+       * Model representing whether or not the item started out liked
+       */
+      value: {
+        type: Boolean,
+        default: null
       },
       /**
        * Button variant to use for styling the buttons
@@ -67,23 +67,23 @@
       const likeLimitModalId = `like-limit-modal-${idSuffix}`;
 
       const { cardinality } = useCardinality(props.identifiers);
-      const { hideTooltips } = useHideTooltips(buttonId);
+      const { hideTooltips } = useHideTooltips();
+      const { eventBus } = useLikedItems();
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      return { buttonId, cardinality, hideTooltips, likeLimitModalId, logEvent, makeToast };
+      return { buttonId, cardinality, eventBus, hideTooltips, likeLimitModalId, logEvent, makeToast };
+    },
+
+    data() {
+      return {
+        liked: this.value
+      };
     },
 
     computed: {
       disabled() {
         return this.selectionCount === 0;
-      },
-      liked() {
-        if (Array.isArray(this.identifiers)) {
-          return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
-        } else {
-          return this.$store.state.set.likedItemIds.includes(this.identifiers);
-        }
       },
       likesId() {
         return this.$store.state.set.likesId;
@@ -112,6 +112,12 @@
       }
     },
 
+    watch: {
+      value() {
+        this.liked = this.value;
+      }
+    },
+
     methods: {
       async toggleLiked() {
         if (this.$auth.loggedIn) {
@@ -127,33 +133,27 @@
         }
         this.hideTooltips();
       },
+
       async like() {
         if (this.likesId === null) {
           const response = await this.$apis.set.createLikes();
           this.$store.commit('set/setLikesId', response.id);
         }
 
-        try {
-          await this.$store.dispatch('set/like', this.identifiers);
+        await this.$apis.set.insertItems(this.likesId, this.identifiers);
+        this.eventBus.emit('like', this.identifiers);
+        this.liked = true;
+        this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
 
-          this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
-
-          for (const id of [].concat(this.identifiers)) {
-            this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
-          }
-
-          this.makeToast(this.likeToastMessage);
-        } catch (e) {
-          // TODO: remove when 100 item like limit is removed
-          if (e.message === '100 likes') {
-            this.$bvModal.show(this.likeLimitModalId);
-          } else {
-            throw e;
-          }
+        for (const id of [].concat(this.identifiers)) {
+          this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
         }
+        this.makeToast(this.likeToastMessage);
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifiers);
+        await this.$apis.set.deleteItems(this.likesId, this.identifiers);
+        this.eventBus.emit('unlike', this.identifiers);
+        this.liked = false;
         this.makeToast(this.unlikeToastMessage);
       }
     }
