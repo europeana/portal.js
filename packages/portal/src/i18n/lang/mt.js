@@ -774,8 +774,6 @@ export default {
   "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
-    "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
-    "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
     "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
@@ -787,6 +785,7 @@ export default {
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Dikjarazzjoni tal-privatezza",
+      "registerApiKey": "Irreġistra għal ċavetta API",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",

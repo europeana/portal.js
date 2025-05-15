@@ -775,8 +775,6 @@ export default {
   "filterResults": "Filtrer les résultats",
   "footer": {
     "customiseWebsiteLanguage": "Personnaliser la langue du site web",
-    "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
-    "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
     "footer": "Pied de page",
     "imageDescription": "Financé par l'Union européenne",
@@ -788,6 +786,7 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Déclaration de confidentialité",
+      "registerApiKey": "Inscrivez-vous pour obtenir une clé API",
       "seeApiRequests": "Voir les requêtes vers les API Europeana",
       "subscribe": "Abonnez-vous à notre newsletter",
       "supportingTechnicalPartners": "Soutenir les partenaires techniques",

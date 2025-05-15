@@ -775,8 +775,6 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
-    "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
-    "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
@@ -788,6 +786,7 @@ export default {
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Izjava o privatnosti",
+      "registerApiKey": "Registrirajte se za API ključ",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",

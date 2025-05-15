@@ -775,8 +775,6 @@ export default {
   "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
-    "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
-    "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
     "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
@@ -788,6 +786,7 @@ export default {
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojaseloste",
+      "registerApiKey": "Rekisteröidy saadaksesi API-avaimen",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
       "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",

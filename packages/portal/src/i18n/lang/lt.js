@@ -774,8 +774,6 @@ export default {
   "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
-    "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
-    "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
     "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
@@ -787,6 +785,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo pareiškimas",
+      "registerApiKey": "Registruokitės API raktui gauti",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "supportingTechnicalPartners": "Techninių partnerių palaikymas",
