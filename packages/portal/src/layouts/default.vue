@@ -39,7 +39,6 @@
     </main>
     <client-only>
       <NewFeatureNotification
-        v-if="featureNotification"
         :name="featureNotification.name"
         :url="featureNotification.url"
         data-qa="new feature notification"
@@ -47,10 +46,12 @@
       <PageFooter />
       <DebugApiRequests />
     </client-only>
-    <b-toaster
-      name="b-toaster-bottom-left"
-      class="b-toaster-bottom-left"
-    />
+    <div class="toast-container position-fixed">
+      <portal-target
+        name="toaster-bottom-left"
+        multiple
+      />
+    </div>
     <ErrorModal />
     <client-only>
       <PageCookiesWidget />
@@ -110,12 +111,17 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
+          { rel: 'preload', as: 'style', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap5}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap5}/dist/css/bootstrap.min.css` },
           ...i18nHead.link
         ],
         meta: [
           ...i18nHead.meta,
           { hid: 'description', name: 'description', content: this.$config.app.siteName },
           { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName }
+        ],
+        script: [
+          { src: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap5}/dist/js/bootstrap.bundle.min.js` }
         ]
       };
     },
@@ -150,5 +156,10 @@
 <style lang="scss" scoped>
   ::v-deep .notification-banner ~ #main .home {
     margin-top: -8rem;
+  }
+
+  .toast-container {
+    left: 0.5rem;
+    bottom: 0.5rem;
   }
 </style>

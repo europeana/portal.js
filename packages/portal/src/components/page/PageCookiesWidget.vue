@@ -5,14 +5,10 @@
     <b-toast
       v-if="renderToast"
       :id="toastId"
-      is-status
-      no-auto-hide
-      no-close-button
-      solid
+      ref="toastParent"
+      :auto-hide="false"
       toast-class="brand-toast-white cookie-notice"
-      visible
-      append-toast
-      toaster="b-toaster-bottom-left"
+      :visible="true"
     >
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
       <div class="d-flex justify-content-between align-items-center">
@@ -117,7 +113,8 @@
 
     components: {
       PageCookiesSection,
-      SmartLink: () => import('@/components/generic/SmartLink')
+      SmartLink: () => import('@/components/generic/SmartLink'),
+      'b-toast': () => import('@/components/bootstrap/b-toast')
     },
 
     mixins: [
@@ -261,12 +258,12 @@
     methods: {
       openCookieModal() {
         this.$bvModal.show(this.modalId);
-        this.$bvToast.hide(this.toastId);
+        this.$refs.toastParent.hide(this.toastId);
       },
 
       onModalHide() {
         if (this.cookieConsentRequired) {
-          this.$bvToast.show(this.toastId);
+          this.$refs.toastParent.show(this.toastId);
           this.klaroManager.changeAll(false);
         }
       },
