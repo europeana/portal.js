@@ -12,5 +12,6 @@ export default {
   '@europeana/portal': '2.8.2',
   '@nuxt/core': '2.17.0',
   'bootstrap': '4.6.2',
-  'bootstrap-vue': '2.22.0'
+  'bootstrap-vue': '2.22.0',
+  'bootstrap5': '5.3.6'
 };

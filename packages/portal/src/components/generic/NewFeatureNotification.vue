@@ -2,14 +2,9 @@
   <b-toast
     v-if="enabled"
     :id="toastId"
-    auto-hide-delay="60000"
-    is-status
-    no-close-button
-    solid
+    :auto-hide-delay="60000"
     toast-class="brand-toast-white"
-    visible
-    append-toast
-    toaster="b-toaster-bottom-left"
+    :visible="true"
   >
     <p>{{ $t(`newFeatureNotification.text.${name}`) }}</p>
     <div class="d-flex justify-content-between align-items-start">
@@ -38,6 +33,10 @@
 <script>
   export default {
     name: 'NewFeatureNotification',
+
+    components: {
+      'b-toast': () => import('@/components/bootstrap/b-toast')
+    },
 
     props: {
       name: {
