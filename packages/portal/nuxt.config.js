@@ -70,6 +70,7 @@ export default {
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
+      projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
         locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
