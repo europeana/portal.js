@@ -131,6 +131,24 @@
                     </b-col>
                   </b-row>
                 </template>
+                <b-row>
+                  <b-col
+                    xl="6"
+                    class="text-center text-sm-left"
+                  >
+                    <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
+                    <p>
+                      {{ $t( 'apiKeys.sections.projectKeys.description') }}
+                    </p>
+                  </b-col>
+                </b-row>
+                <b-row>
+                  <b-col
+                    class="text-center text-sm-left"
+                  >
+                    <UserProjectApiKeyForm />
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </b-container>
@@ -146,6 +164,7 @@
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
+  import UserProjectApiKeyForm from '@/components/user/UserProjectApiKeyForm';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -157,6 +176,7 @@
       BTable,
       LoadingSpinner,
       UserApiKeyActionsMenu,
+      UserProjectApiKeyForm,
       UserHeader
     },
 
