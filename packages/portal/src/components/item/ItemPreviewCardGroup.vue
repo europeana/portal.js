@@ -141,7 +141,6 @@
   import { computed } from 'vue';
 
   import advancedSearchMixin from '@/mixins/advancedSearch';
-  import { useLikedItems } from '@/composables/likedItems.js';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
@@ -155,10 +154,6 @@
     mixins: [
       advancedSearchMixin
     ],
-
-    provide() {
-      return { likedItems: computed(() => this.likedItems) };
-    },
 
     props: {
       items: {
@@ -201,14 +196,6 @@
         type: Function,
         default: null
       }
-    },
-
-    setup(props) {
-      const itemIds = computed(() => props.items.map((item) => item.id));
-
-      const { likedItems } = useLikedItems(itemIds);
-
-      return { likedItems };
     },
 
     data() {

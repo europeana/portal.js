@@ -5,21 +5,23 @@
       v-b-tooltip.bottom
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
-      :pressed="liked"
+      :pressed="pressed"
       :disabled="disabled"
       :variant="buttonVariant"
       data-qa="like button"
-      :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
+      :aria-label="pressed ? $t('actions.unlike') : $t('actions.like')"
       :title="tooltipTitle"
       @click="toggleLiked"
     >
-      <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
+      <span :class="pressed ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
   </div>
 </template>
 
 <script>
+  import { toRef } from 'vue';
+
   import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
@@ -37,13 +39,6 @@
       identifiers: {
         type: [String, Array],
         required: true
-      },
-      /**
-       * Model representing whether or not the item started out liked
-       */
-      value: {
-        type: Boolean,
-        default: null
       },
       /**
        * Button variant to use for styling the buttons
@@ -64,20 +59,19 @@
     setup(props) {
       const idSuffix = Array.isArray(props.identifiers) ? 'multi-select' : props.identifiers;
       const buttonId = `item-like-button-${idSuffix}`;
-      const likeLimitModalId = `like-limit-modal-${idSuffix}`;
 
       const { cardinality } = useCardinality(props.identifiers);
       const { hideTooltips } = useHideTooltips();
-      const { eventBus } = useLikedItems();
+      const { like, likedItems, unlike } = useLikedItems(toRef(props, 'identifiers'));
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      return { buttonId, cardinality, eventBus, hideTooltips, likeLimitModalId, logEvent, makeToast };
+      return { buttonId, cardinality, hideTooltips, like, likedItems, logEvent, makeToast, unlike };
     },
 
     data() {
       return {
-        liked: this.value
+        pressed: this.everyItemLiked
       };
     },
 
@@ -85,12 +79,13 @@
       disabled() {
         return this.selectionCount === 0;
       },
-      likesId() {
-        return this.$store.state.set.likesId;
+      everyItemLiked() {
+        console.log('everyItemLiked', this.likedItems)
+        return [].concat(this.identifiers).every((id) => this.likedItems[id]);
       },
       likeButtonText() {
         if (this.buttonText) {
-          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+          return this.everyItemLiked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
       },
@@ -101,7 +96,7 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
-        if (this.liked) {
+        if (this.everyItemLiked) {
           return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
         } else {
           return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
@@ -113,8 +108,12 @@
     },
 
     watch: {
-      value() {
-        this.liked = this.value;
+      everyItemLiked: {
+        deep: true,
+        handler() {
+          console.log('watch everyItemLiked', this.everyItemLiked)
+          this.pressed = this.everyItemLiked;
+        }
       }
     },
 
@@ -122,7 +121,7 @@
       async toggleLiked() {
         if (this.$auth.loggedIn) {
           try {
-            await (this.liked ? this.unlike() : this.like());
+            await (this.pressed ? this.handleUnlike() : this.handleLike());
           } catch (e) {
             // TODO: handle 404 which may indicate likes set has been deleted;
             //       create a new one and retry
@@ -134,15 +133,9 @@
         this.hideTooltips();
       },
 
-      async like() {
-        if (this.likesId === null) {
-          const response = await this.$apis.set.createLikes();
-          this.$store.commit('set/setLikesId', response.id);
-        }
-
-        await this.$apis.set.insertItems(this.likesId, this.identifiers);
-        this.eventBus.emit('like', this.identifiers);
-        this.liked = true;
+      async handleLike() {
+        console.log('handleLike')
+        await this.like();
         this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
 
         for (const id of [].concat(this.identifiers)) {
@@ -150,10 +143,9 @@
         }
         this.makeToast(this.likeToastMessage);
       },
-      async unlike() {
-        await this.$apis.set.deleteItems(this.likesId, this.identifiers);
-        this.eventBus.emit('unlike', this.identifiers);
-        this.liked = false;
+      async handleUnlike() {
+        await this.unlike();
+
         this.makeToast(this.unlikeToastMessage);
       }
     }
