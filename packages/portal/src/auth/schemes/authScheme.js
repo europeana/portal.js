@@ -1,6 +1,6 @@
 // Custom Nuxt auth scheme extending @nuxtjs/auth's oAuth2 scheme to:
 // - support Nuxt runtime config
-// - _replace_ the window location for redirection to oUuth login endpoint
+// - _replace_ the window location for redirection to oAuth login endpoint
 
 import nanoid from 'nanoid';
 
