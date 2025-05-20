@@ -19,7 +19,7 @@
       v-if="infoCards.length"
       class="cards-wrapper d-lg-flex flex-wrap mx-auto"
       :class="{
-        'justify-content-between text-lg-left': twoColCardsLayout,
+        'justify-content-between text-lg-start': twoColCardsLayout,
         'justify-content-center': threeColCardsLayout
       }"
       data-qa="landing info card group cards wrapper"

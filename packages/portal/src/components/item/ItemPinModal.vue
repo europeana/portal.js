@@ -13,7 +13,7 @@
       :disabled="!fetched"
       :pressed="selected === entity.id"
       :data-qa="`pin item to entity choice`"
-      class="btn-collection w-100 text-left d-flex"
+      class="btn-collection w-100 text-start d-flex"
       @click="selectEntity(entity.id)"
     >
       <span
@@ -23,7 +23,7 @@
         {{ entityDisplayLabel(entity).values[0] }}
       </span>
       <span
-        class="icons text-left d-flex justify-content-end"
+        class="icons text-start d-flex justify-content-end"
       >
         <span
           v-if="selected === entity.id"

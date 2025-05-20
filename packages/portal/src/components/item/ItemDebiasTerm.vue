@@ -30,7 +30,7 @@
       <i18n
         path="record.explanationby"
         tag="cite"
-        class="d-block text-right mx-0 mt-3"
+        class="d-block text-end mx-0 mt-3"
       >
         <SmartLink
           :destination="linkToDebiasProjectPage"

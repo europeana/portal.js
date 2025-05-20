@@ -28,7 +28,7 @@
     >
       <h3
         class="title text-center"
-        :class="{ 'text-lg-left': !centeredContent }"
+        :class="{ 'text-lg-start': !centeredContent }"
       >
         {{ card.name }}
       </h3>
