@@ -15,6 +15,7 @@ import Oauth2Scheme from './oauth2';
 const keycloakOpenIDConnectEndpoint = (method, { realm, origin }) =>
   `${origin}/auth/realms/${realm}/protocol/openid-connect/${method}`;
 
+// TODO: this does not belong in here. mv to plugins/keycloak?
 export function userHasClientRole(client, role) {
   return this.user?.resource_access?.[client]?.roles?.includes(role) || false;
 }
