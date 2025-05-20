@@ -158,7 +158,7 @@
             key: 'recordCount',
             sortable: true,
             label: this.$t('pages.collections.table.items'),
-            class: 'text-right'
+            class: 'text-end'
           },
           this.type === 'organisations' && {
             key: 'showDetails',

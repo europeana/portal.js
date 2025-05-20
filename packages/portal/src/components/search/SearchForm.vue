@@ -370,7 +370,7 @@
     position: absolute;
     left: 1rem;
     top: 1rem;
-    z-index: 4;
+    z-index: 6;
     font-size: 0.5rem;
 
     @media (min-width: $bp-4k) {
@@ -387,7 +387,7 @@
 
   .clear-button {
     position: absolute;
-    z-index: 4;
+    z-index: 6;
     display: flex;
     justify-content: center;
     align-items: center;

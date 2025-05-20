@@ -3,6 +3,8 @@
 .btn {
   font-weight: 400;
   text-decoration-line: none;
+  border-radius: $border-radius-small;
+  text-align: left;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {

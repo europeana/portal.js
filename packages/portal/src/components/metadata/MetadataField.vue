@@ -14,7 +14,7 @@
       {{ $t(`fieldLabels.${context}.${name}`) }}
     </h3>
     <ul
-      class="m-0 p-0 text-left text-lg-right list-unstyled"
+      class="m-0 p-0 text-start text-lg-end list-unstyled"
       :aria-labelledby="labelled && labelId"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />

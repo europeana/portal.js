@@ -80,7 +80,7 @@
             v-if="supportingTechnicalPartners"
             sm="6"
             lg="3"
-            class="pb-4 order-sm-4 order-lg-6"
+            class="pb-4 order-sm-4 order-lg-last"
           >
             <LinkGroup
               :title="supportingTechnicalPartners.name"

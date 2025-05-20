@@ -33,7 +33,7 @@
                   <b-row>
                     <b-col
                       xl="6"
-                      class="text-center text-sm-left"
+                      class="text-center text-sm-start"
                     >
                       <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
                       <i18n
