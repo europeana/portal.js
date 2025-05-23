@@ -32,6 +32,11 @@
         @disable="handleDisableApiKey"
       />
     </template>
+    <template
+      #row-details="row"
+    >
+      <span>{{ row.item.name }}</span>
+    </template>
   </b-table>
 </template>
 
@@ -72,7 +77,7 @@
             key: 'client_id',
             label: this.$t('apiKeys.table.fields.clientId.label') },
           this.type === 'project' &&
-            { class: 'table-name-cell',
+            { class: 'table-name-cell d-none d-sm-table-cell',
               key: 'name',
               label: this.$t('apiKeys.table.fields.name.label') },
           { class: 'table-actions-cell',
@@ -84,9 +89,15 @@
     },
 
     computed: {
-
       sortedApiKeys() {
-        return [...this.apiKeys].sort(this.sortByEnabled);
+        let keys = this.apiKeys;
+
+        // add _showDetails prop for mobile layout
+        if (this.type === 'project') {
+          keys = keys.map(key => ({ ...key, '_showDetails': true }));
+        }
+
+        return [...keys].sort(this.sortByEnabled);
       }
     },
 
@@ -121,6 +132,8 @@
   @import '@europeana/style/scss/table';
 
   .table.api-keys-table {
+    border-bottom: 1px solid #d8d8d8;
+
     thead th {
       padding: 1.5rem 1rem;
 
@@ -137,6 +150,16 @@
       }
 
       &.table-api-key-cell {
+        @media (min-width: $bp-medium) {
+          padding-right: 7rem !important;
+        }
+
+        @media (min-width: $bp-4k) {
+          padding-right: 10.5rem !important;
+        }
+      }
+
+      &:nth-last-child(2) {
         @media (min-width: $bp-small) {
           width: 100%;
         }
@@ -204,9 +227,11 @@
           }
         }
       }
+    }
 
-      &:last-child td {
-        border-bottom: 1px solid $middlegrey;
+    .b-table-details {
+      @media (min-width: $bp-small) {
+        display: none;
       }
     }
   }
