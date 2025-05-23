@@ -33,7 +33,7 @@
                   <b-row>
                     <b-col
                       xl="6"
-                      class="text-center text-sm-left"
+                      class="text-center text-sm-left mb-sm-3"
                     >
                       <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
                       <i18n
@@ -59,12 +59,12 @@
                     v-if="personalKeys.length > 0"
                     :api-keys="personalKeys"
                     :is-disabled="isDisabled"
+                    class="mb-3 mb-sm-5"
                     @keyDisabled="handleDisableApiKey"
                   />
-                  <b-row>
+                  <b-row v-if="noActivePersonalKeys">
                     <b-col xl="6">
                       <b-form
-                        v-if="noActivePersonalKeys"
                         data-qa="request personal api key form"
                         @submit.prevent="handleSubmitCreatePersonalKeyForm"
                       >
@@ -82,7 +82,7 @@
                                   :to="localePath('/rights/terms-of-use#europeana-api')"
                                   target="_blank"
                                 >
-                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}
+                                  {{ $t('apiKeys.sections.termsOfUseLinkText') }}
                                   <span class="icon-external-link" /><!-- This comment removes white space
                                   --><span class="sr-only">
                                     ({{ $t('newWindow') }})
@@ -102,6 +102,32 @@
                     </b-col>
                   </b-row>
                 </template>
+                <!-- TODO: add condition to only render when project API keys (remove when form is ready) -->
+                <b-row>
+                  <b-col
+                    xl="6"
+                    class="text-center text-sm-left mt-3 mt-sm-5"
+                  >
+                    <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
+                    <i18n
+                      path="apiKeys.sections.projectKeys.description"
+                      tag="p"
+                    >
+                      <template #termsOfUseLink>
+                        <NuxtLink
+                          :to="localePath('/rights/terms-of-use#europeana-api')"
+                          target="_blank"
+                        >
+                          {{ $t('apiKeys.sections.termsOfUseLinkText') }}
+                          <span class="icon-external-link" /><!-- This comment removes white space
+                          --><span class="sr-only">
+                            ({{ $t('newWindow') }})
+                          </span>
+                        </NuxtLink>
+                      </template>
+                    </i18n>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </b-container>
@@ -238,6 +264,8 @@
 
     .table {
       thead th {
+        padding: 1.5rem 1rem;
+
         @media (max-width: ($bp-small - 1px)) {
           padding-right: 0 !important;
         }
