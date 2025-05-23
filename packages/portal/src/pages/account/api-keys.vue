@@ -134,6 +134,7 @@
                     v-if="projectKeys.length > 0"
                     :api-keys="projectKeys"
                     :is-disabled="isDisabled"
+                    type="project"
                     class="mb-3 mb-sm-5"
                     data-qa="project api keys table"
                     @keyDisabled="handleDisableApiKey"
@@ -224,146 +225,55 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icon-font';
-  @import '@europeana/style/scss/table';
 
-  .api-keys-page .container {
-    @media (min-width: $bp-extralarge) {
-      max-width: 1250px;
-    }
-
-    @media (min-width: $bp-4k) {
-      max-width: 2100px;
-    }
-  }
-
-  .profile-back-link {
-    font-size: $font-size-small;
-    text-decoration: none;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-small-4k;
-    }
-
-    &:hover {
-      color: $blue;
-    }
-
-    .icon-arrow-down:before {
-      display: inline-block;
-      transform: rotate(90deg);
-      font-size: $font-size-base;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
+  .api-keys-page {
+    .container {
+      @media (min-width: $bp-extralarge) {
+        max-width: 1250px;
       }
-    }
-  }
-
-  .api-keys-page-content {
-    h2 {
-      @extend %title-3;
-    }
-
-    p, p a, span, span a {
-      color: $darkgrey;
-    }
-
-    .icon-external-link {
-      font-size: $font-size-extrasmall;
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-extrasmall-4k;
+        max-width: 2100px;
       }
     }
 
-    .table {
-      thead th {
-        padding: 1.5rem 1rem;
+    .profile-back-link {
+      font-size: $font-size-small;
+      text-decoration: none;
 
-        @media (max-width: ($bp-small - 1px)) {
-          padding-right: 0 !important;
-        }
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+      }
 
-        @media (min-width: $bp-small) {
-          padding-right: 3rem !important;
-        }
+      &:hover {
+        color: $blue;
+      }
+
+      .icon-arrow-down:before {
+        display: inline-block;
+        transform: rotate(90deg);
+        font-size: $font-size-base;
 
         @media (min-width: $bp-4k) {
-          padding-right: 4.5rem !important;
-        }
-
-        &.table-api-key-cell {
-          @media (min-width: $bp-small) {
-            width: 100%;
-          }
-        }
-
-        div {
-          @media (max-width: ($bp-small - 1px)) {
-            overflow-wrap: anywhere;
-            white-space: wrap;
-          }
+          font-size: $font-size-base-4k;
         }
       }
+    }
 
-      td {
-        font-weight: 600;
+    .api-keys-page-content {
+      h2 {
+        @extend %title-3;
+      }
+
+      p, p a, span, span a {
         color: $darkgrey;
-        line-height: 1.5;
-        padding: 1.5rem 1rem;
-
-        &.table-actions-cell {
-          padding: 0;
-          vertical-align: middle;
-        }
-
-        .dropdown-toggle {
-          font-size: $font-size-large;
-          padding-top: 0;
-          padding-bottom: 0;
-
-          @media (min-width: $bp-4k) {
-            font-size: $font-size-large-4k;
-          }
-        }
-
-        .dropdown-menu {
-          box-shadow: $boxshadow-large;
-          border: none;
-          border-radius: 0 0 $border-radius $border-radius;
-
-          // dropdown is flipped up
-          &[x-placement='top-end'] {
-            border-radius: $border-radius $border-radius 0 0;
-          }
-        }
-
-        .btn-link:focus, .btn-link:hover {
-          text-decoration: none;
-        }
-        .btn:focus {
-          box-shadow: none;
-        }
       }
 
-      tr {
-        &.disabled {
-          &:nth-of-type(2n+1) {
-            background-color: rgba($lightergrey, 0.7);
-          }
+      .icon-external-link {
+        font-size: $font-size-extrasmall;
 
-          td {
-            opacity: 0.7;
-
-            &.table-actions-cell {
-              opacity: 1;
-            }
-          }
-        }
-
-        &:last-child td {
-          border-bottom: 1px solid $middlegrey;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-extrasmall-4k;
         }
       }
     }

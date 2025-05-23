@@ -126,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Date created"
+        },
+        "name": {
+          "label": "Project name"
         }
       }
     },
