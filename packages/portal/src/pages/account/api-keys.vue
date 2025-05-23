@@ -55,41 +55,12 @@
                       </i18n>
                     </b-col>
                   </b-row>
-                  <b-table
+                  <UserApiKeysTable
                     v-if="personalKeys.length > 0"
-                    :fields="tableFields"
-                    :items="sortedPersonalKeys"
-                    :tbody-tr-class="tableRowClass"
-                    striped
-                    class="borderless"
-                  >
-                    <template #cell(created)="data">
-                      <time :aria-disabled="isDisabled(data.item)">
-                        {{ data.value && $d(new Date(data.value), 'numeric', $i18n.localeProperties.iso) }}
-                      </time>
-                    </template>
-                    <template #cell(client_id)="data">
-                      <span
-                        v-if="isDisabled(data.item)"
-                        class="disabled"
-                        aria-disabled="true"
-                      >
-                        {{ data.value }}
-                        <span class="font-italic text-lowercase">- {{ $t('statuses.disabled') }}</span>
-                      </span>
-                      <template v-else>
-                        {{ data.value }}
-                      </template>
-                    </template>
-                    <template #cell(actions)="data">
-                      <UserApiKeyActionsMenu
-                        v-if="data.item"
-                        :id="`personal-api-key-actions-menu-${data.index}`"
-                        :api-key="data.item"
-                        @disable="handleDisableApiKey"
-                      />
-                    </template>
-                  </b-table>
+                    :api-keys="personalKeys"
+                    :is-disabled="isDisabled"
+                    @keyDisabled="handleDisableApiKey"
+                  />
                   <b-row>
                     <b-col xl="6">
                       <b-form
@@ -141,11 +112,8 @@
 </template>
 
 <script>
-  import { BTable } from 'bootstrap-vue';
-
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -154,9 +122,8 @@
 
     components: {
       AlertMessage,
-      BTable,
       LoadingSpinner,
-      UserApiKeyActionsMenu,
+      UserApiKeysTable: () => import('@/components/user/UserApiKeysTable'),
       UserHeader
     },
 
@@ -171,19 +138,7 @@
         apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
-        showConfirmDangerModal: false,
-        tableFields: [
-          { key: 'created',
-            label: this.$t('apiKeys.table.fields.created.label'),
-            sortable: true },
-          { class: 'table-api-key-cell',
-            key: 'client_id',
-            label: this.$t('apiKeys.table.fields.clientId.label') },
-          { class: 'table-actions-cell',
-            key: 'actions',
-            label: this.$t('apiKeys.table.fields.actions.label'),
-            thClass: 'sr-only' }
-        ]
+        showConfirmDangerModal: false
       };
     },
 
@@ -202,10 +157,6 @@
         return {
           title: this.$t('apiKeys.title')
         };
-      },
-
-      sortedPersonalKeys() {
-        return [...this.personalKeys].sort(this.sortByEnabled);
       }
     },
 
@@ -225,23 +176,6 @@
 
       isDisabled(apiKey) {
         return apiKey?.state === 'disabled';
-      },
-
-      tableRowClass(item, type) {
-        if (type === 'row' && this.isDisabled(item)) {
-          return 'disabled';
-        }
-        return undefined;
-      },
-
-      sortByEnabled(a, b) {
-        const isADisabled = this.isDisabled(a);
-        const isBDisabled = this.isDisabled(b);
-
-        if (isADisabled === isBDisabled) {
-          return 0;
-        }
-        return isADisabled ? 1 : -1;
       }
     }
   };
