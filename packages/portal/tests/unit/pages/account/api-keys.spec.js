@@ -35,10 +35,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIK
     'b-form-group',
     'b-form',
     'b-row',
-    'b-table',
     'i18n',
     'NuxtLink',
-    'UserApiKeyActionsMenu'
+    'UserApiKeysTable'
   ]
 });
 
@@ -91,25 +90,9 @@ describe('pages/account/api-keys', () => {
       const wrapper = factory({ mocks });
 
       await wrapper.vm.$fetch();
-      const table = wrapper.find('b-table-stub');
+      const table = wrapper.find('userapikeystable-stub');
 
       expect(table.isVisible()).toBe(true);
-    });
-  });
-
-  describe('computed', () => {
-    describe('sortedPersonalKeys', () => {
-      const apiKeys = [
-        { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey', state: 'disabled' },
-        { 'client_id': 'myKey2', id: 'api-key-id-2', type: 'PersonalKey', state: 'disabled' },
-        { 'client_id': 'myKey3', id: 'api-key-id-3', type: 'PersonalKey' }
-      ];
-
-      it('sorts the keys by enabled state first', () => {
-        const wrapper = factory({ data: { personalKeys: apiKeys } });
-
-        expect(wrapper.vm.sortedPersonalKeys[0].state).toBe(undefined);
-      });
     });
   });
 
