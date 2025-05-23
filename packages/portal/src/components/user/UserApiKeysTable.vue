@@ -79,11 +79,12 @@
           this.type === 'project' &&
             { class: 'table-name-cell d-none d-sm-table-cell',
               key: 'name',
-              label: this.$t('apiKeys.table.fields.name.label') },
+              label: this.$t('apiKeys.table.fields.name.label'),
+              sortable: true },
           { class: 'table-actions-cell',
             key: 'actions',
             label: this.$t('apiKeys.table.fields.actions.label'),
-            thClass: 'sr-only' }
+            thClass: 'position-relative sr-only' }
         ]
       };
     },
@@ -157,6 +158,15 @@
         @media (min-width: $bp-4k) {
           padding-right: 10.5rem !important;
         }
+      }
+
+      // Hide child div to prevent th showing on sort
+      &.table-actions-cell div {
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 0;
       }
 
       &:nth-last-child(2) {
