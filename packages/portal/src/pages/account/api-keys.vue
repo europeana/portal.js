@@ -60,6 +60,7 @@
                     :api-keys="personalKeys"
                     :is-disabled="isDisabled"
                     class="mb-3 mb-sm-5"
+                    data-qa="personal api keys table"
                     @keyDisabled="handleDisableApiKey"
                   />
                   <b-row v-if="noActivePersonalKeys">
@@ -102,32 +103,42 @@
                     </b-col>
                   </b-row>
                 </template>
-                <!-- TODO: add condition to only render when project API keys (remove when form is ready) -->
-                <b-row>
-                  <b-col
-                    xl="6"
-                    class="text-center text-sm-left mt-3 mt-sm-5"
-                  >
-                    <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
-                    <i18n
-                      path="apiKeys.sections.projectKeys.description"
-                      tag="p"
+                <!-- TODO: remove condition when form is added -->
+                <template v-if="projectKeys.length > 0">
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
                     >
-                      <template #termsOfUseLink>
-                        <NuxtLink
-                          :to="localePath('/rights/terms-of-use#europeana-api')"
-                          target="_blank"
-                        >
-                          {{ $t('apiKeys.sections.termsOfUseLinkText') }}
-                          <span class="icon-external-link" /><!-- This comment removes white space
+                      <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
+                      <i18n
+                        path="apiKeys.sections.projectKeys.description"
+                        tag="p"
+                      >
+                        <template #termsOfUseLink>
+                          <NuxtLink
+                            :to="localePath('/rights/terms-of-use#europeana-api')"
+                            target="_blank"
+                          >
+                            {{ $t('apiKeys.sections.termsOfUseLinkText') }}
+                            <span class="icon-external-link" /><!-- This comment removes white space
                           --><span class="sr-only">
                             ({{ $t('newWindow') }})
                           </span>
-                        </NuxtLink>
-                      </template>
-                    </i18n>
-                  </b-col>
-                </b-row>
+                          </NuxtLink>
+                        </template>
+                      </i18n>
+                    </b-col>
+                  </b-row>
+                  <UserApiKeysTable
+                    v-if="projectKeys.length > 0"
+                    :api-keys="projectKeys"
+                    :is-disabled="isDisabled"
+                    class="mb-3 mb-sm-5"
+                    data-qa="project api keys table"
+                    @keyDisabled="handleDisableApiKey"
+                  />
+                </template>
               </b-col>
             </b-row>
           </b-container>
@@ -164,14 +175,18 @@
         apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
+        projectKeys: [],
         showConfirmDangerModal: false
       };
     },
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
+      // console.log(apiKeys);
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
+      this.projectKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'ProjectKey');
     },
 
     computed: {
