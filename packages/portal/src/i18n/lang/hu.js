@@ -774,8 +774,6 @@ export default {
   "filterResults": "Találatok szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
-    "disclaimerLine1": "A Europeana az Európai Unió kezdeményezése, amelyet az Unió Európai Hálózatfinanszírozási Eszköze és az uniós tagállamok finanszíroznak. A Europeana szolgáltatásait, beleértve ezt a weboldalt is, a Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
-    "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és nem vállal semmilyen felelősséget vagy kötelezettséget a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró bármely személy nem felelős az ezen a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Megtalálsz minket itt is:",
     "footer": "Lábléc",
     "imageDescription": "Az Európai Unió támogatásával",
@@ -787,6 +785,7 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi nyilatkozat",
+      "registerApiKey": "Regisztráljon egy API-kulcsért",
       "seeApiRequests": "Europeana API-kérések",
       "subscribe": "Iratkozz fel hírlevelünkre!",
       "supportingTechnicalPartners": "Technikai támogató partnereink",

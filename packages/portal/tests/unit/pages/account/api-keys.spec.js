@@ -11,6 +11,10 @@ const fixtures = {
     personal: {
       disabled: { 'client_id': 'myKey', id: 'api-key-id', state: 'disabled', type: 'PersonalKey' },
       enabled: { 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' }
+    },
+    project: {
+      disabled: { 'client_id': 'myKey', id: 'api-key-id', state: 'disabled', type: 'ProjectKey' },
+      enabled: { 'client_id': 'myKey', id: 'api-key-id', type: 'ProjectKey' }
     }
   }
 };
@@ -35,10 +39,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIK
     'b-form-group',
     'b-form',
     'b-row',
-    'b-table',
     'i18n',
     'NuxtLink',
-    'UserApiKeyActionsMenu'
+    'UserApiKeysTable'
   ]
 });
 
@@ -66,7 +69,9 @@ describe('pages/account/api-keys', () => {
   describe('fetch', () => {
     const apiKeys = [
       fixtures.apiKey.personal.disabled,
-      fixtures.apiKey.personal.enabled
+      fixtures.apiKey.personal.enabled,
+      fixtures.apiKey.project.disabled,
+      fixtures.apiKey.project.enabled
     ];
     const getUserClientsStub = sinon.stub().resolves(apiKeys);
     const mocks = { $apis: { auth: { getUserClients: getUserClientsStub } } };
@@ -84,32 +89,33 @@ describe('pages/account/api-keys', () => {
 
       await wrapper.vm.$fetch();
 
-      expect(wrapper.vm.personalKeys).toEqual(apiKeys);
+      expect(wrapper.vm.personalKeys).toEqual(apiKeys.slice(0, 2));
     });
 
-    it('renders a table to display the API keys', async() => {
+    it('stores the project API keys for rendering', async() => {
       const wrapper = factory({ mocks });
 
       await wrapper.vm.$fetch();
-      const table = wrapper.find('b-table-stub');
+
+      expect(wrapper.vm.projectKeys).toEqual(apiKeys.slice(2));
+    });
+
+    it('renders a table to display the personal API keys', async() => {
+      const wrapper = factory({ mocks });
+
+      await wrapper.vm.$fetch();
+      const table = wrapper.find('[data-qa="personal api keys table"]');
 
       expect(table.isVisible()).toBe(true);
     });
-  });
 
-  describe('computed', () => {
-    describe('sortedPersonalKeys', () => {
-      const apiKeys = [
-        { 'client_id': 'myKey1', id: 'api-key-id-1', type: 'PersonalKey', state: 'disabled' },
-        { 'client_id': 'myKey2', id: 'api-key-id-2', type: 'PersonalKey', state: 'disabled' },
-        { 'client_id': 'myKey3', id: 'api-key-id-3', type: 'PersonalKey' }
-      ];
+    it('renders a table to display the project API keys', async() => {
+      const wrapper = factory({ mocks });
 
-      it('sorts the keys by enabled state first', () => {
-        const wrapper = factory({ data: { personalKeys: apiKeys } });
+      await wrapper.vm.$fetch();
+      const table = wrapper.find('[data-qa="project api keys table"]');
 
-        expect(wrapper.vm.sortedPersonalKeys[0].state).toBe(undefined);
-      });
+      expect(table.isVisible()).toBe(true);
     });
   });
 

@@ -775,8 +775,6 @@ export default {
   "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
-    "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
-    "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
     "footer": "Sidefod",
     "imageDescription": "Finansieret af Den Europæiske Union",
@@ -788,6 +786,7 @@ export default {
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedserklæring",
+      "registerApiKey": "Registrer dig for en API-nøgle",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
       "supportingTechnicalPartners": "Support til tekniske partnere",

@@ -774,8 +774,6 @@ export default {
   "filterResults": "Filtrovať výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
-    "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
-    "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
     "footer": "Pätička",
     "imageDescription": "Financované Európskou úniou",
@@ -787,6 +785,7 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Vyhlásenie o ochrane osobných údajov",
+      "registerApiKey": "Zaregistrujte sa pre API kľúč",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "supportingTechnicalPartners": "Podpora technických partnerov",
