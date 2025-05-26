@@ -183,7 +183,6 @@
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
-      // console.log(apiKeys);
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
       this.projectKeys = apiKeys
