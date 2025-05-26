@@ -160,15 +160,6 @@
         }
       }
 
-      // Hide child div to prevent th showing on sort
-      &.table-actions-cell div {
-        height: 0;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 0;
-      }
-
       &:nth-last-child(2) {
         @media (min-width: $bp-small) {
           width: 100%;
@@ -180,6 +171,15 @@
           overflow-wrap: anywhere;
           white-space: wrap;
         }
+      }
+
+      // Hide child div to prevent th showing on sort
+      &.table-actions-cell div {
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 0;
       }
     }
 
