@@ -319,6 +319,10 @@ const otherEmbeddingServices = [
     schemes: [
       'http://slidebean.com/embed/*'
     ] },
+  { name: 'tmaticTravel',
+    schemes: [
+      'https://tmatic.travel/en/view/activity/*'
+    ] },
   { name: 'universityOfCaliforniaSanDiego',
     schemes: [
       'https://pointcloud.ucsd.edu/*'
