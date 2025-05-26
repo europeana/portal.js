@@ -275,6 +275,7 @@ describe('components/page/PageCookiesWidget', () => {
           'myAdventCalendar',
           'prezi',
           'slidebean',
+          'tmaticTravel',
           'universityOfCaliforniaSanDiego',
           'wikidata',
           'woobox'
