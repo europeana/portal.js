@@ -90,13 +90,16 @@
     },
 
     computed: {
-      sortedApiKeys() {
-        let keys = this.apiKeys;
-
+      apiKeysWithDetails() {
         // add _showDetails prop for mobile layout
         if (this.type === 'project') {
-          keys = keys.map(key => ({ ...key, '_showDetails': true }));
+          return this.apiKeys.map(key => ({ ...key, '_showDetails': true }));
+        } else {
+          return null;
         }
+      },
+      sortedApiKeys() {
+        const keys = this.apiKeysWithDetails || this.apiKeys;
 
         return [...keys].sort(this.sortByEnabled);
       }
