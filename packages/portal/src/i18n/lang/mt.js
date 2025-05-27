@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Itlob ċavetta personali tal-API",
-          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key.",
-          "termsOfUseLinkText": "termini ta’ użu"
+          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key."
         },
         "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}.",
         "heading": "Ċavetta API personali",
         "howToLinkText": "Kif tuża ċ-ċavetta tiegħek"
-      }
+      },
+      "projectKeys": {
+        "description": "Għal kull proġett li għandek bżonn tibni, aħna nipprovdulek ċavetta ddedikata. Iċ-ċwievet tal-proġett għandhom limiti ogħla u karatteristiċi speċjali oħra – aqra aktar fiċ-ċavetta tal-API {termsOfUseLink}. Jekk tixtieq teditja l-informazzjoni dwar il-proġett tiegħek, jekk jogħġbok ibgħat email lil api@europeana.eu, u aħna nagħmlu l-bidliet għalik.",
+        "heading": "Ċwievet API tal-Proġett"
+      },
+      "termsOfUseLinkText": "termini ta’ użu"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Data tal-ħolqien"
+        },
+        "name": {
+          "label": "Isem tal-proġett"
         }
       }
     },
