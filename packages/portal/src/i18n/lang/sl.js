@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Zahtevajte osebni API ključ",
-          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ.",
-          "termsOfUseLinkText": "pogoji uporabe"
+          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ."
         },
         "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}.",
         "heading": "Osebni API ključ",
         "howToLinkText": "Kako uporabljati svoj ključ"
-      }
+      },
+      "projectKeys": {
+        "description": "Za vsak projekt, ki ga morate zgraditi, vam bomo zagotovili namenski ključ. Ključi projektov imajo višje omejitve in druge posebne funkcije – več o tem si preberite v ključu API {termsOfUseLink}. Če želite urediti podatke o svojem projektu, nam pošljite e-pošto na api@europeana.eu in spremembe bomo izvedli namesto vas.",
+        "heading": "Ključi API projekta"
+      },
+      "termsOfUseLinkText": "pogoji uporabe"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum ustvarjanja"
+        },
+        "name": {
+          "label": "Ime projekta"
         }
       }
     },

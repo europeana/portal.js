@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Vraag een persoonlijke API-sleutel aan",
-          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer.",
-          "termsOfUseLinkText": "gebruiksvoorwaarden"
+          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer."
         },
         "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}.",
         "heading": "Persoonlijke API-sleutel",
         "howToLinkText": "Hoe u uw sleutel gebruikt"
-      }
+      },
+      "projectKeys": {
+        "description": "Voor elk project dat u moet bouwen, voorzien wij u van een speciale sleutel. Projectsleutels hebben hogere limieten en andere speciale functies - lees meer in de API-sleutel {termsOfUseLink}. Als u de informatie over uw project wilt bewerken, stuur dan een e-mail naar api@europeana.eu, en wij zullen de wijzigingen voor u aanbrengen.",
+        "heading": "Project API-sleutels"
+      },
+      "termsOfUseLinkText": "gebruiksvoorwaarden"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum aangemaakt"
+        },
+        "name": {
+          "label": "Projectnaam"
         }
       }
     },

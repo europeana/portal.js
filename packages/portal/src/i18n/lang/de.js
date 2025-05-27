@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Persönlichen API-Schlüssel anfordern",
-          "checkbox": "Ich bestätige, dass ich den API-Schlüssel {termsOfUseLink} gelesen und akzeptiert habe.",
-          "termsOfUseLinkText": "Nutzungsbedingungen"
+          "checkbox": "Ich bestätige, dass ich den API-Schlüssel {termsOfUseLink} gelesen und akzeptiert habe."
         },
         "description": "Lernen und testen Sie, wie Sie APIs mit Ihrem persönlichen API-Schlüssel verwenden können. Bitte teilen Sie ihn nicht. {howToLink}.",
         "heading": "Persönlicher API-Schlüssel",
         "howToLinkText": "So verwenden Sie Ihren Schlüssel"
-      }
+      },
+      "projectKeys": {
+        "description": "Für jedes Projekt, das Sie erstellen müssen, stellen wir Ihnen einen dedizierten Schlüssel zur Verfügung. Projektschlüssel haben höhere Limits und weitere Besonderheiten – lesen Sie mehr im API-Schlüssel {termsOfUseLink}. Wenn Sie die Informationen zu Ihrem Projekt bearbeiten möchten, senden Sie bitte eine E-Mail an api@europeana.eu, und wir werden die Änderungen für Sie vornehmen.",
+        "heading": "Projekt-API-Schlüssel"
+      },
+      "termsOfUseLinkText": "Nutzungsbedingungen"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Erstellungsdatum"
+        },
+        "name": {
+          "label": "Projektname"
         }
       }
     },

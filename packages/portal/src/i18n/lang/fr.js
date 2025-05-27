@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Demander une clé API personnelle",
-          "checkbox": "Je confirme avoir lu et accepté la clé API {termsOfUseLink}.",
-          "termsOfUseLinkText": "conditions d'utilisation"
+          "checkbox": "Je confirme avoir lu et accepté la clé API {termsOfUseLink}."
         },
         "description": "Apprenez et testez comment utiliser les API avec votre propre clé API personnelle. Veuillez ne pas la partager. {howToLink}.",
         "heading": "Clé API personnelle",
         "howToLinkText": "Comment utiliser votre clé"
-      }
+      },
+      "projectKeys": {
+        "description": "Pour chaque projet que vous devez développer, nous vous fournirons une clé dédiée. Les clés de projet ont des limites plus élevées et d'autres fonctionnalités spécifiques : pour en savoir plus, consultez la clé API {termsOfUseLink}. Si vous souhaitez modifier les informations de votre projet, veuillez envoyer un e-mail à api@europeana.eu; nous effectuerons les modifications pour vous.",
+        "heading": "Clés API du projet"
+      },
+      "termsOfUseLinkText": "conditions d'utilisation"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Date de création"
+        },
+        "name": {
+          "label": "Nom du projet"
         }
       }
     },

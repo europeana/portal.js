@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Pyydä henkilökohtainen API-avain",
-          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
-          "termsOfUseLinkText": "käyttöehdot"
+          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}."
         },
         "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
         "heading": "Henkilökohtainen API-avain",
         "howToLinkText": "Kuinka käyttää omaa avaintasi"
-      }
+      },
+      "projectKeys": {
+        "description": "Jokaista rakennettavaa projektia varten toimitamme sinulle oman avaimen. Projektiavaimilla on korkeammat rajat ja muita erityisominaisuuksia – lue lisää API-avaimesta {termsOfUseLink}. Jos haluat muokata projektisi tietoja, lähetä sähköpostia osoitteeseen api@europeana.eu, niin teemme muutokset puolestasi.",
+        "heading": "Projektin API-avaimet"
+      },
+      "termsOfUseLinkText": "käyttöehdot"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Luontipäivämäärä"
+        },
+        "name": {
+          "label": "Projektin nimi"
         }
       }
     },
