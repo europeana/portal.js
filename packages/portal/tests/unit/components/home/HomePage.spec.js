@@ -69,7 +69,7 @@ describe('components/home/HomePage', () => {
   beforeAll(() => {
     sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
       query: contentfulQueryStub
-    })
+    });
   });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);

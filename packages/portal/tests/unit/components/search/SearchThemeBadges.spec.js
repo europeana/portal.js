@@ -34,7 +34,7 @@ describe('components/search/SearchThemeBadges', () => {
   beforeAll(() => {
     sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
       query: contentfulQueryStub
-    })
+    });
   });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);

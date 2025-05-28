@@ -161,7 +161,7 @@ describe('components/stories/StoriesInterface', () => {
   beforeAll(() => {
     sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
       query: contentfulQueryStub
-    })
+    });
   });
   beforeEach(() => {
     contentfulQueryStub.withArgs(

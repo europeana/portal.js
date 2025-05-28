@@ -62,7 +62,7 @@ describe('components/related/ThemeBadges', () => {
   beforeAll(() => {
     sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
       query: contentfulQueryStub
-    })
+    });
   });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
