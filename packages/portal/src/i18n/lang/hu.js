@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Személyes API-kulcs igénylése",
-          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}.",
-          "termsOfUseLinkText": "felhasználási feltételek"
+          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}."
         },
         "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg. {howToLink}.",
         "heading": "Személyes API-kulcs",
         "howToLinkText": "Hogyan használja a kulcsát"
-      }
+      },
+      "projectKeys": {
+        "description": "Minden projekthez, amelyet létre szeretne hozni, biztosítunk egy dedikált kulcsot. A projektkulcsok magasabb limitekkel és egyéb speciális funkciókkal rendelkeznek – további információkat az API-kulcs {termsOfUseLink} oldalán talál. Ha szeretné módosítani a projektjével kapcsolatos információkat, kérjük, küldjön e-mailt az api@europeana.eu címre, és mi elvégezzük Ön helyett a változtatásokat.",
+        "heading": "Projekt API-kulcsok"
+      },
+      "termsOfUseLinkText": "felhasználási feltételek"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Létrehozás dátuma"
+        },
+        "name": {
+          "label": "Projekt neve"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Találatok szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
-    "disclaimerLine1": "A Europeana az Európai Unió kezdeményezése, amelyet az Unió Európai Hálózatfinanszírozási Eszköze és az uniós tagállamok finanszíroznak. A Europeana szolgáltatásait, beleértve ezt a weboldalt is, a Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
-    "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és nem vállal semmilyen felelősséget vagy kötelezettséget a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró bármely személy nem felelős az ezen a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Megtalálsz minket itt is:",
     "footer": "Lábléc",
     "imageDescription": "Az Európai Unió támogatásával",
@@ -787,6 +792,7 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi nyilatkozat",
+      "registerApiKey": "Regisztráljon egy API-kulcsért",
       "seeApiRequests": "Europeana API-kérések",
       "subscribe": "Iratkozz fel hírlevelünkre!",
       "supportingTechnicalPartners": "Technikai támogató partnereink",

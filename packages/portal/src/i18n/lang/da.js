@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Anmod om en personlig API-nøgle",
-          "checkbox": "Jeg bekræfter, at jeg har læst og accepterer API-nøglen {termsOfUseLink}.",
-          "termsOfUseLinkText": "vilkår for brug"
+          "checkbox": "Jeg bekræfter, at jeg har læst og accepterer API-nøglen {termsOfUseLink}."
         },
         "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}.",
         "heading": "Personlig API-nøgle",
         "howToLinkText": "Sådan bruger du din nøgle"
-      }
+      },
+      "projectKeys": {
+        "description": "For hvert projekt, du skal bygge, giver vi dig en dedikeret nøgle. Projektnøgler har højere grænser og andre særlige funktioner – læs mere i API-nøglen {termsOfUseLink}. Hvis du ønsker at redigere oplysningerne om dit projekt, bedes du sende en e-mail til api@europeana.eu, så foretager vi ændringerne for dig.",
+        "heading": "Projekt-API-nøgler"
+      },
+      "termsOfUseLinkText": "vilkår for brug"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Oprettelsesdato"
+        },
+        "name": {
+          "label": "Projektnavn"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
-    "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
-    "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
     "footer": "Sidefod",
     "imageDescription": "Finansieret af Den Europæiske Union",
@@ -788,6 +793,7 @@ export default {
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedserklæring",
+      "registerApiKey": "Registrer dig for en API-nøgle",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
       "subscribe": "Abonner på vores nyhedsbrev",
       "supportingTechnicalPartners": "Support til tekniske partnere",

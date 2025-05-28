@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Begär en personlig API-nyckel",
-          "checkbox": "Jag bekräftar att jag har läst och accepterar API-nyckeln {termsOfUseLink}.",
-          "termsOfUseLinkText": "användarvillkor"
+          "checkbox": "Jag bekräftar att jag har läst och accepterar API-nyckeln {termsOfUseLink}."
         },
         "description": "Lär dig och testa hur du använder API:er med din personliga API-nyckel. Dela den inte, tack. {howToLink}.",
         "heading": "Personlig API-nyckel",
         "howToLinkText": "Hur du använder din nyckel"
-      }
+      },
+      "projectKeys": {
+        "description": "För varje projekt du behöver bygga förser vi dig med en dedikerad nyckel. Projektnycklar har högre gränser och andra specialfunktioner – läs mer i API-nyckeln {termsOfUseLink}. Om du vill redigera informationen om ditt projekt kan du skicka ett e-postmeddelande till api@europeana.eu, så gör vi ändringarna åt dig.",
+        "heading": "Projektets API-nycklar"
+      },
+      "termsOfUseLinkText": "användarvillkor"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Skapad datum"
+        },
+        "name": {
+          "label": "Projektnamn"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
-    "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
-    "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
     "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
@@ -787,6 +792,7 @@ export default {
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
+      "registerApiKey": "Registrera dig för en API-nyckel",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "supportingTechnicalPartners": "Stödja tekniska partners",

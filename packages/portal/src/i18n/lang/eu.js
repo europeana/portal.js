@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Eskatu API gako pertsonala",
-          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
-          "termsOfUseLinkText": "erabilera baldintzak"
+          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}."
         },
         "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
         "heading": "API gako pertsonala",
         "howToLinkText": "Nola erabili zure gakoa"
-      }
+      },
+      "projectKeys": {
+        "description": "Eraiki behar duzun proiektu bakoitzerako, gako dedikatu bat emango dizugu. Proiektu-gakoek muga handiagoak eta beste ezaugarri berezi batzuk dituzte — irakurri gehiago API gakoaren {termsOfUseLink} atalean. Zure proiektuari buruzko informazioa editatu nahi baduzu, bidali mezu elektroniko bat helbide honetara: api@europeana.eu, eta guk egingo dizkizugu aldaketak.",
+        "heading": "Proiektuaren API gakoak"
+      },
+      "termsOfUseLinkText": "erabilera baldintzak"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Sortze data"
+        },
+        "name": {
+          "label": "Proiektuaren izena"
         }
       }
     },
@@ -780,8 +787,6 @@ export default {
   "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
-    "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
-    "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
@@ -793,6 +798,7 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun-adierazpena",
+      "registerApiKey": "Erregistratu API gako bat lortzeko",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",

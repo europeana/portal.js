@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Paprašyti asmeninio API rakto",
-          "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}.",
-          "termsOfUseLinkText": "naudojimo sąlygos"
+          "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}."
         },
         "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}.",
         "heading": "Asmeninis API raktas",
         "howToLinkText": "Kaip naudoti savo raktą"
-      }
+      },
+      "projectKeys": {
+        "description": "Kiekvienam projektui, kurį jums reikia sukurti, suteiksime jums specialų raktą. Projekto raktai turi didesnes ribas ir kitas specialias funkcijas – daugiau skaitykite API rakte {termsOfUseLink}. Jei norite redaguoti informaciją apie savo projektą, siųskite el. laišką adresu api@europeana.eu ir mes atliksime pakeitimus už jus.",
+        "heading": "Projekto API raktai"
+      },
+      "termsOfUseLinkText": "naudojimo sąlygos"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Sukūrimo data"
+        },
+        "name": {
+          "label": "Projekto pavadinimas"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
-    "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
-    "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
     "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
@@ -787,6 +792,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo pareiškimas",
+      "registerApiKey": "Registruokitės API raktui gauti",
       "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "supportingTechnicalPartners": "Techninių partnerių palaikymas",

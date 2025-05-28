@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Pyydä henkilökohtainen API-avain",
-          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
-          "termsOfUseLinkText": "käyttöehdot"
+          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}."
         },
         "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
         "heading": "Henkilökohtainen API-avain",
         "howToLinkText": "Kuinka käyttää omaa avaintasi"
-      }
+      },
+      "projectKeys": {
+        "description": "Jokaista rakennettavaa projektia varten toimitamme sinulle oman avaimen. Projektiavaimilla on korkeammat rajat ja muita erityisominaisuuksia – lue lisää API-avaimesta {termsOfUseLink}. Jos haluat muokata projektisi tietoja, lähetä sähköpostia osoitteeseen api@europeana.eu, niin teemme muutokset puolestasi.",
+        "heading": "Projektin API-avaimet"
+      },
+      "termsOfUseLinkText": "käyttöehdot"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Luontipäivämäärä"
+        },
+        "name": {
+          "label": "Projektin nimi"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
-    "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
-    "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
     "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
@@ -788,6 +793,7 @@ export default {
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojaseloste",
+      "registerApiKey": "Rekisteröidy saadaksesi API-avaimen",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
       "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
