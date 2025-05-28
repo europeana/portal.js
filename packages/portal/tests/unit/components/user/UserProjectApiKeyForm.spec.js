@@ -31,7 +31,7 @@ describe('components/user/UserProjectApiKeyForm', () => {
     it('interpolates the configured form URL, language and current user info', async() => {
       const wrapper = factory();
       console.log(wrapper.vm.embed);
-      expect(wrapper.vm.embed.includes('https://example.org/formEmbed/en?first_name=John&last_name=Doe&email=john.doe@example.org')).toBe(true);
+      expect(wrapper.vm.embed.includes('https://example.org/formEmbed/en?first_name=John&last_name=Doe&email=john.doe%40example.org')).toBe(true);
     });
   });
 });
