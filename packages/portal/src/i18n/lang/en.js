@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Request a personal API key",
-          "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}.",
-          "termsOfUseLinkText": "terms of use"
+          "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}."
         },
         "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
         "heading": "Personal API key",
         "howToLinkText": "How to use your key"
-      }
+      },
+      "projectKeys": {
+        "description": "For every project you need to build, we’ll supply you with a dedicated key. Project keys have higher limits and other special features - read more in the API key {termsOfUseLink}. If you would like to edit the information about your project, please send an email to api@europeana.eu, and we will make the changes for you.",
+        "heading": "Project API keys"
+      },
+      "termsOfUseLinkText": "terms of use"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Date created"
+        },
+        "name": {
+          "label": "Project name"
         }
       }
     },

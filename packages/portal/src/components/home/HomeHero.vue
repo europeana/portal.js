@@ -41,6 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
+  import { responsiveBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
@@ -62,7 +63,7 @@
     computed: {
       imageCSSVars() {
         return this.backgroundImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          responsiveBackgroundImageCSSVars(
             this.backgroundImage.image,
             CSS_VARS_PRESETS
           );

@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Požiadajte o osobný kľúč API",
-          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}.",
-          "termsOfUseLinkText": "podmienky používania"
+          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}."
         },
         "description": "Naučte sa, ako používať API, a vyskúšajte si to pomocou svojho osobného kľúča API. Prosím, nezdieľajte ho. {howToLink}.",
         "heading": "Osobný kľúč API",
         "howToLinkText": "Ako používať svoj kľúč"
-      }
+      },
+      "projectKeys": {
+        "description": "Pre každý projekt, ktorý potrebujete vytvoriť, vám dodáme vyhradený kľúč. Projektové kľúče majú vyššie limity a ďalšie špeciálne funkcie – viac informácií nájdete v kľúči API {termsOfUseLink}. Ak chcete upraviť informácie o svojom projekte, pošlite e-mail na adresu api@europeana.eu a my vykonáme zmeny za vás.",
+        "heading": "Kľúče API projektu"
+      },
+      "termsOfUseLinkText": "podmienky používania"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Dátum vytvorenia"
+        },
+        "name": {
+          "label": "Názov projektu"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrovať výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
-    "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
-    "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
     "footer": "Pätička",
     "imageDescription": "Financované Európskou úniou",
@@ -787,6 +792,7 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Vyhlásenie o ochrane osobných údajov",
+      "registerApiKey": "Zaregistrujte sa pre API kľúč",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "supportingTechnicalPartners": "Podpora technických partnerov",

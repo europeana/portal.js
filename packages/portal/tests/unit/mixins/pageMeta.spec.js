@@ -21,12 +21,6 @@ const factory = ({ computed = {}, data = {}, mocks = {} } = {}) => {
     },
     mocks: {
       $config: { app: { siteName: 'Europeana' } },
-      $contentful: {
-        assets: {
-          isValidUrl: () => true,
-          optimisedSrc: (url) => `${url}?optimised`
-        }
-      },
       $fetchState: {},
       $t: (key) => key,
       ...mocks
@@ -94,7 +88,7 @@ describe('mixins/pageMeta', () => {
         expect(headMeta.find((tag) => tag.name === 'description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:type').content).toBe(pageMeta.ogType);
-        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(`${pageMeta.ogImage}?optimised`);
+        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe('https://www.example.org/image.jpeg');
         expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
       });
 

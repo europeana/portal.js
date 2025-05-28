@@ -30,6 +30,7 @@
   import LinkBadge from '@/components/generic/LinkBadge';
   import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import themesByIdGraphql from '@/graphql/queries/themesById.graphql';
+  import { isValidUrl, optimisedSrc } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'ThemeBadges',
@@ -97,8 +98,8 @@
 
     methods: {
       imageUrl(theme, imageWidth, imageHeight) {
-        if (this.$contentful.assets.isValidUrl(theme.primaryImageOfPage?.image?.url)) {
-          return this.$contentful.assets.optimisedSrc(
+        if (isValidUrl(theme.primaryImageOfPage?.image?.url)) {
+          return optimisedSrc(
             theme.primaryImageOfPage.image,
             { w: imageWidth, h: imageHeight, fit: 'thumb' }
           );
@@ -106,10 +107,10 @@
       },
 
       imageSrcSet(theme) {
-        if (this.$contentful.assets.isValidUrl(theme.primaryImageOfPage?.image?.url)) {
-          const smallImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
+        if (isValidUrl(theme.primaryImageOfPage?.image?.url)) {
+          const smallImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;

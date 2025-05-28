@@ -6,19 +6,10 @@ const localVue = createLocalVue();
 
 const factory = (propsData) => shallowMount(ImageOptimised, {
   localVue,
-  propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
-        responsiveImageSrcset: (img) => `${img.url} srcset`
-      }
-    }
-  }
+  propsData
 });
 
-describe('components/generic/ImageOptimised', () => {
+describe('components/image/ImageOptimised', () => {
   afterEach(sinon.resetHistory);
 
   describe('template', () => {
@@ -68,8 +59,8 @@ describe('components/generic/ImageOptimised', () => {
 
         const img = wrapper.find('picture imageeagerorlazy-stub');
 
-        expect(img.attributes('src')).toBe(src);
-        expect(img.attributes('srcset')).toBe('https://images.ctfassets.net/asset srcset');
+        expect(img.attributes('src')).toBe('https://images.ctfassets.net/asset?q=80&fm=webp');
+        expect(img.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=576&h=896&fit=fill&q=80&fm=webp 576w,https://images.ctfassets.net/asset?w=768&h=1080&fit=fill&q=80&fm=webp 768w');
       });
 
       it('renders a source element for other resolutions, with responsive srcset', () => {
@@ -83,7 +74,7 @@ describe('components/generic/ImageOptimised', () => {
 
         const source = wrapper.find('picture source');
 
-        expect(source.attributes('srcset')).toBe('https://images.ctfassets.net/asset srcset');
+        expect(source.attributes('srcset')).toBe('https://images.ctfassets.net/asset?w=1152&h=1792&fit=fill&q=80&fm=webp 1152w,https://images.ctfassets.net/asset?w=1536&h=2160&fit=fill&q=80&fm=webp 1536w');
         expect(source.attributes('media')).toBe('(resolution: 2x)');
       });
     });
@@ -194,17 +185,12 @@ describe('components/generic/ImageOptimised', () => {
           maxWidth: 1500
         };
 
-        it('is optimised via Contentful plugin', () => {
+        it('is optimised via Contentful Images API', () => {
           const wrapper = factory(propsData);
 
           const optimisedSrc = wrapper.vm.optimisedSrc;
 
-          expect(optimisedSrc).toContain('?optimised');
-          expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
-            url: 'https://images.ctfassets.net/asset',
-            contentType: 'image/jpeg'
-          },
-          { w: 1500, q: 80 })).toBe(true);
+          expect(optimisedSrc).toBe('https://images.ctfassets.net/asset?w=1500&q=80&fm=webp');
         });
       });
     });

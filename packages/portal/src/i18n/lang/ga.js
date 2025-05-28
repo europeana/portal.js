@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Iarr eochair API pearsanta",
-          "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam.",
-          "termsOfUseLinkText": "téarmaí úsáide"
+          "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam."
         },
         "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}.",
         "heading": "Eochair phearsanta API",
         "howToLinkText": "Conas do eochair a úsáid"
-      }
+      },
+      "projectKeys": {
+        "description": "I gcás gach tionscadail a chaithfidh tú a thógáil, cuirfimid eochair thiomnaithe ar fáil duit. Tá teorainneacha níos airde agus gnéithe speisialta eile ag baint le heochracha tionscadail – léigh tuilleadh san eochair API {termsOfUseLink}. Más mian leat an fhaisnéis faoi do thionscadal a chur in eagar, seol ríomhphost chuig api@europeana.eu, agus déanfaimid na hathruithe duit.",
+        "heading": "Eochracha API tionscadail"
+      },
+      "termsOfUseLinkText": "téarmaí úsáide"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Dáta cruthaithe"
+        },
+        "name": {
+          "label": "Ainm an tionscadail"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Scag torthaí",
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
-    "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
-    "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
     "footer": "Buntásc",
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
@@ -787,6 +792,7 @@ export default {
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Ráiteas príobháideachta",
+      "registerApiKey": "Cláraigh le haghaidh eochair API",
       "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "supportingTechnicalPartners": "Tacú le comhpháirtithe teicniúla",

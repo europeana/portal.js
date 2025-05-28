@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Vraag een persoonlijke API-sleutel aan",
-          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer.",
-          "termsOfUseLinkText": "gebruiksvoorwaarden"
+          "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer."
         },
         "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}.",
         "heading": "Persoonlijke API-sleutel",
         "howToLinkText": "Hoe u uw sleutel gebruikt"
-      }
+      },
+      "projectKeys": {
+        "description": "Voor elk project dat u moet bouwen, voorzien wij u van een speciale sleutel. Projectsleutels hebben hogere limieten en andere speciale functies - lees meer in de API-sleutel {termsOfUseLink}. Als u de informatie over uw project wilt bewerken, stuur dan een e-mail naar api@europeana.eu, en wij zullen de wijzigingen voor u aanbrengen.",
+        "heading": "Project API-sleutels"
+      },
+      "termsOfUseLinkText": "gebruiksvoorwaarden"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum aangemaakt"
+        },
+        "name": {
+          "label": "Projectnaam"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Resultaten filteren",
   "footer": {
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
-    "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
-    "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
     "footer": "Voettekst",
     "imageDescription": "Gefinancierd door de Europese Unie",
@@ -788,6 +793,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacyverklaring",
+      "registerApiKey": "Registreer voor een API-sleutel",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "supportingTechnicalPartners": "Ondersteunende technische partners",

@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Pieprasīt personīgo API atslēgu",
-          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}.",
-          "termsOfUseLinkText": "lietošanas noteikumi"
+          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}."
         },
         "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
         "heading": "Personīgā API atslēga",
         "howToLinkText": "Kā lietot savu atslēgu"
-      }
+      },
+      "projectKeys": {
+        "description": "Katram projektam, kas jums jāveido, mēs nodrošināsim īpašu atslēgu. Projekta atslēgām ir augstāki ierobežojumi un citas īpašas funkcijas — vairāk lasiet API atslēgā {termsOfUseLink}. Ja vēlaties rediģēt informāciju par savu projektu, lūdzu, nosūtiet e-pastu uz api@europeana.eu, un mēs veiksim izmaiņas jūsu vietā.",
+        "heading": "Projekta API atslēgas"
+      },
+      "termsOfUseLinkText": "lietošanas noteikumi"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Izveidošanas datums"
+        },
+        "name": {
+          "label": "Projekta nosaukums"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrēt rezultātus",
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
-    "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
-    "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
     "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
@@ -787,6 +792,7 @@ export default {
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Konfidencialitātes paziņojums",
+      "registerApiKey": "Reģistrējieties API atslēgas saņemšanai",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "supportingTechnicalPartners": "Atbalsta tehniskie partneri",

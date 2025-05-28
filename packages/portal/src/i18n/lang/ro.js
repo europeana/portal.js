@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Solicitați o cheie API personală",
-          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
-          "termsOfUseLinkText": "termeni de utilizare"
+          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}."
         },
         "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
         "heading": "Cheie API personală",
         "howToLinkText": "Cum să folosești cheia ta"
-      }
+      },
+      "projectKeys": {
+        "description": "Pentru fiecare proiect pe care trebuie să îl construiți, vă vom furniza o cheie dedicată. Cheile de proiect au limite mai mari și alte caracteristici speciale – citiți mai multe în cheia API {termsOfUseLink}. Dacă doriți să modificați informațiile despre proiectul dvs., vă rugăm să trimiteți un e-mail la api@europeana.eu, iar noi vom face modificările pentru dvs.",
+        "heading": "Chei API de proiect"
+      },
+      "termsOfUseLinkText": "termeni de utilizare"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Data creării"
+        },
+        "name": {
+          "label": "Numele proiectului"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
-    "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
-    "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
@@ -787,6 +792,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Declarație de confidențialitate",
+      "registerApiKey": "Înregistrați-vă pentru o cheie API",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",

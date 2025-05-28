@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Požádejte o osobní API klíč",
-          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
-          "termsOfUseLinkText": "podmínky použití"
+          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API."
         },
         "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
         "heading": "Osobní API klíč",
         "howToLinkText": "Jak používat svůj klíč"
-      }
+      },
+      "projectKeys": {
+        "description": "Pro každý projekt, který potřebujete vytvořit, vám poskytneme vyhrazený klíč. Projektové klíče mají vyšší limity a další speciální funkce — přečtěte si více v API klíči {termsOfUseLink}. Pokud byste chtěli upravit informace o svém projektu, zašlete prosím e-mail na adresu api@europeana.eu a my změny provedeme za vás.",
+        "heading": "Klíče API projektu"
+      },
+      "termsOfUseLinkText": "podmínky použití"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum vytvoření"
+        },
+        "name": {
+          "label": "Název projektu"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
-    "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
-    "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
     "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
@@ -788,6 +793,7 @@ export default {
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Prohlášení o ochraně osobních údajů",
+      "registerApiKey": "Zaregistrujte se pro klíč API",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "supportingTechnicalPartners": "Podpora technických partnerů",

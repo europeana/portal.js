@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Zahtevajte osebni API ključ",
-          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ.",
-          "termsOfUseLinkText": "pogoji uporabe"
+          "checkbox": "Potrjujem, da sem prebral in sprejemam {termsOfUseLink} za API ključ."
         },
         "description": "Naučite se in preizkusite, kako uporabljati API-je s svojim osebnim API ključem. Prosimo, ne delite ga. {howToLink}.",
         "heading": "Osebni API ključ",
         "howToLinkText": "Kako uporabljati svoj ključ"
-      }
+      },
+      "projectKeys": {
+        "description": "Za vsak projekt, ki ga morate zgraditi, vam bomo zagotovili namenski ključ. Ključi projektov imajo višje omejitve in druge posebne funkcije – več o tem si preberite v ključu API {termsOfUseLink}. Če želite urediti podatke o svojem projektu, nam pošljite e-pošto na api@europeana.eu in spremembe bomo izvedli namesto vas.",
+        "heading": "Ključi API projekta"
+      },
+      "termsOfUseLinkText": "pogoji uporabe"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum ustvarjanja"
+        },
+        "name": {
+          "label": "Ime projekta"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
-    "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
-    "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
     "footer": "Noga",
     "imageDescription": "Financira Evropska unija",
@@ -787,6 +792,7 @@ export default {
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Izjava o zasebnosti",
+      "registerApiKey": "Registrirajte se za API ključ",
       "seeApiRequests": "Oglejte si zahteve za API-je Europeane",
       "subscribe": "Naročite se na naše novice",
       "supportingTechnicalPartners": "Podpora tehničnim partnerjem",

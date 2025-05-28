@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Zatražite osobni API ključ",
-          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}.",
-          "termsOfUseLinkText": "uvjeti korištenja"
+          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}."
         },
         "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
         "heading": "Osobni API ključ",
         "howToLinkText": "Kako koristiti svoj ključ"
-      }
+      },
+      "projectKeys": {
+        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu {termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
+        "heading": "API ključevi projekta"
+      },
+      "termsOfUseLinkText": "uvjeti korištenja"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Datum kreiranja"
+        },
+        "name": {
+          "label": "Naziv projekta"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
-    "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
-    "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
@@ -788,6 +793,7 @@ export default {
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Izjava o privatnosti",
+      "registerApiKey": "Registrirajte se za API ključ",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",

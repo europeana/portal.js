@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Taotle isiklikku API võtit",
-          "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}.",
-          "termsOfUseLinkText": "kasutustingimused"
+          "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}."
         },
         "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}.",
         "heading": "Isiklik API võti",
         "howToLinkText": "Kuidas oma võtit kasutada"
-      }
+      },
+      "projectKeys": {
+        "description": "Iga projekti jaoks, mida peate ehitama, anname teile spetsiaalse võtme. Projektivõtmetel on kõrgemad limiidid ja muud erifunktsioonid – loe lähemalt API-võtmest {termsOfUseLink}. Kui soovite oma projekti teavet muuta, saatke palun e-kiri aadressile api@europeana.eu ja me teeme muudatused teie eest.",
+        "heading": "Projekti API võtmed"
+      },
+      "termsOfUseLinkText": "kasutustingimused"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Loomise kuupäev"
+        },
+        "name": {
+          "label": "Projekti nimi"
         }
       }
     },
@@ -775,8 +782,6 @@ export default {
   "filterResults": "Filtreeri tulemusi",
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
-    "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
-    "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
     "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
@@ -788,6 +793,7 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsusavaldus",
+      "registerApiKey": "Registreeru API võtme saamiseks",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
       "supportingTechnicalPartners": "Tehniliste partnerite toetamine",

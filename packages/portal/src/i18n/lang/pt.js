@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Solicitar uma chave API pessoal",
-          "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}.",
-          "termsOfUseLinkText": "termos de uso"
+          "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}."
         },
         "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}.",
         "heading": "Chave API pessoal",
         "howToLinkText": "Como usar a sua chave"
-      }
+      },
+      "projectKeys": {
+        "description": "Para cada projeto que necessite de construir, fornecer-lhe-emos uma chave dedicada. As chaves de projeto têm limites mais elevados e outras caraterísticas especiais – leia mais na chave API {termsOfUseLink}. Se pretender editar as informações sobre o seu projeto, envie um e-mail para api@europeana.eu e faremos as alterações por si.",
+        "heading": "Chaves de API do projeto"
+      },
+      "termsOfUseLinkText": "termos de uso"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Data de criação"
+        },
+        "name": {
+          "label": "Nome do projeto"
         }
       }
     },
@@ -774,8 +781,6 @@ export default {
   "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar o idioma do site",
-    "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
-    "disclaimerLine2": "A Comissão Europeia não garante a exactidão das informações e não aceita qualquer responsabilidade ou obrigação no que diz respeito às informações apresentadas neste site. Nem a Comissão Europeia, nem qualquer pessoa agindo em seu nome, é responsável pela exatidão ou pelo uso das informações contidas neste site.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
     "footer": "Rodapé",
     "imageDescription": "Financiado pela União Europeia",
@@ -787,6 +792,7 @@ export default {
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Declaração de privacidade",
+      "registerApiKey": "Registe-se para obter uma chave API",
       "seeApiRequests": "Ver pedidos às APIs da Europeana",
       "subscribe": "Subscreva na nossa newsletter",
       "supportingTechnicalPartners": "Apoiando parceiros técnicos",
