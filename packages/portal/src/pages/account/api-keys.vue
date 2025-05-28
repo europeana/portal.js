@@ -102,9 +102,6 @@
                       </b-form>
                     </b-col>
                   </b-row>
-                </template>
-                <!-- TODO: remove condition when form is added -->
-                <template v-if="projectKeys.length > 0">
                   <b-row>
                     <b-col
                       xl="6"
