@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:packages/portal/tests/unit/plugins/contentful/assets.spec.js
-import assets from '@/plugins/contentful/assets.js';
-========
 import * as assets from '@/utils/contentful/assets.js';
->>>>>>>> master:packages/portal/tests/unit/utils/contentful/assets.spec.js
 
 const responsiveParams = {
   small: { w: 245, h: 440, fit: 'fill' },
@@ -15,11 +11,7 @@ const responsiveParams = {
   '4k': { w: 700, h: 900, fit: 'fill' }
 };
 
-<<<<<<<< HEAD:packages/portal/tests/unit/plugins/contentful/assets.spec.js
-describe('@/plugins/contentful/assets.js', () => {
-========
 describe('@/utils/contentful/assets.js', () => {
->>>>>>>> master:packages/portal/tests/unit/utils/contentful/assets.spec.js
   describe('isValidUrl', () => {
     it('is `true` for URLs on host images.ctfassets.net', () => {
       const src = 'https://images.ctfassets.net/asset.jpeg';
