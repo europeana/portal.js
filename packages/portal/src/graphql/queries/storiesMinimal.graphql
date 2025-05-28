@@ -1,4 +1,4 @@
-query storiesMinimal(
+query StoriesMinimal(
   $locale: String!
   $preview: Boolean = false
   $query: String = ""

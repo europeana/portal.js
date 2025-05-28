@@ -1,6 +1,6 @@
 #import "../fragments/imageFields.graphql"
 
-query themes($locale: String!, $preview: Boolean = false) {
+query Themes($locale: String!, $preview: Boolean = false) {
   themePageCollection(
     preview: $preview
     locale: $locale
