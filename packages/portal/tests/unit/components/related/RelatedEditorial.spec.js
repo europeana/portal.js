@@ -3,6 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import RelatedEditorial from '@/components/related/RelatedEditorial.vue';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -29,13 +30,13 @@ const contentfulQueryResponse = {
 };
 const relatedEditorialIdentifiers = ['story-1', 'exhibition-1', 'exhibition-2', 'story-2'];
 
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
+
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditorial, {
   localVue,
   propsData,
   mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
-    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -49,7 +50,13 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
 });
 
 describe('components/related/RelatedEditorial', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    })
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
@@ -63,7 +70,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'EntityRelatedContent'), {
             theme: null,
             entityUri,
             query,
@@ -88,7 +95,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'EntityRelatedContent'), {
             entityUri,
             query: '',
             theme: null,
@@ -118,7 +125,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ThemeRelatedContent'), {
             theme,
             entityUri: null,
             query,
@@ -143,7 +150,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ThemeRelatedContent'), {
             entityUri: null,
             query: '',
             theme,
@@ -174,7 +181,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('relatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'RelatedContent'), {
             entityUri,
             query,
             theme: null,
@@ -199,7 +206,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.called).toBe(false);
+          expect(contentfulQueryStub.called).toBe(false);
         });
       });
     });

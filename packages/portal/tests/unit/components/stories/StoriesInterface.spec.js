@@ -1,10 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep.js';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import StoriesInterface from '@/components/stories/StoriesInterface.vue';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -131,14 +132,7 @@ const allStoryMetadata = [
   }
 ];
 
-const contentfulQueryStub = () => {
-  const stub = sinon.stub();
-
-  stub.withArgs('storiesMinimal', sinon.match.object).resolves(cloneDeep(storiesMinimalContentfulResponse));
-  stub.withArgs('storiesBySysId', sinon.match.object).resolves(cloneDeep(storiesBySysIdContentfulResponse));
-
-  return stub;
-};
+const contentfulQueryStub = sinon.stub();
 
 const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
   localVue,
@@ -147,9 +141,6 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   },
   propsData,
   mocks: {
-    $contentful: {
-      query: contentfulQueryStub()
-    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -163,10 +154,29 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $tc: (key) => key,
     ...mocks
   },
-  stubs: ['StoriesFeaturedCard']
+  stubs: ['CallToActionBanner', 'PaginationNavInput', 'StoriesFeaturedCard', 'StoriesTagsDropdown']
 });
 
 describe('components/stories/StoriesInterface', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    })
+  });
+  beforeEach(() => {
+    contentfulQueryStub.withArgs(
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesMinimal'),
+      sinon.match.object
+    ).resolves(cloneDeep(storiesMinimalContentfulResponse));
+
+    contentfulQueryStub.withArgs(
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesBySysId'),
+      sinon.match.object
+    ).resolves(cloneDeep(storiesBySysIdContentfulResponse));
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('while the fetch state is pending', () => {
     it('show a loading spinner', async() => {
       const wrapper = factory({ mocks: { $fetchState: { pending: true } } });
@@ -193,7 +203,7 @@ describe('components/stories/StoriesInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         excludeSysId: ''
@@ -206,7 +216,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: fullPropsData.featuredStory.sys.id
@@ -220,7 +230,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: ''
@@ -234,7 +244,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: ''
@@ -247,7 +257,7 @@ describe('components/stories/StoriesInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         limit: 24,
@@ -393,7 +403,7 @@ describe('components/stories/StoriesInterface', () => {
 
           await wrapper.vm.fetchStories();
 
-          expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
+          expect(contentfulQueryStub.calledWith(sinon.match.object, {
             locale: 'en-GB',
             preview: false,
             limit: 24,
