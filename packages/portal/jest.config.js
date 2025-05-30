@@ -29,6 +29,7 @@ export default {
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs',
+    '\\.(gql|graphql)$': './tests/unit/jest-28-gql-transform-shim.js'
   }
 };

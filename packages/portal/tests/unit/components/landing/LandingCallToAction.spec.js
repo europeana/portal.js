@@ -11,14 +11,7 @@ const testPropsWithBackground = { ...testProps,
   backgroundImage: { image: { url: 'https://www.example.eu/img.jpg' } } };
 const factory = (propsData = testProps) => shallowMount(LandingCallToAction, {
   localVue,
-  propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
-      }
-    }
-  }
+  propsData
 });
 
 describe('components/landing/LandingCallToAction', () => {

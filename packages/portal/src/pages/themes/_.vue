@@ -146,8 +146,10 @@
   import ClientOnly from 'vue-client-only';
 
   import ContentHeader from '@/components/content/ContentHeader';
-  import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
+  import themePageGraphql from '@/graphql/queries/themePage.graphql';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -168,6 +170,12 @@
     },
 
     mixins: [pageMetaMixin],
+
+    setup() {
+      const { query: queryContentful } = useContentfulGraphql();
+
+      return { queryContentful };
+    },
 
     data() {
       return {
@@ -190,7 +198,7 @@
       };
 
       try {
-        const response = await this.$contentful.query('themePage', variables);
+        const response = await this.queryContentful(themePageGraphql, variables);
         const theme = response.data.data.themePage?.items?.[0];
 
         if (theme?.identifier) {

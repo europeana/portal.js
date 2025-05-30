@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
@@ -20,15 +19,7 @@ const basePropsData = {
 
 const factory = (propsData = basePropsData) => mount(StoriesFeaturedCard, {
   localVue,
-  propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
-      }
-    }
-  }
+  propsData
 });
 
 describe('StoriesFeaturedCard.vue', () => {

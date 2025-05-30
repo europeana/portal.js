@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import HomeLatestStories from '@/components/home/HomeLatestStories.vue';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -29,13 +30,13 @@ const contentfulQueryResponse = {
   }
 };
 
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
+
 const factory = () => shallowMountNuxt(HomeLatestStories, {
   localVue,
   stubs: ['b-card-group'],
   mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
-    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -47,6 +48,14 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
 });
 
 describe('components/home/HomeLatestStories', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('template', () => {
     it('shows a section with editorial content', async() => {
       const wrapper = factory();
@@ -71,7 +80,7 @@ describe('components/home/HomeLatestStories', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('latestEditorialContent', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         limit: 3

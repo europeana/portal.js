@@ -1,4 +1,4 @@
-query featureIdeasPage($locale: String!, $preview: Boolean = false) {
+query FeatureIdeasPage($locale: String!, $preview: Boolean = false) {
   featureIdeasPageCollection(limit: 1, locale: $locale, preview: $preview) {
     items {
       name

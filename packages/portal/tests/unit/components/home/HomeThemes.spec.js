@@ -3,6 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import HomeThemes from '@/components/home/HomeThemes.vue';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -43,12 +44,12 @@ const themes = [
   }
 ];
 
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
+
 const factory = () => shallowMountNuxt(HomeThemes, {
   localVue,
   mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
-    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -61,7 +62,13 @@ const factory = () => shallowMountNuxt(HomeThemes, {
 });
 
 describe('components/home/HomeThemes', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('template', () => {
     describe('when there are themes', () => {
@@ -92,7 +99,7 @@ describe('components/home/HomeThemes', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('themes', {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Themes'), {
         locale: 'en-GB',
         preview: false
       })).toBe(true);

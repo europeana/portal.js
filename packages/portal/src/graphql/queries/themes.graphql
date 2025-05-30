@@ -1,4 +1,6 @@
-query themes($locale: String!, $preview: Boolean = false) {
+#import "../fragments/imageFields.graphql"
+
+query Themes($locale: String!, $preview: Boolean = false) {
   themePageCollection(
     preview: $preview
     locale: $locale
@@ -18,12 +20,4 @@ query themes($locale: String!, $preview: Boolean = false) {
       }
     }
   }
-}
-
-fragment imageFields on Asset {
-  url
-  contentType
-  description
-  width
-  height
 }
