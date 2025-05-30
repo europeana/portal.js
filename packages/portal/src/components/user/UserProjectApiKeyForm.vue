@@ -23,12 +23,12 @@
     computed: {
       embed() {
         const params = new URLSearchParams({
-          'first_name': this.loggedInUser.given_name || '',
-          'last_name': this.loggedInUser.family_name || '',
-          'email': this.loggedInUser.email
+          'first_name': this.loggedInUser?.given_name || '',
+          'last_name': this.loggedInUser?.family_name || '',
+          'email': this.loggedInUser?.email
         }).toString();
         const src = `${ this.$config.app.projectApiKeyFormUrl }/${ this.$i18n.locale }?${ params }`;
-        return `<iframe src="${ src }" frameborder='0' style='height:2200px;width:100%;' marginwidth='0' marginheight='0' scrolling='auto' allow='geolocation'></iframe>`;
+        return `<iframe src="${ src }" frameborder='0' style='height:1600px;width:100%;' marginwidth='0' marginheight='0' scrolling='auto' allow='geolocation'></iframe>`;
       }
     }
   };

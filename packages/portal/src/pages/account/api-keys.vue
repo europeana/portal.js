@@ -137,9 +137,7 @@
                     @keyDisabled="handleDisableApiKey"
                   />
                   <b-row>
-                    <b-col
-                      class="text-center text-sm-left"
-                    >
+                    <b-col>
                       <UserProjectApiKeyForm />
                     </b-col>
                   </b-row>
