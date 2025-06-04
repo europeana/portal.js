@@ -18,6 +18,7 @@ const factory = (user = {}) => shallowMount(UserProjectApiKeyForm, {
         }
       }
     },
+    $t: (key) => key,
     $i18n: {
       locale: 'en'
     }
