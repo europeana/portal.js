@@ -7,12 +7,13 @@ export const SMALL_WIDTH = 200;
 
 export default class EuropeanaThumbnailApi extends EuropeanaApi {
   static ID = 'thumbnail';
-  static BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
+  static BASE_URL = 'https://europeana-thumbnails-production.s3.eu-central-1.amazonaws.com';
+  // https://europeana-thumbnails-production.s3.eu-central-1.amazonaws.com/0000058dc15eb0a6a4ac5eaa623decec-MEDIUM
 
   constructor(context) {
     super(context);
     if (!this.baseURL.endsWith('/v3')) {
-      throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+      // throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
     }
   }
 
@@ -24,7 +25,13 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
     if (!hash && uri) {
       hash = md5(uri);
     }
-    return `${this.baseURL}/${size}/${hash}`;
+
+    let sizeDesc = 'MEDIUM';
+    if (size === LARGE_WIDTH) {
+      sizeDesc = 'LARGE';
+    }
+
+    return `${this.baseURL}/${hash}-${sizeDesc}`;
   }
 
   edmPreview(thumbnailApiUrl, { size } = {}) {
