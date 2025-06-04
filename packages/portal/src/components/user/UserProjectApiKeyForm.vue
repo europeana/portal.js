@@ -28,7 +28,7 @@
           'email': this.loggedInUser?.email
         }).toString();
         const src = `${ this.$config.app.projectApiKeyFormUrl }/${ this.$i18n.locale }?${ params }`;
-        return `<iframe src="${ src }" title="${this.$t('apiKeys.sections.projectKeys.heading')}" frameborder='0' style='height:1600px;width:100%;' marginwidth='0' marginheight='0' scrolling='auto' allow='geolocation'></iframe>`;
+        return `<iframe src="${ src }" title="${this.$t('apiKeys.sections.projectKeys.heading')}" frameborder='0' style='height:1100px;width:100%;' marginwidth='0' marginheight='0' scrolling='auto' allow='geolocation'></iframe>`;
       }
     }
   };
