@@ -102,9 +102,6 @@
                       </b-form>
                     </b-col>
                   </b-row>
-                </template>
-                <!-- TODO: remove condition when form is added -->
-                <template v-if="projectKeys.length > 0">
                   <b-row>
                     <b-col
                       xl="6"
@@ -139,6 +136,11 @@
                     data-qa="project api keys table"
                     @keyDisabled="handleDisableApiKey"
                   />
+                  <b-row>
+                    <b-col>
+                      <UserProjectApiKeyForm />
+                    </b-col>
+                  </b-row>
                 </template>
               </b-col>
             </b-row>
@@ -152,6 +154,7 @@
 <script>
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import UserProjectApiKeyForm from '@/components/user/UserProjectApiKeyForm';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -162,6 +165,7 @@
       AlertMessage,
       LoadingSpinner,
       UserApiKeysTable: () => import('@/components/user/UserApiKeysTable'),
+      UserProjectApiKeyForm,
       UserHeader
     },
 
