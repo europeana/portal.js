@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import BrowseAutomatedCardGroup from '@/components/browse/BrowseAutomatedCardGroup.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -20,6 +19,22 @@ const TRENDING_ITEMS = 'Trending items';
 
 const $axiosGetStub = sinon.stub();
 
+const contentfulResponse = {
+  data: {
+    data: {
+      themePageCollection: {
+        items: [
+          {
+            identifier: 'art'
+          }
+        ]
+      }
+    }
+  }
+};
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulResponse);
+
 const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(BrowseAutomatedCardGroup, {
   localVue,
   propsData,
@@ -34,6 +49,9 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       set: {
         search: sinon.stub()
       }
+    },
+    $contentful: {
+      query: contentfulQueryStub
     },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
@@ -139,28 +157,7 @@ const entries = {
   ]
 };
 
-const contentfulResponse = {
-  data: {
-    data: {
-      themePageCollection: {
-        items: [
-          {
-            identifier: 'art'
-          }
-        ]
-      }
-    }
-  }
-};
-const contentfulQueryStub = sinon.stub();
-contentfulQueryStub.resolves(contentfulResponse);
-
 describe('components/browse/BrowseAutomatedCardGroup', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

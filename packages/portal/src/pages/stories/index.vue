@@ -38,7 +38,6 @@
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesInterface from '@/components/stories/StoriesInterface';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import storiesPageGraphql from '@/graphql/queries/storiesPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -55,12 +54,6 @@
     mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
-
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
-    },
 
     data() {
       return {
@@ -82,7 +75,7 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const pageResponse = await this.queryContentful(storiesPageGraphql, pageVariables);
+      const pageResponse = await this.$contentful.query(storiesPageGraphql, pageVariables);
       const storiesPage = pageResponse.data.data.storiesPageCollection.items[0];
 
       if (!storiesPage) {

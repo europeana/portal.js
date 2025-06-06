@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import ThemeBadges from '@/components/theme/ThemeBadges.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -39,6 +38,9 @@ const factory = ({ propsData = props, mocks } = {}) => {
     localVue,
     propsData,
     mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
       $i18n: {
         locale: 'de',
         localeProperties: { iso: 'de-DE' }
@@ -59,11 +61,6 @@ const factory = ({ propsData = props, mocks } = {}) => {
 };
 
 describe('components/related/ThemeBadges', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

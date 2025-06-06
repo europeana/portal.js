@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import HomeLatestStories from '@/components/home/HomeLatestStories.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -37,6 +36,9 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
   localVue,
   stubs: ['b-card-group'],
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -48,11 +50,6 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
 });
 
 describe('components/home/HomeLatestStories', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
