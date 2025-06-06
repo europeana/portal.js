@@ -64,7 +64,6 @@
   import vClickOutside from 'v-click-outside';
 
   import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import categoriesGraphql from '@/graphql/queries/categories.graphql';
 
   export default {
@@ -89,12 +88,6 @@
       }
     },
 
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
-    },
-
     data() {
       return {
         // https://www.npmjs.com/package/v-click-outside
@@ -115,7 +108,7 @@
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
-      const categoriesResponse = await this.queryContentful(categoriesGraphql, categoriesVariables);
+      const categoriesResponse = await this.$contentful.query(categoriesGraphql, categoriesVariables);
       this.tags = (categoriesResponse.data.data.categoryCollection.items || [])
         .sort((a, b) => a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase()));
     },

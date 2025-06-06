@@ -85,7 +85,6 @@
   import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesTypeFilter from '@/components/stories/StoriesTypeFilter';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import storiesBySysIdGraphql from '@/graphql/queries/storiesBySysId.graphql';
   import storiesMinimalGraphql from '@/graphql/queries/storiesMinimal.graphql';
@@ -119,10 +118,9 @@
     },
 
     setup() {
-      const { query: queryContentful } = useContentfulGraphql();
       const { scrollToSelector } = useScrollTo();
 
-      return { queryContentful, scrollToSelector };
+      return { scrollToSelector };
     },
 
     data() {
@@ -208,7 +206,7 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
-        const storyIdsResponse = await this.queryContentful(storiesMinimalGraphql, storyIdsVariables);
+        const storyIdsResponse = await this.$contentful.query(storiesMinimalGraphql, storyIdsVariables);
         const storyIds = [
           storyIdsResponse.data.data.storyCollection?.items,
           storyIdsResponse.data.data.exhibitionPageCollection?.items
@@ -236,7 +234,7 @@
           limit: this.perPage,
           ids: storySysIds
         };
-        const storiesResponse = await this.queryContentful(storiesBySysIdGraphql, storiesVariables);
+        const storiesResponse = await this.$contentful.query(storiesBySysIdGraphql, storiesVariables);
         const fullStories = [
           storiesResponse.data.data.storyCollection.items,
           storiesResponse.data.data.exhibitionPageCollection.items

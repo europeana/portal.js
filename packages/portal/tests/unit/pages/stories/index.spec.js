@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import StoriesPage from '@/pages/stories/index';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -35,6 +34,9 @@ const factory = ({ contentfulResponse = storiesPageContentfulResponse, $fetchSta
   return shallowMountNuxt(StoriesPage, {
     localVue,
     mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
       $fetchState,
       $i18n: {
         locale: 'en',
@@ -54,11 +56,6 @@ const factory = ({ contentfulResponse = storiesPageContentfulResponse, $fetchSta
 };
 
 describe('pages/stories/index', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

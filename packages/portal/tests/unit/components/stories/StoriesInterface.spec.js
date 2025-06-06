@@ -5,7 +5,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import StoriesInterface from '@/components/stories/StoriesInterface.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -141,6 +140,9 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   },
   propsData,
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -158,11 +160,6 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
 });
 
 describe('components/stories/StoriesInterface', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   beforeEach(() => {
     contentfulQueryStub.withArgs(
       sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesMinimal'),

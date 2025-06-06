@@ -3,7 +3,6 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import RelatedEditorial from '@/components/related/RelatedEditorial.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -37,6 +36,9 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
   localVue,
   propsData,
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -50,11 +52,6 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
 });
 
 describe('components/related/RelatedEditorial', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
