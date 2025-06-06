@@ -1,4 +1,4 @@
-query latestEditorialContent(
+query LatestEditorialContent(
   $locale: String!,
   $preview: Boolean = false,
   $limit: Int = 1,

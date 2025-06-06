@@ -1,3 +1,5 @@
+#import "../fragments/imageWithAttributionFields.graphql"
+
 query ExhibitionLandingPage(
   $identifier: String!,
   $locale: String!,
@@ -37,18 +39,5 @@ query ExhibitionLandingPage(
       }
       relatedLink
     }
-  }
-}
-
-fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    url
-    description
-    contentType
   }
 }

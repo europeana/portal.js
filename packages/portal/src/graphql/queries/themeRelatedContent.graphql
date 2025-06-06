@@ -1,3 +1,6 @@
+#import "../fragments/relatedContentExhibitionPageFields.graphql"
+#import "../fragments/relatedContentStoryFields.graphql"
+
 query ThemeRelatedContent(
   $locale: String!,
   $preview: Boolean = false,
@@ -10,17 +13,7 @@ query ThemeRelatedContent(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
-      __typename
-      name
-      identifier
-      primaryImageOfPage {
-        image {
-          url
-          contentType
-          description
-        }
-      }
-      datePublished
+      ...relatedContentExhibitionPageFields
     }
   }
   storyCollection(
@@ -28,17 +21,7 @@ query ThemeRelatedContent(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
-      __typename
-      name
-      identifier
-      primaryImageOfPage {
-        image {
-          url
-          contentType
-          description
-        }
-      }
-      datePublished
+      ...relatedContentStoryFields
     }
   }
 }

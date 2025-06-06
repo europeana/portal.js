@@ -3,7 +3,8 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '@/pages/themes/index';
+import ThemesPage from '@/pages/themes/index';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -29,15 +30,14 @@ const themesPageContentfulResponse = {
   }
 };
 
-const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
+const contentfulQueryStub = sinon.stub().resolves(themesPageContentfulResponse);
+
+const factory = ({ data = {} } = {}) => shallowMountNuxt(ThemesPage, {
   localVue,
   data() {
     return data;
   },
   mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(themesPageContentfulResponse)
-    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -52,7 +52,15 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   }
 });
 
-describe('theme hub page', () => {
+describe('ThemesPage', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('head()', () => {
     it('uses translated description for og:description', () => {
       const wrapper = factory();
@@ -75,10 +83,13 @@ describe('theme hub page', () => {
       const wrapper = factory();
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('themes', {
-        locale: 'en-GB',
-        preview: false
-      })).toBe(true);
+      expect(contentfulQueryStub.calledWith(
+        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Themes'),
+        {
+          locale: 'en-GB',
+          preview: false
+        }
+      )).toBe(true);
     });
   });
 });

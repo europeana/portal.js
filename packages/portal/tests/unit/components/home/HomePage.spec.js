@@ -1,7 +1,9 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import HomePage from '@/components/home/HomePage';
 import sinon from 'sinon';
+
+import HomePage from '@/components/home/HomePage';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -41,6 +43,8 @@ const homePageContentfulResponse = {
     }
   }
 };
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(homePageContentfulResponse);
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
   localVue,
@@ -48,12 +52,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
     return data;
   },
   mocks: {
-    $contentful: {
-      assets: {
-        optimisedSrc: sinon.spy((img) => `${img?.url}?optimised`)
-      },
-      query: sinon.stub().resolves(homePageContentfulResponse)
-    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -68,7 +66,13 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
 });
 
 describe('components/home/HomePage', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('sets `backgroundImage` from the available options', async() => {

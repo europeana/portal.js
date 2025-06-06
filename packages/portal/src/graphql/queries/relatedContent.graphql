@@ -1,4 +1,4 @@
-query EntityRelatedContent(
+query RelatedContent(
   $locale: String!,
   $preview: Boolean = false,
   $limit: Int = 4,

@@ -1,3 +1,5 @@
+#import "../fragments/imageWithAttributionFields.graphql"
+
 query StoryPage(
   $identifier: String!
   $locale: String!
@@ -81,20 +83,5 @@ query StoryPage(
         description
       }
     }
-  }
-}
-
-fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    url
-    description
-    contentType
-    width
-    height
   }
 }

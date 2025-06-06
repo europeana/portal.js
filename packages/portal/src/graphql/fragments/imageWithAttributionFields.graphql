@@ -1,0 +1,12 @@
+#import "./imageFields.graphql"
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+	name
+	creator
+	provider
+	license
+	url
+	image {
+		...imageFields
+	}
+}

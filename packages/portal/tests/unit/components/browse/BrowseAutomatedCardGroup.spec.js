@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import BrowseAutomatedCardGroup from '@/components/browse/BrowseAutomatedCardGroup.vue';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -33,9 +34,6 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       set: {
         search: sinon.stub()
       }
-    },
-    $contentful: {
-      query: sinon.stub()
     },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
@@ -141,7 +139,31 @@ const entries = {
   ]
 };
 
+const contentfulResponse = {
+  data: {
+    data: {
+      themePageCollection: {
+        items: [
+          {
+            identifier: 'art'
+          }
+        ]
+      }
+    }
+  }
+};
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulResponse);
+
 describe('components/browse/BrowseAutomatedCardGroup', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('fetch()', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
@@ -165,27 +187,13 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
 
     describe('when the section is from Contentful', () => {
       const propsData = { sectionType: FEATURED_THEMES };
-      const contentfulResponse = {
-        data: {
-          data: {
-            themePageCollection: {
-              items: [
-                {
-                  identifier: 'art'
-                }
-              ]
-            }
-          }
-        }
-      };
 
       it('fetches from Contentful and stores response items in entries', async() => {
         const wrapper = factory(propsData);
-        wrapper.vm.$contentful.query.resolves(contentfulResponse);
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('themes', { locale: 'en-GB', preview: false })).toBe(true);
+        expect(contentfulQueryStub.calledWith(sinon.match.object, { locale: 'en-GB', preview: false })).toBe(true);
         expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
       });
     });

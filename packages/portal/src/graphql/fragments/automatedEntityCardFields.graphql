@@ -1,0 +1,8 @@
+fragment automatedEntityCardFields on AutomatedEntityCard {
+  name
+  nameEN: name(locale: "en-GB")
+  identifier
+  description
+  slug
+  entityImage: image
+}

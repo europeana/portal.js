@@ -1,3 +1,6 @@
+#import "../fragments/imageFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+
 query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = false) {
   themePage: themePageCollection(
     preview: $preview
@@ -59,23 +62,5 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
         }
       }
     }
-  }
-}
-
-fragment imageFields on Asset {
-  url
-  contentType
-  description
-  width
-  height
-}
-
-fragment illustrationFields on Illustration {
-  image {
-    url
-    description
-    contentType
-    width
-    height
   }
 }

@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/index';
+import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -11,38 +12,47 @@ localVue.use(BootstrapVue);
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
+const contentfulQueryStub = sinon.stub();
+
 const factory = ({
   mocks = {},
   data = {},
   contentfulQueryResponse = { data: { data: {} } }
-} = {}) => shallowMountNuxt(page, {
-  localVue,
-  data() {
-    return { ...data };
-  },
-  mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
+} = {}) => {
+  contentfulQueryStub.resolves(contentfulQueryResponse);
+
+  return shallowMountNuxt(page, {
+    localVue,
+    data() {
+      return { ...data };
     },
-    $error: sinon.spy(),
-    $features: {},
-    $fetchState: {},
-    $i18n: { localeProperties: { iso: 'en-GB' } },
-    $route: { params: { pathMatch: 'about' }, query: {} },
-    $t: key => key,
-    ...mocks
-  },
-  stubs: [
-    'BrowsePage',
-    'ErrorMessage',
-    'HomePage',
-    'LandingPage',
-    'StaticPage'
-  ]
-});
+    mocks: {
+      $error: sinon.spy(),
+      $features: {},
+      $fetchState: {},
+      $i18n: { localeProperties: { iso: 'en-GB' } },
+      $route: { params: { pathMatch: 'about' }, query: {} },
+      $t: key => key,
+      ...mocks
+    },
+    stubs: [
+      'BrowsePage',
+      'ErrorMessage',
+      'HomePage',
+      'LandingPage',
+      'StaticPage'
+    ]
+  });
+};
 
 describe('IndexPage', () => {
+  beforeAll(() => {
+    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
+      query: contentfulQueryStub
+    });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   it('uses default layout', () => {
     const $route = { params: { pathMatch: 'about' } };
@@ -61,7 +71,7 @@ describe('IndexPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.called).toBe(false);
+        expect(contentfulQueryStub.called).toBe(false);
       });
 
       describe('when landing page configured to act as home page', () => {
@@ -75,11 +85,14 @@ describe('IndexPage', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
-            identifier: slug,
-            locale: 'en-GB',
-            preview: false
-          })).toBe(true);
+          expect(contentfulQueryStub.calledWith(
+            sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+            {
+              identifier: slug,
+              locale: 'en-GB',
+              preview: false
+            }
+          )).toBe(true);
         });
       });
     });
@@ -98,11 +111,14 @@ describe('IndexPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
-          identifier: slug,
-          locale: 'en-GB',
-          preview: false
-        })).toBe(true);
+        expect(contentfulQueryStub.calledWith(
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+          {
+            identifier: slug,
+            locale: 'en-GB',
+            preview: false
+          }
+        )).toBe(true);
       });
 
       it('detects and stores landing page content', async() => {
@@ -130,11 +146,14 @@ describe('IndexPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('browseStaticPage', {
-          identifier: slug,
-          locale: 'en-GB',
-          preview: false
-        })).toBe(true);
+        expect(contentfulQueryStub.calledWith(
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseStaticPage'),
+          {
+            identifier: slug,
+            locale: 'en-GB',
+            preview: false
+          }
+        )).toBe(true);
       });
 
       it('detects and stores static page content', async() => {

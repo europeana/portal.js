@@ -8,11 +8,6 @@ const factory = (propsData) => shallowMount(DS4CHLandingHero, {
   localVue,
   propsData,
   mocks: {
-    $contentful: {
-      assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
-      }
-    },
     $t: () => {}
   },
   stubs: ['b-container']

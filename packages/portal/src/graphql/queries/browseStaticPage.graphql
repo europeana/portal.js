@@ -1,3 +1,11 @@
+#import "../fragments/automatedCardGroupFields.graphql"
+#import "../fragments/automatedEntityCardFields.graphql"
+#import "../fragments/curatedCardFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+#import "../fragments/imageFields.graphql"
+#import "../fragments/imageWithAttributionFields.graphql"
+#import "../fragments/primaryCallToActionFields.graphql"
+
 query BrowseStaticPage(
   $identifier: String!
   $locale: String!
@@ -89,23 +97,7 @@ query BrowseStaticPage(
     }
   }
 }
-fragment imageFields on Asset {
-  url
-  contentType
-  description
-  width
-  height
-}
-fragment imageWithAttributionFields on ImageWithAttribution {
-  name
-  creator
-  provider
-  license
-  url
-  image {
-    ...imageFields
-  }
-}
+
 fragment linkGroupFields on LinkGroup {
   identifier
   name
@@ -114,47 +106,6 @@ fragment linkGroupFields on LinkGroup {
       text
       url
     }
-  }
-}
-fragment illustrationFields on Illustration {
-  name
-  image {
-    ...imageFields
-  }
-  url
-}
-fragment automatedCardGroupFields on AutomatedCardGroup {
-  genre
-  moreButton {
-    url
-    text
-  }
-}
-fragment automatedEntityCardFields on AutomatedEntityCard {
-  name
-  identifier
-  description
-  slug
-  entityImage: image
-}
-fragment curatedCardFields on CuratedCard {
-  name
-  description
-  url
-  image {
-    ...imageFields
-  }
-}
-fragment primaryCallToActionFields on PrimaryCallToAction {
-  name
-  nameEN: name(locale: "en-GB")
-  text
-  relatedLink {
-    url
-    text
-  }
-  image {
-    ...illustrationFields
   }
 }
 fragment cardGroupFields on CardGroup {

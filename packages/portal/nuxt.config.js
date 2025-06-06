@@ -312,7 +312,6 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
@@ -472,6 +471,13 @@ export default {
         test: /\.mjs$/,
         include: /node_modules/,
         type: 'javascript/auto'
+      });
+
+      // GraphQL files
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
       });
 
       // Extend webpack config only for client bundle

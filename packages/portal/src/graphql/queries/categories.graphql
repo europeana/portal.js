@@ -1,4 +1,4 @@
-query categories(
+query Categories(
   $locale: String!,
   $preview: Boolean = false
 ) {
