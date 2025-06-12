@@ -1076,7 +1076,7 @@ export default {
         "title": "Kompakkt"
       },
       "kulturLandBilder": {
-        "title": "kulturLandBilder"
+        "title": "KulturLandBilder"
       },
       "kystreise": {
         "title": "Kystreise"
