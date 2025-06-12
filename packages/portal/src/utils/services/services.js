@@ -211,6 +211,10 @@ const multimediaServices = [
 ].map(service => ({ ...service, purposes: ['multimedia'] }));
 
 const videoServices = [
+  { name: '3Cat',
+    schemes: [
+      'https://www.3cat.cat/3cat/video/*'
+    ] },
   { name: 'deutschesFilmportal',
     schemes: [
       'http://www.filmportal.de/video/*'
@@ -218,6 +222,10 @@ const videoServices = [
   { name: 'eclap',
     schemes: [
       'http://www.eclap.eu/*'
+    ] },
+  { name: 'europeanBroadcastingService',
+    schemes: [
+      'https://audiovisual.ec.europa.eu/corporateplayer/index.html?video=*'
     ] },
   { name: 'europeanParliamentMultimediaService',
     schemes: [
@@ -301,6 +309,10 @@ const otherEmbeddingServices = [
   { name: 'jigsawplanet',
     schemes: [
       'https://www.jigsawplanet.com/?rc=play&pid=*'
+    ] },
+  { name: 'kulturLandBilder',
+    schemes: [
+      'https://kartographie.leibniz-ifl-projekte.de/*'
     ] },
   { name: 'kystreise',
     schemes: [
