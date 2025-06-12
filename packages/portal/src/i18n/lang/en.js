@@ -962,6 +962,9 @@ export default {
       }
     },
     "services": {
+      "3Cat": {
+        "title": "3Cat"
+      },
       "albinLarsson": {
         "title": "Albin Larsson"
       },
@@ -1014,6 +1017,9 @@ export default {
       },
       "eureka3D": {
         "title": "EUreka3D"
+      },
+      "europeanBroadcastingService": {
+        "title": "European Broadcasting Service"
       },
       "europeanParliamentMultimediaService": {
         "title": "European parliament multimedia service"
@@ -1068,6 +1074,9 @@ export default {
       },
       "kompakkt": {
         "title": "Kompakkt"
+      },
+      "kulturLandBilder": {
+        "title": "KulturLandBilder"
       },
       "kystreise": {
         "title": "Kystreise"
