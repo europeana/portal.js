@@ -5,7 +5,8 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { print as printGraphql } from 'graphql/language/printer';
 
-const createQuerier = (config = {}) => {
+const createQueryInstance = (config = {}) => {
+  //  TODO: rm dependency on axios
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance);
 
@@ -44,7 +45,7 @@ export const VueContentfulGraphql = {
     // NOTE: when only vue 3 compatibility is needed, global provide/inject will be a
     //       better approach than global properties
     app.prototype.$contentful ||= {};
-    app.prototype.$contentful.query = createQuerier(config);
+    app.prototype.$contentful.query = createQueryInstance(config);
   }
 };
 
@@ -53,9 +54,9 @@ export default (ctx) => {
 
   if (ctx.$apm) {
     const query = Vue.prototype.$contentful.query;
-    Vue.prototype.$contentful.query = function() {
+    Vue.prototype.$contentful.query = function(ast, variables = {}) {
       try {
-        return query.apply(null, arguments);
+        return query(ast, variables);
       } catch (error) {
         ctx.$apm.captureError(error, {
           custom: {
