@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { print as printGraphql } from 'graphql/language/printer';
+import { print as printGraphql } from 'graphql/language/printer.js';
 
 const createQueryInstance = (config = {}) => {
   //  TODO: rm dependency on axios
@@ -12,7 +12,7 @@ const createQueryInstance = (config = {}) => {
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
 
-  const query = (ast, variables = {}) => {
+  const queryInstance = (ast, variables = {}) => {
     const accessToken = variables.preview ? config.accessToken?.preview : config.accessToken?.delivery;
 
     const query = printGraphql(ast);
@@ -37,16 +37,16 @@ const createQueryInstance = (config = {}) => {
     return axiosInstance.post(`${origin}${path}`, body, { headers, params });
   };
 
-  return query;
+  return queryInstance;
 };
 
 const VueContentfulGraphql = {
   install(app, config) {
-    // NOTE: for vue 3, app.prototype would be app.config.globalProperties
     // NOTE: when only vue 3 compatibility is needed, global provide/inject will be a
     //       better approach than global properties
-    app.prototype.$contentful ||= {};
-    app.prototype.$contentful.query = createQueryInstance(config);
+    const target = (app.version > '3') ? app.config.globalProperties : app.prototype
+    target.$contentful ||= {};
+    target.$contentful.query = createQueryInstance(config);
   }
 };
 
