@@ -308,7 +308,8 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/features',
-    '~/plugins/jsdom-domparser.server'
+    '~/plugins/jsdom-domparser.server',
+    '~/plugins/vue-contentful-graphql'
   ],
 
   buildModules: [
@@ -497,6 +498,7 @@ export default {
     transpile: [
       '@europeana/i18n',
       '@europeana/oembed',
+      '@europeana/vue-contentful-graphql',
       '@europeana/vue-visible-on-scroll',
       'axios-cache-interceptor',
       'color-parse',

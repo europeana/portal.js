@@ -3,7 +3,6 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import HomePage from '@/components/home/HomePage';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -52,6 +51,9 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
     return data;
   },
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -66,11 +68,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
 });
 
 describe('components/home/HomePage', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

@@ -37,6 +37,7 @@
     "@europeana/i18n": "link:./packages/i18n",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
+    "@europeana/vue-contentful-graphql": "link:./packages/vue-contentful-graphql",
     "@europeana/vue-router-query": "link:./packages/vue-router-query",
     "@europeana/vue-session": "link:./packages/vue-session",
     "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"
