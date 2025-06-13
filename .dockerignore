@@ -26,7 +26,7 @@ coverage/
 # nuxt.js build outputs
 .nuxt/
 .nuxt-test/
-/dist
+dist/
 
 # Bower dependency directory (https://bower.io/)
 bower_components
@@ -75,13 +75,8 @@ tmp/
 # Locale folder
 locale
 
-# Cloud Foundry deployment configs
-/manifest.yml
-vars.yml
-/deploy
-
 # Data migrations
-/migrations
+migrations/
 
 # Git
 .git/
@@ -95,3 +90,6 @@ tests/
 
 # SonarScanner output
 .scannerwork
+
+# Documentation
+docs/
