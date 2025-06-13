@@ -111,22 +111,6 @@ describe('VisibleOnScroll', () => {
 
           expect(visibleOnScrollElement.element.scrollPosition).toBe(20);
         });
-
-        // describe('when the element is NOT visible', () => {
-        //   it('sets the visibility & transformation and adds the show class', () => {
-        //     const wrapper = factory();
-        //     const visibleOnScrollElement = wrapper.findComponent('p');
-        //     visibleOnScrollElement.element.scrollPosition = 140;
-        //     // wrapper.showElement = false;
-
-        //     window.scrollY = 20;
-        //     window.dispatchEvent(new CustomEvent('scroll'));
-
-        //     expect(visibleOnScrollElement.attributes('style')).toBe('transform: translate3d(0, 0, 0);');
-        //     expect(visibleOnScrollElement.classes('show')).toBe(true);
-        //     expect(visibleOnScrollElement.element.scrollPosition).toBe(20);
-        //   });
-        // });
       });
     });
 
