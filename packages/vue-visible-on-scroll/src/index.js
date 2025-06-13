@@ -1,45 +1,70 @@
 export default {
   inserted: (el, binding, vnode) => {
-    const routeHWithHash = vnode.context.$route.hash;
-    el.scrolledVisible = !routeHWithHash;
-    el.setAttribute('style', 'transform: translate3d(0, 0, 0)');
-    if (process.browser) {
-      window.addEventListener('scroll', () => handleScroll(el));
-      // TODO: update to observe ScreenOrientation update instead: screen.orientation.addEventListener("change", (event) => {
-      window.addEventListener('orientationchange', () => handleOrientationChange(el));
-      window.addEventListener('hashchange', () => el.scrolledVisible = false);
+    element = el;
+    routeWithHash = vnode.context.$route.hash;
+
+    if (process.browser && onDesktop()) {
+      enableVisibleOnScroll();
     }
+
+    window.addEventListener('resize', handleResize);
   }
+
+  // TODO remove even listeners on unmounted? Current use in header, is always mounted
 };
 
-const handleScroll = (el) => {
-  const oldPosition = el.scrollPosition ?? 0;
+let element;
+let routeWithHash;
+
+let enabled = false;
+const desktopWidth = 992; // Must match $bp-large
+
+const onDesktop = () => window.innerWidth >= desktopWidth;
+
+const handleScroll = () => {
+  const oldPosition = element.scrollPosition ?? 0;
   const newPosition = window.scrollY;
+  const scrolledDown = oldPosition < newPosition;
+  const scrolledUp = oldPosition - 5 > newPosition;
 
-  // TODO: When scrolling a lot at once, it's possible to skip the 150px threshold on the first scroll event.
-  // Should we check that the new position is > 150 instead to prevent this?
-  if (onDesktop() && oldPosition < newPosition && oldPosition > 150 && el.scrolledVisible) {
-    el.setAttribute('style', 'transform: translate3d(0, -100%, 0)');
-    el.scrolledVisible = false;
-    el.classList.remove('show');
-  } else if (onDesktop() && ((oldPosition - 5) > newPosition || oldPosition <= 150) && !el.scrolledVisible) {
-    el.setAttribute('style', 'transform: translate3d(0, 0, 0)');
-    el.classList.add('show');
-    el.scrolledVisible = true;
+  if (scrolledDown && oldPosition > 150 && element.scrolledVisible) {
+    element.style.transform = 'translate3d(0, -100%, 0)';
+    element.classList.remove('show');
+    element.scrolledVisible = false;
+  } else if ((scrolledUp || oldPosition <= 150) && !element.scrolledVisible) {
+    element.style.transform = 'translate3d(0, 0, 0)';
+    element.classList.add('show');
+    element.scrolledVisible = true;
   }
-  el.scrollPosition = newPosition;
+  element.scrollPosition = newPosition;
 };
 
-const handleOrientationChange = (el) => {
-  const orientation = window.orientation;
-  if (orientation === 0 || orientation === 180) { // TODO: Aside from being deprecated, what is this checking?
-    el.setAttribute('style', 'transform: translate3d(0, 0, 0)');
-    el.scrolledVisible = true;
-  }
+const handleHashChange = () => {
+  element.scrolledVisible = false;
 };
 
-const desktopWidth = 992; // Needs to match $bp-large
+const enableVisibleOnScroll = () => {
+  element.scrolledVisible = !routeWithHash;
+  element.style.transform = 'translate3d(0, 0, 0)';
+  element.classList.add('show');
 
-const onDesktop = () => {
-  return desktopWidth <= document.documentElement.clientWidth;
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('hashchange', handleHashChange);
+  enabled = true;
+};
+
+const disableVisibleOnScroll = () => {
+  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('hashchange', handleHashChange);
+  element.style.transform = 'translate3d(0, 0, 0)';
+  element.classList.remove('show');
+  enabled = false;
+};
+
+const handleResize = () => {
+  if (!enabled && onDesktop()) {
+    enableVisibleOnScroll();
+  } else if (enabled && !onDesktop()) {
+    disableVisibleOnScroll();
+  }
 };
