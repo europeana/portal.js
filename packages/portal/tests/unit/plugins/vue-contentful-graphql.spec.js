@@ -1,73 +1,56 @@
 import nock from 'nock';
 import sinon from 'sinon';
-import gql from 'graphql-tag';
+import Vue from 'vue';
+import VueContentfulGraphql from '@europeana/vue-contentful-graphql';
 
-import { VueContentfulGraphql } from '@/plugins/vue-contentful-graphql.js';
+import VueContentfulGraphqlNuxtPlugin from '@/plugins/vue-contentful-graphql.js';
 
-const query = `query Page($url: String!) {
-  PageCollection(url: $url) {
-    items {
-      name
-    }
-  }
-}`;
-const ast = gql`${query}`;
+const contentfulQueryStub = sinon.stub();
+const apmCaptureErrorStub = sinon.stub();
 
-const config = {
-  accessToken: {
-    delivery: 'access'
-  },
-  environmentId: 'test',
-  graphQlOrigin: 'https://graphql.example.org',
-  spaceId: 'space'
-};
-
-describe('VueContentfulGraphql', () => {
+describe('VueContentfulGraphql Nuxt plugin', () => {
   beforeAll(() => {
     nock.disableNetConnect();
+    sinon.stub(Vue, 'use').withArgs(sinon.match.same(VueContentfulGraphql, sinon.match.object)).callsFake(() => {
+      Vue.prototype.$contentful = {
+        query: contentfulQueryStub
+      };
+    });
   });
-  afterEach(sinon.resetHistory);
+  afterEach(() => {
+    delete Vue.prototype.$contentful;
+    sinon.resetHistory();
+  });
   afterAll(() => {
     nock.enableNetConnect();
     sinon.restore();
   });
 
-  describe('install', () => {
-    it('injects $contentful onto app prototype', () => {
-      const app = { prototype: {} };
+  describe('query function wrapper', () => {
+    it('calls the original query function', () => {
+      const ctx = {};
+      VueContentfulGraphqlNuxtPlugin(ctx);
 
-      VueContentfulGraphql.install(app, config);
+      Vue.prototype.$contentful.query();
 
-      expect(typeof app.prototype.$contentful.query).toBe('function');
+      expect(contentfulQueryStub.called).toBe(true);
     });
-  });
 
-  describe('query', () => {
-    it('queries the Contentful GraphQL endpoint with supplied query and variables', async() => {
-      const variables = { url: '/' };
+    it('captures query errors to APM and re-throws', () => {
+      const ctx = { $apm: { captureError: apmCaptureErrorStub } };
+      VueContentfulGraphqlNuxtPlugin(ctx);
+      const upstreamErr = new Error('oh no');
+      contentfulQueryStub.throws(upstreamErr);
 
-      nock(config.graphQlOrigin, {
-        reqheaders: {
-          authorization: `Bearer ${config.accessToken.delivery}`
-        }
-      })
-        .post(
-          `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId}`,
-          {
-            query,
-            variables
-          }
-        )
-        .query({ ...variables, _query: 'Page' })
-        .reply(200, {});
+      let thrownErr;
+      try {
+        Vue.prototype.$contentful.query();
+      } catch (e) {
+        thrownErr = e;
+      }
 
-      const app = { prototype: {} };
-
-      VueContentfulGraphql.install(app, config);
-
-      await app.prototype.$contentful.query(ast, variables);
-
-      expect(nock.isDone()).toBe(true);
+      expect(ctx.$apm.captureError.called).toBe(true);
+      expect(thrownErr).toBe(upstreamErr);
     });
   });
 });

@@ -498,6 +498,7 @@ export default {
     transpile: [
       '@europeana/i18n',
       '@europeana/oembed',
+      '@europeana/vue-contentful-graphql',
       '@europeana/vue-visible-on-scroll',
       'axios-cache-interceptor',
       'color-parse',
