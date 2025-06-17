@@ -33,12 +33,24 @@ describe('VueContentfulGraphql', () => {
   });
 
   describe('install', () => {
-    it('injects $contentful onto app prototype', () => {
-      const app = { prototype: {} };
+    describe('when vue version is < 3', () => {
+      const app = { prototype: {}, version: '2.7.16' };
 
-      VueContentfulGraphql.install(app, config);
+      it('injects $contentful onto app prototype', () => {
+        VueContentfulGraphql.install(app, config);
 
-      expect(typeof app.prototype.$contentful.query).toBe('function');
+        expect(typeof app.prototype.$contentful.query).toBe('function');
+      });
+    });
+
+    describe('when vue version is > 3', () => {
+      const app = { config: { globalProperties: {} }, version: '3.0.0' };
+
+      it('injects $contentful onto app config global properties', () => {
+        VueContentfulGraphql.install(app, config);
+
+        expect(typeof app.config.globalProperties.$contentful.query).toBe('function');
+      });
     });
   });
 
