@@ -5,7 +5,11 @@ on:
     types: [published]
 
 jobs:
-  style:
+  npm-publish:
+    name: NPM publish
+    strategy:
+      matrix:
+        package: [style, vue-contentful-graphql]
     runs-on: ubuntu-latest
     steps:
       -
@@ -22,4 +26,4 @@ jobs:
         name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: npm -w packages/style publish --access public
+        run: npm -w packages/${{ matrix.package }} publish --access public
