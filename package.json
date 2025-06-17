@@ -1,4 +1,5 @@
 {
+  "name": "@europeana/portal.js-monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
