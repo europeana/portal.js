@@ -11,7 +11,7 @@ localVue.use(BootstrapVue);
 const themes = [{ name: 'art', identifier: 'art', primaryImageOfPage: {
   image: { url: 'https://images.ctfassets.net/example.jpg' }
 } }];
-const themesContentfulResponse = { data: { data: { themePageCollection: { items: themes } } } };
+const themesContentfulResponse = { data: { themePageCollection: { items: themes } } };
 
 const themesAfterFetch = [{
   prefLabel: 'art',

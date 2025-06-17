@@ -69,7 +69,7 @@
 
         const contentfulResponse = await this.$contentful.query(themesByIdGraphql, contentfulVariables);
 
-        this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+        this.themesData = contentfulResponse.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
           url: {
             name: 'themes-all',
