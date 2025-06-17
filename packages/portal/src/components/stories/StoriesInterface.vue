@@ -208,8 +208,8 @@
         };
         const storyIdsResponse = await this.$contentful.query(storiesMinimalGraphql, storyIdsVariables);
         const storyIds = [
-          storyIdsResponse.data.data.storyCollection?.items,
-          storyIdsResponse.data.data.exhibitionPageCollection?.items
+          storyIdsResponse.data.storyCollection?.items,
+          storyIdsResponse.data.exhibitionPageCollection?.items
         ].flat();
 
         // Simplify categories
@@ -236,8 +236,8 @@
         };
         const storiesResponse = await this.$contentful.query(storiesBySysIdGraphql, storiesVariables);
         const fullStories = [
-          storiesResponse.data.data.storyCollection.items,
-          storiesResponse.data.data.exhibitionPageCollection.items
+          storiesResponse.data.storyCollection.items,
+          storiesResponse.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
         if (this.page === 1 && this.selectedTags.length === 0) {

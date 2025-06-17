@@ -156,7 +156,7 @@
         };
 
         const response = await this.$contentful.query(exhibitionCreditsPageGraphql, variables);
-        const data = response.data.data;
+        const data = response.data;
 
         if (data.exhibitionPageCollection.items.length === 0) {
           this.$error(404, { scope: 'page' });

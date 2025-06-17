@@ -8,7 +8,7 @@ export default (ctx) => {
   // wrap query method to log errors to APM
   if (ctx.$apm) {
     const query = Vue.prototype.$contentful.query;
-    Vue.prototype.$contentful.query = function(ast, variables = {}) {
+    Vue.prototype.$contentful.query = async function(ast, variables = {}) {
       try {
         return query(ast, variables);
       } catch (error) {

@@ -208,7 +208,7 @@
           preview: this.$route.query.mode === 'preview'
         };
         const response = await this.$contentful.query(this.contentful.graphql, variables);
-        return response.data.data[this.contentful.collection].items;
+        return response.data[this.contentful.collection].items;
       },
       async fetchSetData() {
         const params = {

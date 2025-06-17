@@ -87,7 +87,7 @@
       let data;
       try {
         const response = await this.$contentful.query(storyPageGraphql, variables);
-        data = response.data.data;
+        data = response.data;
       } catch (e) {
         this.$error(e);
       }

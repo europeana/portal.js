@@ -50,7 +50,7 @@ describe('pages/feature-ideas/index', () => {
     });
 
     it('handles potentially not having a page in Contentful', async() => {
-      const wrapper = factory({ contentfulResponse: { data: { data: { featureIdeasPageCollection: { items: [] } } } } });
+      const wrapper = factory({ contentfulResponse: { data: { featureIdeasPageCollection: { items: [] } } } });
 
       await wrapper.vm.fetch();
 
@@ -70,9 +70,9 @@ describe('pages/feature-ideas/index', () => {
 
   describe('when there are no feature ideas', () => {
     it('does render the feature ideas', async() => {
-      const wrapper = factory({ contentfulResponse: { data: { data: { featureIdeasPageCollection: { items: [{
+      const wrapper = factory({ contentfulResponse: { data: { featureIdeasPageCollection: { items: [{
         name: 'Feature Ideas'
-      }] } } } } });
+      }] } } } });
 
       await wrapper.vm.fetch();
 

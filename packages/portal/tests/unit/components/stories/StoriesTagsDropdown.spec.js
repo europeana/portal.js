@@ -11,14 +11,12 @@ localVue.use(BootstrapVue);
 
 const categoriesContentfulResponse = {
   data: {
-    data: {
-      categoryCollection: {
-        items: [
-          { identifier: '3d', name: '3D' },
-          { identifier: 'cooking', name: 'cooking' },
-          { identifier: 'postcards', name: 'postcards' }
-        ]
-      }
+    categoryCollection: {
+      items: [
+        { identifier: '3d', name: '3D' },
+        { identifier: 'cooking', name: 'cooking' },
+        { identifier: 'postcards', name: 'postcards' }
+      ]
     }
   }
 };

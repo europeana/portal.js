@@ -192,7 +192,7 @@
 
       try {
         const response = await this.$contentful.query(themePageGraphql, variables);
-        const theme = response.data.data.themePage?.items?.[0];
+        const theme = response.data.themePage?.items?.[0];
 
         if (theme?.identifier) {
           this.identifier = theme.identifier;

@@ -9,21 +9,19 @@ const localVue = createLocalVue();
 const primaryImageOfPage = { image: {} };
 const contentfulQueryResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
-        ]
-      }
+    storyCollection: {
+      items: [
+        { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
+      ]
     }
   }
 };

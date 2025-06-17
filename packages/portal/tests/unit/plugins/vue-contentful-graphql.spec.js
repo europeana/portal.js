@@ -36,7 +36,7 @@ describe('VueContentfulGraphql Nuxt plugin', () => {
       expect(contentfulQueryStub.called).toBe(true);
     });
 
-    it('captures query errors to APM and re-throws', () => {
+    it('captures query errors to APM and re-throws', async() => {
       const ctx = { $apm: { captureError: apmCaptureErrorStub } };
       VueContentfulGraphqlNuxtPlugin(ctx);
       const upstreamErr = new Error('oh no');
@@ -44,7 +44,7 @@ describe('VueContentfulGraphql Nuxt plugin', () => {
 
       let thrownErr;
       try {
-        Vue.prototype.$contentful.query();
+        await Vue.prototype.$contentful.query();
       } catch (e) {
         thrownErr = e;
       }

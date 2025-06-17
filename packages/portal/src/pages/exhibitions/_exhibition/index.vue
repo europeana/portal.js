@@ -187,7 +187,7 @@
         };
 
         const response = await this.$contentful.query(exhibitionLandingPageGraphql, variables);
-        const data = response.data.data;
+        const data = response.data;
 
         if (data.exhibitionPageCollection.items.length === 0) {
           this.$error(404, { scope: 'page' });

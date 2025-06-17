@@ -23,10 +23,8 @@ const post = {
 
 const contentfulQueryStub = sinon.stub().resolves({
   data: {
-    data: {
-      storyCollection: {
-        items: [post]
-      }
+    storyCollection: {
+      items: [post]
     }
   }
 });
@@ -98,10 +96,8 @@ describe('StoryPage', () => {
       beforeEach(() => {
         contentfulQueryStub.resolves({
           data: {
-            data: {
-              storyCollection: {
-                items: []
-              }
+            storyCollection: {
+              items: []
             }
           }
         });

@@ -48,7 +48,8 @@ describe('VueContentfulGraphql', () => {
 
       nock(config.graphQlOrigin, {
         reqheaders: {
-          authorization: `Bearer ${config.accessToken.delivery}`
+          authorization: `Bearer ${config.accessToken.delivery}`,
+          'content-type': 'application/json'
         }
       })
         .post(

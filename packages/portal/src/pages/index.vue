@@ -153,7 +153,7 @@
         };
 
         const response = await this.$contentful.query(graphql, variables);
-        const data = response.data.data;
+        const data = response.data;
 
         const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
         if (entryCollection) {

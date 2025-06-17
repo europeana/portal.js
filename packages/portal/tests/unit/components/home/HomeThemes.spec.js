@@ -8,23 +8,21 @@ const localVue = createLocalVue();
 
 const contentfulQueryResponse = {
   data: {
-    data: {
-      themePageCollection: {
-        items: [
-          {
-            identifier: 'art',
-            name: 'Art',
-            description: 'The Art theme',
-            primaryImageOfPage: { image: { url: 'https://example.org/art.jpeg' } }
-          },
-          {
-            identifier: 'archaeology',
-            name: 'Archaeology',
-            description: 'The Archaeology theme',
-            primaryImageOfPage: { image: { url: 'https://example.org/archaeology.jpeg' } }
-          }
-        ]
-      }
+    themePageCollection: {
+      items: [
+        {
+          identifier: 'art',
+          name: 'Art',
+          description: 'The Art theme',
+          primaryImageOfPage: { image: { url: 'https://example.org/art.jpeg' } }
+        },
+        {
+          identifier: 'archaeology',
+          name: 'Archaeology',
+          description: 'The Archaeology theme',
+          primaryImageOfPage: { image: { url: 'https://example.org/archaeology.jpeg' } }
+        }
+      ]
     }
   }
 };

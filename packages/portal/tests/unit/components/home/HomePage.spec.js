@@ -13,32 +13,30 @@ const image = {
 
 const homePageContentfulResponse = {
   data: {
-    data: {
-      homePageCollection: {
-        items: [
-          {
-            sectionsCollection: {
-              items: [
-                { '__typename': 'SomethingElse' },
-                { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
-                { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
-              ]
-            },
-            image,
-            primaryImageSetOfPageCollection: {
-              items: [
-                {
-                  hasPartCollection: {
-                    items: [
-                      image
-                    ]
-                  }
+    homePageCollection: {
+      items: [
+        {
+          sectionsCollection: {
+            items: [
+              { '__typename': 'SomethingElse' },
+              { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
+              { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
+            ]
+          },
+          image,
+          primaryImageSetOfPageCollection: {
+            items: [
+              {
+                hasPartCollection: {
+                  items: [
+                    image
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   }
 };

@@ -109,7 +109,7 @@
         preview: this.$route.query.mode === 'preview'
       };
       const categoriesResponse = await this.$contentful.query(categoriesGraphql, categoriesVariables);
-      this.tags = (categoriesResponse.data.data.categoryCollection.items || [])
+      this.tags = (categoriesResponse.data.categoryCollection.items || [])
         .sort((a, b) => a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase()));
     },
 

@@ -132,7 +132,7 @@
         graphql = await import('@/graphql/queries/relatedContent.graphql');
       }
       const response = await this.$contentful.query(graphql, variables);
-      const entries = response.data.data;
+      const entries = response.data;
 
       this.related = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)

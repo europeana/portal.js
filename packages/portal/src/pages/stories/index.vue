@@ -76,7 +76,7 @@
       };
 
       const pageResponse = await this.$contentful.query(storiesPageGraphql, pageVariables);
-      const storiesPage = pageResponse.data.data.storiesPageCollection.items[0];
+      const storiesPage = pageResponse.data.storiesPageCollection.items[0];
 
       if (!storiesPage) {
         return;

@@ -21,14 +21,12 @@ const $axiosGetStub = sinon.stub();
 
 const contentfulResponse = {
   data: {
-    data: {
-      themePageCollection: {
-        items: [
-          {
-            identifier: 'art'
-          }
-        ]
-      }
+    themePageCollection: {
+      items: [
+        {
+          identifier: 'art'
+        }
+      ]
     }
   }
 };
@@ -191,7 +189,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
         await wrapper.vm.fetch();
 
         expect(contentfulQueryStub.calledWith(sinon.match.object, { locale: 'en-GB', preview: false })).toBe(true);
-        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
+        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.themePageCollection.items);
       });
     });
 

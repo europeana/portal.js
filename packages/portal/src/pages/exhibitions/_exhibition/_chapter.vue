@@ -182,7 +182,7 @@
         };
 
         const response = await this.$contentful.query(exhibitionChapterPageGraphql, variables);
-        const data = response.data.data;
+        const data = response.data;
 
         let chapter;
         let exhibition;

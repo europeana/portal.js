@@ -89,7 +89,7 @@
       };
 
       const pageResponse = await this.$contentful.query(featureIdeasPageGraphql, pageVariables);
-      const featuresPage = pageResponse.data.data.featureIdeasPageCollection.items[0];
+      const featuresPage = pageResponse.data.featureIdeasPageCollection.items[0];
 
       if (!featuresPage) {
         return;

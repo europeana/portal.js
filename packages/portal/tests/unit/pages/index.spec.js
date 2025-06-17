@@ -16,7 +16,7 @@ const contentfulQueryStub = sinon.stub();
 const factory = ({
   mocks = {},
   data = {},
-  contentfulQueryResponse = { data: { data: {} } }
+  contentfulQueryResponse = { data: {} }
 } = {}) => {
   contentfulQueryStub.resolves(contentfulQueryResponse);
 
@@ -97,7 +97,7 @@ describe('IndexPage', () => {
     describe('landing pages', () => {
       const slug = 'share-your-collections';
       const page = { name: 'Share your collections' };
-      const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
+      const contentfulQueryResponse = { data: { landingPageCollection: { items: [page] } } };
       const $route = { params: { pathMatch: slug }, query: {} };
 
       it('fetches the content from Contentful', async() => {
@@ -137,7 +137,7 @@ describe('IndexPage', () => {
       it('fetches the content from Contentful', async() => {
         const slug = 'about-us';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
+          contentfulQueryResponse: { data: { staticPageCollection: { items: [{}] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
@@ -157,7 +157,7 @@ describe('IndexPage', () => {
         const page = { name: 'About us' };
         const slug = 'about-us';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
+          contentfulQueryResponse: { data: { staticPageCollection: { items: [page] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
@@ -172,7 +172,7 @@ describe('IndexPage', () => {
         const page = { name: 'Collections' };
         const slug = 'collections';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
+          contentfulQueryResponse: { data: { browsePageCollection: { items: [page] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
@@ -188,7 +188,7 @@ describe('IndexPage', () => {
       process.server = true;
       const slug = 'not-found';
       const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } } },
+        contentfulQueryResponse: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } },
         mocks: { $route: { params: { pathMatch: slug }, query: {} } }
       });
 
@@ -221,14 +221,12 @@ describe('IndexPage', () => {
       };
       const contentfulQueryResponse = {
         data: {
-          data: {
-            staticPageCollection: {
-              items: [
-                {
-                  image
-                }
-              ]
-            }
+          staticPageCollection: {
+            items: [
+              {
+                image
+              }
+            ]
           }
         }
       };
@@ -247,16 +245,14 @@ describe('IndexPage', () => {
       };
       const contentfulQueryResponse = {
         data: {
-          data: {
-            staticPageCollection: {
-              items: [
-                {
-                  primaryImageOfPage: {
-                    image
-                  }
+          staticPageCollection: {
+            items: [
+              {
+                primaryImageOfPage: {
+                  image
                 }
-              ]
-            }
+              }
+            ]
           }
         }
       };

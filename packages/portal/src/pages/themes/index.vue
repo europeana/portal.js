@@ -41,8 +41,8 @@
         preview: this.$route.query.mode === 'preview'
       };
       const response = await this.$contentful.query(themesGraphql, variables);
-      this.themes = response.data.data.themePageCollection.items;
-      this.total = response.data.data.themePageCollection.total;
+      this.themes = response.data.themePageCollection.items;
+      this.total = response.data.themePageCollection.total;
     },
 
     computed: {

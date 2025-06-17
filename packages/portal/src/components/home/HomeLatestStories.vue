@@ -54,7 +54,7 @@
       };
 
       const response = await this.$contentful.query(latestEditorialContentGraphql, variables);
-      const entries = response.data.data;
+      const entries = response.data;
 
       // Select four stories: at least one of each type, max two of each type;
       // sorted by date published, most recent first
