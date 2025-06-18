@@ -48,7 +48,7 @@
 
       const contentfulResponse = await this.$contentful.query(themesGraphql, contentfulVariables);
 
-      this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
+      this.themes = contentfulResponse.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
         url: {
           name: 'search',
