@@ -9,7 +9,7 @@ jobs:
     name: NPM publish
     strategy:
       matrix:
-        package: [style, vue-contentful-graphql]
+        package: [style]
     runs-on: ubuntu-latest
     steps:
       -
