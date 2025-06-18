@@ -13,7 +13,6 @@
 
 <script>
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import themesGraphql from '@/graphql/queries/themes.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -28,12 +27,6 @@
 
     mixins: [pageMetaMixin],
 
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
-    },
-
     data() {
       return {
         themes: [],
@@ -47,9 +40,9 @@
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
-      const response = await this.queryContentful(themesGraphql, variables);
-      this.themes = response.data.data.themePageCollection.items;
-      this.total = response.data.data.themePageCollection.total;
+      const response = await this.$contentful.query(themesGraphql, variables);
+      this.themes = response.data.themePageCollection.items;
+      this.total = response.data.themePageCollection.total;
     },
 
     computed: {

@@ -21,7 +21,6 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import themesGraphql from '@/graphql/queries/themes.graphql';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import { daily } from '@/plugins/europeana/utils';
@@ -54,12 +53,6 @@
         type: Object,
         default: null
       }
-    },
-
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
     },
 
     data() {
@@ -214,8 +207,8 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
-        const response = await this.queryContentful(this.contentful.graphql, variables);
-        return response.data.data[this.contentful.collection].items;
+        const response = await this.$contentful.query(this.contentful.graphql, variables);
+        return response.data[this.contentful.collection].items;
       },
       async fetchSetData() {
         const params = {

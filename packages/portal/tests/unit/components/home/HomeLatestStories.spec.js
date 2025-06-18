@@ -4,28 +4,25 @@ import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import HomeLatestStories from '@/components/home/HomeLatestStories.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const contentfulQueryResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          { identifier: 'story-1', datePublished: '2022-09-26T08:00:00.000+02:00' },
-          { identifier: 'story-2', datePublished: '2022-11-26T08:00:00.000+02:00' },
-          { identifier: 'story-3', datePublished: '2022-10-26T08:00:00.000+02:00' }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { identifier: 'exhibition-1', datePublished: '2022-10-26T08:00:00.000+02:00' },
-          { identifier: 'exhibition-2', datePublished: '2022-12-26T08:00:00.000+02:00' },
-          { identifier: 'exhibition-3', datePublished: '2022-08-26T08:00:00.000+02:00' }
-        ]
-      }
+    storyCollection: {
+      items: [
+        { identifier: 'story-1', datePublished: '2022-09-26T08:00:00.000+02:00' },
+        { identifier: 'story-2', datePublished: '2022-11-26T08:00:00.000+02:00' },
+        { identifier: 'story-3', datePublished: '2022-10-26T08:00:00.000+02:00' }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        { identifier: 'exhibition-1', datePublished: '2022-10-26T08:00:00.000+02:00' },
+        { identifier: 'exhibition-2', datePublished: '2022-12-26T08:00:00.000+02:00' },
+        { identifier: 'exhibition-3', datePublished: '2022-08-26T08:00:00.000+02:00' }
+      ]
     }
   }
 };
@@ -37,6 +34,9 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
   localVue,
   stubs: ['b-card-group'],
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
     },
@@ -48,11 +48,6 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
 });
 
 describe('components/home/HomeLatestStories', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

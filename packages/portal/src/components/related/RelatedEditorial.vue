@@ -55,7 +55,6 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   export default {
@@ -103,12 +102,6 @@
       }
     },
 
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
-    },
-
     data() {
       return {
         related: this.relatedEditorial
@@ -138,8 +131,8 @@
       } else {
         graphql = await import('@/graphql/queries/relatedContent.graphql');
       }
-      const response = await this.queryContentful(graphql, variables);
-      const entries = response.data.data;
+      const response = await this.$contentful.query(graphql, variables);
+      const entries = response.data;
 
       this.related = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)

@@ -56,7 +56,6 @@
 <script>
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import featureIdeasPageGraphql from '@/graphql/queries/featureIdeasPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -72,12 +71,6 @@
     },
 
     mixins: [pageMetaMixin],
-
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
-    },
 
     data() {
       return {
@@ -95,8 +88,8 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const pageResponse = await this.queryContentful(featureIdeasPageGraphql, pageVariables);
-      const featuresPage = pageResponse.data.data.featureIdeasPageCollection.items[0];
+      const pageResponse = await this.$contentful.query(featureIdeasPageGraphql, pageVariables);
+      const featuresPage = pageResponse.data.featureIdeasPageCollection.items[0];
 
       if (!featuresPage) {
         return;

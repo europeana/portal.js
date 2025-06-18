@@ -3,7 +3,6 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
 import HomePage from '@/components/home/HomePage';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -14,32 +13,30 @@ const image = {
 
 const homePageContentfulResponse = {
   data: {
-    data: {
-      homePageCollection: {
-        items: [
-          {
-            sectionsCollection: {
-              items: [
-                { '__typename': 'SomethingElse' },
-                { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
-                { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
-              ]
-            },
-            image,
-            primaryImageSetOfPageCollection: {
-              items: [
-                {
-                  hasPartCollection: {
-                    items: [
-                      image
-                    ]
-                  }
+    homePageCollection: {
+      items: [
+        {
+          sectionsCollection: {
+            items: [
+              { '__typename': 'SomethingElse' },
+              { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
+              { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
+            ]
+          },
+          image,
+          primaryImageSetOfPageCollection: {
+            items: [
+              {
+                hasPartCollection: {
+                  items: [
+                    image
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   }
 };
@@ -52,6 +49,9 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
     return data;
   },
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -66,11 +66,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
 });
 
 describe('components/home/HomePage', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

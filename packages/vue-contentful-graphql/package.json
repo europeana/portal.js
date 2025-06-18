@@ -1,0 +1,12 @@
+{
+  "name": "@europeana/vue-contentful-graphql",
+  "version": "2.10.0",
+  "description": "Vue plugin to query Contentful GraphQL Content API",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "main": "./src/index.js",
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "graphql": "^16.11.0"
+  }
+}

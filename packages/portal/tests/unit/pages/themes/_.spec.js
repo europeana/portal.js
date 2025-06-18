@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import ThemePage from '@/pages/themes/_';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -57,6 +56,9 @@ const factory = ({ contentfulResponse = themePageContentfulResponse(), data = {}
       };
     },
     mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
       $fetchState: {},
       $i18n: {
         locale: 'en',
@@ -86,11 +88,6 @@ const factory = ({ contentfulResponse = themePageContentfulResponse(), data = {}
 };
 
 describe('pages/themes/_', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

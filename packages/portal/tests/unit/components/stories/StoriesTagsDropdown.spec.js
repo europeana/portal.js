@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import StoriesTagsDropdown from '@/components/stories/StoriesTagsDropdown.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 
@@ -12,14 +11,12 @@ localVue.use(BootstrapVue);
 
 const categoriesContentfulResponse = {
   data: {
-    data: {
-      categoryCollection: {
-        items: [
-          { identifier: '3d', name: '3D' },
-          { identifier: 'cooking', name: 'cooking' },
-          { identifier: 'postcards', name: 'postcards' }
-        ]
-      }
+    categoryCollection: {
+      items: [
+        { identifier: '3d', name: '3D' },
+        { identifier: 'cooking', name: 'cooking' },
+        { identifier: 'postcards', name: 'postcards' }
+      ]
     }
   }
 };
@@ -32,6 +29,9 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
   localVue,
   propsData: props,
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       locale: 'en',
       localeProperties: { iso: 'en-GB' }
@@ -44,11 +44,6 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
 });
 
 describe('components/stories/StoriesTagsDropdown', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

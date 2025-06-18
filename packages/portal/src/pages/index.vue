@@ -46,7 +46,6 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import { useContentfulGraphql } from '@/composables/contentful/useContentfulGraphql.js';
   import landingPageMixin from '@/mixins/landingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -73,12 +72,6 @@
       } else {
         return landingLayout(ctx) ? 'landing' : 'default';
       }
-    },
-
-    setup() {
-      const { query: queryContentful } = useContentfulGraphql();
-
-      return { queryContentful };
     },
 
     data() {
@@ -159,8 +152,8 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.queryContentful(graphql, variables);
-        const data = response.data.data;
+        const response = await this.$contentful.query(graphql, variables);
+        const data = response.data;
 
         const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
         if (entryCollection) {

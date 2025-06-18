@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import SearchThemeBadges from '@/components/search/SearchThemeBadges.vue';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -18,6 +17,9 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges,
   localVue,
   propsData,
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $i18n: {
       localeProperties: { iso: 'en-GB' },
       locale: 'en'
@@ -31,11 +33,6 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges,
 });
 
 describe('components/search/SearchThemeBadges', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 

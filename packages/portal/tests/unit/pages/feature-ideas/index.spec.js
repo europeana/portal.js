@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import featureIdeasPage from '@/pages/feature-ideas/index';
-import * as useContentfulGraphqlModule from '@/composables/contentful/useContentfulGraphql.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -17,6 +16,9 @@ const factory = ({ contentfulResponse = {}, mocks = {} } = {}) => {
   return shallowMountNuxt(featureIdeasPage, {
     localVue,
     mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
       $i18n: { localeProperties: { iso: 'en-GB' } },
       $route: { query: {} },
       $t: (key) => key,
@@ -32,11 +34,6 @@ const factory = ({ contentfulResponse = {}, mocks = {} } = {}) => {
 };
 
 describe('pages/feature-ideas/index', () => {
-  beforeAll(() => {
-    sinon.stub(useContentfulGraphqlModule, 'useContentfulGraphql').returns({
-      query: contentfulQueryStub
-    });
-  });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
@@ -53,7 +50,7 @@ describe('pages/feature-ideas/index', () => {
     });
 
     it('handles potentially not having a page in Contentful', async() => {
-      const wrapper = factory({ contentfulResponse: { data: { data: { featureIdeasPageCollection: { items: [] } } } } });
+      const wrapper = factory({ contentfulResponse: { data: { featureIdeasPageCollection: { items: [] } } } });
 
       await wrapper.vm.fetch();
 
@@ -73,9 +70,9 @@ describe('pages/feature-ideas/index', () => {
 
   describe('when there are no feature ideas', () => {
     it('does render the feature ideas', async() => {
-      const wrapper = factory({ contentfulResponse: { data: { data: { featureIdeasPageCollection: { items: [{
+      const wrapper = factory({ contentfulResponse: { data: { featureIdeasPageCollection: { items: [{
         name: 'Feature Ideas'
-      }] } } } } });
+      }] } } } });
 
       await wrapper.vm.fetch();
 
