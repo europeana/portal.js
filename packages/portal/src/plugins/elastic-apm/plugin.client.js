@@ -3,7 +3,7 @@ import { ApmVuePlugin } from '@elastic/apm-rum-vue';
 import { apm } from '@elastic/apm-rum';
 import { routeHooks } from './utils';
 
-export default ({ app, $config }, inject) => {
+export default async({ app, $config }, inject) => {
   const config = $config?.elastic?.apm || {};
 
   if (!config.serverUrl) {
