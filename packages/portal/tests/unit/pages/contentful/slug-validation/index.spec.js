@@ -59,6 +59,24 @@ describe('pages/contentful/slug-validation/index', () => {
         expect(wrapper.vm.slugField.setInvalid.calledWith(true)).toBe(true);
         expect(wrapper.vm.errorMessage).toBe('This slug has already been published in another entry');
       });
+
+      describe('and the current site field is set to dataspace-culturalheritage.eu', () => {
+        it('ignores duplicates', async() => {
+          const wrapper = factory();
+          const dataspaceSite = 'dataspace-culturalheritage.eu';
+
+          wrapper.vm.contentfulExtensionSdk.entry.fields.site.getValue = sinon.stub().returns(dataspaceSite);
+
+          wrapper.vm.contentfulExtensionSdk.space.getEntries = sinon.stub().resolves({ total: 1, items: [{}] });
+
+          wrapper.vm.handleValueChange(slugToValidate);
+          await new Promise(resolve => setTimeout(resolve, 600)); // wait for debounce
+
+          expect(wrapper.vm.slugField.setValue.calledWith(slugToValidate)).toBe(true);
+          expect(wrapper.vm.slugField.setInvalid.calledWith(false)).toBe(true);
+          expect(wrapper.vm.errorMessage).toBe(null);
+        });
+      });
     });
     describe('if there is a site field on any of the result entries', () => {
       describe('and on the current entry', () => {

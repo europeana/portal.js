@@ -173,6 +173,7 @@
         query['sys.publishedAt[exists]'] = true;
 
         const siteFieldValue = this.contentfulExtensionSdk.entry.fields.site?.getValue();
+        const dataSpaceSite = 'dataspace-culturalheritage.eu';
 
         for (const contentType of this.contentTypes) {
           query['content_type'] = contentType;
@@ -184,7 +185,7 @@
             const resultsWithSiteField = result.items?.filter((item) => item.fields?.site);
             if (resultsWithSiteField.length) {
               const resultsHaveDataspaceSite = resultsWithSiteField.every(
-                (item) => item.fields.site['en-GB'] === 'dataspace-culturalheritage.eu'
+                (item) => item.fields.site['en-GB'] === dataSpaceSite
               );
               const resultHasSameSite = resultsWithSiteField.some(
                 (item) => item.fields.site['en-GB'] === siteFieldValue
@@ -197,6 +198,8 @@
               } else if (resultsHaveDataspaceSite) {
                 return false;
               }
+            } else if (siteFieldValue === dataSpaceSite) {
+              return false;
             }
             return true;
           }
