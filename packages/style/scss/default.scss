@@ -30,10 +30,12 @@ body {
 }
 
 main {
-  @include min-page-height;
 
   &#default,
+  &#ds4ch,
   &#landing-layout {
+    @include min-page-height;
+
     margin-top: $page-header-height; // leave space for the fixed positioned header
 
     @media (min-width: $bp-4k) {
