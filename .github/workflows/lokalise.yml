@@ -36,7 +36,7 @@ jobs:
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
           body: "Automated translation updates by [Lokalise workflow](https://github.com/europeana/portal.js/blob/master/.github/workflows/lokalise.yml)."
-          token: "${{ secrets.GIT_PAT }}"
+          token: "${{ secrets.GIT_PAT_LOKALISE }}"
       -
         name: Annotate with pull request URL
         run: echo "::notice ::Pull request URL - ${{ steps.cpr.outputs.pull-request-url }}"
