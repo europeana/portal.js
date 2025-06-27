@@ -68,9 +68,9 @@
           this.titleField = sdk.entry.fields[titleFieldName];
           this.titleField.onValueChanged(this.handleTitleChange);
           this.siteField = sdk.entry.fields.site;
-          if (this.siteField) {
-            this.siteField.onValueChanged(this.handleSiteChange);
-          }
+          this.siteField.onValueChanged(this.handleSiteChange);
+          this.site = sdk.entry.fields.site?.getValue();
+
           const titleValue = this.titleField.getValue();
           if (!this.value || this.value === 'undefined' || this.value === '') {
             // No slug exists, use the title as a default
@@ -125,7 +125,8 @@
       /**
        * Handle change of site value caused by changing the site of the entry.
        */
-      handleSiteChange() {
+      handleSiteChange(site) {
+        this.site = site;
         this.getDebouncedDuplicateStatus(this.value);
       },
 
@@ -170,37 +171,14 @@
 
         query['fields.' + this.slugField.id] = slug;
         query['sys.id[ne]'] = this.contentfulExtensionSdk.entry.getSys().id;
+        query['fields.' + this.siteField.id] = this.site;
         query['sys.publishedAt[exists]'] = true;
-
-        const siteFieldValue = this.contentfulExtensionSdk.entry.fields.site?.getValue();
-        const dataSpaceSite = 'dataspace-culturalheritage.eu';
 
         for (const contentType of this.contentTypes) {
           query['content_type'] = contentType;
           const result = await this.contentfulExtensionSdk.space.getEntries(query);
 
           if (result.total >= 1) {
-            // Site filtering applied after getEntries request, bc site field not on every content type which requires additional request to check existence.
-            // Filtering on site only once there are results saves requests on each rebounce.
-            const resultsWithSiteField = result.items?.filter((item) => item.fields?.site);
-            if (resultsWithSiteField.length) {
-              const resultsHaveDataspaceSite = resultsWithSiteField.every(
-                (item) => item.fields.site['en-GB'] === dataSpaceSite
-              );
-              const resultHasSameSite = resultsWithSiteField.some(
-                (item) => item.fields.site['en-GB'] === siteFieldValue
-              );
-
-              // if entry has site field set, only consider duplicate when same site
-              if (siteFieldValue) {
-                return resultHasSameSite;
-              // if entry has no site field, only check for any non dataspace duplicates
-              } else if (resultsHaveDataspaceSite) {
-                return false;
-              }
-            } else if (siteFieldValue === dataSpaceSite) {
-              return false;
-            }
             return true;
           }
         }
