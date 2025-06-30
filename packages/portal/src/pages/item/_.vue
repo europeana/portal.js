@@ -389,7 +389,6 @@
           // No point in switching on experimental schema.org with item translations.
           // The profiles would interfere with each other.
           let schemaOrgDatasetId;
-          console.log('schema', this.$config?.app?.schemaOrgDatasetId, this.identifier);
           if (this.$config?.app?.schemaOrgDatasetId) {
             schemaOrgDatasetId = this.$config.app.schemaOrgDatasetId;
           }
