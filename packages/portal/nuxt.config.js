@@ -84,6 +84,7 @@ export default {
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')

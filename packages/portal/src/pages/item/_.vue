@@ -113,6 +113,15 @@
         </client-only>
       </b-container>
     </template>
+    <client-only data-qa="schema.org">
+      <!-- eslint-disable vue/no-v-html -->
+      <script
+        v-if="schemaOrg"
+        type="application/ld+json"
+        v-html="schemaOrg"
+      />
+      <!-- eslint-enable vue/no-v-html -->
+    </client-only>
   </div>
 </template>
 
@@ -206,6 +215,7 @@
         metadata: {},
         ogImage: null,
         relatedCollections: [],
+        schemaOrg: null,
         type: null,
         useProxy: true
       };
@@ -375,6 +385,17 @@
         if (this.translatingMetadata) {
           params.profile = 'translate';
           params.lang = this.translationLanguage;
+        } else {
+          // No point in switching on experimental schema.org with item translations.
+          // The profiles would interfere with each other.
+          let schemaOrgDatasetId;
+          console.log('schema', this.$config?.app?.schemaOrgDatasetId, this.identifier);
+          if (this.$config?.app?.schemaOrgDatasetId) {
+            schemaOrgDatasetId = this.$config.app.schemaOrgDatasetId;
+          }
+          if (schemaOrgDatasetId && this.identifier.startsWith(`/${schemaOrgDatasetId}/`)) {
+            params.profile = 'schemaOrg';
+          }
         }
 
         let data;
@@ -455,6 +476,8 @@
 
           return wr;
         });
+
+        this.schemaOrg = data.schemaOrg;
 
         process.client && this.trackCustomDimensions();
       },
