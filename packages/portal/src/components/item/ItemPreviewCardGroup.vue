@@ -204,13 +204,6 @@
       };
     },
 
-    fetch() {
-      const cards = [...this.items];
-      cards.splice(3, 0, this.relatedGalleries);
-      cards.splice(8, 0, this.relatedCollections);
-      this.cards = cards;
-    },
-
     computed: {
       cardGroupClass() {
         return this.view === 'list' ? 'card-group-list' : null;
@@ -250,8 +243,12 @@
         this.redrawMasonry(400);
       },
       items() {
-        this.$fetch();
+        this.initCards();
       }
+    },
+
+    created() {
+      this.initCards();
     },
 
     mounted() {
@@ -260,9 +257,21 @@
     },
 
     methods: {
+      initCards() {
+        const cards = [...this.items];
+        cards.splice(3, 0, this.relatedGalleries);
+        cards.splice(8, 0, this.relatedCollections);
+        this.cards = cards;
+      },
       endItemDrag({ newIndex }) {
+        let position = newIndex;
+        if (position >= 8) {
+          position = position - 2;
+        } else if (position >= 3) {
+          position = position - 1;
+        }
         if (this.cards[newIndex].id) {
-          this.$emit('endItemDrag', { itemId: this.cards[newIndex].id, position: newIndex });
+          this.$emit('endItemDrag', { itemId: this.cards[newIndex].id, position });
         }
         this.redrawMasonry();
       },

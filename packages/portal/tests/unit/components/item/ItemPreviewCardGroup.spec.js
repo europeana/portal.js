@@ -59,6 +59,18 @@ const results = [
     dcTitleLangAware: { def: ['Record 123/def'] },
     edmPreview: ['https://www.example.org/def.jpg'],
     dataProvider: ['Provider 123']
+  },
+  {
+    id: '/123/ghi',
+    dcTitleLangAware: { def: ['Record 123/ghi'] },
+    edmPreview: ['https://www.example.org/ghi.jpg'],
+    dataProvider: ['Provider 123']
+  },
+  {
+    id: '/123/jkl',
+    dcTitleLangAware: { def: ['Record 123/jkl'] },
+    edmPreview: ['https://www.example.org/jkl.jpg'],
+    dataProvider: ['Provider 123']
   }
 ];
 
@@ -74,7 +86,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.length).toBe(2);
+        expect(renderedResults.length).toBe(4);
         jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
@@ -88,7 +100,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.length).toBe(2);
+        expect(renderedResults.length).toBe(4);
         jest.advanceTimersByTime(400);
         expect(redrawMasonry.called).toBe(true);
       });
@@ -101,7 +113,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.length).toBe(2);
+        expect(renderedResults.length).toBe(4);
       });
     });
   });
@@ -160,23 +172,20 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
   describe('watch', () => {
     describe('items', () => {
-      it('triggers $fetch', async() => {
+      it('updates the cards', async() => {
         const wrapper = factory({ propsData: { items: [{ id: '1' }] } });
-        wrapper.vm.fetch();
-        sinon.spy(wrapper.vm, '$fetch');
 
-        await wrapper.setProps({ items: [{ id: '1' }, { id: '2' }] });
+        const newItems = { items: [{ id: '1' }, { id: '2' }] };
+        await wrapper.setProps(newItems);
 
-        expect(wrapper.vm.$fetch.called).toBe(true);
+        expect(wrapper.vm.cards).toEqual([...newItems.items, 'related-galleries', 'related-collections']);
       });
     });
   });
 
   describe('mounted', () => {
-    it('emits "drawn" event', async() => {
+    it('emits "drawn" event', () => {
       const wrapper = factory({ propsData: { items: results, view: 'grid' } });
-
-      await wrapper.vm.fetch();
 
       expect(wrapper.emitted('drawn').length).toBe(1);
     });
@@ -187,7 +196,6 @@ describe('components/item/ItemPreviewCardGroup', () => {
       describe('when no hits are present', () => {
         it('returns null', () => {
           const wrapper = factory();
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.itemHitSelector(results[0])).toBeNull();
         });
@@ -213,11 +221,19 @@ describe('components/item/ItemPreviewCardGroup', () => {
       it('emits an @endItemDrag event with the item ID and new position', () => {
         const position = 1;
         const wrapper = factory({ propsData: { items: results } });
-        wrapper.vm.fetch();
 
         wrapper.vm.endItemDrag({ newIndex: position });
 
         expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[position].id, position }]]);
+      });
+
+      it('decrements position for related content', () => {
+        const position = 4;
+        const wrapper = factory({ propsData: { items: results } });
+
+        wrapper.vm.endItemDrag({ newIndex: position });
+
+        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[3].id, position: 3 }]]);
       });
     });
   });
