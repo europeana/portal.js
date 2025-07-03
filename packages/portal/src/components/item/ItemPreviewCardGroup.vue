@@ -20,32 +20,28 @@
     >
       <TransitionGroup name="fade">
         <template
-          v-for="(card, index) in cards"
+          v-for="card in cards"
         >
-          <template v-if="card === relatedGalleries">
-            <div
-              v-if="$slots[relatedGalleries]"
-              :key="index"
-              v-masonry-tile
-              class="masonry-tile related-results"
-            >
-              <slot
-                :name="relatedGalleries"
-              />
-            </div>
-          </template>
-          <template v-else-if="card === relatedCollections">
-            <div
-              v-if="$slots[relatedCollections]"
-              :key="index"
-              v-masonry-tile
-              class="masonry-tile related-results"
-            >
-              <slot
-                :name="relatedCollections"
-              />
-            </div>
-          </template>
+          <div
+            v-if="card === relatedGalleries"
+            :key="card"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
+          <div
+            v-else-if="card === relatedCollections"
+            :key="card"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
           <ItemPreviewCard
             v-else
             :key="card.id"
@@ -89,30 +85,26 @@
     >
       <TransitionGroup name="fade">
         <template
-          v-for="(card, index) in cards"
+          v-for="card in cards"
         >
-          <template v-if="card === relatedGalleries">
-            <div
-              v-if="$slots[relatedGalleries]"
-              :key="index"
-              class="related-results"
-            >
-              <slot
-                :name="relatedGalleries"
-              />
-            </div>
-          </template>
-          <template v-else-if="card === relatedCollections">
-            <div
-              v-if="$slots[relatedCollections]"
-              :key="index"
-              class="related-results"
-            >
-              <slot
-                :name="relatedCollections"
-              />
-            </div>
-          </template>
+          <div
+            v-if="card === relatedGalleries"
+            :key="card"
+            class="related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
+          <div
+            v-else-if="card === relatedCollections"
+            :key="card"
+            class="related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
           <ItemPreviewCard
             v-else
             :key="card.id"
@@ -200,7 +192,9 @@
       return {
         cards: [],
         relatedGalleries: 'related-galleries',
-        relatedCollections: 'related-collections'
+        relatedCollections: 'related-collections',
+        showRelatedCollections: false,
+        showRelatedGalleries: false
       };
     },
 
@@ -244,10 +238,18 @@
       },
       items() {
         this.initCards();
+      },
+      showRelatedCollections() {
+        this.initCards();
+      },
+      showRelatedGalleries() {
+        this.initCards();
       }
     },
 
     created() {
+      this.showRelatedCollections = this.$slots[this.relatedCollections];
+      this.showRelatedGalleries = this.$slots[this.relatedCollections];
       this.initCards();
     },
 
@@ -259,8 +261,14 @@
     methods: {
       initCards() {
         const cards = [...this.items];
-        cards.splice(3, 0, this.relatedGalleries);
-        cards.splice(8, 0, this.relatedCollections);
+
+        if (this.showRelatedGalleries) {
+          cards.splice(3, 0, this.relatedGalleries);
+        }
+        if (this.showRelatedCollections) {
+          cards.splice(8, 0, this.relatedCollections);
+        }
+
         this.cards = cards;
       },
       endItemDrag({ oldIndex, newIndex }) {

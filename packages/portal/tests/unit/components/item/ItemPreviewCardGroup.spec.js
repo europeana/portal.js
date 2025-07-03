@@ -13,39 +13,37 @@ const storeDispatch = sinon.spy();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = ({ propsData, mocks } = {}) => {
-  return shallowMountNuxt(ItemPreviewCardGroup, {
-    localVue,
-    propsData,
-    mocks: {
-      $auth: { loggedIn: false },
-      $config: { app: { internalLinkDomain: null } },
-      localePath: (opts) => `/item/${opts.params.pathMatch}`,
-      $redrawVueMasonry: redrawMasonry,
-      $i18n: {
-        locale: 'en'
+const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardGroup, {
+  localVue,
+  propsData,
+  mocks: {
+    $auth: { loggedIn: false },
+    $config: { app: { internalLinkDomain: null } },
+    localePath: (opts) => `/item/${opts.params.pathMatch}`,
+    $redrawVueMasonry: redrawMasonry,
+    $i18n: {
+      locale: 'en'
+    },
+    $route: { query: {} },
+    $t: () => {},
+    $store: {
+      getters: {
+        'entity/isPinned': storeIsPinnedGetter
       },
-      $route: { query: {} },
-      $t: () => {},
-      $store: {
-        getters: {
-          'entity/isPinned': storeIsPinnedGetter
-        },
-        dispatch: storeDispatch
+      dispatch: storeDispatch
+    },
+    $apis: {
+      record: {
+        mediaProxyUrl: () => 'proxied'
       },
-      $apis: {
-        record: {
-          mediaProxyUrl: () => 'proxied'
-        },
-        thumbnail: {
-          edmPreview: () => '',
-          generic: (id) => id
-        }
-      },
-      ...mocks
-    }
-  });
-};
+      thumbnail: {
+        edmPreview: () => '',
+        generic: (id) => id
+      }
+    },
+    ...mocks
+  }
+});
 
 const results = [
   {
@@ -82,7 +80,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
         jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'grid' } });
-        await wrapper.vm.fetch();
+        await wrapper.vm.$nextTick();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
@@ -96,7 +94,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
       it('renders each result as a card, and resizes the Masonry grid', async() => {
         jest.useFakeTimers();
         const wrapper = factory({ propsData: { items: results, view: 'mosaic' } });
-        await wrapper.vm.fetch();
+        await wrapper.vm.$nextTick();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
@@ -107,9 +105,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
 
     describe('when view is list', () => {
-      it('renders each result as a card', async() => {
+      it('renders each result as a card', () => {
         const wrapper = factory({ propsData: { items: results, view: 'list' } });
-        await wrapper.vm.fetch();
 
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
@@ -118,29 +115,40 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
   });
 
-  describe('fetch', () => {
-    it('initialises cards to items, plus related galleries at index 3 and related collections at index 6', () => {
-      const items = [
-        { id: '1' },
-        { id: '2' },
-        { id: '3' },
-        { id: '4' },
-        { id: '5' }
-      ];
-      const wrapper = factory({ propsData: { items } });
+  describe('data', () => {
+    describe('cards', () => {
+      describe('when related content is to be rendered', () => {
+        const data = {
+          'showRelatedCollections': true,
+          'showRelatedGalleries': true
+        };
 
-      wrapper.vm.fetch();
+        it('initialises cards to items, plus related galleries at index 3 and related collections at index 6', async() => {
+          const items = [
+            { id: '1' },
+            { id: '2' },
+            { id: '3' },
+            { id: '4' },
+            { id: '5' }
+          ];
+          const wrapper = factory({ propsData: { items } });
+          await wrapper.vm.$nextTick();
+          await wrapper.setData(data);
+          await wrapper.vm.$nextTick();
 
-      const expected = [
-        { id: '1' },
-        { id: '2' },
-        { id: '3' },
-        'related-galleries',
-        { id: '4' },
-        { id: '5' },
-        'related-collections'
-      ];
-      expect(wrapper.vm.cards).toEqual(expected);
+          const expected = [
+            { id: '1' },
+            { id: '2' },
+            { id: '3' },
+            'related-galleries',
+            { id: '4' },
+            { id: '5' },
+            'related-collections'
+          ];
+
+          expect(wrapper.vm.cards).toEqual(expected);
+        });
+      });
     });
   });
 
@@ -149,7 +157,6 @@ describe('components/item/ItemPreviewCardGroup', () => {
       describe('when in list view', () => {
         it('uses the list card-group class', () => {
           const wrapper = factory({ propsData: { items: results, view: 'list' } });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
         });
@@ -178,7 +185,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
         const newItems = { items: [{ id: '1' }, { id: '2' }] };
         await wrapper.setProps(newItems);
 
-        expect(wrapper.vm.cards).toEqual([...newItems.items, 'related-galleries', 'related-collections']);
+        expect(wrapper.vm.cards).toEqual(newItems.items);
       });
     });
   });
@@ -210,7 +217,6 @@ describe('components/item/ItemPreviewCardGroup', () => {
             suffix: ' dito nuancé figuré &c. a. huitièmes fi? 6. quarts. 700. '
           };
           const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: [hitSelector] }] } });
-          wrapper.vm.fetch();
 
           expect(wrapper.vm.itemHitSelector(results[0]).exact).toMatch(hitSelector.exact);
         });
