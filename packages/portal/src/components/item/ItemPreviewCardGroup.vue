@@ -263,15 +263,10 @@
         cards.splice(8, 0, this.relatedCollections);
         this.cards = cards;
       },
-      endItemDrag({ newIndex }) {
-        let position = newIndex;
-        if (position >= 8) {
-          position = position - 2;
-        } else if (position >= 3) {
-          position = position - 1;
-        }
-        if (this.cards[newIndex].id) {
-          this.$emit('endItemDrag', { itemId: this.cards[newIndex].id, position });
+      endItemDrag({ oldIndex, newIndex }) {
+        // Read from items as cards contain related content irrelevent to drag
+        if (this.items[oldIndex].id) {
+          this.$emit('endItemDrag', { itemId: this.items[oldIndex].id, position: newIndex });
         }
         this.redrawMasonry();
       },

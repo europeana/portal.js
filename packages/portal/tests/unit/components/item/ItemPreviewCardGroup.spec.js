@@ -218,22 +218,15 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
 
     describe('endItemDrag', () => {
-      it('emits an @endItemDrag event with the item ID and new position', () => {
-        const position = 1;
+      it('emits an @endItemDrag event with the current item ID and new position', () => {
+        const currentPosition = 1;
+        const newPosition = 5;
+
         const wrapper = factory({ propsData: { items: results } });
 
-        wrapper.vm.endItemDrag({ newIndex: position });
+        wrapper.vm.endItemDrag({ oldIndex: currentPosition, newIndex: newPosition });
 
-        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[position].id, position }]]);
-      });
-
-      it('decrements position for related content', () => {
-        const position = 4;
-        const wrapper = factory({ propsData: { items: results } });
-
-        wrapper.vm.endItemDrag({ newIndex: position });
-
-        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[3].id, position: 3 }]]);
+        expect(wrapper.emitted('endItemDrag')).toEqual([[{ itemId: results[currentPosition].id, position: newPosition }]]);
       });
     });
   });
