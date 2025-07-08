@@ -5,7 +5,7 @@
         <b-form-input
           v-model="value"
           autocomplete="off"
-          :class="errorMessage? 'error' : ''"
+          :class="errorMessage ? 'error' : ''"
           @input="handleSlugChange"
         />
         <label
@@ -30,6 +30,7 @@
         contentTypes: [],
         slugField: null,
         titleField: null,
+        siteField: null,
         slugFromTitle: false,
         errorMessage: null,
         debouncedDuplicateStatus: null,
@@ -52,18 +53,24 @@
     },
 
     mounted() {
-      window.contentfulExtension.init(sdk => {
+      window.contentfulExtension.init((sdk) => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
           sdk.window.startAutoResizer();
 
-          this.contentTypes = [sdk.contentType.sys.id].concat(sdk.parameters.instance.contentTypes.split(','));
+          this.contentTypes = [sdk.contentType.sys.id].concat(
+            sdk.parameters.instance.contentTypes.split(',')
+          );
 
           this.value = sdk.field.getValue();
           this.slugField = sdk.field;
           const titleFieldName = sdk.contentType.displayField;
           this.titleField = sdk.entry.fields[titleFieldName];
           this.titleField.onValueChanged(this.handleTitleChange);
+          this.siteField = sdk.entry.fields.site;
+          this.siteField.onValueChanged(this.handleSiteChange);
+          this.site = sdk.entry.fields.site?.getValue();
+
           const titleValue = this.titleField.getValue();
           if (!this.value || this.value === 'undefined' || this.value === '') {
             // No slug exists, use the title as a default
@@ -116,6 +123,14 @@
       },
 
       /**
+       * Handle change of site value caused by changing the site of the entry.
+       */
+      handleSiteChange(site) {
+        this.site = site;
+        this.getDebouncedDuplicateStatus(this.value);
+      },
+
+      /**
        * Handle validation status, setting the field to valid/invalid and
        * removing the value in order to prevent publication if the slug is a duplicate.
        */
@@ -124,8 +139,10 @@
         if (status) {
           this.slugField.removeValue();
           this.slugField.setInvalid(true);
-          this.errorMessage =  'This slug has already been published in another entry';
+          this.errorMessage = 'This slug has already been published in another entry';
         } else {
+          // set value in case it had been reset. Otherwise required state might persist.
+          this.slugField.setValue(this.value);
           this.slugField.setInvalid(false);
           this.errorMessage = null;
         }
@@ -154,11 +171,13 @@
 
         query['fields.' + this.slugField.id] = slug;
         query['sys.id[ne]'] = this.contentfulExtensionSdk.entry.getSys().id;
+        query['fields.' + this.siteField.id] = this.site;
         query['sys.publishedAt[exists]'] = true;
 
         for (const contentType of this.contentTypes) {
           query['content_type'] = contentType;
           const result = await this.contentfulExtensionSdk.space.getEntries(query);
+
           if (result.total >= 1) {
             return true;
           }
