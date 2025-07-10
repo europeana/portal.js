@@ -1,0 +1,14 @@
+[
+  {
+    "name": "archiveOrg",
+    "schemes": [
+      "https://archive.org/embed/*"
+    ]
+  },
+  {
+    "name": "digitalRepositoryOfIreland",
+    "schemes": [
+      "https://repository.dri.ie/objects/*"
+    ]
+  }
+]

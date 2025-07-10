@@ -1,0 +1,61 @@
+[
+  {
+    "name": "arctur3DViewer",
+    "schemes": [
+      "https://3dviewer.arctur.si/*"
+    ]
+  },
+  {
+    "name": "theCyprusInstitute",
+    "schemes": [
+      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+    ]
+  },
+  {
+    "name": "eureka3D",
+    "oembed": "https://eureka3d.vm.fedcloud.eu/oembed",
+    "schemes": [
+      "https://eureka3d.vm.fedcloud.eu/3d/*"
+    ]
+  },
+  {
+    "name": "gotlandPictureStones",
+    "schemes": [
+      "https://gotlandicpicturestones.se/*"
+    ]
+  },
+  {
+    "name": "kompakkt",
+    "schemes": [
+      "https://kompakkt.de/viewer/*"
+    ]
+  },
+  {
+    "name": "myminifactory",
+    "schemes": [
+      "https://www.myminifactory.com/object/*"
+    ]
+  },
+  {
+    "name": "sketchfab",
+    "oembed": "https://sketchfab.com/oembed",
+    "schemes": [
+      "https://sketchfab.com/3d-models/*",
+      "https://sketchfab.com/models/*",
+      "https://sketchfab.com/show/*"
+    ]
+  },
+  {
+    "name": "spatial",
+    "schemes": [
+      "https://www.spatial.io/embed/*"
+    ]
+  },
+  {
+    "name": "weave",
+    "oembed": "https://weave-3dviewer.com/api/core/v1/oembed",
+    "schemes": [
+      "https://weave-3dviewer.com/asset/*"
+    ]
+  }
+]
