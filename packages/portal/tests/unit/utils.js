@@ -77,7 +77,8 @@ export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = u
         processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
-        getEntries: sinon.stub().resolves({ items: [] })
+        getEntries: sinon.stub().resolves({ items: [] }),
+        getContentTypes: sinon.stub().resolves({ items: [{ fields: entryFields.map((field) => ({ id: field.id })), sys: { id: contentType.sys.id } }] })
       },
       contentType,
       parameters

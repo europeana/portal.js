@@ -53,14 +53,16 @@
     },
 
     mounted() {
-      window.contentfulExtension.init((sdk) => {
+      window.contentfulExtension.init(async(sdk) => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
           sdk.window.startAutoResizer();
 
-          this.contentTypes = [sdk.contentType.sys.id].concat(
+          const allContentTypes = (await this.contentfulExtensionSdk.space.getContentTypes()).items;
+          const contentTypeIds = [sdk.contentType.sys.id].concat(
             sdk.parameters.instance.contentTypes.split(',')
           );
+          this.contentTypes = allContentTypes.filter((contentType) => contentTypeIds.includes(contentType.sys.id));
 
           this.value = sdk.field.getValue();
           this.slugField = sdk.field;
@@ -172,35 +174,15 @@
         query['sys.id[ne]'] = this.contentfulExtensionSdk.entry.getSys().id;
         query['sys.publishedAt[exists]'] = true;
 
-        const siteFieldValue = this.contentfulExtensionSdk.entry.fields.site?.getValue();
-        const dataSpaceSite = 'dataspace-culturalheritage.eu';
-
         for (const contentType of this.contentTypes) {
-          query['content_type'] = contentType;
-          const result = await this.contentfulExtensionSdk.space.getEntries(query);
+          const contentTypeQuery = { ...query };
+          contentTypeQuery['content_type'] = contentType.sys.id;
+          if (this.siteField && contentType.fields.some((field) => field.id === this.siteField.id)) {
+            contentTypeQuery['fields.' + this.siteField.id] = this.contentfulExtensionSdk.entry.fields.site?.getValue();
+          }
+          const result = await this.contentfulExtensionSdk.space.getEntries(contentTypeQuery);
 
           if (result.total >= 1) {
-            // Site filtering applied after getEntries request, bc site field not on every content type which requires additional request to check existence.
-            // Filtering on site only once there are results saves requests on each rebounce.
-            const resultsWithSiteField = result.items?.filter((item) => item.fields?.site);
-            if (resultsWithSiteField.length) {
-              const resultsHaveDataspaceSite = resultsWithSiteField.every(
-                (item) => item.fields.site['en-GB'] === dataSpaceSite
-              );
-              const resultHasSameSite = resultsWithSiteField.some(
-                (item) => item.fields.site['en-GB'] === siteFieldValue
-              );
-
-              // if entry has site field set, only consider duplicate when same site
-              if (siteFieldValue) {
-                return resultHasSameSite;
-              // if entry has no site field, only check for any non dataspace duplicates
-              } else if (resultsHaveDataspaceSite) {
-                return false;
-              }
-            } else if (siteFieldValue === dataSpaceSite) {
-              return false;
-            }
             return true;
           }
         }
