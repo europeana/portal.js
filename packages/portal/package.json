@@ -8,6 +8,7 @@
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
     "lokalise": "node --require dotenv/config bin/lokalise.js",
+    "media-embed-service:add": "node bin/media-embed-service-add.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
     "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
