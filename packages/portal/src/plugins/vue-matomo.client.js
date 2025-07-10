@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueMatomo from 'vue-matomo';
+import waitFor from '@/utils/waitFor.js';
 
 export const trackSiteSearch = (store) => (to) => {
   let siteSearch = null;
@@ -30,17 +31,45 @@ export const trackSiteSearch = (store) => (to) => {
   return siteSearch;
 };
 
-export default ({ app, $config: { matomo: { host, siteId } }, store }) => {
-  if (!host || !siteId) {
+export default ({ app, $config, store }) => {
+  const config = $config?.matomo;
+  const trackers = [];
+
+  if (config?.host && config?.siteId) {
+    trackers.push({
+      host: config.host,
+      siteId: config.siteId
+    });
+  }
+
+  if (config?.trackers) {
+    config.trackers.forEach((tracker) => {
+      if (tracker.host && tracker.siteId) {
+        trackers.push(tracker);
+      }
+    });
+  }
+
+  if (trackers.length === 0) {
     return;
   }
 
   // Docs: https://github.com/AmazingDreams/vue-matomo#readme
   Vue.use(VueMatomo, {
     router: app.router,
-    host,
-    siteId,
+    host: trackers[0].host,
+    siteId: trackers[0].siteId,
     trackSiteSearch: trackSiteSearch(store),
     requireCookieConsent: true
   });
+
+  if (trackers.length > 1) {
+    waitFor(() => Vue.prototype.$matomo, config.loadWait)
+      .then(() => {
+        trackers.slice(1).forEach((tracker) => {
+          console.log('adding tracker', tracker.host, tracker.siteId);
+          Vue.prototype.$matomo.addTracker(`${tracker.host}/matomo.php`, tracker.siteId);
+        });
+      });
+  }
 };
