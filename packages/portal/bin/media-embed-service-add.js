@@ -26,6 +26,9 @@ const service = {
 if (serviceOembed) {
   service.oembed = serviceOembed;
 }
+
+// TODO: detect if the named service already exists, and if so, update its properties
+
 services.push(service);
 
 fs.writeFileSync(serviceDefinitionsFile, JSON.stringify(services, null, 2));
