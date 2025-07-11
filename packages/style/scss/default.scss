@@ -31,11 +31,15 @@ body {
 
 main {
 
+  // scope setting min-page-height to these layouts, not e.g. layout for contentful apps
   &#default,
   &#ds4ch,
   &#landing-layout {
     @include min-page-height;
+  }
 
+  &#default,
+  &#landing-layout {
     margin-top: $page-header-height; // leave space for the fixed positioned header
 
     @media (min-width: $bp-4k) {
