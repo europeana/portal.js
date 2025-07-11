@@ -1,68 +1,70 @@
 require('dotenv').config();
 
+const contentTypeDefinitions = [
+  { id: 'landingPage', sites: ['www.europeana.eu', 'dataspace-culturalheritage.eu'] },
+  { id: 'staticPage', sites: ['www.europeana.eu'] },
+  { id: 'browsePage', sites: ['www.europeana.eu'] }
+];
+
 module.exports = function(migration) {
   if (!process.env.SLUG_VALIDATION_APP_ID) {
     console.log('No app ID specified in SLUG_VALIDATION_APP_ID; aborting.');
     process.exit(1);
   }
 
-  const landingPage = migration.editContentType('landingPage');
+  for (const def of contentTypeDefinitions) {
+    const contentType = migration.editContentType(def.id);
 
-  landingPage
-    .createField('site')
-    .name('Site')
-    .type('Symbol')
-    .localized(false)
-    .required(true)
-    .validations([
-      {
-        in: ['www.europeana.eu', 'dataspace-culturalheritage.eu']
-      }
-    ])
-    .defaultValue({
-      'en-GB': 'www.europeana.eu'
-    })
-    .disabled(false)
-    .omitted(false);
+    contentType
+      .createField('site')
+      .name('Site')
+      .type('Symbol')
+      .localized(false)
+      .required(true)
+      .validations([
+        {
+          in: def.sites
+        }
+      ])
+      .defaultValue({
+        'en-GB': def.sites[0]
+      })
+      .disabled(false)
+      .omitted(false);
 
-  landingPage.changeFieldControl('site', 'builtin', 'dropdown');
+    contentType.changeFieldControl('site', 'builtin', 'dropdown');
 
-  landingPage.moveField('site').afterField('name');
+    contentType.moveField('site').afterField('name');
 
-  const contentTypes = ['landingPage', 'staticPage', 'browsePage'];
-
-  for (const contentType of contentTypes) {
-    const currentType = migration.editContentType(contentType);
-
-    currentType.changeFieldControl(
+    contentType.changeFieldControl(
       'identifier',
       'app',
       process.env.SLUG_VALIDATION_APP_ID,
       {
-        // Adds ' (per site) '
-        helpText: 'Do not include a leading slash. Should be unique (per site) for browse, static and landing pages'
+        // Adds ' (per-site) '
+        helpText: 'Do not include a leading slash. Should be unique (per-site) for browse, static and landing pages'
       }
     );
 
-    currentType.editField('identifier').validations([
+    contentType.editField('identifier').validations([
       {
         unique: false
       }
     ]);
-  }
 
-  migration.transformEntries({
-    contentType: 'landingPage',
-    from: ['site'],
-    to: ['site'],
-    transformEntryForLocale: async(from, locale) => {
-      // Don't check from field since it's just been created?
-      if (locale !== 'en-GB' || from.site?.[locale]) {
-        return;
+    migration.transformEntries({
+      contentType: def.id,
+      from: ['site'],
+      to: ['site'],
+      transformEntryForLocale: async(from, locale) => {
+        // Don't check from field since it's just been created?
+        if (locale !== 'en-GB' || from.site?.[locale]) {
+          return;
+        }
+        return {
+          site: def.sites[0]
+        };
       }
-      return {
-        site: 'www.europeana.eu'
-      };
-    }
-  });
+    });
+  }
 };

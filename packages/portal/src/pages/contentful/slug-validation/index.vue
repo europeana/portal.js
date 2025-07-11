@@ -53,16 +53,15 @@
     },
 
     mounted() {
-      window.contentfulExtension.init(async(sdk) => {
+      window.contentfulExtension.init((sdk) => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
           sdk.window.startAutoResizer();
 
-          const allContentTypes = (await this.contentfulExtensionSdk.space.getContentTypes()).items;
-          const contentTypeIds = [sdk.contentType.sys.id].concat(
-            sdk.parameters.instance.contentTypes.split(',')
-          );
-          this.contentTypes = allContentTypes.filter((contentType) => contentTypeIds.includes(contentType.sys.id));
+          this.contentTypes = [].concat(
+            sdk.contentType.sys.id,
+            sdk.parameters.instance.contentTypes?.split(',')
+          ).filter(Boolean);
 
           this.value = sdk.field.getValue();
           this.slugField = sdk.field;
@@ -176,8 +175,8 @@
 
         for (const contentType of this.contentTypes) {
           const contentTypeQuery = { ...query };
-          contentTypeQuery['content_type'] = contentType.sys.id;
-          if (this.siteField && contentType.fields.some((field) => field.id === this.siteField.id)) {
+          contentTypeQuery['content_type'] = contentType;
+          if (this.siteField) {
             contentTypeQuery['fields.' + this.siteField.id] = this.contentfulExtensionSdk.entry.fields.site?.getValue();
           }
           const result = await this.contentfulExtensionSdk.space.getEntries(contentTypeQuery);
