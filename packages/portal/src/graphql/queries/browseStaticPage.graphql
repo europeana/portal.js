@@ -9,12 +9,16 @@
 query BrowseStaticPage(
   $identifier: String!
   $locale: String!
+  $site: String = "www.europeana.eu"
   $preview: Boolean = false
 ) {
   browsePageCollection(
     preview: $preview
     locale: $locale
-    where: { identifier: $identifier }
+    where: {
+      identifier: $identifier
+      site: $site
+    }
     limit: 1
   ) {
     items {
@@ -47,7 +51,10 @@ query BrowseStaticPage(
   staticPageCollection(
     preview: $preview
     locale: $locale
-    where: { identifier: $identifier }
+    where: {
+      identifier: $identifier
+      site: $site
+    }
     limit: 1
   ) {
     items {
