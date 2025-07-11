@@ -1,0 +1,98 @@
+[
+  {
+    "name": "europeanaEmbed",
+    "schemes": [
+      "https://embed.europeana.eu/*"
+    ],
+    "purposes": [],
+    "required": true
+  },
+  {
+    "name": "zoho",
+    "schemes": [
+      "https://forms.zohopublic.eu/*",
+      "https://fdti-zcmp.maillist-manage.eu/*"
+    ],
+    "purposes": [],
+    "required": true
+  },
+  {
+    "cookies": [
+      "auth.strategy"
+    ],
+    "name": "auth-strategy",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  },
+  {
+    "cookies": [
+      "debugSettings"
+    ],
+    "name": "debugSettings",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  },
+  {
+    "cookies": [
+      {}
+    ],
+    "name": "hotjar",
+    "purposes": [
+      "usage"
+    ]
+  },
+  {
+    "cookies": [
+      "i18n_locale_code"
+    ],
+    "name": "i18n",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  },
+  {
+    "cookies": [
+      {},
+      "mtm_cookie_consent"
+    ],
+    "name": "matomo",
+    "purposes": [
+      "usage"
+    ]
+  },
+  {
+    "cookies": [
+      "multilingualSearch"
+    ],
+    "name": "multilingualSearch",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  },
+  {
+    "cookies": [
+      "new_feature_notification"
+    ],
+    "name": "newFeatureNotification",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  },
+  {
+    "cookies": [
+      "searchResultsView"
+    ],
+    "name": "searchResultsView",
+    "purposes": [
+      "essential"
+    ],
+    "required": true
+  }
+]

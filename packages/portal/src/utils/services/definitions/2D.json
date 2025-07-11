@@ -1,0 +1,41 @@
+[
+  {
+    "name": "bookWidgets",
+    "schemes": [
+      "https://www.bookwidgets.com/play/*"
+    ]
+  },
+  {
+    "name": "ecorpus",
+    "schemes": [
+      "https://man.ecorpus.holusion.com/ui/*"
+    ]
+  },
+  {
+    "name": "gallica",
+    "schemes": [
+      "https://gallica.bnf.fr/*"
+    ]
+  },
+  {
+    "name": "institutNationalDeLAudiovisuel",
+    "oembed": "https://oembed.europeana.eu/",
+    "schemes": [
+      "http://www.ina.fr/video/*",
+      "http://www.ina.fr/*/video/*",
+      "https://player.ina.fr/player/embed/*"
+    ]
+  },
+  {
+    "name": "nakala",
+    "schemes": [
+      "https://api.nakala.fr/data"
+    ]
+  },
+  {
+    "name": "serveiDeGestioDocumentalArxius",
+    "schemes": [
+      "https://sgdap.girona.cat/*"
+    ]
+  }
+]

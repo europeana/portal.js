@@ -1,0 +1,63 @@
+name: 'Media embed service: add'
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        description: Unique Internal ID for the service, camelCased
+        type: string
+      purpose:
+        required: true
+        type: choice
+        options:
+          - 2D
+          - 3D
+          - audio
+          - multimedia
+          - other
+          - socialMedia
+          - video
+      schemes:
+        required: true
+        type: string
+        description: Comma-separated URL scheme(s) to detect media from this service
+      oembed:
+        required: false
+        type: string
+        description: URL of the oEmbed service for presenting media from this service
+
+env:
+  SERVICE_NAME: ${{ inputs.name }}
+  SERVICE_PURPOSE: ${{ inputs.purpose }}
+  SERVICE_SCHEMES: ${{ inputs.schemes }}
+  SERVICE_OEMBED: ${{ inputs.oembed }}
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+      -
+        name: Add media embed service
+        run: npm run -w packages/portal media-embed-service:add
+      -
+        name: Set pull request branch name
+        run: echo "PR_BRANCH=feat/add-media-embed-service-${{ inputs.name }}-$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
+      -
+        name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: ${{ env.PR_BRANCH }}
+          commit-message: "feat: add ${{ inputs.name }} media embed service"
+          title: "feat: add ${{ inputs.name }} media embed service"
+          # TODO: rename to not mention lokalise
+          token: "${{ secrets.GIT_PAT_LOKALISE }}"
+      -
+        name: Annotate with pull request URL
+        run: echo "::notice ::Pull request URL - ${{ steps.cpr.outputs.pull-request-url }}"

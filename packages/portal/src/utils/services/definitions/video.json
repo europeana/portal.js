@@ -1,0 +1,88 @@
+[
+  {
+    "name": "3Cat",
+    "schemes": [
+      "https://www.3cat.cat/3cat/video/*"
+    ]
+  },
+  {
+    "name": "deutschesFilmportal",
+    "schemes": [
+      "http://www.filmportal.de/video/*"
+    ]
+  },
+  {
+    "name": "eclap",
+    "schemes": [
+      "http://www.eclap.eu/*"
+    ]
+  },
+  {
+    "name": "europeanBroadcastingService",
+    "schemes": [
+      "https://audiovisual.ec.europa.eu/corporateplayer/index.html?video=*"
+    ]
+  },
+  {
+    "name": "europeanParliamentMultimediaService",
+    "schemes": [
+      "https://multimedia.europarl.europa.eu/*"
+    ]
+  },
+  {
+    "name": "euscreen",
+    "oembed": "https://oembed.euscreen.eu/services/oembed",
+    "schemes": [
+      "http://www.euscreen.eu/item.html*",
+      "https://www.euscreen.eu/item.html*",
+      "https://euscreen.orf.at/content/*",
+      "https://embd.eu/*"
+    ]
+  },
+  {
+    "name": "tibAvPortal",
+    "schemes": [
+      "http://av.tib.eu/player/*"
+    ]
+  },
+  {
+    "name": "tv3",
+    "oembed": "https://oembed.europeana.eu/",
+    "schemes": [
+      "http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/",
+      "https://mp4-down-high-int.ccma.cat/*"
+    ]
+  },
+  {
+    "name": "vimeo",
+    "oembed": "https://vimeo.com/api/oembed.json",
+    "schemes": [
+      "https://vimeo.com/*",
+      "https://vimeo.com/album/*/video/*",
+      "https://vimeo.com/channels/*/*",
+      "https://vimeo.com/groups/*/videos/*",
+      "https://vimeo.com/ondemand/*/*",
+      "https://player.vimeo.com/video/*",
+      "http://vimeo.com/*",
+      "http://vimeo.com/album/*/video/*",
+      "http://vimeo.com/channels/*/*",
+      "http://vimeo.com/groups/*/videos/*",
+      "http://vimeo.com/ondemand/*/*",
+      "http://player.vimeo.com/video/*"
+    ]
+  },
+  {
+    "name": "youTube",
+    "oembed": "https://www.youtube.com/oembed",
+    "schemes": [
+      "http://www.youtube.com/embed/*",
+      "https://youtube.com/watch*",
+      "https://youtube.com/v/*",
+      "https://www.youtube.com/watch*",
+      "https://www.youtube.com/v/*",
+      "https://www.youtube.com/embed/*",
+      "https://youtube.com/embed/*",
+      "https://youtu.be/*"
+    ]
+  }
+]
