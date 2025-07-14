@@ -276,6 +276,7 @@ describe('components/page/PageCookiesWidget', () => {
           'kulturLandBilder',
           'kystreise',
           'myAdventCalendar',
+          'pollUnit',
           'prezi',
           'slidebean',
           'tmaticTravel',

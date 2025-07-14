@@ -323,6 +323,10 @@ const otherEmbeddingServices = [
       'https://app.myadvent.net/calendar?id=*',
       'https://calendar.myadvent.net/?id=*'
     ] },
+  { name: 'pollUnit',
+    schemes: [
+      'https://pollunit.com/embed/*'
+    ] },
   { name: 'prezi',
     schemes: [
       'https://prezi.com/embed/*'

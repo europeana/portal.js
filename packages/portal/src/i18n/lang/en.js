@@ -1111,6 +1111,9 @@ export default {
       "pinterest": {
         "title": "Pinterest"
       },
+      "pollUnit": {
+        "title": "PollUnit"
+      },
       "prezi": {
         "title": "Prezi"
       },
