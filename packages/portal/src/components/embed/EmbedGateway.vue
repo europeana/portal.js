@@ -166,7 +166,7 @@
       },
 
       providerName() {
-        if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
+        if (this.provider) {
           if (this.$te(`klaro.services.${this.provider.name}.title`)) {
             return this.$t(`klaro.services.${this.provider.name}.title`);
           } else {
