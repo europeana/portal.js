@@ -1,30 +1,39 @@
-const portalServices = require('./definitions/portal.json');
+const definitions = {
+  '2D': require('./definitions/2D.json'),
+  '3D': require('./definitions/3D.json'),
+  audio: require('./definitions/audio.json'),
+  multimedia: require('./definitions/multimedia.json'),
+  other: require('./definitions/other.json'),
+  portal: require('./definitions/portal.json'),
+  socialMedia: require('./definitions/socialMedia.json'),
+  video: require('./definitions/video.json')
+};
 
-const socialMediaServices = require('./definitions/socialMedia.json')
-  .map((service) => ({ ...service, purposes: ['socialMedia'] }));
+const parseDefinitions = (purpose) => definitions[purpose]
+  .map((service) => {
+    if (!service.purposes) {
+      service.purposes = [purpose];
+    }
+    if (service.cookies) {
+      service.cookies = [].concat(service.cookies).map((cookie) => new RegExp(cookie));
+    }
+    return service;
+  });
 
-const twoDServices = require('./definitions/2D.json')
-  .map((service) => ({ ...service, purposes: ['2D'] }));
-
-const threeDServices = require('./definitions/3D.json')
-  .map((service) => ({ ...service, purposes: ['3D'] }));
-
-const audioServices = require('./definitions/audio.json')
-  .map((service) => ({ ...service, purposes: ['audio'] }));
-
-const multimediaServices = require('./definitions/multimedia.json')
-  .map((service) => ({ ...service, purposes: ['multimedia'] }));
-
-const videoServices = require('./definitions/video.json')
-  .map((service) => ({ ...service, purposes: ['video'] }));
-
-const mediaViewingServices = [].concat(twoDServices, threeDServices, audioServices, multimediaServices, videoServices)
+const mediaViewingServices = [
+  ...parseDefinitions('2D'),
+  ...parseDefinitions('3D'),
+  ...parseDefinitions('audio'),
+  ...parseDefinitions('multimedia'),
+  ...parseDefinitions('video')
+]
   .map((service) => ({ ...service, purposes: ['mediaViewing', ...service.purposes] }));
 
-const otherServices = require('./definitions/other.json')
-  .map((service) => ({ ...service, purposes: ['other'] }));
-
-const thirdPartyServices = [...socialMediaServices, ...mediaViewingServices, ...otherServices]
+const thirdPartyServices = [
+  ...parseDefinitions('socialMedia'),
+  ...mediaViewingServices,
+  ...parseDefinitions('other')
+]
   .map((service) => ({ ...service, purposes: ['thirdPartyContent', ...service.purposes] }));
 
-export default portalServices.concat(thirdPartyServices);
+export default [...parseDefinitions('portal'), ...thirdPartyServices];

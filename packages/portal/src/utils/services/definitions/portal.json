@@ -20,18 +20,18 @@
   },
   {
     "cookies": [
-      "auth.strategy"
+      "^auth\\."
     ],
     "name": "auth-strategy",
     "purposes": [
       "essential"
     ],
     "required": true,
-    "title": "Auth strategy"
+    "title": "Auth"
   },
   {
     "cookies": [
-      "debugSettings"
+      "^debugSettings$"
     ],
     "name": "debugSettings",
     "purposes": [
@@ -42,7 +42,7 @@
   },
   {
     "cookies": [
-      {}
+      "^_hj"
     ],
     "name": "hotjar",
     "purposes": [
@@ -52,7 +52,7 @@
   },
   {
     "cookies": [
-      "i18n_locale_code"
+      "^i18n_locale_code$"
     ],
     "name": "i18n",
     "purposes": [
@@ -63,8 +63,8 @@
   },
   {
     "cookies": [
-      {},
-      "mtm_cookie_consent"
+      "^_pk_",
+      "^mtm_cookie_consent$"
     ],
     "name": "matomo",
     "purposes": [
@@ -74,7 +74,7 @@
   },
   {
     "cookies": [
-      "multilingualSearch"
+      "^multilingualSearch$"
     ],
     "name": "multilingualSearch",
     "purposes": [
@@ -85,7 +85,7 @@
   },
   {
     "cookies": [
-      "new_feature_notification"
+      "^new_feature_notification$"
     ],
     "name": "newFeatureNotification",
     "purposes": [
@@ -96,7 +96,7 @@
   },
   {
     "cookies": [
-      "searchResultsView"
+      "^searchResultsView$"
     ],
     "name": "searchResultsView",
     "purposes": [
