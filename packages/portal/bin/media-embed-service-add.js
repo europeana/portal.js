@@ -14,9 +14,9 @@ function readService() {
   for (const prop of PROPERTIES) {
     const envVarName = `SERVICE_${prop.id.toUpperCase()}`;
 
-    service[prop.id] = process.env[envVarName];
-
-    if (prop.required && !service[prop.id]) {
+    if (process.env[envVarName]) {
+      service[prop.id] = process.env[envVarName];
+    } else if (prop.required) {
       console.error(`${envVarName} is required`);
       process.exit(1);
     }
@@ -30,7 +30,9 @@ function readService() {
 }
 
 const service = readService();
-const servicePurpose = service.delete('purpose');
+
+const servicePurpose = service.purpose;
+delete service.purpose;
 
 const serviceDefinitionsFile = new URL(`../src/utils/services/definitions/${servicePurpose}.json`, import.meta.url);
 let services = JSON.parse(fs.readFileSync(serviceDefinitionsFile, { encoding: 'utf8' }));
