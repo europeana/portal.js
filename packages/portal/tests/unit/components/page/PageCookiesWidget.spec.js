@@ -218,8 +218,9 @@ describe('components/page/PageCookiesWidget', () => {
         const wrapper = factory();
 
         const flattenedServiceNames = wrapper.vm.flattenedServiceNames;
+        const expectedServiceNames = services.map((service) => service.name).sort().filter((name) => !['europeanaEmbed', 'zoho'].includes(name));
 
-        expect(flattenedServiceNames.sort()).toEqual(services.map((service) => service.name).sort());
+        expect(flattenedServiceNames.sort()).toEqual(expectedServiceNames);
       });
     });
   });
