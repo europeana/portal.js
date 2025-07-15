@@ -2,6 +2,9 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import PageCookiesWidget from '@/components/page/PageCookiesWidget';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import services from '@/utils/services/services.js';
+
+// console.log('services', JSON.stringify(services))
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -218,71 +221,7 @@ describe('components/page/PageCookiesWidget', () => {
 
         const flattenedServiceNames = wrapper.vm.flattenedServiceNames;
 
-        expect(flattenedServiceNames).toEqual([
-          'auth-strategy',
-          'debugSettings',
-          'i18n',
-          'multilingualSearch',
-          'newFeatureNotification',
-          'searchResultsView',
-          'hotjar',
-          'matomo',
-          'googleDocs',
-          'googleDrive',
-          'instagram',
-          'pinterest',
-          'wheeldecide',
-          'x',
-          'bookWidgets',
-          'ecorpus',
-          'gallica',
-          'institutNationalDeLAudiovisuel',
-          'nakala',
-          'serveiDeGestioDocumentalArxius',
-          'arctur3DViewer',
-          'theCyprusInstitute',
-          'eureka3D',
-          'gotlandPictureStones',
-          'kompakkt',
-          'myminifactory',
-          'sketchfab',
-          'spatial',
-          'weave',
-          'britishLibrarySounds',
-          'buzzsprout',
-          'deutscheWelle',
-          'freesound',
-          'soundArchivesOfTheCNRS',
-          'soundCloud',
-          'archiveOrg',
-          'digitalRepositoryOfIreland',
-          '3Cat',
-          'deutschesFilmportal',
-          'eclap',
-          'europeanBroadcastingService',
-          'europeanParliamentMultimediaService',
-          'euscreen',
-          'tibAvPortal',
-          'tv3',
-          'vimeo',
-          'youTube',
-          'albinLarsson',
-          'behance',
-          'codepen',
-          'datawrapper',
-          'giphy',
-          'humap',
-          'jigsawplanet',
-          'kulturLandBilder',
-          'kystreise',
-          'myAdventCalendar',
-          'prezi',
-          'slidebean',
-          'tmaticTravel',
-          'universityOfCaliforniaSanDiego',
-          'wikidata',
-          'woobox'
-        ]);
+        expect(flattenedServiceNames).toEqual(services.map((service) => service.name));
       });
     });
   });
