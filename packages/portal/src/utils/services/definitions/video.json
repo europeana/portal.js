@@ -3,31 +3,36 @@
     "name": "3Cat",
     "schemes": [
       "https://www.3cat.cat/3cat/video/*"
-    ]
+    ],
+    "title": "3Cat"
   },
   {
     "name": "deutschesFilmportal",
     "schemes": [
       "http://www.filmportal.de/video/*"
-    ]
+    ],
+    "title": "Deutsches Filmportal"
   },
   {
     "name": "eclap",
     "schemes": [
       "http://www.eclap.eu/*"
-    ]
+    ],
+    "title": "Eclap"
   },
   {
     "name": "europeanBroadcastingService",
     "schemes": [
       "https://audiovisual.ec.europa.eu/corporateplayer/index.html?video=*"
-    ]
+    ],
+    "title": "European Broadcasting Service"
   },
   {
     "name": "europeanParliamentMultimediaService",
     "schemes": [
       "https://multimedia.europarl.europa.eu/*"
-    ]
+    ],
+    "title": "European parliament multimedia service"
   },
   {
     "name": "euscreen",
@@ -37,13 +42,15 @@
       "https://www.euscreen.eu/item.html*",
       "https://euscreen.orf.at/content/*",
       "https://embd.eu/*"
-    ]
+    ],
+    "title": "EUscreen"
   },
   {
     "name": "tibAvPortal",
     "schemes": [
       "http://av.tib.eu/player/*"
-    ]
+    ],
+    "title": "TIB AV-Portal"
   },
   {
     "name": "tv3",
@@ -51,7 +58,8 @@
     "schemes": [
       "http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/",
       "https://mp4-down-high-int.ccma.cat/*"
-    ]
+    ],
+    "title": "TV3 Televisió de Catalunya"
   },
   {
     "name": "vimeo",
@@ -69,7 +77,8 @@
       "http://vimeo.com/groups/*/videos/*",
       "http://vimeo.com/ondemand/*/*",
       "http://player.vimeo.com/video/*"
-    ]
+    ],
+    "title": "Vimeo"
   },
   {
     "name": "youTube",
@@ -83,6 +92,7 @@
       "https://www.youtube.com/embed/*",
       "https://youtube.com/embed/*",
       "https://youtu.be/*"
-    ]
+    ],
+    "title": "YouTube"
   }
 ]

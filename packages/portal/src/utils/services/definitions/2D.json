@@ -3,19 +3,22 @@
     "name": "bookWidgets",
     "schemes": [
       "https://www.bookwidgets.com/play/*"
-    ]
+    ],
+    "title": "Book Widgets"
   },
   {
     "name": "ecorpus",
     "schemes": [
       "https://man.ecorpus.holusion.com/ui/*"
-    ]
+    ],
+    "title": "Ecorpus"
   },
   {
     "name": "gallica",
     "schemes": [
       "https://gallica.bnf.fr/*"
-    ]
+    ],
+    "title": "Gallica"
   },
   {
     "name": "institutNationalDeLAudiovisuel",
@@ -24,18 +27,21 @@
       "http://www.ina.fr/video/*",
       "http://www.ina.fr/*/video/*",
       "https://player.ina.fr/player/embed/*"
-    ]
+    ],
+    "title": "Institut National de l'Audiovisuel"
   },
   {
     "name": "nakala",
     "schemes": [
       "https://api.nakala.fr/data"
-    ]
+    ],
+    "title": "Nakala"
   },
   {
     "name": "serveiDeGestioDocumentalArxius",
     "schemes": [
       "https://sgdap.girona.cat/*"
-    ]
+    ],
+    "title": "Servei de Gestió Documental, Arxius"
   }
 ]

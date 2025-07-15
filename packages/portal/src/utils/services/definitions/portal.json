@@ -5,7 +5,8 @@
       "https://embed.europeana.eu/*"
     ],
     "purposes": [],
-    "required": true
+    "required": true,
+    "title": "Europeana oEmbed"
   },
   {
     "name": "zoho",
@@ -14,7 +15,8 @@
       "https://fdti-zcmp.maillist-manage.eu/*"
     ],
     "purposes": [],
-    "required": true
+    "required": true,
+    "title": "Zoho"
   },
   {
     "cookies": [
@@ -24,7 +26,8 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "Auth strategy"
   },
   {
     "cookies": [
@@ -34,7 +37,8 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "Debug toggle"
   },
   {
     "cookies": [
@@ -43,7 +47,8 @@
     "name": "hotjar",
     "purposes": [
       "usage"
-    ]
+    ],
+    "title": "Hotjar"
   },
   {
     "cookies": [
@@ -53,7 +58,8 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "Language code"
   },
   {
     "cookies": [
@@ -63,7 +69,8 @@
     "name": "matomo",
     "purposes": [
       "usage"
-    ]
+    ],
+    "title": "Matomo"
   },
   {
     "cookies": [
@@ -73,7 +80,8 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "Multilingual search"
   },
   {
     "cookies": [
@@ -83,7 +91,8 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "New feature notification"
   },
   {
     "cookies": [
@@ -93,6 +102,7 @@
     "purposes": [
       "essential"
     ],
-    "required": true
+    "required": true,
+    "title": "Search result, galleries and likes view (list/grid/mosaic)"
   }
 ]

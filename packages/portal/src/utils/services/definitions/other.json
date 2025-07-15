@@ -3,98 +3,114 @@
     "name": "albinLarsson",
     "schemes": [
       "https://byabbe.se/*"
-    ]
+    ],
+    "title": "Albin Larsson"
   },
   {
     "name": "behance",
     "schemes": [
       "https://www.behance.net/embed/*"
-    ]
+    ],
+    "title": "Behance"
   },
   {
     "name": "codepen",
     "schemes": [
       "https://codepen.io/*/embed/*"
-    ]
+    ],
+    "title": "Codepen"
   },
   {
     "name": "datawrapper",
     "schemes": [
       "http://datawrapper.dwcdn.net/*"
-    ]
+    ],
+    "title": "Datawrapper"
   },
   {
     "name": "giphy",
     "schemes": [
       "http://giphy.com/embed/*",
       "https://giphy.com/embed/*"
-    ]
+    ],
+    "title": "Giphy"
   },
   {
     "name": "humap",
     "schemes": [
       "https://*.humap.site/*"
-    ]
+    ],
+    "title": "Humap"
   },
   {
     "name": "jigsawplanet",
     "schemes": [
       "https://www.jigsawplanet.com/?rc=play&pid=*"
-    ]
+    ],
+    "title": "Jigsawplanet"
   },
   {
     "name": "kulturLandBilder",
     "schemes": [
       "https://kartographie.leibniz-ifl-projekte.de/*"
-    ]
+    ],
+    "title": "KulturLandBilder"
   },
   {
     "name": "kystreise",
     "schemes": [
       "https://rs.kystreise.no/filestore/*"
-    ]
+    ],
+    "title": "Kystreise"
   },
   {
     "name": "myAdventCalendar",
     "schemes": [
       "https://app.myadvent.net/calendar?id=*",
       "https://calendar.myadvent.net/?id=*"
-    ]
+    ],
+    "title": "My Advent Calendar"
   },
   {
     "name": "prezi",
     "schemes": [
       "https://prezi.com/embed/*"
-    ]
+    ],
+    "title": "Prezi"
   },
   {
     "name": "slidebean",
     "schemes": [
       "http://slidebean.com/embed/*"
-    ]
+    ],
+    "title": "Slidebean"
   },
   {
     "name": "tmaticTravel",
     "schemes": [
       "https://tmatic.travel/en/view/activity/*"
-    ]
+    ],
+    "title": "tmatic.travel"
   },
   {
     "name": "universityOfCaliforniaSanDiego",
     "schemes": [
       "https://pointcloud.ucsd.edu/*"
-    ]
+    ],
+    "title": "University of California, San Diego"
   },
   {
     "name": "wikidata",
     "schemes": [
       "https://query.wikidata.org/*"
-    ]
+    ],
+    "title": "Wikidata"
   },
   {
     "name": "woobox",
     "schemes": [
       "https://woobox.com/js/plugins/woo.js"
-    ]
+    ],
+    "title": "Woobox"
   }
 ]

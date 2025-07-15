@@ -3,12 +3,14 @@
     "name": "archiveOrg",
     "schemes": [
       "https://archive.org/embed/*"
-    ]
+    ],
+    "title": "Archive.org"
   },
   {
     "name": "digitalRepositoryOfIreland",
     "schemes": [
       "https://repository.dri.ie/objects/*"
-    ]
+    ],
+    "title": "Digital Repository of Ireland"
   }
 ]
