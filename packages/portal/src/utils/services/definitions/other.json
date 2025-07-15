@@ -72,6 +72,7 @@
     "title": "My Advent Calendar"
   },
   {
+    "cookies": ["pollunit-embed-session-id"],
     "name": "pollUnit",
     "schemes": [
       "https://pollunit.com/embed/*"
