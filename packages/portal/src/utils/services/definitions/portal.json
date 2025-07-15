@@ -1,24 +1,5 @@
 [
   {
-    "name": "europeanaEmbed",
-    "schemes": [
-      "https://embed.europeana.eu/*"
-    ],
-    "purposes": [],
-    "required": true,
-    "title": "Europeana oEmbed"
-  },
-  {
-    "name": "zoho",
-    "schemes": [
-      "https://forms.zohopublic.eu/*",
-      "https://fdti-zcmp.maillist-manage.eu/*"
-    ],
-    "purposes": [],
-    "required": true,
-    "title": "Zoho"
-  },
-  {
     "cookies": [
       "^auth\\."
     ],

@@ -219,7 +219,7 @@ describe('components/page/PageCookiesWidget', () => {
 
         const flattenedServiceNames = wrapper.vm.flattenedServiceNames;
 
-        expect(flattenedServiceNames).toEqual(services.map((service) => service.name));
+        expect(flattenedServiceNames.sort()).toEqual(services.map((service) => service.name).sort());
       });
     });
   });

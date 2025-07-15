@@ -12,5 +12,13 @@
       "https://repository.dri.ie/objects/*"
     ],
     "title": "Digital Repository of Ireland"
+  },
+  {
+    "name": "europeanaEmbed",
+    "schemes": [
+      "https://embed.europeana.eu/*"
+    ],
+    "required": true,
+    "title": "Europeana oEmbed"
   }
 ]

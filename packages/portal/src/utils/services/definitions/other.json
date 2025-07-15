@@ -112,5 +112,14 @@
       "https://woobox.com/js/plugins/woo.js"
     ],
     "title": "Woobox"
+  },
+  {
+    "name": "zoho",
+    "schemes": [
+      "https://forms.zohopublic.eu/*",
+      "https://fdti-zcmp.maillist-manage.eu/*"
+    ],
+    "required": true,
+    "title": "Zoho"
   }
 ]
