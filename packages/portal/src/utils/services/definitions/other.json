@@ -72,6 +72,13 @@
     "title": "My Advent Calendar"
   },
   {
+    "name": "pollUnit",
+    "schemes": [
+      "https://pollunit.com/embed/*"
+    ],
+    "title": "PollUnit"
+  },
+  {
     "name": "prezi",
     "schemes": [
       "https://prezi.com/embed/*"
