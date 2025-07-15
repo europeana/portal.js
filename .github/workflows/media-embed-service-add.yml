@@ -5,7 +5,11 @@ on:
     inputs:
       name:
         required: true
-        description: Unique Internal ID for the service, camelCased
+        description: Unique internal name for the service
+        type: string
+      title:
+        required: true
+        description: Displayed title of the service
         type: string
       purpose:
         required: true
@@ -29,9 +33,10 @@ on:
 
 env:
   SERVICE_NAME: ${{ inputs.name }}
+  SERVICE_OEMBED: ${{ inputs.oembed }}
   SERVICE_PURPOSE: ${{ inputs.purpose }}
   SERVICE_SCHEMES: ${{ inputs.schemes }}
-  SERVICE_OEMBED: ${{ inputs.oembed }}
+  SERVICE_TITLE: ${{ inputs.title }}
 
 jobs:
   create-pull-request:
