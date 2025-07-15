@@ -4,8 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import services from '@/utils/services/services.js';
 
-// console.log('services', JSON.stringify(services))
-
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
