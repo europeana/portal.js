@@ -99,10 +99,10 @@
         const scripts = doc.querySelectorAll('script');
 
         if (scripts.length) {
-          scripts.forEach(script => {
+          scripts.forEach((script) => {
             const newScript = document.createElement('script');
 
-            for (let attr of script.attributes) {
+            for (const attr of script.attributes) {
               newScript.setAttribute(attr.name, attr.value);
             }
 
