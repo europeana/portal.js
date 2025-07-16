@@ -55,7 +55,6 @@
     data() {
       return {
         embedCode: this.html,
-        scripts: [],
         widthWrapper: 0
       };
     },
@@ -63,13 +62,6 @@
     computed: {
       heightAsPercentOfWidth() {
         return (this.height * 100) / this.width;
-      }
-    },
-
-    beforeDestroy() {
-      // TODO: is this still needed when we append script to embedContainer ref?
-      if (this.scripts.length) {
-        this.scripts.forEach(script => script.remove());
       }
     },
 
@@ -111,9 +103,7 @@
 
             this.$refs.embedContainer.appendChild(newScript);
 
-            // Store as local state to remove on beforeDestroy
-            this.scripts.push(newScript);
-
+            // remove script from embedCode so it's not added through v-html
             script.remove();
           });
           this.embedCode = doc.body.innerHTML;
