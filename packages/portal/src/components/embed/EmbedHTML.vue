@@ -114,15 +114,6 @@
             // Store as local state to remove on beforeDestroy
             this.scripts.push(newScript);
 
-            // Workaround as PollUnit does not retrigger initialisation after DOMContentLoaded
-            if (newScript.src.includes('https://pollunit.com/embed/')) {
-              newScript.onload = () => {
-                if (typeof pollUnitInit === 'function') {
-                  pollUnitInit();
-                }
-              };
-            }
-
             script.remove();
           });
           this.embedCode = doc.body.innerHTML;
