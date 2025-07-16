@@ -320,6 +320,11 @@ Example:
           <td><span class="icon icon-pin-outlined" /></td>
         </tr>
         <tr>
+          <td>Quote</td>
+          <td><code>icon-quote</code></td>
+          <td><span class="icon icon-quote" /></td>
+        </tr>
+        <tr>
           <td>Reject</td>
           <td><code>icon-reject</code></td>
           <td><span class="icon icon-reject" /></td>
