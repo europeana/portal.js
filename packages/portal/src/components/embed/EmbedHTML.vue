@@ -67,6 +67,7 @@
     },
 
     beforeDestroy() {
+      // TODO: is this still needed when we append script to embedContainer ref?
       if (this.scripts.length) {
         this.scripts.forEach(script => script.remove());
       }
