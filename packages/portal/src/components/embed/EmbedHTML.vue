@@ -101,14 +101,12 @@
             // for inline script content
             newScript.textContent = script.textContent;
 
-            this.$refs.embedContainer.appendChild(newScript);
+            this.$refs.embedContainer.after(newScript);
 
             // remove script from embedCode so it's not added through v-html
             script.remove();
           });
           this.embedCode = doc.body.innerHTML;
-        } else {
-          this.embedCode = this.html;
         }
       }
     }
