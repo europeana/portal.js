@@ -12,7 +12,7 @@
       data-qa="html embed"
       class="html-embed"
       :style="`padding-bottom:${heightAsPercentOfWidth}%`"
-      v-html="html"
+      v-html="embedCode"
     />
   </div>
   <div
@@ -20,7 +20,7 @@
     ref="embedContainer"
     data-qa="html embed"
     class="html-embed"
-    v-html="html"
+    v-html="embedCode"
   />
   <!-- eslint-enable vue/no-v-html -->
 </template>
@@ -54,6 +54,8 @@
 
     data() {
       return {
+        embedCode: this.html,
+        scripts: [],
         widthWrapper: 0
       };
     },
@@ -64,7 +66,15 @@
       }
     },
 
+    beforeDestroy() {
+      if (this.scripts.length) {
+        this.scripts.forEach(script => script.remove());
+      }
+    },
+
     mounted() {
+      this.findAndReappendScripts();
+
       this.setWidthWrapper();
       window.addEventListener('resize', this.setWidthWrapper);
 
@@ -79,6 +89,44 @@
         if (this.$refs.responsiveWrapper) {
           const wrapperHeight = this.$refs.responsiveWrapper.clientHeight;
           this.widthWrapper = (this.width * wrapperHeight) / this.height;
+        }
+      },
+      // Reappends scripts so they are executed. Scripts added through v-html are not executed
+      findAndReappendScripts() {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.html, 'text/html');
+        const scripts = doc.querySelectorAll('script');
+
+        if (scripts.length) {
+          scripts.forEach(script => {
+            const newScript = document.createElement('script');
+
+            for (let attr of script.attributes) {
+              newScript.setAttribute(attr.name, attr.value);
+            }
+
+            // for inline script content
+            newScript.textContent = script.textContent;
+
+            this.$refs.embedContainer.appendChild(newScript);
+
+            // Store as local state to remove on beforeDestroy
+            this.scripts.push(newScript);
+
+            // Workaround as PollUnit does not retrigger initialisation after DOMContentLoaded
+            if (newScript.src.includes('https://pollunit.com/embed/')) {
+              newScript.onload = () => {
+                if (typeof pollUnitInit === 'function') {
+                  pollUnitInit();
+                }
+              };
+            }
+
+            script.remove();
+          });
+          this.embedCode = doc.body.innerHTML;
+        } else {
+          this.embedCode = this.html;
         }
       }
     }
