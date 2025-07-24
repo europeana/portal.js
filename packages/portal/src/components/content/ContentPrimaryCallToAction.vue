@@ -80,7 +80,7 @@
 
     @media (min-width: $bp-large) {
       width: calc(50%);
-      max-width: calc($max-text-column-width + 100px);
+      max-width: calc($max-text-column-width + 6.25rem);
     }
   }
 </style>
