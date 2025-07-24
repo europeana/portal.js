@@ -15,7 +15,7 @@
       toaster="b-toaster-bottom-left"
     >
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
         <b-button
           data-qa="learn more button"
           class="p-0"
@@ -352,9 +352,13 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .cookie-notice {
-    max-width: 400px;
-    width: 400px;
+  ::v-deep .cookie-notice {
+    max-width: 100%;
+
+    @media (min-width: $bp-medium) {
+      max-width: toRem(400);
+      width: toRem(400);
+    }
 
     .btn-link {
       font-size: $font-size-small;
