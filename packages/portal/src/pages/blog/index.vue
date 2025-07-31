@@ -15,6 +15,7 @@
     :items="posts"
     :total="total"
     :per-page="perPage"
+    :title="$t('blog.blog')"
     card-url-name="blog-all"
   />
 </template>
@@ -81,6 +82,10 @@
       }
     },
 
-    watchQuery: ['page']
+    watch: {
+      '$route.query.page'() {
+        this.$fetch();
+      }
+    }
   };
 </script>
