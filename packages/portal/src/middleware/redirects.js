@@ -1,6 +1,4 @@
 const redirects = {
-  '/blog': '/stories?type=story',
-  '/blog/*': '/stories/*',
   '/exhibitions': '/stories?type=exhibition',
   '/privacy-policy-newsletter': '/privacy-statement-newsletter',
   '/professionals': '/share-your-collections',

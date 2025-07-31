@@ -155,6 +155,10 @@ export default {
     "time": "Centuries",
     "topic": "Topics"
   },
+  "blog": {
+    "blog": "Blog",
+    "posts": "Blog post | Blog posts"
+  },
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
