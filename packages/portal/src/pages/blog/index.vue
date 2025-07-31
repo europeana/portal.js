@@ -53,7 +53,7 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           limit: PER_PAGE,
-          skip: this.page * PER_PAGE
+          skip: (this.page - 1) * PER_PAGE
         };
 
         const response = await this.$contentful.query(blogFoyerPageGraphql, variables);
