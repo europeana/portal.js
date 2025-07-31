@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page text-page">
     <AuthoredHead
       :title="title"
       :description="description"
