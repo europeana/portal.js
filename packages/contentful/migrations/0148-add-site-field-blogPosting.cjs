@@ -1,4 +1,4 @@
-const contentTypeDef = { id: 'blogPosting', sites: ['www.europeana.eu', 'dataspace-culturalheritage.eu'] };
+const contentTypeDef = { id: 'blogPosting', sites: ['dataspace-culturalheritage.eu'] };
 
 module.exports = function(migration) {
   const contentType = migration.editContentType(contentTypeDef.id);
@@ -23,19 +23,4 @@ module.exports = function(migration) {
   contentType.changeFieldControl('site', 'builtin', 'dropdown');
 
   contentType.moveField('site').afterField('name');
-
-  migration.transformEntries({
-    contentType: contentTypeDef.id,
-    from: ['site'],
-    to: ['site'],
-    transformEntryForLocale: async(from, locale) => {
-      // Don't check from field since it's just been created?
-      if (locale !== 'en-GB' || from.site?.[locale]) {
-        return;
-      }
-      return {
-        site: contentTypeDef.sites[0]
-      };
-    }
-  });
 };
