@@ -1,0 +1,27 @@
+#import "../fragments/relatedContentExhibitionPageFields.graphql"
+#import "../fragments/relatedContentStoryFields.graphql"
+
+query EntityRelatedContent(
+  $locale: String!,
+  $preview: Boolean = false,
+  $limit: Int = 4,
+  $entityUri: String!,
+  $query: String = ""
+) {
+  exhibitionPageCollection(
+    where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      ...relatedContentExhibitionPageFields
+    }
+  }
+  storyCollection(
+    where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      ...relatedContentStoryFields
+    }
+  }
+}

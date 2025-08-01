@@ -1,0 +1,16 @@
+query Categories(
+  $locale: String!,
+  $preview: Boolean = false
+) {
+	categoryCollection(
+		preview: $preview,
+  	locale: $locale,
+  	limit: 1000,
+    order: name_ASC
+  ) {
+    items {
+      identifier,
+      name
+    }
+  }
+}

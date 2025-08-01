@@ -4,11 +4,14 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=security_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_portal.js)
 
-## Prerequisites
+## Requirements
 
-1. Node.js version 16, and npm
+1. Node.js version 20, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
-3. Redis cache (included as Docker Compose service for development)
+3. Redis cache
+4. PostgreSQL database
+
+NB: Redis & PostgreSQL are included as Docker Compose service for development.
 
 ## Configuration
 
@@ -46,6 +49,16 @@ To build the Docker image, run:
 docker build -t europeana/portal.js -f packages/portal/Dockerfile .
 ```
 
+### Docker Compose
+
+To run everything with Docker Compose, including the app:
+
+```shell
+docker compose -f docker-compose.app.yml up
+```
+
+The app will be exposed on the host on port 8080.
+
 ## Testing
 
 To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/)
@@ -59,6 +72,10 @@ Run the full test suite with: `npm test`
 
 To run unit tests from a single file, append the full path, e.g.
 `npm run test:unit packages/portal/tests/unit/components/PageHeader.spec.js`
+
+To run unit tests from just one of the packages registered as a Jest project,
+run e.g.
+`npm run test:unit -- --selectProjects portal`
 
 ### End-to-end tests
 

@@ -1,0 +1,69 @@
+@mixin white-cutout {
+  &::after {
+    border-top: 221px solid $white;
+    border-left: 115px solid transparent;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 0;
+
+    @media (min-width: $bp-xxxl) {
+      border-top-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+      border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+    }
+  }
+}
+
+@mixin min-page-height {
+  @media (min-width: $bp-medium) {
+    min-height: 30rem;
+  }
+
+  @media (min-width: $bp-xxxl) {
+    min-height: 30vh;
+  }
+}
+
+@mixin media-viewer-height {
+  height: $media-viewer-height;
+
+  @media (max-height: ($bp-medium - 1px)) {
+    max-height: $media-viewer-height;
+  }
+
+  @media (min-height: $bp-medium) {
+    max-height: $media-viewer-height-max;
+  }
+
+  @media (max-width: ($bp-medium - 1px)) {
+    max-height: $media-viewer-height-medium;
+    height: $media-viewer-height-medium;
+  }
+
+  // prevent feedback button overlapping thumbnails toggle laptop screens
+  @media (min-width: $bp-large) and (max-height: $bp-small) {
+    height: calc($media-viewer-height - 2rem);
+  }
+
+  @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+    max-height: 50vh;
+    height: 50vh;
+  }
+}
+
+@mixin status-indicator {
+  &::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: $blue;
+    outline: 2px solid rgba(255 255 255 / 90%);
+    border-radius: 50%;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+  }
+}

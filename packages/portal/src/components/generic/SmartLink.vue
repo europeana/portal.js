@@ -2,15 +2,19 @@
   <b-link
     v-if="useRouterLink"
     :to="path"
-    :class="linkClass"
+    :class="[linkClass, 'smart-link']"
+    :disabled="disabled"
+    :target="null"
+    @click.capture.native="logSearchLink && setLoggableInteraction()"
   >
     <slot />
   </b-link>
   <b-link
     v-else
     :href="path"
-    :target="isExternalLink ? '_blank' : '_self'"
-    :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass]"
+    :target="isExternalLink ? '_blank' : null"
+    :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass, 'smart-link']"
+    :disabled="disabled"
   >
     <slot /><!-- This comment removes white space which gets underlined
  --><span
@@ -27,21 +31,21 @@
 </template>
 
 <script>
-// TODO: refactor to use $link.to and $link.href
-
   export default {
     props: {
       destination: {
         type: [String, Object],
         default: ''
       },
-
       linkClass: {
         type: String,
         default: ''
       },
-
       hideExternalIcon: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }
@@ -55,16 +59,16 @@
 
     computed: {
       useRouterLink() {
-        return this.path && this.path.startsWith('/');
+        return !!this.path?.startsWith('/');
       },
 
       path() {
         if (typeof this.destination === 'object') {
-          return this.$path(this.destination);
+          return this.localePath(this.destination);
         }
 
         if (this.itemIdentifier) {
-          return this.$path({
+          return this.localePath({
             name: 'item-all',
             params: { pathMatch: this.itemIdentifier.slice(1) }
           });
@@ -72,7 +76,7 @@
 
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
           const [pathSlug, urlParams] = this.destination.split('?');
-          return this.$path({
+          return this.localePath({
             name: 'slug',
             params: {
               pathMatch: pathSlug.slice(1)
@@ -99,7 +103,7 @@
           return false;
         }
 
-        if (!this.internalDomain) {
+        if (!this.internalDomain && typeof path === 'string') {
           return path.startsWith('http://') || path.startsWith('https://');
         }
 
@@ -108,9 +112,37 @@
           return false;
         }
 
-        const hostname = path.match(hostnamePattern)[1];
+        const hostname = hostnamePattern.exec(path)[1];
         return !hostname.endsWith(this.internalDomain);
+      },
+
+      isLinkToSearchablePage() {
+        // only needed for relative paths. Absolute paths trigger a SSR and will log the search in SearchInterface.
+        if (this.useRouterLink) {
+          const searchablePagePathPattern = /(search|collections\/(topic\/|organisation\/|time\/|person\/|place\/))/;
+          const localeStrippedPath = this.path.slice(3);
+          return searchablePagePathPattern.test(localeStrippedPath);
+        }
+        return false;
+      },
+
+      logSearchLink() {
+        return this.isLinkToSearchablePage;
+      }
+    },
+
+    methods: {
+      setLoggableInteraction() {
+        this.$store.commit('search/setLoggableInteraction', true);
       }
     }
   };
 </script>
+
+<style lang="scss">
+  .smart-link {
+    .btn .icon-external-link {
+      margin-left: 0.5rem;
+    }
+  }
+</style>

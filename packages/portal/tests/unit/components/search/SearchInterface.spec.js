@@ -15,7 +15,7 @@ const searchResult = {
   totalResults: 1,
   items: [
     {
-      europeanaId: '/123/abc',
+      id: '/123/abc',
       dcTitle: { def: ['Record 123/abc'] },
       edmPreview: 'https://www.example.org/abc.jpg',
       edmDataProvider: ['Provider 123']
@@ -23,57 +23,67 @@ const searchResult = {
   ]
 };
 
-const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
+const logApmTransactionSpy = sinon.spy();
+
+const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
+  attachTo: document.body,
   mocks: {
+    $cookies: { get: sinon.stub(), set: sinon.spy() },
+    $features: { multilingualSearch: false },
     $t: (key) => key,
-    $path: () => '/',
-    $goto: () => null,
-    $features: { sideFilters: false, entityHeaderCards: false },
-    $fetchState,
+    localePath: (args) => args,
+    $router: { push: sinon.spy() },
     $route: { path: '/search', name: 'search', query: {} },
-    $nuxt: { context: { res: {} } },
+    $error: sinon.spy(),
     localise: (val) => val,
+    $apis: {
+      record: {
+        search: sinon.stub().resolves(searchResult)
+      },
+      fulltext: {
+        baseURL: 'https://api.europeana.eu/fulltext'
+      }
+    },
+    $auth: {},
+    $keycloak: { login: sinon.spy() },
+    $i18n: {
+      locale: 'en',
+      n: (num) => num
+    },
+    $config: mocks.$config,
     ...mocks,
     $store: {
       commit: sinon.spy(),
       getters: {
-        'debug/settings': { enabled: false },
-        'search/activeView': 'grid',
         ...mocks.$store?.getters
       },
       state: {
         entity: {
           entity: {}
         },
+        search: {
+          qasWithSelectedEntityValue: []
+        },
         ...mocks.$store?.state
       }
-    },
-    $config: {
-      europeana: {
-        apis: {
-          record: {
-            fulltextUrl: 'https://newspapers.eanadev.org/api/v2'
-          }
-        }
-      }
-    },
-    $apis: {
-      record: {
-        search: sinon.stub().resolves(searchResult)
-      }
-    },
-    $i18n: {
-      locale: 'en'
     }
   },
   propsData,
   data: () => data,
-  stubs: ['SideFilters', 'i18n']
+  mixins: [
+    {
+      methods: {
+        logApmTransaction: logApmTransactionSpy
+      }
+    }
+  ],
+  stubs: ['ErrorMessage', 'SearchQueryBuilder', 'SearchFilters', 'SearchResultsContext', 'LoadingSpinner', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
-  beforeEach(() => sinon.resetHistory());
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('activates the search in the store', async() => {
@@ -82,6 +92,22 @@ describe('components/search/SearchInterface', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.commit.calledWith('search/setActive')).toBe(true);
+    });
+
+    describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
+      const $auth = { loggedIn: true };
+      const $config = { app: { search: { translateLocales: ['nl'] } } };
+      const $features = { multilingualSearch: true };
+      const $i18n = { locale: 'nl' };
+
+      it('activates multilingual search', async() => {
+        const wrapper = factory({ mocks: { $auth, $config, $features, $i18n } });
+        wrapper.vm.$cookies.get.returns(true);
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.translate).toBe(true);
+      });
     });
 
     it('runs the search via the Record API', async() => {
@@ -100,142 +126,287 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.results).toEqual(searchResult.items);
     });
 
-    it('handles search API errors', async() => {
+    it('handles search API errors, via $error', async() => {
       const wrapper = factory();
       process.server = true;
       wrapper.vm.$apis.record.search.throws({ statusCode: 400, message: 'Client error' });
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
-      expect(error.message).toBe('Client error');
+      expect(wrapper.vm.$error.calledWith(
+        { statusCode: 400, message: 'Client error' }
+      )).toBe(true);
     });
 
-    it('treats no results as an error', async() => {
+    it('displays no results like an error', async() => {
       const wrapper = factory();
       wrapper.vm.$apis.record.search.resolves({ totalResults: 0 });
 
-      let error;
+      await wrapper.vm.fetch();
+      const errorMessageStub = wrapper.find('errormessage-stub');
 
-      try {
+      expect(errorMessageStub.isVisible()).toBe(true);
+    });
+
+    describe('when there was a pagination error', () => {
+      it('calls $error with a user-friendly error message', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.search.throws({
+          statusCode: 400,
+          message: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
+        });
+
         await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
 
-      expect(error.titlePath).toBe('errorMessage.searchResultsNotFound.title');
+        expect(wrapper.vm.$error.calledWith(
+          sinon.match.has('code', 'searchPaginationLimitExceeded'),
+          { tValues: { description: { limit: 5000 } } }
+        )).toBe(true);
+      });
     });
 
     it('scrolls to the page header element', async() => {
       const wrapper = factory();
-      wrapper.vm.$scrollTo = sinon.spy();
+      process.client = true;
+      wrapper.vm.scrollToSelector = sinon.spy();
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
+    });
+
+    it('logs the search interaction to APM', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'logApmTransaction');
+      wrapper.vm.$route.query = {
+        query: 'sponge',
+        qf: ['TYPE:"IMAGE"'],
+        reusability: 'open'
+      };
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.logApmTransaction.calledWith({
+        name: 'Search - fetch results',
+        labels: {
+          'search_params_query': 'sponge',
+          'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+          'search_params_reusability': 'open',
+          'search_results_total': 1
+        }
+      })).toBe(true);
+    });
+
+    describe('when advanced search queries have been enriched with entities', () => {
+      describe('and the advanced search query is cleared', () => {
+        it('removes the entity enriched advanced search field query', async() => {
+          const wrapper = factory({ data: {
+            qasWithAddedEntityValue: [{
+              qa: {
+                field: 'proxy_dc_date',
+                modifier: 'contains',
+                suggestEntityType: 'timespan',
+                term: '19th century'
+              },
+              qae: 'proxy_dc_date:"http://data.europeana.eu/timespan/19"'
+            }]
+          } });
+
+          wrapper.vm.$route.query = {
+            qa: []
+          };
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.qasWithAddedEntityValue).toEqual([]);
+        });
+      });
+    });
+
+    describe('when there are advanced search fields applied', () => {
+      describe('and they require an entity look up', () => {
+        describe('and a matching entity is found', () => {
+          it('adds the matched entity as an additional field to look up', async() => {
+            const expectedAdvancedQuery = 'proxy_dc_date:((19th century) OR "http://data.example.eu/123")';
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:19th\\ century'] } }
+            } });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.qaes.length).toBe(1);
+            expect(wrapper.vm.qaes[0]).toEqual(expectedAdvancedQuery);
+          });
+        });
+
+        describe('and there is no matching entity', () => {
+          it('saves the query anyway', async() => {
+            const wrapper = factory({ mocks: {
+              $apis: {
+                entity: {
+                  suggest: sinon.stub().resolves([])
+                }
+              },
+              $route: { path: '/search', name: 'search', query: { qa: ['proxy_dc_date:2023'] } }
+            } });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.qaes.length).toBe(0);
+            expect(wrapper.vm.qasWithAddedEntityValue.length).toBe(1);
+            expect(wrapper.vm.qasWithAddedEntityValue[0].qae).toEqual(null);
+          });
+        });
+      });
+    });
+
+    describe('interaction logging', () => {
+      describe('when server-side', () => {
+        beforeAll(() => {
+          process.server = true;
+          process.client = false;
+        });
+        afterAll(() => {
+          delete process.server;
+          delete process.client;
+        });
+
+        it('logs the interaction to APM', async() => {
+          const wrapper = factory();
+          sinon.resetHistory();
+
+          await wrapper.vm.fetch();
+
+          expect(logApmTransactionSpy.calledWith({
+            name: 'Search - fetch results',
+            labels: { 'search_params_qf': ['contentTier:(1 OR 2 OR 3 OR 4)'], 'search_results_total': 1 }
+          })).toBe(true);
+        });
+
+        it('resets the stored loggable interaction flag', async() => {
+          const wrapper = factory();
+          sinon.resetHistory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', false)).toBe(true);
+        });
+      });
+
+      describe('when client-side', () => {
+        beforeAll(() => {
+          process.server = false;
+          process.client = true;
+        });
+        afterAll(() => {
+          delete process.server;
+          delete process.client;
+        });
+
+        describe('and interaction is flagged as loggable in the store', () => {
+          const mocks = { $store: { state: { search: { loggableInteraction: true } } } };
+          it('logs the interaction to APM', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(logApmTransactionSpy.calledWith({
+              name: 'Search - fetch results',
+              labels: { 'search_params_qf': ['contentTier:(1 OR 2 OR 3 OR 4)'], 'search_results_total': 1 }
+            })).toBe(true);
+          });
+
+          it('resets the stored loggable interaction flag', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', false)).toBe(true);
+          });
+        });
+
+        describe('but interaction is not flagged as loggable in the store', () => {
+          const mocks = { $store: { state: { search: { loggableInteraction: false } } } };
+
+          it('does not record the interaction', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(logApmTransactionSpy.called).toBe(false);
+          });
+        });
+      });
     });
   });
 
   describe('computed', () => {
-    describe('errorMessage', () => {
-      describe('when there was a pagination error', () => {
-        it('returns a user-friendly error message', async() => {
-          const wrapper = factory({
-            $fetchState: {
-              error: {
-                message: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
-              }
-            }
-          });
+    describe('apiOptions', () => {
+      describe('translateLang', () => {
+        const $i18n = { locale: 'nl' };
 
-          expect(wrapper.vm.errorMessage).toBe('messages.paginationLimitExceeded');
-        });
-      });
-    });
+        describe('when translate is not enabled', () => {
+          const data = { translate: false };
 
-    describe('noMoreResults', () => {
-      describe('when there are 0 results in total', () => {
-        const wrapper = factory({
-          data: { totalResults: 0 }
-        });
+          it('is not defined', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
 
-        it('is `false`', () => {
-          expect(wrapper.vm.noMoreResults).toBe(false);
-        });
-      });
+            const translateLang = wrapper.vm.apiOptions.translateLang;
 
-      describe('when there are some results in total', () => {
-        describe('and results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100,
-              results: [
-                {
-                  europeanaId: '/123/abc',
-                  dcTitle: { def: ['Record 123/abc'] },
-                  edmPreview: 'https://www.example.org/abc.jpg',
-                  edmDataProvider: ['Provider 123']
-                }
-              ]
-            }
-          });
-
-          it('is `false`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(false);
+            expect(translateLang).toBeUndefined();
           });
         });
 
-        describe('but no results here', () => {
-          const wrapper = factory({
-            data: {
-              totalResults: 100
-            }
-          });
+        describe('when translate is enabled', () => {
+          const data = { translate: true };
 
-          it('is `true`', () => {
-            expect(wrapper.vm.noMoreResults).toBe(true);
+          it('returns the current locale', () => {
+            const wrapper = factory({ data, mocks: { $i18n } });
+
+            const translateLang = wrapper.vm.apiOptions.translateLang;
+
+            expect(translateLang).toBe('nl');
           });
         });
       });
     });
 
-    describe('view', () => {
-      describe('setter', () => {
-        it('commits to the search store', () => {
-          const wrapper = factory();
-          const view = 'list';
+    describe('advancedSearchQueryCount', () => {
+      describe('when there is no advanced search query', () => {
+        const route = { query: {} };
 
-          wrapper.vm.view = view;
+        const wrapper = factory({ mocks: { $route: route } });
 
-          expect(wrapper.vm.$store.commit.calledWith('search/setView', view)).toBe(true);
+        it('is undefined', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(0);
         });
       });
-    });
+      describe('when there is one advanced search query', () => {
+        const route = { query: { qa: ['proxy_dc_title:The'] } };
 
-    describe('debugSettings', () => {
-      it('reads the debug settings from the store', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { enabled: false } } } } });
+        const wrapper = factory({ mocks: { $route: route } });
 
-        expect(wrapper.vm.debugSettings).toStrictEqual({ enabled: false });
+        it('is 1', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(1);
+        });
       });
-    });
+      describe('when there are multiple advanced search queries', () => {
+        const route = { query: { qa: ['proxy_dc_title:The', 'proxy_dc_title:Practice', 'proxy_dc_title:of'] } };
 
-    describe('showSearchBoostingForm', () => {
-      it('is true when the boosting toggle is enabled', () => {
-        const wrapper = factory({ mocks: { $store: { getters: { 'debug/settings': { boosting: true } } } } });
+        const wrapper = factory({ mocks: { $route: route } });
 
-        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
-      });
-
-      it('is false when the boosting toggle is disabled', () => {
-        const wrapper = factory();
-
-        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
+        it('is 3', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
+        });
       });
     });
   });
@@ -251,6 +422,109 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('deriveApiParams', () => {
+      it('combines user params and overrides', () => {
+        const $route = {
+          query: {
+            page: 2,
+            query: 'calais',
+            qf: 'TYPE:"IMAGE"',
+            qa: [
+              'proxy_dc_title:dog'
+            ]
+          }
+        };
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+        const expected = {
+          page: 2,
+          profile: 'minimal',
+          query: 'calais AND proxy_dc_title:dog',
+          qf: [
+            'edm_agent:"http://data.europeana.eu/agent/200"',
+            'TYPE:"IMAGE"',
+            'contentTier:(1 OR 2 OR 3 OR 4)'
+          ],
+          rows: 24
+        };
+
+        const wrapper = factory({
+          mocks: {
+            $route
+          },
+          propsData: {
+            defaultParams: {
+              qf: [overrideQf]
+            }
+          }
+        });
+        wrapper.vm.deriveApiParams();
+
+        expect(wrapper.vm.apiParams).toEqual(expected);
+      });
+
+      describe('with full-text advanced search rule', () => {
+        it('is promoted into query, with profile hits', () => {
+          const $route = {
+            query: {
+              query: 'liberty',
+              qa: [
+                'fulltext:europe',
+                'NOT fulltext:united'
+              ]
+            }
+          };
+          const expected = {
+            page: 1,
+            profile: 'minimal,hits',
+            query: 'fulltext:europe AND NOT fulltext:united AND text:(liberty)',
+            qf: ['contentTier:(1 OR 2 OR 3 OR 4)'],
+            rows: 24
+          };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+          wrapper.vm.deriveApiParams();
+
+          expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+    });
+
+    describe('handleMultilingualButtonInput', () => {
+      it('stores the value in the multilingualSearch cookie', () => {
+        const $auth = { loggedIn: true };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$cookies.set.calledWith('multilingualSearch', true)).toBe(true);
+      });
+
+      it('updates the route, resetting pagination', () => {
+        const $auth = { loggedIn: true };
+        const $route = { query: { query: 'casa', page: 2 } };
+        const wrapper = factory({ mocks: { $auth, $route } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$router.push.calledWith({
+          name: 'search', query: { query: 'casa', page: 1, translate: 'true' }
+        })).toBe(true);
+      });
+
+      it('logs in if needed', () => {
+        const $auth = { loggedIn: false };
+        const wrapper = factory({ mocks: { $auth } });
+
+        wrapper.vm.handleMultilingualButtonInput(true);
+
+        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+      });
+    });
+
     describe('handlePaginationChanged', () => {
       it('is records pagination changed then triggers fetch', async() => {
         const wrapper = factory();
@@ -261,6 +535,33 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.paginationChanged).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('onClickItem', () => {
+      it('logs the interaction to APM', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, 'logApmTransaction');
+        wrapper.vm.$route.query = {
+          query: 'sponge',
+          qf: ['TYPE:"IMAGE"'],
+          reusability: 'open'
+        };
+        await wrapper.vm.$fetch();
+        wrapper.vm.logApmTransaction.resetHistory();
+
+        await wrapper.vm.onClickItem(searchResult.items[0].id);
+
+        expect(wrapper.vm.logApmTransaction.calledWith({
+          name: 'Search - click result',
+          labels: {
+            'search_params_query': 'sponge',
+            'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            'search_params_reusability': 'open',
+            'search_result_rank': 1,
+            'search_results_total': 1
+          }
+        })).toBe(true);
       });
     });
 
@@ -297,6 +598,18 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.handleResultsDrawn(cardRefs);
 
         expect(linkStub.focus.called).toBe(false);
+      });
+    });
+
+    describe('handleSearchParamsChanged', () => {
+      it('resets multi selected items and calls fetch', () => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.handleSearchParamsChanged();
+
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
 
@@ -391,171 +704,19 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
-
-    describe('setViewFromRouteQuery', () => {
-      describe('with view in route query', () => {
-        const route = { query: { view: 'mosaic', query: 'sport' } };
-
-        it('updates the stored view', () => {
-          const wrapper = factory({ mocks: { $route: route } });
-          wrapper.setData({ view: 'list' });
-
-          wrapper.vm.setViewFromRouteQuery();
-
-          expect(wrapper.vm.$store.commit.calledWith('search/setView', 'mosaic')).toBe(true);
-        });
-
-        it('sets searchResultsView cookie', () => {
-          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
-          wrapper.setData({ view: 'list' });
-
-          wrapper.vm.setViewFromRouteQuery();
-
-          expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
-        });
-      });
-
-      describe('without view in route query', () => {
-        const route = { query: { query: 'sport' } };
-
-        it('does not update the stored view', () => {
-          const wrapper = factory({ mocks: { $route: route } });
-          wrapper.setData({ view: 'list' });
-          sinon.resetHistory();
-
-          wrapper.vm.setViewFromRouteQuery();
-
-          expect(wrapper.vm.$store.commit.called).toBe(false);
-        });
-
-        it('does not set searchResultsView cookie', () => {
-          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
-          wrapper.setData({ view: 'list' });
-
-          wrapper.vm.setViewFromRouteQuery();
-
-          expect(wrapper.vm.$cookies.set.called).toBe(false);
-        });
-      });
-    });
   });
 
-  describe('deriveApiSettings', () => {
-    it('combines userParams and overrideParams into apiParams', () => {
-      const userQuery = 'calais';
-      const userQf = 'TYPE:"IMAGE"';
-      const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-      const profile = 'minimal';
-      const wrapper = factory({
-        mocks: {
-          $route: {
-            query: {
-              query: userQuery,
-              qf: userQf
-            }
-          }
-        },
-        propsData: {
-          overrideParams: {
-            qf: [overrideQf]
-          }
-        }
-      });
+  describe('watch', () => {
+    describe('when $route.query.translate value changes', () => {
+      it('resets multi selected items and triggers $fetch', async() => {
+        const wrapper = factory({ mocks: { $route: { query: {} } } });
+        sinon.spy(wrapper.vm, '$fetch');
 
-      wrapper.vm.deriveApiSettings();
+        wrapper.vm.$route.query = { translate: 'true' };
+        await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.apiParams).toEqual({
-        query: userQuery,
-        qf: [userQf, overrideQf],
-        profile
-      });
-    });
-
-    describe('within a theme having fulltext API support', () => {
-      describe('metadata/fulltext API selection', () => {
-        it('applies user selection if present', () => {
-          const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
-
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.api).toBe('metadata');
-        });
-
-        it('falls back to collection-specific default', () => {
-          const $route = { query: { qf: ['collection:newspaper'] } };
-
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.api).toBe('fulltext');
-        });
-      });
-
-      describe('and fulltext API is selected', () => {
-        const $route = { query: { qf: ['collection:newspaper'], api: 'fulltext' } };
-
-        it('sets profile param to "minimal,hits"', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.profile).toBe('minimal,hits');
-        });
-
-        it('sets fulltext API URL option', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiOptions.url).toBe('https://newspapers.eanadev.org/api/v2');
-        });
-      });
-
-      describe('and metadata API is selected', () => {
-        const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
-
-        it('does not set profile param to "minimal,hits"', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.profile).toBe('minimal');
-        });
-
-        it('does not set fulltext API URL option', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiOptions.url).not.toBe('https://newspapers.eanadev.org/api/v2');
-        });
+        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });

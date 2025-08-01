@@ -4,102 +4,146 @@
     :key="`searchResultsGrid${view}`"
     v-masonry
     transition-duration="0.1"
-    item-selector=".card"
+    item-selector=".masonry-tile"
     horizontal-order="true"
     column-width=".masonry-container .card:not(.header-card)"
     class="masonry-container"
     :data-qa="`item previews ${view}`"
   >
-    <slot />
+    <slot name="header" />
     <component
-      :is="draggableItems ? 'draggable' : 'div'"
+      :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
-      :draggable="draggableItems && '.item'"
+      :draggable="useDraggable && '.item'"
       handle=".move-button"
       @end="endItemDrag"
     >
-      <template
-        v-for="(card, index) in cards"
-      >
-        <aside
-          v-if="card === 'related'"
-          :key="index"
+      <TransitionGroup name="fade">
+        <template
+          v-for="card in cards"
         >
-          <slot
+          <div
+            v-if="card === relatedGalleries"
+            :key="card"
             v-masonry-tile
-            name="related"
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
+          <div
+            v-else-if="card === relatedCollections"
+            :key="card"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
+            v-masonry-tile
+            data-qa="item preview"
+            class="masonry-tile item"
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            :lazy="true"
+            :enable-accept-recommendation="enableAcceptRecommendations"
+            :enable-reject-recommendation="enableRejectRecommendations"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
           />
-        </aside>
-        <ItemPreviewCard
-          v-else
-          :key="index"
-          ref="cards"
-          :item="card"
-          :hit-selector="itemHitSelector(card)"
-          :variant="cardVariant"
-          class="item"
-          :lazy="true"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
-          :show-pins="showPins"
-          :show-move="draggableItems"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-        />
-      </template>
+        </template>
+      </TransitionGroup>
     </component>
   </div>
-  <component
-    :is="draggableItems ? 'draggable' : 'b-card-group'"
+  <b-card-group
     v-else
-    v-model="cards"
-    :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
-    deck
-    @end="endItemDrag"
+    :columns="view === 'list'"
+    :deck="view !== 'list'"
   >
-    <slot />
-    <template
-      v-for="(card, index) in cards"
+    <slot name="header" />
+    <component
+      :is="useDraggable ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="useDraggable && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <aside
-        v-if="card === 'related'"
-        :key="index"
-        class="aside-card-wrapper"
-      >
-        <slot
-          name="related"
-        />
-      </aside>
-      <ItemPreviewCard
-        v-else
-        :key="card.id"
-        ref="cards"
-        :item="card"
-        class="item"
-        :hit-selector="itemHitSelector(card)"
-        :variant="cardVariant"
-        :show-pins="showPins"
-        :show-move="draggableItems"
-        :offset="items.findIndex(item => item.id === card.id)"
-        data-qa="item preview"
-      />
-    </template>
-  </component>
+      <TransitionGroup name="fade">
+        <template
+          v-for="card in cards"
+        >
+          <div
+            v-if="card === relatedGalleries"
+            :key="card"
+            class="related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
+          <div
+            v-else-if="card === relatedCollections"
+            :key="card"
+            class="related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
+          <ItemPreviewCard
+            v-else
+            :key="card.id"
+            ref="cards"
+            class="item"
+            data-qa="item preview"
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            :route-hash="routeHash"
+            :route-query="routeQuery"
+            :show-pins="showPins"
+            :show-move="useDraggable"
+            :show-remove="userEditableItems"
+            :offset="items.findIndex(item => item.id === card.id)"
+            :on-aux-click-card="onAuxClickCard"
+            :on-click-card="onClickCard"
+          />
+        </template>
+      </TransitionGroup>
+    </component>
+  </b-card-group>
 </template>
 
 <script>
-  import draggable from 'vuedraggable';
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
-      draggable,
+      draggable: () => import('vuedraggable'),
       ItemPreviewCard
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
 
     props: {
       items: {
@@ -112,7 +156,7 @@
       },
       /**
        * Layout view to use
-       * @values grid, mosaic, list, explore
+       * @values grid, mosaic, list
        */
       view: {
         type: String,
@@ -122,7 +166,7 @@
         type: Boolean,
         default: false
       },
-      draggableItems: {
+      userEditableItems: {
         type: Boolean,
         default: false
       },
@@ -133,71 +177,116 @@
       enableRejectRecommendations: {
         type: Boolean,
         default: false
+      },
+      onClickCard: {
+        type: Function,
+        default: null
+      },
+      onAuxClickCard: {
+        type: Function,
+        default: null
       }
     },
 
     data() {
       return {
-        cards: []
+        cards: [],
+        relatedGalleries: 'related-galleries',
+        relatedCollections: 'related-collections',
+        showRelatedCollections: false,
+        showRelatedGalleries: false
       };
-    },
-
-    fetch() {
-      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
     },
 
     computed: {
       cardGroupClass() {
-        let cardGroupClass;
-
-        switch (this.view) {
-        case 'list':
-          cardGroupClass = 'card-group-list mx-0';
-          break;
-        case 'explore':
-          cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        }
-
-        return cardGroupClass;
+        return this.view === 'list' ? 'card-group-list' : null;
       },
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
       },
 
+      routeHash() {
+        return this.routeQuery ? '#search' : undefined;
+      },
+
+      routeQuery() {
+        if (this.$route.query?.qa) {
+          const fulltext = this.advancedSearchRulesFromRouteQuery(this.$route.query.qa)
+            .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
+            .map((rule) => (rule.modifier === 'exact') ? `"${rule.term}"` : rule.term)
+            .join(' ');
+          return { fulltext };
+        } else {
+          return undefined;
+        }
+      },
+
       masonryActive() {
         return this.view === 'grid' || this.view === 'mosaic';
+      },
+
+      useDraggable() {
+        return process.client && this.userEditableItems;
       }
     },
 
     watch: {
-      'cards.length': 'redrawMasonry',
+      'cards.length'() {
+        this.redrawMasonry(400);
+      },
       items() {
-        this.$fetch();
+        this.initCards();
+      },
+      showRelatedCollections() {
+        this.initCards();
+      },
+      showRelatedGalleries() {
+        this.initCards();
       }
     },
 
-    async mounted() {
-      await this.redrawMasonry();
+    created() {
+      this.showRelatedCollections = this.$slots[this.relatedCollections];
+      this.showRelatedGalleries = this.$slots[this.relatedCollections];
+      this.initCards();
+    },
+
+    mounted() {
+      this.redrawMasonry();
       this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {
-      endItemDrag() {
-        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
-      },
-      itemHitSelector(item) {
-        if (!this.hits) {
-          return null;
+      initCards() {
+        const cards = [...this.items];
+
+        if (this.showRelatedGalleries) {
+          cards.splice(3, 0, this.relatedGalleries);
+        }
+        if (this.showRelatedCollections) {
+          cards.splice(8, 0, this.relatedCollections);
         }
 
-        const hit = this.hits.find(hit => item.id === hit.scope);
-        return hit ? hit.selectors[0] : null;
+        this.cards = cards;
       },
-      redrawMasonry() {
+      endItemDrag({ oldIndex, newIndex }) {
+        // Read from items as cards contain related content irrelevent to drag
+        if (this.items[oldIndex].id) {
+          this.$emit('endItemDrag', { itemId: this.items[oldIndex].id, position: newIndex });
+        }
+        this.redrawMasonry();
+      },
+      itemHitSelector(item) {
+        return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0] || null;
+      },
+      redrawMasonry(timeout) {
         this.$nextTick(() => {
-          this.$redrawVueMasonry && this.$redrawVueMasonry();
+          // Timeout is needed to ensure that the masonry is redrawn after TransitionGroup has finished
+          setTimeout(() => {
+            this.$redrawVueMasonry?.();
+          }, timeout || 0);
         });
       }
     }
@@ -205,6 +294,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/masonry';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/masonry';
+  @import '@europeana/style/scss/transitions';
 </style>

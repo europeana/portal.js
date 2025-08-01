@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="static page"
-    class="text-page white-page "
+    class="page text-page"
   >
     <AuthoredHead
       :title="name"
@@ -16,14 +16,25 @@
           class="col-lg-8"
         >
           <article>
-            <ShareButton class="mb-4" />
-            <SocialShareModal />
-            <BrowseSections
-              :sections="hasPartCollection.items"
-              :rich-text-is-card="false"
+            <div class="d-flex flex-wrap align-items-center">
+              <ShareButton class="mr-4 mb-4" />
+              <ShareSocialModal />
+              <StaticAutomatedTranslationLabel
+                v-if="automatedTranslation"
+                class="mb-4"
+              />
+            </div>
+            <div
               class="authored-section"
-              data-qa="browse sections"
-            />
+              data-qa="authored section"
+            >
+              <ContentSection
+                v-for="(section, index) in (hasPartCollection?.items || [])"
+                :key="index"
+                :section="section"
+                :rich-text-is-card="false"
+              />
+            </div>
           </article>
         </b-col>
       </b-row>
@@ -36,8 +47,8 @@
           class="mt-3 col-lg-8"
         >
           <LinkList
-            :title="relatedLinks.name"
-            :items="relatedLinks.links.items"
+            :title="relatedLinks?.name"
+            :items="relatedLinks?.links?.items"
           />
         </b-col>
       </b-row>
@@ -46,17 +57,18 @@
 </template>
 
 <script>
-  import SocialShareModal from '../sharing/SocialShareModal.vue';
-  import ShareButton from '../sharing/ShareButton.vue';
-  import BrowseSections from '../browse/BrowseSections';
+  import ShareSocialModal from '../share/ShareSocialModal.vue';
+  import ShareButton from '../share/ShareButton.vue';
+  import ContentSection from '../content/ContentSection';
 
   export default {
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
-      SocialShareModal,
+      ContentSection,
+      LinkList: () => import('../generic/LinkList'),
       ShareButton,
-      BrowseSections,
-      LinkList: () => import('../generic/LinkList')
+      ShareSocialModal,
+      StaticAutomatedTranslationLabel: () => import('@/components/static/StaticAutomatedTranslationLabel')
     },
     props: {
       name: {
@@ -66,6 +78,10 @@
       description: {
         type: String,
         default: null
+      },
+      automatedTranslation: {
+        type: Boolean,
+        default: false
       },
       hasPartCollection: {
         type: Object,

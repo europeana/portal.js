@@ -1,0 +1,13 @@
+fragment relatedContentStoryFields on Story {
+  __typename
+  name
+  identifier
+  primaryImageOfPage {
+    image {
+      url
+      contentType
+      description
+    }
+  }
+  datePublished
+}

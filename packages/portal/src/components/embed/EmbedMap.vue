@@ -7,7 +7,7 @@
       class="p-3"
     >
       <span
-        :lang="localisedPrefLabel.code"
+        :lang="langAttribute(localisedPrefLabel.code)"
       >
         {{ localisedPrefLabel.values[0] }}
       </span>
@@ -28,10 +28,13 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'EmbedMap',
+
+    mixins: [langAttributeMixin],
 
     props: {
       prefLabel: {
@@ -89,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .map-embed {
     label {

@@ -1,38 +1,22 @@
 import axios from 'axios';
-import redis from 'redis';
+import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
-import { promisify } from 'util';
-import { langMapValueForLocale } from '../plugins/europeana/utils.js';
-
-const redisConfig = (config = {}) => {
-  const redisOptions = {
-    url: config.url
-  };
-
-  if (config.tlsCa) {
-    redisOptions.tls = {
-      ca: [Buffer.from(config.tlsCa, 'base64')]
-    };
-  }
-
-  return redisOptions;
-};
+import { daily } from '../plugins/europeana/utils.js';
+import { langMapValueForLocale } from '@europeana/i18n';
+import EuropeanaRecordApi from '../plugins/europeana/record.js';
+import EuropeanaEntityApi from '../plugins/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
-  const redisClient = redis.createClient(redisConfig(config));
+  const redisClient = createClient(config);
 
   redisClient.on('error', console.error);
-
-  for (const fn of ['get', 'set', 'quit']) {
-    redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
-  }
 
   return redisClient;
 };
 
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
-    baseURL: config.url,
+    baseURL: config.url || fallbackApiUrl(config.id),
     params: {
       wskey: config.key
     }
@@ -55,19 +39,12 @@ const errorMessage = (error) => {
   return message;
 };
 
-const dailyOffset = (setSize, subsetSize) => {
-  const millisecondsPerDay = (1000 * 60 * 60 * 24);
-  const unixDay = Math.floor(Date.now() / millisecondsPerDay);
-  const offset = (unixDay * subsetSize) % setSize;
-  return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
-};
-
-const daily = (set, subsetSize) => {
-  if (!Array.isArray(set)) {
-    return set;
+const fallbackApiUrl = (apiId) => {
+  if (apiId === 'record') {
+    return EuropeanaRecordApi.BASE_URL;
+  } else if (apiId === 'entity') {
+    return EuropeanaEntityApi.BASE_URL;
   }
-  const offset = dailyOffset(set.length, subsetSize);
-  return set.slice(offset, offset + subsetSize);
 };
 
 const localiseOne = (item, fields, locale) => {
@@ -113,6 +90,7 @@ export {
   createEuropeanaApiClient,
   createRedisClient,
   errorMessage,
+  fallbackApiUrl,
   daily,
   localise,
   pick,

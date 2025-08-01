@@ -1,0 +1,633 @@
+@import 'icons';
+
+.btn {
+  font-weight: 400;
+  text-decoration-line: none;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
+      border-radius: $border-radius-small-4k;
+    }
+  }
+
+  [class^='icon-'],
+  [class*=' icon-'] {
+    line-height: 1.5;
+  }
+
+  &:focus {
+    outline: auto;
+  }
+
+  &:hover {
+    box-shadow: $boxshadow;
+  }
+
+  .icon-add,
+  .icon-clear {
+    font-size: $font-size-smallest;
+    line-height: 1;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+      }
+    }
+  }
+}
+
+.btn-primary {
+  background: $blue;
+  border-color: $blue;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    background: $innovationblue-dark;
+    box-shadow: $boxshadow;
+  }
+
+  &:disabled {
+    background: $blue;
+    border-color: $blue;
+    opacity: 0.7;
+    box-shadow: none;
+  }
+
+  &.btn-cta {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: 0.75rem 1.5rem;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+      }
+    }
+  }
+}
+
+.btn-secondary {
+  text-transform: uppercase;
+  background: $offwhite;
+  color: $darkgrey;
+  font-size: $font-size-small;
+  border: 1px solid $offwhite;
+  font-weight: 600;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    background: $offwhite;
+    color: $blue;
+    box-shadow: $boxshadow;
+    border: 1px solid $offwhite;
+  }
+
+  &:disabled {
+    background: $offwhite;
+    border: 1px solid $offwhite;
+    color: $darkgrey;
+    opacity: 0.7;
+    box-shadow: none;
+  }
+
+  &:focus,
+  &:active {
+    background: $offwhite;
+    color: $darkgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
+
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
+    }
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background: $offwhite;
+    color: $darkgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
+
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
+    }
+  }
+
+  .show > &.dropdown-toggle {
+    color: $darkgrey;
+    background-color: $white;
+    border-color: $blue;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &.like-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $red;
+    }
+  }
+
+  .icon-link {
+    font-size: 1.25rem;
+    line-height: 1rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.25rem);
+      }
+    }
+  }
+}
+
+.btn-success {
+  background-color: $green;
+  border-color: $green;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $green;
+  }
+}
+
+.btn-link {
+  color: $blue;
+
+  &:hover {
+    box-shadow: none;
+    color: $darkblue;
+  }
+}
+
+// Expected ".btn-outline-primary:hover" to come before
+// @at-root  ".btn-outline-primary:hover:not([disabled])"
+.btn-outline-primary {
+  background-color: $white;
+  border-color: $blue;
+  color: $blue;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    box-shadow: none;
+  }
+
+  &:hover:not([disabled]) {
+    background-color: $blue;
+    border-color: $blue;
+  }
+
+  &.disabled {
+    color: $grey;
+    border-color: $grey;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $blue;
+    background-color: $white;
+    border-color: $blue;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.btn-outline-secondary {
+  border: 1px solid $darkgrey;
+  color: $greyblack;
+  transition: $standard-transition;
+  font-weight: 600;
+  padding: 0.5em 0.75em;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+      padding: 0.75em calc(1.5 * 0.75em);
+    }
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $innovationblue-dark;
+    background: $blue-20;
+    color: $innovationblue-dark;
+    transition: $standard-transition;
+    box-shadow: none;
+  }
+}
+
+.btn-danger {
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: $red;
+
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(201, 28, 28, 50%);
+  }
+
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-color: $darkred;
+    border-color: $darkred;
+  }
+}
+
+.btn-light {
+  background: $white;
+  border: 0;
+  color: $darkgrey-light;
+  font-size: $font-size-small;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: $standard-transition;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background: $white;
+    color: $blue;
+  }
+
+  &:disabled,
+  &.disabled {
+    background: $white;
+    color: $darkgrey-light;
+    opacity: 0.7;
+  }
+
+  .icon-add-circle-outlined {
+    line-height: 1;
+
+    &::before {
+      font-size: $font-size-medium;
+      margin-left: -2px;
+      margin-right: -1px;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-medium-4k;
+        }
+      }
+    }
+  }
+}
+
+.btn-light-flat {
+  background: $white;
+  border: 0;
+  color: $greyblack;
+  font-size: $font-size-small;
+  text-decoration: none;
+  transition: $standard-transition;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &.button-icon-only {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 1.1rem;
+    padding: 0; // Chrome 82 fix
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 1.5rem);
+        width: calc(1.5 * 1.5rem);
+        font-size: calc(1.5 * 1.1rem);
+      }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
+    }
+  }
+
+  &.icon-filter {
+    font-size: $font-size-large;
+  }
+
+  &.icon-clear {
+    font-size: $font-size-small;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  .icon-pin,
+  .icon-pin-outlined,
+  .icon-add-circle-outlined,
+  .icon-heart,
+  .icon-heart-outlined,
+  .icon-ic-move-xy,
+  .icon-remove-circle-outlined {
+    font-size: $font-size-base;
+  }
+
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
+  }
+}
+
+.btn-dark-flat {
+  background: transparent;
+  border: 0;
+  color: $white;
+  font-size: $font-size-small;
+  text-decoration: none;
+  transition: $standard-transition;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border: none;
+  }
+
+  &.disabled {
+    opacity: 1;
+    color: $darkgrey-light;
+  }
+
+  &.button-icon-only {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: $font-size-large;
+    padding: 0; // Chrome 82 fix
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 1.5rem);
+        width: calc(1.5 * 1.5rem);
+        font-size: calc(1.5 * 1.1rem);
+      }
+    }
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      line-height: 1;
+    }
+  }
+
+  &.add-button,
+  &.remove-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button,
+  &.move-button {
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+.btn-overlay {
+  background-color: rgb(0 0 0 / 70%);
+  border: 0;
+  border-radius: $border-radius-small;
+  color: $white;
+  position: relative;
+  font-weight: 600;
+
+  span {
+    position: relative;
+    z-index: 10;
+  }
+
+  &:hover {
+    background-color: rgb(0 0 0 / 70%);
+    color: $white;
+  }
+
+  &::after {
+    content: '';
+    background: rgb(0 0 0 / 70%);
+    border-radius: $border-radius-small;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.button-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    display: inline-block;
+  }
+}
+
+.btn-outline-light {
+  border: 1px solid $paper;
+  background: $white;
+  color: $darkgrey;
+  font-size: $font-size-small;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover {
+    box-shadow: $boxshadow;
+    background: $white;
+    color: $darkgrey;
+  }
+
+  &.add-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button,
+  &.move-button,
+  &.remove-button {
+    font-size: $font-size-large;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+      }
+    }
+
+    &.button-icon-only {
+      height: 2.25rem;
+      width: 2.25rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          height: calc(1.5 * 2.25rem);
+          width: calc(1.5 * 2.25rem);
+        }
+      }
+    }
+  }
+
+  &.like-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $red;
+    }
+  }
+
+  &.pin-button {
+
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $darkgrey;
+    }
+  }
+
+  &.recommendation-button {
+    &:hover {
+      color: $innovationblue;
+      background: $white;
+      border-color: $white;
+    }
+  }
+}
+
+a {
+  &.skip-main {
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+  }
+
+  &.skip-main:focus,
+  &.skip-main:active {
+    color: $white;
+    background-color: $greyblack;
+    left: auto;
+    top: 70px;
+    width: 30%;
+    height: auto;
+    overflow: auto;
+    margin: 10px 35%;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: 4px solid $yellow;
+    text-align: center;
+    font-size: 1.2rem;
+    z-index: 999;
+
+    @media (min-width: $bp-4k) {
+      top: calc(1.5 * 70px);
+    }
+  }
+}
+
+.nav-link,
+.extended-toggle {
+  position: relative;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.info-panel,
+.header-card {
+  .btn-link {
+    color: $blue;
+    text-decoration: none;
+    font-size: $font-size-base;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.share-button .icon-share {
+  font-size: 1.125rem;
+  line-height: 1rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 1.125rem);
+      line-height: 1rem;
+    }
+  }
+}

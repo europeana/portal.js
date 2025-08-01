@@ -1,21 +1,26 @@
 <template>
-  <div class="collections-page white-page">
+  <div class="collections-page page">
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <b-container
       v-else
     >
+      <!-- Replace media URL when available or a default placeholder is implemented -->
       <ContentHeader
         :title="pageMeta.title"
+        :description="pageMeta.description"
+        :media-url="'/'"
+        button-variant="secondary"
+        class="half-col"
       />
       <client-only>
         <EntityTable
           :type="$route.params.type"
           data-qa="collections table"
+          class="mt-3 mt-md-4"
         />
       </client-only>
     </b-container>
@@ -23,16 +28,15 @@
 </template>
 
 <script>
-  import createHttpError from 'http-errors';
   import ClientOnly from 'vue-client-only';
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
@@ -42,17 +46,18 @@
 
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404;
-        }
-        throw createHttpError(404, 'Unknown collection type'); // TODO: i18n
+        this.$error(404, { scope: 'page' });
       }
     },
 
     computed: {
+      description() {
+        return this.$route.params.type === 'organisations' ? this.$t('pages.collections.organisations.description') : null;
+      },
       pageMeta() {
         return {
-          title: this.$t(`pages.collections.${this.$route.params.type}.title`)
+          title: this.$t(`pages.collections.${this.$route.params.type}.title`),
+          description: this.description
         };
       }
     },
@@ -64,9 +69,9 @@
   </script>
 
   <style lang="scss" scoped>
-    @import '@/assets/scss/variables';
+    @import '@europeana/style/scss/variables';
 
     .collections-page {
-      padding: 3rem 0 7rem;
+      padding-bottom: 7rem;
     }
   </style>

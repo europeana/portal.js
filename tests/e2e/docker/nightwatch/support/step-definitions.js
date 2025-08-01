@@ -153,12 +153,6 @@ defineStep('I paginate/switch/go to page (number ){int}', (page) =>
 defineStep('I am on page (number ){int}', (page) =>
   i.amOnPageNumber(page));
 
-defineStep('I click the {string} tab', (tab) =>
-  i.clickOnTab(tab));
-
-defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){string} tab', (tab) =>
-  i.doNotSeeATab(tab));
-
 defineStep('I go back', () =>
   i.goBack());
 
@@ -176,6 +170,9 @@ defineStep('I should see alternate-hreflang tags', () =>
 
 defineStep('I should have a Europeana branded page title', () =>
   i.haveEuropeanaBrandedTitle());
+
+defineStep('I should not have a Europeana branded page title', () =>
+  i.doNotHaveEuropeanaBrandedTitle());
 
 defineStep('I hover over (a/an/the)( ){target}', (target) =>
   i.moveToElement(target));

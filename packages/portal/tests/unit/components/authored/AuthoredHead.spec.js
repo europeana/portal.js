@@ -17,13 +17,13 @@ const factory = (propsData = {}) => mount(AuthoredHead, {
     $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
-    $path: () => '/'
+    localePath: () => '/'
   }
 });
 
 const details = {
   title: 'This is a page',
-  contextLabel: 'Blog post'
+  contextLabel: 'Story post'
 };
 
 describe('components/authored/AuthoredHead', () => {

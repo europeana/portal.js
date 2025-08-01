@@ -33,7 +33,7 @@ const factory = () => shallowMountNuxt(page, {
   mocks: {
     $t: key => key,
     $i18n: {
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     }
   }
 });
@@ -54,14 +54,6 @@ describe('pages/contentful/category-suggest/index', () => {
     });
   });
 
-  describe('mounted', () => {
-    it('triggers the window auto resizer', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.contentfulExtensionSdk.window.startAutoResizer.called).toBe(true);
-    });
-  });
-
   describe('methods', () => {
     describe('findCategories', () => {
       const value = [
@@ -71,26 +63,24 @@ describe('pages/contentful/category-suggest/index', () => {
 
       it('queries Contentful for current categories', async() => {
         const wrapper = factory();
-        wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
         wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategoryFindResponse);
 
-        await wrapper.vm.findCategories();
+        await wrapper.vm.findCategories(value);
 
         expect(wrapper.vm.contentfulExtensionSdk.space.getEntries.calledWith({
           'sys.id[in]': [fixtures.bees.sys.id, fixtures.nature.sys.id].join(',')
         })).toBe(true);
       });
 
-      it('stores the category data, preserving original order', async() => {
+      it('returns the category data, preserving original order', async() => {
         const wrapper = factory();
-        wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
         wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategoryFindResponse);
 
-        await wrapper.vm.findCategories();
+        const categories = await wrapper.vm.findCategories(value);
 
-        expect(wrapper.vm.value.length).toBe(2);
-        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('bees');
-        expect(wrapper.vm.value[1].fields.name['en-GB']).toBe('nature');
+        expect(categories.length).toBe(2);
+        expect(categories[0].fields.name['en-GB']).toBe('bees');
+        expect(categories[1].fields.name['en-GB']).toBe('nature');
       });
     });
 
@@ -121,59 +111,14 @@ describe('pages/contentful/category-suggest/index', () => {
           })).toBe(true);
         });
 
-        it('stores the suggestions', async() => {
+        it('returns the suggestions', async() => {
           const wrapper = factory();
           wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategorySuggestResponse);
 
-          await wrapper.vm.suggestCategories(text);
+          const categories = await wrapper.vm.suggestCategories(text);
 
-          expect(wrapper.vm.suggestions).toEqual(contentfulCategorySuggestResponse.items);
+          expect(categories).toEqual(contentfulCategorySuggestResponse.items);
         });
-      });
-    });
-
-    describe('selectSuggestion', () => {
-      it('adds the suggestion to those stored', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          value: [fixtures.bees]
-        });
-
-        wrapper.vm.selectSuggestion(fixtures.nature);
-
-        expect(wrapper.vm.value.length).toBe(2);
-        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('bees');
-        expect(wrapper.vm.value[1].fields.name['en-GB']).toBe('nature');
-      });
-    });
-
-    describe('removeSelection', () => {
-      it('remove the selection from those stored', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          value: [fixtures.bees, fixtures.nature]
-        });
-
-        wrapper.vm.removeSelection(fixtures.bees);
-
-        expect(wrapper.vm.value.length).toBe(1);
-        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('nature');
-      });
-    });
-
-    describe('updateContentfulField', () => {
-      it('adds links to the stored categories via the SDK', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          value: [fixtures.bees, fixtures.nature]
-        });
-
-        wrapper.vm.updateContentfulField();
-
-        expect(wrapper.vm.contentfulExtensionSdk.field.setValue.calledWith([
-          contentfulEntryLink(fixtures.bees),
-          contentfulEntryLink(fixtures.nature)
-        ])).toBe(true);
       });
     });
   });

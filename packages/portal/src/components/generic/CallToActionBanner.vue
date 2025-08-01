@@ -7,7 +7,7 @@
       v-if="illustration"
       class="cta-illustration align-self-stretch"
     >
-      <OptimisedImage
+      <ImageOptimised
         :alt="illustration.image.description"
         :src="illustration.image.url"
         :width="illustration.image.width"
@@ -17,7 +17,7 @@
         :lazy="true"
       />
     </div>
-    <div class="cta-content align-self-stretch flex-md-fill">
+    <div class="cta-content align-self-stretch d-flex flex-column align-items-center justify-content-center">
       <h2>
         {{ name }}
       </h2>
@@ -27,10 +27,12 @@
       />
       <!-- eslint-enable   vue/no-v-html -->
       <SmartLink
+        v-if="link"
         :destination="link.url"
         data-qa="call to action"
         class="btn btn-cta btn-primary"
         hide-external-icon
+        @click.capture.native="handleClickEvent"
       >
         {{ link.text }}
       </SmartLink>
@@ -47,12 +49,16 @@
 
     components: {
       SmartLink,
-      OptimisedImage: () => import('@/components/generic/OptimisedImage')
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
     props: {
       name: {
         type: String,
         required: true
+      },
+      nameEnglish: {
+        type: String,
+        default: null
       },
       text: {
         type: String,
@@ -60,7 +66,7 @@
       },
       link: {
         type: Object,
-        required: true
+        default: null
       },
       illustration: {
         type: Object,
@@ -80,55 +86,76 @@
         // TODO: Update the styling of the RichString component and use that instead.
         return marked.parse(this.text);
       }
+    },
+
+    methods: {
+      handleClickEvent() {
+        this.$matomo?.trackEvent('CTA banner', 'Click CTA banner link', `CTA banner: ${this.nameEnglish}`);
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .cta-banner {
     background-color: $yellowgrey;
-    margin-bottom: 2em;
-    font-size: 1rem;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: $font-size-base;
     border-radius: 0.25em;
     border: 0.25em solid $greyblack;
     box-shadow: 0.75em 0.75em 0 0 $greyblack;
+    width: 100%;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-wqhd) {
+      min-height: 320px;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-large;
+      margin-bottom: 3rem;
+      min-height: 442px;
     }
 
     .cta-content {
-      padding: 1.75em;
+      padding: 1.5rem 1.75rem 2.5rem;
       text-align: center;
-      font-size: 1rem;
+      font-size: $font-size-base;
 
-      @media (min-width: $bp-extralarge) {
-        font-size: 1.375rem;
+      @media (min-width: $bp-medium) {
+        height: auto;
+        flex: 0 0 60%;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1em;
+      @media (min-width: $bp-extralarge) {
+        font-size: $font-size-medium;
+        padding: 3rem 3.75rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-medium-4k;
       }
 
       h2 {
-        color: $mediumgrey;
-        font-size: 2rem;
+        color: $darkgrey;
+        font-size: $font-size-large;
         font-weight: 700;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem;
 
         @media (min-width: $bp-extralarge) {
-          font-size: 2.375rem;
+          font-size: $font-size-xl;
         }
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 2em;
-          margin-bottom: 0.8em;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-xl-4k;
+          margin-bottom: 0.75rem;
         }
       }
 
-      p {
+      ::v-deep p {
         margin-bottom: 1em;
       }
     }
@@ -138,18 +165,18 @@
       text-transform: none;
       border: 0.1875em solid $greyblack;
       box-shadow: 0.25em 0.25em 0 0 $greyblack;
+      font-size: $font-size-base;
       font-weight: 700;
-      padding: 0.5em 1em;
       border-radius: 0.25em;
-      margin-top: 2em;
+      margin-top: 0;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
       }
     }
 
     &.light {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
     }
 
     &.innovationblue {
@@ -174,31 +201,40 @@
     }
 
     .cta-illustration {
-      margin-top: 1em;
-      margin-left: 1em;
-      margin-right: 1em;
-      height: 175px;
       position: relative;
       flex-shrink: 0;
 
-      @media (min-width: $bp-medium) {
-        height: auto;
-        width: 40%;
+      @media (max-width: ($bp-medium - 1px)) {
+        background-color: $illustration-whitegrey;
+        height: 175px;
       }
 
-      img {
+      @media (min-width: $bp-medium) {
+        flex: 0 0 40%;
+      }
+
+      ::v-deep img {
+        padding: 1rem 1rem 0;
         position: absolute;
         left: 0;
         bottom: 0;
         max-height: 100%;
         right: 0;
         margin: 0 auto;
+
+        @media (min-width: $bp-4k) {
+          padding: 1.5rem 1.5rem 0;
+        }
       }
     }
   }
 
   .home-cta {
-    margin: 3em auto;
+    margin: 3rem auto;
+
+    @media (min-width: $bp-4k) {
+      margin: 4.5rem auto;
+    }
   }
 </style>
 
@@ -244,4 +280,4 @@
     variant="innovationblue"
   />
   ```
-  </docs>
+</docs>

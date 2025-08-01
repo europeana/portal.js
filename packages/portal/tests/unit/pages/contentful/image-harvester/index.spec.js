@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/image-harvester/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -81,13 +80,14 @@ const factory = () => shallowMountNuxt(page, {
     $t: key => key,
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $apis: {
       record: {
-        $axios: {
+        axios: {
           get: sinon.stub()
-        }
+        },
+        mediaProxyUrl: (url) => `proxied ${url}`
       }
     }
   }
@@ -115,7 +115,7 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the item can be retrieved', () => {
         it('calls populateFields for the item', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
+          wrapper.vm.$apis.record.axios.get.resolves({ data: apiResponse() });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           wrapper.vm.populateFields = sinon.spy();
 
@@ -141,21 +141,21 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the item can not be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.rejects(apiError(apiErrorResponse));
+          wrapper.vm.$apis.record.axios.get.rejects(apiErrorResponse);
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`)).toBe(true);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API.`)).toBe(true);
         });
       });
 
       describe('when the entry fields can not be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
+          wrapper.vm.$apis.record.axios.get.resolves({ data: apiResponse() });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           sinon.replace(wrapper.vm, 'populateFields', () => {
             throw Error('Contentful error');
@@ -163,7 +163,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error')).toBe(true);
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry.')).toBe(true);
         });
       });
     });
@@ -293,7 +293,7 @@ describe('pages/contentful/image-harvester/index', () => {
           expect(wrapper.vm.entry.fields.image.removeValue.called).toBe(true);
         });
 
-        it('creates an asset from edm:isShownBy and metadata', async() => {
+        it('creates an asset from edm:isShownBy (via media proxy), and metadata', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
@@ -306,7 +306,7 @@ describe('pages/contentful/image-harvester/index', () => {
                 'en-GB': {
                   contentType: 'image/jpeg',
                   fileName: 'Madonna',
-                  upload: 'https://www.dropbox.com/s/lh4ous7fk4u41lj/NO_Madonna_Munch.M.00841.jpg?raw=1'
+                  upload: 'proxied https://www.dropbox.com/s/lh4ous7fk4u41lj/NO_Madonna_Munch.M.00841.jpg?raw=1'
                 }
               }
             }

@@ -11,6 +11,13 @@ const factory = (propsData = {}) => shallowMount(EntityHeader, {
   localVue,
   propsData,
   mocks: {
+    $store: {
+      state: {
+        search: {
+          view: 'grid'
+        }
+      }
+    },
     $t: (val) => val,
     $redrawVueMasonry: () => true
   }

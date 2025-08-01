@@ -2,7 +2,7 @@ Feature: item page
 
   Scenario: View any existing item page
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see the `item page`
     And I see the `main metadata section`
     And I see a `metadata field`
@@ -16,14 +16,9 @@ Feature: item page
     And I am on an accessible page
     And I should have a Europeana branded page title
 
-  Scenario: Multiple items displayed in swiper
-
-    When I open `/en/item/142/UEDIN_214`
-    Then I see a `awesome swiper`
-
   Scenario: Action bar
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `action bar`
     And I see a `rights statement`
     And I see a `share button`
@@ -33,12 +28,12 @@ Feature: item page
 
   Scenario: Share Modal
 
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     And I see a `share button`
     And I click a `share button`
     Then I see a `share modal`
     And I see a `share facebook button`
-    And I see a `share twitter button`
+    And I see a `share bsky button`
     And I see a `share pinterest button`
 
   Scenario: Record without isShownBy or hasView
@@ -50,7 +45,7 @@ Feature: item page
   Scenario: One related entity
     When I open `"The Milkmaid" item page`
     Then I see `related entities`
-    And I see the `Painting related chip` in the `related entities`
+    And I see the `Art of painting related chip` in the `related entities`
 
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
@@ -59,7 +54,7 @@ Feature: item page
     And I see the `Paper related chip` in the `related entities`
     And I see the `Print related chip` in the `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Rijksmuseum related chip` in the `related entities`
+    And I see the `data provider badge` in the `data provider attribution`
 
   Scenario: Metadata in another language
     When I open the `"Hammerflügel" item page`
@@ -70,24 +65,31 @@ Feature: item page
     Then I see `similar items`
 
   Scenario: Media player for audio
-    When I open the `"The pride of Glencoe, song" item page`
+    When I open an `item page with audio media`
     Then I see the `media player`
+
+  Scenario: Mixed media presentation
+    When I open an `item page with mixed media`
+    Then I see the `item media presentation`
+    And I am on an accessible page
 
   Scenario: IIIF Image viewer
     When I open an `item page with a IIIF Image`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: IIIF Presentation viewer
     When I open an `item page with a IIIF Presentation`
-    Then I see the `IIIF viewer`
+    Then I see the `item media presentation`
+    And I see the `media image viewer`
     And I am on an accessible page
 
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
-    And  I click the `share embed textarea`
-    Then I see a `share embed copied notice`
+    And  I click the `item snippet copy button`
+    Then I see a `item snippet copied message`
 
   Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`
@@ -98,7 +100,7 @@ Feature: item page
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
-    And I click the "Location" tab
+    And I click the `location tab`
     Then I see a `map embed`
 
   Scenario: No location tab when dcterms:spatial has no co-ordinates
@@ -110,21 +112,20 @@ Feature: item page
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
-    Then I don't see a "Location" tab
+    Then there is no `location tab`
 
   Scenario: Seeing an item language selector
-    When I open an `item page`
+    When I open an `item page with IIIF annotations`
     Then I see an `item language selector`
+    Then I see a `item language selector toggle text suggestion`
 
-  Scenario: Using the item language selector
-    Given I am on the `"The Milkmaid" item page`
-    And I don't have a `translation tooltip`
-    When I click the `item language dropdown`
-    And I click the `item language option de`
-    Then I see a `translation tooltip`
-
+  @klaro-notice-not-dismissed
   @resized-browser
   Scenario: HTML embedded media
     When I open an `item page with a responsive embedded video`
+    Then I see an `embed gateway`
+    And I see the Klaro banner
+    And I accept all Klaro cookies
+    And I see a `responsive embed wrapper`
     And I resize the window to 1200 by 500
     Then The iframe does not overflow `responsive embed wrapper`

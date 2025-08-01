@@ -22,7 +22,10 @@
             variant="outline-light"
             :active="isActive(tag.identifier)"
             :to="badgeLink(tag.identifier)"
+            :data-qa="`${tag.name} category tag`"
             @click.native="clickBadge(tag.identifier)"
+            @keydown.left="handleLeft"
+            @keydown.right="handleRight"
           >
             <span>{{ tag.name }}</span>
             <span
@@ -41,16 +44,23 @@
     name: 'RelatedCategoryTags',
 
     props: {
+      /**
+       * Array of tags
+       */
       tags: {
         type: Array,
         required: true
       },
-
+      /**
+       * Array of tags selected by the user
+       */
       selected: {
         type: Array,
         default: () => []
       },
-
+      /**
+       * Toggle to show or hide the heading
+       */
       heading: {
         type: Boolean,
         default: true
@@ -62,15 +72,24 @@
         const route = { name: 'stories' };
 
         if (this.selected.includes(tagId)) {
-          const tags = this.selected.filter(item => item !== tagId);
-          if (tags.length > 0) {
-            route.query = { tags: tags.join(',') };
+          const tagsWithoutCurrent = this.selected.filter(item => item !== tagId);
+          const tagsQuery = tagsWithoutCurrent.length > 0 ? tagsWithoutCurrent.join(',') : undefined;
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          if (tagsQuery) {
+            newQuery.tags = tagsQuery;
+          } else {
+            delete newQuery.tags;
           }
+          route.query = newQuery;
         } else {
-          route.query = { tags: this.selected.concat(tagId).join(',') };
+          const newQuery = { ...this.$route.query };
+          delete newQuery.page;
+          newQuery.tags = this.selected.concat(tagId).join(',');
+          route.query = newQuery;
         }
 
-        return this.$path(route);
+        return this.localePath(route);
       },
       isActive(tagId) {
         return this.selected.includes(tagId);
@@ -80,28 +99,30 @@
           const action = this.isActive(tagId) ? 'Deselect tag' : 'Select tag';
           this.$matomo.trackEvent('Tags', action, tagId);
         }
+      },
+      handleLeft(event) {
+        event.target.previousSibling?.focus();
+      },
+      handleRight(event) {
+        event.target.nextSibling?.focus();
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .related-heading {
-    margin-bottom: 0.75rem;
-  }
+  @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
-    color: $mediumgrey;
+    color: $darkgrey;
     display: inline-block;
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        line-height: 2.25vw;
-        font-size: 1.5vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        line-height: calc(1.5 * calc(2rem - 1px));
+        font-size: calc(1.5 * 1.5rem);
       }
     }
   }
@@ -118,10 +139,42 @@
       }
     }
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw 0.25vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin: 0 calc(1.5 * 0.25rem) 0.75rem;
       }
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+  />
+  ```
+  Tags without heading and including some selected
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+    :selected="['Women\'s history']"
+    :heading="false"
+  />
+  ```
+</docs>

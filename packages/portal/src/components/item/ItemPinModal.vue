@@ -5,33 +5,33 @@
     hide-footer
     hide-header-close
     :static="modalStatic"
-    @show="fetchEntityBestItemsSets"
+    @show="fetchData"
   >
     <b-button
       v-for="(entity, index) in entities"
       :key="index"
       :disabled="!fetched"
-      :pressed="selected === entity.about"
+      :pressed="selected === entity.id"
       :data-qa="`pin item to entity choice`"
       class="btn-collection w-100 text-left d-flex"
-      @click="selectEntity(entity.about)"
+      @click="selectEntity(entity.id)"
     >
       <span
         class="mr-auto"
+        :lang="langAttribute(entityDisplayLabel(entity).code)"
       >
-        <!-- TODO: localise here, even if not on the set itself -->
-        {{ entity.prefLabel.en[0] }}
+        {{ entityDisplayLabel(entity).values[0] }}
       </span>
       <span
         class="icons text-left d-flex justify-content-end"
       >
         <span
-          v-if="selected === entity.about"
+          v-if="selected === entity.id"
           class="icon-check-circle d-inline-flex ml-auto"
         />
         <span
-          v-if="pinnedTo(entity.about)"
-          class="icon-push-pin d-inline-flex"
+          v-if="pinnedTo(entity.id)"
+          class="icon-pin d-inline-flex"
         />
       </span>
     </b-button>
@@ -60,7 +60,7 @@
       >
         <b-button
           data-qa="go to set link"
-          :to="$path(selectedLink)"
+          :to="localePath(selectedLink)"
           variant="primary"
         >
           {{ $t('entity.actions.viewPinned') }}
@@ -71,13 +71,18 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
+  import pick from 'lodash/pick.js';
+
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
-      makeToastMixin
+      langAttributeMixin,
+      entityBestItemsSetMixin
     ],
 
     props: {
@@ -89,14 +94,9 @@
         required: true
       },
       /**
-       * Entities associated with the item, to which it may be pinned
-       * @example
-       *   [
-       *     { about: 'entityUri1', prefLabel: { en: 'entity en label 1' } },
-       *     { about: 'entityUri2', prefLabel: { en: 'entity en label 2' } }
-       *   ]
+       * URIs of entities to which item may be pinned
        */
-      entities: {
+      entityUris: {
         type: Array,
         required: true
       },
@@ -115,6 +115,7 @@
 
     data() {
       return {
+        entities: [],
         fetched: false,
         selected: null,
         /**
@@ -125,22 +126,19 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: this.entities.reduce((memo, entity) => {
-          memo[entity.about] = this.setFactory();
-          return memo;
-        }, {})
+        sets: {}
       };
     },
 
     computed: {
       infoText() {
         if (this.selectedIsFull) {
-          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
+          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabelValue }) : this.$t('entity.notifications.pinLimit.body');
         }
         if (this.selectedIsPinned) {
-          return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel });
+          return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabelValue });
         }
-        return this.selected ? this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.select');
+        return this.selected ? this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabelValue }) : this.$t('entity.notifications.select');
       },
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
@@ -152,10 +150,13 @@
         return { name: 'set-all', params: { pathMatch: this.selected && this.selectedEntitySet.id.replace('http://data.europeana.eu/set/', '') } };
       },
       selectedEntityPrefLabel() {
-        return this.selectedEntity?.prefLabel?.en?.[0];
+        return this.entityDisplayLabel(this.selectedEntity);
+      },
+      selectedEntityPrefLabelValue() {
+        return this.selectedEntityPrefLabel?.values?.[0];
       },
       selectedEntity() {
-        return this.entities.find(entity => entity.about === this.selected);
+        return this.entities.find((entity) => entity.id === this.selected);
       },
       selectedEntitySet() {
         return this.sets[this.selected];
@@ -163,82 +164,80 @@
     },
 
     methods: {
-      setFactory() {
-        return {
-          id: null,
-          pinned: []
-        };
-      },
-
-      async fetchEntityBestItemsSets() {
+      async fetchData() {
         if (this.fetched) {
           return;
         }
 
-        const searchParams = {
-          query: 'type:EntityBestItemsSet',
-          profile: 'minimal',
-          pageSize: 1
-        };
-        await Promise.all(this.entities.map(async(entity) => {
-          const entityUri = entity.about;
-          // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
-          const searchResponse = await this.$apis.set.search({
-            ...searchParams,
-            qf: `subject:${entityUri}`
-          });
-          if (searchResponse.data?.total > 0) {
-            await this.getOneSet(searchResponse.data.items[0].split('/').pop());
-          }
-          // TODO: Should an else block actually be RESETTING the data to empty values?
-        }));
+        this.entities = await this.fetchEntities();
+        await this.populateEntityBestItemsSets();
 
         this.fetched = true;
       },
 
-      async getOneSet(setId) {
-        const options = {
-          profile: 'standard',
-          pageSize: 100
-        };
-        const response = await this.$apis.set.get(setId, options);
-        const entityUri = response.subject[0];
-        this.sets[entityUri] = {
-          id: setId,
-          // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
-          pinned: (response.items || []).map(item => item.replace('http://data.europeana.eu/item', '')).slice(0, response.pinned)
-        };
+      // Fetch the full entities
+      async fetchEntities() {
+        const entities = await this.$apis.entity.find(this.entityUris);
+        return entities.map((entity) => pick(entity, 'id', 'prefLabel'));
       },
 
-      async ensureSelectedSetExists() {
-        if (!this.selectedEntitySet?.id) {
-          const setBody = {
-            type: 'EntityBestItemsSet',
-            title: { 'en': `${this.selectedEntityPrefLabel} Page` },
-            subject: [this.selected]
-          };
-          const response = await this.$apis.set.create(setBody);
-          this.selectedEntitySet.id = response.id;
+      // Initialise set object
+      initSetForEntity(set) {
+        const id = set?.id || null;
+        // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
+        const pinned = (set?.items || []).map((item) => item.replace('http://data.europeana.eu/item', '')).slice(0, set?.pinned || 0);
+
+        return { id, pinned };
+      },
+
+      populateEntityBestItemsSets() {
+        // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
+        return Promise.all(this.entities.map(async(entity) => {
+          const setId = await this.findEntityBestItemSetId(entity.id);
+          const set = await this.fetchEntityBestItemsSet(setId);
+          this.sets[entity.id] = this.initSetForEntity(set);
+        }));
+      },
+
+      async findEntityBestItemSetId(entityId) {
+        const response = await this.$apis.set.search({
+          pageSize: 1,
+          profile: 'items',
+          qf: `subject:${entityId}`,
+          query: 'type:EntityBestItemsSet'
+        });
+        return response.items?.[0];
+      },
+
+      async fetchEntityBestItemsSet(setId) {
+        if (!setId) {
+          return null;
         }
+
+        return Promise.all([
+          this.$apis.set.get(setId),
+          this.$apis.set.getItemIds(setId)
+        ]).then((responses) => ({
+          ...responses[0],
+          items: responses[1]
+        }));
       },
 
       async pin() {
-        await this.ensureSelectedSetExists();
-        await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
+        this.selectedEntitySet.id = await this.ensureEntityBestItemsSetExists(this.selectedEntitySet?.id, this.selectedEntity);
+        await this.pinItemToEntityBestItemsSet(this.identifier, this.selectedEntitySet.id, this.selectedEntityPrefLabelValue);
         this.selectedEntitySet.pinned.push(this.identifier);
-        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
         this.hide();
       },
 
       async unpin() {
-        try {
-          await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
-          this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
-          this.makeToast(this.$t('entity.notifications.unpinned'));
-        } catch {
-          this.makeToast(this.$t('entity.notifications.error.unpin'));
-        }
+        await this.unpinItemFromEntityBestItemsSet(this.identifier, this.selectedEntitySet.id);
+        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
         this.hide();
+      },
+
+      entityDisplayLabel(entity) {
+        return langMapValueForLocale(entity?.prefLabel, this.$i18n.locale);
       },
 
       selectEntity(id) {
@@ -250,7 +249,12 @@
       },
 
       async togglePin() {
-        await (this.selectedIsPinned ? this.unpin() : this.pin());
+        try {
+          await (this.selectedIsPinned ? this.unpin() : this.pin());
+          this.hide();
+        } catch (error) {
+          this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
+        }
       },
 
       hide() {
@@ -262,11 +266,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .help {
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     display: flex;
     align-items: center;
     margin-bottom: 1.25rem;
@@ -291,7 +295,7 @@
       z-index: 10;
 
       &.icon-check-circle,
-      &.icon-push-pin {
+      &.icon-pin {
         margin-left: auto;
         font-size: $font-size-large;
       }

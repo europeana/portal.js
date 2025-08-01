@@ -3,31 +3,34 @@
     <b-row class="justify-content-center">
       <b-col
         cols="12"
-        class="col-lg-8 pt-large mb-4"
+        class="col-lg-8 mb-3 mb-lg-4"
       >
         <article>
           <div class="title">
             <div
               v-if="contextLabel"
-              class="context-label"
+              class="context-label mb-1"
               data-qa="context label"
             >
               {{ contextLabel }}
             </div>
             <h2
               v-if="exhibitionTitle"
-              class="subtitle mb-0"
+              class="subtitle"
             >
               {{ exhibitionTitle }}
             </h2>
-            <h1 data-qa="title">
+            <h1
+              class="mb-2"
+              data-qa="title"
+            >
               {{ title }}
             </h1>
             <p
-              v-if="description"
-              class="lead"
+              v-if="subtitle || description"
+              class="subtitle mb-2"
             >
-              {{ description }}
+              {{ subtitle || description }}
             </p>
           </div>
         </article>
@@ -38,7 +41,7 @@
         cols="12"
         class="col-lg-8"
       >
-        <ImageWithAttribution
+        <ImageWithAttributionContainer
           v-if="heroImage"
           :src="heroImage.url"
           :content-type="heroImage.contentType"
@@ -53,18 +56,22 @@
 </template>
 
 <script>
-
   export default {
     name: 'AuthoredHead',
 
     components: {
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+      ImageWithAttributionContainer: () => import('../../components/image/ImageWithAttributionContainer')
     },
 
     props: {
       title: {
         type: String,
         required: true
+      },
+
+      subtitle: {
+        type: String,
+        default: ''
       },
 
       description: {

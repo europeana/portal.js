@@ -1,4 +1,4 @@
-import camelCase from 'camelcase';
+import camelCase from 'lodash/camelCase.js';
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
@@ -16,7 +16,7 @@ const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
 }, {});
 
 module.exports = function() {
-  for (const template of ['queries.ejs', 'assets.js', 'query.js', 'store.js']) {
+  for (const template of ['queries.ejs', 'query.js']) {
     this.addTemplate({
       src: path.resolve(__dirname, path.join('templates', template)),
       fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js')),

@@ -1,0 +1,328 @@
+.form-control {
+  background-color: $offwhite;
+  border: 0;
+  font-weight: normal;
+  height: 2.5rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+      height: 3.75rem;
+    }
+  }
+
+  &::placeholder {
+    color: $grey;
+  }
+
+  &:focus,
+  &.is-valid:focus {
+    box-shadow: none;
+  }
+}
+
+.form-text {
+  font-size: 0.75rem;
+  margin-left: 1em;
+  margin-top: 0.125rem;
+}
+
+.text-muted {
+  color: $darkgrey !important;
+  margin-left: 0;
+}
+
+.invalid-feedback {
+  color: $red;
+}
+
+.side-facet {
+  font-size: $font-size-extrasmall;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-extrasmall-4k;
+  }
+
+  legend {
+    font-size: $font-size-extrasmall;
+    text-transform: uppercase;
+    color: $darkgrey;
+    margin-bottom: 0.25rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extrasmall-4k;
+      margin-bottom: 0.375rem;
+    }
+  }
+
+  input[type='date'] {
+    font-size: $font-size-extrasmall;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extrasmall-4k;
+    }
+  }
+
+  label span {
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 0.75rem);
+      line-height: 2.25rem;
+    }
+  }
+}
+
+.facet-label,
+h3.facet-label,
+.query-rule-form-control .query-rule-field-label {
+  font-size: $font-size-extrasmall;
+  font-weight: 600;
+  display: inline-block;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: $darkgrey;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-extrasmall-4k;
+    margin-bottom: 0.375rem;
+  }
+
+  @at-root .focus &,
+  &.facet-label-active {
+    color: $blue;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.custom-control {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      min-height: calc(1.5 * 1.5rem);
+      padding-left: calc(1.5 * 1.5rem);
+    }
+  }
+}
+
+.custom-control-label {
+  &::before {
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        top: calc(1.5 * 0.25rem);
+        left: calc(1.5 * -1.5rem);
+        width: 1.5rem;
+        height: 1.5rem;
+        border-width: 1.5px;
+      }
+    }
+  }
+
+  &::after {
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        top: calc(1.5 * 0.25rem);
+        left: calc(1.5 * -1.5rem);
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}
+
+.custom-switch {
+  padding-left: 1.875rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      padding-left: calc(1.5 * 1.875rem);
+    }
+  }
+
+  .custom-control-label {
+    font-size: $font-size-extrasmall;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
+
+    &::before {
+      left: -1.875rem;
+      height: 0.875rem;
+      width: 1.375rem;
+      border: 2px solid $darkgrey;
+      cursor: pointer;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          left: calc(1.5 * -1.875rem);
+          height: calc(1.5 * 0.875rem);
+          width: calc(1.5 * 1.375rem);
+          border-width: 3px;
+        }
+      }
+    }
+
+    &::after {
+      top: 0.25rem;
+      left: -1.875rem;
+      width: 0.875rem;
+      height: 0.875rem;
+      background-color: $white;
+      border: 2px solid $darkgrey;
+      cursor: pointer;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          top: calc(1.5 * 0.25rem);
+          left: calc(1.5 * -1.875rem);
+          width: calc(1.5 * 0.875rem);
+          height: calc(1.5 * 0.875rem);
+          border-width: 3px;
+        }
+      }
+    }
+  }
+
+  &:has(.custom-control-input:disabled, .custom-control-input[disabled]) {
+    .custom-control-label {
+      &::before {
+        cursor: not-allowed;
+      }
+
+      &::after {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .custom-control-input {
+    &:checked ~ .custom-control-label {
+      &::before {
+        border-color: $innovationblue;
+        background-color: $innovationblue;
+      }
+
+      &::after {
+        border: 2px solid $innovationblue;
+        transform: translateX(0.5rem);
+
+        @at-root .xxl-page & {
+          @media (min-width: $bp-4k) {
+            border-width: 3px;
+            transform: translateX(0.75rem);
+          }
+        }
+      }
+    }
+
+    &:focus:not(:checked) ~ .custom-control-label {
+      &::before {
+        border-color: $darkgrey;
+      }
+    }
+  }
+}
+
+.form-inline.search-form {
+  background-color: $white;
+  font-size: 1rem;
+  padding-left: 2.5em;
+  height: auto;
+  border-radius: 0.5em;
+  border: 1px solid $lightgrey;
+  width: 100%;
+
+  @media (min-width: $bp-4k) {
+    font-size: 1.5rem;
+  }
+
+  &::before {
+    @extend %icon-font;
+
+    font-size: 1.1em;
+    content: '\e92b';
+    left: 1em;
+    top: 1em;
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .form-control {
+    padding: 1em;
+    background-color: $white;
+    height: auto;
+    color: $darkgrey;
+    width: 100%;
+
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.form-group {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.custom-select {
+  background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEwIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDBMNSA1TDEwIDBIMFoiIGZpbGw9IiM0RDRENEQiLz4KPC9zdmc+Cg==') right 0.75rem center/8px 4px no-repeat;
+  color: $greyblack;
+  font-size: $font-size-base;
+  height: 3rem;
+  border: 1px solid $middlegrey;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      background-size: 12px 6px;
+      background-position: right 1.125rem center;
+      font-size: $font-size-base-4k;
+      height: 4.5rem;
+      padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
+    }
+  }
+
+  &:focus {
+    border-color: $blue;
+    box-shadow: none;
+  }
+
+  &.is-invalid,
+  &.is-valid {
+    background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEwIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDBMNSA1TDEwIDBIMFoiIGZpbGw9IiM0RDRENEQiLz4KPC9zdmc+Cg==') right 0.75rem center/8px 4px no-repeat;
+    padding-right: 0.75rem !important;
+  }
+
+  &.is-valid {
+    border-color: $middlegrey;
+
+    &:focus {
+      border-color: $blue;
+      box-shadow: none;
+    }
+  }
+}

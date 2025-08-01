@@ -1,0 +1,118 @@
+.pagination-nav-input {
+  .btn-text {
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .btn-prev {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(90deg);
+    }
+
+    .icon-arrow-outline {
+      display: inline-block;
+      transform: rotateY(180deg);
+    }
+  }
+
+  .btn-next {
+    .icon-arrow-down::before {
+      display: inline-block;
+      transform: rotate(270deg);
+    }
+  }
+
+  .btn-next,
+  .btn-prev {
+    .page-link {
+      font-size: $font-size-small;
+      line-height: 1.125;
+      background: none;
+      border: 0;
+      padding: 0;
+      color: $greyblack;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: $greyblack;
+      }
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+        }
+      }
+    }
+
+    &.disabled {
+      .page-link {
+        color: $darkgrey;
+      }
+    }
+
+    .icon-arrow-outline {
+      font-size: $font-size-large;
+      transition: $standard-transition;
+    }
+
+    &.disabled .icon-arrow-outline {
+      color: $darkgrey-light;
+    }
+
+    &:not(.disabled) .icon-arrow-outline {
+      &:hover {
+        color: $blue;
+        transition: $standard-transition;
+      }
+    }
+  }
+
+  .page-input {
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1.375;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    input {
+      padding: 0.75rem;
+      width: 3.2rem;
+      border-radius: 6px;
+      border: 1px solid $middlegrey;
+      text-align: center;
+      margin-right: 1rem;
+      height: auto;
+      background: $white;
+      line-height: 1.375rem;
+
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+
+      &[type='number'] {
+        appearance: textfield;
+      }
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          padding: calc(1.5 * 0.75rem);
+          width: calc(1.5 * 3.2rem);
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .pagination-progress {
+    color: $darkgrey-light;
+    font-size: $font-size-small;
+  }
+}

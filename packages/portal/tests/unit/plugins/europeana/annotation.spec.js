@@ -1,8 +1,8 @@
 import nock from 'nock';
 
-import annotation, { BASE_URL } from '@/plugins/europeana/annotation';
+import EuropeanaAnnotationApi from '@/plugins/europeana/annotation';
 
-describe('plugins/europeana/entity', () => {
+describe('plugins/europeana/annotation', () => {
   afterEach(() => {
     nock.cleanAll();
   });
@@ -10,14 +10,14 @@ describe('plugins/europeana/entity', () => {
   describe('search', () => {
     it('searches Annotation API', async() => {
       const apiQuery = '*:*';
-      nock(BASE_URL)
+      nock(EuropeanaAnnotationApi.BASE_URL)
         .get('/search')
         .query(query => {
           return query.query === apiQuery;
         })
         .reply(200, {});
 
-      await annotation().search({ query: apiQuery });
+      await (new EuropeanaAnnotationApi).search({ query: apiQuery });
 
       expect(nock.isDone()).toBe(true);
     });

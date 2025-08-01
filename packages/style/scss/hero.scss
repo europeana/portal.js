@@ -1,0 +1,45 @@
+.jumbotron {
+  background-position: center center;
+  background-size: cover;
+  height: 50vh;
+  min-height: $jumbotron-height-min;
+  padding: 0;
+  position: relative;
+  margin-top: -1rem;
+
+  &::before {
+    background: rgb(41 55 69 / 35%);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .lead {
+    font-size: $font-size-small;
+    line-height: 1.5;
+    color: $darkgrey;
+
+    @media (min-width: $bp-large) {
+      font-size: 1rem;
+    }
+  }
+
+  figcaption {
+    z-index: 2;
+    color: $white;
+  }
+}

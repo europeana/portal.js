@@ -1,19 +1,28 @@
 <template>
-  <div class="item-hero">
-    <ItemMediaSwiper
-      :europeana-identifier="identifier"
+  <div class="item-hero position-relative">
+    <NotificationBanner
+      v-if="itemIsDeleted"
+      class="position-absolute border-bottom-0"
+      icon-class="icon-info"
+      :text="$t('record.itemDepublished')"
+      :ignorable="false"
+    />
+    <ItemMediaPresentation
+      :uri="iiifPresentationManifest"
+      :item-id="identifier"
+      :provider-url="providerUrl"
+      :web-resources="media"
       :edm-type="edmType"
-      :displayable-media="media"
       @select="selectMedia"
     />
     <b-container>
       <b-row>
         <b-col
           cols="12"
-          class="col-lg-10 media-bar d-flex mx-auto"
+          class="col-lg-10 media-bar d-flex mx-auto justify-content-between"
           data-qa="action bar"
         >
-          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
+          <div class="rights-wrapper d-inline-flex justify-content-md-center align-items-center mr-2">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
@@ -22,13 +31,14 @@
             />
           </div>
           <div
-            v-if="media.length !== 1"
-            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
+            v-if="!itemIsDeleted"
+            class="d-flex justify-content-md-center align-items-center button-wrapper"
           >
-            <div class="swiper-pagination" />
-          </div>
-          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
+              <ItemTranscribeButton
+                v-if="showTranscribathonLink"
+                :transcribe-url="linkForContributingAnnotation"
+              />
               <client-only>
                 <UserButtons
                   :identifier="identifier"
@@ -50,45 +60,54 @@
           </div>
         </b-col>
       </b-row>
-      <SocialShareModal
-        :media-url="selectedMedia.about"
+      <ShareSocialModal
+        :media-url="selectedMedia?.about"
+        @show="fetchEmbedCode"
       >
-        <ItemEmbedCode
-          :identifier="identifier"
+        <ShareSnippet
+          tag="code"
+          :text="embedCode"
+          :button-text="$t('record.actions.copyEmbedCode')"
+          :help-text="$t('record.clickToCopyEmbedCode')"
         />
-      </SocialShareModal>
+      </ShareSocialModal>
     </b-container>
   </div>
 </template>
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ItemEmbedCode from './ItemEmbedCode';
-  import SocialShareModal from '../sharing/SocialShareModal';
-  import ShareButton from '../sharing/ShareButton';
-
+  import ShareSnippet from '@/components/share/ShareSnippet';
+  import ShareSocialModal from '../share/ShareSocialModal';
+  import ShareButton from '../share/ShareButton';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
   import rightsStatementMixin from '@/mixins/rightsStatement';
+  import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
-  import has from 'lodash/has';
+  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     components: {
       ClientOnly,
       DownloadWidget,
-      ItemEmbedCode,
-      ItemMediaSwiper,
+      ShareSnippet,
       RightsStatementButton,
       ShareButton,
-      SocialShareModal,
-      UserButtons: () => import('../account/UserButtons')
+      ShareSocialModal,
+      UserButtons: () => import('../user/UserButtons'),
+      ItemMediaPresentation: () => import('./ItemMediaPresentation.vue'),
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
       rightsStatementMixin
     ],
+
+    inject: ['itemIsDeleted'],
 
     props: {
       allMediaUris: {
@@ -109,7 +128,8 @@
       },
       media: {
         type: Array,
-        default: () => []
+        default: () => [],
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       },
       attributionFields: {
         type: Object,
@@ -123,41 +143,40 @@
       providerUrl: {
         type: String,
         default: null
+      },
+      linkForContributingAnnotation: {
+        type: String,
+        default: null
+      },
+      iiifPresentationManifest: {
+        type: String,
+        default: null
       }
     },
     data() {
       return {
-        selectedMediaItem: null,
-        selectedCanvas: null
+        selectedMedia: {},
+        embedCode: null
       };
     },
     computed: {
+      downloadEnabled() {
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
+      },
       downloadUrl() {
-        const url = (this.selectedCanvas || this.selectedMedia).about;
+        const url = this.selectedMedia?.about;
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
-        return RegExp('^https?://*').test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
-        if (has(this.selectedMedia, 'webResourceEdmRights')) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
+        if (this.selectedMedia?.webResourceEdmRights) {
+          return this.selectedMedia?.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;
         }
         return '';
-      },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedCanvas = null;
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -167,17 +186,13 @@
       },
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
+      },
+      showTranscribathonLink() {
+        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
-    mounted() {
-      window.addEventListener('message', msg => {
-        if (msg.origin !== window.location.origin) {
-          return;
-        }
-        if (msg.data.event === 'updateDownloadLink') {
-          this.selectedCanvas = { about: msg.data.id };
-        }
-      });
+    created() {
+      this.selectMedia(this.media?.[0]);
     },
     methods: {
       // Ensure we only proxy web resource media, preventing proxying of
@@ -186,32 +201,56 @@
       downloadViaProxy(url) {
         return this.allMediaUris.some(uri => uri === url);
       },
-      selectMedia(about) {
-        this.selectedMedia = about;
+      selectMedia(resource) {
+        this.selectedMedia = new WebResource({
+          // media prop may contain some metadata not available from iiif-derived
+          // resource emitted from ItemMediaPresentation, e.g. rights statement
+          ...this.media.find((wr) => wr.about === resource.about),
+          ...resource
+        });
+      },
+      async fetchEmbedCode() {
+        if (this.embedCode) {
+          return;
+        }
+        // TODO: this should be read from Nuxt runtime config
+        const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
+                                                 `${EUROPEANA_DATA_URL}/item${this.identifier}`);
+
+        if (response.data.html) {
+          this.embedCode = response.data.html;
+        }
       }
     }
   };
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .item-hero {
-    padding-top: 2.25rem;
     padding-bottom: 1.625rem;
+
+    .notification-banner {
+      background-color: rgba(0, 0, 0, 0.70);
+      color: $white;
+
+      .col-12 {
+        @media (min-width: $bp-large) {
+          flex: 0 0 83.333333%;
+          max-width: 83.333333%;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+
+      p {
+        flex-wrap: nowrap !important;
+      }
+    }
 
     .media-bar {
       margin-top: 2.5rem;
-    }
-
-    .swiper-pagination {
-      display: inline-flex;
-
-      &.swiper-pagination-fraction {
-        left: auto;
-        width: auto;
-        bottom: auto;
-      }
     }
 
     .user-buttons {
@@ -226,9 +265,6 @@
       }
 
       .btn {
-        color: $mediumgrey;
-        background: $offwhite;
-        border: 1px solid transparent;
         font-size: $font-size-large;
         height: 2.25rem;
         min-width: 2.25rem;
@@ -237,18 +273,12 @@
         margin-right: 0.5rem;
 
         &:hover:not(.active) {
-          color: $mediumgrey;
+          color: $darkgrey;
         }
       }
     }
 
-    .rights-wrapper,
-    .pagination-wrapper,
-    .button-wrapper {
-      flex: 1;
-    }
-
-    @media (max-width: $bp-medium) {
+    @media (max-width: ($bp-large - 1px)) {
       .media-bar {
         flex-direction: column;
 
@@ -256,17 +286,6 @@
         button {
           text-align: center;
           justify-content: center;
-          width: 100%;
-        }
-
-        .pagination-wrapper {
-          order: 1;
-          margin-bottom: 1.125rem;
-
-          .swiper-pagination {
-            position: relative;
-            margin: auto;
-          }
         }
 
         .rights-wrapper {

@@ -5,9 +5,10 @@
     no-body
     :class="cardClass"
   >
-    <SmartLink
+    <component
+      :is="url ? 'SmartLink' : 'div'"
       :destination="url"
-      link-class="card-link"
+      :link-class="url ? 'card-link' : null"
     >
       <div
         v-if="image"
@@ -32,7 +33,7 @@
           {{ label }}
         </b-card-text>
       </b-card-body>
-    </SmartLink>
+    </component>
   </b-card>
 </template>
 
@@ -70,15 +71,15 @@
 
     computed: {
       cardClass() {
-        return `${this.variant}-card`;
+        return this.url ? `linked-card ${this.variant}-card` : `${this.variant}-card`;
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icon-font';
 
   .info-card {
     background: $white;
@@ -89,10 +90,10 @@
     transition: box-shadow 0.25s;
 
     &.dark-card {
-      background: $bodygrey;
+      background: $lightgrey;
     }
 
-    &:hover {
+    &.linked-card:hover {
       box-shadow: $boxshadow-small;
       transition: box-shadow 0.25s;
     }

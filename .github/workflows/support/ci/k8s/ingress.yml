@@ -7,7 +7,8 @@ metadata:
     cert-manager.io/issuer: "letsencrypt-production"
     nginx.ingress.kubernetes.io/configuration-snippet: |-
       gzip on;
-      gzip_types text/html application/javascript;
+      gzip_types text/html application/javascript application/json;
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: public-iks-k8s-nginx
   rules:

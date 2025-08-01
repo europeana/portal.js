@@ -1,9 +1,13 @@
 <template>
-  <div class="overflow-hidden">
+  <div class="overflow-hidden d-inline-flex flex-wrap align-items-center">
     <i18n
       :path="i18nPath"
       tag="h1"
       class="context-label"
+      :class="{
+        'mr-4': suggestLoginForMoreResults,
+        'mr-1': multilingualSearchTooltip
+      }"
       data-qa="context label"
     >
       <template #count>
@@ -19,7 +23,7 @@
         v-if="hasEntity"
         #collection
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
@@ -33,7 +37,7 @@
         v-if="hasQuery"
         #query
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
@@ -41,28 +45,55 @@
           :badge-variant="badgeVariant"
         />
       </template>
-    </i18n>
-    <div
+    </i18n><!-- This comment removes white space which gets underlined
+ -->
+    <template v-if="!$features.multilingualSearchButton">
+      <i18n
+        v-if="suggestLoginForMoreResults"
+        path="search.results.loginToSeeMore"
+        tag="span"
+        class="context-label mr-1"
+        data-qa="results more link"
+      >
+        <template #login>
+          <b-link
+            class="more-link"
+            :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+            :target="null"
+            @click.prevent="$keycloak.login()"
+          >
+            {{ $t('actions.login') }}
+          </b-link>
+        </template>
+      </i18n><!-- This comment removes white space which gets underlined
+  --><b-button
+        v-if="multilingualSearchTooltip"
+        v-b-tooltip.bottom
+        :title="multilingualSearchTooltip"
+        class="icon-info-outline p-0 tooltip-button"
+        variant="light-flat"
+        data-qa="results more tooltip"
+      />
+    </template>
+    <output
       class="visually-hidden"
-      role="status"
       data-qa="results status message"
     >
       {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-    </div>
+    </output>
   </div>
 </template>
 
 <script>
-  import RemovalChip from './RemovalChip';
+  import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {
     name: 'SearchResultsContext',
 
     components: {
-      RemovalChip
+      SearchRemovalChip
     },
 
     mixins: [
@@ -95,16 +126,6 @@
       },
 
       /**
-       * Editorial overrides
-       *
-       * Title/label and image override. Used for editorial collection titles and images from Contentful.
-       */
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
-
-      /**
        * The variant used for the removal badges.
        */
       badgeVariant: {
@@ -113,13 +134,10 @@
       }
     },
 
-    data() {
-      return {
-        themes: themes.map(theme => theme.id)
-      };
-    },
-
     computed: {
+      // TODO: it's not possible to pluralise these keys properly due to the
+      // i18n component usage here. i18n-vue 9.x supports a :plural prop for
+      // the updated i18n-t component. Depends on Vue 3.
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -132,7 +150,7 @@
         }
       },
       totalResultsLocalised() {
-        return this.$options.filters.localise(this.totalResults);
+        return this.$i18n.n(this.totalResults);
       },
       hasQuery() {
         return this.query && this.query !== '';
@@ -141,30 +159,14 @@
         return this.entity?.id;
       },
       entityLabel() {
-        return this.editorialOverrides?.title ||
-          this.organizationEntityNativeName(this.entity) ||
+        return this.organizationEntityNativeName(this.entity) ||
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
-          return this.$contentful.assets.optimisedSrc(
-            this.editorialOverrides.image,
-            { w: 28, h: 28, fit: 'thumb' }
-          );
-        }
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {
-        return this.$t(`cardLabels.${this.contextType}`);
-      },
-      contextType() {
-        let contextType = this.entityType;
-
-        if (this.entityType === 'topic' && this.themes.includes(this.entityId)) {
-          contextType = 'theme';
-        }
-
-        return contextType;
+        return this.$t(`cardLabels.${this.entityType}`);
       },
       entityParams() {
         return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};
@@ -176,35 +178,90 @@
         return this.entityParams.id;
       },
       queryRemovalLink() {
-        return this.$path({
+        return {
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
-            ...this.$route.query,
+            ...this.activeCriteria,
             query: null
           }
-        });
+        };
       },
       entityRemovalLink() {
-        return this.$path({
+        return {
           name: 'search', query: {
-            query: this.$route.query?.query
+            ...this.activeCriteria
           }
-        });
+        };
+      },
+      activeCriteria() {
+        return {
+          boost: this.$route?.query?.boost,
+          qa: this.$route?.query?.qa,
+          qf: this.$route?.query?.qf,
+          query: this.$route.query?.query,
+          reusability: this.$route?.query?.reusability,
+          view: this.$route?.query?.view
+        };
+      },
+      translateSearchForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      suggestLoginForMoreResults() {
+        return !this.$auth.loggedIn && this.translateSearchForCurrentLocale;
+      },
+      multilingualSearchTooltip() {
+        if (this.translateSearchForCurrentLocale) {
+          if (this.$auth.loggedIn) {
+            return this.$t('search.results.showingMultilingualResults');
+          } else {
+            return this.$t('search.results.loginToSeeMultilingualResults');
+          }
+        } else {
+          return null;
+        }
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  .context-label {
-    margin-bottom: 0;
-    line-height: 3;
-    min-width: 0;
+@import '@europeana/style/scss/variables';
 
-    .badge {
-      max-width: calc(100% - 2rem);
-      text-transform: none;
+.context-label {
+  margin-bottom: 0;
+  line-height: 3;
+  min-width: 0;
+  font-size: $font-size-small;
+  display: inline-block;
+
+  .more-link {
+    text-decoration: none;
+    color: $blue;
+    transition: color 150ms ease-in-out;
+
+    &:hover {
+      color: $darkblue;
+      transition: color 150ms ease-in-out;
     }
   }
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  ::v-deep .badge {
+    max-width: calc(100% - 2rem);
+    text-transform: none;
+  }
+}
+
+.mx-1 {
+  @media (min-width: $bp-4k) {
+    margin-left: 0.75rem !important;
+    margin-right: 0.75rem !important;
+  }
+}
 </style>

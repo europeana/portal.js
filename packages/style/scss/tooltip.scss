@@ -1,0 +1,111 @@
+.tooltip.b-tooltip {
+  margin-left: 1rem;
+  opacity: 1;
+
+  .tooltip-inner {
+    font-weight: 400;
+    padding: 0.5rem;
+    border: 1px solid $lightgrey;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+      border-width: 2px;
+      border-radius: $border-radius-small-4k;
+      padding: 0.75rem;
+      max-width: 300px;
+    }
+
+    a {
+      color: $white;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  &.b-tooltip-primary {
+
+    .arrow {
+      display: inline-block;
+    }
+
+    &.bs-tooltip-bottom .arrow {
+      &:before {
+        bottom: -1px;
+        border-bottom-color: $blue;
+
+        @media (min-width: $bp-4k) {
+          bottom: -2px;
+        }
+      }
+    }
+
+    &.bs-tooltip-top .arrow {
+      &:before {
+        top: -1px;
+        border-top-color: $blue;
+
+        @media (min-width: $bp-4k) {
+          top: -2px;
+        }
+      }
+    }
+
+    .tooltip-inner {
+      background-color: $blue;
+      background-image: linear-gradient(to right, $blue 17%, $black, $blue 83%);
+      background-size: 800% 100%;
+      animation: slide 3s ease-in-out infinite;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      background-position: left;
+    }
+
+    75% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: right;
+    }
+  }
+}
+
+.btn.tooltip-button {
+  display: inline;
+  color: $darkgrey-light;
+  font-size: $font-size-base;
+  background-color: transparent;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
+
+  &.icon-info-outline {
+    font-size: $font-size-medium;
+    padding: 0 0.125rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-medium-4k;
+        padding: 0 0.1875rem;
+      }
+    }
+  }
+
+  &:hover {
+    color: initial;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: default;
+  }
+}

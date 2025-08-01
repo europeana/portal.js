@@ -1,0 +1,156 @@
+$font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
+$font-family-ubuntu: 'Ubuntu', $font-family-sans-serif;
+
+// UI colors
+$white: #fff;
+$middlegrey: #d8d8d8;
+
+// Text colors
+$darkgrey-light: #767676;
+
+/* https://pro.europeana.eu/resources/europeana-brand/brand-guidelines */
+$grey: #777;
+$offwhite: #f1f1ee;
+$paper: #d9d4ca;
+$lightbluemagenta: #e7e7e9;
+$smoke: #f5f5f5;
+$illustration-whitegrey: #efece8;
+$whitegrey: #e0e0e0;
+$mediumgrey: #a6a6a6;
+$darkgrey: #4d4d4d;
+$lightgrey: #ededed;
+$lightergrey: #fbfbfb;
+$black: #000;
+$greyblack: #1a1a1a;
+$innovationblue: #0a72cc;
+$innovationblue-dark: #0963b3;
+$blue: $innovationblue;
+$blue-20: #0a72cc20;
+$darkblue: #085395;
+$lightblue: #daeaf8;
+$lightblue-dark: #c1dbf2;
+$lightblue-light: #e2f2fe;
+$skyblue: #bcd8f1;
+$red: #e02020;
+$darkred: #c91c1c;
+$yellow: #ffae00;
+$yellowgrey: #d9d4ca;
+$green: #368535;
+$lightgreen: #71c07b;
+$darkgreen: #197324;
+$lightpurple: #c697fc;
+$lightpurple-light: #d4b1fd;
+$textcolor: $greyblack;
+$boxshadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
+$boxshadow-small: 0 1px 3px 0 rgb(0 0 0 / 25%);
+$boxshadow-large: 0 4px 12px 0 rgb(0 0 0 / 40%);
+$boxshadow-light: 2px 2px 4px 0 rgb(0 0 0 / 10%);
+$boxshadow-light-left: -2px 2px 4px 0 rgb(0 0 0 / 10%);
+$textshadow-light: 1px 2px 2px rgb(0 0 0 / 30%);
+$border-radius: 0.375rem;
+$border-radius-small: 0.25rem;
+$border-radius-large: 0.5rem;
+$border-radius-small-4k: calc(1.5 * 0.25rem);
+$font-size-xxl: 2.375rem;
+$font-size-xl: 2.125rem;
+$font-size-large: 1.5rem;
+$font-size-medium: 1.25rem;
+$font-size-base: 1rem;
+$font-size-small: 0.875rem;
+$font-size-extrasmall: 0.75rem;
+$font-size-smallest: 0.625rem;
+$font-size-xxl-4k: calc(1.5 * $font-size-xxl);
+$font-size-xl-4k: calc(1.5 * $font-size-xl);
+$font-size-large-4k: calc(1.5 * $font-size-large);
+$font-size-medium-4k: calc(1.5 * $font-size-medium);
+$font-size-base-4k: calc(1.5 * $font-size-base);
+$font-size-small-4k: calc(1.5 * $font-size-small);
+$font-size-extrasmall-4k: calc(1.5 * $font-size-extrasmall);
+$font-size-smallest-4k: calc(1.5 * $font-size-smallest);
+$grid-gutter: 15px;
+$grid-gutter-4k: calc(1.5 * $grid-gutter);
+$grid-gutter-narrow: 0.25rem;
+$masonry-gutter: 1.5rem;
+$bp-small: 576px;
+$bp-medium: 768px;
+$bp-large: 992px;
+$bp-extralarge: 1200px;
+$bp-xxl: 1400px;
+$bp-xxxl: 1880px;
+$bp-wqhd: 2520px;
+$bp-4k: 3020px;
+$standard-transition: 0.3s ease-in-out;
+$media-viewer-height: 80vh;
+$media-viewer-height-max: 41.25rem;
+$media-viewer-height-medium: 30.75rem;
+$jumbotron-height-min: 275px;
+$min-card-width: 250px;
+$max-card-width: 480px;
+$max-text-column-width: 932px;
+$max-text-column-width-landing-4k: 1450px;
+$page-header-height: 3.5rem;
+$page-header-height-4k: calc(1.5 * 3.5rem);
+
+%title-1 {
+  font-family: $font-family-ubuntu;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: $bp-medium) {
+    font-size: 2.875rem;
+  }
+
+  @media (min-width: $bp-4k) {
+    font-size: calc(1.5 * 2.875rem);
+    margin-bottom: 0.5rem;
+  }
+}
+
+%title-2 {
+  font-family: $font-family-ubuntu;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+
+  @media(min-width: $bp-medium) {
+    font-size: $font-size-xl;
+    margin-bottom: 1rem;
+  }
+
+  @media(min-width: $bp-4k) {
+    font-size: 4.75rem;
+    margin-bottom: 2rem;
+  }
+}
+
+%title-3 {
+  font-family: $font-family-ubuntu;
+  font-size: $font-size-base;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+
+  @media(min-width: $bp-medium) {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  @media(min-width: $bp-4k) {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+}
+
+%title-5 {
+  font-size: $font-size-small;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media(min-width: $bp-4k) {
+    font-size: $font-size-xl;
+  }
+}

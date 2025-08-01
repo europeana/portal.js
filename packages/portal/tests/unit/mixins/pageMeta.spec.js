@@ -5,7 +5,7 @@ import mixin from '@/mixins/pageMeta';
 
 const localVue = createLocalVue();
 
-const factory = ({ computed = {}, mocks = {} } = {}) => {
+const factory = ({ computed = {}, data = {}, mocks = {} } = {}) => {
   const component = {
     template: '<div></div>',
     computed,
@@ -14,6 +14,11 @@ const factory = ({ computed = {}, mocks = {} } = {}) => {
 
   const wrapper = shallowMountNuxt(component, {
     localVue,
+    data() {
+      return {
+        ...data
+      };
+    },
     mocks: {
       $config: { app: { siteName: 'Europeana' } },
       $fetchState: {},
@@ -41,6 +46,23 @@ describe('mixins/pageMeta', () => {
 
         expect(wrapper.vm.head().title).toBe('Home | Europeana');
       });
+
+      it('respects component-level overriden suffix', () => {
+        const computed = {
+          pageMeta() {
+            return {
+              title: 'Home'
+            };
+          }
+        };
+        const data = {
+          pageMetaSuffixTitle: null
+        };
+
+        const wrapper = factory({ computed, data });
+
+        expect(wrapper.vm.head().title).toBe('Home');
+      });
     });
 
     describe('meta', () => {
@@ -66,8 +88,27 @@ describe('mixins/pageMeta', () => {
         expect(headMeta.find((tag) => tag.name === 'description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe(pageMeta.description);
         expect(headMeta.find((tag) => tag.property === 'og:type').content).toBe(pageMeta.ogType);
-        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(pageMeta.ogImage);
+        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe('https://www.example.org/image.jpeg');
         expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
+      });
+
+      it('concatenates title and subtitle for title tags', () => {
+        const pageMeta = {
+          title: 'Home',
+          subtitle: 'Away'
+        };
+        const computed = {
+          pageMeta() {
+            return pageMeta;
+          }
+        };
+        const wrapper = factory({ computed });
+
+        const headMeta = wrapper.vm.head().meta;
+
+        const titleTagContent = 'Home - Away';
+        expect(headMeta.find((tag) => tag.name === 'title').content).toBe(titleTagContent);
+        expect(headMeta.find((tag) => tag.property === 'og:title').content).toBe(titleTagContent);
       });
     });
   });
@@ -83,41 +124,39 @@ describe('mixins/pageMeta', () => {
       };
 
       describe('when fetchState has error', () => {
-        describe('and error has pageTitlePath', () => {
-          const mocks = { $fetchState: { error: { pageTitlePath: 'item-not-found' } } };
+        describe('and error has metaTitle', () => {
+          const mocks = { $fetchState: { error: { i18n: { metaTitle: 'item-not-found-metaTitle' } } } };
 
-          it('uses translated pageTitlePath', () => {
+          it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
 
             const pageTitle = wrapper.vm.pageTitle;
 
-            expect(pageTitle).toBe('item-not-found');
+            expect(pageTitle).toBe('item-not-found-metaTitle');
           });
         });
 
-        describe('but error has no pageTitlePath', () => {
-          describe('but error does have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 404 } } };
+        describe('and error has title but not metaTitle', () => {
+          const mocks = { $fetchState: { error: { i18n: { title: 'item-not-found-title' } } } };
 
-            it('uses error message for that status code', () => {
-              const wrapper = factory({ mocks, computed });
+          it('uses translated meta title from code', () => {
+            const wrapper = factory({ mocks, computed });
 
-              const pageTitle = wrapper.vm.pageTitle;
+            const pageTitle = wrapper.vm.pageTitle;
 
-              expect(pageTitle).toBe('errorMessage.pageNotFound.metaTitle');
-            });
+            expect(pageTitle).toBe('item-not-found-title');
           });
+        });
 
-          describe('and error does not have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 500 } } };
+        describe('but error has neither metaTitle nor title', () => {
+          const mocks = { $fetchState: { error: { statusCode: 500 } } };
 
-            it('uses translated "error"', () => {
-              const wrapper = factory({ mocks, computed });
+          it('uses translated "error"', () => {
+            const wrapper = factory({ mocks, computed });
 
-              const pageTitle = wrapper.vm.pageTitle;
+            const pageTitle = wrapper.vm.pageTitle;
 
-              expect(pageTitle).toBe('error');
-            });
+            expect(pageTitle).toBe('error');
           });
         });
       });

@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '@/components/search/SearchForm.vue';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
@@ -6,42 +6,31 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $goto = sinon.spy();
-
-const $path = sinon.stub();
-$path.withArgs({ name: 'search' }).returns('/search');
-$path.withArgs({
-  name: 'collections-type-all', params: {
-    type: 'topic',
-    pathMatch: '227-fresco'
-  }
-}).returns('/collections/topic/227-fresco');
-$path.withArgs({
-  name: 'collections-type-all', params: {
-    type: 'person',
-    pathMatch: '59981-frank-sinatra'
-  }
-}).returns('/collections/person/59981-frank-sinatra');
+const localePath = sinon.stub();
+localePath.withArgs({ name: 'search' }).returns('/search');
 
 const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchForm, {
+  attachTo: document.body,
   localVue,
   propsData: {
-    inTopNav: propsData ? propsData.inTopNav : true,
+    parent: propsData ? propsData.parent : 'page-header',
     ...propsData
   },
   data: () => (data || {}),
   stubs: { ...stubs },
   mocks: {
+    $features: {},
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
-    $goto,
-    $path,
+    $router: { push: sinon.spy() },
+    localePath,
     $matomo: {
       trackEvent: sinon.spy()
     },
     ...(mocks || {}),
     $store: {
+      commit: sinon.spy(),
       getters: {
         'search/activeView': 'grid',
         ...mocks?.$store?.getters || {}
@@ -55,48 +44,36 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
   }
 });
 
-const fullFactory = () => mount(SearchForm, {
-  localVue,
-  propsData: {
-    absoluteTopPositioned: true
-  },
-  mocks: {
-    $i18n: { locale: 'en' },
-    $t: () => {},
-    $route: { path: '', query: { query: '' } },
-    $path,
-    $apis: { entity: { suggest: sinon.stub().resolves() } },
-    $store: {
-      getters: {
-        'search/activeView': 'grid'
-      },
-      state: {
-        entity: {},
-        search: {}
-      }
-    }
-  },
-  attachTo: document.body,
-  stubs: ['SearchQueryOptions']
-});
-
 describe('components/search/SearchForm', () => {
-  beforeEach(() => {
-    $goto.resetHistory();
+  afterEach(sinon.resetHistory);
+
+  describe('wrapper', () => {
+    describe('on focusin event', () => {
+      const event = 'focusin';
+
+      it('makes the click outside handler active', async() => {
+        const wrapper = factory();
+
+        await wrapper.trigger(event);
+
+        expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+      });
+    });
   });
 
-  describe('query', () => {
-    it('is read from the route', () => {
+  describe('initQuery', () => {
+    it('sets the query read from the route', () => {
+      const value = 'cartography';
       const wrapper = factory({
         mocks: {
           $route: {
             query: {
-              query: 'cartography'
+              query: value
             }
           }
         }
       });
-      expect(wrapper.vm.query).toBe('cartography');
+      expect(wrapper.vm.$store.commit.calledWith('search/setQueryInputValue', value)).toBe(true);
     });
   });
 
@@ -126,7 +103,7 @@ describe('components/search/SearchForm', () => {
     describe('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
-          $path,
+          localePath,
           $store: {
             state: {
               search: {
@@ -146,61 +123,72 @@ describe('components/search/SearchForm', () => {
   describe('form submission', () => {
     const query = 'trees';
 
+    it('makes the click outside handler inactive', async() => {
+      const wrapper = factory();
+      await wrapper.trigger('focusin');
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+
+      wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
+
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(false);
+    });
+
     describe('when on a search page', () => {
       const state = {
         search: {
           active: true,
+          queryInputValue: query,
           view: 'grid'
         }
       };
 
+      it('stores that the interaction is loggable', () => {
+        const wrapper = factory({ mocks: { $store: { state } } });
+
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
+      });
+
       it('updates current route', async() => {
         const wrapper = factory({ mocks: { $store: { state } } });
 
-        await wrapper.setData({
-          query
-        });
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
-      });
-
-      it('tracks the suggestion not selected event', async() => {
-        const wrapper = factory({ mocks: { $store: { state } } });
-
-        await wrapper.setData({
-          query,
-          suggestions: { ['http://data.europeana.eu/concept/123']: '"Trees"',
-            ['http://data.europeana.eu/concept/124']: '"Tree houses"' }
-        });
-        wrapper.vm.submitForm();
-
-        // const newRouteParams = {
-        //   path: wrapper.vm.$route.path,
-        //   query: { query, page: 1, view: state.search.view }
-        // };
-        // expect($goto.calledWith(newRouteParams)).toBe(true);
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       describe('when query is blank', () => {
         it('includes empty query param', async() => {
+          state.search.queryInputValue = undefined;
           const wrapper = factory({ mocks: { $store: { state } } });
 
-          await wrapper.setData({
-            query: undefined
-          });
-          wrapper.vm.submitForm();
+          wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
           const newRouteParams = {
             path: wrapper.vm.$route.path,
             query: { query: '', page: 1, view: state.search.view }
           };
-          expect($goto.calledWith(newRouteParams)).toBe(true);
+          expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
+        });
+      });
+
+      describe('when selected option contains a link', () => {
+        it('navigates to the link', async() => {
+          const wrapper = factory({ mocks: { $store: { state } } });
+
+          const link = 'http://www.example.eu';
+
+          await wrapper.setData({
+            selectedOption: { link }
+          });
+          wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
+
+          expect(wrapper.vm.$router.push.calledWith(link)).toBe(true);
         });
       });
     });
@@ -212,131 +200,33 @@ describe('components/search/SearchForm', () => {
         },
         state: {
           search: {
-            active: false
+            active: false,
+            queryInputValue: query
           }
         }
       };
       it('reroutes to search', async() => {
         const wrapper = factory({ mocks: { $store } });
 
-        await wrapper.setData({
-          query
-        });
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       it('does not carry non-search query params', async() => {
         const wrapper = factory({ mocks: { $store, $route: { query: { lang: 'it' } } } });
 
-        await wrapper.setData({
-          query
-        });
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
-      });
-    });
-  });
-
-  describe('suggestionLinkGen', () => {
-    const state = {
-      search: {
-        active: false,
-        userParams: {
-          query: ''
-        },
-        view: 'grid'
-      }
-    };
-    const wrapper = factory({ mocks: { $store: { state } } });
-
-    it('generates search suggestion URLs', () => {
-      const link = wrapper.vm.suggestionLinkGen('Fresco');
-      expect(link.path).toBe('/search');
-      expect(link.query.query).toBe('"Fresco"');
-      expect(link.query.view).toBe('grid');
-    });
-  });
-
-  describe('getSearchSuggestions', () => {
-    const query = 'something';
-    describe('auto-suggest is enabled by default', () => {
-      const mocks = {
-        $apis: {
-          entity: {
-            suggest: sinon.stub().resolves([])
-          }
-        }
-      };
-
-      const wrapper = factory({ mocks });
-
-      it('gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions(query);
-
-        expect(mocks.$apis.entity.suggest.called).toBe(true);
-      });
-    });
-
-    describe('when on a collection page', () => {
-      const mocks = {
-        $apis: {
-          entity: {
-            suggest: sinon.stub().resolves([])
-          }
-        }
-      };
-
-      describe('and a collection label is stored', () => {
-        const state = { search: { collectionLabel: 'Entity 123' }, ui: {}, entity: { id: '123' } };
-
-        it('does not get suggestions from the Entity API', async() => {
-          const wrapper = factory({ mocks: { ...mocks, $store: { state } } });
-
-          await wrapper.vm.getSearchSuggestions(query);
-
-          expect(mocks.$apis.entity.suggest.called).toBe(false);
-        });
-      });
-
-      describe('but no collection label is stored', () => {
-        const state = { search: { collectionLabel: null }, ui: {}, entity: { id: '123' } };
-
-        it('does get suggestions from the Entity API', async() => {
-          const wrapper = factory({ mocks: { ...mocks, $store: { state } } });
-
-          await wrapper.vm.getSearchSuggestions(query);
-
-          expect(mocks.$apis.entity.suggest.called).toBe(true);
-        });
-      });
-    });
-
-    describe('when on the home page', () => {
-      const mocks = {
-        $apis: {
-          entity: {
-            suggest: sinon.stub().resolves([])
-          }
-        }
-      };
-
-      it('does NOT get suggestions from the Entity API', async() => {
-        const wrapper = factory({ mocks, propsData: { inTopNav: false } });
-
-        await wrapper.vm.getSearchSuggestions(query);
-
-        expect(mocks.$apis.entity.suggest.called).toBe(false);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
     });
   });
@@ -377,47 +267,18 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  describe('when user clicks outside the search form dropdown', () => {
-    it('hides the search options', async() => {
-      const handleClickOrTabOutsideEvent = new Event('click');
-      const wrapper = factory();
+  describe('on searchable page changes', () => {
+    describe('with an input query value', () => {
+      it('blurs the input', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { query: 'art' } }, $store: { state: { search: { active: false } } } } });
+        wrapper.vm.blurInput = sinon.spy();
 
-      await wrapper.setData({ showSearchOptions: true });
-      wrapper.vm.handleClickOrTabOutside(handleClickOrTabOutsideEvent);
+        wrapper.vm.$store.state.search.active = true;
+        await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.showSearchOptions).toBe(false);
+        expect(wrapper.vm.blurInput.called).toBe(true);
+      });
     });
-  });
-
-  describe('when user tabs outside the search form dropdown', () => {
-    it('hides the search options', async() => {
-      const tabOutsideEvent = new KeyboardEvent('keydown', { 'key': 'Tab' });
-      const wrapper = factory();
-
-      await wrapper.setData({ showSearchOptions: true });
-      wrapper.vm.handleClickOrTabOutside(tabOutsideEvent);
-
-      expect(wrapper.vm.showSearchOptions).toBe(false);
-    });
-  });
-
-  it('suggestions and quick search are navigable by keyboard arrows', async() => {
-    const componentWithOptions = { template: '<ul><li v-for="(option, index) in [{ $el: {focus: () => {} } }, { $el: { focus: () => {} } }]" ref="options"></li></ul>' };
-    const arrowDownEvent = new KeyboardEvent('keydown', { 'key': 'ArrowDown' });
-
-    const wrapper = factory({ stubs: { SearchQueryOptions: componentWithOptions } });
-
-    await wrapper.setData({ showSearchOptions: true, query: 't', suggestions: { suggetion01: 'trees', suggestion02: 'Tiziano' } });
-
-    const focus0 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[0], 'focus');
-    const focus1 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[1], 'focus');
-
-    wrapper.vm.handleKeyDown(arrowDownEvent);
-    expect(focus0.called).toBe(true);
-    wrapper.vm.handleKeyDown({ key: 'ArrowDown', target: wrapper.vm.$refs.searchoptions.$refs.options[0], preventDefault: () => {} });
-    expect(focus1.called).toBe(true);
-    wrapper.vm.handleKeyDown({ key: 'ArrowUp', target: wrapper.vm.$refs.searchoptions.$refs.options[1], preventDefault: () => {} });
-    expect(focus0.called).toBe(true);
   });
 
   it('re-shows the form when prop updates', async() => {
@@ -431,33 +292,12 @@ describe('components/search/SearchForm', () => {
     expect(searchForm.isVisible()).toBe(true);
   });
 
-  describe('when pressing the Escape key', () => {
-    const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
-
-    it('hides the search options', async() => {
-      const wrapper = factory({ data: { showSearchOptions: true } });
-
-      expect(wrapper.vm.showSearchOptions).toBe(true);
-      expect(wrapper.vm.showForm).toBe(true);
-
-      await wrapper.vm.handleKeyDown(escapeEvent);
-
-      expect(wrapper.vm.showSearchOptions).toBe(false);
-    });
-
-    it('emits hide event', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.handleKeyDown(escapeEvent);
-
-      expect(wrapper.emitted('hide').length).toBe(1);
-    });
-
+  describe('handlehide()', () => {
     describe('when the search form is hidable', () => {
       it('hides it', async() => {
-        const wrapper = factory({ propsData: { hidableForm: true } });
+        const wrapper = factory({ propsData: { hidableForm: true }, data: { showSearchOptions: true } });
 
-        await wrapper.vm.handleKeyDown(escapeEvent);
+        await wrapper.vm.handleHide();
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(false);
@@ -469,7 +309,7 @@ describe('components/search/SearchForm', () => {
       it('does not hide it', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.handleKeyDown(escapeEvent);
+        await wrapper.vm.handleHide();
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(true);
@@ -479,30 +319,60 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('when clicking the clear button', () => {
+    const focusStub = { focus: sinon.spy() };
+    const buttonRef = { $el: sinon.stub().returns([focusStub]) };
     it('resets focus on the input', async() => {
-      const wrapper = fullFactory();
+      const wrapper = factory({ mocks: { $refs: [buttonRef] } });
 
-      await wrapper.setData({ showSearchOptions: true, query: 'tree' });
+      await wrapper.setData({ showSearchOptions: true  });
+      wrapper.vm.query = 'tree';
 
       const clearButton = wrapper.find('[data-qa="clear button"]');
 
       await clearButton.trigger('click');
 
-      const focusedSearchInput = wrapper.find('[data-qa="search box"]:focus');
+      expect(focusStub.focus.called).toBe(false);
+    });
 
-      expect(focusedSearchInput.exists()).toBe(true);
+    describe('and on a searchable page', () => {
+      it('submits the form', async() => {
+        const state = {
+          search: {
+            active: true,
+            queryInputValue: 'art'
+          }
+        };
+        const wrapper = factory({ mocks: { $store: { state } } });
+        sinon.spy(wrapper.vm, 'submitForm');
+
+        const clearButton = wrapper.find('[data-qa="clear button"]');
+        await clearButton.trigger('click');
+
+        expect(wrapper.vm.submitForm.called).toBe(true);
+      });
     });
   });
 
   describe('when clicking the back button', () => {
-    it('closes the search bar', () => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm, 'handleHide');
+    it('closes the search bar', async() => {
+      const wrapper = factory({ propsData: { hidableForm: true, parent: 'page-header' }, data: { showSearchOptions: true } });
 
       const backButton = wrapper.find('[data-qa="back button"]');
-      backButton.trigger('click.prevent');
+      await backButton.trigger('click.prevent');
 
-      expect(wrapper.vm.handleHide.called).toBe(true);
+      expect(wrapper.vm.showForm).toBe(false);
+    });
+  });
+
+  describe('when selecting an option', () => {
+    it('calls submitForm', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'submitForm');
+
+      const searchFormOptions = wrapper.find(`#${wrapper.vm.searchFormOptionsId}`);
+      await searchFormOptions.vm.$emit('input', { query: 'fish' });
+
+      expect(wrapper.vm.submitForm.called).toBe(true);
     });
   });
 });

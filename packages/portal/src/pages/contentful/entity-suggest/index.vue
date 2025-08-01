@@ -1,55 +1,23 @@
 <template>
-  <div class="contentful">
-    <b-form-group>
-      <b-button
-        v-for="val in value"
-        :key="val.id"
-        class="mb-2"
-        @click="removeSelection(val)"
-      >
-        {{ val.prefLabel.en || val.hiddenLabel.en }}
-      </b-button>
-    </b-form-group>
-
-    <b-form>
-      <b-form-group>
-        <b-form-input
-          v-model="searchText"
-          type="search"
-          autocomplete="off"
-          placeholder="Search for topics, centuries, organisations, people and places"
-          @input="inputSearchText"
-        />
-      </b-form-group>
-      <b-form-group>
-        <b-button
-          v-for="suggestion in suggestions"
-          :key="suggestion.id"
-          class="mb-2"
-          :disabled="isSelected(suggestion)"
-          @click="selectSuggestion(suggestion)"
-        >
-          {{ suggestion.prefLabel.en || suggestion.hiddenLabel.en }}
-        </b-button>
-      </b-form-group>
-    </b-form>
-  </div>
+  <ContentfulSuggestField
+    :suggester="suggestEntities"
+    :resolver="findEntities"
+    :labeller="labelEntity"
+    placeholder="Search for topics, centuries, organisations, people and places"
+  />
 </template>
 
 <script>
+  import ContentfulSuggestField from '@/components/contentful/ContentfulSuggestField';
+
   export default {
     name: 'ContentfulEntitySuggestPage',
 
-    layout: 'contentful',
-
-    data() {
-      return {
-        value: [],
-        searchText: null,
-        suggestions: [],
-        contentfulExtensionSdk: null
-      };
+    components: {
+      ContentfulSuggestField
     },
+
+    layout: 'contentful',
 
     head() {
       return {
@@ -61,42 +29,17 @@
       value: 'updateContentfulField'
     },
 
-    mounted() {
-      window.contentfulExtension.init(sdk => {
-        this.contentfulExtensionSdk = sdk;
-        if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
-          sdk.window.startAutoResizer();
-
-          const ids = sdk.field.getValue() || [];
-          if (ids.length > 0) {
-            this.$apis.entity.find(ids)
-              .then(entities => {
-                this.value = entities;
-              });
-          }
-        }
-      });
-    },
-
     methods: {
-      isSelected(suggestion) {
-        return this.value.map(val => val.id).includes(suggestion.id);
+      suggestEntities(val) {
+        return this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' });
       },
 
-      async inputSearchText(val) {
-        this.suggestions = await this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' });
+      findEntities(val) {
+        return this.$apis.entity.find(val);
       },
 
-      removeSelection(remove) {
-        this.value = this.value.filter(val => val.id !== remove.id);
-      },
-
-      selectSuggestion(select) {
-        this.value = this.value.concat(select);
-      },
-
-      updateContentfulField() {
-        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => val.id));
+      labelEntity(val) {
+        return val.prefLabel.en || val.hiddenLabel.en;
       }
     }
   };

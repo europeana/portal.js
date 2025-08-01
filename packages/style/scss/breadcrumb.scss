@@ -1,0 +1,25 @@
+.breadcrumb {
+  background-color: $white;
+  border-top: 1px solid $whitegrey;
+  border-bottom: 1px solid $whitegrey;
+  top: -2.05rem;
+  position: relative;
+  margin-bottom: 0;
+
+  @media (min-width: $bp-small) {
+    top: -3.05rem;
+  }
+
+  .breadcrumb-item {
+    font-size: $font-size-small;
+  }
+
+  .breadcrumb-item.active,
+  a {
+    color: $darkgrey;
+
+    &:hover {
+      color: $darkgrey;
+    }
+  }
+}

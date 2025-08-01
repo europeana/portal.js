@@ -1,0 +1,170 @@
+.modal {
+  .modal-dialog {
+    max-width: 560px;
+
+    @media (min-height: $bp-medium) {
+      margin-top: 10rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 560px);
+    }
+  }
+
+  .modal-content {
+    border: none;
+
+    .modal-header {
+      border-bottom: none;
+      padding: 1.5rem 1.5rem 0;
+
+      @media (min-width: $bp-4k) {
+        padding: calc(1.5 * 1.5rem) calc(1.5 * 1.5rem) 0;
+      }
+    }
+
+    .modal-title {
+      font-size: $font-size-large;
+      font-weight: 600;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+      }
+    }
+
+    .modal-body {
+      padding: 1rem 1.5rem 1.5rem;
+      font-size: $font-size-small;
+
+      @media (min-width: $bp-4k) {
+        padding: 1.5rem calc(1.5 * 1.5rem) calc(1.5 * 1.5rem);
+        font-size: $font-size-small-4k;
+      }
+
+      form {
+        label {
+          font-size: $font-size-small;
+          margin-bottom: 0;
+
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-small-4k;
+          }
+        }
+
+        .form-control {
+          background: $white;
+          border: 1px solid $darkgrey;
+          border-radius: 0.375rem;
+          font-size: $font-size-base;
+          height: 3rem;
+          padding: 1rem;
+          color: $greyblack;
+
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-base-4k;
+            height: 4.5rem;
+            padding: 1.5rem;
+          }
+
+          &:focus {
+            border-color: $innovationblue;
+          }
+
+          &.is-invalid {
+            border-color: $red;
+          }
+        }
+
+        textarea.form-control {
+          height: auto;
+        }
+
+        .custom-control-label::before {
+          border-color: $darkgrey;
+        }
+
+        .custom-control-input:checked ~ .custom-control-label::before {
+          background-color: $blue;
+          border-color: $blue;
+        }
+
+        .custom-checkbox {
+          label {
+            font-size: $font-size-base;
+
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-base-4k;
+            }
+          }
+        }
+
+        .form-group:focus-within {
+          border-color: $blue;
+          color: $blue;
+        }
+      }
+    }
+  }
+
+  .modal-footer {
+    border: 0;
+    justify-content: space-between;
+    padding: 1rem 0 0;
+
+    @media (min-width: $bp-4k) {
+      padding: 1.5rem 0 0;
+    }
+
+    .btn-danger {
+      margin-right: 0.5rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+
+  //TODO clean up when all pages and buttons 4k ready
+  @media (min-width: $bp-4k) {
+    .btn {
+      padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+      font-size: $font-size-small-4k;
+    }
+
+    .form-text {
+      font-size: calc(1.5 * 0.75rem);
+      margin-top: calc(1.5 * 0.125rem);
+    }
+
+    .custom-control {
+      min-height: calc(1.5 * 1.5rem);
+      padding-left: calc(1.5 * 1.5rem);
+    }
+
+    .custom-control-label {
+      &::before {
+        top: calc(1.5 * 0.25rem);
+        left: calc(1.5 * -1.5rem);
+        width: 1.5rem;
+        height: 1.5rem;
+        border-width: 1.5px;
+      }
+
+      &::after {
+        top: calc(1.5 * 0.25rem);
+        left: calc(1.5 * -1.5rem);
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}
+
+.modal + .modal-backdrop {
+  opacity: 0.7;
+}

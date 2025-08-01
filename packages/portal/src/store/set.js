@@ -4,90 +4,94 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    activeRecommendations: []
+    activeId: null,
+    activeParams: {},
+    activeRecommendations: [],
+    selectedItems: []
   }),
+
+  getters: {
+    activeSetItemIds(state) {
+      return state.active?.items.map((item) => item.id) || [];
+    },
+
+    someActiveSetItemsSelected(state, getters) {
+      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
+    }
+  },
 
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;
     },
     setLikedItems(state, value) {
-      state.likedItems = value;
-      // TODO should likedItemIds be reset to empty array when falsy value?
-      if (value) {
-        state.likedItemIds = value.map(item => item.id);
+      state.likedItems = value || null;
+      state.likedItemIds = value?.map(item => item.id) || [];
+    },
+    setSelected(state, value) {
+      state.selectedItems = value;
+    },
+    like(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        if (!state.likedItemIds.includes(itemId)) {
+          state.likedItemIds.push(itemId);
+        }
       }
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
-    },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+    unlike(state, itemIds) {
+      for (const itemId of [].concat(itemIds)) {
+        state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
+      }
     },
     setActive(state, value) {
       state.active = value;
     },
+    setActiveId(state, value) {
+      state.activeId = value;
+    },
+    setActiveParams(state, value) {
+      state.activeParams = value;
+    },
     setActiveRecommendations(state, value) {
       state.activeRecommendations = value;
     },
-    addItemToActive(state, item) {
-      state.active.items.push(item);
-    }
-  },
-
-  getters: {
-    isLiked: (state) => (itemId) => {
-      return state.likedItemIds.includes(itemId);
+    selectItem(state, itemId) {
+      if (!state.selectedItems.includes(itemId)) {
+        state.selectedItems.push(itemId);
+      }
+    },
+    deselectItem(state, itemId) {
+      state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
     }
   },
 
   actions: {
-    reset({ commit }) {
-      commit('setLikesId', null);
-      commit('setLikedItems', null);
-    },
-    like({ dispatch, commit, state }, itemId) {
+    async like({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
-      return dispatch('fetchLikes')
-        .then(() => {
-          if (state.likedItems && state.likedItems.length >= 100) {
-            return Promise.reject(new Error('100 likes'));
-          } else {
-            return this.$apis.set.modifyItems('add', state.likesId, itemId)
-              .then(commit('like', itemId));
-          }
-        })
-        .catch((e) => {
+      await dispatch('fetchLikes');
+      if (state.likedItems && state.likedItems.length >= 100) {
+        throw new Error('100 likes');
+      } else {
+        try {
+          await this.$apis.set.insertItems(state.likesId, itemIds);
+          commit('like', itemIds);
+          dispatch('fetchLikes');
+        } catch (e) {
           dispatch('fetchLikes');
           throw e;
-        });
+        }
+      }
     },
-    async unlike({ dispatch, commit, state }, itemId) {
+    async unlike({ dispatch, commit, state }, itemIds) {
+      itemIds = [].concat(itemIds);
       try {
-        await this.$apis.set.modifyItems('delete', state.likesId, itemId);
-        commit('unlike', itemId);
+        await this.$apis.set.deleteItems(state.likesId, itemIds);
+        commit('unlike', itemIds);
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');
-      }
-    },
-    async addItem(ctx, { setId, itemId }) {
-      await this.$apis.set.modifyItems('add', setId, itemId);
-    },
-    async removeItem(ctx, { setId, itemId }) {
-      await this.$apis.set.modifyItems('delete', setId, itemId);
-    },
-    async setLikes({ commit }) {
-      const likesId = await this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null);
-      commit('setLikesId', likesId);
-    },
-    async createLikes({ commit }) {
-      const response = await this.$apis.set.createLikes();
-      commit('setLikesId', response.id);
-    },
-    refreshSet({ state, dispatch }) {
-      if (state.active) {
-        dispatch('fetchActive', state.active.id);
+        throw e;
       }
     },
     async fetchLikes({ commit, state }) {
@@ -97,60 +101,31 @@ export default {
 
       const likes = await this.$apis.set.get(state.likesId, {
         pageSize: 100,
-        profile: 'itemDescriptions'
+        profile: 'items.meta',
+        page: 1
       }).catch(() => {
         return {};
       });
+
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ commit }, setId) {
-      try {
-        const set = await this.$apis.set.get(setId, {
-          pageSize: 100,
-          profile: 'itemDescriptions'
-        });
-        commit('setActive', set);
-      } catch (error) {
-        if (process.server && error.statusCode) {
-          this.app.context.res.statusCode = error.statusCode;
-        }
-        throw error;
+    async fetchActive({ dispatch, commit, state }) {
+      if (!state.activeId) {
+        return;
       }
-    },
-    async createSet(ctx, body) {
-      await this.$apis.set.create(body);
-    },
-    async update({ state, commit }, { id, body, params }) {
-      const response = await this.$apis.set.update(id, body, params);
 
-      // Check if updated set is active set
-      if (state.active && (state.active.id === id)) {
-        // Respect reordering of items in update
-        let items = state.active.items;
-        if (response.items) {
-          items = response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
-        }
-        commit('setActive', { ...response, items });
-      }
-    },
-    async publish({ state, commit }, id) {
-      const response = await this.$apis.set.publish(id);
+      const responses = await Promise.all([
+        this.$apis.set.get(state.activeId),
+        this.$apis.set.getItems(state.activeId, state.activeParams)
+      ]);
 
-      if (state.active && (state.active.id === id)) {
-        commit('setActive', { ...state.active, ...response });
-      }
-    },
-    async unpublish({ state, commit }, id) {
-      const response = await this.$apis.set.unpublish(id);
+      commit('setActive', {
+        ...responses[0],
+        items: responses[1]
+      });
 
-      if (state.active && (state.active.id === id)) {
-        commit('setActive', { ...state.active, ...response });
-      }
-    },
-    async delete({ state, commit }, setId) {
-      await this.$apis.set.delete(setId);
-      if (state.active && setId === state.active.id) {
-        commit('setActive', 'DELETED');
+      if ((state.selectedItems || []).length > 0) {
+        dispatch('refreshSelected');
       }
     },
     async reviewRecommendation({ state, commit }, params) {
@@ -164,6 +139,12 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
+    },
+    refreshSelected({ state, commit }) {
+      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
+      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
+
+      commit('setSelected', activeSelectedItems);
     }
   }
 };

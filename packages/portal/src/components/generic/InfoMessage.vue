@@ -41,9 +41,10 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .alert.alert-light {
+    color: $greyblack;
     font-style: italic;
 
     &.with-icon {
@@ -51,14 +52,14 @@
 
       .icon-info {
         padding-right: 0.75rem;
-        font-size: 24px;
+        font-size: $font-size-large;
         color: $blue;
+
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large-4k;
+        }
       }
     }
-  }
-
-  .alert-light {
-    color: $greyblack;
   }
 </style>
 

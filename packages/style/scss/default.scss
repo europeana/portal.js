@@ -1,0 +1,418 @@
+@import 'mixins';
+
+body {
+  background-color: $white;
+  color: $textcolor;
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.page {
+  padding-top: 2rem;
+
+  @media (min-width: $bp-small) {
+    padding-top: 3rem;
+  }
+
+  &.xxl-page {
+    @media (min-width: $bp-4k) {
+      padding-top: 6rem;
+    }
+  }
+}
+
+// TODO: When all pages gridless/4k set this directly on body
+.xxl-page {
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-base-4k;
+  }
+}
+
+main {
+
+  // scope setting min-page-height to these layouts, not e.g. layout for contentful apps
+  &#default,
+  &#ds4ch,
+  &#landing-layout {
+    @include min-page-height;
+  }
+
+  &#default,
+  &#landing-layout {
+    margin-top: $page-header-height; // leave space for the fixed positioned header
+
+    @media (min-width: $bp-4k) {
+      margin-top: $page-header-height-4k;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 300;
+  line-height: 1.375;
+  margin-bottom: 1rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+h1 {
+  font-size: $font-size-medium;
+  font-weight: 500;
+  line-height: normal;
+  font-family: $font-family-ubuntu;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: $bp-small) {
+    font-size: $font-size-xl;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-xl-4k;
+    }
+  }
+}
+
+h2 {
+  font-size: 1.875rem;
+
+  span {
+    font-weight: 600;
+  }
+}
+
+h3,
+h4 {
+  font-size: $font-size-medium;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-medium-4k;
+    }
+  }
+}
+
+h4 {
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+small {
+  font-size: 0.875rem;
+  line-height: 1.571;
+
+  &.xs {
+    font-size: 0.75rem;
+    line-height: 1.833;
+  }
+
+  &.xxs {
+    font-size: 0.625rem;
+    line-height: 2.2;
+  }
+}
+
+p,
+ul {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: $greyblack;
+  text-decoration: underline;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+blockquote {
+  font-style: italic;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  p::before {
+    content: '\2018';
+    display: inline-block;
+    padding-right: 0.25rem;
+  }
+
+  p::after {
+    content: '\2019';
+    display: inline-block;
+  }
+
+  em {
+    font-style: normal;
+  }
+
+  @media (min-width: $bp-medium) {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+cite {
+  font-style: normal;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  @media (min-width: $bp-medium) {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+figure {
+  display: inline-block;
+  position: relative;
+}
+
+figcaption {
+  z-index: 4;
+  font-size: $font-size-base;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
+
+  .icon-info {
+    color: $white;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: $standard-transition;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: calc(1.5 * 1.5rem);
+        height: calc(1.5 * 1.5rem);
+      }
+    }
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    &::before {
+      font-size: 1.5rem;
+      text-shadow: $textshadow-light;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: calc(1.5 * 1.5rem);
+        }
+      }
+    }
+  }
+
+  cite {
+    background: $white;
+    border: none;
+    border-radius: 0.25rem;
+    bottom: 0.5rem;
+    box-shadow: $boxshadow-small;
+    display: inline;
+    font-size: 0.75rem;
+    left: initial;
+    margin: 0;
+    max-width: 75%;
+    padding: 0.75rem;
+    position: absolute;
+    right: 0.5rem;
+    text-align: left;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        border-radius: calc(1.5 * 0.25rem);
+        bottom: 0.75rem;
+        font-size: calc(1.5 * 0.75rem);
+        padding: calc(1.5 * 0.75rem);
+        right: 0.75rem;
+      }
+    }
+
+    &.cite-attribution {
+      a {
+        text-decoration: none;
+      }
+    }
+
+    p {
+      color: $darkgrey;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.25rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-bottom: calc(1.5 * 0.25rem);
+        }
+      }
+    }
+
+    .icon-external-link {
+      line-height: 1.5;
+    }
+
+    .attribution {
+      margin-top: 0.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-top: 0.75rem;
+        }
+      }
+
+      > span {
+        margin-left: 0;
+
+        .license {
+          font-size: $font-size-small;
+          margin-top: -0.1rem;
+
+          @at-root .xxl-page & {
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-small-4k;
+              margin-top: -0.15rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+blockquote + p cite {
+  margin-top: -1.25rem;
+  display: block;
+
+  &::before {
+    content: '\2010';
+    display: inline-block;
+    padding-right: 0.25rem;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  width: 100%;
+}
+
+.nuxt-progress {
+  background-color: $blue;
+  height: 0.25rem;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: width 0.1s, opacity 0.4s;
+  width: 0;
+  z-index: 999999;
+}
+
+.btn:focus,
+input[type='checkbox']:focus-visible + label {
+  outline: auto;
+
+  /* stylelint-disable */
+  @media (-webkit-min-device-pixel-ratio: 0) {
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+
+  /* stylelint-enable */
+}
+
+.organisation-logo {
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: $whitegrey;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 66.67%;
+  background-blend-mode: multiply;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 72px);
+      width: calc(1.5 * 72px);
+    }
+  }
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.default-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: $bp-xxxl) {
+    aspect-ratio: 4 / 3;
+  }
+
+  [class^='icon-'],
+  [class*=' icon-'] {
+    font-size: 3.5rem;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 3.5rem);
+      }
+    }
+  }
+}
+
+.white-page {
+  margin-top: -3rem;
+  position: relative;
+
+  @include white-cutout;
+}

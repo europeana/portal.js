@@ -8,6 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const $store = {
+  commit: sinon.spy(),
   state: {
     request: {
       domain: null
@@ -15,19 +16,20 @@ const $store = {
   }
 };
 
-const $path = () => '/';
-const $pathSpy = sinon.spy($path);
+const localePath = () => '/';
+const localePathSpy = sinon.spy(localePath);
 
-const factory = () => {
+const factory = (mocks) => {
   return shallowMount(SmartLink, {
     localVue,
     mocks: {
       ...{
-        $path: $pathSpy,
+        localePath: localePathSpy,
         $store,
         $t: () => {},
         $config: { app: { internalLinkDomain: null } }
-      }
+      },
+      ...mocks
     }
   });
 };
@@ -60,6 +62,37 @@ describe('components/generic/SmartLink', () => {
 
       await wrapper.setProps({ destination: 'https://pro.foo.com/test' });
       expect(wrapper.vm.isExternalLink).toBe(true);
+    });
+
+    it('determines if the URL is a link to a searchable page', async() => {
+      const wrapper = factory({ localePath: (path) => `/en/${path.params.pathMatch}` });
+
+      await wrapper.setProps({ destination: '/search' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/search?query=example' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/collections/topic/123' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/collections/organisation/123' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/collections/time/12' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/collections/person/123' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
+
+      await wrapper.setProps({ destination: '/collections' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(false);
+
+      await wrapper.setProps({ destination: '/collections/topics' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(false);
+
+      await wrapper.setProps({ destination: 'https://www.example.eu/collections' });
+      expect(wrapper.vm.isLinkToSearchablePage).toBe(false);
     });
 
     it('links data.europeana.eu/item URIs to record page', async() => {
@@ -141,7 +174,7 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'item-all',
           params: { pathMatch: identifierSlug }
         })).toBe(true);
@@ -156,7 +189,7 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'slug',
           params: { pathMatch: slug },
           query: {}
@@ -172,12 +205,33 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'slug',
           params: { pathMatch: 'account' },
           query: { redirect: '/account' }
         })).toBe(true);
       });
+    });
+  });
+
+  describe('logSearchLink', () => {
+    describe('when loggable prop is set and link is to a search page', () => {
+      it('returns true', async() => {
+        const wrapper = factory({ localePath: (path) => `/en/${path.params.pathMatch}` });
+        await wrapper.setProps({ destination: '/search' });
+
+        expect(wrapper.vm.logSearchLink).toEqual(true);
+      });
+    });
+  });
+
+  describe('setLoggableInteraction', () => {
+    it('sets the loggable interaction state', async() => {
+      const wrapper = factory();
+
+      wrapper.vm.setLoggableInteraction();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
     });
   });
 });

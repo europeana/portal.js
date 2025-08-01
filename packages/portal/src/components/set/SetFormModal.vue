@@ -18,7 +18,7 @@
             id="set-title"
             v-model="titleValue"
             type="text"
-            maxlength="35"
+            maxlength="100"
             :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />
@@ -63,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemContext ? $t('actions.cancel') : $t('actions.close') }}
+            {{ isNew && itemIds ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
@@ -86,17 +86,24 @@
         </div>
       </b-form>
     </b-modal>
-    <DeleteSetModal
-      v-if="!isNew"
-      :set-id="setId"
+    <ConfirmDangerModal
+      v-if="showConfirmationModal"
+      v-model="showConfirmationModal"
+      :confirm-button-text="$t('set.actions.delete')"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
-      @cancel="cancelDelete"
+      :modal-title="$t('set.actions.delete')"
+      :prompt-text="$t('set.prompts.delete')"
+      data-qa="confirm delete modal"
+      @cancel="show"
+      @confirm="deleteSet"
+      @input="showConfirmationModal = $event"
     />
   </div>
 </template>
 
 <script>
+  import useMakeToast from '@/composables/makeToast.js';
   import {
     EUROPEANA_SET_VISIBILITY_PRIVATE,
     EUROPEANA_SET_VISIBILITY_PUBLIC,
@@ -107,7 +114,7 @@
     name: 'SetFormModal',
 
     components: {
-      DeleteSetModal: () => import('./DeleteSetModal')
+      ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
     props: {
@@ -151,19 +158,25 @@
         default: 'Collection'
       },
 
-      itemContext: {
-        type: String,
+      itemIds: {
+        type: [String, Array],
         default: null
       }
+    },
+
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
     },
 
     data() {
       return {
         titleValue: '',
+        deleteSetModalId: `delete-set-modal-${this.setId}`,
         descriptionValue: '',
         isPrivate: false,
-        submissionPending: false,
-        deleteSetModalId: `delete-set-modal-${this.setId}`
+        showConfirmationModal: false,
+        submissionPending: false
       };
     },
 
@@ -182,9 +195,13 @@
           visibility: this.visibilityValue
         };
 
-        if (this.isNew && this.itemContext) {
-          setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
-        }
+        // TODO: reinstate, but for edits too, when logic for differentiating
+        //       w/ non-Gallery collections is introduced
+        // if (this.isNew) {
+        //   if (this.type === 'Collection') {
+        //     setBody.collectionType = 'Gallery';
+        //   }
+        // }
 
         return setBody;
       },
@@ -230,27 +247,63 @@
     methods: {
       // TODO: how to handle existing set having title/description in other languages?
       init() {
-        this.titleValue = (this.title || {})[this.$i18n.locale];
-        this.descriptionValue = (this.description || {})[this.$i18n.locale];
+        this.titleValue = this.title?.[this.$i18n.locale];
+        this.descriptionValue = this.description?.[this.$i18n.locale];
         this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
-      // TODO: error handling
-      submitForm() {
+      // TODO: error handling other statuses
+      async submitForm() {
         if (this.submissionPending) {
-          return Promise.resolve();
+          return;
         }
         this.submissionPending = true;
-        const handler = this.isNew ?
-          this.$store.dispatch('set/createSet', this.setBody) :
-          this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
 
-        return handler
-          .then(() => {
-            this.hide(this.isNew ? 'create' : 'update');
-          }).then(() => {
-            this.submissionPending = false;
-          });
+        try {
+          const response = await this.createOrUpdateSet();
+          const setId = response.id.split('/').pop();
+
+          if (setId === this.$store.state.set.activeId) {
+            this.$store.dispatch('set/fetchActive');
+          }
+
+          if (this.itemIds && this.isNew) {
+            await this.$apis.set.insertItems(setId, this.itemIds);
+          }
+
+          this.hide(this.isNew ? 'create' : 'update');
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        } finally {
+          this.submissionPending = false;
+        }
+      },
+
+      async createOrUpdateSet() {
+        if (this.isNew) {
+          return this.$apis.set.create(this.setBody);
+        } else {
+          return this.$apis.set.update(this.setId, this.setBody);
+        }
+      },
+
+      // TODO: error handling other statuses
+      async deleteSet() {
+        try {
+          await this.$apis.set.delete(this.setId);
+          if (this.setId === this.$store.state.set.active?.id) {
+            this.$store.commit('set/setActive', null);
+          }
+
+          this.makeToast(this.$t('set.notifications.deleted'));
+
+          // redirect away from deleted set page
+          if (this.$route.name.startsWith('galleries-all___')) {
+            this.$router.push(this.localePath({ name: 'account' }));
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
+        }
       },
 
       show() {
@@ -264,11 +317,9 @@
 
       clickDelete() {
         this.$bvModal.hide(this.modalId);
-        this.$bvModal.show(this.deleteSetModalId);
-      },
-
-      cancelDelete() {
-        this.show();
+        if (!this.isNew) {
+          this.showConfirmationModal = true;
+        }
       }
     }
   };

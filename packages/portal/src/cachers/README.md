@@ -33,6 +33,10 @@ Entity API.
 
 Localised.
 
+#### `collections:organisations:count`
+Retrieves and caches the number of organization-type, Europeana-scoped entities
+from the Entity API.
+
 #### `collections:organisations:featured`
 Retrieves and caches a daily rotation of 4 times from all organization-type,
 Europeana-scoped entities from the Entity API.
@@ -94,3 +98,9 @@ seeded to today's date, and caches the items' metadata.
 #### `items:type-counts`
 Queries the Europeana Record API for the total number of items available by EDM
 type, of content tiers 1-4.
+
+### `matomo`
+
+#### `matomo:visits`
+Retrieves and caches the number of daily visits to the website from the Matomo
+REST API, calculated as the average number over the past 30 days.

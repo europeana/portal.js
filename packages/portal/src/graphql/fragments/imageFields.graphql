@@ -1,0 +1,8 @@
+fragment imageFields on Asset {
+  contentType
+  description
+  height
+  title
+  url
+  width
+}

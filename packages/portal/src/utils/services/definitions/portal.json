@@ -1,0 +1,108 @@
+[
+  {
+    "name": "europeanaEmbed",
+    "schemes": [
+      "https://embed.europeana.eu/*"
+    ],
+    "purposes": [],
+    "required": true,
+    "title": "Europeana oEmbed"
+  },
+  {
+    "name": "zoho",
+    "schemes": [
+      "https://forms.zohopublic.eu/*",
+      "https://fdti-zcmp.maillist-manage.eu/*"
+    ],
+    "purposes": [],
+    "required": true,
+    "title": "Zoho"
+  },
+  {
+    "cookies": [
+      "^auth\\."
+    ],
+    "name": "auth-strategy",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Auth"
+  },
+  {
+    "cookies": [
+      "^debugSettings$"
+    ],
+    "name": "debugSettings",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Debug toggle"
+  },
+  {
+    "cookies": [
+      "^_hj"
+    ],
+    "name": "hotjar",
+    "purposes": [
+      "usage"
+    ],
+    "title": "Hotjar"
+  },
+  {
+    "cookies": [
+      "^i18n_locale_code$"
+    ],
+    "name": "i18n",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Language code"
+  },
+  {
+    "cookies": [
+      "^_pk_",
+      "^mtm_cookie_consent$"
+    ],
+    "name": "matomo",
+    "purposes": [
+      "usage"
+    ],
+    "title": "Matomo"
+  },
+  {
+    "cookies": [
+      "^multilingualSearch$"
+    ],
+    "name": "multilingualSearch",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Multilingual search"
+  },
+  {
+    "cookies": [
+      "^new_feature_notification$"
+    ],
+    "name": "newFeatureNotification",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "New feature notification"
+  },
+  {
+    "cookies": [
+      "^searchResultsView$"
+    ],
+    "name": "searchResultsView",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Search result, galleries and likes view (list/grid/mosaic)"
+  }
+]

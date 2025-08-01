@@ -47,7 +47,8 @@ Feature: Search faceting
 
   Scenario: Filtering results by country
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
     And I am on page number 1
@@ -55,7 +56,8 @@ Feature: Search faceting
 
   Scenario: Filtering results by rights statement
     Given I am on the `search page`
-    When I click the `RIGHTS side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `RIGHTS side facet dropdown button`
     And I click the `*/publicdomain/mark/* RIGHTS field`
     Then I should be on `/en/search?page=1&qf=RIGHTS%3A%2A%2Fpublicdomain%2Fmark%2F%2A`
     And I am on page number 1
@@ -63,7 +65,8 @@ Feature: Search faceting
 
   Scenario: Filtering beyond the first 50 facet values using facet search
     Given I am on the `search page`
-    When I click the `PROVIDER side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `PROVIDER side facet dropdown button`
     And I click the `more facet values available button`
     And I enter "The European Library" in the `side facet dropdown search input`
     And I click the `The European Library PROVIDER field`
@@ -72,7 +75,8 @@ Feature: Search faceting
 
   Scenario: Filtering results by two countries
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     And I don't see a `loading spinner`
     And I click the `COUNTRY side facet dropdown button`
@@ -84,7 +88,8 @@ Feature: Search faceting
 
   Scenario: Filtering using a combination of facet fields
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     And I don't see a `loading spinner`
     And I click the `REUSABILITY side facet dropdown button`
@@ -100,6 +105,7 @@ Feature: Search faceting
   Scenario: Facets are loaded from the URL
     Given I am on `/en/search?page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
     Then I should have 3 `filter badge`s
+    And I see the `additional filters toggle` with the text "HIDE ADDITIONAL FILTERS"
 
   Scenario: Unselecting a facet
     Given I am on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
@@ -110,17 +116,19 @@ Feature: Search faceting
 
   Scenario: Filtering results by country and have a corresponding item page
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
     And I click an `item preview`
     Then I see an `item page`
-    And I click the "All metadata" tab
+    And I click the `all metadata tab`
     Then I should see a metadata field for edmCountry with the value "Belgium"
 
   Scenario: Filtering results by two countries and have a corresponding item page
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     And I don't see a `loading spinner`
     And I click the `COUNTRY side facet dropdown button`
@@ -129,13 +137,14 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I click an `item preview`
     Then I see an `item page`
-    And I click the "All metadata" tab
+    And I click the `all metadata tab`
     Then I should see a metadata field for edmCountry with the value "Belgium" or the value "Germany"
 
   # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Preserve filtering when performing a new search
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `France COUNTRY field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22`
     And I see a `filter badge` with the text "France"
@@ -149,7 +158,8 @@ Feature: Search faceting
 
   Scenario: Paginating with facets
     Given I am on the `search page`
-    Then I click the `TYPE side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     And I see a `filter badge` with the text "Image"
     And I go to page number 2
@@ -161,7 +171,8 @@ Feature: Search faceting
 
   Scenario: Clear filters using reset button
     Given I am on the `search page`
-    When I click the `COUNTRY side facet dropdown button`
+    When I click the `additional filters toggle`
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `France COUNTRY field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22`
     And I don't see a `loading spinner`

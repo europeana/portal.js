@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import collectionType from '@/pages/collections/_type/index';
 
@@ -14,29 +15,19 @@ const factory = (options = {}) => shallowMountNuxt(collectionType, {
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { params: { type: options.type } },
     $pageHeadTitle: key => key,
-    $nuxt: { context: { res: {} } }
+    $error: sinon.spy()
   },
-  stubs: {
-    EntityTable: true,
-    ErrorMessage: true
-  }
+  stubs: ['EntityTable', 'ErrorMessage']
 });
 
 describe('pages/collections/_type/index', () => {
   describe('fetch', () => {
-    it('detects no valid collection type and throws 404', async() => {
-      process.server = true;
+    it('detects no valid collection type and calls $error with 404', async() => {
       const wrapper = factory({ type: 'not-found' });
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
 
-      expect(error.message).toBe('Unknown collection type');
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+      expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
   });
 
@@ -48,29 +39,6 @@ describe('pages/collections/_type/index', () => {
         const title = wrapper.vm.pageTitle;
 
         expect(title).toEqual('pages.collections.topics.title');
-      });
-      describe('when fetchState has error', () => {
-        it('uses translation of "Error"', () => {
-          const wrapper = factory({ fetchState: { error: true }, type: 'topics' });
-
-          const title = wrapper.vm.pageTitle;
-
-          expect(title).toBe('error');
-        });
-        describe('when custom meta title is available', () => {
-          it('uses custom meta title', async() => {
-            const wrapper = factory({ fetchState: { error: true }, type: 'not-found' });
-
-            try {
-              await wrapper.vm.fetch();
-            } catch (e) {
-              wrapper.vm.$fetchState.error = e;
-            }
-            const title = wrapper.vm.pageTitle;
-
-            expect(title).toBe('errorMessage.pageNotFound.metaTitle');
-          });
-        });
       });
     });
   });

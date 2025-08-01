@@ -1,23 +1,20 @@
 import express from 'express';
-import defu  from 'defu';
+import cors from 'cors';
 import apm from 'elastic-apm-node';
+
 import logging from '../logging.js';
+import pg from './pg.js';
+import keycloak from './keycloak.js';
+import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
 app.use(logging);
 
-import nuxtConfig from '../../../nuxt.config.js';
-let runtimeConfig;
-
-app.use((res, req, next) => {
-  if (!runtimeConfig) {
-    // Load Nuxt config once, at runtime
-    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
-  }
-  next();
-});
+const runtimeConfig = nuxtRuntimeConfig();
+pg.config = runtimeConfig.postgres;
+keycloak.config = runtimeConfig.auth.strategies.keycloak;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
@@ -33,31 +30,36 @@ import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
 import cache from './cache/index.js';
-app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
+const cacheHandler = cache(runtimeConfig.redis);
+app.get('/cache', cacheHandler);
+app.get('/cache/*', cacheHandler);
+
+import events from './events/index.js';
+app.use('/events', events);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
-app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
-// TODO: Remove on subsequent release as only needed to suppor the switch to the new URL '/jira-service-desk/feedback'
-app.post('/jira/service-desk', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
+const feedbackCorsOptions = {
+  origin: forbiddenUnlessOriginAllowed(runtimeConfig.app.feedback.cors.origin)
+};
+app.options('/jira-service-desk/feedback',
+  cors(feedbackCorsOptions),
+  (req, res) => res.sendStatus(200)
+);
+app.post('/jira-service-desk/feedback',
+  cors(feedbackCorsOptions),
+  jiraServiceDeskFeedback(runtimeConfig.jira)
+);
 
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
-app.post('/jira-service-desk/galleries', (req, res) => jiraServiceDeskGalleries(runtimeConfig.jira)(req, res));
+app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.jira));
 
 import version from './version.js';
 app.get('/version', version);
 
+import polls from './polls/index.js';
+app.use('/votes', polls);
+
 app.all('/*', (req, res) => res.sendStatus(404));
-
-export const errorHandler = (res, error) => {
-  let status = error.status || 500;
-  let message = error.message;
-
-  if (error.response) {
-    status = error.response.status;
-    message = error.response.data.errorMessage;
-  }
-
-  res.status(status).set('Content-Type', 'text/plain').send(message);
-};
+app.use(errorHandler);
 
 export default app;

@@ -68,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packages/styleguide/Dockerfile
+          file: ./styleguide/Dockerfile
           pull: true
           push: true
           cache-from: type=gha
@@ -80,10 +80,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
     env:
-      IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-      IBMCLOUD_CLUSTER_NAME: europeana-web
-      IBMCLOUD_REGION: eu-de
+      IBMCLOUD_API_URL: ${{ vars.IBMCLOUD_API_URL }}
+      IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
+      IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
     steps:
       -
         name: Checkout

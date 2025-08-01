@@ -1,93 +1,40 @@
-/**
- * @file Functions for working with the Europeana Thumbnail API
- * @see https://pro.europeana.eu/page/record#thumbnails
- */
-
 import md5 from 'md5';
 
-import { preferredAPIBaseURL } from './utils.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
+import EuropeanaApi from './apis/base.js';
 
-// TODO: switch to v3 when v2 support is deprecated
-export const BASE_URL = 'https://api.europeana.eu/thumbnail/v2';
+export const LARGE_WIDTH = 400;
+export const SMALL_WIDTH = 200;
 
-export const thumbnailTypeForMimeType = (mimeType) => {
-  let thumbnailType = null;
+export default class EuropeanaThumbnailApi extends EuropeanaApi {
+  static ID = 'thumbnail';
+  static BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
-  switch (true) {
-    case typeof mimeType === 'undefined':
-      break;
-    case mimeType.startsWith('image/'):
-      thumbnailType = 'IMAGE';
-      break;
-    case mimeType.startsWith('audio/'):
-      thumbnailType = 'SOUND';
-      break;
-    case mimeType.startsWith('video/'):
-      thumbnailType = 'VIDEO';
-      break;
-    case mimeType.startsWith('text/'):
-    case ['application/pdf', 'application/rtf'].includes(mimeType):
-      thumbnailType = 'TEXT';
-      break;
+  constructor(context) {
+    super(context);
+    if (!this.baseURL.endsWith('/v3')) {
+      throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+    }
   }
 
-  return thumbnailType;
-};
-
-export default (context = {}) => {
-  // TODO: remove `type` when v2 support is deprecated
-  const media = (uri, { hash, size, type } = {}) => {
-    const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
-
+  media(uri, { hash, size } = {}) {
     if (!size) {
-      size = 200;
+      size = SMALL_WIDTH;
     }
 
-    // TODO: remove when v2 support is deprecated
-    const v2 = () => {
-      if (!uri) {
-        return null;
-      }
+    if (!hash && uri) {
+      hash = md5(uri);
+    }
+    return `${this.baseURL}/${size}/${hash}`;
+  }
 
-      const apiUrl = new URL(`${baseUrl}/url.json`);
-
-      apiUrl.searchParams.set('uri', uri);
-
-      apiUrl.searchParams.set('size', (`${size}`.startsWith('w') ? size : `w${size}`));
-
-      if (type) {
-        apiUrl.searchParams.set('type', type);
-      }
-
-      return apiUrl.toString();
-    };
-
-    const v3 = () => {
-      if (!hash && uri) {
-        hash = md5(uri);
-      }
-      return `${baseUrl}/${size}/${hash}`;
-    };
-
-    return baseUrl.endsWith('/v3') ? v3() : v2();
-  };
-
-  // TODO: remove when v2 support is deprecated
-  const generic = (itemId, { size, type } = {}) => {
-    const uri = `${EUROPEANA_DATA_URL}/item${itemId}`;
-    return media(uri, { size, type });
-  };
-
-  // TODO: remove `type` when v2 support is deprecated
-  const edmPreview = (thumbnailApiUrl, { size, type } = {}) => {
+  edmPreview(thumbnailApiUrl, { size } = {}) {
     if (!thumbnailApiUrl) {
       return null;
     }
 
     const edmPreviewUrl = new URL(thumbnailApiUrl);
 
-    // TODO: remove when v2 support is deprecated
+    // TODO: remove when v2 thumbnail URL conversion is no longer needed
     const v2 = () => {
       if (!size) {
         const sizeParam = edmPreviewUrl.searchParams.get('size');
@@ -95,11 +42,8 @@ export default (context = {}) => {
           size = sizeParam.replace('w', '');
         }
       }
-      if (!type) {
-        type = edmPreviewUrl.searchParams.get('type');
-      }
 
-      return media(edmPreviewUrl.searchParams.get('uri'), { size, type });
+      return this.media(edmPreviewUrl.searchParams.get('uri'), { size });
     };
 
     const v3 = () => {
@@ -108,15 +52,17 @@ export default (context = {}) => {
         size = sizeAndHash[0];
       }
       const hash = sizeAndHash[1];
-      return media(null, { hash, size });
+      return this.media(null, { hash, size });
     };
 
     return (edmPreviewUrl.pathname.includes('/v3/') ? v3() : v2());
-  };
+  }
 
-  return {
-    media,
-    generic,
-    edmPreview
-  };
-};
+  forWebResource(webResource) {
+    const uri = webResource.preview?.about || webResource.about;
+    return {
+      small: this.media(uri, { size: SMALL_WIDTH }),
+      large: this.media(uri, { size: LARGE_WIDTH })
+    };
+  }
+}

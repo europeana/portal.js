@@ -1,0 +1,29 @@
+name: NPM
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  npm-publish:
+    name: NPM publish
+    strategy:
+      matrix:
+        package: [style]
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      -
+        name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: npm -w packages/${{ matrix.package }} publish --access public

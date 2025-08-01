@@ -1,0 +1,90 @@
+.dropdown {
+  .btn-light {
+    background: $white;
+    color: $darkgrey;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    :not(:disabled):not(.disabled):active {
+      background-color: $white;
+    }
+  }
+
+  &.show {
+    .btn-light.dropdown-toggle {
+      background-color: $white;
+      color: $darkgrey;
+    }
+  }
+
+  .dropdown-item {
+    text-decoration: none;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: calc(1.5 * 0.25rem) calc(1.5 * 1.5rem);
+        line-height: 1.5rem;
+      }
+    }
+
+    &:hover {
+      background-color: $lightgrey;
+    }
+
+    &:active,
+    &.active {
+      background-color: $blue;
+    }
+  }
+
+  .dropdown-header {
+    font-size: $font-size-extrasmall;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-left: 1rem;
+    color: $darkgrey;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    padding: 0.75rem 0;
+  }
+
+  &.multilingual-selector .dropdown-menu {
+    max-height: 50vh;
+    overflow: auto;
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    @extend %icon-font;
+
+    border: 0;
+    content: '\e91b'; // icon-chevron
+    font-size: 0.425rem;
+    margin-right: 0.25rem;
+  }
+}
+
+.b-form-tags.form-control {
+  padding: 0;
+  margin-bottom: 1.25rem;
+  background-color: $white;
+  border-radius: 0;
+
+  > ul {
+    padding-left: 0;
+    margin-bottom: 0.25rem;
+
+    .list-inline-item {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

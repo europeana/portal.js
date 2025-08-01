@@ -1,0 +1,139 @@
+table,
+.table {
+  background-color: $white;
+  border: 1px solid $middlegrey;
+  border-spacing: 0;
+  border-collapse: separate;
+  font-size: $font-size-small;
+  margin-bottom: 1rem;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      border-width: 2px;
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  thead th {
+    background: none !important;
+    border-bottom: none;
+    border-top: none;
+    font-weight: 600;
+    line-height: 1.125rem;
+    padding: 1.125rem 1rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        line-height: 1.5rem;
+        padding: calc(1.5 * 1.125rem) 1.5rem;
+      }
+    }
+
+    div {
+      display: inline-block;
+      white-space: nowrap; // prevents the sort toggle from wrapping under the label
+    }
+  }
+
+  td {
+    line-height: 1.214;
+    padding: 1.125rem 1rem;
+    border-top: 1px solid $middlegrey;
+    vertical-align: top;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: calc(1.5 * 1.125rem) 1.5rem;
+      }
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        color: $innovationblue;
+      }
+    }
+  }
+
+  &.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: $lightergrey;
+  }
+
+  &.borderless {
+    border: 0;
+
+    strong {
+      font-size: $font-size-base;
+      font-weight: 600;
+      line-height: 1.25rem;
+      display: block;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-base-4k;
+        }
+      }
+    }
+
+    strong + .subtitle {
+      font-size: $font-size-extrasmall;
+      line-height: 1.25rem;
+      color: $darkgrey;
+      text-transform: uppercase;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-extrasmall-4k;
+          line-height: 1.5rem;
+        }
+      }
+    }
+
+    a:hover strong + .subtitle {
+      color: inherit;
+    }
+  }
+}
+
+.table {
+  thead th {
+    &[aria-sort] div::after {
+      @extend %icon-font;
+
+      content: '\e93b';
+      color: $darkgrey;
+      font-size: $font-size-base;
+      margin-left: 0.5rem;
+      display: inline-block;
+      transition: $standard-transition;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-base-4k;
+          margin-left: 0.75rem;
+        }
+      }
+    }
+
+    &[aria-sort='ascending'] div::after,
+    &[aria-sort='descending'] div::after {
+      color: $innovationblue;
+    }
+
+    &[aria-sort='descending'] div::after {
+      transform: rotate(180deg);
+    }
+
+    // prevents hover style overriding the active sort style on touch devices
+    @media (hover: hover) and (pointer: fine) {
+      &:hover div::after {
+        color: $black;
+      }
+    }
+  }
+
+  td {
+    line-height: 1em;
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@europeana/styleguide",
+  "description": "Europeana styleguide",
+  "private": true,
+  "scripts": {
+    "build": "vue-styleguidist build --config ./styleguide.config.cjs",
+    "start": "vue-styleguidist server --config ./styleguide.config.cjs"
+  },
+  "devDependencies": {
+    "@europeana/portal": "../packages/portal",
+    "vue": "2.7.16",
+    "vue-styleguidist": "4.72.4",
+    "webpack": "^4.46.0"
+  },
+  "contributors": [
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>",
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>"
+  ],
+  "keywords": [
+    "code4lib"
+  ],
+  "license": "EUPL-1.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/europeana/portal.js.git"
+  },
+  "type": "module"
+}

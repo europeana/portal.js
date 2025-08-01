@@ -1,146 +1,56 @@
-import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
+import nock from 'nock';
 
-import merge from 'deepmerge';
-import sinon from 'sinon';
+import auth from '@/plugins/europeana/auth';
 
-const mockContext = (options = {}) => {
-  const defaults = {
-    $auth: {
-      getRefreshToken: () => null,
-      setToken: sinon.spy(),
-      strategy: {
-        name: 'strategy',
-        options: {
-          'token_key': 'accessToken'
-        },
-        _setToken: sinon.spy()
-      },
-      options: {
-        redirect: {
-          login: 'http://example.org/login'
-        }
-      },
-      request: sinon.stub().resolves({}),
-      loggedIn: false
-    },
-    redirect: sinon.spy(),
-    route: {
-      path: '/en'
-    }
-  };
-
-  return merge(defaults, options);
-};
-
-const mockError = (status = 401) => ({
-  response: { status },
-  config: {
-    headers: {
-      'Authorization': 'Bearer token'
-    }
-  }
-});
+const client = { 'client_id': 'myKey', id: 'api-key-id', type: 'PersonalKey' };
 
 describe('plugins/europeana/auth', () => {
-  describe('keycloakResponseErrorHandler', () => {
-    describe('when response status is 401', () => {
-      describe('and the user has a refresh token', () => {
-        const ctx = mockContext({
-          $auth: {
-            getRefreshToken: () => 'token'
-          }
-        });
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterEach(() => {
+    nock.cleanAll();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
 
-        it('attempts to refresh the access token', async() => {
-          await keycloakResponseErrorHandler(ctx, mockError());
+  describe('createClient', () => {
+    it('creates a client via the auth service', async() => {
+      nock(auth.BASE_URL)
+        .post('/auth/realms/europeana/client')
+        .reply(200, client);
 
-          expect(ctx.$auth.request.calledWith(sinon.match.has('headers', {
-            'content-type': 'application/x-www-form-urlencoded'
-          }))).toBe(true);
-        });
+      const response = await (new auth).createClient();
 
-        describe('when it has refreshed the access token', () => {
-          const ctx = mockContext({
-            $auth: {
-              getRefreshToken: () => 'token',
-              request: sinon.stub().resolves({
-                accessToken: 'new'
-              })
-            },
-            $axios: {
-              request: sinon.spy()
-            }
-          });
-
-          it('stores the new access token', async() => {
-            await keycloakResponseErrorHandler(ctx, mockError());
-
-            expect(ctx.$auth.setToken.calledWith('strategy', 'new')).toBe(true);
-            expect(ctx.$auth.strategy['_setToken'].calledWith('new')).toBe(true);
-          });
-
-          it('retries the original request', async() => {
-            await keycloakResponseErrorHandler(ctx, mockError());
-
-            expect(ctx.$axios.request.called).toBe(true);
-          });
-        });
-
-        describe('when the access token refresh request fails', () => {
-          const ctx = mockContext({
-            $auth: {
-              getRefreshToken: () => 'token',
-              request: sinon.stub().throws(),
-              logout: sinon.spy()
-            },
-            $axios: {
-              request: sinon.spy()
-            }
-          });
-
-          it('logs out', async() => {
-            await keycloakResponseErrorHandler(ctx, mockError());
-
-            expect(ctx.$auth.logout.called).toBe(true);
-          });
-
-          it('retries the original request without authorization', async() => {
-            await keycloakResponseErrorHandler(ctx, mockError());
-
-            expect(ctx.$axios.request.calledWith({ headers: {} })).toBe(true);
-          });
-        });
-
-        describe('when it could not refresh the access token', () => {
-          it('redirects to the login URL', async() => {
-            await keycloakResponseErrorHandler(ctx, mockError());
-
-            expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path })).toBe(true);
-          });
-        });
-      });
-
-      describe('but the user is not logged in with a refresh token', () => {
-        const ctx = mockContext({
-          $auth: {
-            getRefreshToken: () => null,
-            loggedIn: false
-          }
-        });
-
-        it('redirects to the login URL', async() => {
-          await keycloakResponseErrorHandler(ctx, mockError());
-
-          expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path })).toBe(true);
-        });
-      });
+      expect(nock.isDone()).toBe(true);
+      expect(response).toEqual(client);
     });
+  });
 
-    describe('when response status is not 401', () => {
-      it('rejects it', async() => {
-        const response = keycloakResponseErrorHandler({}, mockError(500));
-        await expect(response).rejects.toEqual(mockError(500));
-      });
+  describe('deleteClient', () => {
+    it('deletes the client from the auth service', async() => {
+      nock(auth.BASE_URL)
+        .delete(`/auth/realms/europeana/client/${client.id}`)
+        .reply(204);
+
+      await (new auth).deleteClient(client.id);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
+  describe('getUserClients', () => {
+    it('gets the user clients from the auth service', async() => {
+      const clients = [client];
+      nock(auth.BASE_URL)
+        .get('/auth/realms/europeana/user/clients')
+        .reply(200, clients);
+
+      const response = await (new auth).getUserClients();
+
+      expect(nock.isDone()).toBe(true);
+      expect(response).toEqual(clients);
     });
   });
 });

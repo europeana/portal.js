@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
       -
         name: Install Node packages
@@ -29,10 +29,14 @@ jobs:
         run: echo "PR_BRANCH=l10n/$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
       -
         name: Create pull request
+        id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
           body: "Automated translation updates by [Lokalise workflow](https://github.com/europeana/portal.js/blob/master/.github/workflows/lokalise.yml)."
-          token: "${{ secrets.GIT_PAT }}"
+          token: "${{ secrets.GIT_PAT_LOKALISE }}"
+      -
+        name: Annotate with pull request URL
+        run: echo "::notice ::Pull request URL - ${{ steps.cpr.outputs.pull-request-url }}"

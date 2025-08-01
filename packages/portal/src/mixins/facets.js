@@ -1,4 +1,4 @@
-import themes from '@/plugins/europeana/themes';
+import themes from '@/utils/europeana/themes';
 import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
 const translateWithFallbackOrNull = (scope, key, callback) => {
@@ -32,7 +32,7 @@ export default {
     },
 
     tFacetKey(facetName, key, { count = 1, collection = null } = {}) {
-      const facetNameKey = facetName.replace(/\..*$/, '');
+      const facetNameKey = facetName.split('.')[0];
 
       if (collection) {
         const collectionLabel = this.tcNull(`collections.${collection}.facets.${facetNameKey}.${key}`, count);
@@ -53,7 +53,7 @@ export default {
     tFacetOption(facetName, fieldValue, { escaped = false, collection = null } = {}) {
       const MIME_TYPE = 'MIME_TYPE';
 
-      const selectedTheme = themes.find(theme => theme.qf === collection);
+      const selectedTheme = themes.find((theme) => theme.qf === collection);
       const themeSpecificFieldLabelPattern = (selectedTheme?.facets || []).find((facet) => facet.field === facetName)?.label;
 
       const genericLabel = () => {

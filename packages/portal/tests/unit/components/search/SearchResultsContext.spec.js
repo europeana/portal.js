@@ -1,37 +1,33 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import VueI18n from 'vue-i18n';
 import sinon from 'sinon';
 
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
 const localVue = createLocalVue();
-localVue.use(VueI18n);
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: { en: messages }
-});
 
 const factory = (options = {}) => mount(SearchResultsContext, {
   localVue,
+  directives: { 'b-tooltip': () => {} },
   propsData: options.propsData,
-  i18n,
   mocks: {
+    $config: { app: { search: { translateLocales: 'es', ...options.searchConfig } } },
     $apis: {
       entity: {
-        imageUrl: () => ''
+        imageUrl: (entity) => entity.logo || entity.isShownBy
       }
     },
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
-      }
+    $auth: {
+      loggedIn: false,
+      ...options.auth
     },
-    $path: (args) => args,
-    $route: () => ({}),
+    $features: options.features || {},
+    $i18n: { locale: options.locale || 'en', n: (num) => num },
+    localePath: (args) => args,
+    $route: {
+      path: '/search',
+      query: {},
+      ...options.route
+    },
     $store: {
       state: {
         entity: {},
@@ -41,17 +37,19 @@ const factory = (options = {}) => mount(SearchResultsContext, {
     },
     $t: (key) => key
   },
-  stubs: ['RemovalChip']
+  stubs: ['SearchRemovalChip', 'b-button', 'b-link', 'i18n']
 });
 
 const fixtures = {
   organisationEntity: {
     id: 'http://data.europeana.eu/organization/123',
-    prefLabel: { en: 'Organisation' }
+    prefLabel: { en: 'Organisation' },
+    logo: 'organisation logo'
   },
   thematicCollectionTopicEntity: {
     id: 'http://data.europeana.eu/concept/190',
-    prefLabel: { en: 'Art' }
+    prefLabel: { en: 'Art' },
+    isShownBy: 'topic isShownBy'
   }
 };
 
@@ -167,44 +165,8 @@ describe('SearchResultsContext', () => {
   });
 
   describe('computed', () => {
-    describe('contextType', () => {
-      it('is "theme" if entity is thematic collection topic', () => {
-        const propsData = {
-          entity: fixtures.thematicCollectionTopicEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('theme');
-      });
-
-      it('is "organisation" if entity is organisation', () => {
-        const propsData = {
-          entity: fixtures.organisationEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('organisation');
-      });
-    });
-
     describe('entityLabel', () => {
-      it('priorities editorialOverrides prop', () => {
-        const propsData = {
-          entity: fixtures.organisationEntity,
-          totalResults: 1234,
-          editorialOverrides: { title: 'override' }
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.entityLabel).toEqual('override');
-      });
-
-      it('falls back to entity prefLabel', () => {
+      it('uses the entity prefLabel', () => {
         const propsData = {
           entity: fixtures.organisationEntity,
           totalResults: 1234
@@ -217,29 +179,154 @@ describe('SearchResultsContext', () => {
     });
 
     describe('entityImage', () => {
-      it('prioritises the contentful asset', () => {
-        const ctfImage = {
-          url: 'https://images.ctfassets.net/image.jpg',
-          contentType: 'image/jpeg'
-        };
+      it('uses the imageUrl from the entity', () => {
         const propsData = {
           entity: fixtures.organisationEntity,
-          totalResults: 1234,
-          editorialOverrides: { image: ctfImage }
+          totalResults: 1234
         };
 
         const wrapper = factory({ propsData });
 
-        expect(wrapper.vm.entityImage).toContain('?optimised');
-        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
-          url: 'https://images.ctfassets.net/image.jpg',
-          contentType: 'image/jpeg'
-        },
-        {
-          w: 28,
-          h: 28,
-          fit: 'thumb'
-        })).toBe(true);
+        expect(wrapper.vm.entityImage).toBe('organisation logo');
+      });
+    });
+
+    describe('activeCriteria', () => {
+      it('includes query params, but not "page"', () => {
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234
+        };
+        const route = {
+          path: '/search',
+          query: {
+            query: 'query',
+            view: 'grid',
+            boost: 'boost',
+            qa: 'qa',
+            qf: 'qf',
+            reusability: 'reusability',
+            page: '2'
+          }
+        };
+
+        const wrapper = factory({ propsData, route });
+
+        const criteria = wrapper.vm.activeCriteria;
+
+        expect(criteria.query).toBe('query');
+        expect(criteria.view).toBe('grid');
+        expect(criteria.boost).toBe('boost');
+        expect(criteria.qa).toBe('qa');
+        expect(criteria.qf).toBe('qf');
+        expect(criteria.reusability).toBe('reusability');
+        expect(criteria.page).toBe(undefined);
+      });
+    });
+  });
+
+  describe('when multilingual search is enabled for the selected UI language', () => {
+    describe('and not logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          locale: 'es',
+          route: { query: { query: 'casa' } }
+        });
+        it('suggests to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
+          expect(suggestion.text()).toBe('actions.login');
+        });
+        it('displays a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(true);
+        });
+      });
+      describe('searrching on a collections page', () => {
+        describe('searching on keyword', () => {
+          const wrapper = factory({
+            propsData: { entity: fixtures.thematicCollectionTopicEntity },
+            locale: 'es',
+            route: { query: { query: 'casa' } }
+          });
+          it('suggests to log in to see more results', () => {
+            const suggestion = wrapper.find('[data-qa="results more link"]');
+
+            expect(suggestion.exists()).toBe(true);
+          });
+          it('displays a tooltip explaining the multilingual results', () => {
+            const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+            expect(tooltip.exists()).toBe(true);
+          });
+        });
+
+        describe('searching without keyword', () => {
+          it('suggests to log in to see more results', () => {
+            const wrapper = factory({
+              propsData: { entity: fixtures.thematicCollectionTopicEntity },
+              locale: 'es'
+            });
+            const suggestion = wrapper.find('[data-qa="results more link"]');
+
+            expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
+            expect(suggestion.text()).toBe('actions.login');
+          });
+        });
+      });
+      describe('searching without keyword', () => {
+        it('suggests to log in to see more results', () => {
+          const wrapper = factory({
+            locale: 'es'
+          });
+
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
+          expect(suggestion.text()).toBe('actions.login');
+        });
+      });
+    });
+    describe('and logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          auth: { loggedIn: true },
+          locale: 'es',
+          route: { query: { query: 'casa' } }
+        });
+
+        it('does not suggest to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.exists()).toBe(false);
+        });
+        it('displays a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('when on the English portal', () => {
+    describe('and not logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          route: { query: { query: 'casa' } }
+        });
+        it('does not suggest to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.exists()).toBe(false);
+        });
+        it('does not display a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(false);
+        });
       });
     });
   });

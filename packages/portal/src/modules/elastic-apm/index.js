@@ -14,7 +14,7 @@ export default function() {
 
   this.nuxt.hook('ready', async(nuxt) => {
     const runtimeConfig = defu(nuxt.options.privateRuntimeConfig, nuxt.options.publicRuntimeConfig);
-    const config = (runtimeConfig.elastic && runtimeConfig.elastic.apm) || {};
+    const config = runtimeConfig.elastic?.apm || {};
 
     if (!config.serverUrl) {
       return;

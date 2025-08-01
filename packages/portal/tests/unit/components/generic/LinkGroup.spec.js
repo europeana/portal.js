@@ -9,7 +9,7 @@ localVue.component('SmartLink', SmartLink);
 
 const factory = (links) => shallowMount(LinkGroup, {
   propsData: {
-    caption: 'Caption text',
+    title: 'Title text',
     links: links || [
       { url: 'https://www.example.org', text: 'Example link' },
       { url: 'https://www.europeana.eu', text: 'Europeana link' }
@@ -19,10 +19,10 @@ const factory = (links) => shallowMount(LinkGroup, {
 });
 
 describe('components/generic/LinkGroup', () => {
-  it('contains a caption title', () => {
+  it('contains a title', () => {
     const wrapper = factory();
-    const footerCaption = wrapper.find('[data-qa="link group caption"]');
-    expect(footerCaption.text()).toContain('Caption text');
+    const footerTitle = wrapper.find('[data-qa="link group title"]');
+    expect(footerTitle.text()).toContain('Title text');
   });
 
   it('contains elements for each link', () => {
@@ -43,7 +43,7 @@ describe('components/generic/LinkGroup', () => {
     });
   });
 
-  describe('when an item has been delete or unpublished', () => {
+  describe('when an item has been delete or depublished', () => {
     it('does not show this item as a link', () => {
       const wrapper = factory([
         { url: 'https://www.example.org',

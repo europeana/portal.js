@@ -6,7 +6,7 @@
     hide-header-close
   >
     <template #modal-title>
-      <span :lang="title.code">
+      <span :lang="langAttribute(title.code)">
         {{ title.values[0] }}
       </span>
     </template>
@@ -22,7 +22,7 @@
         </span>
         <span
           class="semibold"
-          :lang="info.lang"
+          :lang="langAttribute(info.lang)"
         >
           <b-link
             v-if="isUrl(info.value)"
@@ -47,9 +47,12 @@
 </template>
 
 <script>
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
     name: 'EntityInformationModal',
+
+    mixins: [langAttributeMixin],
 
     props: {
       modalStatic: {
@@ -68,17 +71,17 @@
 
     methods: {
       isUrl(value) {
-        return RegExp('^https?://*').test(value);
+        return /^https?:\/\//.test(value);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .entity-data-row {
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid $lightgrey;
     padding: 1rem 0;
     list-style: none;
 

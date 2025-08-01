@@ -8,14 +8,22 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
-const storeDispatch = sinon.stub().resolves({});
+const setId = 'http://data.europeana.eu/set/123';
 
+const storeCommit = sinon.spy();
+const storeDispatch = sinon.stub().resolves({});
+const setApiCreateStub = sinon.stub().resolves({ id: setId });
+const setApiDeleteSpy = sinon.spy();
+const setApiInsertItemStub = sinon.stub().resolves({});
+const setApiUpdateStub = sinon.stub().resolves({ id: setId });
+
+// FIXME: mock it!
 const i18n = new VueI18n({
   locale: 'en'
 });
 
 const existingSetPropsData = {
-  setId: '123',
+  setId,
   title: {
     en: 'My first public set'
   },
@@ -25,7 +33,7 @@ const existingSetPropsData = {
   visibility: 'public'
 };
 
-const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
+const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -38,14 +46,39 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
   },
   i18n,
   mocks: {
-    $store: {
-      dispatch: storeDispatch
+    $apis: {
+      set: {
+        create: setApiCreateStub,
+        delete: setApiDeleteSpy,
+        insertItems: setApiInsertItemStub,
+        update: setApiUpdateStub
+      }
     },
-    $t: () => {}
-  }
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
+    localePath: (path) => path,
+    $route: {
+      name: 'galleries-all___fr',
+      params: { pathMatch: '123' },
+      ...$route
+    },
+    $router: { push: sinon.spy() },
+    $store: {
+      commit: storeCommit,
+      dispatch: storeDispatch,
+      state: { set: { activeId: null } },
+      ...$store
+    },
+    $t: (key) => key
+  },
+  stubs: ['ConfirmDangerModal']
 });
 
 describe('components/set/SetFormModal', () => {
+  afterEach(sinon.resetHistory);
+
   describe('form submission', () => {
     it('creates new sets', async() => {
       const wrapper = factory();
@@ -54,8 +87,11 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-description').setValue('Lots of things in here');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/createSet', {
+      expect(setApiCreateStub.calledWith({
         type: 'Collection',
+        // TODO: reinstate, but for edits too, when logic for differentiating
+        //       w/ non-Gallery collections is introduced
+        // collectionType: 'Gallery',
         title: {
           en: 'My first public set'
         },
@@ -73,19 +109,61 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/update', {
-        id: '123',
-        body: {
-          type: 'Collection',
-          title: {
-            en: 'A better title'
-          },
-          description: {
-            en: 'Lots of things in here'
-          },
-          visibility: 'private'
-        }
+      expect(setApiUpdateStub.calledWith(setId, {
+        type: 'Collection',
+        title: {
+          en: 'A better title'
+        },
+        description: {
+          en: 'Lots of things in here'
+        },
+        visibility: 'private'
       })).toBe(true);
+    });
+
+    describe('when the active set', () => {
+      const $store = { state: { set: { activeId: setId.split('/').pop() } } };
+
+      it('re-fetches active set', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+        await wrapper.find('#set-title').setValue('A better title');
+        await wrapper.find('#set-private').setChecked();
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+      });
+    });
+
+    describe('when not the active set', () => {
+      const $store = { state: { set: { activeId: '456' } } };
+
+      it('re-fetches active set', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData, $store });
+
+        await wrapper.find('#set-title').setValue('A better title');
+        await wrapper.find('#set-private').setChecked();
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(false);
+      });
+    });
+
+    describe('when in item context', () => {
+      const propsData = { itemIds: '/123/abc' };
+
+      it('inserts item into set via API plugin', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.find('#set-title').setValue('My first public set');
+        await wrapper.find('#set-description').setValue('Lots of things in here');
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await new Promise(process.nextTick);
+
+        expect(setApiInsertItemStub.calledWith(setId.split('/').pop(), '/123/abc')).toBe(true);
+      });
     });
   });
 
@@ -116,14 +194,69 @@ describe('components/set/SetFormModal', () => {
       expect(deleteButton.exists()).toBe(false);
     });
 
-    it('opens the confirmation modal when pressed', () => {
+    it('opens the confirmation modal when pressed', async() => {
       const wrapper = factory({ propsData: existingSetPropsData });
-      const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
-      const deleteButton = wrapper.find('[data-qa="delete button"]');
-      deleteButton.trigger('click');
+      await wrapper.find('[data-qa="delete button"]').trigger('click');
+      const confirmDeleteModal = wrapper.find('[data-qa="confirm delete modal"]');
 
-      expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`)).toBe(true);
+      expect(confirmDeleteModal.isVisible()).toBe(true);
+    });
+  });
+
+  describe('delete confirmation modal', () => {
+    const data = { showConfirmationModal: true };
+    describe('confirm event handler', () => {
+      it('deletes the set', async() => {
+        const wrapper = factory({ data, propsData: existingSetPropsData });
+
+        await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+        expect(setApiDeleteSpy.calledWith(setId)).toBe(true);
+      });
+
+      describe('when the active set', () => {
+        const $store = { state: { set: { active: { id: setId } } } };
+
+        it('resets the active set id in the store', async() => {
+          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
+
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+          expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
+        });
+      });
+
+      describe('when not the active set', () => {
+        const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
+
+        it('does not reset the active set id in the store', async() => {
+          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
+
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+          expect(storeCommit.called).toBe(false);
+        });
+      });
+
+      it('makes toast', async() => {
+        const wrapper = factory({ data, propsData: existingSetPropsData });
+        const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+
+        await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+        expect(rootBvToast.calledWith('set.notifications.deleted')).toBe(true);
+      });
+
+      describe('when on the deleted gallery page', () => {
+        it('redirects to the account page', async() => {
+          const wrapper = factory({ data, propsData: existingSetPropsData, $route: { name: 'galleries-all___fr', params: { pathMatch: '123' } } });
+
+          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
+
+          expect(wrapper.vm.$router.push.calledWith({ name: 'account' })).toBe(true);
+        });
+      });
     });
   });
 

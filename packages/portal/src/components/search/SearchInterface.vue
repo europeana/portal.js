@@ -1,11 +1,8 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="page-container side-filters-enabled"
-    :class="{
-      'white-page': noResultsFound,
-      'pt-5': noResultsFound
-    }"
+    class="search-page-container side-filters-enabled"
+    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -13,162 +10,165 @@
       <b-col
         class="col-results"
       >
-        <b-container
-          class="px-0 pb-3"
-        >
-          <client-only>
-            <SearchBoostingForm
-              v-if="showSearchBoostingForm"
-              class="mb-3"
+        <client-only>
+          <transition
+            name="fade"
+          >
+            <SearchQueryBuilder
+              v-show="showAdvancedSearch"
+              id="search-query-builder"
+              ref="queryBuilder"
+              tabindex="0"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
             />
-          </client-only>
-          <section>
-            <div
-              class="mb-3 d-flex align-items-start justify-content-between"
-            >
-              <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
-              <div v-show="$fetchState.pending" />
+          </transition>
+        </client-only>
+        <ErrorMessage
+          v-if="$fetchState.error"
+          :error="$fetchState.error"
+          :full-height="false"
+          :show-message="showErrorMessage"
+          title-tag="h2"
+        />
+        <b-row v-else>
+          <ItemPreviewInterface
+            data-qa="liked items"
+            :items="results"
+            :hits="hits"
+            :loading="$fetchState.pending"
+            :max-results="1000"
+            :per-page="perPage"
+            :show-pins="showPins"
+            :total="totalResults"
+            :on-aux-click-card="onClickItem"
+            :on-click-card="onClickItem"
+            class="w-100 mb-3"
+            @drawn="handleResultsDrawn"
+          >
+            <template #heading>
               <SearchResultsContext
-                v-show="!$fetchState.pending"
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
-                :badge-variant="noResultsFound ? 'primary-light' : 'light'"
+                badge-variant="primary-light"
+                class="mr-auto"
               />
-              <ViewToggles
-                v-model="view"
+            </template>
+            <template #search-options>
+              <SearchMultilingualButton
+                v-if="multilingualSearchButtonEnabled"
+                v-model="translate"
+                @input="handleMultilingualButtonInput"
               />
-            </div>
-            <b-row
-              class="mb-3"
+            </template>
+            <template
+              #no-more-items
             >
-              <b-col
-                cols="12"
-              >
-                <b-row
-                  v-show="$fetchState.pending"
-                  class="flex-md-row py-4 text-center"
-                >
-                  <b-col cols="12">
-                    <LoadingSpinner
-                      :status-message="$t('loadingResults')"
-                    />
-                  </b-col>
-                </b-row>
-                <template
-                  v-if="!$fetchState.pending"
-                >
-                  <b-row
-                    class="mb-3"
-                  >
-                    <b-col>
-                      <ErrorMessage
-                        v-if="$fetchState.error"
-                        :title-path="$fetchState.error.titlePath"
-                        :description-path="$fetchState.error.descriptionPath"
-                        :illustration-src="$fetchState.error.illustrationSrc"
-                        :gridless="false"
-                        :full-height="false"
-                        :error="!noResultsFound ? errorMessage : null"
-                      />
-                      <template
-                        v-else
-                      >
-                        <p
-                          v-show="noMoreResults"
-                          data-qa="warning notice"
-                        >
-                          {{ $t('noMoreResults') }}
-                        </p>
-                        <ItemPreviewCardGroup
-                          id="item-search-results"
-                          :items="results"
-                          :hits="hits"
-                          :view="view"
-                          :show-pins="showPins"
-                          @drawn="handleResultsDrawn"
-                        >
-                          <slot />
-                          <template
-                            #related
-                          >
-                            <slot
-                              name="related"
-                            />
-                          </template>
-                        </ItemPreviewCardGroup>
-                        <InfoMessage
-                          v-show="lastAvailablePage"
-                        >
-                          {{ $t('search.results.limitWarning') }}
-                        </InfoMessage>
-                      </template>
-                    </b-col>
-                  </b-row>
-                  <b-row
-                    v-show="!$fetchState.error"
-                  >
-                    <b-col>
-                      <PaginationNavInput
-                        :total-results="totalResults"
-                        :per-page="perPage"
-                        :max-results="1000"
-                        aria-controls="item-search-results"
-                        data-qa="search results pagination"
-                      />
-                    </b-col>
-                  </b-row>
-                </template>
-              </b-col>
-            </b-row>
-          </section>
-        </b-container>
+              <p data-qa="warning notice">
+                {{ $t('noMoreResults') }}
+              </p>
+            </template>
+            <template
+              #no-items
+            >
+              <ErrorMessage
+                :error="{ code: 'searchResultsNotFound', i18n: $t('errorMessage.searchResultsNotFound') }"
+                :full-height="false"
+                :show-message="false"
+                title-tag="h2"
+              />
+            </template>
+            <template #card-group-header>
+              <slot name="card-group-header" />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-galleries
+            >
+              <slot
+                name="card-group-related-galleries"
+              />
+            </template>
+            <template
+              v-if="page === 1"
+              #card-group-related-collections
+            >
+              <slot
+                name="card-group-related-collections"
+              />
+            </template>
+            <template
+              v-if="lastAvailablePage"
+              #footer
+            >
+              <InfoMessage>
+                {{ $t('search.results.limitWarning') }}
+              </InfoMessage>
+            </template>
+          </ItemPreviewInterface>
+        </b-row>
         <slot
+          v-if="page === 1"
           name="after-results"
         />
       </b-col>
-      <SideFilters
-        :route="route"
-        :collection="collection"
-        :api-params="apiParams"
-        :api-options="apiOptions"
-        :user-params="userParams"
-      />
+      <SearchSidebar
+        :advanced-search-query-count="advancedSearchQueryCount"
+        :show-advanced-search="showAdvancedSearch"
+        @showAdvancedSearch="(val) => showAdvancedSearch = val"
+        @focusQueryBuilder="$refs.queryBuilder?.$el.focus();"
+      >
+        <SearchFilters
+          :route="route"
+          :collection="collection"
+          :api-params="apiParams"
+          :api-options="apiOptions"
+          :user-params="userParams"
+        />
+      </SearchSidebar>
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
-  import InfoMessage from '../generic/InfoMessage';
-  import ViewToggles from './ViewToggles';
-
-  import makeToastMixin from '@/mixins/makeToast';
-  import themes from '@/plugins/europeana/themes';
-  import { filtersFromQf } from '@/plugins/europeana/search';
-
+  import ClientOnly from 'vue-client-only';
   import merge from 'deepmerge';
+  import isEqual from 'lodash/isEqual.js';
+  import isUndefined from 'lodash/isUndefined.js';
+  import omitBy from 'lodash/omitBy.js';
+  import uniq from 'lodash/uniq.js';
 
-  const NO_RESULTS_FOUND = 'no results found';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import InfoMessage from '../generic/InfoMessage';
+  import SearchFilters from './SearchFilters';
+  import SearchSidebar from './SearchSidebar';
+
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
+  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import useScrollTo from '@/composables/scrollTo.js';
+  import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
     name: 'SearchInterface',
 
     components: {
-      ErrorMessage: () => import('../generic/ErrorMessage'),
-      SearchBoostingForm: () => import('./SearchBoostingForm'),
+      ClientOnly,
+      ErrorMessage: () => import('../error/ErrorMessage'),
+      SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
-      ItemPreviewCardGroup,
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SideFilters: () => import('./SideFilters'),
-      ViewToggles
+      ItemPreviewInterface,
+      SearchFilters,
+      SearchMultilingualButton,
+      SearchSidebar
     },
 
     mixins: [
-      makeToastMixin
+      advancedSearchMixin,
+      elasticApmReporterMixin
     ],
 
     props: {
@@ -184,63 +184,107 @@
         type: Boolean,
         default: false
       },
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
-      overrideParams: {
+      defaultParams: {
         type: Object,
         default: () => ({})
       }
     },
 
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
+
     data() {
       return {
-        apiOptions: {},
         apiParams: {},
-        collection: null,
         hits: null,
         lastAvailablePage: null,
+        paginationChanged: false,
+        qasWithAddedEntityValue: [],
         results: [],
-        theme: null,
+        showAdvancedSearch: false,
         totalResults: null,
-        paginationChanged: false
+        translate: false
       };
     },
 
     async fetch() {
+      this.$store.commit('search/setActive', true);
+
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
-      this.setViewFromRouteQuery();
+      process.client && this.scrollToSelector('#header');
 
-      this.$store.commit('search/setActive', true);
+      this.translate = Boolean(
+        this.$auth.loggedIn &&
+          this.translateSearchForCurrentLocale &&
+          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+      );
+
+      // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      });
+
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
+
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
+      }
+
+      this.deriveApiParams();
 
       try {
         await this.runSearch();
       } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+        if (paginationError) {
+          error.code = 'searchPaginationLimitExceeded';
+          error.message = 'Pagination limit exceeded';
+          this.$error(error, {
+            tValues: { description: { limit: this.$i18n.n(Number(paginationError[1])) } }
+          });
+        } else {
+          this.$error(error);
         }
-        throw error;
-      }
-
-      if (this.noResults) {
-        const error = new Error();
-        error.titlePath = 'errorMessage.searchResultsNotFound.title';
-        error.descriptionPath = 'errorMessage.searchResultsNotFound.description';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-search-results-not-found.svg');
-        error.message = NO_RESULTS_FOUND;
-        throw error;
       }
     },
 
     computed: {
+      advancedSearchQueryCount() {
+        return this.qa.length;
+      },
       userParams() {
         return this.$route.query;
       },
+      apiOptions() {
+        const apiOptions = {};
+
+        if (this.hasFulltextQa) {
+          apiOptions.url = this.$apis.fulltext.baseURL;
+        }
+
+        if (this.translateLang) {
+          apiOptions.translateLang = this.translateLang;
+        }
+
+        return apiOptions;
+      },
+      boost() {
+        return this.userParams.boost;
+      },
+      qa() {
+        return [].concat(this.userParams.qa || []);
+      },
+      qaes() {
+        return this.qasWithAddedEntityValue
+          .map((qaWithEntity) => qaWithEntity.qae)
+          .filter((qae) => !!qae);
+      },
       qf() {
-        return this.userParams.qf;
+        return [].concat(this.userParams.qf || []);
       },
       query() {
         return this.userParams.query;
@@ -248,8 +292,8 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
+      sort() {
+        return this.userParams.sort;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -258,58 +302,55 @@
         // This is a workaround
         return Number(this.$route.query.page || 1);
       },
-      errorMessage() {
-        if (!this.$fetchState.error?.message) {
-          return null;
-        }
-
-        const paginationError = this.$fetchState.error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-        if (paginationError !== null) {
-          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
-          return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
-        }
-
-        return this.$fetchState.error.message;
-      },
-      hasAnyResults() {
-        return this.totalResults > 0;
-      },
-      noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
-      },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      noResultsFound() {
-        return this.$fetchState?.error?.message === NO_RESULTS_FOUND;
+      showErrorMessage() {
+        return !this.$fetchState.error?.code ||
+          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
       },
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
+      collection() {
+        return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
-      showSearchBoostingForm() {
-        return !!this.debugSettings?.boosting;
+      fulltextQas() {
+        return this.qa
+          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
       },
-      routeQueryView() {
-        return this.$route.query.view;
+      hasFulltextQa() {
+        return this.fulltextQas.length > 0;
       },
-      view: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
-        }
+      translateLang() {
+        return this.translate ? this.$i18n.locale : null;
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
+      },
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
+      },
+      translateSearchForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      multilingualSearchButtonEnabled() {
+        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
       }
     },
 
     watch: {
-      routeQueryView: 'setViewFromRouteQuery',
-      '$route.query.api': '$fetch',
-      '$route.query.boost': '$fetch',
-      '$route.query.reusability': '$fetch',
-      '$route.query.query': '$fetch',
+      // TODO: is boost still used?
+      '$route.query.boost': 'handleSearchParamsChanged',
+      '$route.query.page': 'handlePaginationChanged',
+      '$route.query.qa': 'handleSearchParamsChanged',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.query': 'handleSearchParamsChanged',
+      '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.translate': 'handleSearchParamsChanged'
+    },
+
+    mounted() {
+      if (this.query) {
+        this.$store.commit('search/setShowSearchBar', true);
+      }
     },
 
     destroyed() {
@@ -317,54 +358,124 @@
     },
 
     methods: {
-      // TODO: could this be refactored into two computed properties, for
-      //       apiOptions, and apiParams?
-      deriveApiSettings() {
-        const userParams = { ...this.userParams };
-        // Coerce qf from user input into an array as it may be a single string
-        userParams.qf = [].concat(userParams.qf || []);
+      // NOTE: deliberately not computed, so that `apiParams` can be used by
+      //       `onClickItem`
+      // TODO: reduce cognitive complexity
+      deriveApiParams() {
+        const localParams = omitBy({
+          boost: this.boost,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          sort: this.sort,
+          page: this.page,
+          profile: 'minimal',
+          rows: this.perPage
+        }, isUndefined);
 
-        const apiParams = merge(userParams, this.overrideParams);
+        const params = merge(this.defaultParams, localParams);
 
-        if (!apiParams.profile) {
-          apiParams.profile = 'minimal';
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // any other query (from the simple search bar) is fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+
+            params.query = this.fulltextQas.concat(params.query).filter(Boolean).join(' AND ');
+
+            params.profile = `${params.profile},hits`;
+          }
+
+          const qasEnrichedWithEntities = [...this.qa];
+
+          // When there are qa with entity look up, replace those qa with entity enriched value
+          if (this.qaes.length) {
+            this.qasWithAddedEntityValue.forEach((qaWithEntity) => {
+              if (qaWithEntity.qae) {
+                const indexOfQaToEnrich = qasEnrichedWithEntities.findIndex((qa) => isEqual(this.advancedSearchRulesFromRouteQuery(qa)[0], qaWithEntity.qa));
+
+                qasEnrichedWithEntities.splice(indexOfQaToEnrich, 1, qaWithEntity.qae);
+              }
+            });
+          }
+
+          // All other advanced search rules are added to the query concatenated by AND.
+          params.query = [params.query].concat(qasEnrichedWithEntities.filter((qa) => !this.fulltextQas.includes(qa))).filter(Boolean).join(' AND ');
         }
 
-        const collectionFilter = filtersFromQf(apiParams.qf).collection;
-        this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find(theme => theme.qf === this.collection);
+        params.qf = addContentTierFilter(params.qf);
+        params.qf = uniq(params.qf);
 
-        const apiOptions = {};
+        this.apiParams = params;
+      },
 
-        if (this.theme?.filters?.api) {
-          // Set default API (of fulltext or metadata), from theme config
-          if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default;
-          }
-          if (apiParams.api === 'fulltext') {
-            apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.record.fulltextUrl;
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(identifier) {
+        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+          ((this.apiParams.page - 1) * this.apiParams.rows);
+        this.recordSearchInteraction('click result', { 'search_result_rank': rank });
+      },
+
+      recordSearchInteraction(name, labels = {}) {
+        for (const param of ['qf', 'query', 'reusability']) {
+          if (this.apiParams[param]) {
+            labels[`search_params_${param}`] = this.apiParams[param];
           }
         }
+        labels['search_results_total'] = this.totalResults;
 
-        this.apiOptions = apiOptions;
-        this.apiParams = apiParams;
+        this.logApmTransaction({
+          name: `Search - ${name}`,
+          labels
+        });
       },
 
       async runSearch() {
-        this.deriveApiSettings();
-
-        const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
+        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+
+        if (process.server || this.$store.state.search.loggableInteraction) {
+          this.recordSearchInteraction('fetch results');
+          this.$store.commit('search/setLoggableInteraction', false);
+        }
+      },
+
+      async handleMultilingualButtonInput(value) {
+        this.translate = value;
+        this.$cookies?.set('multilingualSearch', value);
+
+        const redirect = this.localePath({
+          ...this.route,
+          query: {
+            ...this.$route.query,
+            page: 1,
+            translate: value ? 'true' : undefined
+          }
+        });
+
+        if (value && !this.$auth.loggedIn) {
+          this.$keycloak.login({ redirect });
+        } else {
+          this.$router.push(redirect);
+        }
+      },
+
+      handleSearchParamsChanged() {
+        this.resetItemMultiSelect();
+        this.$fetch();
       },
 
       handlePaginationChanged() {
         this.paginationChanged = true;
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
       handleResultsDrawn(cardRefs) {
@@ -391,21 +502,138 @@
           return;
         }
 
-        this.$fetch();
+        this.handleSearchParamsChanged();
       },
 
-      setViewFromRouteQuery() {
-        if (this.routeQueryView) {
-          this.view = this.routeQueryView;
-          this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
+      },
+
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
+          });
+
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `((${query.term}) OR "${queryEqualsEntity.id}")` });
+
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
+        }
+      },
+
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
+
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
+      },
+
+      resetItemMultiSelect() {
+        this.$store.commit('set/setSelected', []);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  .col-results {
-    min-width: 0;
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
+
+.search-page-container {
+  max-width: none;
+  padding-top: 0.875rem;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 1.5rem;
   }
+}
+
+.col-results {
+  min-width: 0;
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+}
+
+.mb-3 {
+  @media (min-width: $bp-4k) {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+::v-deep .container {
+  @media (min-width: $bp-xxl) {
+    max-width: calc(7 * $max-card-width);
+  }
+}
+
+::v-deep .search-toggle {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: $font-size-small;
+  padding: 0;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &::before {
+    content: '+';
+  }
+
+  &.open::before {
+    content: '-';
+  }
+}
+
+.search-bar-open {
+  padding-top: 4.275rem !important;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 6.6rem !important;
+  }
+}
 </style>

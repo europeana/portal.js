@@ -20,7 +20,7 @@ const stringify = (thing, root = false, indent = 0) => {
   }
 
   if (typeof thing === 'string') {
-    const quoted = thing.replace(/"/g, '\\"');
+    const quoted = thing.replace(/"/g, '\\"').replace(/(\r|\n)/g, '');
     str = str + `"${quoted}"`;
   } else {
     str = str + '{\n';
@@ -43,6 +43,28 @@ const stringify = (thing, root = false, indent = 0) => {
   return str;
 };
 
+const storeTranslation = (i18n, lang, key, translation) => {
+  if (!i18n[lang]) {
+    i18n[lang] = {};
+  }
+
+  const keyParts = key.key_name.other.split('.');
+
+  let target = i18n[lang];
+
+  for (let i = 0; i < keyParts.length; i = i + 1) {
+    const keyPart = keyParts[i];
+    if (i === (keyParts.length - 1)) {
+      target[keyPart] = translation.translation;
+    } else {
+      if (!target[keyPart]) {
+        target[keyPart] = {};
+      }
+      target = target[keyPart];
+    }
+  }
+};
+
 const run = async() => {
   const i18n = {};
   let items;
@@ -53,26 +75,11 @@ const run = async() => {
     items = await fetchPage(page);
     for (const key of items) {
       if (!key.tags.includes('Not ready')) {
-        const keyParts = key.key_name.other.split('.');
         for (const translation of key.translations) {
           const lang = translation.language_iso.split('_')[0];
-          if ((lang !== 'en') && (translation.translation !== '')) {
-            if (!i18n[lang]) {
-              i18n[lang] = {};
-            }
 
-            let target = i18n[lang];
-            for (let i = 0; i < keyParts.length; i = i + 1) {
-              const keyPart = keyParts[i];
-              if (i === (keyParts.length - 1)) {
-                target[keyPart] = translation.translation;
-              } else {
-                if (!target[keyPart]) {
-                  target[keyPart] = {};
-                }
-                target = target[keyPart];
-              }
-            }
+          if ((lang !== 'en') && (translation.translation !== '')) {
+            storeTranslation(i18n, lang, key, translation);
           }
         }
       }
@@ -80,10 +87,10 @@ const run = async() => {
   }
 
   for (const lang in i18n) {
-    const langFilename = new URL(`../src/lang/${lang}.js`, import.meta.url);
+    const langFilename = new URL(`../src/i18n/lang/${lang}.js`, import.meta.url);
     console.log(`Writing ${langFilename}`);
     fs.writeFileSync(langFilename, stringify(i18n[lang], true));
   }
 };
 
-run();
+await run();

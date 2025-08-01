@@ -1,7 +1,7 @@
 <template>
   <b-card
-    v-masonry-tile
-    class="text-left header-card mb-4"
+    :v-masonry-tile="$store.state.search.view !== 'list'"
+    class="masonry-tile text-left header-card mb-4"
   >
     <div
       v-if="resizedLogo"
@@ -11,14 +11,14 @@
     />
     <b-card-title
       title-tag="h2"
-      :lang="title.code"
+      :lang="langAttribute(title.code)"
       data-qa="entity title"
     >
       {{ title.values[0] }}
     </b-card-title>
     <b-card-sub-title
       v-if="subTitle"
-      :lang="subTitle.code"
+      :lang="langAttribute(subTitle.code)"
     >
       {{ subTitle.values[0] }}
     </b-card-sub-title>
@@ -29,7 +29,7 @@
     >
       <p
         data-qa="entity description"
-        :lang="description.code"
+        :lang="langAttribute(description.code)"
       >
         {{ showAll ? fullDescription : truncatedDescription }}
       </p>
@@ -40,7 +40,7 @@
         variant="link"
         @click="toggleMoreDescription"
       >
-        {{ showAll ? $t('showLess') : $t('showMore') }}
+        {{ showAll ? $t('actions.showLess') : $t('actions.showMore') }}
       </b-button>
     </b-card-text>
     <template
@@ -69,7 +69,7 @@
       {{ $t('website') }}
     </b-button>
     <ShareButton />
-    <SocialShareModal :media-url="image ? image : logo" />
+    <ShareSocialModal :media-url="image ? image : logo" />
     <client-only>
       <template
         v-if="editable"
@@ -94,9 +94,11 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import truncate from '@/utils/text/truncate.js';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
-  import ShareButton from '@/components/sharing/ShareButton';
-  import SocialShareModal from '@/components/sharing/SocialShareModal';
+  import ShareButton from '@/components/share/ShareButton';
+  import ShareSocialModal from '@/components/share/ShareSocialModal';
 
   export default {
     name: 'EntityHeader',
@@ -104,10 +106,14 @@
     components: {
       ClientOnly,
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
+
+    mixins: [
+      langAttributeMixin
+    ],
 
     props: {
       /**
@@ -190,7 +196,7 @@
 
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
+        return truncate(this.fullDescription, this.limitCharacters);
       },
       hasDescription() {
         return (this.description?.values?.length || 0) >= 1;
@@ -214,27 +220,53 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .header-card {
     border: 0;
     box-shadow: $boxshadow-small;
 
     h2 {
+      font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
-      margin-bottom: 0.375rem;
-      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
       line-height: normal;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+        line-height: 1.5;
+        margin-bottom: 0;
+      }
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large-4k;
+        }
+      }
     }
 
     .card-text {
       font-size: $font-size-small;
-      color: $mediumgrey;
+      color: $darkgrey;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+        }
+      }
     }
 
     .btn {
       margin-right: 0.5rem;
       margin-top: 0.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-top: 0.75rem;
+        }
+      }
     }
   }
 
@@ -242,8 +274,16 @@
     margin-top: 0.5rem;
     margin-bottom: 0.375rem;
     font-size: $font-size-extrasmall;
-    color: $mediumgrey;
+    color: $darkgrey;
     text-transform: uppercase;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-top: 0.75rem;
+        margin-bottom: calc(1.5 * 0.375rem);
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
   }
 </style>
 

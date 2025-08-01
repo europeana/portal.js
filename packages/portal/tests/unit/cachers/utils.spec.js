@@ -1,4 +1,4 @@
-import redis from 'redis';
+import * as redis from 'redis';
 import sinon from 'sinon';
 
 const utils = require('@/cachers/utils');
@@ -36,14 +36,6 @@ describe('cachers/utils', () => {
 
       expect(redisClientStub.on.calledWith('error', console.error)).toBe(true);
     });
-
-    it('defines async get, set and quit methods', () => {
-      const redisClient = utils.createRedisClient();
-
-      expect(typeof redisClient.getAsync).toBe('function');
-      expect(typeof redisClient.setAsync).toBe('function');
-      expect(typeof redisClient.quitAsync).toBe('function');
-    });
   });
 
   describe('errorMessage', () => {
@@ -67,6 +59,24 @@ describe('cachers/utils', () => {
       const error = { message: 'Uh oh' };
       it('uses property .message', () => {
         expect(utils.errorMessage(error)).toBe(error.message);
+      });
+    });
+  });
+
+  describe('fallbackApiUrl', () => {
+    describe('when the API config is for the record API', () => {
+      it('returns the default BASE_URL from the record API', () => {
+        let fallback = utils.fallbackApiUrl('record');
+
+        expect(fallback).toBe('https://api.europeana.eu/record');
+      });
+    });
+
+    describe('when the API config is for the entity API', () => {
+      it('returns the default BASE_URL from the entity API', () => {
+        let fallback = utils.fallbackApiUrl('entity');
+
+        expect(fallback).toBe('https://api.europeana.eu/entity');
       });
     });
   });
@@ -145,31 +155,6 @@ describe('cachers/utils', () => {
       const sorted = utils.sort(data, 'id');
 
       expect(sorted).toEqual([{ id: '1-one' }, { id: '2-two' }, { id: '12-twelve' }]);
-    });
-  });
-
-  describe('daily', () => {
-    it('returns as-is any non-Array argument', () => {
-      const argument = 'not an Array';
-
-      const filtered = utils.daily(argument, 4);
-
-      expect(filtered).toBe(argument);
-    });
-
-    it('filters Array arguments to requested number for the current day', () => {
-      const argument = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-      const tests = [
-        { now: 0, expected: [0, 1, 2, 3] },
-        { now: 1634556628480, expected: [3, 4, 5, 6] }
-      ];
-
-      for (const test of tests) {
-        sinon.stub(Date, 'now').returns(test.now);
-        const filtered = utils.daily(argument, 4);
-        expect(filtered).toEqual(test.expected);
-        Date.now.restore();
-      }
     });
   });
 });

@@ -9,34 +9,35 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 const storeIsPinnedGetter = sinon.stub();
-const makeToastSpy = sinon.spy();
-const $goto = sinon.spy();
-let storeEntityId = 'http://data.europeana.eu/topic/123';
-let storeFeaturedSetId = 'http://data.europeana.eu/set/567';
-
-const mixins = [
-  {
-    methods: {
-      makeToast: makeToastSpy
-    }
-  }
-];
 
 const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemPinButton, {
   localVue,
   propsData: { identifier },
-  mixins,
   mocks: {
-    $goto,
-    $path: () => 'mocked path',
+    $apis: {
+      set: {
+        create: sinon.stub().resolves({}),
+        get: sinon.stub().resolves({}),
+        getItemIds: sinon.stub().resolves([]),
+        search: sinon.stub().resolves({}),
+        deleteItems: sinon.spy(),
+        pinItem: sinon.spy()
+      }
+    },
+    $error: (error) => {
+      console.error(error);
+      throw error;
+    },
+    $i18n: { locale: 'de' },
+    $router: { push: sinon.spy() },
+    localePath: () => 'mocked path',
     $store: {
+      commit: () => {},
       state: {
-        entity: { ...{ pinned: [] }, ...storeState }
+        entity: { entity: { id: 'http://data.europeana.eu/topic/123' }, pinned: [], ...storeState }
       },
       getters: {
-        'entity/isPinned': storeIsPinnedGetter,
-        'entity/featuredSetId': storeFeaturedSetId,
-        'entity/id': storeEntityId
+        'entity/isPinned': storeIsPinnedGetter
       },
       dispatch: storeDispatch
     },
@@ -45,15 +46,14 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
 });
 
 describe('components/item/ItemPinButton', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     describe('when on an entity page', () => {
-      beforeEach(() => {
-        storeEntityId = 'http://data.europeana.eu/topic/123';
-        storeFeaturedSetId = 'http://data.europeana.eu/set/567';
-      });
+      const storeState = { id: 'http://data.europeana.eu/topic/123' };
 
       it('is visible', async() => {
-        const wrapper = factory();
+        const wrapper = factory({ storeState });
 
         const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -61,7 +61,7 @@ describe('components/item/ItemPinButton', () => {
       });
 
       it('does not contain text', async() => {
-        const wrapper = factory();
+        const wrapper = factory({ storeState });
 
         const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -70,7 +70,7 @@ describe('components/item/ItemPinButton', () => {
 
       describe('when button with text', () => {
         it('contains text', async() => {
-          const wrapper = factory();
+          const wrapper = factory({ storeState });
           await wrapper.setProps({ buttonText: true });
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
@@ -85,40 +85,24 @@ describe('components/item/ItemPinButton', () => {
         });
 
         describe('when pressed', () => {
-          const wrapper = factory();
+          it('ensures the set exists', async() => {
+            const wrapper = factory({ storeState });
+            sinon.spy(wrapper.vm, 'ensureEntityBestItemsSetExists');
+
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(wrapper.vm.ensureEntityBestItemsSetExists.called).toBe(true);
+          });
+
           it('pins the item', async() => {
+            const wrapper = factory({ storeState });
+            sinon.spy(wrapper.vm, 'pinItemToEntityBestItemsSet');
+
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
             await pinButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('entity/pin')).toBe(true);
-          });
-          it('shows the pin toast', async() => {
-            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-            await pinButton.trigger('click');
-
-            expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
-          });
-          describe('when there is no set yet for the curated collection', () => {
-            it('creates a set', async() => {
-              storeFeaturedSetId = null;
-              const wrapper = factory();
-
-              const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-              await pinButton.trigger('click');
-
-              expect(storeDispatchSuccess.calledWith('entity/createFeaturedSet')).toBe(true);
-            });
-          });
-          describe('when the pin limit is reached', () => {
-            it('shows the pinned limit modal', async() => {
-              const wrapper = factory({ storeDispatch: sinon.stub().rejects({ message: 'too many pins' }) });
-              const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
-
-              const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-              await pinButton.trigger('click');
-
-              expect(bvModalShow.calledWith(`pinned-limit-modal-${identifier}`)).toBe(true);
-            });
+            expect(wrapper.vm.pinItemToEntityBestItemsSet.called).toBe(true);
           });
         });
       });
@@ -128,7 +112,7 @@ describe('components/item/ItemPinButton', () => {
         });
 
         it('button text is updated', async() => {
-          const wrapper = factory();
+          const wrapper = factory({ storeState });
           await wrapper.setProps({ buttonText: true });
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
@@ -137,33 +121,22 @@ describe('components/item/ItemPinButton', () => {
 
         describe('when pressed', () => {
           it('unpins the item', async() => {
-            const wrapper = factory();
+            const wrapper = factory({ storeState });
+            sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
             await pinButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('entity/unpin')).toBe(true);
-          });
-          it('shows the pin toast', async() => {
-            const wrapper = factory();
-
-            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-            await pinButton.trigger('click');
-
-            expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
+            expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
           });
         });
       });
     });
 
     describe('when on an entity-set page', () => {
-      beforeEach(() => {
-        storeEntityId = null;
-        storeFeaturedSetId = 'http://data.europeana.eu/set/456';
-      });
-
       it('is visible', async() => {
         const wrapper = factory();
+        wrapper.vm.$store.state.entity.bestItemsSetId = 1;
 
         const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -172,6 +145,7 @@ describe('components/item/ItemPinButton', () => {
 
       it('does not contain text', async() => {
         const wrapper = factory();
+        wrapper.vm.$store.state.entity.bestItemsSetId = 1;
 
         const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -186,36 +160,23 @@ describe('components/item/ItemPinButton', () => {
         describe('when pressed', () => {
           it('unpins the item', async() => {
             const wrapper = factory();
+            wrapper.vm.$store.state.entity.bestItemsSetId = 1;
+            sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
             await pinButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('entity/unpin')).toBe(true);
-          });
-
-          it('shows the pin toast', async() => {
-            const wrapper = factory();
-
-            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-            await pinButton.trigger('click');
-
-            expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
+            expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
           });
         });
       });
     });
 
     describe('when on an item page', () => {
-      beforeEach(() => {
-        storeFeaturedSetId = null;
-        storeEntityId = null;
-      });
-
       describe('when the item has related entities', () => {
         it('is visible', async() => {
           const wrapper = factory();
           await wrapper.setProps({ entities: ['http://data.europeana.eu/topic/123'] });
-          sinon.stub(wrapper.vm, 'entity').returns(false);
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -244,7 +205,7 @@ describe('components/item/ItemPinButton', () => {
         const wrapper = factory();
         await wrapper.vm.goToPins();
 
-        expect($goto.calledWith('mocked path')).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith('mocked path')).toBe(true);
       });
     });
   });

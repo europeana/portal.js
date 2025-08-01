@@ -1,14 +1,12 @@
 /**
- * @file Interface to Europeana Record Search API
+ * @file Interface to Europeana Record API search method
  */
 
 import pick from 'lodash/pick.js';
 
-import {
-  apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils.js';
-import { BASE_URL } from './record.js';
-import { truncate } from '../vue-filters.js';
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
+import { escapeLuceneSpecials } from './utils.js';
+import truncate from '../../utils/text/truncate.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -61,7 +59,7 @@ export function rangeToQueryParam(values) {
  * @return {Object} Object with start and end keys
  */
 export function rangeFromQueryParam(paramValue) {
-  const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
+  const matches = /^\[([^ ].*) TO ([^ ].*)\]$/.exec(paramValue);
   if (matches === null) {
     return null;
   }
@@ -73,7 +71,6 @@ export function rangeFromQueryParam(paramValue) {
 
 /**
  * Search Europeana Record API
- * @param {Object} $axios Axios instance for Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
@@ -84,60 +81,59 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @param {string} options.locale source locale for multilingual search
+ * @param {string} options.locale current locale, for localising search results
+ * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
- * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-// TODO: switch options.addContentTierFilter to default to `false`
-export default (context) => ($axios, params, options = {}) => {
-  if (!$axios) {
-    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  }
 
-  const defaultOptions = { addContentTierFilter: true };
+export default function(params, options = {}) {
+  const localParams = { ...params };
+
+  const defaultOptions = { locale: this.context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
-  const perPage = params.rows === undefined ? 24 : Number(params.rows);
-  const page = params.page || 1;
+  const perPage = localParams.rows === undefined ? 24 : Number(localParams.rows);
+
+  const page = localParams.page || 1;
+  delete localParams.page;
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
   const searchParams = {
-    ...$axios.defaults.params,
-    ...params,
-    profile: params.profile || '',
-    qf: localOptions.addContentTierFilter ? addContentTierFilter(params.qf) : params.qf,
-    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
+    ...localParams,
+    profile: localParams.profile || '',
+    qf: localParams.qf,
+    query: options.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
+  // TODO: this should be the responsibility of the caller; move to an exported
+  //       function for callers to run first, when needed
+  if (localOptions.translateLang) {
     const targetLocale = 'en';
-    if (localOptions.locale !== targetLocale) {
+    if (localOptions.translateLang !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = localOptions.locale;
-      searchParams['q.source'] = localOptions.locale;
+      searchParams.lang = localOptions.translateLang;
+      searchParams['q.source'] = localOptions.translateLang;
       searchParams['q.target'] = targetLocale;
     }
   }
 
-  return $axios.get(`${localOptions.url || ''}/search.json`, {
+  return this.request({
+    method: 'get',
+    url: `${options.url || ''}/search.json`,
     params: searchParams
   })
-    .then(response => response.data)
-    .then(data => ({
+    .then((data) => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
-    }))
-    .catch((error) => {
-      throw apiError(error, context);
-    });
-};
+    }));
+}
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
@@ -206,5 +202,5 @@ export function addContentTierFilter(qf) {
 }
 
 const hasFilterForField = (filters, fieldName) => {
-  return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
+  return filters.some((filter) => filter.startsWith(`${fieldName}:`));
 };

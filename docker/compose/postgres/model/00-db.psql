@@ -1,0 +1,41 @@
+DROP SCHEMA IF EXISTS events CASCADE;
+CREATE SCHEMA events;
+SET search_path TO events;
+
+CREATE TABLE objects (
+  id SERIAL PRIMARY KEY,
+  uri VARCHAR(1000) NOT NULL UNIQUE
+);
+
+CREATE TABLE sessions (
+  id SERIAL PRIMARY KEY,
+  uuid CHAR(36) NOT NULL UNIQUE
+);
+
+CREATE TABLE action_types (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE
+);
+INSERT INTO action_types (name) VALUES('add');
+INSERT INTO action_types (name) VALUES('appear');
+INSERT INTO action_types (name) VALUES('download');
+INSERT INTO action_types (name) VALUES('feedback');
+INSERT INTO action_types (name) VALUES('like');
+INSERT INTO action_types (name) VALUES('view');
+
+CREATE TABLE actions (
+  id SERIAL PRIMARY KEY,
+  object_id INT NOT NULL,
+  action_type_id INT NOT NULL,
+  session_id INT NOT NULL,
+  occurred_at TIMESTAMPTZ NOT NULL,
+  CONSTRAINT fk_object
+    FOREIGN KEY(object_id)
+	  REFERENCES objects(id),
+  CONSTRAINT fk_action_type
+    FOREIGN KEY(action_type_id)
+	  REFERENCES action_types(id),
+  CONSTRAINT fk_session
+    FOREIGN KEY(session_id)
+	  REFERENCES sessions(id)
+);
