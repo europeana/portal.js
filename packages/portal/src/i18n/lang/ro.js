@@ -819,7 +819,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
-      "home": "Pagină natală",
+      "home": "Acasă",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -1093,6 +1093,9 @@ export default {
       },
       "tibAvPortal": {
         "title": "TIB AV-Portal"
+      },
+      "tmaticTravel": {
+        "title": "tmatic.travel"
       },
       "tv3": {
         "title": "TV3 Televisió de Catalunya"

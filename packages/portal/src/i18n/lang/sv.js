@@ -1094,6 +1094,9 @@ export default {
       "tibAvPortal": {
         "title": "TIB AV-portal"
       },
+      "tmaticTravel": {
+        "title": "tmatic.travel"
+      },
       "tv3": {
         "title": "TV3 Televisió de Catalunya"
       },
