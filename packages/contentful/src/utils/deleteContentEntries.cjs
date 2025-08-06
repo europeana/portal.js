@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 const logUpdate = require('log-update');
 
-const purgeContentEntry = async(entry, { makeRequest }) => {
+const deleteContentEntry = async(entry, { makeRequest }) => {
   const id = entry.sys.id;
 
   if (entry.sys.publishedAt) {
@@ -20,7 +20,7 @@ const purgeContentEntry = async(entry, { makeRequest }) => {
   });
 };
 
-const purgeContentType = async(contentType, migration, { makeRequest, environmentId }) => {
+const deleteContentEntries = async(contentType, migration, { makeRequest, environmentId }) => {
   console.log(chalk.bold.green('The following task has been planned'));
   console.log();
   console.log(chalk.bold(`Environment: ${chalk.yellow(environmentId)}`));
@@ -54,7 +54,7 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
 
     if (response.items.length > 0) {
       for (const entry of response.items) {
-        await purgeContentEntry(entry, { makeRequest });
+        await deleteContentEntry(entry, { makeRequest });
       }
     } else {
       noMoreItems = true;
@@ -63,10 +63,6 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
 
   logUpdate.clear();
   console.log();
-
-  migration.deleteContentType(contentType);
 };
 
-module.exports = {
-  purgeContentType
-};
+module.exports = deleteContentEntries;
