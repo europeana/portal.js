@@ -19,7 +19,7 @@
       <BlogPost
         :date-published="post.datePublished"
         :title="post.name"
-        :description="post.description"
+        :description="post.introduction"
         :body="post.hasPartCollection"
         :identifier="post.identifier"
         :hero="hero"

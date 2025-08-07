@@ -17,6 +17,7 @@ query BlogPostPage(
       identifier
       name
       description
+      introduction
       datePublished
       relatedLink
       categoriesCollection {
