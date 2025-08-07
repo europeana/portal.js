@@ -29,9 +29,8 @@
             <p
               v-if="subtitle || description"
               class="subtitle mb-2"
-            >
-              {{ subtitle || description }}
-            </p>
+              v-html="parseMarkdown(subtitle || description)"
+            />
           </div>
         </article>
       </b-col>
@@ -56,6 +55,8 @@
 </template>
 
 <script>
+  import parseMarkdown from '@/utils/markdown/parse.js';
+
   export default {
     name: 'AuthoredHead',
 
@@ -102,6 +103,10 @@
       heroImageAlt() {
         return this.heroImage?.description || '';
       }
+    },
+
+    methods: {
+      parseMarkdown
     }
   };
 </script>
