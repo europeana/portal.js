@@ -2,7 +2,7 @@
   <div class="page text-page">
     <AuthoredHead
       :title="title"
-      :description="description"
+      :description="introduction"
       :hero="hero"
       :context-label="$tc('blog.posts', 1)"
     />
@@ -114,7 +114,7 @@
         required: true
       },
 
-      description: {
+      introduction: {
         type: String,
         default: ''
       },
