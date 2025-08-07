@@ -58,6 +58,16 @@ query BlogPostPage(
           # CardGroup omitted intentionally
         }
       }
+      associatedMediaCollection {
+        total
+        items {
+          contentType
+          description
+          height
+          title
+          url
+        }
+      }
       authorCollection {
         items {
           name

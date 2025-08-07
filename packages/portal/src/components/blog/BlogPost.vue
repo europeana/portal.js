@@ -58,6 +58,19 @@
             </div>
             <!-- eslint-enable vue/no-v-html -->
           </article>
+          <ul
+            v-if="media.length"
+          >
+            <li
+              v-for="(asset, index) in media"
+            >
+              <a
+                :href="asset.url"
+              >
+                {{ asset.title }}
+              </a>
+            </li>
+          </ul>
           <RelatedCategoryTags
             v-if="tags.length"
             :tags="tags"
@@ -122,6 +135,11 @@
       body: {
         type: Object,
         default: null
+      },
+
+      media: {
+        type: Array,
+        default: () => {}
       },
 
       identifier: {

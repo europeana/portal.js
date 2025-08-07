@@ -21,6 +21,7 @@
         :title="post.name"
         :introduction="post.introduction"
         :body="post.hasPartCollection"
+        :media="post.associatedMediaCollection.items"
         :identifier="post.identifier"
         :hero="hero"
         :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
