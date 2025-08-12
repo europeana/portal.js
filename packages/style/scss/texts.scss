@@ -99,6 +99,10 @@ header .col {
     font-weight: normal;
     margin-bottom: 0;
     font-size: 1.125rem;
+
+    a {
+      color: $darkgrey;
+    }
   }
 
   .subtitle {
