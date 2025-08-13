@@ -2,7 +2,7 @@ const LANDING_PAGES = {
   apis: 'apis',
   ds4ch: 'dataspace-culturalheritage',
   'share-your-collections': 'share-your-collections',
-  'partnerships': 'partnerships'
+  'partner-with-us': 'partner-with-us'
 };
 
 export default {
