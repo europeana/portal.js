@@ -13,7 +13,7 @@ module.exports = function(migration) {
       type: 'Link',
       validations: [
         {
-          linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
+          linkContentType: ['embed', 'imageWithAttribution', 'link', 'richText']
         }
       ],
       linkType: 'Entry'
