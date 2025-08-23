@@ -33,7 +33,7 @@
     "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "2.22.0",
-    "cookie-universal-nuxt": "^2.1.5",
+    "cookie": "^1.0.2",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "dateformat": "^4.6.3",
