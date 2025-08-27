@@ -441,13 +441,6 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
-    describe('when multiple entity URIs supplied', () => {
-      const uris = ['http://data.europeana.eu/organization/12345', 'http://data.europeana.eu/organization/67890', 'https://www.example.org/404'];
-      it('queries on all Europeana entities, joined with OR', () => {
-        expect(getEntityQuery(uris)).toBe('foaf_organization:"http://data.europeana.eu/organization/12345" OR foaf_organization:"http://data.europeana.eu/organization/67890"');
-      });
-    });
-
     describe('otherwise', () => {
       const uri = 'http://data.europeana.eu/item/12345';
       it('throws an error', () => {

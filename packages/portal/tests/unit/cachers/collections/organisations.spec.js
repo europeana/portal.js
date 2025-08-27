@@ -7,15 +7,14 @@ import nock from 'nock';
 const organisations = [
   { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' }, country: 'ES' },
   { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' }, country: 'http://data.europeana.eu/place/001' },
-  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/005', 'http://example.org/404'] },
+  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' } },
   { id: 'http://data.europeana.eu/organization/004', type: 'Organization', prefLabel: { en: 'Library' }, country: { id: 'http://data.europeana.eu/place/002', prefLabel: { en: 'Germany' } } }
 ];
 
 const fields = [
   { label: 'http://data.europeana.eu/organization/001', count: 100 },
   { label: 'http://data.europeana.eu/organization/002', count: 200 },
-  { label: 'http://data.europeana.eu/organization/003', count: 150 },
-  { label: 'http://data.europeana.eu/organization/005', count: 50 }
+  { label: 'http://data.europeana.eu/organization/003', count: 150 }
 ];
 
 const apiFacetResponse = {
@@ -102,15 +101,6 @@ describe('@/cachers/collections/organisations', () => {
         const organisationData = await cacher.data(config);
 
         expect(organisationData[0].recordCount).toBe(0);
-      });
-    });
-
-    describe('when the entity has other entity IDs on sameAs', () => {
-      it('combines their counts', async() => {
-        mockApiRequests();
-        const organisationData = await cacher.data(config);
-
-        expect(organisationData[2].recordCount).toBe(200);
       });
     });
   });

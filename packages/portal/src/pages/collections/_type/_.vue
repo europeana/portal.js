@@ -147,7 +147,7 @@
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
         this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
@@ -178,7 +178,7 @@
         const defaultParams = {};
 
         if (this.entity) {
-          const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
+          const entityQuery = getEntityQuery(this.entity.id);
           defaultParams.qf = [entityQuery];
           defaultParams.query = entityQuery; // Triggering best bets.
         }
