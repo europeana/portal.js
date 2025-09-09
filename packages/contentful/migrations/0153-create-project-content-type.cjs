@@ -4,6 +4,11 @@ module.exports = function(migration) {
     process.exit(1);
   }
 
+  if (!process.env.CATEGORY_SUGGEST_APP_ID) {
+    console.log('No app ID specified in CATEGORY_SUGGEST_APP_ID; aborting.');
+    process.exit(1);
+  }
+
   const project = migration
     .createContentType('project')
     .name('Project')
@@ -49,6 +54,35 @@ module.exports = function(migration) {
     .validations([
       {
         linkMimetypeGroup: ['image']
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .linkType('Asset');
+
+  project
+    .createField('image')
+    .name('Social media image')
+    .type('Link')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        linkMimetypeGroup: ['image']
+      },
+      {
+        assetImageDimensions: {
+          width: {
+            min: 300,
+            max: null
+          },
+
+          height: {
+            min: 250,
+            max: null
+          }
+        },
+        message: 'Please make sure the image is at least 300x250px'
       }
     ])
     .disabled(false)
@@ -115,7 +149,6 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: 10,
           max: 1500
         }
       }
@@ -132,7 +165,6 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: 10,
           max: 800
         }
       }
@@ -164,7 +196,6 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: 10,
           max: 3000
         }
       }
@@ -264,8 +295,7 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: 0,
-          max: 4
+          max: 10
         }
       }
     ])
@@ -276,7 +306,7 @@ module.exports = function(migration) {
       validations: [
         {
           regexp: {
-            pattern: '^*:*$'
+            pattern: '^.*:.*$'
           },
           message: 'Must include a ":" separator for the impact title and value.'
         }
@@ -293,7 +323,7 @@ module.exports = function(migration) {
       {
         size: {
           min: 0,
-          max: 4
+          max: 10
         }
       }
     ])
@@ -324,6 +354,25 @@ module.exports = function(migration) {
     .omitted(false)
     .linkType('Asset');
 
+  project
+    .createField('categories')
+    .name('Categories')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Link',
+      validations: [
+        {
+          linkContentType: ['category']
+        }
+      ],
+      linkType: 'Entry'
+    });
+
   project.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
 
   project.changeFieldControl('headline', 'builtin', 'singleLine', {
@@ -331,18 +380,30 @@ module.exports = function(migration) {
       'Shows on the preview card. Must be less than 140 Characters to not be truncated.'
   });
 
+  project.changeFieldControl('description', 'bultin', 'markdown', {
+    helpText:
+      'For SEO, please make sure there is a short description.'
+  });
+
   project.changeFieldControl('goals', 'builtin', 'markdown', {
     helpText:
       'Recommended format is a list of bullet points.'
   });
 
+  project.changeFieldControl('impactMetrics', 'bultin', 'tagEditor', {
+    helpText:
+      'Include a ":" separator between the label and value for each metric. "Label:Value"'
+  });
+
   project.changeFieldControl('partners', 'builtin', 'markdown', {
     helpText:
-      'Freetext, should be a list (" - NAME" syntax) to allow appending entities.'
+      'Freetext, should be a list (" - NAME" syntax)'
   });
 
   project.changeFieldControl('partnerEntities', 'app', process.env.ENTITY_SUGGEST_APP_ID, {
     helpText:
-      'Only accepts instituions/organisation entities. Will be appended to the freetext list if that contains an unorderd list.'
+      'Only accepts instituions/organisation entities. Will be appended to the projects freetext as a list.'
   });
+
+  project.changeFieldControl('categories', 'app', process.env.CATEGORY_SUGGEST_APP_ID);
 };
