@@ -53,7 +53,7 @@ module.exports = function(migration) {
     .required(false)
     .validations([
       {
-        linkMimetypeGroup: ['image']
+        linkMimetypeGroup: ['illustration']
       }
     ])
     .disabled(false)
@@ -239,15 +239,15 @@ module.exports = function(migration) {
     .linkType('Entry');
 
   project
-    .createField('contactNumber')
-    .name('Contact Number')
+    .createField('contractNumber')
+    .name('Contract Number')
     .type('Symbol')
     .localized(false)
     .required(true)
     .validations([
       {
         size: {
-          max: 40
+          max: 200
         }
       }
     ])
@@ -256,35 +256,30 @@ module.exports = function(migration) {
 
   project
     .createField('fundingLogo')
-    .name('Funding logo')
-    .type('Link')
-    .localized(false)
-    .required(true)
-    .validations([
-      {
-        linkMimetypeGroup: ['image']
-      }
-    ])
-    .disabled(false)
-    .omitted(false)
-    .linkType('Asset');
-
-  project
-    .createField('fundingLogoUrl')
-    .name('Funding logo URL')
-    .type('Symbol')
+    .name('Funders')
+    .type('Array')
     .localized(false)
     .required(true)
     .validations([
       {
         size: {
-          min: 6,
-          max: 400
+          max: 10
         }
       }
     ])
     .disabled(false)
-    .omitted(false);
+    .omitted(false)
+    .items({
+      type: 'Link',
+
+      validations: [
+        {
+          linkContentType: ['illustration']
+        }
+      ],
+
+      linkType: 'Entry'
+    });
 
   project
     .createField('impactMetrics')
@@ -322,7 +317,6 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: 0,
           max: 10
         }
       }
