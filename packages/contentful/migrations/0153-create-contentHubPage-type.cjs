@@ -1,6 +1,18 @@
 require('dotenv').config();
 
 const identifierFieldHelpText = 'Do not include a leading slash. Should be unique (per-site) for browse, static, landing and content hub pages.';
+const nameFieldValidations = [
+  {
+    size: {
+      max: 100,
+    },
+    message:
+      'This is an H1 field, it needs to be not more than 100 characters.',
+  },
+  {
+    unique: false,
+  }
+];
 
 module.exports = function (migration) {
   if (!process.env.SLUG_VALIDATION_APP_ID) {
@@ -22,19 +34,7 @@ module.exports = function (migration) {
     .type('Symbol')
     .localized(true)
     .required(true)
-    .validations([
-      {
-        unique: true,
-      },
-      {
-        size: {
-          max: 100,
-        },
-
-        message:
-          'This is an H1 field, it needs to be unique for SEO and not more than 100 characters.',
-      },
-    ])
+    .validations(nameFieldValidations)
     .disabled(false)
     .omitted(false);
 
@@ -218,6 +218,7 @@ module.exports = function (migration) {
       helpText: identifierFieldHelpText,
     }
   );
+  browsePage.editField('name').validations(nameFieldValidations);
 
   const landingPage = migration.editContentType('landingPage');
   landingPage.changeFieldControl(
@@ -229,6 +230,7 @@ module.exports = function (migration) {
       helpText: identifierFieldHelpText,
     }
   );
+  landingPage.editField('name').validations(nameFieldValidations);
 
   const staticPage = migration.editContentType('staticPage');
   staticPage.changeFieldControl(
@@ -240,4 +242,5 @@ module.exports = function (migration) {
       helpText: identifierFieldHelpText,
     }
   );
+  staticPage.editField('name').validations(nameFieldValidations);
 };
