@@ -58,7 +58,7 @@ module.exports = function(migration) {
     ])
     .disabled(false)
     .omitted(false)
-    .linkType('Asset');
+    .linkType('Entry');
 
   project
     .createField('image')
