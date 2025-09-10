@@ -53,7 +53,7 @@ module.exports = function(migration) {
     .required(false)
     .validations([
       {
-        linkMimetypeGroup: ['illustration']
+        linkContentType: ['illustration']
       }
     ])
     .disabled(false)
