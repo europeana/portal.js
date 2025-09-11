@@ -124,7 +124,7 @@ module.exports = function (migration) {
 
       validations: [
         {
-          in: ['Blog Post', 'Exhibition', 'Project', 'Story'],
+          in: ['blog post', 'exhibition', 'project', 'story'],
         },
       ],
     });
