@@ -69,29 +69,29 @@
         // const infoResponse = await this.$apis.translation.info();
         // const supportedTargetLanguages = infoResponse.config.translate.supported.target;
         const supportedTargetLanguages = [
-          "bg",
-          "cs",
-          "da",
-          "de",
-          "el",
-          "en",
-          "es",
-          "et",
-          "fi",
-          "fr",
-          "ga",
-          "hr",
-          "hu",
-          "it",
-          "lt",
-          "lv",
-          "nl",
-          "pl",
-          "pt",
-          "ro",
-          "sk",
-          "sl",
-          "sv"
+          'bg',
+          'cs',
+          'da',
+          'de',
+          'el',
+          'en',
+          'es',
+          'et',
+          'fi',
+          'fr',
+          'ga',
+          'hr',
+          'hu',
+          'it',
+          'lt',
+          'lv',
+          'nl',
+          'pl',
+          'pt',
+          'ro',
+          'sk',
+          'sl',
+          'sv'
         ];
 
         const fieldsToTranslate = [];
@@ -136,9 +136,9 @@
                 target: target.lang,
                 text: textsToTranslate
               };
-              console.log(data)
+              console.log(data);
               const apiResponse = await this.$apis.translation.translate(data);
-              console.log('api response', apiResponse)
+              console.log('api response', apiResponse);
               for (let i = 0; i < fieldsToTranslate.length; i = i + 1) {
                 // TODO: truncate translation if needed
                 this.entry.fields[fieldsToTranslate[i]].setValue(apiResponse.translations[i], target.locale);
@@ -148,7 +148,7 @@
               // TODO: use a CTF method for this? or list errors on screen
               target.error = e;
             }
-            console.log('target', target)
+            console.log('target', target);
           }
         }
       }
