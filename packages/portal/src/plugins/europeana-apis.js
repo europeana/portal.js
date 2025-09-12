@@ -14,6 +14,7 @@ import recommendation from './europeana/recommendation.js';
 import record from './europeana/record.js';
 import set from './europeana/set.js';
 import thumbnail from './europeana/thumbnail.js';
+import translation from './europeana/translation.js';
 
 const MODULE_NAME = 'apis';
 
@@ -28,7 +29,8 @@ export const APIS = {
   recommendation,
   record,
   set,
-  thumbnail
+  thumbnail,
+  translation
 };
 
 export const API_IDS = Object.keys(APIS);
