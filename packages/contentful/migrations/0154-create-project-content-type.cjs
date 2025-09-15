@@ -12,28 +12,12 @@ module.exports = function(migration) {
   const project = migration
     .createContentType('project')
     .name('Project')
-    .description(
-      'Project page used on the dataspace website.'
-    )
+    .description('Data space project')
     .displayField('name');
 
   project
     .createField('name')
-    .name('Title')
-    .type('Symbol')
-    .localized(false)
-    .required(true)
-    .validations([
-      {
-        unique: true
-      }
-    ])
-    .disabled(false)
-    .omitted(false);
-
-  project
-    .createField('identifier')
-    .name('URL slug')
+    .name('Name')
     .type('Symbol')
     .localized(false)
     .required(true)
@@ -47,7 +31,7 @@ module.exports = function(migration) {
 
   project
     .createField('logo')
-    .name('Project Logo')
+    .name('Logo')
     .type('Link')
     .localized(false)
     .required(false)
@@ -61,66 +45,6 @@ module.exports = function(migration) {
     .linkType('Entry');
 
   project
-    .createField('image')
-    .name('Social media image')
-    .type('Link')
-    .localized(false)
-    .required(false)
-    .validations([
-      {
-        linkMimetypeGroup: ['image']
-      },
-      {
-        assetImageDimensions: {
-          width: {
-            min: 300,
-            max: null
-          },
-
-          height: {
-            min: 250,
-            max: null
-          }
-        },
-        message: 'Please make sure the image is at least 300x250px'
-      }
-    ])
-    .disabled(false)
-    .omitted(false)
-    .linkType('Asset');
-
-  project
-    .createField('primaryImageOfPage')
-    .name('Main image')
-    .type('Link')
-    .localized(false)
-    .required(false)
-    .validations([
-      {
-        linkContentType: ['imageWithAttribution']
-      }
-    ])
-    .disabled(false)
-    .omitted(false)
-    .linkType('Entry');
-
-  project
-    .createField('headline')
-    .name('Subtitle/teaser text')
-    .type('Symbol')
-    .localized(true)
-    .required(true)
-    .validations([
-      {
-        size: {
-          max: 400
-        }
-      }
-    ])
-    .disabled(false)
-    .omitted(false);
-
-  project
     .createField('startDate')
     .name('Start date')
     .type('Date')
@@ -129,7 +53,6 @@ module.exports = function(migration) {
     .validations([])
     .disabled(false)
     .omitted(false);
-
   project
     .createField('endDate')
     .name('End date')
@@ -141,24 +64,8 @@ module.exports = function(migration) {
     .omitted(false);
 
   project
-    .createField('description')
-    .name('Description')
-    .type('Text')
-    .localized(true)
-    .required(true)
-    .validations([
-      {
-        size: {
-          max: 1500
-        }
-      }
-    ])
-    .disabled(false)
-    .omitted(false);
-
-  project
     .createField('goals')
-    .name('Project goals')
+    .name('Goals')
     .type('Text')
     .localized(true)
     .required(true)
@@ -189,7 +96,7 @@ module.exports = function(migration) {
 
   project
     .createField('partners')
-    .name('Project partners')
+    .name('Partners')
     .type('Text')
     .localized(true)
     .required(false)
@@ -205,14 +112,16 @@ module.exports = function(migration) {
 
   project
     .createField('partnerEntities')
-    .name('Project partner institutions')
+    .name('Partner institutions')
     .type('Array')
     .localized(false)
     .required(false)
-    .disabled(false)
+    .validations([])
+    .disabled(true)
     .omitted(false)
     .items({
       type: 'Symbol',
+
       validations: [
         {
           regexp: {
@@ -255,7 +164,7 @@ module.exports = function(migration) {
     .omitted(false);
 
   project
-    .createField('fundingLogo')
+    .createField('fundingLogos')
     .name('Funders')
     .type('Array')
     .localized(false)
@@ -303,7 +212,8 @@ module.exports = function(migration) {
           regexp: {
             pattern: '^.*:.*$'
           },
-          message: 'Must include a ":" separator for the impact title and value.'
+          message:
+            'Must include a ":" separator for the impact title and value.'
         }
       ]
     });
@@ -348,7 +258,172 @@ module.exports = function(migration) {
     .omitted(false)
     .linkType('Asset');
 
-  project
+  project.changeFieldControl('name', 'builtin', 'singleLine', {});
+  project.changeFieldControl('logo', 'builtin', 'entryLinkEditor', {});
+  project.changeFieldControl('startDate', 'builtin', 'datePicker', {});
+  project.changeFieldControl('endDate', 'builtin', 'datePicker', {});
+
+  project.changeFieldControl('goals', 'builtin', 'markdown', {
+    helpText: 'Recommended format is a list of bullet points.'
+  });
+
+  project.changeFieldControl(
+    'testimonial',
+    'builtin',
+    'entryLinkEditor',
+    {}
+  );
+
+  project.changeFieldControl('partners', 'builtin', 'markdown', {
+    helpText: 'Freetext, should be a list (" - NAME" syntax)'
+  });
+
+  project.changeFieldControl('partnerEntities', 'app', process.env.ENTITY_SUGGEST_APP_ID, {
+    helpText:
+      'Only accepts instituions/organisation entities. Will be appended to the freetext as a list.'
+  });
+
+  project.changeFieldControl('fundingStream', 'builtin', 'entryLinkEditor', {});
+  project.changeFieldControl('contractNumber', 'builtin', 'singleLine', {});
+  project.changeFieldControl('fundingLogos', 'builtin', 'entryLinksEditor', {});
+
+  project.changeFieldControl('impactMetrics', 'builtin', 'tagEditor', {
+    helpText:
+      'Include a ":" separator between the label and value for each metric. "Label:Value"'
+  });
+
+  project.changeFieldControl('reports', 'builtin', 'assetLinksEditor', {});
+  project.changeFieldControl('factSheet', 'builtin', 'assetLinkEditor', {});
+
+  const projectPage = migration
+    .createContentType('projectPage')
+    .name('Project Page')
+    .description(
+      'Project page page used on the dataspace website.'
+    )
+    .displayField('name');
+
+  projectPage
+    .createField('name')
+    .name('Title')
+    .type('Symbol')
+    .localized(false)
+    .required(true)
+    .validations([
+      {
+        unique: true
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  projectPage
+    .createField('identifier')
+    .name('URL slug')
+    .type('Symbol')
+    .localized(false)
+    .required(true)
+    .validations([
+      {
+        unique: true
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  projectPage
+    .createField('image')
+    .name('Social media image')
+    .type('Link')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        linkMimetypeGroup: ['image']
+      },
+      {
+        assetImageDimensions: {
+          width: {
+            min: 300,
+            max: null
+          },
+
+          height: {
+            min: 250,
+            max: null
+          }
+        },
+
+        message: 'Please make sure the image is at least 300x250px'
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .linkType('Asset');
+
+  projectPage
+    .createField('primaryImageOfPage')
+    .name('Main image')
+    .type('Link')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        linkContentType: ['imageWithAttribution']
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .linkType('Entry');
+
+  projectPage
+    .createField('headline')
+    .name('Subtitle/teaser text')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .validations([
+      {
+        size: {
+          max: 400
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  projectPage
+    .createField('description')
+    .name('Description')
+    .type('Text')
+    .localized(true)
+    .required(true)
+    .validations([
+      {
+        size: {
+          max: 1500
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  projectPage
+    .createField('project')
+    .name('Project')
+    .type('Link')
+    .localized(false)
+    .required(true)
+    .validations([
+      {
+        linkContentType: ['project']
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .linkType('Entry');
+
+  projectPage
     .createField('categories')
     .name('Categories')
     .type('Array')
@@ -359,45 +434,35 @@ module.exports = function(migration) {
     .omitted(false)
     .items({
       type: 'Link',
+
       validations: [
         {
           linkContentType: ['category']
         }
       ],
+
       linkType: 'Entry'
     });
 
-  project.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
+  projectPage.changeFieldControl('project', 'builtin', 'entryCardEditor', {});
+  projectPage.changeFieldControl('name', 'builtin', 'singleLine', {});
+  projectPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
+  projectPage.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
+  projectPage.changeFieldControl(
+    'primaryImageOfPage',
+    'builtin',
+    'entryLinkEditor',
+    {}
+  );
 
-  project.changeFieldControl('headline', 'builtin', 'singleLine', {
+  projectPage.changeFieldControl('headline', 'builtin', 'singleLine', {
     helpText:
       'Shows on the preview card. Must be less than 140 Characters to not be truncated.'
   });
 
-  project.changeFieldControl('description', 'bultin', 'markdown', {
-    helpText:
-      'For SEO, please make sure there is a short description.'
+  projectPage.changeFieldControl('description', 'builtin', 'markdown', {
+    helpText: 'For SEO, please make sure there is a short description.'
   });
 
-  project.changeFieldControl('goals', 'builtin', 'markdown', {
-    helpText:
-      'Recommended format is a list of bullet points.'
-  });
-
-  project.changeFieldControl('impactMetrics', 'bultin', 'tagEditor', {
-    helpText:
-      'Include a ":" separator between the label and value for each metric. "Label:Value"'
-  });
-
-  project.changeFieldControl('partners', 'builtin', 'markdown', {
-    helpText:
-      'Freetext, should be a list (" - NAME" syntax)'
-  });
-
-  project.changeFieldControl('partnerEntities', 'app', process.env.ENTITY_SUGGEST_APP_ID, {
-    helpText:
-      'Only accepts instituions/organisation entities. Will be appended to the projects freetext as a list.'
-  });
-
-  project.changeFieldControl('categories', 'app', process.env.CATEGORY_SUGGEST_APP_ID);
+  projectPage.changeFieldControl('categories', 'app', process.env.CATEGORY_SUGGEST_APP_ID);
 };
