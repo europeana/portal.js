@@ -8,28 +8,43 @@
         Translate
       </b-button>
     </b-form-group>
-    <ol>
-      <li
-        v-for="(target, index) in targetLanguages"
-        :key="index"
-      >
-        {{ target.locale }}
-        <template
-          v-if="target.service"
+    <table
+      v-if="targetLanguages.length > 0"
+    >
+      <thead>
+        <tr>
+          <th>Locale</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(target, index) in targetLanguages"
+          :key="index"
         >
-          - {{ target.service }}
-        </template>
-        <template
-          v-else-if="target.error"
-        >
-          - {{ target.error }}
-        </template>
-      </li>
-    </ol>
+          <td>{{ target.locale }}</td>
+          <td>
+            <template
+              v-if="target.service"
+            >
+              OK
+            </template>
+            <template
+              v-else-if="target.error"
+            >
+              {{ target.error }}
+            </template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+  import TurndownService from 'turndown';
+
+  import parseMarkdown from "@/utils/markdown/parse.js";
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
 
   export default {
@@ -60,6 +75,7 @@
     methods: {
       async translateText() {
         // console.log('entry', this.entry.fields)
+        // return;
         // for (const fieldId in this.entry.fields) {
         //   const field = this.entry.fields[fieldId];
         //   console.log(fieldId, field, field.getValue())
@@ -93,6 +109,7 @@
           'sl',
           'sv'
         ];
+        const turndownService = new TurndownService();
 
         const fieldsToTranslate = [];
         const textsToTranslate = [];
@@ -108,6 +125,9 @@
               const lang = locale.split('-').shift();
               if (locale === 'en-GB') {
                 fieldEnglishValue = field.getValue('en-GB');
+                if (field.type === 'Text') {
+                  fieldEnglishValue = parseMarkdown(fieldEnglishValue);
+                }
               } else if (!this.targetLanguages.find((target) => target.lang === lang)) {
                 if (supportedTargetLanguages.includes(lang)) {
                   this.targetLanguages.push({ locale, lang, service: undefined, error: undefined });
@@ -118,7 +138,7 @@
             }
 
             if (fieldEnglishValue) {
-              fieldsToTranslate.push(fieldId);
+              fieldsToTranslate.push(field);
               textsToTranslate.push(fieldEnglishValue);
             }
           }
@@ -140,8 +160,14 @@
               const apiResponse = await this.$apis.translation.translate(data);
               console.log('api response', apiResponse);
               for (let i = 0; i < fieldsToTranslate.length; i = i + 1) {
+                const field = fieldsToTranslate[i];
                 // TODO: truncate translation if needed
-                this.entry.fields[fieldsToTranslate[i]].setValue(apiResponse.translations[i], target.locale);
+                let fieldTranslatedValue = apiResponse.translations[i];
+
+                if (field.type === 'Text') {
+                  fieldTranslatedValue = turndownService.turndown(fieldTranslatedValue);
+                }
+                this.entry.fields[field.id].setValue(fieldTranslatedValue, target.locale);
               }
               target.service = apiResponse.service;
             } catch (e) {
