@@ -275,7 +275,7 @@ module.exports = function(migration) {
   );
 
   project.changeFieldControl('partners', 'builtin', 'markdown', {
-    helpText: 'Freetext, should be a list (" - NAME" syntax)'
+    helpText: 'Freetext, recommended to be a list (" - NAME"/"1. NAME" syntax)'
   });
 
   project.changeFieldControl('partnerEntities', 'app', process.env.ENTITY_SUGGEST_APP_ID, {
