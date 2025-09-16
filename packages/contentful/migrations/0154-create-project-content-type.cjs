@@ -280,7 +280,7 @@ module.exports = function(migration) {
 
   project.changeFieldControl('partnerEntities', 'app', process.env.ENTITY_SUGGEST_APP_ID, {
     helpText:
-      'Only accepts instituions/organisation entities. Will be appended to the freetext as a list.'
+      'Only accepts institutions/organisation entities. Will be appended to the freetext as a list.'
   });
 
   project.changeFieldControl('fundingStream', 'builtin', 'entryLinkEditor', {});
