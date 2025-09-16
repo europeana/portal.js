@@ -11,10 +11,11 @@ export default class EuropeanaTranslationApi extends EuropeanaApi {
       url: '/translate',
       data: {
         service: 'ETRANSLATION',
-        fallback: 'GOOGLE',
+        // fallback: 'GOOGLE',
         caching: true,
         ...data
-      }
+      },
+      timeout: 30000
     });
   }
 
