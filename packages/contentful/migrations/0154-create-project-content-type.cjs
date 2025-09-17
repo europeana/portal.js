@@ -332,6 +332,16 @@ module.exports = function(migration) {
     .omitted(false);
 
   projectPage
+    .createField('datePublished')
+    .name('Publish at')
+    .type('Date')
+    .localized(false)
+    .required(true)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  projectPage
     .createField('image')
     .name('Social media image')
     .type('Link')
@@ -447,6 +457,11 @@ module.exports = function(migration) {
   projectPage.changeFieldControl('project', 'builtin', 'entryCardEditor', {});
   projectPage.changeFieldControl('name', 'builtin', 'singleLine', {});
   projectPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
+  projectPage.changeFieldControl('datePublished', 'builtin', 'datePicker', {
+    ampm: '24',
+    format: 'timeZ'
+  });
+
   projectPage.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
   projectPage.changeFieldControl(
     'primaryImageOfPage',
