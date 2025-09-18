@@ -472,12 +472,10 @@ module.exports = function(migration) {
 
   projectPage.changeFieldControl('headline', 'builtin', 'singleLine', {
     helpText:
-      'Shows on the preview card. Must be less than 140 Characters to not be truncated.'
+      'Shows on the preview card. Must be less than 140 Characters to not be truncated. Also used for SEO/metadata.'
   });
 
-  projectPage.changeFieldControl('description', 'builtin', 'markdown', {
-    helpText: 'For SEO, please make sure there is a short description.'
-  });
+  projectPage.changeFieldControl('description', 'builtin', 'markdown', {});
 
   projectPage.changeFieldControl('categories', 'app', process.env.CATEGORY_SUGGEST_APP_ID);
 };
