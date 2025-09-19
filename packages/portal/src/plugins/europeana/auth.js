@@ -2,7 +2,7 @@ import EuropeanaApi from './apis/base.js';
 
 export default class EuropeanaAuthApi extends EuropeanaApi {
   static ID = 'auth';
-  static BASE_URL = 'https://auth.europeana.eu';
+  static BASE_URL = 'https://auth.europeana.eu/auth/realms/europeana';
   // static AUTHENTICATING = true;
   static AUTHORISING = true;
   static ERROR_CODES = {
@@ -14,21 +14,29 @@ export default class EuropeanaAuthApi extends EuropeanaApi {
   createClient() {
     return this.request({
       method: 'post',
-      url: '/auth/realms/europeana/client'
+      url: '/client'
     });
   }
 
   deleteClient(id) {
     return this.request({
       method: 'delete',
-      url: `/auth/realms/europeana/client/${id}`
+      url: `/client/${id}`
     });
   }
 
   getUserClients() {
     return this.request({
       method: 'get',
-      url: '/auth/realms/europeana/user/clients'
+      url: '/user/clients'
+    });
+  }
+
+  createOpenidConnectToken(data) {
+    return this.request({
+      data,
+      method: 'post',
+      url: '/protocol/openid-connect/token'
     });
   }
 }
