@@ -42,7 +42,6 @@ describe('mixins/landingPage', () => {
         });
       });
 
-
       describe('when route slug is black-history-month"', () => {
         const $route = { params: { pathMatch: 'black-history-month' } };
 
