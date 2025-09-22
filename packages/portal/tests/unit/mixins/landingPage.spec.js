@@ -42,6 +42,19 @@ describe('mixins/landingPage', () => {
         });
       });
 
+
+      describe('when route slug is black-history-month"', () => {
+        const $route = { params: { pathMatch: 'black-history-month' } };
+
+        it('is "black-history-month"', () => {
+          const wrapper = factory({ mocks: { $route } });
+
+          const landingPageId = wrapper.vm.landingPageId;
+
+          expect(landingPageId).toBe('black-history-month');
+        });
+      });
+
       it('detects config for landing page-based home page', () => {
         const $config = { app: { homeLandingPageSlug: 'dataspace-culturalheritage' } };
         const $route = { params: {} };

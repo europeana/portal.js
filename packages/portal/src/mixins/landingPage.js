@@ -1,5 +1,6 @@
 const LANDING_PAGES = {
   apis: 'apis',
+  'black-history-month': 'black-history-month',
   ds4ch: 'dataspace-culturalheritage',
   'share-your-collections': 'share-your-collections',
   'partner-with-us': 'partner-with-us'
