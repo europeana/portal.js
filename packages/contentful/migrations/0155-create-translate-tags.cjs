@@ -25,10 +25,13 @@ const languages = [
 ];
 
 module.exports = function(migration) {
+  const visibility = 'private';
+
+  migration.createTag('translate', { name: 'Translate' }, visibility);
+
   for (const lang of languages) {
     const id = `translate.${lang.code}`;
     const name = `Translate: ${lang.label} (${lang.code})`;
-    const visibility = 'private';
 
     migration.createTag(id, { name }, visibility);
   }
