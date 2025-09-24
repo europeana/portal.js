@@ -57,6 +57,7 @@
     "qs": "^6.10.1",
     "redis": "^4.6.8",
     "swiper": "^11.1.9",
+    "turndown": "^6.0.0",
     "v-click-outside": "^3.2.0",
     "vue": "2.7.16",
     "vue-client-only": "^2.1.0",
