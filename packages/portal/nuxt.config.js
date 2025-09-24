@@ -144,7 +144,13 @@ export default {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
         name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
-      }
+      },
+      trackers: [
+        {
+          host: process.env.MATOMO_2_HOST,
+          siteId: process.env.MATOMO_2_SITE_ID
+        }
+      ]
     },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
