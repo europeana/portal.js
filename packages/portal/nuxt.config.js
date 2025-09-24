@@ -301,6 +301,7 @@ export default {
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
+    '~/plugins/cookies',
     '~/plugins/keycloak',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
@@ -325,7 +326,6 @@ export default {
   modules: [
     '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
@@ -504,6 +504,7 @@ export default {
       'color-parse',
       'color-rgba',
       'color-space',
+      'cookie',
       'dom7',
       'ol/Collection.js',
       'ol/color.js',
