@@ -53,8 +53,6 @@
 
     mixins: [pageMetaMixin],
 
-    middleware: 'sanitisePageQuery',
-
     setup() {
       const { scrollToSelector } = useScrollTo();
       return { scrollToSelector };
@@ -106,7 +104,7 @@
         return getEntityTypeApi(this.entityTypeHumanReadable);
       },
       page() {
-        return this.$store.state.sanitised.page;
+        return Number(this.$route.query.page || 1);
       }
     },
 
