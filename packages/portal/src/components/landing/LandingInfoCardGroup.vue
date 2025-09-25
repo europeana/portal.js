@@ -35,7 +35,7 @@
       v-if="link?.url"
       :destination="link.url"
       data-qa="call to action"
-      class="btn btn-cta btn-secondary icon-chevron"
+      class="btn btn-cta btn-primary"
       hide-external-icon
     >
       {{ link.text }}

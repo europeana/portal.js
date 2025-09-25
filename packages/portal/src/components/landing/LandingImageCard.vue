@@ -168,7 +168,6 @@
       max-width: 1250px;
       margin-bottom: 6rem;
 
-      &:nth-child(even),
       &.image-card-even {
         .text-wrapper {
           order: -1;

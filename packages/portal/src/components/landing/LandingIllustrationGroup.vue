@@ -376,17 +376,6 @@
       background-color: $black;
     }
   }
-
-  .landing-illustration-group.pro {
-    .swiper-slide {
-      background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      background: $white;
-    }
-  }
 </style>
 
 <!-- Only DS4CH styles after this line! -->

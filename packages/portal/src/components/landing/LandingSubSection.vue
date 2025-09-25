@@ -167,66 +167,14 @@
     max-width: none;
   }
 
-  // TODO: Remove once replaced with LandingIllustrationGroup
-  //style overrides for providing institutions section Share your collections
-  ::v-deep .logo {
-    &.container {
-      padding: 0;
-      margin-bottom: 2rem;
-
-      @media (min-width: $bp-large) {
-        margin-bottom: 4rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        margin-bottom: 15rem;
-      }
+  :deep(.landing-illustration-group.pro) {
+    .swiper-slide {
+      background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
     }
 
-    .cards-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center !important;
-    }
-
-    .info-card {
-      flex-basis: calc(50% - 2rem);
-      margin: 0 1rem 1rem;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
-
-      @media (min-width: $bp-small) {
-        flex-basis: calc(25% - 2rem);
-      }
-
-      @media (min-width: $bp-large) {
-        margin: 0 1.5rem 1rem;
-        flex-basis: 127px;
-      }
-
-      @media (min-width: $bp-4k) {
-        margin: 0 2rem 1rem;
-        flex-basis: calc(1.5 * 127px);
-      }
-
-      .title {
-        display: none;
-      }
-      .image-wrapper {
-        flex: 0 0 100%;
-        height: auto;
-        width: 100%;
-        max-width: 127px;
-
-        @media (min-width: $bp-4k) {
-          max-width: calc(1.5 * 127px);
-        }
-
-        img {
-          mix-blend-mode: multiply; // fixes logo img with white background
-        }
-      }
+    .swiper-button-prev,
+    .swiper-button-next {
+      background: $white;
     }
   }
 </style>
