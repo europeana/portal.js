@@ -1,5 +1,8 @@
 <template>
-  <div class="image-card-group">
+  <div
+    class="image-card-group"
+    :class="backgroundImageClasses"
+  >
     <div
       class="header"
       :class="backgroundImageClasses"
@@ -76,9 +79,7 @@
 
     data() {
       return {
-        backgroundImageClasses: {
-          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
-        }
+        backgroundImageClasses: this.backgroundImage?.profile?.background && `bg-color-${this.backgroundImage?.profile?.background}`
       };
     },
 
@@ -93,6 +94,14 @@
 
   .image-card-group {
     border-bottom: 1px solid transparent;
+
+    &.bg-color-alternate {
+      background-color: $lightgrey;
+
+      :deep(.text-wrapper) {
+        background-color: $lightgrey;
+      }
+    }
   }
 
   .header {
