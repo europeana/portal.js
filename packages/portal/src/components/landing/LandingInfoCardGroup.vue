@@ -1,46 +1,50 @@
 <template>
-  <b-container
-    class="landing-info-card-group text-center"
-    :class="variant"
+  <div
+    class="landing-info-card-group"
+    :class="[variant, backgroundImageClasses]"
   >
-    <b-col class="header col-lg-8 text-center mx-auto px-0">
-      <component :is="titleTag">
-        {{ title }}
-      </component>
-      <!-- eslint-disable vue/no-v-html -->
+    <b-container
+      class="text-center"
+    >
+      <b-col class="header col-lg-8 text-center mx-auto px-0">
+        <component :is="titleTag">
+          {{ title }}
+        </component>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-if="text"
+          class="text mb-3"
+          v-html="parseMarkdown(text)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
+      </b-col>
       <div
-        v-if="text"
-        class="text mb-3"
-        v-html="parseMarkdown(text)"
-      />
-    <!-- eslint-enable vue/no-v-html -->
-    </b-col>
-    <div
-      v-if="infoCards.length"
-      class="cards-wrapper d-lg-flex flex-wrap mx-auto"
-      :class="{
-        'justify-content-between text-lg-left': twoColCardsLayout,
-        'justify-content-center': threeColCardsLayout
-      }"
-      data-qa="landing info card group cards wrapper"
-    >
-      <LandingInfoCard
-        v-for="(card, index) in infoCards"
-        :key="index"
-        :card="card"
-        :centered-content="threeColCardsLayout"
-      />
-    </div>
-    <SmartLink
-      v-if="link?.url"
-      :destination="link.url"
-      data-qa="call to action"
-      class="btn btn-cta btn-primary"
-      hide-external-icon
-    >
-      {{ link.text }}
-    </SmartLink>
-  </b-container>
+        v-if="infoCards.length"
+        class="cards-wrapper d-lg-flex flex-wrap mx-auto"
+        :class="{
+          'justify-content-between text-lg-left': twoColCardsLayout,
+          'justify-content-center': threeColCardsLayout
+        }"
+        data-qa="landing info card group cards wrapper"
+      >
+        <LandingInfoCard
+          v-for="(card, index) in infoCards"
+          :key="index"
+          :card="card"
+          :centered-content="threeColCardsLayout"
+        />
+      </div>
+      <SmartLink
+        v-if="link?.url"
+        :destination="link.url"
+        data-qa="call to action"
+        class="btn btn-cta btn-primary"
+        hide-external-icon
+      >
+        {{ link.text }}
+      </SmartLink>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -94,11 +98,19 @@
       variant: {
         type: String,
         default: 'pro'
+      },
+      /**
+       * Background image Object
+       */
+      backgroundImage: {
+        type: Object,
+        default: () => {}
       }
     },
 
     data() {
       return {
+        backgroundImageClasses: this.backgroundImage?.profile?.background && `bg-color-${this.backgroundImage?.profile?.background}`,
         threeColCardsLayout: this.infoCards.length % 3 === 0,
         twoColCardsLayout: this.infoCards.length % 3 !== 0
       };
@@ -124,6 +136,29 @@
     @media (min-width: $bp-4k) {
       margin-top: 15rem;
       margin-bottom: 7rem;
+    }
+  }
+
+  .landing-info-card-group {
+
+    &.bg-color-alternate {
+      background-color: $lightgrey;
+
+      .container {
+        padding-top: 3rem;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        @media (min-width: $bp-large) {
+          padding-top: 6rem;
+          padding-bottom: 2rem;
+        }
+
+        @media (min-width: $bp-4k) {
+          padding-top: 15rem;
+          padding-bottom: 7rem;
+        }
+      }
     }
   }
 
