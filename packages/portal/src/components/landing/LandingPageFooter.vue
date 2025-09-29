@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import landingPageMixin from '@/mixins/landingPage';
   import PageFooter from '@/components/page/PageFooter';
 
   export default {
@@ -18,20 +19,48 @@
       PageFooter
     },
 
+    mixins: [landingPageMixin],
+
     data() {
       return {
-        moreInfo: {
-          name: this.$t('landing.apis.footer.name'),
-          links: [
-            { url: 'https://europeana.atlassian.net/wiki/external/MGU4MjI4ZjA2MmM0NDg3M2JjODQ2ZTZjYzBhZWNhZTg', text: this.$t('landing.apis.footer.navigation.apiDocumentation') },
-            { url: 'https://pro.europeana.eu/pages/get-api', text: this.$t('landing.apis.footer.navigation.requestApiKey') },
-            { url: 'https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417/Europeana+API+FAQ', text: this.$t('footer.navigation.faq') },
-            { url: 'mailto:api@europeana.eu', text: this.$t('landing.apis.footer.navigation.contactUs') },
-            { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
-            { url: 'https://www.europeana.eu/rights/privacy-statement', text: this.$t('footer.navigation.privacy') }
-          ]
-        }
+        apisPage: {
+          moreInfo: {
+            name: this.$t('landing.apis.footer.name'),
+            links: [
+              { url: 'https://europeana.atlassian.net/wiki/external/MGU4MjI4ZjA2MmM0NDg3M2JjODQ2ZTZjYzBhZWNhZTg', text: this.$t('landing.apis.footer.navigation.apiDocumentation') },
+              { url: 'https://pro.europeana.eu/pages/get-api', text: this.$t('landing.apis.footer.navigation.requestApiKey') },
+              { url: 'https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417/Europeana+API+FAQ', text: this.$t('footer.navigation.faq') },
+              { url: 'mailto:api@europeana.eu', text: this.$t('landing.apis.footer.navigation.contactUs') },
+              { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
+              { url: 'https://www.europeana.eu/rights/privacy-statement', text: this.$t('footer.navigation.privacy') }
+            ]
+          }
+        },
+        bhmPage: {
+          moreInfo: {
+            name: this.$t('footer.navigation.MoreInfoLabel'),
+            links: [
+              { url: '/rights', text: this.$t('footer.navigation.terms') },
+              { url: '/rights/privacy-statement', text: this.$t('footer.navigation.privacy') },
+              { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
+              { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+            ]
+          }
+        },
+        pageId: this.landingPageIdForRoute({ $config: this.$config, route: this.$route })
       };
+    },
+
+    computed: {
+      moreInfo() {
+        if (this.pageId === 'apis') {
+          return this.apisPage.moreInfo;
+        } else if (this.pageId === 'black-history-month') {
+          return this.bhmPage.moreInfo;
+        } else {
+          return null;
+        }
+      }
     }
   };
 </script>
@@ -58,15 +87,6 @@
       @media (min-width: $bp-4k) {
         padding-top: 16.5rem;
         padding-bottom: 16.5rem;
-      }
-    }
-
-    .left-col,
-    .middle-col {
-      @media (min-width: $bp-wqhd) {
-        order: unset !important;
-        flex: 0 0 33.3333%;
-        max-width: 33.3333%;
       }
     }
 
@@ -135,6 +155,12 @@
           margin-bottom: $font-size-large !important;
           max-width: 90rem;
         }
+      }
+    }
+
+    .tech-partners {
+      @media (min-width: $bp-large) {
+        order: 3 !important;
       }
     }
   }
