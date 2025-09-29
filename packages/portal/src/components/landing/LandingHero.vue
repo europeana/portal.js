@@ -132,6 +132,11 @@
   .landing-hero {
     background-color: $lightgrey;
     position: relative;
+    padding-top: $page-header-height;
+
+    @media (min-width: $bp-4k) {
+      padding-top: $page-header-height-4k;
+    }
 
     .container {
       @media (min-width: $bp-xxl) {
