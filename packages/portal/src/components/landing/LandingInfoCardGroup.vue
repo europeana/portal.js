@@ -38,7 +38,8 @@
         v-if="link?.url"
         :destination="link.url"
         data-qa="call to action"
-        class="btn btn-cta btn-primary"
+        class="btn btn-cta"
+        :class="variant === 'ds4ch' ? 'btn-secondary icon-chevron' : 'btn-primary'"
         hide-external-icon
       >
         {{ link.text }}
