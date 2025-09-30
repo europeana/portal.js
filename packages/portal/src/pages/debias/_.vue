@@ -47,6 +47,10 @@
               >
                 {{ scopeNote }}
               </p>
+              <hr />
+              <aside>
+                This information was created by the <a href="https://pro.europeana.eu/project/de-bias">DE-BIAS project</a> (2023/2024) to help contextualize outdated and harmful terms in collection descriptions.
+              </aside>
             </article>
           </b-col>
         </b-row>
