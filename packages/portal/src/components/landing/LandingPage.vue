@@ -45,6 +45,7 @@
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
         :link="section.link"
         :variant="variant"
+        :background-image="section.image"
       />
       <b-container
         v-else-if="contentfulEntryHasContentType(section, 'ImageCard')"
