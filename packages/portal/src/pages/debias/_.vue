@@ -33,21 +33,25 @@
               >
                 {{ definition }}
               </p>
-              <h2 v-if="term.note[$i18n.locale]">Source</h2>
+              <h2 v-if="term.note[$i18n.locale]">
+                Source
+              </h2>
               <p
                 v-for="(note, index) of term.note[$i18n.locale]"
                 :key="index"
               >
                 {{ note }}
               </p>
-              <h2 v-if="term.scopeNote[$i18n.locale]">Recommendations for use</h2>
+              <h2 v-if="term.scopeNote[$i18n.locale]">
+                Recommendations for use
+              </h2>
               <p
                 v-for="(scopeNote, index) of term.scopeNote[$i18n.locale]"
                 :key="index"
               >
                 {{ scopeNote }}
               </p>
-              <hr />
+              <hr>
               <aside>
                 This information was created by the <a href="https://pro.europeana.eu/project/de-bias">DE-BIAS project</a> (2023/2024) to help contextualize outdated and harmful terms in collection descriptions.
               </aside>
