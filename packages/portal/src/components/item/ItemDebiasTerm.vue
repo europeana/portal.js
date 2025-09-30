@@ -33,7 +33,7 @@
         class="d-block text-right mx-0 mt-3"
       >
         <SmartLink
-          :destination="linkToDebiasProjectPage"
+          :destination="linkDestination"
           hide-external-icon
         >
           <span class="icon-debias-logo ml-1" />
@@ -73,6 +73,10 @@
       definition: {
         type: String,
         default: null
+      },
+      deBiasId: {
+        type: String,
+        default: null
       }
     },
 
@@ -81,10 +85,24 @@
       return { hideTooltips };
     },
 
-    data() {
-      return {
-        linkToDebiasProjectPage: 'https://pro.europeana.eu/project/de-bias'
-      };
+    computed: {
+      linkDestination() {
+        if (this.deBiasId) {
+          const uri = new URL(this.deBiasId);
+          const num = uri.pathname.split('/').pop().split('.').shift().split('_')[1];
+
+          const pathMatch = `${num}-${this.term.toLowerCase()}`;
+
+          return {
+            name: 'debias-all',
+            params: {
+              pathMatch
+            }
+          };
+        } else {
+          return 'https://pro.europeana.eu/project/de-bias';
+        }
+      }
     }
   };
 </script>
