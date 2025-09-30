@@ -33,14 +33,14 @@
               >
                 {{ definition }}
               </p>
-              <h2>Source</h2>
+              <h2 v-if="term.note[$i18n.locale]">Source</h2>
               <p
                 v-for="(note, index) of term.note[$i18n.locale]"
                 :key="index"
               >
                 {{ note }}
               </p>
-              <h2>Recommendations for use</h2>
+              <h2 v-if="term.scopeNote[$i18n.locale]">Recommendations for use</h2>
               <p
                 v-for="(scopeNote, index) of term.scopeNote[$i18n.locale]"
                 :key="index"
