@@ -223,6 +223,7 @@ export default {
       "recommendations": "Recommendations for use",
       "source": "Source"
     },
+    "termNotFound": "Term not found for this language.",
     "tooltip": {
       "linkToPage": "Read the full explanation provided by {projectName}"
     }

@@ -12,9 +12,7 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <template
-      v-else-if="term"
-    >
+    <template v-else>
       <AuthoredHead
         :title="title"
       />
@@ -26,7 +24,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <article>
+            <article v-if="term">
               <p
                 v-for="(definition, index) of term.definition?.[$i18n.locale]"
                 :key="`definition-${index}`"
@@ -63,6 +61,9 @@
                 </i18n>
               </aside>
             </article>
+            <p v-else>
+              {{ $t('debias.termNotFound') }}
+            </p>
           </b-col>
         </b-row>
       </b-container>
@@ -97,10 +98,6 @@
         });
 
         this.term = annotations?.[0]?.body || null;
-
-        if (!this.term) {
-          this.$error(404, { scope: 'page' });
-        }
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
@@ -113,7 +110,7 @@
       },
 
       title() {
-        return this.term?.prefLabel[this.$i18n.locale];
+        return this.term?.prefLabel[this.$i18n.locale] || this.$i18n.t('messages.notFound');
       },
 
       pageMeta() {

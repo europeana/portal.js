@@ -14,8 +14,10 @@ const prefLabel = 'Tribe';
 const id = 'https://rnd-2.eanadev.org/share/debias/vocabulary/c_44_en.xml';
 const pathMatch = '44-tribe';
 
+const $t = (key) => key;
 const $i18n = {
-  locale
+  locale,
+  t: $t
 };
 const $error = sinon.spy();
 
@@ -38,7 +40,7 @@ const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
         pathMatch
       }
     },
-    $t: key => key,
+    $t,
     ...mocks
   },
   stubs: [
@@ -70,13 +72,13 @@ describe('DeBiasPage', () => {
     });
 
     describe('when no term is found', () => {
-      it('triggers a 404 via error plugin', async() => {
+      it('displays a notice message', async() => {
         annotationApiSearchStub.resolves({ total: 0 });
         const wrapper = factory();
 
         await wrapper.vm.fetch();
 
-        expect($error.calledWith(404, { scope: 'page' })).toBe(true);
+        expect(wrapper.text()).toBe('debias.termNotFound');
       });
     });
 
