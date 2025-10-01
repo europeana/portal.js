@@ -21,7 +21,7 @@ describe('components/item/ItemDebiasTerm', () => {
     const wrapper = factory();
 
     expect(wrapper.find('dfn').text()).toEqual(propsData.term);
-    expect(wrapper.find('b-button-stub').text()).toEqual('record.explanationby');
+    expect(wrapper.find('b-button-stub').text()).toEqual('DE-BIAS');
     expect(wrapper.find('#item-debias-term-tooltip').exists()).toBe(true);
   });
 });
