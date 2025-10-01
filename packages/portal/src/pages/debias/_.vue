@@ -29,7 +29,7 @@
             <article>
               <p
                 v-for="(definition, index) of term.definition?.[$i18n.locale]"
-                :key="index"
+                :key="`definition-${index}`"
               >
                 {{ definition }}
               </p>
@@ -38,7 +38,7 @@
               </h2>
               <p
                 v-for="(note, index) of term.note?.[$i18n.locale]"
-                :key="index"
+                :key="`note-${index}`"
               >
                 {{ note }}
               </p>
@@ -47,7 +47,7 @@
               </h2>
               <p
                 v-for="(scopeNote, index) of term.scopeNote?.[$i18n.locale]"
-                :key="index"
+                :key="`scopeNote-${index}`"
               >
                 {{ scopeNote }}
               </p>
