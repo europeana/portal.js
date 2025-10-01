@@ -47,7 +47,8 @@ const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
     'AuthoredHead',
     'b-col',
     'b-row',
-    'b-container'
+    'b-container',
+    'i18n'
   ]
 });
 

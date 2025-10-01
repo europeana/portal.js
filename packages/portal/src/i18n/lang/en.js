@@ -1148,6 +1148,16 @@ export default {
       "topics": {
         "title": "Topics"
       }
+    },
+    "debias": {
+      "background": {
+        "link": "DE-BIAS project",
+        "text": "This information was created by the {link} (2023/2024) to help contextualize outdated and harmful terms in collection descriptions."
+      },
+      "headings": {
+        "recommendations": "Recommendations for use",
+        "source": "Source"
+      }
     }
   },
   "pagination": {

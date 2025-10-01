@@ -34,7 +34,7 @@
                 {{ definition }}
               </p>
               <h2 v-if="term.note?.[$i18n.locale]">
-                Source
+                {{ $t('pages.debias.headings.source') }}
               </h2>
               <p
                 v-for="(note, index) of term.note?.[$i18n.locale]"
@@ -43,7 +43,7 @@
                 {{ note }}
               </p>
               <h2 v-if="term.scopeNote?.[$i18n.locale]">
-                Recommendations for use
+                {{ $t('pages.debias.headings.recommendations') }}
               </h2>
               <p
                 v-for="(scopeNote, index) of term.scopeNote?.[$i18n.locale]"
@@ -53,7 +53,14 @@
               </p>
               <hr>
               <aside>
-                This information was created by the <a href="https://pro.europeana.eu/project/de-bias">DE-BIAS project</a> (2023/2024) to help contextualize outdated and harmful terms in collection descriptions.
+                <i18n
+                  path="pages.debias.background.text"
+                  tag="p"
+                >
+                  <template #link>
+                    <a href="https://pro.europeana.eu/project/de-bias">{{ $t('pages.debias.background.link') }}</a>
+                  </template>
+                </i18n>
               </aside>
             </article>
           </b-col>
