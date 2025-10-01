@@ -15,9 +15,15 @@
       @blur="hideTooltips"
     >
       <span class="icon-debias" />
-      <span class="visually-hidden">
-        {{ $t('record.explanationby', [$t('record.debias')]) }}
-      </span>
+      <i18n
+        path="debias.tooltip.linkToPage"
+        class="visually-hidden"
+        tag="span"
+      >
+        <template #projectName>
+          DE-BIAS
+        </template>
+      </i18n>
     </b-button>
     <span :id="tooltipId" />
     <b-tooltip
@@ -27,21 +33,23 @@
       :triggers="'hover focus click'"
     >
       {{ definition }}
-      <i18n
-        path="record.explanationby"
-        tag="cite"
-        class="d-block text-right mx-0 mt-3"
+      <SmartLink
+        :destination="linkDestination"
+        hide-external-icon
       >
-        <SmartLink
-          :destination="linkDestination"
-          hide-external-icon
+        <i18n
+          path="debias.tooltip.linkToPage"
+          tag="cite"
+          class="d-block text-right mx-0 mt-3"
         >
-          <span class="icon-debias-logo ml-1" />
-          <span class="visually-hidden">
-            {{ $t('record.debias') }}
-          </span>
-        </SmartLink>
-      </i18n>
+          <template #projectName>
+            <span class="icon-debias-logo ml-1" />
+            <span class="visually-hidden">
+              DE-BIAS
+            </span>
+          </template>
+        </i18n>
+      </SmartLink>
     </b-tooltip>
   </span>
 </template>

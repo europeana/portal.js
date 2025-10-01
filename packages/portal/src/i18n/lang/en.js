@@ -214,6 +214,19 @@ export default {
     "startDate": "Start date",
     "to": "to"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS project",
+      "text": "This information was created by the {link} (2023/2024) to help contextualize outdated and harmful terms in collection descriptions."
+    },
+    "headings": {
+      "recommendations": "Recommendations for use",
+      "source": "Source"
+    },
+    "tooltip": {
+      "linkToPage": "Read the full explanation provided by {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
@@ -1148,16 +1161,6 @@ export default {
       "topics": {
         "title": "Topics"
       }
-    },
-    "debias": {
-      "background": {
-        "link": "DE-BIAS project",
-        "text": "This information was created by the {link} (2023/2024) to help contextualize outdated and harmful terms in collection descriptions."
-      },
-      "headings": {
-        "recommendations": "Recommendations for use",
-        "source": "Source"
-      }
     }
   },
   "pagination": {
@@ -1181,8 +1184,6 @@ export default {
     },
     "allMetaData": "All metadata",
     "clickToCopyEmbedCode": "Click on the embed code to copy it",
-    "debias": "De-bias",
-    "explanationby": "Explanation provided by {0}",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
