@@ -186,8 +186,13 @@
   @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/landing';
 
-  .page {
+  .landing-page {
+    margin-top: -$page-header-height;
     border-bottom: 1px solid transparent; // fix for when any margin of the last component on the page causes grey bg to display
+
+    @media (min-width: $bp-4k) {
+      margin-top: -$page-header-height-4k;
+    }
 
     .scroll-margin-top {
       scroll-margin-top: 3.5rem;
@@ -217,7 +222,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/DS4CH/style';
 
-  .page.ds4ch-page {
+  .landing-page.ds4ch-page {
     margin-top: 0;
 
     &:after {
