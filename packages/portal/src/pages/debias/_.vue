@@ -13,7 +13,7 @@
       :error="$fetchState.error"
     />
     <template
-      v-else
+      v-else-if="term"
     >
       <AuthoredHead
         :title="title"
@@ -28,25 +28,25 @@
           >
             <article>
               <p
-                v-for="(definition, index) of term.definition[$i18n.locale]"
+                v-for="(definition, index) of term.definition?.[$i18n.locale]"
                 :key="index"
               >
                 {{ definition }}
               </p>
-              <h2 v-if="term.note[$i18n.locale]">
+              <h2 v-if="term.note?.[$i18n.locale]">
                 Source
               </h2>
               <p
-                v-for="(note, index) of term.note[$i18n.locale]"
+                v-for="(note, index) of term.note?.[$i18n.locale]"
                 :key="index"
               >
                 {{ note }}
               </p>
-              <h2 v-if="term.scopeNote[$i18n.locale]">
+              <h2 v-if="term.scopeNote?.[$i18n.locale]">
                 Recommendations for use
               </h2>
               <p
-                v-for="(scopeNote, index) of term.scopeNote[$i18n.locale]"
+                v-for="(scopeNote, index) of term.scopeNote?.[$i18n.locale]"
                 :key="index"
               >
                 {{ scopeNote }}
