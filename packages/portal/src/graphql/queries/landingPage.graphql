@@ -169,6 +169,9 @@ fragment infoCardGroupFields on InfoCardGroup {
     url
     text
   }
+  image {
+    ...illustrationFields
+  }
 }
 fragment cardGroupFields on CardGroup {
   headline

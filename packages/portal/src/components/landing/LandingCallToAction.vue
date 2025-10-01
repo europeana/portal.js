@@ -17,7 +17,7 @@
         :title="title"
         :text="text"
         :link="link"
-        :button-variant="variant === 'ds4ch' ? 'btn-primary': 'btn-outline-primary'"
+        :button-variant="buttonVariant"
       />
     </b-container>
   </div>
@@ -99,6 +99,12 @@
         ),
         defaultBackground: this.variant === 'pro' && !this.backgroundImage?.profile && !this.backgroundImage?.image
       };
+    },
+
+    computed: {
+      buttonVariant() {
+        return (this.variant === 'ds4ch' || this.defaultBackground) ? 'btn-primary' : 'btn-outline-primary';
+      }
     }
   };
 </script>

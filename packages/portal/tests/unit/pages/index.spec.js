@@ -295,4 +295,16 @@ describe('IndexPage', () => {
       expect(pageMetaSuffixTitle).toBeNull();
     });
   });
+
+  describe('when route is for apis page', () => {
+    const $route = { params: { pathMatch: 'apis' }, query: {} };
+
+    it('uses landing layout', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const layout = wrapper.vm.layout({ route: $route });
+
+      expect(layout).toBe('landing');
+    });
+  });
 });
