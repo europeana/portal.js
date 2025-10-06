@@ -49,16 +49,32 @@
               >
                 {{ scopeNote }}
               </p>
-              <hr>
               <aside>
-                <i18n
-                  path="debias.background.text"
-                  tag="p"
-                >
-                  <template #link>
-                    <a href="https://pro.europeana.eu/project/de-bias">{{ $t('debias.background.link') }}</a>
-                  </template>
-                </i18n>
+                <ImageOptimised
+                  v-if="logo"
+                  :src="logo.url"
+                  :width="logo.width"
+                  :height="logo.height"
+                  :content-type="logo.contentType"
+                  :contentful-image-crop-presets="imageCropPresets"
+                  :image-sizes="imageSizes"
+                />
+                <b-row>
+                  <b-col
+                    cols="12"
+                    class="col-lg-10"
+                  >
+                    <hr>
+                    <i18n
+                      path="debias.background.text"
+                      tag="p"
+                    >
+                      <template #link>
+                        <a href="https://pro.europeana.eu/project/de-bias">{{ $t('debias.background.link') }}</a>
+                      </template>
+                    </i18n>
+                  </b-col>
+                </b-row>
               </aside>
             </article>
             <p v-else>
@@ -72,13 +88,17 @@
 </template>
 
 <script>
+  import browseStaticPageGraphql from '@/graphql/queries/browseStaticPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import ImageOptimised from '@/components/image/ImageOptimised.vue';
+  import { IMAGE_CONTAINER_PRESETS as imageCropPresets, IMAGE_CONTAINER_SIZES as imageSizes } from '@/utils/contentful/imageCropPresets';
 
   export default {
     name: 'DeBiasPage',
     components: {
       AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      ImageOptimised,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [
@@ -86,11 +106,24 @@
     ],
     data() {
       return {
+        imageCropPresets,
+        imageSizes,
+        logo: null,
         term: null
       };
     },
     async fetch() {
+      const variables = {
+        identifier: 'debias',
+        locale: this.$i18n.localeProperties.iso,
+        preview: this.$route.query.mode === 'preview'
+      };
+
       try {
+        // Request Debias static page to retrieve logo image
+        const response = await this.$contentful.query(browseStaticPageGraphql, variables);
+        this.logo = response.data.staticPageCollection.items[0].image;
+
         const annotations = await this.$apis.annotation.search({
           query: `body_uri:"${this.id}"`,
           pageSize: 1,
@@ -123,3 +156,18 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+@import '@europeana/style/scss/variables';
+
+aside {
+  @media (min-width: $bp-medium) {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  @media (min-width: $bp-large) {
+    margin-left: -3rem;
+    margin-right: -3rem;
+  }
+}
+</style>

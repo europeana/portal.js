@@ -10,6 +10,7 @@ const annotationApiSearchStub = sinon.stub().resolves({});
 
 // const idNum = 44;
 const locale = 'en';
+const localeProperties = { iso: 'en-GB' };
 const prefLabel = 'Tribe';
 const id = 'https://rnd-2.eanadev.org/share/debias/vocabulary/c_44_en.xml';
 const pathMatch = '44-tribe';
@@ -17,9 +18,17 @@ const pathMatch = '44-tribe';
 const $t = (key) => key;
 const $i18n = {
   locale,
+  localeProperties,
   t: $t
 };
 const $error = sinon.spy();
+const contentfulQueryStub = sinon.stub().resolves({
+  data: {
+    staticPageCollection: {
+      items: [{ image: {} }]
+    }
+  }
+});
 
 const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -32,13 +41,17 @@ const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
         search: annotationApiSearchStub
       }
     },
+    $contentful: {
+      query: contentfulQueryStub
+    },
     $error,
     $fetchState: {},
     $i18n,
     $route: {
       params: {
         pathMatch
-      }
+      },
+      query: {}
     },
     $t,
     ...mocks
@@ -59,6 +72,17 @@ describe('DeBiasPage', () => {
   afterAll(sinon.reset);
 
   describe('fetch', () => {
+    it('queries contentful for the debias static page', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(contentfulQueryStub.calledWith(
+        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseStaticPage'),
+        { identifier: 'debias', locale: 'en-GB', preview: false }
+      )).toBe(true);
+    });
+
     it('searches for the term on the Annotation API', async() => {
       const wrapper = factory();
 
