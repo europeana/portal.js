@@ -13,9 +13,6 @@
       :error="$fetchState.error"
     />
     <template v-else>
-      <AuthoredHead
-        :title="title"
-      />
       <b-container
         class="footer-margin"
       >
@@ -25,6 +22,7 @@
             class="col-lg-8"
           >
             <article v-if="term">
+              <h1><q>{{ title }}</q></h1>
               <p
                 v-for="(definition, index) of term.definition?.[$i18n.locale]"
                 :key="`definition-${index}`"
@@ -102,7 +100,6 @@
   export default {
     name: 'DeBiasPage',
     components: {
-      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ImageOptimised,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
