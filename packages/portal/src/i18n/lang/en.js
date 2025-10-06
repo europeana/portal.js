@@ -220,6 +220,7 @@ export default {
       "text": "This information was created by the {link} (2023/2024) to help contextualize outdated and harmful terms in collection descriptions."
     },
     "headings": {
+      "alternatives": "Suggested alternatives",
       "recommendations": "Recommendations for use",
       "source": "Source"
     },

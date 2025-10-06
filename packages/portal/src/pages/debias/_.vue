@@ -49,6 +49,12 @@
               >
                 {{ scopeNote }}
               </p>
+              <h2 v-if="altLabel">
+                {{ $t('debias.headings.alternatives') }}
+              </h2>
+              <p>
+                {{ altLabel }}
+              </p>
               <aside>
                 <ImageOptimised
                   v-if="logo"
@@ -136,6 +142,9 @@
       }
     },
     computed: {
+      altLabel() {
+        return this.term.altLabel?.[this.$i18n.locale].join('; ');
+      },
       id() {
         const idNum = this.$route.params.pathMatch.split('-').shift();
 
