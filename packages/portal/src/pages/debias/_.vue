@@ -21,38 +21,40 @@
             cols="12"
             class="col-lg-8"
           >
-            <article v-if="term">
-              <h1><q>{{ title }}</q></h1>
-              <p
-                v-for="(definition, index) of term.definition?.[$i18n.locale]"
-                :key="`definition-${index}`"
-              >
-                {{ definition }}
-              </p>
-              <h2 v-if="term.note?.[$i18n.locale]">
-                {{ $t('debias.headings.source') }}
-              </h2>
-              <p
-                v-for="(note, index) of term.note?.[$i18n.locale]"
-                :key="`note-${index}`"
-              >
-                {{ note }}
-              </p>
-              <h2 v-if="term.scopeNote?.[$i18n.locale]">
-                {{ $t('debias.headings.recommendations') }}
-              </h2>
-              <p
-                v-for="(scopeNote, index) of term.scopeNote?.[$i18n.locale]"
-                :key="`scopeNote-${index}`"
-              >
-                {{ scopeNote }}
-              </p>
-              <h2 v-if="altLabel">
-                {{ $t('debias.headings.alternatives') }}
-              </h2>
-              <p>
-                {{ altLabel }}
-              </p>
+            <template v-if="term">
+              <article>
+                <h1><q>{{ title }}</q></h1>
+                <p
+                  v-for="(definition, index) of term.definition?.[$i18n.locale]"
+                  :key="`definition-${index}`"
+                >
+                  {{ definition }}
+                </p>
+                <h2 v-if="term.note?.[$i18n.locale]">
+                  {{ $t('debias.headings.source') }}
+                </h2>
+                <p
+                  v-for="(note, index) of term.note?.[$i18n.locale]"
+                  :key="`note-${index}`"
+                >
+                  {{ note }}
+                </p>
+                <h2 v-if="term.scopeNote?.[$i18n.locale]">
+                  {{ $t('debias.headings.recommendations') }}
+                </h2>
+                <p
+                  v-for="(scopeNote, index) of term.scopeNote?.[$i18n.locale]"
+                  :key="`scopeNote-${index}`"
+                >
+                  {{ scopeNote }}
+                </p>
+                <h2 v-if="altLabel">
+                  {{ $t('debias.headings.alternatives') }}
+                </h2>
+                <p>
+                  {{ altLabel }}
+                </p>
+              </article>
               <aside>
                 <ImageOptimised
                   v-if="logo"
@@ -80,7 +82,7 @@
                   </b-col>
                 </b-row>
               </aside>
-            </article>
+            </template>
             <p v-else>
               {{ $t('debias.termNotFound') }}
             </p>
