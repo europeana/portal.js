@@ -74,6 +74,7 @@
                     <i18n
                       path="debias.background.text"
                       tag="p"
+                      class="font-italic"
                     >
                       <template #link>
                         <a href="https://pro.europeana.eu/project/de-bias">{{ $t('debias.background.link') }}</a>
@@ -168,11 +169,36 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
+h1 {
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-small) {
+    margin-bottom: 2rem;
+  }
+}
+
+h2 {
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+
+  @media (min-width: $bp-small) {
+    margin-top: 2.625rem;
+    margin-bottom: 1rem;
+  }
+}
 aside {
+  margin-top: 1.5rem;
+
+  @media (min-width: $bp-small) {
+    font-size: 1.125rem;
+    margin-top: 2.625rem;
+  }
+
   @media (min-width: $bp-medium) {
     margin-left: -1rem;
     margin-right: -1rem;
   }
+
   @media (min-width: $bp-large) {
     margin-left: -3rem;
     margin-right: -3rem;
