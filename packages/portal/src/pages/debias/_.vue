@@ -95,7 +95,7 @@
 </template>
 
 <script>
-  import browseStaticPageGraphql from '@/graphql/queries/browseStaticPage.graphql';
+  import assetByIdGraphql from '@/graphql/queries/assetById.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import ImageOptimised from '@/components/image/ImageOptimised.vue';
   import { IMAGE_CONTAINER_PRESETS as imageCropPresets, IMAGE_CONTAINER_SIZES as imageSizes } from '@/utils/contentful/imageCropPresets';
@@ -119,16 +119,10 @@
       };
     },
     async fetch() {
-      const variables = {
-        identifier: 'debias',
-        locale: this.$i18n.localeProperties.iso,
-        preview: this.$route.query.mode === 'preview'
-      };
-
       try {
-        // Request Debias static page to retrieve logo image
-        const response = await this.$contentful.query(browseStaticPageGraphql, variables);
-        this.logo = response.data.staticPageCollection.items[0]?.image;
+        // Request Debias logo image by asset id
+        const response = await this.$contentful.query(assetByIdGraphql, { id: this.$config?.app?.debiasAssetId });
+        this.logo = response.data.asset;
 
         const annotations = await this.$apis.annotation.search({
           query: `body_uri:"${this.id}"`,
@@ -145,6 +139,7 @@
       altLabel() {
         return this.term.altLabel?.[this.$i18n.locale].join('; ');
       },
+
       id() {
         const idNum = this.$route.params.pathMatch.split('-').shift();
 

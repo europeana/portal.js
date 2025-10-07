@@ -24,11 +24,12 @@ const $i18n = {
 const $error = sinon.spy();
 const contentfulQueryStub = sinon.stub().resolves({
   data: {
-    staticPageCollection: {
+    curatedCardCollection: {
       items: [{ image: {} }]
     }
   }
 });
+const debiasAssetId = 'asset-id-001';
 
 const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -41,6 +42,7 @@ const factory = ({ data, mocks } = {}) => shallowMountNuxt(page, {
         search: annotationApiSearchStub
       }
     },
+    $config: { app: { debiasAssetId } },
     $contentful: {
       query: contentfulQueryStub
     },
@@ -72,14 +74,14 @@ describe('DeBiasPage', () => {
   afterAll(sinon.reset);
 
   describe('fetch', () => {
-    it('queries contentful for the debias static page', async() => {
+    it('queries contentful for the debias asset', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
       expect(contentfulQueryStub.calledWith(
-        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseStaticPage'),
-        { identifier: 'debias', locale: 'en-GB', preview: false }
+        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Asset'),
+        { id: debiasAssetId }
       )).toBe(true);
     });
 
