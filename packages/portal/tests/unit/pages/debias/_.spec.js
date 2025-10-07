@@ -144,9 +144,9 @@ describe('DeBiasPage', () => {
       const data = { term: { prefLabel: { [locale]: prefLabel } } };
       const wrapper = factory({ data });
 
-      const authoredHead = wrapper.find('authoredhead-stub');
+      const h1 = wrapper.find('h1');
 
-      expect(authoredHead.attributes('title')).toBe(prefLabel);
+      expect(h1.text()).toBe(prefLabel);
     });
   });
 });

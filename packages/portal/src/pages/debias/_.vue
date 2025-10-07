@@ -128,7 +128,7 @@
       try {
         // Request Debias static page to retrieve logo image
         const response = await this.$contentful.query(browseStaticPageGraphql, variables);
-        this.logo = response.data.staticPageCollection.items[0].image;
+        this.logo = response.data.staticPageCollection.items[0]?.image;
 
         const annotations = await this.$apis.annotation.search({
           query: `body_uri:"${this.id}"`,
@@ -158,7 +158,7 @@
       pageMeta() {
         return {
           title: this.title,
-          // description: ???,
+          description: this.term?.definition?.[this.$i18n.locale]?.[0],
           ogType: 'article'
         };
       }
