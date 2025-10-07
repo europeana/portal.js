@@ -104,7 +104,7 @@ describe('DeBiasPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.text()).toBe('debias.termNotFound');
+        expect(wrapper.find('p').text()).toBe('debias.termNotFound');
       });
     });
 

@@ -125,7 +125,7 @@
       try {
         // Request Debias logo image by asset id
         const response = await this.$contentful.query(assetByIdGraphql, { id: this.$config?.app?.debiasAssetId });
-        this.logo = response.data.asset;
+        this.logo = response?.data?.asset;
 
         const annotations = await this.$apis.annotation.search({
           query: `body_uri:"${this.id}"`,
