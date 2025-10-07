@@ -84,9 +84,12 @@
                 </b-row>
               </aside>
             </template>
-            <p v-else>
-              {{ $t('debias.termNotFound') }}
-            </p>
+            <template v-else>
+              <h1>{{ title }}</h1>
+              <p>
+                {{ $t('debias.termNotFound') }}
+              </p>
+            </template>
           </b-col>
         </b-row>
       </b-container>
@@ -137,7 +140,7 @@
     },
     computed: {
       altLabel() {
-        return this.term.altLabel?.[this.$i18n.locale].join('; ');
+        return this.term?.altLabel?.[this.$i18n.locale].join('; ');
       },
 
       id() {
