@@ -179,7 +179,7 @@ h1 {
 
 // Override quotation style for English only
 :lang(en) h1 q {
-  quotes: "‘" "’";
+  quotes: '‘' '’';
 }
 
 h2 {
