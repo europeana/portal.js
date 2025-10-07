@@ -224,7 +224,7 @@ export default {
       "recommendations": "Recommendations for use",
       "source": "Source"
     },
-    "termNotFound": "Term not found for this language.",
+    "termNotFound": "This page is only available in the language of the biased term.",
     "tooltip": {
       "linkToPage": "Read the full explanation provided by {projectName}"
     }
