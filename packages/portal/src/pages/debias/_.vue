@@ -177,6 +177,11 @@ h1 {
   }
 }
 
+// Override quotation style for English only
+:lang(en) h1 q {
+  quotes: "‘" "’";
+}
+
 h2 {
   margin-bottom: 1rem;
   margin-top: 1.5rem;
