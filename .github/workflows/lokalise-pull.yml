@@ -1,0 +1,36 @@
+name: "Lokalise: pull"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull from Lokalise
+        uses: lokalise/lokalise-pull-action@v3.9.1
+        with:
+          api_token: ${{ secrets.LOKALISE_API_TOKEN }}
+          project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
+          file_format: react_native
+          file_ext: js
+          translations_path: packages/portal/src/i18n/lang
+          base_lang: en_GB
+          flat_naming: true
+          skip_include_tags: true
+          always_pull_base: true
+          git_commit_message: "chore: update translations"
+          custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
+          additional_params: |
+            --indentation=2sp
+            --export-empty-as=skip
+            --export-sort=a_z
+            --replace-breaks=false
+            --add-newline-eof=true
+            --language-mapping=[{"original_language_iso":"en_GB","custom_language_iso":"en"},{"original_language_iso":"mt_MT","custom_language_iso":"mt"},{"original_language_iso":"ga_IE","custom_language_iso":"ga"}]
+            --placeholder-format=icu
