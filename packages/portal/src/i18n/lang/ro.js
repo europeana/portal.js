@@ -214,10 +214,29 @@ export default {
     "startDate": "Data de început",
     "to": "la"
   },
+  "debias": {
+    "background": {
+      "link": "Proiectul DE-BIAS",
+      "text": "Aceste informații au fost create de {link} (2023/2024) pentru a ajuta la contextualizarea termenilor învechiți și dăunători din descrierile colecțiilor."
+    },
+    "headings": {
+      "alternatives": "Alternative sugerate",
+      "recommendations": "Recomandări de utilizare",
+      "source": "Sursă"
+    },
+    "termNotFound": "Această pagină este disponibilă numai în limba termenului părtinitor.",
+    "tooltip": {
+      "linkToPage": "Citește explicația completă oferită de {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Introduceți cheia API Europeana și va fi folosită în linkurile către solicitările API.",
+          "descriptionLine2": "Aveți nevoie de o cheie API? Înregistrați-vă pentru una {link}.",
+          "here": "aici",
+          "label": "Cheia API",
           "usePersonal": {
             "linkText": "Introduceți cheia API personală",
             "prompt": "{link} și va fi utilizat."
@@ -233,7 +252,18 @@ export default {
     "right": "Dreapta"
   },
   "ds4ch": {
-    "broughtBy": "Adus vouă de"
+    "broughtBy": "Adus vouă de",
+    "footer": {
+      "disclaimerLine1": "Spațiul european comun de date pentru patrimoniul cultural este o inițiativă a Uniunii Europene, finanțată de Programul Europa digitală al Uniunii Europene. Serviciile de spațiu de date, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în cadrul unui contract de servicii cu Comisia Europeană."
+    },
+    "header": {
+      "navigation": {
+        "about": "Despre spațiul de date",
+        "explore": "Explorează datele",
+        "partners": "Parteneri"
+      }
+    },
+    "homeLinkAlt": "Pagina principală a spațiului european comun de date pentru patrimoniul cultural"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "embedNotification": {
@@ -271,6 +301,9 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
+    },
     "authClientDisabled": {
       "description": "Această cheie API a fost deja dezactivată, poate într-un alt tab al browserului.",
       "title": "Cheia este deja dezactivată"
@@ -299,9 +332,6 @@ export default {
     "genericUnknownError": {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
-    },
-    "IIIFManifestFailure": {
-      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
     },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
@@ -338,37 +368,6 @@ export default {
     "exhibitions": "Expoziție | Expozitii"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Dacă doriți să căutați în textul ziarelor, va trebui să utilizați căutarea avansată și să alegeți câmpul „text integral”.",
-        "ww1": "Dacă doriți să căutați în textul documentelor din Primul Război Mondial, va trebui să utilizați căutarea avansată și să alegeți câmpul \"text integral\"."
-      }
-    },
-    "button": {
-      "morefilters": "Mai multe filtre",
-      "showAdditional": "{show} filtre suplimentare",
-      "showAll": "Afișează tot {label}",
-      "showLess": "Afișează mai puțin {label}"
-    },
-    "collection": {
-      "name": "Temă",
-      "options": {
-        "archaeology": "Arheologie",
-        "art": "Artă",
-        "fashion": "Modă",
-        "industrial": "Patrimoniu industrial",
-        "manuscript": "Manuscrise",
-        "map": "Hărți și Geografie",
-        "migration": "Migrație",
-        "music": "Muzică",
-        "nature": "Istorie naturală",
-        "newspaper": "Ziare",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Primul Război Mondial"
-      },
-      "select": "Selectați o temă"
-    },
     "COLOURPALETTE": {
       "moreName": "culori",
       "name": "Culoare",
@@ -520,18 +519,6 @@ export default {
       },
       "select": "Selectați culorile"
     },
-    "contentTier": {
-      "name": "Calitatea resursă culturală",
-      "options": {
-        "*": "Sunt incluse resurse culturale care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Nu îndeplinește criteriile de publicare.",
-        "1": "Calitate scăzută",
-        "2": "Calitate medie",
-        "3": "De înaltă calitate și reutilizabil cu condiții",
-        "4": "De înaltă calitate și reutilizabil gratuit"
-      },
-      "select": "Selectați calitățile resursă culturală"
-    },
     "COUNTRY": {
       "name": "Țara de proveniență",
       "options": {
@@ -665,12 +652,99 @@ export default {
       },
       "select": "Selectați formatele de fișiere"
     },
-    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "PROVIDER": {
       "moreName": "agregatori",
       "name": "Agregator",
       "select": "Selectați agregatori"
     },
+    "REUSABILITY": {
+      "name": "Pot folosi asta?",
+      "options": {
+        "open": "Da",
+        "permission": "Poate, obțineți permisiunea",
+        "restricted": "Da, cu condiții",
+        "uncategorized": "Fără categorie"
+      },
+      "select": "Selectați dacă puteți utiliza acest lucru"
+    },
+    "RIGHTS": {
+      "name": "Declarație de drepturi",
+      "options": {
+        "*/CNE/*": "Drepturi de autor Neevaluate",
+        "*/InC-EDU/*": "În drepturi de autor - Utilizarea educațională permisă",
+        "*/InC-OW-EU/*": "În dreptul de autor - OW-EU",
+        "*/InC/*": "În dreptul de autor",
+        "*/NoC-NC/*": "Fără drepturi de autor - Numai pentru utilizare necomercială",
+        "*/NoC-OKLR/*": "Fără drepturi de autor - Alte restricții legale cunoscute",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Marca domeniului public",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "În afara dreptului de autor - reutilizare fără scop comercial",
+        "*/rights/rr-f/*": "Drepturi rezervate - Acces gratuit",
+        "*/rights/unknown/*": "Starea drepturilor de autor necunoscută"
+      },
+      "select": "Selectați declarațiile de drepturi"
+    },
+    "TYPE": {
+      "name": "Tip de media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagine",
+        "SOUND": "Sunet",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Selectați tipurile de media"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Dacă doriți să căutați în textul ziarelor, va trebui să utilizați căutarea avansată și să alegeți câmpul „text integral”.",
+        "ww1": "Dacă doriți să căutați în textul documentelor din Primul Război Mondial, va trebui să utilizați căutarea avansată și să alegeți câmpul \"text integral\"."
+      }
+    },
+    "button": {
+      "morefilters": "Mai multe filtre",
+      "showAdditional": "{show} filtre suplimentare",
+      "showAll": "Afișează tot {label}",
+      "showLess": "Afișează mai puțin {label}"
+    },
+    "collection": {
+      "name": "Temă",
+      "options": {
+        "archaeology": "Arheologie",
+        "art": "Artă",
+        "fashion": "Modă",
+        "industrial": "Patrimoniu industrial",
+        "manuscript": "Manuscrise",
+        "map": "Hărți și Geografie",
+        "migration": "Migrație",
+        "music": "Muzică",
+        "nature": "Istorie naturală",
+        "newspaper": "Ziare",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Primul Război Mondial"
+      },
+      "select": "Selectați o temă"
+    },
+    "contentTier": {
+      "name": "Calitatea resursă culturală",
+      "options": {
+        "*": "Sunt incluse resurse culturale care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Nu îndeplinește criteriile de publicare.",
+        "1": "Calitate scăzută",
+        "2": "Calitate medie",
+        "3": "De înaltă calitate și reutilizabil cu condiții",
+        "4": "De înaltă calitate și reutilizabil gratuit"
+      },
+      "select": "Selectați calitățile resursă culturală"
+    },
+    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "proxy_dc_format": {
       "name": "Format",
       "select": "Selectați formate"
@@ -685,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Mediu",
       "select": "Selectați media"
-    },
-    "REUSABILITY": {
-      "name": "Pot folosi asta?",
-      "options": {
-        "open": "Da",
-        "permission": "Poate, obțineți permisiunea",
-        "restricted": "Da, cu condiții",
-        "uncategorized": "Fără categorie"
-      },
-      "select": "Selectați dacă puteți utiliza acest lucru"
-    },
-    "TYPE": {
-      "name": "Tip de media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Imagine",
-        "SOUND": "Sunet",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Selectați tipurile de media"
     }
   },
   "fieldLabels": {
@@ -724,6 +777,8 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
+      "dcTitle": "Titlu",
+      "dcType": "Tipul resursă culturală",
       "dctermsAlternative": "Titlu alternativ",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
@@ -739,10 +794,8 @@ export default {
       "dctermsProvenance": "Provenienţă",
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Cuprins",
-      "dcTitle": "Titlu",
-      "dcType": "Tipul resursă culturală",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituție furnizoare",
@@ -781,16 +834,17 @@ export default {
   "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
+    "disclaimerLine1": "Spațiul european comun de date pentru patrimoniul cultural este o inițiativă a Uniunii Europene, finanțată de Programul Europa digitală al Uniunii Europene. Serviciile de spațiu de date, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în cadrul unui contract de servicii cu Comisia Europeană, numărul contractului LC-01901432.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
+      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "faq": "Întrebări frecvente (FAQ)",
       "help": "Help",
-      "MoreInfoLabel": "Mai multe informații",
       "privacy": "Declarație de confidențialitate",
       "registerApiKey": "Înregistrați-vă pentru o cheie API",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
@@ -819,7 +873,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
-      "home": "Pagină natală",
+      "home": "Acasă",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -923,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
         "title": "Comutare depanare"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Colectează date de utilizare pentru a ne ajuta să analizăm interacțiunile utilizatorilor. Activează un widget de sondaj care vă oferă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Reține limba de interfață preferată pentru acces viitor.",
         "title": "Codul limbii"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
         "title": "Birou de service Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
@@ -1041,94 +1005,34 @@ export default {
         "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
         "title": "Căutare multilingvă"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
         "title": "Notificare pentru funcții noi"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
         "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "furnizor necunoscut",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "furnizor necunoscut"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Resurse",
         "navigation": {
-          "faq": "FAQ"
+          "apiDocumentation": "Documentație API",
+          "contactUs": "Contactați-ne",
+          "requestApiKey": "Solicitați o cheie API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Pagina principală a API-urilor Europeana",
+        "navigation": {
+          "apiDemo": "Demo API",
+          "europeanaApis": "API-uri Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Găsește inspirație"
         }
       }
     },
@@ -1168,10 +1072,10 @@ export default {
       "show": "Afișați paginile"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Adnotări",
       "annotationsCount": "1 Adnotare | {count} adnotări",
       "hide": "Ascunde bara laterală",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Linkuri",
       "search": "Căutare",
       "searchPlaceholder": "Introduceți termeni",
@@ -1206,8 +1110,8 @@ export default {
     "enrichment": "Îmbogățirea prin proiecte partenere",
     "stopViewingThisItemIn": "Opriți vizualizarea acestei resurse culturale în {0}",
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu.",
-    "viewingThisItemIn": "Vizualizarea acestei resurse culturale în {0}",
-    "viewItemInAnotherLanguage": "Vizualizați această resursă culturală în altă limbă"
+    "viewItemInAnotherLanguage": "Vizualizați această resursă culturală în altă limbă",
+    "viewingThisItemIn": "Vizualizarea acestei resurse culturale în {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
@@ -1222,9 +1126,6 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -1282,8 +1183,6 @@ export default {
     },
     "allMetaData": "Toate metadatele",
     "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
-    "debias": "De-bias",
-    "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
@@ -1358,6 +1257,7 @@ export default {
         "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
         "field": "Selectați câmpul de text integral sau câmpul de metadate în care doriți să căutați.",
         "fields": {
+          "YEAR": "Introduceți un an legat de resursa/resursele culturale. De exemplu, ‘1919’.",
           "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului.",
           "proxy_dc_coverage": "Introduceți un termen care se referă la un loc sau un punct/perioadă în timp. De exemplu, „1995-1996” sau „Berlin” sau „http://sws.geonames.org/2287781/”.",
           "proxy_dc_date": "Introduceți un termen care se referă la o dată semnificativă legată de resursa culturală/resursele culturale. De exemplu, orice dată în formatul ‘AAAA-LL-ZZ’, un an singular ca ‘1919’, sau definiții mai largi cum ar fi ‘Începutul secolului 20’.",
@@ -1368,8 +1268,7 @@ export default {
           "proxy_dcterms_issued": "Introduceți un termen care se referă la data emiterii sau publicării resursei culturale/resurselor culturale. De exemplu, orice dată în formatul ‘AAAA-LL-ZZ’, un an singular ca ‘1919’, sau definiții mai largi cum ar fi ‘începutul secolului 20’. Pentru alte date care ar putea fi semnificative, căutați în câmpurile Dată, Data creării sau An.",
           "proxy_dcterms_medium": "Introduceți un termen care se referă la materialele utilizate sau la natura fizică a resursei culturale. De exemplu, ‘metal’ sau ‘hârtie’. Pentru definiții mai largi ale materialelor, cum ar fi ‘sculptură’ sau ‘pictură’, încercați câmpul ‘TIP DE MEDIA’.",
           "proxy_dcterms_temporal": "Introduceți un termen care se referă la o perioadă sau un punct în timp cu care resursa culturală/resursele culturale sunt legate, de exemplu o imagine care înfățișează un oraș în 1930. Introduceți de exemplu ‘Imperiul Roman’ sau ‘Renașterea’. Pentru date specifice, căutați în câmpurile Dată, Data creării, Data emiterii sau An.",
-          "proxy_edm_hasMet": "Introduceți un termen care se referă la o persoană, un loc, o perioadă sau orice altceva cu care resursa culturală/resursele culturale pot avea legături strânse. De exemplu, ‘William Shakespeare’.",
-          "YEAR": "Introduceți un an legat de resursa/resursele culturale. De exemplu, ‘1919’."
+          "proxy_edm_hasMet": "Introduceți un termen care se referă la o persoană, un loc, o perioadă sau orice altceva cu care resursa culturală/resursele culturale pot avea legături strânse. De exemplu, ‘William Shakespeare’."
         },
         "modifier": "Alegeți modul în care acest câmp ar trebui să modifice căutarea.",
         "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
@@ -1387,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
       "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
       "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
+      "withQuery": "{count} rezultate pentru {query}",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
-      "withoutQuery": "{count} rezultate",
-      "withQuery": "{count} rezultate pentru {query}"
+      "withoutQuery": "{count} rezultate"
     },
     "selectTheme": "Selectarea unei TEMĂ poate oferi opțiuni suplimentare de filtrare, de exemplu, tema Ziare include un filtru DATA EMISĂRII.",
     "title": "Căutare"
