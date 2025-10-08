@@ -24,10 +24,11 @@ jobs:
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN_RW }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
-          file_format: js
+          file_format: react_native
+          file_ext: js
           translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
-          flat_naming: false
+          flat_naming: true
           name_pattern: en.js
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
