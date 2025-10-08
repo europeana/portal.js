@@ -5,7 +5,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti / Registruotis",
+    "linkLoginJoin": "Prisijungti \/ Registruotis",
     "linkLogout": "Atsijungti",
     "manageApiKeys": "Tvarkyti API raktus",
     "menu": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Pradžios data",
     "to": "į"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projektas",
+      "text": "Šią informaciją sukūrė {link} (2023\/2024), kad padėtų suteikti kontekstą pasenusiam ir žalingam terminų vartojimui rinkinių aprašuose."
+    },
+    "headings": {
+      "alternatives": "Siūlomos alternatyvos",
+      "recommendations": "Naudojimo rekomendacijos",
+      "source": "Šaltinis"
+    },
+    "termNotFound": "Šis puslapis prieinamas tik šališko termino kalba.",
+    "tooltip": {
+      "linkToPage": "Perskaitykite išsamų {projectName} pateiktą paaiškinimą"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
+          "descriptionLine2": "Reikia API rakto? Užsiregistruokite {link}.",
+          "here": "čia",
+          "label": "API raktas",
           "usePersonal": {
             "linkText": "Įveskite savo asmeninį API raktą",
             "prompt": "{link} ir jis bus naudojamas."
@@ -233,7 +252,18 @@ export default {
     "right": "Dešinė"
   },
   "ds4ch": {
-    "broughtBy": "Jums atnešė"
+    "broughtBy": "Jums pristato",
+    "footer": {
+      "disclaimerLine1": "Europos bendra kultūros paveldo duomenų erdvė yra Europos Sąjungos iniciatyva, finansuojama pagal Europos Sąjungos Skaitmeninės Europos programą. Duomenų erdvės paslaugas, įskaitant šią interneto svetainę, teikia Europeana fondo vadovaujamas konsorciumas pagal paslaugų sutartį su Europos Komisija."
+    },
+    "header": {
+      "navigation": {
+        "about": "Apie duomenų erdvę",
+        "explore": "Išnagrinėkite duomenis",
+        "partners": "Partneriai"
+      }
+    },
+    "homeLinkAlt": "Bendroji Europos kultūros paveldo duomenų erdvės pradžia"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "embedNotification": {
@@ -264,13 +294,16 @@ export default {
         "title": "Per daug prisegtų skaitmeniniai objektai"
       },
       "pinned": "Skaitmeninis objektas buvo prisegtas. Jis atsiras kaip pirmas elementas kolekcijoje „{entity}\". Pranešime Jums, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
-      "select": "Pasirinkite susijusį entitetą, norėdami prisegti / atsegti skaitmeninį objektą prie jo / nuo jo.",
+      "select": "Pasirinkite susijusį entitetą, norėdami prisegti \/ atsegti skaitmeninį objektą prie jo \/ nuo jo.",
       "unpin": "Šis skaitmeninis objektas nebebus rodomas kolekcijos „ {entity} “ viršuje. Pranešime jums, kai šios pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Skaitmeninis objektas buvo atsegtas. Pranešime Jums, kai šie pakeitimai bus matomi kolekcijos puslapyje."
     }
   },
   "error": "Klaida",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
+    },
     "authClientDisabled": {
       "description": "Šis API raktas jau išjungtas, galbūt kitame naršyklės skirtuke.",
       "title": "Raktas jau išjungtas"
@@ -300,9 +333,6 @@ export default {
       "description": "Įvyko nežinoma klaida.",
       "title": "Nežinoma klaida"
     },
-    "IIIFManifestFailure": {
-      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
-    },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
       "metaTitle": "Skaitmeninis objektas nerasta",
@@ -317,7 +347,7 @@ export default {
       "title": "Puslapis, kurio ieškote, neegzistuoja."
     },
     "pinningNotFound": {
-      "description": "Įvyko klaida prisegant / atsegant skaitmeninis objektas. Pabandykite dar kartą arba praneškite apie problemą.",
+      "description": "Įvyko klaida prisegant \/ atsegant skaitmeninis objektas. Pabandykite dar kartą arba praneškite apie problemą.",
       "title": "Kuruojama kolekcija nerasta"
     },
     "searchPaginationLimitExceeded": {
@@ -338,37 +368,6 @@ export default {
     "exhibitions": "Paroda | Parodos"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Jei norite ieškoti laikraščių tekstuose, turėsite naudoti pažangųjį paiešką ir pasirinkti \"pilnas tekstas\" lauką.",
-        "ww1": "Jei norite atlikti paiešką Pirmojo pasaulinio karo dokumentų tekste, turite naudoti išplėstinę paiešką ir pasirinkti \"pilnas tekstas\" lauką."
-      }
-    },
-    "button": {
-      "morefilters": "Daugiau filtrų",
-      "showAdditional": "{show} papildomi filtrai",
-      "showAll": "Rodyti visus {label}",
-      "showLess": "Rodyti mažiau {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Archeologija",
-        "art": "Menas",
-        "fashion": "Mada",
-        "industrial": "Pramoninis paveldas",
-        "manuscript": "Rankraščiai",
-        "map": "Žemėlapiai ir geografija",
-        "migration": "Migracija",
-        "music": "Muzika",
-        "nature": "Gamtos istorija",
-        "newspaper": "Laikraščiai",
-        "photography": "Fotografija",
-        "sport": "Sportas",
-        "ww1": "Pirmasis pasaulinis karas"
-      },
-      "select": "Pasirinkite temą"
-    },
     "COLOURPALETTE": {
       "moreName": "spalvos",
       "name": "Spalva",
@@ -520,18 +519,6 @@ export default {
       },
       "select": "Pasirinkite spalvas"
     },
-    "contentTier": {
-      "name": "Skaitmeninis objektas kokybė",
-      "options": {
-        "*": "Rodomi skaitmeniniai objektai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Neatitinka publikavimo kriterijų",
-        "1": "Žema kokybė",
-        "2": "Vidutinė kokybė",
-        "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
-        "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
-      },
-      "select": "Pasirinkite skaitmeninio objekto savybes."
-    },
     "COUNTRY": {
       "name": "Teikianti šalis",
       "options": {
@@ -661,16 +648,103 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       },
       "select": "Pasirinkite failų formatus"
     },
-    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "PROVIDER": {
       "moreName": "agregatoriai",
       "name": "Agregatorius",
       "select": "Pasirinkite agregatorius"
     },
+    "REUSABILITY": {
+      "name": "Ar galiu tai naudoti?",
+      "options": {
+        "open": "Taip",
+        "permission": "Galbūt, kreipkitės leidimo",
+        "restricted": "Taip, su sąlygomis",
+        "uncategorized": "Neklasifikuota"
+      },
+      "select": "Pasirinkite, ar galite tai naudoti"
+    },
+    "RIGHTS": {
+      "name": "Teisių pareiškimas",
+      "options": {
+        "*\/CNE\/*": "Autorių teisės Neįvertinta",
+        "*\/InC-EDU\/*": "Autorių teisės saugomos - leidžiama naudoti švietimo tikslais",
+        "*\/InC-OW-EU\/*": "Autorių teisės – OW-EU",
+        "*\/InC\/*": "Autorių teisės",
+        "*\/NoC-NC\/*": "Nėra autorių teisių - Tik nekomerciniam naudojimui",
+        "*\/NoC-OKLR\/*": "Nėra autorių teisių – Kiti žinomi teisiniai apribojimai",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Viešojo domeno ženklas",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Ne autorių teisių apsauga - nekomercinis pakartotinis naudojimas",
+        "*\/rights\/rr-f\/*": "Teisės saugomos – Nemokama prieiga",
+        "*\/rights\/unknown\/*": "Nežinomas autorių teisių statusas"
+      },
+      "select": "Pasirinkti teisių išrašus"
+    },
+    "TYPE": {
+      "name": "Medijos tipas",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Vaizdas",
+        "SOUND": "Garsas",
+        "TEXT": "Tekstas",
+        "VIDEO": "Vaizdo įrašas"
+      },
+      "select": "Pasirinkite laikmenos tipus"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Jei norite ieškoti laikraščių tekstuose, turėsite naudoti pažangųjį paiešką ir pasirinkti \"pilnas tekstas\" lauką.",
+        "ww1": "Jei norite atlikti paiešką Pirmojo pasaulinio karo dokumentų tekste, turite naudoti išplėstinę paiešką ir pasirinkti \"pilnas tekstas\" lauką."
+      }
+    },
+    "button": {
+      "morefilters": "Daugiau filtrų",
+      "showAdditional": "{show} papildomi filtrai",
+      "showAll": "Rodyti visus {label}",
+      "showLess": "Rodyti mažiau {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Archeologija",
+        "art": "Menas",
+        "fashion": "Mada",
+        "industrial": "Pramoninis paveldas",
+        "manuscript": "Rankraščiai",
+        "map": "Žemėlapiai ir geografija",
+        "migration": "Migracija",
+        "music": "Muzika",
+        "nature": "Gamtos istorija",
+        "newspaper": "Laikraščiai",
+        "photography": "Fotografija",
+        "sport": "Sportas",
+        "ww1": "Pirmasis pasaulinis karas"
+      },
+      "select": "Pasirinkite temą"
+    },
+    "contentTier": {
+      "name": "Skaitmeninis objektas kokybė",
+      "options": {
+        "*": "Rodomi skaitmeniniai objektai, neatitinkantys mūsų paskelbimo kriterijų.",
+        "0": "Neatitinka publikavimo kriterijų",
+        "1": "Žema kokybė",
+        "2": "Vidutinė kokybė",
+        "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
+        "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
+      },
+      "select": "Pasirinkite skaitmeninio objekto savybes."
+    },
+    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "proxy_dc_format": {
       "name": "Formatas",
       "select": "Pasirinkite formatus"
@@ -685,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Vidutinis",
       "select": "Pasirinkite laikmeną"
-    },
-    "REUSABILITY": {
-      "name": "Ar galiu tai naudoti?",
-      "options": {
-        "open": "Taip",
-        "permission": "Galbūt, kreipkitės leidimo",
-        "restricted": "Taip, su sąlygomis",
-        "uncategorized": "Neklasifikuota"
-      },
-      "select": "Pasirinkite, ar galite tai naudoti"
-    },
-    "TYPE": {
-      "name": "Medijos tipas",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Vaizdas",
-        "SOUND": "Garsas",
-        "TEXT": "Tekstas",
-        "VIDEO": "Vaizdo įrašas"
-      },
-      "select": "Pasirinkite laikmenos tipus"
     }
   },
   "fieldLabels": {
@@ -724,6 +777,8 @@ export default {
       "dcRights": "Teisės",
       "dcSource": "Šaltinis",
       "dcSubject": "Tema",
+      "dcTitle": "Pavadinimas",
+      "dcType": "Skaitmeninis objektas tipas",
       "dctermsAlternative": "Alternatyvus pavadinimas",
       "dctermsCreated": "Sukūrimo data",
       "dctermsExtent": "Apimtis",
@@ -739,10 +794,8 @@ export default {
       "dctermsProvenance": "Kilmė",
       "dctermsReferences": "Nurodo",
       "dctermsSpatial": "Vietos",
-      "dctermsTemporal": "Laiko",
       "dctermsTOC": "Turinio lentelė",
-      "dcTitle": "Pavadinimas",
-      "dcType": "Skaitmeninis objektas tipas",
+      "dctermsTemporal": "Laiko",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
       "edmDataProvider": "Teikėjas",
@@ -781,16 +834,17 @@ export default {
   "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
+    "disclaimerLine1": "Europos bendra kultūros paveldo duomenų erdvė yra Europos Sąjungos iniciatyva, finansuojama pagal Europos Sąjungos Skaitmeninės Europos programą. Duomenų erdvės paslaugas, įskaitant šią interneto svetainę, teikia Europeana fondo vadovaujamas konsorciumas pagal paslaugų sutartį su Europos Komisija, sutarties numeris LC-01901432.",
     "findUsElsewhere": "Raskite mus kitur",
     "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
+      "MoreInfoLabel": "Daugiau informacijos",
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
       "faq": "Dažnai užduodami klausimai (FAQ)",
       "help": "Pagalba",
-      "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo pareiškimas",
       "registerApiKey": "Registruokitės API raktui gauti",
       "seeApiRequests": "Žr. Europeana API užklausas",
@@ -862,7 +916,7 @@ export default {
       "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
         "alwaysRequired": "(Visada būtina)",
-        "description": "Čia galite peržiūrėti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-statement'>privatumo pareiškimą</a>.",
+        "description": "Čia galite peržiūrėti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='\/rights\/privacy-statement'>privatumo pareiškimą<\/a>.",
         "privacyPolicy": "Privatumo politika",
         "servicesCount": "{count} paslauga | {count} paslaugos",
         "text": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų {privacyPolicy}.",
@@ -923,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Padeda derinti API užklausas",
         "title": "Derinti perjungti"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Renka naudojimo duomenis, kad galėtume analizuoti naudotojų sąveiką. Įjungia apklausos valdiklį, suteikiantį jums galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Prisimena jūsų pageidaujamą sąsajos kalbą, kad galėtumėte ją pasiekti ateityje.",
         "title": "Kalbos kodas"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Suaktyvina atsiliepimų valdiklį, suteikiantį galimybę susisiekti su mumis.",
         "title": "Jiros aptarnavimo stalas"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
@@ -1041,94 +1005,34 @@ export default {
         "description": "Prisimena, ar norite gauti daugiakalbius paieškos rezultatus.",
         "title": "Daugiakalbė paieška"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
         "title": "Pranešimas apie naują funkciją"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
-        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
+        "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas \/ tinklelis \/ mozaika)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nežinomas teikėjas",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nežinomas teikėjas"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Ištekliai",
         "navigation": {
-          "faq": "FAQ"
+          "apiDocumentation": "API dokumentacija",
+          "contactUs": "Susisiekite su mumis",
+          "requestApiKey": "Prašyti API rakto"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API pagrindinis puslapis",
+        "navigation": {
+          "apiDemo": "API demonstracija",
+          "europeanaApis": "Europeana API",
+          "faq": "FAQ",
+          "findInspiration": "Raskite įkvėpimo"
         }
       }
     },
@@ -1168,10 +1072,10 @@ export default {
       "show": "Rodyti puslapius"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF manifestas",
       "annotations": "Anotacijos",
       "annotationsCount": "1 Anotacija |{count} Anotacijos",
       "hide": "Slėpti šoninę juostą",
-      "IIIFManifest": "IIIF manifestas",
       "links": "Nuorodos",
       "search": "Paieška",
       "searchPlaceholder": "Įveskite terminus",
@@ -1206,8 +1110,8 @@ export default {
     "enrichment": "Praturtinimas partnerių projektais",
     "stopViewingThisItemIn": "Nustoti peržiūrėti šį skaitmeninį objektą {0}",
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau.",
-    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}",
-    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba"
+    "viewItemInAnotherLanguage": "Peržiūrėti šį skaitmeninį objektą kita kalba",
+    "viewingThisItemIn": "Peržiūrimas šis skaitmeninis objektas {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
@@ -1222,9 +1126,6 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Iš",
   "organisation": {
     "city": "Miestas",
@@ -1282,8 +1183,6 @@ export default {
     },
     "allMetaData": "Visi metaduomenys",
     "clickToCopyEmbedCode": "Spustelėkite įterpimo kodą, kad jį nukopijuotumėte",
-    "debias": "De-bias",
-    "explanationby": "Paaiškinimą pateikė {0}",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
@@ -1358,18 +1257,18 @@ export default {
         "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
         "field": "Pasirinkite viso teksto arba metaduomenų lauką, kuriame norite ieškoti.",
         "fields": {
+          "YEAR": "Įveskite metus, susijusius su skaitmeniniu objektu\/objektais. Pavyzdžiui, ‘1919’.",
           "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą.",
-          "proxy_dc_coverage": "Įveskite terminą, nurodantį vietą arba tašką/laikotarpį. Pavyzdžiui, „1995–1996“ arba „Berlynas“ arba „http://sws.geonames.org/2287781/“.",
-          "proxy_dc_date": "Įveskite terminą, kuris nurodo reikšmingą datą, susijusią su skaitmeniniu objektu/objektais. Pavyzdžiui, data formatu ‘Metai-Mėnuo-Diena’ arba vieneri metai, ‘1919’, arba platesnės apibrėžtys, pavyzdžiui, ‘Ankstyvasis 20 amžius’.",
-          "proxy_dc_rights": "Įveskite terminą, kuris nurodo informaciją apie su skaitmeniniu objektu/objektais susijusias teises ar licencijas. Pavyzdžiui, ‘Copyright © British Library Board’. Norėdami filtruoti pagal pakartotinio naudojimo galimybę arba konkretų teisių pareiškimą, naudokite filtrus ‘Ar galiu tai naudoti?’ arba ‘Rights statement’.",
+          "proxy_dc_coverage": "Įveskite terminą, nurodantį vietą arba tašką\/laikotarpį. Pavyzdžiui, „1995–1996“ arba „Berlynas“ arba „http:\/\/sws.geonames.org\/2287781\/“.",
+          "proxy_dc_date": "Įveskite terminą, kuris nurodo reikšmingą datą, susijusią su skaitmeniniu objektu\/objektais. Pavyzdžiui, data formatu ‘Metai-Mėnuo-Diena’ arba vieneri metai, ‘1919’, arba platesnės apibrėžtys, pavyzdžiui, ‘Ankstyvasis 20 amžius’.",
+          "proxy_dc_rights": "Įveskite terminą, kuris nurodo informaciją apie su skaitmeniniu objektu\/objektais susijusias teises ar licencijas. Pavyzdžiui, ‘Copyright © British Library Board’. Norėdami filtruoti pagal pakartotinio naudojimo galimybę arba konkretų teisių pareiškimą, naudokite filtrus ‘Ar galiu tai naudoti?’ arba ‘Rights statement’.",
           "proxy_dcterms_created": "Įveskite terminą, kuris nurodo skaitmeninio objekto sukūrimo datą. Pavyzdžiui, bet kuri data formatu ‘Metai-Mėnuo-Diena’, vieneri metai, pavyzdžiui, ‘1919’, ar platesnės apibrėžtys, pavyzdžiui, ‘Ankstyvasis 20 amžius’. Kitoms svarbioms datoms ieškokite laukeliuose Data, Išleidimo data ar Metai.",
           "proxy_dcterms_hasPart": "Skaitmeninis objektas gali turėti kitų išteklių - įveskite terminą, kuris identifikuotų dalį įtrauktų išteklių. Jei pats skaitmeninis objektas yra kitos išteklio dalis, naudokite lauką ‘Yra dalis’.",
           "proxy_dcterms_isPartOf": "Šis skaitmeninis objektas gali būti dalis kito susijusio ištekliaus - įveskite terminą ištekliui, kurio dalimi šis skaitmeninis objektas gali būti. Jei skaitmeninis objektas pats turi susijusių išteklių, naudokite lauką ‘Susideda iš’.",
           "proxy_dcterms_issued": "Įveskite terminą, kuris nurodo skaitmeninio objekto išleidimo arba publikavimo datą. Pavyzdžiui, bet kuri data formatu ‘MMMM-MM-DD’, vieneri metai, pavyzdžiui, ‘1919’, ar platesnės apibrėžtys, pavyzdžiui, ‘ankstyvasis 20 amžius’. Kitoms svarbioms datoms ieškokite laukeliuose Data, Sukūrimo data ar Metai.",
           "proxy_dcterms_medium": "Įveskite terminą, kuris nurodo naudojamas medžiagas arba skaitmeninio objekto fizines savybes. Pavyzdžiui, ‘metalas’ arba ‘popierius’. Didesnėms medžiagų apibrėžtims, pavyzdžiui, ‘skulptūra’ ar ‘tapyba’, išbandykite lauką ‘MEDIJOS TIPAS’.",
-          "proxy_dcterms_temporal": "Įveskite terminą, kuris nurodo laikotarpį ar laiko tašką, su kuriuo susijęs skaitmeninis objektas/objektai, pvz., paveikslą, vaizduojantį miestą 1930 m. Pavyzdžiui, įveskite ‘Romos imperija’ arba ‘Renesansas’. Konkrečioms datoms ieškokite laukeliuose Data, Sukūrimo data, Išleidimo data arba Metai.",
-          "proxy_edm_hasMet": "Įveskite terminą, kuris nurodo asmenį, vietą, laikotarpį ar bet ką kitą, su kuriuo skaitmeninis objektas/objektai gali būti glaudžiai susiję. Pavyzdžiui, ‘William Shakespeare’.",
-          "YEAR": "Įveskite metus, susijusius su skaitmeniniu objektu/objektais. Pavyzdžiui, ‘1919’."
+          "proxy_dcterms_temporal": "Įveskite terminą, kuris nurodo laikotarpį ar laiko tašką, su kuriuo susijęs skaitmeninis objektas\/objektai, pvz., paveikslą, vaizduojantį miestą 1930 m. Pavyzdžiui, įveskite ‘Romos imperija’ arba ‘Renesansas’. Konkrečioms datoms ieškokite laukeliuose Data, Sukūrimo data, Išleidimo data arba Metai.",
+          "proxy_edm_hasMet": "Įveskite terminą, kuris nurodo asmenį, vietą, laikotarpį ar bet ką kitą, su kuriuo skaitmeninis objektas\/objektai gali būti glaudžiai susiję. Pavyzdžiui, ‘William Shakespeare’."
         },
         "modifier": "Pasirinkite, kaip šis laukas turėtų keisti paiešką.",
         "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
@@ -1387,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
       "loginToSeeMultilingualResults": "Prisijunkite, kad galėtumėte ieškoti visoje kolekcijoje ir gauti rezultatus, neribotus jūsų paieškos termino kalba.",
       "showingMultilingualResults": "Rodomi rezultatai iš visos kolekcijos ir visomis kalbomis.",
+      "withQuery": "{count} rezultatai pagal {query}",
       "withinCollection": "{count} rezultatų pagal {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
-      "withoutQuery": "{count} rezultatai",
-      "withQuery": "{count} rezultatai pagal {query}"
+      "withoutQuery": "{count} rezultatai"
     },
     "selectTheme": "Pasirinkus TEMĄ, gali būti suteikta papildomų filtravimo parinkčių, pvz., temoje \"Laikraščiai\" yra filtras \"IŠLEIDIMO DATA\".",
     "title": "Paieška"

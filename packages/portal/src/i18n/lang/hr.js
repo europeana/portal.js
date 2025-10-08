@@ -5,7 +5,7 @@ export default {
     "likes": "Lajkovi",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se / Pridruži se",
+    "linkLoginJoin": "Prijavi se \/ Pridruži se",
     "linkLogout": "Odjava",
     "manageApiKeys": "Upravljanje API ključevima",
     "menu": {
@@ -111,7 +111,7 @@ export default {
         "howToLinkText": "Kako koristiti svoj ključ"
       },
       "projectKeys": {
-        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu {termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
+        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu{termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
         "heading": "API ključevi projekta"
       },
       "termsOfUseLinkText": "uvjeti korištenja"
@@ -136,7 +136,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "show": "Prikaži atribuciju",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Datum početka",
     "to": "do"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Ove informacije izradio je {link} (2023.\/2024.) kako bi pomogao kontekstualizirati zastarjele i štetne pojmove u opisima zbirki."
+    },
+    "headings": {
+      "alternatives": "Predložene alternative",
+      "recommendations": "Preporuke za upotrebu",
+      "source": "Izvor"
+    },
+    "termNotFound": "Ova stranica dostupna je samo na jeziku pristranog pojma.",
+    "tooltip": {
+      "linkToPage": "Pročitajte cijelo objašnjenje koje je dao {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Unesite svoj Europeana API ključ i on će se koristiti u poveznicama na API zahtjeve.",
+          "descriptionLine2": "Trebate API ključ? Registrirajte se za jedan {link}.",
+          "here": "ovdje",
+          "label": "API ključ",
           "usePersonal": {
             "linkText": "Unesite svoj osobni API ključ",
             "prompt": "{link} i bit će korišten."
@@ -234,6 +253,16 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Predstavljeno vam od",
+    "footer": {
+      "disclaimerLine1": "Zajednički europski podatkovni prostor za kulturnu baštinu inicijativa je Europske unije koja se financira iz programa Europske unije Digitalna Europa. Uslugama podatkovnog prostora, uključujući ovu internetsku stranicu, upravlja konzorcij pod vodstvom Zaklade Europeana na temelju ugovora o uslugama s Europskom komisijom."
+    },
+    "header": {
+      "navigation": {
+        "about": "O podatkovnom prostoru",
+        "explore": "Istražite podatke",
+        "partners": "Partneri"
+      }
+    },
     "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
@@ -265,13 +294,16 @@ export default {
         "title": "Previše prikvačenih predmeti"
       },
       "pinned": "Predmet je prikvačena. Pojavit će se kao prva stavka u zbirci \" {entity} \". Obavijestit ćemo vas kada ova promjena bude vidljiva na stranici zbirke.",
-      "select": "Odaberite povezani entitet da biste prikvačili/otkvačili stavku na/s njega.",
+      "select": "Odaberite povezani entitet da biste prikvačili\/otkvačili stavku na\/s njega.",
       "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "unpinned": "Predmet je otkvačena. Obavijestit ćemo vas kada ova promjena bude vidljiva na stranici zbirke."
     }
   },
   "error": "Greška",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
+    },
     "authClientDisabled": {
       "description": "Ovaj API ključ je već onemogućen, možda u drugoj kartici preglednika.",
       "title": "Ključ je već onemogućen"
@@ -301,9 +333,6 @@ export default {
       "description": "Dogodila se nepoznata pogreška.",
       "title": "Nepoznata pogreška"
     },
-    "IIIFManifestFailure": {
-      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
-    },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
@@ -318,7 +347,7 @@ export default {
       "title": "Stranica koju tražite ne postoji."
     },
     "pinningNotFound": {
-      "description": "Došlo je do pogreške prilikom prikvačivanja/otkvačivanja stavke. Pokušajte ponovno ili prijavite problem.",
+      "description": "Došlo je do pogreške prilikom prikvačivanja\/otkvačivanja stavke. Pokušajte ponovno ili prijavite problem.",
       "title": "Odabrana zbirka nije pronađena"
     },
     "searchPaginationLimitExceeded": {
@@ -339,37 +368,6 @@ export default {
     "exhibitions": "Izložba | izložbe"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Ako želite pretraživati unutar teksta novina, morat ćete koristiti napredno pretraživanje, te odabrati polje \"cijeli tekst\".",
-        "ww1": "Ako želite pretraživati unutar teksta dokumenata iz Prvog svjetskog rata, morat ćete koristiti napredno pretraživanje i odabrati polje \"cijeli tekst\"."
-      }
-    },
-    "button": {
-      "morefilters": "Više filtera",
-      "showAdditional": "{show} dodatnih filtara",
-      "showAll": "Prikaži sve {label}",
-      "showLess": "Prikaži manje {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arheologija",
-        "art": "Umjetnost",
-        "fashion": "Moda",
-        "industrial": "Industrijska baština",
-        "manuscript": "Rukopisi",
-        "map": "Karte i geografija",
-        "migration": "Migracije",
-        "music": "Glazba",
-        "nature": "Prirodoslovne znanosti",
-        "newspaper": "Novine",
-        "photography": "Fotografija",
-        "sport": "Sport",
-        "ww1": "Prvi svjetski rat"
-      },
-      "select": "Odaberite temu"
-    },
     "COLOURPALETTE": {
       "moreName": "boje",
       "name": "Boja",
@@ -521,18 +519,6 @@ export default {
       },
       "select": "Odaberite boje"
     },
-    "contentTier": {
-      "name": "Kvaliteta Predmet",
-      "options": {
-        "*": "Uključuje predmeti koje ne ispunjavaju naše kriterije objavljivanja",
-        "0": "Ne zadovoljava kriterije objavljivanja",
-        "1": "Niska kvaliteta",
-        "2": "Srednja kvaliteta",
-        "3": "Visoka kvaliteta i višekratna upotreba s uvjetima",
-        "4": "Visoka kvaliteta i slobodna ponovna upotreba"
-      },
-      "select": "Odaberite kvalitete artikla"
-    },
     "COUNTRY": {
       "name": "Država iz koje dolazi",
       "options": {
@@ -662,16 +648,103 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       },
       "select": "Odaberite formate datoteka"
     },
-    "moreOptions": "Pretražite da biste pronašli {0} više {1}.",
     "PROVIDER": {
       "moreName": "agregatori",
       "name": "Agregator",
       "select": "Odaberite agregatori"
     },
+    "REUSABILITY": {
+      "name": "Mogu li ovo koristiti?",
+      "options": {
+        "open": "Da",
+        "permission": "Možda, tražite dopuštenje",
+        "restricted": "Da, s uvjetima",
+        "uncategorized": "Nekategorizirano"
+      },
+      "select": "Odaberite možete li ovo koristiti"
+    },
+    "RIGHTS": {
+      "name": "Uvjeti korištenja",
+      "options": {
+        "*\/CNE\/*": "Autorsko pravo ne vrednuje",
+        "*\/InC-EDU\/*": "U autorskim pravima - dozvoljeno za obrazovnu uporabu",
+        "*\/InC-OW-EU\/*": "U autorskim pravima - OW-EU",
+        "*\/InC\/*": "U autorskim pravima",
+        "*\/NoC-NC\/*": "Bez autorskih prava - samo nekomercijalna uporaba",
+        "*\/NoC-OKLR\/*": "Bez autorskih prava - ostala poznata zakonska ograničenja",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Bez autorskih prava - samo nekomercijalna uporaba",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "Unknown copyright status"
+      },
+      "select": "Odaberite izjave o pravima"
+    },
+    "TYPE": {
+      "name": "Vrsta medija",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Slika",
+        "SOUND": "Zvuk",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Odaberite vrste medija"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ako želite pretraživati unutar teksta novina, morat ćete koristiti napredno pretraživanje, te odabrati polje \"cijeli tekst\".",
+        "ww1": "Ako želite pretraživati unutar teksta dokumenata iz Prvog svjetskog rata, morat ćete koristiti napredno pretraživanje i odabrati polje \"cijeli tekst\"."
+      }
+    },
+    "button": {
+      "morefilters": "Više filtera",
+      "showAdditional": "{show} dodatnih filtara",
+      "showAll": "Prikaži sve {label}",
+      "showLess": "Prikaži manje {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arheologija",
+        "art": "Umjetnost",
+        "fashion": "Moda",
+        "industrial": "Industrijska baština",
+        "manuscript": "Rukopisi",
+        "map": "Karte i geografija",
+        "migration": "Migracije",
+        "music": "Glazba",
+        "nature": "Prirodoslovne znanosti",
+        "newspaper": "Novine",
+        "photography": "Fotografija",
+        "sport": "Sport",
+        "ww1": "Prvi svjetski rat"
+      },
+      "select": "Odaberite temu"
+    },
+    "contentTier": {
+      "name": "Kvaliteta Predmet",
+      "options": {
+        "*": "Uključuje predmeti koje ne ispunjavaju naše kriterije objavljivanja",
+        "0": "Ne zadovoljava kriterije objavljivanja",
+        "1": "Niska kvaliteta",
+        "2": "Srednja kvaliteta",
+        "3": "Visoka kvaliteta i višekratna upotreba s uvjetima",
+        "4": "Visoka kvaliteta i slobodna ponovna upotreba"
+      },
+      "select": "Odaberite kvalitete artikla"
+    },
+    "moreOptions": "Pretražite da biste pronašli {0} više {1}.",
     "proxy_dc_format": {
       "name": "Format",
       "select": "Odaberite formate"
@@ -686,34 +759,13 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medij",
       "select": "Odabir medija"
-    },
-    "REUSABILITY": {
-      "name": "Mogu li ovo koristiti?",
-      "options": {
-        "open": "Da",
-        "permission": "Možda, tražite dopuštenje",
-        "restricted": "Da, s uvjetima",
-        "uncategorized": "Nekategorizirano"
-      },
-      "select": "Odaberite možete li ovo koristiti"
-    },
-    "TYPE": {
-      "name": "Vrsta medija",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Slika",
-        "SOUND": "Zvuk",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Odaberite vrste medija"
     }
   },
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -725,6 +777,8 @@ export default {
       "dcRights": "Prava",
       "dcSource": "Izvor",
       "dcSubject": "Tema",
+      "dcTitle": "Naslov",
+      "dcType": "Vrsta predmet",
       "dctermsAlternative": "Alternativni naslov",
       "dctermsCreated": "Datum stvaranja",
       "dctermsExtent": "Opseg",
@@ -740,10 +794,8 @@ export default {
       "dctermsProvenance": "Podrijetlo",
       "dctermsReferences": "Reference",
       "dctermsSpatial": "Mjesta",
-      "dctermsTemporal": "Vremenski",
       "dctermsTOC": "Tablica sadržaja",
-      "dcTitle": "Naslov",
-      "dcType": "Vrsta predmet",
+      "dctermsTemporal": "Vremenski",
       "edmCountry": "Država iz koje dolazi",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Institucija iz koje dolazi",
@@ -782,16 +834,17 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
+    "disclaimerLine1": "Zajednički europski podatkovni prostor za kulturnu baštinu inicijativa je Europske unije koja se financira iz programa Europske unije Digitalna Europa. Uslugama podatkovnog prostora, uključujući ovu internetsku stranicu, upravlja konzorcij pod vodstvom Zaklade Europeana na temelju ugovora o uslugama s Europskom komisijom, broj ugovora LC-01901432.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
     "navigation": {
+      "MoreInfoLabel": "Više informacija",
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
       "faq": "Često postavljana pitanja (FAQ)",
       "help": "Pomoć",
-      "MoreInfoLabel": "Više informacija",
       "privacy": "Izjava o privatnosti",
       "registerApiKey": "Registrirajte se za API ključ",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
@@ -863,7 +916,7 @@ export default {
       "acceptSelected": "Prihvati odabrano",
       "consentModal": {
         "alwaysRequired": "(Uvijek obavezno)",
-        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte našu <a href='/rights/privacy-statement'> izjavu o privatnosti </a>.",
+        "description": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Kako biste saznali više, pročitajte našu <a href='\/rights\/privacy-statement'> izjavu o privatnosti <\/a>.",
         "privacyPolicy": "Politika privatnosti",
         "servicesCount": "{count} usluga | {count} usluga",
         "text": "Ovdje možete vidjeti i prilagoditi usluge koje želimo koristiti na ovoj web stranici. Da biste saznali više, pročitajte naša {privacyPolicy}.",
@@ -924,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
         "title": "Prebacivanje pogrešaka"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Prikuplja podatke o korištenju kako bi nam pomogao analizirati interakcije korisnika. Aktivira widget za anketu koji vam omogućuje sudjelovanje u našim anketama o zadovoljstvu posjetitelja.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
         "title": "Kod jezika"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
         "title": "Jira servisni stol"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
@@ -1042,93 +1005,32 @@ export default {
         "description": "Pamti želite li višejezične rezultate pretraživanja.",
         "title": "Višejezično pretraživanje"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Prikazuje obavijest kada nove značajke postanu dostupne.",
         "title": "Obavijest o novoj značajki"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
-        "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
+        "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis\/mreža\/mozaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nepoznati pružatelj usluga",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nepoznati pružatelj usluga"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Resursi",
         "navigation": {
+          "apiDocumentation": "API dokumentacija",
+          "contactUs": "Kontaktirajte nas",
+          "requestApiKey": "Zatražite API ključ"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Početna stranica Europeana API-ja",
+        "navigation": {
+          "apiDemo": "API demo",
+          "europeanaApis": "Europeana API-ji",
           "faq": "FAQ",
           "findInspiration": "Pronađite inspiraciju"
         }
@@ -1170,10 +1072,10 @@ export default {
       "show": "Prikaži stranice"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Bilješke",
       "annotationsCount": "1 bilješka |{count} bilješki",
       "hide": "Sakrij bočnu traku",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Linkovi",
       "search": "Traži",
       "searchPlaceholder": "Unesite pojmove",
@@ -1208,8 +1110,8 @@ export default {
     "enrichment": "Obogaćivanje partnerskim projektima",
     "stopViewingThisItemIn": "Prestanite pregledavati ovaj predmet na {0}",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije.",
-    "viewingThisItemIn": "Pregledavate ovaj predmet na {0}",
-    "viewItemInAnotherLanguage": "Pogledajte ovaj predmet na drugom jeziku"
+    "viewItemInAnotherLanguage": "Pogledajte ovaj predmet na drugom jeziku",
+    "viewingThisItemIn": "Pregledavate ovaj predmet na {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
@@ -1224,9 +1126,6 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "Od",
   "organisation": {
     "city": "Grad",
@@ -1284,8 +1183,6 @@ export default {
     },
     "allMetaData": "Svi meta podaci",
     "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
-    "debias": "De-bias",
-    "explanationby": "Objašnjenje pružio {0}",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
@@ -1360,18 +1257,18 @@ export default {
         "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
         "field": "Odaberite cjeloviti tekst ili metapodatkovno polje za pretraživanje.",
         "fields": {
+          "YEAR": "Unesite godinu vezanu uz predmet(e). Na primjer, ‘1919’.",
           "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta.",
-          "proxy_dc_coverage": "Unesite pojam koji se odnosi na mjesto ili točku/razdoblje vremena. Na primjer, ‘1995-1996’ ili ‘Berlin’ ili ‘http://sws.geonames.org/2287781/’.",
-          "proxy_dc_date": "Unesite pojam koji se odnosi na značajan datum povezan s predmetom/predmetima. Na primjer, datum u obliku ‘GGGG-MM-DD’ ili jedna godina, ‘1919’, ili šire definicije poput ‘Početak 20. stoljeća’.",
+          "proxy_dc_coverage": "Unesite pojam koji se odnosi na mjesto ili točku\/razdoblje vremena. Na primjer, ‘1995-1996’ ili ‘Berlin’ ili ‘http:\/\/sws.geonames.org\/2287781\/’.",
+          "proxy_dc_date": "Unesite pojam koji se odnosi na značajan datum povezan s predmetom\/predmetima. Na primjer, datum u obliku ‘GGGG-MM-DD’ ili jedna godina, ‘1919’, ili šire definicije poput ‘Početak 20. stoljeća’.",
           "proxy_dc_rights": "Unesite pojam koji se odnosi na informacije o pravima ili licencama vezanim za predmet(e). Na primjer ‘Copyright © British Library Board’. Za filtriranje prema ponovnoj upotrebljivosti ili specifičnoj izjavi o pravima, koristite filtre ‘Mogu li ovo koristiti?’ ili ‘Rights statement’.",
           "proxy_dcterms_created": "Unesite pojam koji se odnosi na datum stvaranja predmeta. Na primjer, bilo koji datum u obliku ‘GGGG-MM-DD’, pojedinačna godina kao ‘1919’ ili šire definicije kao ‘Rani 20. stoljeće’. Za druge datume koji bi mogli biti značajni, pretražite polja Datum, Datum izdanja ili Godina.",
           "proxy_dcterms_hasPart": "Predmet može sadržavati druge resurse unutar sebe - unesite pojam koji identificira dio uključenih resursa. Ako je sam predmet dio drugog resursa, umjesto toga koristite polje ‘Dio je’.",
           "proxy_dcterms_isPartOf": "Ovaj predmet može biti dio nekog drugog povezanog resursa - unesite pojam za resurs kojem ovaj predmet može pripadati. Ako sam predmet sadrži povezane resurse unutar sebe, umjesto toga koristite polje ‘Sastoji se od’.",
-          "proxy_dcterms_issued": "Unesite pojam koji se odnosi na datum izdanja ili objavljivanja predmeta/predmeta. Na primjer, bilo koji datum u obliku ‘GGGG-MM-DD’, pojedinačna godina kao ‘1919’, ili šira definicija poput ‘Početak 20. stoljeća’. Za ostale datume koji bi mogli biti značajni, pretražite polja Datum, Datum stvaranja ili Godina.",
+          "proxy_dcterms_issued": "Unesite pojam koji se odnosi na datum izdanja ili objavljivanja predmeta\/predmeta. Na primjer, bilo koji datum u obliku ‘GGGG-MM-DD’, pojedinačna godina kao ‘1919’, ili šira definicija poput ‘Početak 20. stoljeća’. Za ostale datume koji bi mogli biti značajni, pretražite polja Datum, Datum stvaranja ili Godina.",
           "proxy_dcterms_medium": "Unesite pojam koji se odnosi na materijale korištene ili fizičku prirodu predmeta. Na primjer ‘metal’ ili ‘papir’. Za šira definiranja materijala, kao što su ‘skulptura’ ili ‘slika’, isprobajte polje ‘VRSTA MEDIJA’.",
           "proxy_dcterms_temporal": "Unesite pojam koji se odnosi na razdoblje ili točku u vremenu na koje se predmet(i) odnose, npr. slika koja prikazuje grad u 1930. godini. Unesite na primjer ‘Rimsko Carstvo’ ili ‘Renesansa’. Za specifične datume pretražite polja Datum, Datum stvaranja, Datum izdanja ili Godina.",
-          "proxy_edm_hasMet": "Unesite pojam koji se odnosi na osobu, mjesto, vremensko razdoblje ili bilo što drugo s čime predmet(i) mogu imati usku povezanost. Na primjer ‘William Shakespeare’.",
-          "YEAR": "Unesite godinu vezanu uz predmet(e). Na primjer, ‘1919’."
+          "proxy_edm_hasMet": "Unesite pojam koji se odnosi na osobu, mjesto, vremensko razdoblje ili bilo što drugo s čime predmet(i) mogu imati usku povezanost. Na primjer ‘William Shakespeare’."
         },
         "modifier": "Odaberite kako ovo polje treba izmijeniti pretraživanje.",
         "term": "Unesite pojmove koje odabrano polje sadrži ili ne sadrži."
@@ -1389,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} da biste vidjeli više rezultata",
       "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
       "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
+      "withQuery": "{count} rezultata za {query}",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
-      "withoutQuery": "{count} rezultata",
-      "withQuery": "{count} rezultata za {query}"
+      "withoutQuery": "{count} rezultata"
     },
     "selectTheme": "Odabir TEME može pružiti dodatne mogućnosti filtriranja, npr. tema Novine uključuje filtar DATUM IZDAVANJA.",
     "title": "Traži"
