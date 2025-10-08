@@ -34,7 +34,7 @@ jobs:
             --exclude-tags="Not ready"
             --export-empty-as=skip
             --export-sort=a_z
-            --filter-langs=bg_BG,cs_CZ,da_DK,de_DE,el_GR,es_ES,et_EE,eu_ES,fi_FI,fr_FR,ga_IE,hr_HR,hu_HU,it_IT,lt_LT,lv_LV,mt_MT,nl_NL,pl_PL,pt_PT,ro_RO,sk_SK,sl_SI,sv_SE
+            --filter-langs=bg,cs,da,de,el,es,et,eu_ES,fi,fr,ga_IE,hr,hu,it,lt,lv,mt_MT,nl,pl,pt,ro,sk,sl,sv
             --indentation=2sp
             --language-mapping=[{"original_language_iso":"en_GB","custom_language_iso":"en"},{"original_language_iso":"eu_ES","custom_language_iso":"eu"},{"original_language_iso":"mt_MT","custom_language_iso":"mt"},{"original_language_iso":"ga_IE","custom_language_iso":"ga"}]
             --original-filenames=true
