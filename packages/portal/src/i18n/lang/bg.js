@@ -139,7 +139,7 @@ export default {
     "creator": "Създател:",
     "date": "Дата:",
     "institution": "Институция:",
-    "show": "Покажи атрибуция",
+    "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
   "authored": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Начална дата",
     "to": "до"
   },
+  "debias": {
+    "background": {
+      "link": "Проект DE-BIAS",
+      "text": "Тази информация беше създадена от {link} (2023/2024), за да помогне за контекстуализирането на остарели и вредни термини в описанията на колекциите."
+    },
+    "headings": {
+      "alternatives": "Предложени алтернативи",
+      "recommendations": "Препоръки за употреба",
+      "source": "Източник"
+    },
+    "termNotFound": "Тази страница е достъпна само на езика на пристрастния термин.",
+    "tooltip": {
+      "linkToPage": "Прочетете пълното обяснение, предоставено от {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Въведете своя Europeana API ключ и той ще бъде използван във връзките към заявки за API.",
+          "descriptionLine2": "Нужен ви е API ключ? Регистрирайте се за такъв {link}.",
+          "here": "тук",
+          "label": "API ключ",
           "usePersonal": {
             "linkText": "Въведете вашия личен API ключ",
             "prompt": "{link} и ще бъде използван."
@@ -234,8 +253,13 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Донесено ви от",
+    "footer": {
+      "disclaimerLine1": "Общото европейско пространство за данни за културното наследство е инициатива на Европейския съюз, финансирана от програмата \"Цифрова Европа\" на Европейския съюз. Услугите на пространството за данни, включително този уебсайт, се управляват от консорциум, ръководен от фондация \"Europeana\", съгласно договор за услуги с Европейската комисия."
+    },
     "header": {
       "navigation": {
+        "about": "Относно пространството за данни",
+        "explore": "Разгледайте данните",
         "partners": "Партньори"
       }
     },
@@ -277,6 +301,9 @@ export default {
   },
   "error": "Грешка",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
+    },
     "authClientDisabled": {
       "description": "Този API ключ вече е деактивиран, може би в друг раздел на браузъра.",
       "title": "Ключът вече е деактивиран"
@@ -305,9 +332,6 @@ export default {
     "genericUnknownError": {
       "description": "Възникна неизвестна грешка.",
       "title": "Неизвестна грешка"
-    },
-    "IIIFManifestFailure": {
-      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
     },
     "itemNotFound": {
       "description": "Това може да се дължи на следните причини: този обект не съществува или; беше отменено публикуването му, защото не отговаряше на нашите критерии за качество, или; той беше актуализиран и публикуван отново с нов уникален идентификатор, в който случай опитайте да намерите обект отново.",
@@ -344,37 +368,6 @@ export default {
     "exhibitions": "Изложение | Изложения"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Ако искате да търсите в текста на вестниците, ще трябва да използвате разширеното търсене и да изберете полето \"пълен текст\".",
-        "ww1": "Ако искате да търсите в текста на документи от Първата световна война, ще трябва да използвате разширеното търсене и да изберете полето \"пълен текст\"."
-      }
-    },
-    "button": {
-      "morefilters": "Още филтри",
-      "showAdditional": "{show} допълнителни филтри",
-      "showAll": "Показване на всичко {label}",
-      "showLess": "Показване на по-малко {label}"
-    },
-    "collection": {
-      "name": "Тема",
-      "options": {
-        "archaeology": "Археология",
-        "art": "Изкуство",
-        "fashion": "Мода",
-        "industrial": "Индустриално наследство",
-        "manuscript": "Ръкописи",
-        "map": "Карти и география",
-        "migration": "Миграция",
-        "music": "Музика",
-        "nature": "Естествознание",
-        "newspaper": "Вестници",
-        "photography": "Фотография",
-        "sport": "Спорт",
-        "ww1": "Първа световна война"
-      },
-      "select": "Изберете тема"
-    },
     "COLOURPALETTE": {
       "moreName": "цветове",
       "name": "Цвят",
@@ -526,18 +519,6 @@ export default {
       },
       "select": "Изберете цветове"
     },
-    "contentTier": {
-      "name": "Качество на обект",
-      "options": {
-        "*": "Включва обекта, които не отговарят на нашите критерии за публикуване",
-        "0": "Не отговаря на критериите за публикуване",
-        "1": "Ниско качество",
-        "2": "Средно качество",
-        "3": "Високо качество и многократна употреба с условия",
-        "4": "Високо качество и свободно многоизползваема"
-      },
-      "select": "Изберете качества на обект"
-    },
     "COUNTRY": {
       "name": "Предоставяне на държава",
       "options": {
@@ -671,12 +652,99 @@ export default {
       },
       "select": "Изберете файлови формати"
     },
-    "moreOptions": "Търсене, за да намерите {0} още {1}.",
     "PROVIDER": {
       "moreName": "агрегатори",
       "name": "Агрегатор",
       "select": "Изберете агрегатори"
     },
+    "REUSABILITY": {
+      "name": "Мога ли да използвам това?",
+      "options": {
+        "open": "Да",
+        "permission": "Може би, помолете за разрешение",
+        "restricted": "Да, при тези условия",
+        "uncategorized": "Без категория"
+      },
+      "select": "Изберете дали можете да използвате това"
+    },
+    "RIGHTS": {
+      "name": "Права за ползване",
+      "options": {
+        "*/CNE/*": "Авторското право не е оценено",
+        "*/InC-EDU/*": "Защитено от авторско право – разрешено използване за образователни цели ",
+        "*/InC-OW-EU/*": "В авторско право - OW-EU",
+        "*/InC/*": "В авторско право",
+        "*/NoC-NC/*": "Без авторско право - само за нетърговска употреба",
+        "*/NoC-OKLR/*": "Без авторско право - други известни правни ограничения",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Извън авторските права - повторна употреба с нетърговска цел",
+        "*/rights/rr-f/*": "Права запазени - безплатен достъп",
+        "*/rights/unknown/*": "Неизвестен статус на авторски права"
+      },
+      "select": "Изберете изявления за права"
+    },
+    "TYPE": {
+      "name": "Вид медия",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Изображение",
+        "SOUND": "Звук",
+        "TEXT": "Текст",
+        "VIDEO": "Видео"
+      },
+      "select": "Изберете видове медии"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ако искате да търсите в текста на вестниците, ще трябва да използвате разширеното търсене и да изберете полето \"пълен текст\".",
+        "ww1": "Ако искате да търсите в текста на документи от Първата световна война, ще трябва да използвате разширеното търсене и да изберете полето \"пълен текст\"."
+      }
+    },
+    "button": {
+      "morefilters": "Още филтри",
+      "showAdditional": "{show} допълнителни филтри",
+      "showAll": "Показване на всичко {label}",
+      "showLess": "Показване на по-малко {label}"
+    },
+    "collection": {
+      "name": "Тема",
+      "options": {
+        "archaeology": "Археология",
+        "art": "Изкуство",
+        "fashion": "Мода",
+        "industrial": "Индустриално наследство",
+        "manuscript": "Ръкописи",
+        "map": "Карти и география",
+        "migration": "Миграция",
+        "music": "Музика",
+        "nature": "Естествознание",
+        "newspaper": "Вестници",
+        "photography": "Фотография",
+        "sport": "Спорт",
+        "ww1": "Първа световна война"
+      },
+      "select": "Изберете тема"
+    },
+    "contentTier": {
+      "name": "Качество на обект",
+      "options": {
+        "*": "Включва обекта, които не отговарят на нашите критерии за публикуване",
+        "0": "Не отговаря на критериите за публикуване",
+        "1": "Ниско качество",
+        "2": "Средно качество",
+        "3": "Високо качество и многократна употреба с условия",
+        "4": "Високо качество и свободно многоизползваема"
+      },
+      "select": "Изберете качества на обект"
+    },
+    "moreOptions": "Търсене, за да намерите {0} още {1}.",
     "proxy_dc_format": {
       "name": "Формат",
       "select": "Изберете формати"
@@ -691,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Среден",
       "select": "Изберете медия"
-    },
-    "REUSABILITY": {
-      "name": "Мога ли да използвам това?",
-      "options": {
-        "open": "Да",
-        "permission": "Може би, помолете за разрешение",
-        "restricted": "Да, при тези условия",
-        "uncategorized": "Без категория"
-      },
-      "select": "Изберете дали можете да използвате това"
-    },
-    "TYPE": {
-      "name": "Вид медия",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Изображение",
-        "SOUND": "Звук",
-        "TEXT": "Текст",
-        "VIDEO": "Видео"
-      },
-      "select": "Изберете видове медии"
     }
   },
   "fieldLabels": {
@@ -730,6 +777,8 @@ export default {
       "dcRights": "Права",
       "dcSource": "Източник",
       "dcSubject": "Тема",
+      "dcTitle": "Заглавие",
+      "dcType": "Вид на обекта",
       "dctermsAlternative": "Алтернативно заглавие",
       "dctermsCreated": "Дата на създаване",
       "dctermsExtent": "Степен",
@@ -745,10 +794,8 @@ export default {
       "dctermsProvenance": "Произход",
       "dctermsReferences": "Препратки",
       "dctermsSpatial": "Места",
-      "dctermsTemporal": "Времеви",
       "dctermsTOC": "Таблица на съдържанието",
-      "dcTitle": "Заглавие",
-      "dcType": "Вид на обекта",
+      "dctermsTemporal": "Времеви",
       "edmCountry": "Предоставяне на държава",
       "edmCurrentLocation": "Настоящо местоположение",
       "edmDataProvider": "доставчик на данни",
@@ -787,16 +834,17 @@ export default {
   "filterResults": "Филтриране на резултати",
   "footer": {
     "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
+    "disclaimerLine1": "Общото европейско пространство за данни за културното наследство е инициатива на Европейския съюз, финансирана от програмата \"Цифрова Европа\" на Европейския съюз. Услугите на пространството за данни, включително този уебсайт, се управляват от консорциум, ръководен от фондация \"Europeana\", съгласно договор за услуги с Европейската комисия, номер на договор LC-01901432.",
     "findUsElsewhere": "Намерете ни другаде",
     "footer": "Футер",
     "imageDescription": "Финансиран от Европейския съюз",
     "navigation": {
+      "MoreInfoLabel": "Повече информация",
       "about": "За нас",
       "accessibility": "Достъпност",
       "cookies": "Бисквитки",
       "faq": "Често задавани въпроси (FAQ)",
       "help": "Помощ",
-      "MoreInfoLabel": "Повече информация",
       "privacy": "Политика за поверителност",
       "registerApiKey": "Регистрирайте се за API ключ",
       "seeApiRequests": "Вижте заявките към API на Europeana",
@@ -929,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Помага за отстраняване на грешки в заявки на API",
         "title": "Превключване за отстраняване на грешки"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Събира данни за използването, за да ни помогне да анализираме взаимодействията на потребителите. Активира джаджа за проучване, която ви дава възможност да отговорите на нашите проучвания за удовлетвореността на посетителите.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Запомня предпочитания от вас език на интерфейса за бъдещ достъп.",
         "title": "Код на езика"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Активира приспособлението за обратна връзка, като ви дава възможност да се свържете с нас.",
         "title": "Бюро за услуги Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Събира анонимни статистически данни за това как посетителите взаимодействат с уебсайта.",
@@ -1047,93 +1005,32 @@ export default {
         "description": "Запомня дали предпочитате да получавате многоезични резултати от търсенето.",
         "title": "Многоезично търсене"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Показва известие, когато станат налични нови функции.",
         "title": "Известие за нова функция"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Запомнете дали предпочитате да виждате резултатите от търсенето, галериите и харесванията си в изглед на списък, мрежа или мозайка.",
         "title": "Резултат от търсенето, галерии и изглед на харесвания (списък/мрежа/мозайка)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "неизвестен доставчик",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "неизвестен доставчик"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Ресурси",
         "navigation": {
+          "apiDocumentation": "Документация на API",
+          "contactUs": "Свържете се с нас",
+          "requestApiKey": "Заявете API ключ"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Начална страница на Europeana API",
+        "navigation": {
+          "apiDemo": "Демонстрация на API",
+          "europeanaApis": "API на Europeana",
           "faq": "FAQ",
           "findInspiration": "Намерете вдъхновение"
         }
@@ -1175,10 +1072,10 @@ export default {
       "show": "Показване на страници"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Манифест",
       "annotations": "Анотации",
       "annotationsCount": "1 Анотация |{count} Анотации",
       "hide": "Скриване на страничната лента",
-      "IIIFManifest": "IIIF Манифест",
       "links": "Връзки",
       "search": "Търсене",
       "searchPlaceholder": "Въведете термини",
@@ -1192,9 +1089,9 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Кликнете върху приписването, за да го копирате",
-      "copyAttribution": "Копиране на атрибут на обект.",
-      "modalIntro": "Ако използвате този обект в мрежата или другаде, не забравяйте да покажете следното приписване до него:",
+      "clickToCopy": "Кликнете върху атрибуция, за да я копирате",
+      "copyAttribution": "Копиране на атрибута на обекта",
+      "modalIntro": "Ако използвате този обект в мрежата или другаде, не забравяйте да покажете следната атрибуция до него:",
       "modalTitle": "Кажи Благодаря"
     },
     "downloadFailed": {
@@ -1213,8 +1110,8 @@ export default {
     "enrichment": "Обогатяване по партньорски проекти",
     "stopViewingThisItemIn": "Спрете да преглеждате този обект в {0}",
     "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно.",
-    "viewingThisItemIn": "Преглеждате този обект в {0}",
-    "viewItemInAnotherLanguage": "Преглед на този обект на друг език"
+    "viewItemInAnotherLanguage": "Преглед на този обект на друг език",
+    "viewingThisItemIn": "Преглеждате този обект в {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Отхвърляне",
@@ -1229,9 +1126,6 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "На",
   "organisation": {
     "city": "град",
@@ -1289,8 +1183,6 @@ export default {
     },
     "allMetaData": "Всички метаданни",
     "clickToCopyEmbedCode": "Кликнете върху кода за вграждане, за да го копирате.",
-    "debias": "De-bias",
-    "explanationby": "Обяснение, предоставено от {0}",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
     "hideAll": "Скриване на цялата информация",
@@ -1365,6 +1257,7 @@ export default {
         "advancedSearch": "Разширеното търсене ви позволява да създавате персонализирани заявки за търсене.",
         "field": "Изберете полето за пълен текст или метаданни, в което да търсите.",
         "fields": {
+          "YEAR": "Въведете година, свързана с обекта/обектите. Например „1919“.",
           "fulltext": "Пълният текст включва транскрипции, затворени надписи, субтитри и текст на документи.",
           "proxy_dc_coverage": "Въведете термин, който се отнася до място или точка/период от време. Например, ‘1995-1996’ или ‘Берлин’ или ‘http://sws.geonames.org/2287781/’.",
           "proxy_dc_date": "Въведете термин, който се отнася до значима дата, свързана с обекта/обектите. Например дата във формата „ГГГГ-ММ-ДД“ или една година, „1919“ или по-широки определения като „Началото на 20-ти век“.",
@@ -1375,8 +1268,7 @@ export default {
           "proxy_dcterms_issued": "Въведете термин, който се отнася до датата на издаване или публикуване на обекта/обектите. Например всяка дата във формат ‘ГГГГ-ММ-ДД’, една година като ‘1919’, или по-широки определения като ‘началото на 20-ти век’. За други дати, които могат да бъдат значими, търсете в полетата за Дата, Дата на създаване или Година.",
           "proxy_dcterms_medium": "Въведете термин, който се отнася до материалите, използвани или физическата природа на обекта. Например ‘метал’ или ‘хартия’. За по-широки определения на материали, като ‘скулптура’ или ‘картина’, опитайте полето ‘ВИД МЕДИЯ’.",
           "proxy_dcterms_temporal": "Въведете термин, който се отнася до период или точка във времето, към който се отнасят обект(ите), например изображение, което изобразява град през 1930 г. Въведете например ‘Римска империя’ или ‘Ренесанс’. За конкретни дати търсете в полетата за дата, дата на създаване, дата на издаване или година.",
-          "proxy_edm_hasMet": "Въведете термин, който се отнася до личност, място, времеви период или нещо друго, с което обектът/обектите могат да имат тясна връзка. Например ‘Уилям Шекспир’.",
-          "YEAR": "Въведете година, свързана с обекта/обектите. Например „1919“."
+          "proxy_edm_hasMet": "Въведете термин, който се отнася до личност, място, времеви период или нещо друго, с което обектът/обектите могат да имат тясна връзка. Например ‘Уилям Шекспир’."
         },
         "modifier": "Изберете как това поле трябва да промени търсенето.",
         "term": "Въведете термина(ите), който избраното поле съдържа или не съдържа."
@@ -1394,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} за да видите повече резултати",
       "loginToSeeMultilingualResults": "Влезте, за да търсите в цялата колекция и да получите резултати, които не са ограничени до езика на вашата дума за търсене.",
       "showingMultilingualResults": "Показване на резултати от цялата колекция и всички езици.",
+      "withQuery": "{count} резултата за {query}",
       "withinCollection": "{count} резултати в рамките на {type} {collection}",
       "withinCollectionWithQuery": "{count} резултати в рамките на {type} {collection} за {query}",
-      "withoutQuery": "{count} резултати",
-      "withQuery": "{count} резултата за {query}"
+      "withoutQuery": "{count} резултати"
     },
     "selectTheme": "Избирането на ТЕМА може да предостави допълнителни опции за филтриране, например темата Вестници включва филтър ДАТА НА ИЗДАВАНЕ.",
     "title": "Търсене"

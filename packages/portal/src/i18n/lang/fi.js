@@ -71,7 +71,7 @@ export default {
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "share": "Jaa",
-    "shareOn": "Jaa mediassa {social}",
+    "shareOn": "Jaa {social}",
     "show": "Näytä",
     "showLess": "Näytä vähemmän",
     "showMore": "Näytä lisää",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Aloituspäivämäärä",
     "to": "asti"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS-projekti",
+      "text": "Tämän tiedon loi {link} (2023/2024) auttamaan vanhentuneiden ja haitallisten termien kontekstualisoinnissa kokoelmien kuvauksissa."
+    },
+    "headings": {
+      "alternatives": "Ehdotetut vaihtoehdot",
+      "recommendations": "Käyttösuositukset",
+      "source": "Lähde"
+    },
+    "termNotFound": "Tämä sivu on saatavilla vain puolueellisen termin kielellä.",
+    "tooltip": {
+      "linkToPage": "Lue {projectName}:n antama täydellinen selitys"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Anna Europeana API -avaimesi, niin sitä käytetään API-pyyntöjen linkeissä.",
+          "descriptionLine2": "Tarvitsetko API-avainta? Rekisteröidy saadaksesi sellaisen {link}.",
+          "here": "tässä",
+          "label": "API-avain",
           "usePersonal": {
             "linkText": "Syötä henkilökohtainen API-avaimesi",
             "prompt": "{link} ja sitä käytetään."
@@ -234,6 +253,16 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Tuotu sinulle",
+    "footer": {
+      "disclaimerLine1": "Kulttuuriperinnön yhteinen eurooppalainen data-avaruus on Euroopan unionin aloite, jota rahoitetaan Euroopan unionin Digitaalinen Eurooppa -ohjelmasta. Data-avaruuspalveluja, mukaan lukien tämä verkkosivusto, ylläpitää Europeana-säätiön johtama konsortio Euroopan komission kanssa tehdyn palvelusopimuksen nojalla."
+    },
+    "header": {
+      "navigation": {
+        "about": "Tietoa data-avaruudesta",
+        "explore": "Tutki tietoja",
+        "partners": "Kumppanit"
+      }
+    },
     "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
@@ -272,6 +301,9 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
+    },
     "authClientDisabled": {
       "description": "Tämä API-avain on jo poistettu käytöstä, ehkä toisessa selaimen välilehdessä.",
       "title": "Avain on jo poistettu käytöstä"
@@ -300,9 +332,6 @@ export default {
     "genericUnknownError": {
       "description": "Tapahtui tuntematon virhe.",
       "title": "Tuntematon virhe"
-    },
-    "IIIFManifestFailure": {
-      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
     },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
@@ -339,37 +368,6 @@ export default {
     "exhibitions": "Näyttely | Näyttelyt"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Jos haluat etsiä sanomalehtien tekstistä, sinun on käytettävä tarkennettua hakua ja valittava \"koko Teksti\" -kenttä.",
-        "ww1": "Jos haluat etsiä tekstiä ensimmäisen maailmansodan asiakirjoista, sinun on käytettävä tarkennettua hakua ja valittava \"koko teksti\" -kenttä."
-      }
-    },
-    "button": {
-      "morefilters": "Lisää suodattimia",
-      "showAdditional": "{show} lisäsuodatinta",
-      "showAll": "Näytä kaikki {label}",
-      "showLess": "Näytä vähemmän {label}"
-    },
-    "collection": {
-      "name": "Teema",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Taide",
-        "fashion": "Muoti",
-        "industrial": "Teollisuusperintö",
-        "manuscript": "Käsikirjoitukset",
-        "map": "Kartat ja maantiede",
-        "migration": "Muuttoliike",
-        "music": "Musiikki",
-        "nature": "Luonnonhistoria",
-        "newspaper": "Sanomalehdet",
-        "photography": "Valokuvaus",
-        "sport": "Urheilu",
-        "ww1": "Ensimmäinen maailmansota"
-      },
-      "select": "Valitse teema"
-    },
     "COLOURPALETTE": {
       "moreName": "värit",
       "name": "Väri",
@@ -521,18 +519,6 @@ export default {
       },
       "select": "Valitse värit"
     },
-    "contentTier": {
-      "name": "Aineisto laatu",
-      "options": {
-        "*": "Sisältää aineistot, jotka eivät täytä julkaisuehtojamme",
-        "0": "Ei täytä julkaisuehtoja",
-        "1": "Heikko laatu",
-        "2": "Keskilaatuinen",
-        "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
-        "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
-      },
-      "select": "Valitse aineisto ominaisuudet"
-    },
     "COUNTRY": {
       "name": "Alkuperämaa",
       "options": {
@@ -666,12 +652,99 @@ export default {
       },
       "select": "Valitse tiedostomuodot"
     },
-    "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "PROVIDER": {
       "moreName": "aggregaattorit",
       "name": "Aggregaattori",
       "select": "Valitse aggregaattorit"
     },
+    "REUSABILITY": {
+      "name": "Voinko käyttää tätä?",
+      "options": {
+        "open": "Kyllä",
+        "permission": "Ehkä, pyydä lupaa",
+        "restricted": "Kyllä, tietyin ehdoin",
+        "uncategorized": "Ei luokiteltu"
+      },
+      "select": "Valitse, voitko käyttää tätä"
+    },
+    "RIGHTS": {
+      "name": "Käyttöoikeus",
+      "options": {
+        "*/CNE/*": "Tekijänoikeus Ei arvioitu",
+        "*/InC-EDU/*": "Tekijänoikeus - Opetuskäyttö sallittu",
+        "*/InC-OW-EU/*": "Tekijänoikeus - OW-EU",
+        "*/InC/*": "Tekijänoikeudet",
+        "*/NoC-NC/*": "Ei tekijänoikeuksia – vain ei-kaupalliseen käyttöön",
+        "*/NoC-OKLR/*": "Ei tekijänoikeuksia – muut tunnetut lailliset rajoitukset",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Julkisen verkkotunnuksen merkki",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Tekijänoikeuden ulkopuolella - ei-kaupallinen uudelleenkäyttö",
+        "*/rights/rr-f/*": "Oikeudet pidätetään - Vapaa pääsy",
+        "*/rights/unknown/*": "Tuntematon tekijänoikeustila"
+      },
+      "select": "Valitse oikeuksia koskevat lausumat"
+    },
+    "TYPE": {
+      "name": "Mediatyyppi",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Kuva",
+        "SOUND": "Ääni",
+        "TEXT": "Teksti",
+        "VIDEO": "Video"
+      },
+      "select": "Valitse mediatyypit"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Jos haluat etsiä sanomalehtien tekstistä, sinun on käytettävä tarkennettua hakua ja valittava \"koko Teksti\" -kenttä.",
+        "ww1": "Jos haluat etsiä tekstiä ensimmäisen maailmansodan asiakirjoista, sinun on käytettävä tarkennettua hakua ja valittava \"koko teksti\" -kenttä."
+      }
+    },
+    "button": {
+      "morefilters": "Lisää suodattimia",
+      "showAdditional": "{show} lisäsuodatinta",
+      "showAll": "Näytä kaikki {label}",
+      "showLess": "Näytä vähemmän {label}"
+    },
+    "collection": {
+      "name": "Teema",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Taide",
+        "fashion": "Muoti",
+        "industrial": "Teollisuusperintö",
+        "manuscript": "Käsikirjoitukset",
+        "map": "Kartat ja maantiede",
+        "migration": "Muuttoliike",
+        "music": "Musiikki",
+        "nature": "Luonnonhistoria",
+        "newspaper": "Sanomalehdet",
+        "photography": "Valokuvaus",
+        "sport": "Urheilu",
+        "ww1": "Ensimmäinen maailmansota"
+      },
+      "select": "Valitse teema"
+    },
+    "contentTier": {
+      "name": "Aineisto laatu",
+      "options": {
+        "*": "Sisältää aineistot, jotka eivät täytä julkaisuehtojamme",
+        "0": "Ei täytä julkaisuehtoja",
+        "1": "Heikko laatu",
+        "2": "Keskilaatuinen",
+        "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
+        "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
+      },
+      "select": "Valitse aineisto ominaisuudet"
+    },
+    "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "proxy_dc_format": {
       "name": "Muoto",
       "select": "Valitse formaatit"
@@ -686,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Keskikokoinen",
       "select": "Valitse media"
-    },
-    "REUSABILITY": {
-      "name": "Voinko käyttää tätä?",
-      "options": {
-        "open": "Kyllä",
-        "permission": "Ehkä, pyydä lupaa",
-        "restricted": "Kyllä, tietyin ehdoin",
-        "uncategorized": "Ei luokiteltu"
-      },
-      "select": "Valitse, voitko käyttää tätä"
-    },
-    "TYPE": {
-      "name": "Mediatyyppi",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Kuva",
-        "SOUND": "Ääni",
-        "TEXT": "Teksti",
-        "VIDEO": "Video"
-      },
-      "select": "Valitse mediatyypit"
     }
   },
   "fieldLabels": {
@@ -725,6 +777,8 @@ export default {
       "dcRights": "Oikeudet",
       "dcSource": "Lähde",
       "dcSubject": "Aihe",
+      "dcTitle": "Nimi",
+      "dcType": "Aineisto tyyppi",
       "dctermsAlternative": "Vaihtoehtoinen otsikko",
       "dctermsCreated": "Luomispäivä",
       "dctermsExtent": "Laajuus",
@@ -740,10 +794,8 @@ export default {
       "dctermsProvenance": "Alkuperä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
-      "dctermsTemporal": "Ajoitus",
       "dctermsTOC": "Sisällysluettelo",
-      "dcTitle": "Nimi",
-      "dcType": "Aineisto tyyppi",
+      "dctermsTemporal": "Ajoitus",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
       "edmDataProvider": "Aineiston tarjoaja",
@@ -782,16 +834,17 @@ export default {
   "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
+    "disclaimerLine1": "Kulttuuriperinnön yhteinen eurooppalainen data-avaruus on Euroopan unionin aloite, jota rahoitetaan Euroopan unionin Digitaalinen Eurooppa -ohjelmasta. Data-avaruuspalveluja, mukaan lukien tämä verkkosivusto, ylläpitää Europeana-säätiön johtama konsortio Euroopan komission kanssa tehdyn palvelusopimuksen nojalla, sopimusnumero LC-01901432.",
     "findUsElsewhere": "Löydä meidät muualta",
     "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
+      "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "faq": "Usein kysytyt kysymykset (FAQ)",
       "help": "Apua",
-      "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojaseloste",
       "registerApiKey": "Rekisteröidy saadaksesi API-avaimen",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
@@ -924,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",
         "title": "Debug-kytkin"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Kerää käyttäjätietoja, jotta voimme analysoida käyttäjien vuorovaikutusta. Aktivoi kyselywidgetin, jonka avulla voit vastata kävijöiden tyytyväisyyskyselyihimme.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Muistaa valitsemasi käyttöliittymäkielen tulevaa käyttöä varten.",
         "title": "Kielikoodi"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivoi palaute-widgetin, jolloin voit ottaa meihin yhteyttä.",
         "title": "Jiran palvelupiste"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
@@ -1042,100 +1005,39 @@ export default {
         "description": "Muistaa, haluatko saada monikielisiä hakutuloksia.",
         "title": "Monikielinen haku"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Näyttää ilmoituksen, kun uusia ominaisuuksia tulee saataville.",
         "title": "Uuden ominaisuuden ilmoitus"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
         "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "tuntematon palveluntarjoaja",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "tuntematon palveluntarjoaja"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Resurssit",
         "navigation": {
+          "apiDocumentation": "API-dokumentaatio",
+          "contactUs": "Ota yhteyttä",
+          "requestApiKey": "Pyydä API-avain"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana APIen etusivu",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana-rajapinnat",
           "faq": "FAQ",
           "findInspiration": "Etsi inspiraatiota"
         }
       }
     },
     "counts": {
-      "apiRequests": "Keskimäärin kuukausittaiset API-pyynnöt",
+      "apiRequests": "Kuukausittaiset API-pyynnöt keskimäärin",
       "dataProviders": "Tietojen tarjoajat",
       "hqData": "Korkealaatuisten tietojen lisääntyminen vuodessa",
       "items": "Aineistot",
@@ -1170,10 +1072,10 @@ export default {
       "show": "Näytä sivut"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF manifesti",
       "annotations": "Huomautukset",
       "annotationsCount": "1 Huomautus |{count} Huomautukset",
       "hide": "Piilota sivupalkki",
-      "IIIFManifest": "IIIF manifesti",
       "links": "Linkit",
       "search": "Hae",
       "searchPlaceholder": "Syötä ehdot",
@@ -1208,8 +1110,8 @@ export default {
     "enrichment": "Rikastaminen kumppaniprojekteilla",
     "stopViewingThisItemIn": "Lopeta tämän aineiston tarkastelu {0}",
     "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin.",
-    "viewingThisItemIn": "Tarkastelet tätä aineistoa {0}-kielellä",
-    "viewItemInAnotherLanguage": "Tarkastele tätä aineistoa toisella kielellä"
+    "viewItemInAnotherLanguage": "Tarkastele tätä aineistoa toisella kielellä",
+    "viewingThisItemIn": "Tarkastelet tätä aineistoa {0}-kielellä"
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
@@ -1224,9 +1126,6 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",
@@ -1284,8 +1183,6 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
-    "debias": "De-bias",
-    "explanationby": "Selityksen on antanut {0}",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -1360,6 +1257,7 @@ export default {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse koko teksti tai metatietokenttä haettavaksi.",
         "fields": {
+          "YEAR": "Syötä vuosi, joka liittyy kohteeseen/kohteisiin. Esimerkiksi ‘1919’.",
           "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin.",
           "proxy_dc_coverage": "Kirjoita termi, joka viittaa paikkaan tai pisteeseen/ajanjaksoon. Esimerkiksi \"1995-1996\" tai \"Berliini\" tai \"http://sws.geonames.org/2287781/\".",
           "proxy_dc_date": "Syötä termi, joka viittaa aineiston kannalta merkittävään päivämäärään. Esimerkiksi päivämäärä muodossa ‘VVVV-KK-PP’ tai yksittäinen vuosi, ‘1919’, tai laajemmat määritelmät kuten ‘Varhainen 20. vuosisata’.",
@@ -1370,8 +1268,7 @@ export default {
           "proxy_dcterms_issued": "Syötä termi, joka viittaa aineiston julkaisu- tai ilmestymispäivään. Esimerkiksi mikä tahansa päivämäärä muodossa ‘VVVV-KK-PP’, yksittäinen vuosi kuten ‘1919’, tai laajemmat määritelmät kuten ‘varhainen 20. vuosisata’. Muiden merkityksellisten päivämäärien etsimiseksi katso kentät Päivämäärä, Luontipäivämäärä tai Vuosi.",
           "proxy_dcterms_medium": "Syötä termi, joka viittaa käytettyihin materiaaleihin tai aineiston fyysiseen luonteeseen. Esimerkiksi ‘metalli’ tai ‘paperi’. Laajempien materiaalimääritelmien osalta, kuten ‘veistos’ tai ‘maalaus’, kokeile ‘MEDIATYYPPI’ -kenttää.",
           "proxy_dcterms_temporal": "Syötä termi, joka viittaa aikakauteen tai hetkeen, johon aineisto/aineistot liittyvät, esimerkiksi kuva, joka esittää kaupunkia vuonna 1930. Anna esimerkiksi 'Rooman valtakunta' tai 'Renessanssi'. Tarkkoja päivämääriä varten etsi Päivämäärä, Luontipäivämäärä, Julkaisupäivämäärä tai Vuosi -kentistä.",
-          "proxy_edm_hasMet": "Syötä termi, joka viittaa henkilöön, paikkaan, aikakauteen tai muuhun, johon aineisto voi olla läheisesti yhteydessä. Esimerkiksi ‘William Shakespeare’.",
-          "YEAR": "Syötä vuosi, joka liittyy kohteeseen/kohteisiin. Esimerkiksi ‘1919’."
+          "proxy_edm_hasMet": "Syötä termi, joka viittaa henkilöön, paikkaan, aikakauteen tai muuhun, johon aineisto voi olla läheisesti yhteydessä. Esimerkiksi ‘William Shakespeare’."
         },
         "modifier": "Valitse, kuinka tämän kentän tulee muokata hakua.",
         "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
@@ -1389,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
       "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
       "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
+      "withQuery": "{count} tulokset :lle {query}",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
-      "withoutQuery": "{count} tulokset",
-      "withQuery": "{count} tulokset :lle {query}"
+      "withoutQuery": "{count} tulokset"
     },
     "selectTheme": "TEEMA valitseminen voi tarjota lisää suodatusvaihtoehtoja, esim. Sanomalehdet-teema sisältää JULKAISTUSPÄIVÄN suodattimen.",
     "title": "Hae"

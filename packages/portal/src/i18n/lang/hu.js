@@ -71,7 +71,7 @@ export default {
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentés",
     "share": "Megosztás",
-    "shareOn": "Megosztás itt: {social}",
+    "shareOn": "Megosztás a {social}",
     "show": "megjelenítése",
     "showLess": "Kevesebb megjelenítése",
     "showMore": "Továbbiak megjelenítése",
@@ -139,7 +139,7 @@ export default {
     "creator": "Alkotó:",
     "date": "Dátum:",
     "institution": "Intézmény:",
-    "show": "Elemmel kapcsolatos információk megjelenítése",
+    "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
   "authored": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Kezdő dátum",
     "to": "erre"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Ezt az információt a {link} (2023/2024) hozta létre, hogy segítsen kontextusba helyezni az elavult és káros kifejezéseket a gyűjteményleírásokban."
+    },
+    "headings": {
+      "alternatives": "Javasolt alternatívák",
+      "recommendations": "Használati ajánlások",
+      "source": "Forrás"
+    },
+    "termNotFound": "Ez az oldal csak az elfogult kifejezés nyelvén érhető el.",
+    "tooltip": {
+      "linkToPage": "Olvassa el a {projectName} által nyújtott teljes magyarázatot"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
+          "descriptionLine2": "Szüksége van API kulcsra? Regisztráljon egyért {link}.",
+          "here": "itt",
+          "label": "API-kulcs",
           "usePersonal": {
             "linkText": "Adja meg a személyes API-kulcsát",
             "prompt": "{link} és használatba kerül."
@@ -233,7 +252,18 @@ export default {
     "right": "Jobb"
   },
   "ds4ch": {
-    "broughtBy": "Készítő:"
+    "broughtBy": "Készítő:",
+    "footer": {
+      "disclaimerLine1": "A közös európai kulturális örökségadat-tér az Európai Unió kezdeményezése, amelyet az EU Digitális Európa programja finanszíroz. Az adattér szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján."
+    },
+    "header": {
+      "navigation": {
+        "about": "Az adattérről",
+        "explore": "Fedezze fel az adatokat",
+        "partners": "Partnerek"
+      }
+    },
+    "homeLinkAlt": "A közös európai kulturális örökség adattér kezdőlapja"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató weboldalán",
   "embedNotification": {
@@ -271,6 +301,9 @@ export default {
   },
   "error": "Hiba",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
+    },
     "authClientDisabled": {
       "description": "Ez az API-kulcs már le lett tiltva, esetleg egy másik böngészőfülön.",
       "title": "A kulcs már le van tiltva"
@@ -299,9 +332,6 @@ export default {
     "genericUnknownError": {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
-    },
-    "IIIFManifestFailure": {
-      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: az elem nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi követelményeknek; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbáld meg újra megkeresni az oldalon.",
@@ -338,37 +368,6 @@ export default {
     "exhibitions": "Kiállítás | Kiállítások"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Ha újságok szövegében szeretnél keresni, használd az összetett keresést, és válaszd ki a \"teljes szöveg\" mezőt.",
-        "ww1": "Ha az első világháborús dokumentumok szövegében szeretnél keresni, használd az összetett keresést, és válaszd ki a \"teljes szöveg\" mezőt."
-      }
-    },
-    "button": {
-      "morefilters": "További szűrők",
-      "showAdditional": "további szűrők {show}",
-      "showAll": "Összes {label} megjelenítése",
-      "showLess": "Kevesebb {label} megjelenítése"
-    },
-    "collection": {
-      "name": "Témakör",
-      "options": {
-        "archaeology": "Régészet",
-        "art": "Művészet",
-        "fashion": "Divat",
-        "industrial": "Ipari örökség",
-        "manuscript": "Kéziratok",
-        "map": "Térképek és földrajz",
-        "migration": "Migráció",
-        "music": "Zene",
-        "nature": "Természettudomány",
-        "newspaper": "Újságírás",
-        "photography": "Fényképészet",
-        "sport": "Sport",
-        "ww1": "Első világháború"
-      },
-      "select": "Témakör kiválasztása"
-    },
     "COLOURPALETTE": {
       "moreName": "színek",
       "name": "Szín",
@@ -520,18 +519,6 @@ export default {
       },
       "select": "Színek kiválasztása"
     },
-    "contentTier": {
-      "name": "Elem minősége",
-      "options": {
-        "*": "A közzétételi feltételeknek meg nem felelő tárgyak kizárása",
-        "0": "Nem felel meg a közzétételi feltételeknek",
-        "1": "Gyenge minőség",
-        "2": "Közepes minőség",
-        "3": "Kiváló minőségű és bizonyos feltételek mellett újrafelhasználható",
-        "4": "Kiváló minőségű és szabadon újrafelhasználható"
-      },
-      "select": "Minőségtulajdonságok kiválasztása"
-    },
     "COUNTRY": {
       "name": "Szolgáltató ország",
       "options": {
@@ -665,12 +652,99 @@ export default {
       },
       "select": "Fájlformátumok kiválasztása"
     },
-    "moreOptions": "További elemek keresése {0} ebben a témában: {1}.",
     "PROVIDER": {
       "moreName": "aggregátorok",
       "name": "Aggregátor",
       "select": "Aggregátorok kiválasztása"
     },
+    "REUSABILITY": {
+      "name": "Használhatom ezt az elemet?",
+      "options": {
+        "open": "Igen",
+        "permission": "Talán, engedély kérése szükséges",
+        "restricted": "Igen, feltételekkel",
+        "uncategorized": "Nem besorolt"
+      },
+      "select": "Felhasználási feltételek kiválasztása"
+    },
+    "RIGHTS": {
+      "name": "Szerzői jogok",
+      "options": {
+        "*/CNE/*": "A szerzői jog nincs értékelve",
+        "*/InC-EDU/*": "Szerzői jogvédelem alatt - oktatási célú felhasználás megengedett",
+        "*/InC-OW-EU/*": "Szerzői jogvédelem alatt - OW-EU",
+        "*/InC/*": "Szerzői jogvédelem alatt",
+        "*/NoC-NC/*": "Nincs szerzői jog – csak nem kereskedelmi használatra",
+        "*/NoC-OKLR/*": "Nincs szerzői jog – egyéb ismert jogi korlátozások",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Szerzői jogon kívül - nem kereskedelmi újrafelhasználás",
+        "*/rights/rr-f/*": "Jogok fenntartva - Ingyenes hozzáférés",
+        "*/rights/unknown/*": "Ismeretlen szerzői jogi állapot"
+      },
+      "select": "Szerzői jogok kiválasztása"
+    },
+    "TYPE": {
+      "name": "Adathordozó típusa",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Kép",
+        "SOUND": "Hang",
+        "TEXT": "Szöveg",
+        "VIDEO": "Videó"
+      },
+      "select": "Adathordozó-típusok kiválasztása"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ha újságok szövegében szeretnél keresni, használd az összetett keresést, és válaszd ki a \"teljes szöveg\" mezőt.",
+        "ww1": "Ha az első világháborús dokumentumok szövegében szeretnél keresni, használd az összetett keresést, és válaszd ki a \"teljes szöveg\" mezőt."
+      }
+    },
+    "button": {
+      "morefilters": "További szűrők",
+      "showAdditional": "további szűrők {show}",
+      "showAll": "Összes {label} megjelenítése",
+      "showLess": "Kevesebb {label} megjelenítése"
+    },
+    "collection": {
+      "name": "Témakör",
+      "options": {
+        "archaeology": "Régészet",
+        "art": "Művészet",
+        "fashion": "Divat",
+        "industrial": "Ipari örökség",
+        "manuscript": "Kéziratok",
+        "map": "Térképek és földrajz",
+        "migration": "Migráció",
+        "music": "Zene",
+        "nature": "Természettudomány",
+        "newspaper": "Újságírás",
+        "photography": "Fényképészet",
+        "sport": "Sport",
+        "ww1": "Első világháború"
+      },
+      "select": "Témakör kiválasztása"
+    },
+    "contentTier": {
+      "name": "Elem minősége",
+      "options": {
+        "*": "A közzétételi feltételeknek meg nem felelő tárgyak kizárása",
+        "0": "Nem felel meg a közzétételi feltételeknek",
+        "1": "Gyenge minőség",
+        "2": "Közepes minőség",
+        "3": "Kiváló minőségű és bizonyos feltételek mellett újrafelhasználható",
+        "4": "Kiváló minőségű és szabadon újrafelhasználható"
+      },
+      "select": "Minőségtulajdonságok kiválasztása"
+    },
+    "moreOptions": "További elemek keresése {0} ebben a témában: {1}.",
     "proxy_dc_format": {
       "name": "Formátum",
       "select": "Formátumok kiválasztása"
@@ -685,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Anyag",
       "select": "Adathordozó kiválasztása"
-    },
-    "REUSABILITY": {
-      "name": "Használhatom ezt az elemet?",
-      "options": {
-        "open": "Igen",
-        "permission": "Talán, engedély kérése szükséges",
-        "restricted": "Igen, feltételekkel",
-        "uncategorized": "Nem besorolt"
-      },
-      "select": "Felhasználási feltételek kiválasztása"
-    },
-    "TYPE": {
-      "name": "Adathordozó típusa",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Kép",
-        "SOUND": "Hang",
-        "TEXT": "Szöveg",
-        "VIDEO": "Videó"
-      },
-      "select": "Adathordozó-típusok kiválasztása"
     }
   },
   "fieldLabels": {
@@ -724,6 +777,8 @@ export default {
       "dcRights": "Jogok",
       "dcSource": "Forrás",
       "dcSubject": "Tárgy",
+      "dcTitle": "Cím",
+      "dcType": "Elem típusa",
       "dctermsAlternative": "Alternatív cím",
       "dctermsCreated": "Létrehozás dátuma",
       "dctermsExtent": "Terjedelem",
@@ -739,10 +794,8 @@ export default {
       "dctermsProvenance": "Származási hely",
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
-      "dctermsTemporal": "Időbeli",
       "dctermsTOC": "Tartalomjegyzék",
-      "dcTitle": "Cím",
-      "dcType": "Elem típusa",
+      "dctermsTemporal": "Időbeli",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
       "edmDataProvider": "Szolgáltató intézmény",
@@ -781,16 +834,17 @@ export default {
   "filterResults": "Találatok szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
+    "disclaimerLine1": "A közös európai kulturális örökségadat-tér az Európai Unió kezdeményezése, amelyet az EU Digitális Európa programja finanszíroz. Az adattér szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján, szerződésszám: LC-01901432.",
     "findUsElsewhere": "Megtalálsz minket itt is:",
     "footer": "Lábléc",
     "imageDescription": "Az Európai Unió támogatásával",
     "navigation": {
+      "MoreInfoLabel": "További információ",
       "about": "Rólunk",
       "accessibility": "Akadálymentesség",
       "cookies": "Sütik",
       "faq": "Gyakran ismételt kérdések",
       "help": "Súgó",
-      "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi nyilatkozat",
       "registerApiKey": "Regisztráljon egy API-kulcsért",
       "seeApiRequests": "Europeana API-kérések",
@@ -923,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Segít az API -kérelmek hibakeresésében",
         "title": "Hibakeresés váltás"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Használati adatokat gyűjt, hogy segítsen nekünk elemezni a felhasználói interakciókat. Aktivál egy felmérési widgetet, amely lehetőséget ad arra, hogy válaszoljon a látogatói elégedettségi felméréseinkre.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
         "title": "Nyelvi kód"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
         "title": "Jira szolgáltató pult"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
@@ -1041,93 +1005,32 @@ export default {
         "description": "Megjegyzi, hogy többnyelvű keresési eredményeket szeretne-e kapni.",
         "title": "Többnyelvű keresés"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Értesítést jelenít meg, ha új funkciók válnak elérhetővé.",
         "title": "Új funkció értesítése"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
         "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "ismeretlen szolgáltató",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "ismeretlen szolgáltató"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Erőforrások",
         "navigation": {
+          "apiDocumentation": "API dokumentáció",
+          "contactUs": "Kapcsolat",
+          "requestApiKey": "API-kulcs igénylése"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API-k kezdőlapja",
+        "navigation": {
+          "apiDemo": "API demó",
+          "europeanaApis": "Europeana API-k",
           "faq": "GYIK",
           "findInspiration": "Meríts ihletet"
         }
@@ -1169,10 +1072,10 @@ export default {
       "show": "Oldalak megjelenítése"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Megjegyzések",
       "annotationsCount": "1 Megjegyzés |{count} Megjegyzés",
       "hide": "Oldalsáv elrejtése",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Linkek",
       "search": "Keresés",
       "searchPlaceholder": "Kifejezések megadása",
@@ -1186,8 +1089,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Kattints az információkra a másoláshoz",
-      "copyAttribution": "Elemmel kapcsolatos információk másolása",
+      "clickToCopy": "Kattintson az attribúció másolásához.",
+      "copyAttribution": "Elem attribúciójának másolása",
       "modalIntro": "Ha felhasználod ezt az elemet az interneten vagy máshol, ne felejtsd el megadni a következő információkat róla:",
       "modalTitle": "Mondj köszönetet"
     },
@@ -1207,8 +1110,8 @@ export default {
     "enrichment": "Gazdagodás partnerprojektek által",
     "stopViewingThisItemIn": "A(z) {0} nyelvre történő automatizált fordítás kikapcsolása",
     "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később.",
-    "viewingThisItemIn": "Az elem jelenleg {0} nyelven jelenik meg",
-    "viewItemInAnotherLanguage": "Az elem megtekintése egy másik nyelven"
+    "viewItemInAnotherLanguage": "Az elem megtekintése egy másik nyelven",
+    "viewingThisItemIn": "Az elem jelenleg {0} nyelven jelenik meg"
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
@@ -1223,9 +1126,6 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs több találat a keresésre.",
   "noResults": "Nincs találat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "A",
   "organisation": {
     "city": "Város",
@@ -1283,8 +1183,6 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "clickToCopyEmbedCode": "Kattints a beágyazási kódra a másoláshoz",
-    "debias": "De-bias",
-    "explanationby": "A magyarázatot biztosította: {0}",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
@@ -1359,6 +1257,7 @@ export default {
         "advancedSearch": "Az összetett keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
         "field": "Válaszd ki a teljes szöveg vagy metaadat mezőt a kereséshez.",
         "fields": {
+          "YEAR": "Adjon meg egy, az elemhez kapcsolódó évet. Például \"1919\".",
           "fulltext": "A teljes szöveg tartalmazza az átiratokat, a feliratokat és a dokumentumok szövegét.",
           "proxy_dc_coverage": "Adj meg egy kifejezést, amely egy helyre vagy egy adott pontra/időszakra utal. Például „1995-1996” vagy „Berlin” vagy „http://sws.geonames.org/2287781/”.",
           "proxy_dc_date": "Adj meg egy kifejezést, amely egy, az elem(ek)hez kapcsolódó jelentős dátumra utal. Például bármely dátum \"ÉÉÉÉ-HH-NN\" formátumban, egy adott év, mint például \"1919\", vagy tágabb meghatározások, mint pl. \"a 20. század eleje\".",
@@ -1369,8 +1268,7 @@ export default {
           "proxy_dcterms_issued": "Adjon meg egy kifejezést, amely az elem(ek) kiadásának vagy közzétételének dátumára utal. Például bármely dátum \"ÉÉÉÉ-HH-NN\" formátumban, egy adott év, mint például \"1919\", vagy tágabb meghatározások, mint pl. \"a 20. század eleje\". További  dátumok esetén, amelyek fontosak lehetnek, keress a Dátum, Kiadás dátuma vagy az Év mezőkben.",
           "proxy_dcterms_medium": "Adj meg egy olyan kifejezést, amely az elem anyagára vagy fizikai természetére utal. Például \"fém\" vagy \"papír\". Általánosabb kategóriákhoz, mint például \"szobor\" vagy \"festmény\", próbáld ki inkább az \"ELEM TÍPUSA\" mezőt.",
           "proxy_dcterms_temporal": "Adj meg olyan kifejezést, amely egy időszakra vagy időpontra utal, amelyhez az elem(ek) kapcsolódnak, például egy kép, amely egy várost ábrázol 1930-ban. Írd be például a 'Római Birodalom' vagy a 'Reneszánsz' kifejezést. Konkrét dátumok esetén keress a Dátum, Létrehozás dátuma, Kiadás dátuma vagy Év mezőkben.",
-          "proxy_edm_hasMet": "Adj meg egy kifejezést az elemhez kapcsolódó személlyel, hellyel, időszakkal vagy bármi mással összefüggésben. Például \"William Shakespeare\".",
-          "YEAR": "Adjon meg egy, az elemhez kapcsolódó évet. Például \"1919\"."
+          "proxy_edm_hasMet": "Adj meg egy kifejezést az elemhez kapcsolódó személlyel, hellyel, időszakkal vagy bármi mással összefüggésben. Például \"William Shakespeare\"."
         },
         "modifier": "Válaszd ki, hogy ez a mező hogyan módosítsa a keresést.",
         "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mezőnek tartalmaznia / nem tartalmaznia kell."
@@ -1388,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} további találatok megtekintéséhez",
       "loginToSeeMultilingualResults": "Jelentkezz be, ha szeretnél a teljes gyűjteményben keresni, és nem korlátozni a találatokat a keresési kifejezés nyelvére.",
       "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
+      "withQuery": "{count} találat a következőre: {query}",
       "withinCollection": "{count} találat ezzel kapcsolatban: {type}:{collection}",
       "withinCollectionWithQuery": "{count} találat ezzel kapcsolatban: {type}:{collection}, {query}",
-      "withoutQuery": "{count} találat",
-      "withQuery": "{count} találat a következőre: {query}"
+      "withoutQuery": "{count} találat"
     },
     "selectTheme": "A TÉMAKÖR kiválasztása további szűrési lehetőségeket biztosít, pl. az Újságok témakörnél megjelenik egy KIADÁS DÁTUMA szűrő.",
     "title": "Keresés"
