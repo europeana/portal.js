@@ -23,6 +23,7 @@ jobs:
           base_lang: en_GB
           flat_naming: true
           skip_include_tags: true
+          skip_original_filenames: true
           always_pull_base: true
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
