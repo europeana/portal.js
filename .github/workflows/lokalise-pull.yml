@@ -28,7 +28,7 @@ jobs:
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
           # replace unnecessarily escaped slashes, i.e. replace "\/" with "/"
-          post_process_command: "sed -i 's/\\\//\//g' packages/portal/src/i18n/lang/*.js"
+          post_process_command: 'sed -i "s/\\\//\//g" packages/portal/src/i18n/lang/*.js'
           additional_params: |
             --add-newline-eof=true
             --directory-prefix=packages/portal/src/i18n/lang
