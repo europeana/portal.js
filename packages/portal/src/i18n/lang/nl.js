@@ -5,7 +5,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen / Aanmelden",
+    "linkLoginJoin": "Inloggen \/ Aanmelden",
     "linkLogout": "Uitloggen",
     "manageApiKeys": "API-sleutels beheren",
     "menu": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Begin datum",
     "to": "naar"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS project",
+      "text": "Deze informatie is gemaakt door {link} (2023\/2024) om verouderde en schadelijke termen in collectiebeschrijvingen te helpen contextualiseren."
+    },
+    "headings": {
+      "alternatives": "Voorgestelde alternatieven",
+      "recommendations": "Aanbevelingen voor gebruik",
+      "source": "Bron"
+    },
+    "termNotFound": "Deze pagina is alleen beschikbaar in de taal van de bevooroordeelde term.",
+    "tooltip": {
+      "linkToPage": "Lees de volledige uitleg van {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Voer uw Europeana API-sleutel in en deze wordt gebruikt in de links naar API-verzoeken.",
+          "descriptionLine2": "API-sleutel nodig? Registreer voor een {link}.",
+          "here": "hier",
+          "label": "API-sleutel",
           "usePersonal": {
             "linkText": "Voer uw persoonlijke API-sleutel in",
             "prompt": "{link} en het zal worden gebruikt."
@@ -234,6 +253,16 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Aangeboden door",
+    "footer": {
+      "disclaimerLine1": "De gemeenschappelijke Europese dataspace voor cultureel erfgoed is een initiatief van de Europese Unie, gefinancierd door het programma Digitaal Europa van de EU. De dataspace-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation op basis van een dienstverleningsovereenkomst met de Europese Commissie."
+    },
+    "header": {
+      "navigation": {
+        "about": "Over de dataspace",
+        "explore": "Verken de gegevens",
+        "partners": "Partners"
+      }
+    },
     "homeLinkAlt": "De gemeenschappelijke Europese dataruimte voor cultureel erfgoed"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
@@ -272,6 +301,9 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
+    },
     "authClientDisabled": {
       "description": "Deze API-sleutel is al uitgeschakeld, mogelijk in een ander browsertabblad.",
       "title": "Sleutel al uitgeschakeld"
@@ -301,9 +333,6 @@ export default {
       "description": "Er is een onbekende fout opgetreden.",
       "title": "Onbekende fout"
     },
-    "IIIFManifestFailure": {
-      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
-    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
@@ -318,7 +347,7 @@ export default {
       "title": "De pagina die u zoekt, bestaat niet."
     },
     "pinningNotFound": {
-      "description": "Er is een fout opgetreden bij het vastzetten/losmaken van het item. Probeer het opnieuw of meld het probleem.",
+      "description": "Er is een fout opgetreden bij het vastzetten\/losmaken van het item. Probeer het opnieuw of meld het probleem.",
       "title": "Samengestelde collectie niet gevonden"
     },
     "searchPaginationLimitExceeded": {
@@ -339,37 +368,6 @@ export default {
     "exhibitions": "Tentoonstelling | Tentoonstellingen"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Als u wilt zoeken in de tekst van kranten, moet u de geavanceerde zoekopdracht gebruiken en het veld \"volledige tekst\" kiezen.",
-        "ww1": "Als u wilt zoeken in de tekst van WWI-documenten, moet u de geavanceerde zoekfunctie gebruiken en het veld \"volledige tekst\" kiezen."
-      }
-    },
-    "button": {
-      "morefilters": "Meer filters",
-      "showAdditional": "{show} extra filters",
-      "showAll": "Alle {label} weergeven",
-      "showLess": "Minder weergeven {label}"
-    },
-    "collection": {
-      "name": "Thema",
-      "options": {
-        "archaeology": "Archeologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industrieel erfgoed",
-        "manuscript": "manuscripten",
-        "map": "Kaarten en geografie",
-        "migration": "Migratie",
-        "music": "Muziek",
-        "nature": "Natuurgeschiedenis",
-        "newspaper": "Kranten",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Eerste Wereldoorlog"
-      },
-      "select": "Selecteer een thema"
-    },
     "COLOURPALETTE": {
       "moreName": "kleuren",
       "name": "Kleur",
@@ -521,18 +519,6 @@ export default {
       },
       "select": "Selecteer kleuren"
     },
-    "contentTier": {
-      "name": "Object kwaliteit",
-      "options": {
-        "*": "Bevat objecten die niet voldoen aan onze publicatiecriteria",
-        "0": "Voldoet niet aan publicatiecriteria",
-        "1": "Lage kwaliteit",
-        "2": "Middelmatige kwaliteit",
-        "3": "Hoge kwaliteit & herbruikbaar onder voorwaarden",
-        "4": "Hoge kwaliteit & vrij herbruikbaar"
-      },
-      "select": "Selecteer item kwaliteit"
-    },
     "COUNTRY": {
       "name": "Land van levering",
       "options": {
@@ -662,16 +648,103 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       },
       "select": "Selecteer bestandsformaten"
     },
-    "moreOptions": "Zoek naar {0} meer {1}.",
     "PROVIDER": {
       "moreName": "informatienetwerken",
       "name": "Informatienetwerk",
       "select": "Selecteer informatienetwerken"
     },
+    "REUSABILITY": {
+      "name": "Kan ik dit gebruiken?",
+      "options": {
+        "open": "Ja",
+        "permission": "Misschien, vraag toestemming",
+        "restricted": "Ja, onder voorwaarden",
+        "uncategorized": "Ongecategoriseerd"
+      },
+      "select": "Selecteer of je dit kunt gebruiken"
+    },
+    "RIGHTS": {
+      "name": "Rechtenstatus",
+      "options": {
+        "*\/CNE\/*": "AUTEURSRECHTELIJKE STATUS NIET GEËVALUEERD",
+        "*\/InC-EDU\/*": "AUTEURSRECHTELIJK BESCHERMD - EDUCATIEF GEBRUIK TOEGESTAAN",
+        "*\/InC-OW-EU\/*": "AUTEURSRECHTELIJK BESCHERMD - OW-EU",
+        "*\/InC\/*": "AUTEURSRECHTELIJK BESCHERMD",
+        "*\/NoC-NC\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/NoC-OKLR\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - ANDERE JURIDISCHE BEPERKINGEN",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "AUTEURSRECHTELIJKE BESCHERMING NIET BEPAALD"
+      },
+      "select": "Selecteer rechtenverklaringen"
+    },
+    "TYPE": {
+      "name": "Soort media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Afbeelding",
+        "SOUND": "Geluid",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Selecteer soorten media"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Als u wilt zoeken in de tekst van kranten, moet u de geavanceerde zoekopdracht gebruiken en het veld \"volledige tekst\" kiezen.",
+        "ww1": "Als u wilt zoeken in de tekst van WWI-documenten, moet u de geavanceerde zoekfunctie gebruiken en het veld \"volledige tekst\" kiezen."
+      }
+    },
+    "button": {
+      "morefilters": "Meer filters",
+      "showAdditional": "{show} extra filters",
+      "showAll": "Alle {label} weergeven",
+      "showLess": "Minder weergeven {label}"
+    },
+    "collection": {
+      "name": "Thema",
+      "options": {
+        "archaeology": "Archeologie",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industrieel erfgoed",
+        "manuscript": "manuscripten",
+        "map": "Kaarten en geografie",
+        "migration": "Migratie",
+        "music": "Muziek",
+        "nature": "Natuurgeschiedenis",
+        "newspaper": "Kranten",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Eerste Wereldoorlog"
+      },
+      "select": "Selecteer een thema"
+    },
+    "contentTier": {
+      "name": "Object kwaliteit",
+      "options": {
+        "*": "Bevat objecten die niet voldoen aan onze publicatiecriteria",
+        "0": "Voldoet niet aan publicatiecriteria",
+        "1": "Lage kwaliteit",
+        "2": "Middelmatige kwaliteit",
+        "3": "Hoge kwaliteit & herbruikbaar onder voorwaarden",
+        "4": "Hoge kwaliteit & vrij herbruikbaar"
+      },
+      "select": "Selecteer item kwaliteit"
+    },
+    "moreOptions": "Zoek naar {0} meer {1}.",
     "proxy_dc_format": {
       "name": "Vorm",
       "select": "Selecteer formaten"
@@ -686,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medium",
       "select": "Selecteer media"
-    },
-    "REUSABILITY": {
-      "name": "Kan ik dit gebruiken?",
-      "options": {
-        "open": "Ja",
-        "permission": "Misschien, vraag toestemming",
-        "restricted": "Ja, onder voorwaarden",
-        "uncategorized": "Ongecategoriseerd"
-      },
-      "select": "Selecteer of je dit kunt gebruiken"
-    },
-    "TYPE": {
-      "name": "Soort media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Afbeelding",
-        "SOUND": "Geluid",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Selecteer soorten media"
     }
   },
   "fieldLabels": {
@@ -725,6 +777,8 @@ export default {
       "dcRights": "Rechten",
       "dcSource": "Bron",
       "dcSubject": "Onderwerp",
+      "dcTitle": "Titel",
+      "dcType": "Type object",
       "dctermsAlternative": "Alternatieve titel",
       "dctermsCreated": "Aanmaakdatum",
       "dctermsExtent": "Mate",
@@ -740,10 +794,8 @@ export default {
       "dctermsProvenance": "Herkomst",
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
-      "dctermsTemporal": "Tijdsperiode",
       "dctermsTOC": "Inhoudsopgave",
-      "dcTitle": "Titel",
-      "dcType": "Type object",
+      "dctermsTemporal": "Tijdsperiode",
       "edmCountry": "Land",
       "edmCurrentLocation": "Huidige locatie",
       "edmDataProvider": "Deelnemende erfgoedorganisatie",
@@ -782,16 +834,17 @@ export default {
   "filterResults": "Resultaten filteren",
   "footer": {
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
+    "disclaimerLine1": "De gemeenschappelijke Europese dataspace voor cultureel erfgoed is een initiatief van de Europese Unie, gefinancierd door het programma Digitaal Europa van de EU. De dataspace-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation op basis van een dienstverleningsovereenkomst met de Europese Commissie, contractnummer LC-01901432.",
     "findUsElsewhere": "Vind ons ergens anders",
     "footer": "Voettekst",
     "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
+      "MoreInfoLabel": "Meer informatie",
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
       "faq": "Veelgestelde vragen (FAQ)",
       "help": "Help",
-      "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacyverklaring",
       "registerApiKey": "Registreer voor een API-sleutel",
       "seeApiRequests": "Zie verzoeken aan Europeana API's",
@@ -863,7 +916,7 @@ export default {
       "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
         "alwaysRequired": "(Altijd verplicht)",
-        "description": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie onze <a href='/rights/privacy-statement'> privacyverklaring </a>.",
+        "description": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie onze <a href='\/rights\/privacy-statement'> privacyverklaring <\/a>.",
         "privacyPolicy": "Privacybeleid",
         "servicesCount": "{count} dienst | {count} diensten",
         "text": "Hier kunt u de services bekijken en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons {privacyPolicy}.",
@@ -924,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helpt bij het debuggen van API-verzoeken",
         "title": "Debug toggle"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Verzamelt gebruiksgegevens om ons te helpen gebruikersinteracties te analyseren. Activeert een enquêtewidget waarmee u kunt deelnemen aan onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Onthoudt de interfacetaal van uw voorkeur voor toekomstige toegang.",
         "title": "Taalcode"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
         "title": "Jira-servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
@@ -1042,93 +1005,32 @@ export default {
         "description": "Onthoudt of u de voorkeur geeft aan meertalige zoekresultaten.",
         "title": "Meertalig zoeken"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Toont een melding wanneer nieuwe functies beschikbaar komen.",
         "title": "Melding van nieuwe functie"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
-        "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
+        "title": "Zoekresultaat, galerijen en likes weergave (lijst\/raster\/mozaïek)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "onbekende provider",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "onbekende provider"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Bronnen",
         "navigation": {
+          "apiDocumentation": "API-documentatie",
+          "contactUs": "Neem contact met ons op",
+          "requestApiKey": "Vraag een API-sleutel aan"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API's home",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana API's",
           "faq": "FAQ",
           "findInspiration": "Vind inspiratie"
         }
@@ -1170,10 +1072,10 @@ export default {
       "show": "Pagina's weergeven"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Annotaties",
       "annotationsCount": "1 Annotatie | {count} Annotaties",
       "hide": "Verberg zijbalk",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Links",
       "search": "Zoeken",
       "searchPlaceholder": "Voer termen in",
@@ -1208,8 +1110,8 @@ export default {
     "enrichment": "Verrijking door partnerprojecten",
     "stopViewingThisItemIn": "Stop met het bekijken van dit object in {0}",
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
-    "viewingThisItemIn": "Dit object bekijken in {0}",
-    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal"
+    "viewItemInAnotherLanguage": "Bekijk dit object in een andere taal",
+    "viewingThisItemIn": "Dit object bekijken in {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
@@ -1224,9 +1126,6 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Van",
   "organisation": {
     "city": "Stad",
@@ -1284,8 +1183,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
-    "debias": "De-bias",
-    "explanationby": "Uitleg gegeven door {0}",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
@@ -1360,18 +1257,18 @@ export default {
         "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
         "field": "Selecteer de volledige tekst of het metadata veld om in te zoeken.",
         "fields": {
+          "YEAR": "Voer een jaartal in dat gerelateerd is aan het object of de objecten. Bijvoorbeeld '1919'.",
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst.",
-          "proxy_dc_coverage": "Voer een term in die verwijst naar een plaats of een punt/periode in de tijd. Bijvoorbeeld '1995-1996' of 'Berlijn' of 'http://sws.geonames.org/2287781/'.",
-          "proxy_dc_date": "Voer een term in die verwijst naar een belangrijke datum gerelateerd aan het object/de objecten. Bijvoorbeeld een datum in het formaat ‘JJJJ-MM-DD’ of alleen jaar, ‘1919’, of bredere definities zoals ‘Begin 20e eeuw’.",
-          "proxy_dc_rights": "Voer een term in die verwijst naar informatie over de rechten of licenties gerelateerd aan het object/de objecten. Bijvoorbeeld ‘Copyright © British Library Board’. Voor het filteren op herbruikbaarheid of een specifieke rechtenverklaring, gebruik de filters ‘Kan ik dit gebruiken?’ of ‘Rights statement’.",
-          "proxy_dcterms_created": "Voer een term in die verwijst naar de datum waarop het object/de objecten zijn gemaakt. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, uitgiftedatum of Jaar.",
+          "proxy_dc_coverage": "Voer een term in die verwijst naar een plaats of een punt\/periode in de tijd. Bijvoorbeeld '1995-1996' of 'Berlijn' of 'http:\/\/sws.geonames.org\/2287781\/'.",
+          "proxy_dc_date": "Voer een term in die verwijst naar een belangrijke datum gerelateerd aan het object\/de objecten. Bijvoorbeeld een datum in het formaat ‘JJJJ-MM-DD’ of alleen jaar, ‘1919’, of bredere definities zoals ‘Begin 20e eeuw’.",
+          "proxy_dc_rights": "Voer een term in die verwijst naar informatie over de rechten of licenties gerelateerd aan het object\/de objecten. Bijvoorbeeld ‘Copyright © British Library Board’. Voor het filteren op herbruikbaarheid of een specifieke rechtenverklaring, gebruik de filters ‘Kan ik dit gebruiken?’ of ‘Rights statement’.",
+          "proxy_dcterms_created": "Voer een term in die verwijst naar de datum waarop het object\/de objecten zijn gemaakt. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, uitgiftedatum of Jaar.",
           "proxy_dcterms_hasPart": "Het object kan andere bronnen bevatten - voer een term in die een deel van de opgenomen bronnen identificeert. Als het object zelf deel uitmaakt van een andere bron, gebruik dan het veld ‘Is onderdeel van’.",
           "proxy_dcterms_isPartOf": "Dit object kan deel uitmaken van een andere gerelateerde bron - voer een term in voor de bron waarvan dit object deel kan uitmaken. Als het object zelf gerelateerde bronnen bevat, gebruik dan in plaats daarvan het veld ‘Bestaat uit’.",
-          "proxy_dcterms_issued": "Voer een term in die verwijst naar de datum van uitgifte of publicatie van het object/de objecten. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, aanmaakdatum of Jaar.",
+          "proxy_dcterms_issued": "Voer een term in die verwijst naar de datum van uitgifte of publicatie van het object\/de objecten. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, aanmaakdatum of Jaar.",
           "proxy_dcterms_medium": "Voer een term in die verwijst naar de gebruikte materialen of de fysieke aard van het object. Bijvoorbeeld ‘metaal’ of ‘papier’. Voor bredere materiaaldefinities, zoals ‘beeldhouwwerk’ of ‘schilderij’, probeer het veld ‘SOORT MEDIA’.",
-          "proxy_dcterms_temporal": "Vul een term in die verwijst naar een periode of tijdstip waarop het object/de objecten betrekking hebben, bijvoorbeeld een afbeelding die een stad uitbeeldt in 1930. Vul bijvoorbeeld 'Romeinse Rijk' of 'Renaissance' in. Voor specifieke datums zoekt u in de velden Datum, Aanmaakdatum, Uitgiftedatum of Jaar.",
-          "proxy_edm_hasMet": "Voer een term in die verwijst naar een persoon, plaats, tijdperk of iets anders waarmee het object/de objecten nauw verbonden kunnen zijn. Bijvoorbeeld ‘William Shakespeare’.",
-          "YEAR": "Voer een jaartal in dat gerelateerd is aan het object of de objecten. Bijvoorbeeld '1919'."
+          "proxy_dcterms_temporal": "Vul een term in die verwijst naar een periode of tijdstip waarop het object\/de objecten betrekking hebben, bijvoorbeeld een afbeelding die een stad uitbeeldt in 1930. Vul bijvoorbeeld 'Romeinse Rijk' of 'Renaissance' in. Voor specifieke datums zoekt u in de velden Datum, Aanmaakdatum, Uitgiftedatum of Jaar.",
+          "proxy_edm_hasMet": "Voer een term in die verwijst naar een persoon, plaats, tijdperk of iets anders waarmee het object\/de objecten nauw verbonden kunnen zijn. Bijvoorbeeld ‘William Shakespeare’."
         },
         "modifier": "Kies hoe dit veld de zoekopdracht moet wijzigen.",
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
@@ -1389,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} om meer resultaten te zien",
       "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
       "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
+      "withQuery": "{count} resultaten voor {query}",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
-      "withoutQuery": "{count} resultaten",
-      "withQuery": "{count} resultaten voor {query}"
+      "withoutQuery": "{count} resultaten"
     },
     "selectTheme": "Het selecteren van een THEMA kan meer filteropties bieden, bijvoorbeeld het thema Kranten bevat een DATUM UITGEGEVEN filter.",
     "title": "Zoeken"

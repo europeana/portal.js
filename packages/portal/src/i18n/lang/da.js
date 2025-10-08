@@ -5,7 +5,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Log ind / Bliv medlem",
+    "linkLoginJoin": "Log ind \/ Bliv medlem",
     "linkLogout": "Log ud",
     "manageApiKeys": "Administrer API-nøgler",
     "menu": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Startdato",
     "to": "til"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Denne information blev skabt af {link} (2023\/2024) for at hjælpe med at kontekstualisere forældede og skadelige termer i samlingsbeskrivelser."
+    },
+    "headings": {
+      "alternatives": "Foreslåede alternativer",
+      "recommendations": "Anbefalinger til brug",
+      "source": "Kilde"
+    },
+    "termNotFound": "Denne side er kun tilgængelig på sproget for det forudindtagede udtryk.",
+    "tooltip": {
+      "linkToPage": "Læs den fulde forklaring leveret af {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
+          "descriptionLine2": "Har du brug for en API-nøgle? Registrer dig for at få en {link}.",
+          "here": "her",
+          "label": "API-nøgle",
           "usePersonal": {
             "linkText": "Indtast din personlige API-nøgle",
             "prompt": "{link} og det vil blive brugt."
@@ -234,6 +253,16 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Bragt til dig af",
+    "footer": {
+      "disclaimerLine1": "Det fælles europæiske datarum for kulturarv er et EU-initiativ, der finansieres af EU's program for et digitalt Europa. Tjenesterne i datarummet, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen."
+    },
+    "header": {
+      "navigation": {
+        "about": "Om dataområdet",
+        "explore": "Udforsk dataene",
+        "partners": "Partnere"
+      }
+    },
     "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
@@ -265,13 +294,16 @@ export default {
         "title": "For mange fastgjorte genstande"
       },
       "pinned": "Genstand er blevet fastgjort. Det vises som det første element i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
-      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "select": "Vælg en relateret enhed for at fastgøre\/frigøre elementet til\/fra det.",
       "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet frigjort. Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden."
     }
   },
   "error": "Fejl",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
+    },
     "authClientDisabled": {
       "description": "Denne API-nøgle er allerede deaktiveret, måske i en anden faneblad i browseren.",
       "title": "Nøgle allerede deaktiveret"
@@ -301,9 +333,6 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
-    "IIIFManifestFailure": {
-      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
-    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
@@ -318,7 +347,7 @@ export default {
       "title": "Den side du leder efter eksisterer ikke."
     },
     "pinningNotFound": {
-      "description": "Der opstod en fejl ved fastgørelse/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
+      "description": "Der opstod en fejl ved fastgørelse\/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
       "title": "Kurateret samling ikke fundet"
     },
     "searchPaginationLimitExceeded": {
@@ -339,37 +368,6 @@ export default {
     "exhibitions": "Udstilling | Udstillinger"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Hvis du vil søge i avisens tekst, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\".",
-        "ww1": "Hvis du vil søge i teksten i WWI-dokumenter, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\"."
-      }
-    },
-    "button": {
-      "morefilters": "Flere filtre",
-      "showAdditional": "{show} yderligere filtre",
-      "showAll": "Vis alle {label}",
-      "showLess": "Vis mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkæologi",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industriel kulturarv",
-        "manuscript": "Manuskripter",
-        "map": "Kort og geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistorie",
-        "newspaper": "Aviser",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Første Verdenskrig"
-      },
-      "select": "Vælg et tema"
-    },
     "COLOURPALETTE": {
       "moreName": "farver",
       "name": "Farve",
@@ -521,18 +519,6 @@ export default {
       },
       "select": "Vælg farver"
     },
-    "contentTier": {
-      "name": "Genstand kvalitet",
-      "options": {
-        "*": "Indeholder genstande, der ikke opfylder vores udgivelseskriterier",
-        "0": "Opfylder ikke publiceringskriterier",
-        "1": "Lav kvalitet",
-        "2": "Mellem kvalitet",
-        "3": "Høj kvalitet og genanvendelig med betingelser",
-        "4": "Høj kvalitet og frit genanvendelig"
-      },
-      "select": "Vælg varekvaliteter"
-    },
     "COUNTRY": {
       "name": "Leverende land",
       "options": {
@@ -662,16 +648,103 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       },
       "select": "Vælg filformater"
     },
-    "moreOptions": "Søg for at finde {0} mere {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Aggregator",
       "select": "Vælg aggregatorer"
     },
+    "REUSABILITY": {
+      "name": "Kan jeg bruge dette?",
+      "options": {
+        "open": "Ja",
+        "permission": "Måske, søg tilladelse",
+        "restricted": "Ja, med betingelser",
+        "uncategorized": "Ikke kategoriseret"
+      },
+      "select": "Vælg, om du kan bruge dette"
+    },
+    "RIGHTS": {
+      "name": "Rettigheder",
+      "options": {
+        "*\/CNE\/*": "Copyright Ikke evalueret",
+        "*\/InC-EDU\/*": "I ophavsret - Uddannelsesmæssig brug tilladt",
+        "*\/InC-OW-EU\/*": "I ophavsret - OW-EU",
+        "*\/InC\/*": "I ophavsret",
+        "*\/NoC-NC\/*": "Ingen ophavsret - Kun ikke-kommerciel brug",
+        "*\/NoC-OKLR\/*": "Ingen ophavsret - Andre kendte juridiske begrænsninger",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Uden af copyright - ikke-kommercielt genbrug",
+        "*\/rights\/rr-f\/*": "Rettigheder forbeholdt - Gratis adgang",
+        "*\/rights\/unknown\/*": "Ukendt ophavsretsstatus"
+      },
+      "select": "Vælg rettighedserklæringer"
+    },
+    "TYPE": {
+      "name": "Medietype",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Billede",
+        "SOUND": "Lyd",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Vælg typer af medier"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Hvis du vil søge i avisens tekst, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\".",
+        "ww1": "Hvis du vil søge i teksten i WWI-dokumenter, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\"."
+      }
+    },
+    "button": {
+      "morefilters": "Flere filtre",
+      "showAdditional": "{show} yderligere filtre",
+      "showAll": "Vis alle {label}",
+      "showLess": "Vis mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkæologi",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industriel kulturarv",
+        "manuscript": "Manuskripter",
+        "map": "Kort og geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistorie",
+        "newspaper": "Aviser",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Første Verdenskrig"
+      },
+      "select": "Vælg et tema"
+    },
+    "contentTier": {
+      "name": "Genstand kvalitet",
+      "options": {
+        "*": "Indeholder genstande, der ikke opfylder vores udgivelseskriterier",
+        "0": "Opfylder ikke publiceringskriterier",
+        "1": "Lav kvalitet",
+        "2": "Mellem kvalitet",
+        "3": "Høj kvalitet og genanvendelig med betingelser",
+        "4": "Høj kvalitet og frit genanvendelig"
+      },
+      "select": "Vælg varekvaliteter"
+    },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "proxy_dc_format": {
       "name": "Format",
       "select": "Vælg formater"
@@ -686,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medium",
       "select": "Vælg medie"
-    },
-    "REUSABILITY": {
-      "name": "Kan jeg bruge dette?",
-      "options": {
-        "open": "Ja",
-        "permission": "Måske, søg tilladelse",
-        "restricted": "Ja, med betingelser",
-        "uncategorized": "Ikke kategoriseret"
-      },
-      "select": "Vælg, om du kan bruge dette"
-    },
-    "TYPE": {
-      "name": "Medietype",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Billede",
-        "SOUND": "Lyd",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Vælg typer af medier"
     }
   },
   "fieldLabels": {
@@ -725,6 +777,8 @@ export default {
       "dcRights": "Rettigheder",
       "dcSource": "Kilde",
       "dcSubject": "Emne",
+      "dcTitle": "Titel",
+      "dcType": "Type af genstand",
       "dctermsAlternative": "Alternativ titel",
       "dctermsCreated": "Oprettelsesdato",
       "dctermsExtent": "Omfang",
@@ -740,10 +794,8 @@ export default {
       "dctermsProvenance": "Oprindelse",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
-      "dctermsTemporal": "Tidsmæssig",
       "dctermsTOC": "Indholdsfortegnelse",
-      "dcTitle": "Titel",
-      "dcType": "Type af genstand",
+      "dctermsTemporal": "Tidsmæssig",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
       "edmDataProvider": "Ejerinstiution",
@@ -782,16 +834,17 @@ export default {
   "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
+    "disclaimerLine1": "Det fælles europæiske datarum for kulturarv er et EU-initiativ, der finansieres af EU's program for et digitalt Europa. Tjenesterne i datarummet, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen, kontraktnummer LC-01901432.",
     "findUsElsewhere": "Find os et andet sted",
     "footer": "Sidefod",
     "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
+      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "faq": "Ofte stillede spørgsmål (FAQ)",
       "help": "Hjælp",
-      "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedserklæring",
       "registerApiKey": "Registrer dig for en API-nøgle",
       "seeApiRequests": "Se anmodninger til Europeana API'er",
@@ -863,7 +916,7 @@ export default {
       "acceptSelected": "Accepter valgt",
       "consentModal": {
         "alwaysRequired": "(Altid påkrævet)",
-        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Hvis du vil vide mere, kan du læse vores <a href='/rights/privacy-statement'>fortrolighedserklæring</a>.",
+        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Hvis du vil vide mere, kan du læse vores <a href='\/rights\/privacy-statement'>fortrolighedserklæring<\/a>.",
         "privacyPolicy": "Privatlivspolitik",
         "servicesCount": "{count} tjeneste | {count} tjenester",
         "text": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. Læs vores {privacyPolicy} for at få flere oplysninger.",
@@ -924,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Indsamler brugsdata for at hjælpe os med at analysere brugerinteraktioner. Aktiverer en undersøgelses-widget, der giver dig mulighed for at svare på vores undersøgelser af besøgendes tilfredshed.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Husker dit foretrukne grænsefladesprog for fremtidig adgang.",
         "title": "Sprogkode"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiverer feedback-widget'en, så du kan kontakte os.",
         "title": "Jira servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
@@ -1042,93 +1005,32 @@ export default {
         "description": "Husker, hvis du foretrækker at få flersprogede søgeresultater.",
         "title": "Flersproget søgning"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
         "title": "Meddelelse om ny funktion"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
-        "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
+        "title": "Søgeresultat, gallerier og likes-visning (liste\/gitter\/mosaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "ukendt udbyder",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "ukendt udbyder"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Ressourcer",
         "navigation": {
+          "apiDocumentation": "API-dokumentation",
+          "contactUs": "Kontakt os",
+          "requestApiKey": "Anmod om en API-nøgle"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API'ers forside",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana API'er",
           "faq": "FAQ",
           "findInspiration": "Find inspiration"
         }
@@ -1170,10 +1072,10 @@ export default {
       "show": "Vis sider"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Annotationer",
       "annotationsCount": "1 Annotation |{count} Annotationer",
       "hide": "Skjul sidebjælke",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Links",
       "search": "Søg",
       "searchPlaceholder": "Indtast vilkår",
@@ -1208,8 +1110,8 @@ export default {
     "enrichment": "Berigelse ved partnerprojekter",
     "stopViewingThisItemIn": "Stop med at se denne genstand i {0}",
     "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere.",
-    "viewingThisItemIn": "Visning af denne genstand i {0}",
-    "viewItemInAnotherLanguage": "Se denne genstand på et andet sprog"
+    "viewItemInAnotherLanguage": "Se denne genstand på et andet sprog",
+    "viewingThisItemIn": "Visning af denne genstand i {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
@@ -1224,9 +1126,6 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -1284,8 +1183,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
-    "debias": "De-bias",
-    "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
@@ -1360,18 +1257,18 @@ export default {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
         "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
         "fields": {
+          "YEAR": "Indtast et år relateret til genstand(en). For eksempel ‘1919’.",
           "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst.",
-          "proxy_dc_coverage": "Indtast et udtryk, der refererer til et sted eller et tidspunkt/periode. For eksempel ‘1995-1996’ eller ‘Berlin’ eller ‘http://sws.geonames.org/2287781/’.",
-          "proxy_dc_date": "Indtast et udtryk, der refererer til en betydningsfuld dato relateret til genstanden/genstandene. For eksempel en dato i formatet ‘ÅÅÅÅ-MM-DD’ eller et enkelt år, ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’.",
-          "proxy_dc_rights": "Indtast et udtryk, der refererer til oplysninger om rettigheder eller licenser relateret til genstanden/genstandene. For eksempel ‘Copyright © British Library Board’. For at filtrere på genanvendelighed eller en specifik rettighedserklæring, brug filtrene ‘Kan jeg bruge dette?’ eller ‘Rights statement’.",
-          "proxy_dcterms_created": "Indtast et udtryk, der refererer til oprettelsesdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Udgivelsesdato eller År.",
+          "proxy_dc_coverage": "Indtast et udtryk, der refererer til et sted eller et tidspunkt\/periode. For eksempel ‘1995-1996’ eller ‘Berlin’ eller ‘http:\/\/sws.geonames.org\/2287781\/’.",
+          "proxy_dc_date": "Indtast et udtryk, der refererer til en betydningsfuld dato relateret til genstanden\/genstandene. For eksempel en dato i formatet ‘ÅÅÅÅ-MM-DD’ eller et enkelt år, ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’.",
+          "proxy_dc_rights": "Indtast et udtryk, der refererer til oplysninger om rettigheder eller licenser relateret til genstanden\/genstandene. For eksempel ‘Copyright © British Library Board’. For at filtrere på genanvendelighed eller en specifik rettighedserklæring, brug filtrene ‘Kan jeg bruge dette?’ eller ‘Rights statement’.",
+          "proxy_dcterms_created": "Indtast et udtryk, der refererer til oprettelsesdatoen for genstanden\/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Udgivelsesdato eller År.",
           "proxy_dcterms_hasPart": "Genstanden kan have andre ressourcer inkluderet i sig - indtast et udtryk, der identificerer en del af de inkluderede ressourcer. Hvis genstanden selv er en del af en anden ressource, brug da feltet ‘Er en del af’.",
           "proxy_dcterms_isPartOf": "Dette genstand kan være en del af en anden relateret ressource - indtast et udtryk for den ressource, som denne genstand kan være en del af. Hvis genstanden selv har relaterede ressourcer indeni, brug da ‘Består af’ feltet i stedet.",
-          "proxy_dcterms_issued": "Indtast et udtryk, der refererer til udgivelses- eller publiceringsdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Oprettelsesdato eller År.",
+          "proxy_dcterms_issued": "Indtast et udtryk, der refererer til udgivelses- eller publiceringsdatoen for genstanden\/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Oprettelsesdato eller År.",
           "proxy_dcterms_medium": "Indtast et udtryk, der refererer til de materialer, der er anvendt, eller genstandens fysiske beskaffenhed. For eksempel ‘metal’ eller ‘papir’. For bredere materialedefinitioner, såsom ‘skulptur’ eller ‘maleri’, prøv feltet ‘MEDIETYPE’.",
-          "proxy_dcterms_temporal": "Indtast et udtryk, der refererer til en periode eller et tidspunkt, som genstanden/genstandene relaterer til, f.eks. et billede der skildrer en by i 1930. Indtast for eksempel ‘Romerriget’ eller ‘Renæssancen’. For specifikke datoer, søg i felterne Dato, Oprettelsesdato, Udgivelsesdato eller År.",
-          "proxy_edm_hasMet": "Indtast et begreb, der refererer til en person, et sted, en tidsperiode eller noget andet, som genstanden/genstandene kan have tæt tilknytning til. For eksempel ‘William Shakespeare’.",
-          "YEAR": "Indtast et år relateret til genstand(en). For eksempel ‘1919’."
+          "proxy_dcterms_temporal": "Indtast et udtryk, der refererer til en periode eller et tidspunkt, som genstanden\/genstandene relaterer til, f.eks. et billede der skildrer en by i 1930. Indtast for eksempel ‘Romerriget’ eller ‘Renæssancen’. For specifikke datoer, søg i felterne Dato, Oprettelsesdato, Udgivelsesdato eller År.",
+          "proxy_edm_hasMet": "Indtast et begreb, der refererer til en person, et sted, en tidsperiode eller noget andet, som genstanden\/genstandene kan have tæt tilknytning til. For eksempel ‘William Shakespeare’."
         },
         "modifier": "Vælg, hvordan dette felt skal ændre søgningen.",
         "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
@@ -1389,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} for at se flere resultater",
       "loginToSeeMultilingualResults": "Log ind for at søge på tværs af hele samlingen og få resultater, der ikke er begrænset til sproget i dit søgeord.",
       "showingMultilingualResults": "Viser resultater på tværs af hele samlingen og alle sprog.",
+      "withQuery": "{count} resultater for {query}",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
-      "withoutQuery": "{count} resultater",
-      "withQuery": "{count} resultater for {query}"
+      "withoutQuery": "{count} resultater"
     },
     "selectTheme": "Valg af et TEMA kan give yderligere filtermuligheder, f.eks. inkluderer Aviser-temaet et UDSTEDT DATO-filter.",
     "title": "Søg"
