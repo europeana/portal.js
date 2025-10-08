@@ -35,3 +35,4 @@ jobs:
           additional_params: |
             --cleanup-mode
             --include-path=false
+            --distinguish-by-file=false
