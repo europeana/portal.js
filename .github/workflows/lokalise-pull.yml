@@ -28,12 +28,13 @@ jobs:
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
           additional_params: |
-            --indentation=2sp
+            --add-newline-eof=true
             --directory-prefix=packages/portal/src/i18n/lang
-            --original-filenames=true
             --export-empty-as=skip
             --export-sort=a_z
-            --replace-breaks=false
-            --add-newline-eof=true
+            --indentation=2sp
+            --json-unescaped-slashes=true
             --language-mapping=[{"original_language_iso":"en_GB","custom_language_iso":"en"},{"original_language_iso":"eu_ES","custom_language_iso":"eu"},{"original_language_iso":"mt_MT","custom_language_iso":"mt"},{"original_language_iso":"ga_IE","custom_language_iso":"ga"}]
+            --original-filenames=true
             --placeholder-format=icu
+            --replace-breaks=false
