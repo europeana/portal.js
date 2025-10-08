@@ -27,7 +27,7 @@ jobs:
           file_format: js
           translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
-          flat_naming: true
+          flat_naming: false
           name_pattern: en.js
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
