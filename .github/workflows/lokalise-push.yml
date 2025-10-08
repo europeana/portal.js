@@ -1,0 +1,35 @@
+name: "Lokalise: push"
+
+on:
+  # TODO: also commits to main
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force upload of all base language strings. (Lokalise "rambo" mode.)'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push files to Lokalise
+        uses: lokalise/lokalise-push-action@v3.6.0
+        with:
+          api_token: ${{ secrets.LOKALISE_API_TOKEN_RW }}
+          project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
+          file_format: js
+          translations_path: packages/portal/src/i18n/lang
+          base_lang: en_GB
+          flat_naming: true
+          name_pattern: en.js
+          use_tag_tracking: true
+          rambo_mode: ${{ inputs.force }}
+          additional_params: |
+            --cleanup-mode
