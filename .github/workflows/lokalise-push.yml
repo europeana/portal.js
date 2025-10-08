@@ -34,6 +34,5 @@ jobs:
           rambo_mode: ${{ inputs.force }}
           additional_params: |
             --cleanup-mode
-            --convert-placeholders=false
             --distinguish-by-file=false
             --include-path=false
