@@ -29,6 +29,8 @@ jobs:
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
           additional_params: |
             --indentation=2sp
+            --directory-prefix=packages/portal/src/i18n/lang
+            --original-filenames=true
             --export-empty-as=skip
             --export-sort=a_z
             --replace-breaks=false
