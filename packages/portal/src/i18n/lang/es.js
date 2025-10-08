@@ -214,10 +214,29 @@ export default {
     "startDate": "Fecha de inicio",
     "to": "a"
   },
+  "debias": {
+    "background": {
+      "link": "Proyecto DE-BIAS",
+      "text": "Esta información fue creada por {link} (2023/2024) para ayudar a contextualizar términos obsoletos y dañinos en las descripciones de colecciones."
+    },
+    "headings": {
+      "alternatives": "Alternativas sugeridas",
+      "recommendations": "Recomendaciones de uso",
+      "source": "Fuente"
+    },
+    "termNotFound": "Esta página solo está disponible en el idioma del término sesgado.",
+    "tooltip": {
+      "linkToPage": "Lee la explicación completa proporcionada por {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
+          "descriptionLine2": "¿Necesitas una clave API? Regístrate para obtener una {link}.",
+          "here": "aquí",
+          "label": "Clave API",
           "usePersonal": {
             "linkText": "Ingrese su clave API personal",
             "prompt": "{link} y se utilizará."
@@ -233,7 +252,18 @@ export default {
     "right": "Derecha"
   },
   "ds4ch": {
-    "broughtBy": "Presentado por"
+    "broughtBy": "Presentado por",
+    "footer": {
+      "disclaimerLine1": "El espacio común europeo de datos para el patrimonio cultural es una iniciativa de la Unión Europea, financiada por el Programa Europa Digital de la Unión Europea. Los servicios del espacio de datos, incluido este sitio web, son gestionados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea."
+    },
+    "header": {
+      "navigation": {
+        "about": "Acerca del espacio de datos",
+        "explore": "Explorar los datos",
+        "partners": "Socios"
+      }
+    },
+    "homeLinkAlt": "El espacio común europeo de datos para el patrimonio cultural - página de inicio"
   },
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
   "embedNotification": {
@@ -271,6 +301,9 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
+    },
     "authClientDisabled": {
       "description": "Está clave API ya ha sido desactivada, quizás en otra pestaña del navegador.",
       "title": "Clave ya desactivada"
@@ -299,9 +332,6 @@ export default {
     "genericUnknownError": {
       "description": "Un error desconocido ocurrió.",
       "title": "Error desconocido"
-    },
-    "IIIFManifestFailure": {
-      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
     },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
@@ -338,37 +368,6 @@ export default {
     "exhibitions": "Exposición | Exposiciones"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Si desea buscar dentro del texto de los periódicos, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\".",
-        "ww1": "Si desea buscar dentro del texto de los documentos de la Primera Guerra Mundial, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\"."
-      }
-    },
-    "button": {
-      "morefilters": "Más filtros",
-      "showAdditional": "{show} filtros adicionales",
-      "showAll": "Mostrar todo {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arqueología",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Patrimonio industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas y geografía",
-        "migration": "Migración",
-        "music": "Música",
-        "nature": "Historia natural",
-        "newspaper": "Periódicos",
-        "photography": "Fotografía",
-        "sport": "Deporte",
-        "ww1": "Primera Guerra Mundial"
-      },
-      "select": "Selecciona un tema"
-    },
     "COLOURPALETTE": {
       "moreName": "colores",
       "name": "Color",
@@ -520,18 +519,6 @@ export default {
       },
       "select": "Seleccionar colores"
     },
-    "contentTier": {
-      "name": "Calidad del Ítem",
-      "options": {
-        "*": "Incluir los Ítems que no cumplan nuestros criterios de publicación",
-        "0": "No cumple los criterios de publicación",
-        "1": "Baja calidad",
-        "2": "Calidad media",
-        "3": "Alta calidad y reutilizable con condiciones",
-        "4": "Alta calidad y libremente reutilizable"
-      },
-      "select": "Seleccione las calidades del Ítem"
-    },
     "COUNTRY": {
       "name": "País proveedor",
       "options": {
@@ -665,12 +652,80 @@ export default {
       },
       "select": "Seleccionar formatos de archivo"
     },
-    "moreOptions": "Busque para encontrar {0} más {1}.",
     "PROVIDER": {
       "moreName": "agregadores",
       "name": "Agregador",
       "select": "Seleccionar agregadores"
     },
+    "REUSABILITY": {
+      "name": "¿Puedo usar esto?",
+      "options": {
+        "open": "Sí",
+        "permission": "Tal vez, solicite permiso",
+        "restricted": "Sí, con condiciones",
+        "uncategorized": "Sin categoría"
+      },
+      "select": "Seleccione si puede usar esto"
+    },
+    "RIGHTS": {
+      "name": "Declaración de derechos",
+      "select": "Seleccionar declaraciones de derechos"
+    },
+    "TYPE": {
+      "name": "Tipo de medio",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagen",
+        "SOUND": "Sonido",
+        "TEXT": "Texto",
+        "VIDEO": "Vídeo"
+      },
+      "select": "Seleccionar tipos de medios"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Si desea buscar dentro del texto de los periódicos, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\".",
+        "ww1": "Si desea buscar dentro del texto de los documentos de la Primera Guerra Mundial, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\"."
+      }
+    },
+    "button": {
+      "morefilters": "Más filtros",
+      "showAdditional": "{show} filtros adicionales",
+      "showAll": "Mostrar todo {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arqueología",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Patrimonio industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas y geografía",
+        "migration": "Migración",
+        "music": "Música",
+        "nature": "Historia natural",
+        "newspaper": "Periódicos",
+        "photography": "Fotografía",
+        "sport": "Deporte",
+        "ww1": "Primera Guerra Mundial"
+      },
+      "select": "Selecciona un tema"
+    },
+    "contentTier": {
+      "name": "Calidad del Ítem",
+      "options": {
+        "*": "Incluir los Ítems que no cumplan nuestros criterios de publicación",
+        "0": "No cumple los criterios de publicación",
+        "1": "Baja calidad",
+        "2": "Calidad media",
+        "3": "Alta calidad y reutilizable con condiciones",
+        "4": "Alta calidad y libremente reutilizable"
+      },
+      "select": "Seleccione las calidades del Ítem"
+    },
+    "moreOptions": "Busque para encontrar {0} más {1}.",
     "proxy_dc_format": {
       "name": "Formato",
       "select": "Seleccionar formatos"
@@ -685,27 +740,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Mediano",
       "select": "Seleccionar medios"
-    },
-    "REUSABILITY": {
-      "name": "¿Puedo usar esto?",
-      "options": {
-        "open": "Sí",
-        "permission": "Tal vez, solicite permiso",
-        "restricted": "Sí, con condiciones",
-        "uncategorized": "Sin categoría"
-      },
-      "select": "Seleccione si puede usar esto"
-    },
-    "TYPE": {
-      "name": "Tipo de medio",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Imagen",
-        "SOUND": "Sonido",
-        "TEXT": "Texto",
-        "VIDEO": "Vídeo"
-      },
-      "select": "Seleccionar tipos de medios"
     }
   },
   "fieldLabels": {
@@ -724,6 +758,8 @@ export default {
       "dcRights": "Derechos",
       "dcSource": "Fuente",
       "dcSubject": "Asunto",
+      "dcTitle": "Título",
+      "dcType": "Tipo de ítem",
       "dctermsAlternative": "Título alternativo",
       "dctermsCreated": "Fecha de creación",
       "dctermsExtent": "Alcance",
@@ -739,10 +775,8 @@ export default {
       "dctermsProvenance": "Procedencia",
       "dctermsReferences": "hace referencia a",
       "dctermsSpatial": "Lugares",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Tabla de contenido",
-      "dcTitle": "Título",
-      "dcType": "Tipo de ítem",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
       "edmDataProvider": "Proveedor de datos",
@@ -781,16 +815,17 @@ export default {
   "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
+    "disclaimerLine1": "El espacio común europeo de datos para el patrimonio cultural es una iniciativa de la Unión Europea, financiada por el Programa Europa Digital de la Unión Europea. Los servicios del espacio de datos, incluido este sitio web, son gestionados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea, número de contrato LC-01901432.",
     "findUsElsewhere": "Puedes encontrarnos también en",
     "footer": "Pie de página",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
+      "MoreInfoLabel": "Más información",
       "about": "Sobre nosotros",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
       "faq": "Preguntas frecuentes (FAQ)",
       "help": "Ayuda",
-      "MoreInfoLabel": "Más información",
       "privacy": "Declaración de privacidad",
       "registerApiKey": "Regístrese para obtener una clave API",
       "seeApiRequests": "Ver solicitudes a las API de Europeana",
@@ -923,115 +958,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
         "title": "Estrategia de autenticación"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ayuda a depurar solicitudes de API",
         "title": "Alternar depuración"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Recoge datos de uso para ayudarnos a analizar las interacciones de los usuarios. Activa un widget de encuesta que le ofrece la opción de responder a nuestras encuestas de satisfacción de visitantes.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Recuerda su idioma de interfaz preferido para acceder en el futuro.",
         "title": "Código de la lengua"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activa el widget de comentarios que le da la opción de contactarnos.",
         "title": "Mesa de servicio Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
@@ -1041,94 +986,34 @@ export default {
         "description": "Recuerda si prefieres obtener resultados de búsqueda multilingües.",
         "title": "Búsqueda multilingüe"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Muestra una notificación cuando hay nuevas funciones disponibles.",
         "title": "Notificación de nuevas funciones"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Recuerda si prefieres ver los resultados de búsqueda, las galerías y tus me gusta en una vista de lista, cuadrícula o mosaico.",
         "title": "Vista de resultados de búsqueda, galerías y Me gusta (lista/cuadrícula/mosaico)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "proveedor desconocido",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "proveedor desconocido"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Recursos",
         "navigation": {
-          "faq": "FAQ"
+          "apiDocumentation": "Documentación de la API",
+          "contactUs": "Contáctanos",
+          "requestApiKey": "Solicitar una clave API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Inicio de las API de Europeana",
+        "navigation": {
+          "apiDemo": "Demostración de API",
+          "europeanaApis": "API de Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Encuentra inspiración"
         }
       }
     },
@@ -1168,10 +1053,10 @@ export default {
       "show": "Mostrar páginas"
     },
     "sidebar": {
+      "IIIFManifest": "Manifiesto IIIF",
       "annotations": "Anotaciones",
       "annotationsCount": "1 Anotación | {count} Anotaciones",
       "hide": "Ocultar barra lateral",
-      "IIIFManifest": "Manifiesto IIIF",
       "links": "Enlaces",
       "search": "Buscar",
       "searchPlaceholder": "Introducir términos",
@@ -1206,8 +1091,8 @@ export default {
     "enrichment": "Enriquecimiento por parte de proyectos asociados",
     "stopViewingThisItemIn": "Deja de ver este item en {0}",
     "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde.",
-    "viewingThisItemIn": "Viendo este item en {0}",
-    "viewItemInAnotherLanguage": "Ver este item en otro idioma"
+    "viewItemInAnotherLanguage": "Ver este item en otro idioma",
+    "viewingThisItemIn": "Viendo este item en {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
@@ -1222,9 +1107,6 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Ciudad",
@@ -1282,8 +1164,6 @@ export default {
     },
     "allMetaData": "Todos los metadatos",
     "clickToCopyEmbedCode": "Haga clic en el código de inserción para copiarlo",
-    "debias": "De-bias",
-    "explanationby": "Explicación proporcionada por {0}",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
@@ -1358,6 +1238,7 @@ export default {
         "advancedSearch": "La búsqueda avanzada le permite crear consultas de búsqueda personalizadas.",
         "field": "Seleccione el campo de texto completo o de metadatos para buscar dentro.",
         "fields": {
+          "YEAR": "Introduzca un año relacionado con el/los ítem(s). Por ejemplo, ‘1919’.",
           "fulltext": "El texto completo incluye transcripciones, subtítulos cerrados, subtítulos y texto del documento.",
           "proxy_dc_coverage": "Introduzca un término que se refiere a un lugar o un momento/período en el tiempo. Por ejemplo, '1995-1996' o 'Berlín' o 'http://sws.geonames.org/2287781/'.",
           "proxy_dc_date": "Introduzca un término que se refiera a una fecha significativa relacionada con el ítem/ítems. Por ejemplo, una fecha en el formato ‘AAAA-MM-DD’ o un año específico, ‘1919’, o definiciones más amplias como ‘Principios del siglo 20’.",
@@ -1368,8 +1249,7 @@ export default {
           "proxy_dcterms_issued": "Introduzca un término que se refiera a la fecha de emisión o publicación del ítem/ítems. Por ejemplo, cualquier fecha en el formato ‘AAAA-MM-DD’, un solo año como ‘1919’, o definiciones más amplias como ‘principios del siglo 20’. Para otras fechas que podrían ser significativas, busque en los campos Fecha, Fecha de creación o Año.",
           "proxy_dcterms_medium": "Introduzca un término que se refiera a los materiales utilizados o la naturaleza física del ítem. Por ejemplo, ‘metal’ o ‘papel’. Para definiciones más amplias de materiales, como ‘escultura’ o ‘pintura’, pruebe el campo ‘TIPO DE MEDIO’.",
           "proxy_dcterms_temporal": "Introduzca un término que se refiera a un período o punto en el tiempo al que se relaciona el/los ítem(s), por ejemplo, una imagen que muestra una ciudad en 1930. Introduzca, por ejemplo, 'Imperio Romano' o 'Renacimiento'. Para fechas específicas, busque en los campos Fecha, Fecha de creación, Fecha de emisión o Año.",
-          "proxy_edm_hasMet": "Introduzca un término que se refiera a una persona, un lugar, un período de tiempo o cualquier otra cosa con la que el/los ítem(s) puedan tener estrechas conexiones. Por ejemplo, ‘William Shakespeare’.",
-          "YEAR": "Introduzca un año relacionado con el/los ítem(s). Por ejemplo, ‘1919’."
+          "proxy_edm_hasMet": "Introduzca un término que se refiera a una persona, un lugar, un período de tiempo o cualquier otra cosa con la que el/los ítem(s) puedan tener estrechas conexiones. Por ejemplo, ‘William Shakespeare’."
         },
         "modifier": "Elija cómo este campo debe modificar la búsqueda.",
         "term": "Ingrese los términos que el campo elegido contiene o no contiene."
@@ -1387,10 +1267,10 @@ export default {
       "loginToSeeMore": "{login} para ver más resultados",
       "loginToSeeMultilingualResults": "Inicie sesión para buscar en toda la colección y obtener resultados que no se limiten al idioma de su término de búsqueda.",
       "showingMultilingualResults": "Mostrando resultados en toda la colección y en todos los idiomas.",
+      "withQuery": "{count} resultados para {query}",
       "withinCollection": "{count} resultados dentro de {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados dentro de {type} {collection} para {query}",
-      "withoutQuery": "{count} resultados",
-      "withQuery": "{count} resultados para {query}"
+      "withoutQuery": "{count} resultados"
     },
     "selectTheme": "Seleccionar un MATERIA puede proporcionar más opciones de filtro, por ejemplo, el tema Periódicos incluye un filtro FECHA DE EMISIÓN.",
     "title": "Buscar"
