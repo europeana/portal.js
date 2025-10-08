@@ -31,6 +31,7 @@ jobs:
           additional_params: |
             --add-newline-eof=true
             --directory-prefix=packages/portal/src/i18n/lang
+            --exclude-tags="Not ready"
             --export-empty-as=skip
             --export-sort=a_z
             --indentation=2sp
