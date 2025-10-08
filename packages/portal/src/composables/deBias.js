@@ -18,6 +18,13 @@ const definitions = computed(() => {
   }, {});
 });
 
+const ids = computed(() => {
+  return annotations.value.reduce((memo, term) => {
+    memo[term.selector.exact] = term.id;
+    return memo;
+  }, {});
+});
+
 const findAnnotationTarget = (targets, options = {}) => {
   const { field, lang } = options;
 
@@ -47,6 +54,7 @@ const parseAnnotation = (anno, options = {}) => {
     target = findAnnotationTarget(targets, { lang });
   }
 
+  const id = anno.body?.id;
   const definition = [].concat(anno.body?.definition?.[lang])[0];
   const field = camelCase(target?.selector.hasPredicate);
   const refinedBy = target?.selector.refinedBy;
@@ -60,6 +68,7 @@ const parseAnnotation = (anno, options = {}) => {
 
   return {
     definition,
+    id,
     field,
     selector
   };
@@ -72,10 +81,10 @@ const parseAnnotations = (annos, options = {}) => {
     .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
 
   for (const anno of debiasAnnotations) {
-    const { definition, field, selector } = parseAnnotation(anno, options);
+    const { definition, field, id, selector } = parseAnnotation(anno, options);
 
-    if (definition && field && selector) {
-      annotations.value.push({ definition, field, selector });
+    if (definition && field && id && selector) {
+      annotations.value.push({ definition, field, id, selector });
     }
   }
 };
@@ -86,6 +95,7 @@ export default function useDeBias(options = {}) {
   return {
     annotations: readonly(annotations),
     definitions,
+    ids,
     parseAnnotations,
     terms
   };
