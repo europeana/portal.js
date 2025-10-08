@@ -5,7 +5,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi / Sartu",
+    "linkLoginJoin": "Saioa hasi \/ Sartu",
     "linkLogout": "Saioa amaitu",
     "manageApiKeys": "API gakoak kudeatu",
     "menu": {
@@ -214,10 +214,29 @@ export default {
     "startDate": "Hasiera data",
     "to": "-ra"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS proiektua",
+      "text": "Informazio hau {link}k (2023\/2024) sortu zuen bilduma-deskribapenetako zaharkitutako eta kaltegarriak diren terminoak testuinguruan jartzeko."
+    },
+    "headings": {
+      "alternatives": "Iradokitako alternatibak",
+      "recommendations": "Erabilerarako gomendioak",
+      "source": "Iturria"
+    },
+    "termNotFound": "Orrialde hau termino alboratuaren hizkuntzan bakarrik dago eskuragarri.",
+    "tooltip": {
+      "linkToPage": "Irakurri {projectName} emandako azalpen osoa"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Sartu zure Europeana API gakoa eta API eskaeretarako esteketan erabiliko da.",
+          "descriptionLine2": "API gako bat behar duzu? Erregistratu bat lortzeko {link}.",
+          "here": "hemen",
+          "label": "API gakoa",
           "usePersonal": {
             "linkText": "Sartu zure API gako pertsonala",
             "prompt": "{link} eta erabiliko da."
@@ -234,8 +253,13 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Zuretzat ekarrita",
+    "footer": {
+      "disclaimerLine1": "Ondare kulturalerako Europako datu-espazio komuna Europar Batasunaren ekimena da, Europar Batasunaren Europa Digitala Programak finantzatua. Datu-espazioko zerbitzuak, webgune hau barne, Europeana Fundazioak gidatutako partzuergo batek kudeatzen ditu, Europako Batzordearekin egindako zerbitzu-kontratu baten bidez."
+    },
     "header": {
       "navigation": {
+        "about": "Datu-espazioari buruz",
+        "explore": "Arakatu datuak",
         "partners": "Bazkideak"
       }
     },
@@ -270,13 +294,16 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu egin dute. \"{entity}\" bildumako lehen elementu gisa agertuko da. Aldaketa hau bilduma-orrian ikusten denean jakinaraziko dizugu.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementuari aingura kendu zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu."
     }
   },
   "error": "Akatsa",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
+    },
     "authClientDisabled": {
       "description": "API gako hau dagoeneko desgaituta dago, agian beste nabigatzaile-fitxa batean.",
       "title": "Gakoa dagoeneko desgaituta dago"
@@ -306,9 +333,6 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
-    "IIIFManifestFailure": {
-      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
-    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
@@ -323,7 +347,7 @@ export default {
       "title": "Bilatzen ari zaren orria ez da existitzen."
     },
     "pinningNotFound": {
-      "description": "Errore bat gertatu da elementua ainguratzean/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
+      "description": "Errore bat gertatu da elementua ainguratzean\/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
       "title": "Ez da aurkitu bilduma komisarioa"
     },
     "searchPaginationLimitExceeded": {
@@ -344,37 +368,6 @@ export default {
     "exhibitions": "Erakusketa | Erakusketak"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Egunkarien testuaren barruan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu, eta \"testu osoa\" eremua aukeratu.",
-        "ww1": "Lehen Mundu Gerrako dokumentuen testuan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu eta \"testu osoa\" eremua aukeratu."
-      }
-    },
-    "button": {
-      "morefilters": "Iragazki gehiago",
-      "showAdditional": "{show} iragazki gehigarriak",
-      "showAll": "Erakutsi guztiak {label}",
-      "showLess": "Erakutsi gutxiago {label}"
-    },
-    "collection": {
-      "name": "Gaia",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Artea",
-        "fashion": "Moda",
-        "industrial": "Industria ondarea",
-        "manuscript": "Eskuizkribuak",
-        "map": "Mapak eta Geografia",
-        "migration": "Migrazioa",
-        "music": "Musika",
-        "nature": "Historia Naturala",
-        "newspaper": "Egunkariak",
-        "photography": "Argazkilaritza",
-        "sport": "Kirola",
-        "ww1": "Lehen Mundu Gerra"
-      },
-      "select": "Hautatu gai bat"
-    },
     "COLOURPALETTE": {
       "moreName": "koloreak",
       "name": "Kolore",
@@ -526,18 +519,6 @@ export default {
       },
       "select": "Hautatu koloreak"
     },
-    "contentTier": {
-      "name": "Elementuaren kalitatea",
-      "options": {
-        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Ez ditu argitalpen-irizpideak betetzen",
-        "1": "Kalitate baxua",
-        "2": "Kalitate ertaina",
-        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
-        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
-      },
-      "select": "Hautatu elementuen kalitateak"
-    },
     "COUNTRY": {
       "name": "Herrialde hornitzailea",
       "options": {
@@ -667,16 +648,103 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategi formatua",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
-    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "PROVIDER": {
       "moreName": "agregatzaileak",
       "name": "Agregatzailea",
       "select": "Hautatu agregatzaileak"
     },
+    "REUSABILITY": {
+      "name": "Hau erabili dezaket?",
+      "options": {
+        "open": "Bai",
+        "permission": "Agian, baimena beharrezkoa",
+        "restricted": "Bai, baldintzekin",
+        "uncategorized": "Sailkatu gabe"
+      },
+      "select": "Hautatu hau erabil dezakezun ala ez"
+    },
+    "RIGHTS": {
+      "name": "Eskubideen adierazpena",
+      "options": {
+        "*\/CNE\/*": "Copyright ez da ebaluatu",
+        "*\/InC-EDU\/*": "Copyright-en - Hezkuntza erabilera baimenduta",
+        "*\/InC-OW-EU\/*": "Copyright-en - OW-EU",
+        "*\/InC\/*": "Copyright-en",
+        "*\/NoC-NC\/*": "Copyright-rik gabe - Erabilera ez komertziala soilik",
+        "*\/NoC-OKLR\/*": "Copyright ez - Ezagutzen diren beste legezko murriztapen batzuk",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Domeinu Publikoaren Marka",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Egile-eskubideetatik kanpo - komertziala ez den berrerabilpena",
+        "*\/rights\/rr-f\/*": "Eskubideak gordeta - Doako sarbidea",
+        "*\/rights\/unknown\/*": "Copyright-egoera ezezaguna"
+      },
+      "select": "Hautatu eskubideen adierazpenak"
+    },
+    "TYPE": {
+      "name": "Euskarri mota",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Irudia",
+        "SOUND": "Soinua",
+        "TEXT": "Testua",
+        "VIDEO": "Bideoa"
+      },
+      "select": "Hautatu euskarri motak"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Egunkarien testuaren barruan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu, eta \"testu osoa\" eremua aukeratu.",
+        "ww1": "Lehen Mundu Gerrako dokumentuen testuan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu eta \"testu osoa\" eremua aukeratu."
+      }
+    },
+    "button": {
+      "morefilters": "Iragazki gehiago",
+      "showAdditional": "{show} iragazki gehigarriak",
+      "showAll": "Erakutsi guztiak {label}",
+      "showLess": "Erakutsi gutxiago {label}"
+    },
+    "collection": {
+      "name": "Gaia",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Artea",
+        "fashion": "Moda",
+        "industrial": "Industria ondarea",
+        "manuscript": "Eskuizkribuak",
+        "map": "Mapak eta Geografia",
+        "migration": "Migrazioa",
+        "music": "Musika",
+        "nature": "Historia Naturala",
+        "newspaper": "Egunkariak",
+        "photography": "Argazkilaritza",
+        "sport": "Kirola",
+        "ww1": "Lehen Mundu Gerra"
+      },
+      "select": "Hautatu gai bat"
+    },
+    "contentTier": {
+      "name": "Elementuaren kalitatea",
+      "options": {
+        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
+        "0": "Ez ditu argitalpen-irizpideak betetzen",
+        "1": "Kalitate baxua",
+        "2": "Kalitate ertaina",
+        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
+        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
+      },
+      "select": "Hautatu elementuen kalitateak"
+    },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "proxy_dc_format": {
       "name": "Formatua",
       "select": "Hautatu  formatuak"
@@ -691,27 +759,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Ertaina",
       "select": "Hautatu euskarria"
-    },
-    "REUSABILITY": {
-      "name": "Hau erabili dezaket?",
-      "options": {
-        "open": "Bai",
-        "permission": "Agian, baimena beharrezkoa",
-        "restricted": "Bai, baldintzekin",
-        "uncategorized": "Sailkatu gabe"
-      },
-      "select": "Hautatu hau erabil dezakezun ala ez"
-    },
-    "TYPE": {
-      "name": "Euskarri mota",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Irudia",
-        "SOUND": "Soinua",
-        "TEXT": "Testua",
-        "VIDEO": "Bideoa"
-      },
-      "select": "Hautatu euskarri motak"
     }
   },
   "fieldLabels": {
@@ -730,6 +777,8 @@ export default {
       "dcRights": "Baimenak",
       "dcSource": "Iturria",
       "dcSubject": "Gaia",
+      "dcTitle": "Izenburua",
+      "dcType": "Elementu mota",
       "dctermsAlternative": "Titulu alternatiboa",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
@@ -745,10 +794,8 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
-      "dctermsTemporal": "Aldi baterako",
       "dctermsTOC": "Edukien taula",
-      "dcTitle": "Izenburua",
-      "dcType": "Elementu mota",
+      "dctermsTemporal": "Aldi baterako",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -787,16 +834,17 @@ export default {
   "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
+    "disclaimerLine1": "Europako kultura-ondarearen datu-espazio komun europarra Europar Batasunaren ekimena da, Europar Batasunaren Europa Digitala Programak finantzatua. Datu-espazioko zerbitzuak, webgune hau barne, Europeana Fundazioak gidatutako partzuergo batek kudeatzen ditu, Europako Batzordearekin egindako zerbitzu-kontratu baten bidez, kontratu zenbakia LC-01901432.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
+      "MoreInfoLabel": "Informazio gehiago",
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "faq": "Maiz Egindako Galderak (FAQ)",
       "help": "Laguntza",
-      "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun-adierazpena",
       "registerApiKey": "Erregistratu API gako bat lortzeko",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
@@ -852,7 +900,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "noItems": "Ez dago elementurik.",
     "noMoreItems": "Ez daude gehiago elementuak.",
     "recent": "Azken elementuak",
@@ -868,7 +916,7 @@ export default {
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
         "alwaysRequired": "(Beti beharrezkoa)",
-        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-statement'> pribatutasun-adierazpena </a>.",
+        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='\/rights\/privacy-statement'> pribatutasun-adierazpena <\/a>.",
         "privacyPolicy": "Pribatutasun politika",
         "servicesCount": "{count} zerbitzua | {count} zerbitzu",
         "text": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure {privacyPolicy}.",
@@ -929,115 +977,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Erabiltzaileen elkarrekintzak aztertzen laguntzeko erabilera-datuak biltzen ditu. Bisitarien gogobetetasun-inkestak erantzuteko aukera ematen dizun inkesta-widget bat aktibatzen du.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
         "title": "Hizkuntza kodea"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
         "title": "Jira zerbitzuko mahaia"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
@@ -1047,93 +1005,32 @@ export default {
         "description": "Gogoratuko dugu hizkuntza anitzeko bilaketa-emaitzak nahiago dituzula.",
         "title": "Bilaketa eleanitza"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
         "title": "Ezaugarri berrien jakinarazpena"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
-        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
+        "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda\/sareta\/mosaikoa)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "hornitzaile ezezaguna",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "hornitzaile ezezaguna"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Baliabideak",
         "navigation": {
+          "apiDocumentation": "API Dokumentazioa",
+          "contactUs": "Jarri gurekin harremanetan",
+          "requestApiKey": "API gako bat eskatu"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana APIen hasiera",
+        "navigation": {
+          "apiDemo": "API demoa",
+          "europeanaApis": "Europeana APIak",
           "faq": "FAQ",
           "findInspiration": "Aurkitu inspirazioa"
         }
@@ -1175,10 +1072,10 @@ export default {
       "show": "Erakutsi orrialdeak"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifestua",
       "annotations": "Oharpenak",
       "annotationsCount": "1 Oharpena |{count} Oharpenak",
       "hide": "Ezkutatu alboko barra",
-      "IIIFManifest": "IIIF Manifestua",
       "links": "Loturak",
       "search": "Bilatu",
       "searchPlaceholder": "Sartu terminoak",
@@ -1213,8 +1110,8 @@ export default {
     "enrichment": "Bazkide proiektuen aberastea",
     "stopViewingThisItemIn": "Utzi elementu hau {0} n ikusteari",
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago.",
-    "viewingThisItemIn": "Ikusi elementu hau {0}",
-    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean"
+    "viewItemInAnotherLanguage": "Ikusi elementu hau beste hizkuntza batean",
+    "viewingThisItemIn": "Ikusi elementu hau {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
@@ -1229,9 +1126,6 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Hiria",
@@ -1289,8 +1183,6 @@ export default {
     },
     "allMetaData": "Metadatu guztiak",
     "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
-    "debias": "De-bias",
-    "explanationby": "{0} -k emandako azalpena",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
@@ -1365,8 +1257,9 @@ export default {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
         "field": "Hautatu testu-osoa edo metadatu-eremua bilatzeko",
         "fields": {
+          "YEAR": "Sartu elementuarekin erlazionatutako urtea. Adibidez, '1919'.",
           "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu.",
-          "proxy_dc_coverage": "Idatzi leku edo denbora-puntu/aldi bati erreferentzia egiten dion terminoa. Adibidez, '1995-1996' edo 'Berlin' edo 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_coverage": "Idatzi leku edo denbora-puntu\/aldi bati erreferentzia egiten dion terminoa. Adibidez, '1995-1996' edo 'Berlin' edo 'http:\/\/sws.geonames.org\/2287781\/'.",
           "proxy_dc_date": "Sartu elementuarekin erlazionatutako data esanguratsu bati erreferentzia egiten dion termino bat. Adibidez, data bat \"AAAA-MM-DD\" edo urte bakarrekoa, \"1919\", edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak.",
           "proxy_dc_rights": "Sartu elementuari lotutako eskubideei edo lizentziei buruzko informazioari erreferentzia egiten dion termino bat. Adibidez, 'Copyright © British Library Board'. Berrerabilgarritasunari edo eskubide-adierazpen zehatz bat iragazteko, erabili 'Hau erabili dezaket?' edo 'Rights statement' iragazkiak.",
           "proxy_dcterms_created": "Sartu elementua(k) sortzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Jaulkipen data edo Urtea eremuetan.",
@@ -1375,8 +1268,7 @@ export default {
           "proxy_dcterms_issued": "Idatzi elementua(k) jaulkitze edo argitaratzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Sorkuntza data edo Urtea eremuetan.",
           "proxy_dcterms_medium": "Sartu erabilitako materialei edo elementuaren izaera fisikoari erreferentzia egiten dion terminoa. Adibidez, 'metal' edo 'paper'. Materialaren definizio zabalagoetarako, hala nola, \"eskultura\" edo \"pintura\", saiatu \"EUSKARRI MOTA\" eremua.",
           "proxy_dcterms_temporal": "Idatzi elementua(k) erlazionatuta dagoen garai edo puntu bati erreferentzia egiten dion termino bat, adibidez, 1930eko hiri bat irudikatzen duen irudi bat. Sartu adibidez \"Erromatar Inperioa\" edo \"Errenazimentua\". Data zehatzetarako, bilatu Data, Sortze-data, Jaulkipen-data edo Urtea eremuetan.",
-          "proxy_edm_hasMet": "Idatzi elementuak lotura estua izan dezakeen pertsona, leku, denbora-tarte edo beste edozer aipatzen duen termino bat. Adibidez, 'William Shakespeare'.",
-          "YEAR": "Sartu elementuarekin erlazionatutako urtea. Adibidez, '1919'."
+          "proxy_edm_hasMet": "Idatzi elementuak lotura estua izan dezakeen pertsona, leku, denbora-tarte edo beste edozer aipatzen duen termino bat. Adibidez, 'William Shakespeare'."
         },
         "modifier": "Aukeratu eremu honek bilaketa nola aldatu behar duen.",
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
@@ -1394,10 +1286,10 @@ export default {
       "loginToSeeMore": "{login} emaitza gehiago ikusteko",
       "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
       "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
+      "withQuery": "{count} emaitza rentzat {query}",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
-      "withoutQuery": "{count} emaitza",
-      "withQuery": "{count} emaitza rentzat {query}"
+      "withoutQuery": "{count} emaitza"
     },
     "selectTheme": "GAIA hautatzeak iragazki-aukera gehiago eskain ditzake, adibidez, Egunkariak gaiak DATA IRAGARRI iragazkia dakar.",
     "title": "Bilatu"
