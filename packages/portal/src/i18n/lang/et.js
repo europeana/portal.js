@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
-    "title": "Minu konto",
+    "title": "Minu profiil",
     "tooltip": {
       "EntityBestItemsSet": "Kureeritud galeriis kuvatakse konkreetse kollektsiooni kinnitatud üksused",
       "private": "Privaatset galeriid saate vaadata ainult teie.",
@@ -70,8 +70,8 @@ export default {
     "remove": "Eemalda",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
-    "share": "Jagage",
-    "shareOn": "Jagage saidil {social}",
+    "share": "Jaga",
+    "shareOn": "Jaga {social}",
     "show": "Näita",
     "showLess": "Näita vähem",
     "showMore": "Näita rohkem",
@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materjalid",
-          "name": "Materjal | Materjalid",
+          "name": "Materjal",
           "select": "Valige materjalid"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Alguskuupäev",
     "to": "kuni"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "See teave loodi {link} poolt (2023/2024), et aidata kontekstualiseerida kogude kirjeldustes olevaid aegunud ja kahjulikke termineid."
+    },
+    "headings": {
+      "alternatives": "Soovitatud alternatiivid",
+      "recommendations": "Kasutamissoovitused",
+      "source": "Allikas"
+    },
+    "termNotFound": "See leht on saadaval ainult kallutatud termini keeles.",
+    "tooltip": {
+      "linkToPage": "Lugege {projectName} esitatud täielikku selgitust"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
+          "descriptionLine2": "Vajad API võtit? Registreeri selle saamiseks {link}.",
+          "here": "siin",
+          "label": "API võti",
           "usePersonal": {
             "linkText": "Sisestage oma isiklik API võti",
             "prompt": "{link} ja seda kasutatakse."
@@ -231,10 +250,6 @@ export default {
   "directions": {
     "left": "Vasak",
     "right": "Parem"
-  },
-  "ds4ch": {
-    "broughtBy": "Teieni toodud",
-    "homeLinkAlt": "Ühine Euroopa andmeruum kultuuripärandi jaoks"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "embedNotification": {
@@ -259,7 +274,7 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
+      "pin": "See üksus kuvatakse kogu „{entity}” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
@@ -697,6 +712,10 @@ export default {
       },
       "select": "Valige, kas saate seda kasutada"
     },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon",
+      "select": "Valige õiguste avaldused"
+    },
     "TYPE": {
       "name": "Meediumitüüp",
       "options": {
@@ -813,7 +832,7 @@ export default {
     "collapseSearchBar": "Kokkuvolditav otsinguriba",
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
-    "inCollection": "Otsi {query} {collection}",
+    "inCollection": "Otsi {query} kollektsioonist {collection}",
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
@@ -924,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Aitab siluda API taotlusi",
         "title": "Debugimise lüliti"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Kogub kasutusandmeid, et aidata meil analüüsida kasutajate interaktsioone. Aktiveerib küsitluse vidina, mis annab teile võimaluse vastata meie külastajate rahulolu küsitlustele.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Jätab teie eelistatud liidese keele edaspidiseks kasutamiseks meelde.",
         "title": "Keelekood"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiveerib tagasiside vidina, andes teile võimaluse meiega ühendust võtta.",
         "title": "Jira teeninduslaud"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
@@ -1042,98 +971,18 @@ export default {
         "description": "Jätab meelde, kas eelistate saada mitmekeelseid otsingutulemusi.",
         "title": "Mitmekeelne otsing"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Kuvab teate, kui uued funktsioonid muutuvad kättesaadavaks.",
         "title": "Uus funktsiooniteatis"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
         "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "tundmatu pakkuja",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "tundmatu pakkuja"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Leia inspiratsiooni"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Igakuised API taotlused keskmiselt",
       "dataProviders": "Andmepakkujad",
@@ -1171,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Märkused",
-      "annotationsCount": "1 märkus |{count} märkused",
+      "annotationsCount": "1 märkus | {count} märkused",
       "hide": "Peida külgriba",
       "IIIFManifest": "IIIF Manifest",
       "links": "Lingid",
@@ -1224,9 +1073,6 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -1284,8 +1130,6 @@ export default {
     },
     "allMetaData": "Kogu metateave",
     "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
-    "debias": "De-bias",
-    "explanationby": "Selgituse esitas {0}",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
@@ -1488,7 +1332,7 @@ export default {
     },
     "prompts": {
       "delete": "Kas olete kindel, et soovite selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sellesse lisatud üksused.",
-      "removeItems": "Kas olete kindel, et soovite eemaldada {count} üksus sellest galeriist? | Kas olete kindel, et soovite eemaldada {count} üksused sellest galeriist?"
+      "removeItems": "Kas olete kindel, et soovite eemaldada {count} üksus sellest galeriist? | Kas olete kindel, et soovite eemaldada{count} üksused sellest galeriist?"
     },
     "publication": {
       "criteria": {

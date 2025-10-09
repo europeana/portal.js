@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Viešos parodos",
     "publishedCollections": "Paskelbtos Parodos",
     "settings": "Nustatymai",
-    "title": "Mano paskyra",
+    "title": "Mano profilis",
     "tooltip": {
       "EntityBestItemsSet": "Kuruojamoje parodos rodomi prisegti konkrečios kolekcijos skaitmeniniai objektai",
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Pradžios data",
     "to": "į"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projektas",
+      "text": "Šią informaciją sukūrė {link} (2023/2024), kad padėtų suteikti kontekstą pasenusiam ir žalingam terminų vartojimui rinkinių aprašuose."
+    },
+    "headings": {
+      "alternatives": "Siūlomos alternatyvos",
+      "recommendations": "Naudojimo rekomendacijos",
+      "source": "Šaltinis"
+    },
+    "termNotFound": "Šis puslapis prieinamas tik šališko termino kalba.",
+    "tooltip": {
+      "linkToPage": "Perskaitykite išsamų {projectName} pateiktą paaiškinimą"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
+          "descriptionLine2": "Reikia API rakto? Užsiregistruokite {link}.",
+          "here": "čia",
+          "label": "API raktas",
           "usePersonal": {
             "linkText": "Įveskite savo asmeninį API raktą",
             "prompt": "{link} ir jis bus naudojamas."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Kairė",
     "right": "Dešinė"
-  },
-  "ds4ch": {
-    "broughtBy": "Jums atnešė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "embedNotification": {
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Pasirinkite, ar galite tai naudoti"
     },
+    "RIGHTS": {
+      "name": "Teisių pareiškimas",
+      "select": "Pasirinkti teisių išrašus"
+    },
     "TYPE": {
       "name": "Medijos tipas",
       "options": {
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Padeda derinti API užklausas",
         "title": "Derinti perjungti"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Renka naudojimo duomenis, kad galėtume analizuoti naudotojų sąveiką. Įjungia apklausos valdiklį, suteikiantį jums galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Prisimena jūsų pageidaujamą sąsajos kalbą, kad galėtumėte ją pasiekti ateityje.",
         "title": "Kalbos kodas"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Suaktyvina atsiliepimų valdiklį, suteikiantį galimybę susisiekti su mumis.",
         "title": "Jiros aptarnavimo stalas"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Prisimena, ar norite gauti daugiakalbius paieškos rezultatus.",
         "title": "Daugiakalbė paieška"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
         "title": "Pranešimas apie naują funkciją"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite matyti paieškos rezultatus, galerijas ir patinkančius elementus sąraše, tinklelyje ar mozaikiniame rodinyje.",
         "title": "Paieškos rezultatų, galerijų ir \"patinka\" rodinys (sąrašas / tinklelis / mozaika)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nežinomas teikėjas",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nežinomas teikėjas"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Mėnesio API užklausos, vidutiniškai",
       "dataProviders": "Duomenų teikėjai",
@@ -1169,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Anotacijos",
-      "annotationsCount": "1 Anotacija |{count} Anotacijos",
+      "annotationsCount": "1 Anotacija | {count} Anotacijos",
       "hide": "Slėpti šoninę juostą",
       "IIIFManifest": "IIIF manifestas",
       "links": "Nuorodos",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Iš",
   "organisation": {
     "city": "Miestas",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Visi metaduomenys",
     "clickToCopyEmbedCode": "Spustelėkite įterpimo kodą, kad jį nukopijuotumėte",
-    "debias": "De-bias",
-    "explanationby": "Paaiškinimą pateikė {0}",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
@@ -1482,7 +1328,7 @@ export default {
         "title": "100 patinka"
       },
       "updated": "Skaitmeninis objektas buvo pridėtas į galeriją.",
-      "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
+      "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \"{visibility}\"."
     },
     "prompts": {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai.",

@@ -139,7 +139,7 @@ export default {
     "creator": "Създател:",
     "date": "Дата:",
     "institution": "Институция:",
-    "show": "Покажи атрибуция",
+    "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
   "authored": {
@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "материали",
-          "name": "Материал | Материали",
+          "name": "Материал",
           "select": "Изберете материали"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Начална дата",
     "to": "до"
   },
+  "debias": {
+    "background": {
+      "link": "Проект DE-BIAS",
+      "text": "Тази информация беше създадена от {link} (2023/2024), за да помогне за контекстуализирането на остарели и вредни термини в описанията на колекциите."
+    },
+    "headings": {
+      "alternatives": "Предложени алтернативи",
+      "recommendations": "Препоръки за употреба",
+      "source": "Източник"
+    },
+    "termNotFound": "Тази страница е достъпна само на езика на пристрастния термин.",
+    "tooltip": {
+      "linkToPage": "Прочетете пълното обяснение, предоставено от {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Въведете своя Europeana API ключ и той ще бъде използван във връзките към заявки за API.",
+          "descriptionLine2": "Нужен ви е API ключ? Регистрирайте се за такъв {link}.",
+          "here": "тук",
+          "label": "API ключ",
           "usePersonal": {
             "linkText": "Въведете вашия личен API ключ",
             "prompt": "{link} и ще бъде използван."
@@ -231,15 +250,6 @@ export default {
   "directions": {
     "left": "Ляво",
     "right": "Дясно"
-  },
-  "ds4ch": {
-    "broughtBy": "Донесено ви от",
-    "header": {
-      "navigation": {
-        "partners": "Партньори"
-      }
-    },
-    "homeLinkAlt": "Общо европейско пространство за данни за културното наследство"
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
   "embedNotification": {
@@ -271,7 +281,7 @@ export default {
       },
       "pinned": "Oбект е фиксиран. Ще се появи като първи обект в колекцията „ {entity} “. Ще ви уведомим, когато тази промяна ще бъде видима на страницата за събиране.",
       "select": "Изберете свързан същества, за да закачите/откачите обект към/от него",
-      "unpin": "Този обект ще спре да се показва в горната част на колекцията „ {entity} “. Ще ви уведомим, когато тази промяна ще бъде видима на страницата за събиране.",
+      "unpin": "Този обект ще спре да се показва в горната част на колекцията „{entity} “. Ще ви уведомим, когато тази промяна ще бъде видима на страницата за събиране.",
       "unpinned": "Обект е откачен. Ще ви уведомим, когато тази промяна ще бъде видима на страницата за събиране."
     }
   },
@@ -702,6 +712,10 @@ export default {
       },
       "select": "Изберете дали можете да използвате това"
     },
+    "RIGHTS": {
+      "name": "Права за ползване",
+      "select": "Изберете изявления за права"
+    },
     "TYPE": {
       "name": "Вид медия",
       "options": {
@@ -929,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Помага за отстраняване на грешки в заявки на API",
         "title": "Превключване за отстраняване на грешки"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Събира данни за използването, за да ни помогне да анализираме взаимодействията на потребителите. Активира джаджа за проучване, която ви дава възможност да отговорите на нашите проучвания за удовлетвореността на посетителите.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Запомня предпочитания от вас език на интерфейса за бъдещ достъп.",
         "title": "Код на езика"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Активира приспособлението за обратна връзка, като ви дава възможност да се свържете с нас.",
         "title": "Бюро за услуги Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Събира анонимни статистически данни за това как посетителите взаимодействат с уебсайта.",
@@ -1047,98 +971,18 @@ export default {
         "description": "Запомня дали предпочитате да получавате многоезични резултати от търсенето.",
         "title": "Многоезично търсене"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Показва известие, когато станат налични нови функции.",
         "title": "Известие за нова функция"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Запомнете дали предпочитате да виждате резултатите от търсенето, галериите и харесванията си в изглед на списък, мрежа или мозайка.",
         "title": "Резултат от търсенето, галерии и изглед на харесвания (списък/мрежа/мозайка)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "неизвестен доставчик",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "неизвестен доставчик"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Намерете вдъхновение"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Средно месечни заявки за API",
       "dataProviders": "Доставчици на данни",
@@ -1176,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Анотации",
-      "annotationsCount": "1 Анотация |{count} Анотации",
+      "annotationsCount": "1 Анотация | {count} Анотации",
       "hide": "Скриване на страничната лента",
       "IIIFManifest": "IIIF Манифест",
       "links": "Връзки",
@@ -1192,9 +1036,9 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Кликнете върху приписването, за да го копирате",
-      "copyAttribution": "Копиране на атрибут на обект.",
-      "modalIntro": "Ако използвате този обект в мрежата или другаде, не забравяйте да покажете следното приписване до него:",
+      "clickToCopy": "Кликнете върху атрибуция, за да я копирате",
+      "copyAttribution": "Копиране на атрибута на обекта",
+      "modalIntro": "Ако използвате този обект в мрежата или другаде, не забравяйте да покажете следната атрибуция до него:",
       "modalTitle": "Кажи Благодаря"
     },
     "downloadFailed": {
@@ -1229,9 +1073,6 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "На",
   "organisation": {
     "city": "град",
@@ -1289,8 +1130,6 @@ export default {
     },
     "allMetaData": "Всички метаданни",
     "clickToCopyEmbedCode": "Кликнете върху кода за вграждане, за да го копирате.",
-    "debias": "De-bias",
-    "explanationby": "Обяснение, предоставено от {0}",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
     "hideAll": "Скриване на цялата информация",
