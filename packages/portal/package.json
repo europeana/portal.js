@@ -7,7 +7,6 @@
     "build": "nuxt build",
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
-    "lokalise": "node --require dotenv/config bin/lokalise.js",
     "media-embed-service:add": "node bin/media-embed-service-add.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
@@ -69,7 +68,6 @@
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
     "@europeana/style": "^2.13.0",
-    "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
     "jest-transform-graphql": "^2.1.0",
