@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materialer",
-          "name": "Materiale | Materialer",
+          "name": "Materiale",
           "select": "Vælg materialer"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Startdato",
     "to": "til"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Denne information blev skabt af {link} (2023/2024) for at hjælpe med at kontekstualisere forældede og skadelige termer i samlingsbeskrivelser."
+    },
+    "headings": {
+      "alternatives": "Foreslåede alternativer",
+      "recommendations": "Anbefalinger til brug",
+      "source": "Kilde"
+    },
+    "termNotFound": "Denne side er kun tilgængelig på sproget for det forudindtagede udtryk.",
+    "tooltip": {
+      "linkToPage": "Læs den fulde forklaring leveret af {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
+          "descriptionLine2": "Har du brug for en API-nøgle? Registrer dig for at få en {link}.",
+          "here": "her",
+          "label": "API-nøgle",
           "usePersonal": {
             "linkText": "Indtast din personlige API-nøgle",
             "prompt": "{link} og det vil blive brugt."
@@ -231,10 +250,6 @@ export default {
   "directions": {
     "left": "Venstre",
     "right": "Højre"
-  },
-  "ds4ch": {
-    "broughtBy": "Bragt til dig af",
-    "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "embedNotification": {
@@ -259,14 +274,14 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "pin": "Dette element vises øverst i samlingen \"{entity}\". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 genstande på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
         "title": "For mange fastgjorte genstande"
       },
-      "pinned": "Genstand er blevet fastgjort. Det vises som det første element i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "pinned": "Genstand er blevet fastgjort. Det vises som det første element i samlingen \"{entity}\". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
-      "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "unpin": "Dette element stopper med at blive vist øverst i samlingen \"{entity}\". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet frigjort. Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden."
     }
   },
@@ -697,6 +712,10 @@ export default {
       },
       "select": "Vælg, om du kan bruge dette"
     },
+    "RIGHTS": {
+      "name": "Rettigheder",
+      "select": "Vælg rettighedserklæringer"
+    },
     "TYPE": {
       "name": "Medietype",
       "options": {
@@ -924,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Indsamler brugsdata for at hjælpe os med at analysere brugerinteraktioner. Aktiverer en undersøgelses-widget, der giver dig mulighed for at svare på vores undersøgelser af besøgendes tilfredshed.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Husker dit foretrukne grænsefladesprog for fremtidig adgang.",
         "title": "Sprogkode"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiverer feedback-widget'en, så du kan kontakte os.",
         "title": "Jira servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
@@ -1042,98 +971,18 @@ export default {
         "description": "Husker, hvis du foretrækker at få flersprogede søgeresultater.",
         "title": "Flersproget søgning"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
         "title": "Meddelelse om ny funktion"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Husker, om du foretrækker at se søgeresultaterne, gallerierne og dine likes i en liste, gitter eller mosaikvisning.",
         "title": "Søgeresultat, gallerier og likes-visning (liste/gitter/mosaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "ukendt udbyder",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "ukendt udbyder"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Find inspiration"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Månedlige API-anmodninger i gennemsnit",
       "dataProviders": "Dataudbydere",
@@ -1224,9 +1073,6 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -1284,8 +1130,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
-    "debias": "De-bias",
-    "explanationby": "Forklaring leveret af {0}",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
@@ -1453,7 +1297,7 @@ export default {
       "description": "Beskrivelse af galleri",
       "private": "Hold dette galleri privat",
       "privateWarning": "Denne handling vil depublicere galleriet.",
-      "required": "påkrævet  felt",
+      "required": "Påkrævet felt",
       "title": "Navn på galleri"
     },
     "labels": {
@@ -1484,7 +1328,7 @@ export default {
         "title": "100 likes"
       },
       "updated": "Elementet blev føjet til galleriet.",
-      "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
+      "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \"{visibility}\"."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det.",
