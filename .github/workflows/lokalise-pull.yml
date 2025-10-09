@@ -18,12 +18,8 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      -
-        name: Install Node packages
-        run: |
-          npm install --prefix tmp \
-            json-stable-stringify-without-jsonify@$(jq -Mr '.packages["node_modules/json-stable-stringify-without-jsonify"].version' package-lock.json)
-          mv tmp/node_modules .
+      - name: Install Node packages
+        run: npm install
 
       - name: Pull from Lokalise
         uses: lokalise/lokalise-pull-action@v3.14.0
