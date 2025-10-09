@@ -17,8 +17,8 @@ jobs:
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
-          file_format: react_native
-          file_ext: js
+          file_format: json
+          file_ext: json
           translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
           flat_naming: true
@@ -36,6 +36,7 @@ jobs:
             --export-sort=a_z
             --filter-langs=bg,cs,da,de,el,es,et,eu_ES,fi,fr,ga_IE,hr,hu,it,lt,lv,mt_MT,nl,pl,pt,ro,sk,sl,sv
             --indentation=2sp
+            --json-unescaped-slashes
             --language-mapping=[{"original_language_iso":"en_GB","custom_language_iso":"en"},{"original_language_iso":"eu_ES","custom_language_iso":"eu"},{"original_language_iso":"mt_MT","custom_language_iso":"mt"},{"original_language_iso":"ga_IE","custom_language_iso":"ga"}]
             --original-filenames=true
             --placeholder-format=icu
