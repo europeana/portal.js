@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galeries publiques",
     "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
-    "title": "Mon compte",
+    "title": "Mon profil",
     "tooltip": {
       "EntityBestItemsSet": "Une galerie curative présente les items épinglés dans une collection spécifique.",
       "private": "Une galerie privée ne peut être vue que par vous.",
@@ -70,7 +70,7 @@ export default {
     "remove": "Supprimer",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
-    "share": "Partagez",
+    "share": "Partager",
     "shareOn": "Partager sur {social}",
     "show": "Afficher",
     "showLess": "Afficher moins",
@@ -111,7 +111,7 @@ export default {
         "howToLinkText": "Comment utiliser votre clé"
       },
       "projectKeys": {
-        "description": "Pour chaque projet que vous devez développer, nous vous fournirons une clé dédiée. Les clés de projet ont des limites plus élevées et d'autres fonctionnalités spécifiques : pour en savoir plus, consultez la clé API {termsOfUseLink}. Si vous souhaitez modifier les informations de votre projet, veuillez envoyer un e-mail à api@europeana.eu; nous effectuerons les modifications pour vous.",
+        "description": "Pour chaque projet que vous devez développer, nous vous fournirons une clé dédiée. Les clés de projet ont des limites plus élevées et d'autres fonctionnalités spécifiques : pour en savoir plus, consultez la clé API{termsOfUseLink}. Si vous souhaitez modifier les informations de votre projet, veuillez envoyer un e-mail à api@europeana.eu; nous effectuerons les modifications pour vous.",
         "heading": "Clés API du projet"
       },
       "termsOfUseLinkText": "conditions d'utilisation"
@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "matériaux",
-          "name": "Matériel | Matériaux",
+          "name": "Matériel",
           "select": "Sélectionnez les matériaux"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Date de début",
     "to": "à"
   },
+  "debias": {
+    "background": {
+      "link": "Projet DE-BIAS",
+      "text": "Ces informations ont été créées par le {link} (2023/2024) pour aider à contextualiser des termes obsolètes et préjudiciables dans les descriptions de collections."
+    },
+    "headings": {
+      "alternatives": "Alternatives suggérées",
+      "recommendations": "Recommandations d'utilisation",
+      "source": "Source"
+    },
+    "termNotFound": "Cette page n'est disponible que dans la langue du terme biaisé.",
+    "tooltip": {
+      "linkToPage": "Lisez l'explication complète fournie par {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Entrez votre clé API Europeana et elle sera utilisée dans les liens vers les requêtes API.",
+          "descriptionLine2": "Besoin d'une clé API ? Inscrivez-vous pour en obtenir une {link}.",
+          "here": "ici",
+          "label": "Clé API",
           "usePersonal": {
             "linkText": "Entrez votre clé API personnelle",
             "prompt": "{link} et il sera utilisé."
@@ -231,10 +250,6 @@ export default {
   "directions": {
     "left": "Gauche",
     "right": "Droite"
-  },
-  "ds4ch": {
-    "broughtBy": "Présenté par",
-    "homeLinkAlt": "L'espace européen commun de données pour le patrimoine culturel"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "embedNotification": {
@@ -697,6 +712,10 @@ export default {
       },
       "select": "Sélectionnez si vous pouvez utiliser ce"
     },
+    "RIGHTS": {
+      "name": "Mentions de droit",
+      "select": "Sélectionnez les déclarations de droits"
+    },
     "TYPE": {
       "name": "Type de support",
       "options": {
@@ -782,7 +801,7 @@ export default {
   "filterResults": "Filtrer les résultats",
   "footer": {
     "customiseWebsiteLanguage": "Personnaliser la langue du site web",
-    "findUsElsewhere": "Nous trouver ailleurs",
+    "findUsElsewhere": "Retrouvez-nous ailleurs",
     "footer": "Pied de page",
     "imageDescription": "Financé par l'Union européenne",
     "navigation": {
@@ -800,7 +819,7 @@ export default {
       "terms": "Conditions et politiques"
     },
     "ourMission": "Notre mission",
-    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
+    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les stratégies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
   },
   "galleries": {
     "description": "Explorez nos galeries",
@@ -924,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
         "title": "Stratégie d'authentification"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Aide au débogage des demandes d'API",
         "title": "Bascule de débogage"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Collecte des données d'utilisation pour nous aider à analyser les interactions avec les utilisateurs. Active un widget d'enquête vous donnant la possibilité de répondre à nos enquêtes de satisfaction des visiteurs.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Se souvient de votre langue d'interface préférée pour un accès futur.",
         "title": "Code de la langue"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Active le widget de feedback vous donnant la possibilité de nous contacter.",
         "title": "Bureau de service Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
@@ -1042,98 +971,18 @@ export default {
         "description": "Se souvient si vous préférez obtenir des résultats de recherche multilingues.",
         "title": "Recherche multilingue"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Affiche une notification lorsque de nouvelles fonctionnalités sont disponibles.",
         "title": "Notification des nouvelles fonctionnalités"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche, les galeries et vos j'aime sous forme de liste, de grille ou de mosaïque.",
         "title": "Résultat de recherche, galeries et vues J’aime (liste/grille/mosaïque)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fournisseur inconnu",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fournisseur inconnu"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Trouvez l'inspiration"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Requêtes API mensuelles, en moyenne",
       "dataProviders": "Fournisseurs de données",
@@ -1224,9 +1073,6 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Ville",
@@ -1284,8 +1130,6 @@ export default {
     },
     "allMetaData": "Toutes les métadonnées",
     "clickToCopyEmbedCode": "Cliquez sur le code d'intégration pour le copier",
-    "debias": "De-bias",
-    "explanationby": "Explication fournie par {0}",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",

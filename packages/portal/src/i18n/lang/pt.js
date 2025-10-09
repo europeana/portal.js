@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galerias públicas",
     "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
-    "title": "A minha conta",
+    "title": "Meu perfil",
     "tooltip": {
       "EntityBestItemsSet": "Uma galeria com curadoria mostra os itens fixados numa coleção específica",
       "private": "Uma galeria privada só pode ser vista por si.",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Data de início",
     "to": "para"
   },
+  "debias": {
+    "background": {
+      "link": "Projeto DE-BIAS",
+      "text": "Esta informação foi criada pelo {link} (2023/2024) para ajudar a contextualizar termos desatualizados e prejudiciais nas descrições das coleções."
+    },
+    "headings": {
+      "alternatives": "Alternativas sugeridas",
+      "recommendations": "Recomendações de utilização",
+      "source": "Fonte"
+    },
+    "termNotFound": "Esta página está disponível somente no idioma do termo tendencioso.",
+    "tooltip": {
+      "linkToPage": "Leia a explicação completa fornecida por {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Insira a sua chave de API Europeana e ela será usada nos links para solicitações de API.",
+          "descriptionLine2": "Precisa de uma chave de API? Registe-se para obter uma {link}.",
+          "here": "aqui",
+          "label": "Chave API",
           "usePersonal": {
             "linkText": "Insira a sua chave API pessoal",
             "prompt": "{link} e será utilizado."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Esquerda",
     "right": "Direita"
-  },
-  "ds4ch": {
-    "broughtBy": "Trazido até si por"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "embedNotification": {
@@ -263,7 +279,7 @@ export default {
         "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
         "title": "Muitos itens fixados"
       },
-      "pinned": "O item foi fixado. Ele aparecerá como o primeiro item na coleção \" {entity} \". Iremos notificá-lo quando esta alteração estiver visível na página da coleção.",
+      "pinned": "O item foi fixado. Ele aparecerá como o primeiro item na coleção \"{entity}\". Iremos notificá-lo quando esta alteração estiver visível na página da coleção.",
       "select": "Selecione uma entidade relacionada para fixar/desafixar o item nela.",
       "unpin": "Este item deixará de ser exibido na parte superior da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "unpinned": "O item foi desafixado. Iremos notificá-lo quando esta alteração estiver visível na página da coleção."
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Selecione se pode usar isto"
     },
+    "RIGHTS": {
+      "name": "Declaração de direitos",
+      "select": "Selecionar declarações de direitos"
+    },
     "TYPE": {
       "name": "Tipo de media",
       "options": {
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
         "title": "Estratégia Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajuda a depurar solicitações de API",
         "title": "Botão de debug"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Recolhe dados de utilização para nos ajudar a analisar as interações dos utilizadores. Ativa um widget de inquérito que lhe dá a opção de responder aos nossos inquéritos de satisfação dos visitantes.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Lembra seu idioma de interface preferido para acesso futuro.",
         "title": "Código de idioma"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Ativa o widget de feedback dando-lhe a opção de nos contactar.",
         "title": "Balcão de serviço Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Lembra-se se prefere obter resultados de pesquisa multilíngues.",
         "title": "Pesquisa multilíngue"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Mostra uma notificação quando novas funcionalidades se tornam disponíveis.",
         "title": "Notificação de novas funcionalidades"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Lembra-se se prefere ver os resultados da pesquisa, as galerias e os seus gostos numa vista de lista, grelha ou mosaico.",
         "title": "Resultado da pesquisa, galerias e visualização de gostos (lista/grelha/mosaico)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fornecedor desconhecido",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fornecedor desconhecido"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Pedidos de API mensais, em média",
       "dataProviders": "Fornecedores de Dados",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Cidade",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Todos os metadados",
     "clickToCopyEmbedCode": "Clique no código de incorporação para o copiar",
-    "debias": "De-bias",
-    "explanationby": "Explicação fornecida por {0}",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
@@ -1434,7 +1280,7 @@ export default {
       "edit": "Editar galeria",
       "likeItems": {
         "1": "Guardar este item nos seus gostos.",
-        "many": "Goste de {count} item | Goste de {count} itens"
+        "many": "Goste de {count}item | Goste de {count} itens"
       },
       "removeItems": {
         "1": "Remova este item desta galeria.",

@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
-    "title": "Contul meu",
+    "title": "Profilul meu",
     "tooltip": {
       "EntityBestItemsSet": "O galerie organizată arată resurse culturale fixate dintr-o anumită colecție",
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Data de început",
     "to": "la"
   },
+  "debias": {
+    "background": {
+      "link": "Proiectul DE-BIAS",
+      "text": "Aceste informații au fost create de {link} (2023/2024) pentru a ajuta la contextualizarea termenilor învechiți și dăunători din descrierile colecțiilor."
+    },
+    "headings": {
+      "alternatives": "Alternative sugerate",
+      "recommendations": "Recomandări de utilizare",
+      "source": "Sursă"
+    },
+    "termNotFound": "Această pagină este disponibilă numai în limba termenului părtinitor.",
+    "tooltip": {
+      "linkToPage": "Citește explicația completă oferită de {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Introduceți cheia API Europeana și va fi folosită în linkurile către solicitările API.",
+          "descriptionLine2": "Aveți nevoie de o cheie API? Înregistrați-vă pentru una {link}.",
+          "here": "aici",
+          "label": "Cheia API",
           "usePersonal": {
             "linkText": "Introduceți cheia API personală",
             "prompt": "{link} și va fi utilizat."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Stânga",
     "right": "Dreapta"
-  },
-  "ds4ch": {
-    "broughtBy": "Adus vouă de"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "embedNotification": {
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Selectați dacă puteți utiliza acest lucru"
     },
+    "RIGHTS": {
+      "name": "Declarație de drepturi",
+      "select": "Selectați declarațiile de drepturi"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {
@@ -819,7 +839,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
-      "home": "Pagină natală",
+      "home": "Acasă",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
         "title": "Comutare depanare"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Colectează date de utilizare pentru a ne ajuta să analizăm interacțiunile utilizatorilor. Activează un widget de sondaj care vă oferă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Reține limba de interfață preferată pentru acces viitor.",
         "title": "Codul limbii"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
         "title": "Birou de service Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
         "title": "Căutare multilingvă"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
         "title": "Notificare pentru funcții noi"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
         "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "furnizor necunoscut",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "furnizor necunoscut"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Solicitări API lunare, în medie",
       "dataProviders": "Furnizorii de date",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Toate metadatele",
     "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
-    "debias": "De-bias",
-    "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
