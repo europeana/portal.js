@@ -12,6 +12,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      -
+        name: Install Node packages
+        run: npm install
+
       - name: Pull from Lokalise
         uses: lokalise/lokalise-pull-action@v3.14.0
         with:
@@ -27,7 +37,7 @@ jobs:
           always_pull_base: true
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
-          post_process_command: bin/post-process-lokalise-pull.sh
+          post_process_command: node bin/post-process-lokalise-pull.js
           additional_params: |
             --add-newline-eof=true
             --directory-prefix=packages/portal/src/i18n/lang
