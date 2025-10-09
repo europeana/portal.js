@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materjali",
-          "name": "Materjal | Materjali",
+          "name": "Materjal",
           "select": "Agħżel materjali"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Data tal-bidu",
     "to": "biex"
   },
+  "debias": {
+    "background": {
+      "link": "Proġett DE-BIAS",
+      "text": "Din l-informazzjoni nħolqot mill-{link} (2023/2024) biex tgħin tikkonteżżwalizza termini antikwati u ta' ħsara f'deskrizzjonijiet tal-kollezzjoni."
+    },
+    "headings": {
+      "alternatives": "Alternattivi ssuġġeriti",
+      "recommendations": "Rakkomandazzjonijiet għall-użu",
+      "source": "Sors"
+    },
+    "termNotFound": "Din il-paġna hija disponibbli biss fil-lingwa tat-terminu preġudikat.",
+    "tooltip": {
+      "linkToPage": "Aqra l-ispjegazzjoni sħiħa pprovduta minn {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Daħħal iċ-ċavetta API Europeana tiegħek u din tintuża fil-links għal talbiet għall-API.",
+          "descriptionLine2": "Għandek bżonn ċavetta API? Irreġistra għal waħda {link}.",
+          "here": "hawn",
+          "label": "Ċavetta API",
           "usePersonal": {
             "linkText": "Daħħal iċ-ċavetta API personali tiegħek",
             "prompt": "{link} u se jintuża."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Xellug",
     "right": "Lemin"
-  },
-  "ds4ch": {
-    "broughtBy": "Miġjuba lilek minn"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "embedNotification": {
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Agħżel jekk tistax tuża dan"
     },
+    "RIGHTS": {
+      "name": "Dikjarazzjoni tad-drittijiet",
+      "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
+    },
     "TYPE": {
       "name": "Tip ta' midja",
       "options": {
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
         "title": "L-Istrateġija tal-Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Jgħin id-debugging ta 'talbiet API",
         "title": "Debug toggle"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Jikkolletta data dwar l-użu biex jgħinna nanalizzaw l-interazzjonijiet tal-utenti. Jattiva widget ta' stħarriġ li jagħtik l-għażla li twieġeb għall-istħarriġiet ta' sodisfazzjon tal-viżitaturi tagħna.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Tiftakar il-lingwa tal-interface preferuta tiegħek għal aċċess futur.",
         "title": "Kodiċi tal-lingwa"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Jattiva l-widget tal-feedback u jagħtik l-għażla li tikkuntattjana.",
         "title": "Skrivanija tas-servizz ta' Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Jiftakar jekk tippreferi tikseb riżultati tat-tfittxija b’ħafna lingwi.",
         "title": "Tfittxija b’ħafna lingwi"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Juri notifika meta karatteristiċi ġodda jsiru disponibbli.",
         "title": "Notifika ta' karatteristika ġdida"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
         "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fornitur mhux magħruf",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fornitur mhux magħruf"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
       "dataProviders": "Fornituri tad-Data",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Ta",
   "organisation": {
     "city": "Belt",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Il-metadata kollha",
     "clickToCopyEmbedCode": "Ikklikkja fuq il-kodiċi embed biex tikkopjah",
-    "debias": "De-bias",
-    "explanationby": "Spjegazzjoni pprovduta minn {0}",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
@@ -1543,7 +1389,7 @@ export default {
   },
   "storiesPage": {
     "results": "{count} riżultat | {count} riżultati",
-    "storiesHaveLoaded": "{0} stejjer misjuba"
+    "storiesHaveLoaded": "{0} tejjer misjuba"
   },
   "swiper": {
     "a11y": {

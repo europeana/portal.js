@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materiali",
-          "name": "Materiale | Materiali",
+          "name": "Materiale",
           "select": "Seleziona i materiali"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Data di inizio",
     "to": "a"
   },
+  "debias": {
+    "background": {
+      "link": "Progetto DE-BIAS",
+      "text": "Queste informazioni sono state create da {link} (2023/2024) per aiutare a contestualizzare termini obsoleti e dannosi nelle descrizioni delle collezioni."
+    },
+    "headings": {
+      "alternatives": "Alternative suggerite",
+      "recommendations": "Raccomandazioni per l’uso",
+      "source": "Fonte"
+    },
+    "termNotFound": "Questa pagina è disponibile solo nella lingua del termine di parte.",
+    "tooltip": {
+      "linkToPage": "Leggi la spiegazione completa fornita da {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Inserisci la tua chiave API Europeana e verrà utilizzata nei link alle richieste API.",
+          "descriptionLine2": "Hai bisogno di una chiave API? Registrati per ottenerne una {link}.",
+          "here": "qui",
+          "label": "Chiave API",
           "usePersonal": {
             "linkText": "Inserisci la tua chiave API personale",
             "prompt": "{link} e verrà utilizzato."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Sinistra",
     "right": "Destra"
-  },
-  "ds4ch": {
-    "broughtBy": "Portato a te da"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "embedNotification": {
@@ -258,14 +274,14 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
-      "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
+      "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta \"{entity}\". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "pinLimit": {
         "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
         "title": "Troppi oggetti appuntati"
       },
-      "pinned": "L'oggetto è stato appuntato. Apparirà come primo elemento nella raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina della raccolta.",
+      "pinned": "L'oggetto è stato appuntato. Apparirà come primo elemento nella raccolta \"{entity}\". Ti avviseremo quando questa modifica sarà visibile nella pagina della raccolta.",
       "select": "Seleziona un'entità correlata a cui aggiungere/sbloccare l'elemento a/da esso.",
-      "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
+      "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \"{entity}\". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "Oggetto è stato sbloccato. Ti avviseremo quando questa modifica sarà visibile nella pagina della raccolta."
     }
   },
@@ -348,7 +364,7 @@ export default {
       "morefilters": "Altri filtri",
       "showAdditional": "{show} filtri aggiuntivi",
       "showAll": "{label}: mostra tutto",
-      "showLess": "{label}: mostra meno"
+      "showLess": "{label}}: mostra meno"
     },
     "collection": {
       "name": "Tema",
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Selezionare se è possibile utilizzarlo"
     },
+    "RIGHTS": {
+      "name": "Dichiarazione dei diritti",
+      "select": "Seleziona le dichiarazioni dei diritti"
+    },
     "TYPE": {
       "name": "Tipo di Media",
       "options": {
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
         "title": "Strategia di autenticazione"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Aiuta il debug delle richieste API",
         "title": "Alterna il debug"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Raccoglie dati sull'utilizzo per aiutarci ad analizzare le interazioni degli utenti. Attiva un widget di sondaggio che ti offre la possibilità di rispondere ai nostri sondaggi sulla soddisfazione dei visitatori.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Ricorda la lingua dell'interfaccia preferita per l'accesso futuro.",
         "title": "Codice lingua"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Attiva il widget di feedback dandoti la possibilità di contattarci.",
         "title": "Jira service desk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Raccoglie statistiche anonime su come i visitatori interagiscono con il sito web.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Ricorda se preferisci ottenere risultati di ricerca multilingue.",
         "title": "Ricerca multilingue"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Mostra una notifica quando nuove funzionalità diventano disponibili.",
         "title": "Notifica di nuove funzionalità"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca, le gallerie e i tuoi Mi piace in una visualizzazione elenco, griglia o mosaico.",
         "title": "Visualizzazione dei risultati della ricerca, gallerie e Mi piace (elenco/griglia/mosaico)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fornitore sconosciuto",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fornitore sconosciuto"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Richieste API mensili, in media",
       "dataProviders": "Fornitori di dati",
@@ -1169,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Annotazioni",
-      "annotationsCount": "1 Annotazione |{count} Annotazioni",
+      "annotationsCount": "1 Annotazione | {count} Annotazioni",
       "hide": "Nascondi la barra laterale",
       "IIIFManifest": "Manifesto IIIF",
       "links": "Collegamenti",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Di",
   "organisation": {
     "city": "Città",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Tutti i metadati",
     "clickToCopyEmbedCode": "Fai clic sul codice incorporato per copiarlo.",
-    "debias": "De-bias",
-    "explanationby": "Spiegazione fornita da {0}",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
@@ -1482,7 +1328,7 @@ export default {
         "title": "100 Mi piace"
       },
       "updated": "L'elemento è stato aggiunto alla galleria.",
-      "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
+      "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \"{visibility}\"."
     },
     "prompts": {
       "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto.",
