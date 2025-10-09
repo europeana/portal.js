@@ -214,10 +214,29 @@ export default {
     "startDate": "Ημερομηνία έναρξης",
     "to": "έως"
   },
+  "debias": {
+    "background": {
+      "link": "Έργο DE-BIAS",
+      "text": "Αυτές οι πληροφορίες δημιουργήθηκαν από το {link} (2023/2024) για να βοηθήσουν στην τοποθέτηση σε ένα συγκεκριμένο πλαίσιο ξεπερασμένων και επιβλαβών όρων στις περιγραφές συλλογών."
+    },
+    "headings": {
+      "alternatives": "Προτεινόμενες εναλλακτικές λύσεις",
+      "recommendations": "Συστάσεις για χρήση",
+      "source": "Πηγή"
+    },
+    "termNotFound": "Αυτή η σελίδα είναι διαθέσιμη μόνο στη γλώσσα του μεροληπτικού όρου.",
+    "tooltip": {
+      "linkToPage": "Διαβάστε την πλήρη εξήγηση που παρέχεται από το {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Εισαγάγετε το κλειδί Europeana API και θα χρησιμοποιηθεί στους συνδέσμους προς τα αιτήματα API.",
+          "descriptionLine2": "Χρειάζεστε ένα κλειδί API; Εγγραφείτε για ένα {link}.",
+          "here": "εδώ",
+          "label": "Κλειδί API",
           "usePersonal": {
             "linkText": "Εισαγάγετε το προσωπικό σας κλειδί API",
             "prompt": "{link} και θα χρησιμοποιηθεί."
@@ -233,7 +252,15 @@ export default {
     "right": "Δεξιά"
   },
   "ds4ch": {
-    "broughtBy": "Έφερε σε σας από"
+    "broughtBy": "Έφερε σε σας από",
+    "header": {
+      "navigation": {
+        "about": "Σχετικά με τον χώρο δεδομένων",
+        "explore": "Εξερευνήστε τα δεδομένα",
+        "partners": "Συνεργάτες"
+      }
+    },
+    "homeLinkAlt": "Η αρχική σελίδα του κοινού ευρωπαϊκού χώρου δεδομένων για την πολιτιστική κληρονομιά"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "embedNotification": {
@@ -271,6 +298,9 @@ export default {
   },
   "error": "Σφάλμα",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
+    },
     "authClientDisabled": {
       "description": "Αυτό το κλειδί API έχει ήδη απενεργοποιηθεί, ίσως σε διαφορετική καρτέλα προγράμματος περιήγησης.",
       "title": "Το κλειδί είναι ήδη απενεργοποιημένο"
@@ -299,9 +329,6 @@ export default {
     "genericUnknownError": {
       "description": "Συνέβη ένα άγνωστο σφάλμα.",
       "title": "Αγνωστο σφάλμα"
-    },
-    "IIIFManifestFailure": {
-      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
     },
     "itemNotFound": {
       "description": "Αυτό μπορεί να οφείλεται στους ακόλουθους λόγους: το τεκμήριο δεν υπάρχει ή καταργήθηκε επειδή δεν πληρούσε τα ποιοτικά μας κριτήρια, ή ενημερώθηκε και αναδημοσιεύτηκε με ένα νέο μοναδικό αναγνωριστικό, οπότε προσπαθήστε να βρείτε ξανά το τεκμήριο.",
@@ -338,37 +365,6 @@ export default {
     "exhibitions": "Έκθεση | Εκθέσεις"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Αν θέλετε να κάνετε αναζήτηση στο κείμενο των εφημερίδων, θα πρέπει να χρησιμοποιήσετε τη σύνθετη αναζήτηση και να επιλέξετε το πεδίο \"πλήρες κείμενο\".",
-        "ww1": "Εάν θέλετε να κάνετε αναζήτηση στο κείμενο των εγγράφων του Α' Παγκοσμίου Πολέμου, θα χρειαστεί να χρησιμοποιήσετε τη σύνθετη αναζήτηση και να επιλέξετε το πεδίο \"πλήρες κείμενο\"."
-      }
-    },
-    "button": {
-      "morefilters": "Περισσότερα φίλτρα",
-      "showAdditional": "{show} πρόσθετα φίλτρα",
-      "showAll": "Εμφάνιση όλων {label}",
-      "showLess": "Εμφάνιση λιγότερων {label}"
-    },
-    "collection": {
-      "name": "Θέμα",
-      "options": {
-        "archaeology": "Αρχαιολογία",
-        "art": "Τέχνη",
-        "fashion": "Μόδα",
-        "industrial": "Βιομηχανική κληρονομιά",
-        "manuscript": "Χειρόγραφα",
-        "map": "Χάρτες και γεωγραφία",
-        "migration": "Μετανάστευση",
-        "music": "Μουσική",
-        "nature": "Φυσική ιστορία",
-        "newspaper": "Εφημερίδες",
-        "photography": "Φωτογραφία",
-        "sport": "Άθλημα",
-        "ww1": "Πρώτος Παγκόσμιος Πόλεμος"
-      },
-      "select": "Επιλέξτε ένα θέμα"
-    },
     "COLOURPALETTE": {
       "moreName": "Χρώματα",
       "name": "Χρώμα",
@@ -520,18 +516,6 @@ export default {
       },
       "select": "Επιλέξτε χρώματα"
     },
-    "contentTier": {
-      "name": "Ποιότητα τεκμήριο",
-      "options": {
-        "*": "Περιλαμβάνει τεκμήρια που δεν πληρούν τα κριτήρια δημοσίευσής μας.",
-        "0": "Δεν πληροί τα κριτήρια δημοσίευσης",
-        "1": "Χαμηλή ποιότητα",
-        "2": "Μέτρια ποιότητα",
-        "3": "Υψηλής ποιότητας & επαναχρησιμοποιήσιμο με όρους",
-        "4": "Υψηλής ποιότητας & ελεύθερα επαναχρησιμοποιήσιμο"
-      },
-      "select": "Επιλέξτε τις ιδιότητες του τεκμηρίου."
-    },
     "COUNTRY": {
       "name": "Χώρα",
       "options": {
@@ -665,12 +649,80 @@ export default {
       },
       "select": "Επιλέξτε μορφές αρχείων"
     },
-    "moreOptions": "Αναζητήστε για να βρείτε {0} περισσότερα {1}.",
     "PROVIDER": {
       "moreName": "συσσωρευτές",
       "name": "Συσσωρευτής",
       "select": "Επιλέξτε συσσωρευτές"
     },
+    "REUSABILITY": {
+      "name": "Μπορώ να χρησιμοποιήσω αυτό;",
+      "options": {
+        "open": "Ναι",
+        "permission": "Ίσως, ζητήστε άδεια",
+        "restricted": "Ναι, υπό όρους",
+        "uncategorized": "Χωρίς κατηγορία"
+      },
+      "select": "Επιλέξτε αν μπορείτε να το χρησιμοποιήσετε"
+    },
+    "RIGHTS": {
+      "name": "Δικαιώματα",
+      "select": "Επιλέξτε δηλώσεις πνευματικής ιδιοκτησίας"
+    },
+    "TYPE": {
+      "name": "Τύπος μέσων",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Εικόνα",
+        "SOUND": "Ήχος",
+        "TEXT": "Κείμενο",
+        "VIDEO": "Βίντεο"
+      },
+      "select": "Επιλέξτε τύπους μέσων"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Αν θέλετε να κάνετε αναζήτηση στο κείμενο των εφημερίδων, θα πρέπει να χρησιμοποιήσετε τη σύνθετη αναζήτηση και να επιλέξετε το πεδίο \"πλήρες κείμενο\".",
+        "ww1": "Εάν θέλετε να κάνετε αναζήτηση στο κείμενο των εγγράφων του Α' Παγκοσμίου Πολέμου, θα χρειαστεί να χρησιμοποιήσετε τη σύνθετη αναζήτηση και να επιλέξετε το πεδίο \"πλήρες κείμενο\"."
+      }
+    },
+    "button": {
+      "morefilters": "Περισσότερα φίλτρα",
+      "showAdditional": "{show} πρόσθετα φίλτρα",
+      "showAll": "Εμφάνιση όλων {label}",
+      "showLess": "Εμφάνιση λιγότερων {label}"
+    },
+    "collection": {
+      "name": "Θέμα",
+      "options": {
+        "archaeology": "Αρχαιολογία",
+        "art": "Τέχνη",
+        "fashion": "Μόδα",
+        "industrial": "Βιομηχανική κληρονομιά",
+        "manuscript": "Χειρόγραφα",
+        "map": "Χάρτες και γεωγραφία",
+        "migration": "Μετανάστευση",
+        "music": "Μουσική",
+        "nature": "Φυσική ιστορία",
+        "newspaper": "Εφημερίδες",
+        "photography": "Φωτογραφία",
+        "sport": "Άθλημα",
+        "ww1": "Πρώτος Παγκόσμιος Πόλεμος"
+      },
+      "select": "Επιλέξτε ένα θέμα"
+    },
+    "contentTier": {
+      "name": "Ποιότητα τεκμήριο",
+      "options": {
+        "*": "Περιλαμβάνει τεκμήρια που δεν πληρούν τα κριτήρια δημοσίευσής μας.",
+        "0": "Δεν πληροί τα κριτήρια δημοσίευσης",
+        "1": "Χαμηλή ποιότητα",
+        "2": "Μέτρια ποιότητα",
+        "3": "Υψηλής ποιότητας & επαναχρησιμοποιήσιμο με όρους",
+        "4": "Υψηλής ποιότητας & ελεύθερα επαναχρησιμοποιήσιμο"
+      },
+      "select": "Επιλέξτε τις ιδιότητες του τεκμηρίου."
+    },
+    "moreOptions": "Αναζητήστε για να βρείτε {0} περισσότερα {1}.",
     "proxy_dc_format": {
       "name": "Μορφή",
       "select": "Επιλέξτε μορφές"
@@ -685,27 +737,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Μεσαίο",
       "select": "Επιλέξτε μέσο διάθεσης"
-    },
-    "REUSABILITY": {
-      "name": "Μπορώ να χρησιμοποιήσω αυτό;",
-      "options": {
-        "open": "Ναι",
-        "permission": "Ίσως, ζητήστε άδεια",
-        "restricted": "Ναι, υπό όρους",
-        "uncategorized": "Χωρίς κατηγορία"
-      },
-      "select": "Επιλέξτε αν μπορείτε να το χρησιμοποιήσετε"
-    },
-    "TYPE": {
-      "name": "Τύπος μέσων",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Εικόνα",
-        "SOUND": "Ήχος",
-        "TEXT": "Κείμενο",
-        "VIDEO": "Βίντεο"
-      },
-      "select": "Επιλέξτε τύπους μέσων"
     }
   },
   "fieldLabels": {
@@ -724,6 +755,8 @@ export default {
       "dcRights": "Δικαιώματα",
       "dcSource": "Πηγή",
       "dcSubject": "Θέμα",
+      "dcTitle": "Τίτλος",
+      "dcType": "Τύπος τεκμήριο",
       "dctermsAlternative": "Εναλλακτικός τίτλος",
       "dctermsCreated": "Ημερομηνία δημιουργίας",
       "dctermsExtent": "Έκταση",
@@ -739,10 +772,8 @@ export default {
       "dctermsProvenance": "Προέλευση",
       "dctermsReferences": "Αναφορές",
       "dctermsSpatial": "Μέρη",
-      "dctermsTemporal": "Χρονική περίοδος",
       "dctermsTOC": "Πίνακας περιεχομένων",
-      "dcTitle": "Τίτλος",
-      "dcType": "Τύπος τεκμήριο",
+      "dctermsTemporal": "Χρονική περίοδος",
       "edmCountry": "Χώρα",
       "edmCurrentLocation": "Τρέχουσα τοποθεσία",
       "edmDataProvider": "Φορέας προέλευσης",
@@ -780,17 +811,17 @@ export default {
   },
   "filterResults": "Αποτελέσματα φίλτρου",
   "footer": {
-    "customiseWebsiteLanguage": "Προσαρμογή γλώσσας ιστότοπου",
+    "customiseWebsiteLanguage": "Προσαρμόστε τη γλώσσα του ιστότοπου",
     "findUsElsewhere": "Βρείτε μας αλλού",
     "footer": "Υποσέλιδο",
     "imageDescription": "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση",
     "navigation": {
+      "MoreInfoLabel": "Περισσότερες πληροφορίες",
       "about": "Σχετικά",
       "accessibility": "Προσβασιμότητα",
       "cookies": "Cookies",
       "faq": "Συχνές Ερωτήσεις (FAQ)",
       "help": "Βοήθεια",
-      "MoreInfoLabel": "Περισσότερες πληροφορίες",
       "privacy": "Δήλωση απορρήτου",
       "registerApiKey": "Εγγραφείτε για ένα κλειδί API",
       "seeApiRequests": "Δείτε αιτήματα προς Europeana API",
@@ -923,115 +954,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Θυμάται τη στρατηγική εξουσιοδότησης που πρέπει να χρησιμοποιήσετε για να συνδεθείτε.",
         "title": "Στρατηγική Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Βοηθά στην αποσφαλμάτωση αιτημάτων API",
         "title": "Εναλλαγή εντοπισμού σφαλμάτων"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Συλλέγει δεδομένα χρήσης για να μας βοηθήσει να αναλύσουμε τις αλληλεπιδράσεις των χρηστών. Ενεργοποιεί ένα γραφικό στοιχείο έρευνας που σας δίνει τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης επισκεπτών μας.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Θυμάται τη γλώσσα διασύνδεσης που προτιμάτε για μελλοντική πρόσβαση.",
         "title": "Κωδικός γλώσσας"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
         "title": "Γραφείο εξυπηρέτησης Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Συλλέγει ανώνυμα στατιστικά στοιχεία σχετικά με τον τρόπο αλληλεπίδρασης των επισκεπτών με τον ιστότοπο.",
@@ -1041,93 +982,32 @@ export default {
         "description": "Θυμάται αν προτιμάτε να λαμβάνετε πολύγλωσσα αποτελέσματα αναζήτησης.",
         "title": "Πολύγλωσση αναζήτηση"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Εμφανίζει μια ειδοποίηση όταν γίνονται διαθέσιμες νέες λειτουργίες.",
         "title": "Ειδοποίηση νέας λειτουργίας"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Θυμάται αν προτιμάτε να βλέπετε τα αποτελέσματα αναζήτησης, τις συλλογές και τις επισημάνσεις \"μου αρέσει\" σε προβολή λίστας, πλέγματος ή μωσαϊκού.",
         "title": "Αποτελέσματα αναζήτησης, γκαλερί και προβολή \"μου αρέσει\" (λίστα/πλέγμα/μωσαϊκό)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "άγνωστος πάροχος",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "άγνωστος πάροχος"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Πόροι",
         "navigation": {
+          "apiDocumentation": "Τεκμηρίωση API",
+          "contactUs": "Επικοινωνήστε μαζί μας",
+          "requestApiKey": "Αίτηση για κλειδί API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Αρχική σελίδα APIs της Europeana",
+        "navigation": {
+          "apiDemo": "Επίδειξη API",
+          "europeanaApis": "APIs της Europeana",
           "faq": "FAQ",
           "findInspiration": "Βρείτε έμπνευση"
         }
@@ -1169,10 +1049,10 @@ export default {
       "show": "Εμφάνιση σελίδων"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Μανιφέστο",
       "annotations": "Σχολιασμοί",
       "annotationsCount": "1 Σχολιασμός | {count} Σχολιασμοί",
       "hide": "Απόκρυψη πλαϊνής γραμμής",
-      "IIIFManifest": "IIIF Μανιφέστο",
       "links": "Σύνδεσμοι",
       "search": "Αναζήτηση",
       "searchPlaceholder": "Εισάγετε όρους",
@@ -1207,8 +1087,8 @@ export default {
     "enrichment": "Εμπλουτισμός με έργα συνεργατών",
     "stopViewingThisItemIn": "Διακοπή προβολής αυτού του τεκμηρίου στο {0}",
     "translateQuotaError": "Η υπηρεσία μετάφρασης δεν είναι προσωρινά διαθέσιμη. Παρακαλώ προσπαθήστε ξανά αργότερα.",
-    "viewingThisItemIn": "Προβολή αυτού του τεκμηρίου σε {0}",
-    "viewItemInAnotherLanguage": "Προβάλετε αυτό το τεκμήριο σε άλλη γλώσσα"
+    "viewItemInAnotherLanguage": "Προβάλετε αυτό το τεκμήριο σε άλλη γλώσσα",
+    "viewingThisItemIn": "Προβολή αυτού του τεκμηρίου σε {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Κλείσιμο",
@@ -1223,9 +1103,6 @@ export default {
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
   "noResults": "Δεν βρέθηκαν αποτελέσματα",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Του",
   "organisation": {
     "city": "Πόλη",
@@ -1283,8 +1160,6 @@ export default {
     },
     "allMetaData": "Όλα τα μεταδεδομένα",
     "clickToCopyEmbedCode": "Κάντε κλικ στον κώδικα ενσωμάτωσης για να τον αντιγράψετε",
-    "debias": "De-bias",
-    "explanationby": "Επεξήγηση που παρέχεται από {0}",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
@@ -1359,6 +1234,7 @@ export default {
         "advancedSearch": "Η σύνθετη αναζήτηση σάς επιτρέπει να δημιουργείτε προσαρμοσμένα ερωτήματα αναζήτησης.",
         "field": "Επιλέξτε το πεδίο πλήρους κειμένου ή μεταδεδομένων για αναζήτηση.",
         "fields": {
+          "YEAR": "Εισάγετε ένα έτος που σχετίζεται με το τεκμήριο/τα τεκμήρια. Για παράδειγμα, ‘1919’.",
           "fulltext": "Το πλήρες κείμενο περιλαμβάνει μεταγραφές, κλειστές λεζάντες, υπότιτλους και κείμενο εγγράφου.",
           "proxy_dc_coverage": "Εισαγάγετε έναν όρο που αναφέρεται σε ένα μέρος ή ένα σημείο/περίοδο του χρόνου. Για παράδειγμα, «1995-1996» ή «Βερολίνο» ή «http://sws.geonames.org/2287781/».",
           "proxy_dc_date": "Εισάγετε έναν όρο που αναφέρεται σε σημαντική ημερομηνία σχετικά με το τεκμήριο/τα τεκμήρια. Για παράδειγμα, μια ημερομηνία στη μορφή ‘ΕΕΕΕ-ΜΜ-ΗΗ’ ή ένα μεμονωμένο έτος, ‘1919’, ή ευρύτεροι ορισμοί όπως ‘Αρχές του 20ού αιώνα’.",
@@ -1369,8 +1245,7 @@ export default {
           "proxy_dcterms_issued": "Εισάγετε έναν όρο που αναφέρεται στην ημερομηνία έκδοσης ή δημοσίευσης του τεκμηρίου/των τεκμηρίων. Για παράδειγμα, οποιαδήποτε ημερομηνία σε μορφή ‘ΕΕΕΕ-ΜΜ-ΗΗ’, ένα μεμονωμένο έτος όπως ‘1919’, ή ευρύτεροι ορισμοί όπως ‘αρχές του 20ού αιώνα’. Για άλλες σημαντικές ημερομηνίες, αναζητήστε στα πεδία Ημερομηνία, Ημερομηνία δημιουργίας ή Έτος.",
           "proxy_dcterms_medium": "Εισάγετε έναν όρο που αναφέρεται στα υλικά που χρησιμοποιήθηκαν ή στη φυσική φύση του τεκμηρίου. Για παράδειγμα ‘μέταλλο’ ή ‘χαρτί’. Για ευρύτερους ορισμούς υλικών, όπως ‘γλυπτική’ ή ‘ζωγραφική’, δοκιμάστε το πεδίο ‘ΤΥΠΟΣ ΜΕΣΩΝ’.",
           "proxy_dcterms_temporal": "Εισάγετε έναν όρο που αναφέρεται σε μια περίοδο ή σημείο στον χρόνο με το οποίο το τεκμήριο/τα τεκμήρια σχετίζονται, π.χ. μια εικόνα που απεικονίζει μια πόλη το 1930. Για παράδειγμα, εισάγετε 'Ρωμαϊκή Αυτοκρατορία' ή 'Αναγέννηση'. Για συγκεκριμένες ημερομηνίες, αναζητήστε στα πεδία Ημερομηνία, Ημερομηνία δημιουργίας, Ημερομηνία έκδοσης ή Έτος.",
-          "proxy_edm_hasMet": "Εισάγετε όρο που αναφέρεται σε άτομο, τόπο, χρονική περίοδο ή οτιδήποτε άλλο με το οποίο το τεκμήριο/τα τεκμήρια μπορεί να έχουν στενή σύνδεση. Για παράδειγμα ‘William Shakespeare’.",
-          "YEAR": "Εισάγετε ένα έτος που σχετίζεται με το τεκμήριο/τα τεκμήρια. Για παράδειγμα, ‘1919’."
+          "proxy_edm_hasMet": "Εισάγετε όρο που αναφέρεται σε άτομο, τόπο, χρονική περίοδο ή οτιδήποτε άλλο με το οποίο το τεκμήριο/τα τεκμήρια μπορεί να έχουν στενή σύνδεση. Για παράδειγμα ‘William Shakespeare’."
         },
         "modifier": "Επιλέξτε πώς αυτό το πεδίο θα τροποποιεί την αναζήτηση.",
         "term": "Εισαγάγετε τους όρους που περιέχει ή δεν περιέχει το επιλεγμένο πεδίο."
@@ -1388,10 +1263,10 @@ export default {
       "loginToSeeMore": "{login} για να δείτε περισσότερα αποτελέσματα",
       "loginToSeeMultilingualResults": "Συνδεθείτε για αναζήτηση σε ολόκληρη τη συλλογή και λάβετε αποτελέσματα που δεν περιορίζονται στη γλώσσα του όρου αναζήτησής σας.",
       "showingMultilingualResults": "Εμφάνιση αποτελεσμάτων σε ολόκληρη τη συλλογή και σε όλες τις γλώσσες.",
+      "withQuery": "{count} αποτελέσματα για {query}",
       "withinCollection": "{count} αποτελέσματα εντός {type} {collection}",
       "withinCollectionWithQuery": "{count} αποτελέσματα εντός {type} {collection} για {query}",
-      "withoutQuery": "{count} αποτελέσματα",
-      "withQuery": "{count} αποτελέσματα για {query}"
+      "withoutQuery": "{count} αποτελέσματα"
     },
     "selectTheme": "Η επιλογή ενός ΚΑΤΗΓΟΡΙΕΣ μπορεί να παρέχει περαιτέρω επιλογές φίλτρου, π.χ. το θέμα Εφημερίδες περιλαμβάνει ένα φίλτρο ΗΜΕΡΟΜΗΝΙΑΣ ΕΚΔΟΣΗΣ.",
     "title": "Αναζήτηση"
@@ -1483,7 +1358,7 @@ export default {
         "title": "100 αρέσει"
       },
       "updated": "Το τεκμήριο προστέθηκε στη συλλογή.",
-      "visibilityChanged": "Προειδοποίηση: η ορατότητα έχει ήδη αλλάξει και αυτή τη στιγμή είναι \" {visibility} \"."
+      "visibilityChanged": "Προειδοποίηση: η ορατότητα έχει ήδη αλλάξει και αυτή τη στιγμή είναι \"{visibility}\"."
     },
     "prompts": {
       "delete": "Είστε βέβαιος/βέβαιη ότι θέλετε να διαγράψετε αυτήν τη συλλογή; Εάν τη διαγράψετε, θα χάσετε όλα τα τεκμήρια που έχετε προσθέσει.",

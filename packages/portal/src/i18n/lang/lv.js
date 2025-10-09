@@ -70,7 +70,7 @@ export default {
     "remove": "Noņemt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
-    "share": "Dalies",
+    "share": "Dalīties",
     "shareOn": "Dalīties {social}",
     "show": "Rādīt",
     "showLess": "Rādīt mazāk",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Sākuma datums",
     "to": "uz"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekts",
+      "text": "Šo informāciju izveidoja {link} (2023./2024. g.), lai palīdzētu kontekstualizēt novecojušus un kaitīgus terminus kolekciju aprakstos."
+    },
+    "headings": {
+      "alternatives": "Ieteiktās alternatīvas",
+      "recommendations": "Lietošanas ieteikumi",
+      "source": "Avots"
+    },
+    "termNotFound": "Šī lapa ir pieejama tikai neobjektīvā termina valodā.",
+    "tooltip": {
+      "linkToPage": "Izlasiet pilno skaidrojumu, ko sniedz {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Ievadiet savu Europeana API atslēgu, un tā tiks izmantota saitēs uz API pieprasījumiem.",
+          "descriptionLine2": "Nepieciešama API atslēga? Reģistrējieties, lai to iegūtu {link}.",
+          "here": "šeit",
+          "label": "API atslēga",
           "usePersonal": {
             "linkText": "Ievadiet savu personīgo API atslēgu",
             "prompt": "{link} un tas tiks izmantots."
@@ -233,7 +252,15 @@ export default {
     "right": "Labais"
   },
   "ds4ch": {
-    "broughtBy": "Jums atnesa"
+    "broughtBy": "Jums piedāvā",
+    "header": {
+      "navigation": {
+        "about": "Par datu telpu",
+        "explore": "Izpētiet datus",
+        "partners": "Partneri"
+      }
+    },
+    "homeLinkAlt": "Eiropas kopīgās kultūras mantojuma datu telpas mājaslapa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "embedNotification": {
@@ -271,6 +298,9 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
+    },
     "authClientDisabled": {
       "description": "Šī API atslēga jau ir atspējota, iespējams, citā pārlūkprogrammas cilnē.",
       "title": "Atslēga jau ir atspējota"
@@ -299,9 +329,6 @@ export default {
     "genericUnknownError": {
       "description": "Radās nezināma kļūda.",
       "title": "Nezināma kļūda"
-    },
-    "IIIFManifestFailure": {
-      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
     },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
@@ -338,37 +365,6 @@ export default {
     "exhibitions": "Izstāde | Izstādes"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Ja vēlaties veikt meklēšanu laikrakstu tekstā, jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilnais teksts\".",
-        "ww1": "Ja vēlaties veikt meklēšanu Pirmā pasaules kara dokumentu tekstā, jums būs jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilns teksts\"."
-      }
-    },
-    "button": {
-      "morefilters": "Vairāk filtru",
-      "showAdditional": "{show} papildu filtrus",
-      "showAll": "Rādīt visus {label}",
-      "showLess": "Rādīt mazāk {label}"
-    },
-    "collection": {
-      "name": "Tēma",
-      "options": {
-        "archaeology": "Arheoloģija",
-        "art": "Māksla",
-        "fashion": "Mode",
-        "industrial": "Rūpnieciskais mantojums",
-        "manuscript": "Manuskripti",
-        "map": "Kartes un ģeogrāfija",
-        "migration": "Migrācija",
-        "music": "Mūzika",
-        "nature": "Dabas vēsture",
-        "newspaper": "Laikraksti",
-        "photography": "Fotogrāfija",
-        "sport": "Sports",
-        "ww1": "Pirmais pasaules karš"
-      },
-      "select": "Izvēlieties motīvu"
-    },
     "COLOURPALETTE": {
       "moreName": "krāsas",
       "name": "Krāsa",
@@ -520,18 +516,6 @@ export default {
       },
       "select": "Izvēlieties krāsas"
     },
-    "contentTier": {
-      "name": "Digitālā objekta kvalitāte",
-      "options": {
-        "*": "Letver digitālie objekti, kas neatbilst mūsu publicēšanas kritērijiem.",
-        "0": "Neatbilst publicēšanas kritērijiem",
-        "1": "Zema kvalitāte",
-        "2": "Vidēja kvalitāte",
-        "3": "Augsta kvalitāte & atkārtoti lietojama ar apstākļiem",
-        "4": "Augstas kvalitātes un brīvi atkārtoti lietojams"
-      },
-      "select": "Atlasīt digitālais objekts īpašības"
-    },
     "COUNTRY": {
       "name": "Nodrošinošā valsts",
       "options": {
@@ -665,12 +649,80 @@ export default {
       },
       "select": "Atlasīt failu formātus"
     },
-    "moreOptions": "Meklēt, lai atrastu {0} vairāk {1}.",
     "PROVIDER": {
       "moreName": "agregatori",
       "name": "Agregators",
       "select": "Atlasīt agregatori"
     },
+    "REUSABILITY": {
+      "name": "Vai es varu to izmantot?",
+      "options": {
+        "open": "Jā",
+        "permission": "Varbūt, meklējiet atļauju",
+        "restricted": "Jā, ar nosacījumiem",
+        "uncategorized": "Bez kategorijas"
+      },
+      "select": "Atlasit , vai varat izmantot šo"
+    },
+    "RIGHTS": {
+      "name": "Tiesību statuss",
+      "select": "Atlasit tiesību paziņojumus"
+    },
+    "TYPE": {
+      "name": "Līdzekļu veids",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Attēls",
+        "SOUND": "Skaņa",
+        "TEXT": "Teksts",
+        "VIDEO": "Video"
+      },
+      "select": "Atlasīt multivides veidus"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ja vēlaties veikt meklēšanu laikrakstu tekstā, jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilnais teksts\".",
+        "ww1": "Ja vēlaties veikt meklēšanu Pirmā pasaules kara dokumentu tekstā, jums būs jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilns teksts\"."
+      }
+    },
+    "button": {
+      "morefilters": "Vairāk filtru",
+      "showAdditional": "{show} papildu filtrus",
+      "showAll": "Rādīt visus {label}",
+      "showLess": "Rādīt mazāk {label}"
+    },
+    "collection": {
+      "name": "Tēma",
+      "options": {
+        "archaeology": "Arheoloģija",
+        "art": "Māksla",
+        "fashion": "Mode",
+        "industrial": "Rūpnieciskais mantojums",
+        "manuscript": "Manuskripti",
+        "map": "Kartes un ģeogrāfija",
+        "migration": "Migrācija",
+        "music": "Mūzika",
+        "nature": "Dabas vēsture",
+        "newspaper": "Laikraksti",
+        "photography": "Fotogrāfija",
+        "sport": "Sports",
+        "ww1": "Pirmais pasaules karš"
+      },
+      "select": "Izvēlieties motīvu"
+    },
+    "contentTier": {
+      "name": "Digitālā objekta kvalitāte",
+      "options": {
+        "*": "Letver digitālie objekti, kas neatbilst mūsu publicēšanas kritērijiem.",
+        "0": "Neatbilst publicēšanas kritērijiem",
+        "1": "Zema kvalitāte",
+        "2": "Vidēja kvalitāte",
+        "3": "Augsta kvalitāte & atkārtoti lietojama ar apstākļiem",
+        "4": "Augstas kvalitātes un brīvi atkārtoti lietojams"
+      },
+      "select": "Atlasīt digitālais objekts īpašības"
+    },
+    "moreOptions": "Meklēt, lai atrastu {0} vairāk {1}.",
     "proxy_dc_format": {
       "name": "Formāts",
       "select": "Atlasīt formātus"
@@ -685,27 +737,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Mediji",
       "select": "Atlasīt multividi"
-    },
-    "REUSABILITY": {
-      "name": "Vai es varu to izmantot?",
-      "options": {
-        "open": "Jā",
-        "permission": "Varbūt, meklējiet atļauju",
-        "restricted": "Jā, ar nosacījumiem",
-        "uncategorized": "Bez kategorijas"
-      },
-      "select": "Atlasit , vai varat izmantot šo"
-    },
-    "TYPE": {
-      "name": "Līdzekļu veids",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Attēls",
-        "SOUND": "Skaņa",
-        "TEXT": "Teksts",
-        "VIDEO": "Video"
-      },
-      "select": "Atlasīt multivides veidus"
     }
   },
   "fieldLabels": {
@@ -724,6 +755,8 @@ export default {
       "dcRights": "Tiesības",
       "dcSource": "Avots",
       "dcSubject": "Temats",
+      "dcTitle": "Nosaukums",
+      "dcType": "Digitālais objekts veids",
       "dctermsAlternative": "Alternatīvs nosaukums",
       "dctermsCreated": "Izveidošanas datums",
       "dctermsExtent": "Apjoms",
@@ -739,10 +772,8 @@ export default {
       "dctermsProvenance": "Izcelsme",
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
-      "dctermsTemporal": "Periods",
       "dctermsTOC": "Satura rādītājs",
-      "dcTitle": "Nosaukums",
-      "dcType": "Digitālais objekts veids",
+      "dctermsTemporal": "Periods",
       "edmCountry": "Nodrošinošā valsts",
       "edmCurrentLocation": "Pašreizējā atrašanās vieta",
       "edmDataProvider": "Piegādājošā iestāde",
@@ -785,12 +816,12 @@ export default {
     "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
+      "MoreInfoLabel": "Papildinformācija",
       "about": "Par Europeana",
       "accessibility": "Pieejamība",
       "cookies": "Sīkdatnes",
       "faq": "Bieži uzdotie jautājumi (FAQ)",
       "help": "Palīdzība",
-      "MoreInfoLabel": "Papildinformācija",
       "privacy": "Konfidencialitātes paziņojums",
       "registerApiKey": "Reģistrējieties API atslēgas saņemšanai",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
@@ -923,115 +954,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",
         "title": "Atkļūdošanas pārslēgšana"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Apkopo lietošanas datus, lai palīdzētu mums analizēt lietotāju mijiedarbību. Aktivizē aptaujas logrīku, kas sniedz jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Atceras jūsu vēlamo saskarnes valodu, lai nodrošinātu piekļuvi nākotnē.",
         "title": "Valodas kods"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivizē atsauksmju logrīku, sniedzot iespēju sazināties ar mums.",
         "title": "Jira servisa dienests"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
@@ -1041,94 +982,34 @@ export default {
         "description": "Atcerieties, ja vēlaties iegūt daudzvalodu meklēšanas rezultātus.",
         "title": "Daudzvalodu meklēšana"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Rāda paziņojumu, kad kļūst pieejamas jaunas funkcijas.",
         "title": "Jaunas funkcijas paziņojums"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
         "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nezināms pakalpojumu sniedzējs",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nezināms pakalpojumu sniedzējs"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Resursi",
         "navigation": {
-          "faq": "FAQ"
+          "apiDocumentation": "API dokumentācija",
+          "contactUs": "Sazinieties ar mums",
+          "requestApiKey": "Pieprasīt API atslēgu"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API sākumlapa",
+        "navigation": {
+          "apiDemo": "API demonstrācija",
+          "europeanaApis": "Europeana API",
+          "faq": "FAQ",
+          "findInspiration": "Atrodi iedvesmu"
         }
       }
     },
@@ -1168,10 +1049,10 @@ export default {
       "show": "Rādīt lapas"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF manifests",
       "annotations": "Anotācijas",
       "annotationsCount": "1 Anotācija | {count} Anotācijas",
       "hide": "Paslēpt sānjoslu",
-      "IIIFManifest": "IIIF manifests",
       "links": "Saites",
       "search": "Meklēt",
       "searchPlaceholder": "Ievadiet terminus",
@@ -1206,8 +1087,8 @@ export default {
     "enrichment": "Bagātināšana ar partneru projektiem",
     "stopViewingThisItemIn": "Pārtrauciet skatīt šo digitālo objektu {0}",
     "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk.",
-    "viewingThisItemIn": "Šī digitālā objekta skatīšana {0}",
-    "viewItemInAnotherLanguage": "Skatīt šo digitālo objektu citā valodā"
+    "viewItemInAnotherLanguage": "Skatīt šo digitālo objektu citā valodā",
+    "viewingThisItemIn": "Šī digitālā objekta skatīšana {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
@@ -1222,9 +1103,6 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
-  "notificationBanner": {
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
@@ -1282,8 +1160,6 @@ export default {
     },
     "allMetaData": "Visi metadati",
     "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
-    "debias": "De-bias",
-    "explanationby": "Skaidrojumu sniedz {0}.",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
@@ -1358,6 +1234,7 @@ export default {
         "advancedSearch": "Izvērstā meklēšana ļauj izveidot pielāgotus meklēšanas vaicājumus.",
         "field": "Atlasiet pilnteksta vai metadatu lauku, kurā veikt meklēšanu.",
         "fields": {
+          "YEAR": "Ievadiet gadu, kas saistīts ar digitālo objektu/objektiem. Piemēram, ‘1919’.",
           "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu.",
           "proxy_dc_coverage": "Ievadiet terminu, kas attiecas uz vietu vai laika punktu/periodu. Piemēram, ‘1995-1996’ vai ‘Berlīne’ vai ‘http://sws.geonames.org/2287781/’.",
           "proxy_dc_date": "Ievadiet terminu, kas attiecas uz nozīmīgu datumu, kas saistīts ar digitālo objektu/objektiem. Piemēram, datums formātā ‘GGGG-MM-DD’ vai viens gads, ‘1919’, vai plašākas definīcijas, piemēram, ‘20. gadsimta sākums’.",
@@ -1368,8 +1245,7 @@ export default {
           "proxy_dcterms_issued": "Ievadiet terminu, kas attiecas uz digitālā objekta/objektu izdošanas vai publicēšanas datumu. Piemēram, jebkurš datums formātā ‘GGGG-MM-DD’, viens gads, piemēram, ‘1919’, vai plašākas definīcijas, piemēram, ‘20. gadsimta sākums’. Citu nozīmīgu datumu meklēšanai skatiet laukos Datums, Izveides datums vai Gads.",
           "proxy_dcterms_medium": "Ievadiet terminu, kas attiecas uz izmantotajiem materiāliem vai digitālā objekta fizisko dabu. Piemēram, ‘metāls’ vai ‘papīrs’. Plašākām materiālu definīcijām, piemēram, ‘skulptūra’ vai ‘glezna’, izmēģiniet lauku ‘LĪDZEKĻU VEIDS’.",
           "proxy_dcterms_temporal": "Ievadiet terminu, kas attiecas uz periodu vai laika punktu, ar kuru digitālais objekts/objekti ir saistīti, piemēram, attēlu, kas attēlo pilsētu 1930. gadā. Ievadiet piemēram ‘Romas impērija’ vai ‘Renesanse’. Specifiskiem datumiem meklējiet Laukā Datums, Izveides datums, Izdošanas datums vai Gads.",
-          "proxy_edm_hasMet": "Ievadiet terminu, kas attiecas uz personu, vietu, laika periodu vai jebko citu, ar ko digitālais objekts/objekti varētu būt cieši saistīti. Piemēram, ‘William Shakespeare’.",
-          "YEAR": "Ievadiet gadu, kas saistīts ar digitālo objektu/objektiem. Piemēram, ‘1919’."
+          "proxy_edm_hasMet": "Ievadiet terminu, kas attiecas uz personu, vietu, laika periodu vai jebko citu, ar ko digitālais objekts/objekti varētu būt cieši saistīti. Piemēram, ‘William Shakespeare’."
         },
         "modifier": "Izvēlieties, kā šim laukam vajadzētu mainīt meklēšanu.",
         "term": "Ievadiet terminu(-us), ko satur vai nesatur izvēlētais lauks."
@@ -1387,10 +1263,10 @@ export default {
       "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
       "loginToSeeMultilingualResults": "Piesakieties, lai meklētu visā kolekcijā un saņemiet rezultātus ne tikai jūsu meklēšanas vienuma valodā.",
       "showingMultilingualResults": "Rāda rezultātus visā kolekcijā un visās valodās.",
+      "withQuery": "{count} rezultāti {query}",
       "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
-      "withoutQuery": "{count} rezultāti",
-      "withQuery": "{count} rezultāti {query}"
+      "withoutQuery": "{count} rezultāti"
     },
     "selectTheme": "Izvēloties TĒMU, var tikt nodrošinātas papildu filtra opcijas, piemēram, motīvā Laikraksti ir iekļauts IZDOŠANAS DATUMA filtrs.",
     "title": "Meklēt"
@@ -1471,7 +1347,7 @@ export default {
       },
       "itemsRemoved": {
         "1": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". | {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
+        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". |  {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
       },
       "itemsUnliked": {
         "1": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",

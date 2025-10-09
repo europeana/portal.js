@@ -214,10 +214,29 @@ export default {
     "startDate": "Datum od",
     "to": "až"
   },
+  "debias": {
+    "background": {
+      "link": "Projekt DE-BIAS",
+      "text": "Tyto informace byly vytvořeny {link} (2023/2024) za účelem kontextualizace zastaralých a škodlivých výrazů v popisech sbírek."
+    },
+    "headings": {
+      "alternatives": "Navrhované alternativy",
+      "recommendations": "Doporučení k použití",
+      "source": "Zdroj"
+    },
+    "termNotFound": "Tato stránka je k dispozici pouze v jazyce zaujatého termínu.",
+    "tooltip": {
+      "linkToPage": "Přečtěte si úplné vysvětlení poskytnuté {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Zadejte svůj klíč Europeana API a bude použit v odkazech na požadavky API.",
+          "descriptionLine2": "Potřebujete API klíč? Zaregistrujte se o jeden {link}.",
+          "here": "zde",
+          "label": "API klíč",
           "usePersonal": {
             "linkText": "Zadejte svůj osobní API klíč",
             "prompt": "{link} a bude použito"
@@ -234,6 +253,13 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Vám přináší",
+    "header": {
+      "navigation": {
+        "about": "O datovém prostoru",
+        "explore": "Prozkoumejte data",
+        "partners": "Partneři"
+      }
+    },
     "homeLinkAlt": "Společný evropský datový prostor pro kulturní dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
@@ -272,6 +298,9 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
+    },
     "authClientDisabled": {
       "description": "Tento API klíč již byl zakázán, možná v jiné záložce prohlížeče.",
       "title": "Klíč je již zakázán"
@@ -300,9 +329,6 @@ export default {
     "genericUnknownError": {
       "description": "Došlo k neznámé chybě.",
       "title": "Neznámá chyba"
-    },
-    "IIIFManifestFailure": {
-      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
     },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
@@ -339,37 +365,6 @@ export default {
     "exhibitions": "Výstava | Výstavy"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Pokud chcete vyhledávat v textu novin, musíte použít rozšířené vyhledávání a vybrat pole \"pełny tekst\".",
-        "ww1": "Pokud chcete vyhledávat v textu dokumentů z 1. světové války, budete muset použít pokročilé vyhledávání a vybrat pole \"pełny text\"."
-      }
-    },
-    "button": {
-      "morefilters": "Další filtry",
-      "showAdditional": "{show} další filtry",
-      "showAll": "Zobrazit vše {label}",
-      "showLess": "Zobrazit méně {label}"
-    },
-    "collection": {
-      "name": "Téma",
-      "options": {
-        "archaeology": "Archeologie",
-        "art": "Umění",
-        "fashion": "Móda",
-        "industrial": "Průmyslové dědictví",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografie",
-        "migration": "Migrace",
-        "music": "Hudba",
-        "nature": "Přírodní dějiny",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "První světová válka"
-      },
-      "select": "Vyberte motiv"
-    },
     "COLOURPALETTE": {
       "moreName": "barvy",
       "name": "Barva",
@@ -521,18 +516,6 @@ export default {
       },
       "select": "Vyberte barvy"
     },
-    "contentTier": {
-      "name": "Kvalita položky",
-      "options": {
-        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-        "0": "Nesplňuje kritéria publikování",
-        "1": "Nízká kvalita",
-        "2": "Střední kvalita",
-        "3": "Vysoká kvalita a opakované použití s podmínkami",
-        "4": "Vysoká kvalita a volné opakované použití"
-      },
-      "select": "Vyberte vlastnosti položky"
-    },
     "COUNTRY": {
       "name": "Země původu",
       "options": {
@@ -666,12 +649,80 @@ export default {
       },
       "select": "Vyberte formáty souborů"
     },
-    "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "PROVIDER": {
       "moreName": "agregátoři",
       "name": "Agregátor",
       "select": "Vyberte agregátory"
     },
+    "REUSABILITY": {
+      "name": "Mohu použít toto?",
+      "options": {
+        "open": "Ano",
+        "permission": "Možná, požádejte o povolení",
+        "restricted": "Ano, za určitých podmínek",
+        "uncategorized": "Nezařazeno"
+      },
+      "select": "Vyberte, zda toto můžete použít"
+    },
+    "RIGHTS": {
+      "name": "Výrok o právech",
+      "select": "Vyberte prohlášení o právech"
+    },
+    "TYPE": {
+      "name": "Druh média",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Obrázek",
+        "SOUND": "Zvuk",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Vyberte typy médií"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Pokud chcete vyhledávat v textu novin, musíte použít rozšířené vyhledávání a vybrat pole \"pełny tekst\".",
+        "ww1": "Pokud chcete vyhledávat v textu dokumentů z 1. světové války, budete muset použít pokročilé vyhledávání a vybrat pole \"pełny text\"."
+      }
+    },
+    "button": {
+      "morefilters": "Další filtry",
+      "showAdditional": "{show} další filtry",
+      "showAll": "Zobrazit vše {label}",
+      "showLess": "Zobrazit méně {label}"
+    },
+    "collection": {
+      "name": "Téma",
+      "options": {
+        "archaeology": "Archeologie",
+        "art": "Umění",
+        "fashion": "Móda",
+        "industrial": "Průmyslové dědictví",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografie",
+        "migration": "Migrace",
+        "music": "Hudba",
+        "nature": "Přírodní dějiny",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "První světová válka"
+      },
+      "select": "Vyberte motiv"
+    },
+    "contentTier": {
+      "name": "Kvalita položky",
+      "options": {
+        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+        "0": "Nesplňuje kritéria publikování",
+        "1": "Nízká kvalita",
+        "2": "Střední kvalita",
+        "3": "Vysoká kvalita a opakované použití s podmínkami",
+        "4": "Vysoká kvalita a volné opakované použití"
+      },
+      "select": "Vyberte vlastnosti položky"
+    },
+    "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "proxy_dc_format": {
       "name": "Formát",
       "select": "Vyberte formáty"
@@ -686,27 +737,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Střední",
       "select": "Vyberte média"
-    },
-    "REUSABILITY": {
-      "name": "Mohu použít toto?",
-      "options": {
-        "open": "Ano",
-        "permission": "Možná, požádejte o povolení",
-        "restricted": "Ano, za určitých podmínek",
-        "uncategorized": "Nezařazeno"
-      },
-      "select": "Vyberte, zda toto můžete použít"
-    },
-    "TYPE": {
-      "name": "Druh média",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Obrázek",
-        "SOUND": "Zvuk",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Vyberte typy médií"
     }
   },
   "fieldLabels": {
@@ -725,6 +755,8 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Předmět",
+      "dcTitle": "Název",
+      "dcType": "Typ položka",
       "dctermsAlternative": "Alternativní název",
       "dctermsCreated": "Datum vzniku",
       "dctermsExtent": "Rozsah",
@@ -740,10 +772,8 @@ export default {
       "dctermsProvenance": "Původ",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
-      "dctermsTemporal": "Časové",
       "dctermsTOC": "Obsah",
-      "dcTitle": "Název",
-      "dcType": "Typ položka",
+      "dctermsTemporal": "Časové",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
@@ -786,12 +816,12 @@ export default {
     "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
     "navigation": {
+      "MoreInfoLabel": "Více informací",
       "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
       "faq": "Často kladené dotazy (FAQ)",
       "help": "Nápověda",
-      "MoreInfoLabel": "Více informací",
       "privacy": "Prohlášení o ochraně osobních údajů",
       "registerApiKey": "Zaregistrujte se pro klíč API",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
@@ -924,115 +954,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomáhá ladit požadavky API",
         "title": "Přepnout ladění"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Shromažďuje údaje o používání, aby nám pomohl analyzovat interakce uživatelů. Aktivuje widget průzkumu, který vám umožní odpovědět na naše průzkumy spokojenosti návštěvníků.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Pamatuje si preferovaný jazyk rozhraní pro budoucí přístup.",
         "title": "Kód jazyka"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivuje widget zpětné vazby, který vám dává možnost nás kontaktovat.",
         "title": "Jira service desk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
@@ -1042,93 +982,32 @@ export default {
         "description": "Pamatuje si, zda dáváte přednost vícejazyčným výsledkům vyhledávání.",
         "title": "Vícejazyčné vyhledávání"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Zobrazí oznámení, když jsou k dispozici nové funkce.",
         "title": "Oznámení o nové funkci"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
         "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "neznámý poskytovatel",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "neznámý poskytovatel"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Zdroje",
         "navigation": {
+          "apiDocumentation": "Dokumentace API",
+          "contactUs": "Kontaktujte nás",
+          "requestApiKey": "Požádat o API klíč"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Domovská stránka Europeana API",
+        "navigation": {
+          "apiDemo": "Ukázka API",
+          "europeanaApis": "Europeana API",
           "faq": "FAQ",
           "findInspiration": "Najděte inspiraci"
         }
@@ -1170,10 +1049,10 @@ export default {
       "show": "Zobrazit stránky"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Anotace",
       "annotationsCount": "1 Anotace | {count} Anotace",
       "hide": "Skrýt postranní panel",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Odkazy",
       "search": "Vyhledat",
       "searchPlaceholder": "Zadejte podmínky",
@@ -1208,8 +1087,8 @@ export default {
     "enrichment": "Obohacení partnerskými projekty",
     "stopViewingThisItemIn": "Přestaňte prohlížet tuto položku v {0}",
     "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později.",
-    "viewingThisItemIn": "Prohlížíte tuto položku v {0}",
-    "viewItemInAnotherLanguage": "Zobrazit tuto položku v jiném jazyce"
+    "viewItemInAnotherLanguage": "Zobrazit tuto položku v jiném jazyce",
+    "viewingThisItemIn": "Prohlížíte tuto položku v {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
@@ -1224,9 +1103,6 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Z",
   "organisation": {
     "city": "Město",
@@ -1284,8 +1160,6 @@ export default {
     },
     "allMetaData": "Všechna metadata",
     "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
-    "debias": "De-bias",
-    "explanationby": "Vysvětlení poskytl {0}",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
@@ -1360,6 +1234,7 @@ export default {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
         "field": "Vyberte plný text nebo pole metadat pro vyhledávání.",
         "fields": {
+          "YEAR": "Zadejte rok související s položkou/položkami. Například ‘1919’.",
           "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu.",
           "proxy_dc_coverage": "Zadejte termín, který se vztahuje na místo nebo bod/období v čase. Například ‘1995-1996’ nebo ‘Berlín’ nebo ‘http://sws.geonames.org/2287781/’.",
           "proxy_dc_date": "Zadejte termín, který se vztahuje na významné datum spojené s položkou/položkami. Například datum ve formátu ‘RRRR-MM-DD’ nebo jednotlivý rok, ‘1919’, nebo širší definice jako ‘Počátek 20. století’.",
@@ -1370,8 +1245,7 @@ export default {
           "proxy_dcterms_issued": "Zadejte termín, který se vztahuje na datum vydání nebo publikace položky/položek. Například jakékoli datum ve formátu ‘RRRR-MM-DD’, jednotlivý rok jako ‘1919’ nebo širší definice jako ‘začátek 20. století’. Pro další důležitá data vyhledejte v polích Datum, Datum vytvoření nebo Rok.",
           "proxy_dcterms_medium": "Zadejte termín, který odkazuje na materiály použité nebo fyzickou povahu položky. Například ‘kov’ nebo ‘papír’. Pro širší definice materiálů, jako je ‘socha’ nebo ‘malba’, vyzkoušejte pole ‘DRUH MÉDIA’.",
           "proxy_dcterms_temporal": "Zadejte termín, který odkazuje na období nebo časový bod, ke kterému se položka(y) vztahují, např. obrázek, který zobrazuje město v roce 1930. Zadejte například ‘Římská říše’ nebo ‘Renesance’. Pro konkrétní data vyhledejte pole Datum, Datum vytvoření, Datum vydání nebo Rok.",
-          "proxy_edm_hasMet": "Zadejte termín, který se vztahuje na osobu, místo, časové období nebo cokoli jiného, s čím může položka/položky mít úzké spojení. Například ‘William Shakespeare’.",
-          "YEAR": "Zadejte rok související s položkou/položkami. Například ‘1919’."
+          "proxy_edm_hasMet": "Zadejte termín, který se vztahuje na osobu, místo, časové období nebo cokoli jiného, s čím může položka/položky mít úzké spojení. Například ‘William Shakespeare’."
         },
         "modifier": "Zvolte, jak má toto pole upravit vyhledávání.",
         "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
@@ -1389,10 +1263,10 @@ export default {
       "loginToSeeMore": "{login} zobrazíte další výsledky",
       "loginToSeeMultilingualResults": "Přihlaste se, abyste mohli vyhledávat v celé kolekci a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
       "showingMultilingualResults": "Zobrazují se výsledky napříč celou sbírkou a ve všech jazycích.",
-      "withinCollection": "{count} výsledků v rámci {type} {collection}",
+      "withQuery": "{count} výsledků pro {query}",
+      "withinCollection": "{type} výsledků v rámci {count} {collection}",
       "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
-      "withoutQuery": "{count} výsledků",
-      "withQuery": "{count} výsledků pro {query}"
+      "withoutQuery": "{count} výsledků"
     },
     "selectTheme": "Výběr TÉMATU může poskytnout další možnosti filtrování, např. téma Noviny obsahuje filtr DATUM VYDÁNÍ.",
     "title": "Vyhledat"
@@ -1473,7 +1347,7 @@ export default {
       },
       "itemsRemoved": {
         "1": "Položka byla odstraněna z galerie {gallery}.",
-        "many": "{count} položka byla odstraněna z galerie \"{gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
+        "many": "{count} položka byla odstraněna z galerie {gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
       },
       "itemsUnliked": {
         "1": "Položka byla odstraněna z vašich označení líbí se mi.",

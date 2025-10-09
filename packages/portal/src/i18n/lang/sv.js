@@ -136,7 +136,7 @@ export default {
   },
   "attribution": {
     "country": "Land:",
-    "creator": "Upphovsperson:",
+    "creator": "Skapare:",
     "date": "Datum:",
     "institution": "Institution:",
     "show": "Visa attribution",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Startdatum",
     "to": "till"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS-projektet",
+      "text": "Denna information skapades av {link} (2023/2024) för att hjälpa till att kontextualisera föråldrade och skadliga termer i samlingsbeskrivningar."
+    },
+    "headings": {
+      "alternatives": "Föreslagna alternativ",
+      "recommendations": "Rekommendationer för användning",
+      "source": "Källa"
+    },
+    "termNotFound": "Denna sida är endast tillgänglig på det språk som används för den partiska termen.",
+    "tooltip": {
+      "linkToPage": "Läs hela förklaringen som tillhandahålls av {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Ange din Europeana API-nyckel så kommer den att användas i länkarna till API-förfrågningar.",
+          "descriptionLine2": "Behöver du en API-nyckel? Registrera dig för en {link}.",
+          "here": "här",
+          "label": "API-nyckel",
           "usePersonal": {
             "linkText": "Ange din personliga API-nyckel",
             "prompt": "{link} och den kommer att användas."
@@ -233,7 +252,15 @@ export default {
     "right": "Höger"
   },
   "ds4ch": {
-    "broughtBy": "Tillhandahålls av"
+    "broughtBy": "Tillhandahålls av",
+    "header": {
+      "navigation": {
+        "about": "Om datarummet",
+        "explore": "Utforska data",
+        "partners": "Partners"
+      }
+    },
+    "homeLinkAlt": "Den gemensamma europeiska dataplatsen för kulturarv hem"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "embedNotification": {
@@ -271,6 +298,9 @@ export default {
   },
   "error": "Fel",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
+    },
     "authClientDisabled": {
       "description": "Denna API-nyckel har redan inaktiverats, kanske i en annan flik i webbläsaren.",
       "title": "Nyckel redan inaktiverad"
@@ -299,9 +329,6 @@ export default {
     "genericUnknownError": {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
-    },
-    "IIIFManifestFailure": {
-      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
     },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
@@ -338,37 +365,6 @@ export default {
     "exhibitions": "Utställning | Utställningar"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Om du vill söka i tidningstexten måste du använda den avancerade sökningen och välja fältet \"fulltext\".",
-        "ww1": "Om du vill söka inom texten av första världskrigets dokument måste du använda den avancerade sökningen och välja fältet \"fulltext\"."
-      }
-    },
-    "button": {
-      "morefilters": "Fler filter",
-      "showAdditional": "{show} ytterligare filter",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkeologi",
-        "art": "Konst",
-        "fashion": "Mode",
-        "industrial": "Industriminne",
-        "manuscript": "Manuskript",
-        "map": "Kartor och geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistoria",
-        "newspaper": "Tidningar",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Första världskriget"
-      },
-      "select": "Välj ett tema"
-    },
     "COLOURPALETTE": {
       "moreName": "färger",
       "name": "Färg",
@@ -520,18 +516,6 @@ export default {
       },
       "select": "Välj färger"
     },
-    "contentTier": {
-      "name": "Objekt kvalitet",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Uppfyller inte publiceringskriterier",
-        "1": "Låg kvalitet",
-        "2": "Medium kvalité",
-        "3": "Hög kvalitet & återanvändbar med villkor",
-        "4": "Hög kvalitet och fritt återanvändbar"
-      },
-      "select": "Välj objektkvaliteter"
-    },
     "COUNTRY": {
       "name": "Tillhandahållande land",
       "options": {
@@ -665,12 +649,80 @@ export default {
       },
       "select": "Välj filformat"
     },
-    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Aggregator",
       "select": "Välj aggregatorer"
     },
+    "REUSABILITY": {
+      "name": "Kan jag använda detta?",
+      "options": {
+        "open": "Ja",
+        "permission": "Kanske, sök tillstånd",
+        "restricted": "Ja, med villkor",
+        "uncategorized": "Okategoriserad"
+      },
+      "select": "Välj om du kan använda detta"
+    },
+    "RIGHTS": {
+      "name": "Rättighetsförklaring",
+      "select": "Välj rättighetsutlåtanden"
+    },
+    "TYPE": {
+      "name": "Typ av media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Bild",
+        "SOUND": "Ljud",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Välj typer av media"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Om du vill söka i tidningstexten måste du använda den avancerade sökningen och välja fältet \"fulltext\".",
+        "ww1": "Om du vill söka inom texten av första världskrigets dokument måste du använda den avancerade sökningen och välja fältet \"fulltext\"."
+      }
+    },
+    "button": {
+      "morefilters": "Fler filter",
+      "showAdditional": "{show} ytterligare filter",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkeologi",
+        "art": "Konst",
+        "fashion": "Mode",
+        "industrial": "Industriminne",
+        "manuscript": "Manuskript",
+        "map": "Kartor och geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistoria",
+        "newspaper": "Tidningar",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Första världskriget"
+      },
+      "select": "Välj ett tema"
+    },
+    "contentTier": {
+      "name": "Objekt kvalitet",
+      "options": {
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Uppfyller inte publiceringskriterier",
+        "1": "Låg kvalitet",
+        "2": "Medium kvalité",
+        "3": "Hög kvalitet & återanvändbar med villkor",
+        "4": "Hög kvalitet och fritt återanvändbar"
+      },
+      "select": "Välj objektkvaliteter"
+    },
+    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "proxy_dc_format": {
       "name": "Format",
       "select": "Välj format"
@@ -685,27 +737,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medium",
       "select": "Välj media"
-    },
-    "REUSABILITY": {
-      "name": "Kan jag använda detta?",
-      "options": {
-        "open": "Ja",
-        "permission": "Kanske, sök tillstånd",
-        "restricted": "Ja, med villkor",
-        "uncategorized": "Okategoriserad"
-      },
-      "select": "Välj om du kan använda detta"
-    },
-    "TYPE": {
-      "name": "Typ av media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Bild",
-        "SOUND": "Ljud",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Välj typer av media"
     }
   },
   "fieldLabels": {
@@ -724,6 +755,8 @@ export default {
       "dcRights": "Rättigheter",
       "dcSource": "Källa",
       "dcSubject": "Ämne",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
       "dctermsAlternative": "Alternativ titel",
       "dctermsCreated": "Skapelsedatum",
       "dctermsExtent": "Utsträckning",
@@ -739,10 +772,8 @@ export default {
       "dctermsProvenance": "Proveniens",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Innehållsförteckning",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
       "edmDataProvider": "Tillhandahållande institution",
@@ -785,12 +816,12 @@ export default {
     "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
+      "MoreInfoLabel": "Mer information",
       "about": "Om",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "faq": "Vanliga frågor (FAQ)",
       "help": "Hjälp",
-      "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "registerApiKey": "Registrera dig för en API-nyckel",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
@@ -923,115 +954,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjälper till att felsöka API -begäranden",
         "title": "Felsökning växla"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Samlar in användningsdata för att hjälpa oss att analysera användarinteraktioner. Aktiverar en undersökningswidget som ger dig möjlighet att svara på våra besökarnöjdhetsundersökningar.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
         "title": "Språkkod"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
         "title": "Jira servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
@@ -1041,94 +982,34 @@ export default {
         "description": "Kommer ihåg om du föredrar att få flerspråkiga sökresultat.",
         "title": "Flerspråkig sökning"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Visar ett meddelande när nya funktioner blir tillgängliga.",
         "title": "Ny funktionsavisering"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultat, gallerier och dina gilla-markeringar i en lista, rutnät eller mosaikvy.",
         "title": "Sökresultat, gallerier och gilla markeringar (lista/rutnät/mosaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "okänd leverantör",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "okänd leverantör"
     }
   },
   "landing": {
     "apis": {
-      "header": {
+      "footer": {
+        "name": "Resurser",
         "navigation": {
-          "faq": "FAQ"
+          "apiDocumentation": "API-dokumentation",
+          "contactUs": "Kontakta oss",
+          "requestApiKey": "Begär en API-nyckel"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API:er startsida",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana API:er",
+          "faq": "FAQ",
+          "findInspiration": "Hitta inspiration"
         }
       }
     },
@@ -1168,10 +1049,10 @@ export default {
       "show": "Visa sidor"
     },
     "sidebar": {
+      "IIIFManifest": "IIIF Manifest",
       "annotations": "Anteckningar",
       "annotationsCount": "1 Anteckning | {count} Anteckningar",
       "hide": "Dölj sidofältet",
-      "IIIFManifest": "IIIF Manifest",
       "links": "Länkar",
       "search": "Sök",
       "searchPlaceholder": "Ange villkor",
@@ -1206,8 +1087,8 @@ export default {
     "enrichment": "Berikning genom partnerprojekt",
     "stopViewingThisItemIn": "Sluta visa detta objekt i {0}",
     "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare.",
-    "viewingThisItemIn": "Visar detta objekt i {0}",
-    "viewItemInAnotherLanguage": "Visa detta objekt på ett annat språk"
+    "viewItemInAnotherLanguage": "Visa detta objekt på ett annat språk",
+    "viewingThisItemIn": "Visar detta objekt i {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
@@ -1222,9 +1103,6 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -1282,8 +1160,6 @@ export default {
     },
     "allMetaData": "Alla metadata",
     "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
-    "debias": "De-bias",
-    "explanationby": "Förklaring tillhandahållen av {0}",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
@@ -1358,6 +1234,7 @@ export default {
         "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
         "field": "Välj fulltext- eller metadatafältet att söka i.",
         "fields": {
+          "YEAR": "Ange ett år som relaterar till objektet/objekten. Till exempel ‘1919’.",
           "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext.",
           "proxy_dc_coverage": "Ange en term som hänvisar till en plats eller en punkt/period i tiden. Till exempel \"1995-1996\" eller \"Berlin\" eller \"http://sws.geonames.org/2287781/\".",
           "proxy_dc_date": "Ange en term som hänvisar till ett betydande datum relaterat till objektet/objekten. Till exempel ett datum i formatet ‘ÅÅÅÅ-MM-DD’ eller ett enskilt år, ‘1919’, eller bredare definitioner som ‘Tidigt 1900-tal’.",
@@ -1368,8 +1245,7 @@ export default {
           "proxy_dcterms_issued": "Ange en term som hänvisar till utgivnings- eller publiceringsdatumet för objektet/objekten. Till exempel vilket datum som helst i formatet ‘ÅÅÅÅ-MM-DD’, ett enskilt år som ‘1919’, eller bredare definitioner som ‘tidigt 1900-tal’. För andra datum som kan vara av betydelse, sök i fälten Datum, Skapelsedatum eller År.",
           "proxy_dcterms_medium": "Ange en term som hänvisar till de material som använts eller objektets fysiska beskaffenhet. Till exempel ‘metall’ eller ‘papper’. För bredare materialdefinitioner, som ‘skulptur’ eller ‘målning’, prova fältet ‘TYP AV MEDIA’",
           "proxy_dcterms_temporal": "Ange en term som hänvisar till en period eller tidpunkt som objektet/objekten relaterar till, till exempel en bild som skildrar en stad år 1930. Ange till exempel 'Romerska riket' eller 'Renässansen'. För specifika datum, sök i fälten Datum, Skapelsedatum, Utgivningsdatum eller År.",
-          "proxy_edm_hasMet": "Ange en term som hänvisar till en person, en plats, en tidsperiod eller något annat som objektet/objekten kan ha nära kopplingar till. Till exempel ‘William Shakespeare’.",
-          "YEAR": "Ange ett år som relaterar till objektet/objekten. Till exempel ‘1919’."
+          "proxy_edm_hasMet": "Ange en term som hänvisar till en person, en plats, en tidsperiod eller något annat som objektet/objekten kan ha nära kopplingar till. Till exempel ‘William Shakespeare’."
         },
         "modifier": "Välj hur detta fält ska ändra sökningen.",
         "term": "Ange termen/termerna som det valda fältet innehåller eller inte innehåller."
@@ -1387,10 +1263,10 @@ export default {
       "loginToSeeMore": "{login} för att se fler resultat",
       "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
       "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
+      "withQuery": "{count} resultat för {query}",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
-      "withoutQuery": "{count} resultat",
-      "withQuery": "{count} resultat för {query}"
+      "withoutQuery": "{count} resultat"
     },
     "selectTheme": "Att välja ett TEMA kan ge ytterligare filteralternativ, t.ex. inkluderar tidningstemat ett UTGIFTSDATUM-filter.",
     "title": "Sök"
@@ -1482,7 +1358,7 @@ export default {
         "title": "100 gilla-markeringar"
       },
       "updated": "Objektet lades till i galleriet.",
-      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
+      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \"{visibility}\"."
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
