@@ -5,7 +5,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse / Liitu",
+    "linkLoginJoin": "Logi sisse \/ Liitu",
     "linkLogout": "Logi välja",
     "manageApiKeys": "API võtmete haldamine",
     "menu": {
@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
-    "title": "Minu konto",
+    "title": "Minu profiil",
     "tooltip": {
       "EntityBestItemsSet": "Kureeritud galeriis kuvatakse konkreetse kollektsiooni kinnitatud üksused",
       "private": "Privaatset galeriid saate vaadata ainult teie.",
@@ -70,8 +70,8 @@ export default {
     "remove": "Eemalda",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
-    "share": "Jagage",
-    "shareOn": "Jagage saidil {social}",
+    "share": "Jaga",
+    "shareOn": "Jaga {social}",
     "show": "Näita",
     "showLess": "Näita vähem",
     "showMore": "Näita rohkem",
@@ -193,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materjalid",
-          "name": "Materjal | Materjalid",
+          "name": "Materjal",
           "select": "Valige materjalid"
         }
       }
@@ -214,10 +214,29 @@ export default {
     "startDate": "Alguskuupäev",
     "to": "kuni"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "See teave loodi {link} poolt (2023\/2024), et aidata kontekstualiseerida kogude kirjeldustes olevaid aegunud ja kahjulikke termineid."
+    },
+    "headings": {
+      "alternatives": "Soovitatud alternatiivid",
+      "recommendations": "Kasutamissoovitused",
+      "source": "Allikas"
+    },
+    "termNotFound": "See leht on saadaval ainult kallutatud termini keeles.",
+    "tooltip": {
+      "linkToPage": "Lugege {projectName} esitatud täielikku selgitust"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
+          "descriptionLine2": "Vajad API võtit? Registreeri selle saamiseks {link}.",
+          "here": "siin",
+          "label": "API võti",
           "usePersonal": {
             "linkText": "Sisestage oma isiklik API võti",
             "prompt": "{link} ja seda kasutatakse."
@@ -231,10 +250,6 @@ export default {
   "directions": {
     "left": "Vasak",
     "right": "Parem"
-  },
-  "ds4ch": {
-    "broughtBy": "Teieni toodud",
-    "homeLinkAlt": "Ühine Euroopa andmeruum kultuuripärandi jaoks"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "embedNotification": {
@@ -259,19 +274,22 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
+      "pin": "See üksus kuvatakse kogu „{entity}” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See kuvatakse esimese üksusena kogus „ {entity} ”. Anname teile teada, kui seda muudatust kogumislehel näha on.",
-      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Anname teile teada, kui seda muudatust kogumislehel näha on."
     }
   },
   "error": "Viga",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
+    },
     "authClientDisabled": {
       "description": "See API võti on juba keelatud, võib-olla mõnes teises brauseri vahekaardil.",
       "title": "Võti on juba keelatud"
@@ -301,9 +319,6 @@ export default {
       "description": "Ilmnes tundmatu viga.",
       "title": "Tundmatu viga"
     },
-    "IIIFManifestFailure": {
-      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
-    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
@@ -318,7 +333,7 @@ export default {
       "title": "Lehte, mida otsite, pole olemas."
     },
     "pinningNotFound": {
-      "description": "Üksuse kinnitamisel/eemaldamisel ilmnes viga. Proovige uuesti või teatage probleemist.",
+      "description": "Üksuse kinnitamisel\/eemaldamisel ilmnes viga. Proovige uuesti või teatage probleemist.",
       "title": "Kureeritud kollektsiooni ei leitud"
     },
     "searchPaginationLimitExceeded": {
@@ -339,37 +354,6 @@ export default {
     "exhibitions": "Näitus | Näitused"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Kui soovite otsida ajalehtede tekstist, peate kasutama täpsemat otsingut ja valima välja \"täistekst\".",
-        "ww1": "Kui soovite otsida teksti esimese maailmasõja dokumentidest, peate kasutama täpsemat otsingut ja valima \"täistekst\" välja."
-      }
-    },
-    "button": {
-      "morefilters": "Rohkem filtreid",
-      "showAdditional": "{show} täiendavaid filtreid",
-      "showAll": "Kuva kõik {label}",
-      "showLess": "Näita vähem {label}"
-    },
-    "collection": {
-      "name": "Teema",
-      "options": {
-        "archaeology": "Arheoloogia",
-        "art": "Kunst",
-        "fashion": "Mood",
-        "industrial": "Tööstuspärand",
-        "manuscript": "Käsikirjad",
-        "map": "Kaardid ja geograafia",
-        "migration": "Ränne",
-        "music": "Muusika",
-        "nature": "Looduslugu",
-        "newspaper": "Ajalehed",
-        "photography": "Fotograafia",
-        "sport": "Sport",
-        "ww1": "Esimene maailmasõda"
-      },
-      "select": "Valige teema"
-    },
     "COLOURPALETTE": {
       "moreName": "värvid",
       "name": "Värv",
@@ -521,18 +505,6 @@ export default {
       },
       "select": "Valige värvid"
     },
-    "contentTier": {
-      "name": "Üksus kvaliteet",
-      "options": {
-        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-        "0": "Ei vasta avaldamise kriteeriumidele",
-        "1": "Madal kvaliteet",
-        "2": "Keskmine kvaliteet",
-        "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
-        "4": "Kvaliteetne ja vabalt taaskasutatav"
-      },
-      "select": "Valige üksus omadused"
-    },
     "COUNTRY": {
       "name": "Pakkuja riik",
       "options": {
@@ -662,16 +634,84 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
-    "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "PROVIDER": {
       "moreName": "agregaatorid",
       "name": "Agregaator",
       "select": "Valige agregaatorid"
     },
+    "REUSABILITY": {
+      "name": "Kas ma saan seda kasutada?",
+      "options": {
+        "open": "Jah",
+        "permission": "Võib-olla, küsige luba",
+        "restricted": "Jah, tingimustega",
+        "uncategorized": "Kategoriseerimata"
+      },
+      "select": "Valige, kas saate seda kasutada"
+    },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon",
+      "select": "Valige õiguste avaldused"
+    },
+    "TYPE": {
+      "name": "Meediumitüüp",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Pilt ",
+        "SOUND": "Heli",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Valige kandja tüübid"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Kui soovite otsida ajalehtede tekstist, peate kasutama täpsemat otsingut ja valima välja \"täistekst\".",
+        "ww1": "Kui soovite otsida teksti esimese maailmasõja dokumentidest, peate kasutama täpsemat otsingut ja valima \"täistekst\" välja."
+      }
+    },
+    "button": {
+      "morefilters": "Rohkem filtreid",
+      "showAdditional": "{show} täiendavaid filtreid",
+      "showAll": "Kuva kõik {label}",
+      "showLess": "Näita vähem {label}"
+    },
+    "collection": {
+      "name": "Teema",
+      "options": {
+        "archaeology": "Arheoloogia",
+        "art": "Kunst",
+        "fashion": "Mood",
+        "industrial": "Tööstuspärand",
+        "manuscript": "Käsikirjad",
+        "map": "Kaardid ja geograafia",
+        "migration": "Ränne",
+        "music": "Muusika",
+        "nature": "Looduslugu",
+        "newspaper": "Ajalehed",
+        "photography": "Fotograafia",
+        "sport": "Sport",
+        "ww1": "Esimene maailmasõda"
+      },
+      "select": "Valige teema"
+    },
+    "contentTier": {
+      "name": "Üksus kvaliteet",
+      "options": {
+        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+        "0": "Ei vasta avaldamise kriteeriumidele",
+        "1": "Madal kvaliteet",
+        "2": "Keskmine kvaliteet",
+        "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
+        "4": "Kvaliteetne ja vabalt taaskasutatav"
+      },
+      "select": "Valige üksus omadused"
+    },
+    "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "proxy_dc_format": {
       "name": "Formaat",
       "select": "Valige vormingud"
@@ -686,27 +726,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Meedium",
       "select": "Valige meedia"
-    },
-    "REUSABILITY": {
-      "name": "Kas ma saan seda kasutada?",
-      "options": {
-        "open": "Jah",
-        "permission": "Võib-olla, küsige luba",
-        "restricted": "Jah, tingimustega",
-        "uncategorized": "Kategoriseerimata"
-      },
-      "select": "Valige, kas saate seda kasutada"
-    },
-    "TYPE": {
-      "name": "Meediumitüüp",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Pilt ",
-        "SOUND": "Heli",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Valige kandja tüübid"
     }
   },
   "fieldLabels": {
@@ -725,6 +744,8 @@ export default {
       "dcRights": "Õigused",
       "dcSource": "Allikas",
       "dcSubject": "Teema",
+      "dcTitle": "Pealkiri",
+      "dcType": "Üksuse liik",
       "dctermsAlternative": "Alternatiivne pealkiri",
       "dctermsCreated": "Loomise kuupäev",
       "dctermsExtent": "Ulatus ",
@@ -740,10 +761,8 @@ export default {
       "dctermsProvenance": "Päritolu",
       "dctermsReferences": "Viitab",
       "dctermsSpatial": "Kohad",
-      "dctermsTemporal": "Ajaline",
       "dctermsTOC": "Sisukord",
-      "dcTitle": "Pealkiri",
-      "dcType": "Üksuse liik",
+      "dctermsTemporal": "Ajaline",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
       "edmDataProvider": "Pakkuja institutsioon",
@@ -786,12 +805,12 @@ export default {
     "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
+      "MoreInfoLabel": "Rohkem infot",
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "faq": "Korduma kippuvad küsimused  (FAQ)",
       "help": "Abimaterjal",
-      "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsusavaldus",
       "registerApiKey": "Registreeru API võtme saamiseks",
       "seeApiRequests": "Vaata päringuid Europeana API-dele",
@@ -813,7 +832,7 @@ export default {
     "collapseSearchBar": "Kokkuvolditav otsinguriba",
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
-    "inCollection": "Otsi {query} {collection}",
+    "inCollection": "Otsi {query} kollektsioonist {collection}",
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
@@ -847,7 +866,7 @@ export default {
   },
   "items": {
     "itemCount": "1 üksus | {count} üksused",
-    "itemOf": "{max} / {count} üksused",
+    "itemOf": "{max} \/ {count} üksused",
     "noItems": "Üksusi pole.",
     "noMoreItems": "Rohkem üksusi pole.",
     "recent": "Hiljutised üksused",
@@ -863,7 +882,7 @@ export default {
       "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
         "alwaysRequired": "(Alati nõutav)",
-        "description": "Siin saate näha ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege palun meie <a href='/rights/privacy-statement'>privaatsusavaldust</a>.",
+        "description": "Siin saate näha ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege palun meie <a href='\/rights\/privacy-statement'>privaatsusavaldust<\/a>.",
         "privacyPolicy": "Privaatsuspoliitika",
         "servicesCount": "{count} teenus | {count} teenust",
         "text": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie {privacyPolicy}.",
@@ -924,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Aitab siluda API taotlusi",
         "title": "Debugimise lüliti"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Kogub kasutusandmeid, et aidata meil analüüsida kasutajate interaktsioone. Aktiveerib küsitluse vidina, mis annab teile võimaluse vastata meie külastajate rahulolu küsitlustele.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Jätab teie eelistatud liidese keele edaspidiseks kasutamiseks meelde.",
         "title": "Keelekood"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiveerib tagasiside vidina, andes teile võimaluse meiega ühendust võtta.",
         "title": "Jira teeninduslaud"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
@@ -1042,98 +971,18 @@ export default {
         "description": "Jätab meelde, kas eelistate saada mitmekeelseid otsingutulemusi.",
         "title": "Mitmekeelne otsing"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Kuvab teate, kui uued funktsioonid muutuvad kättesaadavaks.",
         "title": "Uus funktsiooniteatis"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Jätab meelde, kas eelistate näha otsingutulemusi, galeriisid ja meeldimisi loendi-, ruudustiku- või mosaiikvaates.",
-        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend/ruudustik/mosaiik)"
+        "title": "Otsingutulemused, galeriid ja meeldimiste vaade (loend\/ruudustik\/mosaiik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "tundmatu pakkuja",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "tundmatu pakkuja"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Leia inspiratsiooni"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Igakuised API taotlused keskmiselt",
       "dataProviders": "Andmepakkujad",
@@ -1170,10 +1019,10 @@ export default {
       "show": "Kuva leheküljed"
     },
     "sidebar": {
-      "annotations": "Märkused",
-      "annotationsCount": "1 märkus |{count} märkused",
-      "hide": "Peida külgriba",
       "IIIFManifest": "IIIF Manifest",
+      "annotations": "Märkused",
+      "annotationsCount": "1 märkus | {count} märkused",
+      "hide": "Peida külgriba",
       "links": "Lingid",
       "search": "Otsing",
       "searchPlaceholder": "Sisestage tingimused",
@@ -1208,8 +1057,8 @@ export default {
     "enrichment": "Rikastamine partner projektide kaudu",
     "stopViewingThisItemIn": "Lõpeta selle üksuse vaatamine rakenduses {0}",
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti.",
-    "viewingThisItemIn": "Selle üksuse vaatate {0}",
-    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles"
+    "viewItemInAnotherLanguage": "Vaadake seda üksust teises keeles",
+    "viewingThisItemIn": "Selle üksuse vaatate {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
@@ -1224,9 +1073,6 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -1284,8 +1130,6 @@ export default {
     },
     "allMetaData": "Kogu metateave",
     "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
-    "debias": "De-bias",
-    "explanationby": "Selgituse esitas {0}",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
@@ -1360,18 +1204,18 @@ export default {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsinguks täistekst või metaandmete väli.",
         "fields": {
+          "YEAR": "Sisestage eseme(te)ga seotud aasta. Näiteks ‘1919’.",
           "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti.",
-          "proxy_dc_coverage": "Sisestage termin, mis viitab kohale või ajapunktile/perioodile. Näiteks „1995–1996” või „Berliin” või „http://sws.geonames.org/2287781/”.",
-          "proxy_dc_date": "Sisestage termin, mis viitab üksuse/üksuste jaoks olulisele kuupäevale. Näiteks kuupäev formaadis ‘AAAA-KK-PP’ või üksik aasta, ‘1919’, või laiemad määratlused nagu ‘Varajane 20. sajand’.",
-          "proxy_dc_rights": "Sisestage termin, mis viitab õiguste või litsentsidega seotud teabele üksuse/üksuste kohta. Näiteks ‘Copyright © British Library Board’. Taaskasutatavuse või konkreetse õiguste avalduse filtreerimiseks kasutage filtreid ‘Kas ma saan seda kasutada?’ või ‘Rights statement’.",
-          "proxy_dcterms_created": "Sisestage termin, mis viitab üksuse/üksuste loomise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘Varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Väljaandmise kuupäev või Aasta.",
+          "proxy_dc_coverage": "Sisestage termin, mis viitab kohale või ajapunktile\/perioodile. Näiteks „1995–1996” või „Berliin” või „http:\/\/sws.geonames.org\/2287781\/”.",
+          "proxy_dc_date": "Sisestage termin, mis viitab üksuse\/üksuste jaoks olulisele kuupäevale. Näiteks kuupäev formaadis ‘AAAA-KK-PP’ või üksik aasta, ‘1919’, või laiemad määratlused nagu ‘Varajane 20. sajand’.",
+          "proxy_dc_rights": "Sisestage termin, mis viitab õiguste või litsentsidega seotud teabele üksuse\/üksuste kohta. Näiteks ‘Copyright © British Library Board’. Taaskasutatavuse või konkreetse õiguste avalduse filtreerimiseks kasutage filtreid ‘Kas ma saan seda kasutada?’ või ‘Rights statement’.",
+          "proxy_dcterms_created": "Sisestage termin, mis viitab üksuse\/üksuste loomise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘Varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Väljaandmise kuupäev või Aasta.",
           "proxy_dcterms_hasPart": "Üksus võib sisaldada teisi ressursse - sisestage termin, mis tuvastab osa kaasatud ressurssidest. Kui üksus ise on osa mõnest teisest ressursist, kasutage selle asemel välja ‘On osa’.",
           "proxy_dcterms_isPartOf": "See üksus võib olla osa mõnest teisest seotud ressursist - sisestage termin ressursile, mille osa see üksus võib olla. Kui üksus ise sisaldab seotud ressursse, kasutage selle asemel välja ‘Koosneb’.",
           "proxy_dcterms_issued": "Sisestage termin, mis viitab eseme(te) väljaandmise või avaldamise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Loomiskuupäev või Aasta.",
           "proxy_dcterms_medium": "Sisestage termin, mis viitab kasutatud materjalidele või eseme füüsilisele olemusele. Näiteks ‘metall’ või ‘paber’. Laiemate materjalidefinitsioonide jaoks, nagu ‘skulptuur’ või ‘maal’, proovige välja ‘MEEDIUMITÜÜP’.",
-          "proxy_dcterms_temporal": "Sisestage termin, mis viitab perioodile või ajahetkele, millega ese/ esemed on seotud, näiteks pilt, mis kujutab linna 1930. aastal. Sisestage näiteks ‘Rooma Impeerium’ või ‘Renessanss’. Konkreetsete kuupäevade jaoks otsige väljadelt Kuupäev, Loomiskuupäev, Väljaandmiskuupäev või Aasta.",
-          "proxy_edm_hasMet": "Sisestage termin, mis viitab isikule, kohale, ajavahemikule või millelegi muule, millega üksus(ed) võivad olla tihedalt seotud. Näiteks \"William Shakespeare\".",
-          "YEAR": "Sisestage eseme(te)ga seotud aasta. Näiteks ‘1919’."
+          "proxy_dcterms_temporal": "Sisestage termin, mis viitab perioodile või ajahetkele, millega ese\/ esemed on seotud, näiteks pilt, mis kujutab linna 1930. aastal. Sisestage näiteks ‘Rooma Impeerium’ või ‘Renessanss’. Konkreetsete kuupäevade jaoks otsige väljadelt Kuupäev, Loomiskuupäev, Väljaandmiskuupäev või Aasta.",
+          "proxy_edm_hasMet": "Sisestage termin, mis viitab isikule, kohale, ajavahemikule või millelegi muule, millega üksus(ed) võivad olla tihedalt seotud. Näiteks \"William Shakespeare\"."
         },
         "modifier": "Valige, kuidas see väli peaks otsingut muutma.",
         "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
@@ -1389,10 +1233,10 @@ export default {
       "loginToSeeMore": "{login} , et näha rohkem tulemusi",
       "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
       "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
+      "withQuery": "{count} tulemust jaoks {query}",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
-      "withoutQuery": "{count} tulemust",
-      "withQuery": "{count} tulemust jaoks {query}"
+      "withoutQuery": "{count} tulemust"
     },
     "selectTheme": "TEEMA valimine võib pakkuda täiendavaid filtrivalikuid, nt teema Ajalehed sisaldab filtrit VÄLJAANDMISE KUUPÄEV.",
     "title": "Otsing"
@@ -1488,7 +1332,7 @@ export default {
     },
     "prompts": {
       "delete": "Kas olete kindel, et soovite selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sellesse lisatud üksused.",
-      "removeItems": "Kas olete kindel, et soovite eemaldada {count} üksus sellest galeriist? | Kas olete kindel, et soovite eemaldada {count} üksused sellest galeriist?"
+      "removeItems": "Kas olete kindel, et soovite eemaldada {count} üksus sellest galeriist? | Kas olete kindel, et soovite eemaldada{count} üksused sellest galeriist?"
     },
     "publication": {
       "criteria": {
@@ -1555,7 +1399,7 @@ export default {
       "paginationBullet": "Slaid {page}",
       "paginationBulletGroupedSlides": "Slaidirühm {page}",
       "previousSlide": "Eelmine slaid",
-      "slideLabel": "Slaid {slide} / {totalSlides}"
+      "slideLabel": "Slaid {slide} \/ {totalSlides}"
     }
   },
   "themes": {

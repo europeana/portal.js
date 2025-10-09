@@ -5,7 +5,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar / Participar",
+    "linkLoginJoin": "Entrar \/ Participar",
     "linkLogout": "Encerrar sessão",
     "manageApiKeys": "Gerir chaves de API",
     "menu": {
@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galerias públicas",
     "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
-    "title": "A minha conta",
+    "title": "Meu perfil",
     "tooltip": {
       "EntityBestItemsSet": "Uma galeria com curadoria mostra os itens fixados numa coleção específica",
       "private": "Uma galeria privada só pode ser vista por si.",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Data de início",
     "to": "para"
   },
+  "debias": {
+    "background": {
+      "link": "Projeto DE-BIAS",
+      "text": "Esta informação foi criada pelo {link} (2023\/2024) para ajudar a contextualizar termos desatualizados e prejudiciais nas descrições das coleções."
+    },
+    "headings": {
+      "alternatives": "Alternativas sugeridas",
+      "recommendations": "Recomendações de utilização",
+      "source": "Fonte"
+    },
+    "termNotFound": "Esta página está disponível somente no idioma do termo tendencioso.",
+    "tooltip": {
+      "linkToPage": "Leia a explicação completa fornecida por {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Insira a sua chave de API Europeana e ela será usada nos links para solicitações de API.",
+          "descriptionLine2": "Precisa de uma chave de API? Registe-se para obter uma {link}.",
+          "here": "aqui",
+          "label": "Chave API",
           "usePersonal": {
             "linkText": "Insira a sua chave API pessoal",
             "prompt": "{link} e será utilizado."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Esquerda",
     "right": "Direita"
-  },
-  "ds4ch": {
-    "broughtBy": "Trazido até si por"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "embedNotification": {
@@ -263,14 +279,17 @@ export default {
         "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
         "title": "Muitos itens fixados"
       },
-      "pinned": "O item foi fixado. Ele aparecerá como o primeiro item na coleção \" {entity} \". Iremos notificá-lo quando esta alteração estiver visível na página da coleção.",
-      "select": "Selecione uma entidade relacionada para fixar/desafixar o item nela.",
+      "pinned": "O item foi fixado. Ele aparecerá como o primeiro item na coleção \"{entity}\". Iremos notificá-lo quando esta alteração estiver visível na página da coleção.",
+      "select": "Selecione uma entidade relacionada para fixar\/desafixar o item nela.",
       "unpin": "Este item deixará de ser exibido na parte superior da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "unpinned": "O item foi desafixado. Iremos notificá-lo quando esta alteração estiver visível na página da coleção."
     }
   },
   "error": "Erro",
   "errorMessage": {
+    "IIIFManifestFailure": {
+      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
+    },
     "authClientDisabled": {
       "description": "Esta chave API já foi desativada, talvez noutra aba do navegador.",
       "title": "Chave já desativada"
@@ -300,9 +319,6 @@ export default {
       "description": "Ocorreu um erro desconhecido.",
       "title": "Erro desconhecido"
     },
-    "IIIFManifestFailure": {
-      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
-    },
     "itemNotFound": {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
@@ -317,7 +333,7 @@ export default {
       "title": "A página que está a procurar não existe."
     },
     "pinningNotFound": {
-      "description": "Ocorreu um erro ao fixar/desafixar o item. Tente novamente ou relate o problema.",
+      "description": "Ocorreu um erro ao fixar\/desafixar o item. Tente novamente ou relate o problema.",
       "title": "Coleção curada não encontrada"
     },
     "searchPaginationLimitExceeded": {
@@ -338,37 +354,6 @@ export default {
     "exhibitions": "Exposição | Exposições"
   },
   "facets": {
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "Se você quiser pesquisar dentro do texto dos jornais, precisará usar a pesquisa avançada e escolher o campo \"texto completo\".",
-        "ww1": "Se quiser pesquisar dentro do texto de documentos da Primeira Guerra Mundial, precisará usar a pesquisa avançada e escolher o campo \"texto completo\"."
-      }
-    },
-    "button": {
-      "morefilters": "Mais filtros",
-      "showAdditional": "{show} filtros adicionais",
-      "showAll": "Mostrar todos {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arqueologia",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Património Industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas e Geografia",
-        "migration": "Migração",
-        "music": "Música",
-        "nature": "História Natural",
-        "newspaper": "Jornais",
-        "photography": "Fotografia",
-        "sport": "Desporto",
-        "ww1": "Primeira Guerra Mundial"
-      },
-      "select": "Selecione um tema"
-    },
     "COLOURPALETTE": {
       "moreName": "cores",
       "name": "Cor",
@@ -520,18 +505,6 @@ export default {
       },
       "select": "Selecionar cores"
     },
-    "contentTier": {
-      "name": "Qualidade do item",
-      "options": {
-        "*": "Inclui itens que não atendem aos nossos critérios de publicação",
-        "0": "Não atende aos critérios de publicação",
-        "1": "Baixa qualidade",
-        "2": "Qualidade média",
-        "3": "Alta qualidade & reutilizável com condições",
-        "4": "Alta qualidade & livremente reutilizável"
-      },
-      "select": "Selecione as qualidades do item"
-    },
     "COUNTRY": {
       "name": "País fornecedor",
       "options": {
@@ -661,16 +634,84 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de arquivo",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       },
       "select": "Selecione os formatos de arquivo"
     },
-    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "PROVIDER": {
       "moreName": "agregadores",
       "name": "Agregador",
       "select": "Selecionar agregadores"
     },
+    "REUSABILITY": {
+      "name": "Posso usar isto?",
+      "options": {
+        "open": "Sim",
+        "permission": "Talvez, peça permissão",
+        "restricted": "Sim, com condições",
+        "uncategorized": "Sem categoria"
+      },
+      "select": "Selecione se pode usar isto"
+    },
+    "RIGHTS": {
+      "name": "Declaração de direitos",
+      "select": "Selecionar declarações de direitos"
+    },
+    "TYPE": {
+      "name": "Tipo de media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagem",
+        "SOUND": "Som",
+        "TEXT": "Texto",
+        "VIDEO": "Vídeo"
+      },
+      "select": "Selecione os tipos de media"
+    },
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Se você quiser pesquisar dentro do texto dos jornais, precisará usar a pesquisa avançada e escolher o campo \"texto completo\".",
+        "ww1": "Se quiser pesquisar dentro do texto de documentos da Primeira Guerra Mundial, precisará usar a pesquisa avançada e escolher o campo \"texto completo\"."
+      }
+    },
+    "button": {
+      "morefilters": "Mais filtros",
+      "showAdditional": "{show} filtros adicionais",
+      "showAll": "Mostrar todos {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arqueologia",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Património Industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas e Geografia",
+        "migration": "Migração",
+        "music": "Música",
+        "nature": "História Natural",
+        "newspaper": "Jornais",
+        "photography": "Fotografia",
+        "sport": "Desporto",
+        "ww1": "Primeira Guerra Mundial"
+      },
+      "select": "Selecione um tema"
+    },
+    "contentTier": {
+      "name": "Qualidade do item",
+      "options": {
+        "*": "Inclui itens que não atendem aos nossos critérios de publicação",
+        "0": "Não atende aos critérios de publicação",
+        "1": "Baixa qualidade",
+        "2": "Qualidade média",
+        "3": "Alta qualidade & reutilizável com condições",
+        "4": "Alta qualidade & livremente reutilizável"
+      },
+      "select": "Selecione as qualidades do item"
+    },
+    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "proxy_dc_format": {
       "name": "Formato",
       "select": "Selecionar formatos"
@@ -685,27 +726,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Mídia",
       "select": "Selecionar mídia"
-    },
-    "REUSABILITY": {
-      "name": "Posso usar isto?",
-      "options": {
-        "open": "Sim",
-        "permission": "Talvez, peça permissão",
-        "restricted": "Sim, com condições",
-        "uncategorized": "Sem categoria"
-      },
-      "select": "Selecione se pode usar isto"
-    },
-    "TYPE": {
-      "name": "Tipo de media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Imagem",
-        "SOUND": "Som",
-        "TEXT": "Texto",
-        "VIDEO": "Vídeo"
-      },
-      "select": "Selecione os tipos de media"
     }
   },
   "fieldLabels": {
@@ -724,6 +744,8 @@ export default {
       "dcRights": "Direitos",
       "dcSource": "Fonte",
       "dcSubject": "Assunto",
+      "dcTitle": "Título",
+      "dcType": "Tipo de item",
       "dctermsAlternative": "Título alternativo",
       "dctermsCreated": "Data de criação",
       "dctermsExtent": "Extensão",
@@ -739,10 +761,8 @@ export default {
       "dctermsProvenance": "Proveniência",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Tabela de conteúdos",
-      "dcTitle": "Título",
-      "dcType": "Tipo de item",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
       "edmDataProvider": "Instituição fornecedora",
@@ -785,12 +805,12 @@ export default {
     "footer": "Rodapé",
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
+      "MoreInfoLabel": "Mais informações",
       "about": "Acerca",
       "accessibility": "Acessibilidade",
       "cookies": "Cookies",
       "faq": "Perguntas frequentes (FAQ)",
       "help": "Ajuda",
-      "MoreInfoLabel": "Mais informações",
       "privacy": "Declaração de privacidade",
       "registerApiKey": "Registe-se para obter uma chave API",
       "seeApiRequests": "Ver pedidos às APIs da Europeana",
@@ -862,7 +882,7 @@ export default {
       "acceptSelected": "Aceitar selecionado",
       "consentModal": {
         "alwaysRequired": "(Sempre necessário)",
-        "description": "Aqui pode ver e personalizar os serviços que gostaríamos de utilizar neste site. Para saber mais, leia a nossa <a href='/rights/privacy-statement'>declaração de privacidade</a>.",
+        "description": "Aqui pode ver e personalizar os serviços que gostaríamos de utilizar neste site. Para saber mais, leia a nossa <a href='\/rights\/privacy-statement'>declaração de privacidade<\/a>.",
         "privacyPolicy": "Política de Privacidade",
         "servicesCount": "{count} serviço | {count} serviços",
         "text": "Aqui você pode ver e personalizar os serviços que gostaríamos de usar neste site. Para saber mais, leia nossa {privacyPolicy}.",
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
         "title": "Estratégia Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ajuda a depurar solicitações de API",
         "title": "Botão de debug"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Recolhe dados de utilização para nos ajudar a analisar as interações dos utilizadores. Ativa um widget de inquérito que lhe dá a opção de responder aos nossos inquéritos de satisfação dos visitantes.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Lembra seu idioma de interface preferido para acesso futuro.",
         "title": "Código de idioma"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Ativa o widget de feedback dando-lhe a opção de nos contactar.",
         "title": "Balcão de serviço Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Lembra-se se prefere obter resultados de pesquisa multilíngues.",
         "title": "Pesquisa multilíngue"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Mostra uma notificação quando novas funcionalidades se tornam disponíveis.",
         "title": "Notificação de novas funcionalidades"
       },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
-      },
       "searchResultsView": {
         "description": "Lembra-se se prefere ver os resultados da pesquisa, as galerias e os seus gostos numa vista de lista, grelha ou mosaico.",
-        "title": "Resultado da pesquisa, galerias e visualização de gostos (lista/grelha/mosaico)"
+        "title": "Resultado da pesquisa, galerias e visualização de gostos (lista\/grelha\/mosaico)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fornecedor desconhecido",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fornecedor desconhecido"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Pedidos de API mensais, em média",
       "dataProviders": "Fornecedores de Dados",
@@ -1168,10 +1019,10 @@ export default {
       "show": "Mostrar páginas"
     },
     "sidebar": {
+      "IIIFManifest": "Manifesto IIIF",
       "annotations": "Anotações",
       "annotationsCount": "1 Anotação | {count} Anotações",
       "hide": "Ocultar barra lateral",
-      "IIIFManifest": "Manifesto IIIF",
       "links": "Links",
       "search": "Procurar",
       "searchPlaceholder": "Insira os termos",
@@ -1206,8 +1057,8 @@ export default {
     "enrichment": "Enriquecimento por projetos de parceiros",
     "stopViewingThisItemIn": "Pare de visualizar este item em {0}",
     "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde.",
-    "viewingThisItemIn": "Visualizando este item em {0}",
-    "viewItemInAnotherLanguage": "Veja este item em outro idioma"
+    "viewItemInAnotherLanguage": "Veja este item em outro idioma",
+    "viewingThisItemIn": "Visualizando este item em {0}"
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Cidade",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Todos os metadados",
     "clickToCopyEmbedCode": "Clique no código de incorporação para o copiar",
-    "debias": "De-bias",
-    "explanationby": "Explicação fornecida por {0}",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
@@ -1358,18 +1204,18 @@ export default {
         "advancedSearch": "A pesquisa avançada permite criar consultas de pesquisa personalizadas.",
         "field": "Selecione o campo de texto completo ou metadados para pesquisar.",
         "fields": {
+          "YEAR": "Insira um ano relacionado ao(s) item(ns). Por exemplo, ‘1919’.",
           "fulltext": "O texto completo inclui transcrições, legendas ocultas, legendas e texto do documento.",
-          "proxy_dc_coverage": "Insira um termo que se refere a um local ou ponto/período no tempo. Por exemplo, '1995-1996' ou 'Berlin', ou 'http://sws.geonames.org/2287781/'.",
-          "proxy_dc_date": "Insira um termo que se refira a uma data significativa relacionada ao item/itens. Por exemplo, uma data no formato ‘AAAA-MM-DD’ ou um único ano, ‘1919’, ou definições mais amplas como ‘Início do século XX’.",
-          "proxy_dc_rights": "Insira um termo que se refira às informações sobre os direitos ou licenças relacionadas ao item/itens. Por exemplo, ‘Copyright © British Library Board’. Para filtrar pela reutilização ou uma declaração de direitos específica, use os filtros ‘Posso usar isto?’ ou ‘Rights statement’.",
-          "proxy_dcterms_created": "Insira um termo que se refira à data de criação do item/itens. Por exemplo, qualquer data no formato ‘AAAA-MM-DD’, um único ano como ‘1919’, ou definições mais amplas como ‘Início do século XX’. Para outras datas que possam ser significativas, pesquise nos campos Data, Data de emissão ou Ano.",
+          "proxy_dc_coverage": "Insira um termo que se refere a um local ou ponto\/período no tempo. Por exemplo, '1995-1996' ou 'Berlin', ou 'http:\/\/sws.geonames.org\/2287781\/'.",
+          "proxy_dc_date": "Insira um termo que se refira a uma data significativa relacionada ao item\/itens. Por exemplo, uma data no formato ‘AAAA-MM-DD’ ou um único ano, ‘1919’, ou definições mais amplas como ‘Início do século XX’.",
+          "proxy_dc_rights": "Insira um termo que se refira às informações sobre os direitos ou licenças relacionadas ao item\/itens. Por exemplo, ‘Copyright © British Library Board’. Para filtrar pela reutilização ou uma declaração de direitos específica, use os filtros ‘Posso usar isto?’ ou ‘Rights statement’.",
+          "proxy_dcterms_created": "Insira um termo que se refira à data de criação do item\/itens. Por exemplo, qualquer data no formato ‘AAAA-MM-DD’, um único ano como ‘1919’, ou definições mais amplas como ‘Início do século XX’. Para outras datas que possam ser significativas, pesquise nos campos Data, Data de emissão ou Ano.",
           "proxy_dcterms_hasPart": "O item pode ter outros recursos incluídos nele - insira um termo que identifique parte dos recursos incluídos. Se o item em si, fizer parte de outro recurso, use o campo 'É parte de'.",
           "proxy_dcterms_isPartOf": "Este item pode fazer parte de outro recurso relacionado - insira um termo para o recurso do qual este item pode fazer parte. Se o próprio item contiver recursos relacionados, use o campo ‘Consiste em’.",
-          "proxy_dcterms_issued": "Insira um termo que se refira à data de emissão ou publicação do item/itens. Por exemplo, qualquer data no formato ‘AAAA-MM-DD’, um único ano como ‘1919’, ou definições mais amplas como ‘início do século XX’. Para outras datas que possam ser significativas, pesquise nos campos Data, Data de criação ou Ano.",
+          "proxy_dcterms_issued": "Insira um termo que se refira à data de emissão ou publicação do item\/itens. Por exemplo, qualquer data no formato ‘AAAA-MM-DD’, um único ano como ‘1919’, ou definições mais amplas como ‘início do século XX’. Para outras datas que possam ser significativas, pesquise nos campos Data, Data de criação ou Ano.",
           "proxy_dcterms_medium": "Insira um termo que se refira aos materiais usados ou à natureza física do item. Por exemplo, ‘metal’ ou ‘papel’. Para definições mais amplas de materiais, como ‘escultura’ ou ‘pintura’, experimente o campo ‘TIPO DE MEDIA’.",
-          "proxy_dcterms_temporal": "Insira um termo que se refira a um período ou momento no tempo ao qual o item/itens estão relacionados, por exemplo, uma imagem que retrata uma cidade em 1930. Insira, por exemplo, 'Império Romano' ou 'Renascença'. Para datas específicas, pesquise nos campos Data, Data de criação, data de emissão ou Ano.",
-          "proxy_edm_hasMet": "Insira um termo que se refere a uma pessoa, um local, um período ou qualquer outra coisa à qual o item/itens possam estar estreitamente relacionados. Por exemplo, ‘William Shakespeare’.",
-          "YEAR": "Insira um ano relacionado ao(s) item(ns). Por exemplo, ‘1919’."
+          "proxy_dcterms_temporal": "Insira um termo que se refira a um período ou momento no tempo ao qual o item\/itens estão relacionados, por exemplo, uma imagem que retrata uma cidade em 1930. Insira, por exemplo, 'Império Romano' ou 'Renascença'. Para datas específicas, pesquise nos campos Data, Data de criação, data de emissão ou Ano.",
+          "proxy_edm_hasMet": "Insira um termo que se refere a uma pessoa, um local, um período ou qualquer outra coisa à qual o item\/itens possam estar estreitamente relacionados. Por exemplo, ‘William Shakespeare’."
         },
         "modifier": "Escolha como este campo deve modificar a pesquisa.",
         "term": "Insira o(s) termo(s) que o campo escolhido contém ou não."
@@ -1387,10 +1233,10 @@ export default {
       "loginToSeeMore": "{login} para ver mais resultados",
       "loginToSeeMultilingualResults": "Faça login para pesquisar em toda a coleção e obter resultados não limitados ao idioma do seu termo de pesquisa.",
       "showingMultilingualResults": "Mostrando resultados em toda a coleção e em todos os idiomas.",
+      "withQuery": "{count} resultados para {query}",
       "withinCollection": "{count} resultados dentro do {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados em {type} {collection} para {query}",
-      "withoutQuery": "{count} resultados",
-      "withQuery": "{count} resultados para {query}"
+      "withoutQuery": "{count} resultados"
     },
     "selectTheme": "A seleção de um TEMÁTICA pode fornecer mais opções de filtro, por exemplo, o tema Jornais inclui um filtro DATA DE EMISSÃO.",
     "title": "Procurar"
@@ -1434,7 +1280,7 @@ export default {
       "edit": "Editar galeria",
       "likeItems": {
         "1": "Guardar este item nos seus gostos.",
-        "many": "Goste de {count} item | Goste de {count} itens"
+        "many": "Goste de {count}item | Goste de {count} itens"
       },
       "removeItems": {
         "1": "Remova este item desta galeria.",
