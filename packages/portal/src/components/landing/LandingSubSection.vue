@@ -167,7 +167,7 @@
     max-width: none;
   }
 
-  :deep(.landing-illustration-group.pro) {
+  ::v-deep .landing-illustration-group.pro {
     .swiper-slide {
       background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
     }

@@ -98,7 +98,7 @@
     &.bg-color-alternate {
       background-color: $lightgrey;
 
-      :deep(.text-wrapper) {
+      ::v-deep .text-wrapper {
         background-color: $lightgrey;
       }
     }

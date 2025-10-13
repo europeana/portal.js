@@ -203,7 +203,7 @@
     }
 
     &.pro-page {
-      div:last-child {
+      > div:last-child {
         .bg-color-alternate,
         .bg-lightgrey {
           @include white-cutout;
