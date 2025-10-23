@@ -286,4 +286,13 @@ module.exports = function(migration) {
         }
       ]
     });
+
+  contentHubPage
+    .editField('featuredContent')
+    .validations([
+      {
+        // TODO: add training and event when available
+        linkContentType: ['blogPosting', 'eventPage', 'exhibitionPage', 'project', 'trainingPage', 'story']
+      }
+    ]);
 };
