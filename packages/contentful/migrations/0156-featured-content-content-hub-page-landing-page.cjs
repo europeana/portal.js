@@ -10,7 +10,7 @@ module.exports = function(migration) {
     .validations([
       {
         // TODO: add training and event when available
-        linkContentType: ['blogPosting', 'exhibitionPage', 'project', 'story']
+        linkContentType: ['blogPosting', 'exhibitionPage', 'projectPage', 'story']
       }
     ])
     .disabled(false)
