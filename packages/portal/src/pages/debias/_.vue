@@ -34,7 +34,7 @@
                   {{ $t('debias.headings.source') }}
                 </h2>
                 <p
-                  v-for="(note, index) of term.note?.[$i18n.locale]"
+                  v-for="(note, index) of term.note?.[$i18n.locale] || term.note?.en"
                   :key="`note-${index}`"
                 >
                   {{ note }}
