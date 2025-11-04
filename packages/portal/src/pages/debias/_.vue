@@ -30,7 +30,7 @@
                 >
                   {{ definition }}
                 </p>
-                <h2 v-if="term.note?.[$i18n.locale]">
+                <h2 v-if="term.note?.[$i18n.locale] || term.note?.en">
                   {{ $t('debias.headings.source') }}
                 </h2>
                 <p
