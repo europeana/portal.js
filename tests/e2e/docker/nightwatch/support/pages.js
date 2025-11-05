@@ -24,7 +24,7 @@ const pages = {
   'immersive story page': `${url}/en/stories/melitta-bentz-the-woman-who-invented-the-coffee-filter`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
-  'item page with a responsive embedded video': `${url}/en/item/2021007/_SLS_1226`,
+  'item page with a responsive embedded video': `${url}/en/item/987/data_euscreenXL_DEMA_110`,
   'item page with audio media': `${url}/en/item/937/Culturalia_e4c6f6cd_e2fd_4bb1_88d4_cf4744b754ff`,
   'item page with IIIF annotations': `${url}/en/item/9200338/BibliographicResource_3000127242400`,
   'item page with mixed media': `${url}/en/item/09102/_GNM_693983`,
