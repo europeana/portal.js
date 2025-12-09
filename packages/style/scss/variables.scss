@@ -84,10 +84,12 @@ $media-viewer-height: 80vh;
 $media-viewer-height-max: 41.25rem;
 $media-viewer-height-medium: 30.75rem;
 $jumbotron-height-min: 275px;
-$min-card-width: 250px;
-$max-card-width: 480px;
-$max-text-column-width: 932px;
-$max-text-column-width-landing-4k: 1450px;
+$min-card-width: toRem(210);
+$min-card-width-xxxl: toRem(250);
+$max-card-width: toRem(480);
+$max-card-width-px: 480px;
+$max-text-column-width: toRem(932);
+$max-text-column-width-landing-4k: toRem(1450);
 $page-header-height: 3.5rem;
 $page-header-height-4k: calc(1.5 * 3.5rem);
 
@@ -153,4 +155,10 @@ $page-header-height-4k: calc(1.5 * 3.5rem);
   @media(min-width: $bp-4k) {
     font-size: $font-size-xl;
   }
+}
+
+
+@function toRem($value) {
+    $remValue: ($value / 16) + rem; 
+    @return $remValue;
 }
