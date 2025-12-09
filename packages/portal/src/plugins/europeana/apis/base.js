@@ -1,4 +1,5 @@
 import axios from 'axios';
+import createHttpError from 'http-errors';
 import qs from 'qs';
 
 import EuropeanaApiContextConfig from './config/context.js';
@@ -52,7 +53,7 @@ export default class EuropeanaApi {
       }
     }
 
-    return error;
+    return createHttpError(error.statusCode, error.message, { ...error });
   }
 
   createAxios() {
