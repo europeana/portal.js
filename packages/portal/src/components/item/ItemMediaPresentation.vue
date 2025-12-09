@@ -266,6 +266,7 @@
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
 
+      // TODO: should we always be selecting the resource, even if there is an error?
       this.selectResource();
 
       this.showSidebar = (
