@@ -7,17 +7,6 @@ import {
 } from './constants.js';
 
 export default class EuropeanaMediaPresentation extends Base {
-  static async fetch(options = {}) {
-    try {
-      const response = await super.fetch(options);
-      return response;
-    } catch (e) {
-      const error = new IIIFManifestError(e.message);
-      error.url = e.config?.url;
-      throw error;
-    }
-  }
-
   static iiifPresentationApiVersion(context) {
     if (context.includes(IIIF_PRESENTATION_V3_CONTEXT)) {
       return 3;

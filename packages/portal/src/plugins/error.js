@@ -31,6 +31,17 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 
   if (typeof errorOrStatusCode === 'object') {
     error = errorOrStatusCode;
+
+    if (error.isAxiosError) {
+      if (error.response?.status) {
+        error = createHttpError(error.response.status, {
+          cause: error
+        });
+      } else if ((error.message === 'Network Error')) {
+        error.name = 'NetworkError';
+      }
+    }
+
     if (!error.code && HTTP_CODES[error.statusCode]) {
       const httpCode = HTTP_CODES[error.statusCode];
       error.code = `${scope}${httpCode}`;
