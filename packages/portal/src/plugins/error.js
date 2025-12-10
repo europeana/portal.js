@@ -30,16 +30,17 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
   }
 
   if (typeof errorOrStatusCode === 'object') {
-    error = errorOrStatusCode;
-
-    if (error.isAxiosError) {
-      if (error.response?.status) {
-        error = createHttpError(error.response.status, {
-          cause: error
+    if (errorOrStatusCode.isAxiosError) {
+      if (errorOrStatusCode.response?.status) {
+        error = createHttpError(errorOrStatusCode.response.status, {
+          cause: errorOrStatusCode
         });
-      } else if ((error.message === 'Network Error')) {
+      } else if (errorOrStatusCode.message === 'Network Error') {
+        error = errorOrStatusCode;
         error.name = 'NetworkError';
       }
+    } else {
+      error = errorOrStatusCode;
     }
 
     if (!error.code && HTTP_CODES[error.statusCode]) {
