@@ -30,17 +30,25 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
   }
 
   if (typeof errorOrStatusCode === 'object') {
-    if (errorOrStatusCode.isAxiosError) {
-      if (errorOrStatusCode.response?.status) {
-        error = createHttpError(errorOrStatusCode.response.status, {
-          cause: errorOrStatusCode
+    error = errorOrStatusCode;
+
+    if (error.isAxiosError) {
+      const errorResponseStatus = error.response?.status;
+
+      // Too much information re HTTP requests/responses to pass around to components:
+      // dispose of it
+      delete error.config;
+      delete error.request;
+      delete error.response;
+      delete error.toJSON;
+
+      if (errorResponseStatus) {
+        error = createHttpError(errorResponseStatus, {
+          cause: error
         });
-      } else if (errorOrStatusCode.message === 'Network Error') {
-        error = errorOrStatusCode;
+      } else if (error.message === 'Network Error') {
         error.name = 'NetworkError';
       }
-    } else {
-      error = errorOrStatusCode;
     }
 
     if (!error.code && HTTP_CODES[error.statusCode]) {
@@ -48,13 +56,6 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
       error.code = `${scope}${httpCode}`;
     }
   }
-
-  // Too much information re HTTP requests/responses to pass around to components:
-  // dispose of it
-  delete error.config;
-  delete error.request;
-  delete error.response;
-  delete error.toJSON;
 
   return error;
 }
