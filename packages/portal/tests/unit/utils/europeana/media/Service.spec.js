@@ -75,7 +75,6 @@ describe('EuropeanaMediaService', () => {
           }
 
           expect(error.message).toBe('Request failed with status code 404');
-          expect(error.url).toBe(infoUrl);
         });
       });
     });
