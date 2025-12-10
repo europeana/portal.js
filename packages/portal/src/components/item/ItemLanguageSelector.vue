@@ -13,14 +13,14 @@
           v-if="translationLanguage"
           path="multilingual.viewingThisItemIn"
           tag="span"
-          class="d-none d-sm-inline align-middle"
+          class="toggle-text align-middle"
           data-qa="item language selector toggle text translated"
         >
           <strong>{{ translationLanguageLabel }}</strong>
         </i18n>
         <span
           v-else
-          class="d-none d-sm-inline align-middle"
+          class="toggle-text align-middle"
           data-qa="item language selector toggle text suggestion"
         >
           {{ $t('multilingual.viewItemInAnotherLanguage') }}
@@ -163,6 +163,19 @@
 
     strong {
       font-weight: 700;
+    }
+
+    .toggle-text {
+      // apply visually hidden styles for small bp only - keep text accessible
+      @media (max-width: ($bp-small - 1px)) {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
     }
   }
 
