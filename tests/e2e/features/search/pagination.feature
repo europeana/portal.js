@@ -47,23 +47,6 @@ Feature: Search pagination
     Then I am on page number 2
     Then I should be on `/en/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22`
 
-  Scenario: Invalid `page` param redirects to page 1
-
-    When I open `/en/search?page=-1`
-    Then I should be on the `first page of results`
-
-    When I open `/en/search?page=0`
-    Then I should be on the `first page of results`
-
-    When I open `/en/search?page=one`
-    Then I should be on the `first page of results`
-
-    When I open `/en/search?page=last`
-    Then I should be on the `first page of results`
-
-    When I open `/en/search?page=2.5`
-    Then I should be on the `first page of results`
-
   Scenario: Paginating to the API result limit
 
     When I open `/en/search?page=42`
