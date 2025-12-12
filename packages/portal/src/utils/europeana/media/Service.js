@@ -1,5 +1,4 @@
 import Base from './Base.js';
-import { IIIFInfoJsonError } from './errors.js';
 import EDMService from '@/plugins/europeana/edm/Service.js';
 
 export default class EuropeanaMediaService extends Base {
@@ -31,16 +30,10 @@ export default class EuropeanaMediaService extends Base {
   }
 
   async fetchInfo() {
-    try {
-      const response = await this.constructor.fetch({
-        url: this.infoUrl
-      });
-      return response;
-    } catch (e) {
-      const error = new IIIFInfoJsonError(e.message);
-      error.url = e.config?.url;
-      throw error;
-    }
+    const response = await this.constructor.fetch({
+      url: this.infoUrl
+    });
+    return response;
   }
 
   get edm() {

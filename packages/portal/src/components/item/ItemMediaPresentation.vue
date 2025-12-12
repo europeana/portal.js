@@ -275,8 +275,7 @@
       ) || ['#annotations', '#search', '#links'].includes(this.$route.hash);
 
       if (error) {
-        this.handleError(error, 'IIIFManifestError');
-        throw error;
+        this.$error(error);
       }
     },
 
@@ -339,21 +338,7 @@
     methods: {
       handleImageError(error) {
         this.mediaError = error;
-        this.handleError(error);
-      },
-
-      handleError(error) {
-        const message = error.message || error.name;
-        const url = error.url || this.uri;
-
-        const errorData = {
-          item: this.itemId,
-          message,
-          name: error.name,
-          url
-        };
-
-        this.$apm?.captureError(errorData);
+        this.$error(error);
       },
 
       selectResource() {

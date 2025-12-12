@@ -38,7 +38,6 @@ describe('EuropeanaMediaService', () => {
       const path = '/image.jpeg';
       const id = `${origin}${path}`;
       const infoPath = `${path}/info.json`;
-      const infoUrl = `${origin}${infoPath}`;
       const responseData = {
         '@context': 'http://iiif.io/api/image/2/context.json',
         '@id': id,
@@ -75,7 +74,6 @@ describe('EuropeanaMediaService', () => {
           }
 
           expect(error.message).toBe('Request failed with status code 404');
-          expect(error.url).toBe(infoUrl);
         });
       });
     });
