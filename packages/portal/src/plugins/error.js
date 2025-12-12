@@ -61,14 +61,15 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 }
 
 function translateErrorWithCode(error, { tValues = {} }) {
-  if (this.$i18n.te(`errorMessage.${error.code}`)) {
-    const translations = this.$i18n.t(`errorMessage.${error.code}`);
+  const codeToUse = error.cause?.code ? error.cause.code : error.code;
+  if (this.$i18n.te(`errorMessage.${codeToUse}`)) {
+    const translations = this.$i18n.t(`errorMessage.${codeToUse}`);
     if (typeof translations === 'object') {
       error.i18n = {};
       for (const tKey in translations) {
         const tValuesForKey = tValues[tKey] || {};
         tValuesForKey.newline = '<br />';
-        error.i18n[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+        error.i18n[tKey] = this.$i18n.t(`errorMessage.${codeToUse}.${tKey}`, tValuesForKey);
       }
     }
   }
