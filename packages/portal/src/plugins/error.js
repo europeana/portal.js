@@ -77,6 +77,7 @@ function translateErrorWithCode(error, { tValues = {} }) {
   return error;
 }
 
+// TODO: make this into a vue error handler, like w/ @elastic/apm-rum-vue
 export function handleError(errorOrStatusCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrStatusCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
@@ -87,6 +88,7 @@ export function handleError(errorOrStatusCode, options = {}) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
+  // TODO: refactor to not rely on the store
   this.$store.commit('error/set', error);
 
   this.$nuxt?.context?.$apm?.captureError(error);

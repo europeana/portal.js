@@ -331,17 +331,30 @@
       }
     },
 
+    created() {
+      this.setCustomContext();
+    },
+
     destroyed() {
       this.clearMediaPresentationState();
     },
 
     methods: {
+      setCustomContext() {
+        this.$apm?.setCustomContext({
+          'item_id': this.itemId,
+          'manifest_id': this.uri,
+          'resource_id': this.resource?.id
+        });
+      },
+
       handleImageError(error) {
         this.mediaError = error;
         this.$error(error);
       },
 
       selectResource() {
+        this.setCustomContext();
         this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource?.edm);
       },

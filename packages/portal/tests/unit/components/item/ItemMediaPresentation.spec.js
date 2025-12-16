@@ -17,7 +17,10 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   },
   mocks: {
     $apm: {
-      captureError: sinon.spy()
+      setCustomContext: sinon.spy()
+    },
+    $error(error) {
+      throw error;
     },
     $route: { query: {} },
     $t: (key) => key,
