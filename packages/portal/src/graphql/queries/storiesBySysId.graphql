@@ -7,13 +7,13 @@ query StoriesBySysId(
 ) {
 	exhibitionPageCollection(
     preview: $preview, locale: $locale, limit: $limit,
-    where: { AND: [ { sys: { id_in: $ids } }, { name_contains: $query } ] }
+    where: { AND: [ { sys: { id_in: $ids } }, { name_exists: true, name_contains: $query } ] }
   ) {
     ...exhibitionPageCollectionFields
   }
   storyCollection(
     preview: $preview, locale: $locale, limit: $limit,
-    where: { AND: [ { sys: { id_in: $ids } }, { name_contains: $query } ] }
+    where: { AND: [ { sys: { id_in: $ids } }, { name_exists: true, name_contains: $query } ] }
   ) {
     ...storyCollectionFields
   }

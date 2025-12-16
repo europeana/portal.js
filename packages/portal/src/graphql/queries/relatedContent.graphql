@@ -5,7 +5,7 @@ query RelatedContent(
   $query: String = ""
 ) {
   exhibitionPageCollection(
-    where: { name_contains: $query },
+    where: { name_exists: true, name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
@@ -23,7 +23,7 @@ query RelatedContent(
     }
   }
   storyCollection(
-    where: { name_contains: $query },
+    where: { name_exists: true, name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {

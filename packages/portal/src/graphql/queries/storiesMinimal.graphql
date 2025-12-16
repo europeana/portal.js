@@ -9,7 +9,7 @@ query StoriesMinimal(
     locale: $locale
     order: datePublished_DESC
     limit: 150
-    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
+    where: { name_exists: true, name_contains: $query, sys: { id_not: $excludeSysId } }
   ) {
     items {
       __typename
@@ -29,7 +29,7 @@ query StoriesMinimal(
     locale: $locale
     order: datePublished_DESC
     limit: 1500
-    where: { name_contains: $query, sys: { id_not: $excludeSysId } }
+    where: { name_exists: true, name_contains: $query, sys: { id_not: $excludeSysId } }
   ) {
     items {
       __typename
