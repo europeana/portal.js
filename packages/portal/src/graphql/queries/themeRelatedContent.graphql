@@ -9,7 +9,7 @@ query ThemeRelatedContent(
   $query: String = ""
 ) {
   exhibitionPageCollection(
-    where: { genre_contains_some: [$theme], name_contains: $query },
+    where: { genre_contains_some: [$theme], name_exists: true, name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
@@ -17,7 +17,7 @@ query ThemeRelatedContent(
     }
   }
   storyCollection(
-    where: { genre_contains_some: [$theme], name_contains: $query },
+    where: { genre_contains_some: [$theme], name_exists: true, name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
