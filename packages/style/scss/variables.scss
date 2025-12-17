@@ -86,7 +86,7 @@ $media-viewer-height: 80vh;
 $media-viewer-height-max: 41.25rem;
 $media-viewer-height-medium: 30.75rem;
 $jumbotron-height-min: 275px;
-$min-card-width: pxToRem(210);
+$min-card-width: min(100%, pxToRem(210));
 $min-card-width-xxxl: pxToRem(250);
 $max-card-width: pxToRem(480);
 $max-card-width-px: 480px;
