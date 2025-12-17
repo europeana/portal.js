@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
-import page from '@/pages/stories/_';
+import StoryPage from '@/pages/stories/_';
 
 const localVue = createLocalVue();
 
@@ -21,10 +21,16 @@ const post = {
   }
 };
 
-const contentfulQuery = sinon.stub();
+const contentfulQueryStub = sinon.stub().resolves({
+  data: {
+    storyCollection: {
+      items: [post]
+    }
+  }
+});
 const errorPluginSpy = sinon.spy();
 
-const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
+const factory = ({ data = {} } = {}) => shallowMountNuxt(StoryPage, {
   localVue,
   data() {
     return {
@@ -33,7 +39,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   },
   mocks: {
     $contentful: {
-      query: contentfulQuery
+      query: contentfulQueryStub
     },
     $error: errorPluginSpy,
     $fetchState: {
@@ -62,19 +68,9 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   ]
 });
 
-describe('Story page', () => {
-  beforeEach(() => {
-    contentfulQuery.resolves({
-      data: {
-        data: {
-          storyCollection: {
-            items: [post]
-          }
-        }
-      }
-    });
-  });
-  afterEach(sinon.reset);
+describe('StoryPage', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('queries contentful for the story', async() => {
@@ -82,7 +78,8 @@ describe('Story page', () => {
 
       await wrapper.vm.fetch();
 
-      expect(contentfulQuery.calledWith('storyPage',
+      expect(contentfulQueryStub.calledWith(
+        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoryPage'),
         { identifier: 'once-upon-a-time', locale: 'en-GB', preview: false }
       )).toBe(true);
     });
@@ -97,12 +94,10 @@ describe('Story page', () => {
 
     describe('when no story is returned from contentful', () => {
       beforeEach(() => {
-        contentfulQuery.resolves({
+        contentfulQueryStub.resolves({
           data: {
-            data: {
-              storyCollection: {
-                items: []
-              }
+            storyCollection: {
+              items: []
             }
           }
         });

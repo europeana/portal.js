@@ -80,6 +80,11 @@ Example:
           <td><span class="icon icon-back" /></td>
         </tr>
         <tr>
+          <td>Bluesky</td>
+          <td><code>icon-bsky</code></td>
+          <td><span class="icon icon-bsky" /></td>
+        </tr>
+        <tr>
           <td>Cancel circle</td>
           <td><code>icon-cancel-circle</code></td>
           <td><span class="icon icon-cancel-circle" /></td>
@@ -315,6 +320,11 @@ Example:
           <td><span class="icon icon-pin-outlined" /></td>
         </tr>
         <tr>
+          <td>Quote</td>
+          <td><code>icon-quote</code></td>
+          <td><span class="icon icon-quote" /></td>
+        </tr>
+        <tr>
           <td>Reject</td>
           <td><code>icon-reject</code></td>
           <td><span class="icon icon-reject" /></td>
@@ -478,11 +488,6 @@ Example:
           <td>View mosaic</td>
           <td><code>icon-view-mosaic</code></td>
           <td><span class="icon icon-view-mosaic" /></td>
-        </tr>
-        <tr>
-          <td>X</td>
-          <td><code>icon-x</code></td>
-          <td><span class="icon icon-x" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>

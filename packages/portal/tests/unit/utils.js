@@ -45,12 +45,13 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
 const fakeContentfulExtensionField = (returnVal) => ({
   getValue: sinon.stub().returns(returnVal),
   removeValue: sinon.stub(),
+  setInvalid: sinon.stub(),
   setValue: sinon.stub(),
   onValueChanged: sinon.stub()
 });
 
 // Stubs the Contentful app extension
-export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = undefined, location = 'sidebar' } = {}) => {
+export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = undefined, location = 'sidebar', contentType, parameters } = {}) => {
   const fakeInit = callback => {
     const fakeSdk = {
       location: {
@@ -63,7 +64,8 @@ export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = u
         fields: entryFields.reduce((memo, field) => {
           memo[field] = fakeContentfulExtensionField();
           return memo;
-        }, {})
+        }, {}),
+        getSys: () => ({ id: 'entry001' })
       },
       field: fakeContentfulExtensionField(fieldReturnValue),
       dialogs: {
@@ -75,8 +77,11 @@ export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = u
         processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
-        getEntries: sinon.stub().resolves({ items: [] })
-      }
+        getEntries: sinon.stub().resolves({ items: [] }),
+        getContentTypes: sinon.stub().resolves({ items: [{ fields: entryFields.map((field) => ({ id: field.id })), sys: { id: contentType?.sys?.id } }] })
+      },
+      contentType,
+      parameters
     };
     callback(fakeSdk);
   };

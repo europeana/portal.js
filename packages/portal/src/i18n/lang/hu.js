@@ -71,7 +71,7 @@ export default {
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentés",
     "share": "Megosztás",
-    "shareOn": "Megosztás itt: {social}",
+    "shareOn": "Megosztás a {social}",
     "show": "megjelenítése",
     "showLess": "Kevesebb megjelenítése",
     "showMore": "Továbbiak megjelenítése",
@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Személyes API-kulcs igénylése",
-          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}.",
-          "termsOfUseLinkText": "felhasználási feltételek"
+          "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}."
         },
-        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg. {howToLink}.",
+        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg{howToLink}.",
         "heading": "Személyes API-kulcs",
         "howToLinkText": "Hogyan használja a kulcsát"
-      }
+      },
+      "projectKeys": {
+        "description": "Minden projekthez, amelyet létre szeretne hozni, biztosítunk egy dedikált kulcsot. A projektkulcsok magasabb limitekkel és egyéb speciális funkciókkal rendelkeznek – további információkat az API-kulcs {termsOfUseLink} oldalán talál. Ha szeretné módosítani a projektjével kapcsolatos információkat, kérjük, küldjön e-mailt az api@europeana.eu címre, és mi elvégezzük Ön helyett a változtatásokat.",
+        "heading": "Projekt API-kulcsok"
+      },
+      "termsOfUseLinkText": "felhasználási feltételek"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Létrehozás dátuma"
+        },
+        "name": {
+          "label": "Projekt neve"
         }
       }
     },
@@ -132,7 +139,7 @@ export default {
     "creator": "Alkotó:",
     "date": "Dátum:",
     "institution": "Intézmény:",
-    "show": "Elemmel kapcsolatos információk megjelenítése",
+    "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
   "authored": {
@@ -186,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "anyagok",
-          "name": "Anyag | Anyagok",
+          "name": "Anyag",
           "select": "Anyagok kiválasztása"
         }
       }
@@ -207,10 +214,29 @@ export default {
     "startDate": "Kezdő dátum",
     "to": "erre"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Ezt az információt a {link} (2023/2024) hozta létre, hogy segítsen kontextusba helyezni az elavult és káros kifejezéseket a gyűjteményleírásokban."
+    },
+    "headings": {
+      "alternatives": "Javasolt alternatívák",
+      "recommendations": "Használati ajánlások",
+      "source": "Forrás"
+    },
+    "termNotFound": "Ez az oldal csak az elfogult kifejezés nyelvén érhető el.",
+    "tooltip": {
+      "linkToPage": "Olvassa el a {projectName} által nyújtott teljes magyarázatot"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
+          "descriptionLine2": "Szüksége van API kulcsra? Regisztráljon egyért {link}.",
+          "here": "itt",
+          "label": "API-kulcs",
           "usePersonal": {
             "linkText": "Adja meg a személyes API-kulcsát",
             "prompt": "{link} és használatba kerül."
@@ -224,9 +250,6 @@ export default {
   "directions": {
     "left": "Bal",
     "right": "Jobb"
-  },
-  "ds4ch": {
-    "broughtBy": "Készítő:"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató weboldalán",
   "embedNotification": {
@@ -689,6 +712,10 @@ export default {
       },
       "select": "Felhasználási feltételek kiválasztása"
     },
+    "RIGHTS": {
+      "name": "Szerzői jogok",
+      "select": "Szerzői jogok kiválasztása"
+    },
     "TYPE": {
       "name": "Adathordozó típusa",
       "options": {
@@ -774,8 +801,6 @@ export default {
   "filterResults": "Találatok szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
-    "disclaimerLine1": "A Europeana az Európai Unió kezdeményezése, amelyet az Unió Európai Hálózatfinanszírozási Eszköze és az uniós tagállamok finanszíroznak. A Europeana szolgáltatásait, beleértve ezt a weboldalt is, a Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
-    "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és nem vállal semmilyen felelősséget vagy kötelezettséget a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró bármely személy nem felelős az ezen a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Megtalálsz minket itt is:",
     "footer": "Lábléc",
     "imageDescription": "Az Európai Unió támogatásával",
@@ -787,6 +812,7 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi nyilatkozat",
+      "registerApiKey": "Regisztráljon egy API-kulcsért",
       "seeApiRequests": "Europeana API-kérések",
       "subscribe": "Iratkozz fel hírlevelünkre!",
       "supportingTechnicalPartners": "Technikai támogató partnereink",
@@ -917,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Segít az API -kérelmek hibakeresésében",
         "title": "Hibakeresés váltás"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "description": "Használati adatokat gyűjt, hogy segítsen nekünk elemezni a felhasználói interakciókat. Aktivál egy felmérési widgetet, amely lehetőséget ad arra, hogy válaszoljon a látogatói elégedettségi felméréseinkre.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
         "title": "Nyelvi kód"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
         "title": "Jira szolgáltató pult"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
@@ -1035,98 +971,18 @@ export default {
         "description": "Megjegyzi, hogy többnyelvű keresési eredményeket szeretne-e kapni.",
         "title": "Többnyelvű keresés"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Értesítést jelenít meg, ha új funkciók válnak elérhetővé.",
         "title": "Új funkció értesítése"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Emlékszik, ha inkább lista-, rács- vagy mozaiknézetben szeretné látni a keresési eredményeket, galériákat és tetszéseit.",
         "title": "Keresési eredmények, galériák és kedvelések nézet (lista/rács/mozaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "ismeretlen szolgáltató",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "ismeretlen szolgáltató"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "GYIK",
-          "findInspiration": "Meríts ihletet"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Átlagos havi API-kérés",
       "dataProviders": "Adatszolgáltató",
@@ -1164,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Megjegyzések",
-      "annotationsCount": "1 Megjegyzés |{count} Megjegyzés",
+      "annotationsCount": "1 Megjegyzés | {count} Megjegyzés",
       "hide": "Oldalsáv elrejtése",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkek",
@@ -1180,8 +1036,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Kattints az információkra a másoláshoz",
-      "copyAttribution": "Elemmel kapcsolatos információk másolása",
+      "clickToCopy": "Kattintson az attribúció másolásához.",
+      "copyAttribution": "Elem attribúciójának másolása",
       "modalIntro": "Ha felhasználod ezt az elemet az interneten vagy máshol, ne felejtsd el megadni a következő információkat róla:",
       "modalTitle": "Mondj köszönetet"
     },
@@ -1217,9 +1073,6 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs több találat a keresésre.",
   "noResults": "Nincs találat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "A",
   "organisation": {
     "city": "Város",
@@ -1277,8 +1130,6 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "clickToCopyEmbedCode": "Kattints a beágyazási kódra a másoláshoz",
-    "debias": "De-bias",
-    "explanationby": "A magyarázatot biztosította: {0}",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",

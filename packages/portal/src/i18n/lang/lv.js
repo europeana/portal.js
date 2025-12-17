@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Publiskas galerijas",
     "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
-    "title": "Mans konts",
+    "title": "Mans profils",
     "tooltip": {
       "EntityBestItemsSet": "Kuratoru galerijā tiek rādīti piespraustie digitālie objekti noteiktā kolekcijā",
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
@@ -70,7 +70,7 @@ export default {
     "remove": "Noņemt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
-    "share": "Dalies",
+    "share": "Dalīties",
     "shareOn": "Dalīties {social}",
     "show": "Rādīt",
     "showLess": "Rādīt mazāk",
@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Pieprasīt personīgo API atslēgu",
-          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}.",
-          "termsOfUseLinkText": "lietošanas noteikumi"
+          "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}."
         },
         "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
         "heading": "Personīgā API atslēga",
         "howToLinkText": "Kā lietot savu atslēgu"
-      }
+      },
+      "projectKeys": {
+        "description": "Katram projektam, kas jums jāveido, mēs nodrošināsim īpašu atslēgu. Projekta atslēgām ir augstāki ierobežojumi un citas īpašas funkcijas — vairāk lasiet API atslēgā {termsOfUseLink}. Ja vēlaties rediģēt informāciju par savu projektu, lūdzu, nosūtiet e-pastu uz api@europeana.eu, un mēs veiksim izmaiņas jūsu vietā.",
+        "heading": "Projekta API atslēgas"
+      },
+      "termsOfUseLinkText": "lietošanas noteikumi"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Izveidošanas datums"
+        },
+        "name": {
+          "label": "Projekta nosaukums"
         }
       }
     },
@@ -186,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materiāli",
-          "name": "Materiāls | Materiāli",
+          "name": "Materiāls",
           "select": "Atlasīt materiālus"
         }
       }
@@ -207,10 +214,29 @@ export default {
     "startDate": "Sākuma datums",
     "to": "uz"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekts",
+      "text": "Šo informāciju izveidoja {link} (2023./2024. g.), lai palīdzētu kontekstualizēt novecojušus un kaitīgus terminus kolekciju aprakstos."
+    },
+    "headings": {
+      "alternatives": "Ieteiktās alternatīvas",
+      "recommendations": "Lietošanas ieteikumi",
+      "source": "Avots"
+    },
+    "termNotFound": "Šī lapa ir pieejama tikai neobjektīvā termina valodā.",
+    "tooltip": {
+      "linkToPage": "Izlasiet pilno skaidrojumu, ko sniedz {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Ievadiet savu Europeana API atslēgu, un tā tiks izmantota saitēs uz API pieprasījumiem.",
+          "descriptionLine2": "Nepieciešama API atslēga? Reģistrējieties, lai to iegūtu {link}.",
+          "here": "šeit",
+          "label": "API atslēga",
           "usePersonal": {
             "linkText": "Ievadiet savu personīgo API atslēgu",
             "prompt": "{link} un tas tiks izmantots."
@@ -224,9 +250,6 @@ export default {
   "directions": {
     "left": "Kreisais",
     "right": "Labais"
-  },
-  "ds4ch": {
-    "broughtBy": "Jums atnesa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "embedNotification": {
@@ -689,6 +712,10 @@ export default {
       },
       "select": "Atlasit , vai varat izmantot šo"
     },
+    "RIGHTS": {
+      "name": "Tiesību statuss",
+      "select": "Atlasit tiesību paziņojumus"
+    },
     "TYPE": {
       "name": "Līdzekļu veids",
       "options": {
@@ -774,8 +801,6 @@ export default {
   "filterResults": "Filtrēt rezultātus",
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
-    "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
-    "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
     "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
@@ -787,6 +812,7 @@ export default {
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Konfidencialitātes paziņojums",
+      "registerApiKey": "Reģistrējieties API atslēgas saņemšanai",
       "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "supportingTechnicalPartners": "Atbalsta tehniskie partneri",
@@ -917,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",
         "title": "Atkļūdošanas pārslēgšana"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivizē aptaujas logrīku, dodot jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
+        "description": "Apkopo lietošanas datus, lai palīdzētu mums analizēt lietotāju mijiedarbību. Aktivizē aptaujas logrīku, kas sniedz jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Atceras jūsu vēlamo saskarnes valodu, lai nodrošinātu piekļuvi nākotnē.",
         "title": "Valodas kods"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivizē atsauksmju logrīku, sniedzot iespēju sazināties ar mums.",
         "title": "Jira servisa dienests"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
@@ -1035,97 +971,18 @@ export default {
         "description": "Atcerieties, ja vēlaties iegūt daudzvalodu meklēšanas rezultātus.",
         "title": "Daudzvalodu meklēšana"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Rāda paziņojumu, kad kļūst pieejamas jaunas funkcijas.",
         "title": "Jaunas funkcijas paziņojums"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties apskatīt meklēšanas rezultātus, galerijas un atzīmes Patīk saraksta, režģa vai mozaīkas skatā.",
         "title": "Meklēšanas rezultātu, galeriju un atzīmju Patīk skats (saraksts/režģis/mozaīka)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nezināms pakalpojumu sniedzējs",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nezināms pakalpojumu sniedzējs"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Vidēji ikmēneša API pieprasījumi",
       "dataProviders": "Datu sniedzēji",
@@ -1216,9 +1073,6 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
-  "notificationBanner": {
-    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
@@ -1276,8 +1130,6 @@ export default {
     },
     "allMetaData": "Visi metadati",
     "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
-    "debias": "De-bias",
-    "explanationby": "Skaidrojumu sniedz {0}.",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
@@ -1465,7 +1317,7 @@ export default {
       },
       "itemsRemoved": {
         "1": "Digitālais objekts ir noņemts no galerijas {gallery}.",
-        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". | {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
+        "many": "{count} digitālais objekts ir noņemts no galerijas \"{gallery}\". |  {count} digitālie objekti ir noņemti no galerijas \"{gallery}\"."
       },
       "itemsUnliked": {
         "1": "Digitālais objekts ir noņemts no jūsu patīk saraksta.",

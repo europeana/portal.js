@@ -32,7 +32,6 @@ describe('@/utils/europeana/media/Presentation', () => {
             }
 
             expect(error.message).toBe('Request failed with status code 404');
-            expect(error.url).toBe(url);
           });
         });
       });

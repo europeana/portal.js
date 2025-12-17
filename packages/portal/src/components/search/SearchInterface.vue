@@ -306,8 +306,9 @@
         return this.totalResults === 0 || !this.totalResults;
       },
       showErrorMessage() {
-        return !this.$fetchState.error?.code ||
-          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
+        return !(this.$fetchState.error?.code || this.$fetchState.error?.cause?.code) ||
+          !('searchResultsNotFound' === this.$fetchState.error?.code ||
+            'searchPaginationLimitExceeded' === this.$fetchState.error?.cause?.code);
       },
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];

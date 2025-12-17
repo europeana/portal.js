@@ -10,31 +10,32 @@ localVue.use(BootstrapVue);
 
 const contentfulQueryResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          { identifier: 'story-1', datePublished: '2022-09-26T08:00:00.000+02:00' },
-          { identifier: 'story-2', datePublished: '2022-11-26T08:00:00.000+02:00' },
-          { identifier: 'story-3', datePublished: '2022-10-26T08:00:00.000+02:00' }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { identifier: 'exhibition-1', datePublished: '2022-10-26T08:00:00.000+02:00' },
-          { identifier: 'exhibition-2', datePublished: '2022-12-26T08:00:00.000+02:00' },
-          { identifier: 'exhibition-3', datePublished: '2022-08-26T08:00:00.000+02:00' }
-        ]
-      }
+    storyCollection: {
+      items: [
+        { identifier: 'story-1', datePublished: '2022-09-26T08:00:00.000+02:00' },
+        { identifier: 'story-2', datePublished: '2022-11-26T08:00:00.000+02:00' },
+        { identifier: 'story-3', datePublished: '2022-10-26T08:00:00.000+02:00' }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        { identifier: 'exhibition-1', datePublished: '2022-10-26T08:00:00.000+02:00' },
+        { identifier: 'exhibition-2', datePublished: '2022-12-26T08:00:00.000+02:00' },
+        { identifier: 'exhibition-3', datePublished: '2022-08-26T08:00:00.000+02:00' }
+      ]
     }
   }
 };
+
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
 
 const factory = () => shallowMountNuxt(HomeLatestStories, {
   localVue,
   stubs: ['b-card-group'],
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
+      query: contentfulQueryStub
     },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
@@ -47,6 +48,9 @@ const factory = () => shallowMountNuxt(HomeLatestStories, {
 });
 
 describe('components/home/HomeLatestStories', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('template', () => {
     it('shows a section with editorial content', async() => {
       const wrapper = factory();
@@ -71,7 +75,7 @@ describe('components/home/HomeLatestStories', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('latestEditorialContent', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         limit: 3

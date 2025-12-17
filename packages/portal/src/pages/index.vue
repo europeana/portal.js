@@ -46,11 +46,11 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
-  const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
+  const landingLayout = (ctx) => ['apis', 'black-history-month'].includes(landingPageMixin.methods.landingPageIdForRoute(ctx));
 
   export default {
     name: 'IndexPage',
@@ -139,9 +139,11 @@
 
     methods: {
       async fetchContentfulEntry() {
-        let ctfQuery = 'browseStaticPage';
+        let graphql;
         if (this.landingPage) {
-          ctfQuery = 'landingPage';
+          graphql = await import('@/graphql/queries/landingPage.graphql');
+        } else {
+          graphql = await import('@/graphql/queries/browseStaticPage.graphql');
         }
 
         const variables = {
@@ -150,8 +152,8 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query(ctfQuery, variables);
-        const data = response.data.data;
+        const response = await this.$contentful.query(graphql, variables);
+        const data = response.data;
 
         const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
         if (entryCollection) {

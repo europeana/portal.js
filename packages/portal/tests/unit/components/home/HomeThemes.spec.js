@@ -8,23 +8,21 @@ const localVue = createLocalVue();
 
 const contentfulQueryResponse = {
   data: {
-    data: {
-      themePageCollection: {
-        items: [
-          {
-            identifier: 'art',
-            name: 'Art',
-            description: 'The Art theme',
-            primaryImageOfPage: { image: { url: 'https://example.org/art.jpeg' } }
-          },
-          {
-            identifier: 'archaeology',
-            name: 'Archaeology',
-            description: 'The Archaeology theme',
-            primaryImageOfPage: { image: { url: 'https://example.org/archaeology.jpeg' } }
-          }
-        ]
-      }
+    themePageCollection: {
+      items: [
+        {
+          identifier: 'art',
+          name: 'Art',
+          description: 'The Art theme',
+          primaryImageOfPage: { image: { url: 'https://example.org/art.jpeg' } }
+        },
+        {
+          identifier: 'archaeology',
+          name: 'Archaeology',
+          description: 'The Archaeology theme',
+          primaryImageOfPage: { image: { url: 'https://example.org/archaeology.jpeg' } }
+        }
+      ]
     }
   }
 };
@@ -43,11 +41,14 @@ const themes = [
   }
 ];
 
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
+
 const factory = () => shallowMountNuxt(HomeThemes, {
   localVue,
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
+      query: contentfulQueryStub
     },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
@@ -62,6 +63,7 @@ const factory = () => shallowMountNuxt(HomeThemes, {
 
 describe('components/home/HomeThemes', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('template', () => {
     describe('when there are themes', () => {
@@ -92,7 +94,7 @@ describe('components/home/HomeThemes', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('themes', {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Themes'), {
         locale: 'en-GB',
         preview: false
       })).toBe(true);

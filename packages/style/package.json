@@ -1,12 +1,12 @@
 {
   "name": "@europeana/style",
-  "version": "2.8.0",
+  "version": "2.17.1",
   "description": "Europeana website style assets",
   "license": "EUPL-1.2",
   "main": "scss/style.scss",
   "files": [
     "fonts/**/*.{woff,woff2}",
-    "img/**/*.{ico,svg}",
+    "img/**/*.{ico,svg,webp}",
     "scss/**/*.scss"
   ]
 }

@@ -1,0 +1,57 @@
+query StoriesBySysId(
+  $locale: String!,
+  $preview: Boolean = false,
+  $ids: [String]!,
+  $limit: Int!,
+  $query: String = ""
+) {
+	exhibitionPageCollection(
+    preview: $preview, locale: $locale, limit: $limit,
+    where: { AND: [ { sys: { id_in: $ids } }, { name_exists: true, name_contains: $query } ] }
+  ) {
+    ...exhibitionPageCollectionFields
+  }
+  storyCollection(
+    preview: $preview, locale: $locale, limit: $limit,
+    where: { AND: [ { sys: { id_in: $ids } }, { name_exists: true, name_contains: $query } ] }
+  ) {
+    ...storyCollectionFields
+  }
+}
+
+fragment exhibitionPageCollectionFields on ExhibitionPageCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    identifier
+    name
+    primaryImageOfPage {
+      ...storiesBySysIdImageWithAttributionFields
+    }
+  }
+}
+
+fragment storyCollectionFields on StoryCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    identifier
+    name
+    primaryImageOfPage {
+      ...storiesBySysIdImageWithAttributionFields
+    }
+  }
+}
+
+fragment storiesBySysIdImageWithAttributionFields on ImageWithAttribution {
+  image {
+    url
+    contentType
+    width
+    height
+  }
+}

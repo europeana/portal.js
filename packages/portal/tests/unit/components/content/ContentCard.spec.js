@@ -22,12 +22,6 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
   propsData,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        responsiveImageSrcset: (img) => `${img.url} srcset`
-      }
-    },
     $i18n: {
       locale: 'en'
     },

@@ -1,7 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import HomePage from '@/components/home/HomePage';
 import sinon from 'sinon';
+
+import HomePage from '@/components/home/HomePage';
 
 const localVue = createLocalVue();
 
@@ -12,35 +13,35 @@ const image = {
 
 const homePageContentfulResponse = {
   data: {
-    data: {
-      homePageCollection: {
-        items: [
-          {
-            sectionsCollection: {
-              items: [
-                { '__typename': 'SomethingElse' },
-                { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
-                { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
-              ]
-            },
-            image,
-            primaryImageSetOfPageCollection: {
-              items: [
-                {
-                  hasPartCollection: {
-                    items: [
-                      image
-                    ]
-                  }
+    homePageCollection: {
+      items: [
+        {
+          sectionsCollection: {
+            items: [
+              { '__typename': 'SomethingElse' },
+              { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
+              { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
+            ]
+          },
+          image,
+          primaryImageSetOfPageCollection: {
+            items: [
+              {
+                hasPartCollection: {
+                  items: [
+                    image
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   }
 };
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(homePageContentfulResponse);
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
   localVue,
@@ -49,10 +50,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
   },
   mocks: {
     $contentful: {
-      assets: {
-        optimisedSrc: sinon.spy((img) => `${img?.url}?optimised`)
-      },
-      query: sinon.stub().resolves(homePageContentfulResponse)
+      query: contentfulQueryStub
     },
     $i18n: {
       locale: 'en',
@@ -69,6 +67,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
 
 describe('components/home/HomePage', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('sets `backgroundImage` from the available options', async() => {

@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Verejné galérie",
     "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
-    "title": "Môj účet",
+    "title": "Môj profil",
     "tooltip": {
       "EntityBestItemsSet": "Spravovaná galéria zobrazuje pripnuté objekty v rámci konkrétnej zbierky",
       "private": "Súkromnú galériu si môžete prezerať iba vy.",
@@ -71,7 +71,7 @@ export default {
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
     "share": "Zdieľať",
-    "shareOn": "Zdieľať na sociálnej sieti {social}",
+    "shareOn": "Zdieľať na {social}",
     "show": "Zobraziť",
     "showLess": "Zobraziť menej",
     "showMore": "Zobraziť viac",
@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Požiadajte o osobný kľúč API",
-          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}.",
-          "termsOfUseLinkText": "podmienky používania"
+          "checkbox": "Potvrdzujem, že som si prečítal(a) a akceptujem kľúč API{termsOfUseLink}."
         },
         "description": "Naučte sa, ako používať API, a vyskúšajte si to pomocou svojho osobného kľúča API. Prosím, nezdieľajte ho. {howToLink}.",
         "heading": "Osobný kľúč API",
         "howToLinkText": "Ako používať svoj kľúč"
-      }
+      },
+      "projectKeys": {
+        "description": "Pre každý projekt, ktorý potrebujete vytvoriť, vám dodáme vyhradený kľúč. Projektové kľúče majú vyššie limity a ďalšie špeciálne funkcie – viac informácií nájdete v kľúči API {termsOfUseLink}. Ak chcete upraviť informácie o svojom projekte, pošlite e-mail na adresu api@europeana.eu a my vykonáme zmeny za vás.",
+        "heading": "Kľúče API projektu"
+      },
+      "termsOfUseLinkText": "podmienky používania"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Dátum vytvorenia"
+        },
+        "name": {
+          "label": "Názov projektu"
         }
       }
     },
@@ -207,10 +214,29 @@ export default {
     "startDate": "Dátum začiatku",
     "to": "do"
   },
+  "debias": {
+    "background": {
+      "link": "Projekt DE-BIAS",
+      "text": "Tieto informácie vytvoril {link} (2023/2024) s cieľom pomôcť uviesť do kontextu zastarané a škodlivé pojmy v popisoch zbierok."
+    },
+    "headings": {
+      "alternatives": "Navrhované alternatívy",
+      "recommendations": "Odporúčania na použitie",
+      "source": "Zdroj"
+    },
+    "termNotFound": "Táto stránka je dostupná iba v jazyku zaujatého termínu.",
+    "tooltip": {
+      "linkToPage": "Prečítajte si celé vysvetlenie, ktoré poskytol {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Zadajte svoj kľúč Europeana API a použije sa v odkazoch na požiadavky API.",
+          "descriptionLine2": "Potrebujete API kľúč? Zaregistrujte sa a získajte ho {link}.",
+          "here": "tu",
+          "label": "Kľúč API",
           "usePersonal": {
             "linkText": "Zadajte svoj osobný kľúč API",
             "prompt": "{link} a bude použitý."
@@ -224,9 +250,6 @@ export default {
   "directions": {
     "left": "Vľavo",
     "right": "Vpravo"
-  },
-  "ds4ch": {
-    "broughtBy": "Priniesol vám"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "embedNotification": {
@@ -256,7 +279,7 @@ export default {
         "body": "Zatiaľ môžete na prvú stránku pripnúť iba 24 objekty. Ak chcete túto objekt pripnúť, odpojte inú a potom sa pokúste znova pripnúť túto objekt.",
         "title": "Príliš veľa pripnutých objekty"
       },
-      "pinned": "Objekt bola pripnutá. Zobrazí sa ako prvá objekt v zbierke „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
+      "pinned": "Objekt bola pripnutá. Zobrazí sa ako prvá objekt v zbierke „{entity}“. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "select": "Vyberte súvisiacu entitu, na ktorú chcete objekt pripnúť/odopnúť.",
       "unpin": "Táto objekt sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Objekt bola zrušená pripnutie. Keď bude táto zmena viditeľná na stránke zbierky, budeme vás informovať."
@@ -689,6 +712,10 @@ export default {
       },
       "select": "Vyberte, či to môžete použiť"
     },
+    "RIGHTS": {
+      "name": "Právny stav",
+      "select": "Vyberte vyhlásenia o právach"
+    },
     "TYPE": {
       "name": "Typ média",
       "options": {
@@ -774,10 +801,8 @@ export default {
   "filterResults": "Filtrovať výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
-    "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
-    "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
-    "footer": "Pätička",
+    "footer": "Päta",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "about": "O nás",
@@ -787,6 +812,7 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Vyhlásenie o ochrane osobných údajov",
+      "registerApiKey": "Zaregistrujte sa pre API kľúč",
       "seeApiRequests": "Pozrite si požiadavky na rozhrania Europeana API",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "supportingTechnicalPartners": "Podpora technických partnerov",
@@ -917,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
         "title": "Autentická stratégia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomáha pri ladení požiadaviek API",
         "title": "Prepnúť ladenie"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
+        "description": "Zhromažďuje údaje o používaní, ktoré nám pomáhajú analyzovať interakcie používateľov. Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Zapamätá si preferovaný jazyk rozhrania pre budúci prístup.",
         "title": "Kód jazyka"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivuje widget spätnej väzby a dáva vám možnosť nás kontaktovať.",
         "title": "Service Desk Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
@@ -1035,99 +971,20 @@ export default {
         "description": "Pamätá si, či uprednostňujete získavanie viacjazyčných výsledkov vyhľadávania.",
         "title": "Viacjazyčné vyhľadávanie"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Zobrazí upozornenie, keď budú k dispozícii nové funkcie.",
         "title": "Oznámenie o novej funkcii"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete vidieť výsledky vyhľadávania, galérie a vaše hodnotenia, ktoré sa vám páčia, v zobrazení zoznamu, mriežky alebo mozaiky.",
         "title": "Zobrazenie výsledkov vyhľadávania, galérií a hodnotení Páči sa mi (zoznam/mriežka/mozaika)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "neznámy poskytovateľ",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "neznámy poskytovateľ"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
-      "apiRequests": "Mesačné API požiadavky, v priemere",
+      "apiRequests": "Priemerný počet mesačných API požiadaviek",
       "dataProviders": "Poskytovatelia údajov",
       "hqData": "Nárast kvalitných údajov za rok",
       "items": "Objekty",
@@ -1216,9 +1073,6 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Z",
   "organisation": {
     "city": "Mesto",
@@ -1276,8 +1130,6 @@ export default {
     },
     "allMetaData": "Všetky metadáta",
     "clickToCopyEmbedCode": "Kliknutím na vložený kód ho skopírujete",
-    "debias": "De-bias",
-    "explanationby": "Vysvetlenie poskytol {0}",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",

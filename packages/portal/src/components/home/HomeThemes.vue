@@ -8,6 +8,7 @@
 
 <script>
   import StackedCardsSwiper from '../generic/StackedCardsSwiper';
+  import themesGraphql from '@/graphql/queries/themes.graphql';
 
   export default {
     name: 'HomeThemes',
@@ -28,9 +29,9 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
+      const contentfulResponse = await this.$contentful.query(themesGraphql, contentfulVariables);
 
-      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+      this.themes = contentfulResponse.data.themePageCollection.items.map(theme => ({
         title: theme.name,
         description: theme.description,
         url: this.localePath({

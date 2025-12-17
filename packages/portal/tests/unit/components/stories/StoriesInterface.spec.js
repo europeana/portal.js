@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep.js';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -34,75 +34,71 @@ const fullPropsData = {
 
 const storiesMinimalContentfulResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { date: '2022-03-12T08:00:00.000+01:00', sys: { id: '1tuVL9nnfMJzptXshe3Qw8' }, cats: { items: [{ id: 'cooking' }] } },
-          { date: '2022-01-12T08:00:00.000+01:00', sys: { id: '3KgVELZ48RKM4kbxJ0bYKi' }, cats: { items: [{ id: 'cooking' }, { id: 'postcards' }] } }
-        ]
-      }
+    storyCollection: {
+      items: [
+        { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        { date: '2022-03-12T08:00:00.000+01:00', sys: { id: '1tuVL9nnfMJzptXshe3Qw8' }, cats: { items: [{ id: 'cooking' }] } },
+        { date: '2022-01-12T08:00:00.000+01:00', sys: { id: '3KgVELZ48RKM4kbxJ0bYKi' }, cats: { items: [{ id: 'cooking' }, { id: 'postcards' }] } }
+      ]
     }
   }
 };
 
 const storiesBySysIdContentfulResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          {
-            __typename: 'Story',
-            sys: {
-              id: '796f5YKe4b1u8uXtizSBu0'
-            },
-            identifier: 'the-1920-olympics-games-in-antwerp',
-            name: 'The 1920 Olympics Games in Antwerp',
-            primaryImageOfPage: {
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/7Jnq4yka0vfYdWKo7IV7Dc/5778788f0359b1a6a81ef1f57a260982/feature_1920Olympics.jpg',
-                contentType: 'image/jpeg'
-              }
-            }
-          }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          {
-            __typename: 'ExhibitionPage',
-            sys: {
-              id: '1tuVL9nnfMJzptXshe3Qw8'
-            },
-            identifier: 'the-images-that-shaped-europe',
-            name: 'The images that shaped Europe',
-            primaryImageOfPage: {
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
-                contentType: 'image/jpeg'
-              }
-            }
+    storyCollection: {
+      items: [
+        {
+          __typename: 'Story',
+          sys: {
+            id: '796f5YKe4b1u8uXtizSBu0'
           },
-          {
-            __typename: 'ExhibitionPage',
-            sys: {
-              id: '3KgVELZ48RKM4kbxJ0bYKi'
-            },
-            identifier: 'the-jean-monnet-house',
-            name: 'The Jean Monnet House',
-            primaryImageOfPage: {
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
-                contentType: 'image/jpeg'
-              }
+          identifier: 'the-1920-olympics-games-in-antwerp',
+          name: 'The 1920 Olympics Games in Antwerp',
+          primaryImageOfPage: {
+            image: {
+              url: 'https://images.ctfassets.net/i01duvb6kq77/7Jnq4yka0vfYdWKo7IV7Dc/5778788f0359b1a6a81ef1f57a260982/feature_1920Olympics.jpg',
+              contentType: 'image/jpeg'
             }
           }
-        ]
-      }
+        }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        {
+          __typename: 'ExhibitionPage',
+          sys: {
+            id: '1tuVL9nnfMJzptXshe3Qw8'
+          },
+          identifier: 'the-images-that-shaped-europe',
+          name: 'The images that shaped Europe',
+          primaryImageOfPage: {
+            image: {
+              url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
+              contentType: 'image/jpeg'
+            }
+          }
+        },
+        {
+          __typename: 'ExhibitionPage',
+          sys: {
+            id: '3KgVELZ48RKM4kbxJ0bYKi'
+          },
+          identifier: 'the-jean-monnet-house',
+          name: 'The Jean Monnet House',
+          primaryImageOfPage: {
+            image: {
+              url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
+              contentType: 'image/jpeg'
+            }
+          }
+        }
+      ]
     }
   }
 };
@@ -131,14 +127,7 @@ const allStoryMetadata = [
   }
 ];
 
-const contentfulQueryStub = () => {
-  const stub = sinon.stub();
-
-  stub.withArgs('storiesMinimal', sinon.match.object).resolves(cloneDeep(storiesMinimalContentfulResponse));
-  stub.withArgs('storiesBySysId', sinon.match.object).resolves(cloneDeep(storiesBySysIdContentfulResponse));
-
-  return stub;
-};
+const contentfulQueryStub = sinon.stub();
 
 const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesInterface, {
   localVue,
@@ -148,7 +137,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
   propsData,
   mocks: {
     $contentful: {
-      query: contentfulQueryStub()
+      query: contentfulQueryStub
     },
     $i18n: {
       locale: 'en',
@@ -163,10 +152,24 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $tc: (key) => key,
     ...mocks
   },
-  stubs: ['StoriesFeaturedCard']
+  stubs: ['CallToActionBanner', 'PaginationNavInput', 'StoriesFeaturedCard', 'StoriesTagsDropdown']
 });
 
 describe('components/stories/StoriesInterface', () => {
+  beforeEach(() => {
+    contentfulQueryStub.withArgs(
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesMinimal'),
+      sinon.match.object
+    ).resolves(cloneDeep(storiesMinimalContentfulResponse));
+
+    contentfulQueryStub.withArgs(
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesBySysId'),
+      sinon.match.object
+    ).resolves(cloneDeep(storiesBySysIdContentfulResponse));
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('while the fetch state is pending', () => {
     it('show a loading spinner', async() => {
       const wrapper = factory({ mocks: { $fetchState: { pending: true } } });
@@ -193,7 +196,7 @@ describe('components/stories/StoriesInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         excludeSysId: ''
@@ -206,7 +209,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: fullPropsData.featuredStory.sys.id
@@ -220,7 +223,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: ''
@@ -234,7 +237,7 @@ describe('components/stories/StoriesInterface', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+        expect(contentfulQueryStub.calledWith(sinon.match.object, {
           locale: 'en-GB',
           preview: false,
           excludeSysId: ''
@@ -247,7 +250,7 @@ describe('components/stories/StoriesInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
+      expect(contentfulQueryStub.calledWith(sinon.match.object, {
         locale: 'en-GB',
         preview: false,
         limit: 24,
@@ -393,7 +396,7 @@ describe('components/stories/StoriesInterface', () => {
 
           await wrapper.vm.fetchStories();
 
-          expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
+          expect(contentfulQueryStub.calledWith(sinon.match.object, {
             locale: 'en-GB',
             preview: false,
             limit: 24,
@@ -404,8 +407,8 @@ describe('components/stories/StoriesInterface', () => {
         it('orders stories by date published and inserts the CTA', async() => {
           const wrapper = factory({ data: { allStoryMetadata, perPage: 2 } });
           const expected = [
-            storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
-            storiesBySysIdContentfulResponse.data.data.storyCollection.items[0],
+            storiesBySysIdContentfulResponse.data.exhibitionPageCollection.items[0],
+            storiesBySysIdContentfulResponse.data.storyCollection.items[0],
             'cta-banner'
           ];
 
@@ -431,7 +434,7 @@ describe('components/stories/StoriesInterface', () => {
             });
 
             const expected = [
-              storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[1]
+              storiesBySysIdContentfulResponse.data.exhibitionPageCollection.items[1]
             ];
 
             await wrapper.vm.fetchStories();

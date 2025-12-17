@@ -67,9 +67,7 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
-      galleries: {
-        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
-      },
+      debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
         locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
@@ -80,13 +78,17 @@ export default {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
         }
       },
+      galleries: {
+        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
+      },
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
-      siteName: APP_SITE_NAME,
+      projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      }
+      },
+      siteName: APP_SITE_NAME
     },
     auth: {
       strategies: {
@@ -307,11 +309,11 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/features',
-    '~/plugins/jsdom-domparser.server'
+    '~/plugins/jsdom-domparser.server',
+    '~/plugins/vue-contentful-graphql'
   ],
 
   buildModules: [
-    '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
@@ -473,6 +475,13 @@ export default {
         type: 'javascript/auto'
       });
 
+      // GraphQL files
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds
@@ -490,6 +499,7 @@ export default {
     transpile: [
       '@europeana/i18n',
       '@europeana/oembed',
+      '@europeana/vue-contentful-graphql',
       '@europeana/vue-visible-on-scroll',
       'axios-cache-interceptor',
       'color-parse',

@@ -1,8 +1,9 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import StoriesPage from '@/pages/stories/index';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+
+import StoriesPage from '@/pages/stories/index';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -25,37 +26,38 @@ const storiesPageContentfulResponse = {
   }
 };
 
-const contentfulQueryStub = () => {
-  const stub = sinon.stub();
-  stub.withArgs('storiesPage', sinon.match.object).resolves(storiesPageContentfulResponse);
-  return stub;
-};
+const contentfulQueryStub = sinon.stub();
 
-const factory = ({ $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesPage, {
-  localVue,
-  mocks: {
-    $contentful: {
-      query: contentfulQueryStub()
+const factory = ({ contentfulResponse = storiesPageContentfulResponse, $fetchState = {}, mocks = {} } = {}) => {
+  contentfulQueryStub.resolves(contentfulResponse);
+
+  return shallowMountNuxt(StoriesPage, {
+    localVue,
+    mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
+      $fetchState,
+      $i18n: {
+        locale: 'en',
+        localeProperties: { iso: 'en-GB' }
+      },
+      $route: { query: {} },
+      $scrollTo: sinon.spy(),
+      $t: (key) => key,
+      $tc: (key) => key,
+      ...mocks
     },
-    $fetchState,
-    $i18n: {
-      locale: 'en',
-      localeProperties: { iso: 'en-GB' }
-    },
-    $route: { query: {} },
-    $scrollTo: sinon.spy(),
-    $t: (key) => key,
-    $tc: (key) => key,
-    ...mocks
-  },
-  stubs: [
-    'AlertMessage',
-    'b-card-group'
-  ]
-});
+    stubs: [
+      'AlertMessage',
+      'b-card-group'
+    ]
+  });
+};
 
 describe('pages/stories/index', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     it('fetches stories page content from Contentful', async() => {
@@ -63,19 +65,19 @@ describe('pages/stories/index', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
-        locale: 'en-GB',
-        preview: false
-      })).toBe(true);
+      expect(contentfulQueryStub.calledWith(
+        sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StoriesPage'),
+        {
+          locale: 'en-GB',
+          preview: false
+        }
+      )).toBe(true);
     });
 
     it('handles potentially not having a page in Contentful', async() => {
-      const contentfulQueryStubNoStoriesPage = contentfulQueryStub();
-      contentfulQueryStubNoStoriesPage
-        .withArgs('storiesPage', sinon.match.object)
-        .resolves({ data: { data: { storiesPageCollection: { items: [] } } } });
+      const contentfulResponse = { data: { data: { storiesPageCollection: { items: [] } } } };
+      const wrapper = factory({ contentfulResponse });
 
-      const wrapper = factory({ mocks: { $contentful: { query: contentfulQueryStubNoStoriesPage } } });
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.headline).toEqual(null);

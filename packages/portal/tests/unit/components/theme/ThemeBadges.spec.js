@@ -11,6 +11,7 @@ localVue.use(BootstrapVue);
 const themes = [{ name: 'art', identifier: 'art', primaryImageOfPage: {
   image: { url: 'https://images.ctfassets.net/example.jpg' }
 } }];
+const themesContentfulResponse = { data: { themePageCollection: { items: themes } } };
 
 const themesAfterFetch = [{
   prefLabel: 'art',
@@ -26,7 +27,11 @@ const themesAfterFetch = [{
     }
   }
 }];
+
 const props = { title: 'themes' };
+
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(themesContentfulResponse);
 
 const factory = ({ propsData = props, mocks } = {}) => {
   return shallowMountNuxt(ThemeBadges, {
@@ -34,12 +39,7 @@ const factory = ({ propsData = props, mocks } = {}) => {
     propsData,
     mocks: {
       $contentful: {
-        assets: {
-          optimisedSrc: (img) => img?.url,
-          isValidUrl: () => true
-        },
-        query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: themes } } } })
-
+        query: contentfulQueryStub
       },
       $i18n: {
         locale: 'de',
@@ -61,6 +61,9 @@ const factory = ({ propsData = props, mocks } = {}) => {
 };
 
 describe('components/related/ThemeBadges', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('template', () => {
     describe('when themes are present', () => {
       it('shows a section with related collections chips', async() => {

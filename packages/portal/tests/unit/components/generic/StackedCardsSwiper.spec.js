@@ -35,13 +35,6 @@ const factory = (options = {}) => mountNuxt(StackedCardsSwiper, {
     title: options.title
   },
   mocks: {
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
-        responsiveImageSrcset: (img) => `${img.url} srcset`
-      }
-    },
     $t: () => {}
   },
   stubs: ['ImageOptimised']

@@ -180,10 +180,15 @@
     },
 
     setup() {
-      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+      const {
+        parseAnnotations: parseDeBiasAnnotations,
+        terms: deBiasTerms,
+        definitions: deBiasDefinitions,
+        ids: deBiasIds
+      } = useDeBias();
       const { logEvent } = useLogEvent();
 
-      return { deBiasDefinitions, deBiasTerms, logEvent, parseDeBiasAnnotations };
+      return { deBiasDefinitions, deBiasIds, deBiasTerms, logEvent, parseDeBiasAnnotations };
     },
 
     data() {
@@ -193,7 +198,7 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
-        deBias: { definitions: [], terms: [] },
+        deBias: { definitions: {}, ids: {}, terms: {} },
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -621,6 +626,7 @@
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
           this.deBias = {
             definitions: this.deBiasDefinitions,
+            ids: this.deBiasIds,
             terms: this.deBiasTerms
           };
 

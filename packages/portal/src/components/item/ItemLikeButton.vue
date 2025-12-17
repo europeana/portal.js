@@ -80,7 +80,7 @@
         return this.selectionCount === 0;
       },
       everyItemLiked() {
-        console.log('everyItemLiked', this.likedItems)
+        console.log('everyItemLiked', this.likedItems);
         return [].concat(this.identifiers).every((id) => this.likedItems[id]);
       },
       likeButtonText() {
@@ -111,7 +111,7 @@
       everyItemLiked: {
         deep: true,
         handler() {
-          console.log('watch everyItemLiked', this.everyItemLiked)
+          console.log('watch everyItemLiked', this.everyItemLiked);
           this.pressed = this.everyItemLiked;
         }
       }
@@ -134,7 +134,7 @@
       },
 
       async handleLike() {
-        console.log('handleLike')
+        console.log('handleLike');
         await this.like();
         this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
 

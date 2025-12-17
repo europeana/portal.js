@@ -1,20 +1,24 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchThemeBadges from '@/components/search/SearchThemeBadges.vue';
 import sinon from 'sinon';
+
+import SearchThemeBadges from '@/components/search/SearchThemeBadges.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const themesOrOptions = [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }];
+const themesOrOptionsContentfulResponse = { data: { data: { themePageCollection: { items: themesOrOptions } } } };
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(themesOrOptionsContentfulResponse);
 
 const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges, {
   localVue,
   propsData,
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: themesOrOptions } } } })
+      query: contentfulQueryStub
     },
     $i18n: {
       localeProperties: { iso: 'en-GB' },
@@ -29,12 +33,15 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges,
 });
 
 describe('components/search/SearchThemeBadges', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   it('fetches all themes', async() => {
     const wrapper = factory();
 
     await wrapper.vm.fetch();
 
-    expect(wrapper.vm.$contentful.query.called).toBe(true);
+    expect(contentfulQueryStub.called).toBe(true);
   });
 
   describe('when options are passed', () => {

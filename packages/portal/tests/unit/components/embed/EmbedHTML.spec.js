@@ -7,6 +7,8 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const script = '<script src="https://www.example.eu/script.js" onload="console.log(`loaded`)" crossorigin="anonymous"></script>';
+const inlineScript = '<script>console.log("This is an inline test script")</script>';
 const fixtures = {
   static: {
     width: 640,
@@ -19,6 +21,15 @@ const fixtures = {
     width: 640,
     height: 480,
     html: '<iframe src="https://responsive.example.org/"></iframe>'
+  },
+  script: {
+    html: `<span></span>${script}`
+  },
+  inlineScript: {
+    html: `<span></span>${inlineScript}`
+  },
+  multipleScripts: {
+    html: `<span></span>${script}${inlineScript}`
   }
 };
 
@@ -73,6 +84,38 @@ describe('components/embed/EmbedHTML', () => {
         window.dispatchEvent(new Event('resize'));
 
         expect(wrapper.vm.setWidthWrapper.called).toBe(true);
+      });
+    });
+  });
+
+  describe('when embed contains scripts', () => {
+    it('makes a copy of each script and adds it after embed container', () => {
+      const wrapper = factory(fixtures.script);
+      sinon.spy(wrapper.vm.$refs.embedContainer, 'after');
+      wrapper.vm.mounted();
+
+      expect(wrapper.vm.$refs.embedContainer.after.called).toBe(true);
+      expect(wrapper.vm.$el.innerHTML).toEqual(fixtures.script.html);
+      expect(wrapper.vm.embedCode).not.toContain(script);
+    });
+    describe('and script is an inline script', () => {
+      it('makes a copy of each script and adds it after embed container', () => {
+        const wrapper = factory(fixtures.inlineScript);
+        sinon.spy(wrapper.vm.$refs.embedContainer, 'after');
+        wrapper.vm.mounted();
+        expect(wrapper.vm.$refs.embedContainer.after.called).toBe(true);
+        expect(wrapper.vm.$el.innerHTML).toEqual(fixtures.inlineScript.html);
+        expect(wrapper.vm.embedCode).not.toContain(inlineScript);
+      });
+    });
+    describe('and there are multiple scripts', () => {
+      it('makes a copy of each script and adds it after embed container', () => {
+        const wrapper = factory(fixtures.multipleScripts);
+        sinon.spy(wrapper.vm.$refs.embedContainer, 'after');
+        wrapper.vm.mounted();
+        expect(wrapper.vm.$refs.embedContainer.after.called).toBe(true);
+        expect(wrapper.vm.$el.innerHTML).toEqual(fixtures.multipleScripts.html);
+        expect(wrapper.vm.embedCode).not.toContain(script);
       });
     });
   });

@@ -9,32 +9,33 @@ const localVue = createLocalVue();
 const primaryImageOfPage = { image: {} };
 const contentfulQueryResponse = {
   data: {
-    data: {
-      storyCollection: {
-        items: [
-          { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
-          { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
-        ]
-      }
+    storyCollection: {
+      items: [
+        { identifier: 'story-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'story-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'story-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
+      ]
+    },
+    exhibitionPageCollection: {
+      items: [
+        { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
+        { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
+      ]
     }
   }
 };
 const relatedEditorialIdentifiers = ['story-1', 'exhibition-1', 'exhibition-2', 'story-2'];
+
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulQueryResponse);
 
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditorial, {
   localVue,
   propsData,
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
+      query: contentfulQueryStub
     },
     $i18n: {
       localeProperties: { iso: 'en-GB' }
@@ -50,6 +51,7 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
 
 describe('components/related/RelatedEditorial', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
@@ -63,7 +65,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'EntityRelatedContent'), {
             theme: null,
             entityUri,
             query,
@@ -88,7 +90,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'EntityRelatedContent'), {
             entityUri,
             query: '',
             theme: null,
@@ -118,7 +120,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ThemeRelatedContent'), {
             theme,
             entityUri: null,
             query,
@@ -143,7 +145,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ThemeRelatedContent'), {
             entityUri: null,
             query: '',
             theme,
@@ -174,7 +176,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('relatedContent', {
+          expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'RelatedContent'), {
             entityUri,
             query,
             theme: null,
@@ -199,7 +201,7 @@ describe('components/related/RelatedEditorial', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.called).toBe(false);
+          expect(contentfulQueryStub.called).toBe(false);
         });
       });
     });

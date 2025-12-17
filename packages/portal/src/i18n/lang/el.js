@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Δημόσιες γκαλερί",
     "publishedCollections": "Δημοσιευμένες Γκαλερί",
     "settings": "Ρυθμίσεις",
-    "title": "Ο λογαριασμός μου",
+    "title": "ΤΟ ΠΡΟΦΙΛ ΜΟΥ",
     "tooltip": {
       "EntityBestItemsSet": "Μια επιμελημένη γκαλερί εμφανίζει τα καρφιτσωμένα τεκμήρια σε μια συγκεκριμένη συλλογή",
       "private": "Μια ιδιωτική γκαλερί μπορεί να προβληθεί μόνο από εσάς.",
@@ -104,13 +104,17 @@ export default {
       "personalKeys": {
         "create": {
           "button": "Ζητήστε ένα προσωπικό κλειδί API",
-          "checkbox": "Επιβεβαιώνω ότι έχω διαβάσει και αποδέχομαι το κλειδί API {termsOfUseLink}.",
-          "termsOfUseLinkText": "όροι χρήσης"
+          "checkbox": "Επιβεβαιώνω ότι έχω διαβάσει και αποδέχομαι το κλειδί API {termsOfUseLink}."
         },
         "description": "Μάθετε και δοκιμάστε πώς να χρησιμοποιείτε τα API με το προσωπικό σας κλειδί API. Μην το κοινοποιείτε. {howToLink}.",
         "heading": "Προσωπικό κλειδί API",
         "howToLinkText": "Πώς να χρησιμοποιήσετε το κλειδί σας"
-      }
+      },
+      "projectKeys": {
+        "description": "Για κάθε έργο που πρέπει να δημιουργήσετε, θα σας παρέχουμε ένα ειδικό κλειδί. Τα κλειδιά έργου έχουν υψηλότερα όρια και άλλα ειδικά χαρακτηριστικά – διαβάστε περισσότερα στο κλειδί API {termsOfUseLink}. Εάν θέλετε να επεξεργαστείτε τις πληροφορίες σχετικά με το έργο σας, στείλτε ένα email στο api@europeana.eu και θα κάνουμε τις αλλαγές για εσάς.",
+        "heading": "Κλειδιά API έργου"
+      },
+      "termsOfUseLinkText": "όροι χρήσης"
     },
     "table": {
       "fields": {
@@ -122,6 +126,9 @@ export default {
         },
         "created": {
           "label": "Ημερομηνία δημιουργίας"
+        },
+        "name": {
+          "label": "Όνομα έργου"
         }
       }
     },
@@ -207,10 +214,29 @@ export default {
     "startDate": "Ημερομηνία έναρξης",
     "to": "έως"
   },
+  "debias": {
+    "background": {
+      "link": "Έργο DE-BIAS",
+      "text": "Αυτές οι πληροφορίες δημιουργήθηκαν από το {link} (2023/2024) για να βοηθήσουν στην τοποθέτηση σε ένα συγκεκριμένο πλαίσιο ξεπερασμένων και επιβλαβών όρων στις περιγραφές συλλογών."
+    },
+    "headings": {
+      "alternatives": "Προτεινόμενες εναλλακτικές λύσεις",
+      "recommendations": "Συστάσεις για χρήση",
+      "source": "Πηγή"
+    },
+    "termNotFound": "Αυτή η σελίδα είναι διαθέσιμη μόνο στη γλώσσα του μεροληπτικού όρου.",
+    "tooltip": {
+      "linkToPage": "Διαβάστε την πλήρη εξήγηση που παρέχεται από το {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Εισαγάγετε το κλειδί Europeana API και θα χρησιμοποιηθεί στους συνδέσμους προς τα αιτήματα API.",
+          "descriptionLine2": "Χρειάζεστε ένα κλειδί API; Εγγραφείτε για ένα {link}.",
+          "here": "εδώ",
+          "label": "Κλειδί API",
           "usePersonal": {
             "linkText": "Εισαγάγετε το προσωπικό σας κλειδί API",
             "prompt": "{link} και θα χρησιμοποιηθεί."
@@ -224,9 +250,6 @@ export default {
   "directions": {
     "left": "Αριστερά",
     "right": "Δεξιά"
-  },
-  "ds4ch": {
-    "broughtBy": "Έφερε σε σας από"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "embedNotification": {
@@ -256,9 +279,9 @@ export default {
         "body": "Προς το παρόν, μπορείτε να καρφιτσώσετε μόνο 24 τεκμήρια στην πρώτη σελίδα. Εάν θέλετε να καρφιτσώσετε αυτό το τεκμήριο, βεβαιωθείτε ότι έχετε ξεκαρφιτσώσει ένα άλλο και στη συνέχεια προσπαθήστε να το καρφιτσώσετε ξανά.",
         "title": "Πάρα πολλά καρφιτσωμένα τεκμήρια"
       },
-      "pinned": "Το τεκμήριο έχει καρφιτσωθεί. Θα εμφανιστεί ως το πρώτο στοιχείο στη συλλογή \" {entity} \". Θα σας ειδοποιήσουμε όταν αυτή η αλλαγή θα είναι ορατή στη σελίδα συλλογής.",
+      "pinned": "Το τεκμήριο έχει καρφιτσωθεί. Θα εμφανιστεί ως το πρώτο στοιχείο στη συλλογή \"{entity}\". Θα σας ειδοποιήσουμε όταν αυτή η αλλαγή θα είναι ορατή στη σελίδα συλλογής.",
       "select": "Επιλέξτε μια σχετική οντότητα για να καρφιτσώσετε/ξεκαρφιτσώσετε το τεκμήριο σε/από αυτήν.",
-      "unpin": "Αυτό το τεκμήριο θα σταματήσει να εμφανίζεται στην κορυφή της συλλογής \" {entity} \". Θα σας ειδοποιήσουμε όταν αυτή η αλλαγή θα είναι ορατή στην συλλογή.",
+      "unpin": "Αυτό το τεκμήριο θα σταματήσει να εμφανίζεται στην κορυφή της συλλογής \"{entity}\". Θα σας ειδοποιήσουμε όταν αυτή η αλλαγή θα είναι ορατή στην συλλογή.",
       "unpinned": "Το τεκμήριο καρφιτσώθηκε. Θα σας ειδοποιήσουμε όταν αυτή η αλλαγή θα είναι ορατή στη σελίδα συλλογής."
     }
   },
@@ -689,6 +712,10 @@ export default {
       },
       "select": "Επιλέξτε αν μπορείτε να το χρησιμοποιήσετε"
     },
+    "RIGHTS": {
+      "name": "Δικαιώματα",
+      "select": "Επιλέξτε δηλώσεις πνευματικής ιδιοκτησίας"
+    },
     "TYPE": {
       "name": "Τύπος μέσων",
       "options": {
@@ -773,9 +800,7 @@ export default {
   },
   "filterResults": "Αποτελέσματα φίλτρου",
   "footer": {
-    "customiseWebsiteLanguage": "Προσαρμογή γλώσσας ιστότοπου",
-    "disclaimerLine1": "Η Europeana είναι μια πρωτοβουλία της Ευρωπαϊκής Ένωσης, που χρηματοδοτείται από τη Διευκόλυνση «Συνδέοντας την Ευρώπη» και τα κράτη μέλη της Ευρωπαϊκής Ένωσης. Οι υπηρεσίες Europeana, συμπεριλαμβανομένου αυτού του ιστότοπου, λειτουργούν από μια κοινοπραξία υπό την ηγεσία του Ιδρύματος Europeana βάσει σύμβασης παροχής υπηρεσιών με την Ευρωπαϊκή Επιτροπή.",
-    "disclaimerLine2": "Η Ευρωπαϊκή Επιτροπή δεν εγγυάται την ακρίβεια των πληροφοριών και δεν αποδέχεται καμία υπαιτιότητα ή ευθύνη όσον αφορά τις πληροφορίες σε αυτόν τον ιστότοπο. Ούτε η Ευρωπαϊκή Επιτροπή, ούτε οποιοδήποτε πρόσωπο που ενεργεί για λογαριασμό της Ευρωπαϊκής Επιτροπής, είναι υπαίτιο ή υπεύθυνο για την ακρίβεια ή τη χρήση των πληροφοριών σε αυτόν τον ιστότοπο.",
+    "customiseWebsiteLanguage": "Προσαρμόστε τη γλώσσα του ιστότοπου",
     "findUsElsewhere": "Βρείτε μας αλλού",
     "footer": "Υποσέλιδο",
     "imageDescription": "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση",
@@ -787,6 +812,7 @@ export default {
       "help": "Βοήθεια",
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
       "privacy": "Δήλωση απορρήτου",
+      "registerApiKey": "Εγγραφείτε για ένα κλειδί API",
       "seeApiRequests": "Δείτε αιτήματα προς Europeana API",
       "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
       "supportingTechnicalPartners": "Υποστηρίζοντας τεχνικούς συνεργάτες",
@@ -917,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Θυμάται τη στρατηγική εξουσιοδότησης που πρέπει να χρησιμοποιήσετε για να συνδεθείτε.",
         "title": "Στρατηγική Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Βοηθά στην αποσφαλμάτωση αιτημάτων API",
         "title": "Εναλλαγή εντοπισμού σφαλμάτων"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
+        "description": "Συλλέγει δεδομένα χρήσης για να μας βοηθήσει να αναλύσουμε τις αλληλεπιδράσεις των χρηστών. Ενεργοποιεί ένα γραφικό στοιχείο έρευνας που σας δίνει τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης επισκεπτών μας.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Θυμάται τη γλώσσα διασύνδεσης που προτιμάτε για μελλοντική πρόσβαση.",
         "title": "Κωδικός γλώσσας"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
         "title": "Γραφείο εξυπηρέτησης Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Συλλέγει ανώνυμα στατιστικά στοιχεία σχετικά με τον τρόπο αλληλεπίδρασης των επισκεπτών με τον ιστότοπο.",
@@ -1035,98 +971,18 @@ export default {
         "description": "Θυμάται αν προτιμάτε να λαμβάνετε πολύγλωσσα αποτελέσματα αναζήτησης.",
         "title": "Πολύγλωσση αναζήτηση"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Εμφανίζει μια ειδοποίηση όταν γίνονται διαθέσιμες νέες λειτουργίες.",
         "title": "Ειδοποίηση νέας λειτουργίας"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Θυμάται αν προτιμάτε να βλέπετε τα αποτελέσματα αναζήτησης, τις συλλογές και τις επισημάνσεις \"μου αρέσει\" σε προβολή λίστας, πλέγματος ή μωσαϊκού.",
         "title": "Αποτελέσματα αναζήτησης, γκαλερί και προβολή \"μου αρέσει\" (λίστα/πλέγμα/μωσαϊκό)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "άγνωστος πάροχος",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "άγνωστος πάροχος"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Βρείτε έμπνευση"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Μηνιαία αιτήματα API, κατά μέσο όρο",
       "dataProviders": "Πάροχοι δεδομένων",
@@ -1217,9 +1073,6 @@ export default {
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
   "noResults": "Δεν βρέθηκαν αποτελέσματα",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Του",
   "organisation": {
     "city": "Πόλη",
@@ -1277,8 +1130,6 @@ export default {
     },
     "allMetaData": "Όλα τα μεταδεδομένα",
     "clickToCopyEmbedCode": "Κάντε κλικ στον κώδικα ενσωμάτωσης για να τον αντιγράψετε",
-    "debias": "De-bias",
-    "explanationby": "Επεξήγηση που παρέχεται από {0}",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
@@ -1477,7 +1328,7 @@ export default {
         "title": "100 αρέσει"
       },
       "updated": "Το τεκμήριο προστέθηκε στη συλλογή.",
-      "visibilityChanged": "Προειδοποίηση: η ορατότητα έχει ήδη αλλάξει και αυτή τη στιγμή είναι \" {visibility} \"."
+      "visibilityChanged": "Προειδοποίηση: η ορατότητα έχει ήδη αλλάξει και αυτή τη στιγμή είναι \"{visibility}\"."
     },
     "prompts": {
       "delete": "Είστε βέβαιος/βέβαιη ότι θέλετε να διαγράψετε αυτήν τη συλλογή; Εάν τη διαγράψετε, θα χάσετε όλα τα τεκμήρια που έχετε προσθέσει.",

@@ -11,17 +11,17 @@ localVue.use(BootstrapVue);
 
 const categoriesContentfulResponse = {
   data: {
-    data: {
-      categoryCollection: {
-        items: [
-          { identifier: '3d', name: '3D' },
-          { identifier: 'cooking', name: 'cooking' },
-          { identifier: 'postcards', name: 'postcards' }
-        ]
-      }
+    categoryCollection: {
+      items: [
+        { identifier: '3d', name: '3D' },
+        { identifier: 'cooking', name: 'cooking' },
+        { identifier: 'postcards', name: 'postcards' }
+      ]
     }
   }
 };
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(categoriesContentfulResponse);
 
 const filteredTags = ['3d'];
 
@@ -30,7 +30,7 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
   propsData: props,
   mocks: {
     $contentful: {
-      query: sinon.stub().withArgs('categories', sinon.match.object).resolves(categoriesContentfulResponse)
+      query: contentfulQueryStub
     },
     $i18n: {
       locale: 'en',
@@ -44,6 +44,9 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
 });
 
 describe('components/stories/StoriesTagsDropdown', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   it('fetches categories from Contentful', async() => {
     const wrapper = factory();
     await wrapper.vm.fetch();

@@ -3,7 +3,7 @@ import { useEventBus } from '@vueuse/core';
 
 export function useLikedItems(itemIds) {
   const likedItems = reactive({});
-  console.log('useLikedItems', itemIds.value)
+  console.log('useLikedItems', itemIds.value);
 
   const $root = getCurrentInstance()?.proxy?.$root;
   const setAPI = $root?.$apis?.set;
@@ -19,7 +19,7 @@ export function useLikedItems(itemIds) {
   };
 
   const like = async() => {
-    console.log('like', setId, itemIds)
+    console.log('like', setId, itemIds);
     if (setId === null) {
       const response = await setAPI.createLikes();
       // TODO: does likedId need to be in store?

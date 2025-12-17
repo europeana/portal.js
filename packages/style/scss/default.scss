@@ -30,7 +30,13 @@ body {
 }
 
 main {
-  @include min-page-height;
+
+  // scope setting min-page-height to these layouts, not e.g. layout for contentful apps
+  &#default,
+  &#ds4ch,
+  &#landing-layout {
+    @include min-page-height;
+  }
 
   &#default,
   &#landing-layout {
@@ -143,17 +149,6 @@ blockquote {
   font-style: italic;
   margin-left: 1rem;
   margin-right: 1rem;
-
-  p::before {
-    content: '\2018';
-    display: inline-block;
-    padding-right: 0.25rem;
-  }
-
-  p::after {
-    content: '\2019';
-    display: inline-block;
-  }
 
   em {
     font-style: normal;

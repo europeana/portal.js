@@ -19,6 +19,20 @@ const TRENDING_ITEMS = 'Trending items';
 
 const $axiosGetStub = sinon.stub();
 
+const contentfulResponse = {
+  data: {
+    themePageCollection: {
+      items: [
+        {
+          identifier: 'art'
+        }
+      ]
+    }
+  }
+};
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.resolves(contentfulResponse);
+
 const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(BrowseAutomatedCardGroup, {
   localVue,
   propsData,
@@ -35,7 +49,7 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       }
     },
     $contentful: {
-      query: sinon.stub()
+      query: contentfulQueryStub
     },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
@@ -142,6 +156,9 @@ const entries = {
 };
 
 describe('components/browse/BrowseAutomatedCardGroup', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('fetch()', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
@@ -165,28 +182,14 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
 
     describe('when the section is from Contentful', () => {
       const propsData = { sectionType: FEATURED_THEMES };
-      const contentfulResponse = {
-        data: {
-          data: {
-            themePageCollection: {
-              items: [
-                {
-                  identifier: 'art'
-                }
-              ]
-            }
-          }
-        }
-      };
 
       it('fetches from Contentful and stores response items in entries', async() => {
         const wrapper = factory(propsData);
-        wrapper.vm.$contentful.query.resolves(contentfulResponse);
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('themes', { locale: 'en-GB', preview: false })).toBe(true);
-        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
+        expect(contentfulQueryStub.calledWith(sinon.match.object, { locale: 'en-GB', preview: false })).toBe(true);
+        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.themePageCollection.items);
       });
     });
 

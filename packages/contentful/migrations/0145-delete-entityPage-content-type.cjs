@@ -1,5 +1,7 @@
-const purgeContentType = require('../src/utils.cjs').purgeContentType;
+const deleteContentEntries = require('../src/utils/deleteContentEntries.cjs');
 
 module.exports = async function (migration, context) {
-  await purgeContentType('entityPage', migration, context);
+  await deleteContentEntries('entityPage', migration, context);
+
+  migration.deleteContentType('entityPage');
 };

@@ -11,38 +11,45 @@ localVue.use(BootstrapVue);
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
+const contentfulQueryStub = sinon.stub();
+
 const factory = ({
   mocks = {},
   data = {},
-  contentfulQueryResponse = { data: { data: {} } }
-} = {}) => shallowMountNuxt(page, {
-  localVue,
-  data() {
-    return { ...data };
-  },
-  mocks: {
-    $contentful: {
-      query: sinon.stub().resolves(contentfulQueryResponse)
+  contentfulQueryResponse = { data: {} }
+} = {}) => {
+  contentfulQueryStub.resolves(contentfulQueryResponse);
+
+  return shallowMountNuxt(page, {
+    localVue,
+    data() {
+      return { ...data };
     },
-    $error: sinon.spy(),
-    $features: {},
-    $fetchState: {},
-    $i18n: { localeProperties: { iso: 'en-GB' } },
-    $route: { params: { pathMatch: 'about' }, query: {} },
-    $t: key => key,
-    ...mocks
-  },
-  stubs: [
-    'BrowsePage',
-    'ErrorMessage',
-    'HomePage',
-    'LandingPage',
-    'StaticPage'
-  ]
-});
+    mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
+      $error: sinon.spy(),
+      $features: {},
+      $fetchState: {},
+      $i18n: { localeProperties: { iso: 'en-GB' } },
+      $route: { params: { pathMatch: 'about' }, query: {} },
+      $t: key => key,
+      ...mocks
+    },
+    stubs: [
+      'BrowsePage',
+      'ErrorMessage',
+      'HomePage',
+      'LandingPage',
+      'StaticPage'
+    ]
+  });
+};
 
 describe('IndexPage', () => {
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   it('uses default layout', () => {
     const $route = { params: { pathMatch: 'about' } };
@@ -61,7 +68,7 @@ describe('IndexPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.called).toBe(false);
+        expect(contentfulQueryStub.called).toBe(false);
       });
 
       describe('when landing page configured to act as home page', () => {
@@ -75,11 +82,14 @@ describe('IndexPage', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
-            identifier: slug,
-            locale: 'en-GB',
-            preview: false
-          })).toBe(true);
+          expect(contentfulQueryStub.calledWith(
+            sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+            {
+              identifier: slug,
+              locale: 'en-GB',
+              preview: false
+            }
+          )).toBe(true);
         });
       });
     });
@@ -87,7 +97,7 @@ describe('IndexPage', () => {
     describe('landing pages', () => {
       const slug = 'share-your-collections';
       const page = { name: 'Share your collections' };
-      const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
+      const contentfulQueryResponse = { data: { landingPageCollection: { items: [page] } } };
       const $route = { params: { pathMatch: slug }, query: {} };
 
       it('fetches the content from Contentful', async() => {
@@ -98,11 +108,14 @@ describe('IndexPage', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
-          identifier: slug,
-          locale: 'en-GB',
-          preview: false
-        })).toBe(true);
+        expect(contentfulQueryStub.calledWith(
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+          {
+            identifier: slug,
+            locale: 'en-GB',
+            preview: false
+          }
+        )).toBe(true);
       });
 
       it('detects and stores landing page content', async() => {
@@ -124,24 +137,27 @@ describe('IndexPage', () => {
       it('fetches the content from Contentful', async() => {
         const slug = 'about-us';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
+          contentfulQueryResponse: { data: { staticPageCollection: { items: [{}] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$contentful.query.calledWith('browseStaticPage', {
-          identifier: slug,
-          locale: 'en-GB',
-          preview: false
-        })).toBe(true);
+        expect(contentfulQueryStub.calledWith(
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseStaticPage'),
+          {
+            identifier: slug,
+            locale: 'en-GB',
+            preview: false
+          }
+        )).toBe(true);
       });
 
       it('detects and stores static page content', async() => {
         const page = { name: 'About us' };
         const slug = 'about-us';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
+          contentfulQueryResponse: { data: { staticPageCollection: { items: [page] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
@@ -156,7 +172,7 @@ describe('IndexPage', () => {
         const page = { name: 'Collections' };
         const slug = 'collections';
         const wrapper = factory({
-          contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
+          contentfulQueryResponse: { data: { browsePageCollection: { items: [page] } } },
           mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
@@ -172,7 +188,7 @@ describe('IndexPage', () => {
       process.server = true;
       const slug = 'not-found';
       const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } } },
+        contentfulQueryResponse: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } },
         mocks: { $route: { params: { pathMatch: slug }, query: {} } }
       });
 
@@ -205,14 +221,12 @@ describe('IndexPage', () => {
       };
       const contentfulQueryResponse = {
         data: {
-          data: {
-            staticPageCollection: {
-              items: [
-                {
-                  image
-                }
-              ]
-            }
+          staticPageCollection: {
+            items: [
+              {
+                image
+              }
+            ]
           }
         }
       };
@@ -231,16 +245,14 @@ describe('IndexPage', () => {
       };
       const contentfulQueryResponse = {
         data: {
-          data: {
-            staticPageCollection: {
-              items: [
-                {
-                  primaryImageOfPage: {
-                    image
-                  }
+          staticPageCollection: {
+            items: [
+              {
+                primaryImageOfPage: {
+                  image
                 }
-              ]
-            }
+              }
+            ]
           }
         }
       };
@@ -281,6 +293,18 @@ describe('IndexPage', () => {
       const pageMetaSuffixTitle = wrapper.vm.pageMetaSuffixTitle;
 
       expect(pageMetaSuffixTitle).toBeNull();
+    });
+  });
+
+  describe('when route is for apis page', () => {
+    const $route = { params: { pathMatch: 'apis' }, query: {} };
+
+    it('uses landing layout', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const layout = wrapper.vm.layout({ route: $route });
+
+      expect(layout).toBe('landing');
     });
   });
 });
