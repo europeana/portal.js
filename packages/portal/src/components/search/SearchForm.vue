@@ -285,7 +285,7 @@
       },
 
       handleClickOutside() {
-        this.queryChanged ? this.submitForm() : this.resetSearchOptions();
+        this.resetSearchOptions();
       },
 
       resetSearchOptions() {
