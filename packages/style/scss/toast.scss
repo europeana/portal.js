@@ -35,7 +35,7 @@
 
 .b-toast,
 .b-toaster.b-toaster-bottom-left  .b-toaster-slot {
-  max-width: min(100vw, toRem(350));
+  max-width: min(100vw, pxToRem(350));
 }
 
 .modal-open .b-toaster {

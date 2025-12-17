@@ -356,8 +356,8 @@
     max-width: 100%;
 
     @media (min-width: $bp-medium) {
-      max-width: toRem(400);
-      width: toRem(400);
+      max-width: pxToRem(400);
+      width: pxToRem(400);
     }
 
     .btn-link {
