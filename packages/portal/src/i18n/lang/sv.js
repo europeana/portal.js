@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
-    "title": "Mitt konto",
+    "title": "Min profil",
     "tooltip": {
       "EntityBestItemsSet": "Ett kurerat galleri visar de fästa objekt inom en specifik samling",
       "private": "Ett privat galleri kan bara ses av dig.",
@@ -136,7 +136,7 @@ export default {
   },
   "attribution": {
     "country": "Land:",
-    "creator": "Upphovsperson:",
+    "creator": "Skapare:",
     "date": "Datum:",
     "institution": "Institution:",
     "show": "Visa attribution",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Startdatum",
     "to": "till"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS-projektet",
+      "text": "Denna information skapades av {link} (2023/2024) för att hjälpa till att kontextualisera föråldrade och skadliga termer i samlingsbeskrivningar."
+    },
+    "headings": {
+      "alternatives": "Föreslagna alternativ",
+      "recommendations": "Rekommendationer för användning",
+      "source": "Källa"
+    },
+    "termNotFound": "Denna sida är endast tillgänglig på det språk som används för den partiska termen.",
+    "tooltip": {
+      "linkToPage": "Läs hela förklaringen som tillhandahålls av {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Ange din Europeana API-nyckel så kommer den att användas i länkarna till API-förfrågningar.",
+          "descriptionLine2": "Behöver du en API-nyckel? Registrera dig för en {link}.",
+          "here": "här",
+          "label": "API-nyckel",
           "usePersonal": {
             "linkText": "Ange din personliga API-nyckel",
             "prompt": "{link} och den kommer att användas."
@@ -231,9 +250,6 @@ export default {
   "directions": {
     "left": "Vänster",
     "right": "Höger"
-  },
-  "ds4ch": {
-    "broughtBy": "Tillhandahålls av"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "embedNotification": {
@@ -263,9 +279,9 @@ export default {
         "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
         "title": "För många pinnade objekt"
       },
-      "pinned": "Objektet har fästs. Det kommer att visas som det första objektet i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
+      "pinned": "Objektet har fästs. Det kommer att visas som det första objektet i samlingen \"{entity}\". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
-      "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
+      "unpin": "Det här objektet kommer att sluta visas överst i samlingen \"{entity}\". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objekt har avnålats. Vi kommer att meddela dig när denna ändring blir synlig på samlingsidan."
     }
   },
@@ -696,6 +712,10 @@ export default {
       },
       "select": "Välj om du kan använda detta"
     },
+    "RIGHTS": {
+      "name": "Rättighetsförklaring",
+      "select": "Välj rättighetsutlåtanden"
+    },
     "TYPE": {
       "name": "Typ av media",
       "options": {
@@ -923,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Hjälper till att felsöka API -begäranden",
         "title": "Felsökning växla"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Samlar in användningsdata för att hjälpa oss att analysera användarinteraktioner. Aktiverar en undersökningswidget som ger dig möjlighet att svara på våra besökarnöjdhetsundersökningar.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
         "title": "Språkkod"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
         "title": "Jira servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
@@ -1041,97 +971,18 @@ export default {
         "description": "Kommer ihåg om du föredrar att få flerspråkiga sökresultat.",
         "title": "Flerspråkig sökning"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Visar ett meddelande när nya funktioner blir tillgängliga.",
         "title": "Ny funktionsavisering"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultat, gallerier och dina gilla-markeringar i en lista, rutnät eller mosaikvy.",
         "title": "Sökresultat, gallerier och gilla markeringar (lista/rutnät/mosaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "okänd leverantör",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "okänd leverantör"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Månatliga API-förfrågningar, i genomsnitt",
       "dataProviders": "Dataleverantörer",
@@ -1222,9 +1073,6 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -1282,8 +1130,6 @@ export default {
     },
     "allMetaData": "Alla metadata",
     "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
-    "debias": "De-bias",
-    "explanationby": "Förklaring tillhandahållen av {0}",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
@@ -1482,7 +1328,7 @@ export default {
         "title": "100 gilla-markeringar"
       },
       "updated": "Objektet lades till i galleriet.",
-      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
+      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \"{visibility}\"."
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",

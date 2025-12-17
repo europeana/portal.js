@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
-    "title": "Mijn account",
+    "title": "Mijn profiel",
     "tooltip": {
       "EntityBestItemsSet": "Een gecureerde galerij toont de vastgepinde objecten binnen een specifieke collectie",
       "private": "Een privé galerij kan alleen door u bekeken worden.",
@@ -214,10 +214,29 @@ export default {
     "startDate": "Begin datum",
     "to": "naar"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS project",
+      "text": "Deze informatie is gemaakt door {link} (2023/2024) om verouderde en schadelijke termen in collectiebeschrijvingen te helpen contextualiseren."
+    },
+    "headings": {
+      "alternatives": "Voorgestelde alternatieven",
+      "recommendations": "Aanbevelingen voor gebruik",
+      "source": "Bron"
+    },
+    "termNotFound": "Deze pagina is alleen beschikbaar in de taal van de bevooroordeelde term.",
+    "tooltip": {
+      "linkToPage": "Lees de volledige uitleg van {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
         "apiKey": {
+          "descriptionLine1": "Voer uw Europeana API-sleutel in en deze wordt gebruikt in de links naar API-verzoeken.",
+          "descriptionLine2": "API-sleutel nodig? Registreer voor een {link}.",
+          "here": "hier",
+          "label": "API-sleutel",
           "usePersonal": {
             "linkText": "Voer uw persoonlijke API-sleutel in",
             "prompt": "{link} en het zal worden gebruikt."
@@ -231,10 +250,6 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
-  },
-  "ds4ch": {
-    "broughtBy": "Aangeboden door",
-    "homeLinkAlt": "De gemeenschappelijke Europese dataruimte voor cultureel erfgoed"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "embedNotification": {
@@ -259,7 +274,7 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
+      "pin": "Dit item wordt bovenaan de collectie \"{entity}\" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 objecten vast zetten op de eerste pagina. Als u dit object wilt vast zetten, moet u ervoor zorgen dat u een ander object los maakt en vervolgens proberen deze opnieuw vast te zetten.",
         "title": "Te veel vastgezette objecten"
@@ -697,6 +712,10 @@ export default {
       },
       "select": "Selecteer of je dit kunt gebruiken"
     },
+    "RIGHTS": {
+      "name": "Rechtenstatus",
+      "select": "Selecteer rechtenverklaringen"
+    },
     "TYPE": {
       "name": "Soort media",
       "options": {
@@ -924,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Helpt bij het debuggen van API-verzoeken",
         "title": "Debug toggle"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
         "description": "Verzamelt gebruiksgegevens om ons te helpen gebruikersinteracties te analyseren. Activeert een enquêtewidget waarmee u kunt deelnemen aan onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Onthoudt de interfacetaal van uw voorkeur voor toekomstige toegang.",
         "title": "Taalcode"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
         "title": "Jira-servicedesk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
@@ -1042,98 +971,18 @@ export default {
         "description": "Onthoudt of u de voorkeur geeft aan meertalige zoekresultaten.",
         "title": "Meertalig zoeken"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Toont een melding wanneer nieuwe functies beschikbaar komen.",
         "title": "Melding van nieuwe functie"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten, galerijen en uw likes liever in een lijst-, raster- of mozaïekweergave ziet.",
         "title": "Zoekresultaat, galerijen en likes weergave (lijst/raster/mozaïek)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "onbekende provider",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "onbekende provider"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Vind inspiratie"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
       "dataProviders": "Dataleveranciers",
@@ -1224,9 +1073,6 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Van",
   "organisation": {
     "city": "Stad",
@@ -1284,8 +1130,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
-    "debias": "De-bias",
-    "explanationby": "Uitleg gegeven door {0}",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
@@ -1484,7 +1328,7 @@ export default {
         "title": "100 likes"
       },
       "updated": "Het item is toegevoegd aan de galerij.",
-      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \"{visibility}\"."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd.",

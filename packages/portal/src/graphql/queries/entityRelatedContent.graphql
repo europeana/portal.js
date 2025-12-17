@@ -9,7 +9,7 @@ query EntityRelatedContent(
   $query: String = ""
 ) {
   exhibitionPageCollection(
-    where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
+    where: { relatedLink_contains_some: [$entityUri], name_exists: true, name_contains: $query }
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
@@ -17,7 +17,7 @@ query EntityRelatedContent(
     }
   }
   storyCollection(
-    where: { relatedLink_contains_some: [$entityUri], name_contains: $query },
+    where: { relatedLink_contains_some: [$entityUri], name_exists: true, name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {

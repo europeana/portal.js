@@ -50,7 +50,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
-  const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
+  const landingLayout = (ctx) => ['apis', 'black-history-month'].includes(landingPageMixin.methods.landingPageIdForRoute(ctx));
 
   export default {
     name: 'IndexPage',

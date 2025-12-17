@@ -12,6 +12,9 @@ const factory = ({ propsData } = {}) => shallowMount(ItemDebiasField, {
       definitions: {
         offense: 'May cause offense'
       },
+      ids: {
+        offense: 'https://example.org/12'
+      },
       terms: {
         dcTitle: { exact: 'offense' }
       }

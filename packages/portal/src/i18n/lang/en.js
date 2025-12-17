@@ -147,8 +147,8 @@ export default {
     "publishedDate": "Published {date}"
   },
   "automatedCardGroup": {
-    "item": "Recent items",
     "gallery": "Latest galleries",
+    "item": "Recent items",
     "organisation": "Organisations",
     "place": "Places",
     "theme": "Themes",
@@ -214,6 +214,21 @@ export default {
     "startDate": "Start date",
     "to": "to"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS project",
+      "text": "This information was created by the {link} (2023/2024) to help contextualize outdated and harmful terms in collection descriptions."
+    },
+    "headings": {
+      "alternatives": "Suggested alternatives",
+      "recommendations": "Recommendations for use",
+      "source": "Source"
+    },
+    "termNotFound": "This page is only available in the language of the biased term.",
+    "tooltip": {
+      "linkToPage": "Read the full explanation provided by {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
       "form": {
@@ -238,7 +253,6 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Brought to you by",
-    "homeLinkAlt": "The common European data space for cultural heritage home",
     "footer": {
       "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
     },
@@ -248,7 +262,8 @@ export default {
         "explore": "Explore the data",
         "partners": "Partners"
       }
-    }
+    },
+    "homeLinkAlt": "The common European data space for cultural heritage home"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "embedNotification": {
@@ -324,8 +339,8 @@ export default {
       "title": "Oh no! {newline} We were not able to find this item."
     },
     "noFeatureIdeas": {
-      "title": "No new feature ideas at the moment.",
-      "description": "Check back again soon!"
+      "description": "Check back again soon!",
+      "title": "No new feature ideas at the moment."
     },
     "pageNotFound": {
       "metaTitle": "Page not found",
@@ -353,6 +368,37 @@ export default {
     "exhibitions": "Exhibition | Exhibitions"
   },
   "facets": {
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "If you want to search within the text of newspapers, you will need to use the advanced search, and choose the \"full-text\" field.",
+        "ww1": "If you want to search within the text of WWI documents, you will need to use the advanced search, and choose the \"full-text\" field."
+      }
+    },
+    "button": {
+      "morefilters": "More filters",
+      "showAdditional": "{show} additional filters",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
+    },
+    "collection": {
+      "name": "Theme",
+      "options": {
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "ww1": "World War I"
+      },
+      "select": "Select a theme"
+    },
     "COLOURPALETTE": {
       "moreName": "colours",
       "name": "Colour",
@@ -504,6 +550,18 @@ export default {
       },
       "select": "Select colours"
     },
+    "contentTier": {
+      "name": "Item quality",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria",
+        "0": "Not meeting publishing criteria",
+        "1": "Low quality",
+        "2": "Medium quality",
+        "3": "High quality & reusable with conditions",
+        "4": "High quality & freely reusable"
+      },
+      "select": "Select item qualities"
+    },
     "COUNTRY": {
       "name": "Providing country",
       "options": {
@@ -637,99 +695,12 @@ export default {
       },
       "select": "Select file formats"
     },
+    "moreOptions": "Search to find {0} more {1}.",
     "PROVIDER": {
       "moreName": "aggregators",
       "name": "Aggregator",
       "select": "Select aggregators"
     },
-    "REUSABILITY": {
-      "name": "Can I use this?",
-      "options": {
-        "open": "Yes",
-        "permission": "Maybe, seek permission",
-        "restricted": "Yes, with conditions",
-        "uncategorized": "Uncategorized"
-      },
-      "select": "Select whether you can use this"
-    },
-    "RIGHTS": {
-      "name": "Rights statement",
-      "select": "Select rights statements",
-      "options": {
-        "*/CNE/*": "Copyright Not Evaluated",
-        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
-        "*/InC-OW-EU/*": "In Copyright - OW-EU",
-        "*/InC/*": "In Copyright",
-        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
-        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
-        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
-        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
-        "*/licenses/by-nc/*": "CC BY-NC",
-        "*/licenses/by-nd/*": "CC BY-ND",
-        "*/licenses/by-sa/*": "CC BY-SA",
-        "*/licenses/by/*": "CC BY",
-        "*/publicdomain/mark/*": "Public Domain Mark",
-        "*/publicdomain/zero/*": "CC0",
-        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
-        "*/rights/rr-f/*": "Rights Reserved - Free access",
-        "*/rights/unknown/*": "Unknown copyright status"
-      }
-    },
-    "TYPE": {
-      "name": "Type of media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Image",
-        "SOUND": "Sound",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Select types of media"
-    },
-    "alert": {
-      "fulltextHasMoved": {
-        "newspaper": "If you want to search within the text of newspapers, you will need to use the advanced search, and choose the \"full-text\" field.",
-        "ww1": "If you want to search within the text of WWI documents, you will need to use the advanced search, and choose the \"full-text\" field."
-      }
-    },
-    "button": {
-      "morefilters": "More filters",
-      "showAdditional": "{show} additional filters",
-      "showAll": "Show all {label}",
-      "showLess": "Show less {label}"
-    },
-    "collection": {
-      "name": "Theme",
-      "options": {
-        "archaeology": "Archaeology",
-        "art": "Art",
-        "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
-        "manuscript": "Manuscripts",
-        "map": "Maps and Geography",
-        "migration": "Migration",
-        "music": "Music",
-        "nature": "Natural History",
-        "newspaper": "Newspapers",
-        "photography": "Photography",
-        "sport": "Sport",
-        "ww1": "World War I"
-      },
-      "select": "Select a theme"
-    },
-    "contentTier": {
-      "name": "Item quality",
-      "options": {
-        "*": "Includes items not meeting our publishing criteria",
-        "0": "Not meeting publishing criteria",
-        "1": "Low quality",
-        "2": "Medium quality",
-        "3": "High quality & reusable with conditions",
-        "4": "High quality & freely reusable"
-      },
-      "select": "Select item qualities"
-    },
-    "moreOptions": "Search to find {0} more {1}.",
     "proxy_dc_format": {
       "name": "Format",
       "select": "Select formats"
@@ -744,6 +715,50 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medium",
       "select": "Select media"
+    },
+    "REUSABILITY": {
+      "name": "Can I use this?",
+      "options": {
+        "open": "Yes",
+        "permission": "Maybe, seek permission",
+        "restricted": "Yes, with conditions",
+        "uncategorized": "Uncategorized"
+      },
+      "select": "Select whether you can use this"
+    },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
+      },
+      "select": "Select rights statements"
+    },
+    "TYPE": {
+      "name": "Type of media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Image",
+        "SOUND": "Sound",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Select types of media"
     }
   },
   "fieldLabels": {
@@ -762,8 +777,6 @@ export default {
       "dcRights": "Rights",
       "dcSource": "Source",
       "dcSubject": "Subject",
-      "dcTitle": "Title",
-      "dcType": "Type of item",
       "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
@@ -779,8 +792,10 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
-      "dctermsTOC": "Table of contents",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Table of contents",
+      "dcTitle": "Title",
+      "dcType": "Type of item",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -824,12 +839,12 @@ export default {
     "footer": "Footer",
     "imageDescription": "Funded by the European Union",
     "navigation": {
-      "MoreInfoLabel": "More Info",
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "faq": "Frequently Asked Questions (FAQ)",
       "help": "Help",
+      "MoreInfoLabel": "More Info",
       "privacy": "Privacy statement",
       "registerApiKey": "Register for an API key",
       "seeApiRequests": "See requests to Europeana APIs",
@@ -902,9 +917,9 @@ export default {
       "consentModal": {
         "alwaysRequired": "(Always required)",
         "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-statement'>privacy statement</a>.",
-        "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
         "privacyPolicy": "Privacy policy",
         "servicesCount": "{count} service | {count} services",
+        "text": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our {privacyPolicy}.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -914,18 +929,6 @@ export default {
       "decline": "I decline",
       "ok": "Okay",
       "purposes": {
-        "essential": {
-          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
-          "title": "Essential services for security and customisation"
-        },
-        "thirdPartyContent": {
-          "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",
-          "title": "Third-party content"
-        },
-        "usage": {
-          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
-          "title": "Services to capture website usage and feedback"
-        },
         "2D": {
           "title": "2D media"
         },
@@ -935,15 +938,16 @@ export default {
         "audio": {
           "title": "Audio"
         },
-        "multimedia": {
-          "title": "Multimedia"
-        },
-        "video": {
-          "title": "Video"
+        "essential": {
+          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
+          "title": "Essential services for security and customisation"
         },
         "mediaViewing": {
           "description": "These services load image (2D) , 3D, audio, and video items for viewing.",
           "title": "Media viewing services"
+        },
+        "multimedia": {
+          "title": "Multimedia"
         },
         "other": {
           "description": "These services load content such as code, games, maps and storytelling widgets.",
@@ -952,6 +956,17 @@ export default {
         "socialMedia": {
           "description": "These services load content from social media platforms.",
           "title": "Social media embedding services"
+        },
+        "thirdPartyContent": {
+          "description": "These services load content hosted by third parties. Its use is subject to these third parties’ terms, conditions and privacy statement.",
+          "title": "Third-party content"
+        },
+        "usage": {
+          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
+          "title": "Services to capture website usage and feedback"
+        },
+        "video": {
+          "title": "Video"
         }
       },
       "service": {
@@ -1016,8 +1031,8 @@ export default {
         "navigation": {
           "apiDemo": "API demo",
           "europeanaApis": "Europeana APIs",
-          "findInspiration": "Find inspiration",
-          "faq": "FAQ"
+          "faq": "FAQ",
+          "findInspiration": "Find inspiration"
         }
       }
     },
@@ -1112,7 +1127,8 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "notificationBanner": {
-    "text": {}
+    "text": {
+    }
   },
   "of": "Of",
   "organisation": {
@@ -1171,8 +1187,6 @@ export default {
     },
     "allMetaData": "All metadata",
     "clickToCopyEmbedCode": "Click on the embed code to copy it",
-    "debias": "De-bias",
-    "explanationby": "Explanation provided by {0}",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
@@ -1216,25 +1230,25 @@ export default {
     "tooltip": {
       "open": "{rightsStatementName} means you can use this item freely. {readMoreLink}",
       "permission": "{rightsStatementName} means you may be able to use this item if you seek permission. {readMoreLink}",
-      "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}",
-      "readMore": "Read more at {link}"
+      "readMore": "Read more at {link}",
+      "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}"
     }
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Aggregated fields",
+        "individual": "Individual fields"
+      },
       "input": {
         "field": "Field",
         "modifier": "Modifier",
         "term": "Search term(s)"
       },
-      "header": {
-        "aggregated": "Aggregated fields",
-        "individual": "Individual fields"
-      },
       "modifiers": {
-        "exact": "contains the phrase",
         "contains": "contains",
-        "doesNotContain": "does not contain"
+        "doesNotContain": "does not contain",
+        "exact": "contains the phrase"
       },
       "newRule": "new advanced search rule",
       "placeholder": {
@@ -1256,8 +1270,8 @@ export default {
           "proxy_dcterms_isPartOf": "This item may be part of another related resource - enter a term for the resource that this item may be part of. If the item itself has related resources within it, use the ‘Consists of’ field instead.",
           "proxy_dcterms_issued": "Enter a term that refers to the date of issue or publication of the item(s). For example any date in the form ‘YYYY-­MM-DD’, a single year like ‘1919’, or broader definitions like ‘Early 20th century’. For other dates that could be of significance, search the Date, Creation date or Year fields.",
           "proxy_dcterms_medium": "Enter a term that refers to the materials used or the physical nature of the item. For example ‘metal’ or ‘paper’. For broader material definitions, such as ‘sculpture’ or ‘painting’, try the ‘Type of item’ field.",
-          "proxy_edm_hasMet": "Enter a term that refers to a person, a place, a time period or anything else to which the item(s) may have close connections. For example ‘William Shakespeare’.",
           "proxy_dcterms_temporal": "Enter a term that refers to a period or point in time to which the item(s) relate, e.g. an image that depicts a city in 1930. Enter for example ‘Roman Empire’ or ‘Renaissance’. For specific dates, search the Date, Creation date, Issue date or Year fields.",
+          "proxy_edm_hasMet": "Enter a term that refers to a person, a place, a time period or anything else to which the item(s) may have close connections. For example ‘William Shakespeare’.",
           "YEAR": "Enter a year related to the item(s). For example, ‘1919’."
         },
         "modifier": "Choose how this field should modify the search.",
@@ -1268,8 +1282,8 @@ export default {
       "disable": "Disable multilingual search",
       "enable": "Enable multilingual search",
       "loginToUseMultilingualSearch": "Log in to use multilingual search, and get results not limited to the language of your search term.",
-      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term.",
-      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term."
+      "turnOffMultilingualSearch": "Turn off multilingual search, and view results only in the language of your search term.",
+      "turnOnMultilingualSearch": "Turn on multilingual search, and get results not limited to the language of your search term."
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
@@ -1307,13 +1321,13 @@ export default {
   },
   "set": {
     "actions": {
-      "addItemsHere": {
-        "many": "Add {count} item to gallery | Add {count} items to gallery",
-        "1": "Add to gallery"
-      },
       "addItems": {
-        "many": "Add {count} item to a gallery | Add {count} items to a gallery",
-        "1": "Add this item to a gallery."
+        "1": "Add this item to a gallery.",
+        "many": "Add {count} item to a gallery | Add {count} items to a gallery"
+      },
+      "addItemsHere": {
+        "1": "Add to gallery",
+        "many": "Add {count} item to gallery | Add {count} items to gallery"
       },
       "cancelSelection": "Cancel selection",
       "clickToSelectItems": "Click on items to select them",
@@ -1322,17 +1336,17 @@ export default {
       "delete": "Delete gallery",
       "edit": "Edit gallery",
       "likeItems": {
-        "many": "Like {count} item | Like {count} items",
-        "1": "Save this item to your likes."
+        "1": "Save this item to your likes.",
+        "many": "Like {count} item | Like {count} items"
       },
       "removeItems": {
-        "many": "Remove {count} item from this gallery | Remove {count} items from this gallery",
-        "1": "Remove this item from this gallery."
+        "1": "Remove this item from this gallery.",
+        "many": "Remove {count} item from this gallery | Remove {count} items from this gallery"
       },
       "selectItems": "Select items",
       "unlikeItems": {
-        "many": "Unlike {count} item | Unlike {count} items",
-        "1": "Remove this item from your likes."
+        "1": "Remove this item from your likes.",
+        "many": "Unlike {count} item | Unlike {count} items"
       },
       "update": "Update gallery"
     },
@@ -1351,20 +1365,20 @@ export default {
     "notifications": {
       "deleted": "Your gallery has been deleted.",
       "itemsAdded": {
-        "many": "{count} item has been added to the gallery \"{gallery}\". | {count} items have been added to the gallery \"{gallery}\".",
-        "1": "Item has been added to the gallery \"{gallery}\"."
+        "1": "Item has been added to the gallery \"{gallery}\".",
+        "many": "{count} item has been added to the gallery \"{gallery}\". | {count} items have been added to the gallery \"{gallery}\"."
       },
       "itemsLiked": {
-        "many": "{count} item has been saved to your likes. | {count} items have been saved to your likes.",
-        "1": "Item has been saved to your likes."
+        "1": "Item has been saved to your likes.",
+        "many": "{count} item has been saved to your likes. | {count} items have been saved to your likes."
       },
       "itemsRemoved": {
-        "many": "{count} item has been removed from gallery \"{gallery}\". | {count} items have been removed from gallery \"{gallery}\".",
-        "1": "Item has been removed from gallery \"{gallery}\"."
+        "1": "Item has been removed from gallery \"{gallery}\".",
+        "many": "{count} item has been removed from gallery \"{gallery}\". | {count} items have been removed from gallery \"{gallery}\"."
       },
       "itemsUnliked": {
-        "many": "{count} item has been removed from your likes. | {count} items have been removed from your likes.",
-        "1": "Item has been removed from your likes."
+        "1": "Item has been removed from your likes.",
+        "many": "{count} item has been removed from your likes. | {count} items have been removed from your likes."
       },
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
@@ -1379,24 +1393,24 @@ export default {
     },
     "publication": {
       "criteria": {
-        "title": "Publication criteria",
-        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 15 items."
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 15 items.",
+        "title": "Publication criteria"
       },
       "description": "Publishing a gallery will feature it on {galleries}.",
-      "galleries": "Galleries",
       "failedSubmission": "The request failed. Please try again.",
+      "galleries": "Galleries",
       "process": {
-        "title": "How the process works",
         "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our {guidelines}.",
-        "guidelines": "editorial guidelines"
+        "guidelines": "editorial guidelines",
+        "title": "How the process works"
       },
       "time": {
-        "title": "How long it takes",
-        "description": "We aim to review your gallery within one working week."
+        "description": "We aim to review your gallery within one working week.",
+        "title": "How long it takes"
       },
       "title": "Submit gallery for publication",
-      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
-      "toastButton": "Okay"
+      "toastButton": "Okay",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published."
     },
     "setCount": "{count} galleries",
     "shareTo": {
@@ -1405,10 +1419,10 @@ export default {
       }
     },
     "toolbar": {
-      "info": "{count} item selected. | {count} items selected.",
       "actions": {
         "deselectSelected": "Deselect all."
-      }
+      },
+      "info": "{count} item selected. | {count} items selected."
     }
   },
   "shareWhere": "Where would you like to share this?",
@@ -1423,12 +1437,12 @@ export default {
     "required": "Required"
   },
   "stories": {
-    "stories": "Story | Stories",
     "filter": {
       "exhibitions": "Exhibitions",
       "stories": "Stories",
       "viewAll": "View all"
-    }
+    },
+    "stories": "Story | Stories"
   },
   "storiesPage": {
     "results": "{count} result | {count} results",
@@ -1446,8 +1460,8 @@ export default {
     }
   },
   "themes": {
-    "themes": "Themes",
-    "description": "Browse by theme"
+    "description": "Browse by theme",
+    "themes": "Themes"
   },
   "views": {
     "count": "{count} view | {count} views"

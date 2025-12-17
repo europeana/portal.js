@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import EmbedOEmbed from '@/components/embed/EmbedOEmbed.vue';
+import sinon from 'sinon';
 import nock from 'nock';
 
 const localVue = createLocalVue();
@@ -84,6 +85,16 @@ describe('components/embed/EmbedOEmbed', () => {
       const alertMessage = wrapper.find('alertmessage-stub');
 
       expect(alertMessage.attributes('error')).toContain('messages.externalContentError');
+    });
+    describe('is re-triggerd by the url watcher', () => {
+      it('triggers a $fetch call', async() => {
+        const wrapper = factory({ propsData: { url, endpoint } });
+
+        sinon.spy(wrapper.vm, '$fetch');
+
+        await wrapper.vm.watch.url.call(wrapper.vm);
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
     });
   });
 

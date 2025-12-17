@@ -1,13 +1,12 @@
 {
   "name": "@europeana/portal",
-  "version": "2.12.1",
+  "version": "2.17.7",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
     "build": "nuxt build",
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
-    "lokalise": "node --require dotenv/config bin/lokalise.js",
     "media-embed-service:add": "node bin/media-embed-service-add.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
@@ -68,8 +67,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
-    "@europeana/style": "^2.12.1",
-    "@lokalise/node-api": "^8.0.0",
+    "@europeana/style": "^2.17.1",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
     "jest-transform-graphql": "^2.1.0",
