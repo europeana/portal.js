@@ -39,7 +39,8 @@ exports.assertion = function(context, config) {
     let failMessage = '';
 
     for (const violation of violations) {
-      failMessage += '# ' + violation.impact + ': ' + violation.help + ' (' + violation.helpUrl + ')\n';
+      failMessage += `# ${violation.impact}: ${violation.help} (${violation.helpUrl})
+      # Related elements: ${violation.nodes.map(node => node.html).join(', ')}`;
     }
 
     this.expected = 0;
