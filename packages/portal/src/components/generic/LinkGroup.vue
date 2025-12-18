@@ -22,12 +22,12 @@
           :destination="link.url"
           :data-qa="link.dataQa"
           :hide-external-icon="link.hideExternalIcon"
+          :aria-label="!!link.icon && link.text"
         >
           <span
             v-if="link.icon"
             :class="`footer-link-icon ${link.icon}`"
             :title="link.text"
-            :aria-label="link.text"
           />
           <b-img-lazy
             v-else-if="link.image"
