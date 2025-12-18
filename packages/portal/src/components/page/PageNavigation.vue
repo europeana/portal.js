@@ -191,10 +191,11 @@
       font-size: $font-size-base;
       display: flex;
       align-items: center;
+      padding: 1.1rem 0.5rem;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
-        padding: 0.75rem;
+        padding: 1.65rem 0.75rem;
       }
 
       &:hover {
@@ -211,7 +212,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -0.6em;
+          bottom: 0;
           font-size: $font-size-base;
 
           @media (min-width: $bp-4k) {

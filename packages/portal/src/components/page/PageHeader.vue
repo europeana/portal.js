@@ -8,7 +8,7 @@
     data-qa="header"
   >
     <div
-      class="header-navbar d-flex justify-content-between"
+      class="header-navbar d-flex justify-content-between flex-wrap"
     >
       <b-button
         v-b-toggle.sidebar
@@ -201,8 +201,10 @@
   }
 
   .header-navbar {
+    flex-wrap: wrap;
+    min-height: 3.5rem;
+    height: auto;
     min-width: 11.0625rem;
-    height: 3.5rem;
     box-shadow: $boxshadow-small;
     position: relative;
     z-index: 10;
