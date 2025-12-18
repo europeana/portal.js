@@ -302,7 +302,7 @@
   }
 
   .swiper-slide {
-    width: pxToRem(245);
+    width: min(100vw, pxToRem(245));
     height: $slide-height;
     max-width: $max-card-width;
     overflow: visible;
