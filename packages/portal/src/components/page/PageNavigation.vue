@@ -191,11 +191,10 @@
       font-size: $font-size-base;
       display: flex;
       align-items: center;
-      padding: 1.1rem 0.5rem;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
-        padding: 1.65rem 0.75rem;
+        padding: 0.75rem;
       }
 
       &:hover {
@@ -257,9 +256,11 @@
         text-transform: uppercase;
         font-size: $font-size-small;
         font-weight: 600;
+        padding: 1.1rem 0.5rem;
 
         @media (min-width: $bp-4k) {
           font-size: $font-size-small-4k;
+          padding: 1.65rem 0.75rem;
         }
 
         span {

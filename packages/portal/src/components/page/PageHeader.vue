@@ -214,16 +214,11 @@
     }
 
     .logo {
-      min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
 
       @media (min-width: $bp-medium) {
         margin: 0 auto 0 0;
         padding-left: 1.5em;
-      }
-
-      @media (min-width: $bp-extralarge) {
-        min-width: 18.75em;
       }
 
       img {
