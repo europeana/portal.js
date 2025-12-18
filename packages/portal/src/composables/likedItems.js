@@ -1,7 +1,8 @@
-import { computed, getCurrentInstance, reactive, ref, watchEffect } from 'vue';
-import { useEventBus } from '@vueuse/core';
+import { computed, getCurrentInstance, reactive, readonly, watchEffect } from 'vue';
 
 export function useLikedItems(itemIds) {
+  // TODO: apply toRef to itemIds here, not in callers
+  // TODO: reactive or ref?
   const likedItems = reactive({});
   console.log('useLikedItems', itemIds.value);
 
@@ -22,7 +23,7 @@ export function useLikedItems(itemIds) {
     console.log('like', setId, itemIds);
     if (setId === null) {
       const response = await setAPI.createLikes();
-      // TODO: does likedId need to be in store?
+      // TODO: does likesId need to be in store?
       $root?.$store?.commit('set/setLikesId', response.id);
     }
 
@@ -39,7 +40,7 @@ export function useLikedItems(itemIds) {
 
   return {
     like,
-    likedItems,
+    likedItems: readonly(likedItems),
     unlike
   };
 }
