@@ -9,7 +9,6 @@
 </template>
 
 <script>
-  import landingPageMixin from '@/mixins/landingPage';
   import PageFooter from '@/components/page/PageFooter';
 
   export default {
@@ -18,8 +17,6 @@
     components: {
       PageFooter
     },
-
-    mixins: [landingPageMixin],
 
     data() {
       return {
@@ -46,16 +43,15 @@
               { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
             ]
           }
-        },
-        pageId: this.landingPageIdForRoute({ $config: this.$config, route: this.$route })
+        }
       };
     },
 
     computed: {
       moreInfo() {
-        if (this.pageId === 'apis') {
+        if (this.pageIdentifier === 'apis') {
           return this.apisPage.moreInfo;
-        } else if (this.pageId === 'black-history-month') {
+        } else if (this.pageIdentifier === 'black-history-month') {
           return this.bhmPage.moreInfo;
         } else {
           return null;
