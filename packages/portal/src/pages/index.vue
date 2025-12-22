@@ -21,6 +21,7 @@
         :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
+        :variant="layoutName === 'ds4ch' ? 'ds4ch' : 'pro'"
       />
       <HomePage
         v-else-if="homePage"
@@ -46,11 +47,23 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import landingPageMixin from '@/mixins/landingPage';
+  import browseLandingStaticPageGraphql from '@/graphql/queries/browseLandingStaticPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
-  const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
-  const landingLayout = (ctx) => ['apis', 'black-history-month'].includes(landingPageMixin.methods.landingPageIdForRoute(ctx));
+  const identifierForRoute = (ctx) => ctx.route?.params?.pathMatch || ctx.$config?.app?.homeLandingPageSlug;
+
+  const ds4chLayout = (ctx) => identifierForRoute(ctx) === 'dataspace-culturalheritage';
+  const landingLayout = (ctx) => ['apis', 'black-history-month'].includes(identifierForRoute(ctx));
+
+  const layoutName = (ctx) => {
+    if (ds4chLayout(ctx)) {
+      return 'ds4ch';
+    } else if (landingLayout(ctx)) {
+      return 'landing';
+    } else {
+      return 'default';
+    }
+  };
 
   export default {
     name: 'IndexPage',
@@ -64,21 +77,16 @@
       StaticPage: () => import('@/components/static/StaticPage')
     },
 
-    mixins: [landingPageMixin, pageMetaMixin],
+    mixins: [pageMetaMixin],
 
     layout(ctx) {
-      if (ds4chLayout(ctx)) {
-        return 'ds4ch';
-      } else {
-        return landingLayout(ctx) ? 'landing' : 'default';
-      }
+      return layoutName(ctx);
     },
 
     data() {
       return {
         browsePage: false,
         homePage: false,
-        identifier: this.$route.params.pathMatch,
         landingPage: false,
         page: {},
         socialMediaImageAlt: null,
@@ -88,9 +96,8 @@
     },
 
     async fetch() {
-      if (!this.identifier) {
-        if (this.$config?.app?.homeLandingPageSlug) {
-          this.identifier = this.$config.app.homeLandingPageSlug;
+      if (!this.$route.params.pathMatch) {
+        if (this.identifier) {
           this.landingPage = true;
           this.homePage = true;
         } else {
@@ -98,9 +105,6 @@
           // HomePage component fetches itself
           return;
         }
-      // TODO: make LandingPage fetch itself
-      } else if (this.landingPageId) {
-        this.landingPage = true;
       }
 
       try {
@@ -118,7 +122,7 @@
       this.socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
       this.socialMediaImageAlt = this.socialMediaImage?.description || '';
 
-      if (ds4chLayout({ $config: this.$config, route: this.$route })) {
+      if (this.layoutName === 'ds4ch') {
         this.pageMetaSuffixTitle = null;
       }
 
@@ -126,6 +130,14 @@
     },
 
     computed: {
+      identifier() {
+        return identifierForRoute({ route: this.$route, $config: this.$config });
+      },
+
+      layoutName() {
+        return layoutName({ route: this.$route, $config: this.$config });
+      },
+
       pageMeta() {
         return {
           title: this.page.name,
@@ -139,20 +151,13 @@
 
     methods: {
       async fetchContentfulEntry() {
-        let graphql;
-        if (this.landingPage) {
-          graphql = await import('@/graphql/queries/landingPage.graphql');
-        } else {
-          graphql = await import('@/graphql/queries/browseStaticPage.graphql');
-        }
-
         const variables = {
           identifier: this.identifier,
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query(graphql, variables);
+        const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
         const data = response.data;
 
         const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);

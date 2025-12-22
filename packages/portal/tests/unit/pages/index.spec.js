@@ -83,7 +83,7 @@ describe('IndexPage', () => {
           await wrapper.vm.fetch();
 
           expect(contentfulQueryStub.calledWith(
-            sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+            sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseLandingStaticPage'),
             {
               identifier: slug,
               locale: 'en-GB',
@@ -109,7 +109,7 @@ describe('IndexPage', () => {
         await wrapper.vm.fetch();
 
         expect(contentfulQueryStub.calledWith(
-          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'LandingPage'),
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseLandingStaticPage'),
           {
             identifier: slug,
             locale: 'en-GB',
@@ -144,7 +144,7 @@ describe('IndexPage', () => {
         await wrapper.vm.fetch();
 
         expect(contentfulQueryStub.calledWith(
-          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseStaticPage'),
+          sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'BrowseLandingStaticPage'),
           {
             identifier: slug,
             locale: 'en-GB',

@@ -94,7 +94,6 @@
 <script>
   import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
-  import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
 
   export default {
@@ -112,10 +111,6 @@
       LandingEmbed: () => import('./LandingEmbed'),
       DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
     },
-
-    mixins: [
-      landingPageMixin
-    ],
 
     props: {
       headline: {
@@ -141,22 +136,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      }
-    },
-
-    data() {
-      return {
-        /**
-         * Variant to define layout and style
-         * @values pro, ds4ch
-         */
-        variant: 'pro'
-      };
-    },
-
-    created() {
-      if (this.landingPageId === 'ds4ch') {
-        this.variant = 'ds4ch';
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 

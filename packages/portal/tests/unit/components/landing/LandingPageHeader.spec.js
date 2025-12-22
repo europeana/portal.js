@@ -5,35 +5,41 @@ import BootstrapVue from 'bootstrap-vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (mocks) => shallowMount(LandingPageHeader, {
+const factory = ({ mocks = {}, provide = {} }) => shallowMount(LandingPageHeader, {
   localVue,
   mocks: {
     $route: {},
     $t: (key) => key,
     ...mocks
+  },
+  provide: {
+    pageIdentifier: null,
+    ...provide
   }
 });
 
 describe('components/landing/LandingPageHeader', () => {
   describe('when on the apis page', () => {
     it('contains the top navigation', () => {
-      const wrapper = factory({ $route: { params: { pathMatch: 'apis' }, query: {} } });
+      const wrapper = factory({ provide: { pageIdentifier: 'apis' } });
 
       const topNav = wrapper.find('[data-qa="top navigation"]');
 
       expect(topNav.exists()).toBe(true);
     });
   });
+
   describe('when on the black history month page', () => {
     it('does not contain the top navigation', () => {
-      const wrapper = factory({ $route: { params: { pathMatch: 'bhm' }, query: {} } });
+      const wrapper = factory({ provide: { pageIdentifier: 'black-history-month' } });
 
       const topNav = wrapper.find('[data-qa="top navigation"]');
 
       expect(topNav.exists()).toBe(false);
     });
+
     it('does contain a logo', () => {
-      const wrapper = factory({ $route: { params: { pathMatch: 'bhm' }, query: {} } });
+      const wrapper = factory({ provide: { pageIdentifier: 'black-history-month' } });
 
       const topNav = wrapper.find('.logo');
 

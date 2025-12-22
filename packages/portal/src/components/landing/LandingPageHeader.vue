@@ -75,7 +75,6 @@
 
 <script>
   import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
-  import landingPageMixin from '@/mixins/landingPage';
   import LandingPageNavigation from '@/components/landing/LandingPageNavigation';
   import SmartLink from '@/components/generic/SmartLink';
 
@@ -91,7 +90,7 @@
       'visible-on-scroll': visibleOnScrollDirective
     },
 
-    mixins: [landingPageMixin],
+    inject: ['pageIdentifier'],
 
     data() {
       return {
@@ -104,17 +103,16 @@
             { url: '#frequently-asked-questions-faq', text: this.$t('landing.apis.header.navigation.faq') }
           ]
         },
-        defaultLogoSrc: require('@europeana/style/img/logo.svg'),
-        pageId: this.landingPageIdForRoute({ $config: this.$config, route: this.$route })
+        defaultLogoSrc: require('@europeana/style/img/logo.svg')
       };
     },
 
     computed: {
       logoSrc() {
-        return this.pageId === 'apis' ? this.apisPage.logoSrc : this.defaultLogoSrc;
+        return this.pageIdentifier === 'apis' ? this.apisPage.logoSrc : this.defaultLogoSrc;
       },
       navigationLinks() {
-        return this.pageId === 'apis' ? this.apisPage.navigationLinks : null;
+        return this.pageIdentifier === 'apis' ? this.apisPage.navigationLinks : null;
       }
     }
   };

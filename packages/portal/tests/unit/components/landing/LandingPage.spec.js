@@ -28,25 +28,6 @@ describe('components/landing/LandingPage', () => {
     expect(landingPage.isVisible()).toBe(true);
   });
 
-  describe('variant', () => {
-    it('defaults to pro variant', () => {
-      const wrapper = factory({ propsData });
-
-      const landingPage = wrapper.find('[data-qa="landing page"]');
-
-      expect(landingPage.classes().includes('pro-page')).toBe(true);
-    });
-
-    it('detects ds4ch variant from route', () => {
-      const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
-      const wrapper = factory({ mocks: { $route }, propsData });
-
-      const landingPage = wrapper.find('[data-qa="landing page"]');
-
-      expect(landingPage.classes().includes('ds4ch-page')).toBe(true);
-    });
-  });
-
   it('derives section IDs from their English name', () => {
     const propsData = {
       headline: 'This page is awesome',
