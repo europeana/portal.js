@@ -605,10 +605,11 @@ describe('components/search/SearchInterface', () => {
       it('resets multi selected items and calls fetch', () => {
         const wrapper = factory();
         sinon.spy(wrapper.vm, '$fetch');
+        wrapper.vm.clearSelectedItems = sinon.spy();
 
         wrapper.vm.handleSearchParamsChanged();
 
-        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.clearSelectedItems.calledWith()).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
@@ -708,14 +709,15 @@ describe('components/search/SearchInterface', () => {
 
   describe('watch', () => {
     describe('when $route.query.translate value changes', () => {
-      it('resets multi selected items and triggers $fetch', async() => {
+      it('clears selected items and triggers $fetch', async() => {
         const wrapper = factory({ mocks: { $route: { query: {} } } });
         sinon.spy(wrapper.vm, '$fetch');
+        wrapper.vm.clearSelectedItems = sinon.spy();
 
         wrapper.vm.$route.query = { translate: 'true' };
         await wrapper.vm.$nextTick();
 
-        expect(wrapper.vm.$store.commit.calledWith('set/setSelected', [])).toBe(true);
+        expect(wrapper.vm.clearSelectedItems.calledWith()).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });

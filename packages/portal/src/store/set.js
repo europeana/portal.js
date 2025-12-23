@@ -6,17 +6,12 @@ export default {
     active: null,
     activeId: null,
     activeParams: {},
-    activeRecommendations: [],
-    selectedItems: []
+    activeRecommendations: []
   }),
 
   getters: {
     activeSetItemIds(state) {
       return state.active?.items.map((item) => item.id) || [];
-    },
-
-    someActiveSetItemsSelected(state, getters) {
-      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
     }
   },
 
@@ -27,9 +22,6 @@ export default {
     setLikedItems(state, value) {
       state.likedItems = value || null;
       state.likedItemIds = value?.map(item => item.id) || [];
-    },
-    setSelected(state, value) {
-      state.selectedItems = value;
     },
     like(state, itemIds) {
       for (const itemId of [].concat(itemIds)) {
@@ -54,14 +46,6 @@ export default {
     },
     setActiveRecommendations(state, value) {
       state.activeRecommendations = value;
-    },
-    selectItem(state, itemId) {
-      if (!state.selectedItems.includes(itemId)) {
-        state.selectedItems.push(itemId);
-      }
-    },
-    deselectItem(state, itemId) {
-      state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
     }
   },
 
@@ -109,7 +93,7 @@ export default {
 
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ dispatch, commit, state }) {
+    async fetchActive({ commit, state }) {
       if (!state.activeId) {
         return;
       }
@@ -123,10 +107,6 @@ export default {
         ...responses[0],
         items: responses[1]
       });
-
-      if ((state.selectedItems || []).length > 0) {
-        dispatch('refreshSelected');
-      }
     },
     async reviewRecommendation({ state, commit }, params) {
       const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);
@@ -139,12 +119,6 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
-    },
-    refreshSelected({ state, commit }) {
-      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
-      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
-
-      commit('setSelected', activeSelectedItems);
     }
   }
 };

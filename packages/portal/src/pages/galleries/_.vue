@@ -155,6 +155,7 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import useScrollTo from '@/composables/scrollTo.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -188,12 +189,13 @@
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
-      this.$store.commit('set/setSelected', []);
+      this.clearSelectedItems();
       next();
     },
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const { clear: clearSelectedItems } = useSelectedItems();
+      return { clearSelectedItems, scrollToSelector };
     },
     data() {
       return {
@@ -317,7 +319,7 @@
       },
       async '$route.query.page'() {
         await this.$fetch();
-        this.$store.commit('set/setSelected', []);
+        this.clearSelectedItems();
       }
     },
 
