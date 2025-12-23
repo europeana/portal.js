@@ -36,10 +36,10 @@
     },
 
     setup() {
-      const { eventBus } = useLikedItems();
+      const { likedItems } = useLikedItems();
       const { scrollToSelector } = useScrollTo();
 
-      return { eventBus, scrollToSelector };
+      return { likedItems, scrollToSelector };
     },
 
     data() {
@@ -61,13 +61,8 @@
       }
     },
 
-    mounted() {
-      this.eventBus.on(this.fetchLikes);
-    },
-
     beforeDestroy() {
       this.$store.commit('set/setSelected', []);
-      this.eventBus.off(this.fetchLikes);
     },
 
     methods: {

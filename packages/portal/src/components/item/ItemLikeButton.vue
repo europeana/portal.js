@@ -20,21 +20,20 @@
 </template>
 
 <script>
-  import { toRef } from 'vue';
-
   import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
   import useMakeToast from '@/composables/makeToast.js';
-  import { useLikedItems } from '@/composables/likedItems.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
 
+    inject: ['like', 'likedItems', 'unlike'],
+
     props: {
       /**
-       * Identifier(s) of the item
+       * Identifier(s) of the item(s)
        */
       identifiers: {
         type: [String, Array],
@@ -62,16 +61,15 @@
 
       const { cardinality } = useCardinality(props.identifiers);
       const { hideTooltips } = useHideTooltips();
-      const { like, likedItems, unlike } = useLikedItems(toRef(props, 'identifiers'));
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      return { buttonId, cardinality, hideTooltips, like, likedItems, logEvent, makeToast, unlike };
+      return { buttonId, cardinality, hideTooltips, logEvent, makeToast };
     },
 
     data() {
       return {
-        pressed: this.everyItemLiked
+        pressed: false
       };
     },
 
@@ -80,7 +78,7 @@
         return this.selectionCount === 0;
       },
       everyItemLiked() {
-        console.log('everyItemLiked', this.likedItems);
+        // console.log('everyItemLiked', this.likedItems);
         return [].concat(this.identifiers).every((id) => this.likedItems[id]);
       },
       likeButtonText() {
@@ -115,6 +113,10 @@
           this.pressed = this.everyItemLiked;
         }
       }
+    },
+
+    created() {
+      this.pressed = this.everyItemLiked;
     },
 
     methods: {

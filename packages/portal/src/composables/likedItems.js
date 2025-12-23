@@ -1,17 +1,17 @@
 import { computed, getCurrentInstance, reactive, readonly, watchEffect } from 'vue';
 
-export function useLikedItems(itemIds) {
-  // TODO: apply toRef to itemIds here, not in callers
+export function useLikedItems(itemIds = null) {
   // TODO: reactive or ref?
   const likedItems = reactive({});
-  console.log('useLikedItems', itemIds.value);
 
   const $root = getCurrentInstance()?.proxy?.$root;
   const setAPI = $root?.$apis?.set;
   const setId = computed(() => $root?.$store?.state.set.likesId);
 
   const fetchLikedItems = async() => {
+    console.log('fetchLikedItems', itemIds.value)
     if (setAPI && setId.value && itemIds.value) {
+      // TODO: pagination!
       const response = await setAPI.searchItems(setId.value, itemIds.value);
       for (const itemId of [].concat(itemIds.value)) {
         likedItems[itemId] = (response.items || []).some((item) => item.endsWith(itemId));

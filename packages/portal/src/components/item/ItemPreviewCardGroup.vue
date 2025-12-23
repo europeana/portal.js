@@ -130,8 +130,9 @@
 </template>
 
 <script>
-  import { computed } from 'vue';
+  import { ref } from 'vue';
 
+  import { useLikedItems } from '@/composables/likedItems.js';
   import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
@@ -146,6 +147,14 @@
     mixins: [
       advancedSearchMixin
     ],
+
+    provide() {
+      return {
+        like: this.like,
+        unlike: this.unlike,
+        likedItems: this.likedItems
+      };
+    },
 
     props: {
       items: {
@@ -188,6 +197,13 @@
         type: Function,
         default: null
       }
+    },
+
+    setup(props) {
+      const itemIdsRef = ref(props.items.map((item) => item.id));
+      const { like, likedItems, unlike } = useLikedItems(itemIdsRef);
+
+      return { like, likedItems, unlike };
     },
 
     data() {
