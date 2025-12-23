@@ -12,6 +12,7 @@ export default {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/tests/unit/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
