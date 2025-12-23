@@ -2,7 +2,6 @@
   <b-container
     data-qa="search interface"
     class="search-page-container side-filters-enabled"
-    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -627,14 +626,6 @@
 
   &.open::before {
     content: '-';
-  }
-}
-
-.search-bar-open {
-  padding-top: 4.275rem !important;
-
-  @media (min-width: $bp-4k) {
-    padding-top: 6.6rem !important;
   }
 }
 </style>

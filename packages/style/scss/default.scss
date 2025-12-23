@@ -38,7 +38,6 @@ main {
     @include min-page-height;
   }
 
-  &#default,
   &#landing-layout {
     margin-top: $page-header-height; // leave space for the fixed positioned header
 

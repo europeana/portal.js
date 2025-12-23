@@ -156,6 +156,7 @@
 
   .link-group-social .link-group-list {
     display: flex;
+    flex-wrap: wrap;
 
     li {
       &:not(:last-child) {
