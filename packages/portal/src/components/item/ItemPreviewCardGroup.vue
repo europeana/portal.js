@@ -130,6 +130,8 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
+
   import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
