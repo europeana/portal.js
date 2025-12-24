@@ -29,6 +29,13 @@ const injectNuxtMethods = (wrapper, pageOrComponent) => {
 const mountOptionsWithFetchState = (options) => {
   options.mocks ||= {};
   options.mocks.$fetchState ||= { error: ref(null), pending: ref(false) };
+
+  options.localVue?.use({
+    install(localVue) {
+      localVue.prototype.context = {};
+    }
+  });
+
   return options;
 };
 
