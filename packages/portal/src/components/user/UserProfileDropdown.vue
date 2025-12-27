@@ -24,15 +24,25 @@
     data() {
       return {
         links: [{
-          text: this.$t('account.accountManagement'),
-          href: this.$keycloak?.accountUrl()
-        }, this.$features.manageApiKeys && {
-          text: this.$t('account.manageApiKeys'),
-          to: this.localePath('/account/api-keys')
-        }, {
-          text: this.$t('account.linkLogout'),
-          to: '/account/logout'
-        }].filter(Boolean),
+                  text: 'Update information',
+                  href: this.$keycloak?.accountUrl('UPDATE_PROFILE')
+                },
+                {
+                  text: 'Update password',
+                  href: this.$keycloak?.accountUrl('UPDATE_PASSWORD')
+                },
+                {
+                  text: 'Delete account',
+                  href: this.$keycloak?.accountUrl('delete_account')
+                },
+                this.$features.manageApiKeys && {
+                  text: this.$t('account.manageApiKeys'),
+                  to: this.localePath('/account/api-keys')
+                },
+                {
+                  text: this.$t('account.linkLogout'),
+                  to: '/account/logout'
+                }].filter(Boolean),
         menuOpen: false
       };
     },
