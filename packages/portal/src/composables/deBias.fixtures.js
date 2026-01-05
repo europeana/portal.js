@@ -30,7 +30,7 @@ export const annotations = [
     id: 'http://example.org/annotation/highlighting/3',
     motivation: 'highlighting',
     body: {
-      id: 'http://example.org/vocabulary/debias/2',
+      id: 'http://example.org/c4p/2',
       definition: {
         en: ['May cause harm']
       }
