@@ -12,7 +12,7 @@ const annotationApiSearchStub = sinon.stub().resolves({});
 const locale = 'en';
 const localeProperties = { iso: 'en-GB' };
 const prefLabel = 'Tribe';
-const id = 'https://rnd-2.eanadev.org/share/debias/vocabulary/c_44_en.xml';
+const id = 'c_44_en';
 const pathMatch = '44-tribe';
 
 const $t = (key) => key;
@@ -85,13 +85,13 @@ describe('DeBiasPage', () => {
       )).toBe(true);
     });
 
-    it('searches for the term on the Annotation API', async() => {
+    it('searches for the ID on the Annotation API', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
       expect(annotationApiSearchStub.calledWith({
-        query: `body_uri:"${id}"`,
+        query: `body_uri:*/${id}*`,
         pageSize: 1,
         profile: 'dereference'
       })).toBe(true);

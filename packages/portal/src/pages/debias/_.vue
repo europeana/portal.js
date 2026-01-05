@@ -128,7 +128,7 @@
         this.logo = response?.data?.asset;
 
         const annotations = await this.$apis.annotation.search({
-          query: `body_uri:"${this.id}"`,
+          query: `body_uri:*/${this.id}*`,
           pageSize: 1,
           profile: 'dereference'
         });
@@ -146,7 +146,7 @@
       id() {
         const idNum = this.$route.params.pathMatch.split('-').shift();
 
-        return `https://rnd-2.eanadev.org/share/debias/vocabulary/c_${idNum}_${this.$i18n.locale}.xml`;
+        return `c_${idNum}_${this.$i18n.locale}`;
       },
 
       title() {
