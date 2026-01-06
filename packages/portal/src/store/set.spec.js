@@ -7,18 +7,6 @@ const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
-  describe('getters', () => {
-    describe('activeSetItemIds', () => {
-      it('returns the IDs of the active set items', () => {
-        const state = { active: { items: [{ id: 'item1' }, { id: 'item2' }] } };
-
-        const activeSetItemIds = store.getters.activeSetItemIds(state);
-
-        expect(activeSetItemIds).toEqual(['item1', 'item2']);
-      });
-    });
-  });
-
   describe('mutations', () => {
     describe('setLikesId()', () => {
       it('sets the likesId state', () => {

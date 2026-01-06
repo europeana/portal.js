@@ -9,12 +9,6 @@ export default {
     activeRecommendations: []
   }),
 
-  getters: {
-    activeSetItemIds(state) {
-      return state.active?.items.map((item) => item.id) || [];
-    }
-  },
-
   mutations: {
     setLikesId(state, value) {
       state.likesId = value;

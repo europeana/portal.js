@@ -1,33 +1,40 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ItemSelectCheckbox from '@/components/item/ItemSelectCheckbox';
 import sinon from 'sinon';
+
+import ItemSelectCheckbox from '@/components/item/ItemSelectCheckbox';
+import * as selectedItemsComposable from '@/composables/selectedItems.js';
 
 const localVue = createLocalVue();
 
 const identifier = '/001/record';
+const selectItemsSpy = sinon.spy();
+const deselectItemsSpy = sinon.spy();
+const useSelectedItemsStub = sinon.stub(selectedItemsComposable, 'useSelectedItems');
 
-const factory = ({ propsData, store } = {}) => shallowMount(ItemSelectCheckbox, {
-  localVue,
-  propsData: {
-    identifier,
-    ...propsData
-  },
-  mocks: {
-    $i18n: { locale: 'en' },
-    $store: {
-      state: {
-        set: {
-          selectedItems: []
-        }
-      },
-      commit: sinon.spy(),
-      ...store
-    }
-  },
-  stubs: ['b-form-checkbox']
-});
+const factory = ({ propsData, selectedItems = [] } = {}) => {
+  useSelectedItemsStub.returns({
+    deselect: deselectItemsSpy,
+    select: selectItemsSpy,
+    selected: selectedItems
+  });
+
+  return shallowMount(ItemSelectCheckbox, {
+    localVue,
+    propsData: {
+      identifier,
+      ...propsData
+    },
+    mocks: {
+      $i18n: { locale: 'en' }
+    },
+    stubs: ['b-form-checkbox']
+  });
+};
 
 describe('ItemSelectCheckbox', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.resetBehavior);
+
   it('renders a checkbox', () => {
     const wrapper = factory();
 
@@ -59,41 +66,36 @@ describe('ItemSelectCheckbox', () => {
       describe('get', () => {
         describe('when the identifier exists in the store', () => {
           it('returns true', () => {
-            const store = {
-              state: {
-                set: {
-                  selectedItems: [identifier]
-                }
-              }
-            };
-            const wrapper = factory({ store });
+            const wrapper = factory({ selectedItems: [identifier] });
+
             expect(wrapper.vm.selected).toBe(true);
           });
         });
         describe('when the identifier is NOT in the store', () => {
           it('returns false', () => {
             const wrapper = factory();
+
             expect(wrapper.vm.selected).toBe(false);
           });
         });
       });
       describe('set', () => {
         describe('when passed value is true', () => {
-          it('commits selectItem to the set store', () => {
+          it('adds item to those selected', () => {
             const wrapper = factory();
 
             wrapper.vm.selected = true;
 
-            expect(wrapper.vm.$store.commit.calledWith('set/selectItem', identifier)).toBe(true);
+            expect(selectItemsSpy.calledWith(identifier)).toBe(true);
           });
         });
         describe('when passed value is false', () => {
-          it('commits deselectItem to the set store', () => {
+          it('removes item from those selected', () => {
             const wrapper = factory();
 
             wrapper.vm.selected = false;
 
-            expect(wrapper.vm.$store.commit.calledWith('set/deselectItem', identifier)).toBe(true);
+            expect(deselectItemsSpy.calledWith(identifier)).toBe(true);
           });
         });
       });
