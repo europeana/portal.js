@@ -127,6 +127,7 @@
   import UserHeader from '@/components/user/UserHeader';
   import UserSets from '@/components/user/UserSets';
   import useActiveTab from '@/composables/activeTab.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
 
   const HASH_CURATED_COLLECTIONS = '#curated-collections';
   const HASH_LIKES = '#likes';
@@ -152,7 +153,7 @@
     ],
 
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setSelected', []);
+      this.clearSelectedItems();
       next();
     },
 
@@ -168,9 +169,11 @@
       ];
 
       const { activeTabHash } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { clear: clearSelectedItems } = useSelectedItems();
 
       return {
-        activeTabHash
+        activeTabHash,
+        clearSelectedItems
       };
     },
 
