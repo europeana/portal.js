@@ -40,7 +40,12 @@
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
-    inject: ['currentSet', 'fetchCurrentSet'],
+    inject: {
+      currentSet: 'currentSet',
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       /**
@@ -125,7 +130,7 @@
 
         try {
           await this.$apis.set.deleteItems(setId, this.identifiers);
-          this.fetchCurrentSet();
+          this.fetchCurrentSet?.();
           this.makeToast(this.toastMessage);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });

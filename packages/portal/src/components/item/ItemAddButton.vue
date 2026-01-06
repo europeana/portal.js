@@ -59,7 +59,11 @@
       SetFormModal
     },
 
-    inject: ['fetchCurrentSet'],
+    inject: {
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       /**
@@ -131,7 +135,7 @@
       },
       refreshSet() {
         if (!this.showFormModal) {
-          this.fetchCurrentSet();
+          this.fetchCurrentSet?.();
         }
       },
       addToSet() {

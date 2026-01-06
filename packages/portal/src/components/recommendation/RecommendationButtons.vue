@@ -28,7 +28,11 @@
   export default {
     name: 'RecommendationButtons',
 
-    inject: ['fetchCurrentSet'],
+    inject: {
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       // Identifier of the item
@@ -64,7 +68,7 @@
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
           await this.$apis.set.insertItems(`http://data.europeana.eu/set/${this.$route.params.pathMatch}`, this.identifier);
-          this.fetchCurrentSet();
+          this.fetchCurrentSet?.();
           this.makeToast(this.toastMsg);
         } else {
           this.$keycloak.login();

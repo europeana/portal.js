@@ -124,34 +124,15 @@ describe('components/set/SetFormModal', () => {
       })).toBe(true);
     });
 
-    describe('when the active set', () => {
-      const provide = { currentSet: { id: setId } };
+    it('re-fetches active set', async() => {
+      const wrapper = factory({ propsData: existingSetPropsData });
 
-      it('re-fetches active set', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData, provide });
+      await wrapper.find('#set-title').setValue('A better title');
+      await wrapper.find('#set-private').setChecked();
+      await wrapper.find('form').trigger('submit.stop.prevent');
+      await new Promise(process.nextTick);
 
-        await wrapper.find('#set-title').setValue('A better title');
-        await wrapper.find('#set-private').setChecked();
-        await wrapper.find('form').trigger('submit.stop.prevent');
-        await new Promise(process.nextTick);
-
-        expect(fetchCurrentSetSpy.calledWith()).toBe(true);
-      });
-    });
-
-    describe('when not the active set', () => {
-      const provide = { currentSet: { id: '456' } };
-
-      it('re-fetches active set', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData, provide });
-
-        await wrapper.find('#set-title').setValue('A better title');
-        await wrapper.find('#set-private').setChecked();
-        await wrapper.find('form').trigger('submit.stop.prevent');
-        await new Promise(process.nextTick);
-
-        expect(fetchCurrentSetSpy.called).toBe(false);
-      });
+      expect(fetchCurrentSetSpy.calledWith()).toBe(true);
     });
 
     describe('when in item context', () => {

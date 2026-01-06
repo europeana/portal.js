@@ -117,7 +117,11 @@
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
-    inject: ['currentSet', 'fetchCurrentSet'],
+    inject: {
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       modalId: {
@@ -264,9 +268,7 @@
         try {
           const response = await this.createOrUpdateSet();
 
-          if (response.id === this.currentSet?.id) {
-            this.fetchCurrentSet();
-          }
+          this.fetchCurrentSet?.();
 
           const setId = response.id.split('/').pop();
           if (this.itemIds && this.isNew) {
