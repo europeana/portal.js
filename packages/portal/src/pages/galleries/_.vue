@@ -324,11 +324,6 @@
 
     methods: {
       async fetchSet() {
-        if (!this.setId) {
-          // TODO: will this ever be the case?
-          return;
-        }
-
         const responses = await Promise.all([
           this.$apis.set.get(this.setId),
           this.$apis.set.getItems(this.setId, {
