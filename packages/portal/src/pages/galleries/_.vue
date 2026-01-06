@@ -216,7 +216,6 @@
 
       try {
         this.validateRoute();
-        // this.$store.commit('set/setActiveId', this.setId);
         await this.fetchSet();
         this.redirectToPrefPath(this.setId, this.set.title.en);
 
