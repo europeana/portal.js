@@ -117,6 +117,8 @@
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
+    inject: ['currentSet', 'fetchCurrentSet'],
+
     props: {
       modalId: {
         type: String,
@@ -261,12 +263,12 @@
 
         try {
           const response = await this.createOrUpdateSet();
-          const setId = response.id.split('/').pop();
 
-          if (setId === this.$store.state.set.activeId) {
-            this.$store.dispatch('set/fetchActive');
+          if (response.id === this.currentSet?.id) {
+            this.fetchCurrentSet();
           }
 
+          const setId = response.id.split('/').pop();
           if (this.itemIds && this.isNew) {
             await this.$apis.set.insertItems(setId, this.itemIds);
           }
@@ -291,9 +293,6 @@
       async deleteSet() {
         try {
           await this.$apis.set.delete(this.setId);
-          if (this.setId === this.$store.state.set.active?.id) {
-            this.$store.commit('set/setActive', null);
-          }
 
           this.makeToast(this.$t('set.notifications.deleted'));
 

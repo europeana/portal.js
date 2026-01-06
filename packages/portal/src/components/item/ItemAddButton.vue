@@ -59,6 +59,8 @@
       SetFormModal
     },
 
+    inject: ['fetchCurrentSet'],
+
     props: {
       /**
        * Identifier(s) of the item
@@ -129,7 +131,7 @@
       },
       refreshSet() {
         if (!this.showFormModal) {
-          this.$store.dispatch('set/fetchActive');
+          this.fetchCurrentSet();
         }
       },
       addToSet() {

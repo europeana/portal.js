@@ -10,8 +10,8 @@ localVue.use(VueI18n);
 
 const setId = 'http://data.europeana.eu/set/123';
 
+const fetchCurrentSetSpy = sinon.spy();
 const storeCommit = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: setId });
 const setApiDeleteSpy = sinon.spy();
 const setApiInsertItemStub = sinon.stub().resolves({});
@@ -33,7 +33,7 @@ const existingSetPropsData = {
   visibility: 'public'
 };
 
-const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal, {
+const factory = ({ propsData, data, provide, $route, $store } = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -67,11 +67,14 @@ const factory = ({ propsData, data, $route, $store } = {}) => mount(SetFormModal
     $router: { push: sinon.spy() },
     $store: {
       commit: storeCommit,
-      dispatch: storeDispatch,
-      state: { set: { activeId: null } },
       ...$store
     },
     $t: (key) => key
+  },
+  provide: {
+    currentSet: null,
+    fetchCurrentSet: fetchCurrentSetSpy,
+    ...provide
   },
   stubs: ['ConfirmDangerModal']
 });
@@ -122,32 +125,32 @@ describe('components/set/SetFormModal', () => {
     });
 
     describe('when the active set', () => {
-      const $store = { state: { set: { activeId: setId.split('/').pop() } } };
+      const provide = { currentSet: { id: setId } };
 
       it('re-fetches active set', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData, $store });
+        const wrapper = factory({ propsData: existingSetPropsData, provide });
 
         await wrapper.find('#set-title').setValue('A better title');
         await wrapper.find('#set-private').setChecked();
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+        expect(fetchCurrentSetSpy.calledWith()).toBe(true);
       });
     });
 
     describe('when not the active set', () => {
-      const $store = { state: { set: { activeId: '456' } } };
+      const provide = { currentSet: { id: '456' } };
 
       it('re-fetches active set', async() => {
-        const wrapper = factory({ propsData: existingSetPropsData, $store });
+        const wrapper = factory({ propsData: existingSetPropsData, provide });
 
         await wrapper.find('#set-title').setValue('A better title');
         await wrapper.find('#set-private').setChecked();
         await wrapper.find('form').trigger('submit.stop.prevent');
         await new Promise(process.nextTick);
 
-        expect(storeDispatch.calledWith('set/fetchActive', setId)).toBe(false);
+        expect(fetchCurrentSetSpy.called).toBe(false);
       });
     });
 
@@ -213,30 +216,6 @@ describe('components/set/SetFormModal', () => {
         await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
 
         expect(setApiDeleteSpy.calledWith(setId)).toBe(true);
-      });
-
-      describe('when the active set', () => {
-        const $store = { state: { set: { active: { id: setId } } } };
-
-        it('resets the active set id in the store', async() => {
-          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
-
-          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
-
-          expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
-        });
-      });
-
-      describe('when not the active set', () => {
-        const $store = { state: { set: { active: { id: 'http://data.europeana.eu/set/456' } } } };
-
-        it('does not reset the active set id in the store', async() => {
-          const wrapper = factory({ data, propsData: existingSetPropsData, $store });
-
-          await wrapper.find('confirmdangermodal-stub').vm.$emit('confirm');
-
-          expect(storeCommit.called).toBe(false);
-        });
       });
 
       it('makes toast', async() => {

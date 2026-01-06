@@ -7,19 +7,16 @@ import * as useMakeToast from '@/composables/makeToast.js';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const storeDispatch = sinon.stub().resolves({});
+const fetchCurrentSetSpy = sinon.spy();
 const setApiPublishSpy = sinon.spy();
 const setApiUnpublishSpy = sinon.spy();
 
 const publicSet = { setId: '001', visibility: 'public' };
-
 const publishedSet = { setId: '001', visibility: 'published' };
 
-const factory = (propsData = {}) => shallowMount(SetPublishButton, {
+const factory = ({ propsData = {}, provide = {} } = {}) => shallowMount(SetPublishButton, {
   localVue,
-  propsData: {
-    ...propsData
-  },
+  propsData,
   mocks: {
     $apis: {
       set: {
@@ -27,17 +24,12 @@ const factory = (propsData = {}) => shallowMount(SetPublishButton, {
         unpublish: setApiUnpublishSpy
       }
     },
-    $t: key => key,
-    $store: {
-      dispatch: storeDispatch,
-      state: {
-        set: {
-          active: {
-            visibility: propsData.visibility
-          }
-        }
-      }
-    }
+    $t: key => key
+  },
+  provide: {
+    currentSet: null,
+    fetchCurrentSet: fetchCurrentSetSpy,
+    ...provide
   }
 });
 
@@ -51,17 +43,16 @@ describe('components/set/SetPublishButton', () => {
   afterAll(sinon.reset);
 
   it('refreshes the active set first', async() => {
-    const wrapper = factory(publicSet);
+    const wrapper = factory({ propsData: publicSet });
 
     await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-    expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+    expect(fetchCurrentSetSpy.calledWith()).toBe(true);
   });
 
   describe('when set visibility changed in the meantime', () => {
     it('does not try to change the set visibility again', async() => {
-      const wrapper = factory(publicSet);
-      wrapper.vm.$store.state.set.active.visibility = 'private';
+      const wrapper = factory({ propsData: publicSet, provide: { currentSet: { visibility: 'private' } } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
@@ -70,8 +61,7 @@ describe('components/set/SetPublishButton', () => {
     });
 
     it('shows a toast with a notification', async() => {
-      const wrapper = factory(publicSet);
-      wrapper.vm.$store.state.set.active.visibility = 'private';
+      const wrapper = factory({ propsData: publicSet, provide: { currentSet: { visibility: 'private' } } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
@@ -81,37 +71,37 @@ describe('components/set/SetPublishButton', () => {
 
   describe('when set is not published', () => {
     it('publishes the set', async() => {
-      const wrapper = factory(publicSet);
+      const wrapper = factory({ propsData: publicSet, provide: { currentSet: publicSet } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
       expect(setApiPublishSpy.called).toBe(true);
     });
 
-    it('refreshes the set in the store', async() => {
-      const wrapper = factory(publicSet);
+    it('refreshes the set', async() => {
+      const wrapper = factory({ propsData: publicSet, provide: { currentSet: publicSet } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+      expect(fetchCurrentSetSpy.calledWith()).toBe(true);
     });
   });
 
   describe('when set is already published', () => {
     it('unpublishes the set', async() => {
-      const wrapper = factory(publishedSet);
+      const wrapper = factory({ propsData: publishedSet, provide: { currentSet: publishedSet } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(setApiUnpublishSpy.calledWith(publicSet.setId)).toBe(true);
+      expect(setApiUnpublishSpy.calledWith(publishedSet.setId)).toBe(true);
     });
 
-    it('refreshes the set in the store', async() => {
-      const wrapper = factory(publishedSet);
+    it('refreshes the set', async() => {
+      const wrapper = factory({ propsData: publishedSet, provide: { currentSet: publishedSet } });
 
       await wrapper.find('[data-qa="publish set button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+      expect(fetchCurrentSetSpy.calledWith()).toBe(true);
     });
   });
 });

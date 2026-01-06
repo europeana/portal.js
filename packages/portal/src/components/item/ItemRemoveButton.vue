@@ -40,6 +40,8 @@
       ConfirmDangerModal: () => import('../generic/ConfirmDangerModal')
     },
 
+    inject: ['currentSet', 'fetchCurrentSet'],
+
     props: {
       /**
        * Identifier(s) of the item
@@ -81,9 +83,6 @@
       disabled() {
         return this.selectionCount === 0;
       },
-      activeSet() {
-        return this.$store.state.set.active;
-      },
       confirmationNeeded() {
         // TODO: should we really alway show the confirmation modal just to remove
         //       one item?
@@ -103,7 +102,7 @@
         return this.$tc(`set.actions.removeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
       },
       toastMessage() {
-        const setTitle = langMapValueForLocale(this.activeSet.title, this.$i18n.locale).values[0];
+        const setTitle = langMapValueForLocale(this.currentSet.title, this.$i18n.locale).values[0];
         return this.$tc(`set.notifications.itemsRemoved.${this.cardinality}`, this.selectionCount, { count: this.selectionCount, gallery: setTitle });
       }
     },
@@ -122,11 +121,11 @@
       },
 
       async removeItem() {
-        const setId = this.activeSet.id;
+        const setId = this.currentSet.id;
 
         try {
           await this.$apis.set.deleteItems(setId, this.identifiers);
-          this.$store.dispatch('set/fetchActive');
+          this.fetchCurrentSet();
           this.makeToast(this.toastMessage);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
