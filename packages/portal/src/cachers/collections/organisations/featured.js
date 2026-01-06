@@ -1,11 +1,11 @@
 import baseData from '../index.js';
-import organizationsMixin from '../../../mixins/europeana/entities/organizations.js';
+import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
 
 const PICK = ['id', 'prefLabel', 'logo'];
 const DAILY = 4;
 const INTERNATIONALISE = (entities) => entities.map((entity) => ({
   ...entity,
-  prefLabel: organizationsMixin.methods.organizationEntityNativeName(entity)
+  prefLabel: organizationEntityNativeName(entity)
 })).filter((entity) => !!entity.prefLabel);
 const SORT = (entity) => {
   if (!entity.prefLabel) {
