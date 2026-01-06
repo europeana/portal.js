@@ -1,0 +1,87 @@
+#import "../fragments/imageWithAttributionFields.graphql"
+
+query StoryPage(
+  $identifier: String!
+  $locale: String!
+  $preview: Boolean = false
+) {
+  storyCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      nameEN: name(locale: "en-GB")
+      headline
+      headlineEN: headline(locale: "en-GB")
+      description
+      datePublished
+      relatedLink
+      categoriesCollection {
+        items {
+          name
+          identifier
+        }
+      }
+      genre
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
+      hasPartCollection(limit: 40) {
+        total
+        items {
+          __typename
+          ... on ContentTypeRichText {
+            text
+          }
+          ... on Embed {
+            embed
+          }
+          ... on ImageWithAttribution {
+            ...imageWithAttributionFields
+          }
+          ... on ImageComparison {
+            name
+            hasPartCollection(limit: 2) {
+              items {
+                ...imageWithAttributionFields
+              }
+            }
+          }
+          ... on Link {
+            url
+            text
+          }
+          ... on ImageTextSlideGroup {
+            hasPartCollection(limit: 3) {
+              items {
+                ... on ImageTextSlide {
+                  image {
+                    ...imageWithAttributionFields
+                  }
+                  text
+                  citation
+                }
+              }
+            }
+          }
+          # CardGroup omitted intentionally
+        }
+      }
+      authorCollection {
+        items {
+          name
+          affiliation
+          url
+        }
+      }
+      contentWarning {
+        name
+        description
+      }
+    }
+  }
+}

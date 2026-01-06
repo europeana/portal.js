@@ -12,6 +12,7 @@ export default {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/tests/unit/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
@@ -29,6 +30,7 @@ export default {
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg|webp)$': '<rootDir>/tests/unit/fileTransformer.cjs',
+    '\\.(gql|graphql)$': './tests/unit/jest-28-gql-transform-shim.js'
   }
 };

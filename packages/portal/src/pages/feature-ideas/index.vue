@@ -56,6 +56,7 @@
 <script>
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import featureIdeasPageGraphql from '@/graphql/queries/featureIdeasPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -87,8 +88,8 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const pageResponse = await this.$contentful.query('featureIdeasPage', pageVariables);
-      const featuresPage = pageResponse.data.data.featureIdeasPageCollection.items[0];
+      const pageResponse = await this.$contentful.query(featureIdeasPageGraphql, pageVariables);
+      const featuresPage = pageResponse.data.featureIdeasPageCollection.items[0];
 
       if (!featuresPage) {
         return;

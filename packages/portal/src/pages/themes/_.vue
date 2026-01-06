@@ -146,8 +146,9 @@
   import ClientOnly from 'vue-client-only';
 
   import ContentHeader from '@/components/content/ContentHeader';
-  import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import themePageGraphql from '@/graphql/queries/themePage.graphql';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -190,8 +191,8 @@
       };
 
       try {
-        const response = await this.$contentful.query('themePage', variables);
-        const theme = response.data.data.themePage?.items?.[0];
+        const response = await this.$contentful.query(themePageGraphql, variables);
+        const theme = response.data.themePage?.items?.[0];
 
         if (theme?.identifier) {
           this.identifier = theme.identifier;

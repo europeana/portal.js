@@ -21,6 +21,7 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
+  import themesGraphql from '@/graphql/queries/themes.graphql';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import { daily } from '@/plugins/europeana/utils';
 
@@ -77,8 +78,8 @@
       } else if (this.sectionType === FEATURED_THEMES) {
         data.key = `${this.$i18n.locale}/themes/featured`;
         data.contentful = {
-          query: 'themes',
-          collection: 'themePageCollection'
+          collection: 'themePageCollection',
+          graphql: themesGraphql
         };
         data.daily = 4;
         data.cardType = 'AutomatedThemeCard';
@@ -206,8 +207,8 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
-        const response = await this.$contentful.query(this.contentful.query, variables);
-        return response.data.data[this.contentful.collection].items;
+        const response = await this.$contentful.query(this.contentful.graphql, variables);
+        return response.data[this.contentful.collection].items;
       },
       async fetchSetData() {
         const params = {

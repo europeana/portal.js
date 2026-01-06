@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "publishedCollections": "Galleriji Ippubblikati",
     "settings": "Settings",
-    "title": "Il-kont tiegħi",
+    "title": "Il-profil Tiegħi",
     "tooltip": {
       "EntityBestItemsSet": "Gallerija kkurata turi l-oġġetti ippinjati fi ħdan kollezzjoni speċifika",
       "private": "Gallerija privata tista' taraha biss int.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Ikkonferma",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
-    "disable": "Diżattiva",
     "download": "Niżżel",
     "edit": "Editja",
     "filter": "Filtru",
@@ -86,25 +85,50 @@ export default {
     "vote": "Ivvota"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Agħlaq il-menu tal-immaniġġjar taċ-ċwievet",
+      "disable": "Diżattiva ċ-ċavetta",
+      "reEnable": "Erġa’ attiva ċ-ċavetta",
+      "showMenu": "Uri l-menu tal-immaniġġjar taċ-ċwievet"
+    },
+    "disable": {
+      "promptText1": "Int żgur li trid tiddiżattiva din iċ-ċavetta API?",
+      "promptText2": "Ladarba tiddiżattiva din iċ-ċavetta, ma tkunx tista’ tużaha fil-proġett tiegħek. Dan jiġri immedjatament. Ikollok tibgħatilna email fuq api@europeana.eu biex terġa’ tattiva ċ-ċavetta API.",
+      "title": "Diżattiva ċ-ċavetta API"
+    },
+    "reEnable": {
+      "text": "Biex terġa’ tattiva din iċ-ċavetta API, jekk jogħġbok ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Erġa’ attiva ċ-ċavetta tal-API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Itlob ċavetta personali tal-API",
-          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key.",
-          "termsOfUseLinkText": "termini ta’ użu"
+          "checkbox": "Nikkonferma li qrajt u naċċetta t-{termsOfUseLink} tal-API key."
         },
-        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}",
+        "description": "Tgħallem u ipprova kif tuża l-APIs bil-API key personali tiegħek. Jekk jogħġbok, tinqasamsux. {howToLink}.",
         "heading": "Ċavetta API personali",
-        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek."
-      }
+        "howToLinkText": "Kif tuża ċ-ċavetta tiegħek"
+      },
+      "projectKeys": {
+        "description": "Għal kull proġett li għandek bżonn tibni, aħna nipprovdulek ċavetta ddedikata. Iċ-ċwievet tal-proġett għandhom limiti ogħla u karatteristiċi speċjali oħra – aqra aktar fiċ-ċavetta tal-API {termsOfUseLink}. Jekk tixtieq teditja l-informazzjoni dwar il-proġett tiegħek, jekk jogħġbok ibgħat email lil api@europeana.eu, u aħna nagħmlu l-bidliet għalik.",
+        "heading": "Ċwievet API tal-Proġett"
+      },
+      "termsOfUseLinkText": "termini ta’ użu"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Ġestjoni taċ-ċwievet tal-API"
+        },
         "clientId": {
           "label": "Ċavetta API"
         },
         "created": {
           "label": "Data tal-ħolqien"
+        },
+        "name": {
+          "label": "Isem tal-proġett"
         }
       }
     },
@@ -169,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materjali",
-          "name": "Materjal | Materjali",
+          "name": "Materjal",
           "select": "Agħżel materjali"
         }
       }
@@ -190,8 +214,35 @@ export default {
     "startDate": "Data tal-bidu",
     "to": "biex"
   },
+  "debias": {
+    "background": {
+      "link": "Proġett DE-BIAS",
+      "text": "Din l-informazzjoni nħolqot mill-{link} (2023/2024) biex tgħin tikkonteżżwalizza termini antikwati u ta' ħsara f'deskrizzjonijiet tal-kollezzjoni."
+    },
+    "headings": {
+      "alternatives": "Alternattivi ssuġġeriti",
+      "recommendations": "Rakkomandazzjonijiet għall-użu",
+      "source": "Sors"
+    },
+    "termNotFound": "Din il-paġna hija disponibbli biss fil-lingwa tat-terminu preġudikat.",
+    "tooltip": {
+      "linkToPage": "Aqra l-ispjegazzjoni sħiħa pprovduta minn {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Daħħal iċ-ċavetta API Europeana tiegħek u din tintuża fil-links għal talbiet għall-API.",
+          "descriptionLine2": "Għandek bżonn ċavetta API? Irreġistra għal waħda {link}.",
+          "here": "hawn",
+          "label": "Ċavetta API",
+          "usePersonal": {
+            "linkText": "Daħħal iċ-ċavetta API personali tiegħek",
+            "prompt": "{link} u se jintuża."
+          }
+        }
+      },
       "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna."
     }
   },
@@ -199,9 +250,6 @@ export default {
   "directions": {
     "left": "Xellug",
     "right": "Lemin"
-  },
-  "ds4ch": {
-    "broughtBy": "Miġjuba lilek minn"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "embedNotification": {
@@ -239,6 +287,18 @@ export default {
   },
   "error": "Żball",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Din iċ-ċavetta API diġà ġiet diżattivata, forsi f'tab ieħor tal-browser.",
+      "title": "Iċ-ċavetta diġà hija diżattivata"
+    },
+    "authDuplicateKey": {
+      "description": "L-utenti jistgħu jkollhom biss ċavetta personali waħda attivata, maħsuba għall-użu personali.",
+      "title": "Diġà għandek ċavetta personali"
+    },
+    "authKeyLimitReached": {
+      "description": "Ma tistax tinħoloq ċavetta personali ġdida għax laħaqt il-limitu taċ-ċwievet personali diżattivati. Jekk jogħġbok, ibgħatilna email fuq api@europeana.eu jew ikkuntattjana permezz tal-widget tal-feedback fil-qiegħ tat-tieqa.",
+      "title": "Inti lħaqt il-limitu taċ-ċwievet personali"
+    },
     "galleryLocked": {
       "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
       "title": "L-aġġornament falla"
@@ -652,6 +712,10 @@ export default {
       },
       "select": "Agħżel jekk tistax tuża dan"
     },
+    "RIGHTS": {
+      "name": "Dikjarazzjoni tad-drittijiet",
+      "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
+    },
     "TYPE": {
       "name": "Tip ta' midja",
       "options": {
@@ -737,8 +801,6 @@ export default {
   "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
-    "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
-    "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
     "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
@@ -750,6 +812,7 @@ export default {
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Dikjarazzjoni tal-privatezza",
+      "registerApiKey": "Irreġistra għal ċavetta API",
       "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "supportingTechnicalPartners": "Appoġġ għall-imsieħba tekniċi",
@@ -880,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
         "title": "L-Istrateġija tal-Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Jgħin id-debugging ta 'talbiet API",
         "title": "Debug toggle"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Jattiva widget tal-istħarriġ li jagħtik l-għażla li tirrispondi għall-istħarriġiet tagħna dwar is-sodisfazzjon tal-viżitaturi.",
+        "description": "Jikkolletta data dwar l-użu biex jgħinna nanalizzaw l-interazzjonijiet tal-utenti. Jattiva widget ta' stħarriġ li jagħtik l-għażla li twieġeb għall-istħarriġiet ta' sodisfazzjon tal-viżitaturi tagħna.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Tiftakar il-lingwa tal-interface preferuta tiegħek għal aċċess futur.",
         "title": "Kodiċi tal-lingwa"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Jattiva l-widget tal-feedback u jagħtik l-għażla li tikkuntattjana.",
         "title": "Skrivanija tas-servizz ta' Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
@@ -998,97 +971,18 @@ export default {
         "description": "Jiftakar jekk tippreferi tikseb riżultati tat-tfittxija b’ħafna lingwi.",
         "title": "Tfittxija b’ħafna lingwi"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Juri notifika meta karatteristiċi ġodda jsiru disponibbli.",
         "title": "Notifika ta' karatteristika ġdida"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Jiftakar jekk tippreferix tara r-riżultati tat-tfittxija, galleriji u bħalek f'lista, grilja jew dehra tal-mużajk.",
         "title": "Riżultat tat-tfittxija, galleriji u ħarsa tal-likes (lista/grilja/mużajk)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "fornitur mhux magħruf",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "fornitur mhux magħruf"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
       "dataProviders": "Fornituri tad-Data",
@@ -1179,9 +1073,6 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Ta",
   "organisation": {
     "city": "Belt",
@@ -1239,8 +1130,6 @@ export default {
     },
     "allMetaData": "Il-metadata kollha",
     "clickToCopyEmbedCode": "Ikklikkja fuq il-kodiċi embed biex tikkopjah",
-    "debias": "De-bias",
-    "explanationby": "Spjegazzjoni pprovduta minn {0}",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
@@ -1354,7 +1243,7 @@ export default {
   },
   "searchFilters": "Fittex filtri {count}",
   "searchHasLoaded": "{0} riżultati rritornati",
-  "searchPlaceholder": "Fittex 50+ miljun oġġett",
+  "searchPlaceholder": "Fittex 60+ miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
   "searchSuggestions": "Fittex is-suġġerimenti",
@@ -1500,7 +1389,7 @@ export default {
   },
   "storiesPage": {
     "results": "{count} riżultat | {count} riżultati",
-    "storiesHaveLoaded": "{0} stejjer misjuba"
+    "storiesHaveLoaded": "{0} tejjer misjuba"
   },
   "swiper": {
     "a11y": {

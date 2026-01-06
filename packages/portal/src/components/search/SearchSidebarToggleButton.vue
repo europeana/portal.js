@@ -2,7 +2,7 @@
   <b-button
     v-show="showSidebarToggle"
     data-qa="search sidebar button"
-    class="icon-filter p-0 ml-3 my-3"
+    class="icon-filter p-0 m-3"
     :class="{ 'filters-applied' : hasSelectedFilters }"
     variant="light-flat"
     :aria-label="$t('actions.filter')"

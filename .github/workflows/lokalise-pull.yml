@@ -1,0 +1,51 @@
+name: "Lokalise: pull"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Node packages
+        run: npm install
+
+      - name: Pull from Lokalise
+        uses: lokalise/lokalise-pull-action@v3.14.0
+        with:
+          api_token: ${{ secrets.LOKALISE_API_TOKEN }}
+          project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
+          file_format: react_native
+          file_ext: js
+          translations_path: packages/portal/src/i18n/lang
+          base_lang: en_GB
+          flat_naming: true
+          skip_include_tags: true
+          skip_original_filenames: true
+          always_pull_base: true
+          git_commit_message: "chore: update translations"
+          custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
+          post_process_command: node bin/post-process-lokalise-pull.js
+          additional_params: |
+            --add-newline-eof=true
+            --directory-prefix=packages/portal/src/i18n/lang
+            --exclude-tags="Not ready"
+            --export-empty-as=skip
+            --export-sort=a_z
+            --filter-langs=bg,cs,da,de,el,es,et,eu_ES,fi,fr,ga_IE,hr,hu,it,lt,lv,mt_MT,nl,pl,pt,ro,sk,sl,sv
+            --indentation=2sp
+            --language-mapping=[{"original_language_iso":"en_GB","custom_language_iso":"en"},{"original_language_iso":"eu_ES","custom_language_iso":"eu"},{"original_language_iso":"mt_MT","custom_language_iso":"mt"},{"original_language_iso":"ga_IE","custom_language_iso":"ga"}]
+            --original-filenames=true
+            --placeholder-format=icu
+            --replace-breaks=false

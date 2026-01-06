@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Javne galerije",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Postavke",
-    "title": "Moj račun",
+    "title": "Moj profil",
     "tooltip": {
       "EntityBestItemsSet": "Odabrana galerija prikazuje prikvačene predmeti unutar određene zbirke",
       "private": "Privatnu galeriju možete vidjeti samo vi.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Potvrdi",
     "continue": "nastaviti",
     "depublish": "Depublish",
-    "disable": "Onemogući",
     "download": "Preuzmi",
     "edit": "Uredi",
     "filter": "Filtar",
@@ -86,25 +85,50 @@ export default {
     "vote": "Glasaj"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zatvori izbornik za upravljanje ključevima",
+      "disable": "Onemogući ključ",
+      "reEnable": "Ponovno omogućite ključ",
+      "showMenu": "Prikaži izbornik za upravljanje ključevima"
+    },
+    "disable": {
+      "promptText1": "Jeste li sigurni da želite onemogućiti ovaj API ključ?",
+      "promptText2": "Kada onemogućite ovaj ključ, više ga nećete moći koristiti na svom projektu. To će se dogoditi odmah. Morat ćete nam poslati e-mail na api@europeana.eu da ponovno omogućimo API ključ.",
+      "title": "Onemogući API ključ"
+    },
+    "reEnable": {
+      "text": "Da biste ponovno omogućili ovaj API ključ, pošaljite nam e-poruku na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Ponovno omogućite API ključ"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Zatražite osobni API ključ",
-          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}.",
-          "termsOfUseLinkText": "uvjeti korištenja"
+          "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}."
         },
-        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}",
+        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
         "heading": "Osobni API ključ",
-        "howToLinkText": "Kako koristiti svoj ključ."
-      }
+        "howToLinkText": "Kako koristiti svoj ključ"
+      },
+      "projectKeys": {
+        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu{termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
+        "heading": "API ključevi projekta"
+      },
+      "termsOfUseLinkText": "uvjeti korištenja"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Upravljanje API ključevima"
+        },
         "clientId": {
           "label": "API ključ"
         },
         "created": {
           "label": "Datum kreiranja"
+        },
+        "name": {
+          "label": "Naziv projekta"
         }
       }
     },
@@ -169,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materijala",
-          "name": "Materijal | materijali",
+          "name": "Materijal",
           "select": "Odaberite materijale"
         }
       }
@@ -190,8 +214,35 @@ export default {
     "startDate": "Datum početka",
     "to": "do"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS projekt",
+      "text": "Ove informacije izradio je {link} (2023./2024.) kako bi pomogao kontekstualizirati zastarjele i štetne pojmove u opisima zbirki."
+    },
+    "headings": {
+      "alternatives": "Predložene alternative",
+      "recommendations": "Preporuke za upotrebu",
+      "source": "Izvor"
+    },
+    "termNotFound": "Ova stranica dostupna je samo na jeziku pristranog pojma.",
+    "tooltip": {
+      "linkToPage": "Pročitajte cijelo objašnjenje koje je dao {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Unesite svoj Europeana API ključ i on će se koristiti u poveznicama na API zahtjeve.",
+          "descriptionLine2": "Trebate API ključ? Registrirajte se za jedan {link}.",
+          "here": "ovdje",
+          "label": "API ključ",
+          "usePersonal": {
+            "linkText": "Unesite svoj osobni API ključ",
+            "prompt": "{link} i bit će korišten."
+          }
+        }
+      },
       "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane."
     }
   },
@@ -199,10 +250,6 @@ export default {
   "directions": {
     "left": "Lijevo",
     "right": "Desno"
-  },
-  "ds4ch": {
-    "broughtBy": "Predstavljeno vam od",
-    "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "embedNotification": {
@@ -240,6 +287,18 @@ export default {
   },
   "error": "Greška",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Ovaj API ključ je već onemogućen, možda u drugoj kartici preglednika.",
+      "title": "Ključ je već onemogućen"
+    },
+    "authDuplicateKey": {
+      "description": "Korisnici mogu imati samo jedan omogućen osobni ključ namijenjen osobnoj upotrebi.",
+      "title": "Već imate osobni ključ"
+    },
+    "authKeyLimitReached": {
+      "description": "Nije moguće stvoriti novi osobni ključ jer ste dosegli ograničenje onemogućenih osobnih ključeva. Molimo pošaljite nam e-mail na api@europeana.eu ili nas kontaktirajte putem widgeta za povratne informacije na dnu prozora.",
+      "title": "Dosegli ste ograničenje osobnih ključeva"
+    },
     "galleryLocked": {
       "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
       "title": "Ažuriranje nije uspjelo"
@@ -653,6 +712,10 @@ export default {
       },
       "select": "Odaberite možete li ovo koristiti"
     },
+    "RIGHTS": {
+      "name": "Uvjeti korištenja",
+      "select": "Odaberite izjave o pravima"
+    },
     "TYPE": {
       "name": "Vrsta medija",
       "options": {
@@ -738,8 +801,6 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
-    "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
-    "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
@@ -751,6 +812,7 @@ export default {
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Izjava o privatnosti",
+      "registerApiKey": "Registrirajte se za API ključ",
       "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "supportingTechnicalPartners": "Podrška tehničkim partnerima",
@@ -881,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
         "title": "Prebacivanje pogrešaka"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
+        "description": "Prikuplja podatke o korištenju kako bi nam pomogao analizirati interakcije korisnika. Aktivira widget za anketu koji vam omogućuje sudjelovanje u našim anketama o zadovoljstvu posjetitelja.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
         "title": "Kod jezika"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
         "title": "Jira servisni stol"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
@@ -999,98 +971,18 @@ export default {
         "description": "Pamti želite li višejezične rezultate pretraživanja.",
         "title": "Višejezično pretraživanje"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Prikazuje obavijest kada nove značajke postanu dostupne.",
         "title": "Obavijest o novoj značajki"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Pamti ako više volite vidjeti rezultate pretraživanja, galerije i lajkove na popisu, rešetki ili prikazu mozaika.",
         "title": "Prikaz rezultata pretraživanja, galerija i lajkova (popis/mreža/mozaik)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "nepoznati pružatelj usluga",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "nepoznati pružatelj usluga"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Pronađite inspiraciju"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
       "dataProviders": "Davatelji podataka",
@@ -1128,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Bilješke",
-      "annotationsCount": "1 bilješka |{count} bilješki",
+      "annotationsCount": "1 bilješka | {count} bilješki",
       "hide": "Sakrij bočnu traku",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkovi",
@@ -1181,9 +1073,6 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "Od",
   "organisation": {
     "city": "Grad",
@@ -1241,8 +1130,6 @@ export default {
     },
     "allMetaData": "Svi meta podaci",
     "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
-    "debias": "De-bias",
-    "explanationby": "Objašnjenje pružio {0}",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
@@ -1280,7 +1167,7 @@ export default {
       "title": "Otkrijte povezane teme"
     }
   },
-  "removeFilter": "Uklonite filtar {filterLabel} ",
+  "removeFilter": "Uklonite filtar {filterLabel}",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
   "rights": {
     "tooltip": {
@@ -1356,7 +1243,7 @@ export default {
   },
   "searchFilters": "Filtri pretraživanja {count}",
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Pretražite više od 50 milijuna predmeti",
+  "searchPlaceholder": "Pretražite više od 60 milijuna predmeti",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",
@@ -1445,7 +1332,7 @@ export default {
     },
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali.",
-      "removeItems": "Jeste li sigurni da želite ukloniti {count} predmet iz ove galerije? | Jeste li sigurni da želite ukloniti {count} predmete iz ove galerije?"
+      "removeItems": "Jeste li sigurni da želite ukloniti {count} predmet iz ove galerije? | Jeste li sigurni da želite ukloniti {count}predmete iz ove galerije?"
     },
     "publication": {
       "criteria": {

@@ -1,3 +1,5 @@
+@import 'functions';
+
 $font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
 $font-family-ubuntu: 'Ubuntu', $font-family-sans-serif;
 
@@ -32,6 +34,7 @@ $lightblue-dark: #c1dbf2;
 $lightblue-light: #e2f2fe;
 $skyblue: #bcd8f1;
 $red: #e02020;
+$darkred: #c91c1c;
 $yellow: #ffae00;
 $yellowgrey: #d9d4ca;
 $green: #368535;
@@ -49,6 +52,7 @@ $textshadow-light: 1px 2px 2px rgb(0 0 0 / 30%);
 $border-radius: 0.375rem;
 $border-radius-small: 0.25rem;
 $border-radius-large: 0.5rem;
+$border-radius-small-4k: calc(1.5 * 0.25rem);
 $font-size-xxl: 2.375rem;
 $font-size-xl: 2.125rem;
 $font-size-large: 1.5rem;
@@ -82,10 +86,12 @@ $media-viewer-height: 80vh;
 $media-viewer-height-max: 41.25rem;
 $media-viewer-height-medium: 30.75rem;
 $jumbotron-height-min: 275px;
-$min-card-width: 250px;
-$max-card-width: 480px;
-$max-text-column-width: 932px;
-$max-text-column-width-landing-4k: 1450px;
+$min-card-width: min(100%, pxToRem(210));
+$min-card-width-xxxl: pxToRem(250);
+$max-card-width: pxToRem(480);
+$max-card-width-px: 480px;
+$max-text-column-width: pxToRem(932);
+$max-text-column-width-landing-4k: pxToRem(1450);
 $page-header-height: 3.5rem;
 $page-header-height-4k: calc(1.5 * 3.5rem);
 

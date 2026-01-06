@@ -38,6 +38,7 @@
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesInterface from '@/components/stories/StoriesInterface';
+  import storiesPageGraphql from '@/graphql/queries/storiesPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -72,8 +73,8 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
-      const storiesPage = pageResponse.data.data.storiesPageCollection.items[0];
+      const pageResponse = await this.$contentful.query(storiesPageGraphql, pageVariables);
+      const storiesPage = pageResponse.data.storiesPageCollection.items[0];
 
       if (!storiesPage) {
         return;

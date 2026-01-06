@@ -1,0 +1,43 @@
+#import "../fragments/imageWithAttributionFields.graphql"
+
+query ExhibitionLandingPage(
+  $identifier: String!,
+  $locale: String!,
+  $preview: Boolean = false
+) {
+  exhibitionPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+    items {
+      identifier
+      name
+      headline
+      description
+      datePublished
+      text
+      genre
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
+      hasPartCollection(limit: 20) {
+        items {
+          name
+          identifier
+          primaryImageOfPage {
+       			...imageWithAttributionFields
+      		}
+        }
+      }
+      credits
+      contentWarning {
+        name
+        description
+      }
+      categoriesCollection {
+        items {
+          name
+          identifier
+        }
+      }
+      relatedLink
+    }
+  }
+}

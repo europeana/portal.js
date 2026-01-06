@@ -4,28 +4,32 @@
       :id="id"
       :aria-expanded="expanded"
       data-qa="user api key actions menu"
+      right
       variant="link"
       no-caret
+      :toggle-attrs="{ 'aria-label': ariaLabelToggle}"
+      @show="menuOpen = true"
+      @hide="menuOpen= false"
     >
       <template #button-content>
         <span
           class="icon icon-kebab"
         />
       </template>
-      <b-dropdown-item
+      <b-dropdown-item-button
         v-if="apiKey.state === 'disabled'"
         data-qa="re-enable personal api key button"
         @click="handleClickReEnableButton(apiKey)"
       >
         {{ $t('apiKeys.actions.reEnable') }}
-      </b-dropdown-item>
-      <b-dropdown-item
+      </b-dropdown-item-button>
+      <b-dropdown-item-button
         v-else
         data-qa="disable personal api key button"
         @click="handleClickDisableButton(apiKey)"
       >
         {{ $t('apiKeys.actions.disable') }}
-      </b-dropdown-item>
+      </b-dropdown-item-button>
     </b-dropdown>
     <ConfirmDangerModal
       v-if="showConfirmDangerModal"
@@ -85,9 +89,16 @@
     data() {
       return {
         expanded: false,
+        menuOpen: false,
         showConfirmDangerModal: false,
         showUserReEnableApiKeyModal: false
       };
+    },
+
+    computed: {
+      ariaLabelToggle() {
+        return this.menuOpen ? this.$t('apiKeys.actions.closeMenu') : this.$t('apiKeys.actions.showMenu');
+      }
     },
 
     methods: {
@@ -113,3 +124,27 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  ::v-deep .dropdown-toggle {
+    color: $black;
+
+    &:hover {
+      color: $blue;
+    }
+
+    .icon-kebab {
+      color: inherit;
+    }
+  }
+
+  ::v-deep .dropdown-item {
+    font-size: $font-size-small;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+</style>

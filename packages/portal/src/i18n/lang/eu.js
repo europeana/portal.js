@@ -49,7 +49,6 @@ export default {
     "confirm": "Baieztatu",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
-    "disable": "Desgaitu",
     "download": "Deskargatu",
     "edit": "Editatu",
     "filter": "Iragazkia",
@@ -86,25 +85,50 @@ export default {
     "vote": "Bozkatu"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Itxi gakoen kudeaketa menu",
+      "disable": "Desgaitu gakoa",
+      "reEnable": "Berriro gaitu gakoa",
+      "showMenu": "Erakutsi gakoen kudeaketa menua"
+    },
+    "disable": {
+      "promptText1": "Ziur zaude API gako hau desgaitu nahi duzula?",
+      "promptText2": "Behin gako hau desgaitzen duzunean, ezingo duzu zure proiektuan gehiago erabili. Hau berehala gertatuko da. API gakoa berriro gaitzeko, idatzi mesedez api@europeana.eu helbidera.",
+      "title": "Desgaitu API gakoa"
+    },
+    "reEnable": {
+      "text": "API gako hau berriro gaitzeko, bidali mezua helbide honetara: api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzien widget-aren bidez.",
+      "title": "Berriro gaitu API gakoa"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Eskatu API gako pertsonala",
-          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}.",
-          "termsOfUseLinkText": "erabilera baldintzak"
+          "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}."
         },
-        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}",
+        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
         "heading": "API gako pertsonala",
-        "howToLinkText": "Nola erabili zure gakoa."
-      }
+        "howToLinkText": "Nola erabili zure gakoa"
+      },
+      "projectKeys": {
+        "description": "Eraiki behar duzun proiektu bakoitzerako, gako dedikatu bat emango dizugu. Proiektu-gakoek muga handiagoak eta beste ezaugarri berezi batzuk dituzte — irakurri gehiago API gakoaren {termsOfUseLink} atalean. Zure proiektuari buruzko informazioa editatu nahi baduzu, bidali mezu elektroniko bat helbide honetara: api@europeana.eu, eta guk egingo dizkizugu aldaketak.",
+        "heading": "Proiektuaren API gakoak"
+      },
+      "termsOfUseLinkText": "erabilera baldintzak"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API gakoen kudeaketa"
+        },
         "clientId": {
           "label": "API gakoa"
         },
         "created": {
           "label": "Sortze data"
+        },
+        "name": {
+          "label": "Proiektuaren izena"
         }
       }
     },
@@ -169,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materialak",
-          "name": "Materiala | Materialak",
+          "name": "Materiala",
           "select": "Hautatu materialak"
         }
       }
@@ -190,8 +214,35 @@ export default {
     "startDate": "Hasiera data",
     "to": "-ra"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS proiektua",
+      "text": "Informazio hau {link}k (2023/2024) sortu zuen bilduma-deskribapenetako zaharkitutako eta kaltegarriak diren terminoak testuinguruan jartzeko."
+    },
+    "headings": {
+      "alternatives": "Iradokitako alternatibak",
+      "recommendations": "Erabilerarako gomendioak",
+      "source": "Iturria"
+    },
+    "termNotFound": "Orrialde hau termino alboratuaren hizkuntzan bakarrik dago eskuragarri.",
+    "tooltip": {
+      "linkToPage": "Irakurri {projectName} emandako azalpen osoa"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Sartu zure Europeana API gakoa eta API eskaeretarako esteketan erabiliko da.",
+          "descriptionLine2": "API gako bat behar duzu? Erregistratu bat lortzeko {link}.",
+          "here": "hemen",
+          "label": "API gakoa",
+          "usePersonal": {
+            "linkText": "Sartu zure API gako pertsonala",
+            "prompt": "{link} eta erabiliko da."
+          }
+        }
+      },
       "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
@@ -199,15 +250,6 @@ export default {
   "directions": {
     "left": "Ezkerra",
     "right": "Eskuma"
-  },
-  "ds4ch": {
-    "broughtBy": "Zuretzat ekarrita",
-    "header": {
-      "navigation": {
-        "partners": "Bazkideak"
-      }
-    },
-    "homeLinkAlt": "Ondare kulturalaren egoitzarako Europako datu-espazio komuna"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "embedNotification": {
@@ -245,6 +287,18 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "API gako hau dagoeneko desgaituta dago, agian beste nabigatzaile-fitxa batean.",
+      "title": "Gakoa dagoeneko desgaituta dago"
+    },
+    "authDuplicateKey": {
+      "description": "Erabiltzaileek erabilgarri dagoen gako pertsonal bakarra izan dezakete, erabilera pertsonalerako pentsatua.",
+      "title": "Dagoeneko baduzu gako pertsonal bat"
+    },
+    "authKeyLimitReached": {
+      "description": "Ezin da gako pertsonal berri bat sortu, desgaitutako gako pertsonalen muga iritsi delako. Bidali iezaguzu mezu bat helbidera api@europeana.eu edo jarri gurekin harremanetan leihoaren behealdean dagoen iritzi-widgetaren bidez.",
+      "title": "Zure gako pertsonalen muga iritsi duzu"
+    },
     "galleryLocked": {
       "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
       "title": "Eguneratzea huts egin du"
@@ -658,6 +712,10 @@ export default {
       },
       "select": "Hautatu hau erabil dezakezun ala ez"
     },
+    "RIGHTS": {
+      "name": "Eskubideen adierazpena",
+      "select": "Hautatu eskubideen adierazpenak"
+    },
     "TYPE": {
       "name": "Euskarri mota",
       "options": {
@@ -743,8 +801,6 @@ export default {
   "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
-    "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
-    "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
@@ -756,6 +812,7 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun-adierazpena",
+      "registerApiKey": "Erregistratu API gako bat lortzeko",
       "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "supportingTechnicalPartners": "Bazkide teknikoak laguntzea",
@@ -775,7 +832,7 @@ export default {
     "collapseSearchBar": "Bilaketa barra tolestu",
     "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
-    "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
+    "inCollection": "Bilatu {query} in {collection}",
     "navigation": {
       "about": "Guri buruz",
       "collections": "Bildumak",
@@ -787,12 +844,12 @@ export default {
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
-    "searchFor": "Bilatu",
+    "searchFor": "Bilatu {query}",
     "searchForEverything": "Dena bilatu",
     "searchForEverythingInCollection": "Dena bilatu hemen {collection}",
     "searchForEverythingInEntireCollection": "Dena bilatu gure bilduma osoan",
     "searchForm": "Bilaketa formularioa",
-    "showSidebar": "Erakutsi alboko barra",
+    "showSidebar": "Erakutsi menua",
     "sideNavigation": "Alboko nabigazioa"
   },
   "homeLinkAlt": "Europeana Hasiera orria",
@@ -808,7 +865,7 @@ export default {
     "handle": "Kontrola"
   },
   "items": {
-    "itemCount": "Elementu 1 | {count} elementu",
+    "itemCount": "Elementu 1 |{count} elementu",
     "itemOf": "{max}/{count} elementu",
     "noItems": "Ez dago elementurik.",
     "noMoreItems": "Ez daude gehiago elementuak.",
@@ -849,7 +906,7 @@ export default {
         },
         "essential": {
           "description": "Zerbitzu hauek funtsezkoak dira webgune honen funtzionamendu egokia izateko. Bilaketaren emaitzen ikuspegia eta hizkuntza hobespenak biltzen dituzte, saioa hasita gordetzen dute eta zure bisita seguru mantentzen dute. Ezin dituzu desgaitu, bestela webguneak ez lukeelako ondo funtzionatuko.",
-          "title": "Segurtasunerako eta pertsonalizaziorako ezinbesteko zerbitzuak"
+          "title": "Segurtasun eta pertsonalizaziorako funtsezko zerbitzuak"
         },
         "mediaViewing": {
           "description": "Zerbitzu hauek irudiak (2D), 3D, audio eta bideo elementuak kargatzen dituzte ikusteko.",
@@ -886,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
+        "description": "Erabiltzaileen elkarrekintzak aztertzen laguntzeko erabilera-datuak biltzen ditu. Bisitarien gogobetetasun-inkestak erantzuteko aukera ematen dizun inkesta-widget bat aktibatzen du.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
         "title": "Hizkuntza kodea"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
         "title": "Jira zerbitzuko mahaia"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
@@ -1004,98 +971,18 @@ export default {
         "description": "Gogoratuko dugu hizkuntza anitzeko bilaketa-emaitzak nahiago dituzula.",
         "title": "Bilaketa eleanitza"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
         "title": "Ezaugarri berrien jakinarazpena"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Gogoratu nahi baduzu bilaketa-emaitzak, galeriak eta zure gustukoak zerrenda, sareta edo mosaiko ikuspegi batean ikusi nahi badituzu.",
         "title": "Bilaketa-emaitza, galeriak eta gustukoen ikuspegia (zerrenda/sareta/mosaikoa)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "hornitzaile ezezaguna",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "hornitzaile ezezaguna"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Aurkitu inspirazioa"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Hileroko API eskaerak, batez beste",
       "dataProviders": "Datu-hornitzaileak",
@@ -1133,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Oharpenak",
-      "annotationsCount": "1 Oharpena |{count} Oharpenak",
+      "annotationsCount": "1 Oharpena | {count} Oharpenak",
       "hide": "Ezkutatu alboko barra",
       "IIIFManifest": "IIIF Manifestua",
       "links": "Loturak",
@@ -1186,9 +1073,6 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Hiria",
@@ -1246,8 +1130,6 @@ export default {
     },
     "allMetaData": "Metadatu guztiak",
     "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
-    "debias": "De-bias",
-    "explanationby": "{0} -k emandako azalpena",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
@@ -1361,7 +1243,7 @@ export default {
   },
   "searchFilters": "Bilaketa-iragazkiak {count}",
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
+  "searchPlaceholder": "Bilatu 60 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",
@@ -1412,21 +1294,21 @@ export default {
       "update": "Eguneratu galeria"
     },
     "form": {
-      "description": "Bildumaren deskribapena",
-      "private": "Bilduma hau pribatu gisa mantendu",
+      "description": "Galeriaren deskribapena",
+      "private": "Mantendu pribatuan bilduma hau",
       "privateWarning": "Ekintza horrek galeriaren argitalpena baliogabetuko du.",
       "required": "Beharrezko eremua",
-      "title": "Bildumaren izena"
+      "title": "Galeriaren izena"
     },
     "labels": {
       "curatedBy": "Komisarioa",
-      "private": "Bilduma pribatua",
+      "private": "Galeria pribatua",
       "published": "Argitaratutako galeria"
     },
     "notifications": {
-      "deleted": "Bilduma ezabatu egin da.",
+      "deleted": "Zure galeria ezabatu da.",
       "itemsAdded": {
-        "1": "Elementua \" {gallery} \" galerian gehitu da.",
+        "1": "Elementua \" {gallery}\" galerian gehitu da.",
         "many": "{count} elementu gehitu da galeriara \"{gallery}\". | {count} elementu gehitu dira galeriara \"{gallery}\"."
       },
       "itemsLiked": {
@@ -1449,7 +1331,7 @@ export default {
       "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
+      "delete": "Ziur zaude galeria hau ezabatu nahi duzula? Galeria hau ezabatzen baduzu, gehitu dizkiozun elementu guztiak galduko dituzu.",
       "removeItems": "Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula? | Ziur zaude {count} elementu galeria honetatik kentzea nahi duzula?"
     },
     "publication": {

@@ -80,7 +80,7 @@
             v-if="supportingTechnicalPartners"
             sm="6"
             lg="3"
-            class="pb-4 order-sm-4 order-lg-6"
+            class="tech-partners pb-4 order-sm-4 order-lg-6"
           >
             <LinkGroup
               :title="supportingTechnicalPartners.name"
@@ -97,12 +97,23 @@
             data-qa="footer disclaimer"
           >
             <div class="sub-footer">
-              <EULogo
-                class="mb-3"
-              />
+              <div class="d-flex mb-3">
+                <SmartLink
+                  :destination="ds4chLink"
+                  class="mr-2 mr-sm-3"
+                  :hide-external-icon="true"
+                >
+                  <img
+                    :src="ds4chLogoSrc"
+                    :alt="$t('ds4ch.homeLinkAlt')"
+                    class="ds4ch-logo"
+                    data-qa="ds4chLogo"
+                    height="64"
+                  >
+                </SmartLink>
+                <EULogo />
+              </div>
               <p>{{ $t('footer.disclaimerLine1') }}</p>
-
-              <p>{{ $t('footer.disclaimerLine2') }}</p>
             </div>
           </b-col>
         </b-row>
@@ -115,17 +126,19 @@
 </template>
 
 <script>
-  import LangSelector from '../generic/LanguageSelector';
-  import LinkGroup from '../generic/LinkGroup';
-  import EULogo from '../image/ImageEULogo';
-  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
+  import EULogo from '@/components/image/ImageEULogo';
+  import FeedbackWidget from '@/components/feedback/FeedbackWidget.vue';
+  import LangSelector from '@/components/generic/LanguageSelector';
+  import LinkGroup from '@/components/generic/LinkGroup';
+  import SmartLink from '@/components/generic/SmartLink.vue';
 
   export default {
     components: {
       EULogo,
       FeedbackWidget,
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      SmartLink
     },
 
     props: {
@@ -161,8 +174,10 @@
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
               { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
+              // TODO: Remove condition and stop filtering null values when ENABLE_MANAGE_API_KEYS is permanently enabaled.
+              (this.$features.manageApiKeys ? { url: '/account/api-keys', text: this.$t('footer.navigation.registerApiKey'), dataQa: 'API key registration link' } : null),
               { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS', text: this.$t('footer.navigation.subscribe') }
-            ]
+            ].filter(Boolean)
           };
         }
       }
@@ -170,6 +185,8 @@
 
     data() {
       return {
+        ds4chLink: 'https://www.dataspace-culturalheritage.eu',
+        ds4chLogoSrc: require('@europeana/style/img/DS4CH/logo.svg'),
         social: [
           {
             text: 'Facebook',
@@ -178,9 +195,9 @@
             hideExternalIcon: true
           },
           {
-            text: 'X',
-            url: 'https://twitter.com/europeanaeu',
-            icon: 'icon-x',
+            text: 'Bluesky',
+            url: 'https://bsky.app/profile/europeana.bsky.social',
+            icon: 'icon-bsky',
             hideExternalIcon: true
           },
           {
