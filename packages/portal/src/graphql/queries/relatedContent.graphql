@@ -1,0 +1,43 @@
+query RelatedContent(
+  $locale: String!,
+  $preview: Boolean = false,
+  $limit: Int = 4,
+  $query: String = ""
+) {
+  exhibitionPageCollection(
+    where: { name_exists: true, name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+  storyCollection(
+    where: { name_exists: true, name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+}

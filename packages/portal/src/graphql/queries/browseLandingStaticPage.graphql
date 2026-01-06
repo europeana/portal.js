@@ -1,0 +1,339 @@
+#import "../fragments/automatedCardGroupFields.graphql"
+#import "../fragments/automatedEntityCardFields.graphql"
+#import "../fragments/curatedCardFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+#import "../fragments/imageDisplayProfileFields.graphql"
+#import "../fragments/imageFields.graphql"
+#import "../fragments/imageWithAttributionFields.graphql"
+#import "../fragments/primaryCallToActionFields.graphql"
+
+query BrowseLandingStaticPage(
+  $identifier: String!
+  $locale: String!
+  $site: String = "www.europeana.eu"
+  $preview: Boolean = false
+) {
+  browsePageCollection(
+    preview: $preview
+    locale: $locale
+    where: {
+      identifier: $identifier
+      site: $site
+    }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      headline
+      description
+      image {
+        ...imageFields
+      }
+      hasPartCollection(limit: 20) {
+        items {
+          __typename
+          ... on CardGroup {
+            ...cardGroupFields
+          }
+          ... on AutomatedCardGroup {
+            ...automatedCardGroupFields
+          }
+          ... on ContentTypeRichText {
+            text
+          }
+          ... on PrimaryCallToAction {
+            ...primaryCallToActionFields
+          }
+        }
+      }
+    }
+  }
+  landingPageCollection(
+    preview: $preview
+    locale: $locale
+    where: {
+      identifier: $identifier
+      site: $site
+    }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      description
+      image {
+        ...imageFields
+      }
+      headline
+      text
+      relatedLink {
+        url
+        text
+      }
+      relatedLinkDescription
+      primaryImageOfPage {
+        ...landingPageImageWithAttributionFields
+      }
+      hasPartCollection(limit: 20) {
+        total
+        items {
+          __typename
+          ... on CardGroup {
+            ...cardGroupFields
+          }
+          ... on IllustrationGroup {
+            ...illustrationGroupFields
+          }
+          ... on InfoCardGroup {
+            ...infoCardGroupFields
+          }
+          ... on ImageCard {
+            ...imageCardFields
+          }
+          ... on ImageCardGroup {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            image {
+              ...illustrationFields
+            }
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on ImageCard {
+                  ...imageCardFields
+                }
+              }
+            }
+          }
+          ... on LandingSubSection {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on CardGroup {
+                  ...cardGroupFields
+                }
+                ... on AutomatedCardGroup {
+                  ...automatedCardGroupFields
+                }
+                ... on IllustrationGroup {
+                  ...illustrationGroupFields
+                }
+                ... on ImageCard {
+                  ...imageCardFields
+                }
+                ... on InfoCardGroup {
+                  ...infoCardGroupFields
+                }
+              }
+            }
+          }
+          ... on EmbedSection {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            embed {
+              embed
+            }
+            link {
+              url
+              text
+            }
+            image {
+              ...illustrationFields
+            }
+          }
+          ... on PrimaryCallToAction {
+            ...primaryCallToActionFields
+          }
+        }
+      }
+    }
+  }
+  staticPageCollection(
+    preview: $preview
+    locale: $locale
+    where: {
+      identifier: $identifier
+      site: $site
+    }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      description
+      automatedTranslation
+      image {
+        ...imageFields
+      }
+      hasPartCollection(limit: 40) {
+        total
+        items {
+          __typename
+          ... on ContentTypeRichText {
+            text
+          }
+          ... on Embed {
+            embed
+          }
+          ... on ImageWithAttribution {
+            ...imageWithAttributionFields
+          }
+          ... on ImageComparison {
+            name
+            hasPartCollection(limit: 2) {
+              items {
+                ...imageWithAttributionFields
+              }
+            }
+          }
+          ... on AutomatedCardGroup {
+            ...automatedCardGroupFields
+          }
+          ... on Link {
+            url
+            text
+          }
+          ... on PrimaryCallToAction {
+            ...primaryCallToActionFields
+          }
+        }
+      }
+      relatedLinks {
+        ...linkGroupFields
+      }
+    }
+  }
+}
+
+fragment linkGroupFields on LinkGroup {
+  identifier
+  name
+  links: linksCollection(limit: 10) {
+    items {
+      text
+      url
+    }
+  }
+}
+fragment cardGroupFields on CardGroup {
+  headline
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
+  }
+}
+fragment landingPageImageWithAttributionFields on ImageWithAttribution {
+  name
+  nameEN: name(locale: "en-GB")
+  creator
+  provider
+  license
+  url
+  image {
+    ...imageFields
+  }
+}
+fragment infoCardFields on InfoCard {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  image {
+    ...imageFields
+  }
+  link {
+    url
+    text
+  }
+}
+fragment illustrationGroupFields on IllustrationGroup {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  hasPartCollection(limit: 20) {
+    items {
+      ... on Illustration {
+        ...illustrationFields
+      }
+    }
+  }
+}
+fragment infoCardGroupFields on InfoCardGroup {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  hasPartCollection(limit: 12) {
+    items {
+      __typename
+      ... on InfoCard {
+        ...infoCardFields
+      }
+    }
+  }
+  link {
+    url
+    text
+  }
+  image {
+    ...illustrationFields
+  }
+}
+fragment cardGroupFields on CardGroup {
+  headline
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
+  }
+}
+fragment imageCardFields on ImageCard {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  link {
+    url
+    text
+  }
+  image {
+    ...landingPageImageWithAttributionFields
+  }
+  profile {
+    ...imageDisplayProfileFields
+  }
+}

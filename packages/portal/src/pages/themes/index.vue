@@ -13,15 +13,18 @@
 
 <script>
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
+  import themesGraphql from '@/graphql/queries/themes.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 24;
 
   export default {
     name: 'ThemesIndexPage',
+
     components: {
       ContentHubPage
     },
+
     mixins: [pageMetaMixin],
 
     data() {
@@ -37,9 +40,9 @@
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
-      const response = await this.$contentful.query('themes', variables);
-      this.themes = response.data.data.themePageCollection.items;
-      this.total = response.data.data.themePageCollection.total;
+      const response = await this.$contentful.query(themesGraphql, variables);
+      this.themes = response.data.themePageCollection.items;
+      this.total = response.data.themePageCollection.total;
     },
 
     computed: {

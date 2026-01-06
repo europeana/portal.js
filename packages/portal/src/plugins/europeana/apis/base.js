@@ -1,4 +1,5 @@
 import axios from 'axios';
+import createHttpError from 'http-errors';
 import qs from 'qs';
 
 import EuropeanaApiContextConfig from './config/context.js';
@@ -52,7 +53,7 @@ export default class EuropeanaApi {
       }
     }
 
-    return error;
+    return createHttpError(error.statusCode, error.message, { ...error });
   }
 
   createAxios() {
@@ -106,7 +107,11 @@ export default class EuropeanaApi {
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
-      timeout: 10000
+      timeout: 10000,
+      validateStatus(status) {
+        // axios default is only 2xx codes, resulting in e.g. 304 Not Modified throwing an error
+        return (status >= 200 && status < 400);
+      }
     };
   }
 }

@@ -1,0 +1,56 @@
+#import "../fragments/imageFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+
+query StoriesPage(
+  $locale: String!,
+  $preview: Boolean = false,
+  $query: String = ""
+) {
+  storiesPageCollection(
+    preview: $preview, locale: $locale, limit: 1
+  ) {
+    items {
+      headline
+      description
+      image {
+        url
+        description
+      }
+      primaryCallToAction {
+        name
+        nameEN: name(locale: "en-GB")
+        text
+        relatedLink {
+          url
+          text
+        }
+        image {
+          ...illustrationFields
+        }
+      }
+      featuredStory(where: { name_exists: true, name_contains: $query }) {
+        sys {
+          id
+        }
+        __typename
+        name
+        headline
+        primaryImageOfPage {
+          ...storiesPageImageWithAttributionFields
+        }
+        identifier
+        categoriesCollection {
+          items {
+            identifier
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment storiesPageImageWithAttributionFields on ImageWithAttribution {
+  image {
+    ...imageFields
+  }
+}

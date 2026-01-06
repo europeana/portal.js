@@ -7,6 +7,7 @@
     <template #default="{ index, text: termText }">
       <ItemDebiasTerm
         :id="`item-debias-term-${name}-${index}`"
+        :de-bias-id="deBias.ids[termText]"
         :definition="deBias.definitions[termText]"
         :term="termText"
         :tooltip-id="`item-debias-term-tooltip-${name}-${index}`"

@@ -266,6 +266,7 @@
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
 
+      // TODO: should we always be selecting the resource, even if there is an error?
       this.selectResource();
 
       this.showSidebar = (
@@ -274,8 +275,7 @@
       ) || ['#annotations', '#search', '#links'].includes(this.$route.hash);
 
       if (error) {
-        this.handleError(error, 'IIIFManifestError');
-        throw error;
+        this.$error(error);
       }
     },
 
@@ -331,31 +331,30 @@
       }
     },
 
+    created() {
+      this.setCustomContext();
+    },
+
     destroyed() {
       this.clearMediaPresentationState();
     },
 
     methods: {
-      handleImageError(error) {
-        this.mediaError = error;
-        this.handleError(error);
+      setCustomContext() {
+        this.$apm?.setCustomContext({
+          'item_id': this.itemId,
+          'manifest_id': this.uri,
+          'resource_id': this.resource?.id
+        });
       },
 
-      handleError(error) {
-        const message = error.message || error.name;
-        const url = error.url || this.uri;
-
-        const errorData = {
-          item: this.itemId,
-          message,
-          name: error.name,
-          url
-        };
-
-        this.$apm?.captureError(errorData);
+      handleImageError(error) {
+        this.mediaError = error;
+        this.$error(error);
       },
 
       selectResource() {
+        this.setCustomContext();
         this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource?.edm);
       },

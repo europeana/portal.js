@@ -9,4 +9,4 @@ Scenario: Cookie notice has been dismissed
   And I click the `Svenska language option`
   Then I should be on the `Swedish home page`
   And I click the `show search button`
-  And I see the text "Sök bland 50+ miljoner objekt" in the `search box` placeholder
+  And I see the text "Sök bland 60+ miljoner objekt" in the `search box` placeholder

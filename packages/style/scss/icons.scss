@@ -53,6 +53,10 @@
   content: '\ea40';
 }
 
+.icon-bsky::before {
+  content: '\e906';
+}
+
 .icon-cancel-circle::before {
   content: '\e934';
 }
@@ -241,6 +245,10 @@
   content: '\e936';
 }
 
+.icon-quote::before {
+  content: '\e928';
+}
+
 .icon-reject::before {
   content: '\e939';
 }
@@ -367,10 +375,6 @@
 
 .icon-view-mosaic::before {
   content: '\e94a';
-}
-
-.icon-x::before {
-  content: '\e906';
 }
 
 .icon-zoom-in:before {

@@ -38,6 +38,7 @@
 
 <script>
   import ImageEagerOrLazy from './ImageEagerOrLazy';
+  import { isValidUrl, optimisedSrc, responsiveImageSrcset } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'ImageOptimised',
@@ -101,7 +102,7 @@
     data() {
       return {
         blankColor: '#fff',
-        isContentfulAsset: this.$contentful?.assets?.isValidUrl(this.src) || false
+        isContentfulAsset: isValidUrl(this.src) || false
       };
     },
 
@@ -123,10 +124,7 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.isContentfulAsset || this.isSVG) {
-          return this.src;
-        }
-        return this.$contentful.assets.optimisedSrc(
+        return optimisedSrc(
           { url: this.src, contentType: this.contentType },
           { w: this.maxWidth, q: this.quality }
         );
@@ -148,7 +146,7 @@
             return memo;
           }, {});
 
-          return this.$contentful.assets.responsiveImageSrcset(
+          return responsiveImageSrcset(
             { contentType: this.contentType, url: this.src },
             resolutionSizes,
             this.contentfulImageDisplayProfile

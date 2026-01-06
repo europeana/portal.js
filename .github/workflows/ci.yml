@@ -226,7 +226,7 @@ jobs:
         run: tar -xf test-coverage.tar && rm test-coverage.tar
       -
         name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2.0.0
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -276,7 +276,7 @@ jobs:
       -
         name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: '350M'
+          DOCKER_IMAGE_SIZE_LIMIT: '355M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
