@@ -17,3 +17,23 @@ export const FULL_VIEWPORT_PRESETS_FOCUS_FACE = Object.keys(FULL_VIEWPORT_PRESET
   };
   return memo;
 }, {});
+
+export const IMAGE_CONTAINER_PRESETS = {
+  small: { w: 545 },
+  medium: { w: 510 },
+  large: { w: 722 },
+  xl: { w: 706 },
+  xxl: { w: 826 },
+  xxxl: { w: 826 },
+  wqhd: { w: 826 },
+  '4k': { w: 826 },
+  '4k+': { w: 826 }
+};
+
+export const IMAGE_CONTAINER_SIZES = [
+  '(max-width: 575px) 545px', // bp-small
+  '(max-width: 767px) 510px', // bp-medium
+  '(max-width: 991px) 722px', // bp-large
+  '(max-width: 1199px) 706px', // bp-xl
+  '826px'
+].join(',');

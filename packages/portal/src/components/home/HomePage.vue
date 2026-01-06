@@ -60,6 +60,7 @@
   import HomeThemes from '@/components/home/HomeThemes';
   import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
+  import homePageGraphql from '@/graphql/queries/homePage.graphql';
 
   export default {
     name: 'HomePage',
@@ -108,9 +109,9 @@
           identifier: this.$route.query.identifier || null,
           date: (new Date()).toISOString()
         };
-        const response = await this.$contentful.query('homePage', variables);
+        const response = await this.$contentful.query(homePageGraphql, variables);
 
-        const homePage = response.data.data.homePageCollection.items[0];
+        const homePage = response.data.homePageCollection.items[0];
         const backgroundImages = homePage.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
         this.callsToAction = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');

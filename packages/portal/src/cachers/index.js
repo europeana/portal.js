@@ -96,29 +96,25 @@ const readCacheKey = async(cacheKey) => {
 export const run = async(command, cacherName) => {
   let response;
 
-  try {
-    if (command === 'list') {
-      response = cacherNames.join('\n');
-    } else if (command === 'set') {
-      if (cacherName === undefined) {
-        for (const cname of cacherNames) {
-          await runSetCacher(cname);
-        }
-      } else {
-        await runSetCacher(cacherName);
+  if (command === 'list') {
+    response = cacherNames.join('\n');
+  } else if (command === 'set') {
+    if (cacherName === undefined) {
+      for (const cname of cacherNames) {
+        await runSetCacher(cname);
       }
-
-      response = 'SUCCESS';
-    } else if (command === 'get') {
-      response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
-      throw new Error(`Unknown command "${command}"`);
+      await runSetCacher(cacherName);
     }
-  } catch (error) {
-    return Promise.reject(new Error(utils.errorMessage(error)));
+
+    response = 'SUCCESS';
+  } else if (command === 'get') {
+    response = await readCacheKey(namespaceCacheKey(cacherName));
+  } else {
+    throw new Error(`Unknown command "${command}"`);
   }
 
-  return Promise.resolve(response);
+  return response;
 };
 
 export const cli = async(command, cacherName) => {
@@ -127,7 +123,8 @@ export const cli = async(command, cacherName) => {
     console.log(message);
     process.exit(0);
   } catch (error) {
-    console.error(`ERROR: ${error.message}`);
+    console.error(utils.errorMessage(error));
+    console.error(error.stack);
     process.exit(1);
   }
 };

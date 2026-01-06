@@ -16,6 +16,7 @@ COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/i18n ./packages/i18n
 COPY packages/style ./packages/style
+COPY packages/vue-contentful-graphql ./packages/vue-contentful-graphql
 COPY packages/vue-router-query ./packages/vue-router-query
 COPY packages/vue-session ./packages/vue-session
 COPY packages/vue-visible-on-scroll ./packages/vue-visible-on-scroll

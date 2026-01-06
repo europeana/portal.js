@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Veřejné galerie",
     "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
-    "title": "Můj účet",
+    "title": "Můj profil",
     "tooltip": {
       "EntityBestItemsSet": "Kurátorovaná galerie zobrazuje připnuté položky v rámci konkrétní sbírky",
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Potvrdit",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
-    "disable": "Deaktivovat",
     "download": "Stáhnout",
     "edit": "Upravit",
     "filter": "Filtr",
@@ -81,30 +80,55 @@ export default {
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
     "unlike": "Nelíbí se mi",
-    "viewAt": "Zobrazit na stránce {link}",
+    "viewAt": "Zobrazit na stránce{link}",
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Zavřít nabídku správy klíčů",
+      "disable": "Zakázat klíč",
+      "reEnable": "Znovu povolit klíč",
+      "showMenu": "Zobrazit nabídku správy klíčů"
+    },
+    "disable": {
+      "promptText1": "Opravdu chcete zakázat tento API klíč?",
+      "promptText2": "Jakmile tento klíč zakážete, již jej nebudete moci používat ve svém projektu. Toto nastane okamžitě. Pro opětovné povolení API klíče nám prosím pošlete e-mail na adresu api@europeana.eu.",
+      "title": "Zakázat API klíč"
+    },
+    "reEnable": {
+      "text": "Chcete-li znovu aktivovat tento klíč API, pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu pro zpětnou vazbu ve spodní části okna.",
+      "title": "Znovu povolit API klíč"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Požádejte o osobní API klíč",
-          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API.",
-          "termsOfUseLinkText": "podmínky použití"
+          "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API."
         },
-        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}",
+        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
         "heading": "Osobní API klíč",
-        "howToLinkText": "Jak používat svůj klíč."
-      }
+        "howToLinkText": "Jak používat svůj klíč"
+      },
+      "projectKeys": {
+        "description": "Pro každý projekt, který potřebujete vytvořit, vám poskytneme vyhrazený klíč. Projektové klíče mají vyšší limity a další speciální funkce — přečtěte si více v API klíči {termsOfUseLink}. Pokud byste chtěli upravit informace o svém projektu, zašlete prosím e-mail na adresu api@europeana.eu a my změny provedeme za vás.",
+        "heading": "Klíče API projektu"
+      },
+      "termsOfUseLinkText": "podmínky použití"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Správa API klíčů"
+        },
         "clientId": {
           "label": "API klíč"
         },
         "created": {
           "label": "Datum vytvoření"
+        },
+        "name": {
+          "label": "Název projektu"
         }
       }
     },
@@ -169,7 +193,7 @@ export default {
         },
         "proxy_dcterms_medium": {
           "moreName": "materiálů",
-          "name": "Materiál | Materiály",
+          "name": "Materiál",
           "select": "Vyberte materiály"
         }
       }
@@ -190,8 +214,35 @@ export default {
     "startDate": "Datum od",
     "to": "až"
   },
+  "debias": {
+    "background": {
+      "link": "Projekt DE-BIAS",
+      "text": "Tyto informace byly vytvořeny {link} (2023/2024) za účelem kontextualizace zastaralých a škodlivých výrazů v popisech sbírek."
+    },
+    "headings": {
+      "alternatives": "Navrhované alternativy",
+      "recommendations": "Doporučení k použití",
+      "source": "Zdroj"
+    },
+    "termNotFound": "Tato stránka je k dispozici pouze v jazyce zaujatého termínu.",
+    "tooltip": {
+      "linkToPage": "Přečtěte si úplné vysvětlení poskytnuté {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Zadejte svůj klíč Europeana API a bude použit v odkazech na požadavky API.",
+          "descriptionLine2": "Potřebujete API klíč? Zaregistrujte se o jeden {link}.",
+          "here": "zde",
+          "label": "API klíč",
+          "usePersonal": {
+            "linkText": "Zadejte svůj osobní API klíč",
+            "prompt": "{link} a bude použito"
+          }
+        }
+      },
       "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany."
     }
   },
@@ -199,10 +250,6 @@ export default {
   "directions": {
     "left": "Doleva",
     "right": "Doprava"
-  },
-  "ds4ch": {
-    "broughtBy": "Vám přináší",
-    "homeLinkAlt": "Společný evropský datový prostor pro kulturní dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "embedNotification": {
@@ -240,6 +287,18 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tento API klíč již byl zakázán, možná v jiné záložce prohlížeče.",
+      "title": "Klíč je již zakázán"
+    },
+    "authDuplicateKey": {
+      "description": "Uživatelé mohou mít pouze jeden povolený osobní klíč určený pro osobní použití.",
+      "title": "Již máte osobní klíč"
+    },
+    "authKeyLimitReached": {
+      "description": "Nelze vytvořit nový osobní klíč, protože jste dosáhli limitu deaktivovaných osobních klíčů. Pošlete nám e-mail na adresu api@europeana.eu nebo nás kontaktujte prostřednictvím widgetu zpětné vazby ve spodní části okna.",
+      "title": "Dosáhli jste limitu osobních klíčů"
+    },
     "galleryLocked": {
       "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
       "title": "Aktualizace selhala"
@@ -653,6 +712,10 @@ export default {
       },
       "select": "Vyberte, zda toto můžete použít"
     },
+    "RIGHTS": {
+      "name": "Výrok o právech",
+      "select": "Vyberte prohlášení o právech"
+    },
     "TYPE": {
       "name": "Druh média",
       "options": {
@@ -738,8 +801,6 @@ export default {
   "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
-    "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
-    "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
     "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
@@ -751,6 +812,7 @@ export default {
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Prohlášení o ochraně osobních údajů",
+      "registerApiKey": "Zaregistrujte se pro klíč API",
       "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "supportingTechnicalPartners": "Podpora technických partnerů",
@@ -803,7 +865,7 @@ export default {
     "handle": "Posuvný panel"
   },
   "items": {
-    "itemCount": "1 položka |{count} položek",
+    "itemCount": "1 položka |{count}položek",
     "itemOf": "{max} z {count} položky",
     "noItems": "Nejsou žádné položky.",
     "noMoreItems": "Žádné další položky nejsou k dispozici.",
@@ -881,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Pomáhá ladit požadavky API",
         "title": "Přepnout ladění"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivuje widget průzkumu, který vám dává možnost reagovat na naše průzkumy spokojenosti návštěvníků.",
+        "description": "Shromažďuje údaje o používání, aby nám pomohl analyzovat interakce uživatelů. Aktivuje widget průzkumu, který vám umožní odpovědět na naše průzkumy spokojenosti návštěvníků.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Pamatuje si preferovaný jazyk rozhraní pro budoucí přístup.",
         "title": "Kód jazyka"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivuje widget zpětné vazby, který vám dává možnost nás kontaktovat.",
         "title": "Jira service desk"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
@@ -999,98 +971,18 @@ export default {
         "description": "Pamatuje si, zda dáváte přednost vícejazyčným výsledkům vyhledávání.",
         "title": "Vícejazyčné vyhledávání"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Zobrazí oznámení, když jsou k dispozici nové funkce.",
         "title": "Oznámení o nové funkci"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda dáváte přednost zobrazení výsledků vyhledávání, galerií a lajků v seznamu, mřížce nebo mozaikovém zobrazení.",
         "title": "Zobrazení výsledků vyhledávání, galerií a lajků (seznam/mřížka/mozaika)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "neznámý poskytovatel",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "neznámý poskytovatel"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Najděte inspiraci"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Průměrně měsíční požadavky API",
       "dataProviders": "Poskytovatelé dat",
@@ -1181,9 +1073,6 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Z",
   "organisation": {
     "city": "Město",
@@ -1241,8 +1130,6 @@ export default {
     },
     "allMetaData": "Všechna metadata",
     "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
-    "debias": "De-bias",
-    "explanationby": "Vysvětlení poskytl {0}",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
@@ -1346,7 +1233,7 @@ export default {
       "loginToSeeMore": "{login} zobrazíte další výsledky",
       "loginToSeeMultilingualResults": "Přihlaste se, abyste mohli vyhledávat v celé kolekci a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
       "showingMultilingualResults": "Zobrazují se výsledky napříč celou sbírkou a ve všech jazycích.",
-      "withinCollection": "{count} výsledků v rámci {type} {collection}",
+      "withinCollection": "{type} výsledků v rámci {count} {collection}",
       "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
       "withoutQuery": "{count} výsledků",
       "withQuery": "{count} výsledků pro {query}"
@@ -1356,7 +1243,7 @@ export default {
   },
   "searchFilters": "Filtry vyhledávání {count}",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Hledejte přes 50 milionů položek",
+  "searchPlaceholder": "Hledejte přes 60 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",
@@ -1430,7 +1317,7 @@ export default {
       },
       "itemsRemoved": {
         "1": "Položka byla odstraněna z galerie {gallery}.",
-        "many": "{count} položka byla odstraněna z galerie \"{gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
+        "many": "{count} položka byla odstraněna z galerie {gallery}\". | {count} položky byly odstraněny z galerie \"{gallery}\"."
       },
       "itemsUnliked": {
         "1": "Položka byla odstraněna z vašich označení líbí se mi.",

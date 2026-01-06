@@ -30,8 +30,13 @@
     position: relative;
     clip-path: polygon(0 -100vh, calc(100% - 95px) -100vh, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
     z-index: 3;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @media (min-width: $bp-small) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
 
     @media (min-width: $bp-large) {
       padding-right: 3rem;
@@ -87,8 +92,13 @@
 
   hr {
     border-top-color: $white;
-    margin-top: 0.75rem;
-    margin-bottom: 2.25rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+
+    @media (min-width: $bp-small) {
+      margin-top: 0.75rem;
+      margin-bottom: 2.25rem;
+    }
 
     @media (min-width: $bp-large) {
       margin-top: 1.5rem;
@@ -106,6 +116,26 @@
 
       @media (min-width: $bp-wqhd) {
         font-size: $font-size-base;
+      }
+    }
+
+    img {
+
+      &.ds4ch-logo,
+      &.eu-logo {
+        height: 35px;
+
+        @media (min-width: $bp-small) {
+          height: 64px;
+        }
+
+        @media (min-width: $bp-4k) {
+          height: 96px;
+        }
+      }
+
+      &.eu-logo {
+        min-width: 0;
       }
     }
   }
@@ -126,6 +156,7 @@
 
   .link-group-social .link-group-list {
     display: flex;
+    flex-wrap: wrap;
 
     li {
       &:not(:last-child) {
@@ -208,12 +239,12 @@
           flex-grow: 1;
 
           img {
-            width: 135px;
+            width: 110px;
             margin-top: -2px;
             margin-left: -4px;
 
             @media (min-width: $bp-wqhd) {
-              width: 175px;
+              width: 135px;
               margin: 0;
             }
           }

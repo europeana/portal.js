@@ -1,4 +1,5 @@
 {
+  "name": "@europeana/portal.js-monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -37,6 +38,7 @@
     "@europeana/i18n": "link:./packages/i18n",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
+    "@europeana/vue-contentful-graphql": "link:./packages/vue-contentful-graphql",
     "@europeana/vue-router-query": "link:./packages/vue-router-query",
     "@europeana/vue-session": "link:./packages/vue-session",
     "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"
@@ -52,6 +54,7 @@
     "eslint-plugin-vue": "^8.1.1",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+    "json-stable-stringify-without-jsonify": "^1.0.1",
     "lerna": "^7.2.0",
     "postcss-scss": "^4.0.5",
     "stylelint": "^14.1.0",

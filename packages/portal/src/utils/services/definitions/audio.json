@@ -1,0 +1,50 @@
+[
+  {
+    "name": "britishLibrarySounds",
+    "schemes": [
+      "http://sounds.bl.uk/embed/*",
+      "https://sounds.bl.uk/*"
+    ],
+    "title": "British Library Sounds"
+  },
+  {
+    "name": "buzzsprout",
+    "schemes": [
+      "https://www.buzzsprout.com/*"
+    ],
+    "title": "Buzzsprout"
+  },
+  {
+    "name": "deutscheWelle",
+    "schemes": [
+      "https://www.dw.com/*",
+      "https://radiodownloaddw-a.akamaihd.net/*"
+    ],
+    "title": "Deutsche Welle"
+  },
+  {
+    "name": "freesound",
+    "schemes": [
+      "https://freesound.org/embed/sound/iframe/*"
+    ],
+    "title": "Freesound"
+  },
+  {
+    "name": "soundArchivesOfTheCNRS",
+    "oembed": "https://oembed.europeana.eu/",
+    "schemes": [
+      "http://archives.crem-cnrs.fr/archives/items/*/"
+    ],
+    "title": "Sound archives of the CNRS"
+  },
+  {
+    "name": "soundCloud",
+    "oembed": "https://soundcloud.com/oembed",
+    "schemes": [
+      "http://soundcloud.com/*",
+      "https://soundcloud.com/*",
+      "https://w.soundcloud.com/player/*"
+    ],
+    "title": "SoundCloud"
+  }
+]

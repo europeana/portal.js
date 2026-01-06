@@ -1,0 +1,14 @@
+#import "./imageDisplayProfileFields.graphql"
+#import "./imageFields.graphql"
+
+fragment illustrationFields on Illustration {
+  name
+  nameEN: name(locale: "en-GB")
+  image {
+    ...imageFields
+  }
+  url
+  profile {
+    ...imageDisplayProfileFields
+  }
+}

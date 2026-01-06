@@ -211,7 +211,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -0.6em;
+          bottom: 0;
           font-size: $font-size-base;
 
           @media (min-width: $bp-4k) {
@@ -256,9 +256,11 @@
         text-transform: uppercase;
         font-size: $font-size-small;
         font-weight: 600;
+        padding: 1.1rem 0.5rem;
 
         @media (min-width: $bp-4k) {
           font-size: $font-size-small-4k;
+          padding: 1.65rem 0.75rem;
         }
 
         span {

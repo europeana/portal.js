@@ -2,7 +2,6 @@
   <b-container
     data-qa="search interface"
     class="search-page-container side-filters-enabled"
-    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -306,8 +305,9 @@
         return this.totalResults === 0 || !this.totalResults;
       },
       showErrorMessage() {
-        return !this.$fetchState.error?.code ||
-          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
+        return !(this.$fetchState.error?.code || this.$fetchState.error?.cause?.code) ||
+          !('searchResultsNotFound' === this.$fetchState.error?.code ||
+            'searchPaginationLimitExceeded' === this.$fetchState.error?.cause?.code);
       },
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];
@@ -626,14 +626,6 @@
 
   &.open::before {
     content: '-';
-  }
-}
-
-.search-bar-open {
-  padding-top: 4.275rem !important;
-
-  @media (min-width: $bp-4k) {
-    padding-top: 6.6rem !important;
   }
 }
 </style>

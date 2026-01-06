@@ -64,6 +64,12 @@
       responsiveProvider() {
         return RESPONSIVE_PROVIDERS.includes(this.providerName);
       }
+    },
+
+    watch: {
+      url() {
+        this.$fetch();
+      }
     }
   };
 </script>

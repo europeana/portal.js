@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galerías públicas",
     "publishedCollections": "Galerías Publicadas",
     "settings": "Configuración",
-    "title": "Mi cuenta",
+    "title": "Mi perfil",
     "tooltip": {
       "EntityBestItemsSet": "Una galería seleccionada muestra los ítems anclados dentro de una colección específica",
       "private": "Una galería privada solo puede ser vista por usted.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Confirmar",
     "continue": "continuar",
     "depublish": "Despublicar",
-    "disable": "Desactivar",
     "download": "Descargar",
     "edit": "Editar",
     "filter": "Filtrar",
@@ -86,25 +85,50 @@ export default {
     "vote": "Votar"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Cerrar menú de gestión de claves",
+      "disable": "Desactivar la clave",
+      "reEnable": "Volver a habilitar la clave",
+      "showMenu": "Mostrar menú de gestión de claves"
+    },
+    "disable": {
+      "promptText1": "¿Estás seguro de que quieres desactivar esta clave API?",
+      "promptText2": "Una vez que desactive esta clave, ya no podrá utilizarla en su proyecto. Esto ocurrirá de inmediato. Deberá enviarnos un correo electrónico a api@europeana.eu para volver a habilitar la clave API.",
+      "title": "Desactivar la clave API"
+    },
+    "reEnable": {
+      "text": "Para volver a habilitar esta clave API, envíanos un correo a api@europeana.eu o contáctanos mediante el widget de comentarios en la parte inferior de la ventana.",
+      "title": "Volver a habilitar la clave API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Solicitar una clave API personal",
-          "checkbox": "Confirmo que he leído y acepto la clave API {termsOfUseLink}.",
-          "termsOfUseLinkText": "términos de uso"
+          "checkbox": "Confirmo que he leído y acepto la clave API {termsOfUseLink}."
         },
-        "description": "Aprende y prueba cómo usar las API con tu propia clave API personal. Por favor, no la compartas. {howToLink}",
+        "description": "Aprende y prueba cómo usar las API con tu propia clave API personal. Por favor, no la compartas. {howToLink}.",
         "heading": "Clave API personal",
-        "howToLinkText": "Cómo usar tu clave."
-      }
+        "howToLinkText": "Cómo usar tu clave"
+      },
+      "projectKeys": {
+        "description": "Para cada proyecto que necesite crear, le proporcionaremos una clave dedicada. Las claves de proyecto tienen límites más altos y otras características especiales. Para más información, consulte la clave API {termsOfUseLink}. Si desea editar la información de su proyecto, envíe un correo electrónico a api@europeana.eu y haremos los cambios por usted.",
+        "heading": "Claves API del proyecto"
+      },
+      "termsOfUseLinkText": "términos de uso"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestión de claves API"
+        },
         "clientId": {
           "label": "Clave API"
         },
         "created": {
           "label": "Fecha de creación"
+        },
+        "name": {
+          "label": "Nombre del proyecto"
         }
       }
     },
@@ -190,8 +214,35 @@ export default {
     "startDate": "Fecha de inicio",
     "to": "a"
   },
+  "debias": {
+    "background": {
+      "link": "Proyecto DE-BIAS",
+      "text": "Esta información fue creada por {link} (2023/2024) para ayudar a contextualizar términos obsoletos y dañinos en las descripciones de colecciones."
+    },
+    "headings": {
+      "alternatives": "Alternativas sugeridas",
+      "recommendations": "Recomendaciones de uso",
+      "source": "Fuente"
+    },
+    "termNotFound": "Esta página solo está disponible en el idioma del término sesgado.",
+    "tooltip": {
+      "linkToPage": "Lee la explicación completa proporcionada por {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
+          "descriptionLine2": "¿Necesitas una clave API? Regístrate para obtener una {link}.",
+          "here": "aquí",
+          "label": "Clave API",
+          "usePersonal": {
+            "linkText": "Ingrese su clave API personal",
+            "prompt": "{link} y se utilizará."
+          }
+        }
+      },
       "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana."
     }
   },
@@ -199,9 +250,6 @@ export default {
   "directions": {
     "left": "Izquierda",
     "right": "Derecha"
-  },
-  "ds4ch": {
-    "broughtBy": "Presentado por"
   },
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
   "embedNotification": {
@@ -226,19 +274,31 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
-      "pin": "Este Ítem se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "pin": "Este Ítem se mostrará en la parte superior de la colección \"{entity}\". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "pinLimit": {
         "body": "Por ahora, solo puede anclar 24 Ítems en la primera página. Si desea anclar este Ítem, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
         "title": "Demasiados Ítems fijados"
       },
-      "pinned": "El Ítem ha sido anclado. Aparecerá como el primer elemento de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "pinned": "El Ítem ha sido anclado. Aparecerá como el primer elemento de la colección \"{entity}\". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "select": "Seleccione una entidad relacionada para anclar/desanclar el Ítem a/desde ella.",
-      "unpin": "Este Ítem dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "unpin": "Este Ítem dejará de mostrarse en la parte superior de la colección \"{entity}\". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "unpinned": "El Ítem ha sido desanclado. Le notificaremos cuando este cambio sea visible en la página de colección."
     }
   },
   "error": "Error",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Está clave API ya ha sido desactivada, quizás en otra pestaña del navegador.",
+      "title": "Clave ya desactivada"
+    },
+    "authDuplicateKey": {
+      "description": "Los usuarios solo pueden tener una clave personal activada destinada al uso personal.",
+      "title": "Ya tienes una clave personal"
+    },
+    "authKeyLimitReached": {
+      "description": "No se puede crear una nueva clave personal porque ha alcanzado el límite de claves personales desactivadas. Envíenos un correo electrónico a api@europeana.eu o contáctenos a través del widget de comentarios en la parte inferior de la ventana.",
+      "title": "Has alcanzado el límite de claves personales"
+    },
     "galleryLocked": {
       "description": "La edición está deshabilitada temporalmente y sus cambios no se han guardado. Por favor, inténtelo de nuevo más tarde.",
       "title": "Actualización fallida"
@@ -652,6 +712,10 @@ export default {
       },
       "select": "Seleccione si puede usar esto"
     },
+    "RIGHTS": {
+      "name": "Declaración de derechos",
+      "select": "Seleccionar declaraciones de derechos"
+    },
     "TYPE": {
       "name": "Tipo de medio",
       "options": {
@@ -737,8 +801,6 @@ export default {
   "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
-    "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
-    "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
     "findUsElsewhere": "Puedes encontrarnos también en",
     "footer": "Pie de página",
     "imageDescription": "Financiado por la Unión Europea",
@@ -750,6 +812,7 @@ export default {
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
       "privacy": "Declaración de privacidad",
+      "registerApiKey": "Regístrese para obtener una clave API",
       "seeApiRequests": "Ver solicitudes a las API de Europeana",
       "subscribe": "Suscríbete a nuestro boletín",
       "supportingTechnicalPartners": "Apoyando a socios técnicos",
@@ -880,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
         "title": "Estrategia de autenticación"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Ayuda a depurar solicitudes de API",
         "title": "Alternar depuración"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Activa un widget de encuesta que le brinda la opción de responder a nuestras encuestas de satisfacción de visitantes.",
+        "description": "Recoge datos de uso para ayudarnos a analizar las interacciones de los usuarios. Activa un widget de encuesta que le ofrece la opción de responder a nuestras encuestas de satisfacción de visitantes.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Recuerda su idioma de interfaz preferido para acceder en el futuro.",
         "title": "Código de la lengua"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activa el widget de comentarios que le da la opción de contactarnos.",
         "title": "Mesa de servicio Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
@@ -998,97 +971,18 @@ export default {
         "description": "Recuerda si prefieres obtener resultados de búsqueda multilingües.",
         "title": "Búsqueda multilingüe"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Muestra una notificación cuando hay nuevas funciones disponibles.",
         "title": "Notificación de nuevas funciones"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Recuerda si prefieres ver los resultados de búsqueda, las galerías y tus me gusta en una vista de lista, cuadrícula o mosaico.",
         "title": "Vista de resultados de búsqueda, galerías y Me gusta (lista/cuadrícula/mosaico)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "proveedor desconocido",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "proveedor desconocido"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Solicitudes API mensuales, en promedio",
       "dataProviders": "Proveedores de datos",
@@ -1179,9 +1073,6 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Ciudad",
@@ -1239,8 +1130,6 @@ export default {
     },
     "allMetaData": "Todos los metadatos",
     "clickToCopyEmbedCode": "Haga clic en el código de inserción para copiarlo",
-    "debias": "De-bias",
-    "explanationby": "Explicación proporcionada por {0}",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
@@ -1354,7 +1243,7 @@ export default {
   },
   "searchFilters": "Filtros de búsqueda {count}",
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Buscar más de 50 millones de Ítems",
+  "searchPlaceholder": "Buscar más de 60 millones de Ítems",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",
@@ -1439,7 +1328,7 @@ export default {
         "title": "100 \"Me gusta\""
       },
       "updated": "El Ítem se agregó a la galería.",
-      "visibilityChanged": "Advertencia: la visibilidad establecida ya cambió y actualmente es \" {visibility} \"."
+      "visibilityChanged": "Advertencia: la visibilidad establecida ya cambió y actualmente es \"{visibility}\"."
     },
     "prompts": {
       "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los Ítems que le hayas agregado.",

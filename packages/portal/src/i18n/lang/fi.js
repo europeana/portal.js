@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Julkiset galleriat",
     "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
-    "title": "Oma tili",
+    "title": "Profiilini",
     "tooltip": {
       "EntityBestItemsSet": "Kuroitu galleria näyttää tietyn kokoelman kiinnitetyt aineistot",
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Vahvista",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
-    "disable": "Poista käytöstä",
     "download": "Lataa",
     "edit": "Muokkaa",
     "filter": "Suodattaa",
@@ -72,7 +71,7 @@ export default {
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "share": "Jaa",
-    "shareOn": "Jaa mediassa {social}",
+    "shareOn": "Jaa {social}",
     "show": "Näytä",
     "showLess": "Näytä vähemmän",
     "showMore": "Näytä lisää",
@@ -86,25 +85,50 @@ export default {
     "vote": "Äänestää"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Sulje avaintenhallintavalikko",
+      "disable": "Poista avain käytöstä",
+      "reEnable": "Ota avain uudelleen käyttöön",
+      "showMenu": "Näytä avaintenhallintavalikko"
+    },
+    "disable": {
+      "promptText1": "Haluatko varmasti poistaa tämän API-avaimen käytöstä?",
+      "promptText2": "Kun poistat tämän avaimen käytöstä, et voi enää käyttää sitä projektissasi. Tämä tapahtuu välittömästi. Sinun tulee lähettää meille sähköpostia osoitteeseen api@europeana.eu ottaaksesi API-avaimen uudelleen käyttöön.",
+      "title": "Poista API-avain käytöstä"
+    },
+    "reEnable": {
+      "text": "Jos haluat ottaa tämän API-avaimen uudelleen käyttöön, lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunassa olevan palautewidgetin kautta.",
+      "title": "Ota API-avain uudelleen käyttöön"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Pyydä henkilökohtainen API-avain",
-          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}.",
-          "termsOfUseLinkText": "käyttöehdot"
+          "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}."
         },
-        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}",
+        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
         "heading": "Henkilökohtainen API-avain",
-        "howToLinkText": "Kuinka käyttää omaa avaintasi."
-      }
+        "howToLinkText": "Kuinka käyttää omaa avaintasi"
+      },
+      "projectKeys": {
+        "description": "Jokaista rakennettavaa projektia varten toimitamme sinulle oman avaimen. Projektiavaimilla on korkeammat rajat ja muita erityisominaisuuksia – lue lisää API-avaimesta {termsOfUseLink}. Jos haluat muokata projektisi tietoja, lähetä sähköpostia osoitteeseen api@europeana.eu, niin teemme muutokset puolestasi.",
+        "heading": "Projektin API-avaimet"
+      },
+      "termsOfUseLinkText": "käyttöehdot"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "API-avainten hallinta"
+        },
         "clientId": {
           "label": "API-avain"
         },
         "created": {
           "label": "Luontipäivämäärä"
+        },
+        "name": {
+          "label": "Projektin nimi"
         }
       }
     },
@@ -190,8 +214,35 @@ export default {
     "startDate": "Aloituspäivämäärä",
     "to": "asti"
   },
+  "debias": {
+    "background": {
+      "link": "DE-BIAS-projekti",
+      "text": "Tämän tiedon loi {link} (2023/2024) auttamaan vanhentuneiden ja haitallisten termien kontekstualisoinnissa kokoelmien kuvauksissa."
+    },
+    "headings": {
+      "alternatives": "Ehdotetut vaihtoehdot",
+      "recommendations": "Käyttösuositukset",
+      "source": "Lähde"
+    },
+    "termNotFound": "Tämä sivu on saatavilla vain puolueellisen termin kielellä.",
+    "tooltip": {
+      "linkToPage": "Lue {projectName}:n antama täydellinen selitys"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Anna Europeana API -avaimesi, niin sitä käytetään API-pyyntöjen linkeissä.",
+          "descriptionLine2": "Tarvitsetko API-avainta? Rekisteröidy saadaksesi sellaisen {link}.",
+          "here": "tässä",
+          "label": "API-avain",
+          "usePersonal": {
+            "linkText": "Syötä henkilökohtainen API-avaimesi",
+            "prompt": "{link} ja sitä käytetään."
+          }
+        }
+      },
       "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä."
     }
   },
@@ -199,10 +250,6 @@ export default {
   "directions": {
     "left": "Vasen",
     "right": "Oikea"
-  },
-  "ds4ch": {
-    "broughtBy": "Tuotu sinulle",
-    "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "embedNotification": {
@@ -240,6 +287,18 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Tämä API-avain on jo poistettu käytöstä, ehkä toisessa selaimen välilehdessä.",
+      "title": "Avain on jo poistettu käytöstä"
+    },
+    "authDuplicateKey": {
+      "description": "Käyttäjillä voi olla vain yksi käytössä oleva henkilökohtainen avain, joka on tarkoitettu henkilökohtaiseen käyttöön.",
+      "title": "Sinulla on jo henkilökohtainen avain"
+    },
+    "authKeyLimitReached": {
+      "description": "Uutta henkilökohtaista avainta ei voi luoda, koska olet saavuttanut poistettujen henkilökohtaisten avainten rajan. Lähetä meille sähköpostia osoitteeseen api@europeana.eu tai ota meihin yhteyttä ikkunan alareunan palautewidgetin kautta.",
+      "title": "Olet saavuttanut henkilökohtaisten avainten rajan"
+    },
     "galleryLocked": {
       "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
       "title": "Päivitys epäonnistui"
@@ -653,6 +712,10 @@ export default {
       },
       "select": "Valitse, voitko käyttää tätä"
     },
+    "RIGHTS": {
+      "name": "Käyttöoikeus",
+      "select": "Valitse oikeuksia koskevat lausumat"
+    },
     "TYPE": {
       "name": "Mediatyyppi",
       "options": {
@@ -738,8 +801,6 @@ export default {
   "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
-    "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
-    "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
     "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
@@ -751,6 +812,7 @@ export default {
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojaseloste",
+      "registerApiKey": "Rekisteröidy saadaksesi API-avaimen",
       "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
       "supportingTechnicalPartners": "Teknisten kumppanien tukeminen",
@@ -881,115 +943,25 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
-      },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",
         "title": "Debug-kytkin"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
+        "description": "Kerää käyttäjätietoja, jotta voimme analysoida käyttäjien vuorovaikutusta. Aktivoi kyselywidgetin, jonka avulla voit vastata kävijöiden tyytyväisyyskyselyihimme.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Muistaa valitsemasi käyttöliittymäkielen tulevaa käyttöä varten.",
         "title": "Kielikoodi"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Aktivoi palaute-widgetin, jolloin voit ottaa meihin yhteyttä.",
         "title": "Jiran palvelupiste"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
@@ -999,100 +971,20 @@ export default {
         "description": "Muistaa, haluatko saada monikielisiä hakutuloksia.",
         "title": "Monikielinen haku"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Näyttää ilmoituksen, kun uusia ominaisuuksia tulee saataville.",
         "title": "Uuden ominaisuuden ilmoitus"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset, galleriat ja tykkäykset luettelo-, ruudukko- tai mosaiikkinäkymässä.",
         "title": "Hakutulos, galleriat ja tykkäykset (luettelo/ruudukko/mosaiikki)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "tuntematon palveluntarjoaja",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "tuntematon palveluntarjoaja"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ",
-          "findInspiration": "Etsi inspiraatiota"
-        }
-      }
-    },
     "counts": {
-      "apiRequests": "Keskimäärin kuukausittaiset API-pyynnöt",
+      "apiRequests": "Kuukausittaiset API-pyynnöt keskimäärin",
       "dataProviders": "Tietojen tarjoajat",
       "hqData": "Korkealaatuisten tietojen lisääntyminen vuodessa",
       "items": "Aineistot",
@@ -1128,7 +1020,7 @@ export default {
     },
     "sidebar": {
       "annotations": "Huomautukset",
-      "annotationsCount": "1 Huomautus |{count} Huomautukset",
+      "annotationsCount": "1 Huomautus | {count} Huomautukset",
       "hide": "Piilota sivupalkki",
       "IIIFManifest": "IIIF manifesti",
       "links": "Linkit",
@@ -1181,9 +1073,6 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",
@@ -1241,8 +1130,6 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
-    "debias": "De-bias",
-    "explanationby": "Selityksen on antanut {0}",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -1356,7 +1243,7 @@ export default {
   },
   "searchFilters": "Hakusuodattimet {count}",
   "searchHasLoaded": "{0} tulosta palautettu",
-  "searchPlaceholder": "Etsi 50+ miljoonaa aineistot",
+  "searchPlaceholder": "Etsi 60+ miljoonaa aineistot",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
   "searchSuggestions": "Hakuehdotuksia",

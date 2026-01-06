@@ -26,7 +26,7 @@ export default async({ $config, route, req, app }, inject) => {
 
   apm.setTransactionName(`${req.method} ${parsed.path}`);
   if (parsed.locale) {
-    apm.setLabel('locale', parsed.locale);
+    apm.addLabels({ locale: parsed.locale });
   }
 
   inject('apm', apm);

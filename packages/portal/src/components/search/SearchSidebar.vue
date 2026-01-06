@@ -163,16 +163,16 @@
 
       .search-sidebar {
         flex-shrink: 0;
-        margin-right: -320px;
+        margin-right: pxToRem(-320);
         overflow-y: auto;
-        width: 320px;
+        width: pxToRem(320);
         max-width: 75vw;
         animation: appear 300ms ease-in-out;
         transition: margin-right 300ms ease-in-out;
 
         @keyframes appear {
           from {
-            margin-right: -320px;
+            margin-right: pxToRem(-320);
           }
 
           to {
@@ -217,8 +217,8 @@
     }
 
     @media (min-width: $bp-large) {
-      max-width: 320px;
-      min-width: 220px;
+      max-width: pxToRem(320);
+      min-width: pxToRem(220);
       min-height: 31rem;
       box-shadow: $boxshadow-small;
 
@@ -230,7 +230,7 @@
     }
 
     @media (min-width: $bp-4k) {
-      max-width: 480px;
+      max-width: pxToRem(480);
       margin-top: -1.5rem;
 
       .col {

@@ -124,17 +124,10 @@ export function normalizeEntityId(id) {
 
 /**
  * Construct an entity-type-specific Record API query for an entity
- * @param {string|string[]} uri entity URI(s)
+ * @param {string} uri entity URI
  * @return {string} Record API query
  */
 export function getEntityQuery(uri) {
-  if (Array.isArray(uri)) {
-    return uri
-      .filter((u) => isEntityUri(u))
-      .map((u) => getEntityQuery(u))
-      .join(' OR ');
-  }
-
   const type = ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
 
   if (type) {

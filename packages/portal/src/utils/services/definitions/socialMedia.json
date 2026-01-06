@@ -1,0 +1,44 @@
+[
+  {
+    "name": "googleDocs",
+    "schemes": [
+      "https://docs.google.com/presentation/*"
+    ],
+    "title": "Google Docs"
+  },
+  {
+    "name": "googleDrive",
+    "schemes": [
+      "https://drive.google.com/file/d/*"
+    ],
+    "title": "Google Drive"
+  },
+  {
+    "name": "instagram",
+    "schemes": [
+      "//www.instagram.com/embed.js"
+    ],
+    "title": "Instagram"
+  },
+  {
+    "name": "pinterest",
+    "schemes": [
+      "//assets.pinterest.com/js/pinit.js"
+    ],
+    "title": "Pinterest"
+  },
+  {
+    "name": "wheeldecide",
+    "schemes": [
+      "https://wheeldecide.com/*"
+    ],
+    "title": "Wheeldecide"
+  },
+  {
+    "name": "x",
+    "schemes": [
+      "https://platform.twitter.com/widgets.js"
+    ],
+    "title": "X"
+  }
+]
