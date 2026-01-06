@@ -161,32 +161,28 @@ const rightsStatements = [
   }
 ];
 
-export default {
-  methods: {
-    rightsNameAndIcon(rightsStatementUrl) {
-      let rightsStatement;
+export const rightsNameAndIcon = (rightsStatementUrl) => {
+  let rightsStatement;
 
-      try {
-        const url = new URL(rightsStatementUrl);
-        const match = rightsStatements.find((rs) => rs.urls.some((rsUrl) => {
-          return (rsUrl.host === url.host) && (url.pathname.includes(rsUrl.path));
-        }));
-        if (match) {
-          rightsStatement = {
-            name: match.name,
-            iconClass: match.iconClass,
-            reusability: match.reusability
-          };
-        } else {
-          throw new Error('No rights statement found');
-        }
-      } catch {
-        rightsStatement = {
-          name: rightsStatementUrl
-        };
-      }
-
-      return rightsStatement;
+  try {
+    const url = new URL(rightsStatementUrl);
+    const match = rightsStatements.find((rs) => rs.urls.some((rsUrl) => {
+      return (rsUrl.host === url.host) && (url.pathname.includes(rsUrl.path));
+    }));
+    if (match) {
+      rightsStatement = {
+        name: match.name,
+        iconClass: match.iconClass,
+        reusability: match.reusability
+      };
+    } else {
+      throw new Error('No rights statement found');
     }
+  } catch {
+    rightsStatement = {
+      name: rightsStatementUrl
+    };
   }
+
+  return rightsStatement;
 };

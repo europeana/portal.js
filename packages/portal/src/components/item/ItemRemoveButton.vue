@@ -132,6 +132,7 @@
           await this.$apis.set.deleteItems(setId, this.identifiers);
           this.fetchCurrentSet?.();
           this.makeToast(this.toastMessage);
+          this.$emit('remove');
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }

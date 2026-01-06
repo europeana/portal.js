@@ -3,21 +3,8 @@ export default {
     likesId: null,
     likedItems: null,
     likedItemIds: [],
-    activeRecommendations: [],
-    selectedItems: []
+    activeRecommendations: []
   }),
-
-  getters: {
-    // FIXME: no active state any more
-    activeSetItemIds(state) {
-      return state.active?.items.map((item) => item.id) || [];
-    },
-
-    // FIXME: no active state any more
-    someActiveSetItemsSelected(state, getters) {
-      return state.selectedItems.some((item) => getters.activeSetItemIds.includes(item));
-    }
-  },
 
   mutations: {
     setLikesId(state, value) {
@@ -26,9 +13,6 @@ export default {
     setLikedItems(state, value) {
       state.likedItems = value || null;
       state.likedItemIds = value?.map(item => item.id) || [];
-    },
-    setSelected(state, value) {
-      state.selectedItems = value;
     },
     like(state, itemIds) {
       for (const itemId of [].concat(itemIds)) {
@@ -44,14 +28,6 @@ export default {
     },
     setActiveRecommendations(state, value) {
       state.activeRecommendations = value;
-    },
-    selectItem(state, itemId) {
-      if (!state.selectedItems.includes(itemId)) {
-        state.selectedItems.push(itemId);
-      }
-    },
-    deselectItem(state, itemId) {
-      state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
     }
   },
 
@@ -110,12 +86,6 @@ export default {
       }
 
       commit('setActiveRecommendations', recList);
-    },
-    refreshSelected({ state, commit }) {
-      const activeItemsAndRecommendations = state.activeRecommendations.concat(state.active?.items || []).map(item => item.id);
-      const activeSelectedItems = state.selectedItems.filter((item) => activeItemsAndRecommendations.includes(item));
-
-      commit('setSelected', activeSelectedItems);
     }
   }
 };

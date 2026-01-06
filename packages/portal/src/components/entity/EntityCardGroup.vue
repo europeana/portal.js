@@ -32,7 +32,7 @@
   import pick from 'lodash/pick.js';
 
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
+  import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
 
   export default {
     name: 'EntityCardGroup',
@@ -42,8 +42,7 @@
     },
 
     mixins: [
-      collectionLinkGenMixin,
-      europeanaEntityLinks
+      collectionLinkGenMixin
     ],
 
     props: {
@@ -77,6 +76,10 @@
         this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
       }
       this.$emit('fetched');
+    },
+
+    methods: {
+      collectionTitle
     }
   };
 </script>

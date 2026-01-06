@@ -148,6 +148,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
   import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
@@ -191,7 +192,9 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const { clear: clearSelectedItems } = useSelectedItems();
+
+      return { clearSelectedItems, scrollToSelector };
     },
 
     data() {
@@ -565,7 +568,7 @@
       },
 
       resetItemMultiSelect() {
-        this.$store.commit('set/setSelected', []);
+        this.clearSelectedItems();
       }
     }
   };

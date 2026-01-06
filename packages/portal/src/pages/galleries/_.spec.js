@@ -1,9 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/galleries/_';
-import sinon from 'sinon';
+import * as selectedItemsComposable from '@/composables/selectedItems.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -11,6 +12,7 @@ localVue.use(BootstrapVue);
 const setApiRepositionItemStub = sinon.stub().resolves({});
 const setApiGetStub = sinon.stub().resolves({});
 const setApiGetItemsStub = sinon.stub().resolves([]);
+const clearSelectedItemsSpy = sinon.spy();
 const storeDispatch = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
 
@@ -112,7 +114,14 @@ const factory = (options = {}) => {
 };
 
 describe('GalleryPage (Set)', () => {
+  beforeAll(() => {
+    sinon.stub(selectedItemsComposable, 'useSelectedItems')
+      .returns({
+        clear: clearSelectedItemsSpy
+      });
+  });
   afterEach(sinon.resetHistory);
+  afterAll(sinon.resetBehavior);
 
   describe('fetch', () => {
     it('validates the format of the Set ID', async() => {
@@ -275,7 +284,7 @@ describe('GalleryPage (Set)', () => {
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
       expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
-      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
+      expect(clearSelectedItemsSpy.calledWith()).toBe(true);
       expect(next.called).toBe(true);
     });
   });

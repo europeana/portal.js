@@ -42,16 +42,13 @@
 <script>
   import RightsStatement from '@/components/generic/RightsStatement';
   import SmartLink from '@/components/generic/SmartLink';
-  import rightsStatementMixin from '@/mixins/rightsStatement';
+  import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
 
   export default {
     components: {
       RightsStatement,
       SmartLink
     },
-    mixins: [
-      rightsStatementMixin
-    ],
     props: {
       rightsStatement: {
         type: String,
@@ -76,6 +73,9 @@
       hostName() {
         return this.url?.host;
       }
+    },
+    methods: {
+      rightsNameAndIcon
     }
   };
 </script>
