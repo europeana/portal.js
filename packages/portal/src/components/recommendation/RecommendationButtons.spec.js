@@ -10,8 +10,9 @@ const identifier = '/123/abc';
 const setId = '/123/def';
 const storeDispatch = sinon.spy();
 const setApiInsertItemsStub = sinon.stub().resolves({});
+const fetchCurrentSetSpy = sinon.spy();
 
-const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(RecommendationButtons, {
+const factory = ({ $auth = {}, propsData = {} } = {}) => mount(RecommendationButtons, {
   localVue,
   propsData: { identifier, ...propsData },
   mocks: {
@@ -22,15 +23,15 @@ const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(
     },
     $auth,
     $store: {
-      state: {
-        set: { ...storeState }
-      },
       dispatch: storeDispatch
     },
     $route: {
       params: { pathMatch: '123/def' }
     },
     $t: () => {}
+  },
+  provide: {
+    fetchCurrentSet: fetchCurrentSetSpy
   }
 });
 
@@ -38,8 +39,7 @@ describe('components/recommendation/RecommendationButtons', () => {
   describe('accept button', () => {
     it('is present and visible if enabled', () => {
       const wrapper = factory({
-        propsData: { enableAcceptButton: true },
-        storeState: { active: { type: 'EntityBestItemsSet' } }
+        propsData: { enableAcceptButton: true }
       });
 
       const acceptButton = wrapper.find('[data-qa="accept button"]');
@@ -50,8 +50,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
     it('is not present if disabled', () => {
       const wrapper = factory({
-        propsData: { enableAcceptButton: false },
-        storeState: { active: { type: 'EntityBestItemsSet' } }
+        propsData: { enableAcceptButton: false }
       });
 
       const acceptButton = wrapper.find('[data-qa="accept button"]');
@@ -79,8 +78,7 @@ describe('components/recommendation/RecommendationButtons', () => {
   describe('reject button', () => {
     it('is present and visible if enabled', () => {
       const wrapper = factory({
-        propsData: { enableRejectButton: true },
-        storeState: { active: { type: 'EntityBestItemsSet' } }
+        propsData: { enableRejectButton: true }
       });
 
       const rejectButton = wrapper.find('[data-qa="reject button"]');
@@ -91,8 +89,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
     it('is not present if disabled', () => {
       const wrapper = factory({
-        propsData: { enableRejectButton: false },
-        storeState: { active: { type: 'EntityBestItemsSet' } }
+        propsData: { enableRejectButton: false }
       });
 
       const rejectButton = wrapper.find('[data-qa="reject button"]');

@@ -6,11 +6,12 @@ import { reactive } from 'vue';
 import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
 
 import page from '@/pages/account/index';
+import * as selectedItemsComposable from '@/composables/selectedItems.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const storeCommit = sinon.spy();
+const clearSelectedItemsSpy = sinon.spy();
 const storeDispatch = sinon.stub().resolves({});
 
 const factory = (options = {}) => {
@@ -39,7 +40,6 @@ const factory = (options = {}) => {
       localePath: (path) => path,
       $route: {},
       $store: {
-        commit: storeCommit,
         dispatch: storeDispatch,
         getters: {},
         state: {
@@ -60,6 +60,12 @@ const factory = (options = {}) => {
 };
 
 describe('pages/account/index.vue', () => {
+  beforeAll(() => {
+    sinon.stub(selectedItemsComposable, 'useSelectedItems')
+      .returns({
+        clear: clearSelectedItemsSpy
+      });
+  });
   afterEach(() => {
     sinon.resetHistory();
     vue2RouterHelpers.useRoute.restore?.();
@@ -145,7 +151,7 @@ describe('pages/account/index.vue', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(storeCommit.calledWith('set/setSelected', [])).toBe(true);
+      expect(clearSelectedItemsSpy.calledWith()).toBe(true);
       expect(next.called).toBe(true);
     });
   });

@@ -7,9 +7,9 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
-const storeDispatchSuccess = sinon.spy();
+const fetchCurrentSetSpy = sinon.spy();
 
-const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier }, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
+const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier } } = {}) => mount(ItemAddButton, {
   localVue,
   attachTo: document.body,
   propsData,
@@ -24,11 +24,11 @@ const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier 
     $matomo: {
       trackEvent: sinon.spy()
     },
-    $store: {
-      dispatch: storeDispatch
-    },
     $t: (key) => key,
     $tc: (key) => key
+  },
+  provide: {
+    fetchCurrentSet: fetchCurrentSetSpy
   },
   stubs: [
     'SetAddItemModal',
@@ -96,7 +96,7 @@ describe('components/item/ItemAddButton', () => {
 
           await wrapper.find('[data-qa="add item to set modal"]').vm.$emit('input', false);
 
-          expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
+          expect(fetchCurrentSetSpy.calledWith()).toBe(true);
         });
 
         it('sets focus on the item add button without showing the tooltip', async() => {
@@ -161,7 +161,7 @@ describe('components/item/ItemAddButton', () => {
         const wrapper = factory();
         await wrapper.vm.refreshSet();
 
-        expect(storeDispatchSuccess.calledWith('set/fetchActive')).toBe(true);
+        expect(fetchCurrentSetSpy.calledWith()).toBe(true);
       });
     });
   });

@@ -74,7 +74,7 @@
   import ClientOnly from 'vue-client-only';
 
   import SearchInterface from '@/components/search/SearchInterface';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import redirectToMixin from '@/mixins/redirectTo';
@@ -98,7 +98,6 @@
 
     mixins: [
       entityBestItemsSetMixin,
-      europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
       redirectToMixin
     ],
@@ -113,10 +112,6 @@
       this.$store.commit('entity/setPinned', []);
       next();
     },
-
-    middleware: [
-      'sanitisePageQuery'
-    ],
 
     data() {
       return {
@@ -305,6 +300,8 @@
       }
     },
     methods: {
+      organizationEntityNativeName,
+      organizationEntityNonNativeEnglishName,
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },

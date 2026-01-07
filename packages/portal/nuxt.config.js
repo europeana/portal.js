@@ -315,7 +315,6 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
