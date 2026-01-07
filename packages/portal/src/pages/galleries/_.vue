@@ -151,6 +151,7 @@
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
   import ClientOnly from 'vue-client-only';
+  import { computed } from 'vue';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
@@ -182,10 +183,13 @@
       redirectToMixin,
       pageMetaMixin
     ],
+    provide() {
+      return {
+        currentSet: computed(() => this.set),
+        fetchCurrentSet: this.fetchSet
+      };
+    },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setActiveId', null);
-      this.$store.commit('set/setActiveParams', {});
-      this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
@@ -202,6 +206,7 @@
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         perPage: 48,
+        set: {},
         title: '',
         rawDescription: ''
       };
@@ -213,12 +218,7 @@
 
       try {
         this.validateRoute();
-        this.$store.commit('set/setActiveId', this.setId);
-        this.$store.commit('set/setActiveParams', {
-          page: this.page,
-          pageSize: this.perPage
-        });
-        await this.$store.dispatch('set/fetchActive');
+        await this.fetchSet();
         this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
@@ -240,9 +240,6 @@
           ogType: 'article',
           ogImage: this.shareMediaUrl
         };
-      },
-      set() {
-        return this.$store.state.set.active || {};
       },
       setId() {
         return this.$route.params.pathMatch.split('-')[0];
@@ -328,6 +325,24 @@
     },
 
     methods: {
+      async fetchSet() {
+        const responses = await Promise.all([
+          this.$apis.set.get(this.setId),
+          this.$apis.set.getItems(this.setId, {
+            page: this.page,
+            pageSize: this.perPage
+          })
+        ]);
+
+        this.set = {
+          ...responses[0],
+          items: responses[1]
+        };
+
+        if ((this.$store.state.set.selectedItems || []).length > 0) {
+          this.$store.dispatch('set/refreshSelected');
+        }
+      },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
           this.$error(404, { scope: 'page' });
@@ -341,7 +356,7 @@
         } finally {
           // always re-fetch in case of failure e.g. write lock, so moved items
           // go back where they were
-          await this.$store.dispatch('set/fetchActive');
+          await this.fetchSet();
           this.$redrawVueMasonry?.();
         }
       }

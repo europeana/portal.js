@@ -3,9 +3,6 @@ export default {
     likesId: null,
     likedItems: null,
     likedItemIds: [],
-    active: null,
-    activeId: null,
-    activeParams: {},
     activeRecommendations: []
   }),
 
@@ -28,15 +25,6 @@ export default {
       for (const itemId of [].concat(itemIds)) {
         state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
       }
-    },
-    setActive(state, value) {
-      state.active = value;
-    },
-    setActiveId(state, value) {
-      state.activeId = value;
-    },
-    setActiveParams(state, value) {
-      state.activeParams = value;
     },
     setActiveRecommendations(state, value) {
       state.activeRecommendations = value;
@@ -86,21 +74,6 @@ export default {
       });
 
       return commit('setLikedItems', likes.items || []);
-    },
-    async fetchActive({ commit, state }) {
-      if (!state.activeId) {
-        return;
-      }
-
-      const responses = await Promise.all([
-        this.$apis.set.get(state.activeId),
-        this.$apis.set.getItems(state.activeId, state.activeParams)
-      ]);
-
-      commit('setActive', {
-        ...responses[0],
-        items: responses[1]
-      });
     },
     async reviewRecommendation({ state, commit }, params) {
       const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);

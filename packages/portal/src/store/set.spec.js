@@ -3,7 +3,6 @@ import sinon from 'sinon';
 
 const likesId = 'http://data.europeana.eu/set/likesset';
 const likedItems = [{ id: 'item001' }];
-const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
@@ -61,13 +60,6 @@ describe('store/set', () => {
         const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007', '008'] };
         store.mutations.unlike(state, ['007', '008']);
         expect(state.likedItemIds).toEqual(['006']);
-      });
-    });
-    describe('setActive()', () => {
-      it('sets the setActive state', () => {
-        const state = { active: null };
-        store.mutations.setActive(state, active);
-        expect(state.active).toEqual(active);
       });
     });
     describe('setActiveRecommendations()', () => {
@@ -173,20 +165,6 @@ describe('store/set', () => {
           expect(store.actions.$apis.set.get.calledWith(setId, sinon.match.any)).toBe(true);
           expect(commit.calledWith('setLikedItems', set.items)).toBe(true);
         });
-      });
-    });
-
-    describe('fetchActive()', () => {
-      const dispatch = sinon.spy();
-      it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
-        store.actions.$apis.set.get = sinon.stub().resolves(set);
-        store.actions.$apis.set.getItems = sinon.stub().resolves([]);
-
-        const state = { activeId: setId };
-        await store.actions.fetchActive({ commit, dispatch, state });
-
-        expect(store.actions.$apis.set.get.calledWith(setId)).toBe(true);
-        expect(commit.calledWith('setActive', { ...set, items: [] })).toBe(true);
       });
     });
 
