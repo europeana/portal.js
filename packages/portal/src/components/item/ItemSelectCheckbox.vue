@@ -20,6 +20,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
   import truncate from '@/utils/text/truncate.js';
 
   export default {
@@ -44,6 +45,12 @@
       }
     },
 
+    setup() {
+      const { deselect, select, selected: selectedItems } = useSelectedItems();
+
+      return { deselect, select, selectedItems };
+    },
+
     data() {
       return {
         // Custom event handling and styles to revert icon only on mouse enter. Relying on hover to revert the select icon results in confusing UX (outlined icon on selection).
@@ -54,14 +61,14 @@
     computed: {
       selected: {
         get() {
-          return this.$store.state.set.selectedItems.includes(this.identifier);
+          return this.selectedItems.includes(this.identifier);
         },
 
         set(value) {
           if (value) {
-            this.$store.commit('set/selectItem', this.identifier);
+            this.select(this.identifier);
           } else {
-            this.$store.commit('set/deselectItem', this.identifier);
+            this.deselect(this.identifier);
           }
         }
       },

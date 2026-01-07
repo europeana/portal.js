@@ -315,7 +315,6 @@ export default {
 
   buildModules: [
     '~/modules/axios-logger',
-    '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],

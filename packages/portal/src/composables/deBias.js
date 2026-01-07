@@ -77,8 +77,9 @@ const parseAnnotation = (anno, options = {}) => {
 const parseAnnotations = (annos, options = {}) => {
   annotations.value = [];
 
+  // TODO: remove `/debias/` check when annotations are updated to no longer include it in their IDs.
   const debiasAnnotations = (annos || [])
-    .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/')));
+    .filter((anno) => (anno.motivation === 'highlighting') && (anno.body?.id.includes('/debias/') || anno.body?.id.includes('/c4p/')));
 
   for (const anno of debiasAnnotations) {
     const { definition, field, id, selector } = parseAnnotation(anno, options);

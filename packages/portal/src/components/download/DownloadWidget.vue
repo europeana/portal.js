@@ -29,7 +29,7 @@
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
-  import rightsStatementMixin from '@/mixins/rightsStatement';
+  import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
 
   export default {
     name: 'DownloadWidget',
@@ -38,9 +38,6 @@
       DownloadFailedModal,
       DownloadSuccessModal
     },
-    mixins: [
-      rightsStatementMixin
-    ],
     props: {
       url: {
         type: String,
@@ -62,6 +59,9 @@
         type: String,
         default: null
       }
+    },
+    methods: {
+      rightsNameAndIcon
     }
   };
 </script>

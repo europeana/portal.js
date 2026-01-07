@@ -78,7 +78,7 @@
 <script>
   import { toRef } from 'vue';
   import ClientOnly from 'vue-client-only';
-  
+
   import { useLikedItems } from '@/composables/likedItems.js';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
@@ -86,7 +86,6 @@
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import rightsStatementMixin from '@/mixins/rightsStatement';
   import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
@@ -107,10 +106,6 @@
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
-
-    mixins: [
-      rightsStatementMixin
-    ],
 
     inject: ['itemIsDeleted'],
 

@@ -34,6 +34,7 @@
   height: auto;
   line-height: $card-line-height;
   transition: box-shadow 0.25s;
+  min-width: $min-card-width;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
@@ -544,7 +545,7 @@
 
 .xxl-page .card {
   @media (min-width: $bp-xxxl) {
-    min-width: $min-card-width;
+    min-width: $min-card-width-xxxl;
     max-width: $max-card-width;
   }
 }

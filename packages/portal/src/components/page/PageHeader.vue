@@ -8,7 +8,7 @@
     data-qa="header"
   >
     <div
-      class="header-navbar d-flex justify-content-between"
+      class="header-navbar d-flex justify-content-between flex-wrap"
     >
       <b-button
         v-b-toggle.sidebar
@@ -171,7 +171,7 @@
 
   .container-fluid {
     background: $white;
-    position: fixed;
+    position: sticky;
     right: 0;
     top: 0;
     left: 0;
@@ -201,8 +201,10 @@
   }
 
   .header-navbar {
+    flex-wrap: wrap;
+    min-height: 3.5rem;
+    height: auto;
     min-width: 11.0625rem;
-    height: 3.5rem;
     box-shadow: $boxshadow-small;
     position: relative;
     z-index: 10;
@@ -212,16 +214,11 @@
     }
 
     .logo {
-      min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
 
       @media (min-width: $bp-medium) {
         margin: 0 auto 0 0;
         padding-left: 1.5em;
-      }
-
-      @media (min-width: $bp-extralarge) {
-        min-width: 18.75em;
       }
 
       img {

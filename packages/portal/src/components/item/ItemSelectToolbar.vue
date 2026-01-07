@@ -16,7 +16,7 @@
         variant="link"
         class="deselect-selected-button p-0 mr-3 ml-1 my-1"
         :aria-label="$t('set.toolbar.actions.deselectSelected')"
-        @click="deselectSelected"
+        @click="clear"
       >
         {{ $t('set.toolbar.actions.deselectSelected') }}
       </b-button>
@@ -31,6 +31,7 @@
         :identifiers="selected"
         button-variant="dark-flat"
         class="ml-2"
+        @remove="clear"
       />
       <ItemAddButton
         :identifiers="selected"
@@ -49,6 +50,7 @@
   import { computed } from 'vue';
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
 
   export default {
     name: 'ItemSelectToolbar',
@@ -72,21 +74,20 @@
       }
     },
 
-    computed: {
-      selectionCount() {
-        return this.selected.length;
-      },
-      selected() {
-        return this.$store.state.set.selectedItems;
-      },
-      someActiveSetItemsSelected() {
-        return this.$store.getters['set/someActiveSetItemsSelected'];
-      }
+    setup() {
+      const { clear, selected } = useSelectedItems([]);
+      return { clear, selected };
     },
 
-    methods: {
-      deselectSelected() {
-        this.$store.commit('set/setSelected', []);
+    computed: {
+      activeSetItemIds() {
+        return this.$store.state.set.active?.items.map((item) => item.id) || [];
+      },
+      selectionCount() {
+        return this.selected?.length || 0;
+      },
+      someActiveSetItemsSelected() {
+        return this.selected?.some((item) => this.activeSetItemIds.includes(item));
       }
     }
   };

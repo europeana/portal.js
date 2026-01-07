@@ -9,7 +9,7 @@ export function useLikedItems(itemIds = null) {
   const setId = computed(() => $root?.$store?.state.set.likesId);
 
   const fetchLikedItems = async() => {
-    console.log('fetchLikedItems', itemIds.value)
+    console.log('fetchLikedItems', itemIds.value);
     if (setAPI && setId.value && itemIds.value) {
       // TODO: pagination!
       const response = await setAPI.searchItems(setId.value, itemIds.value);

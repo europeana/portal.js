@@ -128,6 +128,7 @@
           await this.$apis.set.deleteItems(setId, this.identifiers);
           this.$store.dispatch('set/fetchActive');
           this.makeToast(this.toastMessage);
+          this.$emit('remove');
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
         }
