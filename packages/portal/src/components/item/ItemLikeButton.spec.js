@@ -9,24 +9,14 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 const identifiers = identifier;
-const setId = '123';
-const storeCommitSpy = sinon.spy();
-const setApiCreateLikesStub = sinon.stub().resolves({ id: setId });
-const setApiDeleteItemsStub = sinon.spy();
-const setApiInsertItemsStub = sinon.spy();
+const likeSpy = sinon.spy();
+const unlikeSpy = sinon.spy();
 
-const factory = ({ propsData = { identifiers }, storeState = { likesId: setId },  $auth = {} } = {}) => shallowMount(ItemLikeButton, {
+const factory = ({ propsData = { identifiers }, provide = {},  $auth = {} } = {}) => shallowMount(ItemLikeButton, {
   localVue,
   attachTo: document.body,
   propsData,
   mocks: {
-    $apis: {
-      set: {
-        createLikes: setApiCreateLikesStub,
-        deleteItems: setApiDeleteItemsStub,
-        insertItems: setApiInsertItemsStub
-      }
-    },
     $auth,
     $error: (error) => {
       console.error(error);
@@ -39,14 +29,14 @@ const factory = ({ propsData = { identifiers }, storeState = { likesId: setId },
     $matomo: {
       trackEvent: sinon.spy()
     },
-    $store: {
-      commit: storeCommitSpy,
-      state: {
-        set: storeState
-      }
-    },
     $t: (key) => key,
     $tc: (key) => key
+  },
+  provide: {
+    like: likeSpy,
+    likedItems: {},
+    unlike: unlikeSpy,
+    ...provide
   }
 });
 
@@ -91,7 +81,7 @@ describe('components/item/ItemLikeButton', () => {
 
       describe('when pressed', () => {
         it('goes to login', () => {
-          const wrapper = factory({ $auth, storeState: { likesId: null } });
+          const wrapper = factory({ $auth });
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
           likeButton.trigger('click');
@@ -106,23 +96,13 @@ describe('components/item/ItemLikeButton', () => {
 
       describe('when an item is not yet liked', () => {
         describe('when pressed', () => {
-          it('creates likes set via $apis.set, then commits ID to store', async() => {
-            const wrapper = factory({ $auth, storeState: { likesId: null } });
+          it('calls injected like handler', async() => {
+            const wrapper = factory({ $auth });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');
 
-            expect(setApiCreateLikesStub.calledWith()).toBe(true);
-            expect(storeCommitSpy.calledWith('set/setLikesId', setId)).toBe(true);
-          });
-
-          it('adds item to likes set via set API', () => {
-            const wrapper = factory({ $auth });
-
-            const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
-
-            expect(setApiInsertItemsStub.calledWith(setId, identifier)).toBe(true);
+            expect(likeSpy.calledWith()).toBe(true);
           });
 
           it('tracks the event in Matomo', async() => {
@@ -148,10 +128,11 @@ describe('components/item/ItemLikeButton', () => {
       });
 
       describe('and an item is already liked', () => {
-        const propsData = { buttonText: true, identifiers, value: true };
+        const propsData = { buttonText: true, identifiers };
+        const provide = { likedItems: { [identifier]: true } };
 
         it('updates button text', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
 
@@ -159,17 +140,17 @@ describe('components/item/ItemLikeButton', () => {
         });
 
         describe('when pressed', () => {
-          it('removes item from likes set via set API', () => {
-            const wrapper = factory({ $auth, propsData });
+          it('calls injected unlike handler', () => {
+            const wrapper = factory({ $auth, propsData, provide });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(setApiDeleteItemsStub.calledWith(setId, identifier)).toBe(true);
+            expect(unlikeSpy.calledWith()).toBe(true);
           });
 
           it('makes toast', async() => {
-            const wrapper = factory({ $auth, propsData });
+            const wrapper = factory({ $auth, propsData, provide });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
             await likeButton.trigger('click');

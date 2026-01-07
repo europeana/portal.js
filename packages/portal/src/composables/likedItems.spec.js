@@ -20,7 +20,9 @@ const component = {
     }
   },
   setup(props) {
-    return useLikedItems(computed(() => props.itemIds));
+    const { likedItems, like, unlike } = useLikedItems(computed(() => props.itemIds));
+
+    return { likedItems, like, unlike };
   }
 };
 
