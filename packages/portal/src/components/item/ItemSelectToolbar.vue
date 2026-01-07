@@ -39,7 +39,6 @@
         class="ml-2"
       />
       <ItemLikeButton
-        :identifiers="selected"
         button-variant="dark-flat"
         class="ml-2"
       />
@@ -48,6 +47,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ItemAddButton from '@/components/item/ItemAddButton';
   import ItemLikeButton from '@/components/item/ItemLikeButton';
   import { useSelectedItems } from '@/composables/selectedItems.js';
@@ -59,6 +59,12 @@
       ItemAddButton,
       ItemLikeButton,
       ItemRemoveButton: () => import('@/components/item/ItemRemoveButton.vue')
+    },
+
+    provide() {
+      return {
+        itemIdentifiers: computed(() => this.selected)
+      };
     },
 
     props: {

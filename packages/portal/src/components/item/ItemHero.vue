@@ -76,7 +76,10 @@
 </template>
 
 <script>
+  import { toRef } from 'vue';
   import ClientOnly from 'vue-client-only';
+
+  import { useLikedItems } from '@/composables/likedItems.js';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ShareSnippet from '@/components/share/ShareSnippet';
@@ -89,6 +92,8 @@
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
+    name: 'ItemHero',
+
     components: {
       ClientOnly,
       DownloadWidget,
@@ -103,6 +108,14 @@
     },
 
     inject: ['itemIsDeleted'],
+
+    provide() {
+      return {
+        like: this.like,
+        unlike: this.unlike,
+        likedItems: this.likedItems
+      };
+    },
 
     props: {
       allMediaUris: {
@@ -147,6 +160,11 @@
         type: String,
         default: null
       }
+    },
+    setup(props) {
+      const { like, likedItems, unlike } = useLikedItems(toRef(props, 'identifier'));
+
+      return { like, likedItems, unlike };
     },
     data() {
       return {
