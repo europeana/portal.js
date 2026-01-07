@@ -23,14 +23,31 @@
 <script>
   import axios from 'axios';
   import dateFormat from 'dateformat';
+  import { ref } from 'vue';
   import { recordIdFromUrl } from '@/plugins/europeana/record.js';
   import ItemPreviewCardMosaic from '@/components/item/ItemPreviewCardMosaic';
+  import { useLikedItems } from '@/composables/likedItems.js';
 
   export default {
     name: 'ItemTrendingItems',
 
     components: {
       ItemPreviewCardMosaic
+    },
+
+    provide() {
+      return {
+        like: this.like,
+        unlike: this.unlike,
+        likedItems: this.likedItems
+      };
+    },
+
+    setup(props) {
+      const itemIds = ref(null);
+      const { like, likedItems, unlike } = useLikedItems(itemIds);
+
+      return { itemIds, like, likedItems, unlike };
     },
 
     data() {
@@ -70,6 +87,15 @@
         this.items = itemIds
           .map((id) => findResponse.items.find((item) => item.id === id))
           .filter((item) => !!item);
+      }
+    },
+
+    watch: {
+      items: {
+        deep: true,
+        handler() {
+          this.itemIds = this.items.map((item) => item.id);
+        }
       }
     }
   };
