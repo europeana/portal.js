@@ -35,19 +35,10 @@
       ItemPreviewCardMosaic
     },
 
-    provide() {
-      return {
-        like: this.like,
-        unlike: this.unlike,
-        likedItems: this.likedItems
-      };
-    },
-
-    setup(props) {
+    setup() {
       const itemIds = ref(null);
-      const { like, likedItems, unlike } = useLikedItems(itemIds);
-
-      return { itemIds, like, likedItems, unlike };
+      useLikedItems(itemIds);
+      return { itemIds };
     },
 
     data() {
@@ -58,6 +49,15 @@
 
     async fetch() {
       await (this.$features.mockTrendingItems ? this.fetchRandomItems() : this.fetchTrendingItems());
+    },
+
+    watch: {
+      items: {
+        deep: true,
+        handler() {
+          this.itemIds = this.items.map((item) => item.id);
+        }
+      }
     },
 
     methods: {
@@ -87,15 +87,6 @@
         this.items = itemIds
           .map((id) => findResponse.items.find((item) => item.id === id))
           .filter((item) => !!item);
-      }
-    },
-
-    watch: {
-      items: {
-        deep: true,
-        handler() {
-          this.itemIds = this.items.map((item) => item.id);
-        }
       }
     }
   };

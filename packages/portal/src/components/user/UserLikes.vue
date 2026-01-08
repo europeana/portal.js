@@ -24,7 +24,6 @@
 <script>
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
-  import { useLikedItems } from '@/composables/likedItems.js';
   import useScrollTo from '@/composables/scrollTo.js';
 
   export default {
@@ -36,10 +35,9 @@
     },
 
     setup() {
-      const { likedItems } = useLikedItems();
       const { scrollToSelector } = useScrollTo();
 
-      return { likedItems, scrollToSelector };
+      return { scrollToSelector };
     },
 
     data() {

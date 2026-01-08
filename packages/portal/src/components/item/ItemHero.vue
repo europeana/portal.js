@@ -109,14 +109,6 @@
 
     inject: ['itemIsDeleted'],
 
-    provide() {
-      return {
-        like: this.like,
-        unlike: this.unlike,
-        likedItems: this.likedItems
-      };
-    },
-
     props: {
       allMediaUris: {
         type: Array,
@@ -162,9 +154,7 @@
       }
     },
     setup(props) {
-      const { like, likedItems, unlike } = useLikedItems(toRef(props, 'identifier'));
-
-      return { like, likedItems, unlike };
+      useLikedItems(toRef(props, 'identifier'));
     },
     data() {
       return {

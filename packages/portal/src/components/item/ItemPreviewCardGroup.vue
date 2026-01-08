@@ -148,14 +148,6 @@
       advancedSearchMixin
     ],
 
-    provide() {
-      return {
-        like: this.like,
-        unlike: this.unlike,
-        likedItems: this.likedItems
-      };
-    },
-
     props: {
       items: {
         type: Array,
@@ -201,9 +193,7 @@
 
     setup(props) {
       const itemIdsRef = ref(props.items.map((item) => item.id));
-      const { like, likedItems, unlike } = useLikedItems(itemIdsRef);
-
-      return { like, likedItems, unlike };
+      useLikedItems(itemIdsRef);
     },
 
     data() {

@@ -1,7 +1,7 @@
-import { computed, getCurrentInstance, ref, watchEffect } from 'vue';
+import { computed, getCurrentInstance, provide, reactive, watchEffect } from 'vue';
 
 export function useLikedItems(itemIds = null) {
-  const likedItems = ref({});
+  const likedItems = reactive({});
 
   const $root = getCurrentInstance()?.proxy?.$root;
   const setAPI = $root?.$apis?.set;
@@ -12,7 +12,7 @@ export function useLikedItems(itemIds = null) {
       const response = await setAPI.searchItems(setId.value, itemIds.value);
 
       for (const itemId of [].concat(itemIds.value)) {
-        likedItems.value[itemId] = (response.items || []).some((item) => item.endsWith(itemId));
+        likedItems[itemId] = (response.items || []).some((item) => item.endsWith(itemId));
       }
     }
   };
@@ -35,9 +35,7 @@ export function useLikedItems(itemIds = null) {
 
   watchEffect(fetchLikedItems);
 
-  return {
-    like,
-    likedItems: computed(() => likedItems.value),
-    unlike
-  };
+  provide('likedItems', computed(() => likedItems));
+  provide('like', like);
+  provide('unlike', unlike);
 }
