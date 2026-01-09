@@ -130,9 +130,6 @@
 </template>
 
 <script>
-  import { ref } from 'vue';
-
-  import { useLikedItems } from '@/composables/likedItems.js';
   import advancedSearchMixin from '@/mixins/advancedSearch';
   import ItemPreviewCard from './ItemPreviewCard';
 
@@ -191,11 +188,6 @@
       }
     },
 
-    setup(props) {
-      const itemIdsRef = ref(props.items.map((item) => item.id));
-      useLikedItems(itemIdsRef);
-    },
-
     data() {
       return {
         cards: [],
@@ -242,6 +234,7 @@
 
     watch: {
       'cards.length'() {
+        console.log('watched cards length, redrawing')
         this.redrawMasonry(400);
       },
       items() {

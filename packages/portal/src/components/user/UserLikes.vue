@@ -60,6 +60,7 @@
     },
 
     beforeDestroy() {
+      // FIXME: use selectedItems composable fn
       this.$store.commit('set/setSelected', []);
     },
 

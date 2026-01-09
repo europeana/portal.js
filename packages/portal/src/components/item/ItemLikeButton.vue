@@ -23,13 +23,12 @@
   import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
+  import { useLikedItems } from '@/composables/likedItems.js';
   import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
-
-    inject: ['like', 'likedItems', 'unlike'],
 
     props: {
       /**
@@ -64,7 +63,9 @@
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      return { buttonId, cardinality, hideTooltips, logEvent, makeToast };
+      const { liked, like, unlike } = useLikedItems(props.identifiers);
+
+      return { buttonId, cardinality, hideTooltips, liked, like, logEvent, makeToast, unlike };
     },
 
     data() {
@@ -77,12 +78,9 @@
       disabled() {
         return this.selectionCount === 0;
       },
-      everyItemLiked() {
-        return [].concat(this.identifiers).every((id) => this.likedItems[id]);
-      },
       likeButtonText() {
         if (this.buttonText) {
-          return this.everyItemLiked ? this.$t('statuses.liked') : this.$t('actions.like');
+          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
       },
@@ -93,7 +91,7 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
-        if (this.everyItemLiked) {
+        if (this.liked) {
           return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
         } else {
           return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
@@ -105,16 +103,14 @@
     },
 
     watch: {
-      everyItemLiked: {
-        deep: true,
-        handler() {
-          this.pressed = this.everyItemLiked;
-        }
+      liked() {
+        console.log('ItemLikeButton liked changed to', this.liked)
+        this.pressed = this.liked;
       }
     },
 
     created() {
-      this.pressed = this.everyItemLiked;
+      this.pressed = this.liked;
     },
 
     methods: {

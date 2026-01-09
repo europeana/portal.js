@@ -76,10 +76,8 @@
 </template>
 
 <script>
-  import { toRef } from 'vue';
   import ClientOnly from 'vue-client-only';
 
-  import { useLikedItems } from '@/composables/likedItems.js';
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ShareSnippet from '@/components/share/ShareSnippet';
@@ -152,9 +150,6 @@
         type: String,
         default: null
       }
-    },
-    setup(props) {
-      useLikedItems(toRef(props, 'identifier'));
     },
     data() {
       return {
