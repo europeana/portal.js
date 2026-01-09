@@ -1,5 +1,5 @@
 import baseData from '../index.js';
-import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
+import { organizationEntityNativeName } from '../../../utils/europeana/entities/organizations.js';
 
 const PICK = ['id', 'prefLabel', 'logo'];
 const DAILY = 4;
