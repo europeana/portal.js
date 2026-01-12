@@ -43,6 +43,19 @@
             @dateFilter="dateFilterSelected"
           />
           <SearchFacetDropdown
+            v-if="enableSortFilter"
+            key="sort"
+            name="sort"
+            type="radio"
+            :selected="userParams.sort ? [userParams.sort] : []"
+            :static-fields="sortFilter.staticFields"
+            :search="false"
+            :aria-label="sortFilterField"
+            :api-params="apiParams"
+            :api-options="apiOptions"
+            @changed="changeSort"
+          />
+          <SearchFacetDropdown
             v-for="facet in defaultFilterableFacets"
             :key="facet.name"
             :name="facet.name"
@@ -184,7 +197,10 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        showAdditionalFilters: false
+        showAdditionalFilters: false,
+        // TODO: when sorting options are available via the searchInterface,
+        // rather than tracking sort value here, emit an event and handle changes there.
+        sortValue: this.userParams.sort || []
       };
     },
     computed: {
@@ -211,6 +227,9 @@
         }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
+        }
+        if (this.enableSortFilter && this.sortValue?.length > 0) {
+          filters.push(this.sortFilterField);
         }
 
         return filters;
@@ -303,6 +322,15 @@
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
       },
+      enableSortFilter() {
+        return !!this.theme?.filters?.sort;
+      },
+      sortFilterField() {
+        return this.theme?.filters?.sort?.field || null;
+      },
+      sortFilter() {
+        return { staticFields: [`${this.sortFilterField}+asc`, `${this.sortFilterField}+desc`] };
+      },
       hasResettableFilters() {
         return this.resettableFilters.length > 0;
       },
@@ -375,6 +403,7 @@
       queryUpdatesForFilters(filters) {
         const queryUpdates = {
           qf: [],
+          sort: this.sortValue,
           page: 1
         };
 
@@ -407,6 +436,15 @@
           this.$matomo?.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
         }
       },
+      changeSort(name, selected) {
+        if (isEqual(this.sortValue, selected)) {
+          return;
+        }
+
+        this.sortValue = selected;
+
+        this.rerouteSearch(this.queryUpdatesForFacetChanges({}));
+      },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           boost: this.boost,
@@ -433,6 +471,7 @@
         this.rerouteSearch({
           page: 1,
           qf: null,
+          sort: null,
           reusability: null
         });
       },
