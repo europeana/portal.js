@@ -4,15 +4,15 @@ Feature: Page layout on all pages.
   I want to be presented with an accessible and styled
   layout for all pages.
 
-@klaro-notice-not-dismissed
+  @klaro-notice-not-dismissed
   Scenario: Moving to the main content using the skip-to-main functionality
     When I visit the `home page`
     And I see the Klaro banner
     And I accept all Klaro cookies
     And I press the TAB key
-    And I see the `main content accessibility link`
+    And I see the `skip to content link`
     And I press the ENTER key
-    Then I should be on `/en#main`
+    Then the `main content` is highlighted
 
   Scenario: Main navigation is visible
     When I open the `home page`
@@ -29,4 +29,4 @@ Feature: Page layout on all pages.
     Then I see an `item page`
     Then The `top page` is active
     And I press the TAB key
-    Then I see the `main content accessibility link`
+    Then I see the `skip to content link`
