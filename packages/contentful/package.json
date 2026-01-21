@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "strays": "node -r dotenv/config bin/strays.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,5 +30,6 @@
   "bugs": {
     "url": "https://github.com/europeana/portal.js/issues"
   },
-  "homepage": "https://github.com/europeana/portal.js#readme"
+  "homepage": "https://github.com/europeana/portal.js#readme",
+  "type": "module"
 }
