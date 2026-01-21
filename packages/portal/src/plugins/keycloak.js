@@ -116,13 +116,16 @@ export const keycloakPlugin = (ctx) => {
     return redirect;
   };
 
-  const accountUrl = () => {
+  const accountUrl = (action) => {
     const keycloakAccountUrl = new URL(
-      `/auth/realms/${ctx.$auth.strategy.options.realm}/account`, ctx.$auth.strategy.options.origin
+      `/auth/realms/${ctx.$auth.strategy.options.realm}/protocol/openid-connect/auth`, ctx.$auth.strategy.options.origin
     );
     keycloakAccountUrl.search = new URLSearchParams({
-      referrer: ctx.$auth.strategy.options.client_id,
-      'referrer_uri': ctx.$config.app.baseUrl
+      'client_id': ctx.$auth.strategy.options.client_id,
+      // FIXME: this should be the current url, not the base url
+      'redirect_uri': ctx.$config.app.baseUrl,
+      'response_type': 'code',
+      'kc_action': action
     }).toString();
     return keycloakAccountUrl.toString();
   };
