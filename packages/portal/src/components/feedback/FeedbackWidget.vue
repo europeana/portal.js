@@ -10,19 +10,19 @@
       />
       <script
         type="module"
-        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.4.0/dist/europeana-feedback-widget.js"
-        integrity="sha384-DudYnR5wo4wxA5BczsGlOjzuJUMSegYTQZ8Qa0DdllZg9KRb42VHqcF41fxrDRMR"
+        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.5.0/dist/europeana-feedback-widget.app.js"
+        integrity="sha384-323Vd3CwtH6tRpgRCi9egn+e7ny8pKlwA7eklyM/J9J0+VT2pIyK3+la4h5lWenQ"
       >
         <!-- prevent eslint closing this -->
       </script>
       <link
         rel="preload"
         as="style"
-        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.4.0/dist/europeana-feedback-widget.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.5.0/dist/europeana-feedback-widget.css"
       >
       <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.4.0/dist/europeana-feedback-widget.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.5.0/dist/europeana-feedback-widget.css"
       >
     </client-only>
   </div>
