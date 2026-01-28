@@ -3,7 +3,7 @@ import * as utils from './entityLinks.js';
 describe('@/utils/europeana/entities/entityLinks', () => {
   describe('collectionTitle', () => {
     it('uses native language for organisations', () => {
-      const title = utils.collectionTitle({ type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } });
+      const title = utils.collectionTitle({ id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum', fr: 'Musée' } });
 
       expect(title).toEqual({ fr: 'Musée' });
     });

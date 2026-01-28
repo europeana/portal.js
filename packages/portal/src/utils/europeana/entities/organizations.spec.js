@@ -11,8 +11,8 @@ describe('@/utils/europeana/entities/organizations', () => {
       expect(actual).toBe(expected);
     });
 
-    it('is `false` if arg type is not "Organization"', () => {
-      const arg = { type: 'Concept', prefLabel: { en: 'Cartoon' } };
+    it('is `false` if arg id does not include "/organization/"', () => {
+      const arg = { id: 'http://data.europeana.eu/concept/123', prefLabel: { en: 'Cartoon' } };
       const expected = false;
 
       const actual = utils.isNamedOrganizationEntity(arg);
@@ -21,7 +21,7 @@ describe('@/utils/europeana/entities/organizations', () => {
     });
 
     it('is `false` if arg has no prefLabel', () => {
-      const arg = { type: 'Organization' };
+      const arg = { id: 'http://data.europeana.eu/organization/123' };
       const expected = false;
 
       const actual = utils.isNamedOrganizationEntity(arg);
@@ -29,8 +29,8 @@ describe('@/utils/europeana/entities/organizations', () => {
       expect(actual).toBe(expected);
     });
 
-    it('is `true` if arg has type "Organization" and prefLabel', () => {
-      const arg = { type: 'Organization', prefLabel: { en: 'Museum' } };
+    it('is `true` if arg id includes "/organization/", and  has prefLabel', () => {
+      const arg = { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum' } };
       const expected = true;
 
       const actual = utils.isNamedOrganizationEntity(arg);
@@ -50,7 +50,7 @@ describe('@/utils/europeana/entities/organizations', () => {
     });
 
     it('favours the first non-English prefLabel, if any', () => {
-      const arg = { type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } };
+      const arg = { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum', fr: 'Musée' } };
       const expected = { fr: 'Musée' };
 
       const actual = utils.organizationEntityNativeName(arg);
@@ -59,7 +59,7 @@ describe('@/utils/europeana/entities/organizations', () => {
     });
 
     it('falls back to the English prefLabel if no others', () => {
-      const arg = { type: 'Organization', prefLabel: { en: 'Museum' } };
+      const arg = { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum' } };
       const expected = { en: 'Museum' };
 
       const actual = utils.organizationEntityNativeName(arg);
@@ -79,7 +79,7 @@ describe('@/utils/europeana/entities/organizations', () => {
     });
 
     it('is the English prefLabel if others are also present', () => {
-      const arg = { type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } };
+      const arg = { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum', fr: 'Musée' } };
       const expected = { en: 'Museum' };
 
       const actual = utils.organizationEntityNonNativeEnglishName(arg);
@@ -88,7 +88,7 @@ describe('@/utils/europeana/entities/organizations', () => {
     });
 
     it('is `null` if only the English prefLabel is present', () => {
-      const arg = { type: 'Organization', prefLabel: { en: 'Museum' } };
+      const arg = { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum' } };
       const expected = null;
 
       const actual = utils.organizationEntityNonNativeEnglishName(arg);

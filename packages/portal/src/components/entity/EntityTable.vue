@@ -239,9 +239,9 @@
       organizationEntityNativeName,
       organizationEntityNonNativeEnglishName,
       organisationData(org) {
-        const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
+        const nativeName = this.organizationEntityNativeName(org);
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
+        const englishName = this.organizationEntityNonNativeEnglishName(org);
         const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
 
         return {

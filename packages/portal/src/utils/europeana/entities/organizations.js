@@ -1,7 +1,7 @@
 const ENGLISH_LOCALE_CODE = 'en';
 
 export const isNamedOrganizationEntity = (entity) => {
-  return (entity?.type === 'Organization') && !!entity.prefLabel;
+  return !!(entity?.id?.includes('/organization/') && !!entity.prefLabel);
 };
 
 export const organizationEntityNativeName = (entity) => {
