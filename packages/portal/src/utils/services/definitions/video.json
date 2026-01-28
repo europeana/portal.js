@@ -46,13 +46,6 @@
     "title": "EUscreen"
   },
   {
-    "name": "slovakiana",
-    "schemes": [
-      "https://slovakiana.sk"
-    ],
-    "title": "Slovakiana"
-  },
-  {
     "name": "tibAvPortal",
     "schemes": [
       "http://av.tib.eu/player/*"
