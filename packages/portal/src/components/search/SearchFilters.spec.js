@@ -476,7 +476,7 @@ describe('components/search/SearchFilters', () => {
 
             const updates = wrapper.vm.queryUpdatesForFacetChanges();
 
-            expect(updates).toEqual({ qf: [], sort: [], page: 1 });
+            expect(updates).toEqual({ qf: [], page: 1 });
           });
         });
       });
@@ -616,7 +616,7 @@ describe('components/search/SearchFilters', () => {
     });
 
     describe('changeSort', () => {
-      const initialSortValue = ['proxy_dcterms_issued%2Bdesc'];
+      const initialSortValue = 'proxy_dcterms_issued%2Bdesc';
       const propsData = {
         userParams: {
           qf: ['collection%3Anewspaper', 'TYPE:"TEXT"'],
@@ -627,13 +627,13 @@ describe('components/search/SearchFilters', () => {
       describe('when changing the sort direction', () => {
         const newSortValue = ['proxy_dcterms_issued%2Basc'];
 
-        it('updates the sortValue and triggers rerouting', async() => {
+        it('triggers rerouting with the new search param', async() => {
           const wrapper = factory({ propsData });
           const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
           await wrapper.vm.changeSort('sort', newSortValue);
-          expect(wrapper.vm.$data.sortValue).toBe(newSortValue);
-          expect(searchRerouter.called).toBe(true);
+
+          expect(searchRerouter.calledWith({ sort: newSortValue })).toBe(true);
         });
       });
 

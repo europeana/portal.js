@@ -197,10 +197,8 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        showAdditionalFilters: false,
-        // TODO: when sorting options are available via the searchInterface,
-        // rather than tracking sort value here, emit an event and handle changes there.
-        sortValue: this.userParams.sort || []
+        SORT_FILTER: 'SORT',
+        showAdditionalFilters: false
       };
     },
     computed: {
@@ -214,7 +212,9 @@
         if (this.userParams?.reusability) {
           filters['REUSABILITY'] = this.userParams.reusability.split(',');
         }
-
+        if (this.userParams?.sort) {
+          filters[this.SORT_FILTER] = this.userParams.sort?.split(',');
+        }
         return filters;
       },
       resettableFilters() {
@@ -228,8 +228,8 @@
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
         }
-        if (this.enableSortFilter && this.sortValue?.length > 0) {
-          filters.push(this.sortFilterField);
+        if (this.enableSortFilter && this.sort?.length > 0) {
+          filters.push(this.SORT_FILTER);
         }
 
         return filters;
@@ -297,6 +297,9 @@
       },
       view() {
         return this.userParams.view;
+      },
+      sort() {
+        return this.userParams.sort;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -377,7 +380,6 @@
       },
       queryUpdatesForFacetChanges(selected = {}) {
         const filters = { ...this.filters };
-
         for (const name in selected) {
           filters[name] = selected[name];
         }
@@ -385,9 +387,15 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
-            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
+            if (name !== this.COLLECTION_FACET_NAME && name !== this.SORT_FILTER && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
               filters[name] = [];
             }
+          }
+          // removes sort from query when the target theme does not support it.
+          // TODO: Should this remove sort only for unsupported sort fields specifically?
+          // Should sort always be removed on collection switch? Then just remove the exception in the condition above.
+          if (!themes.find((theme) => theme.qf === filters[this.COLLECTION_FACET_NAME])?.filters?.sort) {
+            filters[this.SORT_FILTER] = undefined;
           }
         }
 
@@ -403,7 +411,6 @@
       queryUpdatesForFilters(filters) {
         const queryUpdates = {
           qf: [],
-          sort: this.sortValue,
           page: 1
         };
 
@@ -411,6 +418,9 @@
           if (name === 'REUSABILITY') {
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
+          } else if (name === this.SORT_FILTER) {
+            // `sort` has its own API parameter and can not be queried in `qf`
+            queryUpdates.sort = filters[name];
           } else {
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
@@ -437,13 +447,11 @@
         }
       },
       changeSort(name, selected) {
-        if (isEqual(this.sortValue, selected)) {
+        if (isEqual(this.sort, selected)) {
           return;
         }
 
-        this.sortValue = selected;
-
-        this.rerouteSearch(this.queryUpdatesForFacetChanges({}));
+        this.rerouteSearch({ sort: selected });
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
@@ -453,6 +461,7 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
+          sort: this.sort,
           view: this.view
         };
 
