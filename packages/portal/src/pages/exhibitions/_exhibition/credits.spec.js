@@ -1,4 +1,3 @@
-import exhibitionChapters from '@/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
@@ -10,9 +9,6 @@ localVue.use(BootstrapVue);
 
 const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   localVue,
-  mixins: [
-    exhibitionChapters
-  ],
   data: () => ({ ...data }),
   mocks: {
     $t: (key) => key,

@@ -1,4 +1,3 @@
-import exhibitionChapters from '@/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
@@ -25,9 +24,6 @@ const defaultOptions = {
 
 const factory = (options = defaultOptions) => shallowMountNuxt(page, {
   localVue,
-  mixins: [
-    exhibitionChapters
-  ],
   provide: {
     canonicalUrl: {}
   },
@@ -84,43 +80,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     'RelatedCategoryTags',
     'ThemeBadges'
   ]
-});
-
-describe('exhibitionChapters mixin', () => {
-  it('chapterPagesToLinkListItems returns a url for each chapter', async() => {
-    const wrapper = factory();
-    const chapterList = wrapper.vm.hasPartCollection.items;
-    const currentExhibitionIdentifier = wrapper.vm.identifier;
-    const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterUrl = {
-      name: 'exhibitions-exhibition-chapter',
-      params: {
-        exhibition: 'exhibition', chapter: 'exhibition-part-1'
-      }
-    };
-
-    expect(linkListItems[0].url).toEqual(expectedChapterUrl);
-  });
-
-  it('chapterPagesToLinkListItems returns a background for each chapter where present', async() => {
-    const wrapper = factory();
-    const chapterList = wrapper.vm.hasPartCollection.items;
-    const currentExhibitionIdentifier = wrapper.vm.identifier;
-    const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterBackground = 'https://www.example.eu/image1.jpg';
-
-    expect(linkListItems[0].background).toEqual(expectedChapterBackground);
-  });
-
-  it('chapterPagesToLinkListItems returns a text for each chapter', async() => {
-    const wrapper = factory();
-    const chapterList = wrapper.vm.hasPartCollection.items;
-    const currentExhibitionIdentifier = wrapper.vm.identifier;
-    const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterText = 'exhibition part 1';
-
-    expect(linkListItems[0].text).toEqual(expectedChapterText);
-  });
 });
 
 describe('Exhibition landing page', () => {
