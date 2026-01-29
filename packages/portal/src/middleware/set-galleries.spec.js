@@ -7,13 +7,25 @@ describe('middleware/set-galleries', () => {
 
   const redirect = sinon.spy();
 
-  describe('when route path is for /set/ gallery', () => {
-    const route = { path: '/en/set/123' };
+  describe('when route path is for /:locale/set/ gallery', () => {
+    describe('with locale', () => {
+      const route = { path: '/en/set/123' };
 
-    it('redirects to /galleries/ path', () => {
-      middleware({ route, redirect });
+      it('redirects to /:locale/galleries/ path', () => {
+        middleware({ route, redirect });
 
-      expect(redirect.calledWith('/en/galleries/123')).toBe(true);
+        expect(redirect.calledWith(301, '/en/galleries/123')).toBe(true);
+      });
+    });
+
+    describe('without locale', () => {
+      const route = { path: '/set/123' };
+
+      it('redirects to /galleries/ path', () => {
+        middleware({ route, redirect });
+
+        expect(redirect.calledWith(301, '/galleries/123')).toBe(true);
+      });
     });
   });
 

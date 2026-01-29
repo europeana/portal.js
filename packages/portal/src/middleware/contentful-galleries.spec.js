@@ -9,12 +9,24 @@ describe('middleware/contentful-galleries', () => {
   const error = sinon.spy();
 
   describe('when route path is for migrated gallery', () => {
-    const route = { path: '/en/galleries/yellow' };
+    describe('with locale', () => {
+      const route = { path: '/en/galleries/yellow' };
 
-    it('redirects to path with numeric Set ID', () => {
-      middleware({ route, redirect, error });
+      it('redirects to path with numeric Set ID', () => {
+        middleware({ route, redirect, error });
 
-      expect(redirect.calledWith('/en/galleries/9280-yellow')).toBe(true);
+        expect(redirect.calledWith(301, '/en/galleries/9280-yellow')).toBe(true);
+      });
+    });
+
+    describe('without locale', () => {
+      const route = { path: '/galleries/yellow' };
+
+      it('redirects to path with numeric Set ID', () => {
+        middleware({ route, redirect, error });
+
+        expect(redirect.calledWith(301, '/galleries/9280-yellow')).toBe(true);
+      });
     });
   });
 

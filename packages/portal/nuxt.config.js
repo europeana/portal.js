@@ -406,10 +406,10 @@ export default {
     middleware: [
       'trailing-slash',
       'legacy/index',
-      'l10n',
+      'redirects',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'l10n'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');

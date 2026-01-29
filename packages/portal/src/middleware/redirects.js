@@ -1,3 +1,5 @@
+import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
+
 const redirects = {
   '/blog': '/stories?type=story',
   '/blog/*': '/stories/*',
@@ -13,9 +15,7 @@ export default ({ redirect, route }) => {
   for (const redirectFrom in redirects) {
     let redirectTo = redirects[redirectFrom];
 
-    const routePathParts = route.path.split('/');
-    const locale = routePathParts[1];
-    const localelessPath = `/${routePathParts.slice(2).join('/')}`;
+    const { locale, path: localelessPath } = extractLocaleFromRoutePath(route.path);
 
     let match;
 
@@ -32,7 +32,7 @@ export default ({ redirect, route }) => {
     }
 
     if (match) {
-      if (redirectTo.startsWith('/')) {
+      if (redirectTo.startsWith('/') && locale) {
         return redirect(301, `/${locale}${redirectTo}`);
       } else {
         return redirect(301, redirectTo);
