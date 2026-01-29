@@ -21,7 +21,7 @@ const themes = [
   {
     id: 'newspapers',
     qf: 'newspaper',
-    filters: { date: { field: 'proxy_dcterms_issued' } }
+    filters: { date: { field: 'proxy_dcterms_issued' }, sort: { field: 'proxy_dcterms_issued' } }
   },
   { id: 'photography', qf: 'photography' },
   { id: 'sport', qf: 'sport' },

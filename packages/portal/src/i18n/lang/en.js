@@ -749,6 +749,15 @@ export default {
       },
       "select": "Select rights statements"
     },
+    "sort": {
+      "name": "Sort by",
+      "options": {
+        "proxy_dcterms_issued+asc": "Issue Date (oldest first)",
+        "proxy_dcterms_issued+desc": "Issue Date (newest first)"
+
+      },
+      "select": "Select how to sort the results"
+    },
     "TYPE": {
       "name": "Type of media",
       "options": {
