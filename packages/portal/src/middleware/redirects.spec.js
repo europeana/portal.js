@@ -11,7 +11,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/fr/share-your-collections')).toBe(true);
+    expect(redirect.calledWith(301, '/fr/share-your-collections')).toBe(true);
   });
 
   it('redirects /blog to /stories', () => {
@@ -19,7 +19,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/de/stories?type=story')).toBe(true);
+    expect(redirect.calledWith(301, '/de/stories?type=story')).toBe(true);
   });
 
   it('redirects /blog/* to /stories/*', () => {
@@ -27,7 +27,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
+    expect(redirect.calledWith(301, '/nl/stories/nice')).toBe(true);
   });
 
   it('redirects /exhibitions to /stories?type=exhibition', () => {
@@ -35,7 +35,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/es/stories?type=exhibition')).toBe(true);
+    expect(redirect.calledWith(301, '/es/stories?type=exhibition')).toBe(true);
   });
 
   it('redirects /rights/public-domain-charter to https://pro.europeana.eu/post/the-europeana-public-domain-charter', () => {
@@ -43,7 +43,7 @@ describe('middleware/redirects', () => {
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('https://pro.europeana.eu/post/the-europeana-public-domain-charter')).toBe(true);
+    expect(redirect.calledWith(301, 'https://pro.europeana.eu/post/the-europeana-public-domain-charter')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {

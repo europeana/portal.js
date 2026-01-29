@@ -33,9 +33,9 @@ export default ({ redirect, route }) => {
 
     if (match) {
       if (redirectTo.startsWith('/')) {
-        return redirect(`/${locale}${redirectTo}`);
+        return redirect(301, `/${locale}${redirectTo}`);
       } else {
-        return redirect(redirectTo);
+        return redirect(301, redirectTo);
       }
     }
   }
