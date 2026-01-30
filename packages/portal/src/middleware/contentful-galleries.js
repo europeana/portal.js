@@ -1,5 +1,7 @@
 import createHttpError from 'http-errors';
 
+import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
+
 // Keys are deprecated CTF gallery content entry slugs. Values are Europeana
 // Set API numeric IDs.
 const REDIRECTS = {
@@ -393,11 +395,20 @@ const GONE = [
 ];
 
 export default ({ route, redirect, error }) => {
-  const routePathParts = route.path.split('/');
-  if ((routePathParts[2] === 'galleries')) {
-    if (REDIRECTS[routePathParts[3]]) {
-      return redirect(`/${routePathParts[1]}/galleries/${REDIRECTS[routePathParts[3]]}-${routePathParts[3]}`);
-    } else if (GONE.includes(routePathParts[3])) {
+  const { locale, path: localelessPath } = extractLocaleFromRoutePath(route.path);
+
+  const localelessPathParts = localelessPath.split('/');
+
+  if ((localelessPathParts[1] === 'galleries')) {
+    if (REDIRECTS[localelessPathParts[2]]) {
+      let redirectPath = `/galleries/${REDIRECTS[localelessPathParts[2]]}-${localelessPathParts[2]}`;
+
+      if (locale) {
+        redirectPath = `/${locale}${redirectPath}`;
+      }
+
+      return redirect(301, redirectPath);
+    } else if (GONE.includes(localelessPathParts[2])) {
       error(createHttpError(410));
     }
   }
