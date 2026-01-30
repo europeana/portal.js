@@ -299,8 +299,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/elastic-apm/plugin.client',
     '~/plugins/elastic-apm/plugin.server',
+    '~/plugins/cookieless-redirect.server',
+    '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
@@ -404,12 +405,14 @@ export default {
 
   router: {
     middleware: [
+      // localise first, so that any redirects are locale-specific for 301 caching
+      'l10n',
+      // redirects may proceed
       'trailing-slash',
       'legacy/index',
-      'redirects',
       'contentful-galleries',
       'set-galleries',
-      'l10n'
+      'redirects'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
