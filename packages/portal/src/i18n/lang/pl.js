@@ -716,6 +716,14 @@ export default {
       "name": "Oświadczenie prawne",
       "select": "Wybierz oświadczenia o prawach"
     },
+    "sort": {
+      "name": "Sortuj według",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data wystawienia (od najstarszych)",
+        "proxy_dcterms_issued+desc": "Data wydania (od najnowszych)"
+      },
+      "select": "Wybierz sposób sortowania wyników"
+    },
     "TYPE": {
       "name": "Rodzaj mediów",
       "options": {

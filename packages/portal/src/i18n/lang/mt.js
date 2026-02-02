@@ -716,6 +716,14 @@ export default {
       "name": "Dikjarazzjoni tad-drittijiet",
       "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
     },
+    "sort": {
+      "name": "Issortja skont",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data tal-ħruġ (mill-eqdem l-ewwel)",
+        "proxy_dcterms_issued+desc": "Data tal-Ħruġ (l-aktar ġdida l-ewwel)"
+      },
+      "select": "Agħżel kif tixtieq issortja r-riżultati"
+    },
     "TYPE": {
       "name": "Tip ta' midja",
       "options": {

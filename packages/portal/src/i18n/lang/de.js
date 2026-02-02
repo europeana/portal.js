@@ -716,6 +716,14 @@ export default {
       "name": "Rechte",
       "select": "Rechtehinweise"
     },
+    "sort": {
+      "name": "Sortieren nach",
+      "options": {
+        "proxy_dcterms_issued+asc": "Ausgabedatum (ältestes zuerst)",
+        "proxy_dcterms_issued+desc": "Ausgabedatum (neueste zuerst)"
+      },
+      "select": "Wählen Sie aus, wie die Ergebnisse sortiert werden sollen."
+    },
     "TYPE": {
       "name": "Art des Mediums",
       "options": {
