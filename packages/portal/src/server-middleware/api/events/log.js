@@ -1,4 +1,4 @@
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import pg from '../pg.js';
 
 const logEvent = async({ actionType, objectUri, sessionId }) => {
