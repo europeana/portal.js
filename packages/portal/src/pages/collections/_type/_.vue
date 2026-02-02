@@ -148,6 +148,9 @@
 
         this.userIsEntitiesEditor && await this.setBestItems();
 
+        // TODO: don't do this on SSRs, it's too expensive. instead just update
+        //       window.location when mounted, and set Content-Location response
+        //       header, and canonical urls to include the prefLabel
         return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
       } catch (e) {
         this.$error(e, { scope: 'page' });
