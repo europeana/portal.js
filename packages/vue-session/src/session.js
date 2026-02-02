@@ -9,6 +9,7 @@ export default class Session {
   };
 
   #active = false;
+  starter = null;
 
   /**
    * @typedef {Object} SessionOptions
@@ -35,8 +36,11 @@ export default class Session {
     return !this.hasExpired && this.#active;
   }
 
-  touch() {
+  touch(event) {
     this.#active = true;
+    if (!this.starter) {
+      this.starter = event.type;
+    }
     this.timestamp = Date.now();
   }
 }

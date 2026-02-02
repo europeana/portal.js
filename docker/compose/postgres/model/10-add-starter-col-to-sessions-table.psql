@@ -1,0 +1,4 @@
+SET search_path TO EVENTS;
+
+ALTER TABLE sessions
+ADD COLUMN starter VARCHAR(32);

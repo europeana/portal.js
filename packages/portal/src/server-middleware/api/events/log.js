@@ -1,7 +1,7 @@
 import isbot from 'isbot';
 import pg from '../pg.js';
 
-const logEvent = async({ actionType, objectUri, sessionId }) => {
+const logEvent = async({ actionType, objectUri, sessionId, starter }) => {
   const url = new URL(objectUri);
   // Ignore any search query or hash
   const uri = `${url.origin}${url.pathname}`;
@@ -32,8 +32,8 @@ const logEvent = async({ actionType, objectUri, sessionId }) => {
     sessionRow = selectSessionResult.rows[0];
   } else {
     const insertSessionResult = await pg.query(
-      'INSERT INTO events.sessions (uuid) VALUES($1) RETURNING id',
-      [sessionId]
+      'INSERT INTO events.sessions (uuid, starter) VALUES($1, $2) RETURNING id',
+      [sessionId, starter]
     );
     sessionRow = insertSessionResult.rows[0];
   }
@@ -73,10 +73,10 @@ export default async(req, res, next) => {
       return;
     }
 
-    const { actionType, objectUri, sessionId } = req.body;
+    const { actionType, objectUri, sessionId, starter } = req.body;
 
     for (const eachObjectUri of [].concat(objectUri)) {
-      await logEvent({ actionType, objectUri: eachObjectUri, sessionId });
+      await logEvent({ actionType, objectUri: eachObjectUri, sessionId, starter });
     }
   } catch (err) {
     next(err);

@@ -48,7 +48,7 @@ export default class Manager {
   }
 
   startMonitoring() {
-    this.#monitor = new Monitor(() => this.touch(), this.options.monitor);
+    this.#monitor = new Monitor((event) => this.touch(event), this.options.monitor);
   }
 
   stopMonitoring() {
@@ -58,12 +58,13 @@ export default class Manager {
   store() {
     this.#storage.data = {
       id: this.session.id,
+      starter: this.session.starter,
       timestamp: this.session.timestamp
     };
   }
 
-  touch() {
-    this.session.touch();
+  touch(event) {
+    this.session.touch(event);
     this.store();
   }
 }
