@@ -716,6 +716,14 @@ export default {
       "name": "Käyttöoikeus",
       "select": "Valitse oikeuksia koskevat lausumat"
     },
+    "sort": {
+      "name": "Lajittele",
+      "options": {
+        "proxy_dcterms_issued+asc": "Julkaisupäivä (vanhimmasta alkaen)",
+        "proxy_dcterms_issued+desc": "Julkaisupäivä (uusin ensin)"
+      },
+      "select": "Valitse tulosten lajittelutapa"
+    },
     "TYPE": {
       "name": "Mediatyyppi",
       "options": {

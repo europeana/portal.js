@@ -716,6 +716,14 @@ export default {
       "name": "Ráiteas um chearta",
       "select": "Roghnaigh ráitis maidir le cearta"
     },
+    "sort": {
+      "name": "Sórtáil de réir",
+      "options": {
+        "proxy_dcterms_issued+asc": "Dáta Eisiúna (is sine ar dtús)",
+        "proxy_dcterms_issued+desc": "Dáta Eisiúna (an ceann is nuaí ar dtús)"
+      },
+      "select": "Roghnaigh conas na torthaí a shórtáil"
+    },
     "TYPE": {
       "name": "Cineál meán",
       "options": {

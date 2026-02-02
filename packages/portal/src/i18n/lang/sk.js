@@ -716,6 +716,14 @@ export default {
       "name": "Právny stav",
       "select": "Vyberte vyhlásenia o právach"
     },
+    "sort": {
+      "name": "Zoradiť podľa",
+      "options": {
+        "proxy_dcterms_issued+asc": "Dátum vydania (najstaršie najskôr)",
+        "proxy_dcterms_issued+desc": "Dátum vydania (najnovšie najprv)"
+      },
+      "select": "Vyberte spôsob zoradenia výsledkov"
+    },
     "TYPE": {
       "name": "Typ média",
       "options": {

@@ -716,6 +716,14 @@ export default {
       "name": "Teisių pareiškimas",
       "select": "Pasirinkti teisių išrašus"
     },
+    "sort": {
+      "name": "Rūšiuoti pagal",
+      "options": {
+        "proxy_dcterms_issued+asc": "Išdavimo data (nuo seniausios)",
+        "proxy_dcterms_issued+desc": "Išdavimo data (naujausios pirmiausia)"
+      },
+      "select": "Pasirinkite, kaip rūšiuoti rezultatus"
+    },
     "TYPE": {
       "name": "Medijos tipas",
       "options": {

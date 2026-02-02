@@ -716,6 +716,14 @@ export default {
       "name": "Pravice",
       "select": "Izberite izjave o pravicah"
     },
+    "sort": {
+      "name": "Razvrsti po",
+      "options": {
+        "proxy_dcterms_issued+asc": "Datum izdaje (najstarejši najprej)",
+        "proxy_dcterms_issued+desc": "Datum izdaje (najprej najnovejši)"
+      },
+      "select": "Izberite, kako želite razvrstiti rezultate"
+    },
     "TYPE": {
       "name": "Vrsta medija",
       "options": {

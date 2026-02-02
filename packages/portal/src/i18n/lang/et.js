@@ -716,6 +716,14 @@ export default {
       "name": "Õiguste deklaratsioon",
       "select": "Valige õiguste avaldused"
     },
+    "sort": {
+      "name": "Sorteeri",
+      "options": {
+        "proxy_dcterms_issued+asc": "Väljastamise kuupäev (vanimad eespool)",
+        "proxy_dcterms_issued+desc": "Väljastamise kuupäev (uusimad eespool)"
+      },
+      "select": "Vali, kuidas tulemusi sortida"
+    },
     "TYPE": {
       "name": "Meediumitüüp",
       "options": {

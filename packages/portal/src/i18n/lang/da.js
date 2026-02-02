@@ -716,6 +716,14 @@ export default {
       "name": "Rettigheder",
       "select": "Vælg rettighedserklæringer"
     },
+    "sort": {
+      "name": "Sorter efter",
+      "options": {
+        "proxy_dcterms_issued+asc": "Udstedelsesdato (ældste først)",
+        "proxy_dcterms_issued+desc": "Udstedelsesdato (nyeste først)"
+      },
+      "select": "Vælg hvordan resultaterne skal sorteres"
+    },
     "TYPE": {
       "name": "Medietype",
       "options": {
