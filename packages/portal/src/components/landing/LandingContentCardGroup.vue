@@ -101,6 +101,10 @@
       @media (min-width: $bp-large) {
         margin-bottom: 3rem;
       }
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k !important;
+      }
     }
 
     ::v-deep h2.card-group-title {
@@ -113,6 +117,43 @@
 
     ::v-deep .card-deck {
       justify-content: center;
+
+      @media (min-width: $bp-4k) {
+        max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    ::v-deep .card-deck-4-cols .card {
+      @media (min-width: $bp-4k) {
+        flex-basis: 25%;
+      }
+
+      .card-body {
+        @media (min-width: $bp-4k) {
+          padding: 2rem;
+        }
+      }
+
+      .card-title {
+        @media (min-width: $bp-4k) {
+          font-size: calc(2 * $font-size-base);
+        }
+      }
+
+      .card-subtitle {
+        @media (min-width: $bp-4k) {
+          font-size: calc(2 * $font-size-extrasmall);
+        }
+      }
+
+      .card-text {
+        @media (min-width: $bp-4k) {
+          font-size: calc(2 * $font-size-small);
+          line-height: calc(2 * 1.1875rem);
+        }
+      }
     }
   }
 
@@ -120,7 +161,7 @@
     margin-top: 0;
   }
 
-  @at-root .bg-color-alternate .landing-content-card-group {
+  @at-root .bg-color-alternate > .landing-content-card-group {
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 3rem;
@@ -217,6 +258,12 @@
           max-height: 30.5rem;
           border-radius: 0.5rem 0.5rem 0 0;
         }
+      }
+    }
+
+    ::v-deep .card-deck {
+      @media (min-width: $bp-4k) {
+        max-width: none;
       }
     }
 

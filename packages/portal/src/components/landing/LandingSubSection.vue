@@ -165,6 +165,12 @@
 
   ::v-deep .landing-content-card-group .container {
     max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+
+    @media (min-width: $bp-4k) {
+      max-width: 2500px;
+    }
   }
 
   ::v-deep .landing-illustration-group.pro {
