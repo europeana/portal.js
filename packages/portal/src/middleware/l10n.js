@@ -17,14 +17,19 @@ function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
 }
 
-const localiseRoute = ({ route, req, redirect, app }) => {
+const localiseRoute = ({ route, req, res, redirect, app }) => {
   if (app.$apm && process.server) {
     app.$apm.setTransactionName(`${req.method} [l10n]`);
   }
+
+  if (process.server && res) {
+    res.setHeader('Vary', [res.getHeader('Vary'), 'Accept-Language'].filter(Boolean).join(', '));
+  }
+
   redirect(route);
 };
 
-export default ({ app, route, redirect, req }) => {
+export default ({ app, route, redirect, req, res }) => {
   // Exit early if route path is excluded from i18n
   if (i18nRoutesExclude.includes(route.path)) {
     return;
@@ -47,6 +52,7 @@ export default ({ app, route, redirect, req }) => {
           query: route.query
         },
         req,
+        res,
         redirect,
         app
       });
@@ -81,6 +87,7 @@ export default ({ app, route, redirect, req }) => {
       query: route.query
     },
     req,
+    res,
     redirect,
     app
   });
