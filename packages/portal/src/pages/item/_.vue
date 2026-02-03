@@ -358,9 +358,12 @@
 
     mounted() {
       this.fetchEntities();
-      if (!this.$fetchState.error && !this.$fetchState.pending) {
+      if (!this.$fetchState.error) {
         this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
-        this.trackCustomDimensions();
+
+        if (!this.$fetchState.pending) {
+          this.trackCustomDimensions();
+        }
       }
     },
 
