@@ -15,7 +15,7 @@ describe('middleware/contentful-galleries', () => {
       it('redirects to path with numeric Set ID', () => {
         middleware({ route, redirect, error });
 
-        expect(redirect.calledWith(301, '/en/galleries/9280-yellow')).toBe(true);
+        expect(redirect.calledWith(301, '/en/galleries/9280')).toBe(true);
       });
     });
 
@@ -25,7 +25,7 @@ describe('middleware/contentful-galleries', () => {
       it('redirects to path with numeric Set ID', () => {
         middleware({ route, redirect, error });
 
-        expect(redirect.calledWith(301, '/galleries/9280-yellow')).toBe(true);
+        expect(redirect.calledWith(301, '/galleries/9280')).toBe(true);
       });
     });
   });

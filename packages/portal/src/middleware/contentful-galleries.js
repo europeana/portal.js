@@ -401,7 +401,7 @@ export default ({ route, redirect, error }) => {
 
   if ((localelessPathParts[1] === 'galleries')) {
     if (REDIRECTS[localelessPathParts[2]]) {
-      let redirectPath = `/galleries/${REDIRECTS[localelessPathParts[2]]}-${localelessPathParts[2]}`;
+      let redirectPath = `/galleries/${REDIRECTS[localelessPathParts[2]]}`;
 
       if (locale) {
         redirectPath = `/${locale}${redirectPath}`;
