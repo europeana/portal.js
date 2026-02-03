@@ -1,5 +1,5 @@
 import axios from 'axios';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { getCurrentInstance, watchEffect } from 'vue';
 
 export function useLogEvent() {
