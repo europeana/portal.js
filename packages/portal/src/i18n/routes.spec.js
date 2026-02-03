@@ -38,24 +38,4 @@ describe('i18n/routes', () => {
       });
     });
   });
-
-  // describe('when route path is for gallery skipped for migration', () => {
-  //   const route = { path: '/en/galleries/postcards' };
-
-  //   it('issues a 410 error', () => {
-  //     middleware({ route, redirect, error });
-
-  //     expect(error.calledWith(sinon.match.has('status', 410))).toEqual(true);
-  //   });
-  // });
-
-  // describe('when route path is not for known gallery', () => {
-  //   const route = { path: '/en/galleries/i-dont-think-so' };
-
-  //   it('does not redirect', () => {
-  //     middleware({ route, redirect, error });
-
-  //     expect(redirect.called).toEqual(false);
-  //   });
-  // });
 });
