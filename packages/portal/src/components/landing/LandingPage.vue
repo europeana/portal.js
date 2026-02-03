@@ -149,6 +149,7 @@
 
     computed: {
       sectionsWithClasses() {
+        // reduce instead of map to be able to access the previous modified section and read the added class
         return this.sections.reduce(this.addClassesToSections, []);
       }
     },
