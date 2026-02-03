@@ -1,8 +1,8 @@
 import isbot from 'isbot';
 import pg from '../pg.js';
 
-const logEvent = async({ actionType, activatedAt, activatedBy, objectUri, sessionId }) => {
-  const url = new URL(objectUri);
+const logEvent = async({ action, object, session }) => {
+  const url = new URL(object.uri);
   // Ignore any search query or hash
   const uri = `${url.origin}${url.pathname}`;
 
@@ -25,7 +25,7 @@ const logEvent = async({ actionType, activatedAt, activatedBy, objectUri, sessio
   let sessionRow;
   const selectSessionResult = await pg.query(
     'SELECT id FROM events.sessions WHERE uuid=$1',
-    [sessionId]
+    [session.uuid]
   );
 
   if (selectSessionResult.rowCount > 0) {
@@ -33,7 +33,7 @@ const logEvent = async({ actionType, activatedAt, activatedBy, objectUri, sessio
   } else {
     const insertSessionResult = await pg.query(
       'INSERT INTO events.sessions (uuid, activated_at, activated_by) VALUES($1, $2, $3) RETURNING id',
-      [sessionId, activatedAt, activatedBy]
+      [session.uuid, session.activatedAt, session.activatedBy]
     );
     sessionRow = insertSessionResult.rows[0];
   }
@@ -45,7 +45,7 @@ const logEvent = async({ actionType, activatedAt, activatedBy, objectUri, sessio
       AND at.name=$2
       AND a.session_id=$3
     `,
-  [objectRow.id, actionType, sessionRow.id]
+  [objectRow.id, action.type, sessionRow.id]
   );
   if (selectActionResult.rowCount > 0) {
     // this session has already logged this action type for this object; don't log it again
@@ -58,7 +58,7 @@ const logEvent = async({ actionType, activatedAt, activatedBy, objectUri, sessio
     FROM events.action_types at
     WHERE at.name=$3
     `,
-  [objectRow.id, sessionRow.id, actionType]
+  [objectRow.id, sessionRow.id, action.type]
   );
 };
 
@@ -73,10 +73,22 @@ export default async(req, res, next) => {
       return;
     }
 
-    const { actionType, activatedAt, activatedBy, objectUri, sessionId } = req.body;
+    let { action, actionType, object, objectUri, session, sessionId } = req.body;
 
-    for (const eachObjectUri of [].concat(objectUri)) {
-      await logEvent({ actionType, activatedAt, activatedBy, objectUri: eachObjectUri, sessionId });
+    // TODO: rm actionType, objectUri and sessionId backwards-compabitility when
+    //       action, object and session are established in production
+    if (!action) {
+      action = { type: actionType };
+    }
+    if (!object) {
+      object = { uri: objectUri };
+    }
+    if (!session) {
+      session = { id: sessionId };
+    }
+
+    for (const uri of [].concat(object.uri)) {
+      await logEvent({ action, object: { uri }, session });
     }
   } catch (err) {
     next(err);

@@ -10,11 +10,17 @@ const fixtures = {
     uri: 'http://data.europeana.eu/item/123/abc'
   },
   reqBody: {
-    actionType: 'like',
-    activatedAt: 1770116242178,
-    activatedBy: 'mousemove',
-    objectUri: 'http://data.europeana.eu/item/123/abc?campaign=newsletter',
-    sessionId: 'uuid'
+    action: {
+      type: 'like'
+    },
+    object: {
+      uri: 'http://data.europeana.eu/item/123/abc?campaign=newsletter'
+    },
+    session: {
+      activatedAt: 1770116242178,
+      activatedBy: 'mousemove',
+      uuid: 'uuid'
+    }
   }
 };
 
@@ -31,22 +37,22 @@ pgPoolQuery.withArgs(
   .resolves({ rows: [{ id: fixtures.db.objectId }] });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM events.sessions ')),
-  [fixtures.reqBody.sessionId]
+  [fixtures.reqBody.session.uuid]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('INSERT INTO events.sessions ')),
-  [fixtures.reqBody.sessionId, fixtures.reqBody.activatedAt, fixtures.reqBody.activatedBy]
+  [fixtures.reqBody.session.uuid, fixtures.reqBody.session.activatedAt, fixtures.reqBody.session.activatedBy]
 )
   .resolves({ rows: [{ id: fixtures.db.sessionId }] });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.trim().startsWith('SELECT a.id FROM events.actions a LEFT JOIN events.action_types at')),
-  [fixtures.db.objectId, fixtures.reqBody.actionType, fixtures.db.sessionId]
+  [fixtures.db.objectId, fixtures.reqBody.action.type, fixtures.db.sessionId]
 )
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.trim().startsWith('INSERT INTO events.actions ')),
-  [fixtures.db.objectId, fixtures.db.sessionId, fixtures.reqBody.actionType]
+  [fixtures.db.objectId, fixtures.db.sessionId, fixtures.reqBody.action.type]
 )
   .resolves({});
 
