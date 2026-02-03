@@ -240,6 +240,10 @@
       }
     }
 
+    @at-root .bg-color-alternate .landing-sub-section & .text-wrapper {
+      background-color: $lightgrey;
+    }
+
     ::v-deep figure {
       margin: 0;
       width: 100%;

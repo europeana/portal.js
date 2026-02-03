@@ -9,6 +9,7 @@
       <ContentCardSection
         :section="section"
         :title-tag="titleTag"
+        more-button-class="btn-outline-primary mt-5"
       />
     </b-container>
   </div>
@@ -112,6 +113,27 @@
 
     ::v-deep .card-deck {
       justify-content: center;
+    }
+  }
+
+  @at-root .landing-sub-section .landing-content-card-group {
+    margin-top: 0;
+  }
+
+  @at-root .bg-color-alternate .landing-content-card-group {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+
+    @media (min-width: $bp-large) {
+      padding-top: 6rem;
+      padding-bottom: 4.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+      padding-bottom: 13.5rem;
     }
   }
 </style>
