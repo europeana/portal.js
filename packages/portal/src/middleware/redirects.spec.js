@@ -26,7 +26,6 @@ describe('middleware/redirects', () => {
     const route = { path: '/blog/nice' };
 
     middleware({ route, redirect });
-    console.log(redirect.getCalls()[0].args);
 
     expect(redirect.calledWith(301, '/stories/nice')).toBe(true);
   });
