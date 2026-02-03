@@ -8,7 +8,6 @@ export default class Session {
     timeout: 30 // in minutes
   };
 
-  #active = false;
   activatedAt = null;
   activatedBy = null;
 
@@ -34,18 +33,18 @@ export default class Session {
   }
 
   get isActive() {
-    return !this.hasExpired && this.#active;
+    return !!this.activatedAt && !this.hasExpired;
   }
 
   touch(event) {
-    const now = Date.now();
+    const now = new Date();
+    this.timestamp = now.getTime();
+
     if (!this.activatedAt) {
-      this.activatedAt = now;
+      this.activatedAt = now.toISOString();
     }
     if (!this.activatedBy) {
       this.activatedBy = event?.type || null;
     }
-    this.#active = true;
-    this.timestamp = now;
   }
 }
