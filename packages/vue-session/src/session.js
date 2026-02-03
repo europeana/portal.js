@@ -9,7 +9,8 @@ export default class Session {
   };
 
   #active = false;
-  starter = null;
+  activatedAt = null;
+  activatedBy = null;
 
   /**
    * @typedef {Object} SessionOptions
@@ -37,10 +38,14 @@ export default class Session {
   }
 
   touch(event) {
-    this.#active = true;
-    if (!this.starter) {
-      this.starter = event.type;
+    const now = Date.now();
+    if (!this.activatedAt) {
+      this.activatedAt = now;
     }
-    this.timestamp = Date.now();
+    if (!this.activatedBy) {
+      this.activatedBy = event?.type || null;
+    }
+    this.#active = true;
+    this.timestamp = now;
   }
 }

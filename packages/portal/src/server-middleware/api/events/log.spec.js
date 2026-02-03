@@ -11,6 +11,8 @@ const fixtures = {
   },
   reqBody: {
     actionType: 'like',
+    activatedAt: 1770116242178,
+    activatedBy: 'mousemove',
     objectUri: 'http://data.europeana.eu/item/123/abc?campaign=newsletter',
     sessionId: 'uuid'
   }
@@ -34,7 +36,7 @@ pgPoolQuery.withArgs(
   .resolves({ rowCount: 0 });
 pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('INSERT INTO events.sessions ')),
-  [fixtures.reqBody.sessionId]
+  [fixtures.reqBody.sessionId, fixtures.reqBody.activatedAt, fixtures.reqBody.activatedBy]
 )
   .resolves({ rows: [{ id: fixtures.db.sessionId }] });
 pgPoolQuery.withArgs(

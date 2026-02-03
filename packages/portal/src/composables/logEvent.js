@@ -27,9 +27,10 @@ export function useLogEvent() {
   const sendEventLog = async(actionType, objectUri, session) => {
     const data = {
       actionType,
+      activatedAt: session.activatedAt,
+      activatedBy: session.activatedBy,
       objectUri,
-      sessionId: session?.id,
-      starter: session.starter
+      sessionId: session?.id
     };
 
     await axios({

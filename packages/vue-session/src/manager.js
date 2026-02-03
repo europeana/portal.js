@@ -58,7 +58,8 @@ export default class Manager {
   store() {
     this.#storage.data = {
       id: this.session.id,
-      starter: this.session.starter,
+      activatedAt: this.session.activatedAt,
+      activatedBy: this.session.activatedBy,
       timestamp: this.session.timestamp
     };
   }
