@@ -20,11 +20,11 @@
       :hero-image="primaryImageOfPage"
     />
     <div
-      v-for="(section, index) in sections"
+      v-for="(section, index) in sectionsWithClasses"
       :id="sectionId(section)"
       :key="index"
       class="scroll-margin-top"
-      :class="getClasses(section)"
+      :class="section.classes"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
@@ -147,22 +147,58 @@
       }
     },
 
+    computed: {
+      sectionsWithClasses() {
+        return this.sections.reduce(this.addClassesToSections, []);
+      }
+    },
+
     methods: {
       contentfulEntryHasContentType,
 
-      getClasses(section) {
+      sectionId(section) {
+        return kebabCase(section.nameEN);
+      },
+
+      isSubSectionOrCardGroup(section) {
+        return this.contentfulEntryHasContentType(section, 'LandingSubSection') || this.contentfulEntryHasContentType(section, 'CardGroup');
+      },
+
+      addClassesToSections(acc, section, index) {
+        const sectionBackground = section.profile?.background || section.image?.profile?.background;
         const classes = [];
-        if (section.profile?.background) {
-          classes.push(`bg-color-${section.profile.background}`);
-        }
+
         if (this.contentfulEntryHasContentType(section, 'ImageCard')) {
           classes.push('image-card-container-wrapper');
         }
-        return classes;
-      },
+        if (sectionBackground) {
+          // image card group with highlight profile only highlights the header of the secion; skip background class
+          if (!(this.contentfulEntryHasContentType(section, 'ImageCardGroup') && sectionBackground === 'highlight')) {
+            classes.push(`bg-color-${sectionBackground}`);
+          }
+        }
 
-      sectionId(section) {
-        return kebabCase(section.nameEN);
+        // add alternate background to landing sub section and card group when preceding section has no background
+        if (this.variant === 'pro' && this.isSubSectionOrCardGroup(section)) {
+          const prev = acc[index - 1];
+
+          // subsequent card group follows background style of preceding card group
+          const subsequentCardGroup = this.contentfulEntryHasContentType(section, 'CardGroup') && this.contentfulEntryHasContentType(prev, 'CardGroup');
+          const prevSectionHasBackgroundClass = prev?.classes?.some(c => c === 'bg-color-alternate' ||  c === 'bg-color-highlight');
+          const prevSectionHasBackground = index === 0 || prevSectionHasBackgroundClass;
+
+          if ((subsequentCardGroup && prevSectionHasBackground) ||
+            (!subsequentCardGroup && !prevSectionHasBackground)) {
+            classes.push('bg-color-alternate');
+          }
+        }
+
+        acc.push({
+          ...section,
+          classes
+        });
+
+        return acc;
       }
     }
   };
