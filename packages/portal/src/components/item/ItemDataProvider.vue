@@ -9,7 +9,7 @@
       <i18n
         v-if="dataProviderEntity || dataProvider"
         data-qa="data provider attribution"
-        path="provider.providedBy"
+        :path="providedByStringPath"
         tag="div"
       >
         <template #provider>
@@ -22,11 +22,12 @@
             :title="collectionTitle(dataProviderEntity)"
             :img="$apis.entity.imageUrl(dataProviderEntity)"
             type="Organization"
+            :click-event-handler="badgeClickEventHandler"
           />
           <span
             v-else
             data-qa="data provider name"
-            :lang="namePrefLanguage"
+            :lang="langAttribute(namePrefLanguage)"
           >
             {{ displayName }}
           </span>
@@ -46,10 +47,11 @@
 
 <script>
   import { isEntityUri } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
+  import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
+  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -62,8 +64,8 @@
     },
     mixins: [
       itemPrefLanguage,
-      collectionLinkGenMixin,
-      europeanaEntityLinks
+      langAttributeMixin,
+      collectionLinkGenMixin
     ],
     props: {
       dataProvider: {
@@ -81,10 +83,17 @@
       isShownAt: {
         type: String,
         default: null
+      },
+      userGeneratedContent: {
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
+      providedByStringPath() {
+        return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
+      },
       namePrefLanguage() {
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
@@ -94,8 +103,12 @@
     },
 
     methods: {
+      collectionTitle,
       isEntityUri(uri) {
         return isEntityUri(uri);
+      },
+      badgeClickEventHandler() {
+        this.$store.commit('search/setLoggableInteraction', true);
       }
     }
   };

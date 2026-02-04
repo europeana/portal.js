@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="page">
     <ContentHeader
       :title="pageMeta.title"
     />
@@ -34,11 +34,12 @@
 
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import useScrollTo from '@/composables/scrollTo.js';
 
-  import ContentHeader from '@/components/generic/ContentHeader';
-  import ContentCard from '@/components/generic/ContentCard';
+  import ContentHeader from '@/components/content/ContentHeader';
+  import ContentCard from '@/components/content/ContentCard';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {
@@ -52,7 +53,10 @@
 
     mixins: [pageMetaMixin],
 
-    middleware: 'sanitisePageQuery',
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
 
     data() {
       return {
@@ -65,7 +69,7 @@
     async fetch() {
       const entityIndexParams = {
         query: '*:*',
-        page: this.page - 1,
+        page: this.page,
         type: this.entityTypeApi,
         pageSize: this.perPage,
         scope: 'europeana',
@@ -80,7 +84,7 @@
         this.entities = response.entities;
         this.total = response.total;
       } finally {
-        this.$scrollTo?.('#header');
+        process.client && this.scrollToSelector('#header');
       }
     },
 
@@ -100,12 +104,15 @@
         return getEntityTypeApi(this.entityTypeHumanReadable);
       },
       page() {
-        return this.$store.state.sanitised.page;
+        return Number(this.$route.query.page || 1);
       }
     },
 
     watch: {
-      '$route.query.page': '$fetch'
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.scrollToSelector('#header');
+      }
     },
 
     methods: {

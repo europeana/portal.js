@@ -5,7 +5,7 @@
     data-qa="error notice"
     class="mt-3"
   >
-    <strong>{{ $t('error') }}:</strong> {{ error }}
+    <strong>{{ $t('error') }}:</strong> {{ error?.message || error }}
   </b-alert>
 </template>
 
@@ -18,7 +18,7 @@
     },
     props: {
       error: {
-        type: String,
+        type: [String, Object, Error],
         default: ''
       }
     }

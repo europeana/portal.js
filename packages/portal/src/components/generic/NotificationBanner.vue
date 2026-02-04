@@ -7,15 +7,23 @@
   >
     <b-container>
       <b-row>
-        <b-col class="col-12 py-3">
-          <p class="mb-0">
-            {{ notificationText }}
+        <b-col
+          cols="12"
+          class="py-3"
+        >
+          <p class="d-flex flex-wrap align-items-center mb-0">
+            <span
+              v-if="iconClass"
+              class="icon align-self-start"
+              :class="iconClass"
+            />
+            {{ text }}
             <a
-              v-if="notificationUrl && notificationLinkText"
-              :href="notificationUrl"
+              v-if="url && linkText"
+              :href="url"
               class="ml-1"
             >
-              {{ notificationLinkText }}
+              {{ linkText }}
             </a>
           </p>
         </b-col>
@@ -37,23 +45,30 @@
 
     props: {
       /**
-       * URL that linktext will link to
+       * icon class used to display an icon
        */
-      notificationUrl: {
+      iconClass: {
         type: String,
-        default: null
+        default: 'icon-light-bulb'
       },
       /**
        * Notification message that explains the issue
        */
-      notificationText: {
+      text: {
+        type: String,
+        default: null
+      },
+      /**
+       * URL that linktext will link to
+       */
+      url: {
         type: String,
         default: null
       },
       /**
        * Text that forms a link. Placed after notification text
        */
-      notificationLinkText: {
+      linkText: {
         type: String,
         default: null
       },
@@ -74,28 +89,21 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
 
-  .container-fluid {
-    background-color: $bodygrey;
-    margin-top: -1rem;
+  .notification-banner {
+    background-color: $lightgrey;
     position: relative;
     z-index: 100;
-    margin-bottom: 1rem;
 
     p {
       line-height: 1.375rem;
-      display: flex;
-      align-items: center;
 
-      &::before {
-        content: '\e949';
+      .icon {
         font-size: 1.25rem;
         margin-right: 0.75rem;
-
-        @extend %icon-font;
+        line-height: 1.5rem;
       }
     }
 
@@ -109,9 +117,9 @@
 With a link
   ```jsx
   <NotificationBanner
-    notification-url="https://www.europeana.eu"
-    notification-text="You're viewing the new Europeana experience."
-    notification-link-text="Go to Europeana"
+    url="https://www.europeana.eu"
+    text="You're viewing the new Europeana experience."
+    link-text="Go to Europeana"
     :ignorable="false"
   />
   ```
@@ -119,7 +127,7 @@ With a link
   With a close button
   ```jsx
   <NotificationBanner
-    notification-text="This is a notification about something you should know about the website"
+    text="This is a notification about something you should know about the website"
   />
   ```
   </docs>

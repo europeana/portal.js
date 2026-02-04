@@ -1,11 +1,14 @@
 export default [
-  { name: 'abTests' },
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
-  { name: 'advancedSearch' },
-  { name: 'fieldBoosting' },
+  { name: 'eventLogging' },
   { name: 'jiraServiceDeskFeedbackForm' },
+  { name: 'manageApiKeys' },
+  { name: 'mockTrendingItems' },
+  { name: 'multilingualSearchButton' },
   { name: 'rejectEntityRecommendations' },
+  { name: 'showSetRecommendations' },
+  { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' }
 ];

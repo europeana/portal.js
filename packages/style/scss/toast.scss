@@ -9,7 +9,7 @@
       border: 0;
       color: $greyblack;
       box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 5px 5px 10px 0 rgb(0 0 0 / 20%);
-    
+
       a:not(.btn) {
         color: $blue;
         text-decoration: none;
@@ -26,9 +26,18 @@
   }
 }
 
-.b-toaster-bottom-left-dynamic {
+.b-toaster-bottom-left {
   position: fixed;
   left: 20px;
   bottom: var(--bottom);
   transition: $standard-transition;
+}
+
+.b-toast,
+.b-toaster.b-toaster-bottom-left  .b-toaster-slot {
+  max-width: min(100vw, pxToRem(350));
+}
+
+.modal-open .b-toaster {
+  z-index: 1039;
 }

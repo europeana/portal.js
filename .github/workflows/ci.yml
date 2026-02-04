@@ -13,6 +13,7 @@ on:
     paths-ignore:
     - '**.md'
     - 'packages/contentful/migrations/**'
+  workflow_dispatch:
 
 env:
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
@@ -46,6 +47,7 @@ jobs:
   metadata:
     runs-on: ubuntu-latest
     outputs:
+      git-master-dispatch: ${{ steps.git-master-dispatch.outputs.status }}
       git-master-push: ${{ steps.git-master-push.outputs.status }}
       git-pr-draft: ${{ steps.git-pr-draft.outputs.status }}
       git-pr-ready: ${{ steps.git-pr-ready.outputs.status }}
@@ -57,6 +59,11 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+      -
+        name: Git metadata, master dispatch
+        id: git-master-dispatch
+        if: github.event_name == 'workflow_dispatch' && github.event.ref == 'refs/heads/master'
+        run: echo "status=true" >> $GITHUB_OUTPUT
       -
         name: Git metadata, master push
         id: git-master-push
@@ -94,7 +101,7 @@ jobs:
   lint-code:
     needs: [metadata]
     runs-on: ubuntu-latest
-    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
       -
         name: Checkout
@@ -103,7 +110,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
       -
         name: Install eslint
@@ -121,7 +128,7 @@ jobs:
   lint-style:
     needs: [metadata]
     runs-on: ubuntu-latest
-    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
       -
         name: Checkout
@@ -130,7 +137,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
       -
         name: Install stylelint
@@ -148,7 +155,7 @@ jobs:
   test-cachers:
     needs: [metadata]
     runs-on: ubuntu-latest
-    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
       -
         name: Checkout
@@ -157,7 +164,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
       -
         name: NPM install
@@ -170,7 +177,7 @@ jobs:
   test-unit:
     needs: [metadata]
     runs-on: ubuntu-latest
-    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request') || (needs.metadata.outputs.git-master-dispatch == 'true')
     steps:
       -
         name: Checkout
@@ -179,7 +186,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
       -
         name: NPM install
@@ -190,13 +197,13 @@ jobs:
       -
         name: Archive code coverage
         run: |
-          tar -cf packages-portal-coverage.tar packages/portal/coverage
+          tar -cf test-coverage.tar coverage
       -
         name: Upload code coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: packages-portal-coverage
-          path: packages-portal-coverage.tar
+          name: test-coverage
+          path: test-coverage.tar
 
   sonarcloud:
     runs-on: ubuntu-latest
@@ -210,18 +217,16 @@ jobs:
           fetch-depth: 0
       -
         name: Download code coverage
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: packages-portal-coverage
+          name: test-coverage
           path: .
       -
         name: Unarchive code coverage
-        run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
+        run: tar -xf test-coverage.tar && rm test-coverage.tar
       -
         name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1.7
-        with:
-          projectBaseDir: packages/portal
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -359,19 +364,19 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
         name: Run e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   # Run visual tests on non-draft pull requests, and pushes to master
   test-visual:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
-    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true') || (needs.metadata.outputs.git-master-dispatch == 'true')
     env:
       ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 0
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
@@ -411,13 +416,13 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
         name: Run visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
+        run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   # Deploy to IBM Cloud Kubernetes cluster:
   # * Pull requests are deployed as new resources in dev namespace
@@ -425,7 +430,7 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
-    if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true'))
+    if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true') || (needs.metadata.outputs.git-master-dispatch == 'true'))
     env:
       DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
@@ -442,13 +447,14 @@ jobs:
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
           echo "K8S_RESOURCE_NAME=portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+          echo "K8S_DEPLOYMENTS=deployment/portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Prepare env for test deployment
         if: github.event_name == 'push'
         run: |
           echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAME=portal-js" >> $GITHUB_ENV
+          echo "K8S_DEPLOYMENTS=deployment/portal-js deployment/ds4ch" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
@@ -471,7 +477,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           set +e
-          kubectl --namespace dev get deployment ${K8S_RESOURCE_NAME}
+          kubectl --namespace dev get ${K8S_DEPLOYMENTS}
           if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
           set -e
           echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
@@ -484,7 +490,7 @@ jobs:
           kubectl apply -f ingress.yml
       -
         name: Restart deployment
-        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} ${K8S_DEPLOYMENTS}
       -
         name: Comment with deployment link on pull request
         if: env.K8S_NEW_DEPLOYMENT == 'true'

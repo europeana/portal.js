@@ -8,11 +8,7 @@
   "author": "",
   "license": "EUPL-1.2",
   "dependencies": {
-    "@size-limit/preset-app": "^5.0.5",
-    "size-limit": "^5.0.5"
-  },
-  "engines": {
-    "node": "^18",
-    "npm": "^8"
+    "@size-limit/preset-app": "^11.2.0",
+    "size-limit": "^11.2.0"
   }
 }

@@ -31,7 +31,8 @@
     entityParamsFromUri
   } from '@/plugins/europeana/entity';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
@@ -72,23 +73,23 @@
         try {
           ({ type, id } = this.entityParamsFromUrl(entityUrl));
         } catch (error) {
-          this.showError(`Unable to parse URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`);
+          this.showError(`Unable to parse URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`, error);
           return;
         }
 
-        let entityResponse;
+        let entity;
         try {
-          entityResponse = await this.$apis.entity.get(type, id);
+          entity = await this.$apis.entity.get(type, id);
         } catch (error) {
-          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
+          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`, error);
           return;
         }
 
         try {
-          this.populateFields(entityResponse.entity, id);
+          this.populateFields(entity, id);
           this.message = 'Success';
         } catch (error) {
-          this.showError(`There was a problem updating the entry. ${error.message}`);
+          this.showError(`There was a problem updating the entry. ${error.message}`, error);
         }
       },
 
@@ -101,11 +102,11 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(new RegExp('^https?://api.europeana.eu/entity'), BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }
-        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections/(person|topic|time)/([0-9]+)+'));
+        const pageMatch = url.match(/^https?:\/\/[^/]+(\/[a-z]{2})?\/collections\/(person|topic|time)\/(\d+)/);
         if (pageMatch) {
           const type = pageMatch[2];
           const id = pageMatch[3];

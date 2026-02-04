@@ -1,83 +1,54 @@
 <template>
-  <b-container>
-    <ContentHeader
-      :title="pageMeta.title"
-      :description="$t('galleries.description')"
-    />
-    <b-row class="flex-md-row pb-5">
+  <LoadingSpinner
+    v-if="$fetchState.pending"
+    class="flex-md-row py-4 text-center"
+  />
+  <b-container
+    v-else-if="$fetchState.error"
+    data-qa="alert message container"
+  >
+    <b-row class="flex-md-row py-4">
       <b-col cols="12">
-        <b-container
-          v-if="$fetchState.pending"
-          data-qa="loading spinner container"
-        >
-          <b-row class="flex-md-row py-4 text-center">
-            <b-col cols="12">
-              <LoadingSpinner />
-            </b-col>
-          </b-row>
-        </b-container>
-        <b-container
-          v-else-if="$fetchState.error"
-          data-qa="alert message container"
-        >
-          <b-row class="flex-md-row py-4">
-            <b-col cols="12">
-              <AlertMessage
-                :error="$fetchState.error.message"
-              />
-            </b-col>
-          </b-row>
-        </b-container>
-        <!-- TODO: Use SetCardGroup and clean up methods -->
-        <b-card-group
-          v-else
-          class="card-deck-4-cols"
-          deck
-          data-qa="gallery foyer"
-        >
-          <ContentCard
-            v-for="(gallery, index) in galleries"
-            :key="gallery.slug"
-            :title="gallery.title"
-            :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-            :image-url="gallery.thumbnail"
-            :texts="[gallery.description]"
-            :show-subtitle="false"
-            :offset="index"
-          />
-        </b-card-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNavInput
-          :total-results="total"
-          :per-page="perPage"
+        <AlertMessage
+          :error="$fetchState.error.message"
         />
       </b-col>
     </b-row>
   </b-container>
+  <!-- TODO: Use SetCardGroup and clean up methods -->
+  <ContentHubPage
+    v-else
+    data-qa="galleries"
+    :title="pageMeta.title"
+    :description="pageMeta.description"
+    :media-url="pageMetaOgImage"
+    :items="galleries"
+    :total="total"
+    :per-page="perPage"
+    card-url-name="galleries-all"
+  />
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
-  import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import useScrollTo from '@/composables/scrollTo.js';
 
-  const PER_PAGE = 20;
+  const PER_PAGE = 24;
 
   export default {
     name: 'GalleriesIndexPage',
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ContentHeader,
-      ContentCard,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
+      ContentHubPage,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
-    middleware: 'sanitisePageQuery',
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
     data() {
       return {
         galleries: [],
@@ -90,29 +61,35 @@
         query: 'visibility:published',
         qf: `lang:${this.$i18n.locale}`,
         pageSize: PER_PAGE,
-        page: this.page - 1,
-        profile: 'standard'
+        page: this.page,
+        profile: 'items.meta'
       };
 
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
-      this.total = setResponse.data.partOf.total;
+      const setResponse = await this.$apis.set.search(searchParams);
+      this.galleries = setResponse.items && this.parseSets(setResponse.items);
+      this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;
-
-      this.$scrollTo?.('#header');
     },
     computed: {
       pageMeta() {
         return {
-          title: this.$tc('galleries.galleries', 2)
+          title: this.$tc('galleries.galleries', 2),
+          description: this.$t('galleries.description'),
+          ogImage: this.socialMediaImage
         };
+      },
+      socialMediaImage() {
+        return this.galleries[0]?.thumbnail;
       },
       page() {
         return Number(this.$route.query.page || 1);
       }
     },
     watch: {
-      '$route.query.page': '$fetch'
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.scrollToSelector('#header');
+      }
     },
     methods: {
       parseSets(sets) {
@@ -121,7 +98,7 @@
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail)
           };
         });
       },

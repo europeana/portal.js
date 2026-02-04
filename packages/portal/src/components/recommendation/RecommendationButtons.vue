@@ -23,16 +23,16 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
-  import keycloakMixin from '@/mixins/keycloak';
+  import useMakeToast from '@/composables/makeToast.js';
 
   export default {
     name: 'RecommendationButtons',
 
-    mixins: [
-      keycloakMixin,
-      makeToastMixin
-    ],
+    inject: {
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       // Identifier of the item
@@ -52,6 +52,11 @@
       }
     },
 
+    setup() {
+      const { makeToast } = useMakeToast();
+      return { makeToast };
+    },
+
     data() {
       return {
         toastMsg: this.$t('set.notifications.updated')
@@ -62,18 +67,18 @@
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
-          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.identifier });
-          this.$store.dispatch('set/refreshSet');
+          await this.$apis.set.insertItems(`http://data.europeana.eu/set/${this.$route.params.pathMatch}`, this.identifier);
+          this.fetchCurrentSet?.();
           this.makeToast(this.toastMsg);
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'reject' });
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

@@ -4,6 +4,7 @@ const HTTP_CODES = {
   401: 'Unauthorised',
   403: 'Unauthorised',
   404: 'NotFound',
+  410: 'Gone',
   423: 'Locked'
 };
 
@@ -30,8 +31,28 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 
   if (typeof errorOrStatusCode === 'object') {
     error = errorOrStatusCode;
-    if (HTTP_CODES[error.statusCode]) {
-      const httpCode = HTTP_CODES[error.statusCode]; // || 'UnknownError';
+
+    if (error.isAxiosError) {
+      const errorResponseStatus = error.response?.status;
+
+      // Too much information re HTTP requests/responses to pass around to components:
+      // dispose of it
+      delete error.config;
+      delete error.request;
+      delete error.response;
+      delete error.toJSON;
+
+      if (errorResponseStatus) {
+        error = createHttpError(errorResponseStatus, {
+          cause: error
+        });
+      } else if (error.message === 'Network Error') {
+        error.name = 'NetworkError';
+      }
+    }
+
+    if (!error.code && HTTP_CODES[error.statusCode]) {
+      const httpCode = HTTP_CODES[error.statusCode];
       error.code = `${scope}${httpCode}`;
     }
   }
@@ -40,18 +61,15 @@ function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
 }
 
 function translateErrorWithCode(error, { tValues = {} }) {
-  // if (!this.$i18n.te(`errorMessage.${error.code}`)) {
-  //   error.code = 'genericUnknownError';
-  // }
-
-  if (this.$i18n.te(`errorMessage.${error.code}`)) {
-    const translations = this.$i18n.t(`errorMessage.${error.code}`);
+  const codeToUse = error.cause?.code ? error.cause.code : error.code;
+  if (this.$i18n.te(`errorMessage.${codeToUse}`)) {
+    const translations = this.$i18n.t(`errorMessage.${codeToUse}`);
     if (typeof translations === 'object') {
       error.i18n = {};
       for (const tKey in translations) {
         const tValuesForKey = tValues[tKey] || {};
         tValuesForKey.newline = '<br />';
-        error.i18n[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+        error.i18n[tKey] = this.$i18n.t(`errorMessage.${codeToUse}.${tKey}`, tValuesForKey);
       }
     }
   }
@@ -59,15 +77,18 @@ function translateErrorWithCode(error, { tValues = {} }) {
   return error;
 }
 
+// TODO: make this into a vue error handler, like w/ @elastic/apm-rum-vue
 export function handleError(errorOrStatusCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrStatusCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
+
   error.isFetchError = this.$fetchState?.pending || false;
 
   if (this.$nuxt?.context?.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
+  // TODO: refactor to not rely on the store
   this.$store.commit('error/set', error);
 
   this.$nuxt?.context?.$apm?.captureError(error);

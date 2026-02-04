@@ -1,14 +1,24 @@
 @import 'mixins';
 
 body {
-  background-color: $bodygrey;
+  background-color: $white;
   color: $textcolor;
   font-family: $font-family-sans-serif;
   font-size: 16px;
   line-height: 1.5;
+}
 
-  &.white {
-    background-color: $white;
+.page {
+  padding-top: 2rem;
+
+  @media (min-width: $bp-small) {
+    padding-top: 3rem;
+  }
+
+  &.xxl-page {
+    @media (min-width: $bp-4k) {
+      padding-top: 6rem;
+    }
   }
 }
 
@@ -20,7 +30,21 @@ body {
 }
 
 main {
-  @include min-page-height;
+
+  // scope setting min-page-height to these layouts, not e.g. layout for contentful apps
+  &#default,
+  &#ds4ch,
+  &#landing-layout {
+    @include min-page-height;
+  }
+
+  &#landing-layout {
+    margin-top: $page-header-height; // leave space for the fixed positioned header
+
+    @media (min-width: $bp-4k) {
+      margin-top: $page-header-height-4k;
+    }
+  }
 }
 
 h1,
@@ -121,44 +145,28 @@ pre {
 }
 
 blockquote {
-  color: $greyblack;
-  font-size: 1.5rem;
   font-style: italic;
-  font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-  text-align: center;
 
-  p::before {
-    content: '\201C';
-    display: inline-block;
-    font-size: 1.75rem;
-    padding-right: 0.25rem;
-  }
-
-  p::after {
-    content: '\201D';
-    display: inline-block;
+  em {
+    font-style: normal;
   }
 
   @media (min-width: $bp-medium) {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 
 cite {
-  color: $greyblack;
-  display: block;
-  font-size: $font-size-small;
   font-style: normal;
   margin-left: 1rem;
   margin-right: 1rem;
-  text-align: center;
 
   @media (min-width: $bp-medium) {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 
@@ -218,13 +226,9 @@ figcaption {
     border-radius: 0.25rem;
     bottom: 0.5rem;
     box-shadow: $boxshadow-small;
-    color: inherit;
     display: inline;
     font-size: 0.75rem;
-    font-style: normal;
-    font-weight: normal;
     left: initial;
-    line-height: 1.5;
     margin: 0;
     max-width: 75%;
     padding: 0.75rem;
@@ -249,7 +253,7 @@ figcaption {
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -295,8 +299,14 @@ figcaption {
 }
 
 blockquote + p cite {
-  padding-top: 0.75rem;
-  margin-top: -1rem;
+  margin-top: -1.25rem;
+  display: block;
+
+  &::before {
+    content: '\2010';
+    display: inline-block;
+    padding-right: 0.25rem;
+  }
 }
 
 img {
@@ -321,7 +331,7 @@ video {
 }
 
 .btn:focus,
-input[type='checkbox']:focus + label {
+input[type='checkbox']:focus-visible + label {
   outline: auto;
 
   /* stylelint-disable */
@@ -330,14 +340,6 @@ input[type='checkbox']:focus + label {
   }
 
   /* stylelint-enable */
-}
-
-main#default {
-  margin-top: 70px;
-
-  @media (min-width: $bp-4k) {
-    margin-top: calc(1.5 * 70px);
-  }
 }
 
 .organisation-logo {
@@ -397,10 +399,8 @@ main#default {
 }
 
 .white-page {
-  background: $white;
   margin-top: -3rem;
   position: relative;
 
-  @include min-page-height;
   @include white-cutout;
 }

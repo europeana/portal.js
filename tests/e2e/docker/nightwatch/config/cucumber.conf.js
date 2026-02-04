@@ -36,7 +36,7 @@ async function warmupBrowser() {
   // Optionally take a screenshot of the warmup page
   process.env.NIGHTWATCH_SCREENSHOTS && await client.saveScreenshot('./screenshots/warmup.png');
 
-  await client.waitForElementVisible('#eu-klaro .cookie-notice');
+  await client.waitForElementVisible('#cookie-notice-toast');
 }
 
 // Before running cucumber make sure the test server and webdriver are running.
@@ -53,10 +53,6 @@ Before({ tags: '@klaro-notice-not-dismissed' }, async() => {
 
 Before({ tags: 'not @klaro-notice-not-dismissed' }, async() => {
   await runners.havePreviouslyAcceptedKlaroCookies();
-});
-
-Before({ tags: '@debug-apirequests-not-enabled' }, async() => {
-  await runners.haveNotEnabledDebugAPIRequests();
 });
 
 After(async() => {

@@ -1,0 +1,15 @@
+SET search_path TO events;
+DROP FUNCTION IF EXISTS get_object_id(VARCHAR(1000));
+CREATE FUNCTION get_object_id
+(object_uri VARCHAR(1000)) RETURNS integer
+AS
+$$
+DECLARE
+   _id integer;
+BEGIN
+   SELECT id FROM objects WHERE uri=object_uri
+   INTO _id;
+   RETURN _id;
+END;
+$$
+LANGUAGE plpgsql;

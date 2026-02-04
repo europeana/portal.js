@@ -4,8 +4,16 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
-  style:
+  npm-publish:
+    name: NPM publish
+    strategy:
+      matrix:
+        package: [style]
     runs-on: ubuntu-latest
     steps:
       -
@@ -15,11 +23,11 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       -
         name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: npm -w packages/style publish --access public
+        run: npm -w packages/${{ matrix.package }} publish --access public

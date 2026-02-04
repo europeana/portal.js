@@ -5,18 +5,14 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :image-width="imageWidth"
-    :image-height="imageHeight"
-    :image-alt="imageAlt"
     :omit-all-uris="true"
-    :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
     :variant="variant"
   />
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { isEuropeanaRecordId } from '@/plugins/europeana/record';
   import { getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
@@ -76,15 +72,6 @@
       imageContentType() {
         return this.imageIsContentfulAsset ? this.cardFields.image.contentType : null;
       },
-      imageAlt() {
-        return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
-      },
-      imageWidth() {
-        return this.imageIsContentfulAsset ? this.cardFields.image.width : null;
-      },
-      imageHeight() {
-        return this.imageIsContentfulAsset ? this.cardFields.image.height : null;
-      },
       destination() {
         let destination = '';
 
@@ -135,7 +122,7 @@
       entityRouterLink(uri, slug) {
         const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
         return {
-          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[2] }
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug || uriMatch[2] }
         };
       },
       recordRouterLink(identifier) {

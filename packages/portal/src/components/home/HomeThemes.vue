@@ -3,12 +3,12 @@
     v-if="themes.length > 0"
     :slides="themes"
     :title="$t('homePage.themesTitle')"
-    :cta="{ url: localePath('/themes'), text: $t('homePage.themesCTA') }"
   />
 </template>
 
 <script>
   import StackedCardsSwiper from '../generic/StackedCardsSwiper';
+  import themesGraphql from '@/graphql/queries/themes.graphql';
 
   export default {
     name: 'HomeThemes',
@@ -25,13 +25,13 @@
 
     async fetch() {
       const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
 
-      const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
+      const contentfulResponse = await this.$contentful.query(themesGraphql, contentfulVariables);
 
-      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+      this.themes = contentfulResponse.data.themePageCollection.items.map(theme => ({
         title: theme.name,
         description: theme.description,
         url: this.localePath({

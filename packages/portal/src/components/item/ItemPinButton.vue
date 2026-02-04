@@ -6,10 +6,10 @@
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
-      :aria-label="$t('entity.actions.pin')"
+      :aria-label="pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin')"
       @click="pinAction"
     >
-      <span class="icon-push-pin" />
+      <span :class="pinned ? 'icon-pin' : 'icon-pin-outlined'" />
       {{ pinButtonText }}
     </b-button>
     <b-modal
@@ -40,16 +40,15 @@
       v-if="identifier && entities.length > 0"
       :identifier="identifier"
       :modal-id="pinModalId"
-      :entities="entities"
+      :entity-uris="entityUris"
       data-qa="pin item to entities modal"
     />
   </div>
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinButton',
@@ -59,7 +58,6 @@
     },
 
     mixins: [
-      makeToastMixin,
       entityBestItemsSetMixin
     ],
 
@@ -102,6 +100,9 @@
     },
 
     computed: {
+      entityUris() {
+        return this.entities.map((entity) => entity.about);
+      },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
       },
@@ -155,3 +156,14 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .pin-button:hover {
+    .icon-pin-outlined::before {
+      content: '\e91e';
+    }
+    .icon-pin::before {
+      content: '\e936';
+    }
+  }
+</style>

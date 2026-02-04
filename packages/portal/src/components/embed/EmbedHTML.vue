@@ -8,17 +8,19 @@
     data-qa="responsive embed wrapper"
   >
     <div
+      ref="embedContainer"
       data-qa="html embed"
-      class="mb-5 html-embed"
+      class="html-embed"
       :style="`padding-bottom:${heightAsPercentOfWidth}%`"
-      v-html="html"
+      v-html="embedCode"
     />
   </div>
   <div
     v-else
+    ref="embedContainer"
     data-qa="html embed"
-    class="mb-5 html-embed"
-    v-html="html"
+    class="html-embed"
+    v-html="embedCode"
   />
   <!-- eslint-enable vue/no-v-html -->
 </template>
@@ -40,6 +42,10 @@
         type: [Number, String],
         default: null
       },
+      title: {
+        type: String,
+        default: null
+      },
       responsive: {
         type: Boolean,
         default: false
@@ -48,6 +54,7 @@
 
     data() {
       return {
+        embedCode: this.html,
         widthWrapper: 0
       };
     },
@@ -59,8 +66,15 @@
     },
 
     mounted() {
+      this.findAndReappendScripts();
+
       this.setWidthWrapper();
       window.addEventListener('resize', this.setWidthWrapper);
+
+      if (this.title) {
+        const iframe = this.$refs.embedContainer.getElementsByTagName('iframe')?.[0];
+        iframe?.setAttribute('title', this.title);
+      }
     },
 
     methods: {
@@ -69,6 +83,31 @@
           const wrapperHeight = this.$refs.responsiveWrapper.clientHeight;
           this.widthWrapper = (this.width * wrapperHeight) / this.height;
         }
+      },
+      // Reappends scripts so they are executed. Scripts added through v-html are not executed
+      findAndReappendScripts() {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(this.html, 'text/html');
+        const scripts = doc.querySelectorAll('script');
+
+        if (scripts.length) {
+          scripts.forEach((script) => {
+            const newScript = document.createElement('script');
+
+            for (const attr of script.attributes) {
+              newScript.setAttribute(attr.name, attr.value);
+            }
+
+            // for inline script content
+            newScript.textContent = script.textContent;
+
+            this.$refs.embedContainer.after(newScript);
+
+            // remove script from embedCode so it's not added through v-html
+            script.remove();
+          });
+          this.embedCode = doc.body.innerHTML;
+        }
       }
     }
   };
@@ -76,12 +115,14 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .html-embed {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     ::v-deep iframe {
       display: inline;
@@ -96,26 +137,16 @@
 
       iframe {
         width: 100%;
-        max-height: calc($swiper-height-max - $swiper-top-padding);
-        height: $swiper-height;
-
-        @media (max-width: $bp-medium) {
-          height: calc(22.5rem - $swiper-top-padding);
-        }
+        @include media-viewer-height;
       }
     }
   }
 
   .responsive-embed-wrapper {
-    height: calc($swiper-height - $swiper-top-padding);
-    max-height: calc($swiper-height-max - $swiper-top-padding);
+    @include media-viewer-height;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;
-
-    @media (max-width: $bp-medium) {
-      height: 22.5rem;
-    }
 
     .html-embed {
       display: block;
@@ -129,18 +160,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-
-        @media (max-height: $bp-medium) {
-          max-height: calc($swiper-height - $swiper-top-padding);
-        }
-
-        @media (min-height: $bp-medium) {
-          max-height: calc($swiper-height-max - $swiper-top-padding);
-        }
-
-        @media (max-width: $bp-medium) {
-          max-height: calc($swiper-height-medium - $swiper-top-padding);
-        }
       }
     }
   }

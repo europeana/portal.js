@@ -1,17 +1,9 @@
 <template>
-  <div
-    :class="$fetchState.error && 'white-page'"
-  >
-    <b-container
+  <div class="page">
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -19,238 +11,228 @@
     />
     <div
       v-if="set.id"
-      class="mt-n3"
       data-qa="user gallery page"
     >
-      <b-container
-        fluid
-      >
-        <b-row class="flex-md-row pt-5 bg-white mb-4">
-          <b-col
-            cols="12"
-          >
-            <b-container class="mb-5">
-              <b-row class="mb-2">
-                <b-col>
-                  <div
-                    class="context-label"
-                  >
-                    {{ $tc('galleries.galleries', 1) }}
-                  </div>
-                  <h1
-                    :lang="displayTitle.code"
-                  >
-                    {{ displayTitle.values[0] }}
-                  </h1>
-                  <p
-                    class="usergallery-description mb-3 w-75"
-                    :lang="displayDescription.code"
-                  >
-                    {{ displayDescription.values[0] }}
-                  </p>
-                  <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+      <b-container class="mb-5">
+        <b-row class="mb-2">
+          <b-col>
+            <div
+              class="context-label"
+            >
+              {{ $tc('galleries.galleries', 1) }}
+            </div>
+            <h1
+              :lang="langAttribute(displayTitle.code)"
+            >
+              {{ displayTitle.values[0] }}
+            </h1>
+            <p
+              class="usergallery-description mb-3 w-75"
+              :lang="langAttribute(displayDescription.code)"
+            >
+              {{ displayDescription.values[0] }}
+            </p>
+            <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
                       This can be changed when this functionality is further developed
                   -->
-                  <div
-                    v-if="displayMetadata"
-                    class="usergallery-metadata"
-                  >
-                    <span
-                      v-if="set.creator.nickname"
-                      class="curator mb-2"
-                    >
-                      {{ $t('set.labels.curatedBy') }}
-                      <img
-                        v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
-                        :src="logoSrc"
-                        alt="Europeana"
-                        width="96"
-                        height="20"
-                        class="ml-1 logo"
-                      >
-                      <template
-                        v-else
-                      >
-                        @{{ set.creator.nickname }}
-                      </template>
-                    </span>
-                    <span
-                      v-if="set.visibility === 'private'"
-                      class="visibility mb-2"
-                    >
-                      <span class="icon-lock" />
-                      {{ $t('set.labels.private') }}
-                    </span>
-                    <span
-                      v-if="set.visibility === 'published'"
-                      class="visibility mb-2"
-                    >
-                      <span class="icon-ic-download" />
-                      {{ $t('set.labels.published') }}
-                    </span>
-                  </div>
-                </b-col>
-              </b-row>
-              <div class="d-inline-flex flex-wrap collection-buttons">
-                <template v-if="set.visibility !== 'private'">
-                  <ShareButton
-                    class="mr-2 mt-2"
-                  />
-                  <SocialShareModal
-                    :media-url="shareMediaUrl"
-                    :share-to="[{
-                      identifier: 'weavex',
-                      name: 'WEAVEx',
-                      url: weaveUrl,
-                      tooltip: $t('set.shareTo.weavex.tooltip')
-                    }]"
-                  />
-                </template>
-                <template
-                  v-if="userCanEditSet"
-                >
-                  <b-button
-                    class="d-inline-flex align-items-center mr-2 mt-2"
-                    data-qa="edit set button"
-                    @click="$bvModal.show(setFormModalId)"
-                  >
-                    <span class="icon-edit pr-1" />
-                    {{ $t('actions.edit') }}
-                  </b-button>
-                  <SetFormModal
-                    :set-id="set.id"
-                    :modal-id="setFormModalId"
-                    :title="set.title"
-                    :description="set.description"
-                    :visibility="set.visibility"
-                    :user-is-owner="userIsOwner"
-                    :type="set.type"
-                  />
-                </template>
-                <SetPublicationRequestWidget
-                  v-if="userCanRequestSetPublication"
-                  :set="set"
-                  data-qa="set request publication button"
-                  class="mr-2 mt-2"
-                />
-                <PublishSetButton
-                  v-if="userCanPublishSet"
-                  :set-id="set.id"
-                  :visibility="set.visibility"
-                  class="mr-2 mt-2"
-                />
-              </div>
-            </b-container>
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-container
-        class="mb-3"
-        data-qa="user set"
-      >
-        <b-row>
-          <b-col>
-            <h2
-              class="related-heading text-uppercase"
-              data-qa="item count"
+            <div
+              v-if="displayMetadata"
+              class="usergallery-metadata"
             >
-              {{ displayItemCount }}
-            </h2>
+              <span
+                v-if="set.creator.nickname"
+                class="curator mb-2"
+              >
+                {{ $t('set.labels.curatedBy') }}
+                <img
+                  v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
+                  :src="logoSrc"
+                  alt="Europeana"
+                  width="96"
+                  height="20"
+                  class="ml-1 logo"
+                >
+                <template
+                  v-else
+                >
+                  @{{ set.creator.nickname }}
+                </template>
+              </span>
+              <span
+                v-if="set.visibility === 'private'"
+                class="visibility mb-2"
+              >
+                <span class="icon-lock" />
+                {{ $t('set.labels.private') }}
+              </span>
+              <span
+                v-if="set.visibility === 'published'"
+                class="visibility mb-2"
+              >
+                <span class="icon-ic-download" />
+                {{ $t('set.labels.published') }}
+              </span>
+            </div>
           </b-col>
         </b-row>
-        <b-row>
-          <b-col>
-            <b-container class="px-0">
-              <b-row class="mb-3">
-                <b-col cols="12">
-                  <ItemPreviewCardGroup
-                    :items="set.items"
-                    :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                    :draggable-items="userCanEditSet"
-                    @endItemDrag="reorderItems"
-                  />
-                </b-col>
-              </b-row>
-            </b-container>
-          </b-col>
-        </b-row>
-        <client-only>
-          <SetRecommendations
-            v-if="displayRecommendations"
-            :identifier="`/${setId}`"
-            :type="set.type"
+        <div class="d-inline-flex flex-wrap collection-buttons">
+          <template v-if="set.visibility !== 'private'">
+            <ShareButton
+              class="mr-2 mt-2"
+            />
+            <ShareSocialModal
+              :media-url="shareMediaUrl"
+              :share-to="[{
+                identifier: 'weavex',
+                name: 'WEAVEx',
+                url: weaveUrl,
+                tooltip: $t('set.shareTo.weavex.tooltip')
+              }]"
+            />
+          </template>
+          <template
+            v-if="userCanEditSet"
+          >
+            <b-button
+              class="d-inline-flex align-items-center mr-2 mt-2"
+              data-qa="edit set button"
+              @click="$bvModal.show(setFormModalId)"
+            >
+              <span class="icon-edit pr-1" />
+              {{ $t('actions.edit') }}
+            </b-button>
+            <SetFormModal
+              :set-id="set.id"
+              :modal-id="setFormModalId"
+              :title="set.title"
+              :description="set.description"
+              :visibility="set.visibility"
+              :user-is-owner="userIsOwner"
+              :type="set.type"
+            />
+          </template>
+          <SetPublicationRequestWidget
+            v-if="userCanRequestSetPublication"
+            :set="set"
+            data-qa="set request publication button"
+            class="mr-2 mt-2"
           />
-        </client-only>
+          <SetPublishButton
+            v-if="userCanPublishSet"
+            :set-id="set.id"
+            :visibility="set.visibility"
+            class="mr-2 mt-2"
+          />
+        </div>
       </b-container>
+      <ItemPreviewInterface
+        :items="set.items"
+        :loading="$fetchState.pending"
+        :per-page="perPage"
+        :total="set.total"
+        :show-pins="setIsEntityBestItems && userIsEntityEditor"
+        :user-editable-items="userCanEditSet"
+        @endItemDrag="repositionItem"
+      >
+        <template #footer>
+          <client-only>
+            <SetRecommendations
+              v-if="displayRecommendations"
+              :identifier="`/${setId}`"
+              :type="set.type"
+            />
+          </client-only>
+        </template>
+      </ItemPreviewInterface>
     </div>
   </div>
 </template>
 
 <script>
+  import { langMapValueForLocale } from '@europeana/i18n';
   import ClientOnly from 'vue-client-only';
-  import {
-    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
-    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
-  } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ShareButton from '@/components/sharing/ShareButton.vue';
-  import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
+  import { computed } from 'vue';
+  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import useScrollTo from '@/composables/scrollTo.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'GalleryPage',
     components: {
       ClientOnly,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      ItemPreviewCardGroup,
-      ShareButton,
-      SocialShareModal,
+      ItemPreviewInterface,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SetFormModal: () => import('@/components/set/SetFormModal'),
+      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
+      SetPublishButton: () => import('@/components/set/SetPublishButton'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      PublishSetButton: () => import('@/components/set/PublishSetButton'),
-      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
+      ShareButton,
+      ShareSocialModal
 
     },
     mixins: [
       entityBestItemsSetMixin,
-      redirectToPrefPathMixin,
+      langAttributeMixin,
+      redirectToMixin,
       pageMetaMixin
     ],
+    provide() {
+      return {
+        currentSet: computed(() => this.set),
+        fetchCurrentSet: this.fetchSet
+      };
+    },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setActive', null);
       this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
+      this.clearSelectedItems();
       next();
+    },
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      const { clear: clearSelectedItems } = useSelectedItems();
+      return { clearSelectedItems, scrollToSelector };
     },
     data() {
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
-        images: [],
+        perPage: 48,
+        set: {},
         title: '',
         rawDescription: ''
       };
     },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
+      process.client && this.scrollToSelector('#header');
+
       try {
         this.validateRoute();
-        await this.$store.dispatch('set/fetchActive', this.setId);
-        this.redirectToPrefPath('galleries-all', this.setId, this.set.title.en);
+        await this.fetchSet();
+        this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
           this.$store.commit('entity/setBestItemsSetId', this.setId);
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {
-        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
+        this.$error(e, { scope: 'gallery' });
       }
     },
     computed: {
+      page() {
+        return Number(this.$route.query.page || 1);
+      },
       pageMeta() {
         return {
           title: this.displayTitle.values[0],
@@ -258,9 +240,6 @@
           ogType: 'article',
           ogImage: this.shareMediaUrl
         };
-      },
-      set() {
-        return this.$store.state.set.active || {};
       },
       setId() {
         return this.$route.params.pathMatch.split('-')[0];
@@ -303,16 +282,14 @@
         return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
+        if (!this.$features.showSetRecommendations) {
+          return false;
+        }
         if (this.setIsEntityBestItems) {
           return this.$features.acceptEntityRecommendations ||
             this.$features.rejectEntityRecommendations;
         }
         return true;
-      },
-      displayItemCount() {
-        const max = 100;
-        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.set.total, { max });
       },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -324,7 +301,7 @@
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       },
       displayMetadata() {
-        return this.set.visibility === ('private' || 'published') || this.set.creator?.nickname;
+        return ['private', 'published'].includes(this.set.visibility) || this.set.creator?.nickname;
       },
       weaveUrl() {
         return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
@@ -336,36 +313,51 @@
         if (this.setIsEntityBestItems) {
           this.$fetch();
         }
+      },
+      async '$route.query.page'() {
+        await this.$fetch();
+        this.clearSelectedItems();
       }
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function') {
-        this.$redrawVueMasonry();
-      }
+      this.$redrawVueMasonry?.();
     },
 
     methods: {
+      async fetchSet() {
+        const responses = await Promise.all([
+          this.$apis.set.get(this.setId),
+          this.$apis.set.getItems(this.setId, {
+            page: this.page,
+            pageSize: this.perPage
+          })
+        ]);
+
+        this.set = {
+          ...responses[0],
+          items: responses[1]
+        };
+
+        if ((this.$store.state.set.selectedItems || []).length > 0) {
+          this.$store.dispatch('set/refreshSelected');
+        }
+      },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
           this.$error(404, { scope: 'page' });
         }
       },
-      async reorderItems(items) {
+      async repositionItem({ itemId, position }) {
         try {
-          await this.$store.dispatch('set/update', {
-            id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
-            body: {
-              type: this.set.type,
-              title: this.set.title,
-              description: this.set.description,
-              visibility: this.set.visibility,
-              items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
-            },
-            params: { profile: 'standard' }
-          });
+          await this.$apis.set.repositionItem(this.setId, itemId, position);
         } catch (e) {
           this.$error(e, { scope: 'gallery' });
+        } finally {
+          // always re-fetch in case of failure e.g. write lock, so moved items
+          // go back where they were
+          await this.fetchSet();
+          this.$redrawVueMasonry?.();
         }
       }
     }
@@ -374,18 +366,18 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/masonry';
 
   .usergallery-description {
-    color: $mediumgrey;
+    color: $darkgrey;
   }
 
   .usergallery-metadata {
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1.125;
-    color: $mediumgrey;
+    color: $darkgrey;
 
     img.logo {
       height: 1.25rem;
@@ -435,5 +427,9 @@
     .text {
       font-weight: 600;
     }
+  }
+
+  ::v-deep .card-group-list.card-columns {
+    column-count: 1;
   }
 </style>

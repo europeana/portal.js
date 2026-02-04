@@ -7,7 +7,7 @@
       v-if="illustration"
       class="cta-illustration align-self-stretch"
     >
-      <OptimisedImage
+      <ImageOptimised
         :alt="illustration.image.description"
         :src="illustration.image.url"
         :width="illustration.image.width"
@@ -32,6 +32,7 @@
         data-qa="call to action"
         class="btn btn-cta btn-primary"
         hide-external-icon
+        @click.capture.native="handleClickEvent"
       >
         {{ link.text }}
       </SmartLink>
@@ -48,12 +49,16 @@
 
     components: {
       SmartLink,
-      OptimisedImage: () => import('@/components/generic/OptimisedImage')
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
     props: {
       name: {
         type: String,
         required: true
+      },
+      nameEnglish: {
+        type: String,
+        default: null
       },
       text: {
         type: String,
@@ -81,6 +86,12 @@
         // TODO: Update the styling of the RichString component and use that instead.
         return marked.parse(this.text);
       }
+    },
+
+    methods: {
+      handleClickEvent() {
+        this.$matomo?.trackEvent('CTA banner', 'Click CTA banner link', `CTA banner: ${this.nameEnglish}`);
+      }
     }
   };
 </script>
@@ -93,7 +104,7 @@
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
-    font-size: 1rem;
+    font-size: $font-size-base;
     border-radius: 0.25em;
     border: 0.25em solid $greyblack;
     box-shadow: 0.75em 0.75em 0 0 $greyblack;
@@ -104,36 +115,43 @@
     }
 
     @media (min-width: $bp-4k) {
-      font-size: 1.5rem;
+      font-size: $font-size-large;
       margin-bottom: 3rem;
       min-height: 442px;
     }
 
     .cta-content {
-      padding: 2.25em 1.75em 2.5em;
+      padding: 1.5rem 1.75rem 2.5rem;
       text-align: center;
-      font-size: 1rem;
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-medium) {
+        height: auto;
+        flex: 0 0 60%;
+      }
 
       @media (min-width: $bp-extralarge) {
-        font-size: 1.375rem;
+        font-size: $font-size-medium;
+        padding: 3rem 3.75rem;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.375rem);
+        font-size: $font-size-medium-4k;
       }
 
       h2 {
-        color: $mediumgrey;
-        font-size: 2rem;
+        color: $darkgrey;
+        font-size: $font-size-large;
         font-weight: 700;
-        margin-bottom: 0;
+        margin-bottom: 0.5rem;
 
         @media (min-width: $bp-extralarge) {
-          font-size: $font-size-xxl;
+          font-size: $font-size-xl;
         }
 
         @media (min-width: $bp-4k) {
-          font-size: $font-size-xxl-4k;
+          font-size: $font-size-xl-4k;
+          margin-bottom: 0.75rem;
         }
       }
 
@@ -147,13 +165,18 @@
       text-transform: none;
       border: 0.1875em solid $greyblack;
       box-shadow: 0.25em 0.25em 0 0 $greyblack;
+      font-size: $font-size-base;
       font-weight: 700;
       border-radius: 0.25em;
-      margin-top: 1rem;
+      margin-top: 0;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
     }
 
     &.light {
-      background-color: $bodygrey;
+      background-color: $lightgrey;
     }
 
     &.innovationblue {
@@ -178,35 +201,30 @@
     }
 
     .cta-illustration {
-      margin-top: 1rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
-      height: 175px;
       position: relative;
       flex-shrink: 0;
 
+      @media (max-width: ($bp-medium - 1px)) {
+        background-color: $illustration-whitegrey;
+        height: 175px;
+      }
+
       @media (min-width: $bp-medium) {
-        height: auto;
-        width: 40%;
+        flex: 0 0 40%;
       }
 
-      @media (min-width: $bp-wqhd) {
-        width: 50%;
-      }
-
-      @media (min-width: $bp-4k) {
-        margin-top: 1.5rem;
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
-      }
-
-      img {
+      ::v-deep img {
+        padding: 1rem 1rem 0;
         position: absolute;
         left: 0;
         bottom: 0;
         max-height: 100%;
         right: 0;
         margin: 0 auto;
+
+        @media (min-width: $bp-4k) {
+          padding: 1.5rem 1.5rem 0;
+        }
       }
     }
   }
@@ -262,4 +280,4 @@
     variant="innovationblue"
   />
   ```
-  </docs>
+</docs>

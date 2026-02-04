@@ -43,7 +43,7 @@
 
     @at-root .xxl-page & {
       @media (min-width: $bp-xxxl) {
-        min-width: $min-card-width;
+        min-width: $min-card-width-xxxl;
         width: calc(100% / 5 - $masonry-gutter);
         max-width: $max-card-width;
       }
@@ -120,7 +120,7 @@
       }
 
       @media (min-width: $bp-xxxl) {
-        min-width: $min-card-width;
+        min-width: $min-card-width-xxxl;
         width: calc(100% / 5 - $masonry-gutter);
         max-width: $max-card-width;
       }

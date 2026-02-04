@@ -15,15 +15,17 @@
       <ItemPreviewCardGroup
         v-show="items.length > 0"
         :items="items"
-        view="explore"
         class="mb-0"
         data-qa="similar items"
+        :on-aux-click-card="onClickItem"
+        :on-click-card="onClickItem"
       />
       <b-link
         v-if="!$auth.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
-        @click="keycloakLogin"
+        :target="null"
+        @click="$keycloak.login()"
       >
         {{ $t('related.items.loginForMore') }}
       </b-link>
@@ -32,10 +34,14 @@
 </template>
 
 <script>
-  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { addContentTierFilter } from '@/plugins/europeana/search';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import keycloak from '@/mixins/keycloak';
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
+  import similarItemsMixin from '@/mixins/similarItems';
+
+  const PORTAL_ALGORITHM = 'Portal similar items query';
+  const RECOMMENDATION_ALGORITHM = 'Recommendation API';
 
   export default {
     name: 'ItemRecommendations',
@@ -43,7 +49,10 @@
       ItemPreviewCardGroup
     },
 
-    mixins: [keycloak],
+    mixins: [
+      elasticApmReporterMixin,
+      similarItemsMixin
+    ],
 
     props: {
       identifier: {
@@ -74,7 +83,8 @@
 
     data() {
       return {
-        items: []
+        items: [],
+        similarItemsAlgorithm: null
       };
     },
 
@@ -89,13 +99,16 @@
           // TODO: remove if/when recommendations become useful.
           .filter((item) => item.id !== this.identifier)
           .slice(0, 8);
+        this.similarItemsAlgorithm = RECOMMENDATION_ALGORITHM;
       } else {
         response = await this.$apis.record.search({
-          query: similarItemsQuery(this.identifier, this.similarItemsFields),
+          query: this.similarItemsQuery(this.identifier, this.similarItemsFields),
+          qf: addContentTierFilter(),
           rows: 4,
           profile: 'minimal',
           facet: ''
         });
+        this.similarItemsAlgorithm = PORTAL_ALGORITHM;
       }
 
       this.items = response.items;
@@ -120,6 +133,22 @@
         return langMapValueForLocale(value, this.$i18n.locale)
           .values
           .filter(item => typeof item === 'string');
+      },
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(clickedItemId) {
+        const itemCount = this.items.length;
+        const rank = this.items.findIndex(item => item.id === clickedItemId) + 1;
+
+        this.logApmTransaction({
+          name: 'Similar items - click item',
+          labels: { 'logged_in_user': !!this.$auth.loggedIn,
+                    'similar_items_algorithm': this.similarItemsAlgorithm,
+                    'similar_items_clicked_item': clickedItemId,
+                    'similar_items_count': itemCount,
+                    'similar_items_current_item': this.identifier,
+                    'similar_item_rank': rank }
+        });
       }
     }
   };

@@ -17,7 +17,7 @@
             v-for="(entry, index) in related"
             :key="index"
             :title="entry.name"
-            :url="entryUrl(entry)"
+            :url="contentfulEntryUrl(entry)"
             :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
             :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
             :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -31,7 +31,11 @@
     v-else
     v-show="related.length > 0"
   >
-    <h2>{{ $t('related.editorial.title') }} </h2>
+    <h2
+      class="card-group-title"
+    >
+      {{ $t('related.editorial.title') }}
+    </h2>
     <b-card-group
       class="card-deck-4-cols"
       deck
@@ -40,7 +44,7 @@
         v-for="(entry, index) in related"
         :key="index"
         :title="entry.name"
-        :url="entryUrl(entry)"
+        :url="contentfulEntryUrl(entry)"
         :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
         :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
         :media-type="entry.primaryImageOfPage ? null : 'image'"
@@ -50,7 +54,8 @@
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   export default {
     name: 'RelatedEditorial',
@@ -113,21 +118,23 @@
         entityUri: this.entityUri,
         theme: this.theme,
         query: this.query,
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview',
         limit: this.limit
       };
 
-      let queryName = 'relatedContent';
+      let graphql;
       if (this.entityUri) {
-        queryName = 'entityRelatedContent';
+        graphql = await import('@/graphql/queries/entityRelatedContent.graphql');
       } else if (this.theme) {
-        queryName = 'themeRelatedContent';
+        graphql = await import('@/graphql/queries/themeRelatedContent.graphql');
+      } else {
+        graphql = await import('@/graphql/queries/relatedContent.graphql');
       }
-      const response = await this.$contentful.query(queryName, variables);
-      const entries = response.data.data;
+      const response = await this.$contentful.query(graphql, variables);
+      const entries = response.data;
 
-      this.related = entries.blogPostingCollection.items
+      this.related = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, this.limit);
@@ -141,17 +148,7 @@
     },
 
     methods: {
-      entryUrl(entry) {
-        let urlPrefix;
-
-        if (entry['__typename'] === 'BlogPosting') {
-          urlPrefix = '/blog';
-        } else if (entry['__typename'] === 'ExhibitionPage') {
-          urlPrefix = '/exhibitions';
-        }
-
-        return `${urlPrefix}/${entry.identifier}`;
-      }
+      contentfulEntryUrl
     }
   };
 </script>
@@ -177,7 +174,7 @@
       line-height: 1rem;
       text-transform: uppercase;
       margin-bottom: 1.25rem;
-      color: $mediumgrey;
+      color: $darkgrey;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-extrasmall-4k;
@@ -213,7 +210,7 @@
         }
 
         &:hover {
-          background: $bodygrey;
+          background: $lightgrey;
         }
 
         .card-wrapper {
@@ -290,7 +287,7 @@
   ```jsx
   <RelatedEditorial
     entity-uri="http://data.europeana.eu/concept/190"
-    :related-editorial="[{'__typename': 'BlogPosting',
+    :related-editorial="[{'__typename': 'Story',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',
       'primaryImageOfPage': {
@@ -301,7 +298,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Jesuits in China, Part 2',
       'identifier': 'jesuits-in-china-part-2',
       'primaryImageOfPage': {
@@ -312,7 +309,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Wifredo Lam: disturbing the dreams of the exploiters',
       'identifier': 'wifredo-lam-disturbing-the-dreams-of-the-exploiters',
       'primaryImageOfPage': {
@@ -323,7 +320,7 @@
       }
     },
     {
-      '__typename': 'BlogPosting',
+      '__typename': 'Story',
       'name': 'Vitalism: art celebrating sport, bodies & nature',
       'identifier': 'vitalism-art-celebrating-sport-bodies-and-nature',
       'primaryImageOfPage': {
@@ -339,7 +336,7 @@
   ```jsx
   <RelatedEditorial
     entity-uri="http://data.europeana.eu/concept/190"
-    :related-editorial="[{'__typename': 'BlogPosting',
+    :related-editorial="[{'__typename': 'Story',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',
       'primaryImageOfPage': {

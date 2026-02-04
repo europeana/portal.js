@@ -6,10 +6,10 @@ Feature: Entity page
     And I see an `entity title`
     And I see an `entity description`
     And I see the `context label`
-    And I see a `search list view toggle icon`
-    And I see the `side filters`
+    And I see a `view toggle`
+    And I see the `search sidebar`
     And I should see 24 `item preview`s
-    And I see a `search results pagination`
+    And I see a `item previews pagination`
     And I don't have a `contentTier facet`
     And I am on an accessible page
     And I should have a Europeana branded page title
@@ -26,15 +26,13 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     Then I see `related entities`
-    And I see the `Map related chip` in the `related entities`
-    And I see the `Codex related chip` in the `related entities`
+    And I see the `Book related chip` in the `related entities`
     And I see the `Monograph related chip` in the `related entities`
-    And I see the `Print related chip` in the `related entities`
 
   Scenario: Click on a related entity
     When I open an `entity page`
     And I see the `entity page`
-    And I click the `Map related chip`
+    And I click the `Book related chip`
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related item
@@ -48,11 +46,11 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `item preview`
-    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2" in the `search results pagination`
+    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2" in the `item previews pagination`
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
-    And I see the `search results pagination`
+    And I see the `item previews pagination`
     And I go to page number 3
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
 

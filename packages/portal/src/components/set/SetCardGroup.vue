@@ -2,7 +2,10 @@
   <div
     v-if="sets.length"
   >
-    <h2 v-if="title">
+    <h2
+      v-if="title"
+      class="card-group-title"
+    >
       {{ title }}
     </h2>
     <b-card-group
@@ -26,13 +29,13 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'SetCardGroup',
 
     components: {
-      ContentCard: () => import('@/components/generic/ContentCard')
+      ContentCard: () => import('@/components/content/ContentCard')
     },
 
     props: {
@@ -68,8 +71,13 @@
         //       supports searching by multiple IDs.
         let setResponse = await Promise.all(this.setUris.map(async(id) => {
           const numericId = id.toString().split('/').pop();
-          const setSearchResponse = await this.$apis.set.search({ query: `set_id:${numericId}`, qf: `lang:${this.$i18n.locale}`, profile: 'itemDescriptions' });
-          return setSearchResponse?.data?.items?.[0];
+          const setSearchResponse = await this.$apis.set.search({
+            query: `set_id:${numericId}`,
+            qf: `lang:${this.$i18n.locale}`,
+            profile: 'items.meta',
+            page: 1
+          });
+          return setSearchResponse?.items?.[0];
         }));
         setResponse = setResponse.filter(set => !!set);
 
@@ -82,12 +90,13 @@
 
     methods: {
       parseSets(sets) {
-        return sets.map(set => {
+        return sets.map((set) => {
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
+            // TODO: rm fallback to edmPreview when new Set API live
+            thumbnail: this.setPreviewUrl(set.isShownBy?.thumbnail || set.items?.[0].edmPreview)
           };
         });
       },

@@ -10,13 +10,12 @@ export default {
     editable: false,
     entity: null,
     id: null,
-    pinned: null,
-    recordsPerPage: 24
+    pinned: null
   }),
 
   mutations: {
     setBestItemsSetId(state, value) {
-      state.bestItemsSetId = value;
+      state.bestItemsSetId = value?.split('/').pop();
     },
     setEntity(state, value) {
       state.entity = value;

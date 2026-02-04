@@ -1,294 +1,77 @@
-import pick from 'lodash/pick.js';
-import merge from 'deepmerge';
+import md5 from 'md5';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
+import EuropeanaApi from './apis/base.js';
+
 import search from './search.js';
-import Item from './edm/Item.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
+import EuropeanaMediaProxyApi from './media-proxy.js';
 
-export const BASE_URL = 'https://api.europeana.eu/record';
-export const AUTHENTICATING = true;
-const MAX_VALUES_PER_PROXY_FIELD = 10;
+export default class EuropeanaRecordApi extends EuropeanaApi {
+  static ID = 'record';
+  static BASE_URL = 'https://api.europeana.eu/record';
+  static AUTHENTICATING = true;
+  static AUTHORISING = true;
 
-function isUndefined(value) {
-  return value === undefined;
-}
-function isNotUndefined(value) {
-  return !isUndefined(value);
-}
-
-/**
- * Update a set of fields, in order to find linked entity data.
- * will match any literal values in  the 'def' key to about fields
- * in any of the entities and return the related object instead of
- * the plain string.
- * @param fields Object representing the metadata fields
- * @param entities key(URI) value(JSON object) map of entity objects for this record
- * @return {Object[]} The fields with any entities as JSON objects
- */
-function lookupEntities(fields, entities) {
-  for (const key in fields) {
-    setMatchingEntities(fields, key, entities);
+  get search() {
+    return search.bind(this);
   }
-  return fields;
-}
 
-function setMatchingEntities(fields, key, entities) {
-  // Only looks for entities in 'def'
-  const values = (fields[key]['def'] || []);
-  for (const [index, value] of values.entries()) {
-    if (entities[value]) {
-      fields[key]['def'][index] = entities[value];
-    }
-  }
-}
-
-const findProxy = (proxies, type) => proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
-
-/**
-* Determine if a field will be displaying data from enrichment.
-* Should only be called in the context of a aggregatorProxy being present.
-* If the UI language is not in the enrichment, but also not in the default proxy,
-* the enrichment will be checked for an english fallback value which would take precedence.
-* @param {String} field the field name to check
-* @param {Object} aggregatorProxy the proxy with the enrichment data
-* @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
-* @param {String} predictedUiLang the two letter language code which will be the prefered UI language
-* @return {Boolean} true if enriched data will be shown
-*/
-const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang, entities) => {
-  if (isLangMap(aggregatorProxy[field]) &&
-       (proxyHasEntityForField(aggregatorProxy, field, entities) ||
-         proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
-         proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
-       )
-  ) {
-    return true;
-  }
-  return false;
-};
-
-const proxyHasEntityForField = (proxy, field, entities) => {
-  if (Array.isArray(proxy?.[field]?.def)) {
-    return proxy?.[field]?.def.some(key => {
-      return entities[key];
+  /**
+   * Find records by their identifier
+   * @param {Array} europeanaIds record identifiers or URIs
+   * @param {Object} params additional options to include in the API search query
+   * @return {Array} record data as returned by the API
+   */
+  find(europeanaIds, params = {}) {
+    europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+    const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
+    return this.search({
+      query,
+      ...params
     });
   }
-  return entities[proxy?.[field]?.def];
-};
 
-const proxyHasLanguageField = (proxy, field, targetLanguage) => {
-  return proxy?.[field]?.[targetLanguage];
-};
-
-const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
-  return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
-};
-
-export default (context = {}) => {
-  const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-
-  return {
-    $axios,
-
-    search(params, options = {}) {
-      return search(context)($axios, params, options);
-    },
-
-    /**
-     * Find records by their identifier
-     * @param {Array} europeanaIds record identifiers or URIs
-     * @param {Object} params additional options to include in the API search query
-     * @return {Array} record data as returned by the API
-     */
-    find(europeanaIds, params = {}) {
-      europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
-      const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
-      return this.search({
-        query,
-        ...params
-      }, { addContentTierFilter: false });
-    },
-
-    /**
-     * Parse the record data based on the data from the API response
-     * @param {Object} edm data from API response
-     * @return {Object} parsed data
-     */
-    parseRecordDataFromApiResponse(data, options = {}) {
-      const edm = data.object;
-      const providerAggregation = edm.aggregations[0];
-
-      const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
-      const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
-      const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
-      const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
-      const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
-
-      const entities = [].concat(concepts, places, agents, timespans, organizations)
-        .filter(isNotUndefined)
-        .reduce((memo, entity) => {
-          memo[entity.about] = entity;
-          return memo;
-        }, {});
-
-      const proxies = merge.all(edm.proxies);
-
-      for (const field in proxies) {
-        if (isLangMap(proxies[field])) {
-          for (const locale in proxies[field]) {
-            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
-            }
-          }
-        }
-      }
-
-      let prefLang;
-      if (context.$features?.translatedItems) {
-        prefLang = options.metadataLanguage ? options.metadataLanguage : null;
-      }
-      const predictedUiLang = prefLang || options.locale;
-
-      // Europeana proxy only really needed for the translate profile
-      const europeanaProxy = findProxy(edm.proxies, 'europeana');
-      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
-      const providerProxy = findProxy(edm.proxies, 'provider');
-
-      for (const field in proxies) {
-        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
-          proxies[field].translationSource = 'enrichment';
-        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
-          proxies[field].translationSource = 'automated';
-        }
-      }
-
-      const metadata = {
-        ...lookupEntities(
-          merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
-        ),
-        europeanaCollectionName: edm.europeanaCollectionName ? {
-          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
-          value: edm.europeanaCollectionName
-        } : null,
-        timestampCreated: edm.timestamp_created,
-        timestampUpdate: edm.timestamp_update
-      };
-
-      const item = new Item(edm);
-
-      return {
-        allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
-        altTitle: proxies.dctermsAlternative,
-        description: proxies.dcDescription,
-        fromTranslationError: options.fromTranslationError,
-        identifier: edm.about,
-        type: edm.type, // TODO: Evaluate if this is used, if not remove.
-        isShownAt: item.providerAggregation.edmIsShownAt,
-        metadata: Object.freeze(metadata),
-        media: item.providerAggregation.displayableWebResources,
-        agents,
-        concepts,
-        timespans,
-        organizations,
-        places,
-        title: proxies.dcTitle,
-        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        metadataLanguage: prefLang,
-        iiifPresentationManifest: item.iiifPresentationManifest
-      };
-    },
-
-    /**
-     * Get the record data from the API
-     * @param {string} europeanaId ID of Europeana record
-     * @return {Object} parsed record data
-     */
-    getRecord(europeanaId, options = {}) {
-      let path = '';
-      if (!this.$axios.defaults.baseURL.endsWith('/record')) {
-        path = '/record';
-      }
-
-      const params = { ...this.$axios.defaults.params };
-      if (context.$features?.translatedItems) {
-        if (options.metadataLanguage) {
-          params.profile = 'translate';
-          params.lang = options.metadataLanguage;
-        }
-      } else {
-        // No point in switching on experimental schema.org with item translations.
-        // The profiles would interfere with each other.
-        let schemaOrgDatasetId;
-        if (context.$config?.app?.schemaOrgDatasetId) {
-          schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
-        }
-        if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
-          params.profile = 'schemaOrg';
-        }
-      }
-
-      return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then((response) => {
-          const parsed = this.parseRecordDataFromApiResponse(response.data, options);
-          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
-
-          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
-          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
-            for (const reducedEntity of (reduced[entityType] || [])) {
-              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
-              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
-                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
-              }
-            }
-          }
-
-          return {
-            record: reduced,
-            error: null
-          };
-        })
-        .catch((error) => {
-          const errorResponse = error.response;
-          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
-            delete (options.metadataLanguage);
-            options.fromTranslationError = true;
-            return this.getRecord(europeanaId, options);
-          }
-          throw apiError(error);
-        });
-    },
-
-    mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-      if (!params['api_url']) {
-        // TODO: it is not ideal to hard-code "/api" here, but the media proxy
-        //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-        params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
-      }
-
-      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || EUROPEANA_MEDIA_PROXY_URL);
-      proxyUrl.pathname = europeanaId;
-      proxyUrl.searchParams.append('view', mediaUrl);
-
-      for (const name in params) {
-        proxyUrl.searchParams.append(name, params[name]);
-      }
-
-      return proxyUrl.toString();
+  /**
+   * Get the record data from the API
+   * @param {string} europeanaId ID of Europeana record
+   * @return {Object} record data
+   */
+  async get(europeanaId, params = {}) {
+    let path = '';
+    if (!this.axios.defaults.baseURL.endsWith('/record')) {
+      path = '/record';
     }
-  };
-};
 
-const reduceEntity = (entity) => {
-  return pick(entity, [
-    'about',
-    'latitude',
-    'longitude',
-    'prefLabel'
-  ]);
-};
+    return this.request({
+      method: 'get',
+      url: `${path}${europeanaId}.json`,
+      params
+    });
+  }
+
+  // TODO: move to media-proxy.js
+  mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
+    if (!mediaUrl) {
+      return undefined;
+    }
+
+    params.recordApiUrl = this.baseURL;
+
+    const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);
+
+    proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+    if (proxyUrl.pathname.startsWith('//')) {
+      proxyUrl.pathname = proxyUrl.pathname.slice(1);
+    }
+
+    for (const name in params) {
+      proxyUrl.searchParams.append(name, params[name]);
+    }
+
+    return proxyUrl.toString();
+  }
+}
 
 /**
  * Tests whether a string is a valid Europeana record ID.
@@ -309,6 +92,6 @@ export function isEuropeanaRecordId(value) {
  * @return {string}
  */
 export function recordIdFromUrl(value) {
-  const urlMatch = value.match(/(\/\d+\/\w+)($|\?)/);
+  const urlMatch = /(\/\d+\/\w+)($|\?)/.exec(value);
   return urlMatch?.[1];
 }

@@ -1,96 +1,286 @@
 <template>
-  <b-input-group
-    data-qa="search query builder rule"
+  <div
+    class="d-flex align-items-center flex-wrap flex-lg-nowrap"
   >
     <b-form-group
-      :label-for="`select-field-${id}`"
+      data-qa="search query builder rule"
+      class="query-rule mb-0"
     >
-      <template #label>
-        <span :id="`select-field-label-${id}`">
-          {{ $t('search.advanced.input.field') }}
-        </span>
+      <template
+        v-for="control in ruleControls"
+      >
+        <div
+          :key="`${id}-${control}`"
+          class="query-rule-form-control mr-lg-2 mb-3"
+        >
+          <component
+            :is="control === 'term' ? 'label' : 'span'"
+            :id="`${id}-${control}-label`"
+            class="query-rule-field-label d-inline-flex align-items-center"
+            :for="`${id}-${control}`"
+          >
+            <span
+              class="align-self-center"
+            >
+              {{ $t(`search.advanced.input.${control}`) }}
+            </span>
+          </component>
+          <template v-if="tooltips">
+            <b-button
+              :id="`${id}-${control}-tooltip-btn`"
+              class="icon-info-outline py-0 px-1 tooltip-button align-self-center"
+              :aria-label="$t(`search.advanced.tooltip.${control}`)"
+              variant="light-flat"
+            />
+            <b-tooltip
+              class="align-self-center"
+              :target="`${id}-${control}-tooltip-btn`"
+              :title="$t(`search.advanced.tooltip.${control}`)"
+              boundary-padding="0"
+              placement="bottom"
+            />
+          </template>
+          <SearchQueryBuilderRuleTermInput
+            v-if="control === 'term'"
+            :id="`${id}-${control}`"
+            v-model="rule[control]"
+            :placeholder="$t('search.advanced.placeholder.term')"
+            :state="validation[control]?.state"
+            :suggest-entity-type="suggestEntityTypeForTerm"
+            :advanced-search-field="value.field"
+            @change="handleChange"
+          />
+          <SearchQueryBuilderRuleDropdown
+            v-else
+            :id="`${id}-${control}`"
+            v-model="rule[control]"
+            :name="control"
+            :options="dropdownSections[control]"
+            :state="validation[control]?.state"
+            @change="handleChange"
+          />
+
+          <b-form-invalid-feedback
+            v-show="!validation[control]?.state"
+            :state="validation[control]?.state"
+          >
+            {{ validation[control]?.text }}
+          </b-form-invalid-feedback>
+        </div>
       </template>
-      <b-tooltip
-        :target="`select-field-label-${id}`"
-        :title="$t('search.advanced.tooltip.field')"
-        boundary-padding="0"
-        placement="bottom"
-      />
-      <b-form-select
-        :id="`select-field-${id}`"
-        :value="selectedField"
-        :options="searchFields"
-        @input="(value) => $emit('change', 'selectedField', value)"
-      />
     </b-form-group>
-    <b-form-group
-      :label-for="`select-modifier-${id}`"
+    <b-button
+      data-qa="search query builder rule clear button"
+      variant="light"
+      class="d-inline-flex align-items-center ml-lg-1 mb-3 mb-lg-0 mt-lg-2"
+      @click="clearRule"
     >
-      <template #label>
-        <span :id="`select-modifier-label-${id}`">
-          {{ $t('search.advanced.input.modifier') }}
-        </span>
-      </template>
-      <b-tooltip
-        :target="`select-modifier-label-${id}`"
-        :title="$t('search.advanced.tooltip.modifier')"
-        boundary-padding="0"
-        placement="bottom"
-      />
-      <b-form-select
-        :id="`select-modifier-${id}`"
-        :value="selectedModifier"
-        :options="modifiers"
-        @input="(value) => $emit('change', 'selectedModifier', value)"
-      />
-    </b-form-group>
-    <b-form-group
-      :label="$t('search.advanced.input.searchTerm')"
-      :label-for="`search-term-${id}`"
-    >
-      <b-form-input
-        :id="`search-term-${id}`"
-        :value="searchTerm"
-        @input="(value) => $emit('change', 'searchTerm', value)"
-      />
-    </b-form-group>
-  </b-input-group>
+      <span class="icon-clear pr-2" />
+      {{ $t('actions.clear') }}
+      <span
+        v-if="ruleValuesString"
+        class="visually-hidden"
+      >{{ ruleValuesString }}</span>
+    </b-button>
+  </div>
 </template>
 
 <script>
-  import { BFormSelect, BTooltip } from 'bootstrap-vue';
+  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown';
+  import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput';
+  import advancedSearchMixin, { FIELD_TYPE_FULLTEXT } from '@/mixins/advancedSearch.js';
+
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      BFormSelect,
-      BTooltip
+      SearchQueryBuilderRuleDropdown,
+      SearchQueryBuilderRuleTermInput
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
+
     props: {
-      searchTerm: {
-        type: String,
-        default: null
-      },
-      selectedField: {
-        type: String,
-        default: null
-      },
-      selectedModifier: {
-        type: String,
-        default: null
-      },
-      searchFields: {
-        type: Array,
-        default: () => []
-      },
-      modifiers: {
-        type: Array,
-        default: () => []
-      },
+      /**
+       * Id to set a unique value for each rule
+       */
       id: {
         type: String,
-        default: null
+        default: 'search-query-builder-rule'
+      },
+      /**
+       * If `true`, shows tooltips beside the input labels
+       */
+      tooltips: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * For each rule control, holds a `state` boolean and `text` msg if invalid
+       */
+      validation: {
+        type: Object,
+        default: () => ({})
+      },
+      /**
+       * Value of the rule
+       */
+      value: {
+        type: Object,
+        default: () => ({
+          field: null,
+          modifier: null,
+          term: null
+        })
+      }
+    },
+
+    data() {
+      return {
+        rule: this.value
+      };
+    },
+
+    computed: {
+      aggregatedFields() {
+        return this.advancedSearchFields.filter((field) => field.aggregated);
+      },
+      dropdownSections() {
+        return {
+          field: [
+            { options: this.fieldOption(this.fulltextField) },
+            { header: this.$t('search.advanced.header.aggregated'), options: this.fieldOptionGroup(this.aggregatedFields) },
+            { header: this.$t('search.advanced.header.individual'), options: this.fieldOptionGroup(this.individualFields) }
+          ],
+          modifier: [
+            { options: this.modifierOptions }
+          ]
+        };
+      },
+      fieldOptions() {
+        return this.advancedSearchFields.map((field) => ({
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
+        }))
+          .sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fulltextField() {
+        return this.advancedSearchFields.find((field) => field.type === FIELD_TYPE_FULLTEXT);
+      },
+      individualFields() {
+        return this.advancedSearchFields
+          .filter((field) => !this.aggregatedFields.concat(this.fulltextField).includes(field));
+      },
+      modifierOptions() {
+        const modifiers = this.rule.field ?
+          this.advancedSearchModifiersForField(this.rule.field) :
+          this.advancedSearchModifiersForAllFields;
+
+        return modifiers.map((mod) => ({
+          text: this.$t(`search.advanced.modifiers.${mod.name}`),
+          value: mod.name
+        }));
+      },
+      ruleControls() {
+        return Object.keys(this.rule);
+      },
+      ruleValuesString() {
+        const fieldLabel = this.rule.field ? this.advancedSearchFieldLabel(this.rule.field) : '';
+        const modifierLabel = this.rule.modifier ? this.$t(`search.advanced.modifiers.${this.rule.modifier}`) : '';
+        const term = this.rule.term || '';
+
+        return [fieldLabel, modifierLabel, term].join(' ').trim();
+      },
+      suggestEntityTypeForTerm() {
+        return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
+      }
+    },
+
+    watch: {
+      value() {
+        this.rule = this.value;
+      }
+    },
+
+    methods: {
+      clearRule() {
+        this.$emit('input', {
+          field: null,
+          modifier: null,
+          term: null
+        });
+        this.$emit('clear');
+      },
+      fieldOptionGroup(fields) {
+        return fields.map(this.fieldOption).sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fieldOption(field) {
+        return {
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
+        };
+      },
+      forEveryRuleControl(callback) {
+        for (const control of this.ruleControls) {
+          callback(control);
+        }
+      },
+      handleChange() {
+        this.$emit('change', this.rule);
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .query-rule {
+    width: 100%;
+    max-width: $max-text-column-width;
+
+    @media (min-width: $bp-wqhd) {
+      max-width: 50%;
+    }
+
+    ::v-deep > div {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+  }
+
+  .query-rule-form-control {
+    flex-basis: 100%;
+
+    @media (min-width: $bp-large) {
+      flex: 1 0 auto;    }
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-right: 0.75rem !important;
+      }
+    }
+  }
+
+  .icon-clear {
+    line-height: 1.2;
+  }
+</style>
+
+<docs lang="md">
+  Blank rule:
+  ```jsx
+    <SearchQueryBuilderRule />
+  ```
+
+  Rule with invalid modifier control, indicated via `validation`:
+  ```jsx
+    <SearchQueryBuilderRule
+      :v-model="{ field: 'title', modifier: null, term: 'forest' }"
+      :validation="{ field: { state: true }, modifier: { state: false, text: 'Required' }, term: { state: true } }"
+    />
+  ```
+</docs>

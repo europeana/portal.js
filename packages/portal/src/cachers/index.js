@@ -1,13 +1,14 @@
 import defu from 'defu';
 import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
-import localeCodes from '../plugins/i18n/codes.js';
+import { codes as localeCodes } from '@europeana/i18n';
 
 const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cacherNames = [
   'collections:organisations',
+  'collections:organisations:count',
   'collections:organisations:featured',
   'collections:places',
   'collections:places:featured',
@@ -15,8 +16,13 @@ const cacherNames = [
   'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
+  'dataspace:api-requests',
+  'dataspace:data-providers',
+  'dataspace:hq-data',
+  'dataspace:network-members',
   'items:recent',
-  'items:type-counts'
+  'items:type-counts',
+  'matomo:visits'
 ];
 
 const cacherModule = (cacherName) => {
@@ -42,8 +48,8 @@ const namespaceCacheKey = (cacherName, locale) => {
 
 const runSetCacher = async(cacherName) => {
   console.log(cacherName);
-
   const cacher = await cacherModule(cacherName);
+
   let rawData = await cacher.data(runtimeConfig, localeCodes);
   let langAwareData;
 
@@ -74,43 +80,41 @@ const runSetCacher = async(cacherName) => {
 
 const writeCacheKey = async(cacheKey, data) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  await redisClient.setAsync(cacheKey, JSON.stringify(data));
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  await redisClient.set(cacheKey, JSON.stringify(data));
+  await redisClient.disconnect();
 };
 
 const readCacheKey = async(cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  const data = await redisClient.getAsync(cacheKey);
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  const data = await redisClient.get(cacheKey);
+  await redisClient.disconnect();
   return data;
 };
 
 export const run = async(command, cacherName) => {
   let response;
 
-  try {
-    if (command === 'list') {
-      response = cacherNames.join('\n');
-    } else if (command === 'set') {
-      if (cacherName === undefined) {
-        for (const cname of cacherNames) {
-          await runSetCacher(cname);
-        }
-      } else {
-        await runSetCacher(cacherName);
+  if (command === 'list') {
+    response = cacherNames.join('\n');
+  } else if (command === 'set') {
+    if (cacherName === undefined) {
+      for (const cname of cacherNames) {
+        await runSetCacher(cname);
       }
-
-      response = 'SUCCESS';
-    } else if (command === 'get') {
-      response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
-      throw new Error(`Unknown command "${command}"`);
+      await runSetCacher(cacherName);
     }
-  } catch (error) {
-    return Promise.reject(new Error(utils.errorMessage(error)));
+
+    response = 'SUCCESS';
+  } else if (command === 'get') {
+    response = await readCacheKey(namespaceCacheKey(cacherName));
+  } else {
+    throw new Error(`Unknown command "${command}"`);
   }
 
-  return Promise.resolve(response);
+  return response;
 };
 
 export const cli = async(command, cacherName) => {
@@ -119,7 +123,8 @@ export const cli = async(command, cacherName) => {
     console.log(message);
     process.exit(0);
   } catch (error) {
-    console.error(`ERROR: ${error.message}`);
+    console.error(utils.errorMessage(error));
+    console.error(error.stack);
     process.exit(1);
   }
 };

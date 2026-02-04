@@ -5,7 +5,9 @@ axios.defaults.adapter = httpAdapter;
 
 import sinon from 'sinon';
 
-import '@/plugins/vue-filters';
+// Required for pg-dependent code
+import { TextEncoder, TextDecoder } from 'util';
+Object.assign(global, { TextDecoder, TextEncoder });
 
 if (global.localStorage) {
   sinon.spy(global.localStorage, 'getItem');
@@ -28,10 +30,11 @@ if (global.navigator.clipboard) {
   };
 }
 
-// Allow using client-only in component tests.
-// https://dev.to/alousilva/how-to-mock-nuxt-client-only-component-with-jest-47da
-import { config } from '@vue/test-utils';
-import clientOnlyMock from './clientOnlyMock';
-
-// Mock Nuxt client-side component
-config.stubs['client-only'] = clientOnlyMock;
+// Used by OpenLayers (ol)
+if (!global.ResizeObserver) {
+  global.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}

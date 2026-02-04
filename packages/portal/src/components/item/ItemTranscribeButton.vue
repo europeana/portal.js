@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      class="transcribe-button icon-transcribe button-icon-only"
+      class="transcribe-button icon-transcribe-outlined button-icon-only"
       data-qa="transcribe button"
       :aria-label="$t('actions.transcribe')"
       @click="$bvModal.show(modalId)"
@@ -68,24 +68,27 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/mixins';
 
 .transcribe-button {
-  font-size: $font-size-medium;
+  font-size: $font-size-large;
   height: 2.25rem;
   max-width: 2.25rem;
   padding: 0.5rem;
   margin-right: 0.5rem;
   position: relative;
   border: none;
+  @include status-indicator;
+
+  &:hover {
+    color: $darkgrey;
+
+    &.icon-transcribe-outlined::before {
+      content: '\e916';
+    }
+  }
 
   &::after {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background-color: $blue;
-    outline: 2px solid $offwhite;
-    border-radius: 50%;
-    position: absolute;
     right: 8px;
     top: 8px;
   }

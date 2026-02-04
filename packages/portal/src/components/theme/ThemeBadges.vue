@@ -20,6 +20,7 @@
         :img="imageUrl(relatedTheme, 28, 28)"
         :image-src-set="imageSrcSet(relatedTheme)"
         badge-variant="outline-primary"
+        :click-event-handler="() => clickEventHandler(relatedTheme.url)"
       />
     </div>
   </div>
@@ -27,6 +28,8 @@
 
 <script>
   import LinkBadge from '@/components/generic/LinkBadge';
+  import themesByIdGraphql from '@/graphql/queries/themesById.graphql';
+  import { isValidUrl, optimisedSrc } from '@/utils/contentful/assets.js';
 
   export default {
     name: 'ThemeBadges',
@@ -59,21 +62,21 @@
     async fetch() {
       if (!this.themes.length) {
         const contentfulVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           identifiers: this.themesIdentifiers
         };
 
-        const contentfulResponse = await this.$contentful.query('themesById', contentfulVariables);
+        const contentfulResponse = await this.$contentful.query(themesByIdGraphql, contentfulVariables);
 
-        this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+        this.themesData = contentfulResponse.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.localePath({
+          url: {
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier
             }
-          }),
+          },
           primaryImageOfPage: theme.primaryImageOfPage
         }));
       }
@@ -88,8 +91,8 @@
 
     methods: {
       imageUrl(theme, imageWidth, imageHeight) {
-        if (this.$contentful.assets.isValidUrl(theme.primaryImageOfPage?.image?.url)) {
-          return this.$contentful.assets.optimisedSrc(
+        if (isValidUrl(theme.primaryImageOfPage?.image?.url)) {
+          return optimisedSrc(
             theme.primaryImageOfPage.image,
             { w: imageWidth, h: imageHeight, fit: 'thumb' }
           );
@@ -97,13 +100,20 @@
       },
 
       imageSrcSet(theme) {
-        if (this.$contentful.assets.isValidUrl(theme.primaryImageOfPage?.image?.url)) {
-          const smallImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = this.$contentful.assets.optimisedSrc(theme.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
+        if (isValidUrl(theme.primaryImageOfPage?.image?.url)) {
+          const smallImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = optimisedSrc(theme.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;
+      },
+
+      clickEventHandler(link) {
+        this.$store.commit('search/setLoggableInteraction', true);
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
+        }
       }
     }
   };

@@ -1,0 +1,6 @@
+CREATE INDEX ix_object_id ON events.actions(object_id);
+CREATE INDEX ix_action_type_id ON events.actions(action_type_id);
+CREATE INDEX ix_session_id ON events.actions(session_id);
+CREATE INDEX ix_occurred_at ON events.actions(occurred_at);
+CREATE INDEX ix_name ON events.action_types(name);
+CREATE INDEX ix_uri ON events.objects(uri);

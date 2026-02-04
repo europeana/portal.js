@@ -1,13 +1,13 @@
 <template>
   <ContentCard
-    :title="dcTitle || item.dcDescriptionLangAware"
-    :url="url"
+    ref="card"
+    :title="title"
+    :url="itemMultiSelect ? '' : url"
     :image-url="imageUrl"
     :texts="texts"
-    :hits-text="hitsText"
+    :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
-    :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
@@ -18,7 +18,10 @@
       v-if="variant === 'list'"
       #footer
     >
-      <div class="data-and-buttons-wrapper d-flex">
+      <div
+        class="data-and-buttons-wrapper d-flex"
+        @click.stop=""
+      >
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"
@@ -32,9 +35,11 @@
         </span>
         <client-only>
           <UserButtons
+            v-if="!itemMultiSelect"
             :identifier="identifier"
             :show-pins="showPins"
             :show-move="showMove"
+            :show-remove="showRemove"
             :button-text="true"
             button-variant="light-flat"
           />
@@ -42,39 +47,61 @@
       </div>
     </template>
     <template
-      v-else
+      v-if="itemMultiSelect"
+      #image-overlay
+    >
+      <ItemSelectCheckbox
+        :identifier="identifier"
+        :title="title"
+      />
+    </template>
+    <template
+      v-else-if="variant !== 'list'"
       #image-overlay
     >
       <client-only>
-        <RecommendationButtons
-          v-if="enableAcceptRecommendation || enableRejectRecommendation"
-          :identifier="identifier"
-          :enable-accept-button="enableAcceptRecommendation"
-          :enable-reject-button="enableRejectRecommendation"
-        />
-        <UserButtons
-          :identifier="identifier"
-          :show-pins="showPins"
-          :show-move="showMove"
-        />
+        <div
+          @click.stop=""
+        >
+          <RecommendationButtons
+            v-if="enableAcceptRecommendation || enableRejectRecommendation"
+            :identifier="identifier"
+            :enable-accept-button="enableAcceptRecommendation"
+            :enable-reject-button="enableRejectRecommendation"
+          />
+          <UserButtons
+            v-else
+            :identifier="identifier"
+            :show-pins="showPins"
+            :show-move="showMove"
+            :show-remove="showRemove"
+          />
+        </div>
       </client-only>
     </template>
   </ContentCard>
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
 
   export default {
     name: 'ItemPreviewCard',
 
     components: {
       ContentCard,
+      ItemSelectCheckbox: () => import('./ItemSelectCheckbox'),
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../account/UserButtons'),
-      RightsStatement: () => import('../generic/RightsStatement')
+      RightsStatement: () => import('../generic/RightsStatement'),
+      UserButtons: () => import('../user/UserButtons')
+    },
+
+    inject: {
+      itemMultiSelect: {
+        default: false
+      }
     },
 
     props: {
@@ -87,7 +114,7 @@
         required: true
       },
       /**
-       * Hits from a search to highlight in the item description
+       * Hit from a search to highlight in the item description
        * Only used on list variant
        */
       hitSelector: {
@@ -96,7 +123,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, mosaic, list, explore
+       * @values default, entity, mini, mosaic, list
        */
       variant: {
         type: String,
@@ -124,6 +151,13 @@
         default: false
       },
       /**
+       * If `true`, remove button will be rendered
+       */
+      showRemove: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * If `true`, accept recommendation (thumb up) button will be rendered
        */
       enableAcceptRecommendation: {
@@ -143,27 +177,58 @@
       offset: {
         type: Number,
         default: null
+      },
+      /**
+       * Event listener to call when item receives `click` event
+       *
+       * Listener will receive item ID as argument
+       */
+      onClickCard: {
+        type: Function,
+        default: null
+      },
+      /**
+       * Event listener to call when item receives `auxclick` event
+       *
+       * Listener will receive item ID as argument
+       */
+      onAuxClickCard: {
+        type: Function,
+        default: null
+      },
+      /**
+       * Hash to include in router link to item
+       */
+      routeHash: {
+        type: String,
+        default: undefined
+      },
+      /**
+       * Query to include in router link to item
+       */
+      routeQuery: {
+        type: [Object, String],
+        default: undefined
       }
     },
 
     computed: {
       dcTitle() {
-        return this.unpublishedItem ?
-          { [this.$i18n.locale]: [this.$t('record.status.unpublished')] } :
+        return this.depublishedItem ?
+          { [this.$i18n.locale]: [this.$t('record.status.depublished')] } :
           this.item.dcTitleLangAware;
       },
 
-      unpublishedItem() {
+      title() {
+        return this.dcTitle || this.item.dcDescriptionLangAware;
+      },
+
+      depublishedItem() {
         const itemProperties = Object.keys(this.item);
         return (itemProperties.length === 1) && (itemProperties[0] === 'id');
       },
 
       texts() {
-        const textlessVariants = ['explore', 'mosaic'];
-        if (textlessVariants.includes(this.variant)) {
-          return [];
-        }
-
         const texts = [];
         if (this.variant === 'list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
@@ -179,7 +244,7 @@
         return texts;
       },
 
-      hitsText() {
+      hitText() {
         return this.variant === 'list' ? this.hitSelector : null;
       },
 
@@ -188,7 +253,12 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+        return {
+          hash: this.routeHash,
+          name: 'item-all',
+          params: { pathMatch: this.identifier.slice(1) },
+          query: this.routeQuery
+        };
       },
 
       imageUrl() {
@@ -206,6 +276,15 @@
       type() {
         return this.item.type;
       }
+    },
+
+    mounted() {
+      if (this.onClickCard) {
+        this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
+      }
+      if (this.onAuxClickCard) {
+        this.$refs.card.$el.addEventListener('auxclick', () => this.onAuxClickCard(this.identifier));
+      }
     }
   };
 </script>
@@ -214,98 +293,99 @@
   Variant "default":
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
   />
   ```
   Variant "default" for editors with pinning enabled:
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :showPins="true"
   />
   ```
   Variant "default" with accept and reject recommendations enabled:
   ```jsx
   <ItemPreviewCard
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :enableAcceptRecommendation="true"
     :enableRejectRecommendation="true"
   />
+  ```
+  Variant "default" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+          />
+        </div>
+      `
+    });
   ```
   Variant "list":
   ```jsx
   <ItemPreviewCard
     variant="list"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
   />
   ```
   Variant "list" for editors with pinning enabled:
   ```jsx
   <ItemPreviewCard
     variant="list"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    :item="itemPreviewCardData"
     :showPins="true"
   />
   ```
-    Variant "explore":
+  Variant "list" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="list"
+          />
+        </div>
+      `
+    });
+  ```
+  Variant "mosaic":
   ```jsx
   <ItemPreviewCard
-    variant="explore"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+    variant="mosaic"
+    :item="itemPreviewCardData"
   />
+  ```
+  Variant "mosaic" for editors with pinning enabled:
+  ```jsx
+  <ItemPreviewCard
+    variant="mosaic"
+    :item="itemPreviewCardData"
+    :showPins="true"
+  />
+  ```
+  Variant "mosaic" in select state:
+  ```js
+    new Vue({
+      provide() {
+        return { itemMultiSelect: true };
+      },
+      template: `
+        <div>
+          <ItemPreviewCard
+            :item="itemPreviewCardData"
+            variant="mosaic"
+          />
+        </div>
+      `
+    });
   ```
 </docs>

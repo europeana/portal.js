@@ -1,8 +1,10 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip.bottom
       v-b-modal.set-publication-request-modal
       class="text-decoration-none text-nowrap h-100"
+      :title="$t('account.tooltip.published')"
     >
       {{ $t('actions.submitForPublication') }}
     </b-button>
@@ -13,11 +15,39 @@
       hide-header-close
       hide-footer
     >
-      <p>{{ $t('set.publication.description') }}</p>
+      <i18n
+        path="set.publication.description"
+        tag="p"
+      >
+        <template #galleries>
+          <b-link
+            :to="localePath('/galleries')"
+            :target="null"
+          >
+            {{ $t('set.publication.galleries') }}<!-- This comment removes white space
+                  -->
+          </b-link>
+        </template>
+      </i18n>
       <h3>{{ $t('set.publication.process.title') }}</h3>
-      <p>{{ $t('set.publication.process.description') }}</p>
+      <i18n
+        path="set.publication.process.description"
+        tag="p"
+      >
+        <template #guidelines>
+          <b-link
+            :to="localePath('/create-and-use-a-europeana-account')"
+            :target="null"
+          >
+            {{ $t('set.publication.process.guidelines') }}<!-- This comment removes white space
+                  -->
+          </b-link>
+        </template>
+      </i18n>
       <h3>{{ $t('set.publication.time.title') }}</h3>
       <p>{{ $t('set.publication.time.description') }}</p>
+      <h3>{{ $t('set.publication.criteria.title') }}</h3>
+      <p>{{ $t('set.publication.criteria.description') }}</p>
 
       <div class="modal-footer">
         <b-button
@@ -52,7 +82,7 @@
       solid
       toast-class="brand-toast-white"
       append-toast
-      toaster="b-toaster-bottom-left-dynamic"
+      toaster="b-toaster-bottom-left"
     >
       <i18n
         path="set.publication.toastMessage"
@@ -62,6 +92,7 @@
           <b-link
             class="text-decoration-none"
             :to="localePath('/galleries')"
+            :target="null"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>
@@ -79,7 +110,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import axios from 'axios';
 
   export default {
@@ -148,7 +179,7 @@
     }
 
     p {
-      color: $mediumgrey;
+      color: $darkgrey;
 
       &.request-failed {
         font-size: $font-size-small;
@@ -162,11 +193,6 @@
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: $font-size-base;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-      }
     }
   }
 </style>

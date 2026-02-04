@@ -20,16 +20,17 @@
         :img="$apis.entity.imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
+        :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
       />
     </div>
   </div>
 </template>
 
 <script>
+  import pick from 'lodash/pick.js';
+
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-
-  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
-
+  import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
@@ -40,8 +41,7 @@
     },
 
     mixins: [
-      collectionLinkGenMixin,
-      europeanaEntityLinks
+      collectionLinkGenMixin
     ],
 
     props: {
@@ -83,13 +83,8 @@
 
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
-        const entities = await this.$apis.entity.find(this.entityUris, {
-          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
-        });
-
-        if (entities)  {
-          this.collections = entities;
-        }
+        const entities = await this.$apis.entity.find(this.entityUris);
+        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
       this.$emit('fetched');
@@ -104,10 +99,17 @@
     },
 
     methods: {
+      collectionTitle,
       draw() {
         this.$nextTick(() => {
           this.$redrawVueMasonry?.();
         });
+      },
+      clickEventHandler(link) {
+        this.$store.commit('search/setLoggableInteraction', true);
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
+        }
       }
     }
   };
@@ -115,6 +117,12 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+
+  .badges-wrapper {
+    a {
+      max-width: 100%;
+    }
+  }
 
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;

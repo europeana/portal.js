@@ -1,7 +1,6 @@
 <template>
   <div
     data-qa="error page"
-    class="white-page"
   >
     <ErrorMessage
       data-qa="error message container"

@@ -1,5 +1,4 @@
-import { oEmbeddable } from '../../oembed/index.js';
-import thumbnail from  '../thumbnail.js';
+import { oEmbeddable } from '@/utils/services/oembed.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 import Base from './Base.js';
 
@@ -30,10 +29,8 @@ const EDM_TYPE_SOUND = 'SOUND';
 const EDM_TYPE_VIDEO = 'VIDEO';
 const EDM_TYPE_TEXT = 'TEXT';
 
-const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 const HTML_AUDIO_MEDIA_TYPES = [MEDIA_TYPE_AUDIO_FLAC, MEDIA_TYPE_AUDIO_OGG, MEDIA_TYPE_AUDIO_MPEG];
-
-const IIIF_DISPLAYABLE_MEDIA_TYPES = [
+const HTML_IMAGE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_BMP,
   MEDIA_TYPE_IMAGE_GIF,
   MEDIA_TYPE_IMAGE_JPEG,
@@ -41,6 +38,7 @@ const IIIF_DISPLAYABLE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_SVG_XML,
   MEDIA_TYPE_IMAGE_WEBP
 ];
+const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 
 export default class WebResource extends Base {
   static fields = [
@@ -50,11 +48,11 @@ export default class WebResource extends Base {
     'ebucoreHeight',
     'ebucoreWidth',
     'edmCodecName',
+    'forEdmIsShownAt',
     'isNextInSequence',
+    'preview',
     'rdfType',
     'svcsHasService',
-    'thumbnail',
-    'forEdmIsShownAt',
     'webResourceEdmRights'
   ];
 
@@ -75,24 +73,11 @@ export default class WebResource extends Base {
   }
 
   get hasTextMediaType() {
-    return this.mediaType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || (this.mediaType === MEDIA_TYPE_APPLICATION_PDF);
+    return this.mediaType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || this.isPDF;
   }
 
   get mediaType() {
     return this.ebucoreHasMimeType;
-  }
-
-  // TODO: refactor as a getter, not requiring passing Nuxt context,
-  //       or move out into Nuxt mixin?
-  thumbnails(context) {
-    const thumbnailUrl = thumbnail(context).media;
-
-    const uri = this.thumbnail || this.about;
-
-    return {
-      small: thumbnailUrl(uri, { size: 200 }),
-      large: thumbnailUrl(uri, { size: 400 })
-    };
   }
 
   get codecName() {
@@ -114,6 +99,32 @@ export default class WebResource extends Base {
     }
   }
 
+  get imageMegaPixels() {
+    if (!this.hasImageMediaType) {
+      return undefined;
+    }
+    if (!this.ebucoreWidth || !this.ebucoreHeight) {
+      return undefined;
+    }
+    return (this.ebucoreWidth * this.ebucoreHeight) / 1000000;
+  }
+
+  get imageSize() {
+    const mp = this.imageMegaPixels;
+
+    if (mp > 4) {
+      return 'extra_large';
+    } else if (mp > 1) {
+      return 'large';
+    } else if (mp > 0.5) {
+      return 'medium';
+    } else if (mp > 0) {
+      return 'small';
+    } else {
+      return undefined;
+    }
+  }
+
   get isHTMLVideo() {
     return this.mediaType && (
       HTML_VIDEO_MEDIA_TYPES.includes(this.mediaType) ||
@@ -125,8 +136,16 @@ export default class WebResource extends Base {
     return this.mediaType && HTML_AUDIO_MEDIA_TYPES.includes(this.mediaType);
   }
 
+  get isHTMLImage() {
+    return this.mediaType && HTML_IMAGE_MEDIA_TYPES.includes(this.mediaType);
+  }
+
   get isOEmbed() {
     return oEmbeddable(this.id);
+  }
+
+  get isPDF() {
+    return this.mediaType === MEDIA_TYPE_APPLICATION_PDF;
   }
 
   get isPlayableMedia() {
@@ -134,7 +153,12 @@ export default class WebResource extends Base {
       this.isHTMLAudio || this.isHTMLVideo ||
       (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML)
     ) ||
-      this.id?.startsWith('http://www.euscreen.eu/item.html') || false;
+      this.isEUScreenMedia || false;
+  }
+
+  get isEUScreenMedia() {
+    return this.id?.startsWith('http://www.euscreen.eu/item.html') ||
+      this.id?.startsWith('https://www.euscreen.eu/item.html') || false;
   }
 
   get isRichMedia() {
@@ -150,7 +174,7 @@ export default class WebResource extends Base {
 
   isDisplayableByIIIFPresentationManifest(iiifPresentationManifest) {
     return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest) &&
-      IIIF_DISPLAYABLE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
+      HTML_IMAGE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
   }
 
   get requiresDashJS() {

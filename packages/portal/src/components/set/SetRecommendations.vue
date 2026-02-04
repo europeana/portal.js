@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup';
 
   export default {
     name: 'SetRecommendations',
@@ -88,7 +88,7 @@
   @import '@europeana/style/scss/variables';
 
   .recommendations h2 {
-    color: $mediumgrey;
+    color: $darkgrey;
     font-size: $font-size-medium;
   }
 </style>

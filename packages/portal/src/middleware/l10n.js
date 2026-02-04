@@ -10,33 +10,28 @@
 const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
-import localeCodes from '../plugins/i18n/codes';
+import { codes as localeCodes } from '@europeana/i18n';
+import { exclude as i18nRoutesExclude } from '../i18n/routes.js';
 
 function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
 }
 
-const localiseRoute = ({ route, req, redirect, app, res }) => {
+const localiseRoute = ({ route, req, res, redirect, app }) => {
   if (app.$apm && process.server) {
     app.$apm.setTransactionName(`${req.method} [l10n]`);
   }
+
   if (process.server && res) {
-    const vary = res.getHeader('vary');
-    if (vary) {
-      res.setHeader('vary', `${vary}, Accept-Language`);
-    } else {
-      res.setHeader('vary', 'Accept-Language');
-    }
+    res.setHeader('Vary', [res.getHeader('Vary'), 'Accept-Language'].filter(Boolean).join(', '));
   }
+
   redirect(route);
 };
 
 export default ({ app, route, redirect, req, res }) => {
-  // Exit early if this is an auth callback
-  if (app.$auth && [
-    app.$auth.options.redirect.callback,
-    '/account/logout'
-  ].includes(route.path)) {
+  // Exit early if route path is excluded from i18n
+  if (i18nRoutesExclude.includes(route.path)) {
     return;
   }
 
@@ -59,6 +54,7 @@ export default ({ app, route, redirect, req, res }) => {
           query: route.query
         },
         req,
+        res,
         redirect,
         app,
         res
@@ -96,6 +92,7 @@ export default ({ app, route, redirect, req, res }) => {
       query: route.query
     },
     req,
+    res,
     redirect,
     app,
     res

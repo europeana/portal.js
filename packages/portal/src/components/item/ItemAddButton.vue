@@ -1,30 +1,45 @@
 <template>
   <div>
     <b-button
+      :id="`item-add-button-${idSuffix}`"
+      ref="itemAddButton"
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
+      :disabled="disabled"
       :variant="buttonVariant"
-      :aria-label="$t('set.actions.addTo')"
+      :aria-label="tooltipTitle"
       @click="addToSet"
+      @focus="showTooltip = true"
+      @mouseover="showTooltip = true"
     >
-      <span class="icon-ic-add" />
+      <span class="icon-add-circle-outlined" />
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
+    <b-tooltip
+      data-qa="add button tooltip"
+      :show.sync="showTooltip"
+      :target="`item-add-button-${idSuffix}`"
+      placement="bottom"
+      @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
+    >
+      {{ tooltipTitle }}
+    </b-tooltip>
     <template
       v-if="$auth.loggedIn"
     >
-      <AddItemToSetModal
+      <SetAddItemModal
+        v-if="showAddItemModal"
+        v-model="showAddItemModal"
         data-qa="add item to set modal"
-        :modal-id="addItemToSetModalId"
-        :item-id="identifier"
+        :item-ids="identifiers"
         :new-set-created="newSetCreated"
         @clickCreateSet="clickCreateSet"
-        @hideModal="refreshSet"
+        @input="handleModalInput"
       />
       <SetFormModal
         :modal-id="setFormModalId"
-        :item-context="identifier"
+        :item-ids="identifiers"
         @response="setCreatedOrUpdated"
       />
     </template>
@@ -32,28 +47,30 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
-  import AddItemToSetModal from '../set/AddItemToSetModal';
+  import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
+  import { useCardinality } from '@/composables/cardinality.js';
 
   export default {
     name: 'ItemAddButton',
 
     components: {
-      AddItemToSetModal,
+      SetAddItemModal,
       SetFormModal
     },
 
-    mixins: [
-      keycloak
-    ],
+    inject: {
+      fetchCurrentSet: {
+        default: null
+      }
+    },
 
     props: {
       /**
-       * Identifier of the item
+       * Identifier(s) of the item
        */
-      identifier: {
-        type: String,
+      identifiers: {
+        type: [String, Array],
         required: true
       },
       /**
@@ -72,13 +89,34 @@
       }
     },
 
+    setup(props) {
+      const { cardinality } = useCardinality(props.identifiers);
+      return { cardinality };
+    },
+
     data() {
+      const idSuffix = Array.isArray(this.identifiers) ? 'multi-select' : this.identifiers;
+
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
-        setFormModalId: `set-form-modal-${this.identifier}`,
+        idSuffix,
+        newSetCreated: false,
+        setFormModalId: `set-form-modal-${idSuffix}`,
+        showAddItemModal: false,
         showFormModal: false,
-        newSetCreated: false
+        showTooltip: false
       };
+    },
+
+    computed: {
+      disabled() {
+        return this.selectionCount === 0;
+      },
+      selectionCount() {
+        return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
+      },
+      tooltipTitle() {
+        return this.$tc(`set.actions.addItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
+      }
     },
 
     methods: {
@@ -86,28 +124,49 @@
         if (this.showFormModal === false) {
           this.showFormModal = true;
           this.newSetCreated = false;
-          this.$bvModal.hide(this.addItemToSetModalId);
+          this.showAddItemModal = false;
           this.$bvModal.show(this.setFormModalId);
         }
       },
       setCreatedOrUpdated() {
         this.showFormModal = false;
         this.newSetCreated = true;
-        this.$bvModal.show(this.addItemToSetModalId);
+        this.showAddItemModal = true;
       },
       refreshSet() {
         if (!this.showFormModal) {
-          this.$store.dispatch('set/refreshSet');
+          this.fetchCurrentSet?.();
         }
       },
       addToSet() {
         if (this.$auth.loggedIn) {
-          this.$bvModal.show(this.addItemToSetModalId);
-          this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
+          this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
+          this.showAddItemModal = true;
+          for (const id of [].concat(this.identifiers)) {
+            this.$matomo?.trackEvent('Item_add', 'Click add item button', id);
+          }
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
+        }
+      },
+      handleModalInput(value) {
+        this.showAddItemModal = value;
+        if (!value) {
+          this.refreshSet();
+          // Sets focus back to the toggle button, as this functionality is lost when opening the SetFormModal.
+          this.$refs.itemAddButton.focus();
+          // Do not show the tooltip when focus returns to button.
+          this.showTooltip = false;
         }
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .add-button:hover {
+    .icon-add-circle-outlined::before {
+      content: '\e907';
+    }
+  }
+</style>

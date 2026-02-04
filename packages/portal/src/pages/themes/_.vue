@@ -1,18 +1,12 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page xxl-page"
+    class="page xxl-page"
   >
-    <b-container
+    <LoadingSpinner
       v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
+      class="flex-md-row py-4 text-center"
+    />
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
@@ -25,7 +19,7 @@
       <ContentHeader
         :title="name"
         :description="description"
-        :media-url="shareMediaUrl"
+        :media-url="pageMetaOgImage"
         button-variant="secondary"
         class="half-col"
       />
@@ -89,6 +83,7 @@
             <CallToActionBanner
               v-if="callToAction"
               :name="callToAction.name"
+              :name-english="callToAction.nameEN"
               :text="callToAction.text"
               :link="callToAction.relatedLink"
               :illustration="callToAction.image"
@@ -123,7 +118,11 @@
               v-if="dailySetOfCuratedItems"
               class="mb-5"
             >
-              <h2>{{ curatedItems.headline }}</h2>
+              <h2
+                class="card-group-title"
+              >
+                {{ curatedItems.headline }}
+              </h2>
               <ItemPreviewCardGroup
                 :items="dailySetOfCuratedItems"
                 view="grid"
@@ -144,25 +143,29 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
-  import pageMetaMixin from '@/mixins/pageMeta';
+  import ClientOnly from 'vue-client-only';
+
+  import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import themePageGraphql from '@/graphql/queries/themePage.graphql';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'ThemePage',
 
     components: {
-      ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
+      ClientOnly,
+      ContentHeader,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       EntityCardGroup: () => import('@/components/entity/EntityCardGroup'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      LoadingSpinner,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
-      SmartLink: () => import('@/components/generic/SmartLink'),
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      LoadingSpinner
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [pageMetaMixin],
@@ -182,14 +185,14 @@
 
     async fetch() {
       const variables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         identifier: this.$route.params.pathMatch,
         preview: this.$route.query.mode === 'preview'
       };
 
       try {
-        const response = await this.$contentful.query('themePage', variables);
-        const theme = response.data.data.themePage?.items?.[0];
+        const response = await this.$contentful.query(themePageGraphql, variables);
+        const theme = response.data.themePage?.items?.[0];
 
         if (theme?.identifier) {
           this.identifier = theme.identifier;
@@ -226,12 +229,9 @@
           title: this.name,
           description: this.description,
           ogType: 'article',
-          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImage: this.primaryImageOfPage?.image,
           ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
-      },
-      shareMediaUrl() {
-        return this.primaryImageOfPage?.image?.url;
       },
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
@@ -293,27 +293,13 @@
 
   .page {
     padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
 
     @media (min-width: $bp-4k) {
       padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
     }
 
-    ::v-deep h2:not(.related-heading) {
-      color: $mediumgrey;
-      font-weight: 600;
-      font-size: $font-size-medium;
-
-      @media (min-width: $bp-small) {
-        font-size: $font-size-large;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
-      }
+    ::v-deep .content-header .divider {
+      margin-bottom: 1.75rem;
     }
   }
 

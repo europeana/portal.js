@@ -5,11 +5,11 @@
   >
     <SearchInterface
       id="search-interface"
-      :override-params="searchOverrides"
+      :default-params="searchOverrides"
     >
       <template
         v-if="!!searchQuery"
-        #related-galleries
+        #card-group-related-galleries
       >
         <client-only>
           <RelatedGalleries
@@ -22,7 +22,7 @@
       </template>
       <template
         v-if="!!searchQuery"
-        #related-collections
+        #card-group-related-collections
       >
         <client-only>
           <RelatedCollectionsCard
@@ -59,10 +59,10 @@
 
     components: {
       ClientOnly,
-      SearchInterface,
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
-      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
+      SearchInterface
     },
 
     mixins: [pageMetaMixin],
@@ -72,8 +72,6 @@
       this.$store.commit('search/setShowSearchBar', false);
       next();
     },
-
-    middleware: 'sanitisePageQuery',
 
     data() {
       return {
@@ -93,7 +91,7 @@
       },
       searchOverrides() {
         const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
-        return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
+        return this.searchQuery ? {} : { sort };
       }
     },
 
@@ -120,6 +118,8 @@
 </script>
 
 <style lang="scss" scoped>
+@import '@europeana/style/scss/variables';
+
 h1 {
   font-size: 1.875rem;
   font-weight: 300;
@@ -129,9 +129,5 @@ h1 {
   span {
     font-weight: 600;
   }
-}
-
-.page-container {
-  max-width: none;
 }
 </style>

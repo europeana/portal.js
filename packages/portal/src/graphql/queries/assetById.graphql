@@ -1,0 +1,7 @@
+#import "../fragments/imageFields.graphql"
+
+query Asset($id: String!){
+  asset (id: $id) {
+    ...imageFields
+  }
+}

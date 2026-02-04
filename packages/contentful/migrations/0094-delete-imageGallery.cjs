@@ -1,5 +1,7 @@
-const purgeContentType = require('../src/utils.cjs').purgeContentType;
+const deleteContentEntries = require('../src/utils/deleteContentEntries.cjs');
 
 module.exports = async function (migration, context) {
-  await purgeContentType('imageGallery', migration, context);
+  await deleteContentEntries('imageGallery', migration, context);
+
+  migration.deleteContentType('imageGallery');
 };

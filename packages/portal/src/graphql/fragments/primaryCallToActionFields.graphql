@@ -1,0 +1,14 @@
+#import "./illustrationFields.graphql"
+
+fragment primaryCallToActionFields on PrimaryCallToAction {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  relatedLink {
+    url
+    text
+  }
+  image {
+    ...illustrationFields
+  }
+}
