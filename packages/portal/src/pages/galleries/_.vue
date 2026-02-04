@@ -196,6 +196,12 @@
       this.clearSelectedItems();
       next();
     },
+    middleware: [
+      // TODO: should ideally permit caching, with client-only used for user-specific
+      //       dynamic aspects, but on this page that's complicated with all the
+      //       user ownership & role variations, so deferred for now
+      'cache-control-private'
+    ],
     setup() {
       const { scrollToSelector } = useScrollTo();
       const { clear: clearSelectedItems } = useSelectedItems();

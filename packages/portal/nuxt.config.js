@@ -304,6 +304,7 @@ export default {
     '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/keycloak',
     '~/plugins/axios-logger',
@@ -405,6 +406,11 @@ export default {
 
   router: {
     middleware: [
+      // Early middlewares to apply always
+      'no-ssr-cookies',
+      'cache-control-public',
+      // Redirection-related middlewares next
+      //
       // legacy portal redirects MUST go first as they may already include locale
       // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',

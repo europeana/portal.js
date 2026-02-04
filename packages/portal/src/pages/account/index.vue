@@ -157,7 +157,10 @@
       next();
     },
 
-    middleware: 'auth',
+    middleware: [
+      'auth',
+      'cache-control-private'
+    ],
 
     setup() {
       const tabHashes = [

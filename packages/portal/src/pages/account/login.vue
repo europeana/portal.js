@@ -8,6 +8,10 @@
 
     layout: 'minimal',
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     mounted() {
       this.$keycloak.login();
     }
