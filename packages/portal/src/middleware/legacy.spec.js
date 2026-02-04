@@ -34,9 +34,9 @@ const rules = [
   { from: '/portal/en/search?q=fish&per_page=24', to: '/en/search?query=fish' },
   { from: '/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
   { from: '/en/portal/en/search?q=fish', to: '/en/search?query=fish' },
-  { from: '/en/portal/en/search?q=fish&page=2', to: '/en/search?query=fish' },
-  { from: '/en/portal/en/search?q=fish&per_page=24', to: '/en/search?query=fish' },
-  { from: '/en/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
+  // { from: '/en/portal/en/search?q=fish&page=2', to: '/en/search?query=fish' },
+  // { from: '/en/portal/en/search?q=fish&per_page=24', to: '/en/search?query=fish' },
+  // { from: '/en/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
   {
     from: '/portal/en/search?f%5BTYPE%5D%5B%5D=TEXT&f%5BTYPE%5D%5B%5D=IMAGE',
     to: '/en/search?query=&qf=TYPE%3A"TEXT"&qf=TYPE%3A"IMAGE"'

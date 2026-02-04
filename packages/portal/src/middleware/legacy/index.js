@@ -39,7 +39,7 @@ const pathStartsWithLocaleThenPortal = (path) => {
   return path.slice(3, 10) === '/portal' && (path.length === 10 || path.slice(10, 11) === '/');
 };
 const pathStartsWithLocaleThenPortalAndSecondLocale = (path) => {
-  return pathStartsWithLocaleThenPortal(path) && path.slice(10, 11) === '/' && path.slice(12, 13) === '/';
+  return pathStartsWithLocaleThenPortal(path) && (path.slice(10, 11) === '/') && (path.slice(13, 14) === '/');
 };
 
 const pathStartsWithPortal = (path) => {
@@ -73,7 +73,7 @@ export default ({ redirect, route, query, req, app }) => {
   // redirect e.g. /en/portal/about to /en/about
   // redirect e.g. /en/portal/en/about to /en/about
   if (pathStartsWithLocaleThenPortal(route.path)) {
-    const sliceAmount = pathStartsWithLocaleThenPortalAndSecondLocale ? 12 : 10;
+    const sliceAmount = pathStartsWithLocaleThenPortalAndSecondLocale(route.path) ? 13 : 10;
     updateRoute({
       status: 301,
       route: {
