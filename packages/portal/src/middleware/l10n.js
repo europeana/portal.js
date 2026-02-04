@@ -56,8 +56,7 @@ export default ({ app, route, redirect, req, res }) => {
         req,
         res,
         redirect,
-        app,
-        res
+        app
       });
       return;
     }
@@ -94,7 +93,6 @@ export default ({ app, route, redirect, req, res }) => {
     req,
     res,
     redirect,
-    app,
-    res
+    app
   });
 };
