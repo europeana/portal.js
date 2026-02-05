@@ -23,14 +23,11 @@
   import { useCardinality } from '@/composables/cardinality.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import { useLogEvent } from '@/composables/logEvent.js';
-  import { useLikedItems } from '@/composables/likedItems.js';
   import useMakeToast from '@/composables/makeToast.js';
   import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemLikeButton',
-
-    inject: ['likedItems'],
 
     props: {
       /**
@@ -65,8 +62,6 @@
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      // const { liked, like, unlike } = useLikedItems(props.identifiers);
-
       return { buttonId, cardinality, hideTooltips, logEvent, makeToast };
     },
 
@@ -82,7 +77,7 @@
       },
       liked() {
         return [].concat(this.identifiers)
-          .every((itemId) => this.likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
+          .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
       },
       likeButtonText() {
         if (this.buttonText) {
@@ -115,14 +110,12 @@
     },
 
     created() {
-      // console.log('[ItemLikeButton] created', this.identifiers)
-      this.likedItems.register(this.identifiers);
-      // this.pressed = this.liked;
+      this.$likedItems.watch(this.identifiers);
+      this.pressed = this.liked;
     },
 
     beforeDestroy() {
-      // console.log('[ItemLikeButton] beforeDestroy', this.identifiers)
-      this.likedItems.unregister(this.identifiers);
+      this.$likedItems.unwatch(this.identifiers);
     },
 
     methods: {
@@ -142,7 +135,7 @@
       },
 
       async handleLike() {
-        await this.likedItems.like(this.identifiers);
+        await this.$likedItems.like(this.identifiers);
         this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
 
         for (const id of [].concat(this.identifiers)) {
@@ -152,7 +145,7 @@
       },
 
       async handleUnlike() {
-        await this.likedItems.unlike(this.identifiers);
+        await this.$likedItems.unlike(this.identifiers);
 
         this.makeToast(this.unlikeToastMessage);
       }

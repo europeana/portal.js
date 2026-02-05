@@ -59,13 +59,11 @@
 </template>
 
 <script>
-  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
 
   import PageHeader from '@/components/page/PageHeader';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
-  import { useLikedItems } from '@/composables/likedItems.js';
   import useMakeToast from '@/composables/makeToast.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
@@ -85,20 +83,10 @@
       ErrorModal
     },
 
-    provide() {
-      return {
-        likedItems: {
-          ...this.likedItems,
-          liked: computed(() => this.likedItems.liked.value)
-        }
-      };
-    },
-
     setup() {
-      const likedItems = useLikedItems();
       const { makeToast } = useMakeToast();
 
-      return { likedItems, makeToast };
+      return { makeToast };
     },
 
     data() {

@@ -25,6 +25,7 @@
   import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import useScrollTo from '@/composables/scrollTo.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
 
   export default {
     name: 'UserLikes',
@@ -36,8 +37,9 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
+      const { clear: clearSelectedItems } = useSelectedItems();
 
-      return { scrollToSelector };
+      return { clearSelectedItems, scrollToSelector };
     },
 
     data() {
@@ -48,8 +50,9 @@
       };
     },
 
-    fetch() {
-      this.fetchLikes();
+    async fetch() {
+      await this.fetchLikes();
+      await this.$nextTick(); // so that items are updated before loading prop passed to ItemPreviewInterface
     },
 
     watch: {
@@ -59,9 +62,15 @@
       }
     },
 
+    created() {
+      this.$likedItems.on('like', this.$fetch);
+      this.$likedItems.on('unlike', this.$fetch);
+    },
+
     beforeDestroy() {
-      // FIXME: use selectedItems composable fn
-      this.$store.commit('set/setSelected', []);
+      this.clearSelectedItems();
+      this.$likedItems.off('like', this.$fetch);
+      this.$likedItems.off('unlike', this.$fetch);
     },
 
     methods: {
