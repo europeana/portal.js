@@ -126,8 +126,12 @@
     }
 
     ::v-deep .card-deck-4-cols .card {
+      @media (min-width: $bp-wqhd) {
+        flex-basis: calc(100% / 4 - #{$grid-gutter * 2})
+      }
+
       @media (min-width: $bp-4k) {
-        flex-basis: 25%;
+        flex-basis: calc(100% / 4 - #{$grid-gutter-4k * 2});
       }
 
       .card-body {
