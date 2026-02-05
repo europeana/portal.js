@@ -165,7 +165,7 @@
         return this.contentfulEntryHasContentType(section, 'LandingSubSection') || this.contentfulEntryHasContentType(section, 'CardGroup');
       },
 
-      addClassesToSections(acc, section, index) {
+      addClassesToSections(memo, section, index) {
         const sectionBackground = section.profile?.background || section.image?.profile?.background;
         const classes = [];
 
@@ -181,7 +181,7 @@
 
         // add alternate background to landing sub section and card group when preceding section has no background
         if (this.variant === 'pro' && this.isSubSectionOrCardGroup(section)) {
-          const prev = acc[index - 1];
+          const prev = memo[index - 1];
 
           // subsequent card group follows background style of preceding card group
           const subsequentCardGroup = this.contentfulEntryHasContentType(section, 'CardGroup') && this.contentfulEntryHasContentType(prev, 'CardGroup');
@@ -194,12 +194,12 @@
           }
         }
 
-        acc.push({
+        memo.push({
           ...section,
           classes
         });
 
-        return acc;
+        return memo;
       }
     }
   };
