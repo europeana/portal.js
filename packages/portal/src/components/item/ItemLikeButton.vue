@@ -106,6 +106,10 @@
     watch: {
       liked() {
         this.pressed = this.liked;
+      },
+      identifiers(newVal, oldVal) {
+        this.$likedItems.watch(newVal);
+        this.$likedItems.unwatch(oldVal);
       }
     },
 

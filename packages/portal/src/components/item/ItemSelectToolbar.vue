@@ -39,6 +39,7 @@
         class="ml-2"
       />
       <ItemLikeButton
+        :identifiers="selected"
         button-variant="dark-flat"
         class="ml-2"
       />
