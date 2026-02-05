@@ -716,6 +716,14 @@ export default {
       "name": "Mentions de droit",
       "select": "Sélectionnez les déclarations de droits"
     },
+    "sort": {
+      "name": "Trier par",
+      "options": {
+        "proxy_dcterms_issued+asc": "Date d’émission (de la plus ancienne à la plus récente)",
+        "proxy_dcterms_issued+desc": "Date d’émission (plus récentes en premier)"
+      },
+      "select": "Sélectionnez le mode de tri des résultats"
+    },
     "TYPE": {
       "name": "Type de support",
       "options": {

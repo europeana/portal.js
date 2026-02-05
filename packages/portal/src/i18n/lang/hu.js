@@ -716,6 +716,14 @@ export default {
       "name": "Szerzői jogok",
       "select": "Szerzői jogok kiválasztása"
     },
+    "sort": {
+      "name": "Rendezés",
+      "options": {
+        "proxy_dcterms_issued+asc": "Kibocsátás dátuma (a legrégebbitől elöl)",
+        "proxy_dcterms_issued+desc": "Kibocsátás dátuma (újak elöl)"
+      },
+      "select": "Válassza ki az eredmények rendezésének módját"
+    },
     "TYPE": {
       "name": "Adathordozó típusa",
       "options": {

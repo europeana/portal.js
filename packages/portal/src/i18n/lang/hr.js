@@ -716,6 +716,14 @@ export default {
       "name": "Uvjeti korištenja",
       "select": "Odaberite izjave o pravima"
     },
+    "sort": {
+      "name": "Sortiraj po",
+      "options": {
+        "proxy_dcterms_issued+asc": "Datum izdavanja (najstariji prvo)",
+        "proxy_dcterms_issued+desc": "Datum izdavanja (noviji prvo)"
+      },
+      "select": "Odaberite način sortiranja rezultata"
+    },
     "TYPE": {
       "name": "Vrsta medija",
       "options": {

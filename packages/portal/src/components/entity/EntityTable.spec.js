@@ -29,12 +29,13 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
 
 const middlewarePath = '/_api/cache/en/collections/organisations';
 const collections = [
-  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
-  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
+  { id: 'http://data.europeana.eu/organization/001', slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
+  { id: 'http://data.europeana.eu/organization/002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
 ];
 
 const organisations = [
   {
+    id: 'http://data.europeana.eu/organization/001',
     slug: '001-museum',
     prefLabel: 'museum',
     prefLabelLang: 'de',
@@ -43,6 +44,7 @@ const organisations = [
     countryPrefLabel: 'Deutschland'
   },
   {
+    id: 'http://data.europeana.eu/organization/002',
     slug: '002-library',
     prefLabel: 'bibliotheek',
     prefLabelLang: 'nl',

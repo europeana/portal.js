@@ -234,7 +234,7 @@
 
     watch: {
       'cards.length'() {
-        console.log('watched cards length, redrawing')
+        console.log('watched cards length, redrawing');
         this.redrawMasonry(400);
       },
       items() {

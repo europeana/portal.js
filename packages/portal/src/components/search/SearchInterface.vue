@@ -347,6 +347,7 @@
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.sort': 'handleSearchParamsChanged',
       '$route.query.translate': 'handleSearchParamsChanged'
     },
 

@@ -81,7 +81,7 @@ describe('@/cachers/collections/organisations', () => {
   });
 
   it('picks slug, recordCount and prefLabel', () => {
-    expect(cacher.PICK).toEqual(['slug', 'recordCount', 'prefLabel', 'countryPrefLabel']);
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel']);
   });
 
   it('localises countryPrefLabel', () => {

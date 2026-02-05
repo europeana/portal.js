@@ -716,6 +716,14 @@ export default {
       "name": "Rechtenstatus",
       "select": "Selecteer rechtenverklaringen"
     },
+    "sort": {
+      "name": "Sorteren op",
+      "options": {
+        "proxy_dcterms_issued+asc": "Uitgiftedatum (oudste eerst)",
+        "proxy_dcterms_issued+desc": "Uitgiftedatum (nieuwste eerst)"
+      },
+      "select": "Selecteer hoe de resultaten gesorteerd moeten worden."
+    },
     "TYPE": {
       "name": "Soort media",
       "options": {

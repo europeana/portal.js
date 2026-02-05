@@ -716,6 +716,14 @@ export default {
       "name": "Eskubideen adierazpena",
       "select": "Hautatu eskubideen adierazpenak"
     },
+    "sort": {
+      "name": "Ordenatu honen arabera",
+      "options": {
+        "proxy_dcterms_issued+asc": "Emisio-data (zaharrenetik hasita)",
+        "proxy_dcterms_issued+desc": "Jaulkitze-data (berrienetik zaharrenera)"
+      },
+      "select": "Hautatu emaitzak nola ordenatu"
+    },
     "TYPE": {
       "name": "Euskarri mota",
       "options": {

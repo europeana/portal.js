@@ -716,6 +716,14 @@ export default {
       "name": "Výrok o právech",
       "select": "Vyberte prohlášení o právech"
     },
+    "sort": {
+      "name": "Seřadit podle",
+      "options": {
+        "proxy_dcterms_issued+asc": "Datum vydání (nejstarší první)",
+        "proxy_dcterms_issued+desc": "Datum vydání (od nejnovějšího)"
+      },
+      "select": "Vyberte, jak se mají výsledky řadit"
+    },
     "TYPE": {
       "name": "Druh média",
       "options": {

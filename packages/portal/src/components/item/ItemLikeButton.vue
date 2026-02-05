@@ -104,7 +104,7 @@
 
     watch: {
       liked() {
-        console.log('ItemLikeButton liked changed to', this.liked)
+        console.log('ItemLikeButton liked changed to', this.liked);
         this.pressed = this.liked;
       }
     },

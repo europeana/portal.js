@@ -48,8 +48,8 @@ const namespaceCacheKey = (cacherName, locale) => {
 
 const runSetCacher = async(cacherName) => {
   console.log(cacherName);
-
   const cacher = await cacherModule(cacherName);
+
   let rawData = await cacher.data(runtimeConfig, localeCodes);
   let langAwareData;
 

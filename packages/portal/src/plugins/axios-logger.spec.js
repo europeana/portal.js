@@ -1,5 +1,6 @@
-import plugin from '@/modules/axios-logger/templates/plugin';
 import sinon from 'sinon';
+
+import plugin from '@/plugins/axios-logger.js';
 
 let requestInterceptor;
 
@@ -17,8 +18,9 @@ const factory = (context = {}) => {
   return mocks;
 };
 
-describe('modules/axios-logger/templates/plugin', () => {
-  beforeEach(sinon.resetHistory);
+describe('@/plugins/axios-logger.js', () => {
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   it('injects request interceptor', () => {
     const wrapper = factory();

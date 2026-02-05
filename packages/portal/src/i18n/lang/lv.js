@@ -716,6 +716,14 @@ export default {
       "name": "Tiesību statuss",
       "select": "Atlasit tiesību paziņojumus"
     },
+    "sort": {
+      "name": "Kārtot pēc",
+      "options": {
+        "proxy_dcterms_issued+asc": "Izdošanas datums (vecākais vispirms)",
+        "proxy_dcterms_issued+desc": "Izdošanas datums (jaunākie vispirms)"
+      },
+      "select": "Izvēlieties, kā kārtot rezultātus"
+    },
     "TYPE": {
       "name": "Līdzekļu veids",
       "options": {

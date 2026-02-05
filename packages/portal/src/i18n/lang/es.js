@@ -716,6 +716,14 @@ export default {
       "name": "Declaración de derechos",
       "select": "Seleccionar declaraciones de derechos"
     },
+    "sort": {
+      "name": "Ordenar por",
+      "options": {
+        "proxy_dcterms_issued+asc": "Fecha de emisión (las más antiguas primero)",
+        "proxy_dcterms_issued+desc": "Fecha de emisión (las más recientes primero)"
+      },
+      "select": "Selecciona cómo ordenar los resultados"
+    },
     "TYPE": {
       "name": "Tipo de medio",
       "options": {

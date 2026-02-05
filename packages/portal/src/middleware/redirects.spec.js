@@ -6,44 +6,52 @@ describe('middleware/redirects', () => {
   afterEach(sinon.resetHistory);
   const redirect = sinon.spy();
 
-  it('redirects /professionals to /share-your-collections', () => {
+  it('redirects /:locale/professionals to /share-your-collections', () => {
     const route = { path: '/fr/professionals' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/fr/share-your-collections')).toBe(true);
+    expect(redirect.calledWith(301, '/fr/share-your-collections')).toBe(true);
   });
 
-  it('redirects /blog to /stories', () => {
+  it('redirects /:locale/blog to /stories', () => {
     const route = { path: '/de/blog' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/de/stories?type=story')).toBe(true);
+    expect(redirect.calledWith(301, '/de/stories?type=story')).toBe(true);
   });
 
   it('redirects /blog/* to /stories/*', () => {
+    const route = { path: '/blog/nice' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith(301, '/stories/nice')).toBe(true);
+  });
+
+  it('redirects /:locale/blog/* to /:locale/stories/*', () => {
     const route = { path: '/nl/blog/nice' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/nl/stories/nice')).toBe(true);
+    expect(redirect.calledWith(301, '/nl/stories/nice')).toBe(true);
   });
 
-  it('redirects /exhibitions to /stories?type=exhibition', () => {
+  it('redirects /:locale/exhibitions to /:locale/stories?type=exhibition', () => {
     const route = { path: '/es/exhibitions' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('/es/stories?type=exhibition')).toBe(true);
+    expect(redirect.calledWith(301, '/es/stories?type=exhibition')).toBe(true);
   });
 
-  it('redirects /rights/public-domain-charter to https://pro.europeana.eu/post/the-europeana-public-domain-charter', () => {
+  it('redirects /:locale/rights/public-domain-charter to https://pro.europeana.eu/post/the-europeana-public-domain-charter', () => {
     const route = { path: '/en/rights/public-domain-charter' };
 
     middleware({ route, redirect });
 
-    expect(redirect.calledWith('https://pro.europeana.eu/post/the-europeana-public-domain-charter')).toBe(true);
+    expect(redirect.calledWith(301, 'https://pro.europeana.eu/post/the-europeana-public-domain-charter')).toBe(true);
   });
 
   describe('when route path does not match a redirect', () => {

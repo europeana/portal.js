@@ -15,6 +15,8 @@
   export default {
     name: 'SetPublishButton',
 
+    inject: ['currentSet', 'fetchCurrentSet'],
+
     props: {
       /**
        * Id of the set
@@ -47,17 +49,17 @@
       async togglePublishedSet() {
         try {
           const visibilityWas = this.visibility;
-          await this.$store.dispatch('set/fetchActive');
-          if (visibilityWas === this.$store.state.set.active.visibility) {
+          await this.fetchCurrentSet();
+          if (visibilityWas === this.currentSet.visibility) {
             if (this.publishedSet) {
               await this.$apis.set.unpublish(this.setId);
             } else {
               await this.$apis.set.publish(this.setId);
             }
 
-            this.$store.dispatch('set/fetchActive');
+            this.fetchCurrentSet();
           } else {
-            this.makeToast(this.$t('set.notifications.visibilityChanged', { visibility: this.$store.state.set.active.visibility }), {
+            this.makeToast(this.$t('set.notifications.visibilityChanged', { visibility: this.currentSet.visibility }), {
               variant: 'warning'
             });
           }
@@ -73,7 +75,7 @@
   ```jsx
   <SetPublishButton
     set-id="001"
-    :visibility="$store.state.set.active.visibility"
+    visibility="public"
   />
   ```
 </docs>

@@ -1,10 +1,10 @@
-import { computed, getCurrentInstance, onUnmounted, ref, watch, watchEffect } from 'vue';
+import { computed, getCurrentInstance, onUnmounted, ref, watch } from 'vue';
 import uniq from 'lodash/uniq';
 
 // TODO: does itemIds need to be reactive?
 export function useLikedItems(itemIds = null) {
   const $root = getCurrentInstance()?.proxy?.$root;
-  
+
   const setAPI = $root?.$apis?.set;
   const setId = computed(() => $root?.$store?.state.set.likesId);
 
@@ -16,7 +16,7 @@ export function useLikedItems(itemIds = null) {
       liked: ref([])
     };
   }
-  
+
   const liked = computed(() => [].concat(itemIds)
     .every((itemId) => $root.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)))
   );
@@ -43,11 +43,11 @@ export function useLikedItems(itemIds = null) {
     }
 
     $root.$likedItems.busy = false;
-  }
+  };
 
   watch($root.$likedItems.itemIds.value, async(newVal, oldVal) => {
     await $root.$nextTick();
-    console.log('watch', newVal.length, oldVal.length)
+    console.log('watch', newVal.length, oldVal.length);
     if (newVal.length >= oldVal.length) {
       // i.e. don't bother refetching just because of the onUnmounted hook
       await fetchLikedItems();
@@ -57,7 +57,7 @@ export function useLikedItems(itemIds = null) {
   $root.$likedItems.itemIds.value.push(itemIds);
 
   onUnmounted(() => {
-    console.log('onUnmounted')
+    console.log('onUnmounted');
     $root.$likedItems.itemIds.value.splice($root.$likedItems.itemIds.value.indexOf(itemIds));
   });
 

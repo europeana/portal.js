@@ -299,10 +299,14 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/elastic-apm/plugin.server',
+    '~/plugins/cookieless-redirect.server',
+    '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/axios-logger',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -314,7 +318,6 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/axios-logger',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
@@ -323,7 +326,6 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
@@ -403,9 +405,13 @@ export default {
 
   router: {
     middleware: [
-      'trailing-slash',
+      // legacy portal redirects MUST go first as they may already include locale
+      // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
+      // localise next, so that any redirects are locale-specific for 301 caching
       'l10n',
+      // other redirects may proceed
+      'trailing-slash',
       'contentful-galleries',
       'set-galleries',
       'redirects'

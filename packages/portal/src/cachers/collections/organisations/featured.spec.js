@@ -26,12 +26,12 @@ describe('@/cachers/collections/organisations/featured', () => {
 
   it('internationalises by native prefLabel', () => {
     const data = [
-      { type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' } },
-      { type: 'Organization', prefLabel: { en: 'Gallery' } }
+      { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Museum', es: 'Museo' } },
+      { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Gallery' } }
     ];
     const expected = [
-      { type: 'Organization', prefLabel: { es: 'Museo' } },
-      { type: 'Organization', prefLabel: { en: 'Gallery' } }
+      { id: 'http://data.europeana.eu/organization/123', prefLabel: { es: 'Museo' } },
+      { id: 'http://data.europeana.eu/organization/123', prefLabel: { en: 'Gallery' } }
     ];
 
     expect(cacher.INTERNATIONALISE(data)).toEqual(expected);

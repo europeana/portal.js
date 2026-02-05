@@ -716,6 +716,14 @@ export default {
       "name": "Declarație de drepturi",
       "select": "Selectați declarațiile de drepturi"
     },
+    "sort": {
+      "name": "Sortează după",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data emiterii (de la cea mai veche)",
+        "proxy_dcterms_issued+desc": "Data emiterii (cele mai noi primele)"
+      },
+      "select": "Selectați modul de sortare a rezultatelor"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {

@@ -716,6 +716,14 @@ export default {
       "name": "Rättighetsförklaring",
       "select": "Välj rättighetsutlåtanden"
     },
+    "sort": {
+      "name": "Sortera efter",
+      "options": {
+        "proxy_dcterms_issued+asc": "Utfärdandedatum (äldst först)",
+        "proxy_dcterms_issued+desc": "Utfärdandedatum (nyast först)"
+      },
+      "select": "Välj hur resultaten ska sorteras"
+    },
     "TYPE": {
       "name": "Typ av media",
       "options": {

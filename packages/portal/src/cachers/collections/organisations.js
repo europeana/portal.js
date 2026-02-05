@@ -6,7 +6,7 @@ import uniq from 'lodash/uniq.js';
 import countryCodes from 'i18n-iso-countries';
 import { codes as localeCodes } from '@europeana/i18n';
 
-const PICK = ['slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
 const LOCALISE = 'countryPrefLabel';
 
 let axiosClient;
