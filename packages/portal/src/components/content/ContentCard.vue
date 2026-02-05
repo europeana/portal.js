@@ -70,9 +70,9 @@
               link-class="card-link"
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
-              <span>
-                {{ truncate(displayTitle.value, 90) }}
-              </span>
+              <span class="link-text">
+                {{ truncate(displayTitle.value, 70) }}<!-- This comment removes white space which gets underlined
+ --></span>
             </component>
           </b-card-title>
           <b-card-text
