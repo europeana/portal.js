@@ -405,11 +405,13 @@ export default {
 
   router: {
     middleware: [
-      // localise first, so that any redirects are locale-specific for 301 caching
-      'l10n',
-      // redirects may proceed
-      'trailing-slash',
+      // legacy portal redirects MUST go first as they may already include locale
+      // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
+      // localise next, so that any redirects are locale-specific for 301 caching
+      'l10n',
+      // other redirects may proceed
+      'trailing-slash',
       'contentful-galleries',
       'set-galleries',
       'redirects'
