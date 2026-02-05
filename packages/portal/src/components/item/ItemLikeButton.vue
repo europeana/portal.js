@@ -30,6 +30,8 @@
   export default {
     name: 'ItemLikeButton',
 
+    inject: ['likedItems'],
+
     props: {
       /**
        * Identifier(s) of the item(s)
@@ -63,9 +65,9 @@
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      const { liked, like, unlike } = useLikedItems(props.identifiers);
+      // const { liked, like, unlike } = useLikedItems(props.identifiers);
 
-      return { buttonId, cardinality, hideTooltips, liked, like, logEvent, makeToast, unlike };
+      return { buttonId, cardinality, hideTooltips, logEvent, makeToast };
     },
 
     data() {
@@ -77,6 +79,10 @@
     computed: {
       disabled() {
         return this.selectionCount === 0;
+      },
+      liked() {
+        return [].concat(this.identifiers)
+          .every((itemId) => this.likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
       },
       likeButtonText() {
         if (this.buttonText) {
@@ -104,13 +110,19 @@
 
     watch: {
       liked() {
-        console.log('ItemLikeButton liked changed to', this.liked);
         this.pressed = this.liked;
       }
     },
 
     created() {
-      this.pressed = this.liked;
+      // console.log('[ItemLikeButton] created', this.identifiers)
+      this.likedItems.register(this.identifiers);
+      // this.pressed = this.liked;
+    },
+
+    beforeDestroy() {
+      // console.log('[ItemLikeButton] beforeDestroy', this.identifiers)
+      this.likedItems.unregister(this.identifiers);
     },
 
     methods: {
@@ -130,7 +142,7 @@
       },
 
       async handleLike() {
-        await this.like();
+        await this.likedItems.like(this.identifiers);
         this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
 
         for (const id of [].concat(this.identifiers)) {
@@ -140,7 +152,7 @@
       },
 
       async handleUnlike() {
-        await this.unlike();
+        await this.likedItems.unlike(this.identifiers);
 
         this.makeToast(this.unlikeToastMessage);
       }
