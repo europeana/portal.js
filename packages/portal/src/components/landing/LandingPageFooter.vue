@@ -70,11 +70,6 @@
       padding-top: 3.5rem;
       padding-bottom: 3.5rem;
 
-      @media (max-width: ($bp-medium)) {
-        padding-left: 2rem;
-        padding-right: 2rem;
-      }
-
       @media (min-width: $bp-large) {
         padding-top: 3.5rem;
         padding-bottom: 6rem ;
