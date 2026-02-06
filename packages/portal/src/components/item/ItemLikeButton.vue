@@ -106,8 +106,10 @@
       },
 
       '$likedItems.liked.value'() {
-        this.pressed = this.identifiers.length && [].concat(this.identifiers)
-          .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
+        this.pressed = Boolean(
+          this.identifiers.length && [].concat(this.identifiers)
+            .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)))
+        );
       }
     },
 
