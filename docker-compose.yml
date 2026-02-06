@@ -20,7 +20,7 @@ services:
     ports:
       - "15432:5432"
     volumes:
-      - ./postgresql:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql
       - ./docker/compose/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - ./docker/compose/postgres/model:/var/lib/postgresql/model
   redis:
