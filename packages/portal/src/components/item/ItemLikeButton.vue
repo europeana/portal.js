@@ -75,13 +75,9 @@
       disabled() {
         return this.selectionCount === 0;
       },
-      liked() {
-        return [].concat(this.identifiers)
-          .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
-      },
       likeButtonText() {
         if (this.buttonText) {
-          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+          return this.pressed ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
       },
@@ -92,7 +88,7 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
-        if (this.liked) {
+        if (this.pressed) {
           return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
         } else {
           return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
@@ -104,22 +100,23 @@
     },
 
     watch: {
-      liked() {
-        this.pressed = this.liked;
-      },
       identifiers(newVal, oldVal) {
-        this.$likedItems.watch(newVal);
-        this.$likedItems.unwatch(oldVal);
+        this.$likedItems.unwatchItems(oldVal);
+        this.$likedItems.watchItems(newVal);
+      },
+
+      '$likedItems.liked.value'() {
+        this.pressed = this.identifiers.length && [].concat(this.identifiers)
+          .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)));
       }
     },
 
     created() {
-      this.$likedItems.watch(this.identifiers);
-      this.pressed = this.liked;
+      this.$likedItems.watchItems(this.identifiers);
     },
 
     beforeDestroy() {
-      this.$likedItems.unwatch(this.identifiers);
+      this.$likedItems.unwatchItems(this.identifiers);
     },
 
     methods: {
