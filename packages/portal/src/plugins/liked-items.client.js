@@ -23,13 +23,13 @@ export default ({ $apis, store }, inject) => {
     fetching = false;
   };
 
-  const watch = async(itemIds) => {
+  const watchItems = async(itemIds) => {
     watchedItemIds.value.push(itemIds);
     await nextTick();
     await fetchLikedItems();
   };
 
-  const unwatch = (itemIds) => {
+  const unwatchItems = (itemIds) => {
     watchedItemIds.value.splice(watchedItemIds.value.indexOf(itemIds), 1);
   };
 
@@ -66,8 +66,8 @@ export default ({ $apis, store }, inject) => {
     like,
     off,
     on,
-    watch,
+    watchItems,
     unlike,
-    unwatch
+    unwatchItems
   });
 };
