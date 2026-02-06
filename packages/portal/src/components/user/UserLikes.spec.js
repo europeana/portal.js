@@ -22,6 +22,10 @@ const factory = (options = {}) => shallowMountNuxt(component, {
       }
     },
     $fetchState: options.fetchState || {},
+    $likedItems: {
+      off: sinon.spy(),
+      on: sinon.spy()
+    },
     $route: { query: {} },
     $store: {
       commit: storeCommit,

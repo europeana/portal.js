@@ -37,6 +37,7 @@ export default ({ $apis, store }, inject) => {
     if (setId === null) {
       const response = await $apis.set.createLikes();
       // TODO: does likesId still need to be in the store? or just isolate it to this plugin?
+      //       yes, for now, as still used by UserLikes
       store.commit('set/setLikesId', response.id);
     }
 
