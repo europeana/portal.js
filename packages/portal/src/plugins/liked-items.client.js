@@ -1,8 +1,17 @@
-import { computed, nextTick, readonly, ref } from 'vue';
+import { nextTick, readonly, ref } from 'vue';
 import uniq from 'lodash/uniq';
 
-export default ({ $apis, store }, inject) => {
-  const setId = computed(() => store.state.set.likesId);
+export default async({ $apis, $auth }, inject) => {
+  let likedItemsSetId = null;
+
+  if ($auth?.loggedIn && $auth?.user?.sub) {
+    try {
+      likedItemsSetId = await $apis.set.getLikes($auth.user.sub);
+    } catch (e) {
+      // Don't cause everything to break if the Set API is down...
+    }
+  }
+
   const watchedItemIds = ref([]);
   const liked = ref([]);
   const eventTarget = new EventTarget();
@@ -10,14 +19,18 @@ export default ({ $apis, store }, inject) => {
   // TODO: is this needed?
   let fetching;
 
-  const fetchLikedItems = async() => {
+  const fetchLikedItems = (params = {}) => {
+    return likedItemsSetId ? $apis.set.get(likedItemsSetId, params) : {};
+  };
+
+  const findLikedWatchedItems = async() => {
     if (fetching) {
       return;
     }
     fetching = true;
-    if ($apis.set && setId.value && watchedItemIds.value.length) {
+    if ($apis.set && likedItemsSetId && watchedItemIds.value.length) {
       // QUESTION: what is the limit to how many item ids this can handle?
-      const response = await $apis.set.searchItems(setId.value, uniq(watchedItemIds.value.flat()));
+      const response = await $apis.set.searchItems(likedItemsSetId, uniq(watchedItemIds.value.flat()));
       liked.value = response.items || [];
     }
     fetching = false;
@@ -26,7 +39,7 @@ export default ({ $apis, store }, inject) => {
   const watchItems = async(itemIds) => {
     watchedItemIds.value.push(itemIds);
     await nextTick();
-    await fetchLikedItems();
+    await findLikedWatchedItems();
   };
 
   const unwatchItems = (itemIds) => {
@@ -34,23 +47,21 @@ export default ({ $apis, store }, inject) => {
   };
 
   const like = async(itemIds) => {
-    if (setId === null) {
+    if (likedItemsSetId === null) {
       const response = await $apis.set.createLikes();
-      // TODO: does likesId still need to be in the store? or just isolate it to this plugin?
-      //       yes, for now, as still used by UserLikes
-      store.commit('set/setLikesId', response.id);
+      likedItemsSetId = response.id;
     }
 
-    await $apis.set.insertItems(setId.value, itemIds);
-    await fetchLikedItems();
+    await $apis.set.insertItems(likedItemsSetId, itemIds);
+    await findLikedWatchedItems();
 
     eventTarget.dispatchEvent(new Event('like'));
   };
 
   const unlike = async(itemIds) => {
-    await $apis.set.deleteItems(setId.value, itemIds);
+    await $apis.set.deleteItems(likedItemsSetId, itemIds);
 
-    await fetchLikedItems();
+    await findLikedWatchedItems();
 
     eventTarget.dispatchEvent(new Event('unlike'));
   };
@@ -64,6 +75,7 @@ export default ({ $apis, store }, inject) => {
   };
 
   inject('likedItems', {
+    fetch: fetchLikedItems,
     liked: readonly(liked),
     like,
     off,

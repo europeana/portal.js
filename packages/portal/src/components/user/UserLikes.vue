@@ -75,11 +75,7 @@
 
     methods: {
       async fetchLikes() {
-        if (!this.$store.state.set.likesId) {
-          return {};
-        }
-
-        const response = await this.$apis.set.get(this.$store.state.set.likesId, {
+        const response = await this.$likedItems.fetch({
           page: Number(this.$route.query.page || 1),
           pageSize: this.perPage,
           profile: 'items.meta'

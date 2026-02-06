@@ -1,18 +1,10 @@
 import store from '@/store/set';
 import sinon from 'sinon';
 
-const likesId = 'http://data.europeana.eu/set/likesset';
 const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
   describe('mutations', () => {
-    describe('setLikesId()', () => {
-      it('sets the likesId state', () => {
-        const state = { likesId: null };
-        store.mutations.setLikesId(state, likesId);
-        expect(state.likesId).toEqual(likesId);
-      });
-    });
     describe('setActiveRecommendations()', () => {
       it('sets the activeRecommendations state', () => {
         const state = { activeRecommendations: [], active: { items: [] } };

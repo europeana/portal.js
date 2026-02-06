@@ -1,13 +1,9 @@
 export default {
   state: () => ({
-    likesId: null,
     activeRecommendations: []
   }),
 
   mutations: {
-    setLikesId(state, value) {
-      state.likesId = value;
-    },
     setActiveRecommendations(state, value) {
       state.activeRecommendations = value;
     }
