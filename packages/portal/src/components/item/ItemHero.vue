@@ -77,6 +77,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ShareSnippet from '@/components/share/ShareSnippet';
@@ -89,6 +90,8 @@
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
+    name: 'ItemHero',
+
     components: {
       ClientOnly,
       DownloadWidget,

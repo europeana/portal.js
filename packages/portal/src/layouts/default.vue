@@ -60,6 +60,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+
   import PageHeader from '@/components/page/PageHeader';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
@@ -84,6 +85,7 @@
 
     setup() {
       const { makeToast } = useMakeToast();
+
       return { makeToast };
     },
 
