@@ -58,7 +58,7 @@
       const buttonId = `item-like-button-${idSuffix}`;
 
       const { cardinality } = useCardinality(props.identifiers);
-      const { hideTooltips } = useHideTooltips();
+      const { hideTooltips } = useHideTooltips(buttonId);
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
