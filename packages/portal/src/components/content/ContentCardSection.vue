@@ -48,7 +48,8 @@
       <SmartLink
         v-if="section.moreButton"
         :destination="section.moreButton.url"
-        class="btn btn-outline-secondary"
+        class="btn"
+        :class="moreButtonClass"
         data-qa="section more button"
       >
         {{ section.moreButton.text }}
@@ -85,6 +86,13 @@
       titleTag: {
         type: String,
         default: 'h2'
+      },
+      /**
+       * Class for the more link.
+       */
+      moreButtonClass: {
+        type: String,
+        default: 'btn-outline-secondary'
       }
     },
     computed: {

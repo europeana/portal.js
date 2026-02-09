@@ -182,8 +182,6 @@
   .container {
     margin-top: 3rem;
     margin-bottom: 3rem;
-    padding-left: 0;
-    padding-right: 0;
 
     @media (min-width: $bp-large) {
       margin-top: 6rem;
@@ -200,6 +198,10 @@
 
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
     }
 
     .text {
