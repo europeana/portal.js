@@ -58,6 +58,7 @@
     watch: {
       '$route.query.page'() {
         this.$fetch();
+        this.clearSelectedItems();
         this.scrollToSelector('#user-likes');
       }
     },
