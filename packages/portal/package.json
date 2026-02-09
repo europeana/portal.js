@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.20.1",
+  "version": "2.21.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -18,7 +18,7 @@
     "@europeana/i18n": "^2.8.0",
     "@europeana/vue-contentful-graphql": "^2.11.2",
     "@europeana/vue-router-query": "^2.0.0",
-    "@europeana/vue-session": "^2.20.0",
+    "@europeana/vue-session": "^2.21.0",
     "@europeana/vue-visible-on-scroll": "^2.0.0",
     "@nuxt/cli": "2.17.0",
     "@nuxt/core": "2.17.0",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
-    "@europeana/style": "^2.18.1",
+    "@europeana/style": "^2.21.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
     "jest-transform-graphql": "^2.1.0",
