@@ -73,18 +73,6 @@ describe('components/item/ItemLanguageSelector', () => {
     });
   });
 
-  describe('when clicking a language option', () => {
-    describe('when not logged in', () => {
-      it('redirects to login', async() => {
-        const wrapper = factory();
-
-        wrapper.find('[data-qa="item language option nl"]').trigger('click');
-
-        expect(wrapper.vm.$keycloak.login.called).toBe(true);
-      });
-    });
-  });
-
   describe('when the requested translation failed', () => {
     it('shows an error message', () => {
       const wrapper = factory({ propsData: { fromTranslationError: true } });

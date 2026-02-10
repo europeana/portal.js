@@ -9,6 +9,8 @@ const localVue = createLocalVue();
 localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 
+const redirectSpy = sinon.spy();
+
 const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
@@ -59,7 +61,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
-    $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
+    $route: {
+      query: options.query || '',
+      params: { type: options.type, pathMatch: options.pathMatch }
+    },
     $apis: {
       entity: {
         get: options.get || sinon.stub().resolves({}),
@@ -80,6 +85,11 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
         search: {
           collections: {}
         }
+      }
+    },
+    $nuxt: {
+      context: {
+        redirect: redirectSpy
       }
     },
     $store: {
@@ -398,13 +408,32 @@ describe('pages/collections/_type/_', () => {
 
   describe('redirecting for slug labels', () => {
     describe('when entity has an English prefLabel', () => {
-      it('uses the english prefLabel', async() => {
-        const wrapper = factory(topicEntity);
+      describe('and path matches it', () => {
+        it('does not redirect', async() => {
+          const wrapper = factory(topicEntity);
 
-        sinon.spy(wrapper.vm, 'redirectToPrefPath');
+          await wrapper.vm.fetch();
 
-        await wrapper.vm.fetch();
-        expect(wrapper.vm.redirectToPrefPath.calledWith('http://data.europeana.eu/concept/01234567890', 'Topic')).toBe(true);
+          expect(redirectSpy.called).toBe(false);
+        });
+      });
+
+      describe('and path does not match it', () => {
+        it('redirects to use english prefLabel in path', async() => {
+          const wrapper = factory({ ...topicEntity, pathMatch: '01234567890' });
+
+          await wrapper.vm.fetch();
+
+          expect(redirectSpy.calledWith(302,
+            {
+              hash: '',
+              name: '',
+              params: { type: 'topic', pathMatch: '01234567890-topic' },
+              query: {},
+              replace: true
+            })
+          ).toBe(true);
+        });
       });
     });
   });
