@@ -160,7 +160,7 @@
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   export default {
     name: 'GalleryPage',
@@ -180,7 +180,6 @@
     mixins: [
       entityBestItemsSetMixin,
       langAttributeMixin,
-      redirectToMixin,
       pageMetaMixin
     ],
     provide() {
@@ -219,7 +218,11 @@
       try {
         this.validateRoute();
         await this.fetchSet();
-        this.redirectToPrefPath(this.setId, this.set.title.en);
+        redirectToPrefPath(
+          this.setId,
+          this.set.title.en,
+          { route: this.$route, redirect: this.$nuxt.context.redirect }
+        );
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
           this.$store.commit('entity/setBestItemsSetId', this.setId);

@@ -77,7 +77,7 @@
   import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
@@ -98,8 +98,7 @@
 
     mixins: [
       entityBestItemsSetMixin,
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -151,7 +150,11 @@
         // TODO: don't do this on SSRs, it's too expensive. instead just update
         //       window.location when mounted, and set Content-Location response
         //       header, and canonical urls to include the prefLabel
-        return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
+        redirectToPrefPath(
+          this.entity.id,
+          this.entity.prefLabel.en,
+          { route: this.$route, redirect: this.$nuxt.context.redirect }
+        );
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
