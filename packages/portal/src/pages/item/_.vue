@@ -182,12 +182,14 @@
       // When entering a translated item page, but not logged-in,
       // redirect to Keycloak to login, unless user just logged out in which case,
       // redirect to page without translation.
-      ({ $auth, localePath, redirect, route }) => {
+      ({ $auth, redirect, route }) => {
         if (route.query.lang && !$auth.loggedIn) {
           if ($auth.$storage.getUniversal('portalLoggingOut')) {
-            redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
+            // just logged out: redirect to page w/o lang param
+            return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
           } else {
-            return redirect(303, { path: localePath({ name: 'account-login', query: { redirect: route.fullPath } }), replace: true });
+            // not yet logged-in: redirect to login
+            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath }, replace: true });
           }
         }
       }
@@ -414,7 +416,7 @@
         const edm = data.object;
 
         if (this.identifier !== edm.about) {
-          return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
+          return redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
         }
 
         this.type = edm.type;
