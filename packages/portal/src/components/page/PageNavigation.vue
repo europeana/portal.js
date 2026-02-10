@@ -68,7 +68,7 @@
         v-b-toggle.menu
         data-qa="log in button"
         class="nav-link"
-        :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
         :target="null"
         @click.prevent="$keycloak.login()"
       >
