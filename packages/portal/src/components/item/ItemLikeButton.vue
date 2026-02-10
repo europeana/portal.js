@@ -5,25 +5,17 @@
       v-b-tooltip.bottom
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
-      :pressed="liked"
+      :pressed="pressed"
       :disabled="disabled"
       :variant="buttonVariant"
       data-qa="like button"
-      :aria-label="liked ? $t('actions.unlike') : $t('actions.like')"
+      :aria-label="pressed ? $t('actions.unlike') : $t('actions.like')"
       :title="tooltipTitle"
       @click="toggleLiked"
     >
-      <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
+      <span :class="pressed ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
-    <!-- TODO: remove when 100-item like limit removed -->
-    <b-modal
-      :id="likeLimitModalId"
-      :title="$t('set.notifications.likeLimit.title')"
-      hide-footer
-    >
-      <p>{{ $t('set.notifications.likeLimit.body') }}</p>
-    </b-modal>
   </div>
 </template>
 
@@ -39,7 +31,7 @@
 
     props: {
       /**
-       * Identifier(s) of the item
+       * Identifier(s) of the item(s)
        */
       identifiers: {
         type: [String, Array],
@@ -64,33 +56,28 @@
     setup(props) {
       const idSuffix = Array.isArray(props.identifiers) ? 'multi-select' : props.identifiers;
       const buttonId = `item-like-button-${idSuffix}`;
-      const likeLimitModalId = `like-limit-modal-${idSuffix}`;
 
       const { cardinality } = useCardinality(props.identifiers);
       const { hideTooltips } = useHideTooltips(buttonId);
       const { logEvent } = useLogEvent();
       const { makeToast } = useMakeToast();
 
-      return { buttonId, cardinality, hideTooltips, likeLimitModalId, logEvent, makeToast };
+      return { buttonId, cardinality, hideTooltips, logEvent, makeToast };
+    },
+
+    data() {
+      return {
+        pressed: false
+      };
     },
 
     computed: {
       disabled() {
         return this.selectionCount === 0;
       },
-      liked() {
-        if (Array.isArray(this.identifiers)) {
-          return this.identifiers.every((id) => this.$store.state.set.likedItemIds.includes(id));
-        } else {
-          return this.$store.state.set.likedItemIds.includes(this.identifiers);
-        }
-      },
-      likesId() {
-        return this.$store.state.set.likesId;
-      },
       likeButtonText() {
         if (this.buttonText) {
-          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+          return this.pressed ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
       },
@@ -101,7 +88,7 @@
         return Array.isArray(this.identifiers) ? this.identifiers.length : 1;
       },
       tooltipTitle() {
-        if (this.liked) {
+        if (this.pressed) {
           return this.$tc(`set.actions.unlikeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
         } else {
           return this.$tc(`set.actions.likeItems.${this.cardinality}`, this.selectionCount, { count: this.selectionCount });
@@ -112,11 +99,33 @@
       }
     },
 
+    watch: {
+      identifiers(newVal, oldVal) {
+        this.$likedItems.unwatchItems(oldVal);
+        this.$likedItems.watchItems(newVal);
+      },
+
+      '$likedItems.liked.value'() {
+        this.pressed = Boolean(
+          this.identifiers.length && [].concat(this.identifiers)
+            .every((itemId) => this.$likedItems.liked.value.some((uri) => uri.endsWith(itemId)))
+        );
+      }
+    },
+
+    created() {
+      this.$likedItems.watchItems(this.identifiers);
+    },
+
+    beforeDestroy() {
+      this.$likedItems.unwatchItems(this.identifiers);
+    },
+
     methods: {
       async toggleLiked() {
         if (this.$auth.loggedIn) {
           try {
-            await (this.liked ? this.unlike() : this.like());
+            await (this.pressed ? this.handleUnlike() : this.handleLike());
           } catch (e) {
             // TODO: handle 404 which may indicate likes set has been deleted;
             //       create a new one and retry
@@ -127,33 +136,20 @@
         }
         this.hideTooltips();
       },
-      async like() {
-        if (this.likesId === null) {
-          const response = await this.$apis.set.createLikes();
-          this.$store.commit('set/setLikesId', response.id);
+
+      async handleLike() {
+        await this.$likedItems.like(this.identifiers);
+        this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
+
+        for (const id of [].concat(this.identifiers)) {
+          this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
         }
-
-        try {
-          await this.$store.dispatch('set/like', this.identifiers);
-
-          this.logEvent('like', [].concat(this.identifiers).map((id) => `${ITEM_URL_PREFIX}${id}`), this.$session);
-
-          for (const id of [].concat(this.identifiers)) {
-            this.$matomo?.trackEvent('Item_like', 'Click like item button', id);
-          }
-
-          this.makeToast(this.likeToastMessage);
-        } catch (e) {
-          // TODO: remove when 100 item like limit is removed
-          if (e.message === '100 likes') {
-            this.$bvModal.show(this.likeLimitModalId);
-          } else {
-            throw e;
-          }
-        }
+        this.makeToast(this.likeToastMessage);
       },
-      async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifiers);
+
+      async handleUnlike() {
+        await this.$likedItems.unlike(this.identifiers);
+
         this.makeToast(this.unlikeToastMessage);
       }
     }
