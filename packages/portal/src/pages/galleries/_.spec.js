@@ -69,6 +69,7 @@ const factory = (options = {}) => {
         userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
       },
       $fetchState: options.fetchState || {},
+      $nuxt: { context: { redirect: sinon.spy() } },
       $route: {
         params: {
           pathMatch: (options.set?.id || '111') + '-my-set'
