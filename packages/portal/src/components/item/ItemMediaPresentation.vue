@@ -294,8 +294,8 @@
         } else if (this.viewableImageResource) {
           return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
-          return !(
-            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          return this.resource?.edm && !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.isOEmbed || this.resource?.edm?.isOEmbed
           );
         }
       },
