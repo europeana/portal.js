@@ -61,7 +61,7 @@ export default class EuropeanaMediaResource extends Base {
   }
 
   get isOEmbed() {
-    return this.service?.dctermsConformsTo.includes('https://oembed.com/');
+    return this.service?.dctermsConformsTo === 'https://oembed.com/';
   }
 
   set edm(value) {
