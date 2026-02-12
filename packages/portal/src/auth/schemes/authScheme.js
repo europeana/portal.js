@@ -1,15 +1,13 @@
-// Custom Nuxt auth scheme extending oAuth2 scheme to support Nuxt runtime config
+// Custom Nuxt auth scheme extending oAuth2 scheme to support Nuxt runtime config,
+// and use of replace when updating window.location
 
-// TODO: delete once auth module supports Nuxt runtime config
-// @see https://github.com/nuxt-community/auth-module/issues/713
+import qs from 'qs';
+import nanoid from 'nanoid';
 
 // When Nuxt is built, this custom auth plugin will end up in .nuxt/auth/schemes,
 // as will @nuxtjs/auth/lib/schemes/oauth2.js if it's also a registered strategy
 // in the auth module config (in nuxt.config.js).
 import Oauth2Scheme from './oauth2';
-
-import qs from 'qs';
-import nanoid from 'nanoid';
 
 const keycloakOpenIDConnectEndpoint = (method, { realm, origin }) =>
   `${origin}/auth/realms/${realm}/protocol/openid-connect/${method}`;
