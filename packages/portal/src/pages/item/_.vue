@@ -23,6 +23,7 @@
           :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
+          :services="services"
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
@@ -227,6 +228,7 @@
         metadata: {},
         ogImage: null,
         relatedCollections: [],
+        services: [],
         type: null,
         useProxy: true
       };
@@ -474,6 +476,8 @@
 
           return wr;
         });
+
+        this.services = item.services;
 
         process.client && this.trackCustomDimensions();
       },
