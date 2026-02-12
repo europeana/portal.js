@@ -12,6 +12,7 @@
       :item-id="identifier"
       :provider-url="providerUrl"
       :web-resources="media"
+      :services="services"
       :edm-type="edmType"
       @select="selectMedia"
     />
@@ -107,6 +108,7 @@
 
     inject: ['itemIsDeleted'],
 
+    // TODO: much prop drilling happening here
     props: {
       allMediaUris: {
         type: Array,
@@ -128,6 +130,10 @@
         type: Array,
         default: () => [],
         validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
+      },
+      services: {
+        type: Array,
+        default: null
       },
       attributionFields: {
         type: Object,

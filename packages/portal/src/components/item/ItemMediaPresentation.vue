@@ -68,13 +68,14 @@
               class="media-viewer-content"
             />
             <EmbedGateway
-              v-else-if="resource?.edm?.isOEmbed"
+              v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
               :media="resource?.edm"
               :url="resource.id"
             >
               <EmbedOEmbed
                 :url="resource.id"
+                :service="resource.isOEmbed"
               />
             </EmbedGateway>
             <template
@@ -184,6 +185,11 @@
         default: null
       },
 
+      services: {
+        type: Array,
+        default: null
+      },
+
       itemId: {
         type: String,
         default: null
@@ -261,7 +267,7 @@
           error = e;
         }
       } else if (this.webResources) {
-        this.setPresentationFromWebResources(this.webResources);
+        this.setPresentationFromWebResources(this.webResources, this.services);
       } else {
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
@@ -288,8 +294,8 @@
         } else if (this.viewableImageResource) {
           return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
-          return !(
-            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          return this.resource?.edm && !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.isOEmbed || this.resource?.edm?.isOEmbed
           );
         }
       },

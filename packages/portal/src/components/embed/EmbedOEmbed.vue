@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   import oEmbed from '@/utils/services/oembed.js';
   import AlertMessage from '../generic/AlertMessage';
   import EmbedHTML from './EmbedHTML';
@@ -36,6 +38,15 @@
       endpoint: {
         type: String,
         default: null
+      },
+
+      // whether the url is already for the oEmbed service request itself,
+      // otherwise is just the media url
+      // TODO: deprecate when it is always true, i.e. when oEmbed service is always
+      //       present in EDM
+      service: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -49,7 +60,13 @@
     },
 
     async fetch() {
-      const response = await oEmbed(this.url, this.endpoint);
+      let response;
+      if (this.service) {
+        response = await axios.get(this.url);
+      } else {
+        response = await oEmbed(this.url, this.endpoint);
+      }
+
       if (response?.data?.html) {
         this.html = response.data.html;
         this.width = response.data.width;

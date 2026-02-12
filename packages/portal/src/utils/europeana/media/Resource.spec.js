@@ -13,8 +13,13 @@ describe('EuropeanaMediaResource', () => {
             'https://iiif.example.org/image.jpeg'
           ]
         };
+        const services = [
+          {
+            about: edm.svcsHasService[0]
+          }
+        ];
 
-        const resource = EuropeanaMediaResource.fromEDM(edm);
+        const resource = EuropeanaMediaResource.fromEDM(edm, services);
 
         expect(resource).toEqual({
           id: edm.about,
