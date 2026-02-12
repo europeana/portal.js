@@ -70,7 +70,6 @@
         class="nav-link"
         :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
         :target="null"
-        @click.prevent="$keycloak.login()"
       >
         <span :class="renderIcon('/account/login')" />
         <span class="nav-link-text">
