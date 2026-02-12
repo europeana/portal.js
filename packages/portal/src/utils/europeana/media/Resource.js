@@ -11,7 +11,7 @@ export default class EuropeanaMediaResource extends Base {
     }
 
     const serviceId = [].concat(edm.svcsHasService)[0];
-    const service = services.find((edmService) => edmService.about === serviceId);
+    const service = (services || []).find((edmService) => edmService.about === serviceId);
 
     let data = {};
     if (typeof edm === 'string') {
