@@ -84,6 +84,7 @@
     "name": "youTube",
     "oembed": "https://www.youtube.com/oembed",
     "schemes": [
+      "https://www.youtube.com/oembed",
       "http://www.youtube.com/embed/*",
       "https://youtube.com/watch*",
       "https://youtube.com/v/*",
