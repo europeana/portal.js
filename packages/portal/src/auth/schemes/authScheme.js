@@ -42,7 +42,6 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
   // - use `qs.stringify` instead of custom `encodeQuery`
   // - use window.location.replace() instead of `window.location =`
   login({ params, state, nonce } = {}) {
-    console.log('[RuntimeConfigurableOauth2Scheme] login');
     const opts = {
       protocol: 'oauth2',
       'response_type': this.options.response_type,
