@@ -9,7 +9,7 @@
     layout: 'minimal',
 
     mounted() {
-      this.$keycloak.login();
+      this.$keycloak.login({ replace: true });
     }
   };
 </script>

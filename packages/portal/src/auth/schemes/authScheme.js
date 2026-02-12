@@ -40,8 +40,8 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
 
   // duplicates login function of Oauth2Scheme, changing:
   // - use `qs.stringify` instead of custom `encodeQuery`
-  // - use window.location.replace() instead of `window.location =`
-  login({ params, state, nonce } = {}) {
+  // - optionally use window.location.replace() instead of `window.location =`
+  login({ params, state, nonce, replace = false } = {}) {
     const opts = {
       protocol: 'oauth2',
       'response_type': this.options.response_type,
@@ -72,6 +72,10 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
 
     const url = this.options.authorization_endpoint + '?' + qs.stringify(opts, { arrayFormat: 'repeat' });
 
-    window.location.replace(url);
+    if (replace) {
+      window.location.replace(url);
+    } else {
+      window.location = url;
+    }
   }
 }

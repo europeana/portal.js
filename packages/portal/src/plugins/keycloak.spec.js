@@ -93,9 +93,9 @@ describe('plugins/keycloak.js', () => {
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
-        keycloakPlugin(ctx).login();
+        keycloakPlugin(ctx).login({ replace: true });
 
-        expect(ctx.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale } })).toBe(true);
+        expect(ctx.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale }, replace: true })).toBe(true);
       });
     });
 
