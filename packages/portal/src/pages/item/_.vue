@@ -189,7 +189,7 @@
             return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
           } else {
             // not yet logged-in: redirect to login
-            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath }, replace: true });
+            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
           }
         }
       }
