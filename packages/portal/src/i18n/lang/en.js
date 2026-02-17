@@ -931,11 +931,10 @@ export default {
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later.",
-        "learnMore": "Let me choose"
+        "description": "Could we please enable services for security, analytics and third-party content?",
+        "learnMore": "Manage cookie settings"
       },
-      "decline": "I decline",
-      "ok": "Okay",
+      "decline": "Decline",
       "purposes": {
         "2D": {
           "title": "2D media"
@@ -988,6 +987,10 @@ export default {
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
+      },
+      "cloudflare": {
+        "description": "Remembers security challenge has been passed successfully.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Helps debugging API requests",
