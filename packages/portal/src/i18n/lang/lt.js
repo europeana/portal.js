@@ -897,11 +897,10 @@ export default {
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Sveiki! Ar galėtume įgalinti keletą papildomų analizės ir saugos paslaugų? Savo sutikimą visada galėsite pakeisti arba atšaukti vėliau.",
-        "learnMore": "Leisk man pasirinkti"
+        "description": "Ar galėtume įjungti saugos, analizės ir trečiųjų šalių turinio paslaugas?",
+        "learnMore": "Tvarkyti slapukų nustatymus"
       },
-      "decline": "Aš atsisakau",
-      "ok": "Gerai",
+      "decline": "Atmesti",
       "purposes": {
         "2D": {
           "title": "2D medija"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
+      },
+      "cloudflare": {
+        "description": "Prisimena, kad saugumo patikrinimas buvo sėkmingai įvykdytas.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Padeda derinti API užklausas",

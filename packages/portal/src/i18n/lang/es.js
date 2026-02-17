@@ -897,11 +897,10 @@ export default {
         "title": "Servicios que nos gustaría utilizar."
       },
       "consentNotice": {
-        "description": "¡Hola! ¿Podríamos habilitar algunos servicios adicionales para análisis y seguridad? Siempre podrás cambiar o retirar tu consentimiento más adelante.",
-        "learnMore": "Dejame elegir"
+        "description": "¿Podríamos habilitar los servicios de seguridad, analítica y contenido de terceros, por favor?",
+        "learnMore": "Gestionar la configuración de cookies"
       },
-      "decline": "Me niego",
-      "ok": "Okey",
+      "decline": "Rechazar",
       "purposes": {
         "2D": {
           "title": "Medios 2D"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
         "title": "Estrategia de autenticación"
+      },
+      "cloudflare": {
+        "description": "Recuerda que el desafío de seguridad se ha superado correctamente.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Ayuda a depurar solicitudes de API",

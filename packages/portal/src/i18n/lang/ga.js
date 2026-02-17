@@ -897,11 +897,10 @@ export default {
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
-        "description": "Haigh! An bhféadfaimis roinnt seirbhísí breise a chumasú le haghaidh anailíse agus slándála? Is féidir leat do thoiliú a athrú nó a tharraingt siar ar ball i gcónaí.",
-        "learnMore": "Lig dom a roghnú"
+        "description": "An bhféadfaimis seirbhísí a chumasú le haghaidh slándála, anailísíochtaí agus ábhar tríú páirtí?",
+        "learnMore": "Bainistigh socruithe fianán"
       },
-      "decline": "Meath mé",
-      "ok": "ceart go leor",
+      "decline": "Diúltaigh",
       "purposes": {
         "2D": {
           "title": "Meáin 2D"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
         "title": "Straitéis Auth"
+      },
+      "cloudflare": {
+        "description": "Is cuimhin leis go bhfuil an dúshlán slándála curtha i gcrích go rathúil.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Cuidíonn sé le hiarratais API a dhífhabhtú",

@@ -897,11 +897,10 @@ export default {
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
-        "description": "Živjo! Ali lahko prosim omogočimo nekaj dodatnih storitev za analitiko in varnost? Soglasje lahko kadar koli spremenite ali prekličete pozneje.",
-        "learnMore": "Naj izberem"
+        "description": "Ali lahko omogočimo storitve za varnost, analitiko in vsebino tretjih oseb?",
+        "learnMore": "Upravljaj nastavitve piškotkov"
       },
-      "decline": "Zavrnem.",
-      "ok": "Okej",
+      "decline": "Zavrni",
       "purposes": {
         "2D": {
           "title": "2D mediji"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
         "title": "Auth strategija"
+      },
+      "cloudflare": {
+        "description": "Zapomni si, da je bil varnostni izziv uspešno opravljen.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Pomaga pri razhroščevanju zahtev API",

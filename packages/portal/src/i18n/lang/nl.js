@@ -897,11 +897,10 @@ export default {
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
-        "description": "Hallo! Kunnen we alstublieft enkele aanvullende services inschakelen voor analyse en beveiliging? U kunt uw toestemming later altijd nog wijzigen of intrekken.",
-        "learnMore": "Laat me kiezen"
+        "description": "Kunnen we alstublieft services inschakelen voor beveiliging, analyse en inhoud van derden?",
+        "learnMore": "Cookie-instellingen beheren"
       },
-      "decline": "ik weiger",
-      "ok": "Oké",
+      "decline": "Weigeren",
       "purposes": {
         "2D": {
           "title": "2D media"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
+      },
+      "cloudflare": {
+        "description": "Onthoudt dat de beveiligingscontrole succesvol is doorlopen.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Helpt bij het debuggen van API-verzoeken",
