@@ -897,11 +897,10 @@ export default {
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Hej! Kan vi venligst aktivere nogle yderligere tjenester til analyse og sikkerhed? Du kan altid ændre eller trække dit samtykke tilbage senere.",
-        "learnMore": "Lad mig vælge"
+        "description": "Kan vi venligst aktivere tjenester til sikkerhed, analyse og tredjepartsindhold?",
+        "learnMore": "Administrer cookie-indstillinger"
       },
-      "decline": "Jeg afviser",
-      "ok": "Okay",
+      "decline": "Afvis",
       "purposes": {
         "2D": {
           "title": "2D-medier"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
+      },
+      "cloudflare": {
+        "description": "Husker, at sikkerhedskontrollen blev bestået.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
