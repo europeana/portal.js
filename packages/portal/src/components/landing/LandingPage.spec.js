@@ -15,7 +15,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(LandingPag
     $route: { params: {} },
     ...mocks
   },
-  stubs: ['b-container', 'b-col', 'LandingImageCard', 'DS4CHLandingHero', 'LandingHero']
+  stubs: ['b-container', 'b-col', 'LandingImageCard', 'LandingHero']
 });
 
 describe('components/landing/LandingPage', () => {
@@ -159,22 +159,6 @@ describe('components/landing/LandingPage', () => {
 
       expect(first.classes).toContain('bg-color-alternate');
       expect(second.classes).toContain('bg-color-alternate');
-    });
-
-    it('does not apply alternate background when variant is not "pro"', () => {
-      const sections = [
-        {},
-        { __typename: 'LandingSubSection' }
-      ];
-
-      const wrapper = factory({ propsData: {
-        sections,
-        variant: 'ds4ch'
-      } });
-
-      expect(wrapper.vm.sectionsWithClasses[1].classes).not.toContain(
-        'bg-color-alternate'
-      );
     });
   });
 });

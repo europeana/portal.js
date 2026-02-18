@@ -77,7 +77,7 @@
       },
       /**
        * Variant to define layout and style
-       * @values pro, ds4ch
+       * @values pro
        */
       variant: {
         type: String,
@@ -103,7 +103,7 @@
 
     computed: {
       buttonVariant() {
-        return (this.variant === 'ds4ch' || this.defaultBackground) ? 'btn-primary' : 'btn-outline-primary';
+        return this.defaultBackground ? 'btn-primary' : 'btn-outline-primary';
       }
     }
   };
@@ -189,16 +189,5 @@
     ::v-deep &.text-white .primary-cta-rich-text a {
       color: $white;
     }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-  @import '@europeana/style/scss/responsive-background-image';
-
-  .landing-cta.ds4ch {
-    background-color: $black;
-    color: $white;
   }
 </style>

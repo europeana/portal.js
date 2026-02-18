@@ -39,11 +39,7 @@
         v-if="card.link"
         :destination="card.link.url"
         data-qa="call to action"
-        class="btn"
-        :class="{
-          'btn-secondary icon-chevron': variant === 'ds4ch',
-          'btn-outline-primary': variant !== 'ds4ch'
-        }"
+        class="btn btn-outline-primary"
         hide-external-icon
       >
         {{ card.link.text }}
@@ -75,26 +71,6 @@
     '1225px'
   ].join(',');
 
-  const SRCSET_PRESETS_DS4CH = {
-    small: { w: 512, h: 342, fit: 'fill' },
-    medium: { w: 510, h: 340, fit: 'fill' },
-    large: { w: 690, h: 460, fit: 'fill' },
-    xl: { w: 600, h: 400, fit: 'fill' },
-    xxl: { w: 700, h: 467, fit: 'fill' },
-    '4k': { w: 625, h: 417, fit: 'fill' },
-    '4k+': { w: 1500, h: 1000, fit: 'fill' }
-  };
-
-  const SIZES_PRESETS_DS4CH = [
-    '(max-width: 575px) 512px', // bp-small
-    '(max-width: 767px) 510px', // bp-medium
-    '(max-width: 991px) 690px', // bp-large
-    '(max-width: 1199px) 600px', // bp-xl
-    '(max-width: 1399px) 700px', // bp-xxl
-    '(max-width: 3019px) 625px', // bp-4k
-    '1500px'
-  ].join(',');
-
   export default {
     name: 'LandingImageCard',
 
@@ -113,7 +89,7 @@
       },
       /**
        * Variant to define layout and style
-       * @values pro, ds4ch
+       * @values pro
        */
       variant: {
         type: String,
@@ -139,8 +115,8 @@
         cardClasses: this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '',
         cardImageWithAttribution: this.card?.image,
         isSVG: this.card?.image?.image?.contentType === 'image/svg+xml',
-        sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
-        srcSetPresets: this.variant === 'ds4ch' ? SRCSET_PRESETS_DS4CH : SRCSET_PRESETS
+        sizesPresets: SIZES_PRESETS,
+        srcSetPresets: SRCSET_PRESETS
       };
     },
 
@@ -271,96 +247,6 @@
     .text {
       color: $darkgrey;
       text-align: left;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .ds4ch.image-card {
-    max-width: 100%;
-
-    @media (min-width: $bp-large) {
-      padding-right: 0;
-    }
-
-    .image-wrapper {
-      @media (min-width: $bp-large) {
-        max-width: none;
-      }
-
-      @media (min-width: $bp-xxl) {
-        flex-basis: 625px;
-      }
-
-      @media (min-width: $bp-4k) {
-        flex-basis: 1500px;
-      }
-
-    }
-
-    .text-wrapper {
-      padding-right: 0;
-
-      @media (min-width: $bp-large) {
-        padding-right: 2rem;
-      }
-
-      @media (min-width: $bp-extralarge) {
-        padding-right: 6rem;
-      }
-
-      @media (min-width: $bp-xxl) {
-        flex-basis: 625px;
-        padding-right: 0;
-      }
-
-      @media (min-width: $bp-xxl) {
-        flex-basis: 625px;
-      }
-
-      @media (min-width: $bp-4k) {
-        padding-right: 4rem;
-        padding-left: 12rem;
-        flex-basis: 1500px;
-      }
-
-      .text {
-        color: $black;
-
-        @media(min-width: $bp-4k) {
-          font-size: 2.5rem;
-        }
-      }
-
-      .btn {
-        margin-top: 1rem;
-
-        @media (min-width: $bp-4k) {
-          margin-top: 3rem;
-        }
-      }
-    }
-
-    &:nth-child(even),
-    &.image-card-even {
-      .text-wrapper {
-        @media (min-width: $bp-large) {
-          order: -1;
-          padding-right: 3.625rem;
-          padding-left: 2rem;
-        }
-
-        @media (min-width: $bp-extralarge) {
-          padding-left: 6rem;
-        }
-        @media (min-width: $bp-xxl) {
-          padding-right: 6rem;
-          padding-left: 0;
-        }
-      }
     }
   }
 </style>

@@ -4,15 +4,7 @@
     :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <DS4CHLandingHero
-      v-if="variant === 'ds4ch'"
-      :headline="headline"
-      :text="text"
-      :cta="cta"
-      :hero-image="primaryImageOfPage"
-    />
     <LandingHero
-      v-else
       :headline="headline"
       :text="text"
       :cta="cta"
@@ -108,8 +100,7 @@
       LandingImageCard: () => import('./LandingImageCard'),
       LandingImageCardGroup: () => import('./LandingImageCardGroup'),
       LandingSubSection: () => import('./LandingSubSection'),
-      LandingEmbed: () => import('./LandingEmbed'),
-      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
+      LandingEmbed: () => import('./LandingEmbed')
     },
 
     props: {
@@ -139,7 +130,7 @@
       },
       /**
        * Variant to define layout and style
-       * @values pro, ds4ch
+       * @values pro
        */
       variant: {
         type: String,
@@ -242,23 +233,3 @@
   }
 </style>
 
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-
-  .landing-page.ds4ch-page {
-    margin-top: 0;
-
-    &:after {
-      content: none;
-    }
-
-    .image-card-container {
-      @media (min-width: $bp-large) {
-        max-width: none;
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  }
-</style>

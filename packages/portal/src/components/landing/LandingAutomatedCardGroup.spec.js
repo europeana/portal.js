@@ -6,7 +6,6 @@ import LandingAutomatedCardGroup from '@/components/landing/LandingAutomatedCard
 
 const localVue = createLocalVue();
 
-const DS4CH_NUMBERS = 'Data space numbers';
 const EUROPEANA_NUMBERS = 'Europeana numbers';
 const axiosGetStub = sinon.stub();
 
@@ -30,22 +29,6 @@ describe('components/landing/LandingAutomatedCardGroup', () => {
       describe('for Europeana numbers', () => {
         const propsData = { genre: EUROPEANA_NUMBERS };
         const axiosArgs = '/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count';
-        beforeEach(() => {
-          axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
-        });
-        afterEach(() => {
-          axiosGetStub.reset();
-        });
-        it('gets the data from the cache API endpoint', async() => {
-          const wrapper = factory(propsData);
-          await wrapper.vm.fetch();
-          expect(axiosGetStub.calledWith(axiosArgs)).toBe(true);
-        });
-      });
-
-      describe('for Data space numbers', () => {
-        const propsData = { genre: DS4CH_NUMBERS };
-        const axiosArgs = '/_api/cache?id=items/type-counts&id=dataspace/network-members&id=dataspace/data-providers&id=dataspace/hq-data&id=dataspace/api-requests';
         beforeEach(() => {
           axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
         });
