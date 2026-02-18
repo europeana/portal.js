@@ -124,9 +124,7 @@
       pageMetaMixin
     ],
 
-    middleware: [
-      'auth'
-    ],
+    middleware: 'auth',
 
     setup() {
       const tabHashes = [

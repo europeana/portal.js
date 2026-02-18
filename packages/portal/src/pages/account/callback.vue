@@ -5,7 +5,7 @@
 <script>
   export default {
     name: 'AccountCallbackPage',
-    layout: 'minimal',
-    auth: false
+    auth: false,
+    layout: 'minimal'
   };
 </script>
