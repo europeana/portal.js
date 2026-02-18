@@ -18,6 +18,7 @@
       </div>
       <div
         v-for="(section, index) in sections"
+        :id="sectionId(section)"
         :key="index"
       >
         <LandingContentCardGroup
@@ -59,6 +60,7 @@
 
 <script>
   import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
+  import sectionId from '@/utils/contentful/sectionId.js';
   import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
@@ -106,7 +108,8 @@
 
     methods: {
       contentfulEntryHasContentType,
-      parseMarkdown
+      parseMarkdown,
+      sectionId
     }
   };
 </script>
