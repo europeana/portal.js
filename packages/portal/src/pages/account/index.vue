@@ -101,7 +101,6 @@
   import UserLikes from '@/components/user/UserLikes';
   import UserSets from '@/components/user/UserSets';
   import useActiveTab from '@/composables/activeTab.js';
-  import { useSelectedItems } from '@/composables/selectedItems.js';
 
   const HASH_CURATED_COLLECTIONS = '#curated-collections';
   const HASH_LIKES = '#likes';
@@ -140,11 +139,9 @@
       ];
 
       const { activeTabHash } = useActiveTab(tabHashes, { replaceRoute: false });
-      const { clear: clearSelectedItems } = useSelectedItems();
 
       return {
-        activeTabHash,
-        clearSelectedItems
+        activeTabHash
       };
     },
 
