@@ -9,7 +9,7 @@ const testPropsData = {
     headline: 'This is a headline',
     hasPartCollection: { items: [] }
   },
-  variant: 'ds4ch'
+  variant: 'pro'
 };
 
 const factory = (propsData = testPropsData) => shallowMount(LandingContentCardGroup, {
@@ -24,6 +24,6 @@ describe('components/landing/LandingContentCardGroup', () => {
 
     const cardGroup = wrapper.find('[data-qa="landing content card group"]');
 
-    expect(cardGroup.classes().includes('ds4ch')).toBe(true);
+    expect(cardGroup.classes().includes('pro')).toBe(true);
   });
 });

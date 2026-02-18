@@ -2,7 +2,7 @@
   <div
     ref="landingContentCardGroup"
     class="landing-content-card-group"
-    :class="[variant, `landing-content-card-group-${parity}`]"
+    :class="variant"
     data-qa="landing content card group"
   >
     <b-container>
@@ -17,7 +17,6 @@
 
 <script>
   import { ref } from 'vue';
-  import useRefParity from '@/composables/refParity.js';
   import ContentCardSection from '../content/ContentCardSection';
 
   export default {
@@ -37,7 +36,7 @@
       },
       /**
        * Variant to define layout and style
-       * @values pro, ds4ch
+       * @values pro
        */
       variant: {
         type: String,
@@ -52,14 +51,9 @@
       }
     },
 
-    setup(props) {
+    setup() {
       const landingContentCardGroup = ref(null);
-      if (props.variant === 'ds4ch') {
-        const { parity } = useRefParity('landing-content-card-group', landingContentCardGroup);
-        return { parity, landingContentCardGroup };
-      } else {
-        return { parity: null, landingContentCardGroup };
-      }
+      return { landingContentCardGroup };
     },
 
     data() {
@@ -179,105 +173,6 @@
     @media (min-width: $bp-4k) {
       padding-top: 15rem;
       padding-bottom: 13.5rem;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .landing-content-card-group.ds4ch {
-    &.landing-content-card-group-odd {
-      background-color: $lightgrey;
-      margin-top: 0;
-      margin-bottom: 0;
-
-      padding-top: 3rem;
-      padding-bottom: 1.5rem;
-
-      @media (min-width: $bp-large) {
-        padding-top: 6rem;
-        padding-bottom: 4.5rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        padding-top: 15rem;
-        padding-bottom: 13.5rem;
-      }
-    }
-
-    .container {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    ::v-deep .col-lg-6 {
-      @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-landing-4k !important;
-        margin-bottom: 9rem;
-      }
-    }
-
-    ::v-deep h2.card-group-title {
-      color: $black;
-    }
-
-    ::v-deep .text {
-      color: $black;
-
-      @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
-      }
-    }
-
-    ::v-deep .content-card {
-      @media (min-width: $bp-4k) {
-        min-height: 57rem;
-        border-radius: 0.5rem;
-      }
-
-      .card-body {
-        @media (min-width: $bp-4k) {
-          padding: 2.5rem;
-        }
-      }
-
-      .card-title {
-        @media (min-width: $bp-4k) {
-          font-size: 3.125rem;
-        }
-      }
-
-      .card-text {
-        color: $black;
-        @media (min-width: $bp-4k) {
-          font-size: 2.5rem;
-          line-height: 1.5;
-        }
-      }
-
-      .card-img {
-        @media (min-width: $bp-4k) {
-          max-height: 30.5rem;
-          border-radius: 0.5rem 0.5rem 0 0;
-        }
-      }
-    }
-
-    ::v-deep .card-deck {
-      @media (min-width: $bp-4k) {
-        max-width: none;
-      }
-    }
-
-    ::v-deep .card-deck-4-cols {
-      .card {
-        @media (min-width: $bp-4k) {
-          max-width: none;
-          flex: 0 0 calc(100% / 4 - 45px);
-        }
-      }
     }
   }
 </style>

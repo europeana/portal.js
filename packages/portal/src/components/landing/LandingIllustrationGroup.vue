@@ -113,7 +113,7 @@
       },
       /**
        * Variant to define layout and style
-       * @values pro, ds4ch
+       * @values pro
        */
       variant: {
         type: String,
@@ -376,99 +376,6 @@
 
     &-active {
       background-color: $black;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-  @import '@europeana/style/scss/responsive-background-image';
-  .landing-illustration-group.ds4ch {
-    @media (min-width: $bp-4k) {
-      margin-top: 15rem;
-      margin-bottom: 15rem;
-    }
-
-    .header {
-      @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-landing-4k !important;
-        padding-bottom: 5rem;
-      }
-    }
-
-    h2 {
-      @media (min-width: $bp-4k) {
-        margin-bottom: 2rem;
-      }
-    }
-
-    .text {
-      color: $black;
-
-      @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
-        margin-bottom: 3.125rem;
-      }
-    }
-
-    $swiper-slide-width-height-ds4ch-4k: 340px;
-    $swiper-pagination-height-ds4ch-4k: 126px;
-
-    .swiper-container-wrapper {
-      @media (min-width: $bp-4k) {
-        height: $swiper-slide-width-height-ds4ch-4k;
-
-        &.paginated {
-          height: calc($swiper-slide-width-height-ds4ch-4k + $swiper-pagination-height-ds4ch-4k);
-        }
-      }
-    }
-    .swiper-container {
-
-      .image-wrapper {
-        @media (min-width: $bp-4k) {
-          width: $swiper-slide-width-height-ds4ch-4k;
-          height: $swiper-slide-width-height-ds4ch-4k;
-        }
-      }
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      @media (min-width: $bp-4k) {
-        height: 128px;
-        width: 128px;
-
-        &:after {
-          font-size: 3.5rem;
-        }
-      }
-    }
-
-    .swiper-pagination {
-      @media (min-width: $bp-4k) {
-        margin-top: 4rem;
-      }
-    }
-
-    ::v-deep .swiper-pagination-bullet {
-      border: 2px solid $black;
-
-      @media (min-width: $bp-4k) {
-        height: 32px;
-        width: 32px;
-        border: 4px solid $black;
-        margin-right: 12px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      &-active {
-        background-color: $black;
-      }
     }
   }
 </style>
