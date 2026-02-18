@@ -897,11 +897,10 @@ export default {
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
-        "description": "Tere! Kas saaksime lubada analüüsi ja turvalisuse jaoks mõned lisateenused? Saate oma nõusolekut hiljem alati muuta või tagasi võtta.",
-        "learnMore": "Las ma valin"
+        "description": "Kas me saaksime palun lubada teenused turvalisuse, analüütika ja kolmanda osapoole sisu jaoks?",
+        "learnMore": "Halda küpsiste seadeid"
       },
-      "decline": "ma keeldun",
-      "ok": "Okei",
+      "decline": "Keeldu",
       "purposes": {
         "2D": {
           "title": "2D meedia"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
+      },
+      "cloudflare": {
+        "description": "Mäletab, et turvakontroll on edukalt läbitud.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Aitab siluda API taotlusi",

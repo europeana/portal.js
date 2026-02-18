@@ -10,6 +10,7 @@
           <b-container>
             <b-row>
               <b-nav
+                id="account-page-nav"
                 tabs
                 align="center"
                 class="w-100"
@@ -54,61 +55,36 @@
             </b-row>
           </b-container>
           <client-only>
-            <AlertMessage
-              v-if="$fetchState.error"
-              :error="$fetchState.error.message"
+            <UserLikes
+              v-if="activeTabHash === HASH_LIKES"
+              data-qa="liked items"
             />
-            <template
-              v-else-if="activeTabHash === HASH_LIKES"
-            >
-              <ItemPreviewInterface
-                data-qa="liked items"
-                :enable-item-multi-select="true"
-                :loading="$fetchState.pending"
-                :items="likedItems"
-                :per-page="100"
-                :max-results="100"
-                :total="likedItems?.length || 0"
-              >
-                <template #no-items>
-                  <div
-                    class="text-center pb-4"
-                  >
-                    {{ $t('account.notifications.noLikedItems') }}
-                  </div>
-                </template>
-              </ItemPreviewInterface>
-            </template>
-            <template v-else-if="activeTabHash === HASH_PUBLIC_GALLERIES">
-              <UserSets
-                visibility="public"
-                :empty-text="$t('account.notifications.noCollections.public')"
-                data-qa="public sets"
-              />
-            </template>
-            <template v-else-if="activeTabHash === HASH_PRIVATE_GALLERIES">
-              <UserSets
-                visibility="private"
-                :empty-text="$t('account.notifications.noCollections.private')"
-                data-qa="private sets"
-              />
-            </template>
-            <template v-else-if="activeTabHash === HASH_PUBLISHED_GALLERIES">
-              <UserSets
-                visibility="published"
-                :show-create-set-button="false"
-                :empty-text="$t('account.notifications.noCollections.published')"
-                data-qa="published sets"
-              />
-            </template>
-            <template v-else-if="userIsEditor && activeTabHash === HASH_CURATED_COLLECTIONS">
-              <UserSets
-                type="EntityBestItemsSet"
-                :show-create-set-button="false"
-                :empty-text="$t('account.notifications.noCollections.curated')"
-                data-qa="curated sets"
-              />
-            </template>
+            <UserSets
+              v-else-if="activeTabHash === HASH_PUBLIC_GALLERIES"
+              visibility="public"
+              :empty-text="$t('account.notifications.noCollections.public')"
+              data-qa="public sets"
+            />
+            <UserSets
+              v-else-if="activeTabHash === HASH_PRIVATE_GALLERIES"
+              visibility="private"
+              :empty-text="$t('account.notifications.noCollections.private')"
+              data-qa="private sets"
+            />
+            <UserSets
+              v-else-if="activeTabHash === HASH_PUBLISHED_GALLERIES"
+              visibility="published"
+              :show-create-set-button="false"
+              :empty-text="$t('account.notifications.noCollections.published')"
+              data-qa="published sets"
+            />
+            <UserSets
+              v-else-if="userIsEditor && activeTabHash === HASH_CURATED_COLLECTIONS"
+              type="EntityBestItemsSet"
+              :show-create-set-button="false"
+              :empty-text="$t('account.notifications.noCollections.curated')"
+              data-qa="curated sets"
+            />
           </client-only>
         </b-col>
       </b-row>
@@ -119,12 +95,10 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import { BNav, BNavItem } from 'bootstrap-vue';
-  import { mapState } from 'vuex';
 
   import pageMetaMixin from '@/mixins/pageMeta';
-  import AlertMessage from '@/components/generic/AlertMessage';
-  import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import UserHeader from '@/components/user/UserHeader';
+  import UserLikes from '@/components/user/UserLikes';
   import UserSets from '@/components/user/UserSets';
   import useActiveTab from '@/composables/activeTab.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
@@ -139,23 +113,17 @@
     name: 'AccountIndexPage',
 
     components: {
-      AlertMessage,
       BNav,
       BNavItem,
       ClientOnly,
-      ItemPreviewInterface,
       UserHeader,
+      UserLikes,
       UserSets
     },
 
     mixins: [
       pageMetaMixin
     ],
-
-    beforeRouteLeave(_to, _from, next) {
-      this.clearSelectedItems();
-      next();
-    },
 
     middleware: [
       'auth',
@@ -186,16 +154,9 @@
         HASH_LIKES,
         HASH_PRIVATE_GALLERIES,
         HASH_PUBLIC_GALLERIES,
-        HASH_PUBLISHED_GALLERIES,
-        tabFocused: false
+        HASH_PUBLISHED_GALLERIES
       };
     },
-
-    fetch() {
-      this.fetchLikes();
-    },
-
-    fetchOnServer: false,
 
     computed: {
       pageMeta() {
@@ -206,17 +167,6 @@
       userIsEditor() {
         return this.$auth.userHasClientRole('entities', 'editor') &&
           this.$auth.userHasClientRole('usersets', 'editor');
-      },
-      ...mapState({
-        likesId: state => state.set.likesId,
-        likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations
-      })
-    },
-
-    methods: {
-      fetchLikes() {
-        this.$store.dispatch('set/fetchLikes');
       }
     }
   };

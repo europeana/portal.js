@@ -897,11 +897,10 @@ export default {
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
-        "description": "Sveiki! Vai mēs, lūdzu, varētu iespējot dažus papildu pakalpojumus analīzei un drošībai? Jūs vienmēr varat mainīt vai atsaukt savu piekrišanu vēlāk.",
-        "learnMore": "Ļaujiet man izvēlēties"
+        "description": "Vai varam, lūdzu, aktivizēt drošības, analītikas un trešās puses satura pakalpojumus?",
+        "learnMore": "Pārvaldīt sīkfailu iestatījumus"
       },
-      "decline": "Es noraidu",
-      "ok": "Labi",
+      "decline": "Noraidīt",
       "purposes": {
         "2D": {
           "title": "2D multivides"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
+      },
+      "cloudflare": {
+        "description": "Atceras, ka drošības pārbaude ir veiksmīgi nokārtota.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",

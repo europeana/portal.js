@@ -114,10 +114,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .landing-sub-section {
-    background-color: $lightgrey;
-  }
-
   .landing-sub-section-container {
     padding-top: 3rem;
     border-bottom: 1px solid transparent; // fix for when any margin of the last child component causes different bg to display
@@ -161,10 +157,20 @@
     @media (min-width: $bp-4k) {
       max-width: $max-text-column-width-landing-4k;
     }
+
+    ::v-deep a {
+      color: $darkgrey;
+    }
   }
 
   ::v-deep .landing-content-card-group .container {
     max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+
+    @media (min-width: $bp-4k) {
+      max-width: 2500px;
+    }
   }
 
   ::v-deep .landing-illustration-group.pro {

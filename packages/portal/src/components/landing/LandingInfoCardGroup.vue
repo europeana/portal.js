@@ -175,6 +175,10 @@
 
   .text {
     color: $darkgrey;
+
+    ::v-deep a {
+      color: $darkgrey;
+    }
   }
 
   .cards-wrapper {

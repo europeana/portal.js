@@ -383,7 +383,10 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
+    plugins: [
+      '~/plugins/europeana-apis',
+      '~/plugins/liked-items.client'
+    ]
   },
 
   axios: {

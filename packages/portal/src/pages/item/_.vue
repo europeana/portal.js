@@ -141,9 +141,9 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToMixin from '@/mixins/redirectTo';
 
   import waitFor from '@/utils/waitFor.js';
 
@@ -163,8 +163,7 @@
     },
 
     mixins: [
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
 
     inject: ['canonicalUrl'],
@@ -178,6 +177,23 @@
         itemIsDeleted: computed(() => this.isDeleted)
       };
     },
+
+    middleware: [
+      // When entering a translated item page, but not logged-in,
+      // redirect to Keycloak to login, unless user just logged out in which case,
+      // redirect to page without translation.
+      ({ $auth, redirect, route }) => {
+        if (route.query.lang && !$auth.loggedIn) {
+          if ($auth.$storage.getUniversal('portalLoggingOut')) {
+            // just logged out: redirect to page w/o lang param
+            return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
+          } else {
+            // not yet logged-in: redirect to login
+            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
+          }
+        }
+      }
+    ],
 
     setup() {
       const {
@@ -217,15 +233,10 @@
     },
 
     async fetch() {
-      // When entering a translated item page, but not logged in, redirect to non-translated item page
-      if (this.$route.query.lang && !this.$auth.loggedIn) {
-        this.redirectToAltRoute({ query: { lang: undefined } });
-      } else {
-        await Promise.all([
-          this.fetchMetadata(),
-          this.fetchAnnotations()
-        ]);
-      }
+      await Promise.all([
+        this.fetchMetadata(),
+        this.fetchAnnotations()
+      ]);
     },
 
     head() {
@@ -405,7 +416,7 @@
         const edm = data.object;
 
         if (this.identifier !== edm.about) {
-          return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
+          return redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
         }
 
         this.type = edm.type;

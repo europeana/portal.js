@@ -897,11 +897,10 @@ export default {
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
-        "description": "Kaixo! Analitikarako eta segurtasunerako zerbitzu gehigarri batzuk gaitu al genituzke? Beti alda dezakezu zure baimena geroago edo ken dezakezu.",
-        "learnMore": "Utzidazu aukeratzen"
+        "description": "Mesedez, gai al genituzke segurtasun, analisi eta hirugarrenen edukirako zerbitzuak?",
+        "learnMore": "Kudeatu cookien ezarpenak"
       },
-      "decline": "Gaitzetsi egiten dut",
-      "ok": "ados",
+      "decline": "Ukatu",
       "purposes": {
         "2D": {
           "title": "2D euskarria"
@@ -954,6 +953,10 @@ export default {
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
+      },
+      "cloudflare": {
+        "description": "Segurtasun erronka arrakastaz gainditu dela gogoratzen du.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
