@@ -22,61 +22,65 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <client-only v-if="isAuthenticated">
-      <li
-        v-if="!sidebarNav"
-        class="nav-item d-none d-lg-inline-block"
+    <client-only>
+      <template
+        v-if="isAuthenticated"
       >
-        <SmartLink
-          v-b-toggle.menu
-          :destination="'/account'"
-          link-class="nav-link"
-          exact
+        <li
+          v-if="!sidebarNav"
+          class="nav-item d-none d-lg-inline-block"
         >
-          <span class="label">
-            {{ $t('account.title') }}
-          </span>
-        </SmartLink>
-      </li>
+          <SmartLink
+            v-b-toggle.menu
+            :destination="'/account'"
+            link-class="nav-link"
+            exact
+          >
+            <span class="label">
+              {{ $t('account.title') }}
+            </span>
+          </SmartLink>
+        </li>
+        <li
+          v-for="item in authLinks"
+          :key="item.url"
+          class="nav-item d-block"
+          :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
+        >
+          <b-link
+            v-b-toggle.menu
+            :to="item.to"
+            :href="item.href"
+            :target="null"
+            :data-qa="item.dataQa"
+            class="nav-link"
+          >
+            <span :class="renderIcon(item.url)" />
+            <span class="nav-link-text">
+              {{ item.text }}
+            </span>
+          </b-link>
+        </li>
+      </template>
       <li
-        v-for="item in authLinks"
-        :key="item.url"
-        class="nav-item d-block"
-        :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
+        v-else
+        class="nav-item"
+        :class="sidebarNav ? 'sidebar-nav-item' : ''"
       >
         <b-link
           v-b-toggle.menu
-          :to="item.to"
-          :href="item.href"
-          :target="null"
-          :data-qa="item.dataQa"
+          data-qa="log in button"
           class="nav-link"
+          :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
+          :target="null"
         >
-          <span :class="renderIcon(item.url)" />
+          <span :class="renderIcon('/account/login')" />
           <span class="nav-link-text">
-            {{ item.text }}
+            {{ $t('account.linkLoginJoin') }}
           </span>
         </b-link>
       </li>
     </client-only>
-    <li
-      v-else
-      class="nav-item"
-      :class="sidebarNav ? 'sidebar-nav-item' : ''"
-    >
-      <b-link
-        v-b-toggle.menu
-        data-qa="log in button"
-        class="nav-link"
-        :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
-        :target="null"
-      >
-        <span :class="renderIcon('/account/login')" />
-        <span class="nav-link-text">
-          {{ $t('account.linkLoginJoin') }}
-        </span>
-      </b-link>
-    </li>
   </b-navbar-nav>
 </template>
 
