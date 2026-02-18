@@ -179,6 +179,8 @@
     },
 
     middleware: [
+      'cache-control-private',
+
       // When entering a translated item page, but not logged-in,
       // redirect to Keycloak to login, unless user just logged out in which case,
       // redirect to page without translation.

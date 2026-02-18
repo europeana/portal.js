@@ -8,10 +8,6 @@
 
     layout: 'minimal',
 
-    middleware: [
-      'cache-control-private'
-    ],
-
     created() {
       if (process.client) {
         this.$keycloak.login({ replace: true });

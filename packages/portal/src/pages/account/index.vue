@@ -125,8 +125,7 @@
     ],
 
     middleware: [
-      'auth',
-      'cache-control-private'
+      'auth'
     ],
 
     setup() {
