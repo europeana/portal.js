@@ -23,6 +23,25 @@
     </li>
     <!-- sso links -->
     <client-only>
+      <template #placeholder>
+        <li
+          class="nav-item"
+          :class="sidebarNav ? 'sidebar-nav-item' : ''"
+        >
+          <b-link
+            v-b-toggle.menu
+            data-qa="log in button"
+            class="nav-link"
+            :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
+            :target="null"
+          >
+            <span :class="renderIcon('/account/login')" />
+            <span class="nav-link-text">
+              {{ $t('account.linkLoginJoin') }}
+            </span>
+          </b-link>
+        </li>
+      </template>
       <template
         v-if="isAuthenticated"
       >
