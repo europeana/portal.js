@@ -7,7 +7,7 @@
       v-for="(link, index) in links"
       :key="index"
       class="nav-item"
-      :class="sidebarNav ? 'sidebar-nav-item' : ''"
+      :class="{ 'sidebar-nav-item': sidebarNav }"
     >
       <SmartLink
         v-b-toggle.menu
@@ -15,7 +15,10 @@
         link-class="nav-link"
         exact
       >
-        <span :class="renderIcon(link.url)" />
+        <span
+          v-if="sidebarNav"
+          :class="renderIcon(link.url)"
+        />
         <span class="nav-link-text">
           {{ link.text }}
         </span>
@@ -24,25 +27,10 @@
     <!-- sso links -->
     <template v-if="isAuthenticated">
       <li
-        v-if="!sidebarNav"
-        class="nav-item d-none d-lg-inline-block"
-      >
-        <SmartLink
-          v-b-toggle.menu
-          :destination="'/account'"
-          link-class="nav-link"
-          exact
-        >
-          <span class="label">
-            {{ $t('account.title') }}
-          </span>
-        </SmartLink>
-      </li>
-      <li
         v-for="item in authLinks"
         :key="item.url"
         class="nav-item d-block"
-        :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
+        :class="{ 'sidebar-nav-item': sidebarNav }"
       >
         <b-link
           v-b-toggle.menu
@@ -52,7 +40,10 @@
           :data-qa="item.dataQa"
           class="nav-link"
         >
-          <span :class="renderIcon(item.url)" />
+          <span
+            v-if="sidebarNav"
+            :class="renderIcon(item.url)"
+          />
           <span class="nav-link-text">
             {{ item.text }}
           </span>
@@ -62,7 +53,7 @@
     <li
       v-else
       class="nav-item"
-      :class="sidebarNav ? 'sidebar-nav-item' : ''"
+      :class="{ 'sidebar-nav-item': sidebarNav }"
     >
       <b-link
         v-b-toggle.menu
@@ -71,7 +62,10 @@
         :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
         :target="null"
       >
-        <span :class="renderIcon('/account/login')" />
+        <span
+          v-if="sidebarNav"
+          :class="renderIcon('/account/login')"
+        />
         <span class="nav-link-text">
           {{ $t('account.linkLoginJoin') }}
         </span>
@@ -101,7 +95,7 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.title'), url: '/account', dataQa: 'likes and galleries button' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+          this.sidebarNav && { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
       mainNavigation() {
