@@ -143,7 +143,6 @@
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
-  import cacheControlPublicMiddleware from '@/middleware/cache-control/public.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import waitFor from '@/utils/waitFor.js';
