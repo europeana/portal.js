@@ -422,7 +422,8 @@ export default {
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'redirects',
+      'cache-control/private'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');

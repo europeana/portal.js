@@ -8,11 +8,7 @@
 
 <script>
   export default {
-    name: 'MinimalLayout',
-
-    middleware: [
-      'cache-control/private'
-    ]
+    name: 'MinimalLayout'
   };
 </script>
 

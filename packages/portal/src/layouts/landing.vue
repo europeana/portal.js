@@ -55,10 +55,6 @@
       };
     },
 
-    middleware: [
-      'cache-control/private'
-    ],
-
     head() {
       return {
         link: [
