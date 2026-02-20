@@ -5,9 +5,9 @@ const setCacheControl = (res, value) => {
 
 export const createCacheControlMiddleware = (scope) => ({ $auth, $config, $features, res }) => {
   if ($features?.cacheControl) {
-    if ($auth?.loggedIn && $config.app.cacheControl?.auth) {
+    if ($auth?.loggedIn && $config?.app?.cacheControl?.auth) {
       setCacheControl(res, $config.app.cacheControl.auth);
-    } else if ($config.app.cacheControl?.[scope]) {
+    } else if ($config?.app?.cacheControl?.[scope]) {
       setCacheControl(res, $config.app.cacheControl[scope]);
     }
   }
