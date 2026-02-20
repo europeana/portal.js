@@ -14,6 +14,10 @@
   export default {
     name: 'ContentfulLayout',
 
+    middleware: [
+      'cache-control/private'
+    ],
+
     data() {
       return {
         contentfulExtensionsUiSdkVersion: '3.23.2'

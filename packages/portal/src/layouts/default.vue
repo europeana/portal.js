@@ -83,6 +83,10 @@
       ErrorModal
     },
 
+    middleware: [
+      'cache-control/private'
+    ],
+
     setup() {
       const { makeToast } = useMakeToast();
 

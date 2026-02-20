@@ -22,6 +22,10 @@
 
     mixins: [pageMetaMixin],
 
+    middleware: [
+      'cache-control/private'
+    ],
+
     props: {
       error: {
         type: Object,
