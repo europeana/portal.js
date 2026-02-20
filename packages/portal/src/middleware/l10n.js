@@ -12,6 +12,7 @@ const COOKIE_NAME = 'i18n_locale_code';
 // Codes of all languages supported by the app
 import { codes as localeCodes } from '@europeana/i18n';
 import { exclude as i18nRoutesExclude } from '../i18n/routes.js';
+import publicCacheControl from './cache-control/public.js';
 
 function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
@@ -22,9 +23,8 @@ const localiseRoute = ({ route, req, res, redirect, app }) => {
     app.$apm.setTransactionName(`${req.method} [l10n]`);
   }
 
-  if (process.server && res) {
-    res.setHeader('Vary', [res.getHeader('Vary'), 'Accept-Language'].filter(Boolean).join(', '));
-  }
+  res?.setHeader('Vary', [res.getHeader('Vary'), 'Accept-Language'].filter(Boolean).join(', '));
+  publicCacheControl({ res });
 
   redirect(route);
 };
