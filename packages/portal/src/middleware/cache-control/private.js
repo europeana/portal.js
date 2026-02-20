@@ -1,6 +1,4 @@
 export default ({ res }) => {
-  if (process.server && res) {
-    res.removeHeader('Cache-Control');
-    res.setHeader('Cache-Control', 'private');
-  }
+  res?.removeHeader('Cache-Control');
+  res?.setHeader('Cache-Control', 'private');
 };
