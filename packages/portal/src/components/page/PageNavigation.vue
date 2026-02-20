@@ -9,11 +9,12 @@
       class="nav-item"
       :class="{ 'sidebar-nav-item': sidebarNav }"
     >
-      <SmartLink
+      <b-link
         v-b-toggle.menu
-        :destination="link.url"
-        link-class="nav-link"
-        exact
+        :to="link.to || localePath(link.url)"
+        :target="null"
+        :data-qa="link.dataQa"
+        class="nav-link"
       >
         <span
           v-if="sidebarNav"
@@ -22,67 +23,14 @@
         <span class="nav-link-text">
           {{ link.text }}
         </span>
-      </SmartLink>
-    </li>
-    <!-- sso links -->
-    <template v-if="isAuthenticated">
-      <li
-        v-for="item in authLinks"
-        :key="item.url"
-        class="nav-item d-block"
-        :class="{ 'sidebar-nav-item': sidebarNav }"
-      >
-        <b-link
-          v-b-toggle.menu
-          :to="item.to"
-          :href="item.href"
-          :target="null"
-          :data-qa="item.dataQa"
-          class="nav-link"
-        >
-          <span
-            v-if="sidebarNav"
-            :class="renderIcon(item.url)"
-          />
-          <span class="nav-link-text">
-            {{ item.text }}
-          </span>
-        </b-link>
-      </li>
-    </template>
-    <li
-      v-else
-      class="nav-item"
-      :class="{ 'sidebar-nav-item': sidebarNav }"
-    >
-      <b-link
-        v-b-toggle.menu
-        data-qa="log in button"
-        class="nav-link"
-        :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
-        :target="null"
-      >
-        <span
-          v-if="sidebarNav"
-          :class="renderIcon('/account/login')"
-        />
-        <span class="nav-link-text">
-          {{ $t('account.linkLoginJoin') }}
-        </span>
       </b-link>
     </li>
   </b-navbar-nav>
 </template>
 
 <script>
-  import SmartLink from '../generic/SmartLink';
-
   export default {
     name: 'PageNavigation',
-
-    components: {
-      SmartLink
-    },
 
     props: {
       sidebarNav: {
@@ -93,9 +41,11 @@
 
     computed: {
       authLinks() {
-        return [
-          { to: this.localePath({ name: 'account' }), text: this.$t('account.title'), url: '/account', dataQa: 'likes and galleries button' },
-          this.sidebarNav && { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+        return this.isAuthenticated ? [
+          { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
+          this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+        ] : [
+          { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
         ];
       },
       mainNavigation() {
@@ -115,7 +65,7 @@
         ];
       },
       links() {
-        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
+        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
