@@ -423,6 +423,8 @@ export default {
       'contentful-galleries',
       'set-galleries',
       'redirects',
+      // Default cache-control to private, after redirects so they are not impacted
+      // and may be cached
       'cache-control/private'
     ],
     extendRoutes(routes) {
