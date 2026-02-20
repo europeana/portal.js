@@ -32,10 +32,34 @@ describe('middleware/l10n', () => {
       describe('and it is the root path for that locale', () => {
         const route = { path: '/de' };
 
-        it('is stored in the cookie', () => {
-          middleware({ app, route, redirect, req });
+        describe('client-side', () => {
+          beforeAll(() => {
+            process.client = true;
+          });
+          afterAll(() => {
+            delete process.client;
+          });
 
-          expect(app.$cookies.set.calledWith('i18n_locale_code', 'de')).toBe(true);
+          it('is stored in the cookie', () => {
+            middleware({ app, route, redirect, req });
+
+            expect(app.$cookies.set.calledWith('i18n_locale_code', 'de')).toBe(true);
+          });
+        });
+
+        describe('server-side', () => {
+          beforeAll(() => {
+            process.server = true;
+          });
+          afterAll(() => {
+            delete process.server;
+          });
+
+          it('is not stored in the cookie', () => {
+            middleware({ app, route, redirect, req });
+
+            expect(app.$cookies.set.called).toBe(false);
+          });
         });
 
         it('does not redirect', () => {
@@ -48,10 +72,34 @@ describe('middleware/l10n', () => {
       describe('and it is a sub- path for that locale', () => {
         const route = { path: '/en/item/123/abc' };
 
-        it('is stored in the cookie', () => {
-          middleware({ app, route, redirect, req });
+        describe('client-side', () => {
+          beforeAll(() => {
+            process.client = true;
+          });
+          afterAll(() => {
+            delete process.client;
+          });
 
-          expect(app.$cookies.set.calledWith('i18n_locale_code', 'en')).toBe(true);
+          it('is stored in the cookie', () => {
+            middleware({ app, route, redirect, req });
+
+            expect(app.$cookies.set.calledWith('i18n_locale_code', 'en')).toBe(true);
+          });
+        });
+
+        describe('server-side', () => {
+          beforeAll(() => {
+            process.server = true;
+          });
+          afterAll(() => {
+            delete process.server;
+          });
+
+          it('is not stored in the cookie', () => {
+            middleware({ app, route, redirect, req });
+
+            expect(app.$cookies.set.called).toBe(false);
+          });
         });
 
         it('does not redirect', () => {

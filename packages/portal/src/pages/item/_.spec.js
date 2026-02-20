@@ -243,7 +243,7 @@ describe('pages/item/_.vue', () => {
           it('does not redirect', () => {
             const wrapper = factory();
 
-            wrapper.vm.middleware[0](mocks);
+            wrapper.vm.middleware[1](mocks);
 
             expect(mocks.redirect.called).toBe(false);
           });
@@ -260,7 +260,7 @@ describe('pages/item/_.vue', () => {
             it('redirects to the non-translated item page', () => {
               const wrapper = factory();
 
-              wrapper.vm.middleware[0](mocks);
+              wrapper.vm.middleware[1](mocks);
 
               expect(mocks.redirect.calledWith(303,
                 {
@@ -284,7 +284,7 @@ describe('pages/item/_.vue', () => {
             it('redirects to login first', () => {
               const wrapper = factory();
 
-              wrapper.vm.middleware[0](mocks);
+              wrapper.vm.middleware[1](mocks);
 
               expect(mocks.redirect.calledWith(303,
                 {

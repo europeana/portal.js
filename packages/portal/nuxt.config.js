@@ -67,6 +67,11 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
+      cacheControl: {
+        default: process.env.APP_CACHE_CONTROL_DEFAULT || 'no-store',
+        auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+        item: process.env.APP_CACHE_CONTROL_ITEM || 'public'
+      },
       debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
@@ -304,6 +309,7 @@ export default {
     '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/keycloak',
     '~/plugins/axios-logger',
@@ -408,6 +414,10 @@ export default {
 
   router: {
     middleware: [
+      // Early middlewares to apply always
+      'no-ssr-cookies',
+      // Redirection-related middlewares next
+      //
       // legacy portal redirects MUST go first as they may already include locale
       // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
@@ -417,7 +427,10 @@ export default {
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'redirects',
+      // Default cache-control to no-store, after redirects so they are not impacted
+      // and may potentially be cached if intermediaries decide to
+      'cache-control'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
