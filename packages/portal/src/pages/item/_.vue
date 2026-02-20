@@ -141,6 +141,7 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import { createCacheControlMiddleware } from '@/middleware/cache-control.js';
   import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -179,7 +180,7 @@
     },
 
     middleware: [
-      'cache-control/byAuthLoggedIn',
+      createCacheControlMiddleware('item'),
 
       // When entering a translated item page, but not logged-in,
       // redirect to Keycloak to login, unless user just logged out in which case,
