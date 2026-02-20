@@ -423,9 +423,9 @@ export default {
       'contentful-galleries',
       'set-galleries',
       'redirects',
-      // Default cache-control to private, after redirects so they are not impacted
-      // and may be cached
-      'cache-control/private'
+      // Default cache-control to no-store, after redirects so they are not impacted
+      // and may potentially be cached if intermediaries decide to
+      'cache-control/no-store'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');

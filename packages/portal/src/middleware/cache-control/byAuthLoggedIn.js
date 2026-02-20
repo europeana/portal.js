@@ -1,7 +1,6 @@
-import privateCacheControl from './private.js';
-import publicCacheControl from './public.js';
+import noStoreCacheControl from './no-store.js';
+import noCacheControl from './none.js';
 
 export default (ctx) => {
-  console.log('ctx?.$auth?.loggedIn', ctx?.$auth?.loggedIn);
-  return ctx?.$auth?.loggedIn ? privateCacheControl(ctx) : publicCacheControl(ctx);
+  return ctx?.$auth?.loggedIn ? noStoreCacheControl(ctx) : noCacheControl(ctx);
 };
