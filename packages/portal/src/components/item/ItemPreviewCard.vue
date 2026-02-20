@@ -33,17 +33,15 @@
         >
           <span class="icon-file" />{{ type }}
         </span>
-        <client-only>
-          <UserButtons
-            v-if="!itemMultiSelect"
-            :identifier="identifier"
-            :show-pins="showPins"
-            :show-move="showMove"
-            :show-remove="showRemove"
-            :button-text="true"
-            button-variant="light-flat"
-          />
-        </client-only>
+        <UserButtons
+          v-if="!itemMultiSelect"
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+          :show-remove="showRemove"
+          :button-text="true"
+          button-variant="light-flat"
+        />
       </div>
     </template>
     <template
@@ -59,25 +57,23 @@
       v-else-if="variant !== 'list'"
       #image-overlay
     >
-      <client-only>
-        <div
-          @click.stop=""
-        >
-          <RecommendationButtons
-            v-if="enableAcceptRecommendation || enableRejectRecommendation"
-            :identifier="identifier"
-            :enable-accept-button="enableAcceptRecommendation"
-            :enable-reject-button="enableRejectRecommendation"
-          />
-          <UserButtons
-            v-else
-            :identifier="identifier"
-            :show-pins="showPins"
-            :show-move="showMove"
-            :show-remove="showRemove"
-          />
-        </div>
-      </client-only>
+      <div
+        @click.stop=""
+      >
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
+        <UserButtons
+          v-else
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+          :show-remove="showRemove"
+        />
+      </div>
     </template>
   </ContentCard>
 </template>

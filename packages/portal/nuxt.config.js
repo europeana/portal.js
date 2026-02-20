@@ -411,7 +411,7 @@ export default {
     middleware: [
       // Early middlewares to apply always
       'no-ssr-cookies',
-      'cache-control-private',
+      'cache-control/private',
       // Redirection-related middlewares next
       //
       // legacy portal redirects MUST go first as they may already include locale

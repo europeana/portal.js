@@ -143,6 +143,7 @@
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
+  import cacheControlPublicMiddleware from '@/middleware/cache-control/public.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import waitFor from '@/utils/waitFor.js';
@@ -179,7 +180,7 @@
     },
 
     middleware: [
-      'cache-control-public',
+      'cache-control/public',
 
       // When entering a translated item page, but not logged-in,
       // redirect to Keycloak to login, unless user just logged out in which case,

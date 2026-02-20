@@ -14,8 +14,7 @@ const factory = () => shallowMount(PageNavigation, {
     $t: (key) => key,
     localePath: code => window.location.href + code,
     $route: { fullPath: '/fr' }
-  },
-  stubs: ['client-only']
+  }
 });
 
 describe('components/PageNavigation', () => {
