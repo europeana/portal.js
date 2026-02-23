@@ -1,7 +1,6 @@
 export default [
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
-  { name: 'cacheControl' },
   { name: 'eventLogging' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'manageApiKeys' },

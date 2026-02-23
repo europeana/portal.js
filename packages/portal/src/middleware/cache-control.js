@@ -3,13 +3,11 @@ const setCacheControl = (res, value) => {
   value && res?.setHeader('Cache-Control', value);
 };
 
-export const createCacheControlMiddleware = (scope) => ({ $auth, $config, $features, res }) => {
-  if ($features?.cacheControl) {
-    if ($auth?.loggedIn && $config?.app?.cacheControl?.auth) {
-      setCacheControl(res, $config.app.cacheControl.auth);
-    } else if ($config?.app?.cacheControl?.[scope]) {
-      setCacheControl(res, $config.app.cacheControl[scope]);
-    }
+export const createCacheControlMiddleware = (scope) => ({ $auth, $config, res }) => {
+  const config = $config?.app?.cacheControl;
+
+  if (config.enabled) {
+    setCacheControl(res, $auth?.loggedIn ? config.auth : config[scope]);
   }
 };
 

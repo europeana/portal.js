@@ -68,9 +68,10 @@ export default {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       cacheControl: {
-        default: process.env.APP_CACHE_CONTROL_DEFAULT || 'no-store',
+        enabled: featureIsEnabled('cacheControl'),
+        default: process.env.APP_CACHE_CONTROL_DEFAULT,
         auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
-        item: process.env.APP_CACHE_CONTROL_ITEM || 'public'
+        item: process.env.APP_CACHE_CONTROL_ITEM
       },
       debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
@@ -427,10 +428,10 @@ export default {
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects',
+      'redirects'
       // Default cache-control to no-store, after redirects so they are not impacted
       // and may potentially be cached if intermediaries decide to
-      'cache-control'
+      // 'cache-control'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
