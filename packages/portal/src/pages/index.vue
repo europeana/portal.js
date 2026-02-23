@@ -48,6 +48,7 @@
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import browseLandingStaticPageGraphql from '@/graphql/queries/browseLandingStaticPage.graphql';
+  import { createCacheControlMiddleware } from '@/middleware/cache-control.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const identifierForRoute = (ctx) => ctx.route?.params?.pathMatch || ctx.$config?.app?.homeLandingPageSlug;
@@ -82,6 +83,10 @@
     layout(ctx) {
       return layoutName(ctx);
     },
+
+    middleware: [
+      createCacheControlMiddleware('contentful')
+    ],
 
     data() {
       return {
