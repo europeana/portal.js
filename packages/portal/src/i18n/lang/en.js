@@ -878,10 +878,12 @@ export default {
     "navigation": {
       "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "For teachers",
+      "educators": "For educators",
       "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
+      "partners": "Partner with us",
+      "research": "For researchers",
       "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },

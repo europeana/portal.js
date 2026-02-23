@@ -3,6 +3,7 @@ import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
 const redirects = {
   '/blog': '/stories?type=story',
   '/blog/*': '/stories/*',
+  '/europeana-classroom': '/educators',
   '/exhibitions': '/stories?type=exhibition',
   '/privacy-policy-newsletter': '/privacy-statement-newsletter',
   '/professionals': '/share-your-collections',
