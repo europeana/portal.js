@@ -428,10 +428,10 @@ export default {
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
-      // Default cache-control to no-store, after redirects so they are not impacted
+      'redirects',
+      // Default cache-control, after redirects, so they are not impacted
       // and may potentially be cached if intermediaries decide to
-      // 'cache-control'
+      'cache-control'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
