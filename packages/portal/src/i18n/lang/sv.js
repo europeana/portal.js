@@ -809,7 +809,7 @@ export default {
   "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
-    "findUsElsewhere": "Hitta oss någon annanstans",
+    "findUsElsewhere": "Vi finns också på",
     "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
@@ -823,11 +823,11 @@ export default {
       "registerApiKey": "Registrera dig för en API-nyckel",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "supportingTechnicalPartners": "Stödja tekniska partners",
+      "supportingTechnicalPartners": "Våra tekniska partners",
       "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
+    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omställningen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
   "galleries": {
     "description": "Utforska våra gallerier",
@@ -862,7 +862,7 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Senaste berättelserna",
+    "discoverEditorial": "De senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
     "themesTitle": "Utforska efter tema",
