@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajate jaoks",
+      "educators": "Haridustöötajatele",
       "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
+      "partners": "Tee meiega koostööd",
+      "research": "Teadlastele",
       "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },

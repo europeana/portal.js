@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Maidir linn",
       "collections": "Bailiúcháin",
-      "europeanaClassroom": "Do mhúinteoirí",
+      "educators": "D'Oideachasóirí",
       "featureIdeas": "Smaointe gné",
       "help": "Cabhair",
       "home": "Baile",
+      "partners": "Bí i gcomhpháirt linn",
+      "research": "Do thaighdeoirí",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },

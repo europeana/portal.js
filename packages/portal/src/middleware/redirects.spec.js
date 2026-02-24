@@ -14,6 +14,14 @@ describe('middleware/redirects', () => {
     expect(redirect.calledWith(301, '/fr/share-your-collections')).toBe(true);
   });
 
+  it('redirects /:locale/europeana-classrooom to /:locale/educators', () => {
+    const route = { path: '/en/europeana-classroom' };
+
+    middleware({ route, redirect });
+
+    expect(redirect.calledWith(301, '/en/educators')).toBe(true);
+  });
+
   it('redirects /:locale/blog to /stories', () => {
     const route = { path: '/de/blog' };
 

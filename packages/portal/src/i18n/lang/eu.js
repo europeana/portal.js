@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Guri buruz",
       "collections": "Bildumak",
-      "europeanaClassroom": "Irakasleentzat",
+      "educators": "Hezitzaileentzat",
       "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
+      "partners": "Izan zaitez gure bazkide",
+      "research": "Ikertzaileentzat",
       "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },

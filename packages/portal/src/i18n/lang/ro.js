@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Despre",
       "collections": "Colecții",
-      "europeanaClassroom": "Pentru profesori",
+      "educators": "Pentru educatori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Acasă",
+      "partners": "Parteneriat cu noi",
+      "research": "Pentru cercetători",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },

@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "O nás",
       "collections": "Kolekcie",
-      "europeanaClassroom": "Pre učiteľov",
+      "educators": "Pre pedagógov",
       "featureIdeas": "Nápady na funkcie",
       "help": "Pomoc",
       "home": "Domov",
+      "partners": "Staňte sa naším partnerom",
+      "research": "Pre výskumníkov",
       "shareYourCollections": "Zdieľajte svoje zbierky",
       "stories": "Príbehy"
     },

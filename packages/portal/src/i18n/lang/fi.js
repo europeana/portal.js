@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajille",
+      "educators": "Opettajille",
       "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
+      "partners": "Ryhdy kumppaniksemme",
+      "research": "Tutkijoille",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },

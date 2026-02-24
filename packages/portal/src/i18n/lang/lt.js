@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Apie mus",
       "collections": "Kolekcijos",
-      "europeanaClassroom": "Mokytojams",
+      "educators": "Pedagogams",
       "featureIdeas": "Funkcijų idėjos",
       "help": "Pagalba",
       "home": "Pradžia",
+      "partners": "Bendradarbiaukite su mumis",
+      "research": "Tyrėjams",
       "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
