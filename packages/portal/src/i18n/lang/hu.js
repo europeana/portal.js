@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanároknak",
+      "educators": "Oktatóknak",
       "featureIdeas": "Funkcióötletek",
       "help": "Súgó",
       "home": "Kezdőlap",
+      "partners": "Legyen a partnerünk",
+      "research": "Kutatóknak",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
