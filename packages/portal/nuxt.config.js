@@ -8,7 +8,7 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
-import camelCase from 'lodash/camelCase';
+import camelCase from 'lodash/camelCase.js';
 
 import versions from './pkg-versions.js';
 
