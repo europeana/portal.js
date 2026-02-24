@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
-      "europeanaClassroom": "Pedagogiem",
+      "educators": "Izglītotājiem",
       "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
+      "partners": "Sadarbojieties ar mums",
+      "research": "Pētniekiem",
       "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },

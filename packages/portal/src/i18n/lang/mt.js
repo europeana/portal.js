@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
-      "europeanaClassroom": "Għall-għalliema",
+      "educators": "Għall-edukaturi",
       "featureIdeas": "Ideat tal-karatteristiċi",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
+      "partners": "Issieħeb magħna",
+      "research": "Għall‑riċerkaturi",
       "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },

@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Σχετικά",
       "collections": "Συλλογές",
-      "europeanaClassroom": "Για εκπαιδευτικούς",
+      "educators": "Για εκπαιδευτικούς",
       "featureIdeas": "Ιδέες χαρακτηριστικών",
       "help": "Βοήθεια",
       "home": "Αρχική",
+      "partners": "Συνεργαστείτε μαζί μας",
+      "research": "Για ερευνητές",
       "shareYourCollections": "Μοιραστείτε τις συλλογές σας",
       "stories": "Ιστορίες"
     },
