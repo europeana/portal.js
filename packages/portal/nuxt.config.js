@@ -70,6 +70,7 @@ export default {
       cacheControl: {
         enabled: featureIsEnabled('cacheControl'),
         default: process.env.APP_CACHE_CONTROL_DEFAULT,
+        accountLogin: process.env.APP_CACHE_CONTROL_ACCOUNT_LOGIN,
         auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
         contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL,
         item: process.env.APP_CACHE_CONTROL_ITEM
