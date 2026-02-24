@@ -1,14 +1,26 @@
+import camelCase from 'lodash/camelCase';
+
 const setCacheControl = (res, value) => {
   res?.removeHeader('Cache-Control');
   value && res?.setHeader('Cache-Control', value);
 };
 
-export const createCacheControlMiddleware = (scope) => ({ $auth, $config, res }) => {
-  const config = $config?.app?.cacheControl;
+export default ({ $auth, $config, res, route }) => {
+  const config = $config?.app?.cacheControl || {};
 
-  if (config.enabled) {
-    setCacheControl(res, $auth?.loggedIn ? config.auth : config[scope]);
+  if (!config.enabled) {
+    return;
   }
-};
 
-export default createCacheControlMiddleware('default');
+  // convert e.g. "item-all___en" to "itemAll"
+  const scope = camelCase(route?.name?.split('___')?.[0]);
+
+  let headerValue = config.default;
+  if ($auth?.loggedIn) {
+    headerValue = config.auth;
+  } else if (config.route?.[scope]) {
+    headerValue = config.route[scope];
+  }
+
+  setCacheControl(res, headerValue);
+};

@@ -3,16 +3,10 @@
 </template>
 
 <script>
-  import { createCacheControlMiddleware } from '@/middleware/cache-control.js';
-
   export default {
     name: 'AccountLoginPage',
 
     layout: 'minimal',
-
-    middleware: [
-      createCacheControlMiddleware('accountLogin')
-    ],
 
     created() {
       if (process.client) {
