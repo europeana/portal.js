@@ -58,7 +58,9 @@
       },
       sidebarNavigation() {
         return [
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          // { url: '/partners', text: this.$t('header.navigation.partners') },
+          { url: '/educators', text: this.$t('header.navigation.educators') },
+          // { url: '/research', text: this.$t('header.navigation.research') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') },
           { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
@@ -93,8 +95,14 @@
         case ('/'):
           className = 'icon-home';
           break;
-        case ('/europeana-classroom'):
+        case ('/educators'):
           className = 'icon-school';
+          break;
+        case ('/partners'):
+          className = 'icon-partner';
+          break;
+        case ('/research'):
+          className = 'icon-academia';
           break;
         case ('/about-us'):
           className = 'icon-info';
