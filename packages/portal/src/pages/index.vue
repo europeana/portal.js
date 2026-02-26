@@ -85,10 +85,6 @@
       return layoutName(ctx);
     },
 
-    middleware: [
-      'cache-control/contentful'
-    ],
-
     data() {
       return {
         browsePage: false,

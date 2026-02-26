@@ -29,10 +29,6 @@
       pageMetaMixin
     ],
 
-    middleware: [
-      'cache-control/contentful'
-    ],
-
     data() {
       return {
         themes: [],

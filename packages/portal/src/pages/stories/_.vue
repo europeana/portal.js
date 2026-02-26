@@ -65,10 +65,6 @@
       'canonicalUrl'
     ],
 
-    middleware: [
-      'cache-control/contentful'
-    ],
-
     setup() {
       const { logEvent } = useLogEvent();
 

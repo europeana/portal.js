@@ -61,17 +61,41 @@ const postgresConfig = () => {
   return postgresOptions;
 };
 
-const cacheControlConfig = () => ({
-  enabled: featureIsEnabled('cacheControl'),
-  default: process.env.APP_CACHE_CONTROL_DEFAULT,
-  auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
-  contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL,
-  route: Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
+const cacheControlConfig = () => {
+  const config = {
+    enabled: featureIsEnabled('cacheControl'),
+    default: process.env.APP_CACHE_CONTROL_DEFAULT,
+    auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+    contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL
+  };
+
+  config.route = Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
     const scope = camelCase(key.replace('APP_CACHE_CONTROL_ROUTE_', ''));
     memo[scope] = process.env[key];
     return memo;
-  }, {})
-});
+  }, {});
+
+  const contentfulRouteScopes = [
+    'exhibitionsExhibition',
+    'exhibitionsExhibitionChapter',
+    'exhibitionsExhibitionCredits',
+    'featureIdeas',
+    'index',
+    'slug',
+    'stories',
+    'storiesAll',
+    'themes',
+    'themesAll'
+  ];
+
+  for (const scope of contentfulRouteScopes) {
+    if (config.contentful && !config.route[scope]) {
+      config.route[scope] = config.contentful;
+    }
+  }
+
+  return config;
+};
 
 export default {
   /*
@@ -443,7 +467,8 @@ export default {
       'redirects',
       // cache-control last, just before page-specific middleware, so any redirects
       // etc have already occurred if needed. let intermediaries make their own
-      // decisions what to do with earlier redirects.
+      // decisions what to do with earlier redirects. order is important. later
+      // rules will override earlier ones if they match.
       'cache-control/default',
       'cache-control/route',
       'cache-control/auth'
