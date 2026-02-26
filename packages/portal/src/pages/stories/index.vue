@@ -53,6 +53,10 @@
 
     mixins: [pageMetaMixin],
 
+    middleware: [
+      'cache-control/contentful'
+    ],
+
     data() {
       return {
         headline: null,

@@ -77,11 +77,17 @@
       StaticPage: () => import('@/components/static/StaticPage')
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
 
     layout(ctx) {
       return layoutName(ctx);
     },
+
+    middleware: [
+      'cache-control/contentful'
+    ],
 
     data() {
       return {

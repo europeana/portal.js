@@ -157,6 +157,9 @@
       exhibitionChapters,
       pageMetaMixin
     ],
+    middleware: [
+      'cache-control/contentful'
+    ],
     setup() {
       const { logEvent } = useLogEvent();
       return { logEvent };

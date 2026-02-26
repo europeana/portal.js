@@ -168,7 +168,13 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
+
+    middleware: [
+      'cache-control/contentful'
+    ],
 
     data() {
       return {

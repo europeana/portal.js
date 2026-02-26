@@ -65,6 +65,7 @@ const cacheControlConfig = () => ({
   enabled: featureIsEnabled('cacheControl'),
   default: process.env.APP_CACHE_CONTROL_DEFAULT,
   auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+  contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL,
   route: Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
     const scope = camelCase(key.replace('APP_CACHE_CONTROL_ROUTE_', ''));
     memo[scope] = process.env[key];
@@ -424,22 +425,28 @@ export default {
   router: {
     middleware: [
       // Early middlewares to apply always
+      //
+      // Remove any cookies from SSRs so that intermediaries will consider
+      // eligible for caching
       'no-ssr-cookies',
       // Redirection-related middlewares next
       //
       // legacy portal redirects MUST go first as they may already include locale
       // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
-      // localise next, so that any redirects are locale-specific for 301 caching
+      // localise next, so that any subsequent redirects are locale-specific
       'l10n',
-      // other redirects may proceed
+      // 301 redirects may proceed
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
       'redirects',
-      // Default cache-control, after redirects, so they are not impacted
-      // and may potentially be cached if intermediaries decide to
-      'cache-control'
+      // cache-control last, just before page-specific middleware, so any redirects
+      // etc have already occurred if needed. let intermediaries make their own
+      // decisions what to do with earlier redirects.
+      'cache-control/default',
+      'cache-control/route',
+      'cache-control/auth'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');

@@ -24,7 +24,7 @@ const localiseRoute = ({ route, req, res, redirect, app }) => {
 
   res?.setHeader('Vary', [res.getHeader('Vary'), 'Accept-Language'].filter(Boolean).join(', '));
 
-  redirect(route);
+  redirect(302, route);
 };
 
 export default ({ app, route, redirect, req, res }) => {

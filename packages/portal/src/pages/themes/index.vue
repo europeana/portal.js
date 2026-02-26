@@ -25,7 +25,13 @@
       ContentHubPage
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
+
+    middleware: [
+      'cache-control/contentful'
+    ],
 
     data() {
       return {

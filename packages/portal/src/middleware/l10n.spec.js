@@ -123,7 +123,7 @@ describe('middleware/l10n', () => {
         it('redirects to path without locale', () => {
           middleware({ app, route, redirect, req });
 
-          expect(redirect.calledWith(sinon.match.has('path', '/'))).toBe(true);
+          expect(redirect.calledWith(302, sinon.match.has('path', '/'))).toBe(true);
         });
       });
 
@@ -139,7 +139,7 @@ describe('middleware/l10n', () => {
         it('redirects to path without locale', () => {
           middleware({ app, route, redirect, req });
 
-          expect(redirect.calledWith(sinon.match.has('path', '/item/123/abc'))).toBe(true);
+          expect(redirect.calledWith(302, sinon.match.has('path', '/item/123/abc'))).toBe(true);
         });
       });
     });
