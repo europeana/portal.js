@@ -3,6 +3,7 @@
     <b-dropdown
       data-qa="item language selector"
       :disabled="fromTranslationError"
+      lazy
     >
       <template #button-content>
         <span
