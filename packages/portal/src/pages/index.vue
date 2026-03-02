@@ -53,7 +53,7 @@
   const identifierForRoute = (ctx) => ctx.route?.params?.pathMatch || ctx.$config?.app?.homeLandingPageSlug;
 
   const ds4chLayout = (ctx) => identifierForRoute(ctx) === 'dataspace-culturalheritage';
-  const landingLayout = (ctx) => ['apis', 'black-history-month'].includes(identifierForRoute(ctx));
+  const landingLayout = (ctx) => ['apis', 'black-history-month', 'womens-history-month'].includes(identifierForRoute(ctx));
 
   const layoutName = (ctx) => {
     if (ds4chLayout(ctx)) {
