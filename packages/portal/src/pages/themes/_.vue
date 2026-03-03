@@ -168,7 +168,9 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
 
     data() {
       return {

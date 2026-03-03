@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "À propos d'Europeana",
       "collections": "Collections",
-      "europeanaClassroom": "Pour les enseignants",
+      "educators": "Pour les éducateurs",
       "featureIdeas": "Idées de fonctionnalités",
       "help": "Aide",
       "home": "Accueil",
+      "partners": "Collaborez avec nous",
+      "research": "Pour les chercheurs",
       "shareYourCollections": "Partagez vos collections",
       "stories": "Histoires"
     },

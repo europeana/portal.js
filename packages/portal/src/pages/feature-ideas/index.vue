@@ -70,7 +70,9 @@
       LoadingSpinner
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
 
     data() {
       return {

@@ -1,12 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
-import ItemLanguageSelector from '@/components/item/ItemLanguageSelector';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+// import BootstrapVue from 'bootstrap-vue';
+import ItemLanguageSelector from './ItemLanguageSelector.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
+// localVue.use(BootstrapVue);
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => mount(ItemLanguageSelector, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemLanguageSelector, {
   localVue,
   propsData,
   mocks: {
@@ -39,7 +39,14 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => mount(ItemLanguageSelec
       }
     }
   },
-  stubs: ['i18n']
+  stubs: {
+    'b-dropdown': {
+      template: '<div><slot /><slot name="button-content" /></div>'
+    },
+    'b-dropdown-divider': true,
+    'b-dropdown-item': true,
+    'i18n': true
+  }
 });
 
 describe('components/item/ItemLanguageSelector', () => {

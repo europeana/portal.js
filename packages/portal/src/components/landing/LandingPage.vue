@@ -84,9 +84,9 @@
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
   import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
+  import sectionId from '@/utils/contentful/sectionId.js';
 
   export default {
     name: 'LandingPage',
@@ -147,10 +147,7 @@
 
     methods: {
       contentfulEntryHasContentType,
-
-      sectionId(section) {
-        return kebabCase(section.nameEN);
-      },
+      sectionId,
 
       isSubSectionOrCardGroup(section) {
         return this.contentfulEntryHasContentType(section, 'LandingSubSection') || this.contentfulEntryHasContentType(section, 'CardGroup');
