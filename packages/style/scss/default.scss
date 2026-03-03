@@ -33,7 +33,6 @@ main {
 
   // scope setting min-page-height to these layouts, not e.g. layout for contentful apps
   &#default,
-  &#ds4ch,
   &#landing-layout {
     @include min-page-height;
   }

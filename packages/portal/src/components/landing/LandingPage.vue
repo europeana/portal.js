@@ -1,18 +1,9 @@
 <template>
   <div
     class="landing-page xxl-page"
-    :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <DS4CHLandingHero
-      v-if="variant === 'ds4ch'"
-      :headline="headline"
-      :text="text"
-      :cta="cta"
-      :hero-image="primaryImageOfPage"
-    />
     <LandingHero
-      v-else
       :headline="headline"
       :text="text"
       :cta="cta"
@@ -29,14 +20,12 @@
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :section="section"
-        :variant="variant"
       />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
-        :variant="variant"
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
@@ -44,7 +33,6 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
         :link="section.link"
-        :variant="variant"
         :background-image="section.image"
       />
       <b-container
@@ -53,7 +41,6 @@
       >
         <LandingImageCard
           :card="section"
-          :variant="variant"
         />
       </b-container>
 
@@ -69,7 +56,6 @@
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
-        :variant="variant"
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
@@ -85,7 +71,6 @@
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
-        :variant="variant"
       />
     </div>
   </div>
@@ -108,8 +93,7 @@
       LandingImageCard: () => import('./LandingImageCard'),
       LandingImageCardGroup: () => import('./LandingImageCardGroup'),
       LandingSubSection: () => import('./LandingSubSection'),
-      LandingEmbed: () => import('./LandingEmbed'),
-      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
+      LandingEmbed: () => import('./LandingEmbed')
     },
 
     props: {
@@ -136,14 +120,6 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -177,7 +153,7 @@
         }
 
         // add alternate background to landing sub section and card group when preceding section has no background
-        if (this.variant === 'pro' && this.isSubSectionOrCardGroup(section)) {
+        if (this.isSubSectionOrCardGroup(section)) {
           const prev = memo[index - 1];
 
           // subsequent card group follows background style of preceding card group
@@ -223,39 +199,17 @@
       }
     }
 
-    &.pro-page {
-      > div:last-child {
-        .bg-color-alternate,
-        .bg-lightgrey {
-          @include white-cutout;
+    > div:last-child {
+      .bg-color-alternate,
+      .bg-lightgrey {
+        @include white-cutout;
 
-          &:after {
-            border-top-color: $lightgrey;
-            z-index: 1;
-          }
+        &:after {
+          border-top-color: $lightgrey;
+          z-index: 1;
         }
       }
     }
   }
 </style>
 
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-
-  .landing-page.ds4ch-page {
-    margin-top: 0;
-
-    &:after {
-      content: none;
-    }
-
-    .image-card-container {
-      @media (min-width: $bp-large) {
-        max-width: none;
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  }
-</style>

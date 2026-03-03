@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="[variant, { 'bg-lightgrey': defaultBackground }]"
+    :class="{ 'bg-lightgrey': defaultBackground }"
   >
     <div
       v-if="backgroundImage"
@@ -74,14 +74,6 @@
       backgroundImage: {
         type: Object,
         default: () => {}
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -97,13 +89,13 @@
           CSS_VARS_PRESETS,
           this.backgroundImage?.profile
         ),
-        defaultBackground: this.variant === 'pro' && !this.backgroundImage?.profile && !this.backgroundImage?.image
+        defaultBackground: !this.backgroundImage?.profile && !this.backgroundImage?.image
       };
     },
 
     computed: {
       buttonVariant() {
-        return (this.variant === 'ds4ch' || this.defaultBackground) ? 'btn-primary' : 'btn-outline-primary';
+        return this.defaultBackground ? 'btn-primary' : 'btn-outline-primary';
       }
     }
   };
@@ -189,16 +181,5 @@
     ::v-deep &.text-white .primary-cta-rich-text a {
       color: $white;
     }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-  @import '@europeana/style/scss/responsive-background-image';
-
-  .landing-cta.ds4ch {
-    background-color: $black;
-    color: $white;
   }
 </style>

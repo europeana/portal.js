@@ -21,7 +21,6 @@
         :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
-        :variant="layoutName === 'ds4ch' ? 'ds4ch' : 'pro'"
       />
       <HomePage
         v-else-if="homePage"
@@ -52,13 +51,10 @@
 
   const identifierForRoute = (ctx) => ctx.route?.params?.pathMatch || ctx.$config?.app?.homeLandingPageSlug;
 
-  const ds4chLayout = (ctx) => identifierForRoute(ctx) === 'dataspace-culturalheritage';
   const landingLayout = (ctx) => ['apis', 'black-history-month', 'womens-history-month'].includes(identifierForRoute(ctx));
 
   const layoutName = (ctx) => {
-    if (ds4chLayout(ctx)) {
-      return 'ds4ch';
-    } else if (landingLayout(ctx)) {
+    if (landingLayout(ctx)) {
       return 'landing';
     } else {
       return 'default';
@@ -123,10 +119,6 @@
       // landing pages use primaryImageOfPage as a fallback, otherwise null
       this.socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
       this.socialMediaImageAlt = this.socialMediaImage?.description || '';
-
-      if (this.layoutName === 'ds4ch') {
-        this.pageMetaSuffixTitle = null;
-      }
 
       this.page = Object.freeze(this.page);
     },
