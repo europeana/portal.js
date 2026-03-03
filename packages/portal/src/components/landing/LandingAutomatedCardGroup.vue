@@ -1,7 +1,6 @@
 <template>
   <div
     class="landing-automated-card-group"
-    :class="variant"
   >
     <b-col class="col-lg-8 px-0 text-center mx-auto">
       <h3
@@ -20,7 +19,7 @@
         :key="index"
         :info="item.info"
         :label="item.label"
-        :variant="cardVariant"
+        variant="dark"
       />
     </div>
   </div>
@@ -53,14 +52,6 @@
       staticItems: {
         type: Array,
         default: () => []
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
     data() {
@@ -108,9 +99,6 @@
         }
 
         return items || [];
-      },
-      cardVariant() {
-        return this.variant === 'pro' ? 'dark' : 'default';
       }
     },
     methods: {

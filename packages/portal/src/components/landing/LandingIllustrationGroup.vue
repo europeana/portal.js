@@ -1,7 +1,6 @@
 <template>
   <b-container
     class="landing-illustration-group"
-    :class="variant"
   >
     <b-col class="header col-lg-8 text-center mx-auto px-0">
       <component :is="titleTag">
@@ -110,14 +109,6 @@
       illustrations: {
         type: Array,
         default: () => []
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 

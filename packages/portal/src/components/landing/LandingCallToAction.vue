@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="[variant, { 'bg-lightgrey': defaultBackground }]"
+    :class="{ 'bg-lightgrey': defaultBackground }"
   >
     <div
       v-if="backgroundImage"
@@ -74,14 +74,6 @@
       backgroundImage: {
         type: Object,
         default: () => {}
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -97,7 +89,7 @@
           CSS_VARS_PRESETS,
           this.backgroundImage?.profile
         ),
-        defaultBackground: this.variant === 'pro' && !this.backgroundImage?.profile && !this.backgroundImage?.image
+        defaultBackground: !this.backgroundImage?.profile && !this.backgroundImage?.image
       };
     },
 

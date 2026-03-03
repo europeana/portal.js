@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, cardClasses, `image-card-${parity}`]"
+    :class="[cardClasses, `image-card-${parity}`]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -86,14 +86,6 @@
       card: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       },
       /**
        * Heading title level to use. Override default for when used in subsection to keep correct heading structure.

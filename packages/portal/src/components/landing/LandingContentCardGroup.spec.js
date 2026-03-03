@@ -8,8 +8,7 @@ const testPropsData = {
   section: {
     headline: 'This is a headline',
     hasPartCollection: { items: [] }
-  },
-  variant: 'pro'
+  }
 };
 
 const factory = (propsData = testPropsData) => shallowMount(LandingContentCardGroup, {
@@ -19,11 +18,11 @@ const factory = (propsData = testPropsData) => shallowMount(LandingContentCardGr
 });
 
 describe('components/landing/LandingContentCardGroup', () => {
-  it('sets a class based on the variant to style the card group', () => {
+  it('renders a landing content card group', () => {
     const wrapper = factory();
 
     const cardGroup = wrapper.find('[data-qa="landing content card group"]');
 
-    expect(cardGroup.classes().includes('pro')).toBe(true);
+    expect(cardGroup.exists()).toBe(true);
   });
 });

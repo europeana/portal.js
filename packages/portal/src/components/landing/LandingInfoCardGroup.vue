@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-info-card-group"
-    :class="[variant, backgroundImageClasses]"
+    :class="backgroundImageClasses"
   >
     <b-container
       class="text-center"
@@ -90,14 +90,6 @@
       link: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       },
       /**
        * Background image Object

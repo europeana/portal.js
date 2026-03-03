@@ -21,7 +21,6 @@
         :cta-help-text="page.relatedLinkDescription"
         :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
-        variant="pro"
       />
       <HomePage
         v-else-if="homePage"

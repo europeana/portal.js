@@ -1,7 +1,6 @@
 <template>
   <div
-    class="landing-sub-section"
-    :class="[variant, { 'bg-lightgrey': variant === 'pro' }]"
+    class="landing-sub-section bg-lightgrey"
   >
     <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
@@ -24,20 +23,17 @@
         <LandingContentCardGroup
           v-if="contentfulEntryHasContentType(section, 'CardGroup')"
           :section="section"
-          :variant="variant"
           title-tag="h3"
         />
         <LandingImageCard
           v-if="contentfulEntryHasContentType(section, 'ImageCard')"
           :card="section"
-          :variant="variant"
           title-tag="h3"
         />
         <LandingAutomatedCardGroup
           v-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
           :static-items="section.staticItems"
-          :variant="variant"
         />
         <LandingInfoCardGroup
           v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
@@ -95,14 +91,6 @@
       sections: {
         type: Array,
         default: () => []
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -176,7 +164,7 @@
     }
   }
 
-  ::v-deep .landing-illustration-group.pro {
+  ::v-deep .landing-illustration-group {
     .swiper-slide {
       background-color: $lightgrey; // Set a background color for mix-blend-mode to work properly
     }
