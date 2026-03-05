@@ -109,7 +109,7 @@
         default: ''
       },
       fieldData: {
-        type: [String, Object, Array],
+        type: [String, Object, Array, Number],
         default: null
       },
       context: {
@@ -163,7 +163,7 @@
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
-        } else if (typeof (this.fieldData) === 'string') {
+        } else if (['string', 'number'].includes(typeof (this.fieldData))) {
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
