@@ -198,7 +198,7 @@
   @import '@europeana/style/scss/variables';
 
   .metadata-row {
-    border-bottom: 1px solid #e7e7e9;
+    border-bottom: 1px solid $lightbluemagenta;
     font-size: $font-size-small;
     padding: 1rem 0;
 

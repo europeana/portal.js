@@ -44,3 +44,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .media-viewer-metadata-list {
+    border-top: 1px solid $lightbluemagenta;
+  }
+</style>
