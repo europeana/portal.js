@@ -1079,6 +1079,7 @@ export default {
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Media metadata",
       "search": "Search",
       "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"

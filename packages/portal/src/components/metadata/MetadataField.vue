@@ -3,7 +3,7 @@
     v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
-    class="metadata-row d-lg-flex"
+    class="metadata-row"
   >
     <h3
       v-if="labelled"
@@ -14,8 +14,9 @@
       {{ $t(`fieldLabels.${context}.${name}`) }}
     </h3>
     <ul
-      class="m-0 p-0 text-left text-lg-right list-unstyled"
+      class="m-0 p-0 text-left list-unstyled"
       :aria-labelledby="labelled && labelId"
+      :class="{ 'text-lg-right': context === 'default' }"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -100,6 +101,7 @@
       langAttributeMixin
     ],
 
+    // TODO inject metadataLanguage instead of prop
     inject: ['deBias'],
 
     props: {

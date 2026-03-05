@@ -25,6 +25,7 @@
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-main-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
@@ -44,6 +45,7 @@
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
