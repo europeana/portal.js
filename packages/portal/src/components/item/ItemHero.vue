@@ -1,19 +1,17 @@
 <template>
   <div class="item-hero position-relative">
     <NotificationBanner
-      v-if="itemIsDeleted"
+      v-if="item.isDeleted"
       class="position-absolute border-bottom-0"
       icon-class="icon-info"
       :text="$t('record.itemDepublished')"
       :ignorable="false"
     />
     <ItemMediaPresentation
-      :uri="iiifPresentationManifest"
+      :uri="item.iiifPresentationManifest"
       :item-id="identifier"
-      :provider-url="providerUrl"
+      :provider-url="item.providerAggregation.edmIsShownAt"
       :web-resources="media"
-      :services="services"
-      :edm-type="edmType"
       @select="selectMedia"
     />
     <b-container>
@@ -32,7 +30,7 @@
             />
           </div>
           <div
-            v-if="!itemIsDeleted"
+            v-if="!item.isDeleted"
             class="d-flex justify-content-md-center align-items-center button-wrapper"
           >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
@@ -52,7 +50,7 @@
               <DownloadWidget
                 v-if="downloadEnabled"
                 :url="downloadUrl"
-                :provider-url="providerUrl"
+                :provider-url="item.providerAggregation.edmIsShownAt"
                 :identifier="identifier"
                 :rights-statement="rightsStatement"
                 :attribution-fields="attributionFields"
@@ -106,9 +104,9 @@
       NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
-    inject: ['itemIsDeleted'],
+    inject: ['item'],
 
-    // TODO: much prop drilling happening here
+    // TODO: prop drilling happening here?
     props: {
       allMediaUris: {
         type: Array,
@@ -117,10 +115,6 @@
       identifier: {
         type: String,
         required: true
-      },
-      edmType: {
-        type: String,
-        default: null
       },
       edmRights: {
         type: String,
@@ -131,10 +125,6 @@
         default: () => [],
         validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       },
-      services: {
-        type: Array,
-        default: null
-      },
       attributionFields: {
         type: Object,
         default: () => ({})
@@ -144,15 +134,7 @@
         type: Array,
         default: () => []
       },
-      providerUrl: {
-        type: String,
-        default: null
-      },
       linkForContributingAnnotation: {
-        type: String,
-        default: null
-      },
-      iiifPresentationManifest: {
         type: String,
         default: null
       }
@@ -203,7 +185,7 @@
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
       // IIIF manifests.
       downloadViaProxy(url) {
-        return this.allMediaUris.some(uri => uri === url);
+        return this.allMediaUris.some((uri) => uri === url);
       },
       selectMedia(resource) {
         if (resource) {

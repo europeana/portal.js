@@ -70,7 +70,7 @@
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :media="resource?.edm"
+              :media="resource"
               :url="resource.id"
             >
               <EmbedOEmbed
@@ -85,10 +85,9 @@
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
-                :media="resource?.edm"
+                :media="resource"
                 :lazy="false"
-                :edm-type="edmType"
-                :linkable="!itemIsDeleted && !viewableImageResource"
+                :linkable="!item.isDeleted && !viewableImageResource"
                 thumbnail-size="large"
                 :europeana-identifier="itemId"
                 @click.native="() => thumbnailInteractedWith = true"
@@ -133,7 +132,6 @@
           id="item-media-thumbnails"
           ref="itemPages"
           tabindex="0"
-          :edm-type="edmType"
           data-qa="item media thumbnails"
           @keydown.escape.native="showPages = false"
         />
@@ -172,7 +170,7 @@
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
-    inject: ['itemIsDeleted'],
+    inject: ['item'],
 
     props: {
       uri: {
@@ -185,17 +183,7 @@
         default: null
       },
 
-      services: {
-        type: Array,
-        default: null
-      },
-
       itemId: {
-        type: String,
-        default: null
-      },
-
-      edmType: {
         type: String,
         default: null
       },
@@ -267,7 +255,7 @@
           error = e;
         }
       } else if (this.webResources) {
-        this.setPresentationFromWebResources(this.webResources, this.services);
+        this.setPresentationFromWebResources(this.webResources, this.item.services);
       } else {
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }

@@ -58,8 +58,13 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
     return (edmPreviewUrl.pathname.includes('/v3/') ? v3() : v2());
   }
 
-  forWebResource(webResource) {
-    const uri = webResource.preview?.about || webResource.about;
+  forWebResource(uri, item) {
+    const edmObjectWebResource = item?.providerAggregation?.webResources?.find((wr) => wr.about === item?.providerAggregation?.edmObject);
+
+    if (edmObjectWebResource && [item?.providerAggregation?.edmIsShownBy, item?.providerAggregation?.edmIsShownAt].includes(uri)) {
+      uri = edmObjectWebResource.about;
+    }
+
     return {
       small: this.media(uri, { size: SMALL_WIDTH }),
       large: this.media(uri, { size: LARGE_WIDTH })

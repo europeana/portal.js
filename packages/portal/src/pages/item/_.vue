@@ -23,14 +23,10 @@
           :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
-          :services="services"
           :edm-rights="edmRights"
-          :edm-type="type"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
-          :provider-url="isShownAt"
-          :iiif-presentation-manifest="iiifPresentationManifest"
         />
       </b-container>
       <b-container
@@ -58,7 +54,6 @@
               :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
               :data-provider-entity="dataProviderEntity"
               :metadata-language="metadataLanguage"
-              :is-shown-at="isShownAt"
               :user-generated-content="metadata.edmUgc === 'true'"
             />
           </b-col>
@@ -175,7 +170,9 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        itemIsDeleted: computed(() => this.isDeleted)
+        item: computed(() => this.item),
+        // TODO: have descendents inject item instead
+        itemIsDeleted: computed(() => this.item.isDeleted)
       };
     },
 
@@ -216,20 +213,18 @@
         cardGridClass: null,
         dataProviderEntity: null,
         deBias: { definitions: {}, ids: {}, terms: {} },
+        edm: null,
         entities: [],
         error: null,
         fromTranslationError: null,
         headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
-        isDeleted: false,
         isShownAt: null,
         media: [],
         metadata: {},
         ogImage: null,
         relatedCollections: [],
-        services: [],
-        type: null,
         useProxy: true
       };
     },
@@ -250,11 +245,14 @@
     },
 
     computed: {
+      item() {
+        return new Item(this.edm);
+      },
       webResources() {
-        if (this.isDeleted) {
-          return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
+        if (this.item.isDeleted) {
+          return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject })];
         } else {
-          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+          return this.media.map((resource) => resource instanceof WebResource ? resource : new WebResource(resource));
         }
       },
       pageMeta() {
@@ -293,6 +291,7 @@
         return this.europeanaEntities
           .map(entity => entity.about);
       },
+      // TODO: mv derivation to the DownloadWidget, where it's used
       attributionFields() {
         return {
           title: langMapValueForLocale(this.metadata.dcTitle, this.metadataLanguage).values[0],
@@ -415,16 +414,11 @@
             return this.$error(error, { scope: 'item' });
           }
         }
-        const edm = data.object;
+        this.edm = data.object;
 
-        if (this.identifier !== edm.about) {
-          return redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
+        if (this.identifier !== this.edm.about) {
+          return redirectToAltRoute({ params: { pathMatch: this.edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
         }
-
-        this.type = edm.type;
-
-        const item = new Item(edm);
-        this.isDeleted = item.isDeleted;
 
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
         //       but relied on by ItemHero to know whether to proxy download urls or not.
@@ -433,17 +427,18 @@
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
-        this.iiifPresentationManifest = item.iiifPresentationManifest;
-        this.isShownAt = item.providerAggregation.edmIsShownAt;
+        this.allMediaUris = this.item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.iiifPresentationManifest = this.item.iiifPresentationManifest;
+        this.isShownAt = this.item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
-          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+          this.item.providerAggregation.displayableWebResources[0].about,
+          this.item
         ).large;
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          this.item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
@@ -453,11 +448,11 @@
           }
         }
 
-        this.entities = this.extractEntities(edm);
+        this.entities = this.extractEntities(this.edm);
 
-        this.metadata = this.extractMetadata(edm);
+        this.metadata = this.extractMetadata(this.edm);
 
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+        this.media = this.item.providerAggregation.displayableWebResources.map((wr) => {
           // don't keep WR-level rights statement if same as item-level
           if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
             delete wr.webResourceEdmRights;
@@ -476,8 +471,6 @@
 
           return wr;
         });
-
-        this.services = item.services;
 
         process.client && this.trackCustomDimensions();
       },

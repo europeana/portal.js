@@ -35,8 +35,8 @@
             :offset="pageNumber(index) - 1"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
-            :resource="resource.edm"
-            :edm-type="edmType"
+            :resource="resource"
+            :edm-type="resource.edm.edmType"
             :lazy="true"
           />
         </li>
@@ -67,13 +67,6 @@
 
     components: {
       ItemMediaThumbnail
-    },
-
-    props: {
-      edmType: {
-        type: String,
-        default: null
-      }
     },
 
     setup() {

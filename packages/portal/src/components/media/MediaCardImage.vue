@@ -4,7 +4,7 @@
     class="media-card-image"
   >
     <b-link
-      v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
+      v-if="linkable && imageLink && thumbnails.large && !forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
     >
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import {
     LARGE_WIDTH as LARGE_THUMBNAIL_WIDTH,
     SMALL_WIDTH as SMALL_THUMBNAIL_WIDTH
@@ -67,11 +67,11 @@
       MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
     },
 
+    inject: ['item'],
+
     props: {
       media: {
-        // TODO: refactor to only receive EuropeanaMediaResource, once legacy
-        //       media presentation is gone
-        type: WebResource,
+        type: EuropeanaMediaResource,
         default: null
       },
       lazy: {
@@ -107,42 +107,44 @@
     },
 
     computed: {
+      forEdmIsShownAt() {
+        return this.media.id === this.item?.providerAggregation?.edmIsShownAt;
+      },
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.media.id, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        if (this.media.svcsHasService) {
-          // TODO: assess impact of this outside of new ItemMediaPresentation component
-          const serviceId = this.media.svcsHasService.id || this.media.svcsHasService.about || this.media.svcsHasService;
+        if (this.media.service?.profile?.startsWith('http://iiif.io/api/image/')) {
+          // TODO: mv to fn on Service class?
           return {
-            large: `${serviceId}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
-            small: `${serviceId}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
+            large: `${this.media.service.id}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
+            small: `${this.media.service.id}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
           };
         } else {
-          return this.$apis.thumbnail.forWebResource(this.media);
+          return this.$apis.thumbnail.forWebResource(this.media.id, this.item);
         }
       },
       thumbnailSrc() {
         return this.thumbnails[this.thumbnailSize];
       },
       thumbnailWidth() {
-        if (!this.media.ebucoreWidth) {
+        if (!this.media.width) {
           return null;
         }
         const thumbnailMaxSize = this.thumbnailSize === 'large' ? LARGE_THUMBNAIL_WIDTH : SMALL_THUMBNAIL_WIDTH;
-        if (this.media.ebucoreWidth < thumbnailMaxSize) {
-          return this.media.ebucoreWidth;
+        if (this.media.width < thumbnailMaxSize) {
+          return this.media.width;
         }
         return thumbnailMaxSize;
       },
       thumbnailHeight() {
-        if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
+        if (!this.media.height || !this.thumbnailWidth) {
           return null;
         }
-        return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
+        return (this.media.height / this.media.width) * this.thumbnailWidth;
       },
       edmTypeWithFallback() {
-        return this.media.edmType || this.edmType;
+        return this.edmType || this.item.edmType;
       }
     },
 

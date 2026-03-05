@@ -48,7 +48,6 @@ export default class WebResource extends Base {
     'ebucoreHeight',
     'ebucoreWidth',
     'edmCodecName',
-    'forEdmIsShownAt',
     'isNextInSequence',
     'preview',
     'rdfType',
