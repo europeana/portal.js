@@ -114,6 +114,32 @@
             {{ manifestUri }}
           </b-link>
         </b-tab>
+        <b-tooltip
+          v-if="$features.webResourceMetadata && resource"
+          :target="metadataTabButtonId"
+          :title="$t('media.sidebar.metadata')"
+          boundary=".media-viewer-sidebar"
+          placement="right"
+          custom-class="ml-0"
+        />
+        <b-tab
+          v-if="$features.webResourceMetadata && resource"
+          data-qa="item media sidebar metadata"
+          :button-id="metadataTabButtonId"
+          lazy
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+        >
+          <template #title>
+            <span
+              class="icon icon-metadata"
+              @mouseleave="hideTooltips"
+            />
+          </template>
+          <h2 class="px-3">
+            {{ $t('media.sidebar.metadata') }}
+          </h2>
+          <MediaMetadataList :resource="resource" />
+        </b-tab>
       </b-tabs>
     </div>
   </transition>
@@ -124,6 +150,7 @@
 
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
+  import MediaMetadataList from '../media/MediaMetadataList.vue';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -132,7 +159,8 @@
       BTab,
       BTabs,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
-      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
+      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue'),
+      MediaMetadataList
     },
 
     provide() {
@@ -154,6 +182,10 @@
         type: String,
         default: null
       },
+      resource: {
+        type: Object,
+        default: null
+      },
       query: {
         type: String,
         default: null
@@ -168,6 +200,7 @@
       const annotationsTabButtonId = 'item-media-sidebar-annotations-button';
       const searchTabButtonId = 'item-media-sidebar-search-button';
       const linksTabButtonId = 'item-media-sidebar-links-button';
+      const metadataTabButtonId = 'item-media-sidebar-metadata-button';
 
       const tabHashes = [];
       if (props.annotationList) {
@@ -179,9 +212,12 @@
       if (props.manifestUri) {
         tabHashes.push('#links');
       }
+      if (props.resource) {
+        tabHashes.push('#metadata');
+      }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId]);
+      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId, metadataTabButtonId]);
 
       return {
         activeTabHash,
@@ -190,6 +226,7 @@
         annotationsTabButtonId,
         hideTooltips,
         linksTabButtonId,
+        metadataTabButtonId,
         searchTabButtonId,
         watchTabIndex,
         unwatchTabIndex

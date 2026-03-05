@@ -3,7 +3,7 @@
     v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
-    class="metadata-row d-lg-flex"
+    class="metadata-row"
   >
     <h3
       v-if="labelled"
@@ -14,8 +14,9 @@
       {{ $t(`fieldLabels.${context}.${name}`) }}
     </h3>
     <ul
-      class="m-0 p-0 text-left text-lg-right list-unstyled"
+      class="m-0 p-0 text-left list-unstyled"
       :aria-labelledby="labelled && labelId"
+      :class="{ 'text-lg-right': context === 'default' }"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -100,19 +101,15 @@
       langAttributeMixin
     ],
 
-    inject: ['deBias'],
+    inject: ['deBias', 'metadataLanguage'],
 
     props: {
       name: {
         type: String,
         default: ''
       },
-      metadataLanguage: {
-        type: String,
-        default: null
-      },
       fieldData: {
-        type: [String, Object, Array],
+        type: [String, Object, Array, Number],
         default: null
       },
       context: {
@@ -166,7 +163,7 @@
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
-        } else if (typeof (this.fieldData) === 'string') {
+        } else if (['string', 'number'].includes(typeof (this.fieldData))) {
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
@@ -201,7 +198,7 @@
   @import '@europeana/style/scss/variables';
 
   .metadata-row {
-    border-bottom: 1px solid #e7e7e9;
+    border-bottom: 1px solid $lightbluemagenta;
     font-size: $font-size-small;
     padding: 1rem 0;
 

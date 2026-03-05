@@ -33,6 +33,7 @@
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
                 :manifest-uri="uri"
+                :resource="resource"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -271,8 +272,8 @@
 
       this.showSidebar = (
         (this.hasAnnotations && (window?.innerWidth >= 768)) &&
-        (!this.$route.hash || ['#annotations', '#search', '#links'].includes(this.$route.hash))
-      ) || ['#annotations', '#search', '#links'].includes(this.$route.hash);
+        (!this.$route.hash || ['#annotations', '#search', '#links', '#metadata'].includes(this.$route.hash))
+      ) || ['#annotations', '#search', '#links', '#metadata'].includes(this.$route.hash);
 
       if (error) {
         this.$error(error);
@@ -298,8 +299,12 @@
         return !!this.uri;
       },
 
+      hasWebResource() {
+        return !!this.resource;
+      },
+
       sidebarHasContent() {
-        return this.hasAnnotations || this.hasSearchService || this.hasManifest;
+        return this.hasAnnotations || this.hasSearchService || this.hasManifest || this.hasWebResource;
       },
 
       multiplePages() {

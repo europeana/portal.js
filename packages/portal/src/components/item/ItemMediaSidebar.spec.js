@@ -54,6 +54,16 @@ describe('components/item/ItemMediaSidebar', () => {
         expect(linksTab.exists()).toBe(true);
       });
     });
+
+    describe('when there is a web resource', () => {
+      it('has a tab for media metadata', () => {
+        const wrapper = factory({ resource: {} });
+
+        const metadataTab = wrapper.find('[data-qa="item media sidebar metadata"]');
+
+        expect(metadataTab.exists()).toBe(true);
+      });
+    });
   });
 
   describe('methods', () => {

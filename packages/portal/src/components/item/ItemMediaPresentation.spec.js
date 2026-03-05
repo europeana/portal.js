@@ -103,6 +103,17 @@ describe('components/item/ItemMediaPresentation', () => {
           expect(sidebarToggle.isVisible()).toBe(true);
         });
       });
+
+      describe('or when there is a web resource', () => {
+        it('is visible', () => {
+          stubItemMediaPresentationComposable({ resource: {} });
+          const wrapper = factory();
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
     });
 
     describe('viewer zoom controls', () => {
