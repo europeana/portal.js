@@ -35,8 +35,8 @@
       </i18n>
     </transition>
     <SmartLink
-      v-if="isShownAt"
-      :destination="isShownAt"
+      v-if="item.providerAggregation?.edmIsShownAt"
+      :destination="item.providerAggregation.edmIsShownAt"
       class="text-decoration-none provider-link"
       @click.native="$matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', isShownAt);"
     >
@@ -67,6 +67,9 @@
       langAttributeMixin,
       collectionLinkGenMixin
     ],
+
+    inject: ['item'],
+
     props: {
       dataProvider: {
         type: Object,
@@ -77,10 +80,6 @@
         default: null
       },
       metadataLanguage: {
-        type: String,
-        default: null
-      },
-      isShownAt: {
         type: String,
         default: null
       },

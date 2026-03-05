@@ -60,20 +60,6 @@ export default class Aggregation extends Base {
     webResources: WebResource
   };
 
-  constructor(data) {
-    super(data);
-
-    const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
-
-    for (const wr of (this.webResources || [])) {
-      wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
-      if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
-        // set the wr preview to a copy of edmObjectWebResource to prevent circular reference
-        wr.preview = { ...edmObjectWebResource };
-      }
-    }
-  }
-
   get iiifPresentationManifestWebResources() {
     return (this.webResources || []).filter((wr) => wr.isIIIFPresentationManifest);
   }

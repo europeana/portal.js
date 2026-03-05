@@ -32,7 +32,7 @@
                 tabindex="0"
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
-                :manifest-uri="uri"
+                :manifest-uri="item.iiifPresentationManifest"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -44,7 +44,7 @@
             </template>
             <IIIFErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
+              :provider-url="item.providerAggregation.edmIsShownAt"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -68,13 +68,14 @@
               class="media-viewer-content"
             />
             <EmbedGateway
-              v-else-if="resource?.edm?.isOEmbed"
+              v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :media="resource?.edm"
+              :media="resource"
               :url="resource.id"
             >
               <EmbedOEmbed
                 :url="resource.id"
+                :service="resource.isOEmbed"
               />
             </EmbedGateway>
             <template
@@ -84,10 +85,9 @@
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
-                :media="resource?.edm"
+                :media="resource"
                 :lazy="false"
-                :edm-type="edmType"
-                :linkable="!itemIsDeleted && !viewableImageResource"
+                :linkable="!item.isDeleted && !viewableImageResource"
                 thumbnail-size="large"
                 :europeana-identifier="itemId"
                 @click.native="() => thumbnailInteractedWith = true"
@@ -132,7 +132,6 @@
           id="item-media-thumbnails"
           ref="itemPages"
           tabindex="0"
-          :edm-type="edmType"
           data-qa="item media thumbnails"
           @keydown.escape.native="showPages = false"
         />
@@ -171,30 +170,15 @@
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
-    inject: ['itemIsDeleted'],
+    inject: ['item'],
 
     props: {
-      uri: {
-        type: String,
-        default: null
-      },
-
       webResources: {
         type: Array,
         default: null
       },
 
       itemId: {
-        type: String,
-        default: null
-      },
-
-      edmType: {
-        type: String,
-        default: null
-      },
-
-      providerUrl: {
         type: String,
         default: null
       }
@@ -250,9 +234,9 @@
 
       let error;
 
-      if (this.uri) {
+      if (this.item.iiifPresentationManifest) {
         try {
-          await this.fetchPresentation(this.uri);
+          await this.fetchPresentation(this.item.iiifPresentationManifest);
           await this.$nextTick();
           if (!this.resource) {
             error = new ItemMediaPresentationError('No canvases in IIIF manifest');
@@ -261,7 +245,7 @@
           error = e;
         }
       } else if (this.webResources) {
-        this.setPresentationFromWebResources(this.webResources);
+        this.setPresentationFromWebResources(this.webResources, this.item.services);
       } else {
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
@@ -288,14 +272,14 @@
         } else if (this.viewableImageResource) {
           return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
-          return !(
-            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          return this.resource?.edm && !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.isOEmbed || this.resource?.edm?.isOEmbed
           );
         }
       },
 
       hasManifest() {
-        return !!this.uri;
+        return !!this.item.iiifPresentationManifest;
       },
 
       sidebarHasContent() {
@@ -343,7 +327,7 @@
       setCustomContext() {
         this.$apm?.setCustomContext({
           'item_id': this.itemId,
-          'manifest_id': this.uri,
+          'manifest_id': this.item.iiifPresentationManifest,
           'resource_id': this.resource?.id
         });
       },

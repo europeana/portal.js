@@ -5,10 +5,13 @@ import EDMWebResource from '@/plugins/europeana/edm/WebResource.js';
 export default class EuropeanaMediaResource extends Base {
   #edm;
 
-  static fromEDM(edm) {
+  static fromEDM(edm, services = []) {
     if (!edm) {
       return undefined;
     }
+
+    const serviceId = [].concat(edm.svcsHasService)[0];
+    const service = (services || []).find((edmService) => edmService.about === serviceId);
 
     let data = {};
     if (typeof edm === 'string') {
@@ -19,7 +22,7 @@ export default class EuropeanaMediaResource extends Base {
         format: edm.ebucoreHasMimeType,
         height: edm.ebucoreHeight,
         width: edm.ebucoreWidth,
-        service: Service.fromEDM([].concat(edm.svcsHasService)[0])
+        service: Service.fromEDM(service)
       });
     }
 
@@ -55,6 +58,10 @@ export default class EuropeanaMediaResource extends Base {
       this.#edm = new EDMWebResource(data);
     }
     return this.#edm;
+  }
+
+  get isOEmbed() {
+    return this.service?.dctermsConformsTo === 'https://oembed.com/';
   }
 
   set edm(value) {

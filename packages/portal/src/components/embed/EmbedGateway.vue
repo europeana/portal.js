@@ -113,6 +113,7 @@
   import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
 
   export default {
     name: 'EmbedGateway',
@@ -131,7 +132,7 @@
         default: null
       },
       media: {
-        type: Object,
+        type: EuropeanaMediaResource,
         default: null
       },
       url: {
