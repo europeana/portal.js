@@ -130,9 +130,8 @@
           :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
         >
           <template #title>
-            <!-- TODO: Replace icon -->
             <span
-              class="icon icon-link"
+              class="icon icon-metadata"
               @mouseleave="hideTooltips"
             />
           </template>
