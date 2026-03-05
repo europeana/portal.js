@@ -21,7 +21,6 @@
             <MetadataField
               v-for="name in CORE_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-main-label`"
@@ -41,7 +40,6 @@
             <MetadataField
               v-for="name in ALL_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-label`"
@@ -96,10 +94,6 @@
       },
       location: {
         type: Object,
-        default: null
-      },
-      metadataLanguage: {
-        type: String,
         default: null
       }
     },

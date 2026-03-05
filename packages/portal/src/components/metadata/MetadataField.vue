@@ -101,17 +101,12 @@
       langAttributeMixin
     ],
 
-    // TODO inject metadataLanguage instead of prop
-    inject: ['deBias'],
+    inject: ['deBias', 'metadataLanguage'],
 
     props: {
       name: {
         type: String,
         default: ''
-      },
-      metadataLanguage: {
-        type: String,
-        default: null
       },
       fieldData: {
         type: [String, Object, Array],

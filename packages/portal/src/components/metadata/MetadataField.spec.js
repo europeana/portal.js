@@ -17,7 +17,8 @@ const factory = () => shallowMount(MetadataField, {
     deBias: {
       definitions: {},
       terms: {}
-    }
+    },
+    metadataLanguage: null
   }
 });
 
