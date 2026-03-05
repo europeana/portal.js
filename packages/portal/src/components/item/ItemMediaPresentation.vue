@@ -32,7 +32,7 @@
                 tabindex="0"
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
-                :manifest-uri="uri"
+                :manifest-uri="item.iiifPresentationManifest"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -173,11 +173,6 @@
     inject: ['item'],
 
     props: {
-      uri: {
-        type: String,
-        default: null
-      },
-
       webResources: {
         type: Array,
         default: null
@@ -239,9 +234,9 @@
 
       let error;
 
-      if (this.uri) {
+      if (this.item.iiifPresentationManifest) {
         try {
-          await this.fetchPresentation(this.uri);
+          await this.fetchPresentation(this.item.iiifPresentationManifest);
           await this.$nextTick();
           if (!this.resource) {
             error = new ItemMediaPresentationError('No canvases in IIIF manifest');
@@ -284,7 +279,7 @@
       },
 
       hasManifest() {
-        return !!this.uri;
+        return !!this.item.iiifPresentationManifest;
       },
 
       sidebarHasContent() {
@@ -332,7 +327,7 @@
       setCustomContext() {
         this.$apm?.setCustomContext({
           'item_id': this.itemId,
-          'manifest_id': this.uri,
+          'manifest_id': this.item.iiifPresentationManifest,
           'resource_id': this.resource?.id
         });
       },

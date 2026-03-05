@@ -8,7 +8,6 @@
       :ignorable="false"
     />
     <ItemMediaPresentation
-      :uri="item.iiifPresentationManifest"
       :item-id="identifier"
       :web-resources="media"
       @select="selectMedia"

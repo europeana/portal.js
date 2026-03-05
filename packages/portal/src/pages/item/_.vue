@@ -170,9 +170,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        item: computed(() => this.item),
-        // TODO: have descendents inject item instead
-        itemIsDeleted: computed(() => this.item.isDeleted)
+        item: computed(() => this.item)
       };
     },
 
@@ -219,7 +217,6 @@
         fromTranslationError: null,
         headLinkPreconnect: [],
         identifier: `/${this.$route.params.pathMatch}`,
-        iiifPresentationManifest: null,
         isShownAt: null,
         media: [],
         metadata: {},
@@ -428,7 +425,6 @@
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
         this.allMediaUris = this.item.providerAggregation.displayableWebResources.map((wr) => wr.about);
-        this.iiifPresentationManifest = this.item.iiifPresentationManifest;
         this.isShownAt = this.item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
@@ -437,7 +433,7 @@
         ).large;
 
         const preconnects = [
-          this.iiifPresentationManifest,
+          this.item.iiifPresentationManifest,
           this.item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
@@ -451,26 +447,6 @@
         this.entities = this.extractEntities(this.edm);
 
         this.metadata = this.extractMetadata(this.edm);
-
-        this.media = this.item.providerAggregation.displayableWebResources.map((wr) => {
-          // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
-            delete wr.webResourceEdmRights;
-          }
-
-          // don't store the full web resources when using iiif as the manifest will be used,
-          // but WR-level rights statements still needed by ItemHero and not consistently
-          // obtainable from manifests coming from different sources
-          if (this.iiifPresentationManifest) {
-            for (const key in wr) {
-              if (!['about', 'webResourceEdmRights'].includes(key)) {
-                delete wr[key];
-              }
-            }
-          }
-
-          return wr;
-        });
 
         process.client && this.trackCustomDimensions();
       },
