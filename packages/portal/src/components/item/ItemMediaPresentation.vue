@@ -44,7 +44,7 @@
             </template>
             <IIIFErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
+              :provider-url="item.providerAggregation.edmIsShownAt"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -184,11 +184,6 @@
       },
 
       itemId: {
-        type: String,
-        default: null
-      },
-
-      providerUrl: {
         type: String,
         default: null
       }

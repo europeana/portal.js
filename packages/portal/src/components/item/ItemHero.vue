@@ -10,7 +10,6 @@
     <ItemMediaPresentation
       :uri="item.iiifPresentationManifest"
       :item-id="identifier"
-      :provider-url="item.providerAggregation.edmIsShownAt"
       :web-resources="media"
       @select="selectMedia"
     />
