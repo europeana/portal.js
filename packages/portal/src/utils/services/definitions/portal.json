@@ -29,6 +29,17 @@
     "required": true,
     "title": "Auth"
   },
+    {
+    "cookies": [
+      "^cf_clearance$"
+    ],
+    "name": "cloudflare",
+    "purposes": [
+      "essential"
+    ],
+    "required": true,
+    "title": "Cloudflare"
+  },
   {
     "cookies": [
       "^debugSettings$"

@@ -252,17 +252,6 @@ export default {
     "right": "Right"
   },
   "ds4ch": {
-    "broughtBy": "Brought to you by",
-    "footer": {
-      "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
-    },
-    "header": {
-      "navigation": {
-        "about": "About the data space",
-        "explore": "Explore the data",
-        "partners": "Partners"
-      }
-    },
     "homeLinkAlt": "The common European data space for cultural heritage home"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
@@ -878,10 +867,12 @@ export default {
     "navigation": {
       "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "For teachers",
+      "educators": "For educators",
       "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
+      "partners": "Partner with us",
+      "research": "For researchers",
       "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
@@ -931,11 +922,10 @@ export default {
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later.",
-        "learnMore": "Let me choose"
+        "description": "Could we please enable services for security, analytics and third-party content?",
+        "learnMore": "Manage cookie settings"
       },
-      "decline": "I decline",
-      "ok": "Okay",
+      "decline": "Decline",
       "purposes": {
         "2D": {
           "title": "2D media"
@@ -988,6 +978,10 @@ export default {
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
+      },
+      "cloudflare": {
+        "description": "Remembers security challenge has been passed successfully.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Helps debugging API requests",

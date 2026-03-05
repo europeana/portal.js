@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajille",
+      "educators": "Opettajille",
       "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
+      "partners": "Ryhdy kumppaniksemme",
+      "research": "Tutkijoille",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
-        "description": "Hei! Voisimmeko ottaa käyttöön joitain lisäpalveluita analytiikkaa ja turvallisuutta varten? Voit aina muuttaa tai peruuttaa suostumuksesi myöhemmin.",
-        "learnMore": "Anna minun valita"
+        "description": "Voisimmeko ottaa käyttöön palvelut turvallisuutta, analytiikkaa ja kolmannen osapuolen sisältöä varten?",
+        "learnMore": "Hallitse evästeasetuksia"
       },
-      "decline": "kieltäydyn",
-      "ok": "Okei",
+      "decline": "Hylkää",
       "purposes": {
         "2D": {
           "title": "2D-media"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
+      },
+      "cloudflare": {
+        "description": "Muistaa, että turvahaaste on läpäisty onnistuneesti.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",

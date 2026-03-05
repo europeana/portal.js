@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "O nás",
       "collections": "Sbírky",
-      "europeanaClassroom": "Pro učitele",
+      "educators": "Pro pedagogy",
       "featureIdeas": "Nápady na funkce",
       "help": "Pomoc",
       "home": "Domů",
+      "partners": "Staňte se naším partnerem",
+      "research": "Pro výzkumníky",
       "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
-        "description": "Ahoj! Mohli bychom prosím povolit nějaké další služby pro analýzu a zabezpečení? Svůj souhlas můžete kdykoli změnit nebo odvolat.",
-        "learnMore": "Nech mě vybrat"
+        "description": "Můžeme prosím povolit služby pro zabezpečení, analytiku a obsah třetích stran?",
+        "learnMore": "Spravovat nastavení souborů cookie"
       },
-      "decline": "odmítám",
-      "ok": "dobře",
+      "decline": "Odmítám",
       "purposes": {
         "2D": {
           "title": "2D média"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
+      },
+      "cloudflare": {
+        "description": "Pamatuje si, že bezpečnostní ověření bylo úspěšně splněno.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Pomáhá ladit požadavky API",

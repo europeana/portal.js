@@ -18,6 +18,8 @@
       PageFooter
     },
 
+    inject: ['pageIdentifier'],
+
     data() {
       return {
         apisPage: {
@@ -33,7 +35,7 @@
             ]
           }
         },
-        bhmPage: {
+        minimalPage: {
           moreInfo: {
             name: this.$t('footer.navigation.MoreInfoLabel'),
             links: [
@@ -51,8 +53,8 @@
       moreInfo() {
         if (this.pageIdentifier === 'apis') {
           return this.apisPage.moreInfo;
-        } else if (this.pageIdentifier === 'black-history-month') {
-          return this.bhmPage.moreInfo;
+        } else if (['black-history-month', 'womens-history-month'].includes(this.pageIdentifier)) {
+          return this.minimalPage.moreInfo;
         } else {
           return null;
         }
