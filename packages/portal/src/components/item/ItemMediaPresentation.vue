@@ -68,13 +68,14 @@
               class="media-viewer-content"
             />
             <EmbedGateway
-              v-else-if="resource?.edm?.isOEmbed"
+              v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :media="resource?.edm"
+              :media="resource"
               :url="resource.id"
             >
               <EmbedOEmbed
                 :url="resource.id"
+                :service="resource.isOEmbed"
               />
             </EmbedGateway>
             <template
@@ -84,7 +85,7 @@
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
-                :media="resource?.edm"
+                :resource="resource"
                 :lazy="false"
                 :edm-type="edmType"
                 :linkable="!itemIsDeleted && !viewableImageResource"
@@ -184,6 +185,12 @@
         default: null
       },
 
+      // TODO: what are these needed for?
+      services: {
+        type: Array,
+        default: null
+      },
+
       itemId: {
         type: String,
         default: null
@@ -261,7 +268,7 @@
           error = e;
         }
       } else if (this.webResources) {
-        this.setPresentationFromWebResources(this.webResources);
+        this.setPresentationFromWebResources(this.webResources, this.services);
       } else {
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
@@ -288,8 +295,8 @@
         } else if (this.viewableImageResource) {
           return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
-          return !(
-            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          return this.resource?.edm && !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.isOEmbed || this.resource?.edm?.isOEmbed
           );
         }
       },
