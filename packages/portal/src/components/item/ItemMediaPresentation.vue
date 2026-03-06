@@ -70,7 +70,7 @@
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :media="resource?.edm"
+              :media="resource"
               :url="resource.id"
             >
               <EmbedOEmbed
@@ -85,7 +85,7 @@
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
-                :media="resource?.edm"
+                :resource="resource"
                 :lazy="false"
                 :edm-type="edmType"
                 :linkable="!itemIsDeleted && !viewableImageResource"
@@ -185,6 +185,7 @@
         default: null
       },
 
+      // TODO: what are these needed for?
       services: {
         type: Array,
         default: null

@@ -1,14 +1,14 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaCardImage from '@/components/media/MediaCardImage.vue';
-import WebResource from '@/plugins/europeana/edm/WebResource.js';
+import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
 
 const localVue = createLocalVue();
 const factory = () => shallowMount(MediaCardImage, {
   localVue,
   stubs: ['b-img-lazy', 'b-link', 'b-img'],
   propsData: {
-    media: new WebResource({
-      about: 'http://collections.rmg.co.uk/mediaLib/422/media-422123/large.jpg'
+    resource: new EuropeanaMediaResource({
+      id: 'http://collections.rmg.co.uk/mediaLib/422/media-422123/large.jpg'
     }),
     lazy: false,
     europeanaIdentifier: '/123/abcdef'
