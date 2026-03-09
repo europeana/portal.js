@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
@@ -19,56 +18,33 @@
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
-        v-for="(value, index) of displayValues.values"
+        v-for="(item, index) of displayValues"
       >
-        <template
-          v-if="value.about"
-        >
-          <li
-            v-for="(nestedValue, nestedIndex) of value.values"
-            :key="index + '_' + nestedIndex"
-            :lang="langAttribute(value.code)"
-            :data-qa="fieldData.url ? 'entity link' : 'entity value'"
-          >
-            <SmartLink
-              v-if="fieldData.url"
-              :destination="fieldData.url"
-            >
-              {{ nestedValue }}
-            </SmartLink>
-            <ItemEntityField
-              v-else
-              :text="nestedValue"
-              :about="value.about"
-            />
-          </li>
-        </template>
-        <ItemDebiasField
-          v-else-if="isDeBiased"
-          :key="index"
-          :data-value="value"
-          :name="name"
-          :text="value"
-          :lang="langAttribute(langMappedValues.code)"
-          tag="li"
-          data-qa="de-bias term"
-        />
         <li
-          v-else
           :key="index"
-          :lang="langAttribute(langMappedValues.code)"
-          data-qa="literal value"
+          :lang="item.lang"
+          :data-qa="item.url ? 'entity link' : 'entity value'"
         >
+          <ItemDebiasField
+            v-if="isDeBiased"
+            :key="index"
+            :data-value="item.value"
+            :name="name"
+            :text="item.value"
+            :lang="langAttribute(item.lang)"
+            tag="li"
+            data-qa="de-bias term"
+          />
           <SmartLink
-            v-if="fieldData.url"
-            :destination="fieldData.url"
+            v-else-if="item.url"
+            :destination="item.url"
           >
-            {{ value }}
+            {{ item.value || item.id }}
           </SmartLink>
           <template
             v-else
           >
-            {{ value }}
+            {{ item.value || item.id }}
           </template>
         </li>
       </template>
@@ -77,9 +53,8 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@europeana/i18n';
+  // import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
-  import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
   import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
@@ -90,7 +65,6 @@
 
     components: {
       ItemDebiasField,
-      ItemEntityField,
       MetadataOriginLabel,
       SmartLink
     },
@@ -115,7 +89,7 @@
         default: null
       },
       fieldData: {
-        type: [String, Object, Array],
+        type: Object,
         default: null
       },
       context: {
@@ -146,11 +120,12 @@
 
     computed: {
       displayValues() {
-        const display = { ...this.langMappedValues };
+        let display = [].concat(this.fieldData);
 
-        if (this.limitDisplayValues && (display.values.length > this.limit)) {
-          display.values = display.values.slice(0, this.limit).concat('…');
+        if (this.limitDisplayValues && (display.length > this.limit)) {
+          display = display.slice(0, this.limit).concat('…');
         }
+
         return display;
       },
 
@@ -162,28 +137,28 @@
         return (this.limit > -1);
       },
 
-      prefLanguage() {
-        return this.getPrefLanguage(this.name, this.fieldData);
-      },
+      // prefLanguage() {
+      //   return this.getPrefLanguage(this.name, this.fieldData);
+      // },
 
-      langMappedValues() {
-        if (this.fieldData === null) {
-          return null;
-        } else if (typeof (this.fieldData) === 'string') {
-          return { values: [this.fieldData], code: '' };
-        } else if (Array.isArray(this.fieldData)) {
-          return { values: this.fieldData, code: '' };
-        } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
-        }
-        return langMapValueForLocale(this.fieldData, this.prefLanguage, {
-          omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
-        });
-      },
+      // langMappedValues() {
+      //   if (this.fieldData === null) {
+      //     return null;
+      //   } else if (typeof (this.fieldData) === 'string') {
+      //     return { values: [this.fieldData], code: '' };
+      //   } else if (Array.isArray(this.fieldData)) {
+      //     return { values: this.fieldData, code: '' };
+      //   } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
+      //     return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
+      //   }
+      //   return langMapValueForLocale(this.fieldData, this.prefLanguage, {
+      //     omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
+      //   });
+      // },
 
-      hasValuesForLocale() {
-        return (this.langMappedValues?.values?.length || 0) >= 1;
-      },
+      // hasValuesForLocale() {
+      //   return (this.langMappedValues?.values?.length || 0) >= 1;
+      // },
 
       timestampIsUnixEpochValue() {
         if (['timestampCreated', 'timestampUpdate'].includes(this.name)) {
@@ -191,11 +166,15 @@
         } else {
           return false;
         }
-      },
-
-      isValidFieldData() {
-        return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
       }
+
+      // TODO: move this up higher
+      // isValidFieldData() {
+      //   return (this.fieldData?.length || 0) > 0 &&
+      //     !this.timestampIsUnixEpochValue &&
+      //     // QUESTION: why are we not displaying the UGC value despite it reaching this component?
+      //     (this.name !== 'edmUgc');
+      // }
     }
   };
 </script>

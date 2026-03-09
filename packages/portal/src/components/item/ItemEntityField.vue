@@ -4,12 +4,12 @@
       v-if="isEuropeanaEntity"
       :destination="{ name: 'collections-type-all', params: { type: destination.type, pathMatch: destination.id } }"
     >
-      {{ text }}
+      {{ text || uri }}
     </SmartLink>
     <template
       v-else
     >
-      {{ text }}
+      {{ text || uri }}
     </template>
   </span>
 </template>
@@ -31,7 +31,7 @@
         type: String,
         default: null
       },
-      about: {
+      uri: {
         type: String,
         required: true
       }
@@ -39,10 +39,10 @@
 
     computed: {
       isEuropeanaEntity() {
-        return isEntityUri(this.about);
+        return isEntityUri(this.uri);
       },
       destination() {
-        return this.isEuropeanaEntity ? entityParamsFromUri(this.about) : this.about;
+        return this.isEuropeanaEntity ? entityParamsFromUri(this.uri) : this.uri;
       }
     }
   };

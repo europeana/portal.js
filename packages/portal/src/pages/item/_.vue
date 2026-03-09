@@ -41,7 +41,7 @@
             class="col-lg-10"
           >
             <ItemSummaryInfo
-              :descriptions="meta.dcDescription"
+              :descriptions="metadata.dcDescription"
               :titles="titles"
             />
           </b-col>
@@ -57,7 +57,7 @@
               :data-provider="dataProvider"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
-              :user-generated-content="meta.edmUgc === 'true'"
+              :user-generated-content="metadata.edmUgc === 'true'"
             />
           </b-col>
         </b-row>
@@ -67,8 +67,8 @@
             class="col-lg-10 mt-3"
           >
             <MetadataBox
-              :metadata="fieldsAndKeywords"
-              :location="meta.dctermsSpatial"
+              :metadata="metadata"
+              :location="metadata.dctermsSpatial"
               :metadata-language="metadataLanguage"
             />
             <ItemLanguageSelector
@@ -104,10 +104,10 @@
           -->
           <ItemRecommendations
             :identifier="identifier"
-            :dc-type="metaFieldValues('dcTitle')"
-            :dc-subject="metaFieldValues('dcSubject')"
-            :dc-creator="metaFieldValues('dcCreator')"
-            :edm-data-provider="metaFieldValues('edmDataProvider')"
+            :dc-type="metadataFieldValues('dcTitle')"
+            :dc-subject="metadataFieldValues('dcSubject')"
+            :dc-creator="metadataFieldValues('dcCreator')"
+            :edm-data-provider="metadataFieldValues('edmDataProvider')"
           />
         </client-only>
       </b-container>
@@ -118,7 +118,6 @@
 <script>
   import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
-  import isEmpty from 'lodash/isEmpty.js';
   import pick from 'lodash/pick.js';
   import merge from 'deepmerge';
 
@@ -138,6 +137,7 @@
   import {
     forEachLangMapValue, isLangMap, normalizedLangCode, reduceLangMapsForLocale, selectLocaleForLangMap, undefinedLocaleCodes
   } from  '@europeana/i18n';
+  import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
@@ -224,7 +224,6 @@
         isShownAt: null,
         media: [],
         metadata: {},
-        meta: {},
         ogImage: null,
         relatedCollections: [],
         type: null,
@@ -250,7 +249,7 @@
     computed: {
       webResources() {
         if (this.isDeleted) {
-          return [new WebResource({ about: this.meta.edmIsShownBy || this.meta.edmObject }, this.identifier)];
+          return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
           return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
         }
@@ -258,7 +257,7 @@
       pageMeta() {
         return {
           title: this.titles[0]?.value || this.$t('record.record'),
-          description: this.meta.dcDescription?.[0]?.value || '',
+          description: this.metadataFieldValues('dcDescription')[0] || '',
           ogType: 'article',
           ogImage: this.ogImage
         };
@@ -275,11 +274,11 @@
           return memo;
         }, {});
       },
-      fieldsAndKeywords() {
-        return { ...this.metadata, keywords: this.keywords };
-      },
+      // fieldsAndKeywords() {
+      //   return { ...this.metadata, keywords: this.keywords };
+      // },
       edmRights() {
-        return this.meta.edmRights?.[0]?.id;
+        return this.metadata.edmRights?.[0]?.id;
       },
       europeanaEntities() {
         return this.entities.filter((entity) => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
@@ -290,19 +289,19 @@
       },
       attributionFields() {
         return {
-          title: this.meta.dcTitle?.[0].value,
-          creator: this.meta.dcCreator?.[0].value,
-          year: this.meta.year?.[0].value,
-          provider: this.meta.edmDataProvider?.[0].value,
-          country: this.meta.edmCountry?.[0].value,
+          title: this.metadataFieldValues('dcTitle')[0],
+          creator: this.metadataFieldValues('dcCreator')[0],
+          year: this.metadataFieldValues('year')[0],
+          provider: this.metadataFieldValues('edmDataProvider')[0],
+          country: this.metadataFieldValues('edmCountry')[0],
           url: this.canonicalUrl.withQuery
         };
       },
       titles() {
-        return this.meta.dcTitle.concat(this.meta.dctermsAlternative).filter(Boolean);
+        return this.metadata.dcTitle.concat(this.metadata.dctermsAlternative).filter(Boolean);
       },
       dataProviderEntityUri() {
-        return this.meta.edmDataProvider?.[0]?.id || null;
+        return this.metadata.edmDataProvider?.[0]?.id || null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -318,10 +317,10 @@
       },
       matomoOptions() {
         return {
-          dimension1: this.meta.edmCountry?.[0]?.value,
-          dimension2: this.meta.edmDataProvider?.[0]?.value,
-          dimension3: this.meta.edmProvider?.[0]?.value,
-          dimension4: this.meta.edmRights?.[0]?.value
+          dimension1: this.metadataFieldValues('edmCountry')[0],
+          dimension2: this.metadataFieldValues('edmDataProvider')[0],
+          dimension3: this.metadataFieldValues('edmProvider')[0],
+          dimension4: this.metadataFieldValues('edmRights')[0]
         };
       },
       translatingMetadata() {
@@ -356,8 +355,8 @@
     },
 
     methods: {
-      metaFieldValues(fieldName) {
-        return [].concat(this.meta[fieldName])
+      metadataFieldValues(fieldName) {
+        return [].concat(this.metadata[fieldName])
           .filter(Boolean)
           .map((metaField) => typeof metaField === 'object' ? metaField.value : metaField);
       },
@@ -440,7 +439,7 @@
 
         this.media = item.providerAggregation.displayableWebResources.map((wr) => {
           // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.meta.edmRights?.[0]?.value) {
+          if (wr.webResourceEdmRights?.def?.[0] === this.metadataFieldValues('edmRights')[0]) {
             delete wr.webResourceEdmRights;
           }
 
@@ -534,8 +533,6 @@
         const aggregatorProxy = this.extractAggregatorProxy(edm);
         const europeanaProxy = this.extractEuropeanaProxy(edm);
 
-        const europeanaCollectionName = this.extractEuropeanaCollectionName(edm);
-
         const metadataSources = merge.all([
           providerAggregation,
           europeanaAggregation,
@@ -543,7 +540,6 @@
           aggregatorProxy,
           europeanaProxy,
           {
-            // europeanaCollectionName,
             europeanaCollectionName: edm.europeanaCollectionName[0],
             timestampCreated: edm.timestamp_created,
             timestampUpdate: edm.timestamp_update
@@ -559,12 +555,12 @@
         let meta = ALL_METADATA_FIELDS.reduce((memo, field) => {
           if (metadataSources[field] !== undefined) {
             if (typeof metadataSources[field] === 'object') {
-              const locale = selectLocaleForLangMap(metadataSources[field], this.metadataLanguage)
-              
+              const locale = selectLocaleForLangMap(metadataSources[field], this.metadataLanguage);
+
               const normalisedField = [].concat(metadataSources[field][locale]).map((value) => {
                 const entity = this.entities.find((entity) => entity.about === value);
                 if (entity) {
-                  const entityLocale = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage)
+                  const entityLocale = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage);
                   const lang = normalizedLangCode(entityLocale);
                   const entityData = {
                     id: entity.about,
@@ -579,8 +575,13 @@
                     entityData.longitude = entity.longitude;
                   }
 
+                  if (isEntityUri(entity.about)) {
+                    const entityRouteParams = entityParamsFromUri(entity.about);
+                    entityData.url = { name: 'collections-type-all', params: { type: entityRouteParams.type, pathMatch: entityRouteParams.id } };
+                  }
+
                   return entityData;
-                } 
+                }
 
                 const id = value.startsWith?.('http://') || value.startsWith?.('https://') ? value : null;
                 if (id) {
@@ -588,59 +589,31 @@
                     id
                   };
                 }
-                  
+
                 const lang = normalizedLangCode(locale);
                 return {
                   lang,
                   value
                 };
-                
               });
 
-              console.log('normalising', field, normalisedField)
               memo[field] = normalisedField;
+            } else if (field === 'europeanaCollectionName') {
+              memo[field] = {
+                value: metadataSources[field],
+                url: { name: 'search', query: { query: `europeana_collectionName:"${metadataSources[field]}"` } }
+              };
             } else {
-              memo[field] = metadataSources[field];
+              memo[field] = {
+                value: metadataSources[field]
+              };
             }
           }
-          
 
           return memo;
         }, {});
 
-        this.meta = Object.freeze(meta);
-
-        const metadata = pick({
-          ...this.lookupEntities(metadataSources),
-          // ...metadataSources,
-          // europeanaCollectionName,
-          // timestampCreated: edm.timestamp_created,
-          // timestampUpdate: edm.timestamp_update
-        }, ALL_METADATA_FIELDS);
-
-        return reduceLangMapsForLocale(metadata, this.metadataLanguage);
-      },
-
-      /**
-       * Update a set of fields, in order to find linked entity data.
-       * will match any literal values in  the 'def' key to about fields
-       * in any of the entities and return the related object instead of
-       * the plain string.
-       * @param fields Object representing the metadata fields
-       * @return {Object[]} The fields with any entities as JSON objects
-       */
-      lookupEntities(fields) {
-        for (const key in fields) {
-          // Only looks for entities in 'def'
-          const values = (fields[key].def || []);
-          for (const [index, value] of values.entries()) {
-            const entity = this.entities.find((entity) => entity.about === value);
-            if (entity) {
-              fields[key].def[index] = entity;
-            }
-          }
-        }
-        return fields;
+        return Object.freeze(meta);
       },
 
       /**
@@ -703,12 +676,12 @@
             let entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri]);
             entities = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
             this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
-            
+
             const dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
             if (dataProviderEntity) {
-              const entityLocale = selectLocaleForLangMap(dataProviderEntity.prefLabel, this.metadataLanguage)
+              const entityLocale = selectLocaleForLangMap(dataProviderEntity.prefLabel, this.metadataLanguage);
               const lang = normalizedLangCode(entityLocale);
-              this.dataProvider= {
+              this.dataProvider = {
                 id: dataProviderEntity.about,
                 lang,
                 value: [].concat(dataProviderEntity.prefLabel[entityLocale])[0]
@@ -718,7 +691,7 @@
             // don't fall over
           } finally {
             if (!this.dataProvider) {
-              this.dataProvider = this.meta.edmDataProvider[0];
+              this.dataProvider = this.metadata.edmDataProvider[0];
             }
           }
         } else if (this.relatedEntityUris.length > 0) {
