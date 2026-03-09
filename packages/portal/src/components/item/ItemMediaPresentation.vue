@@ -185,7 +185,6 @@
         default: null
       },
 
-      // TODO: what are these needed for?
       services: {
         type: Array,
         default: null
