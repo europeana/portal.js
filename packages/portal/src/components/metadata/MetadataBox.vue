@@ -209,8 +209,8 @@
 
   #all-metadata-tab-link {
     .icon-info-outline {
-        font-size: $font-size-base;
-        color: $darkgrey;
-      }
+      font-size: $font-size-base;
+      color: $darkgrey;
     }
+  }
 </style>
