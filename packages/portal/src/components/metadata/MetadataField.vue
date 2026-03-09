@@ -11,7 +11,7 @@
       data-qa="label"
       class="m-0"
     >
-      {{ $t(`fieldLabels.${context}.${name}`) }}
+      {{ displayLabel }}
     </h3>
     <ul
       class="m-0 p-0 text-left list-unstyled"
@@ -139,6 +139,13 @@
     },
 
     computed: {
+      displayLabel() {
+        if (this.$te(`fieldLabels.${this.context}.${this.name}`)) {
+          return this.$t(`fieldLabels.${this.context}.${this.name}`);
+        } else {
+          return this.name;
+        }
+      },
       displayValues() {
         const display = { ...this.langMappedValues };
 

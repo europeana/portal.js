@@ -6,9 +6,10 @@ const $i18n = {
   locale: 'en'
 };
 
-const factory = () => shallowMount(MetadataField, {
+const factory = ({ translationExists } = { translationExists: true }) => shallowMount(MetadataField, {
   mocks: {
     $t: (key) => key,
+    $te: () => translationExists,
     $config: { app: { internalLinkDomain: null } },
     $features: { translatedItems: false },
     $i18n
@@ -63,6 +64,15 @@ describe('components/metadata/MetadataField', () => {
         });
       });
 
+      describe('with no translated label', () => {
+        it('uses the name from the API for the label', async() => {
+          const wrapper = factory({ translationExists: false });
+          await wrapper.setProps(props);
+
+          const label = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+          expect(label.text()).toEqual(props.name);
+        });
+      });
       describe('with labelling disabled', () => {
         const props = { name: 'dcCreator', fieldData: { def: ['Artist'] }, labelled: false };
         it('does not output a label', async() => {
