@@ -29,20 +29,25 @@
           </b-card-text>
         </b-tab>
         <b-tab
+          button-id="all-metadata-tab-link"
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
+          title-link-class="d-flex"
         >
           <template #title>
             <h2 class="d-inline-block">
               {{ $t('record.allMetaData') }}
             </h2>
-            <b-button
-              v-if="showItemeMetadataTooltip"
-              v-b-tooltip.bottom
-              :title="$t(`record.allMetaDataInfo`)"
-              class="icon-info-outline p-0 tooltip-button btn-light-flat h-100"
-              variant="light-flat"
-              data-qa="translation tooltip"
-            />
+            <template v-if="showItemeMetadataTooltip">
+              <span
+                class="icon-info-outline ml-1"
+              />
+              <b-tooltip
+                target="all-metadata-tab-link"
+                placement="bottom"
+              >
+                {{ $t(`record.allMetaDataInfo`) }}
+              </b-tooltip>
+            </template>
           </template>
           <b-card-text
             text-tag="div"
@@ -201,9 +206,11 @@
   .metadata-box-card {
     border: none;
   }
-  .nav-item {
-    .tooltip-button.icon-info-outline {
-        font-size: 1rem;
+
+  #all-metadata-tab-link {
+    .icon-info-outline {
+        font-size: $font-size-base;
+        color: $darkgrey;
+      }
     }
-  }
 </style>
