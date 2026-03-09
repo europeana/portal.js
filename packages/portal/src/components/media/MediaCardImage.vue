@@ -10,7 +10,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="edmType"
+        :media-type="resource.edm.edmType || edmType"
         :offset="offset"
       />
       <component

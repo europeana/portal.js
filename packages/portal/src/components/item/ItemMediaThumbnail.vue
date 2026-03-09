@@ -65,7 +65,8 @@
         return this.offset + 1;
       },
       mediaTypeIconClass() {
-        return this.edmType ? `icon-${this.edmType.toLowerCase()}-bold` : '';
+        const mediaType = this.resource.edm.edmType || this.edmType;
+        return mediaType ? `icon-${mediaType.toLowerCase()}-bold` : '';
       },
       label() {
         return this.$n(this.page);
