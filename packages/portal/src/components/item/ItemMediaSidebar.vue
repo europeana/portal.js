@@ -115,38 +115,38 @@
             {{ manifestUri }}
           </b-link>
         </b-tab>
-        <b-tooltip
-          v-if="$features.webResourceMetadata && resource"
-          :target="metadataTabButtonId"
-          :title="$t('media.sidebar.metadata')"
-          boundary=".media-viewer-sidebar"
-          placement="right"
-          custom-class="ml-0"
-        />
-        <b-tab
-          v-if="$features.webResourceMetadata && resource"
-          data-qa="item media sidebar metadata"
-          :button-id="metadataTabButtonId"
-          lazy
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
-        >
-          <template #title>
-            <span
-              class="icon icon-metadata"
-              @mouseleave="hideTooltips"
-            />
-          </template>
-          <h2 class="d-inline-block pl-3 mb-4">
-            {{ $t('media.sidebar.metadata') }}
-          </h2><!-- This comment removes white space
+        <template v-if="$features.webResourceMetadata && resource">
+          <b-tooltip
+            :target="metadataTabButtonId"
+            :title="$t('media.sidebar.metadata')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
+          />
+          <b-tab
+            data-qa="item media sidebar metadata"
+            :button-id="metadataTabButtonId"
+            lazy
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+          >
+            <template #title>
+              <span
+                class="icon icon-metadata"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2 class="d-inline-block pl-3 mb-4">
+              {{ $t('media.sidebar.metadata') }}
+            </h2><!-- This comment removes white space
        --><b-button
             v-b-tooltip.bottom
             :title="$t('media.sidebar.metadataInfo')"
             class="icon-info-outline p-0 tooltip-button ml-1"
             variant="light-flat"
           />
-          <MediaMetadataList :resource="resource" />
-        </b-tab>
+            <MediaMetadataList :resource="resource" />
+          </b-tab>
+        </template>
       </b-tabs>
     </div>
   </transition>

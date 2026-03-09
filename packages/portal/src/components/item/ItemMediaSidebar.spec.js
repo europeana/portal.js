@@ -10,7 +10,8 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $n: (num) => num,
     $t: (key) => key,
-    $tc: (key, count) => `${key} ${count}`
+    $tc: (key, count) => `${key} ${count}`,
+    $features: { webResourceMetadata: true }
   },
   stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
