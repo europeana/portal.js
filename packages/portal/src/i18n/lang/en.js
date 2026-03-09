@@ -1188,6 +1188,7 @@ export default {
       "pin": "Pin item to available Entities"
     },
     "allMetaData": "All metadata",
+    "allMetaDataInfo": "Information about this entire item.",
     "clickToCopyEmbedCode": "Click on the embed code to copy it",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",

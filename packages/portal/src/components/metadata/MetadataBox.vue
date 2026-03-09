@@ -32,7 +32,17 @@
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
         >
           <template #title>
-            <h2>{{ $t('record.allMetaData') }}</h2>
+            <h2 class="d-inline-block">
+              {{ $t('record.allMetaData') }}
+            </h2>
+            <b-button
+              v-if="showItemeMetadataTooltip"
+              v-b-tooltip.bottom
+              :title="$t(`record.allMetaDataInfo`)"
+              class="icon-info-outline p-0 tooltip-button btn-light-flat h-100"
+              variant="light-flat"
+              data-qa="translation tooltip"
+            />
           </template>
           <b-card-text
             text-tag="div"
@@ -106,7 +116,8 @@
       return {
         CORE_FIELDS,
         ALL_FIELDS,
-        showLocationMap: false
+        showLocationMap: false,
+        showItemeMetadataTooltip: this.$features.webResourceMetadata
       };
     },
 
@@ -189,5 +200,10 @@
 
   .metadata-box-card {
     border: none;
+  }
+  .nav-item {
+    .tooltip-button.icon-info-outline {
+        font-size: 1rem;
+    }
   }
 </style>
